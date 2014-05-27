@@ -9,7 +9,7 @@ $tag-border: #afafb6
 $tag-border-selected: #a6a6fe
 $hover-background: #f0f0fa
 $link-color: #7C7BAD
-$sheet-max-width: 860px
+$sheet-max-width: 1600px
 $sheet-min-width: 650px
 $sheet-padding: 16px
 // }}}
@@ -55,7 +55,7 @@ $sheet-padding: 16px
     background-image: -webkit-radial-gradient(circle, $gradient)
     background-image: -moz-radial-gradient($gradient)
     background-image: -ms-radial-gradient($gradient)
-    background-image: radial-gradient($gradient)
+    background-image: radial-gradient(circle, $gradient)
 
 @mixin radius($radius: 5px)
     -moz-border-radius: $radius
@@ -191,13 +191,13 @@ $sheet-padding: 16px
         vertical-align: top
     .oe_title
         width: 38%
-        float: left    
+        float: left
     .oe_title:after
         content: "."
         display: block
         height: 0
         clear: both
-        visibility: hidden    
+        visibility: hidden
     .oe_form_group
         clear: both
     .zebra tbody tr:nth-child(odd) td
@@ -414,7 +414,7 @@ $sheet-padding: 16px
     .oe_grey
         color: #aaa
     // Added for generic error message and customize bootstrap3 <pre>,<hr>
-    .oe_error_detail 
+    .oe_error_detail
         hr
             display: block
             -webkit-margin-before: 0.5em
@@ -549,7 +549,7 @@ $sheet-padding: 16px
         //Customize label weight according bootstrap3
         > label:not([for])
             font-weight: normal !important
-        // End of customize 
+        // End of customize
     div.ui-tabs
         padding: 3px 0px 3px 0px
     .ui-tabs-hide
@@ -667,7 +667,7 @@ $sheet-padding: 16px
     // Notifications {{{
     .oe_notification
         z-index: 1500
-        
+
     .oe_webclient_timezone_notification
         a
             color: white
@@ -1133,7 +1133,7 @@ $sheet-padding: 16px
             display: none
     // }}}
     // FormPopup {{{
-    .oe_popup_form 
+    .oe_popup_form
         .oe_formview .oe_form_pager
             display: none !important
         // Customize label weight for popup wizard appear from another wizard according bootstrap3
@@ -1167,7 +1167,7 @@ $sheet-padding: 16px
         input[type="checkbox"]
             margin: 3px 3px 3px 4px
         select
-            margin: 2px 4px 2px 0 
+            margin: 2px 4px 2px 0
         //End of customize
         &.oe_focused
             border-color: $tag-border-selected
@@ -1591,8 +1591,8 @@ $sheet-padding: 16px
         padding-left: 2px
         @include vertical-gradient(#fcfcfc, #dedede)
         > span
-            margin-left: 4px        
-        
+            margin-left: 4px
+
     // }}}
     // FormView.custom tags and classes {{{
     .oe_form
@@ -1831,7 +1831,7 @@ $sheet-padding: 16px
             position: relative
             width: 100%
             margin: auto
-            overflow: auto            
+            overflow: auto
             text-align: justify
         .oe_form_field_html .oe_input_icon
             float: right
@@ -1919,7 +1919,7 @@ $sheet-padding: 16px
                 .oe_e
                     position: relative
                     top: -1px
-                    left: -9px                    
+                    left: -9px
             input.oe_form_binary_file
                 display: inline-block
                 margin-left: -85px
@@ -2467,9 +2467,11 @@ $sheet-padding: 16px
     height: auto !important
     width: auto !important
     padding: 0
-        
+
 @-moz-document url-prefix()
     .openerp
+        .oe_view_manager .oe_view_manager_switch li
+            line-height: 21px
         .oe_searchview .oe_searchview_search
             top: -1px
         .oe_form_field_many2one .oe_m2o_cm_button
@@ -2657,7 +2659,7 @@ body.oe_single_form
                     filter: alpha(opacity = 0)
                     border: none
                     width: 0
-                    border-right: none 
+                    border-right: none
             > .label
                 border-bottom: 1px solid #cacaca
                 background: transparent

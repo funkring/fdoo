@@ -461,7 +461,7 @@
   background-image: -webkit-radial-gradient(circle, #eeeeee 0%, #cccccc 40%, #bbbbbb 100%);
   background-image: -moz-radial-gradient(#eeeeee 0%, #cccccc 40%, #bbbbbb 100%);
   background-image: -ms-radial-gradient(#eeeeee 0%, #cccccc 40%, #bbbbbb 100%);
-  background-image: radial-gradient(#eeeeee 0%, #cccccc 40%, #bbbbbb 100%);
+  background-image: radial-gradient(circle, #eeeeee 0%, #cccccc 40%, #bbbbbb 100%);
 }
 .openerp .oe_kanban_status_green {
   background: green;
@@ -469,7 +469,7 @@
   background-image: -webkit-radial-gradient(circle, #55dd55 0%, #44aa44 40%, #339933 100%);
   background-image: -moz-radial-gradient(#55dd55 0%, #44aa44 40%, #339933 100%);
   background-image: -ms-radial-gradient(#55dd55 0%, #44aa44 40%, #339933 100%);
-  background-image: radial-gradient(#55dd55 0%, #44aa44 40%, #339933 100%);
+  background-image: radial-gradient(circle, #55dd55 0%, #44aa44 40%, #339933 100%);
 }
 .openerp .oe_kanban_status_red {
   background: red;
@@ -477,7 +477,7 @@
   background-image: -webkit-radial-gradient(circle, #ee7777 0%, #cc3333 40%, #bb0808 100%);
   background-image: -moz-radial-gradient(#ee7777 0%, #cc3333 40%, #bb0808 100%);
   background-image: -ms-radial-gradient(#ee7777 0%, #cc3333 40%, #bb0808 100%);
-  background-image: radial-gradient(#ee7777 0%, #cc3333 40%, #bb0808 100%);
+  background-image: radial-gradient(circle, #ee7777 0%, #cc3333 40%, #bb0808 100%);
 }
 .openerp .btn-group.kanban_state {
   padding-top: 8px;
@@ -822,7 +822,7 @@
   background-image: -moz-linear-gradient(top, #fc8787, maroon);
   background-image: -ms-linear-gradient(top, #fc8787, maroon);
   background-image: -o-linear-gradient(top, #fc8787, maroon);
-  background-image: linear-gradient(to bottom, #fc8787, maroon);
+  background-image: linear-gradient(to bottom, #fc8787, #800000);
 }
 .openerp .navbar .oe_topbar_anonymous_login a {
   display: block;
@@ -1901,7 +1901,7 @@
 }
 .openerp .oe_form_sheet_width {
   min-width: 650px;
-  max-width: 860px;
+  max-width: 1600px;
   margin: 0 auto;
 }
 .openerp .oe_form_sheet {
@@ -1969,7 +1969,7 @@
 .openerp .oe_form div.oe_chatter {
   box-sizing: border-box;
   min-width: 682px;
-  max-width: 892px;
+  max-width: 1632px;
   margin: 0 auto;
   padding: 16px 16px 48px;
 }
@@ -3065,6 +3065,9 @@
 }
 
 @-moz-document url-prefix() {
+  .openerp .oe_view_manager .oe_view_manager_switch li {
+    line-height: 21px;
+  }
   .openerp .oe_searchview .oe_searchview_search {
     top: -1px;
   }
