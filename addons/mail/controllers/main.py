@@ -20,12 +20,13 @@ class MailController(http.Controller):
         if res:
             filecontent = base64.b64decode(res.get('base64'))
             filename = res.get('filename')
-            content_type = mimetypes.guess_type(filename)
+            #funkring begin
             if filecontent and filename:
                 return request.make_response(
                     filecontent,
-                    headers=[('Content-Type', content_type[0] or 'application/octet-stream'),
+                    headers=[('Content-Type', mimetypes.guess_type(filename)[0] or 'application/octet-stream'),
                              ('Content-Disposition', content_disposition(filename))])
+            #funkring end
         return request.not_found()
 
     @http.route('/mail/receive', type='json', auth='none')
