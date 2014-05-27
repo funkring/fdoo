@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
-        <report id="report_sale_order_pdf"
-        	     override_id="sale.report_sale_order"
+        <report id="sale.report_sale_order"
                string="Quotation / Order"
                name="sale.report_saleorder"
                auto="False"

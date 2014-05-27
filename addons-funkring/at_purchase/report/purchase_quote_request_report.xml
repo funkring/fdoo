@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
-        <report id="report_purchasequotation_pdf"
-        	   override_id="purchase.report_purchase_quotation"
+        <report id="purchase.report_purchase_quotation"
                string="Quote Request"
                name="purchase.report_purchasequotation"
                auto="False"

@@ -34,9 +34,8 @@ oerp.at Stock Base Module
     "author" :  "funkring.net",
     "website": "http://www.funkring.net",
     "category" : "Warehouse",
-    "depends" : ["at_base", "stock", "delivery"],
+    "depends" : ["at_base", "stock", "delivery", "stock_account"],
     "data" : ["security.xml",
-              "view/picking_view.xml",
               "report/stock_picking_report.xml"],
     "auto_install": False,
     "installable": True

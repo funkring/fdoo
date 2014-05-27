@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
-        <report id="report_purchaseorder_pdf"
-        	   override_id="purchase.report_purchase_order"
+        <report id="purchase.report_purchase_order"
                string="Purchase Order"
                name="purchase.report_purchaseorder"
                process_sep="True"
