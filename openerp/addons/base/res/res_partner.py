@@ -333,7 +333,9 @@ class res_partner(osv.osv, format_address):
 
     _defaults = {
         'active': True,
-        'lang': lambda self, cr, uid, ctx: ctx.get('lang', 'en_US'),
+        #funkring.net begin
+        'lang': lambda self, cr, uid, ctx: ctx.get('lang', tools.config.defaultLang),
+        #funkring.net end
         'tz': lambda self, cr, uid, ctx: ctx.get('tz', False),
         'customer': True,
         'category_id': _default_category,

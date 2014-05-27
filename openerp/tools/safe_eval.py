@@ -31,6 +31,12 @@ condition/math builtins.
 #  - safe_eval in lp:~xrg/openobject-server/optimize-5.0
 #  - safe_eval in tryton http://hg.tryton.org/hgwebdir.cgi/trytond/rev/bbb5f73319ad
 
+#funkring.net begin // added now
+from dateutil.relativedelta import relativedelta
+from datetime import datetime
+from datetime import date
+#funkring.net end
+
 from opcode import HAVE_ARGUMENT, opmap, opname
 from types import CodeType
 import logging
@@ -224,6 +230,13 @@ def _import(name, globals=None, locals=None, fromlist=None, level=-1):
         return __import__(name, globals, locals, level)
     raise ImportError(name)
 
+def _now(days=None,months=None):
+    if months:
+        return (date.today()+relativedelta(months=months)).strftime('%Y-%m-%d')
+    if days:
+        return (date.today()+relativedelta(days=days)).strftime('%Y-%m-%d')
+    return date.today().strftime('%Y-%m-%d')
+
 def safe_eval(expr, globals_dict=None, locals_dict=None, mode="eval", nocopy=False, locals_builtins=False):
     """safe_eval(expression[, globals[, locals[, mode[, nocopy]]]]) -> result
 
@@ -290,6 +303,7 @@ def safe_eval(expr, globals_dict=None, locals_dict=None, mode="eval", nocopy=Fal
             'len': len,
             'repr': repr,
             'set': set,
+            'now' : _now,
             'all': all,
             'any': any,
             'ord': ord,

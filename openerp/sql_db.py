@@ -33,6 +33,10 @@ import logging
 import time
 import uuid
 import psycopg2.extensions
+#funkring.net begin
+import select
+import simplejson
+#funkring.net end
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT, ISOLATION_LEVEL_READ_COMMITTED, ISOLATION_LEVEL_REPEATABLE_READ
 from psycopg2.pool import PoolError
 from psycopg2.psycopg1 import cursor as psycopg1cursor
@@ -187,6 +191,9 @@ class Cursor(object):
         self._default_log_exceptions = True
 
         self.cache = {}
+        #funkring.net begin
+        self.event_listener = {}
+        #funkring.net end
 
     def __del__(self):
         if not self._closed and not self._cnx.closed:
@@ -289,6 +296,13 @@ class Cursor(object):
             return
 
         del self.cache
+        
+        #funkring.net begin // remove all listeners
+        if self.event_listener:
+            self.execute("UNLISTEN *")
+
+        del self.event_listener
+        #funkring.net end
 
         if self.sql_log:
             self.__closer = frame_codeinfo(currentframe(),3)
@@ -334,7 +348,51 @@ class Cursor(object):
                                   if self._serialized \
                                   else ISOLATION_LEVEL_READ_COMMITTED
         self._cnx.set_isolation_level(isolation_level)
-
+    
+    #funkring.net begin
+    @check
+    def event_listen(self, event):
+        self.event_listener[event]=count=self.event_listener.get(event,0)+1
+        if count == 1:
+            self.execute("LISTEN " + event)
+        return True
+    
+    @check 
+    def event_unlisten(self, event):
+        count = self.event_listener.get(event,0)-1
+        if count == 0:
+            self.execute("UNLISTEN " + event)
+        if count >= 0:
+            self.event_listener[event]=count
+            return True
+        return False
+    
+    @check
+    def event_wait(self,timeout=30):
+        events = {}
+        if not (select.select([self._cnx],[],[],timeout) == ([],[],[])):
+            self._cnx.poll()
+            while self._cnx.notifies:
+                notify = self._cnx.notifies.pop()
+                # check payload
+                payload = notify.payload
+                if payload:
+                    try:
+                        payload=simplejson.loads(payload)
+                    except:
+                        payload=None
+                # set payload
+                events[notify.channel]=payload
+        return events
+        
+    @check
+    def event_notify(self, event, param=None):
+        if param:
+            self.execute("NOTIFY %s, '%s'" % (event, simplejson.dumps(param)))
+        else:
+            self.execute("NOTIFY " + event)
+    #funkring.net end
+    
     @check
     def commit(self):
         """ Perform an SQL `COMMIT`

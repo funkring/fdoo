@@ -380,6 +380,17 @@ class res_users(osv.osv):
         data_id = dataobj._get_id(cr, SUPERUSER_ID, 'base', 'action_res_users_my')
         return dataobj.browse(cr, uid, data_id, context=context).res_id
 
+    def whoami(self, cr, uid, context=None):
+        user = self.browse(cr, uid, uid, context)
+        if user:
+            return { "uid" : uid,
+                     "login" : user.login,
+                     "name" : user.name,
+                     "lang" : user.lang,
+                     "tz" : user.tz                     
+            }
+        return False
+
     def check_super(self, passwd):
         if passwd == tools.config['admin_passwd']:
             return True

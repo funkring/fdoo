@@ -26,6 +26,7 @@ from datetime import datetime
 import os
 import re
 import time
+import math
 from interface import report_rml
 import preprocess
 import logging
@@ -170,6 +171,9 @@ class rml_parse(object):
             'setHtmlImage' : self.set_html_image,
             'strip_name' : self._strip_name,
             'time' : time,
+            # funkring.net begin // error correction
+            'get_digits' : self.get_digits,
+            # funkring.net end
             'display_address': self.display_address,
             # more context members are setup in setCompany() below:
             #  - company_id
@@ -239,8 +243,10 @@ class rml_parse(object):
             obj._context['lang'] = lang
 
     def _get_lang_dict(self):
-        pool_lang = self.pool['res.lang']
-        lang = self.localcontext.get('lang', 'en_US') or 'en_US'
+        # funkring.net begin // default lang
+        pool_lang = self.pool.get('res.lang')
+        lang = self.localcontext.get('lang') or tools.config.defaultLang
+        # funkring.net end        
         lang_ids = pool_lang.search(self.cr,self.uid,[('code','=',lang)])[0]
         lang_obj = pool_lang.browse(self.cr,self.uid,lang_ids)
         self.lang_dict.update({'lang_obj':lang_obj,'date_format':lang_obj.date_format,'time_format':lang_obj.time_format})
@@ -268,7 +274,26 @@ class rml_parse(object):
                 d = obj._field.digits[1] or DEFAULT_DIGITS
         return d
 
-    def formatLang(self, value, digits=None, date=False, date_time=False, grouping=True, monetary=False, dp=False, currency_obj=False):
+    def floatTimeConvert(self,float_val):
+        if not float_val:
+            return "00:00"
+        
+        hours = math.floor(abs(float_val))
+        mins = round(abs(float_val)%1+0.01,2)
+        if mins >= 1.0:
+            hours = hours + 1
+            mins = 0.0
+        else:
+            mins = mins * 60
+        
+        float_time = None
+        if float_val < 0.0:
+            float_time = '-%02d:%02d' % (hours,mins)
+        else:
+            float_time = '%02d:%02d' % (hours,mins)
+        return float_time
+    
+    def formatLang(self, value, digits=None, date=False, date_time=False, grouping=True, monetary=False, dp=False, currency_obj=False, float_time=False):
         """
             Assuming 'Account' decimal.precision=3:
                 formatLang(value) -> digits=2 (default)
@@ -290,8 +315,10 @@ class rml_parse(object):
             self.lang_dict_called = True
 
         if date or date_time:
-            if not str(value):
+            #funkring.net begin
+            if not value or not str(value):
                 return ''
+            #funkrnig.net end
 
             date_format = self.lang_dict['date_format']
             parse_format = DEFAULT_SERVER_DATE_FORMAT
@@ -313,6 +340,11 @@ class rml_parse(object):
                                                         timestamp=date,
                                                         context=self.localcontext)
             return date.strftime(date_format.encode('utf-8'))
+
+        #funkring.net begin
+        elif float_time:
+            return self.floatTimeConvert(value)
+        #funkring.net end
 
         res = self.lang_dict['lang_obj'].format('%.' + str(digits) + 'f', value, grouping=grouping, monetary=monetary)
         if currency_obj:
@@ -478,23 +510,36 @@ class report_sxw(report_rml, preprocess.report):
             objs = self.getObjects(cr, uid, ids, context)
             results = []
             for obj in objs:
+                #funkring.net begin
+                extension = "pdf"
                 aname = eval(attach, {'object':obj, 'time':time})
+                
+                #create file name
+                fname = aname
+                if not fname.endswith(extension):
+                    fname = "%s.%s" % (fname,extension) 
+                
                 result = False
                 if report_xml.attachment_use and aname and context.get('attachment_use', True):
-                    aids = registry['ir.attachment'].search(cr, uid, [('datas_fname','=',aname+'.pdf'),('res_model','=',self.table),('res_id','=',obj.id)])
+                    aids = registry['ir.attachment'].search(cr, uid, [('datas_fname','=',fname),('res_model','=',self.table),('res_id','=',obj.id)])
                     if aids:
                         brow_rec = registry['ir.attachment'].browse(cr, uid, aids[0])
                         if not brow_rec.datas:
                             continue
                         d = base64.decodestring(brow_rec.datas)
-                        results.append((d,'pdf'))
+                        results.append((d,extension))
                         continue
                 result = self.create_single_pdf(cr, uid, [obj.id], data, report_xml, context)
                 if not result:
                     return False
                 if aname:
                     try:
-                        name = aname+'.'+result[1]
+                        # create file name again
+                        extension = result[1] or "pdf"
+                        fname = aname
+                        if not fname.endswith(extension):
+                            fname = "%s.%s" % (fname,extension) 
+                            
                         # Remove the default_type entry from the context: this
                         # is for instance used on the account.account_invoices
                         # and is thus not intended for the ir.attachment type
@@ -504,7 +549,7 @@ class report_sxw(report_rml, preprocess.report):
                         registry['ir.attachment'].create(cr, uid, {
                             'name': aname,
                             'datas': base64.encodestring(result[0]),
-                            'datas_fname': name,
+                            'datas_fname': fname,
                             'res_model': self.table,
                             'res_id': obj.id,
                             }, context=ctx
@@ -512,6 +557,7 @@ class report_sxw(report_rml, preprocess.report):
                     except Exception:
                         #TODO: should probably raise a proper osv_except instead, shouldn't we? see LP bug #325632
                         _logger.error('Could not create saved report attachment', exc_info=True)
+                #funkring.net end
                 results.append(result)
             if results:
                 if results[0][1]=='pdf':

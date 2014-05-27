@@ -65,6 +65,12 @@ def _get_default_datadir():
 
 class configmanager(object):
     def __init__(self, fname=None):
+        
+        #funkring.net begin
+        self.defaultLang = "de_DE"
+        self.baseLang = "en_US"
+        #funkring.net end
+        
         # Options not exposed on the command line. Command line options will be added
         # from optparse's parser.
         self.options = {
@@ -104,6 +110,9 @@ class configmanager(object):
         group.add_option("-i", "--init", dest="init", help="install one or more modules (comma-separated list, use \"all\" for all modules), requires -d")
         group.add_option("-u", "--update", dest="update",
                           help="update one or more modules (comma-separated list, use \"all\" for all modules). Requires -d.")
+        #funkring.net begin
+        group.add_option("--cleanup", action="store_true",dest="cleanup",default=False),
+        #funkring.net end
         group.add_option("--without-demo", dest="without_demo",
                           help="disable loading demo data for modules to be installed (comma-separated, use \"all\" for all modules). Requires -d and -i. Default is %default",
                           my_default=False)
@@ -156,6 +165,15 @@ class configmanager(object):
         group.add_option("--db-filter", dest="dbfilter", my_default='.*',
                          help="Filter listed database", metavar="REGEXP")
         parser.add_option_group(group)
+        
+        # funkring.net begin
+        # ErlNode
+        group = optparse.OptionGroup(parser, "ErlNode-RPC Configuration")
+        group.add_option("--erlnode", dest="erlnode", action="store_true", my_default=False, help="enable erlang node")
+        group.add_option("--erlnode_name",dest="erlnode_name",help="erlang node name, for example erp@localhost")
+        group.add_option("--erlnode_cookie",dest="erlnode_cookie",help="erlang node cookie")
+        parser.add_option_group(group)
+        # funkring.net end        
 
         # Testing Group
         group = optparse.OptionGroup(parser, "Testing Configuration")
@@ -231,10 +249,20 @@ class configmanager(object):
             "See i18n section of the user manual. Option '-d' is mandatory."
             "Option '-l' is mandatory in case of importation"
             )
+        #funkring.net begin
+        group.add_option('--default-language', dest="default_language",
+                         help="specifies the default language. for management options en_US should be used")
+        #funkring.net end
         group.add_option('--load-language', dest="load_language",
                          help="specifies the languages for the translations you want to be loaded")
         group.add_option('-l', "--language", dest="language",
                          help="specify the language of the translation file. Use it with --i18n-export or --i18n-import")
+        #funkring.net begin
+        group.add_option("--i18n-get",dest="translate_get",action="store_true", my_default=False, 
+                         help="Write Translation to module addon directory as po file")
+        group.add_option("--i18n-set", dest="translate_set",action="store_true", my_default=False,
+                         help="Read Translation from module addon directory from po file")
+        #funkring.net end
         group.add_option("--i18n-export", dest="translate_out",
                          help="export all sentences to be translated to a CSV file, a PO file or a TGZ archive and exit")
         group.add_option("--i18n-import", dest="translate_in",
@@ -273,6 +301,10 @@ class configmanager(object):
                          type="int")
         group.add_option("--unaccent", dest="unaccent", my_default=False, action="store_true",
                          help="Use the unaccent function provided by the database when available.")
+        #funkring.net begin
+        group.add_option("--disable-database-manager", dest="disable_database_manager", my_default=False, action="store_true",
+                         help="Disable the database manager.")
+        #funkrnig.net end
         parser.add_option_group(group)
 
         if os.name == 'posix':
@@ -386,6 +418,9 @@ class configmanager(object):
                 'db_maxconn', 'import_partial', 'addons_path',
                 'xmlrpc', 'syslog', 'without_demo', 'timezone',
                 'xmlrpcs_interface', 'xmlrpcs_port', 'xmlrpcs',
+                #funkring.net begin // erlang specific
+                'erlnode', 'erlnode_name', 'erlnode_cookie',
+                 #funkring.net end
                 'secure_cert_file', 'secure_pkey_file', 'dbfilter', 'log_handler', 'log_level', 'log_db'
                 ]
 
@@ -404,6 +439,9 @@ class configmanager(object):
         # if defined but None take the configfile value
         keys = [
             'language', 'translate_out', 'translate_in', 'overwrite_existing_translations',
+            #funkring.net begin
+            'default_language','translate_get', 'translate_set', 'disable_database_manager'
+            #funkring.net end
             'debug_mode', 'smtp_ssl', 'load_language',
             'stop_after_init', 'logrotate', 'without_demo', 'xmlrpc', 'syslog',
             'list_db', 'xmlrpcs', 'proxy_mode',
@@ -447,6 +485,14 @@ class configmanager(object):
         self.options['translate_modules'] = opt.translate_modules and map(lambda m: m.strip(), opt.translate_modules.split(',')) or ['all']
         self.options['translate_modules'].sort()
 
+        #funkring.net begin
+        # CHECK default lang
+        if self.options['default_language']:          
+            if len(self.options['default_language']) > 5:
+                raise Exception('ERROR: The Lang name must take max 5 chars, Eg: -lde_DE')
+            self.defaultLang = self.options['default_language']
+        #funkring.net end
+                
         # TODO checking the type of the parameters should be done for every
         # parameters, not just the timezone.
         # The call to get_server_timezone() sets the timezone; this should
@@ -493,6 +539,13 @@ class configmanager(object):
 
         if opt.save:
             self.save()
+
+        #funkring.net begin
+        if self.options['db_name']:
+            self.options['dbfilter']=self.options['db_name']
+            self.options['disable_database_manager']=True
+            self.options['list_db']=False
+        #funkring.net end
 
         openerp.conf.addons_paths = self.options['addons_path'].split(',')
         if opt.server_wide_modules:

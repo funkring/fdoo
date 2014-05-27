@@ -336,6 +336,50 @@ class ir_translation(osv.osv):
         if source and not trad:
             return tools.ustr(source)
         return trad
+        
+    #funkring.net begin
+    def _get_translation(self, cr, uid, name, types, lang, source=None):
+        """
+        Returns the translation for the given combination of name, type, language
+        and source. All values passed to this method should be unicode (not byte strings),
+        especially ``source``.
+
+        :param name: identification of the term to translate, such as field name (optional if source is passed)
+        :param types: single string defining type of term to translate (see ``type`` field on ir.translation), or sequence of allowed types (strings)
+        :param lang: language code of the desired translation
+        :param source: optional source term to translate (should be unicode)
+        :rtype: unicode
+        :return: the request translation, or an empty unicode string if no translation was
+                 found
+        """
+        # FIXME: should assert that `source` is unicode and fix all callers to always pass unicode
+        # so we can remove the string encoding/decoding.
+        if not lang:
+            return u''
+        if isinstance(types, basestring):
+            types = (types,)
+        if source:
+            query = """SELECT value 
+                       FROM ir_translation 
+                       WHERE lang=%s 
+                        AND type in %s 
+                        AND src=%s"""
+            params = (lang or '', types, tools.ustr(source))
+            if name:
+                query += " AND name=%s"
+                params += (tools.ustr(name),)
+            cr.execute(query, params)
+        else:
+            cr.execute("""SELECT value
+                          FROM ir_translation
+                          WHERE lang=%s
+                           AND type in %s
+                           AND name=%s""",
+                    (lang or '', types, tools.ustr(name)))
+        res = cr.fetchone()
+        trad = res and res[0] or u''        
+        return trad
+    #funkring.net end
 
     def create(self, cr, uid, vals, context=None):
         if context is None:

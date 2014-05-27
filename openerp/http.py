@@ -1284,6 +1284,12 @@ def db_monodb(httprequest=None):
 
         Returns ``None`` if the magic is not magic enough.
     """
+    #funkring.net begin
+    db_name = openerp.tools.config['db_name']
+    if db_name:
+        return db_name
+    #funkrnig.net end
+    
     httprequest = httprequest or request.httprequest
 
     dbs = db_list(True, httprequest)

@@ -416,7 +416,9 @@ class browse_record(object):
 
             # TODO: improve this, very slow for reports
             if self._fields_process:
-                lang = self._context.get('lang', 'en_US') or 'en_US'
+                #funkring.net begin
+                lang = self._context.get('lang') or tools.config.defaultLang
+                #funkrnig.net end
                 lang_obj_ids = self.pool.get('res.lang').search(self._cr, self._uid, [('code', '=', lang)])
                 if not lang_obj_ids:
                     raise Exception(_('Language with code "%s" is not defined in your system !\nDefine it through the Administration menu.') % (lang,))
@@ -729,6 +731,10 @@ class BaseModel(object):
     _all_columns = {}
 
     _table = None
+    #funkring.net begin
+    _event = None
+    _chgnotify_enabled = False
+    #funkring.net end
     _invalids = set()
     _log_create = False
     _sql_constraints = []
@@ -995,7 +1001,10 @@ class BaseModel(object):
             self._description = self._name
         if not self._table:
             self._table = self._name.replace('.', '_')
-
+        #funkring.net begin
+        if not self._event:
+            self._event = self._table
+        #funkring.net end
         if not hasattr(self, '_log_access'):
             # If _log_access is not specified, it is the same value as _auto.
             self._log_access = getattr(self, "_auto", True)
@@ -1548,7 +1557,9 @@ class BaseModel(object):
 
     def _validate(self, cr, uid, ids, context=None):
         context = context or {}
-        lng = context.get('lang')
+        #funkring.net begin // default lang
+        lng = context.get('lang') or tools.config.defaultLang
+        #funkring.net end 
         trans = self.pool.get('ir.translation')
         error_msgs = []
         for constraint in self._constraints:
@@ -1993,6 +2004,12 @@ class BaseModel(object):
 
         """
         return self._search(cr, user, args, offset=offset, limit=limit, order=order, context=context, count=count)
+
+    # funkring.net begin // simple search one helper
+    def search_id(self, cr, user, args, offset=0, order=None, context=None):
+        res_ids =  self.search(cr, user, args, offset=offset, limit=1, order=order, context=context)
+        return res_ids and res_ids[0] or False
+    # funkring.net end
 
     def name_get(self, cr, user, ids, context=None):
         """Returns the preferred display value (text representation) for the records with the
@@ -3768,7 +3785,9 @@ class BaseModel(object):
                 rids = map(lambda x: x[0], cr.fetchall())
                 if rids:
                     obj._store_set_values(cr, uid, rids, fields, context)
-
+        #funkring.net begin
+        self._chgnotify(cr, uid, context)
+        #funkring.net end
         return True
 
     #
@@ -3889,7 +3908,10 @@ class BaseModel(object):
         upd_todo = []
         updend = []
         direct = []
-        totranslate = context.get('lang', False) and (context['lang'] != 'en_US')
+        #funkring.net begin
+        cur_lang = context.get("lang", False)
+        totranslate = cur_lang and (cur_lang != tools.config.baseLang)
+        #funkring.net end
         for field in vals:
             field_column = self._all_columns.get(field) and self._all_columns.get(field).column
             if field_column and field_column.deprecated:
@@ -3927,12 +3949,16 @@ class BaseModel(object):
                 # TODO: optimize
                 for f in direct:
                     if self._columns[f].translate:
-                        src_trans = self.pool[self._name].read(cr, user, ids, [f])[0][f]
-                        if not src_trans:
-                            src_trans = vals[f]
+                        # funkring.net begin // handle setting default lang
+                        baselang_ctx = {"lang" : tools.config.baseLang }
+                        # src translation os resolved with base language not default language !!!
+                        src_trans = self.pool.get(self._name).read(cr, user, ids, [f],baselang_ctx)[0][f] or None
+                        cur_trans = vals[f] or None
+                        if not src_trans: # or cur_lang == default_lang : #if it is the default lang than override the source
+                            src_trans = cur_trans                        
                             # Inserting value to DB
-                            context_wo_lang = dict(context, lang=None)
-                            self.write(cr, user, ids, {f: vals[f]}, context=context_wo_lang)
+                            self.write(cr, user, ids, {f: cur_trans},baselang_ctx)
+                        # funkring.net end
                         self.pool.get('ir.translation')._set_ids(cr, user, self._name+','+f, 'model', context['lang'], ids, vals[f], src_trans)
 
 
@@ -4042,6 +4068,9 @@ class BaseModel(object):
             self.pool[model_name]._store_set_values(cr, user, todo, fields_to_recompute, context)
 
         self.step_workflow(cr, user, ids, context=context)
+        #funkring.net begin
+        self._chgnotify(cr, user, context)
+        #funkrnig.net end
         return True
 
     #
@@ -4279,6 +4308,9 @@ class BaseModel(object):
             self.log(cr, user, id_new, message, True, context=context)
         self.check_access_rule(cr, user, [id_new], 'create', context=context)
         self.create_workflow(cr, user, [id_new], context=context)
+        #funkring.net begin
+        self._chgnotify(cr, user, context)
+        #funkring.net end
         return id_new
 
     def browse(self, cr, uid, select, context=None, list_class=None, fields_process=None):
@@ -4780,6 +4812,11 @@ class BaseModel(object):
         fields = self.fields_get(cr, uid, context=context)
 
         for field_name, field_def in fields.items():
+            # funkring.net // don't handle function fields
+            # TODO only continue if readonly=True
+            if 'function' in field_def:
+                continue
+            # funkring.net
             # removing the lang to compare untranslated values
             context_wo_lang = dict(context, lang=None)
             old_record, new_record = self.browse(cr, uid, [old_id, new_id], context=context_wo_lang)
@@ -5152,6 +5189,14 @@ class BaseModel(object):
     def _register_hook(self, cr):
         """ stuff to do right after the registry is built """
         pass
+    
+    def _chgnotify(self,cr,uid,context=None):
+        if self._chgnotify_enabled and (not context or not context.get("chgnotify_disabled")):
+            sender = context.get("chgnotify_sender")
+            if sender:
+                cr.event_notify(self._event,param={"sender" : sender})
+            else:
+                cr.event_notify(self._event)
 
     def __getattr__(self, name):
         if name.startswith('signal_'):

@@ -330,14 +330,52 @@ form: module.record_id""" % (xml_id,)
 
     def _tag_report(self, cr, rec, data_node=None):
         res = {}
+        #funkring.net begin
+        report_type=rec.get('report_type')
+        is_aeroo_report = report_type and report_type=="aeroo" 
+        if is_aeroo_report:            
+            res["tml_source"]="file"
+            res["parser_state"]="loc"            
+            res["styles_mode"]="global"
+            res["active"] = True
+            res["stylesheet_id"] = None
+            for dest,f in (('in_format','in_format'),('out_format','out_format')):                
+                res[dest] = rec.get(f,'').encode('utf8')
+                assert res[dest], "Attribute %s of report is empty !" % (f,)
+                if dest=='out_format':
+                    t_outFormatCode=res[dest]
+                    t_ids = self.pool.get('report.mimetypes').search(cr,self.uid,[('code','=',t_outFormatCode)])
+                    if t_ids:
+                        res[dest]=t_ids[0]  
+                    else:
+                        assert res[dest], "Output format %s of report not found !" % (f,)            
+        #funkring.net end
         for dest,f in (('name','string'),('model','model'),('report_name','name')):
             res[dest] = rec.get(f,'').encode('utf8')
             assert res[dest], "Attribute %s of report is empty !" % (f,)
         for field,dest in (('rml','report_rml'),('file','report_rml'),('xml','report_xml'),('xsl','report_xsl'),
-                           ('attachment','attachment'),('attachment_use','attachment_use'), ('usage','usage'),
+                           ('attachment','attachment'),('attachment_use','attachment_use'), ('usage','usage'),                           
+                           #funkring.net begin // aeroo report specific
+                           ('parser','parser_loc'),('parser_state','parser_state'),('stylesheet','styles_mode'),('process_sep','process_sep'),
+                           #funkring.net end 
                            ('report_type', 'report_type'), ('parser', 'parser')):
             if rec.get(field):
-                res[dest] = rec.get(field).encode('utf8')
+                #funkring.net begin
+                if field == "stylesheet":
+                    value = rec.get(field).encode('utf8')
+                    value_lower = value.lower()                   
+                    if value_lower in ["none","default"]:
+                        res[dest]="default"                            
+                    elif value_lower in ["global","global_landscape","intern","intern_landscape"]:
+                        res[dest]=value_lower                            
+                    else:
+                        res[dest]="specified"
+                        stylesheet_ids = self.pool.get("report.stylesheets").search(cr,self.uid,[("name","=",value)])
+                        assert stylesheet_ids, "Stylesheet %s not found!" % (value,)
+                        res["stylesheet_id"]=stylesheet_ids[0]
+                else:
+                    res[dest] = rec.get(field).encode('utf8')
+                #funkrnig.net end
         if rec.get('auto'):
             res['auto'] = eval(rec.get('auto','False'))
         if rec.get('sxw'):
@@ -363,6 +401,17 @@ form: module.record_id""" % (xml_id,)
                     groups_value.append((4, group_id))
             res['groups_id'] = groups_value
 
+        #funkring.net begin // aeroo report specific
+        if is_aeroo_report:
+            try:
+                aeroo_rec = self.pool.get('ir.model.data').get_object(cr,self.uid,module,xml_id)
+                if aeroo_rec.user_defined:                
+                    del res["tml_source"]                
+                    del res["parser_state"]
+            except:
+                pass
+        #funkring.net end
+        
         id = self.pool['ir.model.data']._update(cr, self.uid, "ir.actions.report.xml", self.module, res, xml_id, noupdate=self.isnoupdate(data_node), mode=self.mode)
         self.idref[xml_id] = int(id)
 

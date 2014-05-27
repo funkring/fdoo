@@ -114,6 +114,53 @@ def exec_command_pipe(name, *args):
 #file_path_root = os.getcwd()
 #file_path_addons = os.path.join(file_path_root, 'addons')
 
+#funkring.net begin
+def get_path(name, subdir="addons"):
+    """Get a file from the OpenERP root, using a subdir folder.
+
+    >>> file_open('hr/report/timesheer.xsl')
+    >>> file_open('addons/hr/report/timesheet.xsl')
+
+    @param name: name of the file
+    @param mode: file open mode
+    @param subdir: subdirectory
+
+    @return: filepath
+    """
+    import openerp.modules as addons
+    adps = addons.module.ad_paths
+    rtp = os.path.normcase(os.path.abspath(config['root_path']))
+
+    if name.replace(os.path.sep, '/').startswith('addons/'):
+        subdir = 'addons'
+        name = name[7:]
+
+    # First try to locate in addons_path
+    if subdir:
+        subdir2 = subdir
+        if subdir2.replace(os.path.sep, '/').startswith('addons/'):
+            subdir2 = subdir2[7:]
+
+        subdir2 = (subdir2 != 'addons' or None) and subdir2
+
+        for adp in adps:
+            try:
+                if subdir2:
+                    fn = os.path.join(adp, subdir2, name)
+                else:
+                    fn = os.path.join(adp, name)
+                return os.path.normpath(fn)                
+            except IOError:
+                pass
+
+    if subdir:
+        name = os.path.join(rtp, subdir, name)
+    else:
+        name = os.path.join(rtp, name)
+
+    name = os.path.normpath(name)
+    return name
+#funkring.net end
 def file_open(name, mode="r", subdir='addons', pathinfo=False):
     """Open a file from the OpenERP root, using a subdir folder.
 
@@ -631,6 +678,9 @@ __icons_list = ['STOCK_ABOUT', 'STOCK_ADD', 'STOCK_APPLY', 'STOCK_BOLD',
 'terp-face-plain','terp-folder-blue','terp-folder-green','terp-folder-orange','terp-folder-yellow',
 'terp-gdu-smart-failing','terp-go-week','terp-gtk-select-all','terp-locked','terp-mail-forward',
 'terp-mail-message-new','terp-mail-replied','terp-rating-rated','terp-stage','terp-stock_format-scientific',
+#funkring.net begin
+'terp-network',
+#funkring.net end
 'terp-dolar_ok!','terp-idea','terp-stock_format-default','terp-mail-','terp-mail_delete'
 ]
 

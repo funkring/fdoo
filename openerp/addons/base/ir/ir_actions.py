@@ -151,6 +151,7 @@ class ir_actions_report_xml(osv.osv):
                     ('pdf', 'RML pdf (deprecated)'),
                     ('sxw', 'RML sxw (deprecated)'),
                     ('webkit', 'Webkit (deprecated)'),
+                    ('aeroo', 'Aeroo'),
                     ], 'Report Type', required=True, help="HTML will open the report directly in your browser, PDF will use wkhtmltopdf to render the HTML into a PDF file and let you download it, Controller allows you to define the url of a custom controller outputting any kind of report."),
         'report_name': fields.char('Template Name', required=True, help="For QWeb reports, name of the template used in the rendering. The method 'render_html' of the model 'report.template_name' will be called (if any) to give the html. For RML reports, this is the LocalService name."),
         'groups_id': fields.many2many('res.groups', 'res_groups_report_rel', 'uid', 'gid', 'Groups'),
