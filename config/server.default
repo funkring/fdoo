@@ -1,0 +1,19 @@
+[options]
+addons_path = /opt/openerp7/config/enabled-addons/openerp/addons
+admin_passwd = admin
+db_name = openerp7_funkring
+email_from = "oerp@funkring.net"
+list_db = False
+log_handler = [':INFO']
+log_level = info
+syslog = True 
+longpolling_port = 8072
+max_cron_threads = 2
+proxy_mode = True
+smtp_port = 25
+smtp_server = mail.funkring.loc
+workers = 16
+xmlrpc = True 
+xmlrpc_port = 8069
+xmlrpcs = False
+data_dir = /opt/openerp7/openerp

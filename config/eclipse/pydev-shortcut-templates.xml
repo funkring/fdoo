@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="true" context="org.python.pydev.editor.templates.python" deleted="false" description="_columns" enabled="true" name="_c">_columns = {
+	"${field_name}" : fields.${cursor},
+}</template><template autoinsert="true" context="org.python.pydev.editor.templates.python" deleted="false" description="_inherit" enabled="true" name="_i">_inherit = "${cursor}"</template></templates>

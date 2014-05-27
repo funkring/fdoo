@@ -1,0 +1,21 @@
+<VirtualHost *:80>
+    ServerName  demo.funkring.net
+    ServerAdmin admin@funkring.net
+
+    ProxyRequests Off
+    ProxyPass / http://127.0.0.1:8080/
+    ProxyPassReverse / http://127.0.0.1:8080/
+
+    <Proxy *>
+      Order allow,deny
+      Allow from all
+    </Proxy>
+
+    ErrorLog /var/log/apache2/openerp_error.log
+    LogLevel warn
+    CustomLog /var/log/apache2/openerp_access.log combined
+
+    RequestHeader set "X-Forwarded-Proto" "http"    
+    # Fix IE problem (http error 408/409)
+    SetEnv proxy-nokeepalive 1
+</VirtualHost>    
