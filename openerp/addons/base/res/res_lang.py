@@ -164,11 +164,10 @@ class lang(osv.osv):
     @tools.ormcache(skiparg=3)
     def _lang_data_get(self, cr, uid, lang, monetary=False):
         if type(lang) in (str, unicode):
-            lang = self.search(cr, uid, [('code', '=', lang)]) or \
-                # funkring.net begin
-                self.search(cr, uid, [('code', '=', tools.config.baseLang)])
-                # funkrnig.net end
-            lang = lang[0]
+            # funkring.net begin
+            lang = self.search_id(cr, uid, [('code', '=', lang)]) or \
+                   self.search_id(cr, uid, [('code', '=', tools.config.baseLang)])
+            # funkring.net end
         conv = localeconv()
         lang_obj = self.browse(cr, uid, lang)
         thousands_sep = lang_obj.thousands_sep or conv[monetary and 'mon_thousands_sep' or 'thousands_sep']
@@ -190,7 +189,7 @@ class lang(osv.osv):
             # funkring.net begin
             if language['code']==tools.config.baseLang:
                 raise osv.except_osv(_('User Error'), (_("Base Language %s can not be deleted !") % tools.config.baseLang))
-            # funkring.net end            
+            # funkring.net end
             if ctx_lang and (language['code']==ctx_lang):
                 raise osv.except_osv(_('User Error'), _("You cannot delete the language which is User's Preferred Language!"))
             if language['active']:

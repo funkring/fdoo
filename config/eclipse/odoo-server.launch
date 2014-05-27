@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.python.pydev.debug.regularLaunchConfigurationType">
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/server/openerp-server"/>
+<listEntry value="/odoo/openerp-server"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="1"/>
 </listAttribute>
-<stringAttribute key="org.eclipse.ui.externaltools.ATTR_LOCATION" value="${workspace_loc:server/openerp-server}"/>
-<stringAttribute key="org.eclipse.ui.externaltools.ATTR_OTHER_WORKING_DIRECTORY" value="${workspace_loc:server}"/>
-<stringAttribute key="org.eclipse.ui.externaltools.ATTR_TOOL_ARGUMENTS" value="--addons-path=${workspace_loc}/config/enabled-addons/openerp/addons --smtp=mail.meinstein.at --smtp-port=25 --db-filter=openerp7.* --data-dir /home/martin/Work/openerp-merge/server/openerp"/>
-<stringAttribute key="org.eclipse.ui.externaltools.ATTR_WORKING_DIRECTORY" value="${workspace_loc:server}"/>
+<stringAttribute key="org.eclipse.ui.externaltools.ATTR_LOCATION" value="${workspace_loc:odoo/openerp-server}"/>
+<stringAttribute key="org.eclipse.ui.externaltools.ATTR_OTHER_WORKING_DIRECTORY" value="${workspace_loc}/odoo"/>
+<stringAttribute key="org.eclipse.ui.externaltools.ATTR_TOOL_ARGUMENTS" value="--addons-path=${workspace_loc}/odoo/config/enabled-addons/openerp/addons --smtp=mail.meinstein.at --smtp-port=25 --db-filter=openerp8.* --data-dir ${workspace_loc}/odoo"/>
 <stringAttribute key="org.python.pydev.debug.ATTR_INTERPRETER" value="__default"/>
-<stringAttribute key="org.python.pydev.debug.ATTR_PROJECT" value="server"/>
+<stringAttribute key="org.python.pydev.debug.ATTR_PROJECT" value="odoo"/>
 <intAttribute key="org.python.pydev.debug.ATTR_RESOURCE_TYPE" value="1"/>
+<stringAttribute key="process_factory_id" value="org.python.pydev.debug.processfactory.PyProcessFactory"/>
 </launchConfiguration>

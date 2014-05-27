@@ -65,12 +65,12 @@ def _get_default_datadir():
 
 class configmanager(object):
     def __init__(self, fname=None):
-        
+
         #funkring.net begin
         self.defaultLang = "de_DE"
         self.baseLang = "en_US"
         #funkring.net end
-        
+
         # Options not exposed on the command line. Command line options will be added
         # from optparse's parser.
         self.options = {
@@ -95,7 +95,7 @@ class configmanager(object):
         self.has_ssl = check_ssl()
 
         self._LOGLEVELS = dict([
-            (getattr(loglevels, 'LOG_%s' % x), getattr(logging, x)) 
+            (getattr(loglevels, 'LOG_%s' % x), getattr(logging, x))
             for x in ('CRITICAL', 'ERROR', 'WARNING', 'INFO', 'DEBUG', 'NOTSET')
         ])
 
@@ -165,7 +165,7 @@ class configmanager(object):
         group.add_option("--db-filter", dest="dbfilter", my_default='.*',
                          help="Filter listed database", metavar="REGEXP")
         parser.add_option_group(group)
-        
+
         # funkring.net begin
         # ErlNode
         group = optparse.OptionGroup(parser, "ErlNode-RPC Configuration")
@@ -173,7 +173,7 @@ class configmanager(object):
         group.add_option("--erlnode_name",dest="erlnode_name",help="erlang node name, for example erp@localhost")
         group.add_option("--erlnode_cookie",dest="erlnode_cookie",help="erlang node cookie")
         parser.add_option_group(group)
-        # funkring.net end        
+        # funkring.net end
 
         # Testing Group
         group = optparse.OptionGroup(parser, "Testing Configuration")
@@ -258,7 +258,7 @@ class configmanager(object):
         group.add_option('-l', "--language", dest="language",
                          help="specify the language of the translation file. Use it with --i18n-export or --i18n-import")
         #funkring.net begin
-        group.add_option("--i18n-get",dest="translate_get",action="store_true", my_default=False, 
+        group.add_option("--i18n-get",dest="translate_get",action="store_true", my_default=False,
                          help="Write Translation to module addon directory as po file")
         group.add_option("--i18n-set", dest="translate_set",action="store_true", my_default=False,
                          help="Read Translation from module addon directory from po file")
@@ -440,7 +440,7 @@ class configmanager(object):
         keys = [
             'language', 'translate_out', 'translate_in', 'overwrite_existing_translations',
             #funkring.net begin
-            'default_language','translate_get', 'translate_set', 'disable_database_manager'
+            'default_language','translate_get', 'translate_set', 'disable_database_manager',
             #funkring.net end
             'debug_mode', 'smtp_ssl', 'load_language',
             'stop_after_init', 'logrotate', 'without_demo', 'xmlrpc', 'syslog',
@@ -487,12 +487,12 @@ class configmanager(object):
 
         #funkring.net begin
         # CHECK default lang
-        if self.options['default_language']:          
+        if self.options['default_language']:
             if len(self.options['default_language']) > 5:
                 raise Exception('ERROR: The Lang name must take max 5 chars, Eg: -lde_DE')
             self.defaultLang = self.options['default_language']
         #funkring.net end
-                
+
         # TODO checking the type of the parameters should be done for every
         # parameters, not just the timezone.
         # The call to get_server_timezone() sets the timezone; this should
