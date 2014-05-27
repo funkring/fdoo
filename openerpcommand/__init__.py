@@ -19,8 +19,15 @@ from . import uninstall
 from . import update
 from . import web
 from . import grunt_tests
+#funkring.net begin
+from . import cleanup
+from . import translation
+#funkring.net end
 
 command_list_server = (conf, cron, drop, initialize, model, module, read,
+                       #funkring.net begin                        
+                       cleanup, translation, 
+                       #funkring.net end
                        scaffold, uninstall, update, web, grunt_tests, )
 
 command_list_client = (Call, Open, Show, ConsumeNothing, ConsumeMemory,
