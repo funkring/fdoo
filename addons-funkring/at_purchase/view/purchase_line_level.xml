@@ -1,0 +1,39 @@
+<openerp>
+	<data>
+		<record id="form_purchase_order_level" model="ir.ui.view">
+			<field name="name">purchase.form_purchase_order_level</field>
+			<field name="model">purchase.order_level</field>
+			<field name="arch" type="xml">
+				<form string="Purchase Level">
+					<field name="name" />
+					<field name="severity" />
+					<separator string="Description" colspan="4" />
+					<field name="description" colspan="4" nolabel="1" />
+				</form>
+			</field>
+		</record>
+
+		<record id="tree_purchase_order_level" model="ir.ui.view">
+			<field name="name">purchase.tree_purchase_order_level</field>
+			<field name="model">purchase.order_level</field>
+			<field name="arch" type="xml">
+				<tree string="Purchase Level">
+					<field name="sequence" invisible="1" />
+					<field name="name" />
+					<field name="severity" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_purchase_order_level" model="ir.actions.act_window">
+			<field name="name">Purchase Level</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">purchase.order_level</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem id="menu_purchase_order_level" name="Purchase Level"
+			parent="menu_purchase_config" sequence="1" action="action_purchase_order_level" />
+	</data>
+</openerp>

@@ -1,0 +1,209 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* at_account_btakeover
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1-dev\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-12-06 13:09+0000\n"
+"PO-Revision-Date: 2012-12-06 14:11+0100\n"
+"Last-Translator: Pichler Edwin <edwin.pichler@funkring.net>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: at_account_btakeover
+#: model:ir.actions.act_window,name:at_account_btakeover.action_account_btakeover
+#: model:ir.ui.menu,name:at_account_btakeover.menu_account_btakeover
+msgid "Saldo Übernahme"
+msgstr "Saldo Übernahme"
+
+#. module: at_account_btakeover
+#: selection:account.btakeover,state:0
+#: selection:account.btakeover.line,state:0
+msgid "Assumed"
+msgstr "Übernommen"
+
+#. module: at_account_btakeover
+#: code:addons/at_account_btakeover/account_btakeover.py:71
+#, python-format
+msgid "Error"
+msgstr "Fehler"
+
+#. module: at_account_btakeover
+#: field:account.btakeover,state:0
+#: field:account.btakeover.line,state:0
+msgid "State"
+msgstr "Status"
+
+#. module: at_account_btakeover
+#: view:account.btakeover:0
+#: selection:account.btakeover,state:0
+#: selection:account.btakeover.line,state:0
+msgid "Draft"
+msgstr "Entwurf"
+
+#. module: at_account_btakeover
+#: field:account.btakeover.line,name:0
+msgid "Account Name"
+msgstr "Kontoname"
+
+#. module: at_account_btakeover
+#: view:account.btakeover:0
+msgid " "
+msgstr " "
+
+#. module: at_account_btakeover
+#: field:account.btakeover,journal_id:0
+msgid "Journal"
+msgstr "Journal"
+
+#. module: at_account_btakeover
+#: field:account.btakeover.line,btakeover_id:0
+msgid "Takeover"
+msgstr "Übernahme"
+
+#. module: at_account_btakeover
+#: view:account.btakeover:0
+msgid "Balance Takeover"
+msgstr "Saldo Übernahme"
+
+#. module: at_account_btakeover
+#: field:account.btakeover,date:0
+msgid "Date"
+msgstr "Datum"
+
+#. module: at_account_btakeover
+#: field:account.btakeover,account_id:0
+msgid "Account"
+msgstr "Konto"
+
+#. module: at_account_btakeover
+#: field:account.btakeover,name:0
+msgid "Name"
+msgstr "Name"
+
+#. module: at_account_btakeover
+#: view:account.btakeover:0
+msgid "Assume"
+msgstr "Übernehmen"
+
+#. module: at_account_btakeover
+#: field:account.btakeover,line_ids:0
+msgid "Lines"
+msgstr "Zeilen"
+
+#. module: at_account_btakeover
+#: field:account.btakeover.line,balance_nominal:0
+msgid "Balance nominal"
+msgstr "Saldo soll"
+
+#. module: at_account_btakeover
+#: code:addons/at_account_btakeover/account_btakeover.py:71
+#, python-format
+msgid "There is no account for the entered code!"
+msgstr "Es konnte kein Konto mit der angegebenen Kontonummer gefunden werden!"
+
+#. module: at_account_btakeover
+#: code:addons/at_account_btakeover/account_btakeover.py:80
+#, python-format
+msgid ""
+"Balance Correction %s\" % (btakeover.name)),\n"
+"                          \"period_id\" : period[0],\n"
+"                          \"journal_id\" : btakeover.journal_id.id,\n"
+"                          \"date\" : date,\n"
+"                          \"amount\" : line.balance_nominal,\n"
+"                          \"line_id\" : [(0,0, {\"name\" : name,\n"
+"                                             \"account_id\" : btakeover.account_id.id,\n"
+"                                             \"currency_id\" : account.currency_id.id,\n"
+"                                             \"period_id\" : period[0],\n"
+"                                             \"journal_id\" : btakeover.journal_id.id,\n"
+"                                             \"debit\" : balance_diff and balance_diff < 0.0 or 0.0,\n"
+"                                             \"credit\" : balance_diff and balance_diff > 0.0 or 0.0}),\n"
+"                                             (0,0,{\"name\" : name,\n"
+"                                             \"account_id\" : account_id,\n"
+"                                             \"currency_id\" : account.currency_id.id,\n"
+"                                             \"period_id\" : period[0],\n"
+"                                             \"journal_id\" : btakeover.journal_id.id,\n"
+"                                             \"debit\" : balance_diff and balance_diff > 0.0 or 0.0,\n"
+"                                             \"credit\" : balance_diff and balance_diff < 0.0 or 0.0})]}\n"
+"                move_id = move_obj.create(cr, uid, values, context)\n"
+"                \n"
+"                btakeover_line_obj.write(cr, uid, line.id, {\"state\" : \"assumed\", \"move_id\" : move_id, \"balance_is\" : balance_is}, context)\n"
+"            self.write(cr, uid, btakeover.id, {\"state\" : \"assumed\", \"date\" : date})\n"
+"        return True\n"
+"    \n"
+"    _name = \"account.btakeover\"\n"
+"    _columns = {\n"
+"        \"name\" : fields.char(\"Name\", size=64, required=True),\n"
+"        \"date\" : fields.date(\"Date"
+msgstr ""
+"Balance Correction %s\" % (btakeover.name)),\n"
+"                          \"period_id\" : period[0],\n"
+"                          \"journal_id\" : btakeover.journal_id.id,\n"
+"                          \"date\" : date,\n"
+"                          \"amount\" : line.balance_nominal,\n"
+"                          \"line_id\" : [(0,0, {\"name\" : name,\n"
+"                                             \"account_id\" : btakeover.account_id.id,\n"
+"                                             \"currency_id\" : account.currency_id.id,\n"
+"                                             \"period_id\" : period[0],\n"
+"                                             \"journal_id\" : btakeover.journal_id.id,\n"
+"                                             \"debit\" : balance_diff and balance_diff < 0.0 or 0.0,\n"
+"                                             \"credit\" : balance_diff and balance_diff > 0.0 or 0.0}),\n"
+"                                             (0,0,{\"name\" : name,\n"
+"                                             \"account_id\" : account_id,\n"
+"                                             \"currency_id\" : account.currency_id.id,\n"
+"                                             \"period_id\" : period[0],\n"
+"                                             \"journal_id\" : btakeover.journal_id.id,\n"
+"                                             \"debit\" : balance_diff and balance_diff > 0.0 or 0.0,\n"
+"                                             \"credit\" : balance_diff and balance_diff < 0.0 or 0.0})]}\n"
+"                move_id = move_obj.create(cr, uid, values, context)\n"
+"                \n"
+"                btakeover_line_obj.write(cr, uid, line.id, {\"state\" : \"assumed\", \"move_id\" : move_id, \"balance_is\" : balance_is}, context)\n"
+"            self.write(cr, uid, btakeover.id, {\"state\" : \"assumed\", \"date\" : date})\n"
+"        return True\n"
+"    \n"
+"    _name = \"account.btakeover\"\n"
+"    _columns = {\n"
+"        \"name\" : fields.char(\"Name\", size=64, required=True),\n"
+"        \"date\" : fields.date(\"Date"
+
+#. module: at_account_btakeover
+#: model:ir.model,name:at_account_btakeover.model_account_btakeover_line
+msgid "account.btakeover.line"
+msgstr "account.btakeover.line"
+
+#. module: at_account_btakeover
+#: field:account.btakeover.line,code:0
+msgid "Account Number"
+msgstr "Kontonummer"
+
+#. module: at_account_btakeover
+#: field:account.btakeover.line,balance_is:0
+msgid "Balance is"
+msgstr "Saldo ist"
+
+#. module: at_account_btakeover
+#: field:account.btakeover.line,move_id:0
+msgid "Move"
+msgstr "Buchung"
+
+#. module: at_account_btakeover
+#: model:ir.model,name:at_account_btakeover.model_account_btakeover
+msgid "account.btakeover"
+msgstr "account.btakeover"
+
+#. module: at_account_btakeover
+#: view:account.btakeover:0
+msgid "Balance Takeover Lines"
+msgstr "Übernahme Zeilen"
+
+#. module: at_account_btakeover
+#: code:addons/at_account_btakeover/account_btakeover.py:36
+#, python-format
+msgid " copy"
+msgstr " copy"
+

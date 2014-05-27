@@ -1,0 +1,63 @@
+<openerp>
+	<data>
+		<record id="access_dataset_view_user" model="ir.model.access">
+			<field name="name">dataset_view/user</field>
+			<field name="model_id" ref="model_dataset_view"/>
+			<field name="group_id" ref="base.group_user"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="False"/>
+			<field name="perm_write" eval="False"/>
+		</record>
+				
+		<record id="access_dataset_view_rule_user" model="ir.model.access">
+			<field name="name">dataset_view_rule/user</field>
+			<field name="model_id" ref="model_dataset_view_rule"/>
+			<field name="group_id" ref="base.group_user"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="False"/>
+			<field name="perm_write" eval="False"/>
+		</record>
+				
+		<record id="access_dataset_dataset_user" model="ir.model.access">
+			<field name="name">dataset_dataset/user</field>
+			<field name="model_id" ref="model_dataset_dataset"/>
+			<field name="group_id" ref="base.group_user"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		<record id="access_dataset_field_user" model="ir.model.access">
+			<field name="name">dataset_field/user</field>
+			<field name="model_id" ref="model_dataset_field"/>
+			<field name="group_id" ref="base.group_user"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		<record id="access_dataset_spec_user" model="ir.model.access">
+			<field name="name">dataset_spec/user</field>
+			<field name="model_id" ref="model_dataset_spec"/>
+			<field name="group_id" ref="base.group_user"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="False"/>
+			<field name="perm_write" eval="False"/>
+		</record>
+		
+		<record id="access_dataset_spec_field_user" model="ir.model.access">
+			<field name="name">dataset_spec_field/user</field>
+			<field name="model_id" ref="model_dataset_spec_field"/>
+			<field name="group_id" ref="base.group_user"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="False"/>
+			<field name="perm_write" eval="False"/>
+		</record>
+	</data>
+</openerp>

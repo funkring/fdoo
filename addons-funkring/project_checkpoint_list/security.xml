@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="access_project_task_checklist" model="ir.model.access">
+			<field name="name">project_task_checklist/system</field>
+			<field name="model_id" ref="model_project_task_checklist" />
+			<field name="group_id" ref="base.group_system" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+
+		<record id="access_project_task" model="ir.model.access">
+			<field name="name">project_task/system</field>
+			<field name="model_id" ref="model_project_task" />
+			<field name="group_id" ref="base.group_system" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+
+		<record id="access_project_task_checklist_project_user" model="ir.model.access">
+			<field name="name">project_task_checklist/project_user</field>
+			<field name="model_id" ref="model_project_task_checklist" />
+			<field name="group_id" ref="project.group_project_user" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+
+		<record id="access_project_task_project_user" model="ir.model.access">
+			<field name="name">project_task/project_user</field>
+			<field name="model_id" ref="project.model_project_task" />
+			<field name="group_id" ref="project.group_project_user" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+	</data>
+</openerp>

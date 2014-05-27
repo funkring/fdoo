@@ -1,0 +1,3 @@
+START=yes
+MECHANISMS=pam
+PARAMS="-m /var/spool/postfix/etc"

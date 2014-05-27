@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		
+		<record id="access_bmd_export_account_user" model="ir.model.access">
+			<field name="name">bmd_export/accountant</field>
+			<field name="model_id" ref="model_bmd_export"/>
+			<field name="group_id" ref="account.group_account_user"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		<record id="access_bmd_export_account_manager" model="ir.model.access">
+			<field name="name">bmd_export/account_manager</field>
+			<field name="model_id" ref="model_bmd_export"/>
+			<field name="group_id" ref="account.group_account_manager"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+				
+		<record id="access_bmd_move_line_template_account_user" model="ir.model.access">
+			<field name="name">bmd_export/accountant</field>
+			<field name="model_id" ref="model_bmd_move_line_template"/>
+			<field name="group_id" ref="account.group_account_user"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		<record id="access_bmd_move_line_template_account_manager" model="ir.model.access">
+			<field name="name">bmd_export/account_manager</field>
+			<field name="model_id" ref="model_bmd_move_line_template"/>
+			<field name="group_id" ref="account.group_account_manager"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		<record id="access_bmd_export_line_account_user" model="ir.model.access">
+			<field name="name">bmd_export/accountant</field>
+			<field name="model_id" ref="model_bmd_export_line"/>
+			<field name="group_id" ref="account.group_account_user"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		<record id="access_bmd_export_line_account_manager" model="ir.model.access">
+			<field name="name">bmd_export/account_manager</field>
+			<field name="model_id" ref="model_bmd_export_line"/>
+			<field name="group_id" ref="account.group_account_manager"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		<record id="access_bmd_export_profile_account_user" model="ir.model.access">
+			<field name="name">bmd_export_profile/account_user</field>
+			<field name="model_id" ref="model_bmd_export_profile"/>
+			<field name="group_id" ref="account.group_account_user"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="False"/>
+			<field name="perm_write" eval="False"/>
+		</record>
+		
+		<record id="access_bmd_export_profile_account_manager" model="ir.model.access">
+			<field name="name">bmd_export_profile/account_manager</field>
+			<field name="model_id" ref="model_bmd_export_profile"/>
+			<field name="group_id" ref="account.group_account_manager"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+	</data>
+</openerp>

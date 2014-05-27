@@ -1,0 +1,35 @@
+<openerp>
+	<data>	
+		<record id="access_password_entry_user" model="ir.model.access">
+			<field name="name">password_entry/user</field>
+			<field name="model_id" ref="model_password_entry"/>
+			<field name="group_id" ref="base.group_user"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>				
+		</record>
+		
+		<record id="rule_password_entry_user1" model="ir.rule">
+		  	<field name="name">password_entry/user_nogroup</field>
+		   	<field name="model_id" ref="model_password_entry"/>
+		   	<field name="domain_force">[('group_id','=',False),'|','|',('company_id.child_ids','child_of',[user.company_id.id]),('company_id','child_of',[user.company_id.id]),('company_id','=',False)]</field>
+		   	<field name="groups" eval="[(4,ref('base.group_user'))]"/>
+		   	<field name="perm_read" eval="True"/>	    	
+		   	<field name="perm_write" eval="True"/>	    	
+		   	<field name="perm_create" eval="True"/>
+		   	<field name="perm_unlink" eval="True"/>
+		</record>		
+				    
+	  	<record id="rule_password_entry_user2" model="ir.rule">
+		  	<field name="name">password_entry/user_group</field>
+		   	<field name="model_id" ref="model_password_entry"/>
+		   	<field name="domain_force">[('group_id','in',[g.id for g in user.groups_id])]</field>
+		   	<field name="groups" eval="[(4,ref('base.group_user'))]"/>
+		   	<field name="perm_read" eval="True"/>	    	
+		   	<field name="perm_write" eval="True"/>	    	
+		   	<field name="perm_create" eval="True"/>
+		   	<field name="perm_unlink" eval="True"/>
+		</record>		
+	</data>
+</openerp>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	  <record id="chartBASE" model="account.account.template">
+	    <field name="code">BASE</field>
+	    <field name="name">Kontenrahmen Österreich 2010</field>    
+	    <field name="type">view</field>
+	    <field name="user_type" ref="account.data_account_type_view"/>
+	  </record>
+	</data>
+</openerp>

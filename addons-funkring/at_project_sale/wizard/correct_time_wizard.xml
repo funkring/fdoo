@@ -1,0 +1,34 @@
+<openerp>
+	<data>
+
+		<record id="wizard_correct_time" model="ir.ui.view">
+			<field name="name">at_project_sale.wizard_correct_time</field>
+			<field name="model">at_project_sale.correct_time_wizard</field>
+			<field name="arch" type="xml">
+				<form string="title" version="7.0">
+					<separator col="4" colspan="4" string="Correct Time" />
+					<field name="task_id" invisible="1" />
+					<field name="correct_offered_hours" invisible="1" />
+					<field name="planned_hours" widget="float_time" />
+					<field name="offered_hours" widget="float_time"
+						attrs="{'invisible': [('correct_offered_hours','=',False)] }" />
+					<field name="task_hours" widget="float_time" />
+					<footer>
+						<button icon="gtk-ok" name="action" string="action_name" type="object" class="oe_highlight" />
+						or
+						<button special="cancel" string="Close"  class="oe_link"/>
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<record id="action_correct_time" model="ir.actions.act_window">
+			<field name="name">Correct Time</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">at_project_sale.correct_time_wizard</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+
+	</data>
+</openerp>

@@ -1,0 +1,32 @@
+<openerp>
+	<data>		
+		<record id="form_account_journal" model="ir.ui.view">
+            <field name="name">Account Journal</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+            	<data>
+            		<notebook position="inside">
+            			<page string="Compensation Types">
+            				<field name="compensation_ids" nolabel="1">
+	            				<tree string="Compensation Types">
+	            					<field name="sequence" invisible="1"/>
+	            					<field name="name"/>          			
+	            					<field name="account_id"/>		
+	            				</tree>
+	            				<form string="Compensation Type">
+	            					<field name="name"/>
+	            					<field name="account_id"/>
+	            					<field name="sequence"/>
+	            				</form>
+            				</field>
+            			</page>
+            		</notebook>
+	            	<field name="entry_posted" position="after" >
+	            		<field name="ignore_payment_term" />
+	            	</field>
+            	</data>
+            </field>
+        </record>
+	</data>
+</openerp>

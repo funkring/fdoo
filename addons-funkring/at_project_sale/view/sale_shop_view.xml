@@ -1,0 +1,15 @@
+<openerp>
+	<data>
+		<record id="form_sale_shop" model="ir.ui.view">
+			<field name="name">at_project_sale.form_sale_shop</field>
+			<field name="inherit_id" ref="at_sale.form_sale_shop" />
+			<field name="model">sale.shop</field>
+			<field name="arch" type="xml">
+				<field name="project_id" position="after">
+					<field name="autocreate_order_analytic_account" />
+					<field name="autocreate_order_parent_id" />
+				</field>
+			</field>
+		</record>
+	</data>
+</openerp>

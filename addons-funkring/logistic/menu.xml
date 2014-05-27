@@ -1,0 +1,23 @@
+<openerp>
+	<data>
+		    <menuitem name="Logistic"
+            id="menu_logistic_base"
+            groups="group_logistic_user,group_logistic_manager"
+            sequence="80"/>
+            
+        <menuitem name="Transport"
+        		id="menu_transport_base"
+        		parent="menu_logistic_base"
+        		sequence="1"/>        		
+        		
+        <menuitem name="Material output"
+        		id="menu_material_output"
+        		parent="logistic.menu_logistic_base"
+        		sequence="2"/>
+        		
+       <menuitem name="Data"
+        		id="menu_logistic_data"
+        		parent="logistic.menu_logistic_base"
+        		sequence="3"/>
+   	</data>
+</openerp>

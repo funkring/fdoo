@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="access_posix_log_manager" model="ir.model.access">
+			<field name="name">posix_log/manager</field>
+			<field name="model_id" ref="model_posix_log"/>
+			<field name="group_id" ref="posix.group_posix_manager"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		<record id="access_posix_log_user" model="ir.model.access">
+			<field name="name">posix_log/user</field>
+			<field name="model_id" ref="model_posix_log"/>
+			<field name="group_id" ref="posix.group_posix_user"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="False"/>
+			<field name="perm_write" eval="False"/>
+		</record>		
+		
+		<record id="access_posix_log_facility_manager" model="ir.model.access">
+			<field name="name">posix_log_facility/manager</field>
+			<field name="model_id" ref="model_posix_log_facility"/>
+			<field name="group_id" ref="posix.group_posix_manager"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		<record id="access_posix_log_facility_user" model="ir.model.access">
+			<field name="name">posix_log_facility/user</field>
+			<field name="model_id" ref="model_posix_log_facility"/>
+			<field name="group_id" ref="posix.group_posix_user"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="False"/>
+			<field name="perm_write" eval="False"/>
+		</record>
+		
+		<record id="access_posix_log_wizard_manager" model="ir.model.access">
+			<field name="name">posix_log_wizard/manager</field>
+			<field name="model_id" ref="model_posix_log_wizard"/>
+			<field name="group_id" ref="posix.group_posix_manager"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		<record id="access_posix_log_wizard_user" model="ir.model.access">
+			<field name="name">posix_log_wizard/user</field>
+			<field name="model_id" ref="model_posix_log_wizard"/>
+			<field name="group_id" ref="posix.group_posix_user"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="False"/>
+			<field name="perm_write" eval="False"/>
+		</record>
+	</data>
+</openerp>

@@ -1,0 +1,32 @@
+<openerp>
+	<data>
+
+		<record id="wizard_account_invoice_attachment" model="ir.ui.view">
+			<field name="name">at_account.account_invoice_attachment</field>
+			<field name="model">account.invoice.attachment.wizard</field>
+			<field name="arch" type="xml">
+				<form string="Document" version="7.0">
+					<group>
+						<field name="document" />
+					</group>
+					<footer>
+						<button name="action_import" string="Add" type="object" class="oe_highlight" />
+						or
+						<button special="cancel" string="Cancel" class="oe_link" />
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<act_window id="action_account_invoice_attachment_multi" 
+				name="Document Import" 
+				src_model="account.invoice" 
+				res_model="account.invoice.attachment.wizard"
+				multi="True"
+				view_type="form" 
+				view_mode="form"
+				groups="account.group_account_invoice"  
+				target="new" />
+					
+	</data>
+</openerp>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+  <record id="fpos_eu" model="account.fiscal.position.template">
+    <field name="chart_template_id" ref="austria_chart_template"/>
+    <field name="name">EU</field>
+  </record>
+  
+  <record id="fpos_drittland" model="account.fiscal.position.template">
+    <field name="chart_template_id" ref="austria_chart_template"/>
+    <field name="name">Drittland</field>
+  </record>
+  
+  <record id="fpos_eu_steuer20" model="account.fiscal.position.tax.template">
+    <field name="position_id" ref="fpos_eu"/>
+    <field name="tax_src_id" ref="tax_20"/>
+    <field name="tax_dest_id" ref="tax_ige20"/>
+  </record>
+  
+  <record id="fpos_eu_steuer10" model="account.fiscal.position.tax.template">
+    <field name="position_id" ref="fpos_eu"/>
+    <field name="tax_src_id" ref="tax_10"/>
+    <field name="tax_dest_id" ref="tax_ige10"/>
+  </record>
+  
+  <record id="fpos_eu_steuer19" model="account.fiscal.position.tax.template">
+    <field name="position_id" ref="fpos_eu"/>
+    <field name="tax_src_id" ref="tax_19"/>
+    <field name="tax_dest_id" ref="tax_ige19"/>
+  </record>
+  
+  <record id="fpos_eu_steuer20" model="account.fiscal.position.tax.template">
+    <field name="position_id" ref="fpos_eu"/>
+    <field name="tax_src_id" ref="tax_20"/>
+    <field name="tax_dest_id" ref="tax_ige20"/>
+  </record>
+  
+  <record id="fpos_drittland_steuer10" model="account.fiscal.position.tax.template">
+    <field name="position_id" ref="fpos_drittland"/>
+    <field name="tax_src_id" ref="tax_10"/>
+  </record>
+  
+  <record id="fpos_drittland_steuer10" model="account.fiscal.position.tax.template">
+    <field name="position_id" ref="fpos_drittland"/>
+    <field name="tax_src_id" ref="tax_10"/>
+  </record>
+  
+  <record id="fpos_drittland_steuer12" model="account.fiscal.position.tax.template">
+    <field name="position_id" ref="fpos_drittland"/>
+    <field name="tax_src_id" ref="tax_12"/>
+  </record>
+  
+  <record id="fpos_drittland_steuer20" model="account.fiscal.position.tax.template">
+    <field name="position_id" ref="fpos_drittland"/>
+    <field name="tax_src_id" ref="tax_20"/>
+  </record>
+  
+  <record id="fpos_drittland_steuer20" model="account.fiscal.position.tax.template">
+    <field name="position_id" ref="fpos_drittland"/>
+    <field name="tax_src_id" ref="tax_20"/>
+  </record>
+  
+  <record id="fpos_drittland_steuer19" model="account.fiscal.position.tax.template">
+    <field name="position_id" ref="fpos_drittland"/>
+    <field name="tax_src_id" ref="tax_19"/>
+  </record>
+  
+  <record id="fpos_drittland_steuer8" model="account.fiscal.position.tax.template">
+    <field name="position_id" ref="fpos_drittland"/>
+    <field name="tax_src_id" ref="tax_8"/>
+  </record>
+  
+  <record id="fpos_eu_4000" model="account.fiscal.position.account.template">
+    <field name="position_id" ref="fpos_eu"/>
+    <field name="account_src_id" ref="chart4000"/>
+    <field name="account_dest_id" ref="chart4100"/>
+  </record>
+  
+  <record id="fpos_eu_5000" model="account.fiscal.position.account.template">
+    <field name="position_id" ref="fpos_eu"/>
+    <field name="account_src_id" ref="chart5000"/>
+    <field name="account_dest_id" ref="chart5320"/>
+  </record>
+  
+</data>
+</openerp>

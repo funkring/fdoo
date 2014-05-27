@@ -1,0 +1,103 @@
+<openerp>
+	<data>		
+				<record id="form_dataset" model="ir.ui.view">
+            <field name="name">dataset.form_dataset</field>
+            <field name="model">dataset.dataset</field>
+            <field name="arch" type="xml">
+                <form string="Dataset" version="7.0">
+                    <group>
+                    	<field name="uuid"/>
+                    </group>
+                   	<group>
+                    	<field name="name"/>                    	        	
+                    </group>
+                    <notebook>
+                    	<page string="Fields">
+                    			<field name="field_ids">
+                    					<form string="Field" version="7.0">
+                    							<group>
+	                    							<group>
+	                    								<field name="name"/>
+	                    								<field name="dtype"/>                    							
+	                    							</group>
+	                    							<group>
+	                    								<field name="value"/>
+	                    								<field name="value_int"/>
+	                    								<field name="value_float"/>                    								                    							
+	                    							</group>	                    							
+                    							</group>
+                    							<label for="value_text"/>
+	                    						<div>                    								
+	                    							<field name="value_text"/>
+	                    						</div>
+                    					</form>
+                    					<tree string="Fields">
+                    							<field name="name"/>
+	                    						<field name="dtype"/>   
+	                    						<field name="value"/>
+	                    						<field name="value_int"/>
+	                    						<field name="value_float"/>
+                    					</tree>
+                    			</field>
+                    	</page>
+                    	<page string="Versions">                    		
+                    		<div>                    			
+                    			<field name="version_ids">
+                    					<form string="Version" version="7.0" >
+                    						<field name="uuid"/>
+	                    					<field name="name"/>                    						
+                    					</form>
+                    					<tree>
+	                    					<field name="uuid"/>
+	                    					<field name="name"/>
+	                    					<field name="parent_left"/>
+	                    					<field name="parent_right"/>
+                    					</tree>                    			
+                    			</field>
+                    		</div>
+                    	 </page>                    	                    	
+                    </notebook>                    
+                </form>
+            </field>
+        </record>
+
+        <record id="tree_dataset" model="ir.ui.view">
+            <field name="name">dataset.tree_dataset</field>
+            <field name="model">dataset.dataset</field>
+            <field name="arch" type="xml">
+                <tree string="Datasets">
+                	<field name="uuid"/>
+	                <field name="name"/>      
+                </tree>
+            </field>
+        </record>
+        
+        <record id="search_dataset" model="ir.ui.view">
+            <field name="name">dataset.search_dataset</field>
+            <field name="model">dataset.dataset</field>
+            <field name="arch" type="xml">
+                <search string="Search Dataset">
+                    <field name="name" filter_domain="['|',('uuid','ilike',self), ('name','ilike',self)]" string="Dataset"/>                    
+                </search>
+            </field>
+        </record>
+        
+        <record id="action_dataset" model="ir.actions.act_window">
+            <field name="name">Dataset</field>
+            <field name="res_model">dataset.dataset</field>            
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            
+            <field name="help" type="html">
+            	 <p class="oe_view_nocontent_create">
+                Dataset with dynamic fields 
+              </p><p>
+                A Dataset is a set of undefined fields
+              </p>
+            </field>            
+        </record>
+				
+        <menuitem id="menu_dataset" name="Dataset Data" parent="base.next_id_9" sequence="92"
+        		  action="action_dataset"/>		
+	</data>
+</openerp>

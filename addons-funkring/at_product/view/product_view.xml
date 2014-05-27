@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="at_product_uom_form_view" model="ir.ui.view">
+			<field name="name">Product UOM Form</field>
+			<field name="model">product.uom</field>
+			<field name="inherit_id" ref="product.product_uom_form_view" />
+			<field name="arch" type="xml">
+				<data>
+					<field name="name" position="after">
+						<field name="code" />
+					</field>
+					<field name="active" position="after">
+						<field name="blanket" />
+					</field>
+				</data>
+			</field>
+		</record>
+
+		<record id="product_category_form_view" model="ir.ui.view">
+			<field name="name">product.category.form</field>
+			<field name="model">product.category</field>
+			<field name="inherit_id" ref="product.product_category_form_view" />
+			<field name="arch" type="xml">
+				<field name="name" position="after">
+					<field name="code" />
+				</field>
+			</field>
+		</record>
+
+		<record id="search_product" model="ir.ui.view">
+			<field name="name">product.search</field>
+			<field name="model">product.product</field>
+			<field name="inherit_id" ref="product.product_search_form_view" />
+			<field name="arch" type="xml">
+				<field name="name" position="after">					
+					<field name="variants" />
+				</field>
+			</field>
+		</record>
+
+	</data>
+</openerp>

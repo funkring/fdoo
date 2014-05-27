@@ -1,0 +1,38 @@
+<openerp>
+	<data>
+
+		<record id="form_sale_order" model="ir.ui.view">
+			<field name="name">sale.form_sale_order</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="at_sale.form_sale_order" />
+			<field name="arch" type="xml">									
+				<xpath
+					expr="//notebook/page/field/form[@string='Sales Order Lines']/field[@name='name']"
+					position="after">
+					<group name="seller_grp">
+						<div name="seller_note_grp">
+							<label for="procurement_note"/>
+							<field name="procurement_note" />
+						</div>			
+						<group name="seller_options_grp">
+								<field name="preferred_seller_id" />
+								<field name="supplier_ships" />
+								<field name="priority" />
+						</group>										
+					</group>
+				</xpath>				
+			</field>
+		</record>
+
+		<record id="form_sale_stock" model="ir.ui.view">
+            <field name="name">sale_order.form_sale_stock</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_stock.view_order_form_inherit"/>
+            <field name="arch" type="xml">            	
+            	<group name="logistics" position="inside">
+					<field name="supplier_ships" />
+				</group>          
+            </field>
+        </record>
+	</data>
+</openerp>

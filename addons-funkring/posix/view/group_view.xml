@@ -1,0 +1,25 @@
+<openerp>
+	<data>		
+		<record id="form_group" model="ir.ui.view">
+            <field name="name">res.form_group</field>
+            <field name="model">res.groups</field>
+            <field name="inherit_id" ref="base.view_groups_form"/>
+            <field name="arch" type="xml">
+           		<data>
+           			<field name="name" position="after">
+           				<field name="posix"/>
+           			</field>           				            	
+	                <xpath expr="/form/sheet/notebook" position="inside">
+	               		 <page name="system" string="System" attrs="{'invisible': [('posix','!=',True)] }">
+	               		 	<group name="domain_settings">               	
+	               		 		<field name="posix_domain_id"  attrs="{'required':[('posix','=',True)] }" domain="[('parent_id','!=',False)]"/>
+	               		 	</group>
+	               		 	<notebook  colspan="4">               		 		
+	               		 	</notebook>
+	                	</page>
+	                </xpath>
+                </data>
+            </field>
+        </record>
+	</data>
+</openerp>

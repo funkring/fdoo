@@ -1,0 +1,9 @@
+<openerp>
+	<data>
+		<record model="account.tax.code.template" id="tax_code_ATU30">
+			<field name="name">Umsatzsteuervoranmeldung Österreich</field>
+			<field name="code">ATU30</field>
+			<field name="sign">1.0</field>
+		</record>
+	</data>
+</openerp>

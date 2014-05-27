@@ -1,0 +1,187 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* at_purchase
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 8.0alpha1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-08-26 13:28+0000\n"
+"PO-Revision-Date: 2013-08-26 15:30+0100\n"
+"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: at_purchase
+#: field:purchase.order.line,category_id:0
+msgid "Category"
+msgstr "Kategorie"
+
+#. module: at_purchase
+#: code:addons/at_purchase/purchase.py:147
+#, python-format
+msgid "Draft Purchase Order created"
+msgstr "Bestellvorschlag erstellt"
+
+#. module: at_purchase
+#: selection:purchase.order.line,priority:0
+msgid "Not urgent"
+msgstr "Unwichtig"
+
+#. module: at_purchase
+#: field:purchase.order.line,severity:0
+#: field:purchase.order_level,severity:0
+msgid "Severity"
+msgstr "Wichtigkeit"
+
+#. module: at_purchase
+#: model:ir.model,name:at_purchase.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "Bestellpositionen"
+
+#. module: at_purchase
+#: field:purchase.order.line,dest_picking_id:0
+msgid "Destination Picking"
+msgstr "Lieferschein Ziel"
+
+#. module: at_purchase
+#: field:purchase.order.line,priority:0
+msgid "Priority"
+msgstr "Priorität"
+
+#. module: at_purchase
+#: selection:purchase.order.line,priority:0
+msgid "Very Urgent"
+msgstr "Sehr Dringend"
+
+#. module: at_purchase
+#: code:addons/at_purchase/purchase.py:132
+#, python-format
+msgid "PO: %s"
+msgstr "EK: %s"
+
+#. module: at_purchase
+#: field:account.invoice.line,purchase_lines:0
+msgid "Invoice Lines"
+msgstr "Rechnungszeilen"
+
+#. module: at_purchase
+#: view:purchase.order_level:0
+#: field:purchase.order_level,description:0
+msgid "Description"
+msgstr "Beschreibung"
+
+#. module: at_purchase
+#: selection:purchase.order.line,priority:0
+#: selection:purchase.order.line,severity:0
+#: selection:purchase.order_level,severity:0
+msgid "Normal"
+msgstr "Normal"
+
+#. module: at_purchase
+#: field:purchase.order.line,create_date:0
+msgid "Creation Date"
+msgstr "Erstellungsdatum"
+
+#. module: at_purchase
+#: model:ir.model,name:at_purchase.model_purchase_order_level
+msgid "Purchase Order Level"
+msgstr "Stufe"
+
+#. module: at_purchase
+#: field:purchase.order.line,write_date:0
+msgid "Write Date"
+msgstr "Änderung"
+
+#. module: at_purchase
+#: help:purchase.order.line,supplier_invoiced:0
+msgid "Has Supplier invoiced?"
+msgstr "Hat Lieferant fakturiert?"
+
+#. module: at_purchase
+#: model:ir.ui.menu,name:at_purchase.menu_purchase_config
+msgid "Purchase"
+msgstr "Einkauf"
+
+#. module: at_purchase
+#: field:purchase.order_level,name:0
+msgid "Name"
+msgstr "Name"
+
+#. module: at_purchase
+#: field:purchase.order.line,level_id:0
+msgid "Level"
+msgstr "Stufe"
+
+#. module: at_purchase
+#: model:ir.actions.act_window,name:at_purchase.action_purchase_order_level
+#: model:ir.ui.menu,name:at_purchase.menu_purchase_order_level
+#: view:purchase.order_level:0
+msgid "Purchase Level"
+msgstr "Beschaffungsstufe"
+
+#. module: at_purchase
+#: model:ir.model,name:at_purchase.model_procurement_order
+msgid "Procurement"
+msgstr "Beschaffung"
+
+#. module: at_purchase
+#: field:purchase.order.line,directory:0
+msgid "Directory"
+msgstr "Verzeichnis"
+
+#. module: at_purchase
+#: field:purchase.order.line,origin:0
+msgid "Origin"
+msgstr "Herkunft"
+
+#. module: at_purchase
+#: field:procurement.order,preferred_seller_id:0
+msgid "Preferred Seller"
+msgstr "Bevorzugter Lieferant"
+
+#. module: at_purchase
+#: field:purchase.order.line,source_picking_ids:0
+msgid "Source Pickings"
+msgstr "Quell- Lieferscheine"
+
+#. module: at_purchase
+#: field:purchase.order_level,sequence:0
+msgid "Sequence"
+msgstr "Position"
+
+#. module: at_purchase
+#: selection:purchase.order.line,severity:0
+#: selection:purchase.order_level,severity:0
+msgid "Blocker"
+msgstr "Blocker"
+
+#. module: at_purchase
+#: model:ir.model,name:at_purchase.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Rechungsposition"
+
+#. module: at_purchase
+#: selection:purchase.order.line,priority:0
+msgid "Urgent"
+msgstr "Dringend"
+
+#. module: at_purchase
+#: selection:purchase.order.line,severity:0
+#: selection:purchase.order_level,severity:0
+msgid "Warning"
+msgstr "Warnung"
+
+#. module: at_purchase
+#: field:purchase.order.line,supplier_unit_price:0
+msgid "Supplier Unit Price"
+msgstr "Preisangabe Lieferant"
+
+#. module: at_purchase
+#: field:purchase.order.line,supplier_invoiced:0
+msgid "Invoiced"
+msgstr "Fakturiert"
+

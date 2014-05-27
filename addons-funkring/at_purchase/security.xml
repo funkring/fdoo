@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>	
+		<record id="access_purchase_order_level_user" model="ir.model.access">
+			<field name="name">purchase_order_level/user</field>
+			<field name="model_id" ref="model_purchase_order_level"/>
+			<field name="group_id" ref="purchase.group_purchase_user"/>
+			<field name="perm_read" eval="True"/>			
+		</record>
+		
+		<record id="access_purchase_order_level_manager" model="ir.model.access">
+			<field name="name">purchase_order_level/manager</field>
+			<field name="model_id" ref="model_purchase_order_level"/>
+			<field name="group_id" ref="purchase.group_purchase_manager"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+			    			    
+		<record id="access_purchase_order_level_user" model="ir.model.access">
+			<field name="name">purchase_order_level/user</field>
+			<field name="model_id" ref="model_purchase_order_level"/>
+			<field name="group_id" ref="base.group_user"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="False"/>
+			<field name="perm_write" eval="False"/>
+		</record>	
+	
+   </data>
+</openerp>

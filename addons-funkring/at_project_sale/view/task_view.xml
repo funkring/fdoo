@@ -1,0 +1,22 @@
+<openerp>
+	<data>
+			
+			<record id="form_task2" model="ir.ui.view">
+            <field name="name">at_project_sale.form_task2</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>      
+            <field name="arch" type="xml">
+            	<data>
+	            	<xpath expr="//field[@name='work_ids']/tree/field[@name='user_id']" position="replace">
+	                	<field name="user_id" on_change="onchange_user(date,hours,user_id)"/>
+	               </xpath>  
+	           		<field name="total_hours" position="before">
+	           		   <field name="order_based_invoice" invisible="1"/>
+	                 <field name="invoice_hours" string="Hours to Invoice" attrs="{'invisible' : [('order_based_invoice','=',False)], 'readonly': [('kanban_state','=','done')] }"/>
+	           		</field>	    
+           		</data>     	      	    
+            </field>
+        </record>
+        
+	</data>
+</openerp>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+	
+		<record model="ir.ui.view" id="form_company">
+			<field name="name">at_resource.form_company</field>
+			<field name="inherit_id" ref="base.view_company_form" />
+			<field name="model">res.company</field>
+			<field name="arch" type="xml">
+				<xpath expr="//page[@string='Configuration']/group" position="inside"> 
+					<group name="calendar" string="Calendar">
+						<field name="calendar_id" />
+					</group>
+				</xpath>
+			</field>
+		</record>
+		
+	</data>
+</openerp>

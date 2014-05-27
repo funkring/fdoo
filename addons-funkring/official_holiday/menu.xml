@@ -1,0 +1,12 @@
+<openerp>
+	<data>
+	
+		<menuitem id="menu_official_holiday_template" name="Official Holidays" parent="hr.menu_hr_configuration" sequence="11"
+        		  action="action_official_holiday_template"></menuitem>
+	
+	</data>
+</openerp>
+
+
+
+

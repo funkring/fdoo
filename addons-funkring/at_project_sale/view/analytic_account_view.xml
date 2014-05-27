@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+			<act_window id="act_analytic_account_to_order" 
+			   name="Order(s)"
+			   domain="[('project_id','=',active_id)]"
+			   res_model="sale.order"
+			   src_model="account.analytic.account"/>
+	</data>
+</openerp>

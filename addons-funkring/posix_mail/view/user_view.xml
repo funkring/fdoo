@@ -1,0 +1,29 @@
+<openerp>
+	<data>
+	
+		<record id="form_user" model="ir.ui.view">
+			<field name="name">res.form_user</field>
+			<field name="model">res.users</field>
+			<field name="inherit_id" ref="posix.form_user" />
+			<field name="arch" type="xml">
+				<data>
+					<field name="posix_domain_id" position="after">
+						<field name="posix_email" widget="email" />
+					</field>
+					<xpath expr="/form/sheet/notebook/page[@name='system']/notebook"
+						position="inside">
+						<page string="Mail Alias / Forward">
+							<field name="posix_alias_ids" nolabel="1">
+								<tree string="Aliases" editable="bottom">
+									<field name="alias" />
+									<field name="domain_id" domain="[('parent_id','!=',False)]"/>
+								</tree>
+							</field>
+						</page>
+					</xpath>
+				</data>
+			</field>
+		</record>
+
+	</data>
+</openerp>

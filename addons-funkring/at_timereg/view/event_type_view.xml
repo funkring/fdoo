@@ -1,0 +1,16 @@
+<openerp>
+	<data>
+
+		<record id="tree_event_type" model="ir.ui.view">
+			<field name="name">calendar.tree_event_type</field>
+			<field name="model">calendar.event.type</field>
+			<field name="inherit_id" ref="calendar.view_calendar_event_type_tree" />
+			<field name="arch" type="xml">
+				<field name="name" position="after">
+					<field name="leave_type" />
+				</field>
+			</field>
+		</record>
+
+	</data>
+</openerp>

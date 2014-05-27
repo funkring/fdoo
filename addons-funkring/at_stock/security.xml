@@ -1,0 +1,8 @@
+<openerp>
+	<data>
+		<record id="group_stock_invoice" model="res.groups">
+			<field name="name">Invoicing from Picking</field>
+			<field name="category_id" ref="base.module_category_hidden"/>
+		</record>
+	</data>
+</openerp>

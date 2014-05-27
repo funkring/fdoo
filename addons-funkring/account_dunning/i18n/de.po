@@ -1,0 +1,283 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* account_dunning
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 8.0alpha1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-03-03 14:04+0000\n"
+"PO-Revision-Date: 2014-03-03 14:04+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_dunning
+#: field:account.dunning_wizard,date:0
+msgid "Reminder date"
+msgstr "Mahndatum"
+
+#. module: account_dunning
+#: field:account.dunning_profile_line,dunning_fee:0
+msgid "Dunning Fee"
+msgstr "Mahnspesen"
+
+#. module: account_dunning
+#: field:account.reminder,message_follower_ids:0
+msgid "Followers"
+msgstr "Beobachter"
+
+#. module: account_dunning
+#: model:ir.ui.menu,name:account_dunning.menu_account_dunning_profile
+msgid "Reminder Profile"
+msgstr "Mahnungsprofil"
+
+#. module: account_dunning
+#: help:account.invoice,noremind:0
+msgid "If 'No Remind' is true, then the customer won't get remind for the actual invoice!"
+msgstr "Wenn \"Keine Mahnung\" gesetzt ist, dann wird der Kunde keine Mahnung für diese Rechnung bekommen!"
+
+#. module: account_dunning
+#: help:res.partner,noremind:0
+msgid "If 'No Remind' is true, then the actual customer never gets a reminder!"
+msgstr "Wenn \"Keine Mahnung\" gesetzt ist, dann wird der Kunde nie eine Mahnung bekommen."
+
+#. module: account_dunning
+#: view:account.reminder:0
+#: field:account.reminder.line,reminder_id:0
+msgid "Reminder"
+msgstr "Mahnung"
+
+#. module: account_dunning
+#: field:account.reminder,max_profile_line_id:0
+msgid "Highest dunning level"
+msgstr "Höchste Mahnstufe"
+
+#. module: account_dunning
+#: model:ir.actions.report.xml,name:account_dunning.report_account_reminder_pdf
+msgid "Account reminder report"
+msgstr "Mahnungsbericht"
+
+#. module: account_dunning
+#: field:account.dunning_profile_line,dunning_fee_percent:0
+msgid "Dunning Fee %"
+msgstr "Mahnspesen %"
+
+#. module: account_dunning
+#: field:account.dunning_profile_line,profile_id:0
+#: field:account.dunning_wizard,profile_id:0
+#: field:account.reminder,profile_id:0
+msgid "Profile"
+msgstr "Mahnprofil"
+
+#. module: account_dunning
+#: model:ir.model,name:account_dunning.model_account_dunning_profile_line
+msgid "account.dunning_profile_line"
+msgstr ""
+
+#. module: account_dunning
+#: view:account.dunning_profile:0
+msgid "In percent?"
+msgstr "In Prozent?"
+
+#. module: account_dunning
+#: field:account.reminder,message_unread:0
+msgid "Unread Messages"
+msgstr "Ungelesene Nachrichten"
+
+#. module: account_dunning
+#: field:account.dunning_profile,company_id:0
+msgid "Company"
+msgstr "Unternehmen"
+
+#. module: account_dunning
+#: field:account.reminder.line,amount:0
+msgid "Residual"
+msgstr "Offen"
+
+#. module: account_dunning
+#: view:account.dunning_profile:0
+#: model:ir.actions.act_window,name:account_dunning.action_account_dunning_profile
+msgid "Dunning Profile"
+msgstr "Mahnprofil"
+
+#. module: account_dunning
+#: field:account.reminder,message_is_follower:0
+msgid "Is a Follower"
+msgstr "Ist ein Beobachter"
+
+#. module: account_dunning
+#: help:account.dunning_profile_line,sequence:0
+msgid "It helps to order the profile lines"
+msgstr "Mithilfe der Sequenz, kann man die einzelnen Mahnstufen anordnen"
+
+#. module: account_dunning
+#: field:account.reminder,date:0
+msgid "Date"
+msgstr "Datum"
+
+#. module: account_dunning
+#: model:ir.model,name:account_dunning.model_account_dunning_profile
+msgid "account.dunning_profile"
+msgstr ""
+
+#. module: account_dunning
+#: model:ir.model,name:account_dunning.model_account_dunning_wizard
+msgid "account.dunning_wizard"
+msgstr ""
+
+#. module: account_dunning
+#: field:account.dunning_profile,line_ids:0
+msgid "Profile lines"
+msgstr "Mahnstufen"
+
+#. module: account_dunning
+#: field:account.dunning_profile,name:0
+#: field:account.dunning_profile_line,name:0
+msgid "Name"
+msgstr ""
+
+#. module: account_dunning
+#: field:account.reminder,message_ids:0
+msgid "Messages"
+msgstr "Nachrichten"
+
+#. module: account_dunning
+#: help:account.reminder,message_ids:0
+msgid "Messages and communication history"
+msgstr "Nachrichten und Kommunikationshistorie"
+
+#. module: account_dunning
+#: model:ir.model,name:account_dunning.model_account_reminder
+msgid "account.reminder"
+msgstr ""
+
+#. module: account_dunning
+#: field:account.reminder,line_ids:0
+msgid "Lines"
+msgstr "Zeilen"
+
+#. module: account_dunning
+#: field:account.reminder,message_summary:0
+msgid "Summary"
+msgstr "Zusammenfassung"
+
+#. module: account_dunning
+#: model:ir.model,name:account_dunning.model_account_reminder_line
+msgid "account.reminder.line"
+msgstr ""
+
+#. module: account_dunning
+#: view:account.dunning_wizard:0
+msgid "Remind"
+msgstr "Mahnen"
+
+#. module: account_dunning
+#: field:account.dunning_profile_line,delay:0
+msgid "Days of delay"
+msgstr "Tage nach Fälligkeit"
+
+#. module: account_dunning
+#: field:account.invoice,dunning_date:0
+msgid "Dunning date"
+msgstr "Mahndatum"
+
+#. module: account_dunning
+#: field:account.invoice,noremind:0
+#: field:res.partner,noremind:0
+msgid "No Remind"
+msgstr "Keine Mahnung"
+
+#. module: account_dunning
+#: view:account.dunning_profile:0
+#: field:account.invoice,profile_line_id:0
+#: field:account.reminder.line,profile_line_id:0
+msgid "Dunning level"
+msgstr "Mahnstufe"
+
+#. module: account_dunning
+#: field:account.dunning_profile_line,description2:0
+msgid "Text after"
+msgstr "Text nachher"
+
+#. module: account_dunning
+#: help:account.reminder,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr ""
+
+#. module: account_dunning
+#: field:account.dunning_profile_line,description:0
+msgid "Text before"
+msgstr "Text vorher"
+
+#. module: account_dunning
+#: field:account.dunning_profile_line,sequence:0
+msgid "Sequence"
+msgstr "Sequenz"
+
+#. module: account_dunning
+#: view:account.reminder:0
+msgid "Reminder lines"
+msgstr "Mahnzeilen"
+
+#. module: account_dunning
+#: view:account.dunning_wizard:0
+#: model:ir.actions.act_window,name:account_dunning.action_account_dunning
+#: model:ir.ui.menu,name:account_dunning.menu_dunning_wizard
+msgid "Dunning wizard"
+msgstr "Mahnen"
+
+#. module: account_dunning
+#: model:ir.ui.menu,name:account_dunning.menu_finance_dunning
+msgid "Dunning"
+msgstr "Mahnwesen"
+
+#. module: account_dunning
+#: help:account.reminder,message_summary:0
+msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+msgstr ""
+
+#. module: account_dunning
+#: view:account.dunning_profile:0
+msgid "Dunning fee"
+msgstr "Mahnspesen"
+
+#. module: account_dunning
+#: field:account.reminder.line,invoice_id:0
+#: model:ir.model,name:account_dunning.model_account_invoice
+msgid "Invoice"
+msgstr "Rechnung"
+
+#. module: account_dunning
+#: field:account.reminder,partner_id:0
+#: model:ir.model,name:account_dunning.model_res_partner
+msgid "Partner"
+msgstr ""
+
+#. module: account_dunning
+#: view:account.dunning_wizard:0
+msgid "Close"
+msgstr "Schließen"
+
+#. module: account_dunning
+#: view:account.reminder:0
+msgid "Total"
+msgstr "Summe"
+
+#. module: account_dunning
+#: view:account.reminder:0
+#: code:addons/account_dunning/wizard/dunning_wizard.py:118
+#: model:ir.actions.act_window,name:account_dunning.action_account_reminder
+#: model:ir.ui.menu,name:account_dunning.menu_account_reminder
+#, python-format
+msgid "Reminders"
+msgstr "Mahnungen"
+
+#. module: account_dunning
+#: view:account.dunning_wizard:0
+msgid "or"
+msgstr "oder"
+

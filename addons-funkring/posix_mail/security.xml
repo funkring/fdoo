@@ -1,0 +1,269 @@
+<openerp>
+	<data>
+	
+		<!-- <record id="access_posix_mailalias_user" model="ir.model.access">
+			<field name="name">posix_mailalias/user</field>
+			<field name="model_id" ref="model_posix_mailalias"/>
+			<field name="group_id" ref="base.group_user"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="False"/>
+			<field name="perm_write" eval="False"/>
+		</record>
+		
+		<record id="access_postfix_users_user" model="ir.model.access">
+			<field name="name">postfix_users/user</field>
+			<field name="model_id" ref="model_postfix_users" />
+			<field name="group_id" ref="base.group_user" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+
+		<record id="access_postfix_mailbox_user" model="ir.model.access">
+			<field name="name">postfix_mailbox/user</field>
+			<field name="model_id" ref="model_postfix_mailbox" />
+			<field name="group_id" ref="base.group_user" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+
+		<record id="access_postfix_user_alias_user" model="ir.model.access">
+			<field name="name">postfix_user_alias/user</field>
+			<field name="model_id" ref="model_postfix_user_alias" />
+			<field name="group_id" ref="base.group_user" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+
+		<record id="access_postfix_group_alias_user" model="ir.model.access">
+			<field name="name">postfix_group_alias/user</field>
+			<field name="model_id" ref="model_postfix_group_alias" />
+			<field name="group_id" ref="base.group_user" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+		
+		
+		
+		<record id="access_posix_mailalias_system" model="ir.model.access">
+			<field name="name">posix_mailalias/system</field>
+			<field name="model_id" ref="model_posix_mailalias"/>
+			<field name="group_id" ref="base.group_system"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		<record id="access_posix_mailforward_system" model="ir.model.access">
+			<field name="name">posix_mailforward/system</field>
+			<field name="model_id" ref="model_posix_mailforward"/>
+			<field name="group_id" ref="base.group_system"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		<record id="access_postfix_systems_system" model="ir.model.access">
+			<field name="name">postfix_systems/system</field>
+			<field name="model_id" ref="model_postfix_users" />
+			<field name="group_id" ref="base.group_system" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+
+		<record id="access_postfix_mailbox_system" model="ir.model.access">
+			<field name="name">postfix_mailbox/system</field>
+			<field name="model_id" ref="model_postfix_mailbox" />
+			<field name="group_id" ref="base.group_system" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+
+		<record id="access_postfix_user_alias_system" model="ir.model.access">
+			<field name="name">postfix_user_alias/system</field>
+			<field name="model_id" ref="model_postfix_user_alias" />
+			<field name="group_id" ref="base.group_system" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+
+		<record id="access_postfix_group_alias_system" model="ir.model.access">
+			<field name="name">postfix_group_alias/system</field>
+			<field name="model_id" ref="model_postfix_group_alias" />
+			<field name="group_id" ref="base.group_system" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>	
+		
+		<record id="access_postfix_alias_system" model="ir.model.access">
+			<field name="name">postfix_alias/system</field>
+			<field name="model_id" ref="model_postfix_alias" />
+			<field name="group_id" ref="base.group_system" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>	
+		
+		<record id="access_postfix_transport_system" model="ir.model.access">
+			<field name="name">postfix_transport/system</field>
+			<field name="model_id" ref="model_postfix_transport"/>
+			<field name="group_id" ref="base.group_system"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record> -->
+		
+		<record id="access_posix_mailalias_user" model="ir.model.access">
+			<field name="name">posix_mailalias/user</field>
+			<field name="model_id" ref="model_posix_mailalias"/>
+			<field name="group_id" ref="posix.group_posix_user"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="False"/>
+			<field name="perm_write" eval="False"/>
+		</record>
+		
+		<record id="access_posix_mailalias_manager" model="ir.model.access">
+			<field name="name">posix_mailalias/manager</field>
+			<field name="model_id" ref="model_posix_mailalias"/>
+			<field name="group_id" ref="posix.group_posix_manager"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		<record id="access_postfix_users_user" model="ir.model.access">
+			<field name="name">postfix_users/user</field>
+			<field name="model_id" ref="model_postfix_users" />
+			<field name="group_id" ref="posix.group_posix_user" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+		
+		<record id="access_postfix_users_manager" model="ir.model.access">
+			<field name="name">postfix_users/manager</field>
+			<field name="model_id" ref="model_postfix_users" />
+			<field name="group_id" ref="posix.group_posix_manager" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+
+		<record id="access_postfix_mailbox_user" model="ir.model.access">
+			<field name="name">postfix_mailbox/user</field>
+			<field name="model_id" ref="model_postfix_mailbox" />
+			<field name="group_id" ref="posix.group_posix_user" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+		
+		<record id="access_postfix_mailbox_manager" model="ir.model.access">
+			<field name="name">postfix_mailbox/manager</field>
+			<field name="model_id" ref="model_postfix_mailbox" />
+			<field name="group_id" ref="posix.group_posix_manager" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+
+		<record id="access_postfix_user_alias_user" model="ir.model.access">
+			<field name="name">postfix_user_alias/user</field>
+			<field name="model_id" ref="model_postfix_user_alias" />
+			<field name="group_id" ref="posix.group_posix_user" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+		
+		<record id="access_postfix_user_alias_manager" model="ir.model.access">
+			<field name="name">postfix_user_alias/manager</field>
+			<field name="model_id" ref="model_postfix_user_alias" />
+			<field name="group_id" ref="posix.group_posix_manager" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+
+		<record id="access_postfix_group_alias_user" model="ir.model.access">
+			<field name="name">postfix_group_alias/user</field>
+			<field name="model_id" ref="model_postfix_group_alias" />
+			<field name="group_id" ref="posix.group_posix_user" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+		
+		<record id="access_postfix_group_alias_manager" model="ir.model.access">
+			<field name="name">postfix_group_alias/manager</field>
+			<field name="model_id" ref="model_postfix_group_alias" />
+			<field name="group_id" ref="posix.group_posix_manager" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		
+		
+		<record id="access_posix_mailforward_manager" model="ir.model.access">
+			<field name="name">posix_mailforward/manager</field>
+			<field name="model_id" ref="model_posix_mailforward"/>
+			<field name="group_id" ref="posix.group_posix_manager"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		<record id="access_postfix_alias_manager" model="ir.model.access">
+			<field name="name">postfix_alias/manager</field>
+			<field name="model_id" ref="model_postfix_alias" />
+			<field name="group_id" ref="posix.group_posix_manager" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>	
+		
+		<record id="access_postfix_transport_manager" model="ir.model.access">
+			<field name="name">postfix_transport/manager</field>
+			<field name="model_id" ref="model_postfix_transport"/>
+			<field name="group_id" ref="posix.group_posix_manager"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+	
+	</data>
+</openerp>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>		
+		<record model="ir.ui.view" id="partner_view">
+            <field name="name">res.partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+	            <field name="debit" position="after">
+            		<field name="noremind"/>
+	            </field>                    
+            </field>
+        </record>
+	</data>
+</openerp>

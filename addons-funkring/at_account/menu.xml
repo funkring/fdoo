@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>			
+		<menuitem id="menu_account_eximport_configuration" parent="account.menu_finance_configuration" name="Export/Import" sequence="69"/>		
+		<menuitem id="menu_account_eximport" parent="account.menu_finance" name="Export/Import" sequence="13"/>
+	</data>
+</openerp>

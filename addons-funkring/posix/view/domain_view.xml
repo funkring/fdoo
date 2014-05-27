@@ -1,0 +1,44 @@
+<openerp>
+	<data>		
+		<record id="form_domain" model="ir.ui.view">
+            <field name="name">posix.form_domain</field>
+            <field name="model">posix.domain</field>
+            <field name="arch" type="xml">
+                <form string="Domain" version="7.0">        
+                	<group name="group_domain">       
+                		<separator string="Domain"/>  
+                		<newline></newline> 	                	
+	                	<group name="group_domain2">
+		                    <field name="name"/>
+		                    <field name="parent_id"/>
+	                    </group>
+                    </group>
+                    <notebook >
+                    	<page string="Description">
+                    		<field name="description"/>
+                    	</page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record id="tree_domain" model="ir.ui.view">
+            <field name="name">posix.tree_domain</field>
+            <field name="model">posix.domain</field>
+            <field name="arch" type="xml">
+                <tree string="Domain">
+                	<field name="complete_name"/>
+                	<field name="parent_id"/>                	
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_domain" model="ir.actions.act_window">
+            <field name="name">Domain</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">posix.domain</field>            
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>        
+	</data>
+</openerp>

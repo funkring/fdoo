@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="product_uom_categ_area" model="product.uom.categ">
+            <field name="name">Area</field>
+        </record>
+
+        <record id="product_uom_categ_time" model="product.uom.categ">
+            <field name="name">Time</field>
+        </record>
+
+        <record id="product_uom_categ_pauschal" model="product.uom.categ">
+            <field name="name">Blanket</field>
+        </record>
+
+
+        <record id="product_uom_pauschal" model="product.uom">
+            <field name="category_id" ref="product_uom_categ_pauschal" />
+            <field name="name">Blanket</field>
+            <field name="factor">1.0</field>
+            <field name="blanket" eval="True" />
+        </record>
+
+        <record id="product_uom_m2" model="product.uom">
+            <field name="category_id" ref="product_uom_categ_area" />
+            <field name="name">m²</field>
+            <field name="factor">1.0</field>
+        </record>
+
+        <record id="product_uom_m3" model="product.uom">
+            <field name="category_id" ref="product.product_uom_categ_vol" />
+            <field name="name">m³</field>
+            <field name="factor">1.0</field>
+        </record>
+
+
+    </data>
+</openerp>

@@ -1,0 +1,14 @@
+<openerp>
+	<data>
+		<record id="form_picking" model="ir.ui.view">
+			<field name="name">at_stock.form_picking</field>
+			<field name="model">stock.picking</field>
+			<field name="inherit_id" ref="stock.view_picking_form" />
+			<field name="arch" type="xml">
+				<button name="%(stock.action_stock_invoice_onshipping)d" position="attributes">
+					<attribute name="groups">at_stock.group_stock_invoice</attribute>
+				</button>
+			</field>
+		</record>
+	</data>
+</openerp>

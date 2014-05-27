@@ -1,0 +1,14 @@
+<openerp>
+	<data>			
+		<record id="wizard_sale_order_line_make_invoice" model="ir.ui.view">
+            <field name="name">at_sale.wizard_sale_order_line_make_invoice</field>         
+            <field name="model">sale.order.line.make.invoice</field>
+            <field name="inherit_id" ref="sale.view_sale_order_line_make_invoice"/>
+            <field name="arch" type="xml">          
+            		 <footer position="before">
+            		 		<field name="group"/>	
+            		 </footer>                    
+            </field>
+        </record>
+	</data>
+</openerp>

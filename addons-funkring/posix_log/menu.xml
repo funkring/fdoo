@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<menuitem id="menu_posix_log" name="Log" sequence="11" parent="posix.menu_system" />
+		<menuitem id="menu_posix_log2" name="Log" parent="menu_posix_log" sequence="31"
+        		  action="action_posix_log"/>
+        <menuitem id="menu_posix_log_alert" name="Alert" parent="menu_posix_log" sequence="41"
+        		  action="action_posix_log_alert"/>
+	</data>
+</openerp>

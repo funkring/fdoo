@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+  <record id="tax_code_000" model="account.tax.code.template">
+    <field name="code">000</field>
+    <field name="name">Bemessungsgrundlage für Lieferungen und sonstige Leistungen</field>
+    <field name="sign">0.0</field>
+    <field name="parent_id" ref="tax_code_ATU30"/>
+    <field name="info">Gesamtbetrag der Bemessungsgrundlage für Lieferungen und sonstige Leistungen (ohne den nachstehend angeführten Eigenverbrauch) einschließlich Anzahlungen (jeweils ohne Umsatzsteuer) </field>
+  </record>
+  
+  <record id="tax_code_017" model="account.tax.code.template">
+    <field name="code">017</field>
+    <field name="name">Innergemeinschaftlicher Lieferungen</field>
+    <field name="sign">0.0</field>
+    <field name="parent_id" ref="tax_code_000"/>
+    <field name="info">Innergemeinschaftliche Lieferungen ohne die nachstehend gesondert anzuführenden Fahrzeuglieferungen (Art. 6 Abs. 1) </field>
+  </record>
+  
+  <record id="tax_code_022" model="account.tax.code.template">
+    <field name="code">022</field>
+    <field name="name">20% Normalsteuersatz</field>
+    <field name="sign">1.0</field>
+    <field name="parent_id" ref="tax_code_000"/>
+    <field name="info">20% Normalsteuersatz </field>
+  </record>
+  
+  <record id="tax_code_025" model="account.tax.code.template">
+    <field name="code">025</field>
+    <field name="name">12% für Weinumsätze durch landwirtschaftliche Betriebe</field>
+    <field name="sign">1.0</field>
+    <field name="parent_id" ref="tax_code_000"/>
+    <field name="info">12% für Weinumsätze durch landwirtschaftliche Betriebe</field>
+  </record>
+  
+  <record id="tax_code_029" model="account.tax.code.template">
+    <field name="code">029</field>
+    <field name="name">10% ermäßigter Steuersatz</field>
+    <field name="sign">1.0</field>
+    <field name="parent_id" ref="tax_code_000"/>
+  </record>
+  
+  <record id="tax_code_037" model="account.tax.code.template">
+    <field name="code">037</field>
+    <field name="name">19% für Jungholz und Mittelberg</field>
+    <field name="sign">1.0</field>
+    <field name="parent_id" ref="tax_code_000"/>
+    <field name="info">19% für Jungholz und Mittelberg </field>
+  </record>
+  
+  <record id="tax_code_038" model="account.tax.code.template">
+    <field name="code">038</field>
+    <field name="name">8% Zusatzsteuer für pauschalierte Landwirtschaftliche Betriebe</field>
+    <field name="sign">1.0</field>
+    <field name="parent_id" ref="tax_code_000"/>
+    <field name="info">8% Zusatzsteuer für pauschalierte land- und forstwirtschaftliche Betriebe </field>
+  </record>
+  
+  <record id="tax_code_052" model="account.tax.code.template">
+    <field name="code">052</field>
+    <field name="name">10% Zusatzsteuer für pauschalierte Landwirtschaftliche Betriebe</field>
+    <field name="sign">1.0</field>
+    <field name="parent_id" ref="tax_code_000"/>
+    <field name="info"> 10% Zusatzsteuer für pauschalierte land- und forstwirtschaftliche Betriebe</field>
+  </record>
+  
+  <record id="tax_code_057" model="account.tax.code.template">
+    <field name="code">057</field>
+    <field name="name">Umsatzsteuer Reverse-Charge</field>
+    <field name="sign">0.0</field>
+    <field name="parent_id" ref="tax_code_ATU30"/>
+    <field name="info">Steuerschuld gemäß § 19 Abs. 1 zweiter Satz, § 19 Abs. 1c, 1e sowie gemäß Art. 25 Abs. 5 </field>
+  </record>
+  
+  <record id="tax_code_060" model="account.tax.code.template">
+    <field name="code">060</field>
+    <field name="name">Gesamtbetrag der Vorsteuer (ohne gesondert anzuführende Beträge)</field>
+    <field name="sign">0.0</field>
+    <field name="parent_id" ref="tax_code_ATU30"/>
+  </record>
+  
+  <record id="tax_code_065" model="account.tax.code.template">
+    <field name="code">065</field>
+    <field name="name">Vorsteuern aus dem innergemeinschaftlichen Erwerb</field>
+    <field name="sign">0.0</field>
+    <field name="parent_id" ref="tax_code_ATU30"/>
+    <field name="info">Vorsteuern aus dem innergemeinschaftlichen Erwerb</field>
+  </record>
+  
+  <record id="tax_code_066" model="account.tax.code.template">
+    <field name="code">066</field>
+    <field name="name">Vorsteuer Reverse-Charge</field>
+    <field name="sign">-1.0</field>
+    <field name="parent_id" ref="tax_code_ATU30"/>
+    <field name="info">Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1 zweiter Satz,
+§ 19 Abs. 1c, 1e sowie gemäß Art. 25 Abs. 5</field>
+  </record>
+  
+  <record id="tax_code_070" model="account.tax.code.template">
+    <field name="code">070</field>
+    <field name="name">Bemessungsgrundlage für innergemeinschaftliche Erwerbe</field>
+    <field name="sign">0.0</field>
+    <field name="parent_id" ref="tax_code_ATU30"/>
+    <field name="info">Gesamtbetrag der Bemessungsgrundlagen für innergemeinschaftliche Erwerbe</field>
+  </record>
+  
+  <record id="tax_code_072" model="account.tax.code.template">
+    <field name="code">072</field>
+    <field name="name">20% i.g.E. Normalsteuersatz</field>
+    <field name="sign">1.0</field>
+    <field name="parent_id" ref="tax_code_070"/>
+    <field name="info">20% Normalsteuersatz</field>
+  </record>
+  
+  <record id="tax_code_073" model="account.tax.code.template">
+    <field name="code">073</field>
+    <field name="name">10% i.g.E. ermäßigter Steuersatz</field>
+    <field name="sign">1.0</field>
+    <field name="parent_id" ref="tax_code_070"/>
+    <field name="info">10% ermäßigter Steuersatz</field>
+  </record>
+  
+  <record id="tax_code_088" model="account.tax.code.template">
+    <field name="code">088</field>
+    <field name="name">19% i.g.E. für Jungholz und Mittelberg</field>
+    <field name="sign">1.0</field>
+    <field name="parent_id" ref="tax_code_070"/>
+    <field name="info">19% für Jungholz und Mittelberg</field>
+  </record>
+  
+</data>
+</openerp>

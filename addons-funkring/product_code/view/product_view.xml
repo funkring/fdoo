@@ -1,0 +1,15 @@
+<openerp>
+	<data>		
+		<record id="form_product_code" model="ir.ui.view">
+            <field name="name">product.form_product_code</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+           		<div name="ean" position="after">
+           			<field name="code_value"/>
+           			<field name="code_profile_id" />
+           		</div>
+            </field>
+        </record>
+	</data>
+</openerp>

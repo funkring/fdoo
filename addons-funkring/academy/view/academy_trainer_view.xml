@@ -1,0 +1,49 @@
+<openerp>
+	<data>		
+		<record id="form_academy_trainer" model="ir.ui.view">
+            <field name="name">academy.form_academy_trainer</field>
+            <field name="model">academy.trainer</field>
+            <field name="arch" type="xml">
+                <form string="Trainer" version="7.0">
+                	<sheet>
+                		<field name="id" invisible="1"/>
+                		<field name="image" widget='image' class="oe_avatar oe_left" options='{"preview_image": "image_medium"}'/>
+                		<div class="oe_title">
+                			<label for="name" class="oe_edit_only"/>
+                			<h1><field name="name"/></h1>
+                			<label for="email" class="oe_edit_only"/>
+		               		<h2><field name="email"/></h2>
+		               		<group>
+			               		<field name="partner_id" readonly="1" required="0" attrs="{'invisible': [('id', '=', False)]}"/>
+			               		<field name="active"/>
+		               		</group>
+		               	</div>
+	               		<notebook>
+	               			<page string="Contracts">
+	               				<field name="contract_ids"/>	
+	               			</page>
+	               		</notebook>
+	               		
+	               	</sheet>
+                </form>
+            </field>
+        </record> 
+        
+        <record id="tree_academy_trainer" model="ir.ui.view">
+            <field name="name">academy.tree_academy_trainer</field>
+            <field name="model">academy.trainer</field>
+            <field name="arch" type="xml">
+                <tree string="Trainer">
+                	<field name="name"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_academy_trainer" model="ir.actions.act_window">
+            <field name="name">Trainer</field>
+            <field name="res_model">academy.trainer</field>            
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+	</data>
+</openerp>

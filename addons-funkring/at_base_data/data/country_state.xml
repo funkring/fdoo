@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record model="res.country.state" id="at_bgl">
+			<field name="country_id" ref="base.at"></field>
+			<field name="name">Burgenland</field>
+			<field name="code">BGL</field>
+		</record>		
+		<record model="res.country.state" id="at_stm">
+			<field name="country_id" ref="base.at"></field>
+			<field name="name">Steiermark</field>
+			<field name="code">STM</field>
+		</record>
+		<record model="res.country.state" id="at_noe">
+			<field name="country_id" ref="base.at"></field>
+			<field name="name">Niederösterreich</field>
+			<field name="code">NOE</field>
+		</record>
+		<record model="res.country.state" id="at_ooe">
+			<field name="country_id" ref="base.at"></field>
+			<field name="name">Oberösterreich</field>
+			<field name="code">OOE</field>
+		</record>
+		<record model="res.country.state" id="at_knt">
+			<field name="country_id" ref="base.at"></field>
+			<field name="name">Kärnten</field>
+			<field name="code">KTN</field>
+		</record>
+		<record model="res.country.state" id="at_sbg">
+			<field name="country_id" ref="base.at"></field>
+			<field name="name">Salzburg</field>
+			<field name="code">SBG</field>
+		</record>
+		<record model="res.country.state" id="at_tir">
+			<field name="country_id" ref="base.at"></field>
+			<field name="name">Tirol</field>
+			<field name="code">TIR</field>
+		</record>
+		<record model="res.country.state" id="at_vbg">
+			<field name="country_id" ref="base.at"></field>
+			<field name="name">Voralberg</field>
+			<field name="code">VBG</field>
+		</record>
+		<record model="res.country.state" id="at_w">
+			<field name="country_id" ref="base.at"></field>
+			<field name="name">Wien</field>
+			<field name="code">W</field>
+		</record>
+	</data>
+</openerp>

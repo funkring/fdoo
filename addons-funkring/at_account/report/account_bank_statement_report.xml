@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <report id="report_bank_statement_pdf"
+               string="Bank statement Report"
+               name="account.bank.statement"
+               auto="False"
+               report_type="aeroo"
+               stylesheet="intern"
+               model="account.bank.statement"
+               in_format="oo-odt"
+               out_format="oo-pdf"
+               parser="at_account/report/account_bank_statement_report.py"
+               rml="at_account/report/account_bank_statement_report.odt"/>
+    </data>
+</openerp>

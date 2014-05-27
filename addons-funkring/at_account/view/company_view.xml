@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="form_company">
+			<field name="name">at_account.form_company</field>
+			<field name="inherit_id" ref="base.view_company_form" />
+			<field name="model">res.company</field>
+			<field name="arch" type="xml">
+				<notebook position="inside">
+					<page string="Invoice/Refund Text">
+						<group col="2" colspan="2">
+							<separator string="Sale Invoice Text" colspan="2" />
+							<field name="invoice_text" nolabel="1" height="200"/>
+							<separator string="Purchase Invoice Text" colspan="2" />
+							<field name="invoice_in_text" nolabel="1" height="200"/>
+						</group>
+						<group col="2" colspan="2">
+							<separator string="Customer Refund Text" colspan="2" />
+							<field name="refund_text" nolabel="1" height="200"/>
+							<separator string="Supplier Refund Text" colspan="2" />
+							<field name="refund_in_text" nolabel="1" height="200"/>
+						</group>
+					</page>
+				</notebook>
+				<field name="zip" position="replace"></field>
+				<field name="city" position="before">
+					<field name="zip" placeholder="ZIP" style="width: 16%%"/>
+				</field>
+				<field name="state_id" position="replace">
+					<field name="state_id" class="oe_no_button" placeholder="State" on_change="onchange_state(state_id)" style="width: 40%%" options='{"no_open": True}'/>
+				</field>
+			</field>
+		</record>
+	</data>
+</openerp>

@@ -1,0 +1,239 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* subscription_invoice
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 8.0alpha1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-09-11 08:15+0000\n"
+"PO-Revision-Date: 2013-09-11 10:16+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: subscription_invoice
+#: field:subscription.invoice_wizard,doc_source:0
+msgid "Source Document"
+msgstr "Quelle Dokument"
+
+#. module: subscription_invoice
+#: help:subscription.invoice_wizard,doc_id:0
+msgid "Within the document type, the user can set the properties for the document, which should be created."
+msgstr "Mithilfe des Dokument Typen, kann der Benutzer die Einstellungen für das Dokument setzen, welches erstellt wird."
+
+#. module: subscription_invoice
+#: view:subscription.invoice_wizard:0
+msgid "Stop"
+msgstr "Stop"
+
+#. module: subscription_invoice
+#: view:subscription.invoice_wizard:0
+msgid "Create"
+msgstr "Erstellen"
+
+#. module: subscription_invoice
+#: view:subscription.invoice_wizard:0
+msgid "Next"
+msgstr "Weiter"
+
+#. module: subscription_invoice
+#: field:subscription.invoice_wizard,state:0
+msgid "State"
+msgstr "Status"
+
+#. module: subscription_invoice
+#: selection:subscription.invoice_wizard,state:0
+msgid "Draft"
+msgstr "Entwurf"
+
+#. module: subscription_invoice
+#: view:subscription.invoice_wizard:0
+msgid "Subscribed Datas"
+msgstr "Abonnierte Daten"
+
+#. module: subscription_invoice
+#: help:subscription.invoice_wizard,exec_init:0
+msgid "This number indicates, how much documents should be created. If its set to 10, then it will create 10 documents."
+msgstr "Diese Nummer gibt an, wieviele Dokument zu erstellen sind. Ist diese 10, insgesamt 10 Dokumente erstellt (1 je Intervall)."
+
+#. module: subscription_invoice
+#: help:subscription.invoice_wizard,interval_number:0
+msgid "This number indicates how often it will create the document. If its set to 3, the document is created every third day, week or month, depending on the interval."
+msgstr "Diese Nummer gibt an, in welchem Zeitraum das Dokument erstellt wird. Ist diese 3, so wird das Dokument jeden 3. Tag, Woche oder Monat erstellt, abhängig vom Intervall."
+
+#. module: subscription_invoice
+#: selection:subscription.invoice_wizard,interval_type:0
+msgid "Weeks"
+msgstr "Wochen"
+
+#. module: subscription_invoice
+#: field:subscription.invoice_wizard,doc_id:0
+msgid "Document type"
+msgstr "Dokumenten Typ"
+
+#. module: subscription_invoice
+#: field:subscription.invoice_wizard,date_init:0
+msgid "Begin"
+msgstr "Beginn"
+
+#. module: subscription_invoice
+#: view:subscription.invoice_wizard:0
+msgid "Description"
+msgstr "Beschreibung"
+
+#. module: subscription_invoice
+#: field:subscription.invoice_wizard,interval_number:0
+msgid "Interval Qty"
+msgstr "Intervall Menge"
+
+#. module: subscription_invoice
+#: view:subscription.invoice_wizard:0
+msgid "Do you want to create a new subscription, or edit them?"
+msgstr "Wollen Sie einen neuen Aboauftrag erstellen, oder einen Vorhandenen bearbeiten?"
+
+#. module: subscription_invoice
+#: view:subscription.invoice_wizard:0
+msgid "Set to Draft"
+msgstr "Zurücksetzen auf Entwurf"
+
+#. module: subscription_invoice
+#: selection:subscription.invoice_wizard,state:0
+msgid "Running"
+msgstr "Laufend"
+
+#. module: subscription_invoice
+#: view:subscription.invoice_wizard:0
+msgid "Which subscription do you want to edit?"
+msgstr "Welchen Aboauftrag wollen Sie bearbeiten?"
+
+#. module: subscription_invoice
+#: code:addons/subscription_invoice/wizard/subscription_invoice_wizard.py:174
+#: code:addons/subscription_invoice/wizard/subscription_invoice_wizard.py:194
+#, python-format
+msgid "You have to select exactly 1 invoice!"
+msgstr "Sie müssen genau 1 Rechnung auswählen!"
+
+#. module: subscription_invoice
+#: view:subscription.invoice_wizard:0
+msgid "Create new"
+msgstr "Neuen erstellen"
+
+#. module: subscription_invoice
+#: field:subscription.invoice_wizard,subscription_id:0
+msgid "Subscription"
+msgstr "Aboauftrag"
+
+#. module: subscription_invoice
+#: field:subscription.invoice_wizard,name:0
+msgid "Name"
+msgstr "Name"
+
+#. module: subscription_invoice
+#: selection:subscription.invoice_wizard,interval_type:0
+msgid "Months"
+msgstr "Monate"
+
+#. module: subscription_invoice
+#: selection:subscription.invoice_wizard,interval_type:0
+msgid "Days"
+msgstr "Tage"
+
+#. module: subscription_invoice
+#: code:addons/subscription_invoice/wizard/subscription_invoice_wizard.py:174
+#: code:addons/subscription_invoice/wizard/subscription_invoice_wizard.py:194
+#, python-format
+msgid "Error!"
+msgstr "Fehler!"
+
+#. module: subscription_invoice
+#: field:account.invoice,next_invoice:0
+msgid "Next Invoice"
+msgstr "Nächste Rechnung"
+
+#. module: subscription_invoice
+#: field:subscription.invoice_wizard,exec_init:0
+msgid "Number of Documents"
+msgstr "Anzahl der Dokumente"
+
+#. module: subscription_invoice
+#: model:ir.actions.act_window,name:subscription_invoice.action_subscription_invoice
+#: model:ir.actions.act_window,name:subscription_invoice.action_subscription_invoice2
+#: model:ir.actions.act_window,name:subscription_invoice.action_subscription_invoice3
+#: model:ir.actions.act_window,name:subscription_invoice.action_subscription_invoice4
+msgid "Subscription Invoice"
+msgstr "Aboauftrag - Rechnung"
+
+#. module: subscription_invoice
+#: view:subscription.invoice_wizard:0
+msgid "Edit existing"
+msgstr "Vorhandene bearbeiten"
+
+#. module: subscription_invoice
+#: help:subscription.invoice_wizard,doc_source:0
+msgid "User can choose the source document on which he wants to create documents"
+msgstr "Der Benutzer kann den Dokumententyp aussuchen, auf welchen die Aboaufträge basieren"
+
+#. module: subscription_invoice
+#: view:subscription.invoice_wizard:0
+msgid "Process"
+msgstr "Prozess"
+
+#. module: subscription_invoice
+#: field:subscription.invoice_wizard,interval_type:0
+msgid "Intervall"
+msgstr "Intervall"
+
+#. module: subscription_invoice
+#: model:ir.model,name:subscription_invoice.model_subscription_invoice_wizard
+msgid "subscription.invoice_wizard"
+msgstr "subscription.invoice_wizard"
+
+#. module: subscription_invoice
+#: view:subscription.invoice_wizard:0
+msgid "Subscription Invoice Wizard"
+msgstr "Aboauftrag - Rechnung"
+
+#. module: subscription_invoice
+#: view:subscription.invoice_wizard:0
+msgid "Note: You can only edit a subscription, if there exists at least one."
+msgstr "Achtung: Sie können nur einen Aboauftrag bearbeiten, wenn einer existiert."
+
+#. module: subscription_invoice
+#: selection:subscription.invoice_wizard,state:0
+msgid "Done"
+msgstr "Erledigt"
+
+#. module: subscription_invoice
+#: view:subscription.invoice_wizard:0
+msgid "Create and Process"
+msgstr "Erstellen und Prozess"
+
+#. module: subscription_invoice
+#: model:ir.model,name:subscription_invoice.model_account_invoice
+msgid "Invoice"
+msgstr "Rechnung"
+
+#. module: subscription_invoice
+#: view:subscription.invoice_wizard:0
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#. module: subscription_invoice
+#: view:subscription.invoice_wizard:0
+msgid "Apply"
+msgstr "Übernehmen"
+
+#. module: subscription_invoice
+#: view:subscription.invoice_wizard:0
+msgid "or"
+msgstr "oder"
+
+#. module: subscription_invoice
+#: field:subscription.invoice_wizard,doc_source_model:0
+msgid "Doc source Model"
+msgstr "Doc source model"
+

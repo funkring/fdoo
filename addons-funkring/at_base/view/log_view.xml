@@ -1,0 +1,27 @@
+<openerp>
+	<data>
+	
+		<record id="form_log_temp" model="ir.ui.view">
+			<field name="name">at_base.form_log_temp</field>
+			<field name="model">log.temp</field>
+			<field name="arch" type="xml">
+				<form string="Log" version="7.0">
+					<field name="name" />
+					<field name="severity" />
+				</form>
+			</field>
+		</record>
+
+		<record id="tree_log_temp" model="ir.ui.view">
+			<field name="name">at_base.tree_log_temp</field>
+			<field name="model">log.temp</field>
+			<field name="arch" type="xml">
+				<tree string="Result" colors="red:severity=='e';orange:severity='w';black:severity=='i'">
+					<field name="name" />
+					<field name="severity" />
+				</tree>
+			</field>
+		</record>
+
+	</data>
+</openerp>

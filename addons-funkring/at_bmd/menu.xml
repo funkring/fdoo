@@ -1,0 +1,14 @@
+<openerp>
+	<data>
+		<menuitem id="menu_bmd_export_profile" parent="at_account.menu_account_eximport_configuration"
+			action="action_bmd_export_profile" sequence="100" />
+
+		<menuitem id="menu_bmd_export_wizard" parent="at_account.menu_account_eximport"
+			action="action_bmd_export_wizard" sequence="98" />
+
+		<menuitem id="menu_bmd_exports" parent="at_account.menu_account_eximport"
+			action="action_bmd_exports" sequence="99" />
+	</data>
+</openerp>
+
+	

@@ -1,0 +1,20 @@
+<openerp>
+	<data>
+		<record model="ir.module.category" id="module_category_logistic">
+			<field name="name">Logistic</field>
+			<field name="visible" eval="0" />
+		</record>
+		
+		<record id="group_logistic_user" model="res.groups">
+			<field name="name">Logistic User</field>
+		  <field name="category_id" ref="module_category_logistic"/>
+		  <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+		</record>
+		
+		<record id="group_logistic_manager" model="res.groups">
+			<field name="name">Logistic Manager</field>
+		  <field name="category_id" ref="module_category_logistic"/>
+		  <field name="implied_ids" eval="[(4, ref('group_logistic_user'))]"/>  
+		</record>
+	</data>
+</openerp>

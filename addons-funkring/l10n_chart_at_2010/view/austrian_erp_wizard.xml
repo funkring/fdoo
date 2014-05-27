@@ -1,0 +1,51 @@
+<openerp>
+	<data>
+		<record id="wizard_austrian_erp" model="ir.ui.view">
+			<field name="name">l10n_chart_at_2010.wizard_austrian_erp</field>
+			<field name="model">l10n_chart_at_2010.austrian_erp_wizard</field>
+			<field name="inherit_id" ref="base.res_config_installer" />
+			<field name="arch" type="xml">
+				<data>
+					<form position="attributes">
+						<attribute name="string">Austrian OpenERP Adaptation</attribute>
+					</form>
+					<footer position="replace">
+             <footer>
+             		 <button name="action_apply"	type="object" string="Apply" class="oe_highlight"/>
+                 <button name="action_next" type="object" string="Continue" class="oe_highlight"/>
+                 or
+                 <button special="cancel" string="Close" class="oe_link"/>
+             </footer>
+         </footer>
+					<separator string="title" position="replace">
+						<p class="oe_grey">
+								Do an Austrian adaptation of sequences, sequence types, journals, accounts
+						</p>
+						<group>
+							 <field name="update_seq"/>
+							 <field name="delete_unassigned"/>
+						</group>						
+					</separator>				
+				</data>
+			</field>
+		</record>
+
+		<record id="action_austrian_erp" model="ir.actions.act_window">
+			<field name="name">Generate Austrian OpenERP Adaptation</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">l10n_chart_at_2010.austrian_erp_wizard</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="wizard_austrian_erp" />
+			<field name="target">new</field>
+		</record>
+
+		<record id="config_austrian_erp" model="ir.actions.todo">
+			<field name="name">Generate Austrian OpenERP Adaptation</field>
+			<field name="note">Do an Austrian Adaptation of Sequences, Sequence Types, Journals, Accounts</field>
+			<field name="action_id" ref="action_austrian_erp" />
+			<field name="sequence">20</field>
+			<field name="state">open</field>
+		</record>
+	</data>
+</openerp>

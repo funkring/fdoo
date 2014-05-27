@@ -1,0 +1,42 @@
+<openerp>
+	<data>
+		<record id="wizard_official_holiday_template" model="ir.ui.view">
+			<field name="name">Create Holidays</field>
+			<field name="model">official.holiday.template.wizard</field>
+			<field name="arch" type="xml">
+				<form string="Create Holidays" version="7.0">
+					<group string="Do you want to enter the holidays in the calendar?">
+						<field name="fiscalyear_id" />
+						<footer>
+							<button name="do_create" string="OK" type="object" icon="gtk-go-forward" class="oe_highlight" />
+							or
+							<button special="cancel" string="Close"  class="oe_link"/>
+						</footer>
+					</group>
+				</form>
+			</field>
+		</record>
+
+		<record id="action_official_holiday_template_wizard" model="ir.actions.act_window">
+			<field name="name">Create Holidays</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">official.holiday.template.wizard</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="wizard_official_holiday_template" />
+			<field name="multi">True</field>
+			<field name="target">new</field>
+		</record>
+
+
+		<record id="irconfig_official_holiday_template" model="ir.values">
+			<field name="model_id" ref="model_official_holiday_template" />
+			<field name="model">official.holiday.template</field>
+			<field name="name">Create Holidays</field>
+			<field name="key2">client_action_multi</field>
+			<field name="value" eval="'ir.actions.act_window,' + str(ref('action_official_holiday_template_wizard'))" />
+			<field name="key">action</field>
+		</record>
+		
+	</data>
+</openerp>

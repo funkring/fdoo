@@ -1,0 +1,339 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* dataset
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 8.0alpha1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-10-10 21:30+0000\n"
+"PO-Revision-Date: 2013-10-10 21:30+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: dataset
+#: field:dataset.field,value:0
+msgid "String Value"
+msgstr "Zeichenkette"
+
+#. module: dataset
+#: field:dataset.spec,label:0
+#: field:dataset.spec.field,label:0
+msgid "Label"
+msgstr "Bezeichnung"
+
+#. module: dataset
+#: model:ir.model,name:dataset.model_dataset_field
+msgid "Dataset Field"
+msgstr "Datensatz Feld"
+
+#. module: dataset
+#: model:ir.actions.act_window,help:dataset.action_dataset
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"                Dataset with dynamic fields \n"
+"              </p><p>\n"
+"                A Dataset is a set of undefined fields\n"
+"              </p>\n"
+"            "
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
+"                Dynamischer Datensatz\n"
+"              </p><p>\n"
+"                Dynamischer bzw. erweiterbarer Datensatz.  Felder sind nicht fix definiert\n"
+"              </p>\n"
+""
+
+#. module: dataset
+#: model:ir.model,name:dataset.model_dataset_spec_field
+msgid "Dataset Specification Field"
+msgstr "Datensatz Feldspezifikation"
+
+#. module: dataset
+#: selection:dataset.view.rule,option:0
+msgid "Include"
+msgstr "Inkludieren"
+
+#. module: dataset
+#: field:dataset.field,type:0
+#: field:dataset.spec.field,type:0
+msgid "Type"
+msgstr "Typ"
+
+#. module: dataset
+#: field:dataset.dataset,parent_right:0
+msgid "Right Parent"
+msgstr "Rechter Elternteil"
+
+#. module: dataset
+#: field:dataset.dataset,name:0
+#: field:dataset.field,name:0
+#: field:dataset.spec,name:0
+#: field:dataset.spec.field,name:0
+#: field:dataset.view,name:0
+msgid "Name"
+msgstr ""
+
+#. module: dataset
+#: field:dataset.spec,description:0
+#: field:dataset.spec.field,description:0
+msgid "Description"
+msgstr "Beschreibung"
+
+#. module: dataset
+#: selection:dataset.field,type:0
+#: selection:dataset.spec.field,type:0
+msgid "String"
+msgstr "Zeichenkette"
+
+#. module: dataset
+#: view:dataset.view:0
+msgid "Views"
+msgstr "Ansichten"
+
+#. module: dataset
+#: view:dataset.view:0
+#: field:dataset.view,rule_ids:0
+msgid "Rules"
+msgstr "Regeln"
+
+#. module: dataset
+#: field:dataset.spec,max_versions:0
+msgid "Max Versions"
+msgstr "Anzahl der Versionen"
+
+#. module: dataset
+#: field:dataset.field,value_float:0
+msgid "Float Value"
+msgstr "Float wert"
+
+#. module: dataset
+#: field:dataset.dataset,parent_id:0
+msgid "Next Version"
+msgstr "Nächste Version"
+
+#. module: dataset
+#: view:dataset.spec:0
+msgid "Dataset Specifications"
+msgstr "Datensatz Spezfikation"
+
+#. module: dataset
+#: selection:dataset.field,type:0
+#: selection:dataset.spec.field,type:0
+msgid "Integer"
+msgstr ""
+
+#. module: dataset
+#: view:dataset.view:0
+#: field:dataset.view.rule,view_id:0
+#: model:ir.actions.act_window,name:dataset.action_dataset_view
+msgid "View"
+msgstr "Ansicht"
+
+#. module: dataset
+#: help:dataset.spec,max_versions:0
+msgid "Count of Versions to Keep in Database"
+msgstr "Anzahl der Versionen die in der Datenbank gehalten werden"
+
+#. module: dataset
+#: view:dataset.dataset:0
+msgid "Datasets"
+msgstr "Datensätze"
+
+#. module: dataset
+#: field:dataset.view.rule,field_view_id:0
+msgid "Field View"
+msgstr "Feld Ansicht"
+
+#. module: dataset
+#: view:dataset.dataset:0
+#: field:dataset.dataset,version_ids:0
+msgid "Versions"
+msgstr "Versionen"
+
+#. module: dataset
+#: view:dataset.dataset:0
+#: field:dataset.dataset,field_ids:0
+#: view:dataset.spec:0
+#: field:dataset.spec,field_ids:0
+msgid "Fields"
+msgstr "Felder"
+
+#. module: dataset
+#: view:dataset.spec:0
+#: field:dataset.spec.field,spec_id:0
+#: model:ir.actions.act_window,name:dataset.action_dataset_spec
+#: model:ir.model,name:dataset.model_dataset_spec
+#: model:ir.ui.menu,name:dataset.menu_dataset_spec
+msgid "Dataset Specification"
+msgstr "Datensatz Spezifikation"
+
+#. module: dataset
+#: selection:dataset.field,type:0
+#: selection:dataset.spec.field,type:0
+msgid "List"
+msgstr "Liste"
+
+#. module: dataset
+#: view:dataset.view:0
+msgid "Rule"
+msgstr "Regel"
+
+#. module: dataset
+#: model:ir.model,name:dataset.model_dataset_view
+msgid "Dataset View"
+msgstr "Datensatz Ansicht"
+
+#. module: dataset
+#: model:ir.actions.act_window,help:dataset.action_dataset_spec
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"					Dataset Specification\n"
+"				</p>\n"
+"				<p>\n"
+"					The dataset specification describes datsets with the\n"
+"					same name, and specifies its types\n"
+"				</p>\n"
+"			"
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
+"					Datensatz Spezifikation\n"
+"				</p>\n"
+"				<p>\n"
+"					Die Datensatz Spezifikation beschreibt Datensätze mit dem selben Namen genauer. Vor allem werden die Typen festgelegt.				</p>\n"
+""
+
+#. module: dataset
+#: field:dataset.view.rule,name:0
+msgid "Alias"
+msgstr ""
+
+#. module: dataset
+#: view:dataset.dataset:0
+msgid "Search Dataset"
+msgstr "Datensatz Suche"
+
+#. module: dataset
+#: view:dataset.view:0
+msgid "Search View"
+msgstr "Suchansicht"
+
+#. module: dataset
+#: field:dataset.view.rule,sequence:0
+msgid "Sequence"
+msgstr "Sequenz"
+
+#. module: dataset
+#: field:dataset.view,model_id:0
+msgid "Model"
+msgstr ""
+
+#. module: dataset
+#: model:ir.ui.menu,name:dataset.menu_dataset
+msgid "Dataset Data"
+msgstr "Datensatz Daten"
+
+#. module: dataset
+#: field:dataset.view.rule,option:0
+msgid "Option"
+msgstr ""
+
+#. module: dataset
+#: model:ir.actions.act_window,help:dataset.action_dataset_view
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"                Add to create a Dataset View \n"
+"              </p><p>\n"
+"                A Dataset view as a view of Data defined by User. This view could be used\n"
+"                for exporting, importing, synchronizing data.\n"
+"              </p>\n"
+"            "
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
+"                Hinzufügen klicken um ein neue Datensatz Ansicht zu erzeugen \n"
+"              </p><p>\n"
+"                Eine Datensatzansicht ist eine benutzerdefiniert Ansicht der Daten. Die Ansicht kann zum Export, Import und zur Synchronisation der Daten verwendet werden.              </p>\n"
+""
+
+#. module: dataset
+#: field:dataset.dataset,parent_left:0
+msgid "Left Parent"
+msgstr "Linker Elternteil"
+
+#. module: dataset
+#: field:dataset.dataset,uuid:0
+msgid "UUID"
+msgstr ""
+
+#. module: dataset
+#: selection:dataset.field,type:0
+#: selection:dataset.spec.field,type:0
+msgid "Reference"
+msgstr "Referenz"
+
+#. module: dataset
+#: view:dataset.dataset:0
+#: field:dataset.dataset,field_id:0
+#: view:dataset.spec:0
+#: field:dataset.view.rule,field_id:0
+msgid "Field"
+msgstr "Feld"
+
+#. module: dataset
+#: selection:dataset.field,type:0
+#: selection:dataset.spec.field,type:0
+msgid "Text"
+msgstr ""
+
+#. module: dataset
+#: selection:dataset.field,type:0
+#: selection:dataset.spec.field,type:0
+msgid "Float"
+msgstr ""
+
+#. module: dataset
+#: field:dataset.view.rule,field_relation:0
+msgid "Field Relation"
+msgstr "Feld Relation"
+
+#. module: dataset
+#: view:dataset.dataset:0
+#: field:dataset.field,dataset_id:0
+#: model:ir.actions.act_window,name:dataset.action_dataset
+#: model:ir.model,name:dataset.model_dataset_dataset
+msgid "Dataset"
+msgstr "Datensatz"
+
+#. module: dataset
+#: field:dataset.field,value_text:0
+msgid "Text Value"
+msgstr "Text Wert"
+
+#. module: dataset
+#: view:dataset.dataset:0
+msgid "Version"
+msgstr ""
+
+#. module: dataset
+#: model:ir.ui.menu,name:dataset.menu_dataset_view
+msgid "Dataset Views"
+msgstr "Datensatz Ansicht"
+
+#. module: dataset
+#: field:dataset.field,value_int:0
+msgid "Integer Value"
+msgstr "Integer wert"
+
+#. module: dataset
+#: selection:dataset.view.rule,option:0
+msgid "Exclude"
+msgstr "Exkludieren"
+
+#. module: dataset
+#: field:dataset.spec.field,type_spec_id:0
+msgid "Type Specification"
+msgstr "Typen Spezifikation"
+
+#. module: dataset
+#: model:ir.model,name:dataset.model_dataset_view_rule
+msgid "Dataset Rule"
+msgstr "Datensatz Regel"
+

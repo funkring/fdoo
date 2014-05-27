@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <report id="report_sale_order_pdf"
+        	     override_id="sale.report_sale_order"
+               string="Quotation / Order"
+               name="sale.report_saleorder"
+               auto="False"
+               report_type="aeroo"
+               process_sep="True"
+               model="sale.order"
+               in_format="oo-odt"
+               out_format="oo-pdf"
+               parser="at_sale/report/sale_order_report.py"
+               rml="at_sale/report/sale_order_report.odt"/>
+    </data>
+</openerp>

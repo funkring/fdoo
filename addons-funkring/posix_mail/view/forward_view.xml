@@ -1,0 +1,49 @@
+<openerp>
+	<data>
+
+		<record id="form_mailforward" model="ir.ui.view">
+			<field name="name">posix.form_mailforward</field>
+			<field name="model">posix.mailforward</field>
+			<field name="arch" type="xml">
+				<form string="Mail Forward" version="7.0">
+					<sheet>
+						<group>
+							<label for="from_name"/>
+							<div>
+								<field name="from_name" style="width: 75%%"/>
+								<field name="from_domain_id" nolabel="1" style="width: 20%%"/>
+							</div>
+							<field name="from_email" invisible="1" />
+							<label for="to_name"/>
+							<div>
+								<field name="to_name" style="width: 75%%"/>
+								<field name="to_domain_id" nolabel="1" style="width: 20%%"/>
+							</div>
+							<field name="to_email" invisible="1" /> 
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="tree_mailforward" model="ir.ui.view">
+			<field name="name">posix.tree_mailforward</field>
+			<field name="model">posix.mailforward</field>
+			<field name="arch" type="xml">
+				<tree string="Mail Forward" >
+					<field name="from_email" />
+					<field name="to_email" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_mailforward" model="ir.actions.act_window">
+			<field name="name">Mail Forward</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">posix.mailforward</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+	</data>
+</openerp>	

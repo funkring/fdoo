@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>    	    	
+    	<menuitem id="menu_system" name="System" sequence="30"
+    		 parent="base.menu_administration"/>
+    	
+    	<menuitem id="menu_system_org" name="Organisation" sequence="0"
+    		 parent="menu_system"/>
+    		 
+    	<menuitem id="menu_domain" name="Domains" parent="menu_system_org" sequence="0"
+    		  action="action_domain"/>		
+           
+    </data>    
+</openerp>
