@@ -735,7 +735,6 @@ class BaseModel(object):
     _event = None
     _chgnotify_enabled = False
     #funkring.net end
-    _invalids = set()
     _log_create = False
     _sql_constraints = []
     _protected = ['read', 'write', 'create', 'default_get', 'perm_read', 'unlink', 'fields_get', 'fields_view_get', 'search', 'name_get', 'distinct_field_get', 'name_search', 'copy', 'import_data', 'search_count', 'exists']
@@ -1552,14 +1551,11 @@ class BaseModel(object):
 
             yield dbid, xid, converted, dict(extras, record=stream.index)
 
-    def get_invalid_fields(self, cr, uid):
-        return list(self._invalids)
-
     def _validate(self, cr, uid, ids, context=None):
         context = context or {}
         #funkring.net begin // default lang
         lng = context.get('lang') or tools.config.defaultLang
-        #funkring.net end 
+        #funkring.net end
         trans = self.pool.get('ir.translation')
         error_msgs = []
         for constraint in self._constraints:
@@ -1568,7 +1564,7 @@ class BaseModel(object):
                 # We don't pass around the context here: validation code
                 # must always yield the same results.
                 valid = fun(self, cr, uid, ids)
-                extra_error = None 
+                extra_error = None
             except Exception, e:
                 _logger.debug('Exception while validating constraint', exc_info=True)
                 valid = False
@@ -1577,12 +1573,9 @@ class BaseModel(object):
                 # Check presence of __call__ directly instead of using
                 # callable() because it will be deprecated as of Python 3.0
                 if hasattr(msg, '__call__'):
-                    tmp_msg = msg(self, cr, uid, ids, context=context)
-                    if isinstance(tmp_msg, tuple):
-                        tmp_msg, params = tmp_msg
-                        translated_msg = tmp_msg % params
-                    else:
-                        translated_msg = tmp_msg
+                    translated_msg = msg(self, cr, uid, ids, context=context)
+                    if isinstance(translated_msg, tuple):
+                        translated_msg = translated_msg[0] % translated_msg[1]
                 else:
                     translated_msg = trans._get_source(cr, uid, self._name, 'constraint', lng, msg)
                 if extra_error:
@@ -1590,11 +1583,8 @@ class BaseModel(object):
                 error_msgs.append(
                         _("The field(s) `%s` failed against a constraint: %s") % (', '.join(fields), translated_msg)
                 )
-                self._invalids.update(fields)
         if error_msgs:
             raise except_orm('ValidateError', '\n'.join(error_msgs))
-        else:
-            self._invalids.clear()
 
     def default_get(self, cr, uid, fields_list, context=None):
         """
@@ -2243,7 +2233,7 @@ class BaseModel(object):
     def _read_group_prepare(self, orderby, aggregated_fields, annotated_groupbys, query):
         """
         Prepares the GROUP BY and ORDER BY terms for the read_group method. Adds the missing JOIN clause
-        to the query if order should be computed against m2o field. 
+        to the query if order should be computed against m2o field.
         :param orderby: the orderby definition in the form "%(field)s %(order)s"
         :param aggregated_fields: list of aggregated fields in the query
         :param annotated_groupbys: list of dictionaries returned by _read_group_process_groupby
@@ -2294,10 +2284,10 @@ class BaseModel(object):
         qualified_field = self._inherits_join_calc(split[0], query)
         if temporal:
             display_formats = {
-                'day': 'dd MMM YYYY', 
-                'week': "'W'w YYYY", 
-                'month': 'MMMM YYYY', 
-                'quarter': 'QQQ YYYY', 
+                'day': 'dd MMM YYYY',
+                'week': "'W'w YYYY",
+                'month': 'MMMM YYYY',
+                'quarter': 'QQQ YYYY',
                 'year': 'YYYY'
             }
             time_intervals = {
@@ -2315,9 +2305,9 @@ class BaseModel(object):
         return {
             'field': split[0],
             'groupby': gb,
-            'type': field_type, 
+            'type': field_type,
             'display_format': display_formats[gb_function or 'month'] if temporal else None,
-            'interval': time_intervals[gb_function or 'month'] if temporal else None,                
+            'interval': time_intervals[gb_function or 'month'] if temporal else None,
             'tz_convert': tz_convert,
             'qualified_field': qualified_field
         }
@@ -2340,7 +2330,7 @@ class BaseModel(object):
 
     def _read_group_get_domain(self, groupby, value):
         """
-            Helper method to construct the domain corresponding to a groupby and 
+            Helper method to construct the domain corresponding to a groupby and
             a given value. This is mostly relevant for date/datetime.
         """
         if groupby['type'] in ('date', 'datetime') and value:
@@ -2358,9 +2348,9 @@ class BaseModel(object):
 
     def _read_group_format_result(self, data, annotated_groupbys, groupby, groupby_dict, domain, context):
         """
-            Helper method to format the data contained in the dictianary data by 
-            adding the domain corresponding to its values, the groupbys in the 
-            context and by properly formatting the date/datetime values. 
+            Helper method to format the data contained in the dictianary data by
+            adding the domain corresponding to its values, the groupbys in the
+            context and by properly formatting the date/datetime values.
         """
         domain_group = [dom for gb in annotated_groupbys for dom in self._read_group_get_domain(gb, data[gb['groupby']])]
         for k,v in data.iteritems():
@@ -2368,7 +2358,7 @@ class BaseModel(object):
             if gb and gb['type'] in ('date', 'datetime') and v:
                 data[k] = babel.dates.format_date(v, format=gb['display_format'], locale=context.get('lang', 'en_US'))
 
-        data['__domain'] = domain_group + domain 
+        data['__domain'] = domain_group + domain
         if len(groupby) - len(annotated_groupbys) >= 1:
             data['__context'] = { 'group_by': groupby[len(annotated_groupbys):]}
         del data['id']
@@ -2382,19 +2372,19 @@ class BaseModel(object):
         :param uid: current user id
         :param domain: list specifying search criteria [['field_name', 'operator', 'value'], ...]
         :param list fields: list of fields present in the list view specified on the object
-        :param list groupby: list of groupby descriptions by which the records will be grouped.  
+        :param list groupby: list of groupby descriptions by which the records will be grouped.
                 A groupby description is either a field (then it will be grouped by that field)
                 or a string 'field:groupby_function'.  Right now, the only functions supported
-                are 'day', 'week', 'month', 'quarter' or 'year', and they only make sense for 
+                are 'day', 'week', 'month', 'quarter' or 'year', and they only make sense for
                 date/datetime fields.
         :param int offset: optional number of records to skip
         :param int limit: optional max number of records to return
-        :param dict context: context arguments, like lang, time zone. 
+        :param dict context: context arguments, like lang, time zone.
         :param list orderby: optional ``order by`` specification, for
                              overriding the natural sort ordering of the
                              groups, see also :py:meth:`~osv.osv.osv.search`
                              (supported only for many2one fields currently)
-        :param bool lazy: if true, the results are only grouped by the first groupby and the 
+        :param bool lazy: if true, the results are only grouped by the first groupby and the
                 remaining groupbys are put in the __context key.  If false, all the groupbys are
                 done in one call.
         :return: list of dictionaries(one dictionary for each record) containing:
@@ -2409,12 +2399,12 @@ class BaseModel(object):
         if context is None:
             context = {}
         self.check_access_rights(cr, uid, 'read')
-        query = self._where_calc(cr, uid, domain, context=context) 
+        query = self._where_calc(cr, uid, domain, context=context)
         fields = fields or self._columns.keys()
 
         groupby = [groupby] if isinstance(groupby, basestring) else groupby
         groupby_list = groupby[:1] if lazy else groupby
-        annotated_groupbys = [self._read_group_process_groupby(gb, query, context) 
+        annotated_groupbys = [self._read_group_process_groupby(gb, query, context)
                                     for gb in groupby_list]
         groupby_fields = [g['field'] for g in annotated_groupbys]
         order = orderby or ','.join([g for g in groupby_list])
@@ -2482,7 +2472,7 @@ class BaseModel(object):
         if many2onefields:
             data_ids = [r['id'] for r in fetched_data]
             many2onefields = list(set(many2onefields))
-            data_dict = {d['id']: d for d in self.read(cr, uid, data_ids, many2onefields, context=context)} 
+            data_dict = {d['id']: d for d in self.read(cr, uid, data_ids, many2onefields, context=context)}
             for d in fetched_data:
                 d.update(data_dict[d['id']])
 
@@ -2492,7 +2482,7 @@ class BaseModel(object):
             # Right now, read_group only fill results in lazy mode (by default).
             # If you need to have the empty groups in 'eager' mode, then the
             # method _read_group_fill_results need to be completely reimplemented
-            # in a sane way 
+            # in a sane way
             result = self._read_group_fill_results(cr, uid, domain, groupby_fields[0], groupby[len(annotated_groupbys):],
                                                        aggregated_fields, result, read_group_order=order,
                                                        context=context)
@@ -3955,7 +3945,7 @@ class BaseModel(object):
                         src_trans = self.pool.get(self._name).read(cr, user, ids, [f],baselang_ctx)[0][f] or None
                         cur_trans = vals[f] or None
                         if not src_trans: # or cur_lang == default_lang : #if it is the default lang than override the source
-                            src_trans = cur_trans                        
+                            src_trans = cur_trans
                             # Inserting value to DB
                             self.write(cr, user, ids, {f: cur_trans},baselang_ctx)
                         # funkring.net end
@@ -5174,11 +5164,11 @@ class BaseModel(object):
         # read() ignores active_test, but it would forward it to any downstream search call
         # (e.g. for x2m or function fields), and this is not the desired behavior, the flag
         # was presumably only meant for the main search().
-        # TODO: Move this to read() directly?                                                                                                
-        read_ctx = dict(context or {})                                                                                                       
-        read_ctx.pop('active_test', None)                                                                                                    
-                                                                                                                                             
-        result = self.read(cr, uid, record_ids, fields, context=read_ctx) 
+        # TODO: Move this to read() directly?
+        read_ctx = dict(context or {})
+        read_ctx.pop('active_test', None)
+
+        result = self.read(cr, uid, record_ids, fields, context=read_ctx)
         if len(result) <= 1:
             return result
 
@@ -5189,7 +5179,7 @@ class BaseModel(object):
     def _register_hook(self, cr):
         """ stuff to do right after the registry is built """
         pass
-    
+
     def _chgnotify(self,cr,uid,context=None):
         if self._chgnotify_enabled and (not context or not context.get("chgnotify_disabled")):
             sender = context.get("chgnotify_sender")

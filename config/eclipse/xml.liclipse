@@ -1,0 +1,486 @@
+scope_to_color_name: {
+  tag: foreground,
+  default: foreground,
+  doubleQuotedString: string,
+  singleQuotedString: string,
+  cdata: foreground,
+  close_class: class,
+  close_tag: bracket,
+  open_tag: bracket,
+  open_tag_close: bracket
+}
+scope_definition_rules:
+  # Note that the order of the  rules is actually important.
+  - {type: MultiLineRule, scope: multiLineComment, start: '<!--', end: '-->', escapeCharacter: '\0'}
+  - {type: MultiLineRule, scope: cdata, start: '<![CDATA[', end: ']]>', escapeCharacter: '\0'}
+  - {type: MultiLineRuleWithSkip, scope: tag, start: '<', end: '>', escapeCharacter: '\0',
+      skip_rules:[
+        #Needed because if we find the end sequence within a string, we want to skip it.
+        {type: MultiLineRule, scope: unused0, start: '"', end: '"', escapeCharacter: '\0'},
+        {type: MultiLineRule, scope: unused1, start: "'", end: "'",  escapeCharacter: '\0'},
+      ]
+    }
+scope:
+  tag:
+    operator: ['=']
+    bracket: ['<', '>', '/', '?'] # Note: the opening '<' is 'usually' matched in the CompositeRule below.
+    sub_rules: [
+
+      {type: CompositeRule, sub_rules: [
+        { type: SequenceRule, scope: open_tag, sequence: '<'},
+        { type: AnyWordRule, scope: class }]
+      },
+      # Closing </tag> (identify closing a tag that was previously opened)
+      {type: CompositeRule, sub_rules: [
+        { type: SequenceRule, scope: close_tag, sequence: '</'},
+        { type: AnyWordRule, scope: close_class }]
+      },
+      # Attributes
+      {type: AnyWordRule, scope: keyword},
+
+      # Note: we have no escape chars on xml.
+      {type: MultiLineRule, scope: doubleQuotedString, start: '"', end: '"',  escapeCharacter: '\0'},
+
+      {type: MultiLineRule, scope: singleQuotedString, start: "'", end: "'",  escapeCharacter: '\0'},
+
+      #closing /> (identify a 'full' tag)
+      { type: SequenceRule, scope: open_tag_close, sequence: '/>'},
+
+    ]
+
+file_extensions: [xml, xsd]
+
+shebang: "<\\?xml"
+
+filename: [.pydevproject, .project, .classpath]
+
+name: XML
+
+outline:
+  - {type: Scope, scope: [tag, class], define: class}
+
+indent: {
+  type: scopes, #scopes define increasing or decreasing a level
+  scope: tag, #Only 'see' tag scopes when parsing.
+  scope_start: [tag.open_tag], #on open tag raise the indent level
+  scope_end: [tag.close_tag, tag.open_tag_close], #on close tag lower the indent level
+  outline_scopes: [class], #Scopes are created where the outline defines a class
+}
+
+
+comment: {type: multiLine, start: '<!--', end: '-->', scope: multiLineComment}
+
+auto_edit:
+  - {auto_close_scopes: [tag], scope: default} #To work, the scopes must be: SingleLineRule(sequence used for start/end)
+  - {auto_close_parens: ['<'], scope: default} #Will close the parens if it's not properly balanced
+  - {auto_skip_parens: ['>'], scope: tag} #Will skip the close parens if it's properly balanced
+
+templates:
+- name: 'surround with tag'
+  description: "Surround with tag"
+  pattern: '<${tag}>${selection}${cursor}</${tag}>'
+
+- name: ''
+  description: "Convert previous word to a tag."
+  pattern: '<${previous_word}>${cursor}</${previous_word}>'
+
+- name: 'o_action_tree'
+  description: 'Action for tree'
+  pattern:
+    |
+    <record id="action_${name}_tree" model="ir.actions.act_window">
+      <field name="name">${title}</field>
+      <field name="res_model">${model}</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="${view_id}"/>
+      <field name="context">${context}</field>
+      <field name="search_view_id" ref="${search_view_id}"/>
+    </record>
+
+- name: 'o_action_wizard'
+  description: 'OpenERP: Action for wizard'
+  pattern:
+    |
+    <record id="action_${name}" model="ir.actions.act_window">
+      <field name="name">${title}</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">${model}</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="${view_id}"/>
+      <field name="multi">True</field>
+      <field name="target">new</field>
+    </record>
+
+- name: 'o_action_wizard_irconfig'
+  description: 'OpenERP: Action for wizard irconfig'
+  pattern:
+    |
+    <record id="irconfig_${name}" model="ir.values">
+      <field name="model_id" ref="${model_id}" />
+      <field name="model">${model}</field>
+      <field name="object" eval="1" />
+      <field name="name">${title}</field>
+      <field name="key2">client_action_multi</field>
+      <field name="value" eval="'ir.actions.act_window,' + str(ref('${action_id}'))" />
+      <field name="key">action</field>
+    </record>
+
+- name: 'o_action_wizard_multi'
+  description: 'OpenERP: Wizard action multiline'
+  pattern:
+    |
+    <act_window id="action_${name}"
+      multi="True"
+      key2="client_action_multi"
+      name="${title}"
+      res_model="${wizard_model}"
+      src_model="${model}"
+      view_mode="form"
+      target="new"
+      view_type="form"
+      view_id="wizard_${name}"/>
+
+- name: 'o_category'
+  description: 'OpenERP: Category'
+  pattern:
+    |
+    <record model="ir.module.category" id="module_category_${category}">
+      <field name="name">${name}</field>
+      <field name="visible" eval="0" />
+    </record>
+
+- name: 'o_data'
+  description: 'OpenERP: Data'
+  pattern:
+    |
+    <openerp>
+      <data>
+        ${cursor}
+      </data>
+    </openerp>
+
+- name: 'o_group'
+  description: 'OpenERP: Group'
+  pattern:
+    |
+    <record id="group_${group}" model="res.groups">
+      <field name="name">${name}</field>
+      <field name="category_id" ref="${category_id}"/>
+      <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+- name: 'o_inherit'
+  description: 'OpenERP: Inherit'
+  pattern:
+    |
+    <record id="${type}_${name}" model="ir.ui.view">
+      <field name="name">${modul}.${type}_${name}</field>
+      <field name="model">${model}</field>
+      <field name="inherit_id" ref="${modul}.${super_form_id}"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+         ${cursor}
+      </field>
+    </record>
+
+- name: 'o_inherit_board'
+  description: 'OpenERP: Inherit board'
+  pattern:
+    |
+    <record id="${type}_${name}" model="ir.ui.view">
+      <field name="name">${modul}.${type}_${name}</field>
+      <field name="model">${model}</field>
+      <field name="inherit_id" ref="${modul}.${super_form_id}"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        ${cursor}
+      </field>
+    </record>
+
+- name: 'o_inherit_form'
+  description: 'OpenERP: Inherit form'
+  pattern:
+    |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <openerp>
+     <data>
+        <record id="form_${name}" model="ir.ui.view">
+          <field name="name">${modul}.form_${name}</field>
+          <field name="model">${model}</field>
+          <field name="inherit_id" ref="${base_modul}.${super_form_id}"/>
+          <field name="arch" type="xml">
+            ${cursor}
+          </field>
+        </record>
+      </data>
+    </openerp>
+
+- name: 'o_inherit_tree'
+  description: 'OpenERP: Inherit tree'
+  pattern:
+    |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <openerp>
+      <data>
+        <record id="tree_${name}" model="ir.ui.view">
+          <field name="name">${modul}.tree_${name}</field>
+          <field name="model">${model}</field>
+          <field name="inherit_id" ref="${modul}.${super_form_id}"/>
+            <field name="arch" type="xml">
+              ${cursor}
+            </field>
+        </record>
+      </data>
+    </openerp>
+
+- name: 'o_property'
+  description: 'OpenERP: Property'
+  pattern:
+    |
+    <record id="${name}" model="ir.property">
+      <field name="name">${name}</field>
+      <field name="fields_id" search="[('model','=','${owner_model}'),('name','=','${name}')]"/>
+      <field name="value" eval="'${value_model},'+str(list0)"/>
+    </record>
+
+- name: 'o_record'
+  description: 'OpenERP: Record'
+  pattern:
+    |
+    <record id="${name}" model="${model}">
+      <field name="name">${description}</field>
+      ${cursor}
+    </record>
+
+- name: 'o_report'
+  description: 'OpenERP: Report'
+  pattern:
+    |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <openerp>
+      <data>
+        <report id="report_${name}_pdf"
+          string="${title}"
+          name="${name}"
+          auto="False"
+          report_type="aeroo"
+          model="${model}"
+          in_format="oo-odt"
+          out_format="oo-pdf"
+          parser="${addon}/${parser}.py"
+          rml="${addon}/${template}.odt"/>
+      </data>
+    </openerp>
+
+- name: 'o_right_all'
+  description: 'OpenERP: Access right all'
+  pattern:
+    |
+    <record id="access_${model}_all" model="ir.model.access">
+      <field name="name">${model}/all</field>
+      <field name="model_id" ref="model_${model}"/>
+      <field name="perm_read" eval="${read}"/>
+      <field name="perm_unlink" eval="${delete}"/>
+      <field name="perm_create" eval="${create}"/>
+      <field name="perm_write" eval="${write}"/>
+    </record>
+
+- name: 'o_right_other_modul'
+  description: 'OpenERP: Access right other module'
+  pattern:
+    |
+    <record id="access_${model}_${group}" model="ir.model.access">
+      <field name="name">${model}/${group}</field>
+      <field name="model_id" ref="${modul}.model_${model}"/>
+      <field name="group_id" ref="${modul}.group_${group}"/>
+      <field name="perm_read" eval="${read}"/>
+      <field name="perm_unlink" eval="${delete}"/>
+      <field name="perm_create" eval="${create}"/>
+      <field name="perm_write" eval="${write}"/>
+    </record>
+
+- name: 'o_right_same_modul'
+  description: 'OpenERP: Access right same module'
+  pattern:
+    |
+    <record id="access_${model}_${group}" model="ir.model.access">
+      <field name="name">${model}/${group}</field>
+      <field name="model_id" ref="model_${model}"/>
+      <field name="group_id" ref="group_${group}"/>
+      <field name="perm_read" eval="${read}"/>
+      <field name="perm_unlink" eval="${delete}"/>
+      <field name="perm_create" eval="${create}"/>
+      <field name="perm_write" eval="${write}"/>
+    </record>
+
+- name: 'o_right_user_other_modul'
+  description: 'OpenERP: Access right user other module'
+  pattern:
+    |
+    <record id="access_${model}_${group}" model="ir.model.access">
+      <field name="name">${model}/${group}</field>
+      <field name="model_id" ref="model_${model}"/>
+      <field name="group_id" ref="${modul}.group_${group}"/>
+      <field name="perm_read" eval="${read}"/>
+      <field name="perm_unlink" eval="${delete}"/>
+      <field name="perm_create" eval="${create}"/>
+      <field name="perm_write" eval="${write}"/>
+    </record>
+
+- name: 'o_rule'
+  description: 'OpenERP: rule'
+  pattern:
+    |
+    <record id="rule_${model}_${name}" model="ir.rule">
+      <field name="name">${model}/${name}</field>
+      <field name="model_id" ref="model_${model}"/>
+      <field name="domain_force">${domain}</field>
+      <field name="groups" eval="[(4,ref('${group}'))]"/>
+      <field name="perm_read" eval="${read}"/>
+      <field name="perm_write" eval="${write}"/>
+      <field name="perm_create" eval="${create}"/>
+      <field name="perm_unlink" eval="${unlink}"/>
+    </record>
+
+- name: 'o_search'
+  description: 'OpenERP: search'
+  pattern:
+    |
+    <record id="search_${name}" model="ir.ui.view">
+      <record id="search_${name}" model="ir.ui.view">
+        <field name="name">${modul}.search_${name}</field>
+          <field name="model">${model}</field>
+          <field name="arch" type="xml">
+            <search string="Search ${one}">
+              <!--field name="name" filter_domain="['|', ('name','ilike',self), ('otherfield','ilike',self)]" string="${one}"/ -->
+              <!--filter string="Some State" domain="[('state','=','draft')]" icon="terp-camera_test"/ -->
+              <!--field name="state"/ -->
+              <!--
+              <group expand="0" string="Group By...">
+               <filter string="Status" context="{'group_by': 'state'}" icon="terp-stock_effects-object-colorize"/>
+              </group>
+              -->
+            </search>
+            </field>
+        </record>
+    </record>
+
+- name: 'o_view'
+  description: 'OpenERP: view'
+  pattern:
+    |
+    <record id="form_${name}" model="ir.ui.view">
+      <field name="name">${modul}.form_${name}</field>
+      <field name="model">${model}</field>
+      <field name="arch" type="xml">
+        <form string="${one}" version="7.0">
+          ${cursor}
+        </form>
+      </field>
+    </record>
+
+- name: 'o_viewtree_simple'
+  description: 'OpenERP: Simple form and tree view'
+  pattern:
+    |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <openerp>
+      <data>
+        <record id="form_${name}" model="ir.ui.view">
+          <field name="name">${modul}.form_${name}</field>
+          <field name="model">${model}</field>
+          <field name="arch" type="xml">
+            <form string="${one}" version="7.0">
+              ${cursor}
+            </form>
+          </field>
+        </record>
+
+        <record id="tree_${name}" model="ir.ui.view">
+          <field name="name">${modul}.tree_${name}</field>
+          <field name="model">${model}</field>
+          <field name="arch" type="xml">
+            <tree string="${more}">
+
+            </tree>
+          </field>
+        </record>
+
+        <record id="search_${name}" model="ir.ui.view">
+          <field name="name">${modul}.search_${name}</field>
+          <field name="model">${model}</field>
+          <field name="arch" type="xml">
+            <search string="Search ${one}">
+              <!--field name="name" filter_domain="['|', ('name','ilike',self), ('otherfield','ilike',self)]" string="${one}"/ -->
+              <!--filter string="Some State" domain="[('state','=','draft')]" icon="terp-camera_test"/ -->
+              <!--field name="state"/ -->
+              <!--
+              <group expand="0" string="Group By...">
+                <filter string="Status" context="{'group_by': 'state'}" icon="terp-stock_effects-object-colorize"/>
+              </group>
+              -->
+            </search>
+          </field>
+        </record>
+
+        <record id="action_${name}" model="ir.actions.act_window">
+          <field name="name">${one}</field>
+          <field name="res_model">${model}</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">tree,form</field>
+          <!--
+          <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+              Header Description
+            </p><p>
+              Detail Description
+            </p>
+          </field>
+          -->
+        </record>
+
+        <menuitem id="menu_${name}" name="${one}" parent="${parent}"
+          sequence="${sequence}"
+          action="action_${name}"/>
+      </data>
+    </openerp>
+
+- name: 'o_wizard'
+  description: 'OpenERP: Wizard'
+  pattern:
+    |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <openerp>
+      <data>
+        <record id="wizard_${name}" model="ir.ui.view">
+          <field name="name">${modul}.wizard_${name}</field>
+          <field name="model">${model}</field>
+          <field name="arch" type="xml">
+            <form string="Transport Wizard" version="7.0">
+              <group>
+                <group>
+                  <field name="${cursor}"/>
+                </group>
+              </group>
+              <footer>
+                <button icon="gtk-go-forward" name="do_${method}" string="${string}"  type="object" class="oe_highlight" />
+                or
+                <button special="cancel" string="Close" class="oe_link" />
+              </footer>
+            </form>
+          </field>
+        </record>
+      </data>
+    </openerp>
+
+- name: 'o_xpath'
+  description: 'OpenERP: xpath'
+  pattern:
+    |
+    <data>
+      <xpath expr="/${treeform}/${element}[@${field}='${value}']" position="${position}">
+        ${cursor}
+      </xpath>
+    </data>
