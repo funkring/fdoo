@@ -1,0 +1,49 @@
+<openerp>
+	<data>
+		<record id="search_frequency" model="ir.ui.view">
+            <field name="name">posix_net.wlan_channel</field>
+            <field name="model">posix_net.wlan_channel</field>
+            <field name="arch" type="xml">
+                <search string="Search WLAN Channel">
+                	<field name="name" filter_domain="[('name','ilike',self)]" string="WLAN Channel"/>
+               </search>
+            </field>
+		</record>
+		
+		<record id="form_posix_net_channel" model="ir.ui.view">
+			<field name="name">posix_net.form_channel</field>
+			<field name="model">posix_net.wlan_channel</field>
+			<field name="arch" type="xml">
+				<form string="Channels">
+					<field name="name" />
+					<field name="frequency" />
+					<field name="expand_lower"/>					
+				</form>
+			</field>
+		</record>
+
+		<record id="tree_posix_net_channel" model="ir.ui.view">
+			<field name="name">posix_net.tree_channel</field>
+			<field name="model">posix_net.wlan_channel</field>
+			<field name="arch" type="xml">
+				<tree string="Channels">
+					<field name="expand_lower"/>
+					<field name="name" />
+					<field name="frequency" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_posix_net_channel" model="ir.actions.act_window">
+			<field name="name">Channels</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">posix_net.wlan_channel</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+	 	<menuitem id="menu_posix_net_channel" name="Channels"
+			parent="menu_network_config_network_network_wlan" sequence="10"
+			action="action_posix_net_channel" />
+	</data>
+</openerp>

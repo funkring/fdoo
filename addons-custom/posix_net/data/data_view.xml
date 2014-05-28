@@ -1,0 +1,26 @@
+<openerp>
+	<data>
+
+			<!--  ******************************************************************* -->
+			<!--  View Definitions                                                    -->
+			<!--  ******************************************************************* -->
+					
+			<record id="ds_posix_net_iface"  model="dataset.view">
+				<field name="name">posix_net.iface</field>
+				<field name="model_id" search="[('model','=','posix_net.iface')]"/>				
+			</record>
+			
+			<!--  ******************************************************************* -->
+			<!--  View Rules                                                          -->
+			<!--  ******************************************************************* -->
+			
+			<record id="dl_posix_net_iface" model="dataset.view.rule">
+				<field name="view_id" ref="ds_posix_net_iface"/>
+				<field name="field_id" search="[('model','=','posix_net.iface'),('name','=','port_ids')]"/>
+				<field name="ltype">r</field>
+				<field name="option">v</field>
+				<field name="sequence">10</field>				
+			</record> 
+			
+	</data>
+</openerp>

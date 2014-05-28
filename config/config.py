@@ -14,61 +14,12 @@ DIR_WORKSPACE = os.path.abspath(os.path.join(DIR_CONFIG,".."))
 DIR_SERVER = DIR_WORKSPACE
 
 
-ADDONS_DEFAULT = {        
-    "addons-funkring" : "addons-funkring",
-    "addons-aeroo" : "addons-aeroo",
-    "aeroolib" : "aeroolib",
-    "addons" : "addons",
-    "psycogreen" : "psycogreen",
-    "clientlib" : "clientlib",
-    "pygal" : "pygal"
-}
-
 ADDONS_IGNORED = []
 
 ADDONS_MIGRATED = {
-    "addons-funkring" : [            
-        "base_city",
-        "l10n_chart_at_2010",
-        "at_base_data",
-        "at_base",
-        "at_product",
-        "at_account",
-        "posix",
-        "posix_mail",
-        "at_resource",
-        "at_project",
-        "at_stock",
-        "at_procurement",
-        "at_purchase",
-        "at_sale",
-        "password_management",
-        "project_checkpoint_list",
-        "product_code",
-        "at_account_payment",
-        "at_subscription",
-        "subscription_invoice",
-        "at_hr",        
-        "at_project_sale",
-        "at_timereg",
-        "at_purchase_sale",
-        "account_dunning",
-        "at_bmd",
-        "invoice_merge",
-        "invoice_payment_info",
-        "at_account_btakeover",
-        "academy",
-        "dataset",
-        "logistic",
-        "posix_log",
-        "official_holiday",
-        "at_mrp",
-        "mrp_product_calc"
-    ],
-    "addons-custom-funkring" : [
-          "posix_net",
-          "funkring"
-        ]                     
+#       "addon-path" : [
+#          "modulexy"
+#        ]
 }
 
 
@@ -78,62 +29,62 @@ def getDirs(inDir):
         if not dirName.startswith("."):
             if os.path.isdir(os.path.join(inDir,dirName)):
                 res.append(dirName)
-                
+
     return res
 
 def listDir(inDir):
     res = []
     for item in os.listdir(inDir):
-        if not item.startswith("."):            
-            res.append(item)                
-    return res  
+        if not item.startswith("."):
+            res.append(item)
+    return res
 
 
-def getMaintainedModules():   
-    addonPattern = [      
+def getMaintainedModules():
+    addonPattern = [
       os.path.join(DIR_WORKSPACE,"addons-funkring*"),
       os.path.join(DIR_WORKSPACE,"addons-custom*")
-    ] 
-      
-    addons = []      
-    for curPattern in addonPattern: 
+    ]
+
+    addons = []
+    for curPattern in addonPattern:
         for curAddonPackageDir in glob.glob(curPattern):
             curPackagePath = os.path.join(DIR_WORKSPACE,curAddonPackageDir)
-            if os.path.isdir(curPackagePath):          
+            if os.path.isdir(curPackagePath):
                 for curAddon in listDir(curPackagePath):
                     enabledPath = os.path.join(DIR_DIST_ADDONS,curAddon)
                     if os.path.exists(enabledPath):
                         addons.append(curAddon)
-                        
+
     return addons
 
 
 def getTranslations(database=None,modules=None,lang="de_DE"):
     if not modules:
         modules=",".join(getMaintainedModules())
-        
+
     if not database:
         log.error("No Database passed")
         return
-        
+
     prog = os.path.join(DIR_SERVER,"oe")
-    cmdList =[str(prog),"translation","export","--addons", str(DIR_DIST_ADDONS),"--database",database,"--module",modules]    
-    subprocess.call(cmdList)
-    
-    
-def setTranslations(database=None,modules=None,lang="de_DE"):
-    if not modules:        
-        modules=",".join(getMaintainedModules())
-        
-    if not database:
-        log.error("No Database passed")
-        return
-        
-    prog = os.path.join(DIR_SERVER,"oe")
-    cmdList =[str(prog),"translation","import","--addons", str(DIR_DIST_ADDONS),"--database",database,"--module",modules]    
+    cmdList =[str(prog),"translation","export","--addons", str(DIR_DIST_ADDONS),"--database",database,"--module",modules]
     subprocess.call(cmdList)
 
-              
+
+def setTranslations(database=None,modules=None,lang="de_DE"):
+    if not modules:
+        modules=",".join(getMaintainedModules())
+
+    if not database:
+        log.error("No Database passed")
+        return
+
+    prog = os.path.join(DIR_SERVER,"oe")
+    cmdList =[str(prog),"translation","import","--addons", str(DIR_DIST_ADDONS),"--database",database,"--module",modules]
+    subprocess.call(cmdList)
+
+
 def update(database=None,module=None,override=False):
     if not database:
         return
@@ -147,7 +98,7 @@ def update(database=None,module=None,override=False):
     if module:
         cmdList.append("--module")
         cmdList.append(module)
-                     
+
     subprocess.call(cmdList)
 
 def cleanup(database=None, fix=False, verbose=False, full=False):
@@ -157,7 +108,7 @@ def cleanup(database=None, fix=False, verbose=False, full=False):
     log.info("Cleanup Database %s" % database)
 
     prog = os.path.join(DIR_SERVER,"oe")
-    cmdList = [str(prog),"cleanup","--addons", str(DIR_DIST_ADDONS),"--database",database]    
+    cmdList = [str(prog),"cleanup","--addons", str(DIR_DIST_ADDONS),"--database",database]
     if fix:
         cmdList.append("--fix")
     if verbose:
@@ -165,7 +116,7 @@ def cleanup(database=None, fix=False, verbose=False, full=False):
     if full:
         cmdList.append("--full")
     subprocess.call(cmdList)
-    
+
 
 def findFile(directory, pattern):
     for root, dirs, files in os.walk(directory):
@@ -173,128 +124,126 @@ def findFile(directory, pattern):
             if fnmatch.fnmatch(basename, pattern):
                 filename = os.path.join(root, basename)
                 yield filename
-                
+
 def cleanupPython(directory):
     for fileName in findFile(directory,"*.pyc"):
         os.remove(fileName)
 
 def setup(onlyLinks=False):
-    
+
     dirBase = DIR_WORKSPACE
     dirEnabledAddons = DIR_DIST_ADDONS
     dirServer = DIR_SERVER
-       
-    dirFunkringAddons = os.path.join(dirBase,"addons-funkring")     
+
+    dirFunkringAddons = os.path.join(dirBase,"addons-funkring")
     dirAddons = os.path.join(dirBase,"addons")
-    dirServerAddons = os.path.join(dirServer,"openerp/addons")     
-    dirWebAddons = os.path.join(dirBase,"server-web/addons")    
-    
+    dirServerAddons = os.path.join(dirServer,"openerp/addons")
+
     #create path if not exists
     if not os.path.exists(dirEnabledAddons):
         os.makedirs(dirEnabledAddons)
-        
+
     filesToCopy = [
         "openerp/addons/__init__.py"
     ]
-    
+
     addonPattern = [
       dirFunkringAddons,
       dirServerAddons,
       dirAddons,
-      dirWebAddons,
       dirBase+"/addons*"
     ]
-         
-    ignoreAddons = ADDONS_IGNORED    
+
+    ignoreAddons = ADDONS_IGNORED
     includeAddons = ADDONS_MIGRATED
     merged = []
     updateFailed = []
-       
+
     if not onlyLinks:
         log.info("Cleanup all *.pyc Files")
-        cleanupPython(dirBase)   
-        
+        cleanupPython(dirBase)
+
     if not os.path.exists(dirEnabledAddons):
         log.info("Create directory %s" % str(dirEnabledAddons))
         os.makedirs(dirEnabledAddons)
-            
+
     t_removedLinks = 0
     t_addedLinks = 0
-    
+
     dir_processed = set()
     dir_removed = set()
     dir_added = set()
-       
+
     log.info("Delete current Symbolic links and distributed files " + str(dirEnabledAddons) + " ...")
     for curLink in glob.glob(dirEnabledAddons+'/*'):
-        curLinkPath = os.path.join(dirEnabledAddons,curLink)       
+        curLinkPath = os.path.join(dirEnabledAddons,curLink)
         #log.info("Found Link " + str(curLinkPath))
         is_link = os.path.islink(curLinkPath)
         if is_link: #or os.path.isfile(curLinkPath):
             #log.info("Remove link " + str(curLinkPath))
             os.remove(curLinkPath)
             if is_link:
-                t_removedLinks+=1            
-                dir_removed.add(os.path.basename(curLink))    
-    
+                t_removedLinks+=1
+                dir_removed.add(os.path.basename(curLink))
+
     log.info("Distribute Files " + str(dirEnabledAddons) + " ...")
     for fileToCopy in filesToCopy:
-        fileToCopyPath = os.path.join(dirBase,fileToCopy)    
+        fileToCopyPath = os.path.join(dirBase,fileToCopy)
         if os.path.exists(fileToCopyPath):
             fileDestPath = os.path.join(dirEnabledAddons,os.path.basename(fileToCopyPath))
             log.info("Copy File %s to %s " % (fileToCopyPath,fileDestPath))
             shutil.copyfile(fileToCopyPath, fileDestPath)
 
     #link per addon basis
-    for curPattern in addonPattern: 
+    for curPattern in addonPattern:
         for curAddonPackageDir in glob.glob(curPattern):
             packageName = os.path.basename(curAddonPackageDir)
             if not curAddonPackageDir in dir_processed:
                 dir_processed.add(curAddonPackageDir)
                 log.info("process: " + curAddonPackageDir)
-                if os.path.isdir(curAddonPackageDir):          
-                    #get include list                    
+                if os.path.isdir(curAddonPackageDir):
+                    #get include list
                     addonIncludeList = includeAddons.get(packageName,None)
                     #process addons
                     for curAddon in listDir(curAddonPackageDir):
                         if not curAddon in ignoreAddons and (addonIncludeList is None or curAddon in addonIncludeList):
                             curAddonPath = os.path.join(curAddonPackageDir,curAddon)
                             dstPath = os.path.join(dirEnabledAddons,curAddon)
-                            if not os.path.exists(dstPath) and not curAddonPath.endswith(".pyc"):                                         
-                                #log.info("Create addon link " + str(dstPath) + " from " + str(curAddonPath))                                
+                            if not os.path.exists(dstPath) and not curAddonPath.endswith(".pyc"):
+                                #log.info("Create addon link " + str(dstPath) + " from " + str(curAddonPath))
                                 os.symlink(curAddonPath,dstPath)
                                 t_addedLinks += 1
                                 dir_added.add(curAddon)
-                                
+
             else:
                 #log.info("processed twice: " + curAddonPackageDir)
                 pass
-     
+
     for cur_dir in dir_removed:
         if not cur_dir in dir_added:
             log.info("Removed Addin: " + cur_dir)
-            
+
     for cur_dir in dir_added:
         if not cur_dir in dir_removed:
             log.info("Addin Added: " + cur_dir)
-    
+
     if merged:
         log.info("\n\nMerged:\n * %s\n" % ("\n * ".join(merged),))
-    
+
     if updateFailed:
         log.error("\n\nUnable to update:\n * %s\n" % ("\n * ".join(updateFailed),))
-            
+
     log.info("Removed links: " + str(t_removedLinks))
     log.info("Added links: "  + str(t_addedLinks))
     log.info("Finished!")
-    
+
 
 if __name__ == "__main__":
     import optparse
-    
+
     log.basicConfig(level=log.INFO,
              format='%(asctime)s %(levelname)s %(message)s')
-    
+
     parser = optparse.OptionParser(description="Setup Util", usage="%prog [options]")
     parser.add_option("--getTranslations",dest="getTranslations",help="Get Translations of a specified database",default=None)
     parser.add_option("--setTranslations",dest="setTranslations",help="Set Translations of a specified database",default=None)
@@ -310,14 +259,14 @@ if __name__ == "__main__":
     parser.add_option("--override",dest="override",action="store_true",default=False)
     opt, args = parser.parse_args()
 
-    if opt.links:   
-        setup(onlyLinks=True) 
-    elif opt.getTranslations:        
+    if opt.links:
+        setup(onlyLinks=True)
+    elif opt.getTranslations:
         getTranslations(database=opt.getTranslations, modules=opt.module)
     elif opt.setTranslations:
         setTranslations(database=opt.setTranslations, modules=opt.module)
     elif opt.update:
-        update(database=opt.update, module=opt.module, override=opt.override)      
+        update(database=opt.update, module=opt.module, override=opt.override)
     elif opt.cleanup:
         cleanup(database=opt.cleanup, fix=opt.fix, verbose=opt.verbose, full=opt.full)
     else:

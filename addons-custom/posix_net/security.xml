@@ -1,0 +1,426 @@
+<openerp>
+	<data>
+		<record id="access_posix_net_unit_user" model="ir.model.access">
+			<field name="name">posix_net_unit/user</field>
+			<field name="model_id" ref="model_posix_net_unit" />
+			<field name="group_id" ref="posix.group_posix_user" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+		
+		<record id="access_posix_net_unit_manager" model="ir.model.access">
+			<field name="name">posix_net_unit/manager</field>
+			<field name="model_id" ref="model_posix_net_unit" />
+			<field name="group_id" ref="posix.group_posix_manager" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+
+		<record id="access_posix_net_network_user" model="ir.model.access">
+			<field name="name">posix_net_network/user</field>
+			<field name="model_id" ref="model_posix_net_network" />
+			<field name="group_id" ref="posix.group_posix_user" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+		
+		<record id="access_posix_net_network_manager" model="ir.model.access">
+			<field name="name">posix_net_network/manager</field>
+			<field name="model_id" ref="model_posix_net_network" />
+			<field name="group_id" ref="posix.group_posix_manager" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+
+		<record id="access_posix_net_frequency_mapping_user" model="ir.model.access">
+			<field name="name">posix_net_frequency_mapping/user</field>
+			<field name="model_id" ref="model_posix_net_frequency_mapping" />
+			<field name="group_id" ref="posix.group_posix_user" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+		
+		<record id="access_posix_net_frequency_mapping_manager" model="ir.model.access">
+			<field name="name">posix_net_frequency_mapping/manager</field>
+			<field name="model_id" ref="model_posix_net_frequency_mapping" />
+			<field name="group_id" ref="posix.group_posix_manager" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+
+		<record id="access_posix_net_frequency_mapping_line_user" model="ir.model.access">
+			<field name="name">posix_net_frequency_mapping_line/user</field>
+			<field name="model_id" ref="model_posix_net_frequency_mapping_line" />
+			<field name="group_id" ref="posix.group_posix_user" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+		
+		<record id="access_posix_net_frequency_mapping_line_manager" model="ir.model.access">
+			<field name="name">posix_net_frequency_mapping_line/manager</field>
+			<field name="model_id" ref="model_posix_net_frequency_mapping_line" />
+			<field name="group_id" ref="posix.group_posix_manager" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+
+		<record id="access_posix_net_unit_type_user" model="ir.model.access">
+			<field name="name">posix_net_unit_type/user</field>
+			<field name="model_id" ref="model_posix_net_unit_type" />
+			<field name="group_id" ref="posix.group_posix_user" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+		
+		<record id="access_posix_net_unit_type_manager" model="ir.model.access">
+			<field name="name">posix_net_unit_type/manager</field>
+			<field name="model_id" ref="model_posix_net_unit_type" />
+			<field name="group_id" ref="posix.group_posix_manager" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+
+		<record id="access_posix_net_unit_category_user" model="ir.model.access">
+			<field name="name">posix_net_unit_category/user</field>
+			<field name="model_id" ref="model_posix_net_unit_category" />
+			<field name="group_id" ref="posix.group_posix_user" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+		
+		<record id="access_posix_net_unit_category_manager" model="ir.model.access">
+			<field name="name">posix_net_unit_category/manager</field>
+			<field name="model_id" ref="model_posix_net_unit_category" />
+			<field name="group_id" ref="posix.group_posix_manager" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+
+
+		<record id="access_posix_net_port_user" model="ir.model.access">
+			<field name="name">posix_net_port/user</field>
+			<field name="model_id" ref="model_posix_net_port" />
+			<field name="group_id" ref="posix.group_posix_user" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+		
+		<record id="access_posix_net_port_manager" model="ir.model.access">
+			<field name="name">posix_net_port/manager</field>
+			<field name="model_id" ref="model_posix_net_port" />
+			<field name="group_id" ref="posix.group_posix_user" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+
+		<record id="access_posix_net_port_type_user" model="ir.model.access">
+			<field name="name">posix_net_port_type/user</field>
+			<field name="model_id" ref="model_posix_net_port_type" />
+			<field name="group_id" ref="posix.group_posix_user" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+		
+		<record id="access_posix_net_port_type_manager" model="ir.model.access">
+			<field name="name">posix_net_port_type/manager</field>
+			<field name="model_id" ref="model_posix_net_port_type" />
+			<field name="group_id" ref="posix.group_posix_manager" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+
+		<record id="access_posix_net_port_category_user" model="ir.model.access">
+			<field name="name">posix_net_port_category/user</field>
+			<field name="model_id" ref="model_posix_net_port_category" />
+			<field name="group_id" ref="posix.group_posix_user" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+		
+		<record id="access_posix_net_port_category_manager" model="ir.model.access">
+			<field name="name">posix_net_port_category/manager</field>
+			<field name="model_id" ref="model_posix_net_port_category" />
+			<field name="group_id" ref="posix.group_posix_manager" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+
+		<record id="access_posix_net_net_address_user" model="ir.model.access">
+			<field name="name">posix_net_net_address/user</field>
+			<field name="model_id" ref="model_posix_net_net_address" />
+			<field name="group_id" ref="posix.group_posix_user" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+		
+		<record id="access_posix_net_net_address_manager" model="ir.model.access">
+			<field name="name">posix_net_net_address/manager</field>
+			<field name="model_id" ref="model_posix_net_net_address" />
+			<field name="group_id" ref="posix.group_posix_manager" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+		
+		<record id="access_posix_net_net_ipv4_address_user" model="ir.model.access">
+			<field name="name">posix_net_net_ipv4_address/user</field>
+			<field name="model_id" ref="model_posix_net_net_ipv4_address" />
+			<field name="group_id" ref="posix.group_posix_user" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+		
+		<record id="access_posix_net_net_ipv4_address_manager" model="ir.model.access">
+			<field name="name">posix_net_net_ipv4_address/manager</field>
+			<field name="model_id" ref="model_posix_net_net_ipv4_address" />
+			<field name="group_id" ref="posix.group_posix_manager" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+
+		<record id="access_posix_net_net_ipv6_address_user" model="ir.model.access">
+			<field name="name">posix_net_net_ipv6_address/user</field>
+			<field name="model_id" ref="model_posix_net_net_ipv6_address" />
+			<field name="group_id" ref="posix.group_posix_user" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+		
+		<record id="access_posix_net_net_ipv6_address_manager" model="ir.model.access">
+			<field name="name">posix_net_net_ipv6_address/manager</field>
+			<field name="model_id" ref="model_posix_net_net_ipv6_address" />
+			<field name="group_id" ref="posix.group_posix_manager" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+
+		<record id="access_posix_net_wlan_channel_user" model="ir.model.access">
+			<field name="name">posix_net_wlan_channel/user</field>
+			<field name="model_id" ref="model_posix_net_wlan_channel" />
+			<field name="group_id" ref="posix.group_posix_user" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+		
+		<record id="access_posix_net_wlan_channel_manager" model="ir.model.access">
+			<field name="name">posix_net_wlan_channel/manager</field>
+			<field name="model_id" ref="model_posix_net_wlan_channel" />
+			<field name="group_id" ref="posix.group_posix_manager" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+
+		<record id="access_posix_net_qos_profile_user" model="ir.model.access">
+			<field name="name">posix_net_qos_profile/user</field>
+			<field name="model_id" ref="model_posix_net_qos_profile" />
+			<field name="group_id" ref="posix.group_posix_user" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+		
+		<record id="access_posix_net_qos_profile_manager" model="ir.model.access">
+			<field name="name">posix_net_qos_profile/manager</field>
+			<field name="model_id" ref="model_posix_net_qos_profile" />
+			<field name="group_id" ref="posix.group_posix_manager" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+
+		<record id="access_posix_net_firmware_user" model="ir.model.access">
+			<field name="name">posix_net_firmware/user</field>
+			<field name="model_id" ref="model_posix_net_firmware" />
+			<field name="group_id" ref="posix.group_posix_user" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+		
+		<record id="access_posix_net_firmware_manager" model="ir.model.access">
+			<field name="name">posix_net_firmware/manager</field>
+			<field name="model_id" ref="model_posix_net_firmware" />
+			<field name="group_id" ref="posix.group_posix_manager" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+	
+		<record id="access_posix_net_service_user" model="ir.model.access">
+			<field name="name">posix_net_service/user</field>
+			<field name="model_id" ref="model_posix_net_service" />
+			<field name="group_id" ref="posix.group_posix_user" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+		
+		<record id="access_posix_net_service_manager" model="ir.model.access">
+			<field name="name">posix_net_service/manager</field>
+			<field name="model_id" ref="model_posix_net_service" />
+			<field name="group_id" ref="posix.group_posix_manager" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+
+		<record id="access_posix_net_service_type_user" model="ir.model.access">
+			<field name="name">posix_net_service_type/user</field>
+			<field name="model_id" ref="model_posix_net_service_type" />
+			<field name="group_id" ref="posix.group_posix_user" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+
+		<record id="access_posix_net_service_type_manager" model="ir.model.access">
+			<field name="name">posix_net_service_type/manager</field>
+			<field name="model_id" ref="model_posix_net_service_type" />
+			<field name="group_id" ref="posix.group_posix_manager" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+	
+		<record id="access_posix_net_service_category_user" model="ir.model.access">
+			<field name="name">posix_net_service_category/user</field>
+			<field name="model_id" ref="model_posix_net_service_category" />
+			<field name="group_id" ref="posix.group_posix_user" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+		
+		<record id="access_posix_net_service_category_manager" model="ir.model.access">
+			<field name="name">posix_net_service_category/manager</field>
+			<field name="model_id" ref="model_posix_net_service_category" />
+			<field name="group_id" ref="posix.group_posix_manager" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+
+		<record id="access_posix_net_iface_user" model="ir.model.access">
+			<field name="name">posix_net_iface/user</field>
+			<field name="model_id" ref="model_posix_net_iface" />
+			<field name="group_id" ref="posix.group_posix_user" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+		
+		<record id="access_posix_net_iface_manager" model="ir.model.access">
+			<field name="name">posix_net_iface/manager</field>
+			<field name="model_id" ref="model_posix_net_iface" />
+			<field name="group_id" ref="posix.group_posix_manager" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+		
+		<record id="access_posix_net_vlan_user" model="ir.model.access">
+			<field name="name">posix_net_vlan/user</field>
+			<field name="model_id" ref="model_posix_net_vlan" />
+			<field name="group_id" ref="posix.group_posix_user" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+		
+		<record id="access_posix_net_vlan_manager" model="ir.model.access">
+			<field name="name">posix_net_vlan/manager</field>
+			<field name="model_id" ref="model_posix_net_vlan" />
+			<field name="group_id" ref="posix.group_posix_manager" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+		
+		<record id="access_posix_net_vlan_port_user" model="ir.model.access">
+			<field name="name">posix_net_vlan_port/user</field>
+			<field name="model_id" ref="model_posix_net_vlan_port" />
+			<field name="group_id" ref="posix.group_posix_user" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+		
+		<record id="access_posix_net_vlan_port_manager" model="ir.model.access">
+			<field name="name">posix_net_vlan_port/manager</field>
+			<field name="model_id" ref="model_posix_net_vlan_port" />
+			<field name="group_id" ref="posix.group_posix_manager" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+		
+				
+	</data>
+</openerp>

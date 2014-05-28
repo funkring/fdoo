@@ -1,0 +1,52 @@
+<openerp>
+	<data>
+		<record id="search_port_category" model="ir.ui.view">
+            <field name="name">posix_net.port_category</field>
+            <field name="model">posix_net.port_category</field>
+            <field name="arch" type="xml">
+                <search string="Search Port Category">
+                	<field name="name" filter_domain="[('name','ilike',self)]" string="Port Category"/>
+               </search>
+            </field>
+		</record>
+		
+		<record id="form_posix_net_port_category" model="ir.ui.view">
+			<field name="name">posix_net.form_posix_net_port_category</field>
+			<field name="model">posix_net.port_category</field>
+			<field name="arch" type="xml">
+				<form string="Port Category" version="7.0">
+					<sheet>
+						<group>
+							<field name="name" />
+							<field name="code" />
+							<field name="parent_id" />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="tree_posix_net_port_category" model="ir.ui.view">
+			<field name="name">posix_net.tree_posix_net_port_category</field>
+			<field name="model">posix_net.port_category</field>
+			<field name="arch" type="xml">
+				<tree string="Port Category">
+					<field name="complete_name" />
+					<field name="code" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_posix_net_port_category" model="ir.actions.act_window">
+			<field name="name">Port Category</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">posix_net.port_category</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem id="menu_posix_net_port_category" name="Port Category"
+			parent="menu_network_config_network_network" sequence="13"
+			action="action_posix_net_port_category" />
+	</data>
+</openerp>

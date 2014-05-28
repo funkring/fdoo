@@ -134,7 +134,7 @@ class purchase_order(osv.osv):
         for purchase in self.browse(cursor, user, ids, context=context):
             res[purchase.id] = all(line.invoiced for line in purchase.order_line)
         return res
-    
+
     def _get_journal(self, cr, uid, context=None):
         if context is None:
             context = {}
@@ -144,11 +144,12 @@ class purchase_order(osv.osv):
         res = journal_obj.search(cr, uid, [('type', '=', 'purchase'),
                                             ('company_id', '=', company_id)],
                                                 limit=1)
-        return res and res[0] or False  
+        return res and res[0] or False
 
     def _get_picking_in(self, cr, uid, context=None):
         obj_data = self.pool.get('ir.model.data')
-        return obj_data.get_object_reference(cr, uid, 'stock','picking_type_in') and obj_data.get_object_reference(cr, uid, 'stock','picking_type_in')[1] or False
+        res = obj_data.get_object_reference(cr, uid, 'stock','picking_type_in')
+        return res and res[1] or False
 
     def _get_picking_ids(self, cr, uid, ids, field_names, args, context=None):
         res = {}
@@ -158,7 +159,7 @@ class purchase_order(osv.osv):
         SELECT picking_id, po.id FROM stock_picking p, stock_move m, purchase_order_line pol, purchase_order po
             WHERE po.id in %s and po.id = pol.order_id and pol.id = m.purchase_line_id and m.picking_id = p.id
             GROUP BY picking_id, po.id
-             
+
         """
         cr.execute(query, (tuple(ids), ))
         picks = cr.fetchall()
@@ -170,7 +171,7 @@ class purchase_order(osv.osv):
         return {
             purchase.id: {
                 'shipment_count': len(purchase.picking_ids),
-                'invoice_count': len(purchase.invoice_ids),                
+                'invoice_count': len(purchase.invoice_ids),
             }
             for purchase in self.browse(cr, uid, ids, context=context)
         }
@@ -256,7 +257,7 @@ class purchase_order(osv.osv):
         'bid_validity': fields.date('Bid Valid Until', help="Date on which the bid expired"),
         'picking_type_id': fields.many2one('stock.picking.type', 'Deliver To', help="This will determine picking type of incoming shipment", required=True,
                                            states={'confirmed': [('readonly', True)], 'approved': [('readonly', True)], 'done': [('readonly', True)]}),
-        'related_location_id': fields.related('picking_type_id', 'default_location_dest_id', type='many2one', relation='stock.location', string="Related location", store=True),        
+        'related_location_id': fields.related('picking_type_id', 'default_location_dest_id', type='many2one', relation='stock.location', string="Related location", store=True),
         'shipment_count': fields.function(_count_all, type='integer', string='Incoming Shipments', multi=True),
         'invoice_count': fields.function(_count_all, type='integer', string='Invoices', multi=True)
     }
@@ -327,7 +328,7 @@ class purchase_order(osv.osv):
             return {}
         return {'value': {'currency_id': self.pool.get('product.pricelist').browse(cr, uid, pricelist_id, context=context).currency_id.id}}
 
-   #Destination address is used when dropshipping 
+   #Destination address is used when dropshipping
     def onchange_dest_address_id(self, cr, uid, ids, address_id):
         if not address_id:
             return {}
@@ -465,7 +466,7 @@ class purchase_order(osv.osv):
         try:
             compose_form_id = ir_model_data.get_object_reference(cr, uid, 'mail', 'email_compose_message_wizard_form')[1]
         except ValueError:
-            compose_form_id = False 
+            compose_form_id = False
         ctx = dict(context)
         ctx.update({
             'default_model': 'purchase.order',
@@ -501,7 +502,7 @@ class purchase_order(osv.osv):
                 raise osv.except_osv(_('Error!'),_('You cannot confirm a purchase order without any purchase order line.'))
             for line in po.order_line:
                 if line.state=='draft':
-                    todo.append(line.id)        
+                    todo.append(line.id)
         self.pool.get('purchase.order.line').action_confirm(cr, uid, todo, context)
         for id in ids:
             self.write(cr, uid, [id], {'state' : 'confirmed', 'validator' : uid})
@@ -599,7 +600,7 @@ class purchase_order(osv.osv):
         """
         if context is None:
             context = {}
-        
+
         inv_obj = self.pool.get('account.invoice')
         inv_line_obj = self.pool.get('account.invoice.line')
 
@@ -612,7 +613,7 @@ class purchase_order(osv.osv):
                 #then re-do a browse to read the property fields for the good company.
                 context['force_company'] = order.company_id.id
                 order = self.browse(cr, uid, order.id, context=context)
-            
+
             # generate invoice line correspond to PO line and link that to created invoice (inv_id) and PO line
             inv_lines = []
             for po_line in order.order_line:
@@ -1122,7 +1123,7 @@ class purchase_order_line(osv.osv):
         return res
 
     product_id_change = onchange_product_id
-    product_uom_change = onchange_product_uom 
+    product_uom_change = onchange_product_uom
 
     def action_confirm(self, cr, uid, ids, context=None):
         self.write(cr, uid, ids, {'state': 'confirmed'}, context=context)
@@ -1357,7 +1358,7 @@ class mail_mail(osv.Model):
 class product_template(osv.Model):
     _name = 'product.template'
     _inherit = 'product.template'
-    
+
     _columns = {
         'purchase_ok': fields.boolean('Can be Purchased', help="Specify if the product can be selected in a purchase order line."),
     }
@@ -1368,11 +1369,11 @@ class product_template(osv.Model):
 class product_product(osv.Model):
     _name = 'product.product'
     _inherit = 'product.product'
-    
+
     def _purchase_count(self, cr, uid, ids, field_name, arg, context=None):
         Purchase = self.pool['purchase.order']
         return {
-            product_id: Purchase.search_count(cr,uid, [('order_line.product_id', '=', product_id)], context=context) 
+            product_id: Purchase.search_count(cr,uid, [('order_line.product_id', '=', product_id)], context=context)
             for product_id in ids
         }
 

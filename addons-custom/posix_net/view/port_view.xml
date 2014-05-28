@@ -1,0 +1,158 @@
+<openerp>
+	<data>
+		<record id="form_posix_net_port" model="ir.ui.view">
+			<field name="name">posix_net.form_posix_net_port</field>
+			<field name="model">posix_net.port</field>			
+			<field name="arch" type="xml">
+				<form string="Port" version="7.0">
+					<sheet>
+					  <div class="oe_title">
+							<h1>
+						  	<field name="unit_id" invisible="context.get('unit_view',False)" placeholder="Unit"/>
+						  </h1>
+					  </div>
+					 	<group>
+					 		<group>
+					 			<!-- for gui state hidden fields -->												
+								<field name="tunnel_available" invisible="1"/>
+								<field name="wlan_available" invisible="1"  />
+								<field name="possible_link_port_ids" invisible="1"/>
+									
+						 		<field name="port"/>
+								<field name="name" />
+							</group>
+							<group>
+								<field name="enabled" />
+							</group>							
+					 	</group>
+						<notebook >
+							<page string="Settings">		
+									<group>
+										<group>
+											<field name="type_id" on_change="onchange_port(type_id,mode,iface_id, context)" />
+											<field name="mode" on_change="onchange_port(type_id,mode,iface_id, context)" attrs="{'readonly': [('type_id','=',False)] }" />
+										</group>
+										<group>
+											<field name="iface_id" on_change="onchange_port(type_id,mode,iface_id, context)" domain="[('unit_id','=',unit_id)]"/>		
+											<field name="linked_port_id" context="{ 'unit_view' : False }" domain="[('id','in',possible_link_port_ids[0][2]),('id','!=',active_id),('unit_id','!=',unit_id)]"/>
+										</group>						
+									</group>
+							</page>
+							<page string="WLAN"
+								  	attrs="{'invisible': [('wlan_available','=',False)] }">
+								<group>
+									<group>
+										<field name="possible_master_port_ids" invisible="1" />
+										<field name="wlan_ssid_hidden" attrs="{'readonly': [('wlan_auto_config','=', True), ('mode','=','client')]}" string="Hidden"/>
+										<field name="wlan_master"/>
+										
+										<field name="wlan_master_port_id" placeholder="Master Link"
+												 string="Configuration"
+												 attrs="{ 'invisible' : [('wlan_master','=',False)] }" 
+											   domain="[('id','in',possible_master_port_ids[0][2]), ('id','!=',active_id)]"/>
+										
+										<field name="wlan_auto_config_old" invisible="1"/>
+										<field name="sequence" invisiblie="1"/>
+										<field name="wlan_auto_config" on_change="onchange_autoconfig(wlan_auto_config,wlan_auto_config_old, unit_id, name, sequence, mode,
+																									  type_id, linked_port_id, wlan_ssid, wlan_encrypt, wlan_auth_mode,
+																									  wlan_psk, wlan_channel_id, wlan_wds,
+																									  wlan_shifting, wlan_bandwidth, wlan_txpower, wlan_airmax,
+																									  wlan_master,wlan_master_port_id)" />
+									</group>
+									<group>
+										<field name="wlan_ssid" attrs="{'readonly':[('wlan_master','!=', True),('wlan_auto_config','=',True)]}" string="SSID"/>
+									</group>
+									<group>
+										<field name="wlan_auth_mode" attrs="{'readonly': ['|', ('mode','=','client'), ('mode','=', False), ('wlan_auto_config','=', True)]}" />
+										<field name="wlan_encrypt" attrs="{'readonly' : ['|', ('mode','=','client'), ('mode','=', False), ('wlan_auto_config','=', True)]}" />
+										<field name="wlan_psk" attrs="{'readonly': [('mode','=','client'),'|',('wlan_auth_mode','!=','psk'), ('wlan_auto_config','=', True)]}"/>
+										<field name="radius_username" attrs="{'readonly': [('wlan_auth_mode','!=','radius')]}"/>
+										<field name="state_unit" invisible="1" />
+										<field name="radius_password" attrs="{'readonly': ['|', ('wlan_auth_mode','!=','radius'), ('state_unit','!=','draft')]}"/>
+										<field name="radius_service_id"  attrs="{'readonly': ['|', ('mode','!=','ap'),('wlan_auth_mode','!=','radius')]}"/>								
+									</group>
+									<group>
+										<field name="wlan_bandwidth" attrs="{'readonly': [('wlan_auto_config','=',True), ('mode', '=', 'client')]}"/>
+										
+										<field name="wlan_txpower" />
+										<field name="rel_allowed_channel_ids" invisible="1" />
+										
+										<field name="wlan_wds" attrs="{'readonly' : [('wlan_auto_config','=', True), ('mode','=','client')]}"/>
+										
+										<field name="wlan_shifting" attrs="{
+											'invisible':[('wlan_shifting_available', '!=', True)], 
+											'readonly':[('wlan_auto_config','=', True), ('mode', '=', 'client')]}"/>
+										
+										<field name="wlan_airmax" attrs="{
+											'invisible' :  [('wlan_airmax_available', '!=', True)],
+											'readonly' :   [('wlan_auto_config','=', True), ('mode', '=', 'client')]}"/> 
+											
+										<field name="wlan_shifting_available" invisible="1" />
+										<field name="wlan_airmax_available" invisible="1" />
+										
+										<label for="wlan_channel_id"/>
+										<div>
+											<field name="wlan_channel_id"
+												placeholder="Channel"  
+											  attrs="{'readonly':[('wlan_auto_config','=', True), ('mode','=','client')]}" 
+												domain="[('id', 'in', rel_allowed_channel_ids[0][2])]"/>
+											
+											<field name="wlan_mapped_channel_id"/>
+										</div>
+									</group>
+								</group>
+							</page>
+							<page string="Tunnel" attrs="{
+								'invisible': [('tunnel_available','!=',True)], 
+								'readonly' : [('mode','=','client')] }">
+								<group>
+									<group>
+										<field name="tunnel_iface_id" domain="[('unit_id','=',unit_id or context.get('unit_id'))]"/>
+									</group>
+									<group>
+										<field name="tunnel_name" placeholder="Name"/>
+										<field name="tunnel_password" placeholder="Password"/>
+									</group>								
+								</group>
+							</page>
+						</notebook>
+						<div>
+								<field name="info"/>
+						</div>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="tree_posix_net_port" model="ir.ui.view">
+			<field name="name">posix_net.tree_posix_net_port</field>
+			<field name="model">posix_net.port</field>
+			<field name="arch" type="xml">
+				<tree string="Port">	
+					<field name="sequence" invisible="1"/>
+					<field name="unit_id" invisible="context.get('unit_view',False)"/>
+					<field name="type_id" />				
+					<field name="port"/>
+					<field name="port_name"/>
+					<field name="iface_name"/>
+					<field name="mode"/>
+					<field name="linked_port_id"/>										
+				</tree>
+			</field>
+		</record>
+
+		<!-- 
+		<record id="action_posix_net_port" model="ir.actions.act_window">
+			<field name="name">Port</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">posix_net.port</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="search_posix_net_port" />
+		</record>
+
+		<menuitem id="menu_posix_net_port" name="Port"
+			parent="menu_network_config_network_unit" sequence="2"
+			action="action_posix_net_port" />  -->
+	</data>
+</openerp>

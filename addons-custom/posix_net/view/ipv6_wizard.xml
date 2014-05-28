@@ -1,0 +1,55 @@
+<openerp>
+	<data>
+		<record id="wizard_ipv6_wizard" model="ir.ui.view">
+			<field name="name">posix_net.wizard_ipv6_wizard</field>
+			<field name="model">posix_net.ipv6_wizard</field>
+			<field name="arch" type="xml">
+				<form string="IPv6 Wizard">
+					
+					<group col="4" colspan="4">
+						<separator string="Settings" col="4" colspan="4" />
+						<group col="2" colspan="2">
+							<field name="auto_config" on_change="on_change_auto_config(auto_config,network_pool)"/>
+							<field name="network_pool" domain="[('id','!=',active_id)]"/>
+						</group>
+						<group col="2" colspan="2">
+							<field name="number_of_hosts" on_change="on_change_datas(0, 0, 1, subnet, networkmask, number_of_hosts, network_pool)" attrs="{'readonly': [('network_pool','==',0)] }"/>
+							<field name="networkmask" on_change="on_change_datas(0, 1, 0, subnet, networkmask, number_of_hosts, network_pool)" attrs="{'readonly': [('network_pool','==',0)] }"/>
+							<field name="subnet" on_change="on_change_datas(1, 0, 0, subnet, networkmask, number_of_hosts, network_pool)" attrs="{'readonly': [('network_pool','==',0)] }"/>
+						</group>
+					</group>
+					<notebook colspan="4" >
+						<page string="Networks">
+							<field name="network_ids" nolabel="1" colspan="4" height="200"/>
+						</page>	
+					</notebook>			
+					<group col="6" colspan="4">
+						<label string="" colspan="4" />
+						<button special="cancel" string="Cancel" icon="gtk-cancel" />
+						<button name="do_next" string="Next" type="object" icon="gtk-go-forward" />
+					</group>
+				</form>
+			</field>
+		</record>
+		<record id="action_ipv6_wizard" model="ir.actions.act_window">
+			<field name="name">IPv6 Wizard</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">posix_net.ipv6_wizard</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="wizard_ipv6_wizard" />
+			<field name="multi">True</field>
+			<field name="target">new</field>
+		</record>
+		<record id="irconfig_ipv6_wizard" model="ir.values">
+			<field name="model_id" ref="posix_net.model_posix_net_net_ipv6_address" />
+			<field name="model">posix_net.net_ipv6_address</field>
+			<field name="object" eval="1" />
+			<field name="name">IPv6 Wizard</field>
+			<field name="key2">client_action_multi</field>
+			<field name="value"
+				eval="'ir.actions.act_window,' + str(ref('action_ipv6_wizard'))" />
+			<field name="key">action</field>
+		</record>
+	</data>
+</openerp>

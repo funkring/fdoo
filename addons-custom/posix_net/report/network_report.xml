@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <report id="report_network_pdf"
+               string="Network Report"
+               name="posix_net.unit"
+               auto="False"
+               stylesheet="none"
+               report_type="aeroo"
+               model="posix_net.unit"
+               in_format="oo-odt"
+               out_format="oo-pdf"
+               parser="posix_net/report/network_report.py"
+               rml="posix_net/report/network_report.odt"/>
+    </data>
+</openerp>

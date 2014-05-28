@@ -1,0 +1,59 @@
+<openerp>
+	<data>
+		<record id="search_unit_category" model="ir.ui.view">
+            <field name="name">posix_net.unit_category</field>
+            <field name="model">posix_net.unit_category</field>
+            <field name="arch" type="xml">
+                <search string="Search Unit Category">
+                	<field name="name" filter_domain="[('name','ilike',self)]" string="Unit Category"/>
+               </search>
+            </field>
+		</record>
+	
+		<record id="form_posix_net_unit_category" model="ir.ui.view">
+			<field name="name">posix_net.form_posix_net_unit_category</field>
+			<field name="model">posix_net.unit_category</field>
+			<field name="arch" type="xml">
+				<form string="Unit Category" version="7.0">
+					<sheet>
+						<group>
+							<group>
+								<field name="name" />
+								<field name="code" />
+							</group>
+							<group>
+								<field name="parent_id" />
+							</group>
+						</group>
+						<label for="description" string="Description"/>
+						<field name="description"/>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="tree_posix_net_unit_category" model="ir.ui.view">
+			<field name="name">posix_net.tree_posix_net_unit_category</field>
+			<field name="model">posix_net.unit_category</field>
+			<field name="arch" type="xml">
+				<tree string="Unit Category">
+					<field name="complete_name" />
+					<field name="code" />
+					<field name="description" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_posix_net_unit_category" model="ir.actions.act_window">
+			<field name="name">Unit Category</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">posix_net.unit_category</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem id="menu_posix_net_unit_category" name="Unit Category"
+			parent="menu_network_config_network_network" sequence="11"
+			action="action_posix_net_unit_category" />
+	</data>
+</openerp>

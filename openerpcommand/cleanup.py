@@ -60,25 +60,25 @@ def run(args):
                         if data_file.lower().endswith(".xml"):
                             try:
                                 doc = etree.parse(data_file_path).getroot()
-                                data_doc = doc.find("data")
-                                if len(data_doc) and data_doc.get("noupdate") == "1":
-                                    for element in data_doc:
-                                        element_id = element.attrib.get("id")
-                                        if element_id:
-                                            element_module = name
+                                for data_doc in doc.findall("data"):
+                                    if len(data_doc) and data_doc.get("noupdate") == "1":
+                                        for element in data_doc:
+                                            element_id = element.attrib.get("id")
+                                            if element_id:
+                                                element_module = name
 
-                                            # check if module is passed
-                                            tk =  element_id.split(".")
-                                            if len(tk) == 2:
-                                                element_module=tk[0]
-                                                element_id=tk[1]
+                                                # check if module is passed
+                                                tk =  element_id.split(".")
+                                                if len(tk) == 2:
+                                                    element_module=tk[0]
+                                                    element_id=tk[1]
 
-                                            xmlid_modules = xmlid_dict.get(element_id)
-                                            if not xmlid_modules:
-                                                xmlid_modules=[]
-                                                xmlid_dict[element_id]=xmlid_modules
-                                            if element_module not in xmlid_modules:
-                                                xmlid_modules.append(element_module)
+                                                xmlid_modules = xmlid_dict.get(element_id)
+                                                if not xmlid_modules:
+                                                    xmlid_modules=[]
+                                                    xmlid_dict[element_id]=xmlid_modules
+                                                if element_module not in xmlid_modules:
+                                                    xmlid_modules.append(element_module)
                             except Exception,e:
                                 logger.error("Unable to parse file %s" % data_file_path)
                                 raise e
@@ -89,7 +89,10 @@ def run(args):
     cr = db.cursor()
     try:
         # cleanup invalid resource data
-        cr.execute("DELETE FROM ir_model_data WHERE res_id=0")
+        cr.execute("SELECT id, module, model, res_id FROM ir_model_data WHERE res_id=0")
+        for oid, module_name, model, res_id in cr.fetchall():
+            logger.info("Delete model data [%s] %s/%s/%s" % (oid, module_name, model, res_id))
+            cr.execute("DELETE FROM ir_model_data WHERE id = %s" % oid)
 
         # delete unused
         cr.execute("SELECT id, module, model, res_id FROM ir_model_data WHERE module NOT IN %s" % (tuple(modules),))

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="unit_type_template" model="posix_net.unit_type">
+			<field name="name">Template</field>
+			<field name="code">template</field>
+		</record>
+	</data>
+</openerp>

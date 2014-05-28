@@ -84,11 +84,14 @@ class MigrationManager(object):
             self.migrations[pkg.name]['maintenance'] = get_module_filetree('base', 'maintenance/migrations/' + pkg.name) or {}
 
     def migrate_module(self, pkg, stage):
-        assert stage in ('pre', 'post')
+        #funkring.net begin
+        assert stage in ('pre', 'post', 'init')
         stageformat = {
             'pre': '[>%s]',
             'post': '[%s>]',
+            'init' : '[%s]'
         }
+        #funkring.net end
 
         if not (hasattr(pkg, 'update') or pkg.state == 'to upgrade') or pkg.installed_version is None:
             return

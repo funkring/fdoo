@@ -1,0 +1,74 @@
+<openerp>
+	<data>
+		<record id="form_posix_net_interface" model="ir.ui.view">
+			<field name="name">posix_net.form_posix_net_interface</field>
+			<field name="model">posix_net.iface</field>
+			<field name="arch" type="xml">
+				<form string="Interface" version="7.0">
+					<sheet>
+						<group>
+							<group>
+								<field name="name" />
+								<field name="code" />
+							</group>
+							<group>
+								<field name="type" />			
+								<field name="qos_profile_id" />
+							</group>
+						</group>
+						<notebook>
+							<page string="Network">
+								<group>
+									<group>
+										<field name="parent_id" domain="[('endpoint','=',False)]" on_change="onchange_network(parent_id, context)" string="Network" />
+										<field name="endpoint" invisible="1"/>
+										<field name="parent_ipv4_related" invisible="1" />
+										<field name="parent_ipv6_related" invisible="1" />								
+									</group>
+									<group>
+										<field name="dhcp" on_change="onchange_dhcp(dhcp)"/>
+										<label for="ipv4_address_id"/>
+										<div>
+											<field name="ipv4" 
+											  attrs="{'readonly' : [('dhcp', '=', True)]}"/>
+											<field name="ipv4_address_id" 
+												attrs="{'readonly': ['|', ('ipv4','!=',True), ('dhcp', '=', True)] }" 
+												domain="[('parent_id', '=', parent_ipv4_related)]"/>
+										</div>					
+										<label for="ipv6_address_id"/>
+										<div>
+											<field name="ipv6" 
+												attrs="{'readonly' : [('dhcp', '=', True)]}"/>
+											<field name="ipv6_address_id" class="oe_inline"
+												attrs="{'readonly': ['|', ('ipv6','!=',True), ('dhcp', '=', True)] }" 
+												domain="[('parent_id', '=', parent_ipv6_related)]"/>		 										
+										</div>
+									</group>
+								</group>
+							</page>
+						  <page string="DNS">
+								<field name="dns_service_ids"/>
+							</page>
+						</notebook>	 	
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="tree_posix_net_interface" model="ir.ui.view">
+			<field name="name">posix_net.tree_posix_net_interface</field>
+			<field name="model">posix_net.iface</field>
+			<field name="arch" type="xml">
+				<tree string="Interfaces">
+					<field name="name" />
+					<field name="code" />
+					<field name="parent_id" string="Network"/>					
+					<field name="qos_profile_id" />
+					<field name="type" />
+					<field name="info" />
+				</tree>
+			</field>
+		</record>
+
+	</data>
+</openerp>

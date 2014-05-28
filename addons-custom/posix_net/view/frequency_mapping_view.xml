@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+	<data>
+
+		<record id="search_frequency_mapping" model="ir.ui.view">
+			<field name="name">frequency.search_frequency_mapping</field>
+			<field name="model">posix_net.frequency_mapping</field>
+			<field name="arch" type="xml">
+				<search string="Search Frequency Mapping">
+					<field name="name" filter_domain="[('name','ilike',self)]" string="Frequency Mapping"/>
+				</search>
+			</field>
+		</record>
+
+		<record id="form_frequency_mapping" model="ir.ui.view">
+			<field name="name">posix_net.form_frequency_mapping</field>
+			<field name="model">posix_net.frequency_mapping</field>
+			<field name="arch" type="xml">
+				<form string="Frequency Mapping" version="7.0">
+					<sheet>
+						<group>
+							<field name="name" />
+						</group>
+						<notebook>
+							<page string="Port Typen">
+								<field name="port_type_ids" colspan="4" nolabel="1" />
+							</page>
+							<page string="Mapping">
+								<field name="line_ids">
+									<tree string="Mapping Lines" editable="bottom">
+										<field name="bandwidth" />
+										<field name="channel" />
+										<field name="shifting" />
+										<field name="name" />
+									</tree>
+								</field>
+							</page>
+						</notebook>
+
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="tree_frequency_mapping" model="ir.ui.view">
+			<field name="name">posix_net.tree_frequency_mapping</field>
+			<field name="model">posix_net.frequency_mapping</field>
+			<field name="arch" type="xml">
+				<tree string="Frequency Mapping">
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_frequency_mapping" model="ir.actions.act_window">
+			<field name="name">Frequency Mapping</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">posix_net.frequency_mapping</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem id="menu_frequency_mapping" name="Frequency Mapping"
+			parent="menu_network_config_network_network_wlan" sequence="3"
+			action="action_frequency_mapping" />
+	</data>
+</openerp>

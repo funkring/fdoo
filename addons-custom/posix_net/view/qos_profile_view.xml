@@ -1,0 +1,65 @@
+<openerp>
+	<data>
+		<record id="search_qos_profile" model="ir.ui.view">
+            <field name="name">posix_net.qos_profile</field>
+            <field name="model">posix_net.qos_profile</field>
+            <field name="arch" type="xml">
+                <search string="Search QoS Profile">
+                	<field name="name" filter_domain="[('name','ilike',self)]" string="QoS Profile"/>
+               </search>
+            </field>
+		</record>
+		
+		<record id="form_posix_net_qos_profile" model="ir.ui.view">
+			<field name="name">posix_net.form_posix_net_qos_profile</field>
+			<field name="model">posix_net.qos_profile</field>
+			<field name="arch" type="xml">
+				<form string="QoS Profile" version="7.0">
+					<sheet>
+						<group>
+							<group >
+								<separator string="General" />
+								<newline></newline>
+								<field name="name" />						
+								<field name="parent_id" />
+							</group>
+							<group >
+								<separator string="Settings"  />
+								<newline></newline>						
+								<field name="priority" />
+								<field name="download" />
+								<field name="upload" />
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="tree_posix_net_qos_profile" model="ir.ui.view">
+			<field name="name">posix_net.tree_posix_net_qos_profile</field>
+			<field name="model">posix_net.qos_profile</field>
+			<field name="arch" type="xml">
+				<tree string="QoS Profile">			
+					<field name="name" />		
+					<field name="parent_id" />	
+					<field name="priority" />
+					<field name="download" />
+					<field name="upload" />					
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_posix_net_qos_profile" model="ir.actions.act_window">
+			<field name="name">QoS Profile</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">posix_net.qos_profile</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem id="menu_posix_net_qos_profile" name="QoS Profile"
+			parent="menu_network_config_network_network" sequence="15"
+			action="action_posix_net_qos_profile" />
+	</data>
+</openerp>
