@@ -9,7 +9,9 @@ def run(args):
     assert args.database
     import openerp
     #funkring.net begin
-    common2.set_common_server(args)    
+    import logging
+    logger = logging.getLogger('update')
+    common2.set_common_server(args)
     #funkring.net end
     config = openerp.tools.config
     #funkrnig.net begin
@@ -19,9 +21,13 @@ def run(args):
             config['update'][m] = 1
     else:
         config['update']['all'] = 1
+
+    try:
+        openerp.modules.registry.RegistryManager.get(
+            args.database, update_module=True)
+    except Exception,e:
+        logger.error(e)
     #funkrnig.net end
-    openerp.modules.registry.RegistryManager.get(
-        args.database, update_module=True)
 
 def add_parser(subparsers):
     parser = subparsers.add_parser('update',

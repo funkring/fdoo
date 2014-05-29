@@ -173,6 +173,9 @@ def run(args):
                         logger.warning("[UNFIXABLE] XML record [%s] has moved from [%s] in one of this modules [%s], or something else!" % (xmlid, module, ",".join(xmlid_modules)))
 
         cr.commit()
+    except Exception, e:
+        logger.error(e)
+        return
     finally:
         cr.close()
 
@@ -183,7 +186,7 @@ def run(args):
         # load and update registry
         registry = openerp.modules.registry.RegistryManager.get(
             args.database, update_module=True)
-        cr = registry.cursor() # TODO context manager
+        cr = registry.db.cursor() # TODO context manager
 
         # process further cleanup
         try:
@@ -239,6 +242,9 @@ def run(args):
     #                     view.unlink()
 
             cr.commit()
+        except Exception, e:
+            logger.error(e)
+            return
         finally:
             cr.close()
 
