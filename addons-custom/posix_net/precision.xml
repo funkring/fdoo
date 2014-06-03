@@ -1,8 +1,0 @@
-<openerp>
-	<data noupdate="1">
-		  <record forcecreate="True" id="decimal_coordinates" model="decimal.precision">
-            <field name="name">Coordinates</field>
-            <field name="digits">6</field>
-        </record>
-	</data>
-</openerp>
