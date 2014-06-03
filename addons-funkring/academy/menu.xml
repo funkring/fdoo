@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
 	<data>
-		<menuitem id="menu_academy" name="Academy" sequence="55"/> 
-		<menuitem id="menu_academy_management" name="Management" parent="menu_academy" sequence="1"/>
-		<menuitem id="menu_academy_training" name="Training" parent="menu_academy" sequence="10"/>
-		
-		
+
+		<menuitem id="menu_academy" name="Academy" sequence="55"
+		          groups="group_management,group_trainer"/>
+
+		<menuitem id="menu_academy_management"
+		          name="Management" parent="menu_academy" sequence="1"/>
+
+		<menuitem id="menu_academy_config"
+		          name="Configuration" parent="menu_academy" sequence="100"/>
+
+		<menuitem id="menu_academy_config_misc"
+		          name="Misc" parent="menu_academy_config" sequence="1"/>
+
+		<menuitem id="menu_academy_config_courses"
+		          name="Courses" parent="menu_academy_config" sequence="10"/>
+
+		<!--
 		<menuitem id="menu_academy_trainer" name="Trainer" parent="menu_academy_management" sequence="1"
         		  action="action_academy_trainer"/>
 		<menuitem id="menu_academy_topic" name="Topic" parent="menu_academy_management" sequence="20"
@@ -14,9 +26,10 @@
         		  action="action_academy_course"/>
 		<menuitem id="menu_academy_contract" name="Contract" parent="menu_academy_management" sequence="30"
         		  action="action_academy_contract"/>
-        		  
-        		  
+
+
        	<menuitem id="menu_academy_journal" name="Course Journal" parent="menu_academy_training" sequence="1"
-        		  action="action_academy_journal"/>			
+        		  action="action_academy_journal"/>
+        		  -->
 	</data>
 </openerp>

@@ -25,20 +25,21 @@ oerp.at Academy
 ===============
 
   * A module to easy handle courses/lessons for schools or other training institutes
-  
+
     """,
     "version" : "1.0",
     "author" :  "funkring.net",
-    "category" : "Management",
-    "depends" : ["at_base", "at_product"],
-    "data" : ["view/academy_trainer_view.xml",
+    "category" : "Academy",
+    "depends" : ["at_base", "at_product", "at_resource"],
+    "data" : ["security.xml",
+              "menu.xml",
+              "view/academy_trainer_view.xml",
               "view/academy_course_view.xml",
               "view/academy_topic_view.xml",
               "view/academy_contract_view.xml",
               "view/academy_journal_view.xml",
-              "view/partner_view.xml",
-              "menu.xml",
-              "security.xml"],
+              "view/academy_location_view.xml"
+              ],
     "auto_install" : False,
     "installable": True
 }

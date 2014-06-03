@@ -21,20 +21,94 @@
 from openerp.osv import fields, osv
 from openerp.addons.at_base import util
 
+
+class academy_year(osv.Model):
+    _name = "academy.year"
+    _columns = {
+        "company_id" : fields.many2one("res.company","Company"),
+        "name" : fields.char("Name"),
+        "semester_ids" : fields.one2many("academy.semester","year_id","Semester"),
+        "date_start" : fields.date("Start"),
+        "date_end" : fields.date("End")
+    }
+    _defaults = {
+        "company_id" : lambda self, cr, uid, context: self.pool.get("res.company")._company_default_get(cr, uid, "academy.year", context=context)
+    }
+
+
+class academy_semester(osv.Model):
+    _name = "academy.semester"
+    _columns = {
+        "year_id" : fields.many2one("academy.year", "Year", ondelete="cascade"),
+        "name" : fields.char("Name"),
+        "date_start" : fields.date("Start"),
+        "date_end" : fields.date("End")
+    }
+
+
+class academy_student(osv.Model):
+    _name = "academy.student"
+    _inherits = {"res.partner":"partner_id"}
+    _columns = {
+        "partner_id" : fields.many2one("res.partner", "Partner", ondelete="restrict", required=True, select=True),
+        "registration_ids" : fields.one2many("academy.registration","student_id","Registrations")
+    }
+
+
+class academy_location(osv.Model):
+    _name = "academy.location"
+    _inherits = {"resource.resource":"resource_id"}
+    _columns = {
+        "resource_id" : fields.many2one("resource.resource", "Resource", ondelete="restrict", required=True, select=True),
+        "address_id" : fields.many2one("res.partner", "Address", ondelete="cascade"),
+    }
+
+
+class academy_course_product(osv.Model):
+    _name = "academy.course.product"
+    _inherits = {"product.product":"product_id"}
+    _columns = {
+        "product_id" : fields.many2one("product.product", "Product", ondelete="restrict", required=True, select=True)
+    }
+
+
+class academy_registration(osv.Model):
+    _name = "academy.registration"
+    _description = "Academy Registration"
+    _columns = {
+        "year_id" : fields.many2one("academy.year", "Year", select=True),
+        "student_id" : fields.many2one("academy.student", "Student", select=True),
+        "location_id" : fields.many2one("academy.location", "Location", select=True),
+        "course_prod_id" : fields.many2one("academy.course.product", "Product", select=True),
+        "course_id" : fields.many2one("academy.course", "Course", select=True),
+        "trainer_id" : fields.many2one("academy.trainer", "Trainer", select=True),
+        "amount" : fields.float("Amount"),
+        "uom_id" : fields.many2one("product.uom", "Unit", select=True),
+        "state" : fields.selection([("draft","Draft"),
+                                    ("cancel","Cancel"),
+                                    ("registered","Registered"),
+                                    ("assigned","Assigned"),
+                                    ("open","Open"),
+                                    ("paid","Paid")],
+                                    "State")
+
+    }
+
 class academy_trainer(osv.Model):
     _name = "academy.trainer"
     _description = "Academy Trainer"
-    _inherits = {"res.partner" : "partner_id"}
+    _inherits = {"res.partner":"partner_id"}
     _columns = {
         "partner_id" : fields.many2one("res.partner", "Partner", required=True, ondelete="restrict"),
         "contract_ids" : fields.many2many("academy.contract", "academy_contract_trainer_rel", "contract_id", "trainer_id", "Contracts"),
-        "active" : fields.boolean("Active"),
-        "image" : fields.related("partner_id", "image", type="binary", relation="res.partner", string="Image")
+        #"active" : fields.boolean("Active"),
+        #"image" : fields.related("partner_id", "image", type="binary", relation="res.partner", string="Image")
     }
     _defaults = {
         "active" : True
     }
-    
+
+
 class academy_course(osv.Model):
     _name = "academy.course"
     _description = "Academy Course"
@@ -47,9 +121,9 @@ class academy_course(osv.Model):
         "topic_ids" : fields.one2many("academy.topic", "course_id", "Topics"),
         "trainer_ids" : fields.many2many("academy.trainer", "academy_trainer_course_rel", "trainer_id", "course_id", "Trainers"),
         "student_ids" : fields.many2many("res.partner", "partner_academy_course_rel", "course_id", "student_id", "Students"),
-        
+
     }
-    
+
 class academy_topic(osv.Model):
     _name = "academy.topic"
     _description = "Academy Topic"
@@ -60,7 +134,8 @@ class academy_topic(osv.Model):
         "duration" : fields.float("Unit(s)"),
         "contract_ids" : fields.many2many("academy.contract", "academy_topic_contract_rel", "contract_id", "topic_id", "Contracts"),
     }
-    
+
+
 class academy_contract(osv.Model):
     _name = "academy.contract"
     _description = "Academy Contract"
@@ -72,25 +147,25 @@ class academy_contract(osv.Model):
         "topic_ids" : fields.many2many("academy.topic", "academy_topic_contract_rel", "topic_id", "contract_id", "Courses"),
         "partner_id" : fields.many2one("res.partner", "Partner")
     }
-    
+
+
 class academy_journal(osv.Model):
     _name = "academy.journal"
     _description = "Academy Journal"
-    
+
     def onchange_topic(self, cr, uid, ids, topic_id, context=None):
         res = {
             "value" : {}
         }
-        
+
         if topic_id:
             topic = self.pool.get("academy.topic").browse(cr, uid, topic_id)
             res["value"]["name"] = str(topic.name)+"\n"+str(topic.description)
             res["value"]["duration"] = topic.duration
             res["value"]["course_id"] = topic.course_id.id
-        
+
         return res
-    
-            
+
     _columns = {
         "name" : fields.text("Name"),
         "date" : fields.date("Date", required=True),
@@ -105,14 +180,16 @@ class academy_journal(osv.Model):
         "expenses" : fields.float("Transport Expenses"),
         "place" : fields.char("Place", size=64)
     }
-    
+
     _defaults = {
         "date" : util.currentDate(),
     }
+
+
 class academy_journal_absence(osv.Model):
     _name = "academy.journal.absence"
     _description = "Academy Journal Absence"
-    
+
     _columns = {
         "name" : fields.char("Reason", size=64, required=True),
         "time_from" : fields.float("From", help="The time must be between 00:00 and 24:00 o'clock and must not be bigger than the end"),
