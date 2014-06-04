@@ -16,9 +16,9 @@
             </field>
         </record>
         <record id="form_partner_title" model="ir.ui.view">
-            <field name="name">at_base.view_partner_title_form</field>          
+            <field name="name">at_base.view_partner_title_form</field>
             <field name="inherit_id" ref="base.view_partner_title_form" />
-            <field name="model">res.partner.title</field>           
+            <field name="model">res.partner.title</field>
             <field name="arch" type="xml">
             	 <field name="shortcut" position="after">
                     <field name="mail_salutation" colspan="2"/>
@@ -26,8 +26,8 @@
             	 </field>
             </field>
         </record>
-        
-        		<record id="tree_res_partner" model="ir.ui.view">
+
+        <record id="tree_res_partner" model="ir.ui.view">
             <field name="name">base.tree_res_partner</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_tree"/>
@@ -39,10 +39,10 @@
             			<field name="mobile_n" invisible="1"/>
             			<field name="fax_n" invisible="1"/>
             		</field>
-            	</data>               
+            	</data>
             </field>
         </record>
-        
+
 		<record id="form_partner_view" model="ir.ui.view">
             <field name="name">at_base.form_partner_view</field>
             <field name="model">res.partner</field>
@@ -50,20 +50,21 @@
             <field name="arch" type="xml">
             	<data>
              		 <field name="use_parent_address" position="before">
-             		 		<div class="oe_edit_only">             		 		
+             		 	<div class="oe_edit_only">
             		  		<field name="mail_without_company" attrs="{'invisible': [('parent_id','=', False)] }"/>
             		  		<label for="mail_without_company" class="oe_edit_only" attrs="{'invisible': [('parent_id','=', False)] }"/>
             		  	</div>
-            		 </field>            	
+            		 </field>
             		 <div class="address_format" position="replace">
-            		  		 <field name="zip" placeholder="ZIP" style="width: 16%%" attrs="{'readonly': [('use_parent_address','=',True)]}" 
+            		    <field name="zip" placeholder="ZIP" style="width: 16%%" attrs="{'readonly': [('use_parent_address','=',True)]}"
             		  		 			  on_change="on_change_zip(zip,city)"/>
-            		 	  	 <field name="city" placeholder="City" style="width: 40%%" attrs="{'readonly': [('use_parent_address','=',True)]}"/>
-                       <field name="state_id" class="oe_no_button" placeholder="State" style="width: 37%%" options='{"no_open": True}' on_change="onchange_state(state_id)" attrs="{'readonly': [('use_parent_address','=',True)]}"/>                      
+
+            		 	<field name="city" placeholder="City" style="width: 40%%" attrs="{'readonly': [('use_parent_address','=',True)]}"/>
+                        <field name="state_id" class="oe_no_button" placeholder="State" style="width: 37%%" options='{"no_open": True}' on_change="onchange_state(state_id)" attrs="{'readonly': [('use_parent_address','=',True)]}"/>
             		 </div>
-            	</data>        				        
+            	</data>
             </field>
-        </record>        
-        
+        </record>
+
     </data>
 </openerp>
