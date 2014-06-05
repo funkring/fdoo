@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+
+    <record id="form_academy_registration" model="ir.ui.view">
+      <field name="name">academy.form_academy_registration</field>
+      <field name="model">academy.registration</field>
+      <field name="arch" type="xml">
+        <form string="Registration" version="7.0">
+            <header>
+                <field name="state" widget="statusbar"
+                       statusbar_visible="draft,registered,assigned,open"
+                       statusbar_colors="{'cancel':'red'}"/>
+            </header>
+            <sheet>
+                <group>
+                    <group>
+                        <field name="year_id"/>
+                        <field name="student_id"/>
+                        <field name="location_id"/>
+                    </group>
+                    <group>
+                        <field name="course_prod_id"/>
+                        <field name="uom_id"/>
+                        <field name="amount"/>
+                    </group>
+                    <group>
+                        <field name="course_id"/>
+                        <field name="trainer_id"/>
+                    </group>
+                    <group>
+                        <field name="create_date"/>
+                    </group>
+                </group>
+            </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="tree_academy_registration" model="ir.ui.view">
+      <field name="name">academy.tree_academy_registration</field>
+      <field name="model">academy.registration</field>
+      <field name="arch" type="xml">
+        <tree string="Registrations">
+            <field name="year_id"/>
+            <field name="student_id"/>
+            <field name="location_id"/>
+            <field name="course_prod_id"/>
+            <field name="uom_id"/>
+            <field name="amount"/>
+            <field name="course_id"/>
+            <field name="trainer_id"/>
+            <field name="create_date"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="search_academy_registration" model="ir.ui.view">
+      <field name="name">academy.search_academy_registration</field>
+      <field name="model">academy.registration</field>
+      <field name="arch" type="xml">
+        <search string="Search Registration">
+          <field name="name" filter_domain="['|','|','|','|',('year','ilike',self),('student_id','ilike',self),('location_id','ilike',self),('course_prod_id','ilike',self),('trainer_id','ilike',self)]" string="Registration"/>
+          <separator/>
+          <field name="year_id"/>
+          <field name="student_id"/>
+          <field name="location_id"/>
+          <field name="course_prod_id"/>
+          <field name="trainer_id"/>
+          <separator/>
+          <field name="state"/>
+          <group expand="0" string="Group By...">
+            <filter string="Location" context="{'group_by': 'location_id'}"/>
+            <filter string="Trainer" context="{'group_by': 'trainer_id'}"/>
+            <filter string="Product" context="{'group_by': 'course_prod_id'}"/>
+            <filter string="State" context="{'group_by': 'state'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
+
+    <record id="action_academy_registration" model="ir.actions.act_window">
+      <field name="name">Registration</field>
+      <field name="res_model">academy.registration</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Click here to create a new registration.
+        </p>
+      </field>
+    </record>
+
+    <menuitem id="menu_academy_registration" name="Registration" parent="menu_academy_management"
+      sequence="3"
+      action="action_academy_registration"/>
+
+  </data>
+</openerp>

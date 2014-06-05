@@ -1,49 +1,156 @@
 <openerp>
-	<data>		
+	<data>
+
 		<record id="form_academy_trainer" model="ir.ui.view">
             <field name="name">academy.form_academy_trainer</field>
             <field name="model">academy.trainer</field>
             <field name="arch" type="xml">
                 <form string="Trainer" version="7.0">
-                	<sheet>
-                		<field name="id" invisible="1"/>
-                		<field name="image" widget='image' class="oe_avatar oe_left" options='{"preview_image": "image_medium"}'/>
-                		<div class="oe_title">
-                			<label for="name" class="oe_edit_only"/>
-                			<h1><field name="name"/></h1>
-                			<label for="email" class="oe_edit_only"/>
-		               		<h2><field name="email"/></h2>
-		               		<group>
-			               		<field name="partner_id" readonly="1" required="0" attrs="{'invisible': [('id', '=', False)]}"/>
-			               		<field name="active"/>
-		               		</group>
-		               	</div>
-	               		<notebook>
-	               			<page string="Contracts">
-	               				<field name="contract_ids"/>	
-	               			</page>
-	               		</notebook>
-	               		
-	               	</sheet>
+                	 <sheet>
+                        <field name="image" widget="image" class="oe_left oe_avatar" options='{"preview_image": "image_medium", "size": [90, 90]}'/>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" default_focus="1" placeholder="Name" />
+                            </h1>
+
+                            <field name="category_id" widget="many2many_tags" placeholder="Tags..."/>
+                            <field name="type" invisible="1"/>
+                            <field name="customer" invisible="1"/>
+                            <field name="use_parent_address" invisible="1"/>
+                            <field name="parent_id" invisible="1"/>
+                        </div>
+                        <group>
+                            <group>
+                                <label for="street" string="Address"/>
+                                <div>
+                                    <field name="street" placeholder="Street..."  attrs="{'readonly': [('use_parent_address','=',True)]}"/>
+                                    <field name="street2"  attrs="{'readonly': [('use_parent_address','=',True)]}"/>
+                                    <div class="address_format">
+                                        <field name="zip" placeholder="ZIP" style="width: 16%%" attrs="{'readonly': [('use_parent_address','=',True)]}"
+                                                  on_change="on_change_zip(zip,city)"/>
+                                        <field name="city" placeholder="City" style="width: 40%%" attrs="{'readonly': [('use_parent_address','=',True)]}"/>
+                                        <field name="state_id" class="oe_no_button" placeholder="State" style="width: 37%%" options='{"no_open": True}' on_change="onchange_state(state_id)" attrs="{'readonly': [('use_parent_address','=',True)]}"/>
+                                    </div>
+                                    <field name="country_id" placeholder="Country" class="oe_no_button" options='{"no_open": True}' attrs="{'readonly': [('use_parent_address','=',True)]}"/>
+                                </div>
+                            </group>
+                            <group>
+                                <field name="phone" placeholder="e.g. +32.81.81.37.00"/>
+                                <field name="mobile"/>
+                                <field name="user_ids" invisible="1"/>
+                                <field name="email" widget="email" attrs="{'required': [('user_ids','!=', [])]}"/>
+                            </group>
+                        </group>
+                        <notebook colspan="4">
+                            <page string="Notes">
+                                <field name="comment" placeholder="Put an internal note..."/>
+                            </page>
+                            <page string="Contracts">
+                                <field name="contract_ids"/>
+                            </page>
+                        </notebook>
+                    </sheet>
                 </form>
             </field>
-        </record> 
-        
-        <record id="tree_academy_trainer" model="ir.ui.view">
-            <field name="name">academy.tree_academy_trainer</field>
+        </record>
+
+       <!-- student kanban view -->
+       <record id="kanban_academy_trainer" model="ir.ui.view">
+            <field name="name">academy.kanban_academy_trainer</field>
             <field name="model">academy.trainer</field>
             <field name="arch" type="xml">
-                <tree string="Trainer">
-                	<field name="name"/>
-                </tree>
+                <kanban>
+                    <field name="color"/>
+                    <field name="display_name"/>
+                    <field name="title"/>
+                    <field name="email"/>
+                    <field name="phone"/>
+                    <field name="street"/>
+                    <field name="street2"/>
+                    <field name="zip"/>
+                    <field name="city"/>
+                    <field name="country_id"/>
+                    <field name="mobile"/>
+                    <field name="state_id"/>
+                    <field name="category_id"/>
+                    <field name="has_image"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_vignette oe_semantic_html_override">
+                                <a type="open">
+                                    <t t-if="record.has_image.raw_value === true">
+                                        <img t-att-src="kanban_image('res.partner', 'image_small', record.id.value)" class="oe_kanban_image"/>
+                                    </t>
+                                    <t t-if="record.has_image.raw_value === false">
+                                        <img t-att-src='_s + "/base/static/src/img/avatar.png"' class="oe_kanban_image"/>
+                                    </t>
+                                </a>
+                                <div class="oe_kanban_details">
+                                    <h4 class="oe_partner_heading"><a type="open"><field name="display_name"/></a></h4>
+                                    <div class="oe_kanban_partner_categories"/>
+                                    <div class="oe_kanban_partner_links"/>
+                                    <ul>
+                                        <li t-if="record.city.raw_value and !record.country.raw_value"><field name="city"/></li>
+                                        <li t-if="!record.city.raw_value and record.country.raw_value"><field name="country"/></li>
+                                        <li t-if="record.city.raw_value and record.country.raw_value"><field name="city"/>, <field name="country"/></li>
+                                        <li t-if="record.email.raw_value"><a t-attf-href="mailto:#{record.email.raw_value}"><field name="email"/></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
             </field>
         </record>
-        
-        <record id="action_academy_trainer" model="ir.actions.act_window">
-            <field name="name">Trainer</field>
-            <field name="res_model">academy.trainer</field>            
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
+
+        <!-- student tree view -->
+        <record id="tree_academy_trainer" model="ir.ui.view">
+          <field name="name">academy.tree_academy_trainer</field>
+          <field name="model">academy.trainer</field>
+          <field name="arch" type="xml">
+            <tree string="Students">
+                <field name="display_name"/>
+                <field name="phone"/>
+                <field name="email"/>
+            </tree>
+          </field>
         </record>
+
+
+        <record id="action_academy_trainer" model="ir.actions.act_window">
+          <field name="name">Student</field>
+          <field name="res_model">academy.trainer</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">kanban,tree,form</field>
+          <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+              Click here to create a new Trainer
+            </p>
+          </field>
+        </record>
+        <record id="action_academy_trainer_kanban" model="ir.actions.act_window.view">
+          <field name="sequence" eval="0"/>
+          <field name="view_mode">kanban</field>
+          <field name="view_id" ref="kanban_academy_trainer"/>
+          <field name="act_window_id" ref="action_academy_trainer"/>
+        </record>
+        <record id="action_academy_trainer_form" model="ir.actions.act_window.view">
+          <field name="sequence" eval="1"/>
+          <field name="view_mode">form</field>
+          <field name="view_id" ref="form_academy_trainer"/>
+          <field name="act_window_id" ref="action_academy_trainer"/>
+        </record>
+        <record id="action_academy_trainer_tree" model="ir.actions.act_window.view">
+          <field name="sequence" eval="2"/>
+          <field name="view_mode">tree</field>
+          <field name="view_id" ref="tree_academy_trainer"/>
+          <field name="act_window_id" ref="action_academy_trainer"/>
+        </record>
+
+        <menuitem id="menu_academy_trainer" name="Trainer" parent="menu_academy_management"
+          sequence="1"
+          action="action_academy_trainer"/>
+
 	</data>
 </openerp>

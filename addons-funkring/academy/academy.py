@@ -94,37 +94,57 @@ class academy_course_product(osv.Model):
 
 
 class academy_registration(osv.Model):
+
+    def _name_fct(self, cr, uid, ids, field_name, arg, context=None):
+        res = dict.fromkeys(ids)
+        values = self.read(cr, uid, ids, ["year_id","student_id","location_id","course_prod_id"], context=context)
+        for val in values:
+            res[val["id"]] = " / ".join(util.getNames(values))
+        return res
+
+
     _name = "academy.registration"
     _description = "Academy Registration"
     _columns = {
-        "year_id" : fields.many2one("academy.year", "Year", select=True),
-        "student_id" : fields.many2one("academy.student", "Student", select=True),
-        "location_id" : fields.many2one("academy.location", "Location", select=True),
-        "course_prod_id" : fields.many2one("academy.course.product", "Product", select=True),
-        "course_id" : fields.many2one("academy.course", "Course", select=True),
-        "trainer_id" : fields.many2one("academy.trainer", "Trainer", select=True),
-        "amount" : fields.float("Amount"),
-        "uom_id" : fields.many2one("product.uom", "Unit", select=True),
+        "name" : fields.function(_name_fct,string="Name",type="char"),
+        "create_date" : fields.datetime("Create Date", select=True, readonly=True),
+        "year_id" : fields.many2one("academy.year", "Year", select=True, required=True, ondelete="restrict"),
+        "student_id" : fields.many2one("academy.student", "Student", select=True, required=True, ondelete="restrict"),
+        "location_id" : fields.many2one("academy.location", "Location", select=True, ondelete="restrict"),
+        "course_prod_id" : fields.many2one("academy.course.product", "Product", select=True, required=True, ondelete="restrict"),
+        "course_id" : fields.many2one("academy.course", "Course", select=True, ondelete="restrict"),
+        "trainer_id" : fields.many2one("academy.trainer", "Trainer", select=True, ondelete="restrict"),
+        "amount" : fields.float("Amount", required=True),
+        "uom_id" : fields.many2one("product.uom", "Unit", select=True, ondelete="restrict"),
         "state" : fields.selection([("draft","Draft"),
                                     ("cancel","Cancel"),
                                     ("registered","Registered"),
                                     ("assigned","Assigned"),
                                     ("open","Open"),
                                     ("paid","Paid")],
-                                    "State")
+                                    "State", readonly=True, select=True)
 
     }
+    _defaults = {
+        "amount" : 1.0,
+        "state" : "draft"
+    }
+
 
 class academy_trainer(osv.Model):
+
+    def onchange_address(self, cr, uid, ids, use_parent_address, parent_id, context=None):
+        return self.pool.get("res.partner").onchange_address(cr, uid, ids, use_parent_address, parent_id, context=context)
+
+    def onchange_state(self, cr, uid, ids, state_id, context=None):
+        return self.pool.get("res.partner").onchange_state(cr, uid, ids, state_id, context=None)
+
     _name = "academy.trainer"
     _description = "Academy Trainer"
     _inherits = {"res.partner":"partner_id"}
     _columns = {
         "partner_id" : fields.many2one("res.partner", "Partner", required=True, ondelete="restrict"),
-        "contract_ids" : fields.many2many("academy.contract", "academy_contract_trainer_rel", "contract_id", "trainer_id", "Contracts"),
-    }
-    _defaults = {
-        "active" : True
+        "contract_ids" : fields.many2many("academy.contract", "academy_contract_trainer_rel", id1="contract_id", id2="trainer_id", string="Contracts")
     }
 
 
