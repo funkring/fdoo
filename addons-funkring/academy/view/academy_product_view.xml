@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record id="form_academy_course_product" model="ir.ui.view">
+      <field name="name">academy.form_academy_course_product</field>
+      <field name="model">academy.course.product</field>
+      <field name="arch" type="xml">
+        <form string="Course" version="7.0">
+            <sheet>
+                <field name="is_only_child" invisible="1"/>
+                <field name="image_medium" widget="image" class="oe_avatar oe_left"
+                    attrs="{'readonly': [('is_only_child', '=', False)]}"/>
+                <div class="oe_title">
+                    <div class="oe_edit_only">
+                        <label for="name" name='label_name' string="Product Name"
+                            attrs="{'invisible': [('is_only_child', '=', False)]}"/>
+                        <label for="name" name='label_name' string="Product Template"
+                            attrs="{'invisible': [('is_only_child', '=', True)]}"/>
+                    </div>
+                    <h1>
+                        <field name="name"
+                            attrs="{'required': [('is_only_child', '=', True)],
+                                    'invisible': [('is_only_child', '=', False)]}"/>
+                        <field name="product_tmpl_id"  readonly="1" required="0"
+                            attrs="{'invisible': [('is_only_child', '=', True)]}"/>
+                        <span groups="product.group_product_variant"
+                            attrs="{'invisible': [('is_only_child', '=', True), ('variants', '=', False)]}">
+                            - <field name="variants" placeholder="Variant Name" class="oe_inline"/>
+                        </span>
+                    </h1>
+                    <span attrs="{'invisible': [('is_only_child', '=', True)]}">
+                        <p>Generic product settings are managed on
+                            <button name="open_product_template" type="object" string="the template" class="oe_link"/>
+                        </p>
+                    </span>
+                    <label for="categ_id" class="oe_edit_only"/>
+                    <h2><field name="categ_id" attrs="{'readonly': [('is_only_child', '=', False)]}"/></h2>
+                    <label for="public_categ_id" class="oe_edit_only"/>
+                    <h3><field name="public_categ_id" attrs="{'readonly': [('is_only_child', '=', False)]}"/></h3>
+                </div>
+                <notebook>
+                    <page string="Information">
+                        <group>
+                            <group>
+                                <field name="uom_po_id" invisible="1"/>
+                                <field name="uom_id" on_change="onchange_uom(uom_id,uom_po_id)"
+                                    attrs="{'invisible': [('is_only_child', '=', False)]}"/>
+                                <field name="lst_price" string="Public Sale Price"
+                                    attrs="{'readonly': [('is_only_child', '=', False)]}"/>
+                            </group>
+                            <group>
+                                <field name="active" />
+                                <field name="default_code"/>
+                                <field name="company_id" groups="base.group_multi_company" widget="selection"
+                                    attrs="{'invisible': [('is_only_child', '=', False)]}"/>
+                            </group>
+                        </group>
+                        <separator string="Description for Quotations"/>
+                        <field name="description_sale" placeholder="note to be displayed on quotations..."
+                            attrs="{'readonly': [('is_only_child', '=', False)]}"/>
+                    </page>
+                </notebook>
+            </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="tree_academy_course_product" model="ir.ui.view">
+      <field name="name">academy.tree_academy_course_product</field>
+      <field name="model">academy.course.product</field>
+      <field name="arch" type="xml">
+        <tree string="Courses">
+            <field name="name"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="search_academy_course_product" model="ir.ui.view">
+      <field name="name">academy.search_academy_course_product</field>
+      <field name="model">academy.course.product</field>
+      <field name="arch" type="xml">
+        <search string="Search Course">
+            <field name="name"/>
+        </search>
+      </field>
+    </record>
+
+    <record id="action_academy_course_product" model="ir.actions.act_window">
+      <field name="name">Course</field>
+      <field name="res_model">academy.course.product</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Click to create a new Course Product
+        </p><p>
+          A Course Product is an service you offer as academy
+        </p>
+      </field>
+    </record>
+
+    <menuitem id="menu_academy_course_product" name="Course" parent="menu_academy_config_courses"
+      sequence="1"
+      action="action_academy_course_product"/>
+  </data>
+</openerp>

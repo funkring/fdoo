@@ -38,7 +38,10 @@ oerp.at Academy
               "view/academy_topic_view.xml",
               "view/academy_contract_view.xml",
               "view/academy_journal_view.xml",
-              "view/academy_location_view.xml"
+              "view/academy_location_view.xml",
+              "view/academy_year_view.xml",
+              "view/academy_product_view.xml",
+              "view/academy_student_view.xml"
               ],
     "auto_install" : False,
     "installable": True

@@ -61,7 +61,7 @@
       </field>
     </record>
 
-    <record id="action_academy_location2" model="ir.actions.act_window">
+    <record id="action_academy_location" model="ir.actions.act_window">
       <field name="name">Location</field>
       <field name="res_model">academy.location</field>
       <field name="view_type">form</field>
@@ -75,7 +75,7 @@
       </field>
     </record>
 
-    <menuitem id="menu_academy_location2" name="Location" parent="menu_academy_config_misc"
+    <menuitem id="menu_academy_location" name="Location" parent="menu_academy_config_misc"
       sequence="1"
       action="action_academy_location"/>
 

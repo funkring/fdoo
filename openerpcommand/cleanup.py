@@ -186,7 +186,7 @@ def run(args):
         # load and update registry
         registry = openerp.modules.registry.RegistryManager.get(
             args.database, update_module=True)
-        cr = registry.db.cursor() # TODO context manager
+        cr = registry.cursor() # TODO context manager
 
         # process further cleanup
         try:

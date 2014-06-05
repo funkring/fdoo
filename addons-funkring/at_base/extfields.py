@@ -31,11 +31,15 @@ class duplicate(fields.function):
         values =  obj.read(cr,uid,ids,[arg],context)
         res = dict.fromkeys(ids)
         for value in values:
-            res[value["id"]]=value[arg]
-        return res        
+            field_value = value[arg]
+            if isinstance(field_value, tuple):
+                res[value["id"]]=field_value[0]
+            else:
+                res[value["id"]]=field_value
+        return res
 
     def __init__(self, orig, string, **args):
         self.arg = orig
         self._relations = []
-        super(duplicate, self).__init__(self._fnct_read, orig, self._fnct_write, fnct_inv_arg=orig, string=string, method=True, fnct_search=None, **args)
+        super(duplicate, self).__init__(self._fnct_read, orig, self._fnct_write, fnct_inv_arg=orig, string=string, fnct_search=None, **args)
 

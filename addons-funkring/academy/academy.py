@@ -20,16 +20,17 @@
 
 from openerp.osv import fields, osv
 from openerp.addons.at_base import util
+from openerp.addons.at_base import extfields
 
 
 class academy_year(osv.Model):
     _name = "academy.year"
     _columns = {
         "company_id" : fields.many2one("res.company","Company"),
-        "name" : fields.char("Name"),
+        "name" : fields.char("Name", required=True, select=True),
         "semester_ids" : fields.one2many("academy.semester","year_id","Semester"),
-        "date_start" : fields.date("Start"),
-        "date_end" : fields.date("End")
+        "date_start" : fields.date("Start", select=True),
+        "date_end" : fields.date("End", select=True)
     }
     _defaults = {
         "company_id" : lambda self, cr, uid, context: self.pool.get("res.company")._company_default_get(cr, uid, "academy.year", context=context)
@@ -39,19 +40,31 @@ class academy_year(osv.Model):
 class academy_semester(osv.Model):
     _name = "academy.semester"
     _columns = {
-        "year_id" : fields.many2one("academy.year", "Year", ondelete="cascade"),
-        "name" : fields.char("Name"),
-        "date_start" : fields.date("Start"),
-        "date_end" : fields.date("End")
+        "year_id" : fields.many2one("academy.year", "Year", ondelete="cascade", select=True),
+        "name" : fields.char("Name", required=True),
+        "date_start" : fields.date("Start", required=True),
+        "date_end" : fields.date("End", required=True)
     }
 
 
 class academy_student(osv.Model):
+
+    def onchange_address(self, cr, uid, ids, use_parent_address, parent_id, context=None):
+        return self.pool.get("res.partner").onchange_address(cr, uid, ids, use_parent_address, parent_id, context=context)
+
+    def onchange_state(self, cr, uid, ids, state_id, context=None):
+        return self.pool.get("res.partner").onchange_state(cr, uid, ids, state_id, context=None)
+
     _name = "academy.student"
     _inherits = {"res.partner":"partner_id"}
     _columns = {
         "partner_id" : fields.many2one("res.partner", "Partner", ondelete="restrict", required=True, select=True),
-        "registration_ids" : fields.one2many("academy.registration","student_id","Registrations")
+        "invoice_address_id" : fields.many2one("res.partner","Invoice Address"),
+        "registration_ids" : fields.one2many("academy.registration","student_id","Registrations"),
+        "tmp_partner_id" : extfields.duplicate("partner_id", "Partner", type="many2one", obj="res.partner")
+    }
+    _defaults = {
+        "customer" : True
     }
 
 
@@ -65,10 +78,18 @@ class academy_location(osv.Model):
 
 
 class academy_course_product(osv.Model):
+
+    def onchange_uom(self, cr, uid, ids, uom_id, uom_po_id):
+        return self.pool.get("product.product").onchange_uom(cr, uid, ids, uom_id, uom_po_id)
+
     _name = "academy.course.product"
     _inherits = {"product.product":"product_id"}
     _columns = {
         "product_id" : fields.many2one("product.product", "Product", ondelete="restrict", required=True, select=True)
+    }
+    _defaults= {
+        "sale_ok" : True,
+        "type" : "service"
     }
 
 
@@ -101,8 +122,6 @@ class academy_trainer(osv.Model):
     _columns = {
         "partner_id" : fields.many2one("res.partner", "Partner", required=True, ondelete="restrict"),
         "contract_ids" : fields.many2many("academy.contract", "academy_contract_trainer_rel", "contract_id", "trainer_id", "Contracts"),
-        #"active" : fields.boolean("Active"),
-        #"image" : fields.related("partner_id", "image", type="binary", relation="res.partner", string="Image")
     }
     _defaults = {
         "active" : True
