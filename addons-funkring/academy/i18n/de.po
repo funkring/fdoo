@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 8.0alpha1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-29 12:15+0000\n"
-"PO-Revision-Date: 2014-04-29 14:16+0100\n"
+"POT-Creation-Date: 2014-06-05 12:56+0000\n"
+"PO-Revision-Date: 2014-06-05 15:18+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,12 +16,108 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: academy
+#: view:academy.student:0
+msgid "(edit company address)"
+msgstr "(editiere Übergeordnete Adresse)"
+
+#. module: academy
+#: model:ir.actions.act_window,help:academy.action_academy_trainer
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"              Click here to create a new Trainer\n"
+"            </p>\n"
+"          "
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"              Hier klicken um einen neuen Lehrer zu erstellen\n"
+"            </p>\n"
+"          "
+
+#. module: academy
+#: model:ir.actions.act_window,help:academy.action_academy_student
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"          Click here to create a new Student\n"
+"        </p><p>\n"
+"          The Students are academy customers\n"
+"        </p>\n"
+"      "
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"          Hier klicken um einen neuen Schüler zu erstellen\n"
+"        </p><p>\n"
+"         Schüler sind die Kunden der Schule\n"
+"        </p>\n"
+"      "
+
+#. module: academy
+#: model:ir.actions.act_window,help:academy.action_academy_year
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"          Click here to create a new academy year and its semester\n"
+"        </p><p>\n"
+"          An academy year is the period for one school year\n"
+"        </p>\n"
+"      "
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"         Hier klicken um ein neues Schuljahr zu erstellen inklusive der Semester\n"
+"        </p>      "
+
+#. module: academy
+#: model:ir.actions.act_window,help:academy.action_academy_registration
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"          Click here to create a new registration.\n"
+"        </p>\n"
+"      "
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"          Klicken sie hier um eine Anmeldung für einen Lehrgang zu erstellen\n"
+"        </p>\n"
+
+#. module: academy
+#: model:ir.actions.act_window,help:academy.action_academy_course_product
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"          Click to create a new Course Product\n"
+"        </p><p>\n"
+"          A Course Product is an service you offer as academy\n"
+"        </p>\n"
+"      "
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"         Klicken sie hier um ein Produkt für einen Lehrgang zu erstellen\n"
+"        </p><p>\n"
+"          Produkte zu Lehrgängen werden für die Abrechnung benötigt\n"
+"        </p>\n"
+"      "
+
+#. module: academy
+#: model:ir.actions.act_window,help:academy.action_academy_location
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"          Click to create a new location\n"
+"        </p><p>\n"
+"          Location are resources where courses are held\n"
+"        </p>\n"
+"      "
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"          Klicken sie hier um einen neuen Standort zu erstellen\n"
+"        </p><p>\n"
+"          Über den Standort wird das Gebäude, der Ort bestimmt, wo ein Lehrgang stattfindet\n"
+"        </p>\n"
+"      "
+
+#. module: academy
 #: view:academy.journal:0
 #: field:academy.journal,absence_ids:0
 msgid "Absences"
 msgstr "Abwesenheiten"
 
 #. module: academy
+#: model:ir.module.category,name:academy.module_category_academy
 #: model:ir.ui.menu,name:academy.menu_academy
 msgid "Academy"
 msgstr "Lehranstalt"
@@ -47,19 +143,42 @@ msgid "Academy Journal Absence"
 msgstr "Abwesenheiten"
 
 #. module: academy
+#: model:res.groups,name:academy.group_management
+msgid "Academy Management"
+msgstr "Schulverwaltung"
+
+#. module: academy
+#: model:ir.model,name:academy.model_academy_registration
+msgid "Academy Registration"
+msgstr "Schulanmeldung"
+
+#. module: academy
 #: model:ir.model,name:academy.model_academy_topic
 msgid "Academy Topic"
 msgstr "Thema"
 
 #. module: academy
 #: model:ir.model,name:academy.model_academy_trainer
+#: model:res.groups,name:academy.group_trainer
 msgid "Academy Trainer"
 msgstr "Trainer"
 
 #. module: academy
-#: field:academy.trainer,active:0
-msgid "Active"
-msgstr "Aktiv"
+#: field:academy.location,address_id:0
+#: view:academy.student:0
+#: view:academy.trainer:0
+msgid "Address"
+msgstr "Adresse"
+
+#. module: academy
+#: field:academy.registration,amount:0
+msgid "Amount"
+msgstr "Menge"
+
+#. module: academy
+#: selection:academy.registration,state:0
+msgid "Assigned"
+msgstr "Zugewiesen"
 
 #. module: academy
 #: field:academy.journal,begin:0
@@ -67,14 +186,34 @@ msgid "Begin"
 msgstr "Beginn"
 
 #. module: academy
+#: selection:academy.registration,state:0
+msgid "Cancel"
+msgstr "Abgebrochen"
+
+#. module: academy
+#: view:academy.student:0
+#: view:academy.trainer:0
+msgid "City"
+msgstr "Stadt"
+
+#. module: academy
 #: field:academy.contract,date:0
 msgid "Closing Date"
 msgstr "Abschlussdatum"
 
 #. module: academy
+#: field:academy.year,company_id:0
+msgid "Company"
+msgstr "Organisation"
+
+#. module: academy
+#: model:ir.ui.menu,name:academy.menu_academy_config
+msgid "Configuration"
+msgstr "Konfiguration"
+
+#. module: academy
 #: view:academy.contract:0
 #: model:ir.actions.act_window,name:academy.action_academy_contract
-#: model:ir.ui.menu,name:academy.menu_academy_contract
 msgid "Contract"
 msgstr "Vertrag"
 
@@ -87,26 +226,40 @@ msgid "Contracts"
 msgstr "Verträge"
 
 #. module: academy
+#: view:academy.student:0
+#: view:academy.trainer:0
+msgid "Country"
+msgstr "Land"
+
+#. module: academy
 #: view:academy.course:0
+#: view:academy.course.product:0
 #: field:academy.journal,course_id:0
+#: field:academy.registration,course_id:0
 #: field:academy.topic,course_id:0
 #: model:ir.actions.act_window,name:academy.action_academy_course
-#: model:ir.ui.menu,name:academy.menu_academy_course
+#: model:ir.actions.act_window,name:academy.action_academy_course_product
+#: model:ir.ui.menu,name:academy.menu_academy_course_product
 msgid "Course"
 msgstr "Kurs"
 
 #. module: academy
 #: view:academy.journal:0
 #: model:ir.actions.act_window,name:academy.action_academy_journal
-#: model:ir.ui.menu,name:academy.menu_academy_journal
 msgid "Course Journal"
 msgstr "Kurs Journal"
 
 #. module: academy
 #: field:academy.contract,topic_ids:0
-#: field:res.partner,course_ids:0
+#: view:academy.course.product:0
+#: model:ir.ui.menu,name:academy.menu_academy_config_courses
 msgid "Courses"
 msgstr "Kurse"
+
+#. module: academy
+#: field:academy.registration,create_date:0
+msgid "Create Date"
+msgstr "Erstellungsdatum"
 
 #. module: academy
 #: field:academy.journal,date:0
@@ -141,7 +294,19 @@ msgid "Description"
 msgstr "Beschreibung"
 
 #. module: academy
+#: view:academy.course.product:0
+msgid "Description for Quotations"
+msgstr "Beschreibung"
+
+#. module: academy
+#: selection:academy.registration,state:0
+msgid "Draft"
+msgstr "Entwurf"
+
+#. module: academy
 #: field:academy.journal,end:0
+#: field:academy.semester,date_end:0
+#: field:academy.year,date_end:0
 msgid "End"
 msgstr "Ende"
 
@@ -151,14 +316,31 @@ msgid "From"
 msgstr "Von"
 
 #. module: academy
-#: field:res.partner,guardian_ids:0
-msgid "Guardians"
-msgstr "Erziehungsberechtige"
+#: view:academy.location:0
+msgid "General"
+msgstr "Allgemein"
 
 #. module: academy
-#: field:academy.trainer,image:0
-msgid "Image"
-msgstr "Bild"
+#: view:academy.course.product:0
+msgid "Generic product settings are managed on"
+msgstr "Ist ein generisches Produkt"
+
+#. module: academy
+#: view:academy.registration:0
+#: view:academy.student:0
+msgid "Group By..."
+msgstr "Gruppiert nach"
+
+#. module: academy
+#: view:academy.course.product:0
+msgid "Information"
+msgstr ""
+
+#. module: academy
+#: view:academy.student:0
+#: field:academy.student,invoice_address_id:0
+msgid "Invoice Address"
+msgstr "Verrechnungsadresse"
 
 #. module: academy
 #: field:academy.journal.absence,journal_id:0
@@ -166,17 +348,48 @@ msgid "Journal"
 msgstr "Kursjournal"
 
 #. module: academy
+#: view:academy.location:0
+#: view:academy.registration:0
+#: field:academy.registration,location_id:0
+#: model:ir.actions.act_window,name:academy.action_academy_location
+#: model:ir.ui.menu,name:academy.menu_academy_location
+msgid "Location"
+msgstr "Standort"
+
+#. module: academy
+#: view:academy.location:0
+msgid "Locations"
+msgstr "Standorte"
+
+#. module: academy
 #: model:ir.ui.menu,name:academy.menu_academy_management
 msgid "Management"
 msgstr "Verwaltung"
 
 #. module: academy
+#: model:ir.ui.menu,name:academy.menu_academy_config_misc
+msgid "Misc"
+msgstr "Sonstiges"
+
+#. module: academy
 #: field:academy.contract,name:0
 #: field:academy.course,name:0
 #: field:academy.journal,name:0
+#: view:academy.location:0
+#: field:academy.registration,name:0
+#: field:academy.semester,name:0
+#: view:academy.student:0
 #: field:academy.topic,name:0
+#: view:academy.trainer:0
+#: field:academy.year,name:0
 msgid "Name"
 msgstr ""
+
+#. module: academy
+#: view:academy.student:0
+#: view:academy.trainer:0
+msgid "Notes"
+msgstr "Notizen"
 
 #. module: academy
 #: field:academy.course,number:0
@@ -184,10 +397,26 @@ msgid "Number"
 msgstr "Nummer"
 
 #. module: academy
+#: selection:academy.registration,state:0
+msgid "Open"
+msgstr "Offen"
+
+#. module: academy
+#: selection:academy.registration,state:0
+msgid "Paid"
+msgstr "Bezahlt"
+
+#. module: academy
+#: view:academy.student:0
+msgid "Parent"
+msgstr "Erziehungsberechtigte(r)"
+
+#. module: academy
 #: field:academy.contract,partner_id:0
 #: field:academy.journal.absence,partner_id:0
+#: field:academy.student,partner_id:0
+#: field:academy.student,tmp_partner_id:0
 #: field:academy.trainer,partner_id:0
-#: model:ir.model,name:academy.model_res_partner
 msgid "Partner"
 msgstr ""
 
@@ -197,21 +426,143 @@ msgid "Place"
 msgstr "Ort"
 
 #. module: academy
+#: field:academy.course.product,product_id:0
+#: view:academy.registration:0
+#: field:academy.registration,course_prod_id:0
+#: model:ir.model,name:academy.model_product_product
+msgid "Product"
+msgstr "Produkt"
+
+#. module: academy
+#: view:academy.course.product:0
+msgid "Product Name"
+msgstr "Produkt"
+
+#. module: academy
+#: view:academy.course.product:0
+msgid "Product Template"
+msgstr "Produktvorlage"
+
+#. module: academy
+#: view:academy.course.product:0
+msgid "Public Sale Price"
+msgstr "Verkaufspreis"
+
+#. module: academy
+#: view:academy.student:0
+#: view:academy.trainer:0
+msgid "Put an internal note..."
+msgstr "Platz für interne Notizen..."
+
+#. module: academy
 #: field:academy.journal.absence,name:0
 msgid "Reason"
 msgstr "Grund"
 
 #. module: academy
+#: selection:academy.registration,state:0
+msgid "Registered"
+msgstr "Angemeldet"
+
+#. module: academy
+#: view:academy.registration:0
+#: model:ir.actions.act_window,name:academy.action_academy_registration
+#: model:ir.ui.menu,name:academy.menu_academy_registration
+msgid "Registration"
+msgstr "Anmeldung"
+
+#. module: academy
+#: view:academy.registration:0
+#: view:academy.student:0
+#: field:academy.student,registration_ids:0
+msgid "Registrations"
+msgstr "Anmeldungen"
+
+#. module: academy
+#: field:academy.location,resource_id:0
+msgid "Resource"
+msgstr ""
+
+#. module: academy
+#: view:academy.course.product:0
+msgid "Search Course"
+msgstr "Kurssuche"
+
+#. module: academy
+#: view:academy.location:0
+msgid "Search Location"
+msgstr "Standortsuche"
+
+#. module: academy
+#: view:academy.registration:0
+msgid "Search Registration"
+msgstr "Anmeldungssuche"
+
+#. module: academy
+#: view:academy.student:0
+msgid "Search Student"
+msgstr "Schülersuche"
+
+#. module: academy
+#: view:academy.year:0
+msgid "Search Year"
+msgstr "Schuljahrsuche"
+
+#. module: academy
+#: view:academy.year:0
+#: field:academy.year,semester_ids:0
+msgid "Semester"
+msgstr ""
+
+#. module: academy
+#: field:academy.semester,date_start:0
+#: field:academy.year,date_start:0
+msgid "Start"
+msgstr ""
+
+#. module: academy
+#: view:academy.registration:0
+#: field:academy.registration,state:0
+#: view:academy.student:0
+#: view:academy.trainer:0
+msgid "State"
+msgstr "Status"
+
+#. module: academy
+#: view:academy.student:0
+#: view:academy.trainer:0
+msgid "Street..."
+msgstr "Strasse..."
+
+#. module: academy
 #: view:academy.course:0
 #: view:academy.journal:0
+#: field:academy.registration,student_id:0
+#: view:academy.student:0
+#: model:ir.actions.act_window,name:academy.action_academy_student
+#: model:ir.actions.act_window,name:academy.action_academy_trainer
+#: model:ir.ui.menu,name:academy.menu_academy_student
 msgid "Student"
 msgstr "Teilnehmer"
 
 #. module: academy
 #: field:academy.course,student_ids:0
 #: field:academy.journal,student_ids:0
+#: view:academy.student:0
+#: view:academy.trainer:0
 msgid "Students"
 msgstr "Teilnehmer"
+
+#. module: academy
+#: view:academy.student:0
+msgid "Tag"
+msgstr "Stichwort"
+
+#. module: academy
+#: view:academy.student:0
+#: view:academy.trainer:0
+msgid "Tags..."
+msgstr "Stichworte..."
 
 #. module: academy
 #: help:academy.journal,end:0
@@ -235,7 +586,6 @@ msgstr "Bis"
 #: field:academy.journal,topic_id:0
 #: view:academy.topic:0
 #: model:ir.actions.act_window,name:academy.action_academy_topic
-#: model:ir.ui.menu,name:academy.menu_academy_topic
 msgid "Topic"
 msgstr "Thema"
 
@@ -249,11 +599,12 @@ msgstr "Themen"
 #. module: academy
 #: view:academy.journal:0
 #: field:academy.journal,trainer_id:0
+#: view:academy.registration:0
+#: field:academy.registration,trainer_id:0
 #: view:academy.trainer:0
-#: model:ir.actions.act_window,name:academy.action_academy_trainer
 #: model:ir.ui.menu,name:academy.menu_academy_trainer
 msgid "Trainer"
-msgstr ""
+msgstr "Lehrer"
 
 #. module: academy
 #: view:academy.course:0
@@ -262,18 +613,89 @@ msgid "Trainers"
 msgstr "Trainer"
 
 #. module: academy
-#: model:ir.ui.menu,name:academy.menu_academy_training
-msgid "Training"
-msgstr "Unterricht"
-
-#. module: academy
 #: field:academy.journal,expenses:0
 msgid "Transport Expenses"
 msgstr "Fahrtkosten"
+
+#. module: academy
+#: field:academy.registration,uom_id:0
+msgid "Unit"
+msgstr "Einheit"
 
 #. module: academy
 #: field:academy.journal,duration:0
 #: field:academy.topic,duration:0
 msgid "Unit(s)"
 msgstr "Einheit(en)"
+
+#. module: academy
+#: view:academy.course.product:0
+msgid "Variant Name"
+msgstr "Variante"
+
+#. module: academy
+#: field:academy.registration,year_id:0
+#: field:academy.semester,year_id:0
+#: view:academy.year:0
+#: model:ir.actions.act_window,name:academy.action_academy_year
+#: model:ir.ui.menu,name:academy.menu_academy_year
+msgid "Year"
+msgstr "Jahr"
+
+#. module: academy
+#: view:academy.year:0
+msgid "Years"
+msgstr "Jahre"
+
+#. module: academy
+#: view:academy.student:0
+#: view:academy.trainer:0
+msgid "ZIP"
+msgstr "PLZ"
+
+#. module: academy
+#: model:ir.model,name:academy.model_academy_course_product
+msgid "academy.course.product"
+msgstr ""
+
+#. module: academy
+#: model:ir.model,name:academy.model_academy_location
+msgid "academy.location"
+msgstr ""
+
+#. module: academy
+#: model:ir.model,name:academy.model_academy_semester
+msgid "academy.semester"
+msgstr ""
+
+#. module: academy
+#: model:ir.model,name:academy.model_academy_student
+msgid "academy.student"
+msgstr ""
+
+#. module: academy
+#: model:ir.model,name:academy.model_academy_year
+msgid "academy.year"
+msgstr ""
+
+#. module: academy
+#: model:ir.module.category,description:academy.module_category_academy
+msgid "all around academy management"
+msgstr "Alles rund um die Schulverwaltung"
+
+#. module: academy
+#: view:academy.student:0
+#: view:academy.trainer:0
+msgid "e.g. +32.81.81.37.00"
+msgstr "z.B. +43 3332 86927"
+
+#. module: academy
+#: view:academy.course.product:0
+msgid "note to be displayed on quotations..."
+msgstr "Beschreibung welche auf Angeboten gezeigt werden soll"
+
+#. module: academy
+#: view:academy.course.product:0
+msgid "the template"
+msgstr "die Vorlage"
 
