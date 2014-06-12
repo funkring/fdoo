@@ -274,12 +274,12 @@ templates:
       </data>
     </openerp>
 
-- name: 'o_right_all'
-  description: 'OpenERP: Access right all'
+- name: 'o_right_public'
+  description: 'OpenERP: public access right'
   pattern:
     |
-    <record id="access_${model}_all" model="ir.model.access">
-      <field name="name">${model}/all</field>
+    <record id="access_${model}_public" model="ir.model.access">
+      <field name="name">${model}/public</field>
       <field name="model_id" ref="model_${model}"/>
       <field name="perm_read" eval="${read}"/>
       <field name="perm_unlink" eval="${delete}"/>
