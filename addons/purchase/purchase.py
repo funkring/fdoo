@@ -662,6 +662,8 @@ class purchase_order(osv.osv):
                         _('You must first cancel all invoices related to this purchase order.'))
             self.pool.get('account.invoice') \
                 .signal_invoice_cancel(cr, uid, map(attrgetter('id'), purchase.invoice_ids))
+            self.pool['purchase.order.line'].write(cr, uid, [l.id for l in  purchase.order_line],
+                    {'state': 'cancel'})
         self.write(cr, uid, ids, {'state': 'cancel'})
         self.set_order_line_status(cr, uid, ids, 'cancel', context=context)
         self.signal_purchase_cancel(cr, uid, ids)
@@ -983,6 +985,9 @@ class purchase_order_line(osv.osv):
         return super(purchase_order_line, self).copy_data(cr, uid, id, default, context)
 
     def unlink(self, cr, uid, ids, context=None):
+        for line in self.browse(cr, uid, ids, context=context):
+            if line.state not in ['draft', 'cancel']:
+                raise osv.except_osv(_('Invalid Action!'), _('Cannot delete a purchase order line which is in state \'%s\'.') %(line.state,))
         procurement_obj = self.pool.get('procurement.order')
         procurement_ids_to_cancel = procurement_obj.search(cr, uid, [('purchase_line_id', 'in', ids)], context=context)
         if procurement_ids_to_cancel:
@@ -1359,8 +1364,15 @@ class product_template(osv.Model):
     _name = 'product.template'
     _inherit = 'product.template'
 
+    def _purchase_count(self, cr, uid, ids, field_name, arg, context=None):
+        res = dict.fromkeys(ids, 0)
+        for template in self.browse(cr, uid, ids, context=context):
+            res[template.id] = sum([p.purchase_count for p in template.product_variant_ids])
+        return res
+    
     _columns = {
         'purchase_ok': fields.boolean('Can be Purchased', help="Specify if the product can be selected in a purchase order line."),
+        'purchase_count': fields.function(_purchase_count, string='# Purchases', type='integer'),
     }
     _defaults = {
         'purchase_ok': 1,

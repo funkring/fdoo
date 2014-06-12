@@ -27,6 +27,7 @@ Miscellaneous tools used by OpenERP.
 
 from functools import wraps
 import cProfile
+from contextlib import contextmanager
 import subprocess
 import logging
 import os
@@ -1259,6 +1260,11 @@ def dumpstacks(sig=None, frame=None):
 
     _logger.info("\n".join(code))
 
-
+@contextmanager
+def ignore(*exc):
+    try:
+        yield
+    except exc:
+        pass
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
