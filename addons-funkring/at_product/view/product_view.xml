@@ -10,9 +10,6 @@
 					<field name="name" position="after">
 						<field name="code" />
 					</field>
-					<field name="active" position="after">
-						<field name="blanket" />
-					</field>
 				</data>
 			</field>
 		</record>
@@ -33,7 +30,7 @@
 			<field name="model">product.product</field>
 			<field name="inherit_id" ref="product.product_search_form_view" />
 			<field name="arch" type="xml">
-				<field name="name" position="after">					
+				<field name="name" position="after">
 					<field name="variants" />
 				</field>
 			</field>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <template id="index" name="Academy">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure"/>
+                <div class="container">
+                    <div class="row mt8">
+                        <div class="col-sm-5">
+                            <div t-if="states" class="btn-group"> <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#"><t t-esc="state_item"/> <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li t-foreach="states" t-as="state"><a t-attf-href="/academy?{{ keep_query('location_id', state_id=state.id) }}"><t t-esc="state.name"/></a></li>
+                                </ul>
+                            </div>
+                            <div t-if="locations" class="btn-group"> <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#"><t t-esc="location_item"/> <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li t-foreach="locations" t-as="location"><a t-attf-href="/academy?{{ keep_query('state_id', location_id=location.id) }}"><t t-esc="location.name"/></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt8 mb8">
+                        <div class="col-sm-5">
+                            <form action="academy/register">
+                                <div t-foreach="products" class="row mb4" t-as="product">
+                                    <div class="col-sm-5">
+                                        <t t-esc="product.name"/>
+                                        <select t-attf-name="product-{{ product.id }}">
+                                            <option t-foreach="product.uom_id.category_id.uom_ids" t-as="uom" t-attf-value="{{ uom.name }}"/>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+  </data>
+</openerp>
+

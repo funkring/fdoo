@@ -76,7 +76,6 @@ class academy_location(osv.Model):
         "address_id" : fields.many2one("res.partner", "Address", ondelete="cascade"),
     }
 
-
 class academy_course_product(osv.Model):
 
     def onchange_uom(self, cr, uid, ids, uom_id, uom_po_id):

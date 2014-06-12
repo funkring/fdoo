@@ -1,0 +1,41 @@
+<openerp>
+  <data>
+
+        <record id="access_academy_year_public" model="ir.model.access">
+          <field name="name">academy_year/public</field>
+          <field name="model_id" ref="academy.model_academy_year"/>
+          <field name="perm_read" eval="True"/>
+          <field name="perm_unlink" eval="False"/>
+          <field name="perm_create" eval="False"/>
+          <field name="perm_write" eval="False"/>
+        </record>
+
+        <record id="access_academy_semester_public" model="ir.model.access">
+          <field name="name">academy_semester/public</field>
+          <field name="model_id" ref="academy.model_academy_semester"/>
+          <field name="perm_read" eval="True"/>
+          <field name="perm_unlink" eval="False"/>
+          <field name="perm_create" eval="False"/>
+          <field name="perm_write" eval="False"/>
+        </record>
+
+        <record id="access_academy_location_public" model="ir.model.access">
+          <field name="name">academy_location/public</field>
+          <field name="model_id" ref="academy.model_academy_location"/>
+          <field name="perm_read" eval="True"/>
+          <field name="perm_unlink" eval="False"/>
+          <field name="perm_create" eval="False"/>
+          <field name="perm_write" eval="False"/>
+        </record>
+
+        <record id="access_academy_course_product_public" model="ir.model.access">
+          <field name="name">academy_course_product/public</field>
+          <field name="model_id" ref="academy.model_academy_course_product"/>
+          <field name="perm_read" eval="True"/>
+          <field name="perm_unlink" eval="False"/>
+          <field name="perm_create" eval="False"/>
+          <field name="perm_write" eval="False"/>
+        </record>
+
+  </data>
+</openerp>
