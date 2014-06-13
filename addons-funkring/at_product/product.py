@@ -25,14 +25,19 @@ import re
 class product_uom_categ(osv.osv):
     _inherit = "product.uom.categ"
     _columns = {
-       "uom_ids" : fields.many2one("product.uom","category_id","Grouped UOMs")
+       "uom_ids" : fields.one2many("product.uom","category_id","Grouped UOMs"),
     }
 
 
 class product_uom(osv.osv):
     _inherit = "product.uom"
     _columns = {
-        "code": fields.char("Code", size=32, select=True)
+        "code": fields.char("Code", size=32, select=True),
+        "sequence" : fields.integer("Sequence")
+    }
+    _order = "category_id, sequence"
+    _defaults = {
+        "sequence" : 10
     }
 
 

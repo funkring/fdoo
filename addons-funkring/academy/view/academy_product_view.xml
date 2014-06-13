@@ -7,57 +7,37 @@
       <field name="arch" type="xml">
         <form string="Course" version="7.0">
             <sheet>
-                <field name="is_only_child" invisible="1"/>
-                <field name="image_medium" widget="image" class="oe_avatar oe_left"
-                    attrs="{'readonly': [('is_only_child', '=', False)]}"/>
-                <div class="oe_title">
-                    <div class="oe_edit_only">
-                        <label for="name" name='label_name' string="Product Name"
-                            attrs="{'invisible': [('is_only_child', '=', False)]}"/>
-                        <label for="name" name='label_name' string="Product Template"
-                            attrs="{'invisible': [('is_only_child', '=', True)]}"/>
+                <field name="is_product_variant" invisible="1"/>
+                <field name="id" invisible="1"/>
+                <div class="oe_left" style="width: 500px;">
+                    <field name="image_medium" widget="image" class="oe_avatar oe_left"/>
+                    <div class="oe_title" style="width: 390px;">
+                        <label class="oe_edit_only" for="name" string="Course"/>
+                        <h1><field name="name" class="oe_inline"/></h1>
                     </div>
-                    <h1>
-                        <field name="name"
-                            attrs="{'required': [('is_only_child', '=', True)],
-                                    'invisible': [('is_only_child', '=', False)]}"/>
-                        <field name="product_tmpl_id"  readonly="1" required="0"
-                            attrs="{'invisible': [('is_only_child', '=', True)]}"/>
-                        <span groups="product.group_product_variant"
-                            attrs="{'invisible': [('is_only_child', '=', True), ('variants', '=', False)]}">
-                            - <field name="variants" placeholder="Variant Name" class="oe_inline"/>
-                        </span>
-                    </h1>
-                    <span attrs="{'invisible': [('is_only_child', '=', True)]}">
-                        <p>Generic product settings are managed on
-                            <button name="open_product_template" type="object" string="the template" class="oe_link"/>
-                        </p>
-                    </span>
-                    <label for="categ_id" class="oe_edit_only"/>
-                    <h2><field name="categ_id" attrs="{'readonly': [('is_only_child', '=', False)]}"/></h2>
-                    <label for="public_categ_id" class="oe_edit_only"/>
-                    <h3><field name="public_categ_id" attrs="{'readonly': [('is_only_child', '=', False)]}"/></h3>
                 </div>
                 <notebook>
                     <page string="Information">
                         <group>
                             <group>
+                                <field name="uom_categ_id" invisible="1"/>
+                                <field name="uom_id" on_change="onchange_uom(uom_id,uom_po_id)"/>
                                 <field name="uom_po_id" invisible="1"/>
-                                <field name="uom_id" on_change="onchange_uom(uom_id,uom_po_id)"
-                                    attrs="{'invisible': [('is_only_child', '=', False)]}"/>
-                                <field name="lst_price" string="Public Sale Price"
-                                    attrs="{'readonly': [('is_only_child', '=', False)]}"/>
+                                <field name="list_price"/>
                             </group>
                             <group>
-                                <field name="active" />
+                                <field name="active"/>
                                 <field name="default_code"/>
-                                <field name="company_id" groups="base.group_multi_company" widget="selection"
-                                    attrs="{'invisible': [('is_only_child', '=', False)]}"/>
+                                <field name="company_id" groups="base.group_multi_company" widget="selection"/>
                             </group>
                         </group>
-                        <separator string="Description for Quotations"/>
-                        <field name="description_sale" placeholder="note to be displayed on quotations..."
-                            attrs="{'readonly': [('is_only_child', '=', False)]}"/>
+                        <group>
+                            <separator string="Description for Quotations"/>
+                            <field name="description_sale" placeholder="note to be displayed on quotations..."/>
+                        </group>
+                    </page>
+                    <page string="Units">
+                        <field name="course_uom_ids" domain="[('category_id','=',uom_categ_id)]"/>
                     </page>
                 </notebook>
             </sheet>
@@ -99,8 +79,16 @@
       </field>
     </record>
 
+
     <menuitem id="menu_academy_course_product" name="Course" parent="menu_academy_config_courses"
       sequence="1"
       action="action_academy_course_product"/>
+
+    <menuitem id="menu_academy_uom_category"  parent="menu_academy_config_courses"
+      sequence="2"
+      string="Unit Categories"
+      action="product.product_uom_categ_form_action"/>
+
+
   </data>
 </openerp>

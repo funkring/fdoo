@@ -31,9 +31,9 @@ oerp.at Accounting and Finance Extensions
 """,
     "version" : "1.1",
     "author" :  "funkring.net",
-    "category" : "Accounting & Finance",     
+    "category" : "Accounting & Finance",
     "website": "http://www.funkring.net",
-    "depends" : ["account",                 
+    "depends" : ["account",
                  "account_voucher",
                  "at_base",
                  "at_product"],
@@ -41,7 +41,7 @@ oerp.at Accounting and Finance Extensions
                     "report/account_voucher_list_report.xml",
                     "report/account_invoice_list_report.xml",
                     "report/account_bank_statement_report.xml",
-                    "report/account_account_report.xml",                    
+                    "report/account_account_report.xml",
                     "view/account_journal_view.xml",
                     "view/account_bank_statement_view.xml",
                     "view/company_view.xml",
@@ -49,6 +49,6 @@ oerp.at Accounting and Finance Extensions
                     "view/invoice_view.xml",
                     "menu.xml",
                     "security.xml"],
-    "auto_install" : False,
-    "installable": True
+    "installable": True,
+    "application" : True
 }

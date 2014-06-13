@@ -81,10 +81,18 @@ class academy_course_product(osv.Model):
     def onchange_uom(self, cr, uid, ids, uom_id, uom_po_id):
         return self.pool.get("product.product").onchange_uom(cr, uid, ids, uom_id, uom_po_id)
 
+    def _uom_categ_id(self, cr, uid, ids, field_name, arg, context=None):
+        res = dict.fromkeys(ids)
+        for obj in self.browse(cr, uid, ids, context):
+            res[obj.id]=obj.uom_id.category_id.id
+        return res
+
     _name = "academy.course.product"
     _inherits = {"product.product":"product_id"}
     _columns = {
-        "product_id" : fields.many2one("product.product", "Product", ondelete="restrict", required=True, select=True)
+        "product_id" : fields.many2one("product.product", "Product", ondelete="restrict", required=True, select=True),
+        "course_uom_ids" : fields.many2many("product.uom", "course_uom_rel", "course_id", "uom_id", "Units"),
+        "uom_categ_id" : fields.function(_uom_categ_id, type="many2one", obj="product.uom.categ")
     }
     _defaults= {
         "sale_ok" : True,
@@ -143,7 +151,7 @@ class academy_trainer(osv.Model):
     _inherits = {"res.partner":"partner_id"}
     _columns = {
         "partner_id" : fields.many2one("res.partner", "Partner", required=True, ondelete="restrict"),
-        "contract_ids" : fields.many2many("academy.contract", "academy_contract_trainer_rel", id1="contract_id", id2="trainer_id", string="Contracts")
+        "contract_ids" : fields.many2many("academy.contract", "academy_contract_trainer_rel", "trainder_id", "contract_id", "Contracts")
     }
 
 

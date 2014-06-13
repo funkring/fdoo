@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
 	<data>
+
+        <record id="form_uom_categ" model="ir.ui.view">
+          <field name="name">at_product.form_uom_categ</field>
+          <field name="model">product.uom.categ</field>
+          <field name="inherit_id" ref="product.product_uom_categ_form_view"/>
+          <field name="arch" type="xml">
+            <data>
+              <xpath expr="/form" position="inside">
+                  <notebook colspan="4">
+                    <page string="Units">
+                        <field name="uom_ids">
+                            <tree editable="buttom">
+                                <field name="sequence" widget="handle"/>
+                                <field name="name"/>
+                                <field name="uom_type" on_change="onchange_type(uom_type)"/>
+                                <field name="factor"/>
+                            </tree>
+                        </field>
+                    </page>
+                  </notebook>
+              </xpath>
+            </data>
+          </field>
+        </record>
+
 		<record id="at_product_uom_form_view" model="ir.ui.view">
 			<field name="name">Product UOM Form</field>
 			<field name="model">product.uom</field>
@@ -14,6 +39,17 @@
 			</field>
 		</record>
 
+        <record id="tree_product_uom" model="ir.ui.view">
+          <field name="name">at_product.tree_product_uom</field>
+          <field name="model">product.uom</field>
+          <field name="inherit_id" ref="product.product_uom_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <field name="sequence" widget="handle"/>
+                </field>
+            </field>
+        </record>
+
 		<record id="product_category_form_view" model="ir.ui.view">
 			<field name="name">product.category.form</field>
 			<field name="model">product.category</field>
@@ -25,7 +61,7 @@
 			</field>
 		</record>
 
-		<record id="search_product" model="ir.ui.view">
+		<!-- <record id="search_product" model="ir.ui.view">
 			<field name="name">product.search</field>
 			<field name="model">product.product</field>
 			<field name="inherit_id" ref="product.product_search_form_view" />
@@ -34,7 +70,7 @@
 					<field name="variants" />
 				</field>
 			</field>
-		</record>
+		</record> -->
 
 	</data>
 </openerp>

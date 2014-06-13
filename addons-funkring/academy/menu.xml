@@ -6,10 +6,12 @@
 		          groups="group_management,group_trainer"/>
 
 		<menuitem id="menu_academy_management"
-		          name="Management" parent="menu_academy" sequence="1"/>
+		          name="Management" parent="menu_academy" sequence="1"
+		          groups="group_management"/>
 
 		<menuitem id="menu_academy_config"
-		          name="Configuration" parent="menu_academy" sequence="100"/>
+		          name="Configuration" parent="menu_academy" sequence="100"
+		          groups="group_management"/>
 
 		<menuitem id="menu_academy_config_misc"
 		          name="Misc" parent="menu_academy_config" sequence="1"/>

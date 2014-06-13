@@ -19,21 +19,16 @@
 ##############################################################################
 
 {
-    "name" : "oerp.at Academy (Web)",
+    "name" : "oerp.at Website Embeddable Layout",
     "description":"""
-oerp.at Academy (Web)
-=====================
+Embeddable Website Layout
+=========================
 
-  * The web site extension for the academy module
-  * Adds the possibility for registration
-
-    """,
+""",
     "version" : "1.0",
     "author" :  "funkring.net",
-    "category" : "Academy",
-    "depends" : ["academy","website","website_embedded"],
-    "data" : ["security.xml",
-              "view/academy_website.xml"],
-    "installable": True,
-    "application" : True
+    "category" : "Website",
+    "depends" : ["website"],
+    "data" : ["view/website_template.xml"],
+    "installable": True
 }

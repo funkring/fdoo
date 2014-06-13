@@ -4,32 +4,33 @@
 		<record id="form_account_bank_statement" model="ir.ui.view">
 			<field name="name">at_account.account.bank.statement</field>
 			<field name="model">account.bank.statement</field>
-			<field name="inherit_id" ref="account_voucher.view_bank_statement_form_voucher" />
+			<field name="inherit_id" ref="account.view_bank_statement_form" />
 			<field name="arch" type="xml">
 				<data>
 					<xpath
 						expr="//page[@name='statement_line_ids']/field[@name='line_ids']/tree/field[@name='amount']"
-						position="replace">
-						<field name="amount"
-							on_change="onchange_invoice(date,name,ref,parent.journal_id,invoice_id,compensation_id,amount,voucher_id,context)" />
-					</xpath>					
+						position="attributes">
+						<attribute name="on_change">onchange_invoice(date,name,ref,parent.journal_id,invoice_id,compensation_id,amount,voucher_id,context)</attribute>
+					</xpath>
 					<xpath
-						expr="//page[@name='statement_line_ids']/field[@name='line_ids']/tree/field[@name='voucher_id']"
-						position="before">
-						
+						expr="//page[@name='statement_line_ids']/field[@name='line_ids']/tree/field[@name='bank_account_id']"
+						position="after">
+
+                        <field name="voucher_id" string="" widget="many2onebutton" options="{'label':{'create':'Reconcile','edit':'Edit Reconciliation'}}" context="{'line_type': type, 'default_type': amount &lt; 0 and 'payment' or 'receipt', 'type': amount &lt; 0 and 'payment' or 'receipt', 'default_partner_id': partner_id, 'default_journal_id': parent.journal_id, 'default_amount': abs(amount), 'default_reference': ref, 'default_date': date, 'default_name': name, 'default_active': False, 'account_id': account_id}"/>
+
 						<field name="invoice_id"
 							on_change="onchange_invoice(date,name,ref,parent.journal_id,invoice_id,compensation_id,amount,voucher_id,context)"
 							context="{'search_default_unpaid' : 1 }" />
-							
+
 						<field name="compensation_id" widget="selection"
 							on_change="onchange_invoice(date,name,ref,parent.journal_id,invoice_id,compensation_id,amount,voucher_id,context)" />
-							
+
 						<field name="residual_amount" string="Rest" />
-						
+
 						<button name="payment_view" string="Payment"
 							icon="terp-stock_format-scientific" type="object"
 							attrs="{'invisible':[('voucher_id','=',False)] }" />
-							
+
 					</xpath>
 				</data>
 			</field>
