@@ -829,7 +829,10 @@ class many2many(_column):
         if where_c:
             where_c = ' AND ' + where_c
 
-        order_by = ' ORDER BY "%s".%s' %(obj._table, obj._order.split(',')[0])
+        order_by = []
+        for t in obj._order.split(','):
+            order_by.append('"%s".%s' % (obj._table, t.strip()))
+        order_by = " ORDER BY %s" % ",".join(order_by)
 
         limit_str = ''
         if self._limit is not None:
