@@ -93,7 +93,7 @@ class website_academy(http.Controller):
 
 
         # get products
-        product_ids = academy_product_obj.search(cr, UID_ROOT, [], order="name")
+        product_ids = academy_product_obj.search(cr, UID_ROOT, [])
         products = academy_product_obj.browse(cr, UID_ROOT, product_ids, context=context)
 
         # pack values

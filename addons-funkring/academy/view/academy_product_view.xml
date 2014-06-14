@@ -50,6 +50,7 @@
       <field name="model">academy.course.product</field>
       <field name="arch" type="xml">
         <tree string="Courses">
+            <field name="sequence" widget="handle"/>
             <field name="name"/>
         </tree>
       </field>

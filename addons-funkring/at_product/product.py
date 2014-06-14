@@ -35,7 +35,7 @@ class product_uom(osv.osv):
         "code": fields.char("Code", size=32, select=True),
         "sequence" : fields.integer("Sequence")
     }
-    _order = "category_id, sequence"
+    _order = "sequence"
     _defaults = {
         "sequence" : 10
     }

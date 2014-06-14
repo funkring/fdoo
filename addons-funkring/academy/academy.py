@@ -76,6 +76,7 @@ class academy_location(osv.Model):
         "address_id" : fields.many2one("res.partner", "Address", ondelete="cascade"),
     }
 
+
 class academy_course_product(osv.Model):
 
     def onchange_uom(self, cr, uid, ids, uom_id, uom_po_id):
@@ -92,12 +93,15 @@ class academy_course_product(osv.Model):
     _columns = {
         "product_id" : fields.many2one("product.product", "Product", ondelete="restrict", required=True, select=True),
         "course_uom_ids" : fields.many2many("product.uom", "course_uom_rel", "course_id", "uom_id", "Units"),
-        "uom_categ_id" : fields.function(_uom_categ_id, type="many2one", obj="product.uom.categ")
+        "uom_categ_id" : fields.function(_uom_categ_id, type="many2one", obj="product.uom.categ"),
+        "sequence" : fields.integer("Sequence")
     }
     _defaults= {
         "sale_ok" : True,
-        "type" : "service"
+        "type" : "service",
+        "sequence" : 10
     }
+    _order = "sequence, name"
 
 
 class academy_registration(osv.Model):

@@ -6,39 +6,53 @@
             <div id="wrap">
                 <div class="oe_structure"/>
                 <div class="container">
-                    <div class="row mt8">
-                        <div class="col-sm-12">
-                            <div t-if="states" class="btn-group"> <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#"><t t-esc="state_item"/> <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li t-foreach="states" t-as="state"><a t-attf-href="/academy?{{ keep_query('location_id', state_id=state.id) }}"><t t-esc="state.name"/></a></li>
-                                </ul>
-                            </div>
-                            <div t-if="locations" class="btn-group"> <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#"><t t-esc="location_item"/> <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li t-foreach="locations" t-as="location"><a t-attf-href="/academy?{{ keep_query('state_id', location_id=location.id) }}"><t t-esc="location.name"/></a></li>
-                                </ul>
+                    <form action="academy/register">
+                        <div class="row mt8">
+                            <div class="col-sm-12">
+                                <div t-if="states" class="btn-group"> <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#"><t t-esc="state_item"/> <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li t-foreach="states" t-as="state"><a t-attf-href="/academy?{{ keep_query('location_id', state_id=state.id) }}"><t t-esc="state.name"/></a></li>
+                                    </ul>
+                                </div>
+                                <div t-if="locations" class="btn-group"> <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#"><t t-esc="location_item"/> <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li t-foreach="locations" t-as="location"><a t-attf-href="/academy?{{ keep_query('state_id', location_id=location.id) }}"><t t-esc="location.name"/></a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row mt8 mb8">
-                        <div class="col-sm-5">
-                            <form action="academy/register">
+                        <div class="row mt8 mb8">
+                            <div class="col-md-8">                   
+                                <input type="hidden" name="state_id" t-att-value="state_id"/>
+                                <input type="hidden" name="location_id" t-att-value="location_id"/>
+                                <input type="checkbox" id="student_of_loc" name="student_of_loc" value="is_student_of_loc">                                    
+                                    <label for="student_of_loc">I am student of the selected school?</label>
+                                </input>
+                            </div>
+                        </div>  
+                        <div class="row mt8 mb8">
+                            <div class="col-md-8">                            
                                 <div t-foreach="products" class="row mt8 mb8" t-as="product">
-                                    <div class="col-sm-5">
+                                    <div class="col-md-6">
                                         <t t-esc="product.name"/>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <select t-attf-name="product-{{ product.id }}">
+                                    <div class="col-md-6">
+                                        <select t-attf-name="product-{{ product.id }}" style="width: 100%;">
                                             <option value="-">-</option>
-                                            <t t-foreach="product.uom_ids" t-as="uom">
+                                            <t t-foreach="product.course_uom_ids" t-as="uom">
                                                 <option t-attf-value="{{ uom.id }}"><t t-esc="uom.name"/></option>
                                             </t>
                                         </select>
                                     </div>
-                                </div>
-                            </form>
+                                </div>                                
+                            </div>
                         </div>
-                    </div>
+                        <div class="row mt8 mb8">
+                            <div class="col-md-12">
+                                <input type="submit" value="To Registration"/>                   
+                            </div>
+                        </div>  
+                    </form>
                 </div>
             </div>
         </t>

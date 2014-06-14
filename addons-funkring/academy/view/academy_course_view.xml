@@ -38,7 +38,7 @@
             <field name="name">academy.tree_academy_course</field>
             <field name="model">academy.course</field>
             <field name="arch" type="xml">
-                <tree string="Course">
+                <tree string="Course">                    
                 	<field name="name" />
                 	<field name="number" />
                 	<field name="date_from" />
