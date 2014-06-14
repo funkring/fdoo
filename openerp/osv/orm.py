@@ -3393,15 +3393,21 @@ class BaseModel(object):
             rule_clause, rule_params, tables = self.pool.get('ir.rule').domain_get(cr, user, self._name, 'read', context=context)
 
             fields_pre2 = map(convert_field, fields_pre)
-            order_by = self._parent_order or self._order
             select_fields = ','.join(fields_pre2 + ['%s.id' % self._table])
             query = 'SELECT %s FROM %s WHERE %s.id IN %%s' % (select_fields, ','.join(tables), self._table)
             if rule_clause:
                 query += " AND " + (' OR '.join(rule_clause))
-            query += " ORDER BY " + order_by
             for sub_ids in cr.split_for_in_conditions(ids):
-                cr.execute(query, [tuple(sub_ids)] + rule_params)
-                results = cr.dictfetchall()
+                # create index dict
+                ordered_result = collections.OrderedDict((sub_id,None) for sub_id in sub_ids)
+                # query
+                cr.execute(query, [sub_ids] + rule_params)
+                # create sorted results
+                results = []
+                for row in cr.dictfetchall():
+                    ordered_result[row["id"]]=row
+                results = [r for r in ordered_result.values() if r]
+                # create ids again (some id could be deleted)
                 result_ids = [x['id'] for x in results]
                 self._check_record_rules_result_count(cr, user, sub_ids, result_ids, 'read', context=context)
                 res.extend(results)
