@@ -36,6 +36,9 @@ from openerp import tools
 import werkzeug.urls
 from openerp.addons.website.models.website import slug
 from openerp.tools.translate import _
+import re
+
+from openerp.addons.at_base import util
 
 try:
     import GeoIP
@@ -44,25 +47,28 @@ except ImportError:
     _logger.warn("Please install GeoIP python module to use events localisation.")
 
 UID_ROOT = 1
+PATTERN_PRODUCT = re.compile("product-([0-9]+)")
 
 class website_academy(http.Controller):
+    
     @http.route(["/academy"], type="http", auth="public", website=True)
-    def begin_registration(self, state_id=None, location_id=None, **params):
+    def begin_registration(self, state_id=None, location_id=None, **kwargs):
         cr, uid, context = request.cr, request.uid, request.context
 
         # conversions
-        if isinstance(location_id,basestring):
-            location_id=int(location_id)
-        if isinstance(state_id,basestring):
-            state_id=int(state_id)
-
+        location_id = util.getId(location_id)
+        state_id = util.getId(state_id)
+        
+        # used objects
         location_obj = request.registry["academy.location"]
         academy_product_obj = request.registry["academy.course.product"]
         state_obj = request.registry["res.country.state"]
 
+        # default
         state_item = _("Select a State")
         location_item = _("Select a Location")
 
+        # query
         cr.execute("SELECT p.state_id FROM academy_location l "
                    " INNER JOIN res_partner p ON p.id = l.address_id "
                    " GROUP BY 1 ")
@@ -107,6 +113,56 @@ class website_academy(http.Controller):
             "products" : products
         }
         return request.website.render("website_academy.index", values)
+    
+    @http.route("/academy/register", type="http", auth="public", website=True, methods=['POST'])
+    def register(self, **kwargs):
+        cr, uid, context = request.cr, request.uid, request.context
+        courses = []
+        
+        # used obj
+        academy_product_obj = request.registry["academy.course.product"]
+        uom_obj = request.registry["product.uom"]
+        location_obj = request.registry["academy.location"]
+        is_student_of_loc = False
+        
+        # build selection
+        for key, value in kwargs.items():
+            if key == "is_student_of_loc":
+                is_student_of_loc = True
+            else:
+                m = PATTERN_PRODUCT.match(key)
+                if m:
+                    uom_id = util.getId(value)
+                    if uom_id:
+                        course_prod = academy_product_obj.browse(cr, UID_ROOT, util.getId(m.group(1)), context=context)
+                        uom = uom_obj.browse(cr, UID_ROOT, uom_id, context=context)
+                        courses.append((course_prod, uom))
+        
+        
+        # location
+        location_id = util.getId(kwargs.get("location_id"))
+        location = location_id and location_obj.browse(cr, UID_ROOT, location_id, context=context) or None
+        address = location and location.address_id
+        location_lines = None
+        if address:
+            location_lines = [address.name]
+            if address.street:
+                location_lines.append(address.street)
+            if address.street2:
+                location_lines.append(address.street2)
+            if address.zip:
+                if address.city:
+                    location_lines.append("%s %s" % (address.zip, address.city))
+                else:
+                    location_lines.append(address.zip)
+                                                        
+        values = {
+            "courses" : courses,
+            "location" : location,
+            "location_lines" : location_lines,
+            "is_student_of_loc" : is_student_of_loc
+        }
+        return request.website.render("website_academy.register", values)
 
 #     @http.route(['/event', '/event/page/<int:page>'], type='http', auth="public", website=True)
 #     def events(self, page=1, **searches):

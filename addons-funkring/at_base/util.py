@@ -38,6 +38,8 @@ HM_FORMAT_SHORT = '%H:%M'
 SEVERITY = [('0','Normal'),('1','Warning'),('2','Blocker')]
 PRIORITY = [('0','Not urgent'),('1','Normal'),('2','Urgent'),('3','Very Urgent')]
 
+PATTERN_ID = re.compile("([0-9]+)")
+
 class DateSequenceEntry(object):
     """ A Date Sequence Entry """
     def __init__(self,inDate,inFinal=False,inSeq=-1):
@@ -500,6 +502,20 @@ def getNames(values):
         else:
             res.append(value)
     return res
+
+def getId(val):
+    """ Parses an Id or return None if id is unparseable """
+    if not val:
+        return None
+    if isinstance(val,int):
+        return val
+    if isinstance(val,float):
+        return int(val)
+    if isinstance(val,basestring):
+        m=PATTERN_ID.match(val)
+        if m:
+            return int(m.group(1))
+    return None
 
 if __name__ == '__main__':
     print dateEasterSunday(2013)-dateEasterSunday(2012)
