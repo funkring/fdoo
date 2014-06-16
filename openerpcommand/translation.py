@@ -43,7 +43,7 @@ def run_import(args):
         args.database, update_module=True)
 
     module_obj = registry.get('ir.module.module')
-    cr = registry.db.cursor() # TODO context manager
+    cr = registry.cursor() # TODO context manager
     
     #define overwrite
     context = {'overwrite': args.overwrite }
@@ -79,7 +79,7 @@ def run_export(args):
         args.database, update_module=True)
 
     module_obj = registry.get('ir.module.module')
-    cr = registry.db.cursor() # TODO context manager
+    cr = registry.cursor() # TODO context manager
     
     try:
         lang,lang_msg,lang_filename = get_lang_file(args)   
