@@ -40,6 +40,12 @@ PRIORITY = [('0','Not urgent'),('1','Normal'),('2','Urgent'),('3','Very Urgent')
 
 PATTERN_ID = re.compile("([0-9]+)")
 
+DATE_FORMATS = [
+  ("%Y-%m-%d"),
+  ("%m/%d/%Y"),
+  ("%d.%m.%Y")  
+]
+
 class DateSequenceEntry(object):
     """ A Date Sequence Entry """
     def __init__(self,inDate,inFinal=False,inSeq=-1):
@@ -515,6 +521,21 @@ def getId(val):
         m=PATTERN_ID.match(val)
         if m:
             return int(m.group(1))
+    return None
+
+
+def tryParseDate(val):
+    """ Try to parse date 
+        :return: None if date unable to parse, or an tuble with
+                  date time value and string
+    """
+    if val and isinstance(val,basestring):
+        for f in DATE_FORMATS:
+            try:
+                res = datetime.strptime(val,f)
+                return (res,datetime.strftime(res,f))
+            except:
+                pass
     return None
 
 if __name__ == '__main__':

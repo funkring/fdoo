@@ -39,6 +39,10 @@ from openerp.tools.translate import _
 import re
 
 from openerp.addons.at_base import util
+from datetime import datetime
+
+from werkzeug.exceptions import BadRequest
+from werkzeug import Response
 
 try:
     import GeoIP
@@ -50,6 +54,13 @@ UID_ROOT = 1
 PATTERN_PRODUCT = re.compile("product-([0-9]+)")
 
 class website_academy(http.Controller):
+    
+    @http.route(["/academy/validate/birthday"], type="http", auth="public", website=True)
+    def validate_date(self, **kwargs):
+        for value in kwargs.values():
+            if not util.tryParseDate(value):
+                return BadRequest()
+        return Response(status=204)
     
     @http.route(["/academy"], type="http", auth="public", website=True)
     def begin_registration(self, state_id=None, location_id=None, **kwargs):
@@ -114,8 +125,12 @@ class website_academy(http.Controller):
         }
         return request.website.render("website_academy.index", values)
     
-    @http.route("/academy/register", type="http", auth="public", website=True, methods=['POST'])
-    def register(self, **kwargs):
+    @http.route(["/academy/registration"], type="http", auth="public", website=True, methods=['GET'])
+    def registration_get(self, state_id=None, location_id=None, **kwargs):
+        return self.begin_registration(state_id, location_id)
+    
+    @http.route(["/academy/registration"], type="http", auth="public", website=True, methods=['POST'])
+    def registration_post(self, **kwargs):
         cr, uid, context = request.cr, request.uid, request.context
         courses = []
         
@@ -123,9 +138,9 @@ class website_academy(http.Controller):
         academy_product_obj = request.registry["academy.course.product"]
         uom_obj = request.registry["product.uom"]
         location_obj = request.registry["academy.location"]
-        is_student_of_loc = False
         
         # build selection
+        is_student_of_loc = False
         for key, value in kwargs.items():
             if key == "is_student_of_loc":
                 is_student_of_loc = True
@@ -138,14 +153,13 @@ class website_academy(http.Controller):
                         uom = uom_obj.browse(cr, UID_ROOT, uom_id, context=context)
                         courses.append((course_prod, uom))
         
-        
         # location
         location_id = util.getId(kwargs.get("location_id"))
         location = location_id and location_obj.browse(cr, UID_ROOT, location_id, context=context) or None
         address = location and location.address_id
-        location_lines = None
+        location_lines = []
         if address:
-            location_lines = [address.name]
+            location_lines.append(address.name)
             if address.street:
                 location_lines.append(address.street)
             if address.street2:
@@ -155,14 +169,22 @@ class website_academy(http.Controller):
                     location_lines.append("%s %s" % (address.zip, address.city))
                 else:
                     location_lines.append(address.zip)
-                                                        
+            
         values = {
             "courses" : courses,
             "location" : location,
             "location_lines" : location_lines,
-            "is_student_of_loc" : is_student_of_loc
+            "is_student_of_loc" : is_student_of_loc,
+            "location_id" : location_id
         }
-        return request.website.render("website_academy.register", values)
+        return request.website.render("website_academy.registration", values)
+    
+    @http.route(["/academy/register"], type="http", auth="public", website=True, methods=['POST'])
+    def register(self, **kwargs):
+         values = {}
+         return request.website.render("website_academy.message", values)
+    
+    
 
 #     @http.route(['/event', '/event/page/<int:page>'], type='http', auth="public", website=True)
 #     def events(self, page=1, **searches):
