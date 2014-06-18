@@ -180,9 +180,26 @@
     return !!this.$element.find(':input[required]:enabled:visible').filter(fieldIncomplete).length
   }
 
-  Validator.prototype.onSubmit = function (e) {
+  Validator.prototype.onSubmit = function (e) {    
     this.validate()
-    if (this.isIncomplete() || this.hasErrors()) e.preventDefault()
+    if (this.isIncomplete() || this.hasErrors()) {
+        e.preventDefault()        
+    } else {
+        // Prevent double submit
+        // determine submitted status 
+        var already_submitted = false
+        $('input[name="form_send"]').each(function () {
+          var $input = $(this)
+          if ($input.val() === "1") {
+              already_submitted=true
+          } else {
+              $input.val("1")
+          }          
+        })        
+        if (already_submitted) {
+            e.preventDefault()        
+        }
+    }
   }
 
   Validator.prototype.toggleSubmit = function () {

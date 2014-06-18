@@ -42,7 +42,6 @@ from openerp.addons.at_base import util
 from datetime import datetime
 
 from werkzeug.exceptions import BadRequest
-from werkzeug import Response
 
 try:
     import GeoIP
@@ -60,7 +59,7 @@ class website_academy(http.Controller):
         for value in kwargs.values():
             if not util.tryParseDate(value):
                 return BadRequest()
-        return Response(status=204)
+        return ""
     
     @http.route(["/academy"], type="http", auth="public", website=True)
     def begin_registration(self, state_id=None, location_id=None, **kwargs):

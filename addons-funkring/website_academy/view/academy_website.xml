@@ -156,6 +156,7 @@
     <template id="registration" name="Registration">
         <t t-call="website_embedded.layout">      
             <t t-set="head">
+                <meta http-equiv="pragma" content="no-cache"/>
                 <script type="text/javascript" src="/at_base/static/src/js/validator.js"/>
                 <link rel="stylesheet" href="/website_academy/static/src/css/website_academy.css"/>
                 <script type="text/javascript" src="/website_academy/static/src/js/website_academy.js"/>
@@ -165,6 +166,7 @@
                 <div class="oe_structure"/>
                 <div class="container" >
                     <form role="form" data-toggle="validator" id="registration_input" action="/academy/register" method="POST">
+                       <input type="hidden" name="form_send" value="0"/>
                        <h4>Selected Course(s)</h4>
                        <div t-foreach="courses" t-as="course" class="row mt8 mb8">
                             <div class="col-md-4">
