@@ -8,16 +8,26 @@
       <field name="arch" type="xml">
         <form string="Registration" version="7.0">
             <header>
+                <button name="do_register" states="draft" string="Register" class="oe_highlight"/>
+                <button name="do_cancel" states="registered,assigned,open" string="DeRegister"/>
+                <button name="do_draft" states="cancel" string="To Draft"/>
                 <field name="state" widget="statusbar"
                        statusbar_visible="draft,registered,assigned,open"
                        statusbar_colors="{'cancel':'red'}"/>
             </header>
             <sheet>
+                <div class="oe_title">
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                </div>
                 <group>
                     <group>
                         <field name="year_id"/>
                         <field name="student_id"/>
                         <field name="location_id"/>
+                        <field name="student_of_loc"/>
                     </group>
                     <group>
                         <field name="course_prod_id"/>
@@ -30,9 +40,14 @@
                     </group>
                     <group>
                         <field name="create_date"/>
+                        <field name="user_id"/>                                                
                     </group>
                 </group>
             </sheet>
+            <div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers" />
+                <field name="message_ids" widget="mail_thread" />
+            </div>
         </form>
       </field>
     </record>

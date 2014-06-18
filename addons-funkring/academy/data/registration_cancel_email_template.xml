@@ -1,0 +1,14 @@
+<openerp>
+  <data noupdate="0">
+      <record id="email_template_registration_cancel" model="email.template">
+            <field name="name">Registration Cancel</field>
+            <field name="email_from">${(object.user_id.email or '')|safe}</field>
+            <field name="subject">Registration ${object.name} Canceled</field>
+            <field name="partner_to">${",".join(object.student_id.partner_ids}</field>
+            <field name="model_id" ref="academy.model_academy_registration"/>
+            <field name="body_html"><![CDATA[
+<h1>Your Registration was canceled</h1>
+            ]]></field>
+     </record>
+  </data>
+</openerp>

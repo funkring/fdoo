@@ -1,0 +1,17 @@
+<openerp>
+  <data noupdate="1">
+    
+    <record id="seq_type_registration" model="ir.sequence.type">
+        <field name="name">Registration</field>
+        <field name="code">academy.registration</field>
+    </record>
+    
+    <record id="seq_registration" model="ir.sequence">
+        <field name="name">Registration Number</field>
+        <field name="padding">4</field>
+        <field name="code">academy.registration</field>
+        <field name="prefix">%(year)s</field>
+    </record>
+    
+  </data>
+</openerp>

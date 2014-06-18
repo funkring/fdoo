@@ -75,7 +75,7 @@
         <t t-set="text_firstname_help">First name is required!</t>
         <t t-set="text_lastname">Last Name</t>
         <t t-set="text_lastname_help">Last name is required!</t>
-        <t t-set="text_street">Strasse</t>
+        <t t-set="text_street">Street</t>
         <t t-set="text_street_help">Street is required!</t>
         <t t-set="text_zip">ZIP</t>
         <t t-set="text_zip_help">ZIP code is required! A minimum of 4 numbers must be given and only numbers are allowed!</t>        

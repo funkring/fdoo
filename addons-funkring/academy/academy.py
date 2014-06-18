@@ -21,6 +21,7 @@
 from openerp.osv import fields, osv
 from openerp.addons.at_base import util
 from openerp.addons.at_base import extfields
+from openerp.addons.at_base import helper
 
 
 class academy_year(osv.Model):
@@ -53,12 +54,24 @@ class academy_student(osv.Model):
         return self.pool.get("res.partner").onchange_address(cr, uid, ids, use_parent_address, parent_id, context=context)
 
     def onchange_state(self, cr, uid, ids, state_id, context=None):
-        return self.pool.get("res.partner").onchange_state(cr, uid, ids, state_id, context=None)
+        return self.pool.get("res.partner").onchange_state(cr, uid, ids, state_id, context=context)
+
+    def _partner_ids(self, cr, uid, ids, field_name, arg, context=None):
+        res = dict.fromkeys(ids)
+        for r in self.browse(cr, uid, ids, context):
+            partner_ids = [r.partner_id.id]
+            if r.partner_id.parent_id:
+                partner_ids.append(r.partner_id.parent_id.id)
+            if r.invoice_address_id:
+                partner_ids.append(r.invoice_address_id.id)
+            res[r.id] = partner_ids        
+        return res
 
     _name = "academy.student"
     _inherits = {"res.partner":"partner_id"}
     _columns = {
         "partner_id" : fields.many2one("res.partner", "Partner", ondelete="restrict", required=True, select=True),
+        "partner_ids" : fields.function(_partner_ids, type="many2many", obj="res.partner", string="Partner"),
         "invoice_address_id" : fields.many2one("res.partner","Invoice Address"),
         "registration_ids" : fields.one2many("academy.registration","student_id","Registrations"),
         "tmp_partner_id" : extfields.duplicate("partner_id", "Partner", type="many2one", obj="res.partner")
@@ -93,7 +106,7 @@ class academy_course_product(osv.Model):
     _columns = {
         "product_id" : fields.many2one("product.product", "Product", ondelete="restrict", required=True, select=True),
         "course_uom_ids" : fields.many2many("product.uom", "course_uom_rel", "course_id", "uom_id", "Units"),
-        "uom_categ_id" : fields.function(_uom_categ_id, type="many2one", obj="product.uom.categ"),
+        "uom_categ_id" : fields.function(_uom_categ_id, type="many2one", obj="product.uom.categ", string="Unit Category"),
         "sequence" : fields.integer("Sequence")
     }
     _defaults= {
@@ -106,22 +119,38 @@ class academy_course_product(osv.Model):
 
 class academy_registration(osv.Model):
 
-    def _name_fct(self, cr, uid, ids, field_name, arg, context=None):
-        res = dict.fromkeys(ids)
-        values = self.read(cr, uid, ids, ["year_id","student_id","location_id","course_prod_id"], context=context)
-        for val in values:
-            res[val["id"]] = " / ".join(util.getNames(values))
-        return res
-
-
+    def do_register(self, cr, uid, ids, context=None):
+        ids = self.search(cr, uid, [("id","in","ids"),("state","=","draft")])
+        self.write(cr, uid, ids, {"state" : "registered"}, context=context)
+        helper.sendMails(self.pool, cr, uid, "academy.email_template_registration", ids, context=context)
+        return True
+    
+    def do_cancel(self, cr, uid, ids, context=None):
+        ids = self.search(cr, uid, [("id","in","ids"),("state","in",["registered","assigned","open"])])
+        self.write(cr, uid, ids, {"state" : "cancel"}, context=context)
+        helper.sendMails(self.pool, cr, uid, "academy.email_template_registration_cancel", ids, context=context)
+        return True
+    
+    def do_draft(self, cr, uid, ids, context=None):
+        ids = self.search(cr, uid, [("id","in","ids"),("state","=","cancel")])
+        self.write(cr, uid, ids, {"state" : "draft"}, context=context)
+        return True
+        
+    def create(self, cr, uid, vals, context=None):
+        vals["name"]=self.pool.get("ir.sequence").get(cr, uid, "academy.registration") or "/"
+        return super(academy_registration,self).create(cr, uid, vals, context=context)
+    
+    _inherit = ["mail.thread"]
     _name = "academy.registration"
     _description = "Academy Registration"
     _columns = {
-        "name" : fields.function(_name_fct,string="Name",type="char"),
+        "name" : fields.char("Name", readonly=True, select=True),
         "create_date" : fields.datetime("Create Date", select=True, readonly=True),
+        "user_id" : fields.many2one("res.users","Agent", select=True),
         "year_id" : fields.many2one("academy.year", "Year", select=True, required=True, ondelete="restrict"),
         "student_id" : fields.many2one("academy.student", "Student", select=True, required=True, ondelete="restrict"),
         "location_id" : fields.many2one("academy.location", "Location", select=True, ondelete="restrict"),
+        "student_of_loc" : fields.boolean("Is student of location?"),
         "course_prod_id" : fields.many2one("academy.course.product", "Product", select=True, required=True, ondelete="restrict"),
         "course_id" : fields.many2one("academy.course", "Course", select=True, ondelete="restrict"),
         "trainer_id" : fields.many2one("academy.trainer", "Trainer", select=True, ondelete="restrict"),
@@ -136,9 +165,14 @@ class academy_registration(osv.Model):
                                     "State", readonly=True, select=True)
 
     }
+    _sql_constraints = [
+        ("name_uniq", "unique(name)", "Registration name must be unique"),
+    ]
     _defaults = {
         "amount" : 1.0,
-        "state" : "draft"
+        "state" : "draft",
+        "name" : "/",
+        "user_id" : lambda obj, cr, uid, context: uid 
     }
 
 

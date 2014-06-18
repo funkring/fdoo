@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 8.0alpha1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-18 21:46+0000\n"
-"PO-Revision-Date: 2014-06-18 23:54+0100\n"
+"POT-Creation-Date: 2014-06-18 21:55+0000\n"
+"PO-Revision-Date: 2014-06-18 23:57+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"<h1>Vielen Dank für Ihre Anmeldung!</h1>\n"
+"<h1>Vielen Danke für Ihre Anmeldung</h1>\n"
 "            "
 
 #. module: academy
@@ -34,7 +34,7 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"<h1>Ihe Anmeldung wurde storniert!</h1>\n"
+"<h1>Ihre Anmeldung wurde storniert</h1>\n"
 "            "
 
 #. module: academy
@@ -625,7 +625,7 @@ msgstr "Strasse..."
 #: model:ir.actions.act_window,name:academy.action_academy_trainer
 #: model:ir.ui.menu,name:academy.menu_academy_student
 msgid "Student"
-msgstr "Schüler"
+msgstr "Teilnehmer"
 
 #. module: academy
 #: field:academy.course,student_ids:0
@@ -633,7 +633,7 @@ msgstr "Schüler"
 #: view:academy.student:0
 #: view:academy.trainer:0
 msgid "Students"
-msgstr "Schüler"
+msgstr "Teilnehmer"
 
 #. module: academy
 #: field:academy.registration,message_summary:0
@@ -702,7 +702,7 @@ msgstr "Lehrer"
 #: view:academy.course:0
 #: field:academy.course,trainer_ids:0
 msgid "Trainers"
-msgstr "Lehrer"
+msgstr "Trainer"
 
 #. module: academy
 #: field:academy.journal,expenses:0
@@ -713,6 +713,11 @@ msgstr "Fahrtkosten"
 #: field:academy.registration,uom_id:0
 msgid "Unit"
 msgstr "Einheit"
+
+#. module: academy
+#: field:academy.course.product,uom_categ_id:0
+msgid "Unit Category"
+msgstr "Einheitenkategorie"
 
 #. module: academy
 #: model:ir.ui.menu,name:academy.menu_academy_uom_category
@@ -796,9 +801,4 @@ msgstr "z.B. +43 3332 86927"
 #: view:academy.course.product:0
 msgid "note to be displayed on quotations..."
 msgstr "Beschreibung welche auf Angeboten gezeigt werden soll"
-
-#. module: academy
-#: field:academy.course.product,uom_categ_id:0
-msgid "unknown"
-msgstr ""
 
