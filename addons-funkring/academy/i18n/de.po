@@ -6,14 +6,36 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 8.0alpha1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-05 12:56+0000\n"
-"PO-Revision-Date: 2014-06-05 15:18+0100\n"
+"POT-Creation-Date: 2014-06-18 21:46+0000\n"
+"PO-Revision-Date: 2014-06-18 23:54+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+
+#. module: academy
+#: model:email.template,body_html:academy.email_template_registration
+msgid ""
+"\n"
+"<h1>Thank your for Registration</h1>\n"
+"            "
+msgstr ""
+"\n"
+"<h1>Vielen Dank für Ihre Anmeldung!</h1>\n"
+"            "
+
+#. module: academy
+#: model:email.template,body_html:academy.email_template_registration_cancel
+msgid ""
+"\n"
+"<h1>Your Registration was canceled</h1>\n"
+"            "
+msgstr ""
+"\n"
+"<h1>Ihe Anmeldung wurde storniert!</h1>\n"
+"            "
 
 #. module: academy
 #: view:academy.student:0
@@ -171,6 +193,11 @@ msgid "Address"
 msgstr "Adresse"
 
 #. module: academy
+#: field:academy.registration,user_id:0
+msgid "Agent"
+msgstr "Bearbeiter"
+
+#. module: academy
 #: field:academy.registration,amount:0
 msgid "Amount"
 msgstr "Menge"
@@ -277,6 +304,11 @@ msgid "Date from"
 msgstr "Datum von"
 
 #. module: academy
+#: help:academy.registration,message_last_post:0
+msgid "Date of the last message posted on the record."
+msgstr ""
+
+#. module: academy
 #: field:academy.contract,date_start:0
 msgid "Date start"
 msgstr "Gültigkeitsdatum von"
@@ -285,6 +317,11 @@ msgstr "Gültigkeitsdatum von"
 #: field:academy.course,date_to:0
 msgid "Date to"
 msgstr "Datum bis"
+
+#. module: academy
+#: view:academy.registration:0
+msgid "DeRegister"
+msgstr "Abmelden"
 
 #. module: academy
 #: field:academy.course,description:0
@@ -311,6 +348,11 @@ msgid "End"
 msgstr "Ende"
 
 #. module: academy
+#: field:academy.registration,message_follower_ids:0
+msgid "Followers"
+msgstr ""
+
+#. module: academy
 #: field:academy.journal.absence,time_from:0
 msgid "From"
 msgstr "Von"
@@ -321,15 +363,20 @@ msgid "General"
 msgstr "Allgemein"
 
 #. module: academy
-#: view:academy.course.product:0
-msgid "Generic product settings are managed on"
-msgstr "Ist ein generisches Produkt"
-
-#. module: academy
 #: view:academy.registration:0
 #: view:academy.student:0
 msgid "Group By..."
 msgstr "Gruppiert nach"
+
+#. module: academy
+#: help:academy.registration,message_summary:0
+msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+msgstr ""
+
+#. module: academy
+#: help:academy.registration,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr ""
 
 #. module: academy
 #: view:academy.course.product:0
@@ -343,9 +390,24 @@ msgid "Invoice Address"
 msgstr "Verrechnungsadresse"
 
 #. module: academy
+#: field:academy.registration,message_is_follower:0
+msgid "Is a Follower"
+msgstr ""
+
+#. module: academy
+#: field:academy.registration,student_of_loc:0
+msgid "Is student of location?"
+msgstr "Ist Schüler dieser Schule?"
+
+#. module: academy
 #: field:academy.journal.absence,journal_id:0
 msgid "Journal"
 msgstr "Kursjournal"
+
+#. module: academy
+#: field:academy.registration,message_last_post:0
+msgid "Last Message Date"
+msgstr ""
 
 #. module: academy
 #: view:academy.location:0
@@ -365,6 +427,16 @@ msgstr "Standorte"
 #: model:ir.ui.menu,name:academy.menu_academy_management
 msgid "Management"
 msgstr "Verwaltung"
+
+#. module: academy
+#: field:academy.registration,message_ids:0
+msgid "Messages"
+msgstr ""
+
+#. module: academy
+#: help:academy.registration,message_ids:0
+msgid "Messages and communication history"
+msgstr ""
 
 #. module: academy
 #: model:ir.ui.menu,name:academy.menu_academy_config_misc
@@ -415,6 +487,7 @@ msgstr "Erziehungsberechtigte(r)"
 #: field:academy.contract,partner_id:0
 #: field:academy.journal.absence,partner_id:0
 #: field:academy.student,partner_id:0
+#: field:academy.student,partner_ids:0
 #: field:academy.student,tmp_partner_id:0
 #: field:academy.trainer,partner_id:0
 msgid "Partner"
@@ -429,24 +502,8 @@ msgstr "Ort"
 #: field:academy.course.product,product_id:0
 #: view:academy.registration:0
 #: field:academy.registration,course_prod_id:0
-#: model:ir.model,name:academy.model_product_product
 msgid "Product"
 msgstr "Produkt"
-
-#. module: academy
-#: view:academy.course.product:0
-msgid "Product Name"
-msgstr "Produkt"
-
-#. module: academy
-#: view:academy.course.product:0
-msgid "Product Template"
-msgstr "Produktvorlage"
-
-#. module: academy
-#: view:academy.course.product:0
-msgid "Public Sale Price"
-msgstr "Verkaufspreis"
 
 #. module: academy
 #: view:academy.student:0
@@ -460,6 +517,11 @@ msgid "Reason"
 msgstr "Grund"
 
 #. module: academy
+#: view:academy.registration:0
+msgid "Register"
+msgstr "Anmelden"
+
+#. module: academy
 #: selection:academy.registration,state:0
 msgid "Registered"
 msgstr "Angemeldet"
@@ -470,6 +532,21 @@ msgstr "Angemeldet"
 #: model:ir.ui.menu,name:academy.menu_academy_registration
 msgid "Registration"
 msgstr "Anmeldung"
+
+#. module: academy
+#: model:email.template,subject:academy.email_template_registration
+msgid "Registration ${object.name}"
+msgstr "Anmeldung ${object.name}"
+
+#. module: academy
+#: model:email.template,subject:academy.email_template_registration_cancel
+msgid "Registration ${object.name} Canceled"
+msgstr "Anmeldung ${object.name} storniert!"
+
+#. module: academy
+#: sql_constraint:academy.registration:0
+msgid "Registration name must be unique"
+msgstr "Name der Anmeldung muss eindeutig sein!"
 
 #. module: academy
 #: view:academy.registration:0
@@ -515,6 +592,11 @@ msgid "Semester"
 msgstr ""
 
 #. module: academy
+#: field:academy.course.product,sequence:0
+msgid "Sequence"
+msgstr "Sequenz"
+
+#. module: academy
 #: field:academy.semester,date_start:0
 #: field:academy.year,date_start:0
 msgid "Start"
@@ -543,7 +625,7 @@ msgstr "Strasse..."
 #: model:ir.actions.act_window,name:academy.action_academy_trainer
 #: model:ir.ui.menu,name:academy.menu_academy_student
 msgid "Student"
-msgstr "Teilnehmer"
+msgstr "Schüler"
 
 #. module: academy
 #: field:academy.course,student_ids:0
@@ -551,7 +633,12 @@ msgstr "Teilnehmer"
 #: view:academy.student:0
 #: view:academy.trainer:0
 msgid "Students"
-msgstr "Teilnehmer"
+msgstr "Schüler"
+
+#. module: academy
+#: field:academy.registration,message_summary:0
+msgid "Summary"
+msgstr "Beschreibung"
 
 #. module: academy
 #: view:academy.student:0
@@ -582,6 +669,11 @@ msgid "To"
 msgstr "Bis"
 
 #. module: academy
+#: view:academy.registration:0
+msgid "To Draft"
+msgstr "Zurücksetzen"
+
+#. module: academy
 #: view:academy.journal:0
 #: field:academy.journal,topic_id:0
 #: view:academy.topic:0
@@ -610,7 +702,7 @@ msgstr "Lehrer"
 #: view:academy.course:0
 #: field:academy.course,trainer_ids:0
 msgid "Trainers"
-msgstr "Trainer"
+msgstr "Lehrer"
 
 #. module: academy
 #: field:academy.journal,expenses:0
@@ -623,6 +715,11 @@ msgid "Unit"
 msgstr "Einheit"
 
 #. module: academy
+#: model:ir.ui.menu,name:academy.menu_academy_uom_category
+msgid "Unit of Measure Categories"
+msgstr "Einheiten"
+
+#. module: academy
 #: field:academy.journal,duration:0
 #: field:academy.topic,duration:0
 msgid "Unit(s)"
@@ -630,8 +727,14 @@ msgstr "Einheit(en)"
 
 #. module: academy
 #: view:academy.course.product:0
-msgid "Variant Name"
-msgstr "Variante"
+#: field:academy.course.product,course_uom_ids:0
+msgid "Units"
+msgstr "Einheiten"
+
+#. module: academy
+#: field:academy.registration,message_unread:0
+msgid "Unread Messages"
+msgstr ""
 
 #. module: academy
 #: field:academy.registration,year_id:0
@@ -695,7 +798,7 @@ msgid "note to be displayed on quotations..."
 msgstr "Beschreibung welche auf Angeboten gezeigt werden soll"
 
 #. module: academy
-#: view:academy.course.product:0
-msgid "the template"
-msgstr "die Vorlage"
+#: field:academy.course.product,uom_categ_id:0
+msgid "unknown"
+msgstr ""
 
