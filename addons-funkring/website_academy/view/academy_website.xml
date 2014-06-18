@@ -14,7 +14,7 @@
             <div id="wrap">
                 <div class="oe_structure"/>
                 <div class="container">
-                    <form id="product_input" action="academy/registration" method="POST">
+                    <form id="product_input" action="/academy/registration" method="POST">
                         <input type="hidden" name="state_id" t-att-value="state_id"/>
                         <input type="hidden" name="location_id" t-att-value="location_id"/>
                         <div class="row mt8">
@@ -164,7 +164,7 @@
             <div id="wrap">
                 <div class="oe_structure"/>
                 <div class="container" >
-                    <form role="form" data-toggle="validator" id="registration_input" t-attf-action="academy/register" method="POST">
+                    <form role="form" data-toggle="validator" id="registration_input" action="/academy/register" method="POST">
                        <h4>Selected Course(s)</h4>
                        <div t-foreach="courses" t-as="course" class="row mt8 mb8">
                             <div class="col-md-4">
@@ -256,7 +256,7 @@
                         <div class="row mt8 mb8">
                             <div class="col-md-12">
                                 <a class="btn btn-default a-back">
-                                    <span>Back <span class="fa fa-long-arrow-left"></span></span>
+                                    <span><span class="fa fa-long-arrow-left"></span> Back</span>
                                 </a>                                
                                 <a class="btn btn-primary a-submit">
                                     <span>Forward <span class="fa fa-long-arrow-right"></span></span>
