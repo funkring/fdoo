@@ -1,14 +1,4 @@
 $(document).ready(function () {
-    
-    // check submitted status
-    var already_submitted = false;
-    $('input[name="form_send"]').each(function () {
-      var $input = $(this);
-      if ($input.val() === "1") {
-          already_submitted=true;
-      }
-    });
-    
     //bind checkbox and visibility for form
     var bind_checkbox_and_form = function(checkbox_id, form_id, form_active_on_check) {
         var $bind_checkbox_input = $(checkbox_id);
@@ -70,7 +60,7 @@ $(document).ready(function () {
         }
                
         // submit on no error
-        if (is_valid && !already_submitted) {
+        if (is_valid) {
             $form.submit();
         }        
     });
