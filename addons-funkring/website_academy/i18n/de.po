@@ -6,19 +6,94 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 8.0alpha1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-16 13:41+0000\n"
-"PO-Revision-Date: 2014-06-16 13:41+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2014-06-18 22:08+0000\n"
+"PO-Revision-Date: 2014-06-19 00:21+0100\n"
+"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 
 #. module: website_academy
 #: view:False:0
-msgid "I am student of the selected school?"
+msgid "Back"
+msgstr "Zurück"
+
+#. module: website_academy
+#: view:False:0
+msgid "Birthday e.g. 1981-3-18"
+msgstr "Geburtstag z.B. 18.3.1981"
+
+#. module: website_academy
+#: view:False:0
+msgid "Birthday is required! Use following format e.g. 1981-3-18"
+msgstr "Geburtstag muss eingegeben, und dass im richtigen Format z.B. 18.3.1981"
+
+#. module: website_academy
+#: view:False:0
+msgid "City"
+msgstr "Stadt"
+
+#. module: website_academy
+#: view:False:0
+msgid "City is required!"
+msgstr "Ein Ort muss angegeben werden!"
+
+#. module: website_academy
+#: view:False:0
+msgid "Different Invoice Address?"
+msgstr "Soll eine andere Rechnungsadresse verwendet werden?"
+
+#. module: website_academy
+#: view:False:0
+msgid "E-Mail"
 msgstr ""
+
+#. module: website_academy
+#: view:False:0
+msgid "E-Mail is required!"
+msgstr "Die E-Mail Adresse wird für die zukünftige Kommunikation unbedingt benötigt!"
+
+#. module: website_academy
+#: view:False:0
+msgid "First Name"
+msgstr "Vorname"
+
+#. module: website_academy
+#: view:False:0
+msgid "First name is required!"
+msgstr "Der Vorname wird benötigt!"
+
+#. module: website_academy
+#: view:False:0
+msgid "Forward"
+msgstr "Weiter"
+
+#. module: website_academy
+#: view:False:0
+msgid "I am over eighteen?"
+msgstr "Ich bin ÜBER 18 Jahre alt?"
+
+#. module: website_academy
+#: view:False:0
+msgid "I am student of the selected school?"
+msgstr "Ich bin Schüler an der angegebenen Schule?"
+
+#. module: website_academy
+#: view:False:0
+msgid "Invoice Address"
+msgstr "Verrechnungsadresse"
+
+#. module: website_academy
+#: view:False:0
+msgid "Last Name"
+msgstr "Nachname"
+
+#. module: website_academy
+#: view:False:0
+msgid "Last name is required!"
+msgstr "Der Nachname wird benötigt!"
 
 #. module: website_academy
 #: view:False:0
@@ -27,38 +102,103 @@ msgstr "Standort"
 
 #. module: website_academy
 #: view:False:0
+msgid "Nationality"
+msgstr "Staatsangehörigkeit"
+
+#. module: website_academy
+#: view:False:0
+msgid "No location was selected!"
+msgstr "Es wurde keine Schule ausgewählt!"
+
+#. module: website_academy
+#: view:False:0
+msgid "Nothing was selected!"
+msgstr "Es wurde nichts ausgewählt!"
+
+#. module: website_academy
+#: view:False:0
+msgid "Parent Address"
+msgstr "Erziehungsberechtigter"
+
+#. module: website_academy
+#: view:False:0
+msgid "Phone e.g. +43 3332 86927"
+msgstr "Telefon z.B. +43 3332 86927"
+
+#. module: website_academy
+#: view:False:0
+msgid "Phone number is required! Use following format e.g. +43 3332 86927"
+msgstr "Die Telefonnummer wird benötigt. Benutzen Sie folgendes Format z.B. +43 3332 86927"
+
+#. module: website_academy
+#: view:False:0
 msgid "Registration"
 msgstr "Anmeldung"
 
 #. module: website_academy
-#: code:addons/website_academy/controllers/main.py:69
+#: code:addons/website_academy/controllers/main.py:79
 #, python-format
 msgid "Select a Location"
-msgstr ""
+msgstr "Wählen sie ein Schule"
 
 #. module: website_academy
-#: code:addons/website_academy/controllers/main.py:68
+#: code:addons/website_academy/controllers/main.py:78
 #, python-format
 msgid "Select a State"
-msgstr ""
+msgstr "Wählen sie ein Bundesland"
 
 #. module: website_academy
 #: view:False:0
 msgid "Selected Course(s)"
-msgstr ""
+msgstr "Ausgewählter Unterricht"
+
+#. module: website_academy
+#: view:False:0
+msgid "Some or all fields are not filled correctly!"
+msgstr "Einige oder alle Felder wurden nicht richtig ausgefüllt!"
+
+#. module: website_academy
+#: view:False:0
+msgid "Strasse"
+msgstr "Strasse"
+
+#. module: website_academy
+#: view:False:0
+msgid "Street is required!"
+msgstr "Die Strasse wird auch benötigt"
 
 #. module: website_academy
 #: view:False:0
 msgid "Student Address"
-msgstr ""
+msgstr "Schüler Adresse"
 
 #. module: website_academy
 #: view:False:0
 msgid "To Registration"
-msgstr ""
+msgstr "Zur Anmeldung"
+
+#. module: website_academy
+#: view:False:0
+msgid "ZIP"
+msgstr "PLZ"
+
+#. module: website_academy
+#: view:False:0
+msgid "ZIP code is required! A minimum of 4 numbers must be given and only numbers are allowed!"
+msgstr "Der Postleitzahl wird benötigt. Es muss mindestens eine vierstellige Nummer angegeben werden, es sind nur Nummern erlaubt!"
+
+#. module: website_academy
+#: view:False:0
+msgid "invoice"
+msgstr "Rechnung"
+
+#. module: website_academy
+#: view:False:0
+msgid "parent"
+msgstr "Erziehungsberechtigter"
 
 #. module: website_academy
 #: view:False:0
 msgid "student"
-msgstr ""
+msgstr "Schüler"
 
