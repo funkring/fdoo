@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 8.0alpha1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-18 21:55+0000\n"
-"PO-Revision-Date: 2014-06-20 09:58+0100\n"
+"POT-Creation-Date: 2014-06-20 13:44+0000\n"
+"PO-Revision-Date: 2014-06-20 15:46+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -19,22 +19,22 @@ msgstr ""
 #: model:email.template,body_html:academy.email_template_registration
 msgid ""
 "\n"
-"<h1>Thank your for Registration</h1>\n"
+"<h3>Thank your for Registration!</h3>\n"
 "            "
 msgstr ""
 "\n"
-"<h1>Vielen Danke für Ihre Anmeldung</h1>\n"
+"<h3>Vielen Dank für deine Anmeldung!</h3>\n"
 "            "
 
 #. module: academy
 #: model:email.template,body_html:academy.email_template_registration_cancel
 msgid ""
 "\n"
-"<h1>Your Registration was canceled</h1>\n"
+"<h3>Your Registration was canceled!</h3>\n"
 "            "
 msgstr ""
 "\n"
-"<h1>Ihre Anmeldung wurde storniert</h1>\n"
+"<h3>Deine Anmeldung wurde storniert!</h3>\n"
 "            "
 
 #. module: academy
@@ -208,6 +208,11 @@ msgid "Assigned"
 msgstr "Zugewiesen"
 
 #. module: academy
+#: view:academy.registration:0
+msgid "Assignment"
+msgstr "Einteilung"
+
+#. module: academy
 #: field:academy.journal,begin:0
 msgid "Begin"
 msgstr "Beginn"
@@ -277,6 +282,11 @@ msgid "Course Journal"
 msgstr "Kurs Journal"
 
 #. module: academy
+#: field:academy.registration,course_uom_ids:0
+msgid "Course Units"
+msgstr "Kurseinheiten"
+
+#. module: academy
 #: field:academy.contract,topic_ids:0
 #: view:academy.course.product:0
 #: model:ir.ui.menu,name:academy.menu_academy_config_courses
@@ -339,6 +349,11 @@ msgstr "Beschreibung"
 #: selection:academy.registration,state:0
 msgid "Draft"
 msgstr "Entwurf"
+
+#. module: academy
+#: view:academy.registration:0
+msgid "Editing"
+msgstr "Bearbeitung"
 
 #. module: academy
 #: field:academy.journal,end:0
@@ -625,7 +640,7 @@ msgstr "Strasse..."
 #: model:ir.actions.act_window,name:academy.action_academy_trainer
 #: model:ir.ui.menu,name:academy.menu_academy_student
 msgid "Student"
-msgstr "Schüler"
+msgstr "Teilnehmer"
 
 #. module: academy
 #: field:academy.course,student_ids:0
@@ -633,7 +648,7 @@ msgstr "Schüler"
 #: view:academy.student:0
 #: view:academy.trainer:0
 msgid "Students"
-msgstr "Schüler"
+msgstr "Teilnehmer"
 
 #. module: academy
 #: field:academy.registration,message_summary:0
