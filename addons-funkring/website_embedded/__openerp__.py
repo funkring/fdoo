@@ -27,7 +27,7 @@ Embeddable Website Layout
 """,
     "version" : "1.0",
     "author" :  "funkring.net",
-    "category" : "Website",
+    "category" : "Hidden",
     "depends" : ["website"],
     "data" : ["view/website_template.xml"],
     "installable": True

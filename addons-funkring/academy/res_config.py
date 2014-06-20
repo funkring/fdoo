@@ -18,22 +18,22 @@
 #
 ##############################################################################
 
-{
-    "name" : "oerp.at Academy (Web)",
-    "description":"""
-oerp.at Academy (Web)
-=====================
+from openerp.osv import fields, osv
 
-  * The web site extension for the academy module
-  * Adds the possibility for registration
-
-    """,
-    "version" : "1.0",
-    "author" :  "funkring.net",
-    "category" : "Academy",
-    "depends" : ["academy","website_embedded"],
-    "data" : ["security.xml",
-              "view/academy_website.xml"],
-    "installable": True,
-    "application" : True
-}
+class academy_config_settings(osv.TransientModel):
+    _name = "academy.config.settings"
+    _inherit = "res.config.settings"
+    _columns = {
+        "webuser_id" : fields.many2one("res.users","Academy Web User", required=True)
+    }
+    
+    def get_default_webuser_id(self, cr, uid, fields, context=None):
+        user = self.pool["res.users"].browse(cr, uid, uid, context=context)
+        return { "webuser_id" : user.company_id.academy_webuser_id.id or uid }
+    
+    def set_webuser_id(self, cr, uid, ids, context=None):
+        config = self.browse(cr, uid, ids[0], context)
+        user = self.pool["res.users"].browse(cr, uid, uid, context)
+        user.company_id.write({"academy_webuser_id" : config.webuser_id.id })
+        
+                             

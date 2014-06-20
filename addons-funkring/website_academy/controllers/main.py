@@ -50,7 +50,7 @@ except ImportError:
     _logger.warn("Please install GeoIP python module to use events localisation.")
 
 UID_ROOT = 1
-PATTERN_PRODUCT = re.compile("product-([0-9]+)")
+PATTERN_PRODUCT = re.compile("$product-([0-9]+)^")
 
 class website_academy(http.Controller):
     
@@ -128,8 +128,8 @@ class website_academy(http.Controller):
     def registration_get(self, state_id=None, location_id=None, **kwargs):
         return self.begin_registration(state_id, location_id)
     
-    @http.route(["/academy/registration"], type="http", auth="public", website=True, methods=['POST'])
-    def registration_post(self, **kwargs):
+    @http.route(["/academy/registration","/academy/registration/<int:stage_id>"], type="http", auth="public", website=True, methods=['POST'])
+    def registration_post(self, stage_id, **kwargs):
         cr, uid, context = request.cr, request.uid, request.context
         courses = []
         
@@ -151,36 +151,40 @@ class website_academy(http.Controller):
                         course_prod = academy_product_obj.browse(cr, UID_ROOT, util.getId(m.group(1)), context=context)
                         uom = uom_obj.browse(cr, UID_ROOT, uom_id, context=context)
                         courses.append((course_prod, uom))
-        
-        # location
-        location_id = util.getId(kwargs.get("location_id"))
-        location = location_id and location_obj.browse(cr, UID_ROOT, location_id, context=context) or None
-        address = location and location.address_id
-        location_lines = []
-        if address:
-            location_lines.append(address.name)
-            if address.street:
-                location_lines.append(address.street)
-            if address.street2:
-                location_lines.append(address.street2)
-            if address.zip:
-                if address.city:
-                    location_lines.append("%s %s" % (address.zip, address.city))
-                else:
-                    location_lines.append(address.zip)
+
+        # finish registration        
+        if stage_id==2:
             
-        values = {
-            "courses" : courses,
-            "location" : location,
-            "location_lines" : location_lines,
-            "is_student_of_loc" : is_student_of_loc,
-            "location_id" : location_id
-        }
-        return request.website.render("website_academy.registration", values)
+            
+            values = {}
+            return request.website.render("website_academy.message", values)        
+        else:
+            # begin registration
+            # location
+            location_id = util.getId(kwargs.get("location_id"))
+            location = location_id and location_obj.browse(cr, UID_ROOT, location_id, context=context) or None
+            address = location and location.address_id
+            location_lines = []
+            if address:
+                location_lines.append(address.name)
+                if address.street:
+                    location_lines.append(address.street)
+                if address.street2:
+                    location_lines.append(address.street2)
+                if address.zip:
+                    if address.city:
+                        location_lines.append("%s %s" % (address.zip, address.city))
+                    else:
+                        location_lines.append(address.zip)
+                
+            values = {
+                "courses" : courses,
+                "location" : location,
+                "location_lines" : location_lines,
+                "is_student_of_loc" : is_student_of_loc,
+                "location_id" : location_id
+            }
+            return request.website.render("website_academy.registration", values)
     
-    @http.route(["/academy/register"], type="http", auth="public", website=True, methods=['POST'])
-    def register(self, **kwargs):
-         values = {}
-         return request.website.render("website_academy.message", values)
     
     

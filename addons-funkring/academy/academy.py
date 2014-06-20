@@ -70,6 +70,16 @@ class academy_student(osv.Model):
     
     def on_change_zip(self, cr, uid, ids, zip_code, city):
         return self.pool.get("res.partner").on_change_zip(cr, uid, ids, zip_code, city)
+    
+    def unlink(self, cr, uid, ids, context=None):
+        """ Also delete Partner """
+        partner_ids = []
+        for obj in self.browse(cr, uid, ids, context):
+            if obj.partner_id:
+                partner_ids.append(obj.partner_id.id)        
+        res = super(academy_student,self).unlink(cr, uid, ids, context)
+        self.pool["res.partner"].unlink(cr, uid, partner_ids, context)
+        return res 
 
     _name = "academy.student"
     _inherits = {"res.partner":"partner_id"}

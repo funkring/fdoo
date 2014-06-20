@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 8.0alpha1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-20 14:03+0000\n"
-"PO-Revision-Date: 2014-06-20 16:04+0100\n"
+"POT-Creation-Date: 2014-06-20 18:16+0000\n"
+"PO-Revision-Date: 2014-06-20 20:16+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -170,6 +170,7 @@ msgid "Academy Management"
 msgstr "Schulverwaltung"
 
 #. module: academy
+#: view:academy.config.settings:0
 #: model:ir.model,name:academy.model_academy_registration
 msgid "Academy Registration"
 msgstr "Schulanmeldung"
@@ -203,6 +204,11 @@ msgid "Amount"
 msgstr "Menge"
 
 #. module: academy
+#: view:academy.config.settings:0
+msgid "Apply"
+msgstr "Anwenden"
+
+#. module: academy
 #: selection:academy.registration,state:0
 msgid "Assigned"
 msgstr "Zugewiesen"
@@ -223,6 +229,7 @@ msgid "Birthday"
 msgstr "Geburtstag"
 
 #. module: academy
+#: view:academy.config.settings:0
 #: selection:academy.registration,state:0
 msgid "Cancel"
 msgstr "Abgebrochen"
@@ -239,6 +246,11 @@ msgid "Closing Date"
 msgstr "Abschlussdatum"
 
 #. module: academy
+#: model:ir.model,name:academy.model_res_company
+msgid "Companies"
+msgstr "Unternehmen"
+
+#. module: academy
 #: field:academy.year,company_id:0
 msgid "Company"
 msgstr "Organisation"
@@ -247,6 +259,12 @@ msgstr "Organisation"
 #: model:ir.ui.menu,name:academy.menu_academy_config
 msgid "Configuration"
 msgstr "Konfiguration"
+
+#. module: academy
+#: view:academy.config.settings:0
+#: model:ir.actions.act_window,name:academy.action_config_settings
+msgid "Configure Academy"
+msgstr "Schule Konfigurieren"
 
 #. module: academy
 #: view:academy.contract:0
@@ -767,6 +785,11 @@ msgid "Unread Messages"
 msgstr ""
 
 #. module: academy
+#: view:academy.student:0
+msgid "Use parents address?"
+msgstr "Adresse vom Erziehungsberechtigten benutzen?"
+
+#. module: academy
 #: field:academy.registration,year_id:0
 #: field:academy.semester,year_id:0
 #: view:academy.year:0
@@ -785,6 +808,11 @@ msgstr "Jahre"
 #: view:academy.trainer:0
 msgid "ZIP"
 msgstr "PLZ"
+
+#. module: academy
+#: model:ir.model,name:academy.model_academy_config_settings
+msgid "academy.config.settings"
+msgstr ""
 
 #. module: academy
 #: model:ir.model,name:academy.model_academy_course_product
@@ -826,4 +854,9 @@ msgstr "z.B. +43 3332 86927"
 #: view:academy.course.product:0
 msgid "note to be displayed on quotations..."
 msgstr "Beschreibung welche auf Angeboten gezeigt werden soll"
+
+#. module: academy
+#: view:academy.config.settings:0
+msgid "or"
+msgstr "oder"
 

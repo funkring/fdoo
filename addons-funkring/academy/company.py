@@ -18,22 +18,10 @@
 #
 ##############################################################################
 
-{
-    "name" : "oerp.at Academy (Web)",
-    "description":"""
-oerp.at Academy (Web)
-=====================
+from openerp.osv import fields, osv
 
-  * The web site extension for the academy module
-  * Adds the possibility for registration
-
-    """,
-    "version" : "1.0",
-    "author" :  "funkring.net",
-    "category" : "Academy",
-    "depends" : ["academy","website_embedded"],
-    "data" : ["security.xml",
-              "view/academy_website.xml"],
-    "installable": True,
-    "application" : True
-}
+class res_company(osv.Model):
+    _inherit = "res.company"
+    _columns = {
+        "academy_webuser_id" : fields.many2one("res.users","Academy Web User")
+    }

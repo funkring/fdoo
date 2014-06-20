@@ -14,29 +14,32 @@
                     <label for="name" class="oe_edit_only"/>
                     <h1>
                         <field name="name" default_focus="1" placeholder="Name" />
-                    </h1>
-                    <field name="tmp_partner_id" invisible="1"/>
-                    <field name="parent_id"
-                            placeholder="Parent"
-                            domain="[('parent_id','=',False),('id','!=',tmp_partner_id)]" context="{'default_customer': customer}"
-                            on_change="onchange_address(use_parent_address, parent_id)"/>
-
-                    <field name="invoice_address_id"
-                            placeholder="Invoice Address"/>
-
+                    </h1>                    
                     <field name="category_id" widget="many2many_tags" placeholder="Tags..."/>
                     <field name="type" invisible="1"/>
                     <field name="customer" invisible="1"/>
                 </div>
                 <group>
                     <group>
+                        <field name="tmp_partner_id" invisible="1"/>
+                        
+                        <field name="parent_id"
+                                string="Parent"
+                                placeholder="Parent"
+                                domain="[('parent_id','=',False),('id','!=',tmp_partner_id)]" context="{'default_customer': customer}"
+                                on_change="onchange_address(use_parent_address, parent_id)"/>
+                                
+                        <field name="invoice_address_id" 
+                                placeholder="Invoice Address"
+                                domain="[('parent_id','=',False),('id','!=',tmp_partner_id)]" context="{'default_customer': customer}"/>
+                                
                         <label for="street" string="Address"/>
                         <div>
                             <div class="oe_edit_only">
                                 <field name="use_parent_address" class="oe_inline"
                                        on_change="onchange_address(use_parent_address, parent_id)"
                                        attrs="{'invisible': [('parent_id','=', False),('use_parent_address','=',False)]}"/>
-                                <label for="use_parent_address" attrs="{'invisible': [('parent_id','=', False),('use_parent_address','=',False)]}"/>
+                                <label for="use_parent_address" string="Use parents address?" attrs="{'invisible': [('parent_id','=', False),('use_parent_address','=',False)]}"/>
                             </div>
                             <button name="open_parent" type="object" string="(edit company address)" class="oe_link oe_edit_only"
                                     attrs="{'invisible': ['|',('parent_id','=', False),('use_parent_address','=',False)]}"/>
@@ -122,7 +125,7 @@
                                 <div class="oe_kanban_partner_categories"/>
                                 <div class="oe_kanban_partner_links"/>
                                 <ul>
-                                    <li t-if="record.parent_id.raw_value and !record.function.raw_value"><field name="parent_id"/></li>
+                                    <li t-if="record.parent_id.raw_value and !record.parent_id.raw_value"><field name="parent_id"/></li>
                                     <li t-if="record.city.raw_value and !record.country_id.raw_value"><field name="city"/></li>
                                     <li t-if="!record.city.raw_value and record.country_id.raw_value"><field name="country_id"/></li>
                                     <li t-if="record.city.raw_value and record.country_id.raw_value"><field name="city"/>, <field name="country_id"/></li>
