@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 8.0alpha1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-06-18 21:55+0000\n"
-"PO-Revision-Date: 2014-06-18 23:57+0100\n"
+"PO-Revision-Date: 2014-06-20 09:58+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -625,7 +625,7 @@ msgstr "Strasse..."
 #: model:ir.actions.act_window,name:academy.action_academy_trainer
 #: model:ir.ui.menu,name:academy.menu_academy_student
 msgid "Student"
-msgstr "Teilnehmer"
+msgstr "Schüler"
 
 #. module: academy
 #: field:academy.course,student_ids:0
@@ -633,7 +633,7 @@ msgstr "Teilnehmer"
 #: view:academy.student:0
 #: view:academy.trainer:0
 msgid "Students"
-msgstr "Teilnehmer"
+msgstr "Schüler"
 
 #. module: academy
 #: field:academy.registration,message_summary:0
