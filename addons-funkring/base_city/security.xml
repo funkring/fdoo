@@ -1,10 +1,8 @@
 <openerp>
 	<data>
-		
 		<record id="access_res_city_user" model="ir.model.access">
-			<field name="name">res_city/user</field>
+			<field name="name">res_city/public</field>
 			<field name="model_id" ref="model_res_city"/>
-			<field name="group_id" ref="base.group_user"/>
 			<field name="perm_read" eval="True"/>			
 			<field name="perm_unlink" eval="False"/>
 			<field name="perm_create" eval="False"/>
