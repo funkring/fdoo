@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 8.0alpha1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-20 13:44+0000\n"
-"PO-Revision-Date: 2014-06-20 15:46+0100\n"
+"POT-Creation-Date: 2014-06-20 14:03+0000\n"
+"PO-Revision-Date: 2014-06-20 16:04+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"<h3>Vielen Dank für deine Anmeldung!</h3>\n"
+"<h3>Vielen Dank für die Anmeldung!</h3>\n"
 "            "
 
 #. module: academy
@@ -34,7 +34,7 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"<h3>Deine Anmeldung wurde storniert!</h3>\n"
+"<h3>Ihre Anmeldung wurde storniert!</h3>\n"
 "            "
 
 #. module: academy
@@ -216,6 +216,11 @@ msgstr "Einteilung"
 #: field:academy.journal,begin:0
 msgid "Begin"
 msgstr "Beginn"
+
+#. module: academy
+#: view:academy.student:0
+msgid "Birthday"
+msgstr "Geburtstag"
 
 #. module: academy
 #: selection:academy.registration,state:0
@@ -471,6 +476,11 @@ msgstr "Sonstiges"
 #: field:academy.year,name:0
 msgid "Name"
 msgstr ""
+
+#. module: academy
+#: field:academy.student,nationality:0
+msgid "Nationality"
+msgstr "Nationalität"
 
 #. module: academy
 #: view:academy.student:0

@@ -36,6 +36,7 @@ class academy_year(osv.Model):
     _defaults = {
         "company_id" : lambda self, cr, uid, context: self.pool.get("res.company")._company_default_get(cr, uid, "academy.year", context=context)
     }
+    _order = "name desc"
 
 
 class academy_semester(osv.Model):
@@ -49,7 +50,7 @@ class academy_semester(osv.Model):
 
 
 class academy_student(osv.Model):
-
+    
     def onchange_address(self, cr, uid, ids, use_parent_address, parent_id, context=None):
         return self.pool.get("res.partner").onchange_address(cr, uid, ids, use_parent_address, parent_id, context=context)
 
@@ -66,6 +67,9 @@ class academy_student(osv.Model):
                 partner_ids.append(r.invoice_address_id.id)
             res[r.id] = partner_ids        
         return res
+    
+    def on_change_zip(self, cr, uid, ids, zip_code, city):
+        return self.pool.get("res.partner").on_change_zip(cr, uid, ids, zip_code, city)
 
     _name = "academy.student"
     _inherits = {"res.partner":"partner_id"}
@@ -74,7 +78,8 @@ class academy_student(osv.Model):
         "partner_ids" : fields.function(_partner_ids, type="many2many", obj="res.partner", string="Partner"),
         "invoice_address_id" : fields.many2one("res.partner","Invoice Address"),
         "registration_ids" : fields.one2many("academy.registration","student_id","Registrations"),
-        "tmp_partner_id" : extfields.duplicate("partner_id", "Partner", type="many2one", obj="res.partner")
+        "tmp_partner_id" : extfields.duplicate("partner_id", "Partner", type="many2one", obj="res.partner"),
+        "nationality" : fields.char("Nationality")
     }
     _defaults = {
         "customer" : True
@@ -118,27 +123,57 @@ class academy_course_product(osv.Model):
 
 
 class academy_registration(osv.Model):
-
+    
+    def _send_mails(self, cr, uid, template_xmlid, ids, context=None):    
+        template_obj = self.pool["email.template"]
+        template_id = self.pool["ir.model.data"].xmlid_to_res_id(cr, uid, template_xmlid)
+        if template_id: 
+            for reg in self.browse(cr, uid, ids, context=context):
+                mail_context = context and dict(context) or {}
+                mail_context["partner_to"]=",".join([str(p.id) for p in reg.student_id.partner_ids])
+                template_obj.send_mail(cr, uid, template_id, reg.id, force_send=True, context=mail_context)
+                
+    def message_get_default_recipients(self, cr, uid, ids, context=None):
+        res = super(academy_registration,self).message_get_default_recipients(cr, uid, ids, context=context)
+        for reg in self.browse(cr, uid, ids, context=context):
+            partner_ids = res[reg.id]["partner_ids"]
+            for p in reg.student_id.partner_ids:
+                if not p.id in partner_ids:
+                    partner_ids.append(p.id)
+        return res
+    
     def do_register(self, cr, uid, ids, context=None):
-        ids = self.search(cr, uid, [("id","in","ids"),("state","=","draft")])
+        ids = self.search(cr, uid, [("id","in",ids),("state","=","draft")])
         self.write(cr, uid, ids, {"state" : "registered"}, context=context)
-        helper.sendMails(self.pool, cr, uid, "academy.email_template_registration", ids, context=context)
+        self._send_mails(cr, uid, "academy.email_template_registration", ids, context=context)
         return True
     
     def do_cancel(self, cr, uid, ids, context=None):
-        ids = self.search(cr, uid, [("id","in","ids"),("state","in",["registered","assigned","open"])])
+        ids = self.search(cr, uid, [("id","in",ids),("state","in",["registered","assigned","open"])])
         self.write(cr, uid, ids, {"state" : "cancel"}, context=context)
-        helper.sendMails(self.pool, cr, uid, "academy.email_template_registration_cancel", ids, context=context)
+        self._send_mails(cr, uid, "academy.email_template_registration_cancel", ids, context=context)
         return True
     
     def do_draft(self, cr, uid, ids, context=None):
-        ids = self.search(cr, uid, [("id","in","ids"),("state","=","cancel")])
+        ids = self.search(cr, uid, [("id","in",ids),("state","=","cancel")])
         self.write(cr, uid, ids, {"state" : "draft"}, context=context)
         return True
         
     def create(self, cr, uid, vals, context=None):
         vals["name"]=self.pool.get("ir.sequence").get(cr, uid, "academy.registration") or "/"
         return super(academy_registration,self).create(cr, uid, vals, context=context)
+    
+    def onchange_course_prod(self, cr, uid, ids, course_prod_id, uom_id, context=None):
+        val = {}
+        res = { "value" : val}
+        if course_prod_id:
+            course_prod = self.pool["academy.course.product"].browse(cr, uid, course_prod_id, context=context)
+            if course_prod:
+                uom_ids = [uom.id for uom in course_prod.course_uom_ids]   
+                val["course_uom_ids"] = uom_ids
+                if uom_id and not uom_id in uom_ids:
+                    val["uom_id"]=None        
+        return res
     
     _inherit = ["mail.thread"]
     _name = "academy.registration"
@@ -156,6 +191,7 @@ class academy_registration(osv.Model):
         "trainer_id" : fields.many2one("academy.trainer", "Trainer", select=True, ondelete="restrict"),
         "amount" : fields.float("Amount", required=True),
         "uom_id" : fields.many2one("product.uom", "Unit", select=True, ondelete="restrict"),
+        "course_uom_ids" : fields.related("course_prod_id", "course_uom_ids", type="many2many", obj="product.uom", string="Course Units"),
         "state" : fields.selection([("draft","Draft"),
                                     ("cancel","Cancel"),
                                     ("registered","Registered"),
@@ -172,7 +208,8 @@ class academy_registration(osv.Model):
         "amount" : 1.0,
         "state" : "draft",
         "name" : "/",
-        "user_id" : lambda obj, cr, uid, context: uid 
+        "user_id" : lambda self, cr, uid, context: uid,
+        "year_id" : lambda self, cr, uid, context: self.pool["academy.year"].search_id(cr, uid, [], context=context)
     }
 
 

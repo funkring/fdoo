@@ -142,14 +142,3 @@ def strToLocalTimeStr(cr, uid, str_time, context):
                                             timestamp=timestamp,
                                             context=context)
     return util.timeToStr(converted)
-
-
-def sendMails(pool, cr, uid, template_xmlid, res_ids, context=None):
-    """
-    send mails from template with passed xmlid for passed resources
-    """
-    template_obj = pool.get("email.template")
-    template_id = pool.get("ir.model").xmlid_to_res_id(cr, uid, "academy.email_template_registration")
-    if template_id: 
-        for oid in ids:
-            template_obj.send_mail(cr, uid, template_id, res_id, context=context)

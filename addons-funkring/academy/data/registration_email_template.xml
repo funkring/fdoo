@@ -2,12 +2,13 @@
   <data noupdate="0">
       <record id="email_template_registration" model="email.template">
             <field name="name">Registration Confirm</field>
+            <field name="lang">${object.student_id.lang.code}</field>
             <field name="email_from">${(object.user_id.email or '')|safe}</field>
             <field name="subject">Registration ${object.name}</field>
-            <field name="partner_to">${",".join(object.student_id.partner_ids}</field>
+            <field name="partner_to">${ctx.get("partner_to",object.student_id.id)}</field>
             <field name="model_id" ref="academy.model_academy_registration"/>
             <field name="body_html"><![CDATA[
-<h1>Thank your for Registration</h1>
+<h3>Thank your for Registration!</h3>
             ]]></field>
      </record>
   </data>
