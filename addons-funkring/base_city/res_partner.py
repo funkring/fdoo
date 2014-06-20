@@ -18,6 +18,9 @@
 ##############################################################################
 
 from openerp.osv import osv
+import re
+
+#PATTERN_ZIP_SEARCH = re.compile("^(([A-Za-z]{2})-)?([0-9]{4,})")
 
 class res_partner(osv.Model):    
     
