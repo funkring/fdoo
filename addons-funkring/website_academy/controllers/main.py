@@ -201,7 +201,7 @@ class website_academy(http.Controller):
             warnings = []
             messages = []
             #
-            def create_address(obj, fields, data, name, context):
+            def create_address(obj, fields, data, name):
                 """ get address or create new 
                     :return (id,Name)
                 """
@@ -223,9 +223,12 @@ class website_academy(http.Controller):
                         if isinstance(value2,tuple):
                             value2=value2[1]                        
                         if value1 != value2:
-                            changes.append(_("Value of field '%s' is '%s' but customer typed '%s'" % (fields[key]["string"],value1,value2)))
+                            changes.append(_("Value of field '%s' is '%s' but customer typed '%s'") % (fields[key]["string"],value1,value2))
                     if changes:
-                        warnings.append("%s\n%s" % (name,"\n  ".join(changes)))                        
+                        warnings.append("<p><b>%s</b></p>" % name)
+                        for change in changes:
+                            warnings.append("<p>%s</p>" % change)
+                        warnings.append("<p></p>")                                                
                 else:
                     # convert tuple to id
                     for key, value in data.items():
@@ -298,20 +301,20 @@ class website_academy(http.Controller):
                 if not parent_values:
                     raise osv.except_osv(_("Error"), _("No parent address passed"))
                 student_values["parent_id"]=create_address(partner_obj, ["name","email","street","zip","city","phone","date"], 
-                                                           parent_values, _("Parent"), context)
-                
+                                                           parent_values, _("Parent"))
+            invoice_address_id = None
             if invoice_address:
                 invoice_values = get_address("invoice")
                 if not invoice_values:
                     raise osv.except_osv(_("Error"), _("No invoice address passed"))
-                student_values["invoice_address_id"]=create_address(partner_obj, ["name","email","street","zip","city","phone"], 
-                                                                    invoice_values, _("Invoice Address"), context)
+                invoice_address_id=create_address(partner_obj, ["name","email","street","zip","city","phone"], 
+                                                                    invoice_values, _("Invoice Address"))[0]
             
 
             # create student address            
             student = create_address(student_obj,
-                                     ["name","email","street","zip","city","phone","nationality","date","parent_id","invoice_address_id"],
-                                     student_values, _("Student"), context)
+                                     ["name","email","street","zip","city","phone","nationality","date","parent_id"],
+                                     student_values, _("Student"))
             
             # create courses                               
             for course in courses:
@@ -323,6 +326,10 @@ class website_academy(http.Controller):
                     "location_id" : location_id,
                     "student_of_loc" : is_student_of_loc
                 }
+                
+                # set invoice address id
+                if invoice_address_id:
+                    values["invoice_address_id"]=invoice_address_id
                 
                 # set registration number
                 if registration:
@@ -341,7 +348,7 @@ class website_academy(http.Controller):
                 # add info if something is to add
                 if warnings:
                     warnings = "\n".join(warnings)
-                    reg_obj.message_post(cr, hidden_uid, reg_id, body=warnings, content_subtype="plaintext",context=context)
+                    reg_obj.message_post(cr, hidden_uid, reg_id, body=warnings, context=context)
             
             values = {
                 "message_title" : _("Registration finished!"),

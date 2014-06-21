@@ -29,11 +29,12 @@
                         <field name="location_id"/>
                         <field name="student_of_loc"/>
                     </group>
-                    <group>                        
+                    <group>                   
+                        <field name="invoice_address_id"/>     
                         <field name="course_prod_id" on_change="onchange_course_prod(course_prod_id, uom_id, context)"/>
                         <field name="course_uom_ids" invisible="1"/>
                         <field name="uom_id" domain="[('id','in',course_uom_ids[0][2])]"/>
-                        <field name="amount"/>
+                        <field name="amount"/>                        
                     </group>
                     <group string="Assignment">
                         <field name="course_id"/>
@@ -65,6 +66,7 @@
             <field name="course_prod_id"/>
             <field name="uom_id"/>
             <field name="amount"/>
+            <field name="invoice_address_id"/>
             <field name="course_id"/>
             <field name="trainer_id"/>
             <field name="create_date"/>

@@ -15,24 +15,19 @@
                     <h1>
                         <field name="name" default_focus="1" placeholder="Name" />
                     </h1>                    
+                    
+                    <field name="tmp_partner_id" invisible="1"/>
+                    <field name="parent_id"
+                            placeholder="Parent"
+                            domain="[('parent_id','=',False),('id','!=',tmp_partner_id)]" context="{'default_customer': customer}"
+                            on_change="onchange_address(use_parent_address, parent_id)"/>
+                            
                     <field name="category_id" widget="many2many_tags" placeholder="Tags..."/>
                     <field name="type" invisible="1"/>
                     <field name="customer" invisible="1"/>
                 </div>
                 <group>
                     <group>
-                        <field name="tmp_partner_id" invisible="1"/>
-                        
-                        <field name="parent_id"
-                                string="Parent"
-                                placeholder="Parent"
-                                domain="[('parent_id','=',False),('id','!=',tmp_partner_id)]" context="{'default_customer': customer}"
-                                on_change="onchange_address(use_parent_address, parent_id)"/>
-                                
-                        <field name="invoice_address_id" 
-                                placeholder="Invoice Address"
-                                domain="[('parent_id','=',False),('id','!=',tmp_partner_id)]" context="{'default_customer': customer}"/>
-                                
                         <label for="street" string="Address"/>
                         <div>
                             <div class="oe_edit_only">
@@ -149,7 +144,6 @@
             <field name="phone"/>
             <field name="email"/>
             <field name="parent_id"/>
-            <field name="invoice_address_id"/>
         </tree>
       </field>
     </record>

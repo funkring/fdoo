@@ -57,17 +57,6 @@ class academy_student(osv.Model):
     def onchange_state(self, cr, uid, ids, state_id, context=None):
         return self.pool.get("res.partner").onchange_state(cr, uid, ids, state_id, context=context)
 
-    def _partner_ids(self, cr, uid, ids, field_name, arg, context=None):
-        res = dict.fromkeys(ids)
-        for r in self.browse(cr, uid, ids, context):
-            partner_ids = [r.partner_id.id]
-            if r.partner_id.parent_id:
-                partner_ids.append(r.partner_id.parent_id.id)
-            if r.invoice_address_id:
-                partner_ids.append(r.invoice_address_id.id)
-            res[r.id] = partner_ids        
-        return res
-    
     def on_change_zip(self, cr, uid, ids, zip_code, city):
         return self.pool.get("res.partner").on_change_zip(cr, uid, ids, zip_code, city)
     
@@ -85,8 +74,6 @@ class academy_student(osv.Model):
     _inherits = {"res.partner":"partner_id"}
     _columns = {
         "partner_id" : fields.many2one("res.partner", "Partner", ondelete="restrict", required=True, select=True),
-        "partner_ids" : fields.function(_partner_ids, type="many2many", obj="res.partner", string="Partner"),
-        "invoice_address_id" : fields.many2one("res.partner","Invoice Address"),
         "registration_ids" : fields.one2many("academy.registration","student_id","Registrations"),
         "tmp_partner_id" : extfields.duplicate("partner_id", "Partner", type="many2one", obj="res.partner"),
         "nationality" : fields.char("Nationality")
@@ -140,7 +127,14 @@ class academy_registration(osv.Model):
         if template_id: 
             for reg in self.browse(cr, uid, ids, context=context):
                 mail_context = context and dict(context) or {}
-                mail_context["partner_to"]=",".join([str(p.id) for p in reg.student_id.partner_ids])
+                
+                partner_ids = [str(reg.student_id.partner_id.id)]
+                if reg.student_id.parent_id:
+                    partner_ids.append(str(reg.student_id.parent_id.id))
+                if reg.invoice_address_id:
+                    partner_ids.append(str(reg.invoice_address_id.id))
+                
+                mail_context["partner_to"]=",".join(partner_ids)
                 template_obj.send_mail(cr, uid, template_id, reg.id, force_send=True, context=mail_context)
                 
     def _next_sequence(self, cr, uid, context=None):
@@ -199,12 +193,13 @@ class academy_registration(osv.Model):
         "year_id" : fields.many2one("academy.year", "Year", select=True, required=True, ondelete="restrict"),
         "student_id" : fields.many2one("academy.student", "Student", select=True, required=True, ondelete="restrict"),
         "location_id" : fields.many2one("academy.location", "Location", select=True, ondelete="restrict"),
-        "student_of_loc" : fields.boolean("Is student of location?"),
+        "student_of_loc" : fields.boolean("Is student of location?"),        
         "course_prod_id" : fields.many2one("academy.course.product", "Product", select=True, required=True, ondelete="restrict"),
         "course_id" : fields.many2one("academy.course", "Course", select=True, ondelete="restrict"),
         "trainer_id" : fields.many2one("academy.trainer", "Trainer", select=True, ondelete="restrict"),
         "amount" : fields.float("Amount", required=True),
         "uom_id" : fields.many2one("product.uom", "Unit", select=True, ondelete="restrict"),
+        "invoice_address_id" : fields.many2one("res.partner","Invoice Address"),
         "course_uom_ids" : fields.related("course_prod_id", "course_uom_ids", type="many2many", obj="product.uom", string="Course Units"),
         "state" : fields.selection([("draft","Draft"),
                                     ("cancel","Cancel"),
