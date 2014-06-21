@@ -5,6 +5,7 @@ import logging
 from openerp.osv import osv, fields
 from openerp.tools import float_round, float_repr
 from openerp.tools.translate import _
+from openerp import tools
 
 _logger = logging.getLogger(__name__)
 
@@ -376,7 +377,7 @@ class PaymentTransaction(osv.Model):
         'date_create': fields.datetime.now,
         'type': 'form',
         'state': 'draft',
-        'partner_lang': 'en_US',
+        'partner_lang': tools.config.defaultLang,
     }
 
     def create(self, cr, uid, values, context=None):
@@ -409,7 +410,7 @@ class PaymentTransaction(osv.Model):
             partner = self.pool['res.partner'].browse(cr, uid, partner_id, context=context)
         return {'values': {
             'partner_name': partner and partner.name or False,
-            'partner_lang': partner and partner.lang or 'en_US',
+            'partner_lang': partner and partner.lang or tools.config.defaultLang,
             'partner_email': partner and partner.email or False,
             'partner_zip': partner and partner.zip or False,
             'partner_address': _partner_format_address(partner and partner.street or '', partner and partner.street2 or ''),

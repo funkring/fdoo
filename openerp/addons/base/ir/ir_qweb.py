@@ -582,11 +582,11 @@ class FieldConverter(osv.AbstractModel):
         """
         if context is None: context = {}
 
-        lang_code = context.get('lang') or 'en_US'
+        lang_code = context.get('lang') or openerp.tools.config.defaultLang
         Lang = self.pool['res.lang']
 
         lang_ids = Lang.search(cr, uid, [('code', '=', lang_code)], context=context) \
-               or  Lang.search(cr, uid, [('code', '=', 'en_US')], context=context)
+               or  Lang.search(cr, uid, [('code', '=', openerp.tools.config.baseLang)], context=context)
 
         return Lang.browse(cr, uid, lang_ids[0], context=context)
 
@@ -604,7 +604,7 @@ class FloatConverter(osv.AbstractModel):
         precision = self.precision(cr, uid, column, options=options, context=context)
         fmt = '%f' if precision is None else '%.{precision}f'
 
-        lang_code = context.get('lang') or 'en_US'
+        lang_code = context.get('lang') or openerp.tools.config.defaultLang
         lang = self.pool['res.lang']
         formatted = lang.format(cr, uid, [lang_code], fmt.format(precision=precision), value, grouping=True)
 
@@ -769,7 +769,7 @@ class MonetaryConverter(osv.AbstractModel):
         precision = int(round(math.log10(display.rounding)))
         fmt = "%.{0}f".format(-precision if precision < 0 else 0)
 
-        lang_code = context.get('lang') or 'en_US'
+        lang_code = context.get('lang') or openerp.tools.config.defaultLang
         lang = self.pool['res.lang']
         formatted_amount = lang.format(cr, uid, [lang_code], 
             fmt, Currency.round(cr, uid, display, record[field_name]),
@@ -930,7 +930,7 @@ class QwebWidgetMonetary(osv.AbstractModel):
         display = self.pool['ir.qweb'].eval_object(options['display_currency'], qwebcontext)
         precision = int(round(math.log10(display.rounding)))
         fmt = "%.{0}f".format(-precision if precision < 0 else 0)
-        lang_code = qwebcontext.context.get('lang') or 'en_US'
+        lang_code = qwebcontext.context.get('lang') or openerp.tools.config.defaultLang
         formatted_amount = self.pool['res.lang'].format(
             qwebcontext.cr, qwebcontext.uid, [lang_code], fmt, inner, grouping=True, monetary=True
         )

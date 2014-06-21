@@ -685,8 +685,11 @@ def trans_generate(lang, modules, cr):
 
         if model=='ir.ui.view':
             d = etree.XML(encode(obj.arch))
-            for t in trans_parse_view(d):
-                push_translation(module, 'view', encode(obj.model), 0, t)
+            for t in trans_parse_view(d):         
+                if obj.type == "qweb":  
+                    push_translation(module, 'view', 'website', obj.id, t)
+                else:
+                    push_translation(module, 'view', encode(obj.model), 0, t)
         elif model=='ir.actions.wizard':
             pass # TODO Can model really be 'ir.actions.wizard' ?
 

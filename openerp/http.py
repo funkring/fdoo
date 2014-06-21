@@ -34,6 +34,7 @@ import werkzeug.routing
 import werkzeug.wrappers
 import werkzeug.wsgi
 
+import tools
 import openerp
 from openerp.service import security, model as service_model
 from openerp.tools.func import lazy_property
@@ -877,7 +878,7 @@ class OpenERPSession(werkzeug.contrib.sessions.Session):
         if lang in babel.core.LOCALE_ALIASES:
             lang = babel.core.LOCALE_ALIASES[lang]
 
-        context['lang'] = lang or 'en_US'
+        context['lang'] = lang or tools.config.defaultLang
 
     # Deprecated to be removed in 9
 
@@ -1188,7 +1189,7 @@ class Root(object):
 
     def setup_lang(self, httprequest):
         if not "lang" in httprequest.session.context:
-            lang = httprequest.accept_languages.best or "en_US"
+            lang = httprequest.accept_languages.best or tools.config.defaultLang
             lang = babel.core.LOCALE_ALIASES.get(lang, lang).replace('-', '_')
             httprequest.session.context["lang"] = lang
 

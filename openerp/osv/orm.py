@@ -1986,7 +1986,7 @@ class BaseModel(object):
 
         Here is an example of searching for Partners named *ABC* from Belgium and Germany whose language is not english ::
 
-            [('name','=','ABC'),'!',('language.code','=','en_US'),'|',('country_id.code','=','be'),('country_id.code','=','de'))
+            [('name','=','ABC'),'!',('language.code','=',tools.config.defaultLang),'|',('country_id.code','=','be'),('country_id.code','=','de'))
 
         The '&' is omitted as it is the default, and of course we could have used '!=' for the language, but what this domain really represents is::
 
@@ -2356,7 +2356,7 @@ class BaseModel(object):
         for k,v in data.iteritems():
             gb = groupby_dict.get(k)
             if gb and gb['type'] in ('date', 'datetime') and v:
-                data[k] = babel.dates.format_date(v, format=gb['display_format'], locale=context.get('lang', 'en_US'))
+                data[k] = babel.dates.format_date(v, format=gb['display_format'], locale=context.get('lang', tools.config.defaultLang))
 
         data['__domain'] = domain_group + domain
         if len(groupby) - len(annotated_groupbys) >= 1:

@@ -49,7 +49,7 @@ except ImportError:
     GeoIP = None
     _logger.warn("Please install GeoIP python module to use events localisation.")
 
-PATTERN_PRODUCT = re.compile("$product-([0-9]+)^")
+PATTERN_PRODUCT = re.compile("^product-([0-9]+)$")
 
 class website_academy(http.Controller):
     
@@ -61,7 +61,7 @@ class website_academy(http.Controller):
         return ""
     
     def get_hidden_user(self):
-        public_user = request.registry["res.users"].browse(request.cr, request.uid, request.uid, context=context)
+        public_user = request.registry["res.users"].browse(request.cr, request.uid, request.uid, context=request.context)
         hidden_user = public_user.company_id.academy_webuser_id or public_user
         return hidden_user
     
@@ -125,14 +125,14 @@ class website_academy(http.Controller):
             "location_id" : location_id,
             "products" : products
         }
-        return request.website.render("website_academy.index", values)
+        return request.website.render("website_academy.index", values, context=context)
     
-    @http.route(["/academy/registration"], type="http", auth="public", website=True, methods=['GET'])
-    def registration_get(self, state_id=None, location_id=None, **kwargs):
+    @http.route(["/academy/registration","/academy/registration/<int:stage>"], type="http", auth="public", website=True, methods=['GET'])
+    def registration_get(self, state=None, location_id=None, **kwargs):
         return self.begin_registration(state_id, location_id)
     
-    @http.route(["/academy/registration","/academy/registration/<int:stage_id>"], type="http", auth="public", website=True, methods=['POST'])
-    def registration_post(self, stage_id, **kwargs):
+    @http.route(["/academy/registration","/academy/registration/<int:stage>"], type="http", auth="public", website=True, methods=['POST'])
+    def registration_post(self, stage=1, **kwargs):
         cr, uid, context = request.cr, request.uid, request.context
         hidden_uid = self.get_hidden_user().id
         
@@ -149,14 +149,14 @@ class website_academy(http.Controller):
         
         # build selection
         is_student_of_loc = False
-        parent_address = False
+        parent_address = True
         invoice_address = False
         for key, value in kwargs.items():
             if key == "is_student_of_loc":
                 is_student_of_loc = True
-            elif key == "parent_address":
-                parent_address = True
-            elif key == "invoice_address":
+            elif key == "has_legal_age":
+                parent_address = False
+            elif key == "has_invoice_address":
                 invoice_address = True                
             else:
                 m = PATTERN_PRODUCT.match(key)
@@ -169,7 +169,7 @@ class website_academy(http.Controller):
                         
         # location
         location_id = util.getId(kwargs.get("location_id"))
-        location = location_id and location_obj.browse(cr, UID_ROOT, location_id, context=context) or None
+        location = location_id and location_obj.browse(cr, hidden_uid, location_id, context=context) or None
         address = location and location.address_id
         location_lines = []
         if address:
@@ -183,11 +183,25 @@ class website_academy(http.Controller):
                     location_lines.append("%s %s" % (address.zip, address.city))
                 else:
                     location_lines.append(address.zip)
-             
-        if stage_id==2:
+        
+        # registration 
+        registration = kwargs.get("registration")
+        if registration:
+            reg_id = reg_obj.search_id(cr, hidden_uid, [("name","=",registration)], context=context)
+            if reg_id:
+                values = {
+                    "message_title" : _("Registration already finished!"),
+                    "message_text" :  _("<p>Registration %s was done</p>") % registration                                  
+                }
+                return request.website.render("website_academy.message", values, context=context)        
+       
+        # handle stage
+        if stage==2:
             # finish registration
-                        
-            def create_address(obj, fields, data, name):
+            warnings = []
+            messages = []
+            #
+            def create_address(obj, fields, data, name, context):
                 """ get address or create new 
                     :return (id,Name)
                 """
@@ -211,7 +225,7 @@ class website_academy(http.Controller):
                         if value1 != value2:
                             changes.append(_("Value of field '%s' is '%s' but customer typed '%s'" % (fields[key]["string"],value1,value2)))
                     if changes:
-                        messages.append("%s%s" % (name,"\n  ".join(changes)))                        
+                        warnings.append("%s\n%s" % (name,"\n  ".join(changes)))                        
                 else:
                     # convert tuple to id
                     for key, value in data.items():
@@ -254,19 +268,19 @@ class website_academy(http.Controller):
                 if nationality:
                     res["nationality"]=nationality
 
-                birthday_dt, birthday = util.tryParse(get("birthday"))
+                birthday_dt, birthday = util.tryParseDate(get("birthday"))
                 if birthday_dt:
-                    res["date"] = util.strToDate(birthday_dt)
+                    res["date"] = util.dateToStr(birthday_dt)
                     
                 phone = get("phone")
                 if phone:
                     res["phone"] = phone
                 
-                city_values = city_obj.search_read(cr, uid, [("zip","=",zip)], ["name","state_id"], context=context)                
+                city_values = city_obj.search_read(cr, hidden_uid, [("code","=",zip)], ["name","state_id"], context=context)                
                 for city_val in city_values:
-                    if re.sub("[^A-Za-z]", "", city) == re.sub("[^A-Za-z]", "", city_values["name"]):
-                        res["state_id"] = city_values["state_id"]
-                        res["city"] = city_values["name"]
+                    if re.sub("[^A-Za-z]", "", city) == re.sub("[^A-Za-z]", "", city_val["name"]):
+                        res["state_id"] = city_val["state_id"]
+                        res["city"] = city_val["name"]
                         break
                     
                 return res              
@@ -283,46 +297,57 @@ class website_academy(http.Controller):
                 parent_values = get_address("parent")
                 if not parent_values:
                     raise osv.except_osv(_("Error"), _("No parent address passed"))
-                student_values["parent_id"]=create_address(partner_obj, ["name","email","street","zip","city","phone"], _("Parent"))
+                student_values["parent_id"]=create_address(partner_obj, ["name","email","street","zip","city","phone","date"], 
+                                                           parent_values, _("Parent"), context)
                 
             if invoice_address:
                 invoice_values = get_address("invoice")
                 if not invoice_values:
                     raise osv.except_osv(_("Error"), _("No invoice address passed"))
-                student_values["invoice_address_id"]=create_address(partner_obj, ["name","email","street","zip","city","phone"], _("Invoice Address"))
+                student_values["invoice_address_id"]=create_address(partner_obj, ["name","email","street","zip","city","phone"], 
+                                                                    invoice_values, _("Invoice Address"), context)
             
 
             # create student address            
-            student = create_address(student_obj,["name","email","street","zip","city","phone","nationality","date"],_("Student"))
+            student = create_address(student_obj,
+                                     ["name","email","street","zip","city","phone","nationality","date","parent_id","invoice_address_id"],
+                                     student_values, _("Student"), context)
             
-            # create courses
-            result_messages = []
+            # create courses                               
             for course in courses:
+
                 values = {
-                    "product_id" : course[0],
-                    "uom_id" : course[1],
+                    "course_prod_id" : course[0].id,
+                    "uom_id" : course[1].id,
                     "student_id" : student[0],
-                    "location_id" : location_id
+                    "location_id" : location_id,
+                    "student_of_loc" : is_student_of_loc
                 }
                 
-                # create and register
+                # set registration number
+                if registration:
+                    values["name"]=registration
+                    registration=None
+                
+                # create, register and commit
                 reg_id = reg_obj.create(cr, hidden_uid, values, context=context)
-                reg_name = reg_obj.read(cr, hidden_uid, reg_id, ["name"], context=context)["name"]
+                reg_name = reg_obj.read(cr, hidden_uid, reg_id, ["name"], context=context)["name"]                         
                 reg_obj.do_register(cr, hidden_uid, [reg_id], context=context)
+                cr.commit()       
                 
                 # create status message
-                result_messages.append(_("<p>Registration %s was created.</p>") % reg_name)
+                messages.append(_("<p>Registration %s was created.</p>") % reg_name)
                 
                 # add info if something is to add
-                if messages:
-                    messages = "\n".join(messages)
-                    reg_obj.message_post(cr, hidden_uid, reg_id, body=messages, context=context)
+                if warnings:
+                    warnings = "\n".join(warnings)
+                    reg_obj.message_post(cr, hidden_uid, reg_id, body=warnings, content_subtype="plaintext",context=context)
             
             values = {
                 "message_title" : _("Registration finished!"),
-                "message_text" : "\n".join(result_messages)                                   
+                "message_text" : "\n".join(messages)                                   
             }
-            return request.website.render("website_academy.message", values)        
+            return request.website.render("website_academy.message", values, context=context)        
         else:
             # begin registration
             values = {
@@ -330,7 +355,8 @@ class website_academy(http.Controller):
                 "location" : location,
                 "location_lines" : location_lines,
                 "is_student_of_loc" : is_student_of_loc,
-                "location_id" : location_id
+                "location_id" : location_id,
+                "registration" : reg_obj._next_sequence(cr, hidden_uid, context) 
             }
             return request.website.render("website_academy.registration", values)
     

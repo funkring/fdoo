@@ -143,6 +143,9 @@ class academy_registration(osv.Model):
                 mail_context["partner_to"]=",".join([str(p.id) for p in reg.student_id.partner_ids])
                 template_obj.send_mail(cr, uid, template_id, reg.id, force_send=True, context=mail_context)
                 
+    def _next_sequence(self, cr, uid, context=None):
+        return self.pool.get("ir.sequence").get(cr, uid, "academy.registration")
+                
     def message_get_default_recipients(self, cr, uid, ids, context=None):
         res = super(academy_registration,self).message_get_default_recipients(cr, uid, ids, context=context)
         for reg in self.browse(cr, uid, ids, context=context):
@@ -170,7 +173,8 @@ class academy_registration(osv.Model):
         return True
         
     def create(self, cr, uid, vals, context=None):
-        vals["name"]=self.pool.get("ir.sequence").get(cr, uid, "academy.registration") or "/"
+        if vals.get("name") == "/":
+            vals["name"]=self._next_sequence(cr, uid, context)
         return super(academy_registration,self).create(cr, uid, vals, context=context)
     
     def onchange_course_prod(self, cr, uid, ids, course_prod_id, uom_id, context=None):
