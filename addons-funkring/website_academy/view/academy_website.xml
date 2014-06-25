@@ -35,7 +35,7 @@
                             <div class="col-md-8">                            
                                 <div t-foreach="products" class="row mt8 mb8" t-as="product">
                                     <div class="span col-md-6">
-                                        <label t-att-for="product-{{ product.id }}"><t t-esc="product.name"/></label>
+                                        <label t-attf-for="product-{{ product.id }}"><t t-esc="product.name"/></label>
                                     </div>
                                     <div class="col-md-6">
                                         <select t-attf-name="product-{{ product.id }}" style="width: 100%;">
