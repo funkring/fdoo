@@ -949,8 +949,19 @@ form: module.record_id""" % (xml_id,)
         if el.get('primary') == 'True':
             record.append(Field('primary', name='mode'))
         if el.get('optional'):
-            record.append(Field(el.get('optional'), name='application'))
-
+            #funkring.net begin
+            # get current value
+            
+            cr.execute("SELECT application FROM ir_ui_view v "
+                        " INNER JOIN ir_model_data m ON m.model='ir.ui.view' AND m.res_id=v.id "
+                        " WHERE  m.module=%s AND m.name=%s", (self.module, tpl_id))
+            optional_cur = cr.fetchone()
+            
+            if optional_cur and optional_cur[0]:
+                record.append(Field(optional_cur[0], name='application'))
+            else:
+                record.append(Field(el.get('optional'), name='application'))
+            #funkring.net end
         return self._tag_record(cr, record, data_node)
 
     def id_get(self, cr, id_str):
