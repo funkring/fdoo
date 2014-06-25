@@ -14,7 +14,7 @@
             <div id="wrap">
                 <div class="oe_structure"/>
                 <div class="container">
-                    <form id="product_input" action="/academy/registration" method="POST">
+                    <form class="mod_form" id="product_input" action="/academy/registration" method="POST">
                         <input type="hidden" name="state_id" t-att-value="state_id"/>
                         <input type="hidden" name="location_id" t-att-value="location_id"/>
                         <div class="row mt8">
@@ -34,8 +34,8 @@
                         <div class="row mt8 mb8">
                             <div class="col-md-8">                            
                                 <div t-foreach="products" class="row mt8 mb8" t-as="product">
-                                    <div class="col-md-6">
-                                        <t t-esc="product.name"/>
+                                    <div class="span col-md-6">
+                                        <label t-att-for="product-{{ product.id }}"><t t-esc="product.name"/></label>
                                     </div>
                                     <div class="col-md-6">
                                         <select t-attf-name="product-{{ product.id }}" style="width: 100%;">
@@ -166,7 +166,7 @@
             <div id="wrap">
                 <div class="oe_structure"/>
                 <div class="container" >
-                    <form role="form" data-toggle="validator" id="registration_input" action="/academy/registration/2" method="POST">
+                    <form class="mod_form" role="form" data-toggle="validator" id="registration_input" action="/academy/registration/2" method="POST">
                        <input type="hidden" name="registration" t-att-value="registration"/>
                        <h4>Selected Course(s)</h4>
                        <div t-foreach="courses" t-as="course" class="row mt8 mb8">
