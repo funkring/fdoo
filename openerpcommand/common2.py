@@ -36,6 +36,15 @@ def add_common_server(parser):
     parser.add_argument('-m', '--module', metavar='MODULE', required=False)
     parser.add_argument('--default-lang',required=False)
     
+    parser.add_argument("--pg_path", metavar="PG_PATH", help="specify the pg executable path")    
+    parser.add_argument("--db_host", metavar="DB_HOST", default=False,
+                         help="specify the database host")
+    parser.add_argument("--db_password", metavar="DB_PASSWORD", default=False,
+                         help="specify the database password")
+    parser.add_argument("--db_port", metavar="DB_PORT", default=False,
+                         help="specify the database port", type=int)
+    parser.add_argument("--db_user", metavar="DB_USER", default=False,
+                        help="specify the database user")
     
 def set_common_server(args):
     """
@@ -47,6 +56,12 @@ def set_common_server(args):
     from openerp.tools import config 
         
     set_addons(args)
+    
+    for option in ["pg_path","db_host","db_port","db_password","db_user"]:
+        if hasattr(args,option):
+            option_val=getattr(args,option)
+            if option_val:
+                config.options[option]=option_val
     
     if hasattr(args,'module'):
         args.module = args.module and args.module.split(',') or None
