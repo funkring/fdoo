@@ -86,15 +86,14 @@ class website_academy(http.Controller):
         zip_item = _("Select District")
 
         # query
-        cr.execute("SELECT p.state_id FROM academy_location l "
+        cr.execute("SELECT p.state_id, COUNT(p.id) AS schools FROM academy_location l "
                    " INNER JOIN res_partner p ON p.id = l.address_id "
-                   " GROUP BY 1 ")
+                   " GROUP BY 1 "
+                   " ORDER BY schools DESC")
 
 
         # get states
         state_ids = [r[0] for r in cr.fetchall()]
-        state_ids = state_obj.search(cr, uid, [("id","in",state_ids)],order="name")
-
         states = state_obj.browse(cr, uid, state_ids, context=context)
         if state_id:
             state = state_obj.browse(cr, uid, state_id, context=context)
@@ -103,16 +102,27 @@ class website_academy(http.Controller):
 
         # get districts
         zip_list = []
+        zip_sel = None
         if state_id:
             # query
-            cr.execute("SELECT p.zip FROM academy_location l "
+            cr.execute("SELECT p.zip, c.name FROM academy_location l "
                        " INNER JOIN res_partner p ON p.id = l.address_id "
+                       " INNER JOIN res_city c ON c.state_id = p.state_id AND c.code = p.zip "
                        " WHERE p.state_id = %s"
-                       " GROUP BY 1 ", (state_id,))
-            zip_list = [r[0] for r in cr.fetchall()]
+                       " GROUP BY 1, 2 "
+                       " ORDER BY c.name ", (state_id,))
+            zip_list = [(r[0], "%s %s" % (r[0],r[1])) for r in cr.fetchall()]
+                        
+            for zip_val in zip_list:
+                if zip_val[0]==zip_code:
+                    zip_sel=zip_val
+                    break
         
-        if zip_code and zip_code in zip_list:
-            zip_item = zip_code
+        # validate districts
+        if zip_sel:
+            zip_code, zip_item = zip_sel
+        else:
+            zip_code = None
 
         # get location
         location_ids = []
