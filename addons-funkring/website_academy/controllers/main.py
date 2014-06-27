@@ -66,7 +66,7 @@ class website_academy(http.Controller):
         return hidden_user
     
     @http.route(["/academy"], type="http", auth="public", website=True)
-    def begin_registration(self, state_id=None, location_id=None, **kwargs):
+    def begin_registration(self, state_id=None, location_id=None, zip_code=None, **kwargs):
         cr, uid, context = request.cr, request.uid, request.context
         hidden_uid = self.get_hidden_user().id
         
@@ -78,10 +78,12 @@ class website_academy(http.Controller):
         location_obj = request.registry["academy.location"]
         academy_product_obj = request.registry["academy.course.product"]
         state_obj = request.registry["res.country.state"]
+        city_obj = request.registry["res.city"]
 
         # default
         state_item = _("Select a State")
         location_item = _("Select a Location")
+        zip_item = _("Select District"),
 
         # query
         cr.execute("SELECT p.state_id FROM academy_location l "
@@ -99,11 +101,26 @@ class website_academy(http.Controller):
             if state:
                 state_item = state.name
 
+        # get districts
+        zip_list = []
+        if state_id:
+            # query
+            cr.execute("SELECT p.zip FROM academy_location l "
+                       " INNER JOIN res_partner p ON p.id = l.address_id "
+                       " WHERE p.state_id = %s"
+                       " GROUP BY 1 ", (state_id,))
+            zip_list = [r[0] for r in cr.fetchall()]
+        
+        if zip_code and zip_code in zip_list:
+            zip_item = zip_code
 
         # get location
         location_ids = []
         if state_id:
-            location_ids = location_obj.search(cr, hidden_uid, [("address_id.state_id","=",state_id)], order="name")
+            search = [("address_id.state_id","=",state_id)]
+            if zip_code:
+                search.append(("address_id.zip","=",zip_code))
+            location_ids = location_obj.search(cr, hidden_uid, search, order="name")
 
         locations = location_obj.browse(cr, hidden_uid, location_ids, context=context)
         if location_id in location_ids:
@@ -123,7 +140,9 @@ class website_academy(http.Controller):
             "locations" : locations,
             "location_item" : location_item,
             "location_id" : location_id,
-            "products" : products
+            "products" : products,
+            "zip_item" : zip_item,
+            "zip_list" : zip_list
         }
         return request.website.render("website_academy.index", values, context=context)
     
@@ -273,7 +292,7 @@ class website_academy(http.Controller):
 
                 birthday_dt, birthday = util.tryParseDate(get("birthday"))
                 if birthday_dt:
-                    res["date"] = util.dateToStr(birthday_dt)
+                    res["birthday"] = util.dateToStr(birthday_dt)
                     
                 phone = get("phone")
                 if phone:
@@ -300,7 +319,7 @@ class website_academy(http.Controller):
                 parent_values = get_address("parent")
                 if not parent_values:
                     raise osv.except_osv(_("Error"), _("No parent address passed"))
-                student_values["parent_id"]=create_address(partner_obj, ["name","email","street","zip","city","phone","date"], 
+                student_values["parent_id"]=create_address(partner_obj, ["name","email","street","zip","city","phone","birthday"], 
                                                            parent_values, _("Parent"))
             invoice_address_id = None
             if invoice_address:
@@ -313,7 +332,7 @@ class website_academy(http.Controller):
 
             # create student address            
             student = create_address(student_obj,
-                                     ["name","email","street","zip","city","phone","nationality","date","parent_id"],
+                                     ["name","email","street","zip","city","phone","nationality","birthday","parent_id"],
                                      student_values, _("Student"))
             
             # create courses                               

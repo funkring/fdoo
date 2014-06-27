@@ -186,4 +186,5 @@ class res_partner(osv.osv):
         "phone_n" : fields.function(_get_phone, type="char", store=True, string="Phone normalized"),
         "mobile_n" : fields.function(_get_mobile, type="char", store=True, string="Mobile normalized"),
         "fax_n" : fields.function(_get_fax, type="char", store=True, string="Fax normalized"),
+        "birthday" : fields.date("Birthday")
      }

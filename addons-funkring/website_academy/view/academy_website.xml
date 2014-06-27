@@ -6,8 +6,8 @@
     <template id="index" name="Academy">
         <t t-call="website_embedded.layout">
             <t t-set="head">
-                <script type="text/javascript" src="/at_base/static/src/js/validator.js"/>
                 <link rel="stylesheet" href="/website_academy/static/src/css/website_academy.css"/>
+                <script type="text/javascript" src="/at_base/static/src/js/validator.js"/>                
                 <script type="text/javascript" src="/website_academy/static/src/js/website_academy.js"/>
                 <t t-raw="head or ''"/>
             </t>
@@ -21,12 +21,17 @@
                             <div class="col-sm-12">
                                 <div t-if="states" class="btn-group"> <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#"><t t-esc="state_item"/> <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
-                                        <li t-foreach="states" t-as="state"><a t-attf-href="/academy?{{ keep_query('location_id', state_id=state.id) }}"><t t-esc="state.name"/></a></li>
+                                        <li t-foreach="states" t-as="state"><a t-attf-href="/academy?{{ keep_query('location_id', 'zip_code', state_id=state.id) }}"><t t-esc="state.name"/></a></li>
+                                    </ul>
+                                </div>
+                                <div t-if="zip_list" class="btn-group"> <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#"><t t-esc="zip_item"/> <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li t-foreach="zip_list" t-as="zip_code"><a t-attf-href="/academy?{{ keep_query('location_id', 'state_id', zip_code=zip_code) }}"><t t-esc="zip_code"/></a></li>
                                     </ul>
                                 </div>
                                 <div t-if="locations" class="btn-group"> <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#"><t t-esc="location_item"/> <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
-                                        <li t-foreach="locations" t-as="location"><a t-attf-href="/academy?{{ keep_query('state_id', location_id=location.id) }}"><t t-esc="location.name"/></a></li>
+                                        <li t-foreach="locations" t-as="location"><a t-attf-href="/academy?{{ keep_query('state_id', 'zip_code', location_id=location.id) }}"><t t-esc="location.name"/></a></li>
                                     </ul>
                                 </div>
                             </div>

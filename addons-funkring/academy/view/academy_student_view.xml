@@ -54,7 +54,7 @@
                         <field name="mobile"/>
                         <field name="user_ids" invisible="1"/>
                         <field name="email" widget="email" attrs="{'required': [('user_ids','!=', [])]}"/>
-                        <field name="date" string="Birthday"/>
+                        <field name="birthday"/>
                         <field name="nationality"/>
                     </group>
                 </group>

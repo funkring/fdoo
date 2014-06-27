@@ -62,8 +62,22 @@
             		 	<field name="city" placeholder="City" style="width: 40%%" attrs="{'readonly': [('use_parent_address','=',True)]}"/>
                         <field name="state_id" class="oe_no_button" placeholder="State" style="width: 37%%" options='{"no_open": True}' on_change="onchange_state(state_id)" attrs="{'readonly': [('use_parent_address','=',True)]}"/>
             		 </div>
+            		 <field name="mobile" position="after">
+            		      <field name="birthday" attrs="{'invisible': [('is_company','=', True)]}"/>
+            		 </field>
             	</data>
             </field>
+        </record>
+        
+        <record id="form_partner_simple" model="ir.ui.view">
+              <field name="name">at_base.form_partner_simple</field>
+              <field name="model">res.partner</field>
+              <field name="inherit_id" ref="base.view_partner_simple_form"/>
+              <field name="arch" type="xml">
+                <field name="mobile" position="after">
+                    <field name="birthday" attrs="{'invisible': [('is_company','=', True)]}"/>
+                </field>
+              </field>
         </record>
 
     </data>

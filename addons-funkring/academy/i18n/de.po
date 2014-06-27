@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 8.0alpha1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-21 13:33+0000\n"
-"PO-Revision-Date: 2014-06-21 15:33+0100\n"
+"POT-Creation-Date: 2014-06-27 16:53+0000\n"
+"PO-Revision-Date: 2014-06-27 19:00+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -224,11 +224,6 @@ msgid "Begin"
 msgstr "Beginn"
 
 #. module: academy
-#: view:academy.student:0
-msgid "Birthday"
-msgstr "Geburtstag"
-
-#. module: academy
 #: view:academy.config.settings:0
 #: selection:academy.registration,state:0
 msgid "Cancel"
@@ -339,7 +334,7 @@ msgstr "Datum von"
 #. module: academy
 #: help:academy.registration,message_last_post:0
 msgid "Date of the last message posted on the record."
-msgstr ""
+msgstr "Datum des zuletzt geposteten Eintrags"
 
 #. module: academy
 #: field:academy.contract,date_start:0
@@ -444,7 +439,7 @@ msgstr "Kursjournal"
 #. module: academy
 #: field:academy.registration,message_last_post:0
 msgid "Last Message Date"
-msgstr ""
+msgstr "Datum der letzten Nachricht"
 
 #. module: academy
 #: view:academy.location:0
@@ -468,7 +463,7 @@ msgstr "Verwaltung"
 #. module: academy
 #: field:academy.registration,message_ids:0
 msgid "Messages"
-msgstr ""
+msgstr "Nachrichen"
 
 #. module: academy
 #: help:academy.registration,message_ids:0
@@ -529,7 +524,6 @@ msgstr "Erziehungsberechtigte(r)"
 #: field:academy.contract,partner_id:0
 #: field:academy.journal.absence,partner_id:0
 #: field:academy.student,partner_id:0
-#: field:academy.student,partner_ids:0
 #: field:academy.student,tmp_partner_id:0
 #: field:academy.trainer,partner_id:0
 msgid "Partner"
@@ -781,7 +775,7 @@ msgstr "Einheiten"
 #. module: academy
 #: field:academy.registration,message_unread:0
 msgid "Unread Messages"
-msgstr ""
+msgstr "Ungelesene Nachrichten"
 
 #. module: academy
 #: view:academy.student:0

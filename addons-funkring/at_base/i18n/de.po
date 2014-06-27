@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 8.0alpha1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-05 23:13+0000\n"
-"PO-Revision-Date: 2014-03-06 00:14+0100\n"
+"POT-Creation-Date: 2014-06-27 17:00+0000\n"
+"PO-Revision-Date: 2014-06-27 19:01+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,125 +16,10 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: at_base
-#: view:res.partner:0
-msgid "City"
-msgstr "Stadt"
-
-#. module: at_base
-#: model:ir.model,name:at_base.model_at_base_info_wizard
-msgid "Info Wizard"
-msgstr "Info Assistent"
-
-#. module: at_base
-#: view:log.temp:0
-msgid "Log"
-msgstr ""
-
-#. module: at_base
-#: field:log.basic,detail:0
-#: field:log.temp,detail:0
-msgid "Detail"
-msgstr ""
-
-#. module: at_base
-#: view:res.partner:0
-msgid "State"
-msgstr "Bundesland"
-
-#. module: at_base
-#: code:addons/at_base/helper.py:41
+#: code:addons/at_base/helper.py:57
 #, python-format
-msgid "October"
-msgstr "Oktober"
-
-#. module: at_base
-#: field:log.basic,name:0
-#: field:log.temp,name:0
-msgid "Message"
-msgstr "Nachricht"
-
-#. module: at_base
-#: field:attachment.export,folder:0
-#: field:attachment.import,folder:0
-msgid "Folder"
-msgstr "Ordner"
-
-#. module: at_base
-#: field:res.partner,co_salutation:0
-#: field:res.partner.title,co_salutation:0
-msgid "C/O Salutation"
-msgstr "\"Zu Handen\" Anrede"
-
-#. module: at_base
-#: field:res.mapping,name:0
-msgid "Type"
-msgstr "Typ"
-
-#. module: at_base
-#: field:res.mapping,res_model:0
-msgid "Model"
-msgstr ""
-
-#. module: at_base
-#: field:log.basic,severity:0
-#: field:log.temp,severity:0
-msgid "Severity"
-msgstr "Wichtigkeit"
-
-#. module: at_base
-#: view:res.partner:0
-msgid "Fax"
-msgstr ""
-
-#. module: at_base
-#: field:res.partner,phone_n:0
-msgid "Phone normalized"
-msgstr "Telefon normalisiert"
-
-#. module: at_base
-#: code:addons/at_base/helper.py:34
-#, python-format
-msgid "March"
-msgstr "März"
-
-#. module: at_base
-#: code:addons/at_base/helper.py:39
-#, python-format
-msgid "August"
-msgstr ""
-
-#. module: at_base
-#: code:addons/at_base/helper.py:63
-#, python-format
-msgid "4th Quarter %s"
-msgstr "4. Quartal %s"
-
-#. module: at_base
-#: code:addons/at_base/helper.py:36
-#, python-format
-msgid "May"
-msgstr "Mai"
-
-#. module: at_base
-#: model:ir.model,name:at_base.model_res_partner_title
-msgid "res.partner.title"
-msgstr ""
-
-#. module: at_base
-#: code:addons/at_base/helper.py:37
-#, python-format
-msgid "June"
-msgstr "Juni"
-
-#. module: at_base
-#: field:res.partner,mail_without_company:0
-msgid "Mail Address without company"
-msgstr "Eigenständige Adresse (ohne Firma)"
-
-#. module: at_base
-#: view:res.partner:0
-msgid "Phone"
-msgstr "Telefon"
+msgid "1st Quarter %s"
+msgstr "1. Quartal %s"
 
 #. module: at_base
 #: code:addons/at_base/helper.py:59
@@ -143,10 +28,16 @@ msgid "2nd Quarter %s"
 msgstr "2. Quartal %s"
 
 #. module: at_base
-#: code:addons/at_base/helper.py:32
+#: code:addons/at_base/helper.py:61
 #, python-format
-msgid "January"
-msgstr "Jänner"
+msgid "3rd Quarter %s"
+msgstr "4. Quartal %s"
+
+#. module: at_base
+#: code:addons/at_base/helper.py:63
+#, python-format
+msgid "4th Quarter %s"
+msgstr "4. Quartal %s"
 
 #. module: at_base
 #: field:res.mapping,active:0
@@ -154,25 +45,15 @@ msgid "Active"
 msgstr "Aktiv"
 
 #. module: at_base
-#: code:addons/at_base/helper.py:38
+#: code:addons/at_base/helper.py:35
 #, python-format
-msgid "July"
-msgstr "Juli"
-
-#. module: at_base
-#: view:at_base.info_wizard:0
-#: field:at_base.info_wizard,info:0
-#: model:ir.actions.act_window,name:at_base.action_info_wizard
-#: selection:log.basic,severity:0
-#: selection:log.temp,severity:0
-msgid "Info"
+msgid "April"
 msgstr ""
 
 #. module: at_base
-#: code:addons/at_base/helper.py:33
-#, python-format
-msgid "February"
-msgstr "Februar"
+#: model:ir.model,name:at_base.model_attachment_import
+msgid "Attachment Export"
+msgstr "Anhang Export"
 
 #. module: at_base
 #: model:ir.model,name:at_base.model_attachment_export
@@ -180,41 +61,52 @@ msgid "Attachment Import"
 msgstr "Anhang Import"
 
 #. module: at_base
+#: code:addons/at_base/helper.py:39
+#, python-format
+msgid "August"
+msgstr ""
+
+#. module: at_base
+#: model:ir.model,name:at_base.model_log_basic
+msgid "Basic Log"
+msgstr "Basis Log"
+
+#. module: at_base
+#: field:res.partner,birthday:0
+msgid "Birthday"
+msgstr "Geburtstag"
+
+#. module: at_base
+#: field:res.partner,co_salutation:0
+#: field:res.partner.title,co_salutation:0
+msgid "C/O Salutation"
+msgstr "\"Zu Handen\" Anrede"
+
+#. module: at_base
 #: view:at_base.info_wizard:0
-msgid "Ok"
-msgstr ""
-
-#. module: at_base
-#: code:addons/at_base/helper.py:61
-#, python-format
-msgid "3rd Quarter %s"
-msgstr "4. Quartal %s"
+msgid "Cancel"
+msgstr "Abbrechen"
 
 #. module: at_base
 #: view:res.partner:0
-msgid "ZIP"
-msgstr "Plz"
+msgid "City"
+msgstr "Stadt"
 
 #. module: at_base
-#: view:res.partner:0
-msgid "Mobile"
-msgstr "Mobil"
+#: view:log.temp.wizard:0
+msgid "Close"
+msgstr "Schließen"
 
 #. module: at_base
-#: model:ir.model,name:at_base.model_ir_model_fields
-msgid "Fields"
-msgstr "Felder"
-
-#. module: at_base
-#: code:addons/at_base/helper.py:42
+#: code:addons/at_base/helper.py:43
 #, python-format
-msgid "November"
-msgstr ""
+msgid "December"
+msgstr "Dezember"
 
 #. module: at_base
-#: code:addons/at_base/helper.py:35
-#, python-format
-msgid "April"
+#: field:log.basic,detail:0
+#: field:log.temp,detail:0
+msgid "Detail"
 msgstr ""
 
 #. module: at_base
@@ -227,15 +119,26 @@ msgid "Error"
 msgstr "Fehler"
 
 #. module: at_base
+#: view:res.partner:0
+msgid "Fax"
+msgstr ""
+
+#. module: at_base
 #: field:res.partner,fax_n:0
 msgid "Fax normalized"
 msgstr "Fax normalisiert"
 
 #. module: at_base
-#: field:res.partner,mail_salutation:0
-#: field:res.partner.title,mail_salutation:0
-msgid "Mail Salutation"
-msgstr "Mail Anrede"
+#: code:addons/at_base/helper.py:33
+#, python-format
+msgid "February"
+msgstr "Februar"
+
+#. module: at_base
+#: field:attachment.export,folder:0
+#: field:attachment.import,folder:0
+msgid "Folder"
+msgstr "Ordner"
 
 #. module: at_base
 #: field:res.mapping,res_id:0
@@ -243,19 +146,41 @@ msgid "ID"
 msgstr ""
 
 #. module: at_base
-#: field:res.mapping,uuid:0
-msgid "UUID"
+#: view:at_base.info_wizard:0
+#: field:at_base.info_wizard,info:0
+#: model:ir.actions.act_window,name:at_base.action_info_wizard
+#: selection:log.basic,severity:0
+#: selection:log.temp,severity:0
+msgid "Info"
 msgstr ""
 
 #. module: at_base
-#: field:res.partner,mobile_n:0
-msgid "Mobile normalized"
-msgstr "Mobil normalisiert"
+#: model:ir.model,name:at_base.model_at_base_info_wizard
+msgid "Info Wizard"
+msgstr "Info Assistent"
 
 #. module: at_base
-#: model:ir.model,name:at_base.model_log_basic
-msgid "Basic Log"
-msgstr "Basis Log"
+#: code:addons/at_base/helper.py:32
+#, python-format
+msgid "January"
+msgstr "Jänner"
+
+#. module: at_base
+#: code:addons/at_base/helper.py:38
+#, python-format
+msgid "July"
+msgstr "Juli"
+
+#. module: at_base
+#: code:addons/at_base/helper.py:37
+#, python-format
+msgid "June"
+msgstr "Juni"
+
+#. module: at_base
+#: view:log.temp:0
+msgid "Log"
+msgstr ""
 
 #. module: at_base
 #: model:ir.model,name:at_base.model_log_temp_wizard
@@ -265,9 +190,95 @@ msgid "Logs"
 msgstr ""
 
 #. module: at_base
-#: model:ir.model,name:at_base.model_log_temp
-msgid "Temporary Log"
-msgstr "Temporäres Log"
+#: field:res.partner,mail_address:0
+msgid "Mail Address"
+msgstr "Post Adresse"
+
+#. module: at_base
+#: field:res.partner,mail_without_company:0
+msgid "Mail Address without company"
+msgstr "Eigenständige Adresse (ohne Firma)"
+
+#. module: at_base
+#: field:res.partner,mail_salutation:0
+#: field:res.partner.title,mail_salutation:0
+msgid "Mail Salutation"
+msgstr "Mail Anrede"
+
+#. module: at_base
+#: code:addons/at_base/helper.py:34
+#, python-format
+msgid "March"
+msgstr "März"
+
+#. module: at_base
+#: code:addons/at_base/helper.py:36
+#, python-format
+msgid "May"
+msgstr "Mai"
+
+#. module: at_base
+#: field:log.basic,name:0
+#: field:log.temp,name:0
+msgid "Message"
+msgstr "Nachricht"
+
+#. module: at_base
+#: view:res.partner:0
+msgid "Mobile"
+msgstr "Mobil"
+
+#. module: at_base
+#: field:res.partner,mobile_n:0
+msgid "Mobile normalized"
+msgstr "Mobil normalisiert"
+
+#. module: at_base
+#: field:res.mapping,res_model:0
+msgid "Model"
+msgstr ""
+
+#. module: at_base
+#: code:addons/at_base/helper.py:42
+#, python-format
+msgid "November"
+msgstr ""
+
+#. module: at_base
+#: code:addons/at_base/helper.py:41
+#, python-format
+msgid "October"
+msgstr "Oktober"
+
+#. module: at_base
+#: view:at_base.info_wizard:0
+msgid "Ok"
+msgstr ""
+
+#. module: at_base
+#: field:ir.attachment,origin:0
+msgid "Origin"
+msgstr ""
+
+#. module: at_base
+#: model:ir.model,name:at_base.model_res_partner
+msgid "Partner"
+msgstr ""
+
+#. module: at_base
+#: view:res.partner:0
+msgid "Phone"
+msgstr "Telefon"
+
+#. module: at_base
+#: field:res.partner,phone_n:0
+msgid "Phone normalized"
+msgstr "Telefon normalisiert"
+
+#. module: at_base
+#: view:log.temp:0
+msgid "Result"
+msgstr "Ergebnis"
 
 #. module: at_base
 #: code:addons/at_base/helper.py:40
@@ -276,10 +287,46 @@ msgid "September"
 msgstr ""
 
 #. module: at_base
-#: code:addons/at_base/helper.py:43
-#, python-format
-msgid "December"
-msgstr "Dezember"
+#: field:log.basic,severity:0
+#: field:log.temp,severity:0
+msgid "Severity"
+msgstr "Wichtigkeit"
+
+#. module: at_base
+#: view:res.partner:0
+msgid "State"
+msgstr "Bundesland"
+
+#. module: at_base
+#: model:ir.model,name:at_base.model_log_temp
+msgid "Temporary Log"
+msgstr "Temporäres Log"
+
+#. module: at_base
+#: field:res.mapping,name:0
+msgid "Type"
+msgstr "Typ"
+
+#. module: at_base
+#: field:res.mapping,uuid:0
+msgid "UUID"
+msgstr ""
+
+#. module: at_base
+#: selection:log.basic,severity:0
+#: selection:log.temp,severity:0
+msgid "Warning"
+msgstr "Warnung"
+
+#. module: at_base
+#: view:res.partner:0
+msgid "ZIP"
+msgstr "Plz"
+
+#. module: at_base
+#: model:ir.model,name:at_base.model_ir_attachment
+msgid "ir.attachment"
+msgstr ""
 
 #. module: at_base
 #: view:at_base.info_wizard:0
@@ -292,44 +339,7 @@ msgid "res.mapping"
 msgstr ""
 
 #. module: at_base
-#: selection:log.basic,severity:0
-#: selection:log.temp,severity:0
-msgid "Warning"
-msgstr "Warnung"
-
-#. module: at_base
-#: view:log.temp:0
-msgid "Result"
-msgstr "Ergebnis"
-
-#. module: at_base
-#: model:ir.model,name:at_base.model_attachment_import
-msgid "Attachment Export"
-msgstr "Anhang Export"
-
-#. module: at_base
-#: model:ir.model,name:at_base.model_res_partner
-msgid "Partner"
+#: model:ir.model,name:at_base.model_res_partner_title
+msgid "res.partner.title"
 msgstr ""
-
-#. module: at_base
-#: view:at_base.info_wizard:0
-msgid "Cancel"
-msgstr "Abbrechen"
-
-#. module: at_base
-#: view:log.temp.wizard:0
-msgid "Close"
-msgstr "Schließen"
-
-#. module: at_base
-#: code:addons/at_base/helper.py:57
-#, python-format
-msgid "1st Quarter %s"
-msgstr "1. Quartal %s"
-
-#. module: at_base
-#: field:res.partner,mail_address:0
-msgid "Mail Address"
-msgstr "Post Adresse"
 
