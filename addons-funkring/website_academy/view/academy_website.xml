@@ -130,8 +130,8 @@
         </div>      
         <div t-if="address_birthday_enabled" class="row mt4 mb4">
             <div class="col-md-4">                
-                <!--input type="text" class="form-control" required="true" pattern="^([0-9]{4}-[0-9]{1,2}-[0-9]{1-2})|([0-9]{1,2}/[0-9]{1,2}/[0-9]{4})|([0-9]{1,2}.[0-9]{1,2}.[0-9]{4}$)" t-att-data-error="text_birthday_help" t-attf-name="{{ address_prefix}}_birthday" t-att-placeholder="text_birthday"/-->
-                <input type="text" class="form-control" required="required" data-remote="/academy/validate/birthday" t-att-data-error="text_birthday_help" t-attf-name="{{ address_prefix}}_birthday" t-att-placeholder="text_birthday"/>
+                <input type="text" class="form-control" required="true" pattern="^([0-9]{4}-[0-9]{1,2}-[0-9]{1-2})|([0-9]{1,2}/[0-9]{1,2}/[0-9]{4})|([0-9]{1,2}.[0-9]{1,2}.[0-9]{4}$)" t-att-data-error="text_birthday_help" t-attf-name="{{ address_prefix}}_birthday" t-att-placeholder="text_birthday"/>
+                <!--input type="text" class="form-control" required="required" data-remote="/academy/validate/birthday" t-att-data-error="text_birthday_help" t-attf-name="{{ address_prefix}}_birthday" t-att-placeholder="text_birthday"/-->
             </div>
             <div  t-if="address_nationality_enabled" class="col-md-8">
                 <input type="text" class="form-control" t-attf-name="{{ address_prefix}}_nationality" t-att-placeholder="text_nationality"/>

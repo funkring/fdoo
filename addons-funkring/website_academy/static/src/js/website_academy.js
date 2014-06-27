@@ -15,9 +15,10 @@ $(document).ready(function () {
                 };
                 //register for click event
                 $bind_checkbox_input.on("click", function(ev) {
-                    bind_checkbox_show_form(this.checked===form_active_on_check);                    
+                    bind_checkbox_show_form(this.checked===form_active_on_check);
+                    $(this).closest("form").validator("validate");                     
                 });
-                bind_checkbox_show_form($bind_checkbox_input.is(":checked")===form_active_on_check);       
+                bind_checkbox_show_form($bind_checkbox_input.is(":checked")===form_active_on_check);
             }
             
         }
@@ -25,10 +26,11 @@ $(document).ready(function () {
     
     bind_checkbox_and_form("#parent_address","#parent_address_input",false);
     bind_checkbox_and_form("#invoice_address","#invoice_address_input",true);
-        
+    
     // Default Submit
     $('.a-submit').on("click", function (ev) {
         var $form = $(this).closest("form");
+        $form.validator("validate");
         
         // check if it is empty
         var form_data = {};
@@ -39,6 +41,7 @@ $(document).ready(function () {
         $.each(inputs, function(i, input) {
           form_data[input.name] = input.value;          
           var $form_input =  $("input[name='"+input.name+"']");
+          
           if (input.value!==null && input.value!=="-" && input.value!=="") {            
             if ($form_input.prop("type") !== "hidden") {
                 has_data = true;               
@@ -70,5 +73,4 @@ $(document).ready(function () {
         history.back();
     });  
         
-  
 });
