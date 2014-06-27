@@ -15,6 +15,7 @@
 			<field name="name">Logistic Manager</field>
 		  <field name="category_id" ref="module_category_logistic"/>
 		  <field name="implied_ids" eval="[(4, ref('group_logistic_user'))]"/>  
+		  <field name="users" eval="[(4, ref('base.user_root'))]"/>
 		</record>
 	</data>
 </openerp>

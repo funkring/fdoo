@@ -83,7 +83,7 @@ class website_academy(http.Controller):
         # default
         state_item = _("Select a State")
         location_item = _("Select a Location")
-        zip_item = _("Select District"),
+        zip_item = _("Select District")
 
         # query
         cr.execute("SELECT p.state_id FROM academy_location l "

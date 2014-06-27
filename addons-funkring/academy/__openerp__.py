@@ -49,5 +49,6 @@ oerp.at Academy
               "data/registration_cancel_email_template.xml"
               ],
     "auto_install" : False,
-    "installable": True
+    "installable": True,
+    'application': True
 }

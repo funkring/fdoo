@@ -47,7 +47,13 @@
                                 <field name="comment" placeholder="Put an internal note..."/>
                             </page>
                             <page string="Contracts">
-                                <field name="contract_ids"/>
+                                <field name="contract_ids">
+                                    <tree>
+                                        <field name="name" />
+                                        <field name="date_start" />
+                                        <field name="date_end" />
+                                    </tree>
+                                </field>
                             </page>
                         </notebook>
                     </sheet>
@@ -55,7 +61,7 @@
             </field>
         </record>
 
-       <!-- student kanban view -->
+       <!-- trainer kanban view -->
        <record id="kanban_academy_trainer" model="ir.ui.view">
             <field name="name">academy.kanban_academy_trainer</field>
             <field name="model">academy.trainer</field>
@@ -104,12 +110,12 @@
             </field>
         </record>
 
-        <!-- student tree view -->
+        <!-- trainer tree view -->
         <record id="tree_academy_trainer" model="ir.ui.view">
           <field name="name">academy.tree_academy_trainer</field>
           <field name="model">academy.trainer</field>
           <field name="arch" type="xml">
-            <tree string="Students">
+            <tree string="Trainer">
                 <field name="display_name"/>
                 <field name="phone"/>
                 <field name="email"/>

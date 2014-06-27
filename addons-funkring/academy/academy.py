@@ -167,7 +167,8 @@ class academy_registration(osv.Model):
         return True
         
     def create(self, cr, uid, vals, context=None):
-        if vals.get("name") == "/":
+        name = vals.get("name")
+        if not name or name == "/":
             vals["name"]=self._next_sequence(cr, uid, context)
         return super(academy_registration,self).create(cr, uid, vals, context=context)
     
@@ -235,7 +236,7 @@ class academy_trainer(osv.Model):
     _inherits = {"res.partner":"partner_id"}
     _columns = {
         "partner_id" : fields.many2one("res.partner", "Partner", required=True, ondelete="restrict"),
-        "contract_ids" : fields.many2many("academy.contract", "academy_contract_trainer_rel", "trainder_id", "contract_id", "Contracts")
+        "contract_ids" : fields.one2many("academy.contract", "trainer_id", "Contracts")
     }
 
 
@@ -271,11 +272,10 @@ class academy_contract(osv.Model):
     _description = "Academy Contract"
     _columns = {
         "name" : fields.char("Name", size=64, required=True),
-        "date" : fields.date("Closing Date"),
         "date_start" : fields.datetime("Date start"),
         "date_end" : fields.datetime("Date end"),
         "topic_ids" : fields.many2many("academy.topic", "academy_topic_contract_rel", "topic_id", "contract_id", "Courses"),
-        "partner_id" : fields.many2one("res.partner", "Partner")
+        "trainer_id" : fields.many2one("academy.trainer", "Trainer", ondelete="restrict")
     }
 
 

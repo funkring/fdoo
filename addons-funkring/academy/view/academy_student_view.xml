@@ -28,6 +28,7 @@
                 </div>
                 <group>
                     <group>
+                        <field name="ref" string="Student No."/>
                         <label for="street" string="Address"/>
                         <div>
                             <div class="oe_edit_only">
@@ -89,6 +90,7 @@
         <field name="model">academy.student</field>
         <field name="arch" type="xml">
             <kanban>
+                <field name="ref"/>
                 <field name="color"/>
                 <field name="display_name"/>
                 <field name="title"/>
@@ -121,6 +123,7 @@
                                 <div class="oe_kanban_partner_links"/>
                                 <ul>
                                     <li t-if="record.parent_id.raw_value and !record.parent_id.raw_value"><field name="parent_id"/></li>
+                                    <li t-if="record.ref.raw_value"><field name="ref"/></li>
                                     <li t-if="record.city.raw_value and !record.country_id.raw_value"><field name="city"/></li>
                                     <li t-if="!record.city.raw_value and record.country_id.raw_value"><field name="country_id"/></li>
                                     <li t-if="record.city.raw_value and record.country_id.raw_value"><field name="city"/>, <field name="country_id"/></li>
@@ -140,6 +143,7 @@
       <field name="model">academy.student</field>
       <field name="arch" type="xml">
         <tree string="Students">
+            <field name="ref" string="Student No."/>
             <field name="display_name"/>
             <field name="phone"/>
             <field name="email"/>
@@ -157,6 +161,7 @@
           <field name="name"
                 filter_domain="['|','|',('display_name','ilike',self),('ref','=',self),('email','ilike',self)]"/>
           <separator/>
+          <field name="ref"/>
           <field name="parent_id" operator="child_of"/>
           <field name="category_id" string="Tag" filter_domain="[('category_id','ilike', self)]"/>
           <group expand="0" string="Group By...">
