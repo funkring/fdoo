@@ -37,7 +37,7 @@
                                        attrs="{'invisible': [('parent_id','=', False),('use_parent_address','=',False)]}"/>
                                 <label for="use_parent_address" string="Use parents address?" attrs="{'invisible': [('parent_id','=', False),('use_parent_address','=',False)]}"/>
                             </div>
-                            <button name="open_parent" type="object" string="(edit company address)" class="oe_link oe_edit_only"
+                            <button name="open_parent" type="object" string="(edit address from parent)" class="oe_link oe_edit_only"
                                     attrs="{'invisible': ['|',('parent_id','=', False),('use_parent_address','=',False)]}"/>
                             <field name="street" placeholder="Street..."  attrs="{'readonly': [('use_parent_address','=',True)]}"/>
                             <field name="street2"  attrs="{'readonly': [('use_parent_address','=',True)]}"/>
@@ -95,7 +95,6 @@
                 <field name="display_name"/>
                 <field name="title"/>
                 <field name="email"/>
-                <field name="parent_id"/>
                 <field name="phone"/>
                 <field name="street"/>
                 <field name="street2"/>
@@ -121,8 +120,7 @@
                                 <h4 class="oe_partner_heading"><a type="open"><field name="display_name"/></a></h4>
                                 <div class="oe_kanban_partner_categories"/>
                                 <div class="oe_kanban_partner_links"/>
-                                <ul>
-                                    <li t-if="record.parent_id.raw_value and !record.parent_id.raw_value"><field name="parent_id"/></li>
+                                <ul>                                    
                                     <li t-if="record.ref.raw_value"><field name="ref"/></li>
                                     <li t-if="record.city.raw_value and !record.country_id.raw_value"><field name="city"/></li>
                                     <li t-if="!record.city.raw_value and record.country_id.raw_value"><field name="country_id"/></li>

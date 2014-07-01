@@ -47,7 +47,7 @@ class academy_semester(osv.Model):
         "date_start" : fields.date("Start", required=True),
         "date_end" : fields.date("End", required=True)
     }
-
+    _order ="date_start desc"    
 
 class academy_student(osv.Model):
     
