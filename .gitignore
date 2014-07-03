@@ -16,6 +16,8 @@ addons-custom*
 status
 # odoo filestore
 openerp/filestore
+# odoo sessions
+sessions
 # generated for windows installer?
 install/win32/*.bat
 install/win32/meta.py
