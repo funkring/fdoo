@@ -22,6 +22,7 @@ from openerp.osv import fields, osv
 from openerp.addons.at_base import util
 from openerp.addons.at_base import extfields
 from openerp.addons.at_base import helper
+from openerp.tools.translate import _
 
 
 class academy_year(osv.Model):
@@ -40,6 +41,20 @@ class academy_year(osv.Model):
 
 
 class academy_semester(osv.Model):
+
+    def name_get(self, cr, uid, ids, context=None):
+        if not ids:
+            return []
+        reads = self.read(cr, uid, ids, ["name", "year_id"], context=context)
+        res = []
+        for record in reads:
+            name = record["name"]
+            if record["year_id"]:
+                year_obj = self.pool["academy.year"]
+                name = year_obj.browse(cr, uid, record["year_id"][0]).name + " " + name
+            res.append((record["id"], name))
+        return res
+
     _name = "academy.semester"
     _columns = {
         "year_id" : fields.many2one("academy.year", "Year", ondelete="cascade", select=True),
@@ -47,10 +62,10 @@ class academy_semester(osv.Model):
         "date_start" : fields.date("Start", required=True),
         "date_end" : fields.date("End", required=True)
     }
-    _order ="date_start desc"    
+    _order ="date_start desc"
 
 class academy_student(osv.Model):
-    
+
     def onchange_address(self, cr, uid, ids, use_parent_address, parent_id, context=None):
         return self.pool.get("res.partner").onchange_address(cr, uid, ids, use_parent_address, parent_id, context=context)
 
@@ -59,16 +74,16 @@ class academy_student(osv.Model):
 
     def on_change_zip(self, cr, uid, ids, zip_code, city):
         return self.pool.get("res.partner").on_change_zip(cr, uid, ids, zip_code, city)
-    
+
     def unlink(self, cr, uid, ids, context=None):
         """ Also delete Partner """
         partner_ids = []
         for obj in self.browse(cr, uid, ids, context):
             if obj.partner_id:
-                partner_ids.append(obj.partner_id.id)        
+                partner_ids.append(obj.partner_id.id)
         res = super(academy_student,self).unlink(cr, uid, ids, context)
         self.pool["res.partner"].unlink(cr, uid, partner_ids, context)
-        return res 
+        return res
 
     _name = "academy.student"
     _inherits = {"res.partner":"partner_id"}
@@ -120,26 +135,26 @@ class academy_course_product(osv.Model):
 
 
 class academy_registration(osv.Model):
-    
-    def _send_mails(self, cr, uid, template_xmlid, ids, context=None):    
+
+    def _send_mails(self, cr, uid, template_xmlid, ids, context=None):
         template_obj = self.pool["email.template"]
         template_id = self.pool["ir.model.data"].xmlid_to_res_id(cr, uid, template_xmlid)
-        if template_id: 
+        if template_id:
             for reg in self.browse(cr, uid, ids, context=context):
                 mail_context = context and dict(context) or {}
-                
+
                 partner_ids = [str(reg.student_id.partner_id.id)]
                 if reg.student_id.parent_id:
                     partner_ids.append(str(reg.student_id.parent_id.id))
                 if reg.invoice_address_id:
                     partner_ids.append(str(reg.invoice_address_id.id))
-                
+
                 mail_context["partner_to"]=",".join(partner_ids)
                 template_obj.send_mail(cr, uid, template_id, reg.id, force_send=True, context=mail_context)
-                
+
     def _next_sequence(self, cr, uid, context=None):
         return self.pool.get("ir.sequence").get(cr, uid, "academy.registration")
-                
+
     def message_get_default_recipients(self, cr, uid, ids, context=None):
         res = super(academy_registration,self).message_get_default_recipients(cr, uid, ids, context=context)
         for reg in self.browse(cr, uid, ids, context=context):
@@ -148,42 +163,61 @@ class academy_registration(osv.Model):
                 if not p.id in partner_ids:
                     partner_ids.append(p.id)
         return res
-    
+
     def do_register(self, cr, uid, ids, context=None):
         ids = self.search(cr, uid, [("id","in",ids),("state","=","draft")])
         self.write(cr, uid, ids, {"state" : "registered"}, context=context)
         self._send_mails(cr, uid, "academy.email_template_registration", ids, context=context)
         return True
-    
+
     def do_cancel(self, cr, uid, ids, context=None):
         ids = self.search(cr, uid, [("id","in",ids),("state","in",["registered","assigned","open"])])
         self.write(cr, uid, ids, {"state" : "cancel"}, context=context)
         self._send_mails(cr, uid, "academy.email_template_registration_cancel", ids, context=context)
         return True
-    
+
     def do_draft(self, cr, uid, ids, context=None):
         ids = self.search(cr, uid, [("id","in",ids),("state","=","cancel")])
         self.write(cr, uid, ids, {"state" : "draft"}, context=context)
         return True
-        
+
     def create(self, cr, uid, vals, context=None):
         name = vals.get("name")
         if not name or name == "/":
             vals["name"]=self._next_sequence(cr, uid, context)
         return super(academy_registration,self).create(cr, uid, vals, context=context)
-    
+
     def onchange_course_prod(self, cr, uid, ids, course_prod_id, uom_id, context=None):
         val = {}
         res = { "value" : val}
         if course_prod_id:
             course_prod = self.pool["academy.course.product"].browse(cr, uid, course_prod_id, context=context)
             if course_prod:
-                uom_ids = [uom.id for uom in course_prod.course_uom_ids]   
+                uom_ids = [uom.id for uom in course_prod.course_uom_ids]
                 val["course_uom_ids"] = uom_ids
                 if uom_id and not uom_id in uom_ids:
-                    val["uom_id"]=None        
+                    val["uom_id"]=None
         return res
-    
+
+    def onchange_unreg_semester(self, cr, uid, ids, semester_id, unreg_semester_id, context=None):
+        res = {"value": {}}
+
+        if semester_id and unreg_semester_id:
+            semester_obj = self.pool["academy.semester"]
+            semester_date_start = semester_obj.browse(cr, uid, semester_id, context=context).date_start
+            unreg_semester_date_start = semester_obj.browse(cr, uid, unreg_semester_id, context=context).date_start
+            if  semester_date_start > unreg_semester_date_start:
+                res["value"]["unreg_semester_id"] = None
+
+        return res
+
+    def _get_semester_id(self, cr, uid, context=None):
+        semester_obj = self.pool["academy.semester"]
+        semester_ids = semester_obj.search(cr, uid, [("date_start", ">", util.currentDate())], order="date_start asc")
+
+        return semester_ids and semester_ids[0] or None
+
+
     _inherit = ["mail.thread"]
     _name = "academy.registration"
     _description = "Academy Registration"
@@ -191,10 +225,14 @@ class academy_registration(osv.Model):
         "name" : fields.char("Name", readonly=True, select=True),
         "create_date" : fields.datetime("Create Date", select=True, readonly=True),
         "user_id" : fields.many2one("res.users","Agent", select=True),
-        "year_id" : fields.many2one("academy.year", "Year", select=True, required=True, ondelete="restrict"),
+        "semester_id" : fields.many2one("academy.semester", "Semester", select=True, required=True, ondelete="restrict"),
+        "unreg_semester_id" : fields.many2one("academy.semester", "Unregister after Semester", ondelete="restrict",
+                                              help="The start date from the ending semester must be smaller or equal than the start datum from the beginning semester"),
+        #"year_id" : fields.many2one("academy.year", "Year", select=True, required=True, ondelete="restrict"),
+        "intership_date" : fields.date("Intership Date", help="This Date must be set, if there was an intership during the semester."),
         "student_id" : fields.many2one("academy.student", "Student", select=True, required=True, ondelete="restrict"),
         "location_id" : fields.many2one("academy.location", "Location", select=True, ondelete="restrict"),
-        "student_of_loc" : fields.boolean("Is student of location?"),        
+        "student_of_loc" : fields.boolean("Is student of location?"),
         "course_prod_id" : fields.many2one("academy.course.product", "Product", select=True, required=True, ondelete="restrict"),
         "course_id" : fields.many2one("academy.course", "Course", select=True, ondelete="restrict"),
         "trainer_id" : fields.many2one("academy.trainer", "Trainer", select=True, ondelete="restrict"),
@@ -208,7 +246,8 @@ class academy_registration(osv.Model):
                                     ("assigned","Assigned"),
                                     ("open","Open"),
                                     ("paid","Paid")],
-                                    "State", readonly=True, select=True)
+                                    "State", readonly=True, select=True),
+        "note" : fields.text("Note", select=True),
 
     }
     _sql_constraints = [
@@ -219,7 +258,8 @@ class academy_registration(osv.Model):
         "state" : "draft",
         "name" : "/",
         "user_id" : lambda self, cr, uid, context: uid,
-        "year_id" : lambda self, cr, uid, context: self.pool["academy.year"].search_id(cr, uid, [], context=context)
+        "semester_id" : _get_semester_id,
+        #"year_id" : lambda self, cr, uid, context: self.pool["academy.year"].search_id(cr, uid, [], context=context)
     }
 
 

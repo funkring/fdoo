@@ -6,58 +6,66 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 8.0alpha1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-27 18:26+0000\n"
-"PO-Revision-Date: 2014-06-27 18:26+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2014-07-03 15:33+0000\n"
+"PO-Revision-Date: 2014-07-03 17:34+0100\n"
+"Last-Translator: Edwin Pichler <edwin.pichler@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 
 #. module: academy
 #: model:email.template,body_html:academy.email_template_registration
-msgid "\n"
+msgid ""
+"\n"
 "<h3>Thank your for Registration!</h3>\n"
 "            "
-msgstr "\n"
+msgstr ""
+"\n"
 "<h3>Vielen Dank für die Anmeldung!</h3>\n"
 "            "
 
 #. module: academy
 #: model:email.template,body_html:academy.email_template_registration_cancel
-msgid "\n"
+msgid ""
+"\n"
 "<h3>Your Registration was canceled!</h3>\n"
 "            "
-msgstr "\n"
+msgstr ""
+"\n"
 "<h3>Ihre Anmeldung wurde storniert!</h3>\n"
 "            "
 
 #. module: academy
 #: view:academy.student:0
-msgid "(edit company address)"
-msgstr "(editiere Übergeordnete Adresse)"
+msgid "(edit address from parent)"
+msgstr ""
 
 #. module: academy
 #: model:ir.actions.act_window,help:academy.action_academy_trainer
-msgid "<p class=\"oe_view_nocontent_create\">\n"
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
 "              Click here to create a new Trainer\n"
 "            </p>\n"
 "          "
-msgstr "<p class=\"oe_view_nocontent_create\">\n"
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
 "              Hier klicken um einen neuen Lehrer zu erstellen\n"
 "            </p>\n"
 "          "
 
 #. module: academy
 #: model:ir.actions.act_window,help:academy.action_academy_student
-msgid "<p class=\"oe_view_nocontent_create\">\n"
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
 "          Click here to create a new Student\n"
 "        </p><p>\n"
 "          The Students are academy customers\n"
 "        </p>\n"
 "      "
-msgstr "<p class=\"oe_view_nocontent_create\">\n"
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
 "          Hier klicken um einen neuen Schüler zu erstellen\n"
 "        </p><p>\n"
 "         Schüler sind die Kunden der Schule\n"
@@ -66,36 +74,41 @@ msgstr "<p class=\"oe_view_nocontent_create\">\n"
 
 #. module: academy
 #: model:ir.actions.act_window,help:academy.action_academy_year
-msgid "<p class=\"oe_view_nocontent_create\">\n"
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
 "          Click here to create a new academy year and its semester\n"
 "        </p><p>\n"
 "          An academy year is the period for one school year\n"
 "        </p>\n"
 "      "
-msgstr "<p class=\"oe_view_nocontent_create\">\n"
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
 "         Hier klicken um ein neues Schuljahr zu erstellen inklusive der Semester\n"
 "        </p>      "
 
 #. module: academy
 #: model:ir.actions.act_window,help:academy.action_academy_registration
-msgid "<p class=\"oe_view_nocontent_create\">\n"
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
 "          Click here to create a new registration.\n"
 "        </p>\n"
 "      "
-msgstr "<p class=\"oe_view_nocontent_create\">\n"
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
 "          Klicken sie hier um eine Anmeldung für einen Lehrgang zu erstellen\n"
 "        </p>\n"
-""
 
 #. module: academy
 #: model:ir.actions.act_window,help:academy.action_academy_course_product
-msgid "<p class=\"oe_view_nocontent_create\">\n"
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
 "          Click to create a new Course Product\n"
 "        </p><p>\n"
 "          A Course Product is an service you offer as academy\n"
 "        </p>\n"
 "      "
-msgstr "<p class=\"oe_view_nocontent_create\">\n"
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
 "         Klicken sie hier um ein Produkt für einen Lehrgang zu erstellen\n"
 "        </p><p>\n"
 "          Produkte zu Lehrgängen werden für die Abrechnung benötigt\n"
@@ -104,13 +117,15 @@ msgstr "<p class=\"oe_view_nocontent_create\">\n"
 
 #. module: academy
 #: model:ir.actions.act_window,help:academy.action_academy_location
-msgid "<p class=\"oe_view_nocontent_create\">\n"
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
 "          Click to create a new location\n"
 "        </p><p>\n"
 "          Location are resources where courses are held\n"
 "        </p>\n"
 "      "
-msgstr "<p class=\"oe_view_nocontent_create\">\n"
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
 "          Klicken sie hier um einen neuen Standort zu erstellen\n"
 "        </p><p>\n"
 "          Über den Standort wird das Gebäude, der Ort bestimmt, wo ein Lehrgang stattfindet\n"
@@ -413,6 +428,11 @@ msgid "Information"
 msgstr ""
 
 #. module: academy
+#: field:academy.registration,intership_date:0
+msgid "Intership Date"
+msgstr "Quereinstiegsdatum"
+
+#. module: academy
 #: field:academy.registration,invoice_address_id:0
 msgid "Invoice Address"
 msgstr "Verrechnungsadresse"
@@ -491,10 +511,20 @@ msgid "Nationality"
 msgstr "Nationalität"
 
 #. module: academy
+#: field:academy.registration,note:0
+msgid "Note"
+msgstr "Notizen"
+
+#. module: academy
 #: view:academy.student:0
 #: view:academy.trainer:0
 msgid "Notes"
 msgstr "Notizen"
+
+#. module: academy
+#: view:academy.registration:0
+msgid "Notes..."
+msgstr "Notizen..."
 
 #. module: academy
 #: field:academy.course,number:0
@@ -617,6 +647,7 @@ msgid "Search Year"
 msgstr "Schuljahrsuche"
 
 #. module: academy
+#: field:academy.registration,semester_id:0
 #: view:academy.year:0
 #: field:academy.year,semester_ids:0
 msgid "Semester"
@@ -686,6 +717,11 @@ msgid "Tags..."
 msgstr "Stichworte..."
 
 #. module: academy
+#: help:academy.registration,unreg_semester_id:0
+msgid "The start date from the ending semester must be smaller or equal than the start datum from the beginning semester"
+msgstr "Das Start Datum vom letzten Semester muss kleiner oder gleich wie das Start Datum des Startsemesters sein."
+
+#. module: academy
 #: help:academy.journal,end:0
 #: help:academy.journal.absence,time_to:0
 msgid "The time must be between 00:00 and 24:00 o'clock"
@@ -696,6 +732,11 @@ msgstr "Die Zeit muss zwischen 00:00 und 24:00 Uhr sein."
 #: help:academy.journal.absence,time_from:0
 msgid "The time must be between 00:00 and 24:00 o'clock and must not be bigger than the end"
 msgstr "Die Zeit muss zwischen 00:00 und 24:00 Uhr und darf nicht größer als das Ende sein."
+
+#. module: academy
+#: help:academy.registration,intership_date:0
+msgid "This Date must be set, if there was an intership during the semester."
+msgstr "Dieses Datum muss gesetzt werden, wenn ein Quereinstieg während des Semesters erfolgte."
 
 #. module: academy
 #: field:academy.journal.absence,time_to:0
@@ -778,12 +819,16 @@ msgid "Unread Messages"
 msgstr "Ungelesene Nachrichten"
 
 #. module: academy
+#: field:academy.registration,unreg_semester_id:0
+msgid "Unregister after Semester"
+msgstr "Abmeldung nach Semester"
+
+#. module: academy
 #: view:academy.student:0
 msgid "Use parents address?"
 msgstr "Adresse vom Erziehungsberechtigten benutzen?"
 
 #. module: academy
-#: field:academy.registration,year_id:0
 #: field:academy.semester,year_id:0
 #: view:academy.year:0
 #: model:ir.actions.act_window,name:academy.action_academy_year

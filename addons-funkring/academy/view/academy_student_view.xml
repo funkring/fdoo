@@ -14,14 +14,14 @@
                     <label for="name" class="oe_edit_only"/>
                     <h1>
                         <field name="name" default_focus="1" placeholder="Name" />
-                    </h1>                    
-                    
+                    </h1>
+
                     <field name="tmp_partner_id" invisible="1"/>
                     <field name="parent_id"
                             placeholder="Parent"
                             domain="[('parent_id','=',False),('id','!=',tmp_partner_id)]" context="{'default_customer': customer}"
                             on_change="onchange_address(use_parent_address, parent_id)"/>
-                            
+
                     <field name="category_id" widget="many2many_tags" placeholder="Tags..."/>
                     <field name="type" invisible="1"/>
                     <field name="customer" invisible="1"/>
@@ -55,7 +55,7 @@
                         <field name="mobile"/>
                         <field name="user_ids" invisible="1"/>
                         <field name="email" widget="email" attrs="{'required': [('user_ids','!=', [])]}"/>
-                        <field name="birthday"/>
+                        <field name="birthdate"/>
                         <field name="nationality"/>
                     </group>
                 </group>
@@ -67,7 +67,6 @@
                         <field name="registration_ids"
                                domain="[('state','in',['draft','registered','assigned','open'])]">
                             <tree>
-                                <field name="year_id"/>
                                 <field name="location_id"/>
                                 <field name="course_prod_id"/>
                                 <field name="course_id"/>
@@ -120,7 +119,7 @@
                                 <h4 class="oe_partner_heading"><a type="open"><field name="display_name"/></a></h4>
                                 <div class="oe_kanban_partner_categories"/>
                                 <div class="oe_kanban_partner_links"/>
-                                <ul>                                    
+                                <ul>
                                     <li t-if="record.ref.raw_value"><field name="ref"/></li>
                                     <li t-if="record.city.raw_value and !record.country_id.raw_value"><field name="city"/></li>
                                     <li t-if="!record.city.raw_value and record.country_id.raw_value"><field name="country_id"/></li>

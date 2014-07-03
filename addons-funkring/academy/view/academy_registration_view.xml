@@ -24,17 +24,18 @@
                 </div>
                 <group>
                     <group>
-                        <field name="year_id"/>
+                        <field name="semester_id"/>
+                        <field name="unreg_semester_id" on_change="onchange_unreg_semester(semester_id, unreg_semester_id)"/>
                         <field name="student_id"/>
                         <field name="location_id"/>
                         <field name="student_of_loc"/>
                     </group>
-                    <group>                   
-                        <field name="invoice_address_id"/>     
+                    <group>
+                        <field name="invoice_address_id"/>
                         <field name="course_prod_id" on_change="onchange_course_prod(course_prod_id, uom_id, context)"/>
                         <field name="course_uom_ids" invisible="1"/>
                         <field name="uom_id" domain="[('id','in',course_uom_ids[0][2])]"/>
-                        <field name="amount"/>                        
+                        <field name="amount"/>
                     </group>
                     <group string="Assignment">
                         <field name="course_id"/>
@@ -42,9 +43,11 @@
                     </group>
                     <group string="Editing">
                         <field name="create_date"/>
-                        <field name="user_id"/>                                                
+                        <field name="user_id"/>
                     </group>
                 </group>
+                <field name="note" placeholder="Notes..."/>
+
             </sheet>
             <div class="oe_chatter">
                 <field name="message_follower_ids" widget="mail_followers" />
@@ -61,7 +64,7 @@
         <tree string="Registrations" fonts="bold:message_unread==True" colors="grey:state=='cancel';blue:state=='draft'">
             <field name="message_unread" invisible="1"/>
             <field name="name"/>
-            <field name="year_id"/>
+            <field name="semester_id"/>
             <field name="student_id"/>
             <field name="location_id"/>
             <field name="course_prod_id"/>
@@ -73,6 +76,7 @@
             <field name="create_date"/>
             <field name="state"/>
             <field name="user_id"/>
+            <field name="note"/>
         </tree>
       </field>
     </record>
@@ -82,20 +86,21 @@
       <field name="model">academy.registration</field>
       <field name="arch" type="xml">
         <search string="Search Registration">
-          <field name="name" filter_domain="['|','|','|','|',('year','ilike',self),('student_id','ilike',self),('location_id','ilike',self),('course_prod_id','ilike',self),('trainer_id','ilike',self)]" string="Registration"/>
+          <field name="name" filter_domain="['|','|','|','|','|',('semester_id','ilike',self),('student_id','ilike',self),('location_id','ilike',self),('course_prod_id','ilike',self),('trainer_id','ilike',self), ('note', 'ilike', self)]" string="Registration"/>
           <separator/>
-          <field name="year_id"/>
+          <field name="semester_id"/>
           <field name="student_id"/>
           <field name="location_id"/>
           <field name="course_prod_id"/>
           <field name="trainer_id"/>
           <field name="user_id"/>
           <field name="state"/>
+          <field name="note"/>
           <separator/>
           <filter string="Complete Registrations" name="registered" domain="[('state','=','registered')]"/>
           <filter string="Incomplete Registrations" name="draft" domain="[('state','=','draft')]"/>
           <filter string="Canceled Registrations" name="cancel" domain="[('state','=','draft')]"/>
-          <separator/>          
+          <separator/>
           <group expand="0" string="Group By...">
             <filter string="Location" context="{'group_by': 'location_id'}"/>
             <filter string="Trainer" context="{'group_by': 'trainer_id'}"/>

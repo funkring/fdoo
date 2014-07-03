@@ -27,7 +27,7 @@ oerp.at Academy
   * A module to easy handle courses/lessons for schools or other training institutes
 
     """,
-    "version" : "1.0",
+    "version" : "1.1",
     "author" :  "funkring.net",
     "category" : "Academy",
     "depends" : ["at_base", "at_product", "at_resource"],

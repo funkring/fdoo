@@ -35,23 +35,23 @@ class res_mapping(osv.Model):
                     if model_obj:
                         return model_obj.browse(cr, uid, res_id, context=context)
         return None
-    
-    def get_uuid(self, cr, uid, res_model, res_id, uuid=None, name=None):        
+
+    def get_uuid(self, cr, uid, res_model, res_id, uuid=None, name=None):
         uuid_id = self.search_id(cr, uid, [("name","=",name),("res_model","=",res_model),("res_id","=",res_id)])
         if not uuid_id:
             uuid_id = self.create(cr, uid, {"name" : name, "res_model" : res_model, "res_id" : res_id})
         return self.read(cr, uid, uuid_id, ["uuid"])["uuid"]
-    
+
     def get_id(self, cr, uid, res_model, res_uuid, name=None):
         uuid_id =  self.search_id(cr, uid, [("name","=",name),("res_model","=",res_model),("uuid","=",res_uuid)])
         if not uuid_id:
             return None
         return self.read(cr, uid, uuid_id, ["res_id"])["res_id"]
-    
+
     def unlink_uuid(self, cr, uid, uuids, name=None, context=None):
         if isinstance(uuids, basestring):
             uuids = [uuids]
-        
+
         deactivate_ids = []
         for uuid in uuids:
             uuid_id = self.search_id(cr, uid, [("name","=",name),("uuid","=",uuid)])
@@ -64,11 +64,11 @@ class res_mapping(osv.Model):
                     model_obj = self.pool.get(res_model)
                     if model_obj:
                         model_obj.unlink(cr, uid, res_id, context=context)
-                        
-        self.write(cr, uid, deactivate_ids, {"active" : False}, context=context)                        
+
+        self.write(cr, uid, deactivate_ids, {"active" : False}, context=context)
         return True
-        
-    
+
+
     _name = "res.mapping"
     _columns = {
         "name" : fields.char("Type", size=64, select=True),
@@ -77,7 +77,7 @@ class res_mapping(osv.Model):
         "uuid" : fields.char("UUID", size=64, select=True),
         "active" : fields.boolean("Active",select=True)
     }
-    
+
     _defaults = {
        "uuid" : lambda self,cr,uid,context: uuid.uuid4().hex,
        "active" : True
