@@ -126,7 +126,7 @@ class website_academy(http.Controller):
 
         # get location
         location_ids = []
-        if state_id:
+        if state_id and zip_code:
             search = [("address_id.state_id","=",state_id)]
             if zip_code:
                 search.append(("address_id.zip","=",zip_code))
@@ -368,7 +368,7 @@ class website_academy(http.Controller):
                 # create, register and commit
                 reg_id = reg_obj.create(cr, hidden_uid, values, context=context)
                 reg_name = reg_obj.read(cr, hidden_uid, reg_id, ["name"], context=context)["name"]                         
-                reg_obj.do_register(cr, hidden_uid, [reg_id], context=context)
+                reg_obj.do_register(cr, hidden_uid, [reg_id], check=True, context=context)
                 cr.commit()       
                 
                 # create status message

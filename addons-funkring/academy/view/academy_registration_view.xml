@@ -7,13 +7,14 @@
       <field name="model">academy.registration</field>
       <field name="arch" type="xml">
         <form string="Registration" version="7.0">
-            <header>
+            <header>                
                 <button type="object" name="do_register" states="draft" string="Register" class="oe_highlight"/>
+                <button type="object" name="do_check" states="check" string="Checked" class="oe_highlight"/>
                 <button type="object" name="do_cancel" states="registered,assigned,open" string="DeRegister"/>
                 <button type="object" name="do_draft" states="cancel" string="To Draft"/>
                 <field name="state" widget="statusbar"
-                       statusbar_visible="draft,registered,assigned,open"
-                       statusbar_colors="{'cancel':'red'}"/>
+                       statusbar_visible="draft,check,registered,assigned,open"
+                       statusbar_colors="{'cancel':'red','draft':'blue'}"/>
             </header>
             <sheet>
                 <div class="oe_title">
@@ -23,31 +24,36 @@
                     </h1>
                 </div>
                 <group>
-                    <group>
-                        <field name="semester_id"/>
-                        <field name="unreg_semester_id" on_change="onchange_unreg_semester(semester_id, unreg_semester_id)"/>
+                    <group string="General">
                         <field name="student_id"/>
+                        <field name="student_parent_id"/>
                         <field name="location_id"/>
                         <field name="student_of_loc"/>
-                    </group>
-                    <group>
-                        <field name="invoice_address_id"/>
+                    </group>    
+                    <group string="Registration">
+                        <field name="semester_id"/>
+                        <field name="intership_date"/>
+                    </group>                                             
+                    <group string="Invoicing">                        
                         <field name="course_prod_id" on_change="onchange_course_prod(course_prod_id, uom_id, context)"/>
                         <field name="course_uom_ids" invisible="1"/>
                         <field name="uom_id" domain="[('id','in',course_uom_ids[0][2])]"/>
                         <field name="amount"/>
+                        <field name="invoice_address_id"/>
                     </group>
                     <group string="Assignment">
-                        <field name="course_id"/>
                         <field name="trainer_id"/>
+                        <!-- field name="course_id"/ -->                        
                     </group>
                     <group string="Editing">
                         <field name="create_date"/>
                         <field name="user_id"/>
                     </group>
+                    <group string="Deregistration">
+                        <field name="unreg_semester_id" on_change="onchange_unreg_semester(semester_id, unreg_semester_id)"/>
+                    </group>                            
                 </group>
                 <field name="note" placeholder="Notes..."/>
-
             </sheet>
             <div class="oe_chatter">
                 <field name="message_follower_ids" widget="mail_followers" />
@@ -61,18 +67,20 @@
       <field name="name">academy.tree_academy_registration</field>
       <field name="model">academy.registration</field>
       <field name="arch" type="xml">
-        <tree string="Registrations" fonts="bold:message_unread==True" colors="grey:state=='cancel';blue:state=='draft'">
+        <tree string="Registrations" fonts="bold:message_unread==True" colors="grey:state=='cancel';blue:state=='draft';red:state=='check'">
             <field name="message_unread" invisible="1"/>
             <field name="name"/>
             <field name="semester_id"/>
             <field name="student_id"/>
+            <field name="student_parent_id"/>
+            <field name="invoice_address_id"/>
             <field name="location_id"/>
+            <!--field name="course_id"/ -->
+            <field name="trainer_id"/>
             <field name="course_prod_id"/>
             <field name="uom_id"/>
-            <field name="amount"/>
-            <field name="invoice_address_id"/>
-            <field name="course_id"/>
-            <field name="trainer_id"/>
+            <field name="amount" sum="Amount"/>   
+            <field name="hours" sum="Hours"/>                     
             <field name="create_date"/>
             <field name="state"/>
             <field name="user_id"/>
@@ -90,6 +98,7 @@
           <separator/>
           <field name="semester_id"/>
           <field name="student_id"/>
+          <field name="student_parent_id"/>
           <field name="location_id"/>
           <field name="course_prod_id"/>
           <field name="trainer_id"/>
@@ -99,7 +108,8 @@
           <separator/>
           <filter string="Complete Registrations" name="registered" domain="[('state','=','registered')]"/>
           <filter string="Incomplete Registrations" name="draft" domain="[('state','=','draft')]"/>
-          <filter string="Canceled Registrations" name="cancel" domain="[('state','=','draft')]"/>
+          <filter string="Registrations to check" name="check" domain="[('state','=','check')]"/>          
+          <filter string="Canceled Registrations" name="cancel" domain="[('state','=','cancel')]"/>          
           <separator/>
           <group expand="0" string="Group By...">
             <filter string="Location" context="{'group_by': 'location_id'}"/>
@@ -113,7 +123,7 @@
     </record>
 
     <record id="action_academy_registration" model="ir.actions.act_window">
-      <field name="name">Registration</field>
+      <field name="name">Registrations</field>
       <field name="res_model">academy.registration</field>
       <field name="view_type">form</field>
       <field name="view_mode">tree,form</field>
@@ -123,10 +133,44 @@
         </p>
       </field>
     </record>
+    
+    <record id="action_academy_registration_draft" model="ir.actions.act_window">
+      <field name="name">Registrations in Draft</field>
+      <field name="res_model">academy.registration</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('state','=','draft')]</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Click here to create a new registration.
+        </p>
+      </field>
+    </record>
+    
+    <record id="action_academy_registration_check" model="ir.actions.act_window">
+      <field name="name">Registrations to Check</field>
+      <field name="res_model">academy.registration</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('state','=','check')]</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Click here to create a new registration.
+        </p>
+      </field>
+    </record>
 
-    <menuitem id="menu_academy_registration" name="Registration" parent="menu_academy_management"
+    <menuitem id="menu_academy_registration" name="Registrations" parent="menu_academy_management"
       sequence="3"
       action="action_academy_registration"/>
+      
+    <menuitem id="menu_academy_registration_draft" name="Registrations in Draft" parent="menu_academy_management"
+      sequence="4"
+      action="action_academy_registration_draft"/>
+      
+    <menuitem id="menu_academy_registration_check" name="Registrations to Check" parent="menu_academy_management"
+      sequence="5"
+      action="action_academy_registration_check"/>
 
   </data>
 </openerp>

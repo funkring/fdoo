@@ -19,7 +19,6 @@
             <field name="category_id" ref="product_uom_categ_pauschal" />
             <field name="name">Blanket</field>
             <field name="factor">1.0</field>
-            <field name="blanket" eval="True" />
         </record>
 
         <record id="product_uom_m2" model="product.uom">

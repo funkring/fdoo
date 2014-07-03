@@ -15,19 +15,18 @@
                     <h1>
                         <field name="name" default_focus="1" placeholder="Name" />
                     </h1>
-
-                    <field name="tmp_partner_id" invisible="1"/>
-                    <field name="parent_id"
-                            placeholder="Parent"
-                            domain="[('parent_id','=',False),('id','!=',tmp_partner_id)]" context="{'default_customer': customer}"
-                            on_change="onchange_address(use_parent_address, parent_id)"/>
-
                     <field name="category_id" widget="many2many_tags" placeholder="Tags..."/>
                     <field name="type" invisible="1"/>
                     <field name="customer" invisible="1"/>
                 </div>
                 <group>
                     <group>
+                        <field name="tmp_partner_id" invisible="1"/>
+                        <field name="parent_id" 
+                            string="Parent"
+                            placeholder="Parent"
+                            domain="[('parent_id','=',False),('id','!=',tmp_partner_id)]" context="{'default_customer': customer}"
+                            on_change="onchange_address(use_parent_address, parent_id)"/>
                         <field name="ref" string="Student No."/>
                         <label for="street" string="Address"/>
                         <div>
@@ -91,7 +90,7 @@
             <kanban>
                 <field name="ref"/>
                 <field name="color"/>
-                <field name="display_name"/>
+                <field name="name"/>
                 <field name="title"/>
                 <field name="email"/>
                 <field name="phone"/>
@@ -116,7 +115,7 @@
                                 </t>
                             </a>
                             <div class="oe_kanban_details">
-                                <h4 class="oe_partner_heading"><a type="open"><field name="display_name"/></a></h4>
+                                <h4 class="oe_partner_heading"><a type="open"><field name="name"/></a></h4>
                                 <div class="oe_kanban_partner_categories"/>
                                 <div class="oe_kanban_partner_links"/>
                                 <ul>
@@ -141,7 +140,7 @@
       <field name="arch" type="xml">
         <tree string="Students">
             <field name="ref" string="Student No."/>
-            <field name="display_name"/>
+            <field name="name"/>
             <field name="phone"/>
             <field name="email"/>
             <field name="parent_id"/>
@@ -156,7 +155,7 @@
       <field name="arch" type="xml">
         <search string="Search Student">
           <field name="name"
-                filter_domain="['|','|',('display_name','ilike',self),('ref','=',self),('email','ilike',self)]"/>
+                filter_domain="['|','|',('name','ilike',self),('ref','=',self),('email','ilike',self)]"/>
           <separator/>
           <field name="ref"/>
           <field name="parent_id" operator="child_of"/>

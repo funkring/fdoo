@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 6.1-dev\n"
-"Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-09-16 18:37+0000\n"
-"PO-Revision-Date: 2011-09-16 20:47+0100\n"
+"Project-Id-Version: OpenERP Server 8.0alpha1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-03 21:38+0000\n"
+"PO-Revision-Date: 2014-07-03 23:41+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,14 +16,25 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: at_product
-#: model:ir.model,name:at_product.model_product_uom
-msgid "Product Unit of Measure"
-msgstr "Produkt Mengeneinheit (ME)"
+#: field:product.pricelist,active_version_id:0
+msgid "Active Pricelist"
+msgstr "Aktive Preisliste"
 
 #. module: at_product
-#: field:product.product,shortcut:0
-msgid "Shortcut"
-msgstr "Kürzel"
+#: model:product.uom.categ,name:at_product.product_uom_categ_area
+msgid "Area"
+msgstr "Fläche"
+
+#. module: at_product
+#: model:product.uom,name:at_product.product_uom_pauschal
+#: model:product.uom.categ,name:at_product.product_uom_categ_pauschal
+msgid "Blanket"
+msgstr "Pauschal"
+
+#. module: at_product
+#: field:at_product.category_view,categ1_id:0
+msgid "Category 1"
+msgstr "Kategorie 3"
 
 #. module: at_product
 #: field:at_product.category_view,categ2_id:0
@@ -36,19 +47,35 @@ msgid "Category 3"
 msgstr "Kategorie 2"
 
 #. module: at_product
-#: field:at_product.category_view,categ1_id:0
-msgid "Category 1"
-msgstr "Kategorie 3"
+#: model:ir.model,name:at_product.model_at_product_category_view
+msgid "Category Second Normal Form View"
+msgstr "Kategorie 2. Normalform"
 
 #. module: at_product
-#: field:product.product,account_expense_standard_id:0
-msgid "Standard expense account"
-msgstr "Standard Aufwandskonto"
+#: field:product.category,code:0
+#: field:product.uom,code:0
+msgid "Code"
+msgstr ""
 
 #. module: at_product
-#: model:product.uom.categ,name:at_product.product_uom_categ_vol
-msgid "Volume"
-msgstr "Volume"
+#: field:product.uom.categ,uom_ids:0
+msgid "Grouped UOMs"
+msgstr "Einheiten Gruppierung"
+
+#. module: at_product
+#: model:ir.model,name:at_product.model_product_supplierinfo
+msgid "Information about a product supplier"
+msgstr "Informationen zum Produktlieferanten"
+
+#. module: at_product
+#: field:at_product.category_view,leaf_categ_id:0
+msgid "Leaf Category"
+msgstr "(Lezte)Kategorie"
+
+#. module: at_product
+#: model:ir.model,name:at_product.model_product_pricelist
+msgid "Pricelist"
+msgstr "Preisliste"
 
 #. module: at_product
 #: model:ir.model,name:at_product.model_product_product
@@ -58,48 +85,32 @@ msgstr "Produkt"
 #. module: at_product
 #: model:ir.model,name:at_product.model_product_category
 msgid "Product Category"
-msgstr "Produkte Kategorien"
+msgstr "Produktkategorie"
 
 #. module: at_product
-#: model:product.uom.categ,name:at_product.product_uom_categ_area
-msgid "Area"
-msgstr "Fläche"
+#: model:ir.model,name:at_product.model_product_template
+msgid "Product Template"
+msgstr "Produktvorlage"
 
 #. module: at_product
-#: model:product.uom,name:at_product.product_uom_pauschal
-#: model:product.uom.categ,name:at_product.product_uom_categ_pauschal
-msgid "Pauschal"
-msgstr "Pauschal"
+#: model:ir.model,name:at_product.model_product_uom
+msgid "Product Unit of Measure"
+msgstr "Produkt Mengeneinheit (ME)"
 
 #. module: at_product
-#: model:ir.model,name:at_product.model_at_product_category_view
-msgid "Category Second Normal Form View"
-msgstr "Kategorie 2. Normalform"
+#: model:ir.model,name:at_product.model_product_uom_categ
+msgid "Product uom categ"
+msgstr "Mengeneinheit (ME) Kategorie"
 
 #. module: at_product
-#: model:ir.model,name:at_product.model_product_supplierinfo
-msgid "Information about a product supplier"
-msgstr "Informationen zum Produktlieferanten"
+#: field:product.uom,sequence:0
+msgid "Sequence"
+msgstr "Sequenz"
 
 #. module: at_product
-#: model:ir.module.module,shortdesc:at_product.module_meta_information
-msgid "at_product"
-msgstr "at_product"
-
-#. module: at_product
-#: model:product.uom,name:at_product.product_uom_m2
-msgid "m²"
-msgstr "m²"
-
-#. module: at_product
-#: model:product.uom,name:at_product.product_uom_m3
-msgid "m³"
-msgstr "m³"
-
-#. module: at_product
-#: sql_constraint:product.uom:0
-msgid "The conversion ratio for a unit of measure cannot be 0!"
-msgstr "Der Umrechnungefaktor eine Mengeneinheit kann nicht 0 sein!"
+#: field:product.product,account_expense_standard_id:0
+msgid "Standard expense account"
+msgstr "Standard Aufwandskonto"
 
 #. module: at_product
 #: field:product.product,account_income_standard_id:0
@@ -107,59 +118,22 @@ msgid "Standard income account"
 msgstr "Standard Erlöskonto"
 
 #. module: at_product
-#: constraint:product.supplierinfo:0
-msgid "Error: The default UOM and the Supplier Product UOM must be in the same category."
-msgstr "Fehler: Die Standard Mengeneinheit (ME)  und die Lieferanten Mengeneinheit (ME) muss in derselben Kategorie sein."
-
-#. module: at_product
 #: model:product.uom.categ,name:at_product.product_uom_categ_time
 msgid "Time"
 msgstr "Zeit"
 
 #. module: at_product
-#: sql_constraint:product.uom:0
-msgid "You can not have more than one UOM with same factor for same UOM category"
-msgstr "Es darf nur eine Einheit mit dem selben Umrechnungsfaktor in der der Selben Gruppe sein!"
+#: view:product.uom.categ:0
+msgid "Units"
+msgstr "Einheiten"
 
 #. module: at_product
-#: field:product.category,code:0
-#: field:product.uom,code:0
-msgid "Code"
-msgstr "Code"
-
-#. module: at_product
-#: field:at_product.category_view,leaf_categ_id:0
-msgid "Leaf Category"
-msgstr "(Lezte)Kategorie"
-
-#. module: at_product
-#: model:ir.module.module,description:at_product.module_meta_information
-msgid ""
-"\n"
-"       Austrain specific product enhancements\n"
-"    "
+#: model:product.uom,name:at_product.product_uom_m2
+msgid "m²"
 msgstr ""
-"\n"
-"       Austrain specific product enhancements\n"
-"    "
 
 #. module: at_product
-#: help:product.uom,all_inclusive:0
-msgid "This as a all inklusive product uom"
-msgstr "Pauschal Einheit"
-
-#. module: at_product
-#: field:product.uom,all_inclusive:0
-msgid "All inclusive"
-msgstr "Pauschal"
-
-#. module: at_product
-#: constraint:product.category:0
-msgid "Error ! You can not create recursive categories."
-msgstr "Fehler! Sie können keine rekursiven Kategorien definieren."
-
-#. module: at_product
-#: constraint:product.product:0
-msgid "Error: Invalid ean code"
-msgstr "Fehler: Falscher EAN code"
+#: model:product.uom,name:at_product.product_uom_m3
+msgid "m³"
+msgstr ""
 

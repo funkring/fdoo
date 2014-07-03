@@ -46,6 +46,7 @@
                             <page string="Notes">
                                 <field name="comment" placeholder="Put an internal note..."/>
                             </page>
+                            <!--
                             <page string="Contracts">
                                 <field name="contract_ids">
                                     <tree>
@@ -55,6 +56,7 @@
                                     </tree>
                                 </field>
                             </page>
+                            -->
                         </notebook>
                     </sheet>
                 </form>

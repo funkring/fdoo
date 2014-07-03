@@ -15,6 +15,7 @@
                             <tree editable="buttom">
                                 <field name="sequence" widget="handle"/>
                                 <field name="name"/>
+                                <field name="code"/>
                                 <field name="uom_type" on_change="onchange_type(uom_type)"/>
                                 <field name="factor"/>
                             </tree>
