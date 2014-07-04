@@ -126,17 +126,37 @@ class website_academy(http.Controller):
 
         # get location
         location_ids = []
-        if state_id and zip_code:
+        if state_id:
             search = [("address_id.state_id","=",state_id)]
             if zip_code:
                 search.append(("address_id.zip","=",zip_code))
             location_ids = location_obj.search(cr, hidden_uid, search, order="name")
-
+        
+        # group locations        
         locations = location_obj.browse(cr, hidden_uid, location_ids, context=context)
+        location_by_zip = {}
+        for location in locations:
+            zip_code = location.address_id.zip
+            loc_list = location_by_zip.get(zip_code)
+            if not loc_list:
+                loc_list = []
+                location_by_zip[zip_code] = loc_list
+            loc_list.append(location)
+
+        # create zip locations tuples         
+        zip_codes = sorted(location_by_zip)
+        zip_locations = []
+        for zip_code in zip_codes:
+            zip_locations.append((zip_code,location_by_zip[zip_code]))
+                    
+        # get current location
+        location = None
         if location_id in location_ids:
             location = location_obj.browse(cr, hidden_uid, location_id, context=context)
             if location:
                 location_item = location.name
+        
+        
 
         # get products
         product_ids = academy_product_obj.search(cr, hidden_uid, [])
@@ -148,6 +168,7 @@ class website_academy(http.Controller):
             "state_item" : state_item,
             "state_id" : state_id,
             "locations" : locations,
+            "zip_locations" : zip_locations,
             "location_item" : location_item,
             "location_id" : location_id,
             "products" : products,

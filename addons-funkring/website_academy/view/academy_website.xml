@@ -20,18 +20,21 @@
                         <div class="row mt8">
                             <div class="col-sm-12">
                                 <div t-if="states" class="btn-group"> <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#"><t t-esc="state_item"/> <span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li t-foreach="states" t-as="state"><a t-attf-href="/academy?{{ keep_query('location_id', 'zip_code', state_id=state.id) }}"><t t-esc="state.name"/></a></li>
+                                    <ul class="dropdown-menu scrollable-menu">
+                                        <li t-foreach="states" t-as="state"><a t-attf-href="/academy?{{ keep_query(state_id=state.id) }}"><t t-esc="state.name"/></a></li>
                                     </ul>
                                 </div>
                                 <div t-if="zip_list" class="btn-group"> <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#"><t t-esc="zip_item"/> <span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li t-foreach="zip_list" t-as="zip_val"><a t-attf-href="/academy?{{ keep_query('location_id', 'state_id', zip_code=zip_val[0]) }}"><t t-esc="zip_val[1]"/></a></li>
+                                    <ul class="dropdown-menu scrollable-menu">
+                                        <li t-foreach="zip_list" t-as="zip_val"><a t-attf-href="/academy?{{ keep_query('state_id', zip_code=zip_val[0]) }}"><t t-esc="zip_val[1]"/></a></li>
                                     </ul>
                                 </div>
-                                <div t-if="locations" class="btn-group"> <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#"><t t-esc="location_item"/> <span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li t-foreach="locations" t-as="location"><a t-attf-href="/academy?{{ keep_query('state_id', 'zip_code', location_id=location.id) }}"><t t-esc="location.name"/></a></li>
+                                <div t-if="zip_locations" class="btn-group"> <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#"><t t-esc="location_item"/> <span class="caret"></span></a>
+                                    <ul class="dropdown-menu scrollable-menu">
+                                        <t t-foreach="zip_locations" t-as="zip_location">
+                                            <li t-if="len(zip_locations)>1"><a href="#"><b><t t-esc="zip_location[0]"/></b></a></li>
+                                            <li t-foreach="zip_location[1]" t-as="location"><a t-attf-href="/academy?{{ keep_query('state_id', 'zip_code', location_id=location.id) }}"><t t-esc="location.name"/></a></li>
+                                        </t>
                                     </ul>
                                 </div>
                             </div>
