@@ -37,8 +37,9 @@
                     <group string="Invoicing">                        
                         <field name="course_prod_id" on_change="onchange_course_prod(course_prod_id, uom_id, context)"/>
                         <field name="course_uom_ids" invisible="1"/>
-                        <field name="uom_id" domain="[('id','in',course_uom_ids[0][2])]"/>
-                        <field name="amount"/>
+                        <field name="uom_id" domain="[('id','in',course_uom_ids[0][2])]" on_change="onchange_uom(uom_id, amount, context)"/>
+                        <field name="amount" invisible="1" on_change="onchange_uom(uom_id, amount, context)"/>
+                        <field name="hours" widget="float_time" string="Minutes"/>
                         <field name="invoice_address_id"/>
                     </group>
                     <group string="Assignment">
@@ -79,8 +80,7 @@
             <field name="trainer_id"/>
             <field name="course_prod_id"/>
             <field name="uom_id"/>
-            <field name="amount" sum="Amount"/>   
-            <field name="hours" sum="Hours"/>                     
+            <field name="hours" widget="float_time" sum="Hours" string="Min."/>                     
             <field name="create_date"/>
             <field name="state"/>
             <field name="user_id"/>
@@ -94,7 +94,7 @@
       <field name="model">academy.registration</field>
       <field name="arch" type="xml">
         <search string="Search Registration">
-          <field name="name" filter_domain="['|','|','|','|','|',('semester_id','ilike',self),('student_id','ilike',self),('location_id','ilike',self),('course_prod_id','ilike',self),('trainer_id','ilike',self), ('note', 'ilike', self)]" string="Registration"/>
+          <field name="name" filter_domain="['|',('name','ilike',self),('note', 'ilike', self)]" string="Registration"/>
           <separator/>
           <field name="semester_id"/>
           <field name="student_id"/>
@@ -164,11 +164,11 @@
       sequence="3"
       action="action_academy_registration"/>
       
-    <menuitem id="menu_academy_registration_draft" name="Registrations in Draft" parent="menu_academy_management"
+    <menuitem id="menu_academy_registration_draft" name="Reg. in Draft" parent="menu_academy_management"
       sequence="4"
       action="action_academy_registration_draft"/>
       
-    <menuitem id="menu_academy_registration_check" name="Registrations to Check" parent="menu_academy_management"
+    <menuitem id="menu_academy_registration_check" name="Reg. to Check" parent="menu_academy_management"
       sequence="5"
       action="action_academy_registration_check"/>
 

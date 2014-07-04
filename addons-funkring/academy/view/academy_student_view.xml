@@ -27,7 +27,6 @@
                             placeholder="Parent"
                             domain="[('parent_id','=',False),('id','!=',tmp_partner_id)]" context="{'default_customer': customer}"
                             on_change="onchange_address(use_parent_address, parent_id)"/>
-                        <field name="ref" string="Student No."/>
                         <label for="street" string="Address"/>
                         <div>
                             <div class="oe_edit_only">
@@ -88,7 +87,6 @@
         <field name="model">academy.student</field>
         <field name="arch" type="xml">
             <kanban>
-                <field name="ref"/>
                 <field name="color"/>
                 <field name="name"/>
                 <field name="title"/>
@@ -119,7 +117,6 @@
                                 <div class="oe_kanban_partner_categories"/>
                                 <div class="oe_kanban_partner_links"/>
                                 <ul>
-                                    <li t-if="record.ref.raw_value"><field name="ref"/></li>
                                     <li t-if="record.city.raw_value and !record.country_id.raw_value"><field name="city"/></li>
                                     <li t-if="!record.city.raw_value and record.country_id.raw_value"><field name="country_id"/></li>
                                     <li t-if="record.city.raw_value and record.country_id.raw_value"><field name="city"/>, <field name="country_id"/></li>
@@ -139,11 +136,10 @@
       <field name="model">academy.student</field>
       <field name="arch" type="xml">
         <tree string="Students">
-            <field name="ref" string="Student No."/>
             <field name="name"/>
             <field name="phone"/>
             <field name="email"/>
-            <field name="parent_id"/>
+            <field name="parent_id" string="Parent"/>
         </tree>
       </field>
     </record>
@@ -155,9 +151,8 @@
       <field name="arch" type="xml">
         <search string="Search Student">
           <field name="name"
-                filter_domain="['|','|',('name','ilike',self),('ref','=',self),('email','ilike',self)]"/>
+                filter_domain="['|','|',('name','ilike',self),('email','ilike',self)]"/>
           <separator/>
-          <field name="ref"/>
           <field name="parent_id" operator="child_of"/>
           <field name="category_id" string="Tag" filter_domain="[('category_id','ilike', self)]"/>
           <group expand="0" string="Group By...">

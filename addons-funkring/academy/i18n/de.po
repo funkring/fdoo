@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 8.0alpha1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-03 22:04+0000\n"
-"PO-Revision-Date: 2014-07-04 00:07+0100\n"
+"POT-Creation-Date: 2014-07-04 16:15+0000\n"
+"PO-Revision-Date: 2014-07-04 18:16+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -202,7 +202,6 @@ msgid "Agent"
 msgstr "Bearbeiter"
 
 #. module: academy
-#: view:academy.registration:0
 #: field:academy.registration,amount:0
 msgid "Amount"
 msgstr "Menge"
@@ -517,6 +516,16 @@ msgid "Messages and communication history"
 msgstr ""
 
 #. module: academy
+#: view:academy.registration:0
+msgid "Min."
+msgstr ""
+
+#. module: academy
+#: view:academy.registration:0
+msgid "Minutes"
+msgstr "Minuten"
+
+#. module: academy
 #: model:ir.ui.menu,name:academy.menu_academy_config_misc
 msgid "Misc"
 msgstr "Sonstiges"
@@ -609,6 +618,16 @@ msgid "Reason"
 msgstr "Grund"
 
 #. module: academy
+#: model:ir.ui.menu,name:academy.menu_academy_registration_draft
+msgid "Reg. in Draft"
+msgstr "Anmeld. im Entwurf"
+
+#. module: academy
+#: model:ir.ui.menu,name:academy.menu_academy_registration_check
+msgid "Reg. to Check"
+msgstr "Anmeld. zur Überprüfung"
+
+#. module: academy
 #: view:academy.registration:0
 msgid "Register"
 msgstr "Anmelden"
@@ -650,13 +669,11 @@ msgstr "Anmeldungen"
 
 #. module: academy
 #: model:ir.actions.act_window,name:academy.action_academy_registration_draft
-#: model:ir.ui.menu,name:academy.menu_academy_registration_draft
 msgid "Registrations in Draft"
 msgstr "Anmeldungen im Entwurf"
 
 #. module: academy
 #: model:ir.actions.act_window,name:academy.action_academy_registration_check
-#: model:ir.ui.menu,name:academy.menu_academy_registration_check
 msgid "Registrations to Check"
 msgstr "Anmeldungen zur Überprüfung"
 
@@ -735,11 +752,6 @@ msgstr "Strasse..."
 #: model:ir.ui.menu,name:academy.menu_academy_student
 msgid "Student"
 msgstr "Schüler"
-
-#. module: academy
-#: view:academy.student:0
-msgid "Student No."
-msgstr "Schüler Nr."
 
 #. module: academy
 #: field:academy.course,student_ids:0

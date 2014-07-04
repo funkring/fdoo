@@ -88,32 +88,6 @@ class academy_student(osv.Model):
         self.pool["res.partner"].unlink(cr, uid, partner_ids, context)
         return res
     
-    def name_get(self, cr, uid, ids, context=None):
-        if isinstance(ids, (list, tuple)) and not len(ids):
-            return []
-        if isinstance(ids, (long, int)):
-            ids = [ids]
-        reads = self.read(cr, uid, ids, ['name','ref'], context=context)
-        res = []
-        for record in reads:
-            name = record['name']
-            ref = record['ref']
-            if ref:
-                name = "[%s] %s" % (ref,name)
-            res.append((record['id'], name))
-        return res
-
-    def name_search(self, cr, uid, name, args=None, operator='ilike', context=None, limit=100):
-        if not args:
-            args = []
-        if not context:
-            context = {}
-        if name and PATTERN_NO.match(name):
-            ids = self.search(cr, uid, [('ref', operator, name)] + args, limit=limit, context=context)
-        else:
-            ids = self.search(cr, uid, args, limit=limit, context=context)
-        return self.name_get(cr, uid, ids, context)
-
     _name = "academy.student"
     _inherits = {"res.partner":"partner_id"}
     _columns = {
@@ -183,7 +157,32 @@ class academy_registration(osv.Model):
 
     def _next_sequence(self, cr, uid, context=None):
         return self.pool.get("ir.sequence").get(cr, uid, "academy.registration")
-
+    
+    def _get_semester_id(self, cr, uid, context=None):
+        semester_obj = self.pool["academy.semester"]
+        #search next semester
+        semester_ids = semester_obj.search(cr, uid, [("date_start", ">", util.currentDate())], order="date_start asc")
+        if not semester_ids:
+            # get current semester
+            return semester_obj.search_id(cr, uid, [], order="date_end desc")
+        return semester_ids and semester_ids[0] or None
+    
+    def _calc_hours(self, cr, uid, uom, amount, context=None):
+        if uom and amount:
+            uom_obj = self.pool["product.uom"]
+            if uom.factor == 1.0:
+                return amount
+            else:
+                base_uom_id=uom_obj.search_id(cr, uid, [("category_id","=",uom.category_id.id),("factor","=",1.0)])
+                return uom_obj._compute_qty(cr, uid, uom.id, amount, base_uom_id, round=False)
+        return 0.0
+    
+    def _hours(self, cr, uid, ids, field_name, arg, context=None):
+        res = dict.fromkeys(ids,0.0)
+        for obj in self.browse(cr, uid, ids, context):
+            res[obj.id]=self._calc_hours(cr, uid, obj.uom_id, obj.amount, context)
+        return res
+    
     def message_get_default_recipients(self, cr, uid, ids, context=None):
         res = super(academy_registration,self).message_get_default_recipients(cr, uid, ids, context=context)
         for reg in self.browse(cr, uid, ids, context=context):
@@ -235,6 +234,13 @@ class academy_registration(osv.Model):
                 if uom_id and not uom_id in uom_ids:
                     val["uom_id"]=None
         return res
+    
+    def onchange_uom(self, cr, uid, ids, uom_id, amount, context=None):
+        hours = 0.0
+        if uom_id and amount:
+            uom = self.pool["product.uom"].browse(cr, uid, uom_id, context=context)
+            hours = self._calc_hours(cr, uid, uom, amount, context)
+        return {"value" : {"hours":hours} }
 
     def onchange_unreg_semester(self, cr, uid, ids, semester_id, unreg_semester_id, context=None):
         res = {"value": {}}
@@ -246,29 +252,6 @@ class academy_registration(osv.Model):
             if  semester_date_start > unreg_semester_date_start:
                 res["value"]["unreg_semester_id"] = None
 
-        return res
-
-    def _get_semester_id(self, cr, uid, context=None):
-        semester_obj = self.pool["academy.semester"]
-        #search next semester
-        semester_ids = semester_obj.search(cr, uid, [("date_start", ">", util.currentDate())], order="date_start asc")
-        if not semester_ids:
-            # get current semester
-            return semester_obj.search_id(cr, uid, [], order="date_end desc")
-        return semester_ids and semester_ids[0] or None
-    
-    def _hours(self, cr, uid, ids, field_name, arg, context=None):
-        res = dict.fromkeys(ids,0.0)
-        uom_obj = self.pool["product.uom"]
-        for obj in self.browse(cr, uid, ids, context):
-            uom = obj.uom_id
-            amount = obj.amount
-            if uom and amount:
-                if uom.factor == 1.0:
-                    res[obj.id]=amount
-                else:
-                    base_uom_id=uom_obj.search_id(cr, uid, [("category_id","=",uom.category_id.id),("factor","=",1.0)])
-                    res[obj.id]=uom_obj._compute_qty(cr, uid, uom.id, amount, base_uom_id)
         return res
 
     _inherit = ["mail.thread"]
@@ -283,7 +266,7 @@ class academy_registration(osv.Model):
                                               help="The start date from the ending semester must be smaller or equal than the start datum from the beginning semester"),
         "intership_date" : fields.date("Intership Date", help="This Date must be set, if there was an intership during the semester."),
         "student_id" : fields.many2one("academy.student", "Student", select=True, required=True, ondelete="restrict"),
-        "student_parent_id" : fields.related("student_id", "parent_id", type="many2one", obj="res.partner", string="Parent", store=True, readonly=True),
+        "student_parent_id" : fields.related("student_id", "parent_id", type="many2one", relation="res.partner", string="Parent", store=True, readonly=True),
         "location_id" : fields.many2one("academy.location", "Location", select=True, ondelete="restrict"),
         "student_of_loc" : fields.boolean("Is student of location?"),
         "course_prod_id" : fields.many2one("academy.course.product", "Product", select=True, required=True, ondelete="restrict"),
@@ -293,7 +276,7 @@ class academy_registration(osv.Model):
         "hours" : fields.function(_hours, type="float", store=True, readonly=True, string="Hours"),
         "uom_id" : fields.many2one("product.uom", "Unit", select=True, ondelete="restrict"),
         "invoice_address_id" : fields.many2one("res.partner","Invoice Address"),
-        "course_uom_ids" : fields.related("course_prod_id", "course_uom_ids", type="many2many", obj="product.uom", string="Course Units"),
+        "course_uom_ids" : fields.related("course_prod_id", "course_uom_ids", type="many2many", relation="product.uom", string="Course Units"),
         "state" : fields.selection([("draft","Draft"),
                                     ("cancel","Cancel"),
                                     ("check","Check"),
