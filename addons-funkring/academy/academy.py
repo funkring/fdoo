@@ -23,6 +23,7 @@ from openerp.addons.at_base import util
 from openerp.addons.at_base import extfields
 from openerp.addons.at_base import helper
 from openerp.tools.translate import _
+from openerp import tools
 
 import re
 
@@ -88,6 +89,15 @@ class academy_student(osv.Model):
         self.pool["res.partner"].unlink(cr, uid, partner_ids, context)
         return res
     
+    def _default_country_id(self, cr, uid, context=None):
+        company_obj = self.pool['res.company']
+        company_id = company_obj._company_default_get(cr, uid, 'res.partner', context=context)
+        if company_id:
+            company = company_obj.browse(cr, uid, company_id, context=context)
+            country = company.country_id
+            return country and country.id or None
+        return None
+    
     _name = "academy.student"
     _inherits = {"res.partner":"partner_id"}
     _columns = {
@@ -97,7 +107,8 @@ class academy_student(osv.Model):
         "nationality" : fields.char("Nationality")
     }
     _defaults = {
-        "customer" : True
+        "customer" : True,
+        "country_id": _default_country_id
     }
 
 

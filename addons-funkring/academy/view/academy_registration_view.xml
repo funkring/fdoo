@@ -114,7 +114,8 @@
           <group expand="0" string="Group By...">
             <filter string="Location" context="{'group_by': 'location_id'}"/>
             <filter string="Trainer" context="{'group_by': 'trainer_id'}"/>
-            <filter string="Product" context="{'group_by': 'course_prod_id'}"/>
+            <!-- before this filter could be enabled, an error must be corrected -->
+            <!--filter string="Product" context="{'group_by': 'course_prod_id'}" -->
             <filter string="State" context="{'group_by': 'state'}"/>
             <filter string="Agent" context="{'group_by': 'user_id'}"/>
           </group>

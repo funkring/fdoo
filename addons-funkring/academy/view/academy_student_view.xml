@@ -53,7 +53,7 @@
                         <field name="mobile"/>
                         <field name="user_ids" invisible="1"/>
                         <field name="email" widget="email" attrs="{'required': [('user_ids','!=', [])]}"/>
-                        <field name="birthdate"/>
+                        <field name="birthday"/>
                         <field name="nationality"/>
                     </group>
                 </group>
@@ -151,7 +151,7 @@
       <field name="arch" type="xml">
         <search string="Search Student">
           <field name="name"
-                filter_domain="['|','|',('name','ilike',self),('email','ilike',self)]"/>
+                filter_domain="['|',('name','ilike',self),('email','ilike',self)]"/>
           <separator/>
           <field name="parent_id" operator="child_of"/>
           <field name="category_id" string="Tag" filter_domain="[('category_id','ilike', self)]"/>

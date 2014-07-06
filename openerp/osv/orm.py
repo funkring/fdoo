@@ -4598,6 +4598,11 @@ class BaseModel(object):
                 m2o_order_list.append(order_part.strip().split(" ", 1)[0].strip())
             m2o_order = m2o_order_list
 
+        # funkring.net begin
+        #TODO handle inherited fields
+        # figure out if m2o_order has inherited fields
+        # funkring.net end
+        
         # Join the dest m2o table if it's not joined yet. We use [LEFT] OUTER join here
         # as we don't want to exclude results that have NULL values for the m2o
         src_table, src_field = qualified_field.replace('"', '').split('.', 1)
