@@ -120,6 +120,16 @@ class academy_course_product(osv.Model):
         for obj in self.browse(cr, uid, ids, context):
             res[obj.id]=obj.uom_id.category_id.id
         return res
+    
+    def unlink(self, cr, uid, ids, context=None):
+        """ Also delete Product """
+        product_ids = []
+        for obj in self.browse(cr, uid, ids, context):
+            if obj.product_id:
+                product_ids.append(obj.product_id.id)
+        res = super(academy_course_product,self).unlink(cr, uid, ids, context)
+        self.pool["product.product"].unlink(cr, uid, product_ids, context)
+        return res
 
     _name = "academy.course.product"
     _inherits = {"product.product":"product_id"}
