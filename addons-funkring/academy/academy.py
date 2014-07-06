@@ -319,7 +319,7 @@ class academy_registration(osv.Model):
         "user_id" : lambda self, cr, uid, context: uid,
         "semester_id" : _get_semester_id
     }
-    _order = "name desc"
+    _order = "create_date desc"
 
 
 class academy_trainer(osv.Model):
