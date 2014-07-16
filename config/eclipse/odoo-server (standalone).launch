@@ -8,7 +8,7 @@
 </listAttribute>
 <stringAttribute key="org.eclipse.ui.externaltools.ATTR_LOCATION" value="${workspace_loc:odoo/openerp-server}"/>
 <stringAttribute key="org.eclipse.ui.externaltools.ATTR_OTHER_WORKING_DIRECTORY" value="${workspace_loc}/odoo"/>
-<stringAttribute key="org.eclipse.ui.externaltools.ATTR_TOOL_ARGUMENTS" value="--addons-path=${workspace_loc}/odoo/config/enabled-addons/openerp/addons --smtp=mail.meinstein.at --smtp-port=25 --database=odoo_polyhymnia --data-dir ${workspace_loc}/odoo"/>
+<stringAttribute key="org.eclipse.ui.externaltools.ATTR_TOOL_ARGUMENTS" value="--addons-path=${workspace_loc}/odoo/config/enabled-addons/openerp/addons --smtp=mail.meinstein.at --smtp-port=25 --database=odoo_funkring_web --data-dir ${workspace_loc}/odoo"/>
 <stringAttribute key="org.python.pydev.debug.ATTR_INTERPRETER" value="__default"/>
 <stringAttribute key="org.python.pydev.debug.ATTR_PROJECT" value="odoo"/>
 <intAttribute key="org.python.pydev.debug.ATTR_RESOURCE_TYPE" value="1"/>
