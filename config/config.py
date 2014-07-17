@@ -174,9 +174,8 @@ def setup(onlyLinks=False):
     merged = []
     updateFailed = []
 
-    if not onlyLinks:
-        log.info("Cleanup all *.pyc Files")
-        cleanupPython(dirWorkspace)
+    log.info("Cleanup all *.pyc Files")
+    cleanupPython(dirWorkspace)
 
     if not os.path.exists(dirEnabledAddons):
         log.info("Create directory %s" % str(dirEnabledAddons))

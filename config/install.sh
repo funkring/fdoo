@@ -1,6 +1,8 @@
 #!/bin/sh
 
 #server
+apt-get -y install python-decorator
+apt-get -y install python-pypdf
 apt-get -y install python-eventlet
 apt-get -y install python-restkit
 apt-get -y install python-webdav

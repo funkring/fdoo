@@ -22,11 +22,11 @@ def run(args):
     else:
         config['update']['all'] = 1
 
-    try:
-        openerp.modules.registry.RegistryManager.get(
-            args.database, update_module=True)
-    except Exception,e:
-        logger.error(e)
+    #try:
+    openerp.modules.registry.RegistryManager.get(
+        args.database, update_module=True)
+    #except Exception,e:
+    #    logger.error(e)
     #funkrnig.net end
 
 def add_parser(subparsers):

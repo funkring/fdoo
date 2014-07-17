@@ -32,7 +32,7 @@
 import os, sys, traceback
 import tempfile
 from openerp import report
-from openerp.report.report_sxw import report_sxw, report_rml, browse_record_list, _fields_process
+from openerp.report.report_sxw import report_sxw, report_rml
 from openerp.report.pyPdf import PdfFileWriter, PdfFileReader
 #import zipfile
 try:
@@ -157,9 +157,7 @@ class Aeroo_report(report_sxw):
 
     def getObjects_mod(self, cr, uid, ids, rep_type, context):
         table_obj = RegistryManager.get(cr.dbname).get(self.table)
-        if rep_type=='aeroo':
-            return table_obj.browse(cr, uid, ids, list_class=browse_record_list, context=context)
-        return table_obj.browse(cr, uid, ids, list_class=browse_record_list, context=context, fields_process=_fields_process)
+        return table_obj.browse(cr, uid, ids, context=context)
 
     ##### Counter functions #####
     def _def_inc(self, name, start=0, interval=1):
