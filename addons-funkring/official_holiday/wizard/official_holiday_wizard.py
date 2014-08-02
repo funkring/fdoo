@@ -23,7 +23,7 @@
 from openerp.osv import fields,osv
 from openerp.addons.at_base import util
 
-class official_holiday_template_wizard(osv.osv):
+class official_holiday_template_wizard(osv.osv_memory):
     
     def do_create(self, cr, uid, ids, context=None):
         holiday_obj = self.pool.get("official.holiday")

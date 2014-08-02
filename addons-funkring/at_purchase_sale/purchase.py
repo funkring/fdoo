@@ -44,79 +44,7 @@ class purchase_order_line(osv.osv):
                 elif company and company.partner_id:
                     res[line.id]=company.partner_id.id
         return res
-        
             
-    def print_picking(self,cr,uid,ids,context=None):
-        print_context = context and context.copy() or {}
-        return {            
-            "type": "ir.actions.report.xml",
-            "report_name": "stock.picking.list_small",
-            "datas": {"ids": ids, "model":"purchase.order.line"},
-            "context" : print_context
-        }    
-    
-    def confirm_direct_delivery(self, cr, uid, ids, context=None):
-        """ Confirm Delivery if it is a direct delivery. """
-        """ If it isn't a direct delivery nothing happens """
-        
-        picking_wizard_obj = self.pool.get("stock.partial.picking")
-        picking_obj = self.pool.get("stock.picking")
-        picking_dst_ids = []           
-        picking_moves = {}
-        
-        # group all purchase move lines by picking
-        selected_purchase_line = None
-        for line in self.browse(cr, uid, ids, context):
-            selected_purchase_line = line
-            if line.supplier_ships:
-                # search move lines in
-                for move in line.move_ids:
-                    picking = move.picking_id
-                    if picking:
-                        move_ids = picking_moves.get(picking.id)
-                        if not move_ids:
-                            move_ids = []
-                            picking_moves[picking.id]=move_ids
-                        move_ids.append(move.id)
-                # search picking out
-                picking_dest = line.dest_picking_id
-                if picking_dest:
-                    picking_dst_ids.append(picking_dest.id)
-                    
-        #confirm picking in and out
-        if picking_moves:        
-            #confirm all picking in
-            for picking_id, move_ids in picking_moves.items():
-                picking_context = context and context.copy() or {}
-                picking_context["move_line_ids"]=move_ids
-                picking_context["active_model"]="stock.picking"
-                picking_context["active_ids"]=[picking_id]
-                picking_context["active_id"]=picking_id
-                #
-                wizard_id = picking_wizard_obj.create(cr,uid,{},context=picking_context)
-                #use admin rights
-                picking_wizard_obj.do_partial(cr, 1, [wizard_id],context=picking_context)
-                picking_wizard_obj.unlink(cr,uid,[wizard_id])
-            
-            #confirm all picking out
-            if picking_dst_ids:
-                picking_dst_ids = picking_obj.search(cr,uid,[("id","in",picking_dst_ids)])
-                for picking_id in picking_dst_ids:
-                    picking_context = context and context.copy() or {}
-                    picking_context["only_assigned"]=True
-                    picking_context["active_model"]="stock.picking"
-                    picking_context["active_ids"]=[picking_id]
-                    picking_context["active_id"]=picking_id
-                    #
-                    wizard_id = picking_wizard_obj.create(cr,uid,{},context=picking_context)
-                    #use admin rights
-                    picking_wizard_obj.do_partial(cr, 1, [wizard_id], context=picking_context)
-                    picking_wizard_obj.unlink(cr,uid,[wizard_id])
-                
-        if selected_purchase_line:
-            return self.print_picking(cr, uid, [selected_purchase_line.id], context)                     
-        return True   
-    
     def _client_order_ref(self, cr, uid, ids, field_name, arg, context=None):
         res = dict.fromkeys(ids)
         cr.execute("SELECT pl.id, s.client_order_ref "

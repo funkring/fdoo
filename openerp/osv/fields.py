@@ -272,6 +272,8 @@ class char(_column):
 class text(_column):
     _type = 'text'
 
+class json(_column):
+    _type = 'json'
 
 class html(text):
     _type = 'html'
