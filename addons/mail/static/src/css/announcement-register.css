@@ -1,0 +1,60 @@
+
+.openerp .announcement_bar {
+    color: #ffffff;
+    height: 30px;
+    vertical-align: middle !important;
+    text-align: center !important;
+    width: 100%;
+
+    border: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+
+    background-color: #8785C0;
+    background-image: -webkit-linear-gradient(135deg, rgba(255, 255, 255, 0.05) 25%, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.05) 75%, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 0) 100% );
+    background-size: 40px 40px;
+    -webkit-transition: all 350ms ease;
+    text-shadow: 0px 0px 2px rgba(0,0,0,0.2);
+    box-shadow: 0px 2px 10px rgba(0,0,0,0.38) inset;
+}
+
+.openerp .announcement_bar a {
+    font-weight: bold;
+    color: #d3ffb0 !important;
+    border-radius: 3px;
+    padding: 5px 8px;
+    cursor: pointer;
+    -webkit-transition: all 350ms ease;
+}
+
+.openerp .announcement_bar .close {
+  position: absolute;
+  right: 10px;
+  top: 3px;
+  font-size: 21px;
+  line-height: 1;
+  color: #fff;
+  text-shadow: 0 1px 0 #ffffff;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+}
+.openerp .announcement_bar .close:hover,
+.openerp .announcement_bar .close:focus {
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+.openerp .announcement_bar .close:before {
+    content: "×";
+    /* content: "☃"; */
+}
+
+
+
+.openerp .announcement_bar .message:before {
+    content: "Your OpenERP is not supported.";
+}
+.openerp .announcement_bar a:before {
+    content: "➡ " "Upgrade or register your contract here.";
+}

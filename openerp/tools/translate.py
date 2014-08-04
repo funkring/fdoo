@@ -466,7 +466,12 @@ def trans_export(lang, modules, buffer, format, cr):
                     # translation template, so no translation value
                     row['translation'] = ''
                 elif not row.get('translation'):
-                    row['translation'] = src
+                    # funkring.net begin // export empty translation if not baselang
+                    if lang != config.config.baseLang:
+                        row['translation'] = ''                    
+                    else:
+                    # funkring.net end
+                        row['translation'] = src
                 writer.write(row['modules'], row['tnrs'], src, row['translation'], row['comments'])
 
         elif format == 'tgz':
@@ -495,7 +500,9 @@ def trans_export(lang, modules, buffer, format, cr):
     if not trans_lang and format == 'csv':
         # CSV files are meant for translators and they need a starting point,
         # so we at least put the original term in the translation column
-        trans_lang = 'en_US'
+        #funkring.net begin // global base lang 
+        trans_lang = config.config.baseLang
+        #funkring.net end
     translations = trans_generate(lang, modules, cr)
     modules = set([t[0] for t in translations[1:]])
     _process(format, modules, translations, buffer, lang)
@@ -676,12 +683,18 @@ def trans_generate(lang, modules, cr):
         if not exists:
             _logger.warning("Unable to find object %r with id %d", model, res_id)
             continue
-        obj = registry[model].browse(cr, uid, res_id)
+
+        #funkring.net begin // passed context with base lang
+        obj = registry[model].browse(cr, uid, res_id, context= { "lang" : config.config.baseLang })
+        #funkring.net end
 
         if model=='ir.ui.view':
             d = etree.XML(encode(obj.arch))
-            for t in trans_parse_view(d):
-                push_translation(module, 'view', encode(obj.model), 0, t)
+            for t in trans_parse_view(d):         
+                if obj.type == "qweb":  
+                    push_translation(module, 'view', 'website', obj.id, t)
+                else:
+                    push_translation(module, 'view', encode(obj.model), 0, t)
         elif model=='ir.actions.wizard':
             pass # TODO Can model really be 'ir.actions.wizard' ?
 
@@ -858,9 +871,11 @@ def trans_generate(lang, modules, cr):
     out = []
     _to_translate.sort()
     # translate strings marked as to be translated
-    for module, source, name, id, type, comments in _to_translate:
-        trans = '' if not lang else trans_obj._get_source(cr, uid, name, type, lang, source)
+    # funkring.net begin // modified the get of translations
+    for module, source, name, id, type, comments in _to_translate:        
+        trans = trans_obj._get_translation(cr, uid, name, type, lang, source)
         out.append([module, type, name, id, source, encode(trans) or '', comments])
+    # funkring.net end
     return out
 
 def trans_load(cr, filename, lang, verbose=True, module_name=None, context=None):
@@ -931,6 +946,12 @@ def trans_load_data(cr, fileobj, fileformat, lang, lang_name=None, verbose=True,
             # This would skip terms that fail to specify a res_id
             if not dic.get('res_id'):
                 continue
+
+            # funkring.net begin // skip if value is empty
+            # This would skip if value is empty
+            if not dic.get('value'):
+                continue
+            # funkring.net end
 
             res_id = dic.pop('res_id')
             if res_id and isinstance(res_id, (int, long)) \

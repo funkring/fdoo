@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data noupdate="1">
+		<record id="at_holidays" model="official.holiday.template">
+			<field name="name">Österreichische Feiertage</field>
+		</record>
+		
+		<record id="at_new_year" model="official.holiday">
+			<field name="template_id" ref="at_holidays"/>
+			<field name="name">New Year</field>
+			<field name="date">2013-01-01</field>
+			<field name="calc_type">none</field>
+		</record>
+		
+		<record id="at_magi" model="official.holiday">
+			<field name="template_id" ref="at_holidays"/>
+			<field name="name">Magi</field>
+			<field name="date">2013-01-06</field>
+			<field name="calc_type">none</field>
+		</record>
+		
+		<record id="at_easter_sunday" model="official.holiday">
+			<field name="template_id" ref="at_holidays"/>
+			<field name="name">Easter Sunday</field>
+			<field name="date">2013-03-31</field>
+			<field name="calc_type">easter</field>
+		</record>
+		
+		<record id="at_easter_monday" model="official.holiday">
+			<field name="template_id" ref="at_holidays"/>
+			<field name="name">Easter Monday</field>
+			<field name="date">2013-04-01</field>
+			<field name="calc_type">easter</field>
+		</record>
+		
+		<record id="at_national_holiday_may" model="official.holiday">
+			<field name="template_id" ref="at_holidays"/>
+			<field name="name">National Holiday (May)</field>
+			<field name="date">2013-05-01</field>
+			<field name="calc_type">none</field>
+		</record>
+		
+		<record id="at_ascension_of_christ" model="official.holiday">
+			<field name="template_id" ref="at_holidays"/>
+			<field name="name">Ascension of Christ</field>
+			<field name="date">2013-05-09</field>
+			<field name="calc_type">easter</field>
+		</record>
+		
+		<record id="at_whit_monday" model="official.holiday">
+			<field name="template_id" ref="at_holidays"/>
+			<field name="name">Whit Monday</field>
+			<field name="date">2013-05-20</field>
+			<field name="calc_type">easter</field>
+		</record>
+		
+		<record id="at_corpus_christi" model="official.holiday">
+			<field name="template_id" ref="at_holidays"/>
+			<field name="name">Corpus Christi</field>
+			<field name="date">2013-05-30</field>
+			<field name="calc_type">easter</field>
+		</record>
+		
+		<record id="at_assumption" model="official.holiday">
+			<field name="template_id" ref="at_holidays"/>
+			<field name="name">Assumption</field>
+			<field name="date">2013-08-15</field>
+			<field name="calc_type">none</field>
+		</record>
+		
+		<record id="at_national_holiday_oct" model="official.holiday">
+			<field name="template_id" ref="at_holidays"/>
+			<field name="name">National Holiday Oct</field>
+			<field name="date">2013-10-26</field>
+			<field name="calc_type">none</field>
+		</record>
+		
+		<record id="at_all_saints" model="official.holiday">
+			<field name="template_id" ref="at_holidays"/>
+			<field name="name">All Saints</field>
+			<field name="date">2013-11-01</field>
+			<field name="calc_type">none</field>
+		</record>
+		
+		<record id="at_immaculate_conception" model="official.holiday">
+			<field name="template_id" ref="at_holidays"/>
+			<field name="name">Immaculate Conception</field>
+			<field name="date">2013-12-08</field>
+			<field name="calc_type">none</field>
+		</record>
+		
+		<record id="at_christmasday" model="official.holiday">
+			<field name="template_id" ref="at_holidays"/>
+			<field name="name">Christmas Day</field>
+			<field name="date">2013-12-25</field>
+			<field name="calc_type">none</field>
+		</record>
+		
+		<record id="at_boxingday" model="official.holiday">
+			<field name="template_id" ref="at_holidays"/>
+			<field name="name">Boxing Day</field>
+			<field name="date">2013-12-26</field>
+			<field name="calc_type">none</field>
+		</record>
+	</data>
+</openerp>

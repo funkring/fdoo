@@ -1,0 +1,33 @@
+<openerp>
+	<data>
+		<record id="wizard_account_dunning" model="ir.ui.view">
+			<field name="name">account.wizard_account_dunning</field>
+			<field name="model">account.dunning_wizard</field>
+			<field name="arch" type="xml">
+				<form string="Dunning wizard" version="7.0">
+					<group>
+						<field name="date" />
+						<field name="profile_id" />
+					</group>
+					<footer>
+						<button name="create_reminders" string="Remind" type="object" icon="gtk-go-forward" class="oe_highlight"/>
+						or
+						<button special="cancel" string="Close"  class="oe_link"/>
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<record id="action_account_dunning" model="ir.actions.act_window">
+			<field name="name">Dunning wizard</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">account.dunning_wizard</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="wizard_account_dunning" />
+			<field name="multi">True</field>
+			<field name="target">new</field>
+		</record>
+
+	</data>
+</openerp>

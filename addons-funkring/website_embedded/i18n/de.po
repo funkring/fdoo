@@ -1,0 +1,38 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* website_embedded
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 8.0alpha1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-03 21:38+0000\n"
+"PO-Revision-Date: 2014-07-03 21:38+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_embedded
+#: view:website:683
+msgid "'));\n"
+"                        ga('send','pageview');"
+msgstr ""
+
+#. module: website_embedded
+#: view:website:683
+msgid "(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=\n"
+"                        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;\n"
+"                        e=o.createElement(i);r=o.getElementsByTagName(i)[0];\n"
+"                        e.src='//www.google-analytics.com/analytics.js';\n"
+"                        r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));\n"
+"                        ga('create',_.str.trim('"
+msgstr ""
+
+#. module: website_embedded
+#: view:website:683
+msgid "<!DOCTYPE html>"
+msgstr ""
+

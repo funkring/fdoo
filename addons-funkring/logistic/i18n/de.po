@@ -1,0 +1,48 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* logistic
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 8.0alpha1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-01-28 14:44+0000\n"
+"PO-Revision-Date: 2014-01-28 15:44+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: logistic
+#: model:ir.module.category,name:logistic.module_category_logistic
+#: model:ir.ui.menu,name:logistic.menu_logistic_base
+msgid "Logistic"
+msgstr "Logistik"
+
+#. module: logistic
+#: model:res.groups,name:logistic.group_logistic_manager
+msgid "Logistic Manager"
+msgstr "Logistik Manager"
+
+#. module: logistic
+#: model:res.groups,name:logistic.group_logistic_user
+msgid "Logistic User"
+msgstr "Logistik Benutzer"
+
+#. module: logistic
+#: model:ir.ui.menu,name:logistic.menu_logistic_data
+msgid "Data"
+msgstr "Daten"
+
+#. module: logistic
+#: model:ir.ui.menu,name:logistic.menu_material_output
+msgid "Material output"
+msgstr "Material Ausgang"
+
+#. module: logistic
+#: model:ir.ui.menu,name:logistic.menu_transport_base
+msgid "Transport"
+msgstr "Transport"
+

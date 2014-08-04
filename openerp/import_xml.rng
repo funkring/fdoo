@@ -108,6 +108,14 @@
             <rng:optional><rng:attribute name="sxw"/></rng:optional>
             <rng:optional><rng:attribute name="xml"/></rng:optional>
             <rng:optional><rng:attribute name="xsl"/></rng:optional>
+            <!-- funkring.net begin -->
+            <rng:optional><rng:attribute name="in_format"/></rng:optional>
+            <rng:optional><rng:attribute name="out_format"/></rng:optional>
+            <rng:optional><rng:attribute name="parser_state"/></rng:optional>
+            <rng:optional><rng:attribute name="stylesheet"/></rng:optional>            
+            <rng:optional><rng:attribute name="override_id"/></rng:optional>
+            <rng:optional><rng:attribute name="process_sep"/></rng:optional>
+            <!-- funkring.net end -->
             <rng:optional><rng:attribute name="parser"/></rng:optional>
             <rng:optional> <rng:attribute name="auto" /> </rng:optional>
             <rng:optional> <rng:attribute name="header" /> </rng:optional>

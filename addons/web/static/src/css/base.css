@@ -1,4 +1,4 @@
-@charset "UTF-8";
+@charset "utf-8";
 @font-face {
   font-family: "mnmliconsRegular";
   src: url("/web/static/src/font/mnmliconsv21-webfont.eot") format("eot");
@@ -1844,7 +1844,7 @@
 }
 .openerp .oe_form_sheet_width {
   min-width: 650px;
-  max-width: 860px;
+  max-width: 1600px;
   margin: 0 auto;
 }
 .openerp .oe_form_sheet {
@@ -1912,7 +1912,7 @@
 .openerp .oe_form div.oe_chatter {
   box-sizing: border-box;
   min-width: 682px;
-  max-width: 892px;
+  max-width: 1632px;
   margin: 0 auto;
   padding: 16px 16px 48px;
 }
@@ -2992,6 +2992,9 @@
 }
 
 @-moz-document url-prefix() {
+  .openerp .oe_view_manager .oe_view_manager_switch li {
+    line-height: 21px;
+  }
   .openerp .oe_searchview .oe_searchview_search {
     top: -1px;
   }

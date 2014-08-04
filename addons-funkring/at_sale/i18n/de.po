@@ -1,0 +1,262 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* at_sale
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 8.0alpha1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-04-29 12:11+0000\n"
+"PO-Revision-Date: 2014-04-29 14:12+0100\n"
+"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: at_sale
+#: model:ir.actions.act_window,help:at_sale.action_sale_shop
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                Click to create a new Shop\n"
+"              </p><p>\n"
+"                A shop defines defines Sale specific Configuration\n"
+"                for Quotation, Invoice and Delivery.                \n"
+"              </p>\n"
+"              <p>\n"
+"              	Also the available product categories are defined within \n"
+"              	the shop\n"
+"              </p>\n"
+"            "
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                Klicken um einen neuen Shop zu erstellen\n"
+"              </p><p>\n"
+"                Ein Shop definiert Verkaufs spezifische Konfigurationen\n"
+"                für Angebot, Rechnung und Lieferung \n"
+"              </p>\n"
+"              <p>\n"
+"                Zusätzlich können noch die verfügbaren Produkte für einen                 Shop festgelegt werden\n"
+"              </p>\n"
+
+#. module: at_sale
+#: field:sale.shop,project_id:0
+msgid "Analytic Account"
+msgstr "Kostenstelle"
+
+#. module: at_sale
+#: view:sale.shop:0
+msgid "Analytic Accounting"
+msgstr "Kostenstellen Konten"
+
+#. module: at_sale
+#: model:ir.model,name:at_sale.model_crm_case_categ
+msgid "Category of Case"
+msgstr "Vorgangskategorie"
+
+#. module: at_sale
+#: field:crm.case.categ,code:0
+#: field:sale.shop,code:0
+msgid "Code"
+msgstr "Kurzbez."
+
+#. module: at_sale
+#: field:sale.shop,company_id:0
+msgid "Company"
+msgstr "Unternehmen"
+
+#. module: at_sale
+#: view:sale.shop:0
+msgid "Conditions"
+msgstr "Konditionen"
+
+#. module: at_sale
+#: code:addons/at_sale/sale.py:104
+#: code:addons/at_sale/sale.py:106
+#, python-format
+msgid "Copy"
+msgstr "Kopieren"
+
+#. module: at_sale
+#: field:sale.shop,refund_text:0
+msgid "Customer Refund Text"
+msgstr "Kundengutschriftstext"
+
+#. module: at_sale
+#: field:res.partner,detailed_invoice:0
+msgid "Detailed Invoice"
+msgstr "Detaillierte Rechnung"
+
+#. module: at_sale
+#: view:sale.shop:0
+msgid "General"
+msgstr "Allgemein"
+
+#. module: at_sale
+#: field:sale.order.line.make.invoice,group:0
+msgid "Group by Partner"
+msgstr "Gruppieren nach Partner"
+
+#. module: at_sale
+#: model:ir.model,name:at_sale.model_account_invoice
+msgid "Invoice"
+msgstr "Rechnung"
+
+#. module: at_sale
+#: model:ir.model,name:at_sale.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Rechungsposition"
+
+#. module: at_sale
+#: field:res.partner,invoice_partner_id:0
+msgid "Invoice Partner"
+msgstr "Rechnung an Partner"
+
+#. module: at_sale
+#: code:addons/at_sale/sale_line_invoice.py:144
+#, python-format
+msgid ""
+"Invoice cannot be created for this Sales Order Line due to one of the following reasons:\n"
+"1.The state of this sales order line is either \"draft\" or \"cancel\"!\n"
+"2.The Sales Order Line is Invoiced!"
+msgstr ""
+"Rechnung für die Auftragsposition kann aus folgenden Gründen nicht erstellt werden:\n"
+"1. Die Rechnungszeile wurde noch nicht bestätigt oder ist abgebrochen2. Die Rechnungszeile wurde bereits verrechnet"
+
+#. module: at_sale
+#: view:sale.shop:0
+msgid "Invoice/Refund Text"
+msgstr "Rechnungs / Gutschrifts Text"
+
+#. module: at_sale
+#: field:sale.order,last_invoice_id:0
+msgid "Last Invoice"
+msgstr "Rechnung öffnen"
+
+#. module: at_sale
+#: field:sale.shop,name:0
+msgid "Name"
+msgstr ""
+
+#. module: at_sale
+#: field:sale.shop,note:0
+msgid "Note"
+msgstr "Notiz"
+
+#. module: at_sale
+#: field:account.invoice.line,order_info:0
+msgid "Order Info"
+msgstr "Auftragsinfo"
+
+#. module: at_sale
+#: field:account.invoice,sale_order_ids:0
+msgid "Orders"
+msgstr "Aufträge"
+
+#. module: at_sale
+#: model:ir.model,name:at_sale.model_res_partner
+msgid "Partner"
+msgstr ""
+
+#. module: at_sale
+#: field:sale.shop,payment_default_id:0
+msgid "Payment Term"
+msgstr "Zahlungskondition"
+
+#. module: at_sale
+#: model:ir.model,name:at_sale.model_stock_picking
+msgid "Picking List"
+msgstr "Lieferschein"
+
+#. module: at_sale
+#: field:sale.shop,pricelist_id:0
+msgid "Pricelist"
+msgstr "Preisliste"
+
+#. module: at_sale
+#: model:ir.model,name:at_sale.model_product_product
+msgid "Product"
+msgstr "Produkt"
+
+#. module: at_sale
+#: view:sale.shop:0
+#: field:sale.shop,product_category_ids:0
+msgid "Product Categories"
+msgstr "Produkt Kategorien"
+
+#. module: at_sale
+#: field:sale.shop,invoice_in_text:0
+msgid "Purchase Invoice Text"
+msgstr "Eingangsrechnungstext"
+
+#. module: at_sale
+#: field:sale.shop,invoice_text:0
+msgid "Sale Invoice Text"
+msgstr "Ausgangsrechnungstext"
+
+#. module: at_sale
+#: field:account.invoice.line,sale_order_line_ids:0
+msgid "Sale Order Lines"
+msgstr "Verkaufszeilen"
+
+#. module: at_sale
+#: model:ir.model,name:at_sale.model_sale_order_line_make_invoice
+msgid "Sale OrderLine Make_invoice"
+msgstr "Verkaufsauftragszeile Erzeuge Rechnung"
+
+#. module: at_sale
+#: view:res.partner:0
+msgid "Sales & Purchases"
+msgstr "Verkauf & Einkauf"
+
+#. module: at_sale
+#: model:ir.model,name:at_sale.model_sale_order
+msgid "Sales Order"
+msgstr "Verkaufsauftrag"
+
+#. module: at_sale
+#: model:ir.model,name:at_sale.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Auftragsposition"
+
+#. module: at_sale
+#: model:ir.actions.act_window,name:at_sale.action_sale_shop
+#: model:ir.ui.menu,name:at_sale.menu_sale_shop
+#: field:sale.order,shop_id:0
+#: view:sale.shop:0
+#: field:stock.picking,shop_id:0
+msgid "Shop"
+msgstr "Vertriebsshop"
+
+#. module: at_sale
+#: view:sale.shop:0
+msgid "Shops"
+msgstr ""
+
+#. module: at_sale
+#: field:sale.order.line,price_subtotal_taxed:0
+msgid "Subtotal (Brutto)"
+msgstr "Zwischensumme (Brutto)"
+
+#. module: at_sale
+#: field:sale.shop,refund_in_text:0
+msgid "Supplier Refund Text"
+msgstr "Lieferantengutschriftstext"
+
+#. module: at_sale
+#: field:sale.shop,warehouse_id:0
+msgid "Warehouse"
+msgstr "Zentrallager"
+
+#. module: at_sale
+#: code:addons/at_sale/sale_line_invoice.py:144
+#, python-format
+msgid "Warning"
+msgstr "Warnung"
+
+#. module: at_sale
+#: model:ir.model,name:at_sale.model_sale_shop
+msgid "sale.shop"
+msgstr "Shop"
+

@@ -151,7 +151,7 @@ class AcquirerPaypal(osv.Model):
 
             # add other headers (https://developer.paypal.com/webapps/developer/docs/integration/direct/make-your-first-call/)
             request.add_header('Accept', 'application/json')
-            request.add_header('Accept-Language', 'en_US')
+            request.add_header('Accept-Language', tools.config.defaultLang)
 
             # add authorization header
             base64string = base64.encodestring('%s:%s' % (

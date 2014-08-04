@@ -17,7 +17,15 @@
             <field name="name">English</field>
             <field name="translatable">True</field>
         </record>
-
+        
+        <!-- funkring.net begin -->
+         <record id="lang_de" model="res.lang">
+            <field name="code">de_DE</field>
+            <field name="name">German</field>
+            <field name="translatable">True</field>
+        </record>
+        <!-- funkring.net end -->
+        
         <function name="install_lang" model="res.lang"/>
 
         <record id="main_partner" model="res.partner" context="{'default_is_company': True}">

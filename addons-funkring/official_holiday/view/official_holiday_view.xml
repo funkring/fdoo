@@ -1,0 +1,69 @@
+<openerp>
+	<data>
+
+		<record id="search_official_holiday_template" model="ir.ui.view">
+			<field name="name">Official Holidays</field>
+			<field name="model">official.holiday.template</field>
+			<field name="arch" type="xml">
+				<search string="Official Holidays">
+					<field name="name" filter_domain="[('name', 'ilike', self)]" string="Name" />
+				</search>
+			</field>
+		</record>
+
+		<record id="form_official_holiday_template" model="ir.ui.view">
+			<field name="name">Official Holidays</field>
+			<field name="model">official.holiday.template</field>
+			<field name="arch" type="xml">
+				<form string="Official Holidays" version="7.0">
+					<sheet>
+						<group>
+							<field name="name" />
+						</group>
+						<label for="official_holiday_ids" string="Holidays"/>
+						<field name="official_holiday_ids" >
+							<tree string="Holidays">
+								<field name="date" />
+								<field name="name" />
+							</tree>
+							<form>
+								<group>
+									<group>
+										<field name="name" />
+										<field name="date"  />
+									</group>
+									<group>
+										<field name="calc_type" />
+									</group>
+								</group>
+								<label for="leave_ids" />
+								<field name="leave_ids" />
+							</form>
+						</field>
+					</sheet>
+
+				</form>
+			</field>
+		</record>
+
+		<record id="tree_official_holiday_template" model="ir.ui.view">
+			<field name="name">Official Holidays</field>
+			<field name="model">official.holiday.template</field>
+			<field name="arch" type="xml">
+				<tree string="Official Holidays">
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+
+		<record id="action_official_holiday_template" model="ir.actions.act_window">
+			<field name="name">Official Holidays</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">official.holiday.template</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+	</data>
+</openerp>

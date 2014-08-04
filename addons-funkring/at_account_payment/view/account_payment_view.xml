@@ -1,0 +1,16 @@
+<openerp>
+	<data>
+		<record id="tree_account_payment" model="ir.ui.view">
+			<field name="name">Payment Order</field>
+			<field name="model">payment.order</field>
+			<field name="inherit_id" ref="account_payment.view_payment_order_tree" />
+			<field name="arch" type="xml">
+				<data>
+					<field name="company_id" position="after">
+						<field name="date_scheduled" string="Deadline"/>
+					</field>
+				</data>
+			</field>
+		</record>
+	</data>
+</openerp>

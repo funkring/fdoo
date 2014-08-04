@@ -1,0 +1,64 @@
+<openerp>
+	<data>		
+		<record id="form_account_dunning_profile" model="ir.ui.view">
+            <field name="name">account_dunning.form_account_dunning_profile</field>
+            <field name="model">account.dunning_profile</field>
+            <field name="arch" type="xml">
+                <form string="Dunning Profile" version="7.0">
+                	<sheet>
+                		<group>
+                			<field name="company_id" widget="selection" />
+                		</group>
+                		<label for="line_ids" string="Dunning level"/>
+                		<field name="line_ids">
+                			<tree>
+                				<field name="name" />
+                				<field name="delay" />
+                			</tree>
+                			<form version="7.0">
+                				<group>
+                					<group>
+		                				<field name="name" />
+		                				<field name="sequence" />
+	                					<field name="delay" />
+	                				</group>
+	                				<group>
+                						<label for="dunning_fee_percent" string="Dunning fee"/>
+	                					<div>
+		                					<field name="dunning_fee_percent" class="oe_line"/>
+		                					<label for="dunning_fee_percent" string="In percent?"/>
+		                					<field name="dunning_fee" />
+		                				</div>
+		                				
+		                			</group>
+                				</group>
+                				<label for="description" />
+                				<field name="description" />
+                				<newline></newline>
+                				<label for="description2"/>
+                				<field name="description2" />
+                			</form>
+                		</field>
+                	</sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="tree_account_dunning_profile" model="ir.ui.view">
+            <field name="name">account_dunning.tree_account_dunning_profile</field>
+            <field name="model">account.dunning_profile</field>
+            <field name="arch" type="xml">
+                <tree string="Dunning Profile">
+                	<field name="company_id" />
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_account_dunning_profile" model="ir.actions.act_window">
+            <field name="name">Dunning Profile</field>
+            <field name="res_model">account.dunning_profile</field>            
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+	</data>
+</openerp>

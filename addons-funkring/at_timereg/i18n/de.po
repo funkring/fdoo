@@ -1,0 +1,175 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* at_timereg
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 8.0alpha1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-03-03 09:37+0000\n"
+"PO-Revision-Date: 2014-03-03 10:38+0100\n"
+"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: at_timereg
+#: field:hr.holidays,leave_id:0
+msgid "Leave Resource"
+msgstr "Abwesenheit Mitarbeiter"
+
+#. module: at_timereg
+#: model:ir.model,name:at_timereg.model_hr_employee
+msgid "Employee"
+msgstr "Mitarbeiter"
+
+#. module: at_timereg
+#: selection:calendar.event.type,leave_type:0
+msgid "Holiday"
+msgstr "Urlaub"
+
+#. module: at_timereg
+#: field:hr.contract,break_auto:0
+msgid "Auto Handle Breaks"
+msgstr "Pausen autom. Stempeln"
+
+#. module: at_timereg
+#: field:hr_timesheet_sheet.sheet,max_leaves:0
+msgid "Total Holidays"
+msgstr "Urlaub Gesamt"
+
+#. module: at_timereg
+#: selection:calendar.event.type,leave_type:0
+msgid "Sickness"
+msgstr "Krankenstand"
+
+#. module: at_timereg
+#: model:ir.model,name:at_timereg.model_hr_timesheet_sheet_sheet
+msgid "Timesheet"
+msgstr "Zeiterfassung"
+
+#. module: at_timereg
+#: field:hr_timesheet_sheet.sheet,sick_leaves:0
+msgid "Sick Leaves Taken"
+msgstr "Krankenstände"
+
+#. module: at_timereg
+#: view:hr.contract:0
+msgid "Break"
+msgstr "Pause"
+
+#. module: at_timereg
+#: model:ir.model,name:at_timereg.model_hr_timesheet_sheet_sheet_day
+msgid "Timesheets by Period"
+msgstr "Zeiterfassung nach Perioden"
+
+#. module: at_timereg
+#: field:hr_timesheet_sheet.sheet,saldo:0
+#: field:hr_timesheet_sheet.sheet.day,total_saldo:0
+msgid "Saldo"
+msgstr "Saldo"
+
+#. module: at_timereg
+#: view:hr_timesheet_sheet.sheet:0
+msgid "Attandance Balance"
+msgstr "Stundensaldo"
+
+#. module: at_timereg
+#: model:ir.model,name:at_timereg.model_calendar_event_type
+msgid "Meeting Type"
+msgstr "Veranstaltungstyp"
+
+#. module: at_timereg
+#: model:ir.actions.report.xml,name:at_timereg.report_employe_work_pdf
+msgid "Employee Work Report"
+msgstr "Mitarbeiter Bericht"
+
+#. module: at_timereg
+#: model:ir.actions.report.xml,name:at_timereg.report_timesheet_work_pdf
+msgid "Timesheet Work Report"
+msgstr "Anwesenheitsbericht"
+
+#. module: at_timereg
+#: field:hr.employee,working_hours:0
+msgid "Working Hours"
+msgstr "Arbeitszeit"
+
+#. module: at_timereg
+#: field:hr.contract,break_interval:0
+msgid "Break Interval"
+msgstr "Pausen Interval"
+
+#. module: at_timereg
+#: field:hr_timesheet_sheet.sheet,total_target:0
+#: field:hr_timesheet_sheet.sheet.day,total_target:0
+msgid "Target"
+msgstr "Soll Anwesenheit"
+
+#. module: at_timereg
+#: field:hr_timesheet_sheet.sheet,leaves_taken:0
+msgid "Holiday Taken"
+msgstr "Urlaub beansprucht"
+
+#. module: at_timereg
+#: model:ir.model,name:at_timereg.model_hr_contract
+msgid "Contract"
+msgstr "Arbeitsvertrag"
+
+#. module: at_timereg
+#: model:ir.model,name:at_timereg.model_hr_holidays
+msgid "Leave"
+msgstr "Urlaub"
+
+#. module: at_timereg
+#: field:hr.contract,break_duration:0
+msgid "Break Duration"
+msgstr "Pausen Dauer"
+
+#. module: at_timereg
+#: field:hr_timesheet_sheet.sheet,last_saldo:0
+msgid "Last Saldo"
+msgstr "Letztes Saldo"
+
+#. module: at_timereg
+#: field:hr_timesheet_sheet.sheet,total_current_target:0
+msgid "Current Target"
+msgstr "Anwesenheit bis Heute"
+
+#. module: at_timereg
+#: field:hr_timesheet_sheet.sheet,saldo_correction:0
+msgid "Correction"
+msgstr "Saldo Korrektur"
+
+#. module: at_timereg
+#: help:hr.employee,working_hours:0
+msgid "Working Hours of the employee"
+msgstr "Arbeitsstunden des Mitarbeiters"
+
+#. module: at_timereg
+#: field:calendar.event.type,leave_type:0
+#: model:ir.model,name:at_timereg.model_hr_holidays_status
+msgid "Leave Type"
+msgstr "Abwesenheitstyp"
+
+#. module: at_timereg
+#: selection:calendar.event.type,leave_type:0
+msgid "Compensatory Days"
+msgstr "Zeitausgleich"
+
+#. module: at_timereg
+#: field:hr_timesheet_sheet.sheet,current_saldo:0
+msgid "Current Saldo"
+msgstr "Stunden Saldo"
+
+#. module: at_timereg
+#: field:hr_timesheet_sheet.sheet,remaining_leaves:0
+msgid "Remaining Holidays"
+msgstr "Rest Urlaub"
+
+#. module: at_timereg
+#: view:hr_timesheet_sheet.sheet:0
+msgid "Holiday Balance"
+msgstr "Urlaubssaldo"
+

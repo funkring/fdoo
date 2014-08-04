@@ -1,0 +1,27 @@
+<openerp>
+	<data>
+		<record id="form_invoice_supplier_form" model="ir.ui.view">
+			<field name="name">at_account.form_invoice_supplier_form</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_supplier_form" />
+			<field name="priority">2</field>
+			<field name="arch" type="xml">
+				<button name="action_cancel_draft" position="after"> 
+						<button name="%(action_account_invoice_attachment_multi)d" type="action" string="Import Document" groups="account.group_account_invoice" states="open,paid" />
+				</button> 
+			</field>
+		</record>
+
+		<record id="form_invoice" model="ir.ui.view">
+			<field name="name">account.form_invoice</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_form" />
+			<field name="arch" type="xml">
+				<button name="action_cancel_draft" position="after"> 
+						<button name="%(action_account_invoice_attachment_multi)d" type="action" string="Import Document" groups="account.group_account_invoice" states="open,paid" />
+				</button> 
+			</field>
+		</record>
+
+	</data>
+</openerp>

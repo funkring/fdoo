@@ -1,0 +1,86 @@
+<openerp>
+	<data>		
+	
+		<record id="form_academy_journal" model="ir.ui.view">
+            <field name="name">academy.form_academy_journal</field>
+            <field name="model">academy.journal</field>
+            <field name="arch" type="xml">
+                <form string="Course Journal" version="7.0">
+                	<sheet>
+               			<div class="oe_title">
+               				<label for="trainer_id" string="Trainer" class="oe_edit_only"/>
+               				<h1><field name="trainer_id" /></h1>
+               				<label for="topic_id" string="Topic" class="oe_edit_only"/>
+               				<h2><field name="topic_id" on_change="onchange_topic(topic_id)"/></h2>
+                		</div>
+                		<group>
+                			<group>
+								<field name="date" />
+			                    <field name="begin" widget="float_time"/>
+			                    <field name="end" widget="float_time"/>
+	                   		</group>
+	                   		<group>
+			                    <field name="course_id" />
+		                    	<field name="duration" />
+			                    <field name="expenses"/>
+			                    <field name="place" />
+	                   		</group>	
+		                </group>
+	                    <label for="name" string="Description"/>
+	                    <field name="name" />
+	                    <notebook>
+	                    	<page string="Student">
+		                    	<field name="student_ids" domain="[('course_ids', 'in', course_id and [course_id] or None)]"/>
+		                    </page>
+		                    <page string="Absences" >
+			                    <field name="absence_ids">
+			                    	<tree string="Absences" editable="bottom">
+			                    		<field name="partner_id" />
+			                    		<field name="name"/>
+			                    		<field name="time_from" widget="float_time"/>
+			                    		<field name="time_to" widget="float_time"/>
+			                    	</tree>
+			                    	<form version="7.0">
+			                    		<group>
+			                    			<group>
+			                    				<field name="journal_id" invisible="1" />
+			                    				<field name="partner_id" /><!-- domain="[('course_ids', 'in', [parent.course_id])]" /> -->
+					                    		<field name="name" />
+					                    	</group>
+					                    	<group>
+					                    		<field name="time_from" widget="float_time"/>
+					                    		<field name="time_to" widget="float_time"/>
+					                    	</group>
+				                    	</group>
+			                    	</form>
+		                    	</field>
+		                    </page>
+	                	</notebook>	
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="tree_academy_journal" model="ir.ui.view">
+            <field name="name">academy.tree_academy_journal</field>
+            <field name="model">academy.journal</field>
+            <field name="arch" type="xml">
+                <tree string="Course Journal">
+                	<field name="date"/>
+                	<field name="trainer_id" />
+                	<field name="topic_id" />
+                	<field name="begin" widget="float_time"/>
+                	<field name="end" widget="float_time" />
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_academy_journal" model="ir.actions.act_window">
+            <field name="name">Course Journal</field>
+            <field name="res_model">academy.journal</field>            
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+	</data>
+</openerp>

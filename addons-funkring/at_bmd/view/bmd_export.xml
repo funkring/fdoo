@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<record id="view_bmd_export_form" model="ir.ui.view">
+			<field name="name">bmd.view_bmd_export_form</field>
+			<field name="model">bmd.export</field>
+			<field name="arch" type="xml">
+				<form string="BMD Export Zeilen" version="7.0">
+				  <header>
+							<button type="object" string="Senden"	name="action_export_sent" />
+							<button type="object" string="Export"	name="action_export" />
+					</header>						
+					<sheet>
+						<group>
+							<group>
+								<field name="profile_id" />
+							</group>
+							<group>
+								<field name="name" />
+								<field name="period_id" />
+							</group>						
+						</group>
+						<div>
+							<field name="line_ids">
+								<tree string="BMD Export Zeilen">
+									<field name="belegdat" />
+									<field name="belegnr" />
+									<field name="text" />
+									<field name="satzart" />
+									<field name="symbol" />
+									<field name="konto" />
+									<field name="buchdat" />
+									<field name="gkto" />
+									<field name="bucod" />
+									<field name="betrag" sum="Summe Beträge" />
+									<field name="kost" />
+									<field name="mwst" />
+									<field name="steuer" sum="Summe Steuer" />
+									<field name="bereich" />
+								</tree>
+							</field>
+						</div>
+					</sheet>
+					<div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers" />
+						<field name="message_ids" widget="mail_thread" />
+					</div>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_bmd_export_tree" model="ir.ui.view">
+			<field name="name">bmd.view_bmd_export_tree</field>
+			<field name="model">bmd.export</field>
+			<field name="arch" type="xml">
+				<tree string="Exporte">
+					<field name="name" />
+					<field name="period_id" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_bmd_exports" model="ir.actions.act_window">
+			<field name="name">BMD Export Archiv</field>
+			<field name="res_model">bmd.export</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+	</data>
+</openerp>

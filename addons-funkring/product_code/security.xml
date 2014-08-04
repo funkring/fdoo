@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="access_product_code_profile" model="ir.model.access">
+			<field name="name">product_code_profile</field>
+			<field name="model_id" ref="model_product_code_profile"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="False"/>
+			<field name="perm_write" eval="False"/>
+		</record>
+		<record id="access_product_code_profile_system" model="ir.model.access">
+			<field name="name">product_code_profile/system</field>
+			<field name="model_id" ref="model_product_code_profile"/>
+			<field name="group_id" ref="base.group_system"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+	</data>
+</openerp>

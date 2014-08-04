@@ -34,6 +34,7 @@ import werkzeug.routing
 import werkzeug.wrappers
 import werkzeug.wsgi
 
+import tools
 import openerp
 from openerp import SUPERUSER_ID
 from openerp.service import security, model as service_model
@@ -898,7 +899,7 @@ class OpenERPSession(werkzeug.contrib.sessions.Session):
         if lang in babel.core.LOCALE_ALIASES:
             lang = babel.core.LOCALE_ALIASES[lang]
 
-        context['lang'] = lang or 'en_US'
+        context['lang'] = lang or tools.config.defaultLang
 
     # Deprecated to be removed in 9
 
@@ -1227,7 +1228,7 @@ class Root(object):
 
     def setup_lang(self, httprequest):
         if not "lang" in httprequest.session.context:
-            lang = httprequest.accept_languages.best or "en_US"
+            lang = httprequest.accept_languages.best or tools.config.defaultLang
             lang = babel.core.LOCALE_ALIASES.get(lang, lang).replace('-', '_')
             httprequest.session.context["lang"] = lang
 
@@ -1347,6 +1348,12 @@ def db_monodb(httprequest=None):
 
         Returns ``None`` if the magic is not magic enough.
     """
+    #funkring.net begin
+    db_name = openerp.tools.config['db_name']
+    if db_name:
+        return db_name
+    #funkrnig.net end
+    
     httprequest = httprequest or request.httprequest
 
     dbs = db_list(True, httprequest)

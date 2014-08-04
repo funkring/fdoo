@@ -1,0 +1,6 @@
+<openerp>
+	<data>
+		<menuitem id="menu_purchase_config" name="Purchase" groups="purchase.group_purchase_manager"
+            parent="purchase.menu_purchase_config_purchase" sequence="1"/>
+	</data>
+</openerp>

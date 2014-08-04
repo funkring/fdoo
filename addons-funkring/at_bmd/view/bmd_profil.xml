@@ -1,0 +1,60 @@
+<openerp>
+	<data>
+	
+		<record id="form_bmd_export_profile" model="ir.ui.view">
+			<field name="name">BMD Export Profile</field>
+			<field name="model">bmd.export.profile</field>
+			<field name="arch" type="xml">
+				<form string="BMD Export Profile" version="7.0">
+					<group string="Profil">
+						<group>
+							<field name="name" />
+							<field name="cession_code" />
+						</group>
+						<group>
+							<field name="active" />
+							<field name="export_asset_accounts" />
+							<field name="partner_name_as_matchcode" />
+							<field name="receipt_primary" />
+						</group>
+					</group>
+					<group>
+						<group string="Journale">
+							<div>
+								<field name="journal_ids"/>
+							</div>
+						</group>
+						<group string="Anhänge">
+							<field name="send_affected_statements"/>
+							<field name="send_statements"/>
+							<field name="send_balance_list"/>
+							<field name="send_voucher_list"/>
+							<field name="send_open_invoice_list"/>
+							<field name="send_invoice_list"/>
+							<field name="send_invoices"/>
+						</group>					
+					</group>
+				</form>
+			</field>
+		</record>
+
+		<record id="tree_bmd_export_profile" model="ir.ui.view">
+			<field name="name">BMD Export Profile</field>
+			<field name="model">bmd.export.profile</field>
+			<field name="arch" type="xml">
+				<tree string="BMD Export Profile">
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_bmd_export_profile" model="ir.actions.act_window">
+			<field name="name">BMD Export Profile</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">bmd.export.profile</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		
+	</data>
+</openerp>
