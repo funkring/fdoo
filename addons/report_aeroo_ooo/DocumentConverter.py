@@ -102,16 +102,16 @@ class DocumentConverter:
         self.document.close(True)
 
     def printDocument(self,printer=None):          
-       if printer:
-           p = PropertyValue()
-           p.Name=u"Name"           
-           p.Value = tools.ustr(printer)
-           uno.invoke(self.document,"setPrinter",((p,),))
+        if printer:
+            p = PropertyValue()
+            p.Name=u"Name"           
+            p.Value = tools.ustr(printer)
+            uno.invoke(self.document,"setPrinter",((p,),))
                          
-       p = PropertyValue()
-       p.Name = u"Wait"
-       p.Value = True              
-       uno.invoke(self.document, "print", ((p,),))        
+        p = PropertyValue()
+        p.Name = u"Wait"
+        p.Value = True              
+        uno.invoke(self.document, "print", ((p,),))        
        
        
     def refresh(self, document):
