@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<record id="group_supplier" model="res.groups">
+			<field name="name">Area / Supplier</field>
+		</record>
+
+		<record id="access_ir_property_supplier" model="ir.model.access">
+			<field name="name">ir_property/supplier</field>
+			<field name="model_id" ref="base.model_ir_property" />
+			<field name="group_id" ref="group_supplier" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_write" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_unlink" eval="False" />
+		</record>
+
+		<record id="access_report_mimetypes_supplier" model="ir.model.access">
+			<field name="name">report_mimetypes/supplier</field>
+			<field name="model_id" ref="report_aeroo.model_report_mimetypes" />
+			<field name="group_id" ref="group_supplier" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+
+		<record id="access_report_stylesheet_supplier" model="ir.model.access">
+			<field name="name">report_stylesheet/supplier</field>
+			<field name="model_id" ref="report_aeroo.model_report_stylesheets" />
+			<field name="group_id" ref="group_supplier" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+
+		<record id="access_partner_supplier" model="ir.model.access">
+			<field name="name">partner/supplier</field>
+			<field name="model_id" ref="base.model_res_partner" />
+			<field name="group_id" ref="group_supplier" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+
+		<record id="access_partner_address_supplier" model="ir.model.access">
+			<field name="name">partner_address/supplier</field>
+			<field name="model_id" ref="base.model_res_partner_address" />
+			<field name="group_id" ref="group_supplier" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+
+		<record id="access_product_supplier" model="ir.model.access">
+			<field name="name">product/supplier</field>
+			<field name="model_id" ref="product.model_product_product" />
+			<field name="group_id" ref="group_supplier" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+
+		<record id="access_product_template_supplier" model="ir.model.access">
+			<field name="name">product_template/supplier</field>
+			<field name="model_id" ref="product.model_product_template" />
+			<field name="group_id" ref="group_supplier" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+
+		<record id="access_purchase_line_supplier" model="ir.model.access">
+			<field name="name">purchase_line/supplier</field>
+			<field name="model_id" ref="purchase.model_purchase_order_line" />
+			<field name="group_id" ref="group_supplier" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_write" eval="True" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_unlink" eval="False" />
+		</record>
+
+		<record id="access_purchase_order_supplier" model="ir.model.access">
+			<field name="name">purchase_order/supplier</field>
+			<field name="model_id" ref="purchase.model_purchase_order" />
+			<field name="group_id" ref="group_supplier" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_write" eval="True" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_unlink" eval="False" />
+		</record>
+
+		<record id="access_product_pricelist_supplier" model="ir.model.access">
+			<field name="name">product_pricelist/supplier</field>
+			<field name="model_id" ref="product.model_product_pricelist" />
+			<field name="group_id" ref="group_supplier" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_write" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_unlink" eval="False" />
+		</record>
+
+
+		<record id="access_product_uom_supplier" model="ir.model.access">
+			<field name="name">product_uom/supplier</field>
+			<field name="model_id" ref="product.model_product_uom" />
+			<field name="group_id" ref="group_supplier" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_write" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_unlink" eval="False" />
+		</record>
+
+		<record id="access_product_category_supplier" model="ir.model.access">
+			<field name="name">product_category/supplier</field>
+			<field name="model_id" ref="product.model_product_category" />
+			<field name="group_id" ref="group_supplier" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_write" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_unlink" eval="False" />
+		</record>
+
+
+		<record id="access_purchase_order_level_supplier" model="ir.model.access">
+			<field name="name">purchase_order_level/supplier</field>
+			<field name="model_id" ref="at_purchase.model_purchase_order_level" />
+			<field name="group_id" ref="group_supplier" />
+			<field name="perm_read" eval="True" />
+		</record>
+
+		<record id="access_sale_order_supplier" model="ir.model.access">
+			<field name="name">sale_order/supplier</field>
+			<field name="model_id" ref="sale.model_sale_order" />
+			<field name="group_id" ref="group_supplier" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+
+		<record id="access_sale_shop_supplier" model="ir.model.access">
+			<field name="name">sale_shop/supplier</field>
+			<field name="model_id" ref="sale.model_sale_shop" />
+			<field name="group_id" ref="group_supplier" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+
+		<record id="access_stock_move_supplier" model="ir.model.access">
+			<field name="name">stock_move/supplier</field>
+			<field name="model_id" ref="stock.model_stock_move" />
+			<field name="group_id" ref="group_supplier" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="True" />
+		</record>
+
+		<record id="access_stock_picking_supplier" model="ir.model.access">
+			<field name="name">stock_picking/supplier</field>
+			<field name="model_id" ref="stock.model_stock_picking" />
+			<field name="group_id" ref="group_supplier" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+
+		<record id="access_stock_location_supplier" model="ir.model.access">
+			<field name="name">stock_location/supplier</field>
+			<field name="model_id" ref="stock.model_stock_location" />
+			<field name="group_id" ref="group_supplier" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+
+		<record id="access_fiscal_year_supplier" model="ir.model.access">
+			<field name="name">fiscal_year/supplier</field>
+			<field name="model_id" ref="account.model_account_sequence_fiscalyear" />
+			<field name="group_id" ref="group_supplier" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+		
+		<record id="access_account_tax_supplier" model="ir.model.access">
+			<field name="name">account_tax/supplier</field>
+			<field name="model_id" ref="account.model_account_tax"/>
+			<field name="group_id" ref="group_supplier"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="False"/>
+			<field name="perm_write" eval="False"/>
+		</record>
+
+		<record id="access_ir_attachment_supplier" model="ir.model.access">
+			<field name="name">ir_attachment/supplier</field>
+			<field name="model_id" ref="base.model_ir_attachment"/>
+			<field name="group_id" ref="group_supplier"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="False"/>
+			<field name="perm_write" eval="False"/>
+		</record>
+				
+		<record id="access_board_board_supplier" model="ir.model.access">
+			<field name="name">board_board/supplier</field>
+			<field name="model_id" ref="board.model_board_board"/>
+			<field name="group_id" ref="group_supplier"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		<record id="access_board_board_line_supplier" model="ir.model.access">
+			<field name="name">board_board_line/supplier</field>
+			<field name="model_id" ref="board.model_board_board_line"/>
+			<field name="group_id" ref="group_supplier"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		<record id="access_board_note_type_supplier" model="ir.model.access">
+			<field name="name">board_note_type/supplier</field>
+			<field name="model_id" ref="board.model_board_note_type"/>
+			<field name="group_id" ref="group_supplier"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		<record id="access_board_note_supplier" model="ir.model.access">
+			<field name="name">board_note/supplier</field>
+			<field name="model_id" ref="board.model_board_note"/>
+			<field name="group_id" ref="group_supplier"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		<record id="access_stock_journal_supplier" model="ir.model.access">
+			<field name="name">stock_journal/supplier</field>
+			<field name="model_id" ref="stock.model_stock_journal"/>
+			<field name="group_id" ref="group_supplier"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="False"/>
+			<field name="perm_write" eval="False"/>
+		</record>
+		
+		<record id="access_procurement_order_supplier" model="ir.model.access">
+			<field name="name">procurement_order/supplier</field>
+			<field name="model_id" ref="procurement.model_procurement_order"/>
+			<field name="group_id" ref="group_supplier"/>
+			<field name="perm_read" eval="True"/>
+			<field name="perm_write" eval="True"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="False"/>			
+		</record>		
+		
+		<record id="access_stock_warehouse_supplier" model="ir.model.access">
+			<field name="name">stock_warehouse/supplier</field>
+			<field name="model_id" ref="stock.model_stock_warehouse"/>
+			<field name="group_id" ref="group_supplier"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="False"/>
+			<field name="perm_write" eval="False"/>
+		</record>
+		
+
+	</data>
+</openerp>

@@ -1,0 +1,14 @@
+<openerp>
+	<data noupdate="1">
+		<record id="schedule_edi_transfer" model="ir.cron">
+		    <field name="name">Process EDI Transfers</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'edi.transfer'" name="model"/>
+            <field eval="'_process_transfers'" name="function"/>
+            <field eval="'()'" name="args"/>		    
+		</record>
+	</data>
+</openerp>

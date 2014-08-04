@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:37+0000\n"
-"PO-Revision-Date: 2013-10-12 09:42+0000\n"
-"Last-Translator: Ayhan KIZILTAN <Unknown>\n"
+"POT-Creation-Date: 2012-12-21 17:06+0000\n"
+"PO-Revision-Date: 2013-02-04 14:06+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-21 06:09+0000\n"
-"X-Generator: Launchpad (build 16831)\n"
+"X-Launchpad-Export-Date: 2014-03-27 07:34+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: fleet
 #: selection:fleet.vehicle,fuel_type:0
@@ -118,11 +118,6 @@ msgstr "Amortisman ve İlgi Alanları"
 #: field:fleet.vehicle.log.services,vendor_id:0
 msgid "Supplier"
 msgstr "Tedarikçi"
-
-#. module: fleet
-#: view:fleet.vehicle.log.fuel:0
-msgid "Write here any other information"
-msgstr "Burada herhangi bir diğer bilgilerini yazın"
 
 #. module: fleet
 #: model:fleet.service.type,name:fleet.type_service_35
@@ -622,11 +617,6 @@ msgid "Refueling"
 msgstr "Akaryakıt"
 
 #. module: fleet
-#: model:fleet.service.type,name:fleet.type_service_45
-msgid "Tire Replacement"
-msgstr "Lastik Değiştirme"
-
-#. module: fleet
 #: help:fleet.vehicle,message_summary:0
 msgid ""
 "Holds the Chatter summary (number of messages, ...). This summary is "
@@ -644,11 +634,6 @@ msgstr "A/C Şarj"
 #: model:ir.model,name:fleet.model_fleet_vehicle_log_fuel
 msgid "Fuel log for vehicles"
 msgstr "Araçlar için yakıt günlüğü"
-
-#. module: fleet
-#: view:fleet.vehicle.log.services:0
-msgid "Write here any other information related to the service completed."
-msgstr "Buraya tamamlanan hizmetle ilgili diğer bilgileri yazın."
 
 #. module: fleet
 #: view:fleet.vehicle:0
@@ -823,9 +808,9 @@ msgid "Services for vehicles"
 msgstr "Araçlar için Servisler"
 
 #. module: fleet
-#: model:fleet.service.type,name:fleet.type_service_service_16
-msgid "Options"
-msgstr "Opsiyon"
+#: view:fleet.vehicle.log.contract:0
+msgid "Indicative Cost"
+msgstr "Maliyet Göstergesi"
 
 #. module: fleet
 #: model:fleet.service.type,name:fleet.type_service_26
@@ -1206,19 +1191,9 @@ msgid "Cost Type"
 msgstr "Maliyet Türü"
 
 #. module: fleet
-#: model:ir.actions.act_window,help:fleet.fleet_vehicle_odometer_act
-msgid ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"                Click to create a new odometer log. \n"
-"              </p>\n"
-"              <p>\n"
-"                Here you can add various odometer entries for all vehicles.\n"
-"                You can also show odometer value for a particular vehicle "
-"using\n"
-"                the search field.\n"
-"              </p>\n"
-"            "
-msgstr ""
+#: model:fleet.service.type,name:fleet.type_service_4
+msgid "A/C Evaporator Replacement"
+msgstr "A/C Evaporatör Değiştirme"
 
 #. module: fleet
 #: view:fleet.vehicle:0
@@ -1442,9 +1417,9 @@ msgid "Odometer"
 msgstr "Kilometre Sayacı"
 
 #. module: fleet
-#: model:fleet.service.type,name:fleet.type_service_4
-msgid "A/C Evaporator Replacement"
-msgstr "A/C Evaporatör Değiştirme"
+#: model:fleet.service.type,name:fleet.type_service_45
+msgid "Tire Replacement"
+msgstr "Lastik Değiştirme"
 
 #. module: fleet
 #: view:fleet.service.type:0
@@ -1547,14 +1522,16 @@ msgid "Purchased"
 msgstr "SatınAlınan"
 
 #. module: fleet
-#: view:fleet.vehicle.log.contract:0
-msgid "Write here all other information relative to this contract"
-msgstr "Buraya bu sözleşmenin ilgili bütün diğer bilgileri yazın"
-
-#. module: fleet
-#: view:fleet.vehicle.log.contract:0
-msgid "Indicative Cost"
-msgstr "Maliyet Göstergesi"
+#: model:ir.actions.act_window,help:fleet.fleet_vehicle_odometer_act
+msgid ""
+"<p>\n"
+"                Here you can add various odometer entries for all vehicles.\n"
+"                You can also show odometer value for a particular vehicle "
+"using\n"
+"                the search field.\n"
+"              </p>\n"
+"            "
+msgstr ""
 
 #. module: fleet
 #: field:fleet.vehicle.model,brand_id:0
@@ -1801,6 +1778,11 @@ msgstr "Buraya bu sözleşme ile ilgili bütün ek bilgileri yazın"
 #: model:fleet.service.type,name:fleet.type_service_29
 msgid "Ignition Coil Replacement"
 msgstr "Ateşleme Bobini Değiştirme"
+
+#. module: fleet
+#: model:fleet.service.type,name:fleet.type_service_service_16
+msgid "Options"
+msgstr "Opsiyon"
 
 #. module: fleet
 #: model:fleet.service.type,name:fleet.type_contract_repairing

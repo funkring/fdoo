@@ -2,11 +2,6 @@
 <openerp>
     <data>
 
-        <!-- add context in action to enable automatic reset password -->
-        <record id="base.action_res_users" model="ir.actions.act_window">
-            <field name="context">{'reset_password': True}</field>
-        </record>
-
         <record id="res_users_form_view" model="ir.ui.view">
             <field name="name">user.form.state</field>
             <field name="model">res.users</field>
@@ -29,15 +24,15 @@
                     </div>
                 </xpath>
                 <!-- add Reset Password button -->
-                <xpath expr="//div[@class='oe_right oe_button_box']" position="replace">
-                    <div class="oe_right oe_button_box">
-                        <button string="Send reset password link by email"
+                <xpath expr="//div[@class='oe_right oe_button_box']//button" position="replace">
+                        <button string="Send Reset Password Instructions"
+                                class="oe_link"
                                 type="object" name="action_reset_password"
                                 attrs="{'invisible': [('state', '!=', 'active')]}"/>
-                        <button string="Send an invitation email"
+                        <button string="Send an Invitation Email"
+                                class="oe_link"
                                 type="object" name="action_reset_password" context="{'create_user': 1}"
                                 attrs="{'invisible': [('state', '!=', 'new')]}"/>
-                    </div>
                 </xpath>
             </field>
         </record>

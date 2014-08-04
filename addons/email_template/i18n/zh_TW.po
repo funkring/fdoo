@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:37+0000\n"
-"PO-Revision-Date: 2012-12-21 23:00+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Chinese (Traditional) <zh_TW@li.org>\n"
+"POT-Creation-Date: 2012-12-21 17:05+0000\n"
+"PO-Revision-Date: 2012-08-30 10:19+0000\n"
+"Last-Translator: Bonnie Duan <bonnie.duan@cenoq.com>\n"
+"Language-Team: Cenoq Corp.\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-21 06:08+0000\n"
-"X-Generator: Launchpad (build 16831)\n"
+"X-Launchpad-Export-Date: 2014-03-27 07:16+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: email_template
 #: field:email.template,email_from:0
@@ -24,10 +24,9 @@ msgid "From"
 msgstr "從"
 
 #. module: email_template
-#: view:res.partner:0
-msgid ""
-"Partners that did not ask not to be included in mass mailing campaigns"
-msgstr ""
+#: field:mail.compose.message,template_id:0
+msgid "Template"
+msgstr "範本"
 
 #. module: email_template
 #: help:email.template,ref_ir_value:0
@@ -41,16 +40,9 @@ msgid "Opt-Out"
 msgstr "不參加"
 
 #. module: email_template
-#: view:email.template:0
-msgid "Email contents (in raw HTML format)"
-msgstr ""
-
-#. module: email_template
-#: help:email.template,email_from:0
-#: help:email_template.preview,email_from:0
-msgid ""
-"Sender address (placeholders may be used here). If not set, the default "
-"value will be the author's email alias if configured, or email address."
+#: field:email.template,email_to:0
+#: field:email_template.preview,email_to:0
+msgid "To (Emails)"
 msgstr ""
 
 #. module: email_template
@@ -74,21 +66,29 @@ msgid "Field"
 msgstr "欄位"
 
 #. module: email_template
+#: help:email.template,email_from:0
+#: help:email_template.preview,email_from:0
+msgid "Sender address (placeholders may be used here)"
+msgstr "發信人地址(佔位符可以用在這)"
+
+#. module: email_template
 #: view:email.template:0
 msgid "Remove context action"
 msgstr ""
+
+#. module: email_template
+#: help:email.template,mail_server_id:0
+#: help:email_template.preview,mail_server_id:0
+msgid ""
+"Optional preferred server for outgoing mails. If not set, the highest "
+"priority one will be used."
+msgstr "可選擇伺服器發送的郵件。如果沒有設置，優先級最高的將被使用。"
 
 #. module: email_template
 #: field:email.template,report_name:0
 #: field:email_template.preview,report_name:0
 msgid "Report Filename"
 msgstr "報表檔名"
-
-#. module: email_template
-#: field:email.template,email_to:0
-#: field:email_template.preview,email_to:0
-msgid "To (Emails)"
-msgstr ""
 
 #. module: email_template
 #: view:email.template:0
@@ -119,11 +119,6 @@ msgid "%s (copy)"
 msgstr ""
 
 #. module: email_template
-#: field:mail.compose.message,template_id:0
-msgid "Template"
-msgstr "範本"
-
-#. module: email_template
 #: help:email.template,user_signature:0
 #: help:email_template.preview,user_signature:0
 msgid ""
@@ -151,11 +146,6 @@ msgstr ""
 "當這相關欄位是選為第一欄位, this field shows the document model the relationship goes to."
 
 #. module: email_template
-#: view:res.partner:0
-msgid "Available for mass mailing"
-msgstr ""
-
-#. module: email_template
 #: model:ir.model,name:email_template.model_email_template
 msgid "Email Templates"
 msgstr "郵件範本"
@@ -169,12 +159,6 @@ msgid ""
 msgstr ""
 "產生的報表文件命名(可能包含佔位符)\n"
 "可以省略分機號碼然後將會成為報表型態."
-
-#. module: email_template
-#: code:addons/email_template/email_template.py:234
-#, python-format
-msgid "Warning"
-msgstr "警告"
 
 #. module: email_template
 #: field:email.template,ref_ir_act_window:0
@@ -257,14 +241,6 @@ msgstr ""
 #. module: email_template
 #: view:email_template.preview:0
 msgid "Using sample document"
-msgstr ""
-
-#. module: email_template
-#: help:res.partner,opt_out:0
-msgid ""
-"If opt-out is checked, this contact has refused to receive emails for mass "
-"mailing and marketing campaign. Filter 'Available for Mass Mailing' allows "
-"users to filter the partners when performing mass mailing."
 msgstr ""
 
 #. module: email_template
@@ -445,12 +421,11 @@ msgid "Send Mail (%s)"
 msgstr "傳送郵件 (%s)"
 
 #. module: email_template
-#: help:email.template,mail_server_id:0
-#: help:email_template.preview,mail_server_id:0
+#: help:res.partner,opt_out:0
 msgid ""
-"Optional preferred server for outgoing mails. If not set, the highest "
-"priority one will be used."
-msgstr "可選擇伺服器發送的郵件。如果沒有設置，優先級最高的將被使用。"
+"If checked, this partner will not receive any automated email notifications, "
+"such as the availability of invoices."
+msgstr "若勾選, 這個合作夥伴將不會收到任何自動郵件回復, 例如有效發票"
 
 #. module: email_template
 #: help:email.template,auto_delete:0
@@ -472,9 +447,10 @@ msgid ""
 msgstr "當相關欄位已被選擇為第一欄位, 這欄位，讓您選擇目標欄位內的目標文件類型（子類型型）。"
 
 #. module: email_template
-#: view:res.partner:0
-msgid "Suppliers"
-msgstr ""
+#: code:addons/email_template/email_template.py:234
+#, python-format
+msgid "Warning"
+msgstr "警告"
 
 #. module: email_template
 #: field:email.template,user_signature:0
@@ -518,10 +494,193 @@ msgstr ""
 msgid "Subject"
 msgstr "主旨"
 
-#~ msgid "Sender address (placeholders may be used here)"
-#~ msgstr "發信人地址(佔位符可以用在這)"
+#~ msgid "Message type"
+#~ msgstr "訊息類型"
+
+#~ msgid "Remove the sidebar button currently displayed on related documents"
+#~ msgstr "移除側邊欄按鈕目前顯示在相關的文件"
+
+#~ msgid "Received"
+#~ msgstr "收到"
+
+#~ msgid "Sidebar button"
+#~ msgstr "側邊欄按鈕"
+
+#~ msgid "Attach existing files"
+#~ msgstr "附加現有文件"
+
+#~ msgid "Email Content"
+#~ msgstr "郵件內容"
+
+#~ msgid "Cancelled"
+#~ msgstr "已取消"
+
+#~ msgid "Related partner"
+#~ msgstr "相關的合作夥伴"
 
 #~ msgid ""
-#~ "If checked, this partner will not receive any automated email notifications, "
-#~ "such as the availability of invoices."
-#~ msgstr "若勾選, 這個合作夥伴將不會收到任何自動郵件回復, 例如有效發票"
+#~ "Display a button in the sidebar of related documents to open a composition "
+#~ "wizard with this template"
+#~ msgstr "相關文件螢幕上的精靈列按鈕可打開這範本之精靈"
+
+#~ msgid "State"
+#~ msgstr "狀態"
+
+#~ msgid "Sent"
+#~ msgstr "傳送"
+
+#~ msgid ""
+#~ "Type of message, usually 'html' or 'plain', used to select plaintext or rich "
+#~ "text contents accordingly"
+#~ msgstr "訊息類型, 經常是'html'或'plain', 用於選擇 plaintext 或 rich text 做為內容"
+
+#~ msgid "E-mail composition wizard"
+#~ msgstr "郵件合併精靈"
+
+#~ msgid "Dynamic Values Builder"
+#~ msgstr "建立動態值"
+
+#~ msgid "Related Document ID"
+#~ msgstr "相關文件 ID"
+
+#~ msgid "Language Selection"
+#~ msgstr "語言選擇"
+
+#~ msgid "To"
+#~ msgstr "給"
+
+#~ msgid "Related Document model"
+#~ msgstr "相關文件類型"
+
+#~ msgid "Preview Template"
+#~ msgstr "預覽範本"
+
+#~ msgid "Null value"
+#~ msgstr "空值"
+
+#~ msgid ""
+#~ "Enable this is you wish to include a special tracking marker in outgoing "
+#~ "emails so you can identify replies and link them back to the corresponding "
+#~ "resource record. This is useful for CRM leads for example"
+#~ msgstr "啟用，這是您希望包括一個特殊的追蹤電子郵件標記，這樣您就可以找出答覆並連接到相應的資源記錄。這是有用的，例如CRM的線索"
+
+#~ msgid "Use Template"
+#~ msgstr "使用範本"
+
+#~ msgid "Files to attach"
+#~ msgstr "附加的文件"
+
+#~ msgid "Options"
+#~ msgstr "選項"
+
+#~ msgid "Related document model"
+#~ msgstr "相關文件類型"
+
+#~ msgid "Note: This is Raw HTML."
+#~ msgstr "備註: 這是Raw HTML."
+
+#~ msgid "Plaintext version of the message (placeholders may be used here)"
+#~ msgstr "Plaintext 消息版本(佔位符可以用在這)"
+
+#~ msgid "Original version of the message, as it was sent on the network"
+#~ msgstr "消息原始版本, 因為它是在網路上發送"
+
+#, python-format
+#~ msgid "(copy)"
+#~ msgstr "(副本)"
+
+#~ msgid "Outgoing"
+#~ msgstr "外送"
+
+#~ msgid "Use a message template"
+#~ msgstr "使用訊息範本"
+
+#~ msgid "Body (Rich/HTML)"
+#~ msgstr "內文 (Rich/HTML)"
+
+#~ msgid "Date"
+#~ msgstr "日期"
+
+#~ msgid "Message-Id"
+#~ msgstr "訊息-Id"
+
+#~ msgid "Add sidebar button"
+#~ msgstr "加入側邊欄按鈕"
+
+#~ msgid "Body (Text)"
+#~ msgstr "內文 (Text)"
+
+#~ msgid "Advanced Options"
+#~ msgstr "進階選項"
+
+#~ msgid "Rich-text contents"
+#~ msgstr "豐富的文字內容"
+
+#~ msgid "Expression"
+#~ msgstr "表達"
+
+#~ msgid "Original"
+#~ msgstr "原作"
+
+#~ msgid "Addresses"
+#~ msgstr "地址"
+
+#~ msgid "Text contents"
+#~ msgstr "文字內容"
+
+#~ msgid "References"
+#~ msgstr "參考"
+
+#~ msgid "Display Text"
+#~ msgstr "顯示文字"
+
+#~ msgid "Close"
+#~ msgstr "關閉"
+
+#~ msgid ""
+#~ "Full message headers, e.g. SMTP session headers (usually available on "
+#~ "inbound messages only)"
+#~ msgstr "完整的郵件標題，例如僅SMTP會話頭（通常可在入站消息)"
+
+#~ msgid "Related user"
+#~ msgstr "相關使用者"
+
+#~ msgid "Opt-out"
+#~ msgstr "退出選擇"
+
+#~ msgid "Blind carbon copy recipients (placeholders may be used here)"
+#~ msgstr "密件副本收件人（佔位符可以用在這裡）"
+
+#~ msgid "Resource Tracking"
+#~ msgstr "資源追蹤"
+
+#~ msgid ""
+#~ "Message-ID SMTP header to use in outgoing messages based on this template. "
+#~ "Please note that this overrides the 'Resource Tracking' option, so if you "
+#~ "simply need to track replies to outgoing emails, enable that option "
+#~ "instead.\n"
+#~ "Placeholders must be used here, as this value always needs to be unique!"
+#~ msgstr ""
+#~ "消息ID SMTP頭使用在基於此模板的傳出消息。請注意，這將覆蓋'資源追蹤'選項，所以如果您只需要跟蹤答覆外發郵件，啟用該選項。\n"
+#~ "佔位符必須用在這裡，這個值永遠必須是唯一的！"
+
+#~ msgid "Message headers"
+#~ msgstr "訊息頂端"
+
+#~ msgid "Bcc"
+#~ msgstr "密件副本收件人"
+
+#~ msgid "Remove sidebar button"
+#~ msgstr "移動側邊欄按鈕"
+
+#~ msgid "Message references, such as identifiers of previous messages"
+#~ msgstr "消息引用，如以前的消息標識符"
+
+#~ msgid "Error ! You cannot create recursive associated members."
+#~ msgstr "錯誤 ! 您不行建立相關成員"
+
+#~ msgid "Delivery Failed"
+#~ msgstr "傳送失敗"
+
+#~ msgid "Attach Report"
+#~ msgstr "附加報表"

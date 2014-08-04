@@ -1,21 +1,21 @@
 # Slovenian translation for openobject-addons
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
 # This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:37+0000\n"
-"PO-Revision-Date: 2013-12-22 12:26+0000\n"
-"Last-Translator: Darja Zorman <darja.zorman@mentis.si>\n"
+"POT-Creation-Date: 2012-12-21 17:06+0000\n"
+"PO-Revision-Date: 2010-01-27 14:22+0000\n"
+"Last-Translator: Simon Vidmar <Unknown>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-12-23 05:47+0000\n"
-"X-Generator: Launchpad (build 16872)\n"
+"X-Launchpad-Export-Date: 2014-03-27 07:07+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: survey
 #: view:survey.response.line:0
@@ -73,9 +73,9 @@ msgid "Surveys"
 msgstr "Ankete"
 
 #. module: survey
-#: view:survey.request:0
-msgid "Cancel Request"
-msgstr "Preklic zahteve"
+#: field:survey.question,in_visible_answer_type:0
+msgid "Is Answer Type Invisible?"
+msgstr "Ali je tip neviden?"
 
 #. module: survey
 #: view:survey:0
@@ -500,11 +500,6 @@ msgid "From"
 msgstr "Pošiljatelj"
 
 #. module: survey
-#: view:survey:0
-msgid "Cancel Survey"
-msgstr "Prekliči anketo"
-
-#. module: survey
 #: selection:survey.question,comment_valid_type:0
 #: selection:survey.question,validation_type:0
 msgid "Don't Validate Comment Text."
@@ -589,13 +584,6 @@ msgstr "Vrsta"
 #: field:survey.request,email:0
 msgid "Email"
 msgstr "Email"
-
-#. module: survey
-#: view:survey:0
-#: view:survey.page:0
-#: view:survey.question:0
-msgid "Required Answer"
-msgstr "Zahtevan odgovor"
 
 #. module: survey
 #: code:addons/survey/survey.py:96
@@ -741,11 +729,6 @@ msgid ""
 msgstr ""
 "Maksimalni zahtevan odgovor, ki ste ga vnesli kot vaš maksimum, je večji kot "
 "število odgovorov. Prosimo, uporabite število, ki je manjše kot %d."
-
-#. module: survey
-#: view:survey:0
-msgid "Survey description..."
-msgstr "Opis ankete..."
 
 #. module: survey
 #: view:survey:0
@@ -1128,9 +1111,11 @@ msgid "Multiple Textboxes With Different Type"
 msgstr "Več besedilnih okvirčkov z različnimi tipi"
 
 #. module: survey
-#: view:survey.name.wiz:0
-msgid "Add Description"
-msgstr "Dodaj opis"
+#: view:survey:0
+#: view:survey.page:0
+#: view:survey.question:0
+msgid "Required Answer"
+msgstr "Zahtevan odgovor"
 
 #. module: survey
 #: model:survey.type,name:survey.survey_type2
@@ -1168,15 +1153,9 @@ msgid "Date"
 msgstr "Datum"
 
 #. module: survey
-#: view:survey:0
-msgid "All New Survey"
-msgstr "Nova anketa"
-
-#. module: survey
-#: view:survey:0
-#: view:survey.page:0
-msgid "Description on the survey page..."
-msgstr "Opis na strani ankete..."
+#: selection:survey.answer,type:0
+msgid "Integer"
+msgstr "Celo število"
 
 #. module: survey
 #: model:ir.model,name:survey.model_survey_send_invitation
@@ -1266,9 +1245,9 @@ msgid "Is Rating Scale Invisible?"
 msgstr "Ali je bonitetna lestvica nevidna?"
 
 #. module: survey
-#: selection:survey.answer,type:0
-msgid "Integer"
-msgstr "Celo število"
+#: view:survey:0
+msgid "All New Survey"
+msgstr "Nova anketa"
 
 #. module: survey
 #: selection:survey.question,type:0
@@ -1806,11 +1785,6 @@ msgstr "Strani ankete"
 #: field:survey.question,type:0
 msgid "Question Type"
 msgstr "Tip vprašanja"
-
-#. module: survey
-#: field:survey.question,in_visible_answer_type:0
-msgid "Is Answer Type Invisible?"
-msgstr "Ali je tip neviden?"
 
 #. module: survey
 #: selection:survey.question,type:0

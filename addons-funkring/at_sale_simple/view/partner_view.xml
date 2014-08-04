@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- ===================== Partner ===================== -->
+
+        <record id="res_partner_filter" model="ir.ui.view">
+            <field name="name">Partner Filter</field>
+            <field name="model">res.partner</field>
+            <field name="type">search</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter" />
+            <field name="arch" type="xml">
+                <field name="country" position="replace">
+                    <field name="country" groups="at_sale_simple.group_sale_extended" />
+                </field>
+                <field name="category_id" position="replace">
+                    <field name="category_id" select="1"
+                        groups="at_sale_simple.group_sale_extended" />
+                </field>
+            </field>
+        </record>
+
+
+        <record id="partner_tree_view" model="ir.ui.view">
+            <field name="name">Partner Tree</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree" />
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <field name="country" position="replace">
+                    <field name="country" groups="at_sale_simple.group_sale_extended" />
+                </field>
+            </field>
+        </record>
+
+        <!-- ===================== Partner Address ===================== -->
+
+        <record id="partner_address_filter" model="ir.ui.view">
+            <field name="name">Partner Address Filter</field>
+            <field name="model">res.partner.address</field>
+            <field name="inherit_id" ref="base.view_res_partner_address_filter" />
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <field name="country_id" position="replace">
+                    <field name="country_id" groups="at_sale_simple.group_sale_extended" />
+                </field>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="partner_view">
+            <field name="name">Partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <field name="name" position="replace">
+                    <field name="name" select="1" colspan="4" />                    
+                </field>
+                <field name="lang" position="replace">
+                    <field name="lang" groups="at_sale_simple.group_sale_extended" />
+                </field>
+                <field name="address" position="replace">
+                    <field colspan="4" mode="form,tree" name="address" 
+                        nolabel="1" select="1" height="260">
+                        <form string="Partner Contacts">
+                            <group colspan="4" col="6">
+                                <field name="title" colspan="2"
+                                    domain="[('domain', '=', 'contact')]"
+                                    size="0" widget="selection" />
+                                <field name="name" />
+                                <field name="function" groups="at_sale_simple.group_sale_extended" />                                
+                            </group>
+                            <newline />
+                            <group colspan="2" col="6">
+                                <separator string="Postal Address"
+                                    colspan="6" col="6" />
+                                <field name="type" string="Type"
+                                    colspan="4" />
+                                <field name="is_standalone" 
+                                    colspan="2"/>
+                                <field name="street" colspan="6" />
+                                <field name="street2" colspan="6" />
+                                <field name="zip" colspan="2"
+                                    on_change="on_change_zip(zip,city)" />
+                                <field name="city" colspan="4" />
+                                <field name="country_id" colspan="4"
+                                    completion="1" />
+                            </group>
+                            <group colspan="2" col="2">
+                                <separator string="Communication"
+                                    colspan="2" col="2" />
+                                <field name="phone" />
+                                <field name="mobile" />
+                                <field name="fax" />
+                                <field name="email" widget="email" />
+                            </group>
+                        </form>
+                        <tree string="Partner Contacts">
+                            <field name="type" />
+                            <field name="name" />
+                            <field name="street" />
+                            <field name="street2" />
+                            <field name="zip" />
+                            <field name="city" />
+                            <field name="phone" />
+                            <field name="email" />
+                            <field name="country_id" />
+                        </tree>
+                    </field>
+                </field>
+                <page string="General" position="after">
+                    <page string="Reference Person">
+                        <field colspan="4" mode="form,tree" name="ref_person"
+                            nolabel="1" select="1" height="200" context="{ 'default_type' : 'contact' }">
+                            <form string="Contact">
+                                <group colspan="2" col="4">
+                                    <field name="type" invisible="1"/>
+                                    <separator string="Name"
+                                        colspan="4" col="4" />
+                                    <field name="title" colspan="2"
+                                        domain="[('domain', '=', 'contact')]"
+                                        size="0" widget="selection" />
+                                    <field name="name" colspan="2" />
+                                </group>
+                                <group colspan="2" col="2">
+                                    <separator string="Communication"
+                                        colspan="2" col="2" />
+                                    <field name="phone" />
+                                    <field name="mobile" />
+                                    <field name="fax" />
+                                    <field name="email" widget="email" />
+                                </group>
+                            </form>
+                            <tree string="Contacts">
+                                <field name="name" />
+                                <field name="email" />
+                                <field name="mobile" />
+                                <field name="phone" />
+                                <field name="fax" />
+                            </tree>
+                        </field>
+                    </page>
+                </page>
+            </field>
+        </record>
+
+    </data>
+</openerp>

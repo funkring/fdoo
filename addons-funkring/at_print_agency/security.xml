@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		<record id="access_user_pr_attribute_template" model="ir.model.access">
+			<field name="name">access_user_pr_attribute_template/user</field>
+			<field name="model_id" search="[('model','=','product.pr_attribute_template')]"/>
+			<field name="group_id" ref="base.group_user"/>
+			<field name="perm_read" eval="True"/>			
+		</record>		
+		<record id="access_partner_manager_pr_attribute_template" model="ir.model.access">
+			<field name="name">access_user_pr_attribute_template/user</field>
+			<field name="model_id" search="[('model','=','product.pr_attribute_template')]"/>
+			<field name="group_id" ref="base.group_partner_manager"/>
+			<field name="perm_read" eval="True"/>
+			<field name="perm_create" eval="True"/>						
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		
+		<record id="access_user_pr_format" model="ir.model.access">
+			<field name="name">access_user_pr_format/user</field>
+			<field name="model_id" search="[('model','=','product.pr_format')]"/>
+			<field name="group_id" ref="base.group_user"/>
+			<field name="perm_read" eval="True"/>			
+		</record>		
+		<record id="access_partner_manager_pr_format" model="ir.model.access">
+			<field name="name">access_user_pr_format/user</field>
+			<field name="model_id" search="[('model','=','product.pr_format')]"/>
+			<field name="group_id" ref="base.group_partner_manager"/>
+			<field name="perm_read" eval="True"/>
+			<field name="perm_create" eval="True"/>						
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		
+		<record id="access_user_pr_leteral_pressure" model="ir.model.access">
+			<field name="name">access_user_pr_leteral_pressure/user</field>
+			<field name="model_id" search="[('model','=','product.pr_leteral_pressure')]"/>
+			<field name="group_id" ref="base.group_user"/>
+			<field name="perm_read" eval="True"/>			
+		</record>		
+		<record id="access_partner_manager_pr_leteral_pressure" model="ir.model.access">
+			<field name="name">access_user_pr_leteral_pressure/user</field>
+			<field name="model_id" search="[('model','=','product.pr_leteral_pressure')]"/>
+			<field name="group_id" ref="base.group_partner_manager"/>
+			<field name="perm_read" eval="True"/>
+			<field name="perm_create" eval="True"/>						
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		
+		<record id="access_user_pr_gram" model="ir.model.access">
+			<field name="name">access_user_pr_gram/user</field>
+			<field name="model_id" search="[('model','=','product.pr_gram')]"/>
+			<field name="group_id" ref="base.group_user"/>
+			<field name="perm_read" eval="True"/>			
+		</record>		
+		<record id="access_partner_manager_pr_gram" model="ir.model.access">
+			<field name="name">access_user_pr_gram/user</field>
+			<field name="model_id" search="[('model','=','product.pr_gram')]"/>
+			<field name="group_id" ref="base.group_partner_manager"/>
+			<field name="perm_read" eval="True"/>
+			<field name="perm_create" eval="True"/>						
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		
+		<record id="access_user_pr_material" model="ir.model.access">
+			<field name="name">access_user_pr_material/user</field>
+			<field name="model_id" search="[('model','=','product.pr_material')]"/>
+			<field name="group_id" ref="base.group_user"/>
+			<field name="perm_read" eval="True"/>			
+		</record>		
+		<record id="access_partner_manager_pr_material" model="ir.model.access">
+			<field name="name">access_user_pr_material/user</field>
+			<field name="model_id" search="[('model','=','product.pr_material')]"/>
+			<field name="group_id" ref="base.group_partner_manager"/>
+			<field name="perm_read" eval="True"/>
+			<field name="perm_create" eval="True"/>						
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		
+		<record id="access_user_pr_material_surface" model="ir.model.access">
+			<field name="name">access_user_pr_material_surface/user</field>
+			<field name="model_id" search="[('model','=','product.pr_material_surface')]"/>
+			<field name="group_id" ref="base.group_user"/>
+			<field name="perm_read" eval="True"/>			
+		</record>		
+		<record id="access_partner_manager_pr_material_surface" model="ir.model.access">
+			<field name="name">access_user_pr_material_surface/user</field>
+			<field name="model_id" search="[('model','=','product.pr_material_surface')]"/>
+			<field name="group_id" ref="base.group_partner_manager"/>
+			<field name="perm_read" eval="True"/>
+			<field name="perm_create" eval="True"/>						
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		
+		<record id="access_user_pr_orientation" model="ir.model.access">
+			<field name="name">access_user_pr_orientation/user</field>
+			<field name="model_id" search="[('model','=','product.pr_orientation')]"/>
+			<field name="group_id" ref="base.group_user"/>
+			<field name="perm_read" eval="True"/>			
+		</record>		
+		<record id="access_partner_manager_pr_orientation" model="ir.model.access">
+			<field name="name">access_user_pr_orientation/user</field>
+			<field name="model_id" search="[('model','=','product.pr_orientation')]"/>
+			<field name="group_id" ref="base.group_partner_manager"/>
+			<field name="perm_read" eval="True"/>
+			<field name="perm_create" eval="True"/>						
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		
+		<record id="access_user_pr_color" model="ir.model.access">
+			<field name="name">access_user_pr_color/user</field>
+			<field name="model_id" search="[('model','=','product.pr_color')]"/>
+			<field name="group_id" ref="base.group_user"/>
+			<field name="perm_read" eval="True"/>			
+		</record>		
+		<record id="access_partner_manager_pr_color" model="ir.model.access">
+			<field name="name">access_user_pr_color/user</field>
+			<field name="model_id" search="[('model','=','product.pr_color')]"/>
+			<field name="group_id" ref="base.group_partner_manager"/>
+			<field name="perm_read" eval="True"/>
+			<field name="perm_create" eval="True"/>						
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		
+		<record id="access_user_pr_attribute" model="ir.model.access">
+			<field name="name">access_user_pr_attribute/user</field>
+			<field name="model_id" search="[('model','=','product.pr_attribute')]"/>
+			<field name="group_id" ref="base.group_user"/>
+			<field name="perm_read" eval="True"/>			
+		</record>		
+		<record id="access_partner_manager_pr_attribute" model="ir.model.access">
+			<field name="name">access_user_pr_attribute/user</field>
+			<field name="model_id" search="[('model','=','product.pr_attribute')]"/>
+			<field name="group_id" ref="base.group_partner_manager"/>
+			<field name="perm_read" eval="True"/>
+			<field name="perm_create" eval="True"/>						
+			<field name="perm_write" eval="True"/>
+		</record>
+    </data>
+</openerp>

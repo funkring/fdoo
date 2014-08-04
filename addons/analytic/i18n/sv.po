@@ -1,20 +1,20 @@
 # Swedish translation for openobject-addons
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
 # This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:36+0000\n"
-"PO-Revision-Date: 2014-04-01 06:23+0000\n"
-"Last-Translator: Anders Wallenquist <anders.wallenquist@vertel.se>\n"
+"POT-Creation-Date: 2012-12-21 17:05+0000\n"
+"PO-Revision-Date: 2010-12-02 09:05+0000\n"
+"Last-Translator: OpenERP Administrators <Unknown>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-04-02 06:44+0000\n"
+"X-Launchpad-Export-Date: 2014-03-27 07:13+0000\n"
 "X-Generator: Launchpad (build 16967)\n"
 
 #. module: analytic
@@ -25,18 +25,13 @@ msgstr "Underliggande konton"
 #. module: analytic
 #: selection:account.analytic.account,state:0
 msgid "In Progress"
-msgstr "Pågår"
+msgstr ""
 
 #. module: analytic
 #: code:addons/analytic/analytic.py:229
 #, python-format
 msgid "Contract: "
-msgstr "Avtal: "
-
-#. module: analytic
-#: model:mail.message.subtype,description:analytic.mt_account_pending
-msgid "Contract pending"
-msgstr "Vilande avtal"
+msgstr ""
 
 #. module: analytic
 #: selection:account.analytic.account,state:0
@@ -47,7 +42,7 @@ msgstr "Mall"
 #: view:account.analytic.account:0
 #: field:account.analytic.account,date:0
 msgid "End Date"
-msgstr "Slutdatum"
+msgstr ""
 
 #. module: analytic
 #: help:account.analytic.line,unit_amount:0
@@ -58,6 +53,19 @@ msgstr "Ange antal att räkna."
 #: field:account.analytic.account,debit:0
 msgid "Debit"
 msgstr "Debet"
+
+#. module: analytic
+#: help:account.analytic.account,type:0
+msgid ""
+"If you select the View Type, it means you won't allow to create journal "
+"entries using that account.\n"
+"The type 'Analytic account' stands for usual accounts that you only want to "
+"use in accounting.\n"
+"If you select Contract or Project, it offers you the possibility to manage "
+"the validity and the invoicing options for this account.\n"
+"The special type 'Template of Contract' allows you to define a template with "
+"default data that you can reuse easily."
+msgstr ""
 
 #. module: analytic
 #: view:account.analytic.account:0
@@ -72,24 +80,16 @@ msgid ""
 "the\n"
 "                                        customer."
 msgstr ""
-"När slutdatum för avtalet passerats \n"
-"                                         eller det maximala antalet "
-"tjänsteenheter \n"
-"                                         enheter (t.ex. supportavtal) "
-"förbrukats, aviseras kundansvarig \n"
-"                                         via e-post för att förnya "
-"kontraktet med\n"
-"                                         kunden."
 
 #. module: analytic
 #: selection:account.analytic.account,type:0
 msgid "Contract or Project"
-msgstr "Avtal eller projekt"
+msgstr ""
 
 #. module: analytic
 #: field:account.analytic.account,name:0
 msgid "Account/Contract Name"
-msgstr "Konto/avtalsnamn"
+msgstr ""
 
 #. module: analytic
 #: field:account.analytic.account,manager_id:0
@@ -99,7 +99,7 @@ msgstr "Ekonomichef"
 #. module: analytic
 #: field:account.analytic.account,message_follower_ids:0
 msgid "Followers"
-msgstr "Följare"
+msgstr ""
 
 #. module: analytic
 #: selection:account.analytic.account,state:0
@@ -109,7 +109,7 @@ msgstr "Stängd"
 #. module: analytic
 #: model:mail.message.subtype,name:analytic.mt_account_pending
 msgid "Contract to Renew"
-msgstr "Avtal att förnya"
+msgstr ""
 
 #. module: analytic
 #: selection:account.analytic.account,state:0
@@ -119,18 +119,18 @@ msgstr "Ny"
 #. module: analytic
 #: field:account.analytic.account,user_id:0
 msgid "Project Manager"
-msgstr "Projektledare"
+msgstr ""
 
 #. module: analytic
 #: field:account.analytic.account,state:0
 msgid "Status"
-msgstr "Status"
+msgstr ""
 
 #. module: analytic
 #: code:addons/analytic/analytic.py:271
 #, python-format
 msgid "%s (copy)"
-msgstr "%s (kopia)"
+msgstr ""
 
 #. module: analytic
 #: model:ir.model,name:analytic.model_account_analytic_line
@@ -144,20 +144,14 @@ msgid "Description"
 msgstr "Beskrivning"
 
 #. module: analytic
-#: code:addons/analytic/analytic.py:262
-#, python-format
-msgid "Quick account creation disallowed."
-msgstr "Snabbskapande av konto icke tillåtet"
-
-#. module: analytic
 #: field:account.analytic.account,message_unread:0
 msgid "Unread Messages"
-msgstr "Olästa meddelanden"
+msgstr ""
 
 #. module: analytic
 #: constraint:account.analytic.account:0
 msgid "Error! You cannot create recursive analytic accounts."
-msgstr "Fel! Du kan inte skapa rekursiva objektkonton."
+msgstr ""
 
 #. module: analytic
 #: field:account.analytic.account,company_id:0
@@ -168,21 +162,17 @@ msgstr "Företag"
 #. module: analytic
 #: view:account.analytic.account:0
 msgid "Renewal"
-msgstr "Förnya"
-
-#. module: analytic
-#: help:account.analytic.account,message_summary:0
-msgid ""
-"Holds the Chatter summary (number of messages, ...). This summary is "
-"directly in html format in order to be inserted in kanban views."
 msgstr ""
-"Lagrar pladder-sammanfattning (antal meddelanden, ...). Denna sammanfattning "
-"presenteras i html-format för att kunna sättas in i kanban vyer."
 
 #. module: analytic
-#: help:account.analytic.account,message_unread:0
-msgid "If checked new messages require your attention."
-msgstr "Om ikryssad nya meddelanden som kräver din uppmärksamhet"
+#: help:account.analytic.account,message_ids:0
+msgid "Messages and communication history"
+msgstr ""
+
+#. module: analytic
+#: model:mail.message.subtype,description:analytic.mt_account_opened
+msgid "Stage <b>opened</b>"
+msgstr ""
 
 #. module: analytic
 #: help:account.analytic.account,quantity_max:0
@@ -190,8 +180,6 @@ msgid ""
 "Sets the higher limit of time to work on the contract, based on the "
 "timesheet. (for instance, number of hours in a limited support contract.)"
 msgstr ""
-"Anger den högre gränsen för arbetstid på avtalet,  baserat på tidrapporten. "
-"(till exempel antal timmar i ett supportavtal med timbank.)"
 
 #. module: analytic
 #: code:addons/analytic/analytic.py:160
@@ -213,7 +201,7 @@ msgstr ""
 #. module: analytic
 #: field:account.analytic.account,message_is_follower:0
 msgid "Is a Follower"
-msgstr "Är en följare"
+msgstr ""
 
 #. module: analytic
 #: field:account.analytic.line,user_id:0
@@ -221,9 +209,9 @@ msgid "User"
 msgstr "Användare"
 
 #. module: analytic
-#: field:account.analytic.account,parent_id:0
-msgid "Parent Analytic Account"
-msgstr "Överliggande objektkonto"
+#: model:mail.message.subtype,description:analytic.mt_account_pending
+msgid "Contract <b>pending</b>"
+msgstr ""
 
 #. module: analytic
 #: field:account.analytic.line,date:0
@@ -233,12 +221,12 @@ msgstr "Datum"
 #. module: analytic
 #: model:mail.message.subtype,name:analytic.mt_account_closed
 msgid "Contract Finished"
-msgstr "Avtal avslutat"
+msgstr ""
 
 #. module: analytic
 #: view:account.analytic.account:0
 msgid "Terms and Conditions"
-msgstr "Villkor"
+msgstr ""
 
 #. module: analytic
 #: help:account.analytic.line,amount:0
@@ -252,7 +240,7 @@ msgstr ""
 #. module: analytic
 #: field:account.analytic.account,partner_id:0
 msgid "Customer"
-msgstr "Kund"
+msgstr ""
 
 #. module: analytic
 #: field:account.analytic.account,child_complete_ids:0
@@ -262,38 +250,33 @@ msgstr "Kontohieraki"
 #. module: analytic
 #: field:account.analytic.account,message_ids:0
 msgid "Messages"
-msgstr "Meddelanden"
+msgstr ""
 
 #. module: analytic
-#: help:account.analytic.account,message_ids:0
-msgid "Messages and communication history"
-msgstr "Meddelande- och kommunikationshistorik"
-
-#. module: analytic
-#: constraint:account.analytic.line:0
-msgid "You cannot create analytic line on view account."
-msgstr "Du kan inte skapa objektrader för ett rubrikkonto."
+#: field:account.analytic.account,parent_id:0
+msgid "Parent Analytic Account"
+msgstr "Överliggande objektkonto"
 
 #. module: analytic
 #: view:account.analytic.account:0
 msgid "Contract Information"
-msgstr "Avtalsinformation"
+msgstr ""
 
 #. module: analytic
 #: field:account.analytic.account,template_id:0
 #: selection:account.analytic.account,type:0
 msgid "Template of Contract"
-msgstr "Avtalsmall"
+msgstr ""
 
 #. module: analytic
 #: field:account.analytic.account,message_summary:0
 msgid "Summary"
-msgstr "Sammandrag"
+msgstr ""
 
 #. module: analytic
 #: field:account.analytic.account,quantity_max:0
 msgid "Prepaid Service Units"
-msgstr "Förbetald tjänsteenhet"
+msgstr ""
 
 #. module: analytic
 #: field:account.analytic.account,credit:0
@@ -303,28 +286,12 @@ msgstr "Kredit"
 #. module: analytic
 #: model:mail.message.subtype,name:analytic.mt_account_opened
 msgid "Contract Opened"
-msgstr "Avtal öppnat"
+msgstr ""
 
 #. module: analytic
-#: help:account.analytic.account,type:0
-msgid ""
-"If you select the View Type, it means you won't allow to create journal "
-"entries using that account.\n"
-"The type 'Analytic account' stands for usual accounts that you only want to "
-"use in accounting.\n"
-"If you select Contract or Project, it offers you the possibility to manage "
-"the validity and the invoicing options for this account.\n"
-"The special type 'Template of Contract' allows you to define a template with "
-"default data that you can reuse easily."
+#: model:mail.message.subtype,description:analytic.mt_account_closed
+msgid "Contract <b>closed</b>"
 msgstr ""
-"Om du väljer visa-Typ, betyder det att du inte kommer att kunna göra "
-"verifikat med det kontot.\n"
-"Typen \"objektkonto\" står för vanliga konton som du bara vill använda i "
-"redovisningen.\n"
-"Om du väljer avtal eller projekt, ger det dig möjlighet att hantera "
-"giltigheten och faktureringsalternativ för detta konto.\n"
-"Den speciella typen \"Avtalsmall\" kan du definiera en mall med "
-"standarduppgifter som är enkla att återanvända."
 
 #. module: analytic
 #: selection:account.analytic.account,state:0
@@ -334,7 +301,7 @@ msgstr "Avbruten"
 #. module: analytic
 #: selection:account.analytic.account,type:0
 msgid "Analytic View"
-msgstr "Objektvisning"
+msgstr ""
 
 #. module: analytic
 #: field:account.analytic.account,balance:0
@@ -342,14 +309,14 @@ msgid "Balance"
 msgstr "Balans"
 
 #. module: analytic
-#: field:account.analytic.account,complete_name:0
-msgid "Full Name"
-msgstr "Fullständigt namn"
+#: help:account.analytic.account,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr ""
 
 #. module: analytic
 #: selection:account.analytic.account,state:0
 msgid "To Renew"
-msgstr "Att förnya"
+msgstr ""
 
 #. module: analytic
 #: field:account.analytic.account,quantity:0
@@ -358,20 +325,20 @@ msgid "Quantity"
 msgstr "Antal"
 
 #. module: analytic
+#: field:account.analytic.account,date:0
+msgid "Date End"
+msgstr "Slutdatum"
+
+#. module: analytic
 #: field:account.analytic.account,code:0
 msgid "Reference"
-msgstr "Referens"
+msgstr ""
 
 #. module: analytic
 #: code:addons/analytic/analytic.py:160
 #, python-format
 msgid "Error!"
-msgstr "Fel!"
-
-#. module: analytic
-#: model:mail.message.subtype,description:analytic.mt_account_closed
-msgid "Contract closed"
-msgstr "Avtal stängt"
+msgstr ""
 
 #. module: analytic
 #: model:res.groups,name:analytic.group_analytic_accounting
@@ -382,6 +349,11 @@ msgstr "Objektsredovisning"
 #: field:account.analytic.line,amount:0
 msgid "Amount"
 msgstr "Belopp"
+
+#. module: analytic
+#: field:account.analytic.account,complete_name:0
+msgid "Full Account Name"
+msgstr "Kontonamn"
 
 #. module: analytic
 #: view:account.analytic.account:0
@@ -397,33 +369,123 @@ msgid "Currency"
 msgstr "Valuta"
 
 #. module: analytic
-#: model:mail.message.subtype,description:analytic.mt_account_opened
-msgid "Contract opened"
-msgstr "Avtal öppnat"
-
-#. module: analytic
-#: code:addons/analytic/analytic.py:262
-#, python-format
-msgid "Warning"
-msgstr "Varning"
+#: help:account.analytic.account,message_summary:0
+msgid ""
+"Holds the Chatter summary (number of messages, ...). This summary is "
+"directly in html format in order to be inserted in kanban views."
+msgstr ""
 
 #. module: analytic
 #: field:account.analytic.account,type:0
 msgid "Type of Account"
-msgstr "Typ av konto"
+msgstr ""
 
 #. module: analytic
 #: field:account.analytic.account,date_start:0
 msgid "Start Date"
-msgstr "Startdatum"
+msgstr ""
+
+#. module: analytic
+#: constraint:account.analytic.line:0
+msgid "You cannot create analytic line on view account."
+msgstr ""
 
 #. module: analytic
 #: field:account.analytic.account,line_ids:0
 msgid "Analytic Entries"
 msgstr "Objektposter"
 
-#~ msgid "Date End"
-#~ msgstr "Slutdatum"
-
-#~ msgid "Full Account Name"
+#~ msgid "Account Name"
 #~ msgstr "Kontonamn"
+
+#~ msgid "Draft"
+#~ msgstr "Utkast"
+
+#~ msgid "Maximum Quantity"
+#~ msgstr "Största kvantitet"
+
+#~ msgid "Contact"
+#~ msgstr "Kontakt"
+
+#~ msgid "Account currency"
+#~ msgstr "Kontovaluta"
+
+#~ msgid "View"
+#~ msgstr "Vy"
+
+#~ msgid "Sets the higher limit of quantity of hours."
+#~ msgstr "Sätter den högre gränsen av antalet timmar"
+
+#~ msgid "Normal"
+#~ msgstr "Normal"
+
+#~ msgid ""
+#~ "* When an account is created its in 'Draft' state.                           "
+#~ "       \n"
+#~ "* If any associated partner is there, it can be in 'Open' state.             "
+#~ "                     \n"
+#~ "* If any pending balance is there it can be in 'Pending'.                    "
+#~ "               \n"
+#~ "* And finally when all the transactions are over, it can be in 'Close' "
+#~ "state.                                   \n"
+#~ "* The project can be in either if the states 'Template' and 'Running'.\n"
+#~ " If it is template then we can make projects based on the template projects. "
+#~ "If its in 'Running' state it is a normal project.                            "
+#~ "     \n"
+#~ " If it is to be reviewed then the state is 'Pending'.\n"
+#~ " When the project is completed the state is set to 'Done'."
+#~ msgstr ""
+#~ "* När ett konto skapas det i \"Utkast\" status. \n"
+#~ "* Om något företag är knutet, kan det vara i \"Öppet\" status. \n"
+#~ "* Om obalanserad \"I väntan\". \n"
+#~ "* Och slutligen när alla transaktioner är registrerade, kan det vara i "
+#~ "\"Stängd\". \n"
+#~ "* Projektet kan vara i antingen om tillstånden \"mall\" och \"Pågår\". \n"
+#~ "Om det är mallen så kan vi skapa projekt baserat på mallprojekten. Om status "
+#~ "är i \"Pågår\" är det ett vanligt projekt.  \n"
+#~ "Om det skall granskas är status \"I väntan\". \n"
+#~ "När projektet är avslutat staten är inställd på \"Klar\"."
+
+#~ msgid "Account Type"
+#~ msgstr "Kontotyp"
+
+#~ msgid "Pending"
+#~ msgstr "Väntar"
+
+#, python-format
+#~ msgid "Error !"
+#~ msgstr "Fel !"
+
+#~ msgid "Code/Reference"
+#~ msgstr "Kod/referens"
+
+#~ msgid "You can not create analytic line on view account."
+#~ msgstr "Du kan inte skapa objekttransaktioner med rubrikkonton."
+
+#~ msgid "Error! You can not create recursive analytic accounts."
+#~ msgstr "Fel! Du kan inte skapa rekursiva objekt."
+
+#~ msgid "Date Start"
+#~ msgstr "Startdatum"
+
+#~ msgid "Partner"
+#~ msgstr "Företag"
+
+#~ msgid "State"
+#~ msgstr "Status"
+
+#~ msgid "Open"
+#~ msgstr "Öppen"
+
+#~ msgid "Maximum Time"
+#~ msgstr "Maxtid"
+
+#~ msgid "Sets the higher limit of time to work on the contract."
+#~ msgstr "Sätter övre gräns för arbete på avtalet"
+
+#~ msgid ""
+#~ "If you select the View Type, it means you won't allow to create journal "
+#~ "entries using that account."
+#~ msgstr ""
+#~ "Om du väljer Visa-typen, det innebär att det inte är möjligt att lägga på "
+#~ "transaktioner på kontot."

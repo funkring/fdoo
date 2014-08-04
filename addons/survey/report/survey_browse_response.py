@@ -22,9 +22,8 @@
 
 import time
 
-import pytz
-from datetime import datetime
-from openerp import pooler, tools
+import openerp
+from openerp import tools
 from openerp.report import report_sxw
 from openerp.report.interface import report_rml
 from openerp.tools import to_xml
@@ -32,11 +31,11 @@ from openerp.tools.translate import _
 
 class survey_browse_response(report_rml):
     def create(self, cr, uid, ids, datas, context):
-        if context is None:
-            context = {}
         _divide_columns_for_matrix = 0.7
         _display_ans_in_rows = 5
         _pageSize = ('29.7cm','21.1cm')
+
+        registry = openerp.registry(cr.dbname)
 
         if datas.has_key('form') and datas['form'].get('orientation','') == 'vertical':
             if datas['form'].get('paper_size','') == 'letter':
@@ -192,7 +191,7 @@ class survey_browse_response(report_rml):
                   </stylesheet>
                   <images/>
                   <story>"""
-        surv_resp_obj = pooler.get_pool(cr.dbname).get('survey.response')
+        surv_resp_obj = registry['survey.response']
         rml_obj=report_sxw.rml_parse(cr, uid, surv_resp_obj._name,context)
         if datas.has_key('form') and datas['form'].has_key('response_ids'):
             response_id = datas['form']['response_ids']
@@ -201,16 +200,14 @@ class survey_browse_response(report_rml):
         else:
             response_id = surv_resp_obj.search(cr, uid, [('survey_id', 'in', ids)])
 
-        surv_resp_line_obj = pooler.get_pool(cr.dbname).get('survey.response.line')
-        surv_obj = pooler.get_pool(cr.dbname).get('survey')
+        surv_resp_line_obj = registry['survey.response.line']
+        surv_obj = registry['survey']
 
         for response in surv_resp_obj.browse(cr, uid, response_id):
             for survey in surv_obj.browse(cr, uid, [response.survey_id.id]):
                 tbl_width = float(_tbl_widths.replace('cm', ''))
                 colwidth =  "2.5cm,4.8cm," + str(tbl_width - 15.0) +"cm,3.2cm,4.5cm"
-                timezone = pytz.timezone(context.get('tz') or 'UTC')
-                create_date = pytz.UTC.localize(datetime.strptime(response.date_create.split('.')[0], tools.DEFAULT_SERVER_DATETIME_FORMAT))
-                resp_create = create_date.astimezone(timezone).strftime("%Y-%m-%d %H:%M:%S") #Converting date to user's timezone
+                resp_create = tools.ustr(time.strftime('%d-%m-%Y %I:%M:%S %p', time.strptime(response.date_create.split('.')[0], '%Y-%m-%d %H:%M:%S')))
                 rml += """<blockTable colWidths='""" + colwidth + """' style="Table_heading">
                           <tr>
                             <td><para style="terp_default_9_Bold">""" + _('Print Date : ') + """</para></td>
@@ -268,7 +265,7 @@ class survey_browse_response(report_rml):
 
                         elif que.type in ['table']:
                             if len(answer) and answer[0].state == "done":
-                                col_heading = pooler.get_pool(cr.dbname).get('survey.tbl.column.heading')
+                                col_heading = registry['survey.tbl.column.heading']
                                 cols_widhts = []
                                 tbl_width = float(_tbl_widths.replace('cm', ''))
                                 for i in range(0, len(que.column_heading_ids)):

@@ -1,21 +1,20 @@
-# Hungarian translation for openobject-addons
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
-# This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#    * crm_claim
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openobject-addons\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:36+0000\n"
-"PO-Revision-Date: 2013-10-12 12:00+0000\n"
-"Last-Translator: krnkris <Unknown>\n"
-"Language-Team: Hungarian <hu@li.org>\n"
+"Project-Id-Version: OpenERP Server 6.0dev\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-12-21 17:05+0000\n"
+"PO-Revision-Date: 2011-02-02 19:57+0000\n"
+"Last-Translator: Krisztian Eyssen <krisz@eyssen.hu>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-21 06:05+0000\n"
-"X-Generator: Launchpad (build 16831)\n"
+"X-Launchpad-Export-Date: 2014-03-27 07:19+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: crm_claim
 #: help:crm.claim.stage,fold:0
@@ -312,11 +311,6 @@ msgstr "Elutasított"
 #: field:crm.claim,date_action_next:0
 msgid "Next Action Date"
 msgstr "Következő művelet időpontja"
-
-#. module: crm_claim
-#: model:ir.model,name:crm_claim.model_sale_config_settings
-msgid "sale.config.settings"
-msgstr "sale.config.settings"
 
 #. module: crm_claim
 #: model:ir.actions.act_window,help:crm_claim.action_report_crm_claim
@@ -822,6 +816,20 @@ msgid "Refused stage"
 msgstr "Elutasított szakasz"
 
 #. module: crm_claim
+#: model:ir.actions.act_window,help:crm_claim.crm_case_categ_claim0
+msgid ""
+"Record and track your customers' claims. Claims may be linked to a sales "
+"order or a lot. You can send emails with attachments and keep the full "
+"history for a claim (emails sent, intervention type and so on). Claims may "
+"automatically be linked to an email address using the mail gateway module."
+msgstr ""
+"A vevők reklamációinak feljegyzése és nyomon követése. Reklamáció hozzá "
+"lehet csatolva egy megrendeléshez vagy annak kötegeihez. Elküldhet e-mailt "
+"melléklettel és megőrizheti a teljes reklamációs történetet (elküldött e-"
+"mailek, közbenjárás típusa és így tovább). Reklamációk automatikusan hozzá "
+"lehetnek rendelve egy e-mail címhez az e-mail árjáró modullal."
+
+#. module: crm_claim
 #: field:crm.claim.report,email:0
 msgid "# Emails"
 msgstr "E-mailek száma"
@@ -837,26 +845,9 @@ msgid "February"
 msgstr "Február"
 
 #. module: crm_claim
-#: model:ir.actions.act_window,help:crm_claim.crm_case_categ_claim0
-msgid ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"                Record and track your customers' claims. Claims may be "
-"linked to a sales order or a lot.You can send emails with attachments and "
-"keep the full history for a claim (emails sent, intervention type and so "
-"on).Claims may automatically be linked to an email address using the mail "
-"gateway module.\n"
-"            </p>\n"
-"            "
-msgstr ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"                Az ügyfelek reklamációinak felvitele és nyomon követése. "
-"Reklamációkat hozzárendelhet megrendelésekhez vagy megrendelés csoporthoz. "
-"Küldhet melléklettel ellátott emailt  és a teljes reklamációs folyamatot "
-"elraktározhatja (elküldött e-mailek, beavatkozás fajtája és a többi). "
-"Reklamációk automatikusan hozzárendelhetőek e-mail címhez az e-mail átjáró "
-"modullal.\n"
-"            </p>\n"
-"            "
+#: model:ir.model,name:crm_claim.model_sale_config_settings
+msgid "sale.config.settings"
+msgstr "sale.config.settings"
 
 #. module: crm_claim
 #: view:crm.claim.report:0
@@ -940,14 +931,74 @@ msgstr ""
 msgid "Refused stages are specific stages for done."
 msgstr "Visszautasított szakaszok"
 
-#~ msgid ""
-#~ "Record and track your customers' claims. Claims may be linked to a sales "
-#~ "order or a lot. You can send emails with attachments and keep the full "
-#~ "history for a claim (emails sent, intervention type and so on). Claims may "
-#~ "automatically be linked to an email address using the mail gateway module."
-#~ msgstr ""
-#~ "A vevők reklamációinak feljegyzése és nyomon követése. Reklamáció hozzá "
-#~ "lehet csatolva egy megrendeléshez vagy annak kötegeihez. Elküldhet e-mailt "
-#~ "melléklettel és megőrizheti a teljes reklamációs történetet (elküldött e-"
-#~ "mailek, közbenjárás típusa és így tovább). Reklamációk automatikusan hozzá "
-#~ "lehetnek rendelve egy e-mail címhez az e-mail árjáró modullal."
+#~ msgid "Customer & Supplier Relationship Management"
+#~ msgstr "Vevő és szállítói kapcsolatok kezelése"
+
+#~ msgid "Probability"
+#~ msgstr "Valószínűség"
+
+#~ msgid "Add Internal Note"
+#~ msgstr "Belső jegyzet hozzáadása"
+
+#~ msgid "Partner Contact"
+#~ msgstr "Partner kapcsolat"
+
+#~ msgid "Reset to Draft"
+#~ msgstr "Visszaállítás Tervezet állapotba"
+
+#~ msgid "   Month   "
+#~ msgstr "   Hónap   "
+
+#~ msgid "Send New Email"
+#~ msgstr "Új e-mail küldése"
+
+#~ msgid "History Information"
+#~ msgstr "Előzmény"
+
+#~ msgid "Contact"
+#~ msgstr "Kapcsolat"
+
+#~ msgid "Accepted as Claim"
+#~ msgstr "Elfogadott követelés"
+
+#~ msgid "Salesman"
+#~ msgstr "Értékesítő"
+
+#~ msgid "  Year  "
+#~ msgstr "  Év  "
+
+#~ msgid "These people will receive email."
+#~ msgstr "Ezek az emberek fogják megkapni az e-mailt."
+
+#~ msgid "Stage of case"
+#~ msgstr "Eset szakasza"
+
+#~ msgid "History"
+#~ msgstr "Előzmény"
+
+#~ msgid "Attachments"
+#~ msgstr "Mellékletek"
+
+#~ msgid "State"
+#~ msgstr "Állapot"
+
+#~ msgid "Reply"
+#~ msgstr "Válasz"
+
+#~ msgid "Details"
+#~ msgstr "Részletek"
+
+#~ msgid "Current"
+#~ msgstr "Jelenleg"
+
+#~ msgid "Close"
+#~ msgstr "Zárás"
+
+#~ msgid "Report a Claim"
+#~ msgstr "Követelési jelentés"
+
+#~ msgid "Won't fix"
+#~ msgstr "Nem lesz kijavítva"
+
+#~ msgid "    Month-1    "
+#~ msgstr "    Előző hónap    "

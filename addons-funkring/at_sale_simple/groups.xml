@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		 <record id="group_sale_extended" model="res.groups">
+        <field name="name">Sale / Extended</field>
+      </record>
+      <record id="group_sale_production" model="res.groups">
+        <field name="name">Sale / Production</field>
+      </record>
+	</data>
+</openerp>

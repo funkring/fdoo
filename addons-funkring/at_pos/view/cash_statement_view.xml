@@ -1,0 +1,15 @@
+<openerp>
+	<data>		
+		<record id="form_account_cash_statement" model="ir.ui.view">
+            <field name="name">at_pos.form_account_cash_statement</field>
+            <field name="model">account.bank.statement</field>
+            <field name="inherit_id" ref="account.view_bank_statement_form2"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+             	<field name="currency" position="after">
+             	    <field name="parent_id"/>
+             	</field>
+            </field>
+        </record>
+	</data>
+</openerp>

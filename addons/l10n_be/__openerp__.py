@@ -58,7 +58,7 @@ Wizards provided by this module:
         'base_iban',
         'account_chart',
         'l10n_be_coda',
-        #'l10n_multilang', uncomment for version > 7.0
+        'l10n_multilang',
     ],
     'data': [
         'account_financial_report.xml',

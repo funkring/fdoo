@@ -1,27 +1,27 @@
 # Swedish translation for openobject-addons
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
 # This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:37+0000\n"
-"PO-Revision-Date: 2014-03-27 15:06+0000\n"
-"Last-Translator: Anders Wallenquist <anders.wallenquist@vertel.se>\n"
+"POT-Creation-Date: 2012-12-21 17:05+0000\n"
+"PO-Revision-Date: 2010-11-30 17:03+0000\n"
+"Last-Translator: OpenERP Administrators <Unknown>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-03-28 06:44+0000\n"
+"X-Launchpad-Export-Date: 2014-03-27 07:05+0000\n"
 "X-Generator: Launchpad (build 16967)\n"
 
 #. module: document_webdav
 #: field:document.webdav.dir.property,create_date:0
 #: field:document.webdav.file.property,create_date:0
 msgid "Date Created"
-msgstr "Registreringsdatum"
+msgstr "Skapad datum"
 
 #. module: document_webdav
 #: model:ir.ui.menu,name:document_webdav.menu_document_props
@@ -31,7 +31,7 @@ msgstr "Dokument"
 #. module: document_webdav
 #: view:document.webdav.dir.property:0
 msgid "Document property"
-msgstr "Dokumentattribut"
+msgstr ""
 
 #. module: document_webdav
 #: view:document.webdav.dir.property:0
@@ -61,7 +61,7 @@ msgstr "document.webdav.file.property"
 #: view:document.webdav.dir.property:0
 #: view:document.webdav.file.property:0
 msgid "Group By..."
-msgstr "Gruppera på..."
+msgstr "Gruppera"
 
 #. module: document_webdav
 #: view:document.directory:0
@@ -122,7 +122,7 @@ msgstr "Värde"
 #: field:document.webdav.dir.property,dir_id:0
 #: model:ir.model,name:document_webdav.model_document_directory
 msgid "Directory"
-msgstr "Mapp"
+msgstr "Katalog"
 
 #. module: document_webdav
 #: field:document.webdav.dir.property,write_uid:0
@@ -150,7 +150,7 @@ msgstr "Författare"
 #. module: document_webdav
 #: view:document.webdav.file.property:0
 msgid "Document Property"
-msgstr "Dokumentattribut"
+msgstr ""
 
 #. module: document_webdav
 #: model:ir.ui.menu,name:document_webdav.menu_properties
@@ -162,3 +162,32 @@ msgstr "DAV-attribut"
 #: field:document.webdav.file.property,do_subst:0
 msgid "Substitute"
 msgstr "Ersätt"
+
+#~ msgid "Directory cannot be parent of itself!"
+#~ msgstr "Katalogen kan inte ha sig själv som förälder!"
+
+#~ msgid "Error! You can not create recursive Directories."
+#~ msgstr "Fel! Ni kan inte skapa rekursiva kataloger"
+
+#, python-format
+#~ msgid "PyWebDAV Import Error!"
+#~ msgstr "PyWebDAV importfel!"
+
+#~ msgid "The directory name must be unique !"
+#~ msgstr "Katalognamnet måste vara unikt !"
+
+#, python-format
+#~ msgid ""
+#~ "Please install PyWebDAV from "
+#~ "http://code.google.com/p/pywebdav/downloads/detail?name=PyWebDAV-"
+#~ "0.9.4.tar.gz&can=2&q=/"
+#~ msgstr ""
+#~ "Vänligen installera PyWebDAV from "
+#~ "http://code.google.com/p/pywebdav/downloads/detail?name=PyWebDAV-"
+#~ "0.9.4.tar.gz&can=2&q=/"
+
+#~ msgid "Dynamic context"
+#~ msgstr "Dynamiskt sammanhang"
+
+#~ msgid "Directory must have a parent or a storage"
+#~ msgstr "Katalogen måste ha en förälder eller en lagringsplats"

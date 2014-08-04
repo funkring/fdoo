@@ -1,0 +1,19 @@
+<openerp>
+	<data>		
+		<record id="form_server_profile" model="ir.ui.view">
+            <field name="name">edi_product.form_server_profile</field>
+            <field name="model">edi.server_profile</field>
+            <field name="inherit_id" ref="edi_base.form_server_profile"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<data>
+            	    <notebook position="inside">
+            	        <page string="Product Categories">
+            	        	<field name="product_category_ids" nolabel="1" colspan="4"/>   	            
+            	        </page>            	        
+            	    </notebook>            	    
+            	</data>
+            </field>
+        </record>
+	</data>
+</openerp>

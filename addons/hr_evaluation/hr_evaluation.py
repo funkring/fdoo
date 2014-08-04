@@ -45,7 +45,6 @@ class hr_evaluation_plan(osv.osv):
         'company_id': lambda s,cr,uid,c: s.pool.get('res.company')._company_default_get(cr, uid, 'account.account', context=c),
     }
 
-hr_evaluation_plan()
 
 class hr_evaluation_plan_phase(osv.osv):
     _name = "hr_evaluation.plan.phase"
@@ -80,7 +79,7 @@ class hr_evaluation_plan_phase(osv.osv):
     }
     _defaults = {
         'sequence': 1,
-        'email_subject': _('''Regarding '''),
+        'email_subject': lambda *a:_('''Regarding '''),
         'mail_body': lambda *a:_('''
 Date: %(date)s
 
@@ -98,11 +97,12 @@ Thanks,
         '''),
     }
 
-hr_evaluation_plan_phase()
 
 class hr_employee(osv.osv):
     _name = "hr.employee"
     _inherit="hr.employee"
+    
+
     _columns = {
         'evaluation_plan_id': fields.many2one('hr_evaluation.plan', 'Appraisal Plan'),
         'evaluation_date': fields.date('Next Appraisal Date', help="The date of the next appraisal is computed by the appraisal plan's dates (first appraisal + periodicity)."),
@@ -124,6 +124,8 @@ class hr_employee(osv.osv):
             plan_id = obj_evaluation.create(cr, uid, {'employee_id': emp.id, 'plan_id': emp.evaluation_plan_id.id}, context=context)
             obj_evaluation.button_plan_in_progress(cr, uid, [plan_id], context=context)
         return True
+
+
 
 class hr_evaluation(osv.osv):
     _name = "hr_evaluation.evaluation"
@@ -272,7 +274,6 @@ class hr_evaluation(osv.osv):
                     obj_hr_eval_iterview.write(cr, uid, [survey_req.id], new_vals, context=context)
         return super(hr_evaluation, self).write(cr, uid, ids, vals, context=context)
 
-hr_evaluation()
 
 class survey_request(osv.osv):
     _inherit = "survey.request"
@@ -280,7 +281,6 @@ class survey_request(osv.osv):
         'is_evaluation': fields.boolean('Is Appraisal?'),
     }
 
-survey_request()
 
 class hr_evaluation_interview(osv.osv):
     _name = 'hr.evaluation.interview'
@@ -357,6 +357,5 @@ class hr_evaluation_interview(osv.osv):
         value = self.pool.get("survey").action_print_survey(cr, uid, ids, context=context)
         return value
 
-hr_evaluation_interview()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:1

@@ -1,0 +1,663 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* at_bmd
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 8.0alpha1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-09-05 14:57+0000\n"
+"PO-Revision-Date: 2013-09-05 16:57+0100\n"
+"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: at_bmd
+#: selection:bmd.export_line,steucod:0
+#: selection:bmd.move_line_template,steucod:0
+msgid "Erträge sonstige Leistungen EU"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_line,account_id:0
+#: field:bmd.export_line,konto:0
+#: field:bmd.move_line_template,konto:0
+msgid "Konto"
+msgstr ""
+
+#. module: at_bmd
+#: help:bmd.export_line,zziel:0
+#: help:bmd.move_line_template,zziel:0
+msgid "Zahlungsziel in Tagen"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export,profile_id:0
+msgid "Profil"
+msgstr ""
+
+#. module: at_bmd
+#: selection:bmd.export_line,steucod:0
+#: selection:bmd.move_line_template,steucod:0
+msgid "innergemeinschaftliche Lieferung"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_line,bmd_export_id:0
+#: view:bmd.export_param:0
+#: field:bmd.export_result,export_id:0
+#: model:ir.model,name:at_bmd.model_bmd_export
+msgid "BMD Export"
+msgstr ""
+
+#. module: at_bmd
+#: selection:bmd.export_line,satzart:0
+#: selection:bmd.move_line_template,satzart:0
+msgid "FIBU-Buchungssatz"
+msgstr ""
+
+#. module: at_bmd
+#: selection:bmd.export_line,steucod:0
+#: selection:bmd.move_line_template,steucod:0
+msgid "Reverse Charge mit Vorsteuer"
+msgstr ""
+
+#. module: at_bmd
+#: view:bmd.export.profile:0
+msgid "Journale"
+msgstr ""
+
+#. module: at_bmd
+#: view:bmd.export:0
+msgid "Exporte"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_line,mwst:0
+#: field:bmd.move_line_template,mwst:0
+msgid "Steuerprozentsatz"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export.profile,journal_ids:0
+#: field:bmd.export_param,journal_ids:0
+msgid "Journals"
+msgstr ""
+
+#. module: at_bmd
+#: selection:bmd.export_line,steucod:0
+#: selection:bmd.move_line_template,steucod:0
+msgid "Einkauf innergem. Erwerb, wenn kein VSt-Abzug besteht"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_line,buchdat:0
+#: field:bmd.move_line_template,buchdat:0
+msgid "Buchnungsdatum"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_line,bucod:0
+#: field:bmd.move_line_template,bucod:0
+msgid "Soll/Haben"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_line,kotraeger:0
+#: field:bmd.move_line_template,kotraeger:0
+msgid "Kostenträger"
+msgstr ""
+
+#. module: at_bmd
+#: model:ir.model,name:at_bmd.model_bmd_export_result
+msgid "BMD Export Files"
+msgstr ""
+
+#. module: at_bmd
+#: selection:bmd.export_line,steucod:0
+#: selection:bmd.move_line_template,steucod:0
+msgid "Aufwand §19/1b ohne VSt-Abzug"
+msgstr ""
+
+#. module: at_bmd
+#: selection:bmd.export_line,steucod:0
+#: selection:bmd.move_line_template,steucod:0
+msgid "Aufwand §19/1b mit VSt-Abzug"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_line,extbelegnr:0
+#: field:bmd.move_line_template,extbelegnr:0
+msgid "Externe Belegnummer"
+msgstr ""
+
+#. module: at_bmd
+#: view:bmd.export.profile:0
+msgid "Anhänge"
+msgstr ""
+
+#. module: at_bmd
+#: code:addons/at_bmd/bmd_export.py:60
+#, python-format
+msgid "Warning"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export.profile,cession_code:0
+msgid "Zession Code"
+msgstr ""
+
+#. module: at_bmd
+#: selection:bmd.export_line,satzart:0
+#: selection:bmd.move_line_template,satzart:0
+msgid "Mehrzeiliger Buchungstext"
+msgstr ""
+
+#. module: at_bmd
+#: selection:bmd.export_line,bucod:0
+#: selection:bmd.move_line_template,bucod:0
+msgid "Soll-Buchung"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export.profile,receipt_primary:0
+msgid "Erlöskonto Buchungen"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_line,partner_id:0
+msgid "Partner"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export.profile,send_balance_list:0
+msgid "Sende Kontensalden"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_line,steucod:0
+#: field:bmd.move_line_template,steucod:0
+msgid "Steuer Code"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_result,buerf:0
+msgid "BMD Belege Export"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export.profile,send_open_invoice_list:0
+msgid "Sende Liste mit offenen Rechnungen"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_line,move_line_id:0
+msgid "Buchungszeile"
+msgstr ""
+
+#. module: at_bmd
+#: selection:bmd.export_line,steucod:0
+#: selection:bmd.move_line_template,steucod:0
+msgid "Umsätze §19/1c+d"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_line,bereich:0
+#: field:bmd.move_line_template,bereich:0
+msgid "Bereich"
+msgstr ""
+
+#. module: at_bmd
+#: selection:bmd.export_line,steucod:0
+#: selection:bmd.move_line_template,steucod:0
+msgid "Vorsteuer oder keine Steuer"
+msgstr ""
+
+#. module: at_bmd
+#: model:ir.model,name:at_bmd.model_bmd_export_line
+msgid "BMD Export Line"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export.profile,send_invoices:0
+msgid "Sende Rechnungen/Gutschriften"
+msgstr ""
+
+#. module: at_bmd
+#: selection:bmd.export_line,steucod:0
+#: selection:bmd.move_line_template,steucod:0
+msgid "Einkauf innergem. Erwerb, wenn VSt-Abzug besteht"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_line,steuer:0
+#: field:bmd.move_line_template,steuer:0
+msgid "Steuer"
+msgstr ""
+
+#. module: at_bmd
+#: model:ir.actions.act_window,name:at_bmd.action_bmd_exports
+#: model:ir.ui.menu,name:at_bmd.menu_bmd_exports
+msgid "BMD Export Archiv"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_line,belegdat:0
+#: field:bmd.move_line_template,belegdat:0
+msgid "Belegdatum"
+msgstr ""
+
+#. module: at_bmd
+#: view:bmd.export:0
+#: field:bmd.export,line_ids:0
+msgid "BMD Export Zeilen"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export.profile,send_voucher_list:0
+msgid "Sende Zahlungen"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_line,komenge:0
+#: field:bmd.move_line_template,komenge:0
+msgid "Kosten-Menge"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export.profile,export_asset_accounts:0
+msgid "Sachkonten Exportieren"
+msgstr ""
+
+#. module: at_bmd
+#: selection:bmd.export_line,bucod:0
+#: selection:bmd.move_line_template,bucod:0
+msgid "Haben-Buchung"
+msgstr ""
+
+#. module: at_bmd
+#: code:addons/at_bmd/bmd_export.py:60
+#, python-format
+msgid "No SMTP Server defined"
+msgstr ""
+
+#. module: at_bmd
+#: selection:bmd.export_line,verbuchkz:0
+#: selection:bmd.move_line_template,verbuchkz:0
+msgid "Sammelbuchungen durch BMD"
+msgstr ""
+
+#. module: at_bmd
+#: view:bmd.export_result:0
+msgid "Result"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export.profile,partner_name_as_matchcode:0
+msgid "Partner Name als Matchcode"
+msgstr ""
+
+#. module: at_bmd
+#: selection:bmd.export_line,steucod:0
+#: selection:bmd.move_line_template,steucod:0
+msgid "Einkauf Bausteuer normal mit Vorsteuer"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_line,menge:0
+#: field:bmd.move_line_template,menge:0
+msgid "Menge"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_line,text:0
+#: field:bmd.move_line_template,text:0
+msgid "Buchungstext"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_line,belegnr:0
+#: field:bmd.move_line_template,belegnr:0
+msgid "Belegnummer"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_result,log_ids:0
+msgid "Log"
+msgstr ""
+
+#. module: at_bmd
+#: selection:bmd.export_line,steucod:0
+#: selection:bmd.move_line_template,steucod:0
+msgid "Soll-Umsatzsteuer (= normale Umsatzsteuer)"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export.profile,send_statements:0
+msgid "Sende alle Auszüge"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export.profile,active:0
+msgid "Aktiv"
+msgstr ""
+
+#. module: at_bmd
+#: selection:bmd.export_line,ebkennz:0
+#: selection:bmd.move_line_template,ebkennz:0
+msgid "Eingangsbeleg"
+msgstr ""
+
+#. module: at_bmd
+#: view:bmd.export_param:0
+msgid "or"
+msgstr ""
+
+#. module: at_bmd
+#: selection:bmd.export_line,steucod:0
+#: selection:bmd.move_line_template,steucod:0
+msgid "Aufwand §19/d ohne VSt-Abzug"
+msgstr ""
+
+#. module: at_bmd
+#: selection:bmd.export_line,gegenbuchkz:0
+#: selection:bmd.move_line_template,gegenbuchkz:0
+msgid "Sammelbuchung"
+msgstr ""
+
+#. module: at_bmd
+#: selection:bmd.export_line,bereich:0
+#: selection:bmd.move_line_template,bereich:0
+msgid "Drittland"
+msgstr ""
+
+#. module: at_bmd
+#: selection:bmd.export_line,steucod:0
+#: selection:bmd.move_line_template,steucod:0
+msgid "Ist-Umsatzsteuer"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_line,invoice_id:0
+msgid "Rechnung"
+msgstr ""
+
+#. module: at_bmd
+#: selection:bmd.export_line,satzart:0
+#: selection:bmd.move_line_template,satzart:0
+msgid "Personenstammdaten"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_line,kost:0
+#: field:bmd.move_line_template,kost:0
+msgid "Kostenstelle"
+msgstr ""
+
+#. module: at_bmd
+#: model:ir.actions.act_window,name:at_bmd.action_bmd_export_result
+msgid "Export Dateien"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export.profile,send_affected_statements:0
+msgid "Sende betroffene Auszüge"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export,period_id:0
+#: field:bmd.export_line,periode:0
+#: field:bmd.move_line_template,periode:0
+msgid "Periode"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_param,period_id:0
+msgid "Period"
+msgstr "Periode"
+
+#. module: at_bmd
+#: view:bmd.export.profile:0
+#: field:bmd.export_param,profile_id:0
+#: model:ir.actions.act_window,name:at_bmd.action_bmd_export_profile
+#: model:ir.ui.menu,name:at_bmd.menu_bmd_export_profile
+msgid "BMD Export Profile"
+msgstr ""
+
+#. module: at_bmd
+#: selection:bmd.export_line,bereich:0
+#: selection:bmd.move_line_template,bereich:0
+msgid "EU Ausland"
+msgstr ""
+
+#. module: at_bmd
+#: selection:bmd.export_line,gegenbuchkz:0
+#: selection:bmd.move_line_template,gegenbuchkz:0
+msgid "Ohne Gegenbuchung"
+msgstr ""
+
+#. module: at_bmd
+#: view:bmd.export_param:0
+#: view:bmd.export_result:0
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#. module: at_bmd
+#: selection:bmd.export_line,verbuchkz:0
+#: selection:bmd.move_line_template,verbuchkz:0
+msgid "Verbuchung mit PR08A"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export.profile,send_invoice_list:0
+msgid "Sende Rechnung/Gutschriftenliste"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_line,opbetrag:0
+#: field:bmd.move_line_template,opbetrag:0
+msgid "OP-Betrag"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_line,betrag:0
+#: field:bmd.move_line_template,betrag:0
+msgid "Betrag"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_line,gegenbuchkz:0
+#: field:bmd.move_line_template,gegenbuchkz:0
+msgid "Gegenbuchungskennzeichen"
+msgstr ""
+
+#. module: at_bmd
+#: selection:bmd.export_line,steucod:0
+#: selection:bmd.move_line_template,steucod:0
+msgid "Reverse Charge ohne Vorsteuer"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_result,stamerf:0
+msgid "BMD Stammdaten Export"
+msgstr ""
+
+#. module: at_bmd
+#: help:bmd.export_line,opbetrag:0
+#: help:bmd.move_line_template,opbetrag:0
+msgid "Offene Posten - Betrag"
+msgstr ""
+
+#. module: at_bmd
+#: view:bmd.export_result:0
+msgid "BMD Export Dateien"
+msgstr ""
+
+#. module: at_bmd
+#: model:ir.model,name:at_bmd.model_bmd_move_line_template
+msgid "BMD Move Line Template"
+msgstr ""
+
+#. module: at_bmd
+#: model:ir.model,name:at_bmd.model_bmd_export_param
+msgid "BMD Journal Export Parameters"
+msgstr ""
+
+#. module: at_bmd
+#: selection:bmd.export_line,steucod:0
+#: selection:bmd.move_line_template,steucod:0
+msgid "Aufwände Son.Leistungen EU ohne VSt-Abzug"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_line,ebkennz:0
+#: field:bmd.move_line_template,ebkennz:0
+msgid "Beleg Kennzeichen"
+msgstr ""
+
+#. module: at_bmd
+#: model:ir.actions.act_window,name:at_bmd.action_bmd_export_wizard
+#: model:ir.ui.menu,name:at_bmd.menu_bmd_export_wizard
+msgid "BMD Export Assistent"
+msgstr ""
+
+#. module: at_bmd
+#: selection:bmd.export_line,steucod:0
+#: selection:bmd.move_line_template,steucod:0
+msgid "Einkauf Bausteuer ohne Vorsteuer"
+msgstr ""
+
+#. module: at_bmd
+#: selection:bmd.export_line,bereich:0
+#: selection:bmd.move_line_template,bereich:0
+msgid "Ausland"
+msgstr ""
+
+#. module: at_bmd
+#: selection:bmd.export_line,steucod:0
+#: selection:bmd.move_line_template,steucod:0
+msgid "Aufwand §19/1c mit VSt-Abzug"
+msgstr ""
+
+#. module: at_bmd
+#: view:bmd.export:0
+msgid "Summe Beträge"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_line,zziel:0
+#: field:bmd.move_line_template,zziel:0
+msgid "Zahlungsziel"
+msgstr ""
+
+#. module: at_bmd
+#: selection:bmd.export_line,gegenbuchkz:0
+#: selection:bmd.move_line_template,gegenbuchkz:0
+msgid "Einzelbuchung"
+msgstr ""
+
+#. module: at_bmd
+#: selection:bmd.export_line,steucod:0
+#: selection:bmd.move_line_template,steucod:0
+msgid "Aufwand §19/1c ohne VSt-Abzug"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export,name:0
+#: field:bmd.export.profile,name:0
+#: field:bmd.export_param,name:0
+msgid "Name"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_line,satzart:0
+#: field:bmd.move_line_template,satzart:0
+msgid "Satzart"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_line,symbol:0
+#: field:bmd.move_line_template,symbol:0
+msgid "Symbol"
+msgstr ""
+
+#. module: at_bmd
+#: view:bmd.export:0
+msgid "Summe Steuer"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_line,kovariator:0
+#: field:bmd.move_line_template,kovariator:0
+msgid "Kosten-Variator"
+msgstr ""
+
+#. module: at_bmd
+#: model:ir.model,name:at_bmd.model_bmd_export_profile
+msgid "bmd.export.profile"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_line,verbuchkz:0
+#: field:bmd.move_line_template,verbuchkz:0
+msgid "Verbuchungskennzeichen"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_line,account_contra_id:0
+#: field:bmd.export_line,gkto:0
+#: field:bmd.move_line_template,gkto:0
+msgid "Gegenkonto"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_line,komengenr:0
+#: field:bmd.move_line_template,komengenr:0
+msgid "Kosten-Menge-Kz"
+msgstr ""
+
+#. module: at_bmd
+#: selection:bmd.export_line,steucod:0
+#: selection:bmd.move_line_template,steucod:0
+msgid "steuerfreie Bauleistung (Erlös)"
+msgstr ""
+
+#. module: at_bmd
+#: selection:bmd.export_line,steucod:0
+#: selection:bmd.move_line_template,steucod:0
+msgid "Aufwände Son.Leistungen EU mit VSt-Abzug"
+msgstr ""
+
+#. module: at_bmd
+#: selection:bmd.export_line,bereich:0
+#: selection:bmd.move_line_template,bereich:0
+msgid "Inland"
+msgstr ""
+
+#. module: at_bmd
+#: selection:bmd.export_line,steucod:0
+#: selection:bmd.move_line_template,steucod:0
+msgid "Aufwand §19/d mit VSt-Abzug"
+msgstr ""
+
+#. module: at_bmd
+#: view:bmd.export:0
+#: view:bmd.export_param:0
+msgid "Export"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_line,koperiode:0
+#: field:bmd.move_line_template,koperiode:0
+msgid "Kosten-Periode"
+msgstr ""
+
+#. module: at_bmd
+#: field:bmd.export_line,skonto:0
+#: field:bmd.move_line_template,skonto:0
+msgid "Skonto"
+msgstr ""
+

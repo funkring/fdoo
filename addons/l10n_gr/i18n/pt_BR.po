@@ -1,73 +1,76 @@
 # Brazilian Portuguese translation for openobject-addons
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# Copyright (c) 2011 Rosetta Contributors and Canonical Ltd 2011
 # This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2012-11-24 02:53+0000\n"
-"PO-Revision-Date: 2013-07-18 21:24+0000\n"
-"Last-Translator: Claudio de Araujo Santos <claudioaraujosantos@gmail.com>\n"
+"PO-Revision-Date: 2011-03-10 23:08+0000\n"
+"Last-Translator: Emerson <Unknown>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-21 06:17+0000\n"
-"X-Generator: Launchpad (build 16831)\n"
+"X-Launchpad-Export-Date: 2012-11-25 06:30+0000\n"
+"X-Generator: Launchpad (build 16293)\n"
 
 #. module: l10n_gr
 #: model:account.account.type,name:l10n_gr.account_type_cash
 msgid "Μετρητά"
-msgstr "Numerário"
+msgstr ""
 
 #. module: l10n_gr
 #: model:account.account.type,name:l10n_gr.account_type_other
 msgid "Άλλο"
-msgstr "Outro"
+msgstr ""
 
 #. module: l10n_gr
 #: model:account.account.type,name:l10n_gr.account_type_payable
 msgid "Πληρωτέα"
-msgstr "A pagar"
+msgstr ""
 
 #. module: l10n_gr
 #: model:account.account.type,name:l10n_gr.account_type_equity
 msgid "Ενεργητικό"
-msgstr "Ativos"
+msgstr ""
 
 #. module: l10n_gr
 #: model:account.account.type,name:l10n_gr.account_type_liability
 msgid "Παθητικό"
-msgstr "Passivo"
+msgstr ""
 
 #. module: l10n_gr
 #: model:account.account.type,name:l10n_gr.account_type_income
 msgid "Έσοδα"
-msgstr "Renda"
+msgstr ""
 
 #. module: l10n_gr
 #: model:account.account.type,name:l10n_gr.account_type_asset
 msgid "Πάγια"
-msgstr "Corrigido"
+msgstr ""
 
 #. module: l10n_gr
 #: model:account.account.type,name:l10n_gr.account_type_expense
 msgid "Έξοδα"
-msgstr "Despesas"
+msgstr ""
 
 #. module: l10n_gr
 #: model:account.account.type,name:l10n_gr.account_type_tax
 msgid "Φόρος"
-msgstr "Imposto"
+msgstr ""
 
 #. module: l10n_gr
 #: model:account.account.type,name:l10n_gr.account_type_receivable
 msgid "Εισπρακτέα"
-msgstr "A receber"
+msgstr ""
 
 #. module: l10n_gr
 #: model:account.account.type,name:l10n_gr.account_type_view
 msgid "Προβολή"
-msgstr "Projeção"
+msgstr ""
+
+#~ msgid "This is the base module to manage the accounting chart for Greece."
+#~ msgstr "This is the base module to manage the accounting chart for Greece."

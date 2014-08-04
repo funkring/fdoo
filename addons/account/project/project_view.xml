@@ -31,7 +31,7 @@
                 <search string="Analytic Account">
                     <field name="name" filter_domain="['|', ('name','ilike',self), ('code','ilike',self)]" string="Analytic Account"/>
                     <field name="date"/>
-                    <field name="partner_id" operator="child_of"/>
+                    <field name="partner_id" filter_domain="[('partner_id','child_of',self)]"/>
                     <field name="manager_id"/>
                     <field name="parent_id"/>
                     <field name="user_id"/>
@@ -73,11 +73,11 @@
             </field>
         </record>
 
-
         <record id="action_account_analytic_account_form" model="ir.actions.act_window">
             <field name="name">Analytic Accounts</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">account.analytic.account</field>
+            <field name="context">{}</field> <!-- repair invalid context by setting empty one -->
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_account_analytic_account_tree"/>
@@ -132,7 +132,7 @@
                             <field name="name"/>
                             <field name="account_id"/>
                             <field name="journal_id"/>
-                            <field name="user_id"/>
+                            <field name="user_id" context="{'default_groups_ref': ['base.group_user', 'base.group_partner_manager', 'account.group_account_invoice']}"/>
                         </group>
                         <group>
                             <field name="date"/>
@@ -205,7 +205,7 @@
                         <filter string="Product" context="{'group_by':'product_id'}"/>
                         <filter string="User" context="{'group_by':'user_id'}"/>
                         <separator/>
-                        <filter string="Date" context="{'group_by':'date'}" name="group_date"/>
+                        <filter string="Tasks Month" context="{'group_by':'date'}" name="group_date" help="Invoice Tasks by Month"/>
 
                     </group>
                 </search>

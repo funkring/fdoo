@@ -1,0 +1,37 @@
+<openerp>
+	<data>		
+		<record id="form_pos_printer" model="ir.ui.view">
+            <field name="name">at_pos.form_pos_printer</field>
+            <field name="model">at_pos.pos_printer</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Printer">
+                	<field name="name" />
+                	<field name="type" />                    
+                </form>
+            </field>
+        </record>
+		
+        <record id="tree_pos_printer" model="ir.ui.view">
+            <field name="name">at_pos.tree_pos_printer</field>
+            <field name="model">at_pos.pos_printer</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Printer">
+                	<field name="name" />
+                	<field name="type" />                
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_pos_printer" model="ir.actions.act_window">
+            <field name="name">Printer</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">at_pos.pos_printer</field>            
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>	
+				
+        
+	</data>
+</openerp>

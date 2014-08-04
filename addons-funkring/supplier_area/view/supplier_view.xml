@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>    	
+    	 <record id="form_purchase_line" model="ir.ui.view">
+            <field name="name">supplier.form_purchase_line</field>
+            <field name="model">purchase.order.line</field>
+            <field name="type">form</field>            
+            <field name="priority">100</field>
+            <field name="arch" type="xml">
+                <form string="Purchase Order Line">              		
+                    <notebook colspan="4">
+                        <page string="Order Line">                  	
+                        	<field name="origin" readonly="1"/>                        	         	                	
+                        	<field name="date_planned" readonly="1"/>                        	      
+                        	<field name="name" readonly="1"/>
+                        	<field name="client_order_ref" />                    	
+                            <field name="product_qty" readonly="1"/>
+                            <field name="product_uom" readonly="1"/>                            
+                            <field name="price_unit" readonly="1"/>
+                            <field name="supplier_unit_price" readonly="1"/>                            
+                            <newline/>
+                            <field name="priority" readonly="1" colspan="1"/>                                                        
+                            <group colspan="2" col="6">         
+                            	<field name="level_id" widget="selection" readonly="1" colspan="1"/>
+	                            <button name="stage_next" string="Next Stage"  type="object"  states="draft,confirmed" icon="gtk-go-forward"/>
+	                            <field name="supplier_invoiced" readonly="1"/>
+                            </group>                     
+                            <field name="log_ids" readonly="1" nolabel="1" colspan="4">
+                            	<form string="Log Entry">
+                            		<group colspan="4" col="6">
+	                            		<field name="create_date"/>
+	                            		<field name="user_id"/>
+	                            		<field name="severity"/>
+	                            	</group>
+                            		<separator string="Message" colspan="4"/>
+                            		<field name="name" widget="text" nolabel="1"/>
+                            	</form>
+                            	<tree string="Log Entries">
+                            		<field name="create_date"/>
+	                            	<field name="user_id"/>
+	                            	<field name="severity"/>
+	                            	<field name="name"/>	                            
+                            	</tree>                            	
+                            </field>
+                            <group col="10" colspan="4">
+                                <field name="state" readonly="True"/>                                
+                                <button icon="gtk-print" name="%(at_stock_report.report_picking_list_purchase_line_pdf)d" string="Picking" type="action"/>
+                                <button icon="gtk-print" name="%(at_stock_report.report_picking_list_small_pdf)d" string="Picking Small" type="action"/>            
+                                <button icon="gtk-add" name="open_attachments" string="Attachments" type="object"/>                                
+                            </group>
+                        </page>                        
+                         <page string="Notes">                			 
+                            <field name="notes" readonly="1" colspan="4" nolabel="1"/>
+                        </page>                       
+                    </notebook>
+                </form>
+            </field>
+        </record>
+        
+        <record id="form_purchase_line2" model="ir.ui.view">
+            <field name="name">supplier.form_purchase_line2</field>
+            <field name="model">purchase.order.line</field>
+            <field name="type">form</field>            
+            <field name="priority">100</field>
+            <field name="arch" type="xml">
+                <form string="Purchase Order Line">
+              		<group name="purchase_order_group"  colspan="4" col="4">            
+              			<separator colspan="4" string="Purchase Order"/>		                		
+                		<field name="order_id" readonly="1"/>    			
+                		<field name="partner_id" readonly="1"/>
+                		<field name="shop_id" readonly="1"/>                		
+                	</group>
+                    <notebook colspan="4">
+                        <page string="Order Line">                  	
+                        	<field name="origin" attrs="{'readonly':[('state','!=','draft')]}"/>                        	         	                	
+                        	<field name="date_planned" attrs="{'readonly':[('state','!=','draft')]}"/>                        	      
+                        	<field name="name" colspan="4" attrs="{'readonly':[('state','!=','draft')]}"/>                    	
+                            <field name="product_qty" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="product_uom" attrs="{'readonly':[('state','!=','draft')]}"/>                            
+                            <field name="price_unit" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="supplier_unit_price" attrs="{'readonly':[('state','!=','draft')]}"/>                            
+                            <newline/>
+                            <field name="priority" attrs="{'readonly':[('state','!=','draft')]}" colspan="1"/>                                                        
+                            <group colspan="2" col="6">         
+                            	<field name="level_id" widget="selection" readonly="1" colspan="1"/>
+	                            <button name="stage_next" string="Next Stage"  type="object"  states="draft,confirmed" icon="gtk-go-forward"/>
+	                            <field name="supplier_invoiced" readonly="1"/>
+                            </group>                     
+                            <field name="log_ids" readonly="1" nolabel="1" colspan="4">
+                            	<form string="Log Entry">
+                            		<group colspan="4" col="6">
+	                            		<field name="create_date"/>
+	                            		<field name="user_id"/>
+	                            		<field name="severity"/>
+	                            	</group>
+                            		<separator string="Message" colspan="4"/>
+                            		<field name="name" widget="text" nolabel="1"/>
+                            	</form>
+                            	<tree string="Log Entries">
+                            		<field name="create_date"/>
+	                            	<field name="user_id"/>
+	                            	<field name="severity"/>
+	                            	<field name="name"/>	                            
+                            	</tree>                            	
+                            </field>
+                            <group col="6" colspan="4">
+                                <field name="state" readonly="True"/>
+                                <label string="" colspan="2"/>
+                                <button name="open_attachments" string="Attachments" type="object"/>
+                                <button name="confirm" string="Validate" type="object" states="draft" icon="gtk-go-forward"/>                                
+                            </group>
+                        </page>                        
+                         <page string="Notes">                			 
+                            <field name="notes" colspan="4" nolabel="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+                         </page>                       
+                    </notebook>
+                </form>
+            </field>
+        </record>
+        
+        <record id="form_purchase_line3" model="ir.ui.view">
+            <field name="name">supplier.form_purchase_line3</field>
+            <field name="model">purchase.order.line</field>
+            <field name="type">form</field>            
+            <field name="priority">100</field>
+            <field name="arch" type="xml">
+                <form string="Purchase Order Line">
+              		<group name="purchase_order_group"  colspan="4" col="4">            
+              			<separator colspan="4" string="Purchase Order"/>		                		
+                		<field name="order_id" readonly="1"/>    			
+                		<field name="partner_id" readonly="1"/>
+                		<field name="shop_id" readonly="1"/>                		
+                	</group>
+                    <notebook colspan="4">
+                        <page string="Order Line">                  	
+                        	<field name="origin" attrs="{'readonly':[('state','!=','draft')]}"/>                        	         	                	
+                        	<field name="date_planned" attrs="{'readonly':[('state','!=','draft')]}"/>                        	      
+                        	<field name="name" colspan="4" attrs="{'readonly':[('state','!=','draft')]}"/>                    	
+                            <field name="product_qty" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="product_uom" attrs="{'readonly':[('state','!=','draft')]}"/>                            
+                            <field name="price_unit" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="supplier_unit_price" attrs="{'readonly':[('state','!=','draft')]}"/>                            
+                            <newline/>
+                            <field name="priority" attrs="{'readonly':[('state','!=','draft')]}" colspan="1"/>                                                        
+                            <group colspan="2" col="6">         
+                            	<field name="level_id" widget="selection" readonly="1" colspan="1"/>
+	                            <button name="stage_next" string="Next Stage"  type="object"  states="draft,confirmed" icon="gtk-go-forward"/>
+	                            <field name="supplier_invoiced" readonly="1"/>
+                            </group>                     
+                            <field name="log_ids" readonly="1" nolabel="1" colspan="4">
+                            	<form string="Log Entry">
+                            		<group colspan="4" col="6">
+	                            		<field name="create_date"/>
+	                            		<field name="user_id"/>
+	                            		<field name="severity"/>
+	                            	</group>
+                            		<separator string="Message" colspan="4"/>
+                            		<field name="name" widget="text" nolabel="1"/>
+                            	</form>
+                            	<tree string="Log Entries">
+                            		<field name="create_date"/>
+	                            	<field name="user_id"/>
+	                            	<field name="severity"/>
+	                            	<field name="name"/>	                            
+                            	</tree>                            	
+                            </field>
+                        </page>                        
+                         <page string="Notes">                			 
+                            <field name="notes" colspan="4" nolabel="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+                         </page>                       
+                    </notebook>
+                </form>
+            </field>
+        </record>
+      
+        
+        <record id="tree_purchase_line" model="ir.ui.view">
+            <field name="name">supplier.tree_purchase_line</field>
+            <field name="model">purchase.order.line</field>
+            <field name="type">tree</field>
+            <field name="priority">100</field>            
+            <field name="arch" type="xml">
+                <tree string="Purchase Order Lines"
+                	  colors="red:(date_planned&lt;current_date);red:(severity=='2');red:(priority=='3');orange:(severity=='1');orange:(priority=='2');black:(priority=='1');gray:(priority=='0')">                	
+                	<button name="stage_next" string="Next Stage" states="draft,confirmed"  type="object"  icon="gtk-go-forward" attrs="{'invisible':[('state','==','done')]}"/>
+                	<button name="show_info" string="Info" type="object" icon="terp-stage"/>
+               	 	<button name="dummy" string="Ship" type="object" attrs="{'invisible':['|',('supplier_ships','!=',True),('state','!=','confirmed')]}"
+                              			icon="terp-accessories-archiver"/>	                           
+                	<field name="supplier_ships" invisible="1"/>                	                	
+                	<field name="date_planned"  width="135"/>
+                	<field name="category_id"/>                	
+                	<field name="shop_id"/>    
+                	<field name="state"/>
+                	<field name="severity" invisible="1"/>                	
+                	<field name="level_id"/>              
+                	<field name="write_date"/>  	
+                	<field name="priority"/>                	
+                    <field name="name"/> 
+                    <field name="client_order_ref" />
+                    <field name="dest_address_id"/>  
+                    <field name="product_qty"/>
+                    <field name="product_uom"/>                    
+                    <field name="supplier_invoiced"/>
+                    <field name="origin"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="tree_purchase_line2" model="ir.ui.view">
+            <field name="name">supplier.tree_purchase_line2</field>
+            <field name="model">purchase.order.line</field>
+            <field name="type">tree</field>
+            <field name="priority">100</field>            
+            <field name="arch" type="xml">
+                <tree string="Purchase Order Lines"
+                	  colors="red:(date_planned&lt;current_date);red:(severity=='2');red:(priority=='3');orange:(severity=='1');orange:(priority=='2');black:(priority=='1');gray:(priority=='0')">                	
+                	<button name="stage_next" string="Next Stage" states="draft,confirmed"  type="object"  icon="gtk-go-forward" attrs="{'invisible':[('state','==','done')]}"/>
+                	<button name="dummy" string="Ship" type="object" attrs="{'invisible':['|',('supplier_ships','!=',True),('state','!=','confirmed')]}"
+                              			icon="terp-accessories-archiver"/>	                           
+                	<field name="supplier_ships" invisible="1"/>
+                	<field name="create_date"/>                	
+                	<field name="date_planned"  width="135"/>
+                	<field name="category_id"/>
+                	<field name="partner_id"/>
+                	<field name="shop_id"/>    
+                	<field name="state"/>
+                	<field name="severity" invisible="1"/>                	
+                	<field name="level_id"/>              
+                	<field name="write_date"/>  	
+                	<field name="priority"/>                	
+                    <field name="name"/>  
+                    <field name="dest_address_id" /> 
+                    <field name="product_qty"/>
+                    <field name="product_uom"/>                    
+                    <field name="supplier_invoiced"/>                            
+                    <field name="order_id"/>
+                    <field name="sale_order_id"/>            
+                </tree>
+            </field>
+        </record>
+       
+        <record id="tree_purchase_line3" model="ir.ui.view">
+            <field name="name">supplier.tree_purchase_line3</field>
+            <field name="model">purchase.order.line</field>
+            <field name="type">tree</field>
+            <field name="priority">100</field>            
+            <field name="arch" type="xml">
+                <tree string="Purchase Order Lines"
+                	  colors="red:(date_planned&lt;current_date);red:(severity=='2');red:(priority=='3');orange:(severity=='1');orange:(priority=='2');black:(priority=='1');gray:(priority=='0')">                	
+                	<button name="stage_next" string="Next Stage" states="draft,confirmed"  type="object"  icon="gtk-go-forward" attrs="{'invisible':[('state','==','done')]}"/>
+                	<button name="dummy" string="Ship" type="object" attrs="{'invisible':['|',('supplier_ships','!=',True),('state','!=','confirmed')]}"
+                              			icon="terp-accessories-archiver"/>	                           
+                	<field name="supplier_ships" invisible="1"/>
+                	<field name="create_date"/>                	
+                	<field name="date_planned"  width="135"/>
+                	<field name="category_id"/>
+                	<field name="partner_id"/>
+                	<field name="shop_id"/>    
+                	<field name="state"/>
+                	<field name="severity" invisible="1"/>                	
+                	<field name="level_id"/>              
+                	<field name="write_date"/>  	
+                	<field name="priority"/>                	
+                    <field name="name"/>   
+                    <field name="dest_address_id" />
+                    <field name="product_qty"/>
+                    <field name="product_uom"/>                    
+                    <field name="supplier_invoiced"/>                            
+                    <field name="order_id"/>
+                    <field name="origin_sale_order_id"/>            
+                </tree>
+            </field>
+        </record>
+       
+       	<record id="search_purchase_line" model="ir.ui.view">
+            <field name="name">supplier.search_purchase_line</field>
+            <field name="model">purchase.order.line</field>
+            <field name="type">search</field>                    
+            <field name="arch" type="xml">
+                <search string="Search Purchase Order">
+                        <group colspan="4" col="8">	    
+                        	<filter icon="terp-document-new" name="filter_draft" string="Draft" domain="[('state','=','draft')]" separator="1" help="Draft Purchase line"/>
+	                        <filter icon="terp-camera_test" name="filter_confirmed" string="Confirmed" domain="[('state','=','confirmed')]" separator="1" help="Confirmed Purchase line"/>       
+	                        <filter name="today"
+									string="Today Changed"
+									icon="terp-go-month"
+									domain="[('write_date','&gt;=',(datetime.date.today()).strftime('%%Y-%%m-%%d')), ('write_date','&lt;',(datetime.date.today()+datetime.timedelta(days=1)).strftime('%%Y-%%m-%%d'))]"/> 
+							<filter name="today"
+									string="Today Planned"
+									icon="terp-go-month"
+									domain="[('date_planned','&gt;=',(datetime.date.today()).strftime('%%Y-%%m-%%d')), ('date_planned','&lt;',(datetime.date.today()+datetime.timedelta(days=1)).strftime('%%Y-%%m-%%d'))]"/>                                   
+                        	<field name="origin" string="Origin"/>                        	
+                        	<field name="category_id" widget="selection" operator="child_of"/>
+							<field name="client_order_ref" />                        	
+                        	<field name="dest_address_id" />      
+	                        <field name="level_id"/>     
+	                        <field name="date_planned"/>
+	                                          
+                        </group>
+                        
+                        <newline/>
+                        <group expand="0" string="Group By...">
+	                        <filter string="Category" icon="terp-stock" domain="[]" context="{'group_by' : 'category_id'}" />
+	                        <filter string="Date" icon="terp-calendar" domain="[]" context="{'group_by' : 'date_planned'}" />
+	                        <filter string="Priority" icon="terp-project" domain="[]" context="{'group_by' : 'priority'}" /> 
+	                        <separator orientation="vertical"/>
+	                        <filter string="State" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by' : 'state'}" />
+                        	<separator orientation="vertical"/>
+                        	<filter string="Delivery Address" icon="terp-personal" domain="[]" context="{'group_by' : 'dest_address_id'}" />
+                        	<filter string="Customer Reference" icon="terp-personal" domain="[]" context="{'group_by' : 'client_order_ref'}" />
+                        	<filter string="Shop" icon="gtk-home" domain="[]" context="{'group_by' : 'shop_id'}" />
+                        	<field name="shop_id" />
+                        </group>
+               </search>
+         	</field>
+         </record> 
+         
+         <record id="search_purchase_line2" model="ir.ui.view">
+            <field name="name">supplier.search_purchase_line2</field>
+            <field name="model">purchase.order.line</field>
+            <field name="type">search</field>                    
+            <field name="arch" type="xml">
+                <search string="Search Purchase Order">
+                        <group colspan="4" col="10">                        
+	                        <filter icon="terp-document-new" name="filter_draft" string="Draft" domain="[('state','=','draft')]" separator="1" help="Draft Purchase line"/>
+	                        <filter icon="terp-camera_test" name="filter_confirmed" string="Confirmed" domain="[('state','=','confirmed')]" separator="1" help="Confirmed Purchase line"/>
+                        	<field name="order_id"/>
+	                        <field name="sale_order_id"/>	                        
+	                        <field name="category_id" widget="selection" operator="child_of"/>
+	                        <field name="dest_address_id"/>
+	                        <field name="partner_id"/>
+	                        <field name="shop_id"/>
+	                        <field name="level_id"/>     
+	                        <field name="date_planned"/>	       
+	                                         
+                        </group>
+                        <newline/>
+                        <group expand="0" string="Group By...">
+                        <filter string="Category" icon="terp-stock" domain="[]" context="{'group_by' : 'category_id'}" />
+                        <filter string="Date" icon="terp-calendar" domain="[]" context="{'group_by' : 'date_planned'}" />
+                        <filter string="Priority" icon="terp-project" domain="[]" context="{'group_by' : 'priority'}" />   
+                        <filter string="Delivery Address" icon="terp-personal" domain="[]" context="{'group_by' : 'dest_address_id'}" />                     
+                        <separator orientation="vertical"/>
+                        <filter string="State" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by' : 'state'}" />
+                        </group>
+               </search>
+         	</field>
+         </record> 
+       
+       <record id="search_purchase_line3" model="ir.ui.view">
+       		<field name="name">supplier.search_purchase_line3</field>
+            <field name="model">purchase.order.line</field>
+            <field name="type">search</field>                    
+            <field name="arch" type="xml">
+                <search string="Search Purchase Order">
+                        <group colspan="4" col="8">
+                         	<filter icon="terp-document-new" name="filter_draft" string="Draft" domain="[('state','=','draft')]" separator="1" help="Draft Purchase line"/>
+	                        <filter icon="terp-camera_test" name="filter_confirmed" string="Confirmed" domain="[('state','=','confirmed')]" separator="1" help="Confirmed Purchase line"/>
+                        	<field name="order_id"/>
+	                        <field name="origin_sale_order_id"/>	                        
+	                        <field name="category_id" widget="selection" operator="child_of"/>
+	                        <field name="dest_address_id" />
+	                        <field name="partner_id"/>
+	                        <field name="shop_id"/>
+	                        <field name="level_id"/>     
+	                        <field name="date_planned"/>	                       
+                        </group>
+                        <newline/>
+                        <group expand="0" string="Group By...">
+                        <filter string="Category" icon="terp-stock" domain="[]" context="{'group_by' : 'category_id'}" />
+                        <filter string="Date" icon="terp-calendar" domain="[]" context="{'group_by' : 'date_planned'}" />
+                        <filter string="Priority" icon="terp-project" domain="[]" context="{'group_by' : 'priority'}" />                 
+                        <filter string="Delivery Address" icon="terp-personal" domain="[]" context="{'group_by' : 'dest_address_id'}" />       
+                        <separator orientation="vertical"/>
+                        <filter string="State" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by' : 'state'}" />
+                        </group>
+               </search>
+         	</field>
+         </record> 
+         
+        <record id="action_purchase_line" model="ir.actions.act_window">
+            <field name="name">Supplier Purchase Order Lines</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order.line</field>            
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="search_purchase_line"/>
+        </record>        
+        <record id="action_purchase_line_tree" model="ir.actions.act_window.view">
+         	<field name="sequence" eval="1"/>
+         	<field name="view_mode">tree</field>
+         	<field name="view_id" ref="tree_purchase_line"/>
+         	<field name="act_window_id" ref="action_purchase_line"/>
+         </record>       	
+       	<record id="action_purchase_line_form" model="ir.actions.act_window.view">
+         	<field name="sequence" eval="2"/>
+         	<field name="view_mode">form</field>
+         	<field name="view_id" ref="form_purchase_line"/>
+         	<field name="act_window_id" ref="action_purchase_line"/>
+         </record>
+                
+                
+        <act_window id="action_sale_order_purchase_lines"        	
+        	name="Purchase Order Lines"
+        	res_model="purchase.order.line"
+        	src_model="sale.order"
+        	view_mode="tree,form"
+        	view_type="form"/>        	        	
+        <record id="action_sale_order_purchase_lines" model="ir.actions.act_window">
+            <field name="name">Purchase Order Lines</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order.line</field>         
+            <field name="src_model">sale.order</field>
+            <field name="groups">purchase.group_purchase_user</field>   
+            <field name="view_mode">tree,form</field>                                  
+            <field name="search_view_id" ref="search_purchase_line2"/>
+            <field name="context">{'search_default_sale_order_id': [active_id] } </field>
+        </record>       
+        <record id="action_sale_order_purchase_lines_tree" model="ir.actions.act_window.view">
+         	<field name="sequence" eval="1"/>
+         	<field name="view_mode">tree</field>
+         	<field name="view_id" ref="tree_purchase_line2"/>
+         	<field name="act_window_id" ref="action_sale_order_purchase_lines"/>
+         </record>       	
+       	<record id="action_sale_order_purchase_lines_form" model="ir.actions.act_window.view">
+         	<field name="sequence" eval="2"/>
+         	<field name="view_mode">form</field>
+         	<field name="view_id" ref="form_purchase_line2"/>
+         	<field name="act_window_id" ref="action_sale_order_purchase_lines"/>
+         </record>
+         
+         <act_window id="action_sale_order_purchase_lines3"        	
+        	name="Purchase Quote Lines"
+        	res_model="purchase.order.line"
+        	src_model="sale.order"
+        	view_mode="tree,form"
+        	view_type="form"/>         
+        <record id="action_sale_order_purchase_lines3" model="ir.actions.act_window">
+            <field name="name">Purchase Quote Lines</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order.line</field>         
+            <field name="src_model">sale.order</field>
+            <field name="groups">purchase.group_purchase_user</field>   
+            <field name="view_mode">tree,form</field>                                  
+            <field name="search_view_id" ref="search_purchase_line3"/>
+            <field name="domain">[('move_dest_id','=',False)]</field>
+            <field name="context">{'search_default_origin_sale_order_id': [active_id] } </field>
+        </record>       
+        <record id="action_sale_order_purchase_lines3_tree" model="ir.actions.act_window.view">
+         	<field name="sequence" eval="1"/>
+         	<field name="view_mode">tree</field>
+         	<field name="view_id" ref="tree_purchase_line3"/>
+         	<field name="act_window_id" ref="action_sale_order_purchase_lines3"/>
+         </record>       	
+       	<record id="action_sale_order_purchase_lines3_form" model="ir.actions.act_window.view">
+         	<field name="sequence" eval="2"/>
+         	<field name="view_mode">form</field>
+         	<field name="view_id" ref="form_purchase_line3"/>
+         	<field name="act_window_id" ref="action_sale_order_purchase_lines3"/>
+         </record>
+         
+         
+         <record id="action_purchase_line2" model="ir.actions.act_window">
+            <field name="name">Purchase Order Lines</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order.line</field>            
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="search_purchase_line2"/>
+        </record>        
+        <record id="action_purchase_line_tree2" model="ir.actions.act_window.view">
+         	<field name="sequence" eval="1"/>
+         	<field name="view_mode">tree</field>
+         	<field name="view_id" ref="tree_purchase_line2"/>
+         	<field name="act_window_id" ref="action_purchase_line2"/>
+         </record>       	
+       	<record id="action_purchase_line_form2" model="ir.actions.act_window.view">
+         	<field name="sequence" eval="2"/>
+         	<field name="view_mode">form</field>
+         	<field name="view_id" ref="form_purchase_line2"/>
+         	<field name="act_window_id" ref="action_purchase_line2"/>
+         </record>
+         
+        <record id="action_sale_order_purchase_lines_oneweek" model="ir.actions.act_window">
+            <field name="name">Purchase Order Lines (One Week)</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order.line</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('create_date', '&gt;=', (datetime.date.today()-datetime.timedelta(days=7)).strftime('%Y-%m-%d'))]</field>
+            <field name="view_mode">tree, form</field>
+            <field name="search_view_id" ref="search_purchase_line"/>            
+        </record>
+       	
+       	<record id="action_purchase_line_tree_oneweek" model="ir.actions.act_window.view">
+         	<field name="sequence" eval="1"/>
+         	<field name="view_mode">tree</field>
+         	<field name="view_id" ref="tree_purchase_line"/>
+         	<field name="act_window_id" ref="action_sale_order_purchase_lines_oneweek"/>
+        </record>       	
+       	
+       	<record id="action_purchase_line_form_oneweek" model="ir.actions.act_window.view">
+         	<field name="sequence" eval="2"/>
+         	<field name="view_mode">form</field>
+         	<field name="view_id" ref="form_purchase_line"/>
+         	<field name="act_window_id" ref="action_sale_order_purchase_lines_oneweek"/>
+        </record>
+        
+        
+        <record id="action_sale_order_purchase_lines_twoweeks" model="ir.actions.act_window">
+            <field name="name">Purchase Order Lines (Two Weeks)</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order.line</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('create_date', '&gt;=', (datetime.date.today()-datetime.timedelta(days=14)).strftime('%Y-%m-%d'))]</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="search_purchase_line"/>            
+        </record>
+        
+        <record id="action_purchase_line_tree_twoweeks" model="ir.actions.act_window.view">
+         	<field name="sequence" eval="1"/>
+         	<field name="view_mode">tree</field>
+         	<field name="view_id" ref="tree_purchase_line"/>
+         	<field name="act_window_id" ref="action_sale_order_purchase_lines_twoweeks"/>
+        </record>       	
+       	
+       	<record id="action_purchase_line_form_twoweeks" model="ir.actions.act_window.view">
+         	<field name="sequence" eval="2"/>
+         	<field name="view_mode">form</field>
+         	<field name="view_id" ref="form_purchase_line"/>
+         	<field name="act_window_id" ref="action_sale_order_purchase_lines_twoweeks"/>
+        </record>
+        
+        
+        <record id="action_sale_order_purchase_lines_fourweeks" model="ir.actions.act_window">
+            <field name="name">Purchase Order Lines (Four Weeks)</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order.line</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('create_date', '&gt;=', (datetime.date.today()-datetime.timedelta(days=28)).strftime('%Y-%m-%d'))]</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="search_purchase_line"/>            
+        </record>
+        
+        <record id="action_purchase_line_tree_fourweeks" model="ir.actions.act_window.view">
+         	<field name="sequence" eval="1"/>
+         	<field name="view_mode">tree</field>
+         	<field name="view_id" ref="tree_purchase_line"/>
+         	<field name="act_window_id" ref="action_sale_order_purchase_lines_fourweeks"/>
+        </record>       	
+       	
+       	<record id="action_purchase_line_form_fourweeks" model="ir.actions.act_window.view">
+         	<field name="sequence" eval="2"/>
+         	<field name="view_mode">form</field>
+         	<field name="view_id" ref="form_purchase_line"/>
+         	<field name="act_window_id" ref="action_sale_order_purchase_lines_fourweeks"/>
+        </record>
+        
+    </data>    
+</openerp>

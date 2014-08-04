@@ -110,11 +110,11 @@ class delivery_carrier(osv.osv):
 
             # not using advanced pricing per destination: override grid
             grid_id = grid_pool.search(cr, uid, [('carrier_id', '=', record.id)], context=context)
-
             if grid_id and not (record.normal_price or record.free_if_more_than):
                 grid_pool.unlink(cr, uid, grid_id, context=context)
 
-            if not (record.normal_price or record.free_if_more_than):
+            # Check that float, else 0.0 is False
+            if not (isinstance(record.normal_price,float) or record.free_if_more_than):
                 continue
 
             if not grid_id:
@@ -141,7 +141,7 @@ class delivery_carrier(osv.osv):
                     'list_price': 0.0,
                 }
                 grid_line_pool.create(cr, uid, line_data, context=context)
-            if record.normal_price:
+            if isinstance(record.normal_price,float):
                 line_data = {
                     'grid_id': grid_id and grid_id[0],
                     'name': _('Default price'),
@@ -166,7 +166,6 @@ class delivery_carrier(osv.osv):
         self.create_grid_lines(cr, uid, [res_id], vals, context=context)
         return res_id
 
-delivery_carrier()
 
 class delivery_grid(osv.osv):
     _name = "delivery.grid"
@@ -192,14 +191,13 @@ class delivery_grid(osv.osv):
         total = 0
         weight = 0
         volume = 0
-        product_uom_obj = self.pool.get('product.uom')
         for line in order.order_line:
-            if not line.product_id:
+            if not line.product_id or line.is_delivery:
                 continue
-            q = product_uom_obj._compute_qty(cr, uid, line.product_uom.id, line.product_uom_qty, line.product_id.uom_id.id)
             total += line.price_subtotal or 0.0
-            weight += (line.product_id.weight or 0.0) * q
-            volume += (line.product_id.volume or 0.0) * q
+            weight += (line.product_id.weight or 0.0) * line.product_uom_qty
+            volume += (line.product_id.volume or 0.0) * line.product_uom_qty
+
 
         return self.get_price_from_picking(cr, uid, id, total,weight, volume, context=context)
 
@@ -207,9 +205,8 @@ class delivery_grid(osv.osv):
         grid = self.browse(cr, uid, id, context=context)
         price = 0.0
         ok = False
-
+        price_dict = {'price': total, 'volume':volume, 'weight': weight, 'wv':volume*weight}
         for line in grid.line_ids:
-            price_dict = {'price': total, 'volume':volume, 'weight': weight, 'wv':volume*weight}
             test = eval(line.type+line.operator+str(line.max_value), price_dict)
             if test:
                 if line.price_type=='variable':
@@ -224,7 +221,6 @@ class delivery_grid(osv.osv):
         return price
 
 
-delivery_grid()
 
 class delivery_grid_line(osv.osv):
     _name = "delivery.grid.line"
@@ -250,6 +246,5 @@ class delivery_grid_line(osv.osv):
     }
     _order = 'list_price'
 
-delivery_grid_line()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

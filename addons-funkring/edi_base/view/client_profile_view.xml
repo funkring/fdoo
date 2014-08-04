@@ -1,0 +1,56 @@
+<openerp>
+	<data>		
+	        		    
+		<record id="form_client_profile" model="ir.ui.view">
+            <field name="name">edi_base.form_client_profile</field>
+            <field name="model">edi.client_profile</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Client Profile">
+                    <field name="system_id"/>  
+                    <field name="enabled"/>         
+                    <notebook colspan="4">
+                        <page string="Access">	
+                            <group colspan="2" col="2">
+		                        <separator col="2" colspan="2" string="URL"/>
+		                        <field name="url"/>		                    	
+		                        <field name="database"/>
+		                    </group>	                          
+		                    <group colspan="2" col="2">
+		                        <separator col="2" colspan="2" string="Password/User"/>
+		                    	<field name="user"/>
+		                    	<field name="password"/>    
+		                    </group>
+		                    <group colspan="2" col="2">
+		                        <separator col="2" colspan="2" string="Error Handling"/>
+		                        <field name="retry"/>
+		                    </group>
+	                    </page>  
+                    </notebook>                  
+                </form>
+            </field>
+        </record>
+
+        <record id="tree_client_profile" model="ir.ui.view">
+            <field name="name">edi_base.tree_client_profile</field>
+            <field name="model">edi.client_profile</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Client Profiles">
+                	<field name="system_id"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_client_profile" model="ir.actions.act_window">
+            <field name="name">Client Profile</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">edi.client_profile</field>            
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+				
+        <menuitem id="menu_client_profile" name="Client Profile" parent="menu_edi" sequence="2"
+        		  action="action_client_profile"/>		
+	</data>
+</openerp>

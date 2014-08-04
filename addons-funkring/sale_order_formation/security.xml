@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="access_sale_order_formation_sale_salesman" model="ir.model.access">
+	<field name="name">sale_order_formation/sale_salesman</field>
+	<field name="model_id" ref="model_sale_order_formation"/>
+	<field name="group_id" ref="base.group_sale_salesman"/>
+	<field name="perm_read" eval="True"/>			
+	<field name="perm_unlink" eval="True"/>
+	<field name="perm_create" eval="True"/>
+	<field name="perm_write" eval="True"/>
+</record>
+	</data>
+</openerp>

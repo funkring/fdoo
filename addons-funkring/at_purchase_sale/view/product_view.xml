@@ -1,0 +1,14 @@
+<openerp>
+	<data>
+		<record id="form_product_product" model="ir.ui.view">
+			<field name="name">at_purchase_sale.form_product_product</field>
+			<field name="model">product.product</field>
+			<field name="inherit_id" ref="product.product_normal_form_view" />
+			<field name="arch" type="xml">
+				<field name="cost_method" position="after">
+					<field name="supplier_ships" />
+				</field>
+			</field>
+		</record>
+	</data>
+</openerp>

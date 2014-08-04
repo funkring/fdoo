@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>	      
+		   <report id="report_employe_work_pdf" 
+               string="Employee Work Report" 
+               name="hr_employee_pdf" 
+               auto="False" 
+               report_type="aeroo" 
+               model="hr_timesheet_sheet.sheet"
+               in_format="oo-odt" 
+               out_format="oo-pdf" 
+               parser="at_timereg/report/employee_report.py" 
+               rml="at_timereg/report/employee_report.odt"/>     
+	</data>
+</openerp>

@@ -1,21 +1,20 @@
-# Slovenian translation for openobject-addons
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
-# This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* account_budget
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openobject-addons\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:36+0000\n"
-"PO-Revision-Date: 2013-06-09 08:02+0000\n"
-"Last-Translator: Dušan Laznik (Mentis) <laznik@mentis.si>\n"
-"Language-Team: Slovenian <sl@li.org>\n"
+"Project-Id-Version: OpenERP Server 6.0dev\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-12-21 17:05+0000\n"
+"PO-Revision-Date: 2010-10-30 10:47+0000\n"
+"Last-Translator: OpenERP Administrators <Unknown>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-21 05:58+0000\n"
-"X-Generator: Launchpad (build 16831)\n"
+"X-Launchpad-Export-Date: 2014-03-27 07:01+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: account_budget
 #: view:account.budget.analytic:0
@@ -118,39 +117,10 @@ msgid "Status"
 msgstr "Stanje"
 
 #. module: account_budget
-#: field:crossovered.budget.lines,analytic_account_id:0
-#: model:ir.model,name:account_budget.model_account_analytic_account
-msgid "Analytic Account"
-msgstr "Analitični konto"
-
-#. module: account_budget
-#: model:ir.actions.act_window,help:account_budget.act_crossovered_budget_view
-msgid ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"                Click to create a new budget.\n"
-"              </p><p>\n"
-"                A budget is a forecast of your company's income and/or "
-"expenses\n"
-"                expected for a period in the future. A budget is defined on "
-"some\n"
-"                financial accounts and/or analytic accounts (that may "
-"represent\n"
-"                projects, departments, categories of products, etc.)\n"
-"              </p><p>\n"
-"                By keeping track of where your money goes, you may be less\n"
-"                likely to overspend, and more likely to meet your financial\n"
-"                goals. Forecast a budget by detailing the expected revenue "
-"per\n"
-"                analytic account and monitor its evolution based on the "
-"actuals\n"
-"                realised during that period.\n"
-"              </p>\n"
-"            "
-msgstr ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"                Nov proračun. \n"
-"              </p>\n"
-"            "
+#: code:addons/account_budget/account_budget.py:119
+#, python-format
+msgid "The Budget '%s' has no accounts!"
+msgstr "Proračun '%s' nima določenih kontov!"
 
 #. module: account_budget
 #: report:account.budget:0
@@ -245,12 +215,6 @@ msgstr "Naziv"
 #: model:ir.model,name:account_budget.model_crossovered_budget_lines
 msgid "Budget Line"
 msgstr "Pozicija"
-
-#. module: account_budget
-#: code:addons/account_budget/account_budget.py:119
-#, python-format
-msgid "The Budget '%s' has no accounts!"
-msgstr "Proračun '%s' nima določenih kontov!"
 
 #. module: account_budget
 #: report:account.budget:0
@@ -371,14 +335,41 @@ msgid "or"
 msgstr "ali"
 
 #. module: account_budget
-#: view:crossovered.budget:0
-msgid "Cancel Budget"
-msgstr "Preklic"
+#: field:crossovered.budget.lines,analytic_account_id:0
+#: model:ir.model,name:account_budget.model_account_analytic_account
+msgid "Analytic Account"
+msgstr "Analitični konto"
 
 #. module: account_budget
 #: report:account.budget:0
 msgid "Budget :"
 msgstr "Proračun:"
+
+#. module: account_budget
+#: model:ir.actions.act_window,help:account_budget.act_crossovered_budget_view
+msgid ""
+"<p>\n"
+"                A budget is a forecast of your company's income and/or "
+"expenses\n"
+"                expected for a period in the future. A budget is defined on "
+"some\n"
+"                financial accounts and/or analytic accounts (that may "
+"represent\n"
+"                projects, departments, categories of products, etc.)\n"
+"              </p><p>\n"
+"                By keeping track of where your money goes, you may be less\n"
+"                likely to overspend, and more likely to meet your financial\n"
+"                goals. Forecast a budget by detailing the expected revenue "
+"per\n"
+"                analytic account and monitor its evolution based on the "
+"actuals\n"
+"                realised during that period.\n"
+"              </p>\n"
+"            "
+msgstr ""
+"Proračun je plan prihodkov in stroškov za vaše podjetje.\n"
+" Proračun lahko določite na finančnih in analitičnih kontih.\n"
+"            "
 
 #. module: account_budget
 #: report:account.budget:0
@@ -432,25 +423,82 @@ msgid "Draft Budgets"
 msgstr "Osnutki proračunov"
 
 #~ msgid ""
-#~ "<p>\n"
-#~ "                A budget is a forecast of your company's income and/or "
-#~ "expenses\n"
-#~ "                expected for a period in the future. A budget is defined on "
-#~ "some\n"
-#~ "                financial accounts and/or analytic accounts (that may "
-#~ "represent\n"
-#~ "                projects, departments, categories of products, etc.)\n"
-#~ "              </p><p>\n"
-#~ "                By keeping track of where your money goes, you may be less\n"
-#~ "                likely to overspend, and more likely to meet your financial\n"
-#~ "                goals. Forecast a budget by detailing the expected revenue "
-#~ "per\n"
-#~ "                analytic account and monitor its evolution based on the "
-#~ "actuals\n"
-#~ "                realised during that period.\n"
-#~ "              </p>\n"
-#~ "            "
+#~ "The Object name must start with x_ and not contain any special character !"
 #~ msgstr ""
-#~ "Proračun je plan prihodkov in stroškov za vaše podjetje.\n"
-#~ " Proračun lahko določite na finančnih in analitičnih kontih.\n"
-#~ "            "
+#~ "Naziv objekta se mora začeti z 'x_' in ne sme vsebovati posebnih znakov."
+
+#~ msgid "Period"
+#~ msgstr "Obdobje"
+
+#~ msgid "Printing date:"
+#~ msgstr "Tiskano dne:"
+
+#~ msgid "From"
+#~ msgstr "Od"
+
+#~ msgid "Results"
+#~ msgstr "Rezultati"
+
+#~ msgid "%"
+#~ msgstr "%"
+
+#~ msgid "Invalid XML for View Architecture!"
+#~ msgstr "Neveljaven XML za arhitekturo pogleda."
+
+#~ msgid "Lines"
+#~ msgstr "Postavke"
+
+#~ msgid "Amount"
+#~ msgstr "Znesek"
+
+#~ msgid "Fiscal Year"
+#~ msgstr "Poslovno leto"
+
+#~ msgid "Select period"
+#~ msgstr "Izberi obdobje"
+
+#, python-format
+#~ msgid "Insufficient Data!"
+#~ msgstr "Premalo podatkov!"
+
+#~ msgid "Performance"
+#~ msgstr "Zmogljivost"
+
+#~ msgid "Validate"
+#~ msgstr "Preveri"
+
+#~ msgid "Spreading"
+#~ msgstr "Razširjanje ..."
+
+#~ msgid "Item"
+#~ msgstr "Element"
+
+#~ msgid "Print Budget"
+#~ msgstr "Natisni proračun"
+
+#~ msgid "Analytic Account :"
+#~ msgstr "Analitični konto:"
+
+#~ msgid "Dotations"
+#~ msgstr "Dotacije"
+
+#~ msgid "Invalid model name in the action definition."
+#~ msgstr "Napačno ime modela v definiciji dejanja."
+
+#~ msgid "Period Budget"
+#~ msgstr "Proračun obdobja"
+
+#~ msgid "Budget Analysis"
+#~ msgstr "Analize proračuna"
+
+#~ msgid "Select Options"
+#~ msgstr "Izberi možnosti"
+
+#~ msgid "Print Summary of Budgets"
+#~ msgstr "Izpiši povzetek proračunov"
+
+#~ msgid "Spread"
+#~ msgstr "Razširi"
+
+#~ msgid "Total Planned Amount"
+#~ msgstr "Skupni načrtovani znesek"

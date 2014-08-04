@@ -23,18 +23,9 @@ from datetime import datetime, timedelta
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT, DATETIME_FORMATS_MAP, float_compare
 from dateutil.relativedelta import relativedelta
 from openerp.osv import fields, osv
-from openerp import netsvc
 from openerp.tools.translate import _
 import pytz
 from openerp import SUPERUSER_ID
-
-class sale_shop(osv.osv):
-    _inherit = "sale.shop"
-    _columns = {
-        'warehouse_id': fields.many2one('stock.warehouse', 'Warehouse'),
-    }
-
-sale_shop()
 
 class sale_order(osv.osv):
     _inherit = "sale.order"
@@ -72,8 +63,15 @@ class sale_order(osv.osv):
                 vals.update({'invoice_quantity': 'order'})
             if vals['order_policy'] == 'picking':
                 vals.update({'invoice_quantity': 'procurement'})
-        order =  super(sale_order, self).create(cr, uid, vals, context=context)
+        order = super(sale_order, self).create(cr, uid, vals, context=context)
         return order
+
+    def _get_default_warehouse(self, cr, uid, context=None):
+        company_id = self.pool.get('res.users')._get_company(cr, uid, context=context)
+        warehouse_ids = self.pool.get('stock.warehouse').search(cr, uid, [('company_id', '=', company_id)], context=context)
+        if not warehouse_ids:
+            return False
+        return warehouse_ids[0]
 
     # This is False
     def _picked_rate(self, cr, uid, ids, name, arg, context=None):
@@ -125,8 +123,7 @@ class sale_order(osv.osv):
             ('shipping_except', 'Shipping Exception'),
             ('invoice_except', 'Invoice Exception'),
             ('done', 'Done'),
-            ], 'Status', readonly=True, track_visibility='onchange',
-            help="Gives the status of the quotation or sales order.\
+            ], 'Status', readonly=True,help="Gives the status of the quotation or sales order.\
               \nThe exception status is automatically set when a cancel operation occurs \
               in the invoice validation (Invoice Exception) or in the picking list process (Shipping Exception).\nThe 'Waiting Schedule' status is set when the invoice is confirmed\
                but waiting for the scheduler to run on the order date.", select=True),
@@ -143,11 +140,13 @@ class sale_order(osv.osv):
         'picking_ids': fields.one2many('stock.picking.out', 'sale_id', 'Related Picking', readonly=True, help="This is a list of delivery orders that has been generated for this sales order."),
         'shipped': fields.boolean('Delivered', readonly=True, help="It indicates that the sales order has been delivered. This field is updated only after the scheduler(s) have been launched."),
         'picked_rate': fields.function(_picked_rate, string='Picked', type='float'),
+        'warehouse_id': fields.many2one('stock.warehouse', 'Warehouse', required=True),
         'invoice_quantity': fields.selection([('order', 'Ordered Quantities'), ('procurement', 'Shipped Quantities')], 'Invoice on', 
                                              help="The sales order will automatically create the invoice proposition (draft invoice).\
                                               You have to choose  if you want your invoice based on ordered ", required=True, readonly=True, states={'draft': [('readonly', False)]}),
     }
     _defaults = {
+             'warehouse_id': _get_default_warehouse,
              'picking_policy': 'direct',
              'order_policy': 'manual',
              'invoice_quantity': 'order',
@@ -164,6 +163,14 @@ class sale_order(osv.osv):
                 raise osv.except_osv(_('Invalid Action!'), _('In order to delete a confirmed sales order, you must cancel it.\nTo do so, you must first cancel related picking for delivery orders.'))
 
         return osv.osv.unlink(self, cr, uid, unlink_ids, context=context)
+
+    def onchange_warehouse_id(self, cr, uid, ids, warehouse_id, context=None):
+        val = {}
+        if warehouse_id:
+            warehouse = self.pool.get('stock.warehouse').browse(cr, uid, warehouse_id, context=context)
+            if warehouse.company_id:
+                val['company_id'] = warehouse.company_id.id
+        return {'value': val}
 
     def action_view_delivery(self, cr, uid, ids, context=None):
         '''
@@ -197,11 +204,11 @@ class sale_order(osv.osv):
         return res
 
     def action_cancel(self, cr, uid, ids, context=None):
-        wf_service = netsvc.LocalService("workflow")
         if context is None:
             context = {}
         sale_order_line_obj = self.pool.get('sale.order.line')
         proc_obj = self.pool.get('procurement.order')
+        stock_obj = self.pool.get('stock.picking')
         for sale in self.browse(cr, uid, ids, context=context):
             for pick in sale.picking_ids:
                 if pick.state not in ('draft', 'cancel'):
@@ -212,11 +219,9 @@ class sale_order(osv.osv):
                     for mov in pick.move_lines:
                         proc_ids = proc_obj.search(cr, uid, [('move_id', '=', mov.id)])
                         if proc_ids:
-                            for proc in proc_ids:
-                                wf_service.trg_validate(uid, 'procurement.order', proc, 'button_check', cr)
+                            proc_obj.signal_button_check(cr, uid, proc_ids)            
             for r in self.read(cr, uid, ids, ['picking_ids']):
-                for pick in r['picking_ids']:
-                    wf_service.trg_validate(uid, 'stock.picking', pick, 'button_cancel', cr)
+                stock_obj.signal_button_cancel(cr, uid, r['picking_ids'])
         return super(sale_order, self).action_cancel(cr, uid, ids, context=context)
 
     def action_wait(self, cr, uid, ids, context=None):
@@ -302,7 +307,7 @@ class sale_order(osv.osv):
                     or line.product_uom_qty,
             'product_uos': (line.product_uos and line.product_uos.id)\
                     or line.product_uom.id,
-            'location_id': order.shop_id.warehouse_id.lot_stock_id.id,
+            'location_id': order.warehouse_id.lot_stock_id.id,
             'procure_method': line.type,
             'move_id': move_id,
             'company_id': order.company_id.id,
@@ -310,8 +315,8 @@ class sale_order(osv.osv):
         }
 
     def _prepare_order_line_move(self, cr, uid, order, line, picking_id, date_planned, context=None):
-        location_id = order.shop_id.warehouse_id.lot_stock_id.id
-        output_id = order.shop_id.warehouse_id.lot_output_id.id
+        location_id = order.warehouse_id.lot_stock_id.id
+        output_id = order.warehouse_id.lot_output_id.id
         return {
             'name': line.name,
             'picking_id': picking_id,
@@ -352,6 +357,7 @@ class sale_order(osv.osv):
         }
 
     def ship_recreate(self, cr, uid, order, line, move_id, proc_id):
+        # FIXME: deals with potentially cancelled shipments, seems broken (specially if shipment has production lot)
         """
         Define ship_recreate for process after shipping exception
         param order: sales order to which the order lines belong
@@ -360,25 +366,16 @@ class sale_order(osv.osv):
         param proc_id: the ID of procurement
         """
         move_obj = self.pool.get('stock.move')
-        proc_obj = self.pool.get('procurement.order')
-        if move_id and order.state == 'shipping_except':
-            current_move = move_obj.browse(cr, uid, move_id)
-            moves = []
-            for picking in order.picking_ids:
-                if picking.id != current_move.picking_id.id and picking.state != 'cancel':
-                    moves.extend(move for move in picking.move_lines if move.state != 'cancel' and move.sale_line_id.id == line.id)
-            if moves:
-                product_qty = current_move.product_qty
-                product_uos_qty = current_move.product_uos_qty
-                for move in moves:
-                    product_qty -= move.product_qty
-                    product_uos_qty -= move.product_uos_qty
-                if product_qty > 0 or product_uos_qty > 0:
-                    move_obj.write(cr, uid, [move_id], {'product_qty': product_qty, 'product_uos_qty': product_uos_qty})
-                    proc_obj.write(cr, uid, [proc_id], {'product_qty': product_qty, 'product_uos_qty': product_uos_qty})
-                else:
-                    current_move.unlink()
-                    proc_obj.unlink(cr, uid, [proc_id])
+        if order.state == 'shipping_except':
+            for pick in order.picking_ids:
+                for move in pick.move_lines:
+                    if move.state == 'cancel':
+                        mov_ids = move_obj.search(cr, uid, [('state', '=', 'cancel'),('sale_line_id', '=', line.id),('picking_id', '=', pick.id)])
+                        if mov_ids:
+                            for mov in move_obj.browse(cr, uid, mov_ids):
+                                # FIXME: the following seems broken: what if move_id doesn't exist? What if there are several mov_ids? Shouldn't that be a sum?
+                                move_obj.write(cr, uid, [move_id], {'product_qty': mov.product_qty, 'product_uos_qty': mov.product_uos_qty})
+                                self.pool.get('procurement.order').write(cr, uid, [proc_id], {'product_qty': mov.product_qty, 'product_uos_qty': mov.product_uos_qty})
         return True
 
     def _get_date_planned(self, cr, uid, order, line, start_date, context=None):
@@ -431,11 +428,9 @@ class sale_order(osv.osv):
                 line.write({'procurement_id': proc_id})
                 self.ship_recreate(cr, uid, order, line, move_id, proc_id)
 
-        wf_service = netsvc.LocalService("workflow")
         if picking_id:
-            wf_service.trg_validate(uid, 'stock.picking', picking_id, 'button_confirm', cr)
-        for proc_id in proc_ids:
-            wf_service.trg_validate(uid, 'procurement.order', proc_id, 'button_confirm', cr)
+            picking_obj.signal_button_confirm(cr, uid, [picking_id])
+        procurement_obj.signal_button_confirm(cr, uid, proc_ids)
 
         val = {}
         if order.state == 'shipping_except':
@@ -619,13 +614,13 @@ class sale_order_line(osv.osv):
         res_packing = self.product_packaging_change(cr, uid, ids, pricelist, product, qty, uom, partner_id, packaging, context=context)
         res['value'].update(res_packing.get('value', {}))
         warning_msgs = res_packing.get('warning') and res_packing['warning']['message'] or ''
-        compare_qty = float_compare(product_obj.virtual_available, qty, precision_rounding=uom2.rounding)
+        compare_qty = float_compare(product_obj.virtual_available * uom2.factor, qty * product_obj.uom_id.factor, precision_rounding=product_obj.uom_id.rounding)
         if (product_obj.type=='product') and int(compare_qty) == -1 \
-           and (product_obj.procure_method=='make_to_stock'):
+          and (product_obj.procure_method=='make_to_stock'):
             warn_msg = _('You plan to sell %.2f %s but you only have %.2f %s available !\nThe real stock is %.2f %s. (without reservations)') % \
-                    (qty, uom2.name,
-                     max(0,product_obj.virtual_available), uom2.name,
-                     max(0,product_obj.qty_available), uom2.name)
+                    (qty, uom2 and uom2.name or product_obj.uom_id.name,
+                     max(0,product_obj.virtual_available), product_obj.uom_id.name,
+                     max(0,product_obj.qty_available), product_obj.uom_id.name)
             warning_msgs += _("Not enough stock ! : ") + warn_msg + "\n\n"
 
         #update of warning messages

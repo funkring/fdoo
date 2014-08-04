@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="form_timesheet" model="ir.ui.view">
+			<field name="name">at_timereg.form_timesheet</field>
+			<field name="model">hr_timesheet_sheet.sheet</field>
+			<field name="inherit_id" ref="hr_timesheet_sheet.hr_timesheet_sheet_form" />
+			<field name="arch" type="xml">
+				<data>
+					<xpath expr="//sheet/notebook/page[@string='Summary']"
+						position="inside">
+						<group groups="base.group_hr_attendance">
+							<group string="Attandance Balance">
+								<field name="total_target" widget="float_time" />							
+								<field name="current_saldo" widget="float_time" />
+								<field name="saldo_correction" widget="float_time" />
+							</group>
+							<group string="Holiday Balance">
+								<field name="max_leaves"/>
+								<field name="leaves_taken"/>
+								<field name="remaining_leaves"/>
+							</group> 
+						</group>
+					</xpath>
+				</data>
+			</field>
+		</record>
+	</data>
+</openerp>

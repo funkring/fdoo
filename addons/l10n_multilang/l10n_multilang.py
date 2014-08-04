@@ -33,6 +33,7 @@ class wizard_multi_charts_accounts(osv.osv_memory):
     """
     _inherit = 'wizard.multi.charts.accounts'
 
+    # FIXME: in trunk, drop the force_write param entirely
     def process_translations(self, cr, uid, langs, in_obj, in_field, in_ids, out_obj, out_ids, force_write=False, context=None):
         """
         This method copies translations values of templates into new Accounts/Taxes/Journals for languages selected
@@ -148,6 +149,5 @@ class wizard_multi_charts_accounts(osv.osv_memory):
         out_ids = obj_fiscal_position.search(cr, uid, [('company_id', '=', company_id)], order='id')
         return self.process_translations(cr, uid, langs, obj_fiscal_position_template, field, in_ids, obj_fiscal_position, out_ids, context=context)
 
-wizard_multi_charts_accounts()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -1,20 +1,19 @@
-# Swedish translation for openobject-addons
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
-# This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* hr_contract
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openobject-addons\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:37+0000\n"
-"PO-Revision-Date: 2014-04-01 06:48+0000\n"
-"Last-Translator: Anders Wallenquist <anders.wallenquist@vertel.se>\n"
-"Language-Team: Swedish <sv@li.org>\n"
+"Project-Id-Version: OpenERP Server 5.0.14\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-12-21 17:05+0000\n"
+"PO-Revision-Date: 2010-11-23 09:29+0000\n"
+"Last-Translator: OpenERP Administrators <Unknown>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-04-02 06:44+0000\n"
+"X-Launchpad-Export-Date: 2014-03-27 06:51+0000\n"
 "X-Generator: Launchpad (build 16967)\n"
 
 #. module: hr_contract
@@ -41,11 +40,6 @@ msgstr "Företagsbil"
 #: view:hr.contract:0
 msgid "Group By..."
 msgstr "Gruppera efter..."
-
-#. module: hr_contract
-#: view:hr.contract:0
-msgid "Advantages..."
-msgstr "Fördelar..."
 
 #. module: hr_contract
 #: field:hr.contract,department_id:0
@@ -108,7 +102,7 @@ msgstr "Avtalstyper"
 #. module: hr_contract
 #: view:hr.employee:0
 msgid "Medical Exam"
-msgstr "Medicinsk undersökning"
+msgstr ""
 
 #. module: hr_contract
 #: field:hr.contract,date_end:0
@@ -169,7 +163,7 @@ msgstr "Arbetsschema"
 #. module: hr_contract
 #: view:hr.contract:0
 msgid "Salary and Advantages"
-msgstr "Lön och förmåner"
+msgstr ""
 
 #. module: hr_contract
 #: field:hr.contract,job_id:0
@@ -179,7 +173,7 @@ msgstr "Befattning"
 #. module: hr_contract
 #: constraint:hr.contract:0
 msgid "Error! Contract start-date must be less than contract end-date."
-msgstr "Fel! Avtalets startdatum måste vara mindre än dess slutdatum."
+msgstr ""
 
 #. module: hr_contract
 #: field:hr.employee,manager:0
@@ -199,7 +193,7 @@ msgstr "Visa nummer"
 #. module: hr_contract
 #: field:hr.employee,vehicle_distance:0
 msgid "Home-Work Dist."
-msgstr "Hem-arbete distans"
+msgstr ""
 
 #. module: hr_contract
 #: field:hr.employee,place_of_birth:0
@@ -209,7 +203,7 @@ msgstr "Födelseort"
 #. module: hr_contract
 #: view:hr.contract:0
 msgid "Trial Period Duration"
-msgstr "Provanställningstid"
+msgstr ""
 
 #. module: hr_contract
 #: view:hr.contract:0
@@ -235,3 +229,50 @@ msgstr "Provanställningens slut"
 #: view:hr.contract.type:0
 msgid "Search Contract Type"
 msgstr "Sök avtalstyp"
+
+#~ msgid ""
+#~ "The Object name must start with x_ and not contain any special character !"
+#~ msgstr ""
+#~ "Objektnamnet måste börja med x_ och får inte innehålla några specialtecken!"
+
+#~ msgid "Human Resources Contracts"
+#~ msgstr "Human Resources Contracts"
+
+#~ msgid "Miscellaneous"
+#~ msgstr "Övrigt"
+
+#~ msgid "Current"
+#~ msgstr "Aktuellt"
+
+#~ msgid "Medical Examination"
+#~ msgstr "Medicinsk undersökning"
+
+#~ msgid "Trial Period"
+#~ msgstr "Provanställning"
+
+#~ msgid "Overpassed"
+#~ msgstr "Överpasserad"
+
+#~ msgid "Personal Info"
+#~ msgstr "Personlig information"
+
+#~ msgid "Contracts whose end date already passed"
+#~ msgstr "Avtal vars slutdatum är passerade"
+
+#~ msgid "Contracts in progress"
+#~ msgstr "Pågående avtal"
+
+#~ msgid "Home-Work Distance"
+#~ msgstr "Hem-arbetsplatsdistans"
+
+#~ msgid "Error ! You cannot create recursive Hierarchy of Employees."
+#~ msgstr "Fel! Du kan inte skapa rekursiva hierarkier av anställda."
+
+#~ msgid "Valid for"
+#~ msgstr "Giltig för"
+
+#~ msgid "Error! contract start-date must be lower then contract end-date."
+#~ msgstr "Fel! avtalsstartdatum måste komma före avtalsslutdatum."
+
+#~ msgid "Job Info"
+#~ msgstr "Arbetsinformation"

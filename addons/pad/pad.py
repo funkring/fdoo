@@ -46,11 +46,11 @@ class pad_common(osv.osv_memory):
             try:
                 myPad.createPad(path)
             except urllib2.URLError:
-                raise osv.except_osv(_("Error"), _("Pad creation fail, \
+                raise osv.except_osv(_("Error"), _("Pad creation failed, \
                 either there is a problem with your pad server URL or with your connection."))
 
             #get attr on the field model
-            model = self.pool.get(context["model"])
+            model = self.pool[context["model"]]
             field = model._all_columns[context['field_name']]
             real_field = field.column.pad_content_field
 

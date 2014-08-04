@@ -1,21 +1,21 @@
 # Mongolian translation for openobject-addons
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
 # This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:36+0000\n"
-"PO-Revision-Date: 2013-07-06 06:51+0000\n"
+"POT-Creation-Date: 2012-12-21 17:05+0000\n"
+"PO-Revision-Date: 2013-02-07 10:41+0000\n"
 "Last-Translator: gobi <Unknown>\n"
 "Language-Team: Mongolian <mn@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-21 05:58+0000\n"
-"X-Generator: Launchpad (build 16831)\n"
+"X-Launchpad-Export-Date: 2014-03-27 06:16+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: account_followup
 #: model:email.template,subject:account_followup.email_template_account_followup_default
@@ -63,6 +63,11 @@ msgid "Needs Printing"
 msgstr "Хэвлэх шаардлагатай"
 
 #. module: account_followup
+#: view:res.partner:0
+msgid "⇾ Mark as Done"
+msgstr "⇾ Хийгдсэнээр Тэмдэглэх"
+
+#. module: account_followup
 #: field:account_followup.followup.line,manual_action_note:0
 msgid "Action To Do"
 msgstr "Хийх Ажил"
@@ -103,23 +108,14 @@ msgid "Follow-up Steps"
 msgstr "Мөшгөлтийн алхамууд"
 
 #. module: account_followup
-#: code:addons/account_followup/account_followup.py:261
-#, python-format
-msgid "Due Date"
-msgstr "Эцсийн огноо"
+#: field:account_followup.print,email_body:0
+msgid "Email Body"
+msgstr "Имэйлийн агуулга"
 
 #. module: account_followup
 #: model:ir.actions.act_window,name:account_followup.action_account_followup_print
 msgid "Send Follow-Ups"
 msgstr "Мөшгөлтүүдийг илгээх"
-
-#. module: account_followup
-#: code:addons/account_followup/account_followup.py:312
-#: code:addons/account_followup/account_followup.py:318
-#: code:addons/account_followup/report/account_followup_print.py:86
-#, python-format
-msgid "Error!"
-msgstr "Алдаа!"
 
 #. module: account_followup
 #: report:account_followup.followup.print:0
@@ -255,12 +251,6 @@ msgstr ""
 "            "
 
 #. module: account_followup
-#: code:addons/account_followup/account_followup.py:260
-#, python-format
-msgid "Reference"
-msgstr "Код"
-
-#. module: account_followup
 #: view:account_followup.stat.by.partner:0
 msgid "Balance > 0"
 msgstr "Баланс > 0"
@@ -304,11 +294,6 @@ msgstr "НӨАТ:"
 #: model:ir.model,name:account_followup.model_res_partner
 msgid "Partner"
 msgstr "Харилцагч"
-
-#. module: account_followup
-#: field:account_followup.print,email_body:0
-msgid "Email Body"
-msgstr "Имэйлийн агуулга"
 
 #. module: account_followup
 #: view:account_followup.followup:0
@@ -516,16 +501,6 @@ msgid "Payment Follow-ups"
 msgstr "Төлбөрийн мөшгөлтүүд"
 
 #. module: account_followup
-#: code:addons/account_followup/report/account_followup_print.py:86
-#, python-format
-msgid ""
-"The followup plan defined for the current company does not have any followup "
-"action."
-msgstr ""
-"Идэвхтэй компанид тодорхойлогдсон мөшгөлтөнд ямар ч мөшгөлтийн арга "
-"хэмжээнүүд байхгүй байна."
-
-#. module: account_followup
 #: field:account_followup.followup.line,delay:0
 msgid "Due Days"
 msgstr "Товлосон өдрүүд"
@@ -593,11 +568,6 @@ msgid "Printed Message"
 msgstr "Хэвлэсэн мессеж"
 
 #. module: account_followup
-#: view:res.partner:0
-msgid "Responsible of credit collection"
-msgstr "Найдвартай кредит цуглуулга"
-
-#. module: account_followup
 #: code:addons/account_followup/wizard/account_followup_print.py:155
 #, python-format
 msgid "Anybody"
@@ -645,11 +615,6 @@ msgstr ""
 "бүрт хариуцагч болгоно."
 
 #. module: account_followup
-#: view:res.partner:0
-msgid "Partners with Overdue Credits"
-msgstr "Харилцагчийн хугацаа нь дууссан кредитүүд"
-
-#. module: account_followup
 #: model:ir.model,name:account_followup.model_account_followup_sending_results
 msgid "Results from the sending of the different letters and emails"
 msgstr "Ялгаатай захидал болон имэйл илгээглтийн үр дүнгүүд"
@@ -686,15 +651,6 @@ msgstr "Мөшгөлтүүдийг Хайх"
 
 #. module: account_followup
 #: view:res.partner:0
-msgid ""
-"He said the problem was temporary and promised to pay 50% before 15th of "
-"May, balance before 1st of July."
-msgstr ""
-"Түр зуур асуудалтай байгаа бөгөөд 50%-г нь 5 сарын 15-с өмнө, үлдсэнийг нь 7 "
-"сарын 1-нд төлөхөөр амласан байгаа."
-
-#. module: account_followup
-#: view:res.partner:0
 msgid "Account Move line"
 msgstr "Зөөх дансны мөр"
 
@@ -710,9 +666,13 @@ msgid "or"
 msgstr "эсвэл"
 
 #. module: account_followup
-#: field:account_followup.stat,blocked:0
-msgid "Blocked"
-msgstr "Хоригдсон"
+#: view:res.partner:0
+msgid ""
+"If not specified by the latest follow-up level, it will send from the "
+"default email template"
+msgstr ""
+"Хэрэв сүүлийн мөшгилтийн түвшинд зааж өгөөгүй бол энэ нь үндсэн имэйл "
+"үлгэрээс илгээх болно"
 
 #. module: account_followup
 #: sql_constraint:account_followup.followup.line:0
@@ -728,11 +688,6 @@ msgstr "Арга хэмжээг хийгдсэнээр тэмдэглэхдээ 
 #: model:ir.ui.menu,name:account_followup.menu_action_followup_stat_follow
 msgid "Follow-Ups Analysis"
 msgstr "Мөшгөлтийн анализ"
-
-#. module: account_followup
-#: view:res.partner:0
-msgid "Action to be taken e.g. Give a phonecall, Check if it's paid, ..."
-msgstr "Авах арга хэмжээ. Жишээлбэл: утсаар ярих, төлсөн эсэхийг шалгах..."
 
 #. module: account_followup
 #: help:res.partner,payment_next_action_date:0
@@ -907,13 +862,6 @@ msgid "Printed overdue payments report"
 msgstr "Хугацаа хэтэрсэн төлбөрийн нэхэмжлэл хэвлэгдсэн"
 
 #. module: account_followup
-#: code:addons/account_followup/account_followup.py:290
-#, python-format
-msgid ""
-"You became responsible to do the next action for the payment follow-up of"
-msgstr "Та төлбөрийн мөшгөлтийн дараах арга хэмжээний хариуцагч боллоо"
-
-#. module: account_followup
 #: help:account_followup.followup.line,manual_action:0
 msgid ""
 "When processing, it will set the manual action to be taken for that "
@@ -939,15 +887,15 @@ msgid " email(s) should have been sent, but "
 msgstr " имэйлүүд илгээгдлээ, гэхдээ "
 
 #. module: account_followup
+#: help:account_followup.print,test_print:0
+msgid ""
+"Check if you want to print follow-ups without changing follow-ups level."
+msgstr ""
+
+#. module: account_followup
 #: model:ir.model,name:account_followup.model_account_move_line
 msgid "Journal Items"
 msgstr "Журналын бичилтүүд"
-
-#. module: account_followup
-#: code:addons/account_followup/account_followup.py:280
-#, python-format
-msgid "Amount due"
-msgstr "Хугацаа хэтэрсэн дүн"
 
 #. module: account_followup
 #: report:account_followup.followup.print:0
@@ -979,12 +927,6 @@ msgstr "Кредит"
 #: field:res.partner,payment_amount_overdue:0
 msgid "Amount Overdue"
 msgstr "Хугацаа хэтэрсэн дүн"
-
-#. module: account_followup
-#: code:addons/account_followup/account_followup.py:263
-#, python-format
-msgid "Lit."
-msgstr ""
 
 #. module: account_followup
 #: help:res.partner,latest_followup_level_id_without_lit:0
@@ -1168,10 +1110,9 @@ msgid " had unknown email address(es)"
 msgstr " үл мэдэгдэх имэйл хаягуудтай байна"
 
 #. module: account_followup
-#: help:account_followup.print,test_print:0
-msgid ""
-"Check if you want to print follow-ups without changing follow-up level."
-msgstr "Мөшгилтийн түвшинг өөрчлөлгүйгээр мөшгилтийг хэвлэх бол сонгоно."
+#: view:res.partner:0
+msgid "Responsible"
+msgstr ""
 
 #. module: account_followup
 #: model:ir.ui.menu,name:account_followup.menu_finance_followup
@@ -1240,19 +1181,22 @@ msgid "Latest Follow-up Level without litigation"
 msgstr "Маргаангүй мөшгилтийн сүүлийн түвшин"
 
 #. module: account_followup
-#: view:res.partner:0
-msgid "⇾ Mark as Done"
-msgstr "⇾ Хийгдсэнээр Тэмдэглэх"
+#: model:ir.actions.act_window,help:account_followup.action_account_manual_reconcile_receivable
+msgid ""
+"<p>\n"
+"                    No journal items found.\n"
+"                </p>\n"
+"            "
+msgstr ""
+"<p>\n"
+"                    Журналын бичилт олдсонгүй.\n"
+"                </p>\n"
+"            "
 
 #. module: account_followup
 #: view:account.move.line:0
 msgid "Partner entries"
 msgstr "Харилцагчийн бичилт"
-
-#. module: account_followup
-#: view:account_followup.followup.line:0
-msgid "e.g. Call the customer, check if it's paid, ..."
-msgstr "ж. Захиалагчийг дуудах, төлөгдсөн эсэхийг шалгах, ..."
 
 #. module: account_followup
 #: view:account_followup.stat:0
@@ -1350,10 +1294,9 @@ msgid " letter(s) in report"
 msgstr " тайлан дахь захидлууд"
 
 #. module: account_followup
-#: model:ir.actions.act_window,name:account_followup.action_customer_my_followup
-#: model:ir.ui.menu,name:account_followup.menu_sale_followup
-msgid "My Follow-Ups"
-msgstr "Миний мөшгилтүүд"
+#: view:res.partner:0
+msgid "Partners with Overdue Credits"
+msgstr "Харилцагчийн хугацаа нь дууссан кредитүүд"
 
 #. module: account_followup
 #: view:res.partner:0
@@ -1407,16 +1350,6 @@ msgid "Total credit"
 msgstr "Нийт кредит"
 
 #. module: account_followup
-#: code:addons/account_followup/account_followup.py:312
-#, python-format
-msgid ""
-"The partner does not have any accounting entries to print in the overdue "
-"report for the current company."
-msgstr ""
-"Идэвхтэй компанийн хувьд хугацаа хэтэрсэн тайланд хэвлэх санхүүгийн бичилт "
-"байхгүй байна."
-
-#. module: account_followup
 #: field:account_followup.followup.line,sequence:0
 msgid "Sequence"
 msgstr "Дугаарлалт"
@@ -1467,32 +1400,78 @@ msgid "Accounting"
 msgstr "Санхүү"
 
 #. module: account_followup
-#: view:res.partner:0
-msgid ""
-"If not specified by the latest follow-up level, it will send from the "
-"default email template"
-msgstr ""
-"Хэрэв сүүлийн мөшгилтийн түвшинд зааж өгөөгүй бол энэ нь үндсэн имэйл "
-"үлгэрээс илгээх болно"
-
-#. module: account_followup
-#: code:addons/account_followup/account_followup.py:318
-#, python-format
-msgid "There is no followup plan defined for the current company."
-msgstr "Идэвхтэй компанид мөшгилтийн төлөвлөгөө тодорхойлогдоогүй байна."
+#: field:account_followup.stat,blocked:0
+msgid "Blocked"
+msgstr "Хоригдсон"
 
 #. module: account_followup
 #: field:res.partner,payment_note:0
 msgid "Customer Payment Promise"
 msgstr "Захиалагчийн Төлөх Амлалт"
 
+#~ msgid "Invalid model name in the action definition."
+#~ msgstr "Үйлдэлийн тодорхойлолтод буруу моделийн нэр заасан байна."
+
+#~ msgid "Account Type"
+#~ msgstr "Дансны төрөл"
+
+#~ msgid "Paid"
+#~ msgstr "Төлсөн"
+
 #~ msgid ""
-#~ "<p>\n"
-#~ "                    No journal items found.\n"
-#~ "                </p>\n"
-#~ "            "
+#~ "The Object name must start with x_ and not contain any special character !"
 #~ msgstr ""
-#~ "<p>\n"
-#~ "                    Журналын бичилт олдсонгүй.\n"
-#~ "                </p>\n"
-#~ "            "
+#~ "Объектын нэрний эхлэл x_ байх ёстой бөгөөд бусад тусгай тэмдэгтийг агуулж "
+#~ "болохгүй!"
+
+#~ msgid "Invalid XML for View Architecture!"
+#~ msgstr "Дэлгэцийн XML алдаатай!"
+
+#~ msgid "Lines"
+#~ msgstr "Мөрүүд"
+
+#~ msgid "Ok"
+#~ msgstr "Ok"
+
+#~ msgid "End of Month"
+#~ msgstr "Сарын эцэс"
+
+#~ msgid "Continue"
+#~ msgstr "Үргэлжлүүлэх"
+
+#~ msgid "Sub-Total:"
+#~ msgstr "Дэд-дүн:"
+
+#~ msgid "Email body"
+#~ msgstr "И-мэйл бие"
+
+#~ msgid "Legend"
+#~ msgstr "Тэмдэглэгээ"
+
+#~ msgid "Partner Selection"
+#~ msgstr "Харилцагч сонгох"
+
+#~ msgid "Send Mails"
+#~ msgstr "Мэйлүүд илгээх"
+
+#, python-format
+#~ msgid "Select Partners"
+#~ msgstr "Сонгосон харилцагч"
+
+#~ msgid "Email Settings"
+#~ msgstr "Имэйл тохируулах"
+
+#~ msgid "%(company_name)s: User's Company name"
+#~ msgstr "%(company_name)s:Хэрэглэгчдийн компани нэр"
+
+#~ msgid "%(partner_name)s: Partner Name"
+#~ msgstr "%(partner_name)s: Харилцагчийн нэр"
+
+#~ msgid "Type of Term"
+#~ msgstr "Төрөлийн хугацаа"
+
+#~ msgid "Send email confirmation"
+#~ msgstr "Баталгаажуулалтын имэйлийг илгээх"
+
+#~ msgid "Select Partners to Remind"
+#~ msgstr "Сануулга өгөх харилцагчдыг сонгох"

@@ -1,0 +1,29 @@
+<openerp>
+	<data>
+
+		<record id="wizard_posix_log" model="ir.ui.view">
+			<field name="name">posix.wizard_posix_log</field>
+			<field name="model">posix.log.wizard</field>
+			<field name="arch" type="xml">
+				<form string="Posix log wizard" version="7.0">
+					<label for="note" string="Reason"></label>
+					<field name="note" type="html" />
+					<footer>
+						<button icon="gtk-ok" name="do_verify" string="Verify" type="object" class="oe_highlight" />
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<record id="action_posix_log_wizard" model="ir.actions.act_window">
+			<field name="name">Posix log wizard</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">posix.log.wizard</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="wizard_posix_log" />
+			<field name="multi">True</field>
+			<field name="target">new</field>
+		</record>
+	</data>
+</openerp>

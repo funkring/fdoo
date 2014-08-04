@@ -1,21 +1,20 @@
-# Croatian translation for openobject-addons
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
-# This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* hr_holidays
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openobject-addons\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:36+0000\n"
-"PO-Revision-Date: 2013-09-25 12:05+0000\n"
-"Last-Translator: Marko Carevic <Unknown>\n"
-"Language-Team: Croatian <hr@li.org>\n"
+"Project-Id-Version: OpenERP Server 5.0.4\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-12-21 17:04+0000\n"
+"PO-Revision-Date: 2010-10-30 11:47+0000\n"
+"Last-Translator: Goran Kliska <gkliska@gmail.com>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-21 06:12+0000\n"
-"X-Generator: Launchpad (build 16831)\n"
+"X-Launchpad-Export-Date: 2014-03-27 06:53+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: hr_holidays
 #: selection:hr.holidays.status,color_name:0
@@ -173,6 +172,12 @@ msgid "Refuse"
 msgstr "Odbijeni"
 
 #. module: hr_holidays
+#: code:addons/hr_holidays/hr_holidays.py:433
+#, python-format
+msgid "Request <b>approved</b>, waiting second validation."
+msgstr ""
+
+#. module: hr_holidays
 #: view:hr.employee:0
 #: model:ir.actions.act_window,name:hr_holidays.act_hr_employee_holiday_request
 #: model:ir.ui.menu,name:hr_holidays.menu_open_ask_holidays
@@ -185,9 +190,9 @@ msgid "Messages"
 msgstr "Poruke"
 
 #. module: hr_holidays
-#: model:ir.model,name:hr_holidays.model_hr_holidays
-msgid "Leave"
-msgstr "Odsustvo"
+#: xsl:holidays.summary:0
+msgid "Analyze from"
+msgstr "Analiziraj iz"
 
 #. module: hr_holidays
 #: code:addons/hr_holidays/wizard/hr_holidays_summary_department.py:44
@@ -294,8 +299,8 @@ msgstr "Sastanci"
 
 #. module: hr_holidays
 #: model:hr.holidays.status,name:hr_holidays.holiday_status_cl
-msgid "Legal Leaves 2013"
-msgstr "Godišnji odmor 2013"
+msgid "Legal Leaves 2012"
+msgstr ""
 
 #. module: hr_holidays
 #: selection:hr.holidays.summary.dept,holiday_type:0
@@ -578,6 +583,11 @@ msgstr ""
 "            "
 
 #. module: hr_holidays
+#: sql_constraint:hr.holidays:0
+msgid "The employee or employee category of this request is missing."
+msgstr ""
+
+#. module: hr_holidays
 #: view:hr.holidays:0
 msgid "Category"
 msgstr "Kategorija"
@@ -694,18 +704,10 @@ msgid "Active"
 msgstr "Aktivan"
 
 #. module: hr_holidays
-#: sql_constraint:hr.holidays:0
-msgid ""
-"The employee or employee category of this request is missing. Please make "
-"sure that your user login is linked to an employee."
-msgstr ""
-"Djelatnik ili kategorija djelatnika iz ovog zahtjeva nedostaje. Molimo "
-"provjerite da je vaše korisničko ime povezano sa zaposlenikom."
-
-#. module: hr_holidays
-#: view:hr.holidays:0
-msgid "Add a reason..."
-msgstr "Dodaj razlog ..."
+#: view:hr.employee:0
+#: field:hr.employee,remaining_leaves:0
+msgid "Remaining Legal Leaves"
+msgstr "Preostalo redovnog odsustva"
 
 #. module: hr_holidays
 #: field:hr.holidays,manager_id:0
@@ -754,6 +756,11 @@ msgid "My Department Leaves"
 msgstr "Odsustva mojeg odjeljenja"
 
 #. module: hr_holidays
+#: model:mail.message.subtype,description:hr_holidays.mt_holidays_confirmed
+msgid "Request confirmed, waiting confirmation"
+msgstr ""
+
+#. module: hr_holidays
 #: field:hr.employee,current_leave_state:0
 msgid "Current Leave Status"
 msgstr "Trenutni status odsustva"
@@ -798,11 +805,6 @@ msgstr "Analiza odsustva"
 #: view:hr.holidays.summary.employee:0
 msgid "Cancel"
 msgstr "Odustani"
-
-#. module: hr_holidays
-#: model:mail.message.subtype,description:hr_holidays.mt_holidays_confirmed
-msgid "Request created and waiting confirmation"
-msgstr "Zahtjev kreiran i čeka na odobrenje"
 
 #. module: hr_holidays
 #: view:hr.holidays:0
@@ -891,12 +893,6 @@ msgid "Description"
 msgstr "Opis"
 
 #. module: hr_holidays
-#: view:hr.employee:0
-#: field:hr.employee,remaining_leaves:0
-msgid "Remaining Legal Leaves"
-msgstr "Preostalo redovnog odsustva"
-
-#. module: hr_holidays
 #: selection:hr.holidays,holiday_type:0
 msgid "By Employee Tag"
 msgstr "Po tagu djelatnika"
@@ -973,12 +969,6 @@ msgid "Both Approved and Confirmed"
 msgstr "Odobren i potvrđen"
 
 #. module: hr_holidays
-#: code:addons/hr_holidays/hr_holidays.py:451
-#, python-format
-msgid "Request approved, waiting second validation."
-msgstr "Zahtjev odobren, čeka drugu ovjeru."
-
-#. module: hr_holidays
 #: view:hr.holidays:0
 msgid "Approve"
 msgstr "Odobri"
@@ -997,9 +987,9 @@ msgid "The start date must be anterior to the end date."
 msgstr "Početni datum mora biti prije završnog."
 
 #. module: hr_holidays
-#: xsl:holidays.summary:0
-msgid "Analyze from"
-msgstr "Analiziraj iz"
+#: model:ir.model,name:hr_holidays.model_hr_holidays
+msgid "Leave"
+msgstr "Odsustvo"
 
 #. module: hr_holidays
 #: help:hr.holidays.status,double_validation:0
@@ -1084,3 +1074,9 @@ msgstr "Razlozi"
 #: field:hr.holidays.summary.employee,holiday_type:0
 msgid "Select Leave Type"
 msgstr "Odaberite tip odsustva"
+
+#~ msgid "Holidays"
+#~ msgstr "Godišnji odmori"
+
+#~ msgid "Set to Draft"
+#~ msgstr "Postavi na neodobreno"

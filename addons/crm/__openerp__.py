@@ -51,14 +51,14 @@ Dashboard for CRM will include:
     'depends': [
         'base_action_rule',
         'base_setup',
-        'base_status',
         'process',
         'mail',
         'email_template',
-        'base_calendar',
+        'calendar',
         'resource',
         'board',
-        'fetchmail'
+        'fetchmail',
+        'web_kanban_sparkline',
     ],
     'data': [
         'crm_data.xml',
@@ -81,7 +81,7 @@ Dashboard for CRM will include:
         'crm_lead_view.xml',
         'crm_lead_menu.xml',
 
-        'crm_meeting_menu.xml',
+        'calendar_event_menu.xml',
 
         'crm_phonecall_view.xml',
         'crm_phonecall_menu.xml',
@@ -95,6 +95,9 @@ Dashboard for CRM will include:
         'board_crm_view.xml',
 
         'res_config_view.xml',
+        'base_partner_merge_view.xml',
+
+        'crm_case_section_view.xml',
     ],
     'demo': [
         'crm_demo.xml',
@@ -103,6 +106,7 @@ Dashboard for CRM will include:
         'crm_action_rule_demo.xml',
     ],
     'test': [
+        'test/crm_access_group_users.yml',
         'test/crm_lead_message.yml',
         'test/lead2opportunity2win.yml',
         'test/lead2opportunity_assign_salesmen.yml',
@@ -113,10 +117,28 @@ Dashboard for CRM will include:
         'test/crm_lead_onchange.yml',
         'test/crm_lead_copy.yml',
         'test/crm_lead_unlink.yml',
+        'test/crm_lead_find_stage.yml',
+    ],
+    'css': [
+        'static/src/css/crm.css'
+    ],
+    'js': [
+        'static/src/js/crm_case_section.js',
     ],
     'installable': True,
     'application': True,
     'auto_install': False,
-    'images': ['images/crm_dashboard.png', 'images/customers.png','images/leads.png','images/opportunities_kanban.png','images/opportunities_form.png','images/opportunities_calendar.png','images/opportunities_graph.png','images/logged_calls.png','images/scheduled_calls.png','images/stages.png'],
+    'images': [
+        'images/crm_dashboard.png',
+        'images/customers.png',
+        'images/leads.png',
+        'images/opportunities_kanban.png',
+        'images/opportunities_form.png',
+        'images/opportunities_calendar.png',
+        'images/opportunities_graph.png',
+        'images/logged_calls.png',
+        'images/scheduled_calls.png',
+        'images/stages.png',
+    ],
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

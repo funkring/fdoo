@@ -1,0 +1,58 @@
+<openerp>
+	<data>		
+		<record id="form_academy_course" model="ir.ui.view">
+            <field name="name">academy.form_academy_course</field>
+            <field name="model">academy.course</field>
+            <field name="arch" type="xml">
+                <form string="Course" version="7.0">
+					<sheet>
+						<group>
+							<group>
+								<field name="name" />
+								<field name="number" />
+							</group>
+							<group>
+								<field name="date_from" />
+								<field name="date_to" />
+							</group>
+						</group>
+						<label for="description" />
+						<field name="description" />
+						<notebook>
+							<page string="Trainers">
+								<field name="trainer_ids" />
+							</page>
+							<page string="Topics">
+								<field name="topic_ids" />
+							</page>
+							<page string="Student" >
+								<field name="student_ids" />
+							</page>
+						</notebook>					
+					</sheet>                    
+                </form>
+            </field>
+        </record>
+
+        <record id="tree_academy_course" model="ir.ui.view">
+            <field name="name">academy.tree_academy_course</field>
+            <field name="model">academy.course</field>
+            <field name="arch" type="xml">
+                <tree string="Course">
+                	<field name="name" />
+                	<field name="number" />
+                	<field name="date_from" />
+                	<field name="date_to"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_academy_course" model="ir.actions.act_window">
+            <field name="name">Course</field>
+            <field name="res_model">academy.course</field>            
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+	</data>
+</openerp>

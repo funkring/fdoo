@@ -1,0 +1,17 @@
+<openerp>
+	<data>		
+		<record id="form_account_invoice" model="ir.ui.view">
+            <field name="name">account.form_account_invoice</field>
+            <field name="model">account.invoice.line</field>
+            <field name="inherit_id" ref="account.view_invoice_line_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<page string="Notes" position="after">
+            		<page string="Sale order lines" groups="account.group_account_manager">
+            			<field name="sale_order_line_ids" nolabel="1" colspan="4" height="200" />
+            		</page>
+            	</page>
+            </field>
+        </record>
+	</data>
+</openerp>

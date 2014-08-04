@@ -198,7 +198,6 @@ class project_phase(osv.osv):
             result += "\n"
 
         return result
-project_phase()
 
 class project_user_allocation(osv.osv):
     _name = 'project.user.allocation'
@@ -211,7 +210,6 @@ class project_user_allocation(osv.osv):
         'date_start': fields.datetime('Start Date', help="Starting Date"),
         'date_end': fields.datetime('End Date', help="Ending Date"),
     }
-project_user_allocation()
 
 class project(osv.osv):
     _inherit = "project.project"
@@ -268,44 +266,6 @@ class project(osv.osv):
                 }, context=context)
         return True
 
-    def map_phase(self, cr, uid, old_project_id, new_project_id, context=None):
-        """ copy and map phases from old to new project while keeping order relations """
-        project_phase = self.pool['project.phase']
-        project_task = self.pool['project.task']
-        # mapping source and copy ids to recreate m2m links
-        phase_ids_mapping = {}
-        project = self.browse(cr, uid, old_project_id, context=context)
-        if project.phase_ids:
-            for phase in project.phase_ids:
-                phase_default = {
-                    'project_id': new_project_id,
-                    'previous_phase_ids': [],
-                    'next_phase_ids': [],
-                    'task_ids': [],
-                }
-                # adding relationships with already copied phases
-                for previous_phase in phase.previous_phase_ids:
-                    if previous_phase.id in phase_ids_mapping:
-                        phase_default['previous_phase_ids'].append((4, phase_ids_mapping[previous_phase.id]))
-                for next_phase in phase.next_phase_ids:
-                    if next_phase.id in phase_ids_mapping:
-                        phase_default['previous_phase_ids'].append((4, phase_ids_mapping[next_phase.id]))
-                phase_ids_mapping[phase.id] = project_phase.copy(cr, uid, phase.id, phase_default, context=context)
-        if project.tasks:
-            # if has copied tasks, need to update phase_id
-            for task in self.browse(cr, uid, new_project_id, context=context).tasks:
-                if task.phase_id and task.phase_id.id in phase_ids_mapping:
-                    project_task.write(cr, uid, task.id, {'phase_id': phase_ids_mapping[phase.id]}, context=context)
-        return True
-
-    def copy(self, cr, uid, id, default=None, context=None):
-        if default is None:
-            default = {}
-        default.update(phase_ids=[])
-        new_project_id = super(project, self).copy(cr, uid, id, default, context)
-        self.map_phase(cr, uid, id, new_project_id, context=context)
-        return new_project_id
-
 class account_analytic_account(osv.osv):
     _inherit = 'account.analytic.account'
     _description = 'Analytic Account'
@@ -313,8 +273,8 @@ class account_analytic_account(osv.osv):
         'use_phases': fields.boolean('Phases', help="Check this field if you plan to use phase-based scheduling"),
     }
 
-    def on_change_template(self, cr, uid, ids, template_id, context=None):
-        res = super(account_analytic_account, self).on_change_template(cr, uid, ids, template_id, context=context)
+    def on_change_template(self, cr, uid, ids, template_id, date_start=False, context=None):
+        res = super(account_analytic_account, self).on_change_template(cr, uid, ids, template_id, date_start=date_start, context=context)
         if template_id and 'value' in res:
             template = self.browse(cr, uid, template_id, context=context)
             res['value']['use_phases'] = template.use_phases
@@ -326,13 +286,11 @@ class account_analytic_account(osv.osv):
         res = super(account_analytic_account, self)._trigger_project_creation(cr, uid, vals, context=context)
         return res or (vals.get('use_phases') and not 'project_creation_in_progress' in context)
 
-account_analytic_account()
 
 class project_task(osv.osv):
     _inherit = "project.task"
     _columns = {
         'phase_id': fields.many2one('project.phase', 'Project Phase', domain="[('project_id', '=', project_id)]"),
     }
-project_task()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

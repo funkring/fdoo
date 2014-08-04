@@ -31,12 +31,9 @@ Re-implement openerp's file import system:
         'security/ir.model.access.csv',
     ],
     'css': [
-        'static/lib/select2/select2.css',
-        # TODO for trunk: add select2-bootstrap.css style (to download)
         'static/src/css/import.css',
     ],
     'js': [
-        'static/lib/select2/select2.js',
         'static/lib/javascript-state-machine/state-machine.js',
         'static/src/js/import.js',
     ],

@@ -1,21 +1,21 @@
 # Turkish translation for openobject-addons
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# Copyright (c) 2011 Rosetta Contributors and Canonical Ltd 2011
 # This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:36+0000\n"
-"PO-Revision-Date: 2013-08-04 16:33+0000\n"
-"Last-Translator: Ediz Duman <neps1192@gmail.com>\n"
+"POT-Creation-Date: 2012-12-21 17:04+0000\n"
+"PO-Revision-Date: 2012-01-25 17:23+0000\n"
+"Last-Translator: Ahmet Altınışık <Unknown>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-21 06:13+0000\n"
-"X-Generator: Launchpad (build 16831)\n"
+"X-Launchpad-Export-Date: 2014-03-27 07:17+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: hr_recruitment
 #: help:hr.applicant,active:0
@@ -96,11 +96,6 @@ msgstr "İşler"
 
 #. module: hr_recruitment
 #: view:hr.applicant:0
-msgid "Extra advantages..."
-msgstr "Ekstra avantajları ..."
-
-#. module: hr_recruitment
-#: view:hr.applicant:0
 msgid "Pending Jobs"
 msgstr "Bekleyen İşler"
 
@@ -125,7 +120,7 @@ msgid "Sources of Applicants"
 msgstr "Başvuru Kaynakları"
 
 #. module: hr_recruitment
-#: code:addons/hr_recruitment/hr_recruitment.py:445
+#: code:addons/hr_recruitment/hr_recruitment.py:435
 #, python-format
 msgid "You must define Applied Job for this applicant."
 msgstr "Bu başvuru için Uygulamalı İş tanımlamanız gerekir."
@@ -313,7 +308,7 @@ msgid ""
 msgstr ""
 
 #. module: hr_recruitment
-#: code:addons/hr_recruitment/hr_recruitment.py:445
+#: code:addons/hr_recruitment/hr_recruitment.py:435
 #, python-format
 msgid "Warning!"
 msgstr "Uyarı!"
@@ -382,12 +377,6 @@ msgstr "İş Açıklaması"
 #: field:hr.applicant,source_id:0
 msgid "Source"
 msgstr "Kaynak"
-
-#. module: hr_recruitment
-#: view:hr.recruitment.report:0
-#: field:hr.recruitment.report,year:0
-msgid "Year"
-msgstr "Yıl"
 
 #. module: hr_recruitment
 #: field:hr.applicant,message_follower_ids:0
@@ -532,7 +521,7 @@ msgid "Applicants"
 msgstr "Başvurular"
 
 #. module: hr_recruitment
-#: code:addons/hr_recruitment/hr_recruitment.py:360
+#: code:addons/hr_recruitment/hr_recruitment.py:351
 #, python-format
 msgid "No Subject"
 msgstr "Konu Yok"
@@ -553,9 +542,7 @@ msgid "Gives the sequence order when displaying a list of stages."
 msgstr "Aşamaların bir listesini görüntülerken sırasını verir."
 
 #. module: hr_recruitment
-#: code:addons/hr_recruitment/hr_recruitment.py:347
 #: field:hr.applicant,partner_id:0
-#, python-format
 msgid "Contact"
 msgstr "Kontak"
 
@@ -653,11 +640,6 @@ msgid "Category of applicant"
 msgstr "Başvuru Kategorisi"
 
 #. module: hr_recruitment
-#: view:hr.applicant:0
-msgid "e.g. Call for interview"
-msgstr "örn. Görüşme çağrısı"
-
-#. module: hr_recruitment
 #: view:hr.recruitment.report:0
 #: field:hr.recruitment.report,month:0
 msgid "Month"
@@ -669,9 +651,9 @@ msgid "Answer related job question"
 msgstr "İlgili iş soru cevap"
 
 #. module: hr_recruitment
-#: model:ir.model,name:hr_recruitment.model_hr_recruitment_degree
-msgid "Degree of Recruitment"
-msgstr "İşe Alım Derecesi"
+#: model:hr.recruitment.stage,name:hr_recruitment.stage_job2
+msgid "First Interview"
+msgstr "İlk Görüşme"
 
 #. module: hr_recruitment
 #: field:hr.applicant,write_date:0
@@ -802,7 +784,7 @@ msgid "Schedule interview with this applicant"
 msgstr "Bu başvuru görüşmesi için planlayın"
 
 #. module: hr_recruitment
-#: code:addons/hr_recruitment/hr_recruitment.py:407
+#: code:addons/hr_recruitment/hr_recruitment.py:397
 #, python-format
 msgid "Applicant <b>created</b>"
 msgstr "Başvuru <b>oluşturuldu</b>"
@@ -981,10 +963,10 @@ msgid "The name of the Degree of Recruitment must be unique!"
 msgstr "İşe- Alma Derecesi adı benzersiz olmalıdır!"
 
 #. module: hr_recruitment
-#: code:addons/hr_recruitment/hr_recruitment.py:349
-#, python-format
-msgid "Contact Email"
-msgstr "Kontak E-mail"
+#: view:hr.recruitment.report:0
+#: field:hr.recruitment.report,year:0
+msgid "Year"
+msgstr "Yıl"
 
 #. module: hr_recruitment
 #: view:hired.employee:0
@@ -1080,7 +1062,7 @@ msgid "New"
 msgstr "Yeni"
 
 #. module: hr_recruitment
-#: model:crm.meeting.type,name:hr_recruitment.categ_meet_interview
+#: model:calendar.event.type,name:hr_recruitment.categ_meet_interview
 #: view:hr.job:0
 msgid "Interview"
 msgstr "Görüşme"
@@ -1167,9 +1149,9 @@ msgid "On Average"
 msgstr "Orta"
 
 #. module: hr_recruitment
-#: model:hr.recruitment.stage,name:hr_recruitment.stage_job2
-msgid "First Interview"
-msgstr "İlk Görüşme"
+#: model:ir.model,name:hr_recruitment.model_hr_recruitment_degree
+msgid "Degree of Recruitment"
+msgstr "İşe Alım Derecesi"
 
 #. module: hr_recruitment
 #: field:hr.recruitment.report,salary_prop_avg:0
@@ -1228,11 +1210,6 @@ msgstr "Bu insanlardan e-posta alacaksınız."
 #: field:hr.job,alias_id:0
 msgid "Alias"
 msgstr "Takma adı"
-
-#. module: hr_recruitment
-#: view:hr.applicant:0
-msgid "Feedback of interviews..."
-msgstr "Görüşme Geribildirimleri ..."
 
 #. module: hr_recruitment
 #: view:hr.recruitment.report:0
@@ -1323,3 +1300,6 @@ msgstr "İşlenmiş Başvurular"
 #: view:hr.applicant:0
 msgid "Schedule Interview"
 msgstr "Görüşme Programı"
+
+#~ msgid "# of Cases"
+#~ msgstr "Vak'aların sayısı"

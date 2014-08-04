@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>                          
+       <report id="km_expense_report" 
+               string="Milage Allowance"
+               name="at_hr_expense.km_expense"
+               auto="False"
+               stylesheet="intern_landscape"
+               report_type="aeroo"
+               model="hr.expense.expense"
+               in_format="oo-ods"
+               out_format="oo-pdf"
+               parser="at_hr_expense/report/km_expense.py"
+               rml="at_hr_expense/report/km_expense.odt"       
+               process_sep="True"/>   
+  </data>
+</openerp>

@@ -8,67 +8,66 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2012-11-24 02:53+0000\n"
-"PO-Revision-Date: 2013-07-13 22:33+0000\n"
-"Last-Translator: Maxime Chambreuil (http://www.savoirfairelinux.com) "
-"<maxime.chambreuil@savoirfairelinux.com>\n"
+"PO-Revision-Date: 2012-01-16 14:30+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-21 06:17+0000\n"
-"X-Generator: Launchpad (build 16831)\n"
+"X-Launchpad-Export-Date: 2012-11-25 06:31+0000\n"
+"X-Generator: Launchpad (build 16293)\n"
 
 #. module: l10n_ec
 #: model:account.account.type,name:l10n_ec.account_type_expense
 msgid "Gasto"
-msgstr "Dépense"
+msgstr ""
 
 #. module: l10n_ec
 #: model:account.account.type,name:l10n_ec.account_type_stock
 msgid "Inventario"
-msgstr "Inventaire"
+msgstr ""
 
 #. module: l10n_ec
 #: model:account.account.type,name:l10n_ec.account_type_liability
 msgid "Pasivo"
-msgstr "Passif"
+msgstr ""
 
 #. module: l10n_ec
 #: model:account.account.type,name:l10n_ec.account_type_receivable
 msgid "Por Cobrar"
-msgstr "À encaisser"
+msgstr ""
 
 #. module: l10n_ec
 #: model:account.account.type,name:l10n_ec.account_type_asset
 msgid "Activo"
-msgstr "Actif"
+msgstr ""
 
 #. module: l10n_ec
 #: model:account.account.type,name:l10n_ec.account_type_tax
 msgid "Impuesto"
-msgstr "Impôt"
+msgstr ""
 
 #. module: l10n_ec
 #: model:account.account.type,name:l10n_ec.account_type_capital
 msgid "Capital"
-msgstr "Capital"
+msgstr ""
 
 #. module: l10n_ec
 #: model:account.account.type,name:l10n_ec.account_type_cash
 msgid "Efectivo"
-msgstr "Liquide"
+msgstr ""
 
 #. module: l10n_ec
 #: model:account.account.type,name:l10n_ec.account_type_payable
 msgid "Por Pagar"
-msgstr "À régler"
+msgstr ""
 
 #. module: l10n_ec
 #: model:account.account.type,name:l10n_ec.account_type_income
 msgid "Ingreso"
-msgstr "Revenu"
+msgstr ""
 
 #. module: l10n_ec
 #: model:account.account.type,name:l10n_ec.account_type_view
 msgid "View"
-msgstr "Vue"
+msgstr ""

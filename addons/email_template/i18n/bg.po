@@ -1,21 +1,21 @@
 # Bulgarian translation for openobject-addons
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# Copyright (c) 2011 Rosetta Contributors and Canonical Ltd 2011
 # This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:37+0000\n"
-"PO-Revision-Date: 2012-12-21 23:00+0000\n"
+"POT-Creation-Date: 2012-12-21 17:05+0000\n"
+"PO-Revision-Date: 2011-03-14 16:57+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Bulgarian <bg@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-21 06:08+0000\n"
-"X-Generator: Launchpad (build 16831)\n"
+"X-Launchpad-Export-Date: 2014-03-27 07:15+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: email_template
 #: field:email.template,email_from:0
@@ -24,10 +24,9 @@ msgid "From"
 msgstr "От"
 
 #. module: email_template
-#: view:res.partner:0
-msgid ""
-"Partners that did not ask not to be included in mass mailing campaigns"
-msgstr ""
+#: field:mail.compose.message,template_id:0
+msgid "Template"
+msgstr "Образец"
 
 #. module: email_template
 #: help:email.template,ref_ir_value:0
@@ -41,16 +40,9 @@ msgid "Opt-Out"
 msgstr ""
 
 #. module: email_template
-#: view:email.template:0
-msgid "Email contents (in raw HTML format)"
-msgstr ""
-
-#. module: email_template
-#: help:email.template,email_from:0
-#: help:email_template.preview,email_from:0
-msgid ""
-"Sender address (placeholders may be used here). If not set, the default "
-"value will be the author's email alias if configured, or email address."
+#: field:email.template,email_to:0
+#: field:email_template.preview,email_to:0
+msgid "To (Emails)"
 msgstr ""
 
 #. module: email_template
@@ -74,20 +66,28 @@ msgid "Field"
 msgstr "Поле"
 
 #. module: email_template
+#: help:email.template,email_from:0
+#: help:email_template.preview,email_from:0
+msgid "Sender address (placeholders may be used here)"
+msgstr ""
+
+#. module: email_template
 #: view:email.template:0
 msgid "Remove context action"
+msgstr ""
+
+#. module: email_template
+#: help:email.template,mail_server_id:0
+#: help:email_template.preview,mail_server_id:0
+msgid ""
+"Optional preferred server for outgoing mails. If not set, the highest "
+"priority one will be used."
 msgstr ""
 
 #. module: email_template
 #: field:email.template,report_name:0
 #: field:email_template.preview,report_name:0
 msgid "Report Filename"
-msgstr ""
-
-#. module: email_template
-#: field:email.template,email_to:0
-#: field:email_template.preview,email_to:0
-msgid "To (Emails)"
 msgstr ""
 
 #. module: email_template
@@ -119,11 +119,6 @@ msgid "%s (copy)"
 msgstr ""
 
 #. module: email_template
-#: field:mail.compose.message,template_id:0
-msgid "Template"
-msgstr "Образец"
-
-#. module: email_template
 #: help:email.template,user_signature:0
 #: help:email_template.preview,user_signature:0
 msgid ""
@@ -150,11 +145,6 @@ msgid ""
 msgstr ""
 
 #. module: email_template
-#: view:res.partner:0
-msgid "Available for mass mailing"
-msgstr ""
-
-#. module: email_template
 #: model:ir.model,name:email_template.model_email_template
 msgid "Email Templates"
 msgstr "Имейл шаблони"
@@ -166,12 +156,6 @@ msgid ""
 "Name to use for the generated report file (may contain placeholders)\n"
 "The extension can be omitted and will then come from the report type."
 msgstr ""
-
-#. module: email_template
-#: code:addons/email_template/email_template.py:234
-#, python-format
-msgid "Warning"
-msgstr "Предупреждение"
 
 #. module: email_template
 #: field:email.template,ref_ir_act_window:0
@@ -250,14 +234,6 @@ msgstr ""
 #. module: email_template
 #: view:email_template.preview:0
 msgid "Using sample document"
-msgstr ""
-
-#. module: email_template
-#: help:res.partner,opt_out:0
-msgid ""
-"If opt-out is checked, this contact has refused to receive emails for mass "
-"mailing and marketing campaign. Filter 'Available for Mass Mailing' allows "
-"users to filter the partners when performing mass mailing."
 msgstr ""
 
 #. module: email_template
@@ -438,11 +414,10 @@ msgid "Send Mail (%s)"
 msgstr ""
 
 #. module: email_template
-#: help:email.template,mail_server_id:0
-#: help:email_template.preview,mail_server_id:0
+#: help:res.partner,opt_out:0
 msgid ""
-"Optional preferred server for outgoing mails. If not set, the highest "
-"priority one will be used."
+"If checked, this partner will not receive any automated email notifications, "
+"such as the availability of invoices."
 msgstr ""
 
 #. module: email_template
@@ -465,9 +440,10 @@ msgid ""
 msgstr ""
 
 #. module: email_template
-#: view:res.partner:0
-msgid "Suppliers"
-msgstr ""
+#: code:addons/email_template/email_template.py:234
+#, python-format
+msgid "Warning"
+msgstr "Предупреждение"
 
 #. module: email_template
 #: field:email.template,user_signature:0
@@ -510,3 +486,225 @@ msgstr ""
 #: field:email_template.preview,subject:0
 msgid "Subject"
 msgstr "Относно"
+
+#~ msgid "Personal Emails"
+#~ msgstr "Лични имейли"
+
+#~ msgid "Permanently delete emails after sending"
+#~ msgstr "Завинаги изтриване на имейлите след пращане"
+
+#~ msgid "Email Content  "
+#~ msgstr "Съдържание на имейл  "
+
+#~ msgid "Email Account Configuration"
+#~ msgstr "Настойка на имейл"
+
+#~ msgid "Not Applicable"
+#~ msgstr "Неприложим"
+
+#~ msgid "Approved"
+#~ msgstr "Одобрен/и"
+
+#~ msgid "Account"
+#~ msgstr "Сметка"
+
+#~ msgid "Email Accounts"
+#~ msgstr "Пощенски абонаменти"
+
+#~ msgid "Send all mails"
+#~ msgstr "Изпращане на всички имейли"
+
+#~ msgid "Send now"
+#~ msgstr "Изпращане сега"
+
+#~ msgid "HTML code"
+#~ msgstr "HTML код"
+
+#~ msgid "Email Account"
+#~ msgstr "Имейл профил"
+
+#~ msgid "Send Mail"
+#~ msgstr "Изпращане на е-поща"
+
+#~ msgid "Delete Action"
+#~ msgstr "Изтриване на действие"
+
+#~ msgid "OK"
+#~ msgstr "ОК"
+
+#~ msgid "Accounts"
+#~ msgstr "Сметки"
+
+#~ msgid "Attached Files"
+#~ msgstr "Приложени файлове"
+
+#, python-format
+#~ msgid "Reason: %s"
+#~ msgstr "Причина: %s"
+
+#~ msgid "State"
+#~ msgstr "Състояние"
+
+#~ msgid "Sent Items"
+#~ msgstr "Изпратени съобщения"
+
+#~ msgid "Wizard Button"
+#~ msgstr "Бутон на помощника"
+
+#~ msgid "Resource"
+#~ msgstr "Източник"
+
+#~ msgid "My Emails"
+#~ msgstr "Моите имейли"
+
+#, python-format
+#~ msgid "Report"
+#~ msgstr "Отчет"
+
+#~ msgid "Test Outgoing Connection"
+#~ msgstr "Тестване на изходяща връзка"
+
+#~ msgid "HTML Body"
+#~ msgstr "HTML тяло"
+
+#~ msgid "Server"
+#~ msgstr "Сървър"
+
+#~ msgid "Signature"
+#~ msgstr "Подпис"
+
+#~ msgid "Server Information"
+#~ msgstr "Информация за сървър"
+
+#~ msgid "Options"
+#~ msgstr "Опции"
+
+#~ msgid "Mail Details"
+#~ msgstr "Подробности за писмото"
+
+#~ msgid "Yes"
+#~ msgstr "Да"
+
+#~ msgid "Window Action"
+#~ msgstr "Действие за прозорец"
+
+#~ msgid "Related User"
+#~ msgstr "Свързан потребител"
+
+#~ msgid "Drafts"
+#~ msgstr "Чернови"
+
+#~ msgid "No"
+#~ msgstr "Не"
+
+#~ msgid "BCC"
+#~ msgstr "Скрито копие до"
+
+#~ msgid "The template name must be unique !"
+#~ msgstr "Името на шаблона трябва да бъде уникално"
+
+#~ msgid "Plain Text"
+#~ msgstr "Чист текст"
+
+#~ msgid "Draft"
+#~ msgstr "Проект"
+
+#~ msgid "Message-ID"
+#~ msgstr "ID на съобщение"
+
+#~ msgid "Status"
+#~ msgstr "Статус"
+
+#~ msgid "Outgoing"
+#~ msgstr "Изходящ"
+
+#, python-format
+#~ msgid "Email Template"
+#~ msgstr "Шаблон за имейл"
+
+#~ msgid "TLS"
+#~ msgstr "TLS"
+
+#~ msgid "User Name"
+#~ msgstr "Име на потребител"
+
+#~ msgid "Save in Drafts"
+#~ msgstr "Запазване в чернови"
+
+#~ msgid "Outbox"
+#~ msgstr "Изходящи"
+
+#~ msgid "User"
+#~ msgstr "Потребител"
+
+#~ msgid "Send/Receive"
+#~ msgstr "Изпращане/получаване"
+
+#~ msgid "Advanced Options"
+#~ msgstr "Подробни настройки"
+
+#~ msgid "Expression"
+#~ msgstr "Израз"
+
+#~ msgid "To"
+#~ msgstr "До"
+
+#~ msgid "History"
+#~ msgstr "История"
+
+#~ msgid "Close"
+#~ msgstr "Затваряне"
+
+#~ msgid "Sending"
+#~ msgstr "Изпраща се"
+
+#, python-format
+#~ msgid "Error sending mail: %s"
+#~ msgstr "Грешка при изпращане на писмо: %s"
+
+#~ msgid "User Information"
+#~ msgstr "Данни за потребител"
+
+#~ msgid "Trash"
+#~ msgstr "Кошче"
+
+#~ msgid "Actions"
+#~ msgstr "Действия"
+
+#~ msgid "Description"
+#~ msgstr "Описание"
+
+#~ msgid "Password"
+#~ msgstr "Парола"
+
+#~ msgid "Null Value"
+#~ msgstr "Стойност null"
+
+#~ msgid "CC"
+#~ msgstr "Копие до"
+
+#~ msgid "Emails"
+#~ msgstr "Имейли"
+
+#~ msgid "Sent"
+#~ msgstr "Изпратен"
+
+#~ msgid "Report Name"
+#~ msgstr "Име на отчет"
+
+#~ msgid "Addresses"
+#~ msgstr "Адреси"
+
+#~ msgid "Folder"
+#~ msgstr "Папка"
+
+#, python-format
+#~ msgid "email-template"
+#~ msgstr "шаблон-имейл"
+
+#, python-format
+#~ msgid "No Description"
+#~ msgstr "Без описание"
+
+#~ msgid "Has Attachments"
+#~ msgstr "Има прикен файл"

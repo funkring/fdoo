@@ -20,7 +20,6 @@
 
 from openerp.osv import fields, osv
 from openerp.tools.translate import _
-from openerp import netsvc
 
 class sale_make_invoice(osv.osv_memory):
     _name = "sale.make.invoice"
@@ -47,7 +46,6 @@ class sale_make_invoice(osv.osv_memory):
         order_obj = self.pool.get('sale.order')
         mod_obj = self.pool.get('ir.model.data')
         act_obj = self.pool.get('ir.actions.act_window')
-        wf_service = netsvc.LocalService("workflow")
         newinv = []
         if context is None:
             context = {}
@@ -62,8 +60,7 @@ class sale_make_invoice(osv.osv_memory):
             for i in o.invoice_ids:
                 newinv.append(i.id)
         # Dummy call to workflow, will not create another invoice but bind the new invoice to the subflow
-        for id in [o.id for o in orders if o.order_policy == 'manual']:
-            wf_service.trg_validate(uid, 'sale.order', id, 'manual_invoice', cr)
+        order_obj.signal_manual_invoice(cr, uid, [o.id for o in orders if o.order_policy == 'manual'])
         result = mod_obj.get_object_reference(cr, uid, 'account', 'action_invoice_tree1')
         id = result and result[1] or False
         result = act_obj.read(cr, uid, [id], context=context)[0]
@@ -71,6 +68,5 @@ class sale_make_invoice(osv.osv_memory):
 
         return result
 
-sale_make_invoice()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

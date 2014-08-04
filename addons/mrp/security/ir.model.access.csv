@@ -1,5 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_account_analytic_line_user,account.analytic.line,account.model_account_analytic_line,group_mrp_user,1,1,1,0
 access_mrp_workcenter,mrp.workcenter,model_mrp_workcenter,mrp.group_mrp_user,1,0,0,0
 access_mrp_routing,mrp.routing,model_mrp_routing,mrp.group_mrp_user,1,0,0,0
 access_mrp_routing_workcenter,mrp.routing.workcenter,model_mrp_routing_workcenter,mrp.group_mrp_user,1,0,0,0
@@ -40,6 +39,7 @@ access_res_partner,res.partner,base.model_res_partner,mrp.group_mrp_user,1,0,0,0
 access_workcenter_user,mrp.production.workcenter.line.user,model_mrp_production_workcenter_line,mrp.group_mrp_user,1,1,1,1
 access_resource_calendar_leaves_user,mrp.resource.calendar.leaves.user,resource.model_resource_calendar_leaves,mrp.group_mrp_user,1,1,1,1
 access_resource_calendar_leaves_manager,mrp.resource.calendar.leaves.manager,resource.model_resource_calendar_leaves,mrp.group_mrp_manager,1,0,0,0
+access_resource_calendar_attendance_mrp_user,mrp.resource.calendar.attendance.mrp.user,resource.model_resource_calendar_attendance,mrp.group_mrp_user,1,1,1,1
 access_resource_calendar_attendance_manager,mrp.resource.calendar.attendance.manager,resource.model_resource_calendar_attendance,mrp.group_mrp_manager,1,1,1,1
 access_product_puom_categ,product.uom.categ,product.model_product_uom_categ,mrp.group_mrp_user,1,0,0,0
 access_resource_resource,resource.resource,resource.model_resource_resource,mrp.group_mrp_user,1,0,0,0

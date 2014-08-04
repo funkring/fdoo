@@ -13,12 +13,12 @@ openerp.pad = function(instance) {
                 event.preventDefault();
                 self.set("configured", true);
             });
-            this.pad_loading_request = null;
         },
         initialize_content: function() {
             var self = this;
             this.$('.oe_pad_switch').click(function() {
                 self.$el.toggleClass('oe_pad_fullscreen');
+                self.$el.find('.oe_pad_switch').toggleClass('fa-expand fa-compress');
                 self.view.$el.find('.oe_chatter').toggle();
             });
             this._configured_deferred.always(function() {
@@ -30,14 +30,14 @@ openerp.pad = function(instance) {
         },
         render_value: function() {
             var self = this;
-            $.when(this._configured_deferred, this.pad_loading_request).always(function() {
+            this._configured_deferred.always(function() {
                 if (! self.get('configured')) {
                     return;
                 };
                 var value = self.get('value');
                 if (self.get('effective_readonly')) {
                     if (_.str.startsWith(value, 'http')) {
-                        self.pad_loading_request = self.view.dataset.call('pad_get_content', {url: value}).done(function(data) {
+                        this.pad_loading_request = self.view.dataset.call('pad_get_content', {url: value}).done(function(data) {
                             self.$('.oe_pad_content').removeClass('oe_pad_loading').html('<div class="oe_pad_readonly"><div>');
                             self.$('.oe_pad_readonly').html(data);
                         }).fail(function() {

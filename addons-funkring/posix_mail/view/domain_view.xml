@@ -1,0 +1,18 @@
+<openerp>
+	<data>
+
+		<record id="form_domain" model="ir.ui.view">
+			<field name="name">posix_mail.form_domain</field>
+			<field name="model">posix.domain</field>
+			<field name="inherit_id" ref="posix.form_domain" />
+			<field name="arch" type="xml">
+				<group name="group_domain2" position="after">
+					<group>
+						<field name="mail_domain"/>
+					</group>
+				</group>
+			</field>
+		</record>
+
+	</data>
+</openerp>

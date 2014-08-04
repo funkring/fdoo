@@ -1,21 +1,21 @@
 # Basque translation for openobject-addons
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
 # This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:36+0000\n"
-"PO-Revision-Date: 2012-12-21 23:00+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2012-12-21 17:04+0000\n"
+"PO-Revision-Date: 2010-10-09 16:08+0000\n"
+"Last-Translator: OpenERP Administrators <Unknown>\n"
 "Language-Team: Basque <eu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-21 06:28+0000\n"
-"X-Generator: Launchpad (build 16831)\n"
+"X-Launchpad-Export-Date: 2014-03-27 05:47+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: project
 #: view:project.project:0
@@ -202,17 +202,8 @@ msgid "Planned Time"
 msgstr ""
 
 #. module: project
-#: view:project.task:0
-#: selection:project.task,state:0
-#: selection:project.task.delegate,state:0
-#: selection:project.task.history,state:0
-#: selection:project.task.history.cumulative,state:0
-#: model:project.task.type,name:project.project_tt_deployment
-#: selection:project.task.type,state:0
-#: view:report.project.task.user:0
-#: selection:report.project.task.user,state:0
-#: view:res.partner:0
-msgid "Done"
+#: selection:project.project,privacy_visibility:0
+msgid "Public"
 msgstr ""
 
 #. module: project
@@ -336,11 +327,6 @@ msgid "June"
 msgstr ""
 
 #. module: project
-#: view:project.task:0
-msgid "Gantt View"
-msgstr ""
-
-#. module: project
 #: selection:report.project.task.user,month:0
 msgid "October"
 msgstr ""
@@ -368,11 +354,6 @@ msgstr ""
 #: field:project.project,message_summary:0
 #: field:project.task,message_summary:0
 msgid "Summary"
-msgstr ""
-
-#. module: project
-#: view:project.task:0
-msgid "Task summary..."
 msgstr ""
 
 #. module: project
@@ -481,11 +462,6 @@ msgstr ""
 #. module: project
 #: field:project.task,create_date:0
 msgid "Create Date"
-msgstr ""
-
-#. module: project
-#: view:project.task:0
-msgid "Add a Description..."
 msgstr ""
 
 #. module: project
@@ -873,11 +849,6 @@ msgid "GTD"
 msgstr ""
 
 #. module: project
-#: view:project.project:0
-msgid "Project Stages"
-msgstr ""
-
-#. module: project
 #: help:project.task,state:0
 msgid ""
 "The status is set to 'Draft', when a case is created.                      "
@@ -924,11 +895,6 @@ msgstr ""
 #. module: project
 #: view:project.task:0
 msgid "10"
-msgstr ""
-
-#. module: project
-#: view:project.project:0
-msgid "Cancel Project"
 msgstr ""
 
 #. module: project
@@ -995,17 +961,8 @@ msgid "Manager"
 msgstr ""
 
 #. module: project
-#: model:ir.actions.act_window,help:project.project_category_action
-msgid ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"                Click to add a new tag.\n"
-"              </p>\n"
-"            "
-msgstr ""
-
-#. module: project
-#: model:ir.ui.menu,name:project.menu_task_types_view
-msgid "Task Stages"
+#: selection:project.task,priority:0
+msgid "Important"
 msgstr ""
 
 #. module: project
@@ -1271,11 +1228,6 @@ msgid "Delay Hours"
 msgstr ""
 
 #. module: project
-#: view:project.task.type:0
-msgid "Add a description..."
-msgstr ""
-
-#. module: project
 #: view:project.project:0
 msgid "Team"
 msgstr ""
@@ -1444,8 +1396,17 @@ msgid "Attachments"
 msgstr ""
 
 #. module: project
-#: view:project.category:0
-msgid "Issue Version"
+#: view:project.task:0
+#: selection:project.task,state:0
+#: selection:project.task.delegate,state:0
+#: selection:project.task.history,state:0
+#: selection:project.task.history.cumulative,state:0
+#: model:project.task.type,name:project.project_tt_deployment
+#: selection:project.task.type,state:0
+#: view:report.project.task.user:0
+#: selection:report.project.task.user,state:0
+#: view:res.partner:0
+msgid "Done"
 msgstr ""
 
 #. module: project
@@ -1665,8 +1626,8 @@ msgid "Generate tasks from sale orders"
 msgstr ""
 
 #. module: project
-#: selection:project.task,priority:0
-msgid "Important"
+#: model:ir.ui.menu,name:project.menu_task_types_view
+msgid "Task Stages"
 msgstr ""
 
 #. module: project
@@ -2106,6 +2067,11 @@ msgid ""
 msgstr ""
 
 #. module: project
+#: selection:project.project,privacy_visibility:0
+msgid "Followers Only"
+msgstr ""
+
+#. module: project
 #: view:board.board:0
 #: field:project.project,task_count:0
 msgid "Open Tasks"
@@ -2143,3 +2109,96 @@ msgstr ""
 #: view:project.task.type:0
 msgid "Tasks Stages"
 msgstr ""
+
+#~ msgid "New title of the task delegated to the user."
+#~ msgstr "Erabiltzailearen esku gelditu den atazaren izenburu berria."
+
+#~ msgid "Change Remaining Hours"
+#~ msgstr "Gelditzen diren orduak aldatu"
+
+#~ msgid "Close Task"
+#~ msgstr "Ataza Itxi"
+
+#~ msgid "Invalid model name in the action definition."
+#~ msgstr "Modelo izen ezegokia ekintza definizioan."
+
+#~ msgid "Tasks Process"
+#~ msgstr "Ataza Prozesua"
+
+#~ msgid "Assigned tasks"
+#~ msgstr "Esleitutako Atazak"
+
+#~ msgid "Importance"
+#~ msgstr "Garrantzia"
+
+#~ msgid "Update"
+#~ msgstr "Eguneratu"
+
+#~ msgid "Subproject"
+#~ msgstr "Azpiproiektua"
+
+#~ msgid "My Running Projects"
+#~ msgstr "Abian dauden Nire Proiektuak"
+
+#~ msgid "User you want to delegate this task to."
+#~ msgstr "Ataza hau delegatuko zaion erabiltzailea."
+
+#~ msgid ""
+#~ "Header added at the beginning of the email for the warning message sent to "
+#~ "the customer when a task is closed."
+#~ msgstr ""
+#~ "Ataza ixten denean bezeroari bidaltzen zaion abisu epostan goiburukoa "
+#~ "gehituta."
+
+#~ msgid "All Attachments"
+#~ msgstr "Eranskin Guztiak"
+
+#~ msgid ""
+#~ "Project management module that track multi-level projects, tasks,\n"
+#~ "works done on tasks, eso. It is able to render planning, order tasks, eso.\n"
+#~ "    "
+#~ msgstr ""
+#~ "Proiektu kudeaketa modulua. Maila askotako proiektuak, atazak, atazetan "
+#~ "egindako lanak,\n"
+#~ " eta abarren jarraipena egiten du. Planifikazioa bistaratu, atazak ordenatu, "
+#~ "eta abar egiteko gai da.\n"
+#~ "    "
+
+#~ msgid "Validate"
+#~ msgstr "Balidatu"
+
+#~ msgid "Task Types"
+#~ msgstr "Ataza Motak"
+
+#~ msgid "My Tasks in Progress"
+#~ msgstr "Abian dauden Nire Atazak"
+
+#~ msgid "My Draft Tasks"
+#~ msgstr "Nire Ataza Zirriborroak"
+
+#~ msgid ""
+#~ "Estimated time for you to validate the work done by the user to whom you "
+#~ "delegate this task."
+#~ msgstr ""
+#~ "Ataza hau delegatu diozun erabiltzailearen lana balioztatzeko denbora "
+#~ "estimatua."
+
+#~ msgid "Days"
+#~ msgstr "Egunak"
+
+#~ msgid "Mail Header"
+#~ msgstr "Eposta Goiburua"
+
+#~ msgid "Task: %(name)s"
+#~ msgstr "Ataza: %(name)s"
+
+#~ msgid ""
+#~ "Project's member. Not used in any computation, just for information purpose."
+#~ msgstr ""
+#~ "Proiektuko kideak. Ez da inolako kalkulutan erabiltzen, informatzeko soilik."
+
+#~ msgid "Delegations"
+#~ msgstr "Delegazioak"
+
+#~ msgid "All Tasks"
+#~ msgstr "Ataza Guztiak"

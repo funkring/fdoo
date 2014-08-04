@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:36+0000\n"
-"PO-Revision-Date: 2013-03-11 13:29+0000\n"
-"Last-Translator: Aleksandar Panov <server986@gmail.com>\n"
+"POT-Creation-Date: 2012-12-21 17:05+0000\n"
+"PO-Revision-Date: 2013-03-02 22:23+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Macedonian <mk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-21 06:03+0000\n"
-"X-Generator: Launchpad (build 16831)\n"
+"X-Launchpad-Export-Date: 2014-03-27 07:33+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: base_import
 #. openerp-web
@@ -269,6 +269,17 @@ msgstr "Некоја вредност"
 
 #. module: base_import
 #. openerp-web
+#: code:addons/base_import/static/src/xml/import.xml:231
+#, python-format
+msgid ""
+"The following CSV file shows how to import \n"
+"                        suppliers and their respective contacts"
+msgstr ""
+"Следниов CSV фајл покажува како да увезете\n"
+"добавувачи и нивните контакти"
+
+#. module: base_import
+#. openerp-web
 #: code:addons/base_import/static/src/xml/import.xml:109
 #, python-format
 msgid ""
@@ -337,10 +348,10 @@ msgstr ""
 
 #. module: base_import
 #. openerp-web
-#: code:addons/base_import/static/src/js/import.js:174
+#: code:addons/base_import/static/src/xml/import.xml:233
 #, python-format
-msgid "Semicolon"
-msgstr ""
+msgid "Suppliers and their respective contacts"
+msgstr "Добавувачи и нивните контакти"
 
 #. module: base_import
 #. openerp-web
@@ -384,13 +395,6 @@ msgid ""
 "                        (in 'Save As' dialog box > click 'Tools' dropdown \n"
 "                        list > Encoding tab)."
 msgstr ""
-
-#. module: base_import
-#. openerp-web
-#: code:addons/base_import/static/src/js/import.js:175
-#, python-format
-msgid "Tab"
-msgstr "Табулатор"
 
 #. module: base_import
 #: field:base_import.tests.models.preview,othervalue:0
@@ -578,11 +582,9 @@ msgid "Reload data to check changes."
 msgstr "Освежи ги податоците за проверка на промените."
 
 #. module: base_import
-#. openerp-web
-#: code:addons/base_import/static/src/xml/import.xml:233
-#, python-format
-msgid "Customers and their respective contacts"
-msgstr ""
+#: model:ir.model,name:base_import.model_base_import_tests_models_char_readonly
+msgid "base_import.tests.models.char.readonly"
+msgstr "base_import.tests.models.char.readonly"
 
 #. module: base_import
 #. openerp-web
@@ -893,15 +895,6 @@ msgstr "XXX/ID"
 
 #. module: base_import
 #. openerp-web
-#: code:addons/base_import/static/src/xml/import.xml:231
-#, python-format
-msgid ""
-"The following CSV file shows how to import \n"
-"                        customers and their respective contacts"
-msgstr ""
-
-#. module: base_import
-#. openerp-web
 #: code:addons/base_import/static/src/xml/import.xml:275
 #, python-format
 msgid ""
@@ -983,13 +976,6 @@ msgstr "company_3,Boum,True"
 
 #. module: base_import
 #. openerp-web
-#: code:addons/base_import/static/src/js/import.js:176
-#, python-format
-msgid "Space"
-msgstr "Празно место"
-
-#. module: base_import
-#. openerp-web
 #: code:addons/base_import/static/src/xml/import.xml:249
 #, python-format
 msgid ""
@@ -1033,11 +1019,6 @@ msgid ""
 "                        take care of creating or modifying each record \n"
 "                        depending if it's new or not."
 msgstr ""
-
-#. module: base_import
-#: model:ir.model,name:base_import.model_base_import_tests_models_char_readonly
-msgid "base_import.tests.models.char.readonly"
-msgstr "base_import.tests.models.char.readonly"
 
 #. module: base_import
 #. openerp-web
@@ -1088,14 +1069,6 @@ msgid ""
 "                        addtional row that does not have any information in "
 "\n"
 "                        the fields relative to the order."
-msgstr ""
-
-#. module: base_import
-#. openerp-web
-#: code:addons/base_import/static/src/js/import.js:173
-#: code:addons/base_import/static/src/js/import.js:184
-#, python-format
-msgid "Comma"
 msgstr ""
 
 #. module: base_import
@@ -1223,15 +1196,3 @@ msgstr ""
 #: field:base_import.import,file:0
 msgid "File"
 msgstr "Датотека"
-
-#, python-format
-#~ msgid ""
-#~ "The following CSV file shows how to import \n"
-#~ "                        suppliers and their respective contacts"
-#~ msgstr ""
-#~ "Следниов CSV фајл покажува како да увезете\n"
-#~ "добавувачи и нивните контакти"
-
-#, python-format
-#~ msgid "Suppliers and their respective contacts"
-#~ msgstr "Добавувачи и нивните контакти"

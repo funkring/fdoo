@@ -1,21 +1,21 @@
 # Thai translation for openobject-addons
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# Copyright (c) 2011 Rosetta Contributors and Canonical Ltd 2011
 # This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-01-07 16:56+0000\n"
-"PO-Revision-Date: 2013-07-26 01:44+0000\n"
+"POT-Creation-Date: 2012-12-21 17:04+0000\n"
+"PO-Revision-Date: 2013-07-24 09:15+0000\n"
 "Last-Translator: Supakorn S <lanpartystudio@gmail.com>\n"
 "Language-Team: Thai <th@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-01-08 05:39+0000\n"
-"X-Generator: Launchpad (build 16877)\n"
+"X-Launchpad-Export-Date: 2014-03-27 06:13+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: crm
 #: view:crm.lead.report:0
@@ -90,11 +90,6 @@ msgid "Delay to close"
 msgstr ""
 
 #. module: crm
-#: view:crm.lead:0
-msgid "Available for mass mailing"
-msgstr ""
-
-#. module: crm
 #: view:crm.case.stage:0
 #: field:crm.case.stage,name:0
 msgid "Stage Name"
@@ -142,9 +137,11 @@ msgid "Exp. Closing"
 msgstr ""
 
 #. module: crm
-#: view:crm.phonecall:0
-msgid "Cancel Call"
-msgstr "ยกเลิกการโทร"
+#: help:crm.case.section,message_unread:0
+#: help:crm.lead,message_unread:0
+#: help:crm.phonecall,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr "ถ้าการตรวจสอบข้อความใหม่ให้ระบุความสนใจของคุณ"
 
 #. module: crm
 #: help:crm.lead.report,creation_day:0
@@ -235,8 +232,9 @@ msgstr ""
 
 #. module: crm
 #: view:crm.lead:0
-msgid "Opportunities that are assigned to me"
-msgstr "โอกาสที่ได้รับมอบหมาย"
+#: field:crm.lead,state_id:0
+msgid "State"
+msgstr "สถานะ"
 
 #. module: crm
 #: field:res.partner,meeting_count:0
@@ -254,9 +252,9 @@ msgid "Criteria"
 msgstr "หลักเกณฑ์"
 
 #. module: crm
-#: view:crm.lead:0
-msgid "Assigned to My Team(s)"
-msgstr "มอบหมายมาที่ทีมฉัน"
+#: view:crm.segmentation:0
+msgid "Excluded Answers :"
+msgstr "คำตอบไม่รวม :"
 
 #. module: crm
 #: model:ir.model,name:crm.model_crm_merge_opportunity
@@ -271,16 +269,16 @@ msgid "Leads Analysis"
 msgstr "การวิเคราะห์เป้าหมาย"
 
 #. module: crm
+#: code:addons/crm/crm_lead.py:1010
+#, python-format
+msgid "<b>%s a call</b> for the <em>%s</em>."
+msgstr ""
+
+#. module: crm
 #: model:ir.actions.act_window,name:crm.crm_case_resource_type_act
 #: model:ir.ui.menu,name:crm.menu_crm_case_resource_type_act
 msgid "Campaigns"
 msgstr "แคมเปญ"
-
-#. module: crm
-#: view:crm.lead:0
-#: field:crm.lead,state_id:0
-msgid "State"
-msgstr "สถานะ"
 
 #. module: crm
 #: view:crm.lead:0
@@ -290,8 +288,10 @@ msgid "Categories"
 msgstr "ประเภท"
 
 #. module: crm
-#: view:crm.segmentation:0
-msgid "Segmentation Test"
+#: help:crm.lead,opt_out:0
+msgid ""
+"If opt-out is checked, this contact has refused to receive emails or "
+"unsubscribed to a campaign."
 msgstr ""
 
 #. module: crm
@@ -450,6 +450,11 @@ msgid ""
 msgstr ""
 
 #. module: crm
+#: view:crm.lead:0
+msgid "Leads that are assigned to one of the sale teams I manage, or to me"
+msgstr ""
+
+#. module: crm
 #: field:crm.lead,partner_address_email:0
 msgid "Partner Contact Email"
 msgstr ""
@@ -524,12 +529,6 @@ msgid "Planned Revenue"
 msgstr "รายได้ตามแผน"
 
 #. module: crm
-#: code:addons/crm/crm_lead.py:1004
-#, python-format
-msgid "Customer Email"
-msgstr "อีเมลลูกค้า"
-
-#. module: crm
 #: field:crm.lead,planned_revenue:0
 msgid "Expected Revenue"
 msgstr "เป้าหมายรายได้"
@@ -542,8 +541,8 @@ msgid "October"
 msgstr "ตุลาคม"
 
 #. module: crm
-#: view:crm.phonecall:0
-msgid "Reset to Todo"
+#: view:crm.segmentation:0
+msgid "Included Answers :"
 msgstr ""
 
 #. module: crm
@@ -569,6 +568,11 @@ msgid "Merge"
 msgstr "รวม"
 
 #. module: crm
+#: model:email.template,subject:crm.email_template_opportunity_mail
+msgid "Opportunity ${object.name | h})"
+msgstr ""
+
+#. module: crm
 #: view:crm.case.categ:0
 msgid "Case Category"
 msgstr ""
@@ -586,11 +590,8 @@ msgid ""
 msgstr ""
 
 #. module: crm
-#: code:addons/crm/crm_lead.py:759
-#, python-format
-msgid ""
-"No customer name defined. Please fill one of the following fields: Company "
-"Name, Contact Name or Email (\"Name <email@address>\")"
+#: view:crm.segmentation:0
+msgid "Profiling Options"
 msgstr ""
 
 #. module: crm
@@ -669,12 +670,6 @@ msgid "Partner Segmentation"
 msgstr ""
 
 #. module: crm
-#: code:addons/crm/crm_lead.py:1064
-#, python-format
-msgid "Logged a call for %(date)s. %(description)s"
-msgstr ""
-
-#. module: crm
 #: field:crm.lead,company_currency:0
 msgid "Currency"
 msgstr "สกุลเงิน"
@@ -695,9 +690,9 @@ msgid "The name of the segmentation."
 msgstr ""
 
 #. module: crm
-#: model:ir.filters,name:crm.filter_usa_lead
-msgid "Leads from USA"
-msgstr ""
+#: field:crm.case.stage,probability:0
+msgid "Probability (%)"
+msgstr "คาดว่า"
 
 #. module: crm
 #: sql_constraint:crm.lead:0
@@ -765,11 +760,6 @@ msgid ""
 msgstr ""
 
 #. module: crm
-#: field:crm.segmentation.line,expr_value:0
-msgid "Value"
-msgstr "มูลค่า"
-
-#. module: crm
 #: field:calendar.attendee,categ_id:0
 msgid "Event Type"
 msgstr "ชนิดเหตุการณ์"
@@ -789,11 +779,6 @@ msgstr ""
 #: view:crm.lead2opportunity.partner.mass:0
 msgid "Convert to Opportunities"
 msgstr "แปลงเป็นโอกาส"
-
-#. module: crm
-#: view:crm.lead:0
-msgid "Leads that did not ask not to be included in mass mailing campaigns"
-msgstr ""
 
 #. module: crm
 #: view:crm.lead2opportunity.partner:0
@@ -875,18 +860,13 @@ msgstr "ขาออก"
 
 #. module: crm
 #: view:crm.lead:0
-msgid "Leads that are assigned to me"
-msgstr "เป้าหมายที่ได้รับมอบหมาย"
-
-#. module: crm
-#: view:crm.lead:0
 msgid "Mark Won"
 msgstr "เราทำได้สำเร็จ"
 
 #. module: crm
-#: field:crm.case.stage,probability:0
-msgid "Probability (%)"
-msgstr "คาดว่า"
+#: model:ir.filters,name:crm.filter_usa_lead
+msgid "Leads from USA"
+msgstr ""
 
 #. module: crm
 #: view:crm.lead:0
@@ -911,21 +891,15 @@ msgid "Send Email"
 msgstr "ส่งอีเมล"
 
 #. module: crm
-#: help:crm.case.section,message_unread:0
-#: help:crm.lead,message_unread:0
-#: help:crm.phonecall,message_unread:0
-msgid "If checked new messages require your attention."
-msgstr "ถ้าการตรวจสอบข้อความใหม่ให้ระบุความสนใจของคุณ"
+#: code:addons/crm/wizard/crm_lead_to_opportunity.py:89
+#, python-format
+msgid "Warning !"
+msgstr "คำเตือน !"
 
 #. module: crm
 #: field:crm.lead,day_open:0
 msgid "Days to Open"
 msgstr "วันที่จะเปิด"
-
-#. module: crm
-#: view:crm.lead:0
-msgid "ZIP"
-msgstr "รหัสไปรษณีย์"
 
 #. module: crm
 #: field:crm.lead,mobile:0
@@ -937,6 +911,13 @@ msgstr "มือถือ"
 #: field:crm.lead,ref:0
 msgid "Reference"
 msgstr "อ้างอิง"
+
+#. module: crm
+#: view:crm.lead:0
+msgid ""
+"Opportunities that are assigned to either me or one of the sale teams I "
+"manage"
+msgstr ""
 
 #. module: crm
 #: help:crm.case.section,resource_calendar_id:0
@@ -985,6 +966,11 @@ msgstr "แสดงโอกาสเท่านั้น"
 #: field:crm.lead,name:0
 msgid "Subject"
 msgstr "ชื่อเรื่อง"
+
+#. module: crm
+#: view:crm.lead:0
+msgid "New Leads"
+msgstr ""
 
 #. module: crm
 #: view:crm.lead:0
@@ -1044,14 +1030,6 @@ msgid "Creation Date"
 msgstr "วันที่สร้าง"
 
 #. module: crm
-#: help:crm.lead,opt_out:0
-msgid ""
-"If opt-out is checked, this contact has refused to receive emails for mass "
-"mailing and marketing campaign. Filter 'Available for Mass Mailing' allows "
-"users to filter the leads when performing mass mailing."
-msgstr ""
-
-#. module: crm
 #: code:addons/crm/crm_lead.py:712
 #, python-format
 msgid "Lead <b>converted into an Opportunity</b>"
@@ -1066,11 +1044,6 @@ msgstr "จำนวนที่สั่งซื้อ"
 #: view:crm.phonecall.report:0
 msgid "Year of call"
 msgstr ""
-
-#. module: crm
-#: view:crm.lead:0
-msgid "Open Leads"
-msgstr "เป้าหมายเปิด"
 
 #. module: crm
 #: view:crm.case.stage:0
@@ -1090,11 +1063,6 @@ msgstr "การโทรที่ได้รับมอบหมาย"
 #: field:crm.lead,user_login:0
 msgid "User Login"
 msgstr "ผู้ใช้เข้าสู่ระบบ"
-
-#. module: crm
-#: view:crm.lead:0
-msgid "No salesperson"
-msgstr "ไม่มีพนักงานขาย"
 
 #. module: crm
 #: view:crm.phonecall.report:0
@@ -1132,11 +1100,6 @@ msgstr "โอกาสได้ถูกสร้างแล้ว"
 #: view:crm.lead:0
 msgid "í"
 msgstr ""
-
-#. module: crm
-#: view:crm.phonecall:0
-msgid "Description..."
-msgstr "รายละเอียด..."
 
 #. module: crm
 #: selection:crm.lead.report,creation_month:0
@@ -1315,10 +1278,9 @@ msgid "Sales Marketing Department"
 msgstr "ฝ่ายขายและการตลาด"
 
 #. module: crm
-#: code:addons/crm/crm_lead.py:582
-#, python-format
-msgid "Merged lead"
-msgstr "รวมเป้าหมาย"
+#: view:crm.phonecall.report:0
+msgid "Date of call"
+msgstr "วันที่โทร"
 
 #. module: crm
 #: help:crm.lead,section_id:0
@@ -1331,6 +1293,16 @@ msgstr ""
 msgid ""
 "Phone Calls Assigned to the current user or with a team having the current "
 "user as team leader"
+msgstr ""
+
+#. module: crm
+#: view:crm.segmentation:0
+msgid "Segmentation Description"
+msgstr ""
+
+#. module: crm
+#: view:crm.lead:0
+msgid "Lead Description"
 msgstr ""
 
 #. module: crm
@@ -1383,6 +1355,11 @@ msgstr "อ้างอิง"
 #: view:crm.phonecall2phonecall:0
 msgid "Cancel"
 msgstr "ยกเลิก"
+
+#. module: crm
+#: view:crm.lead:0
+msgid "Opportunities Assigned to Me or My Team(s)"
+msgstr ""
 
 #. module: crm
 #: model:crm.case.categ,name:crm.categ_oppor4
@@ -1444,9 +1421,9 @@ msgid "Leads/Opportunities which are in open state"
 msgstr ""
 
 #. module: crm
-#: view:crm.lead:0
-msgid "Opportunities that are assigned to any sales teams I am member of"
-msgstr ""
+#: model:ir.model,name:crm.model_res_users
+msgid "Users"
+msgstr "ผู้ใช้งาน"
 
 #. module: crm
 #: model:mail.message.subtype,name:crm.mt_lead_stage
@@ -1503,6 +1480,12 @@ msgid "Leads/Opportunities that are assigned to me"
 msgstr ""
 
 #. module: crm
+#: field:crm.lead.report,date_closed:0
+#: field:crm.phonecall.report,date_closed:0
+msgid "Close Date"
+msgstr "วันปิด"
+
+#. module: crm
 #: view:crm.lead.report:0
 msgid "My Case(s)"
 msgstr ""
@@ -1518,11 +1501,6 @@ msgstr "ข้อความและประวัติการติดต
 #: view:crm.lead:0
 msgid "Show Countries"
 msgstr "แสดงประเทศ"
-
-#. module: crm
-#: view:crm.phonecall.report:0
-msgid "Date of call"
-msgstr "วันที่โทร"
 
 #. module: crm
 #: view:crm.lead:0
@@ -1565,11 +1543,6 @@ msgstr ""
 #: view:crm.phonecall.report:0
 msgid "Group By..."
 msgstr "จัดกลุ่มตาม..."
-
-#. module: crm
-#: model:email.template,subject:crm.email_template_opportunity_mail
-msgid "${object.name}"
-msgstr ""
 
 #. module: crm
 #: view:crm.merge.opportunity:0
@@ -1617,11 +1590,6 @@ msgid "Month of call"
 msgstr ""
 
 #. module: crm
-#: view:crm.lead:0
-msgid "Describe the lead..."
-msgstr ""
-
-#. module: crm
 #: code:addons/crm/crm_phonecall.py:292
 #, python-format
 msgid "Partner has been <b>created</b>."
@@ -1665,9 +1633,9 @@ msgid "Notes"
 msgstr "บันทึก"
 
 #. module: crm
-#: view:crm.opportunity2phonecall:0
-msgid "Call Description"
-msgstr ""
+#: field:crm.segmentation.line,expr_value:0
+msgid "Value"
+msgstr "มูลค่า"
 
 #. module: crm
 #: field:crm.lead,partner_name:0
@@ -1796,6 +1764,11 @@ msgid "Telesales"
 msgstr "การขายทางโทรศัพท์"
 
 #. module: crm
+#: view:crm.lead:0
+msgid "Leads Assigned to Me or My Team(s)"
+msgstr "เป้าหมายที่ได้รับมอบหมาย"
+
+#. module: crm
 #: model:ir.model,name:crm.model_crm_segmentation_line
 msgid "Segmentation line"
 msgstr ""
@@ -1838,12 +1811,6 @@ msgstr "เป้าหมาย / ลูกค้า"
 #: model:crm.case.section,name:crm.crm_case_section_2
 msgid "Support Department"
 msgstr "แผนกบริการ"
-
-#. module: crm
-#: code:addons/crm/crm_lead.py:1078
-#, python-format
-msgid "Meeting scheduled at '%s'<br> Subject: %s <br> Duration: %s hour(s)"
-msgstr ""
 
 #. module: crm
 #: view:crm.lead.report:0
@@ -1983,11 +1950,6 @@ msgid "Pending"
 msgstr "รอดำเนินการ"
 
 #. module: crm
-#: view:crm.lead:0
-msgid "Assigned to Me"
-msgstr ""
-
-#. module: crm
 #: model:process.transition,name:crm.process_transition_leadopportunity0
 msgid "Prospect Opportunity"
 msgstr ""
@@ -2037,6 +1999,11 @@ msgstr "เปิดใช้งาน"
 #: selection:crm.segmentation.line,operator:0
 msgid "Mandatory Expression"
 msgstr ""
+
+#. module: crm
+#: view:crm.lead:0
+msgid "Send Mail"
+msgstr "ส่งเมล์"
 
 #. module: crm
 #: selection:crm.lead2opportunity.partner,action:0
@@ -2134,15 +2101,15 @@ msgid "Address"
 msgstr "ที่อยู่"
 
 #. module: crm
-#: view:crm.lead:0
-msgid "Leads that are assigned to any sales teams I am member of"
-msgstr ""
-
-#. module: crm
 #: help:crm.case.section,alias_id:0
 msgid ""
 "The email address associated with this team. New emails received will "
 "automatically create new leads assigned to the team."
+msgstr ""
+
+#. module: crm
+#: view:crm.lead:0
+msgid "Unassigned Opportunities"
 msgstr ""
 
 #. module: crm
@@ -2178,6 +2145,11 @@ msgstr ""
 #. module: crm
 #: model:ir.model,name:crm.model_calendar_attendee
 msgid "Attendee information"
+msgstr ""
+
+#. module: crm
+#: view:crm.segmentation:0
+msgid "Segmentation Test"
 msgstr ""
 
 #. module: crm
@@ -2280,6 +2252,11 @@ msgid "Lead converted into an opportunity"
 msgstr ""
 
 #. module: crm
+#: view:crm.lead:0
+msgid "Unassigned Leads"
+msgstr "เป้าหมายที่ยังไม่ได้มีการมอบหมาย"
+
+#. module: crm
 #: model:mail.message.subtype,description:crm.mt_lead_won
 msgid "Opportunity won"
 msgstr "โอกาสสำเร็จแล้ว"
@@ -2332,15 +2309,9 @@ msgid "Cancelled"
 msgstr "ยกเลิกแล้ว"
 
 #. module: crm
-#: view:crm.lead:0
-msgid "Street..."
-msgstr ""
-
-#. module: crm
-#: field:crm.lead.report,date_closed:0
-#: field:crm.phonecall.report,date_closed:0
-msgid "Close Date"
-msgstr "วันปิด"
+#: field:crm.lead,color:0
+msgid "Color Index"
+msgstr "ดัชนีสี"
 
 #. module: crm
 #: model:ir.actions.act_window,help:crm.action_report_crm_phonecall
@@ -2365,11 +2336,6 @@ msgstr "สถานะที่เกี่ยวข้อง"
 #: field:crm.phonecall,name:0
 msgid "Call Summary"
 msgstr "สรุปการโทร"
-
-#. module: crm
-#: field:crm.lead,color:0
-msgid "Color Index"
-msgstr "ดัชนีสี"
 
 #. module: crm
 #: field:crm.segmentation.line,expr_operator:0
@@ -2526,11 +2492,6 @@ msgstr ""
 #: view:res.partner:0
 msgid "Calls"
 msgstr "การคุยสาย"
-
-#. module: crm
-#: view:crm.lead:0
-msgid "Cancel Case"
-msgstr ""
 
 #. module: crm
 #: field:crm.case.stage,on_change:0
@@ -2770,29 +2731,18 @@ msgid "Planned Revenues"
 msgstr "เป้าหมายรายได้"
 
 #. module: crm
+#: view:crm.lead:0
+msgid "Exp.Closing"
+msgstr ""
+
+#. module: crm
 #: help:crm.lead.report,deadline_year:0
 msgid "Expected closing year"
 msgstr ""
 
 #. module: crm
-#: view:crm.lead:0
-msgid "e.g. Call for proposal"
-msgstr ""
-
-#. module: crm
 #: model:ir.model,name:crm.model_crm_case_stage
 msgid "Stage of case"
-msgstr ""
-
-#. module: crm
-#: code:addons/crm/crm_lead.py:582
-#, python-format
-msgid "Merged opportunity"
-msgstr ""
-
-#. module: crm
-#: view:crm.lead:0
-msgid "Unassigned"
 msgstr ""
 
 #. module: crm
@@ -2826,6 +2776,11 @@ msgstr "การโทร"
 #: view:crm.phonecall.report:0
 msgid "Phone calls that are assigned to one of the sale teams I manage"
 msgstr ""
+
+#. module: crm
+#: view:crm.lead:0
+msgid "Create date"
+msgstr "วันที่สร้าง"
 
 #. module: crm
 #: view:crm.lead:0
@@ -2923,9 +2878,8 @@ msgid "Referred By"
 msgstr "อ้างอิงโดย"
 
 #. module: crm
-#: code:addons/crm/crm_lead.py:1066
-#, python-format
-msgid "Scheduled a call for %(date)s. %(description)s"
+#: view:crm.phonecall:0
+msgid "Reset to Todo"
 msgstr ""
 
 #. module: crm
@@ -3001,6 +2955,11 @@ msgid "Campaign Name"
 msgstr "ชื่อแคมเปญ"
 
 #. module: crm
+#: view:crm.segmentation:0
+msgid "Profiling"
+msgstr "ทำประวัติย่อ"
+
+#. module: crm
 #: model:ir.model,name:crm.model_crm_phonecall_report
 msgid "Phone calls by user and section"
 msgstr ""
@@ -3066,27 +3025,87 @@ msgid ""
 "            "
 msgstr ""
 
+#~ msgid "Show as"
+#~ msgstr "แสดงเป็น"
+
+#~ msgid "Visibility"
+#~ msgstr "มองเห็นได้"
+
+#~ msgid "Date of month"
+#~ msgstr "วันที่ของเดือน"
+
+#~ msgid "Need Services"
+#~ msgstr "ต้องการบริการ"
+
+#~ msgid "Monthly"
+#~ msgstr "รายเดือน"
+
 #, python-format
-#~ msgid "Warning !"
-#~ msgstr "คำเตือน !"
+#~ msgid "Can not add note!"
+#~ msgstr "ไม่สามารถเพิ่มบันทึกได้!"
 
-#~ msgid "Excluded Answers :"
-#~ msgstr "คำตอบไม่รวม :"
+#~ msgid "Previous Stage"
+#~ msgstr "ขั้นตอนก่อนหน้า"
 
-#~ msgid "Create date"
-#~ msgstr "วันที่สร้าง"
+#~ msgid "Today"
+#~ msgstr "วันนี้"
 
-#~ msgid "Users"
-#~ msgstr "ผู้ใช้งาน"
+#~ msgid " "
+#~ msgstr " "
 
-#~ msgid "Leads Assigned to Me or My Team(s)"
-#~ msgstr "เป้าหมายที่ได้รับมอบหมาย"
+#~ msgid "No Repeat"
+#~ msgstr "ไม่มีซ้ำ"
 
-#~ msgid "Send Mail"
-#~ msgstr "ส่งเมล์"
+#~ msgid "Yearly"
+#~ msgstr "รายปี"
 
-#~ msgid "Unassigned Leads"
-#~ msgstr "เป้าหมายที่ยังไม่ได้มีการมอบหมาย"
+#~ msgid "Send New Email"
+#~ msgstr "ส่งอีเมล์ใหม่"
 
-#~ msgid "Profiling"
-#~ msgstr "ทำประวัติย่อ"
+#~ msgid "Public"
+#~ msgstr "เปิดเผย"
+
+#~ msgid "Forever"
+#~ msgstr "ตลอดไป"
+
+#~ msgid "Enhance your core CRM Application with additional functionalities."
+#~ msgstr "เพิ่ม ประสิทธิภาพ CRM ของคุณด้วยฟังก์ชันการทำงานเพิ่มเติม"
+
+#~ msgid "Link to an existing partner"
+#~ msgstr "เชื่อมโยงไปยังพาร์ทเนอร์ที่มีอยู่"
+
+#~ msgid "Convert/Merge Opportunity"
+#~ msgstr "แปลง / รวม Opportunity"
+
+#~ msgid "Set State To"
+#~ msgstr "ตั้งสถานะเป็น"
+
+#~ msgid "Communication"
+#~ msgstr "การติดต่อสื่อสาร"
+
+#~ msgid "Privacy"
+#~ msgstr "ความเป็นส่วนตัว"
+
+#~ msgid "Location of Event"
+#~ msgstr "สถานที่จัดงาน"
+
+#~ msgid "Select Action"
+#~ msgstr "เลือกการดำเนินการ"
+
+#~ msgid "Opportunity Analysis"
+#~ msgstr "การวิเคราะห์โอกาสทางการขาย"
+
+#~ msgid "Recurrent Rule"
+#~ msgstr "กฎของการเกิดซ้ำ"
+
+#~ msgid "Allows you to receive E-Mails from POP/IMAP server."
+#~ msgstr "ยอมให้คุณรับอีเมลจาก POP / IMAP Server"
+
+#~ msgid "Customer & Supplier Relationship Management"
+#~ msgstr "บริหารความสัมพันธ์กับลูกค้าและซัพพลายเออร์"
+
+#~ msgid "Reply to last Mail"
+#~ msgstr "ตอบกลับ Mail ล่าสุด"
+
+#~ msgid "E-Mail"
+#~ msgstr "อีเมล์"

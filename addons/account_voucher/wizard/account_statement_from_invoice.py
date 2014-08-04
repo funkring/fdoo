@@ -82,7 +82,7 @@ class account_statement_from_invoice_lines(osv.osv_memory):
             if line.journal_id.type in ('sale', 'sale_refund'):
                 type = 'customer'
                 ttype = 'receipt'
-            elif line.journal_id.type in ('purchase', 'purhcase_refund'):
+            elif line.journal_id.type in ('purchase', 'purchase_refund'):
                 type = 'supplier'
                 ttype = 'payment'
                 sign = -1
@@ -111,7 +111,7 @@ class account_statement_from_invoice_lines(osv.osv_memory):
                 voucher_line_dict.update({'voucher_id': voucher_id})
                 voucher_line_obj.create(cr, uid, voucher_line_dict, context=context)
             statement_line_obj.create(cr, uid, {
-                'name': line.name or '?',
+                'name': (line.move_id and line.move_id.name) or line.name or '?',
                 'amount': amount,
                 'type': type,
                 'partner_id': line.partner_id.id,
@@ -123,6 +123,5 @@ class account_statement_from_invoice_lines(osv.osv_memory):
             }, context=context)
         return {'type': 'ir.actions.act_window_close'}
 
-account_statement_from_invoice_lines()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -26,8 +26,10 @@ import os
 import datetime
 import socket
 
-from openerp import addons, netsvc, tools
+from openerp import tools
+from openerp.modules.module import get_module_resource
 from openerp.osv import fields, osv
+import openerp.report
 from openerp.tools.translate import _
 
 
@@ -84,9 +86,8 @@ Thanks,''') % (name, self.pool.get('ir.config_parameter').get_param(cr, uid, 'we
         if not report_name or not res_ids:
             return (False, Exception('Report name and Resources ids are required !!!'))
         try:
-            ret_file_name = addons.get_module_resource('survey', 'report') + file_name + '.pdf'
-            service = netsvc.LocalService(report_name);
-            (result, format) = service.create(cr, uid, res_ids, {}, {})
+            ret_file_name = get_module_resource('survey', 'report') + file_name + '.pdf'
+            result, format = openerp.report.render_report(cr, uid, res_ids, report_name[len('report.'):], {}, {})
             fp = open(ret_file_name, 'wb+');
             fp.write(result);
             fp.close();
@@ -127,9 +128,7 @@ Thanks,''') % (name, self.pool.get('ir.config_parameter').get_param(cr, uid, 'we
             for use in exist_user:
                 new_user.append(use.id)
         for id in survey_ref.browse(cr, uid, survey_ids):
-            service = netsvc.LocalService('report.survey.form');
-            (result, format) = service.create(cr, uid, [id.id], {}, {})
-            
+            result, format = openerp.report.render_report(cr, uid, [id.id], 'survey.form', {}, {})
             attachments[id.title +".pdf"] = result
 
         for partner in self.pool.get('res.partner').browse(cr, uid, partner_ids):
@@ -185,7 +184,8 @@ Thanks,''') % (name, self.pool.get('ir.config_parameter').get_param(cr, uid, 'we
                                 'action_id': act_id[0],
                                 'survey_id': [[6, 0, survey_ids]]
                                }
-                    user = user_ref.create(cr, uid, res_data)
+                    create_ctx = dict(context, no_reset_password=True)
+                    user = user_ref.create(cr, uid, res_data, context=create_ctx)
                     if user not in new_user:
                         new_user.append(user)
                     created+= "- %s (Login: %s,  Password: %s)\n" % (partner.name or _('Unknown'),\
@@ -215,7 +215,6 @@ Thanks,''') % (name, self.pool.get('ir.config_parameter').get_param(cr, uid, 'we
             'target': 'new',
             'context': context
         }
-survey_send_invitation()
 
 class survey_send_invitation_log(osv.osv_memory):
     _name = 'survey.send.invitation.log'
@@ -230,6 +229,5 @@ class survey_send_invitation_log(osv.osv_memory):
         data['note'] = context.get('note', '')
         return data
 
-survey_send_invitation_log()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

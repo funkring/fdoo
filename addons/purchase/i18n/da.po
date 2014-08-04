@@ -1,21 +1,21 @@
 # Danish translation for openobject-addons
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# Copyright (c) 2011 Rosetta Contributors and Canonical Ltd 2011
 # This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:36+0000\n"
-"PO-Revision-Date: 2013-09-14 08:39+0000\n"
-"Last-Translator: Per G. Rasmussen <pgr@msteknik.dk>\n"
+"POT-Creation-Date: 2012-12-21 17:04+0000\n"
+"PO-Revision-Date: 2011-11-08 22:35+0000\n"
+"Last-Translator: OpenERP Danmark / Henning Dinsen <Unknown>\n"
 "Language-Team: Danish <da@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-21 06:30+0000\n"
-"X-Generator: Launchpad (build 16831)\n"
+"X-Launchpad-Export-Date: 2014-03-27 05:59+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: purchase
 #: model:res.groups,name:purchase.group_analytic_accounting
@@ -65,11 +65,6 @@ msgstr ""
 #: field:purchase.report,day:0
 msgid "Day"
 msgstr "Dag"
-
-#. module: purchase
-#: view:purchase.order:0
-msgid "Cancel Order"
-msgstr "Annulér ordre"
 
 #. module: purchase
 #: view:purchase.report:0
@@ -137,14 +132,18 @@ msgid "No supplier defined for this product !"
 msgstr "Ingen leverandør er angivet på denne vare!"
 
 #. module: purchase
-#: help:res.company,po_lead:0
+#: model:ir.actions.act_window,help:purchase.action_picking_tree4_picking_to_invoice
 msgid ""
-"Margin of error for supplier lead times. When the systemgenerates Purchase "
-"Orders for procuring products,they will be scheduled that many days earlier "
-"to cope with unexpected supplier delays."
+"<p>\n"
+"                Here you can track all the product receptions of purchase\n"
+"                orders where the invoicing is \"Based on Incoming "
+"Shipments\",\n"
+"                and for which you have not received a supplier invoice yet.\n"
+"                You can generate a supplier invoice based on those "
+"receptions.\n"
+"              </p>\n"
+"            "
 msgstr ""
-"Margin til dækning af leverandør forsinkelser. Indkøbsordrer vil blive "
-"bestilt det antal dage før for at \"dække\" leverandørforsinkelse."
 
 #. module: purchase
 #: view:purchase.report:0
@@ -761,11 +760,6 @@ msgid "RFQ"
 msgstr "Anmodning om tilbud"
 
 #. module: purchase
-#: view:purchase.order:0
-msgid "Send by Email"
-msgstr "Send pr. e-mail"
-
-#. module: purchase
 #: report:purchase.order:0
 #: view:purchase.order:0
 #: field:purchase.order,date_order:0
@@ -978,6 +972,87 @@ msgid "a draft purchase order"
 msgstr "En indkøbskladde"
 
 #. module: purchase
+#: model:email.template,body_html:purchase.email_template_edi_purchase
+msgid ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-"
+"serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"\n"
+"    <p>Hello$ ${object.partner_id.name},</p>\n"
+"    \n"
+"    <p>Here is a ${object.state in ('draft', 'sent') and 'request for "
+"quotation' or 'purchase order confirmation'} from ${object.company_id.name}: "
+"</p>\n"
+"    \n"
+"    <p style=\"border-left: 1px solid #8e0000; margin-left: 30px;\">\n"
+"       &nbsp;&nbsp;<strong>REFERENCES</strong><br />\n"
+"       &nbsp;&nbsp;Order number: <strong>${object.name}</strong><br />\n"
+"       &nbsp;&nbsp;Order total: <strong>${object.amount_total} "
+"${object.pricelist_id.currency_id.name}</strong><br />\n"
+"       &nbsp;&nbsp;Order date: ${object.date_order}<br />\n"
+"       % if object.origin:\n"
+"       &nbsp;&nbsp;Order reference: ${object.origin}<br />\n"
+"       % endif\n"
+"       % if object.partner_ref:\n"
+"       &nbsp;&nbsp;Your reference: ${object.partner_ref}<br />\n"
+"       % endif\n"
+"       % if object.validator:\n"
+"       &nbsp;&nbsp;Your contact: <a href=\"mailto:${object.validator.email "
+"or ''}?subject=Order%20${object.name}\">${object.validator.name}</a>\n"
+"       % endif\n"
+"    </p>\n"
+"\n"
+"    <br/>\n"
+"    <p>If you have any question, do not hesitate to contact us.</p>\n"
+"    <p>Thank you!</p>\n"
+"    <br/>\n"
+"    <br/>\n"
+"    <div style=\"width: 375px; margin: 0px; padding: 0px; background-color: "
+"#8E0000; border-top-left-radius: 5px 5px; border-top-right-radius: 5px 5px; "
+"background-repeat: repeat no-repeat;\">\n"
+"        <h3 style=\"margin: 0px; padding: 2px 14px; font-size: 12px; color: "
+"#DDD;\">\n"
+"            <strong style=\"text-"
+"transform:uppercase;\">${object.company_id.name}</strong></h3>\n"
+"    </div>\n"
+"    <div style=\"width: 347px; margin: 0px; padding: 5px 14px; line-height: "
+"16px; background-color: #F2F2F2;\">\n"
+"        <span style=\"color: #222; margin-bottom: 5px; display: block; \">\n"
+"        % if object.company_id.street:\n"
+"            ${object.company_id.street}<br/>\n"
+"        % endif\n"
+"        % if object.company_id.street2:\n"
+"            ${object.company_id.street2}<br/>\n"
+"        % endif\n"
+"        % if object.company_id.city or object.company_id.zip:\n"
+"            ${object.company_id.zip} ${object.company_id.city}<br/>\n"
+"        % endif\n"
+"        % if object.company_id.country_id:\n"
+"            ${object.company_id.state_id and ('%s, ' % "
+"object.company_id.state_id.name) or ''} ${object.company_id.country_id.name "
+"or ''}<br/>\n"
+"        % endif\n"
+"        </span>\n"
+"        % if object.company_id.phone:\n"
+"            <div style=\"margin-top: 0px; margin-right: 0px; margin-bottom: "
+"0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: "
+"0px; padding-left: 0px; \">\n"
+"                Phone:&nbsp; ${object.company_id.phone}\n"
+"            </div>\n"
+"        % endif\n"
+"        % if object.company_id.website:\n"
+"            <div>\n"
+"                Web :&nbsp;<a "
+"href=\"${object.company_id.website}\">${object.company_id.website}</a>\n"
+"            </div>\n"
+"        %endif\n"
+"        <p></p>\n"
+"    </div>\n"
+"</div>\n"
+"            "
+msgstr ""
+
+#. module: purchase
 #: view:purchase.report:0
 msgid "Order of Year"
 msgstr ""
@@ -1149,11 +1224,6 @@ msgid "Products"
 msgstr "Varer"
 
 #. module: purchase
-#: view:purchase.order:0
-msgid "Terms and conditions..."
-msgstr "Betingelser"
-
-#. module: purchase
 #: model:ir.model,name:purchase.model_stock_move
 msgid "Stock Move"
 msgstr "Lager flytning"
@@ -1269,31 +1339,6 @@ msgid "Please create Invoices."
 msgstr "Dan fakturaer"
 
 #. module: purchase
-#: model:ir.actions.act_window,help:purchase.action_picking_tree4_picking_to_invoice
-msgid ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"                Click to create a new incoming shipment.\n"
-"              </p><p> \n"
-"                Here you can track all the product receptions of purchase\n"
-"                orders where the invoicing is \"Based on Incoming "
-"Shipments\",\n"
-"                and for which you have not received a supplier invoice yet.\n"
-"                You can generate a supplier invoice based on those "
-"receptions.\n"
-"              </p>\n"
-"            "
-msgstr ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"                Klik for at danne en ny varemodtagelse.\n"
-"              </p><p> \n"
-"                Her kan du spore alle varemodtagelser på indkøbsordrer\n"
-"                hvor faktureringen er baseret på varemodtagelser,\n"
-"                som du endnu ikke har modtaget fakturaer på.\n"
-"                Du kan danne leverandørfaktura på sådanne modtagelser.\n"
-"              </p>\n"
-"            "
-
-#. module: purchase
 #: model:ir.model,name:purchase.model_procurement_order
 msgid "Procurement"
 msgstr "Indkøb"
@@ -1324,6 +1369,11 @@ msgstr "Modtage varer"
 #: field:purchase.report,month:0
 msgid "Month"
 msgstr "Måned"
+
+#. module: purchase
+#: help:res.company,po_lead:0
+msgid "This is the leads/security time for each purchase order."
+msgstr ""
 
 #. module: purchase
 #: model:process.node,note:purchase.process_node_invoiceafterpacking0
@@ -1388,9 +1438,9 @@ msgid "PO: %s"
 msgstr "Indkøbsordre: %s"
 
 #. module: purchase
-#: model:process.node,note:purchase.process_node_packinginvoice0
-msgid "Outgoing products to invoice"
-msgstr "Udgående varer til fakturering"
+#: view:purchase.order:0
+msgid "Send by EMail"
+msgstr ""
 
 #. module: purchase
 #: code:addons/purchase/purchase.py:517
@@ -1812,10 +1862,11 @@ msgid "Net Price"
 msgstr "Netto pris"
 
 #. module: purchase
-#: model:process.node,name:purchase.process_node_confirmpurchaseorder0
-#: selection:purchase.order.line,state:0
-msgid "Confirmed"
-msgstr "Bekræftet"
+#: model:ir.model,name:purchase.model_purchase_order_line
+#: view:purchase.order.line:0
+#: field:stock.move,purchase_line_id:0
+msgid "Purchase Order Line"
+msgstr "Indkøbsordrelinie"
 
 #. module: purchase
 #: model:process.transition.action,name:purchase.process_transition_action_confirmpurchaseorder0
@@ -1927,6 +1978,11 @@ msgid "Reference Unit of Measure"
 msgstr "Reference enhed"
 
 #. module: purchase
+#: model:process.node,note:purchase.process_node_packinginvoice0
+msgid "Outgoing products to invoice"
+msgstr "Udgående varer til fakturering"
+
+#. module: purchase
 #: report:purchase.order:0
 #: field:purchase.report,validator:0
 msgid "Validated By"
@@ -1991,11 +2047,10 @@ msgid "Invoiced"
 msgstr "Faktureret"
 
 #. module: purchase
-#: model:ir.model,name:purchase.model_purchase_order_line
-#: view:purchase.order.line:0
-#: field:stock.move,purchase_line_id:0
-msgid "Purchase Order Line"
-msgstr "Indkøbsordrelinie"
+#: model:process.node,name:purchase.process_node_confirmpurchaseorder0
+#: selection:purchase.order.line,state:0
+msgid "Confirmed"
+msgstr "Bekræftet"
 
 #. module: purchase
 #: selection:purchase.order.line,state:0
@@ -2111,87 +2166,6 @@ msgid "Expected Delivery address:"
 msgstr "Forventet leveringsadresse"
 
 #. module: purchase
-#: model:email.template,body_html:purchase.email_template_edi_purchase
-msgid ""
-"\n"
-"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-"
-"serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
-"\n"
-"    <p>Hello ${object.partner_id.name},</p>\n"
-"    \n"
-"    <p>Here is a ${object.state in ('draft', 'sent') and 'request for "
-"quotation' or 'purchase order confirmation'} from ${object.company_id.name}: "
-"</p>\n"
-"    \n"
-"    <p style=\"border-left: 1px solid #8e0000; margin-left: 30px;\">\n"
-"       &nbsp;&nbsp;<strong>REFERENCES</strong><br />\n"
-"       &nbsp;&nbsp;Order number: <strong>${object.name}</strong><br />\n"
-"       &nbsp;&nbsp;Order total: <strong>${object.amount_total} "
-"${object.pricelist_id.currency_id.name}</strong><br />\n"
-"       &nbsp;&nbsp;Order date: ${object.date_order}<br />\n"
-"       % if object.origin:\n"
-"       &nbsp;&nbsp;Order reference: ${object.origin}<br />\n"
-"       % endif\n"
-"       % if object.partner_ref:\n"
-"       &nbsp;&nbsp;Your reference: ${object.partner_ref}<br />\n"
-"       % endif\n"
-"       % if object.validator:\n"
-"       &nbsp;&nbsp;Your contact: <a href=\"mailto:${object.validator.email "
-"or ''}?subject=Order%20${object.name}\">${object.validator.name}</a>\n"
-"       % endif\n"
-"    </p>\n"
-"\n"
-"    <br/>\n"
-"    <p>If you have any question, do not hesitate to contact us.</p>\n"
-"    <p>Thank you!</p>\n"
-"    <br/>\n"
-"    <br/>\n"
-"    <div style=\"width: 375px; margin: 0px; padding: 0px; background-color: "
-"#8E0000; border-top-left-radius: 5px 5px; border-top-right-radius: 5px 5px; "
-"background-repeat: repeat no-repeat;\">\n"
-"        <h3 style=\"margin: 0px; padding: 2px 14px; font-size: 12px; color: "
-"#DDD;\">\n"
-"            <strong style=\"text-"
-"transform:uppercase;\">${object.company_id.name}</strong></h3>\n"
-"    </div>\n"
-"    <div style=\"width: 347px; margin: 0px; padding: 5px 14px; line-height: "
-"16px; background-color: #F2F2F2;\">\n"
-"        <span style=\"color: #222; margin-bottom: 5px; display: block; \">\n"
-"        % if object.company_id.street:\n"
-"            ${object.company_id.street}<br/>\n"
-"        % endif\n"
-"        % if object.company_id.street2:\n"
-"            ${object.company_id.street2}<br/>\n"
-"        % endif\n"
-"        % if object.company_id.city or object.company_id.zip:\n"
-"            ${object.company_id.zip} ${object.company_id.city}<br/>\n"
-"        % endif\n"
-"        % if object.company_id.country_id:\n"
-"            ${object.company_id.state_id and ('%s, ' % "
-"object.company_id.state_id.name) or ''} ${object.company_id.country_id.name "
-"or ''}<br/>\n"
-"        % endif\n"
-"        </span>\n"
-"        % if object.company_id.phone:\n"
-"            <div style=\"margin-top: 0px; margin-right: 0px; margin-bottom: "
-"0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: "
-"0px; padding-left: 0px; \">\n"
-"                Phone:&nbsp; ${object.company_id.phone}\n"
-"            </div>\n"
-"        % endif\n"
-"        % if object.company_id.website:\n"
-"            <div>\n"
-"                Web :&nbsp;<a "
-"href=\"${object.company_id.website}\">${object.company_id.website}</a>\n"
-"            </div>\n"
-"        %endif\n"
-"        <p></p>\n"
-"    </div>\n"
-"</div>\n"
-"            "
-msgstr ""
-
-#. module: purchase
 #: selection:purchase.report,month:0
 msgid "February"
 msgstr "Februar"
@@ -2296,3 +2270,68 @@ msgstr ""
 #: view:purchase.report:0
 msgid "Orders"
 msgstr "Ordrer"
+
+#, python-format
+#~ msgid "No Pricelist !"
+#~ msgstr "Ingen prisliste"
+
+#~ msgid "   Month   "
+#~ msgstr "   Måned   "
+
+#~ msgid "Purchase Requisition"
+#~ msgstr "Indkøbs rekvisition"
+
+#~ msgid "Image"
+#~ msgstr "Billede"
+
+#~ msgid "  Year  "
+#~ msgstr "  År  "
+
+#~ msgid "Dashboard"
+#~ msgstr "Oversigt"
+
+#~ msgid "Invoiced & Paid"
+#~ msgstr "Faktureret & Betalt"
+
+#~ msgid "Current purchases"
+#~ msgstr "Nuværende indkøb"
+
+#~ msgid "Approve Purchase"
+#~ msgstr "Godkendt indkøb"
+
+#~ msgid "History"
+#~ msgstr "Historik"
+
+#, python-format
+#~ msgid "Warning"
+#~ msgstr "Advarsel!"
+
+#~ msgid "Manual"
+#~ msgstr "Manual"
+
+#~ msgid "Purchase Management"
+#~ msgstr "Indkøbs administration"
+
+#~ msgid "Purchase Properties"
+#~ msgstr "Indkøbs egenskaber"
+
+#~ msgid "Purchase order per month"
+#~ msgstr "Indkøbsordre pr. måned"
+
+#~ msgid "Waiting"
+#~ msgstr "Venter"
+
+#~ msgid "Delivery"
+#~ msgstr "Levering"
+
+#~ msgid "Address"
+#~ msgstr "Adresse"
+
+#~ msgid "To Approve"
+#~ msgstr "Til godkendelse"
+
+#~ msgid "Addresses"
+#~ msgstr "Adresser"
+
+#~ msgid "Invoicing"
+#~ msgstr "Fakturering"

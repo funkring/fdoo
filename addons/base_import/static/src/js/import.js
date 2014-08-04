@@ -373,7 +373,7 @@ openerp.base_import = function (instance) {
                     return $.when([{
                         type: 'error',
                         record: false,
-                        message: error.data.fault_code,
+                        message: error.data.arguments[1],
                     }]);
                 }) ;
         },
@@ -482,13 +482,5 @@ openerp.base_import = function (instance) {
             { name: 'import_succeeded', from: 'importing', to: 'imported'},
             { name: 'import_failed', from: 'importing', to: 'results' }
         ]
-    });
-
-    $.extend($.fn.select2.defaults, {
-        formatNoMatches: function () { return _t("No matches found"); },
-        formatLoadMore: function (pageNumber) { return _t("Loading more results..."); },
-        formatSearching: function () { return _t("Searching..."); }
-    });
-
+    })
 };
-

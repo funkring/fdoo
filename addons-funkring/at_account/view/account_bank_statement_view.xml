@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="form_account_bank_statement" model="ir.ui.view">
+			<field name="name">at_account.account.bank.statement</field>
+			<field name="model">account.bank.statement</field>
+			<field name="inherit_id" ref="account_voucher.view_bank_statement_form_voucher" />
+			<field name="arch" type="xml">
+				<data>
+					<xpath
+						expr="//page[@name='statement_line_ids']/field[@name='line_ids']/tree/field[@name='amount']"
+						position="replace">
+						<field name="amount"
+							on_change="onchange_invoice(date,name,ref,parent.journal_id,invoice_id,compensation_id,amount,voucher_id,context)" />
+					</xpath>					
+					<xpath
+						expr="//page[@name='statement_line_ids']/field[@name='line_ids']/tree/field[@name='voucher_id']"
+						position="before">
+						
+						<field name="invoice_id"
+							on_change="onchange_invoice(date,name,ref,parent.journal_id,invoice_id,compensation_id,amount,voucher_id,context)"
+							context="{'search_default_unpaid' : 1 }" />
+							
+						<field name="compensation_id" widget="selection"
+							on_change="onchange_invoice(date,name,ref,parent.journal_id,invoice_id,compensation_id,amount,voucher_id,context)" />
+							
+						<field name="residual_amount" string="Rest" />
+						
+						<button name="payment_view" string="Payment"
+							icon="terp-stock_format-scientific" type="object"
+							attrs="{'invisible':[('voucher_id','=',False)] }" />
+							
+					</xpath>
+				</data>
+			</field>
+		</record>
+	</data>
+</openerp>

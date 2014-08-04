@@ -1,0 +1,51 @@
+<openerp>
+	<data>
+		<record id="wizard_account_chartsync" model="ir.ui.view">
+			<field name="name">account.wizard_account_chartsync</field>
+			<field name="model">account.chartsync_wizard</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Chartsync Wizard">
+					<label string="If you call the update, then the following fields from the account template will synchronize with the accounts:"/>
+					<newline/>
+					<label string="   * Name" />
+					<newline/>
+					<label string="   * Parent account" />
+					<newline/>
+					<label string="   * Account type" />
+					<newline/>
+					<field name="company_id" />
+					<newline/>
+					<field name="chart_template_id" />
+					<separator col="4" colspan="4" />
+					<group col="6" colspan="4">
+						<label string="" colspan="4" />
+						<button special="cancel" string="Cancel" icon="gtk-cancel" />
+						<button name="do_sync" string="Synchronize" type="object" icon="gtk-go-forward" />
+					</group>
+				</form>
+			</field>
+		</record>
+		<record id="action_account_chartsync" model="ir.actions.act_window">
+			<field name="name">account.chartsync_wizard</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">account.chartsync_wizard</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="wizard_account_chartsync" />
+			<field name="multi">True</field>
+			<field name="target">new</field>
+		</record>
+		<record id="irconfig_account_chartsync" model="ir.values">
+			<field name="model_id" ref="model_account_chartsync_wizard" />
+			<field name="model">account.chartsync_wizard</field>
+			<field name="object" eval="1" />
+			<field name="name">Chartsync Wizard</field>
+			<field name="key2">client_action_multi</field>
+			<field name="value" eval="'ir.actions.act_window,' + str(ref('action_account_chartsync'))" />
+			<field name="key">action</field>
+		</record>
+
+		<menuitem id="menu_account_chartsync_wizard" name="Chartsync Wizard" parent="account.account_template_accounts" sequence="100" action="action_account_chartsync" />
+	</data>
+</openerp>

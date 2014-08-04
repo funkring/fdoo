@@ -72,12 +72,6 @@ class note_note(osv.osv):
     def onclick_note_not_done(self, cr, uid, ids, context=None):
         return self.write(cr, uid, ids, {'open': True}, context=context)
 
-    #used for undisplay the follower if it's the current user
-    def _get_my_current_partner(self, cr, uid, ids, name, args, context=None):
-        user = self.pool.get('res.users').browse(cr, uid, uid, context=context)
-        pid = user.partner_id and user.partner_id.id or False
-        return dict.fromkeys(ids, pid)
-
     #return the default stage for the uid user
     def _get_default_stage_id(self,cr,uid,context=None):
         ids = self.pool.get('note.stage').search(cr,uid,[('user_id','=',uid)], context=context)
@@ -101,6 +95,7 @@ class note_note(osv.osv):
         'name': fields.function(_get_note_first_line, 
             string='Note Summary', 
             type='text', store=True),
+        'user_id': fields.many2one('res.users', 'Owner'),
         'memo': fields.html('Note Content'),
         'sequence': fields.integer('Sequence'),
         'stage_id': fields.function(_get_stage_per_user, 
@@ -113,9 +108,9 @@ class note_note(osv.osv):
         'date_done': fields.date('Date done'),
         'color': fields.integer('Color Index'),
         'tag_ids' : fields.many2many('note.tag','note_tags_rel','note_id','tag_id','Tags'),
-        'current_partner_id' : fields.function(_get_my_current_partner, type="many2one", relation='res.partner', string="Owner"),
     }
     _defaults = {
+        'user_id': lambda self, cr, uid, ctx=None: uid,
         'open' : 1,
         'stage_id' : _get_default_stage_id,
     }
@@ -128,15 +123,16 @@ class note_note(osv.osv):
             current_stage_ids = self.pool.get('note.stage').search(cr,uid,[('user_id','=',uid)], context=context)
 
             if current_stage_ids: #if the user have some stages
-                stages = self.pool['note.stage'].browse(cr, uid, current_stage_ids, context=context)
+
+                #dict of stages: map les ids sur les noms
+                stage_name = dict(self.pool.get('note.stage').name_get(cr, uid, current_stage_ids, context=context))
 
                 result = [{ #notes by stage for stages user
                         '__context': {'group_by': groupby[1:]},
-                        '__domain': domain + [('stage_ids.id', '=', stage.id)],
-                        'stage_id': (stage.id, stage.name),
-                        'stage_id_count': self.search(cr,uid, domain+[('stage_ids', '=', stage.id)], context=context, count=True),
-                        '__fold': stage.fold,
-                    } for stage in stages]
+                        '__domain': domain + [('stage_ids.id', '=', current_stage_id)],
+                        'stage_id': (current_stage_id, stage_name[current_stage_id]),
+                        'stage_id_count': self.search(cr,uid, domain+[('stage_ids', '=', current_stage_id)], context=context, count=True)
+                    } for current_stage_id in current_stage_ids]
 
                 #note without user's stage
                 nb_notes_ws = self.search(cr,uid, domain+[('stage_ids', 'not in', current_stage_ids)], context=context, count=True)
@@ -152,9 +148,8 @@ class note_note(osv.osv):
                         result = [{
                             '__context': {'group_by': groupby[1:]},
                             '__domain': domain + [dom_not_in],
-                            'stage_id': (stages[0].id, stages[0].name),
-                            'stage_id_count':nb_notes_ws,
-                            '__fold': stages[0].name,
+                            'stage_id': (current_stage_ids[0], stage_name[current_stage_ids[0]]),
+                            'stage_id_count':nb_notes_ws
                         }] + result
 
             else: # if stage_ids is empty

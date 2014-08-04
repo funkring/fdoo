@@ -1,0 +1,127 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* edi_product
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1-dev\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-09-29 13:22+0000\n"
+"PO-Revision-Date: 2012-09-29 15:28+0100\n"
+"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: edi_product
+#: selection:edi.client_profile,product_sync:0
+msgid "Both"
+msgstr "Beide"
+
+#. module: edi_product
+#: model:ir.model,name:edi_product.model_edi_client_profile
+msgid "EDI Client Profil"
+msgstr "EDI Client Profil"
+
+#. module: edi_product
+#: field:edi.client_profile,product_category_ids:0
+#: view:edi.server_profile:0
+#: field:edi.system,product_category_ids:0
+msgid "Product Categories"
+msgstr "Produkt Kategorien"
+
+#. module: edi_product
+#: code:addons/edi_product/edi_product.py:269
+#, python-format
+msgid "No Unit for Product '%s' found"
+msgstr "Keine Einheit für Produkt '%s' gefunden"
+
+#. module: edi_product
+#: model:ir.model,name:edi_product.model_edi_system
+msgid "EDI System"
+msgstr "EDI System"
+
+#. module: edi_product
+#: model:ir.model,name:edi_product.model_product_product
+msgid "Produkt"
+msgstr "Produkt"
+
+#. module: edi_product
+#: code:addons/edi_product/edi_product.py:267
+#, python-format
+msgid "Unit '%s' not found"
+msgstr "Einheit '%s' nicht gefunden"
+
+#. module: edi_product
+#: selection:edi.client_profile,product_sync:0
+msgid "Upload"
+msgstr "Upload"
+
+#. module: edi_product
+#: model:ir.model,name:edi_product.model_edi_server_profile
+msgid "EDI Server Profil"
+msgstr "EDI Server Profil"
+
+#. module: edi_product
+#: constraint:product.product:0
+msgid "Error: Invalid ean code"
+msgstr "Fehler: Falscher EAN code"
+
+#. module: edi_product
+#: model:ir.model,name:edi_product.model_edi_profile
+msgid "EDI Profile"
+msgstr "EDI Profile"
+
+#. module: edi_product
+#: selection:edi.client_profile,product_sync:0
+msgid "Download"
+msgstr "Download"
+
+#. module: edi_product
+#: code:addons/edi_product/edi_product.py:191
+#, python-format
+msgid ""
+"= Statistic =\n"
+"\n"
+"Added: %s\n"
+"Updated: %s\n"
+"Deleted: %s\n"
+"\n"
+"\n"
+"= Warnings = \n"
+"\n"
+"%s"
+msgstr ""
+"= Statistik =\n"
+"\n"
+"Neu: %s\n"
+"Aktualisiert: %s\n"
+"Gelöscht: %s\n"
+"\n"
+"\n"
+"= Warnungen = \n"
+"\n"
+"%s"
+
+#. module: edi_product
+#: view:edi.client_profile:0
+msgid "Product Sync"
+msgstr "Produkt Abgeleich"
+
+#. module: edi_product
+#: field:edi.client_profile,product_has_same_ref:0
+msgid "Same Reference"
+msgstr "Selbe Referenz"
+
+#. module: edi_product
+#: field:edi.client_profile,product_sync:0
+msgid "Sync Direction"
+msgstr "Synchronisationsrichtung"
+
+#. module: edi_product
+#: view:edi.client_profile:0
+msgid "Product Synchronisation"
+msgstr "Produkt Abgleich"
+

@@ -1,0 +1,113 @@
+<openerp>
+	<data>
+	    <record id="group_edi" model="res.groups">
+	        <field name="name">EDI Group</field>
+	    </record>
+	    
+		<record id="user_edi" model="res.users">
+		    <field name="name">EDI User</field>
+		    <field name="login">edi_user</field>
+		    <field name="groups_id" eval="[(4,ref('group_edi')),(4,ref('base.group_user')),(4,ref('base.group_sale_salesman'))]"/>
+		</record>
+		
+		<record id="access_edi_profile_system" model="ir.model.access">
+			<field name="name">edi_profile/system</field>
+			<field name="model_id" ref="model_edi_profile"/>
+			<field name="group_id" ref="base.group_system"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		<record id="access_edi_system_system" model="ir.model.access">
+			<field name="name">edi_system/system</field>
+			<field name="model_id" ref="model_edi_system"/>
+			<field name="group_id" ref="base.group_system"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		<record id="access_edi_system_user" model="ir.model.access">
+			<field name="name">edi_system/user</field>
+			<field name="model_id" ref="model_edi_system"/>
+			<field name="group_id" ref="base.group_user"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="False"/>
+			<field name="perm_write" eval="False"/>
+		</record>	
+				
+		<record id="access_edi_client_profile_system" model="ir.model.access">
+			<field name="name">edi_client_profile/system</field>
+			<field name="model_id" ref="model_edi_client_profile"/>
+			<field name="group_id" ref="base.group_system"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		<record id="access_edi_client_profile_user" model="ir.model.access">
+			<field name="name">edi_client_profile/user</field>
+			<field name="model_id" ref="model_edi_client_profile"/>
+			<field name="group_id" ref="base.group_user"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="False"/>
+			<field name="perm_write" eval="False"/>
+		</record>		
+		
+		<record id="access_edi_server_profile_system" model="ir.model.access">
+			<field name="name">edi_server_profile/system</field>
+			<field name="model_id" ref="model_edi_server_profile"/>
+			<field name="group_id" ref="base.group_system"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		<record id="access_edi_remoteref_user" model="ir.model.access">
+			<field name="name">edi_remoteref/user</field>
+			<field name="model_id" ref="model_edi_remoteref"/>
+			<field name="group_id" ref="base.group_user"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>		
+		
+		<record id="access_edi_link_user" model="ir.model.access">
+			<field name="name">edi_link/user</field>
+			<field name="model_id" ref="model_edi_link"/>
+			<field name="group_id" ref="base.group_user"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		<record id="access_edi_transfer_system" model="ir.model.access">
+			<field name="name">edi_transfer/system</field>
+			<field name="model_id" ref="model_edi_transfer"/>
+			<field name="group_id" ref="base.group_system"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>		
+		
+		<record id="access_edi_transfer_user" model="ir.model.access">
+			<field name="name">edi_transfer/user</field>
+			<field name="model_id" ref="model_edi_transfer"/>
+			<field name="group_id" ref="base.group_user"/>
+			<field name="perm_read" eval="False"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="False"/>
+		</record>
+	</data>
+</openerp>

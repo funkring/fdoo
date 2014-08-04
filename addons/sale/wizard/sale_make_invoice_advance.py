@@ -31,13 +31,12 @@ class sale_advance_payment_inv(osv.osv_memory):
             [('all', 'Invoice the whole sales order'), ('percentage','Percentage'), ('fixed','Fixed price (deposit)'),
                 ('lines', 'Some order lines')],
             'What do you want to invoice?', required=True,
-            help="""Use All to create the final invoice.
+            help="""Use Invoice the whole sale order to create the final invoice.
                 Use Percentage to invoice a percentage of the total amount.
                 Use Fixed Price to invoice a specific amound in advance.
                 Use Some Order Lines to invoice a selection of the sales order lines."""),
         'qtty': fields.float('Quantity', digits=(16, 2), required=True),
         'product_id': fields.many2one('product.product', 'Advance Product',
-            domain=[('type', '=', 'service')],
             help="""Select a product of type service which is called 'Advance Product'.
                 You may have to create it and set it as a default value on this field."""),
         'amount': fields.float('Advance Amount', digits_compute= dp.get_precision('Account'),
@@ -79,7 +78,7 @@ class sale_advance_payment_inv(osv.osv_memory):
         result = []
         for sale in sale_obj.browse(cr, uid, sale_ids, context=context):
             val = inv_line_obj.product_id_change(cr, uid, [], wizard.product_id.id,
-                    uom_id=False, partner_id=sale.partner_id.id, fposition_id=sale.fiscal_position.id)
+                    False, partner_id=sale.partner_id.id, fposition_id=sale.fiscal_position.id)
             res = val['value']
 
             # determine and check income account
@@ -211,6 +210,5 @@ class sale_advance_payment_inv(osv.osv_memory):
             'type': 'ir.actions.act_window',
         }
 
-sale_advance_payment_inv()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

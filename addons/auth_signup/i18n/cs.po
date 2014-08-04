@@ -7,24 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:36+0000\n"
-"PO-Revision-Date: 2013-06-20 14:15+0000\n"
-"Last-Translator: Jan Grmela <Unknown>\n"
+"POT-Creation-Date: 2012-12-21 17:05+0000\n"
+"PO-Revision-Date: 2014-02-03 17:09+0000\n"
+"Last-Translator: Jakub Drozd <Unknown>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-21 06:01+0000\n"
-"X-Generator: Launchpad (build 16831)\n"
-
-#. module: auth_signup
-#: view:res.users:0
-msgid ""
-"A password reset has been requested for this user. An email containing the "
-"following link has been sent:"
-msgstr ""
-"Pro tohoto uživatele byla vyžádána obnova hesla. Byl odeslán e-mail s "
-"následujícím odkazem:"
+"X-Launchpad-Export-Date: 2014-03-27 07:32+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: auth_signup
 #: field:res.partner,signup_type:0
@@ -47,16 +38,6 @@ msgstr "Potvrzení hesla"
 #: help:base.config.settings,auth_signup_uninvited:0
 msgid "If unchecked, only invited users may sign up."
 msgstr "Pokud není zaškrtnuto, mohou se zaregistrovat jen pozvaní uživatelé."
-
-#. module: auth_signup
-#: view:res.users:0
-msgid "Send an invitation email"
-msgstr "Odeslat pozvánku"
-
-#. module: auth_signup
-#: selection:res.users,state:0
-msgid "Activated"
-msgstr "Aktivovaný"
 
 #. module: auth_signup
 #: model:ir.model,name:auth_signup.model_base_config_settings
@@ -96,8 +77,32 @@ msgstr "Prosím zadejte heslo a potvďte jej"
 
 #. module: auth_signup
 #: view:res.users:0
-msgid "Send reset password link by email"
-msgstr "Odeslat odkaz pro obnovení hesla emailem"
+msgid "Send an email to the user to (re)set their password."
+msgstr "Odeslat uživateli email s výzvou ke změně hesla."
+
+#. module: auth_signup
+#. openerp-web
+#: code:addons/auth_signup/static/src/xml/auth_signup.xml:26
+#: code:addons/auth_signup/static/src/xml/auth_signup.xml:29
+#, python-format
+msgid "Sign Up"
+msgstr "Zaregistrovat se"
+
+#. module: auth_signup
+#: selection:res.users,state:0
+msgid "New"
+msgstr "Nový"
+
+#. module: auth_signup
+#: code:addons/auth_signup/res_users.py:258
+#, python-format
+msgid "Mail sent to:"
+msgstr "Zpráva odeslána na:"
+
+#. module: auth_signup
+#: field:res.users,state:0
+msgid "Status"
+msgstr "Stav"
 
 #. module: auth_signup
 #: model:email.template,body_html:auth_signup.reset_password_email
@@ -121,23 +126,6 @@ msgstr ""
 "ignorovat.</p>"
 
 #. module: auth_signup
-#: view:res.users:0
-msgid ""
-"An invitation email containing the following subscription link has been sent:"
-msgstr ""
-"Byl odeslán email s pozvánkou obsahující následující registrační odkaz:"
-
-#. module: auth_signup
-#: field:res.users,state:0
-msgid "Status"
-msgstr "Stav"
-
-#. module: auth_signup
-#: selection:res.users,state:0
-msgid "Never Connected"
-msgstr "Nikdy nepřipojen"
-
-#. module: auth_signup
 #. openerp-web
 #: code:addons/auth_signup/static/src/js/auth_signup.js:114
 #, python-format
@@ -155,74 +143,16 @@ msgid "Signup URL"
 msgstr "Registrační URL"
 
 #. module: auth_signup
-#: model:email.template,body_html:auth_signup.set_password_email
-msgid ""
-"\n"
-"                \n"
-"                    <p>\n"
-"                        ${object.name},\n"
-"                    </p>\n"
-"                    <p>\n"
-"                        You have been invited to connect to "
-"\"${object.company_id.name}\" in order to get access to your documents in "
-"OpenERP.\n"
-"                    </p>\n"
-"                    <p>\n"
-"                        To accept the invitation, click on the following "
-"link:\n"
-"                    </p>\n"
-"                    <ul>\n"
-"                        <li><a href=\"${object.signup_url}\">Accept "
-"invitation to \"${object.company_id.name}\"</a></li>\n"
-"                    </ul>\n"
-"                    <p>\n"
-"                        Thanks,\n"
-"                    </p>\n"
-"                    <pre>\n"
-"--\n"
-"${object.company_id.name or ''}\n"
-"${object.company_id.email or ''}\n"
-"${object.company_id.phone or ''}\n"
-"                    </pre>\n"
-"                \n"
-"            "
-msgstr ""
-"\n"
-"                \n"
-"                    <p>\n"
-"                        ${object.name},\n"
-"                    </p>\n"
-"                    <p>\n"
-"                        Byli jste pozváni pro registraci na "
-"\"${object.company_id.name}\" abyste mohli získat přístup ke svým dokumentům "
-"v OpenERP.\n"
-"                    </p>\n"
-"                    <p>\n"
-"                        Pro přijetí pozvánky prosím klikněte na následující "
-"odkaz:\n"
-"                    </p>\n"
-"                    <ul>\n"
-"                        <li><a href=\"${object.signup_url}\">Příjmout "
-"pozvánku na \"${object.company_id.name}\"</a></li>\n"
-"                    </ul>\n"
-"                    <p>\n"
-"                        Děkujeme,\n"
-"                    </p>\n"
-"                    <pre>\n"
-"--\n"
-"${object.company_id.name or ''}\n"
-"${object.company_id.email or ''}\n"
-"${object.company_id.phone or ''}\n"
-"                    </pre>\n"
-"                \n"
-"            "
-
-#. module: auth_signup
 #. openerp-web
 #: code:addons/auth_signup/static/src/js/auth_signup.js:117
 #, python-format
 msgid "Please enter a username."
 msgstr "Prosím zadejte uživatelské jméno."
+
+#. module: auth_signup
+#: selection:res.users,state:0
+msgid "Active"
+msgstr "Aktivní"
 
 #. module: auth_signup
 #: code:addons/auth_signup/res_users.py:270
@@ -233,13 +163,6 @@ msgid ""
 msgstr ""
 "Email se nepodařilo odeslat: není nastavený žádný odchozí poštovní server.\n"
 "Můžete jej nastavit v Nastavení/Obecná nastavení"
-
-#. module: auth_signup
-#. openerp-web
-#: code:addons/auth_signup/static/src/js/auth_signup.js:177
-#, python-format
-msgid "An email has been sent with credentials to reset your password"
-msgstr "Byl vám odeslán email s údaji pro obnovení vašeho hesla"
 
 #. module: auth_signup
 #. openerp-web
@@ -261,6 +184,11 @@ msgstr "Jméno"
 #, python-format
 msgid "Please enter a username or email address."
 msgstr "Prosím zadejte uživatelské jméno nebo emailovou adresu."
+
+#. module: auth_signup
+#: selection:res.users,state:0
+msgid "Resetting Password"
+msgstr ""
 
 #. module: auth_signup
 #. openerp-web
@@ -304,7 +232,7 @@ msgstr "Přihlašovací token je platný"
 #: code:addons/auth_signup/static/src/js/auth_signup.js:173
 #, python-format
 msgid "Login"
-msgstr ""
+msgstr "Přihlášení"
 
 #. module: auth_signup
 #. openerp-web
@@ -329,14 +257,14 @@ msgid "No database selected !"
 msgstr "Žádná databáze nebyla vybrána!"
 
 #. module: auth_signup
+#: view:res.users:0
+msgid "Reset Password"
+msgstr "Resetovat heslo"
+
+#. module: auth_signup
 #: field:base.config.settings,auth_signup_reset_password:0
 msgid "Enable password reset from Login page"
 msgstr "Povolit obnovu hesla na přihlašovací stránce"
-
-#. module: auth_signup
-#: model:email.template,subject:auth_signup.set_password_email
-msgid "${object.company_id.name} invitation to connect on OpenERP"
-msgstr "Pozvánka ${object.company_id.name} pro registraci na OpenERP"
 
 #. module: auth_signup
 #. openerp-web
@@ -344,6 +272,13 @@ msgstr "Pozvánka ${object.company_id.name} pro registraci na OpenERP"
 #, python-format
 msgid "Back to Login"
 msgstr "Zpět k přihlášení"
+
+#. module: auth_signup
+#. openerp-web
+#: code:addons/auth_signup/static/src/xml/auth_signup.xml:22
+#, python-format
+msgid "Sign up"
+msgstr ""
 
 #. module: auth_signup
 #: model:ir.model,name:auth_signup.model_res_partner
@@ -354,11 +289,3 @@ msgstr "Partner"
 #: field:res.partner,signup_token:0
 msgid "Signup Token"
 msgstr "Registrační token"
-
-#. module: auth_signup
-#. openerp-web
-#: code:addons/auth_signup/static/src/xml/auth_signup.xml:26
-#: code:addons/auth_signup/static/src/xml/auth_signup.xml:29
-#, python-format
-msgid "Sign Up"
-msgstr "Zaregistrovat se"

@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:36+0000\n"
-"PO-Revision-Date: 2013-09-15 13:48+0000\n"
-"Last-Translator: Per G. Rasmussen <pgr@msteknik.dk>\n"
+"POT-Creation-Date: 2012-12-21 17:04+0000\n"
+"PO-Revision-Date: 2012-01-27 06:26+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Danish <da@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-21 06:28+0000\n"
-"X-Generator: Launchpad (build 16831)\n"
+"X-Launchpad-Export-Date: 2014-03-27 05:47+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: project
 #: view:project.project:0
@@ -210,18 +210,9 @@ msgid "Planned Time"
 msgstr "Planlagt tid"
 
 #. module: project
-#: view:project.task:0
-#: selection:project.task,state:0
-#: selection:project.task.delegate,state:0
-#: selection:project.task.history,state:0
-#: selection:project.task.history.cumulative,state:0
-#: model:project.task.type,name:project.project_tt_deployment
-#: selection:project.task.type,state:0
-#: view:report.project.task.user:0
-#: selection:report.project.task.user,state:0
-#: view:res.partner:0
-msgid "Done"
-msgstr "Udført"
+#: selection:project.project,privacy_visibility:0
+msgid "Public"
+msgstr ""
 
 #. module: project
 #: model:project.category,name:project.project_category_01
@@ -346,11 +337,6 @@ msgid "June"
 msgstr "Juni"
 
 #. module: project
-#: view:project.task:0
-msgid "Gantt View"
-msgstr "Gannt View"
-
-#. module: project
 #: selection:report.project.task.user,month:0
 msgid "October"
 msgstr "Oktober"
@@ -381,11 +367,6 @@ msgstr "Når en opgave er afsluttet, vil den ændre status til Udført"
 #: field:project.task,message_summary:0
 msgid "Summary"
 msgstr "Resumé"
-
-#. module: project
-#: view:project.task:0
-msgid "Task summary..."
-msgstr "Opgave resumé"
 
 #. module: project
 #: view:project.project:0
@@ -495,11 +476,6 @@ msgstr "Uddelegering"
 #: field:project.task,create_date:0
 msgid "Create Date"
 msgstr "Opret dato"
-
-#. module: project
-#: view:project.task:0
-msgid "Add a Description..."
-msgstr "Tilføj en beskrivelse"
 
 #. module: project
 #: view:res.partner:0
@@ -886,11 +862,6 @@ msgid "GTD"
 msgstr "GTD"
 
 #. module: project
-#: view:project.project:0
-msgid "Project Stages"
-msgstr "Projekt faser"
-
-#. module: project
 #: help:project.task,state:0
 msgid ""
 "The status is set to 'Draft', when a case is created.                      "
@@ -943,11 +914,6 @@ msgstr ""
 #: view:project.task:0
 msgid "10"
 msgstr "10"
-
-#. module: project
-#: view:project.project:0
-msgid "Cancel Project"
-msgstr "Annulér projekt"
 
 #. module: project
 #: help:project.project,analytic_account_id:0
@@ -1020,18 +986,9 @@ msgid "Manager"
 msgstr "Leder"
 
 #. module: project
-#: model:ir.actions.act_window,help:project.project_category_action
-msgid ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"                Click to add a new tag.\n"
-"              </p>\n"
-"            "
-msgstr ""
-
-#. module: project
-#: model:ir.ui.menu,name:project.menu_task_types_view
-msgid "Task Stages"
-msgstr "Opgave faser"
+#: selection:project.task,priority:0
+msgid "Important"
+msgstr "Vigtig"
 
 #. module: project
 #: field:project.category,name:0
@@ -1301,11 +1258,6 @@ msgid "Delay Hours"
 msgstr "Forsinkelses timer"
 
 #. module: project
-#: view:project.task.type:0
-msgid "Add a description..."
-msgstr "Tilføj en beskrivelse"
-
-#. module: project
 #: view:project.project:0
 msgid "Team"
 msgstr "Team"
@@ -1483,9 +1435,18 @@ msgid "Attachments"
 msgstr "Vedhæftede filer"
 
 #. module: project
-#: view:project.category:0
-msgid "Issue Version"
-msgstr "Sags-version"
+#: view:project.task:0
+#: selection:project.task,state:0
+#: selection:project.task.delegate,state:0
+#: selection:project.task.history,state:0
+#: selection:project.task.history.cumulative,state:0
+#: model:project.task.type,name:project.project_tt_deployment
+#: selection:project.task.type,state:0
+#: view:report.project.task.user:0
+#: selection:report.project.task.user,state:0
+#: view:res.partner:0
+msgid "Done"
+msgstr "Udført"
 
 #. module: project
 #: code:addons/project/project.py:182
@@ -1714,9 +1675,9 @@ msgid "Generate tasks from sale orders"
 msgstr "Dan opgaver fra salgsordrer"
 
 #. module: project
-#: selection:project.task,priority:0
-msgid "Important"
-msgstr "Vigtig"
+#: model:ir.ui.menu,name:project.menu_task_types_view
+msgid "Task Stages"
+msgstr "Opgave faser"
 
 #. module: project
 #: model:process.node,note:project.process_node_drafttask0
@@ -2157,6 +2118,11 @@ msgstr "Tildelte opgaver"
 msgid ""
 "Provides timesheet support for the issues/bugs management in project.\n"
 "                This installs the module project_issue_sheet."
+msgstr ""
+
+#. module: project
+#: selection:project.project,privacy_visibility:0
+msgid "Followers Only"
 msgstr ""
 
 #. module: project

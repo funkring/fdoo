@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>    
+       <record model="ir.ui.view" id="crm_case_form_view_oppor">
+            <field name="name">Opportunities</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_oppor" />
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Opportunities" position="replace">
+                    <form string="Opportunities">
+                        <group colspan="4" col="8">
+                            <group colspan="2" col="2">
+                                <separator colspan="4" string="Request" />
+                                <field name="name" required="1"
+                                    string="Opportunity" />
+                                <field name="user_id" />
+                                <field name="categ_id" select="1"
+                                    string="Category" widget="selection"
+                                    domain="[('object_id.model', '=', 'crm.lead')]" />
+                                <field name="priority" string="Priority" />
+                                <field name="type" invisible="1" />
+                            </group>
+                            <group colspan="6" col="4">
+                                <separator colspan="4" string="Customer" />
+                                <field name="partner_address_id"
+                                    string="Contact" colspan="4" domain=""
+                                    on_change="onchange_partner_address_id2(partner_address_id)" />
+                                <field name="partner_address_phone"
+                                    colspan="4" />
+                                <field name="partner_address_email"
+                                    widget="email" colspan="4" />
+                                <field name="partner_id"
+                                    invisible="1" />
+                            </group>
+                        </group>
+                        <notebook colspan="4">
+                            <page string="General">
+                                <separator colspan="4" string="Details" />
+                                <field name="description" nolabel="1"
+                                    colspan="4" />
+                                    
+                                 <separator colspan="4"/>
+			                           <group col="10" colspan="4">
+			                                <field name="state"/>
+			                                <button name="case_cancel" string="Cancel"
+			                                    states="draft" type="object"
+			                                    icon="gtk-cancel" />
+			                                <button name="case_mark_lost" string="Mark Lost"
+			                                    states="open,pending" type="object"
+			                                    icon="gtk-cancel" />
+			                                <button name="case_reset" string="Reset to Draft"
+			                                    states="done,cancel" type="object"
+			                                    icon="gtk-convert" />
+			                                <button name="case_open" string="Open"
+			                                    states="draft,pending" type="object"
+			                                    icon="gtk-go-forward" />
+			                                <button name="case_pending" string="Pending"
+			                                    states="draft,open" type="object"
+			                                    icon="gtk-media-pause" />
+			                                <button name="case_escalate" string="Escalate"
+			                                    states="open,pending" type="object"
+			                                    groups="base.group_extended"
+			                                    icon="gtk-go-up" />
+			                                <button name="case_close" string="Mark Won"
+			                                    states="open,pending" type="object"
+			                                    icon="gtk-apply" />
+			                            </group>
+			                            
+                            </page>
+                            <page string="History">
+                                <group colspan="4">
+                                    <field colspan="4" name="email_cc"
+                                        string="Global CC" widget="char"
+                                        size="512" />
+                                </group>
+                                <field name="message_ids" colspan="4"
+                                    nolabel="1" mode="tree,form">
+                                    <tree string="History">
+                                        <field name="display_text"
+                                            string="History Information" />
+                                        <field name="history"
+                                            invisible="1" />
+                                        <button string="Reply"
+                                            attrs="{'invisible': [('history', '!=', True)]}"
+                                            name="%(crm.action_crm_send_mail)d"
+                                            context="{'mail':'reply', 'model': 'crm.lead', 'include_original' : True}"
+                                            icon="terp-mail-replied"
+                                            type="action" />
+                                    </tree>
+                                    <form string="History">
+                                        <group col="4" colspan="4">
+                                            <field name="email_from" />
+                                            <field name="date" />
+                                            <field name="email_to"
+                                                size="512" />
+                                            <field name="email_cc"
+                                                size="512" />
+                                            <field name="name"
+                                                colspan="4" />
+                                            <field name="history"
+                                                invisible="1" />
+                                        </group>
+                                        <notebook colspan="4">
+                                            <page string="Details">
+                                                <group
+                                                    attrs="{'invisible': [('history', '!=', True)]}">
+                                                    <field name="description"
+                                                        colspan="4"
+                                                        nolabel="1"
+                                                        height="250" />
+                                                    <button
+                                                        colspan="4"
+                                                        string="Reply"
+                                                        name="%(crm.action_crm_send_mail)d"
+                                                        context="{'mail':'reply', 'model': 'crm.lead', 'include_original' : True}"
+                                                        icon="terp-mail-replied"
+                                                        type="action" />
+                                                </group>
+                                                <group
+                                                    attrs="{'invisible': [('history', '=', True)]}">
+                                                    <field
+                                                        name="display_text"
+                                                        colspan="4"
+                                                        nolabel="1"
+                                                        height="250" />
+                                                </group>
+                                            </page>
+                                            <page string="Attachments">
+                                                <field name="attachment_ids"
+                                                    colspan="4"
+                                                    readonly="1"
+                                                    nolabel="1" />
+                                            </page>
+                                        </notebook>
+                                    </form>
+                                </field>
+                                <button string="Add Internal Note"
+                                    name="%(crm.action_crm_add_note)d"
+                                    context="{'model': 'crm.lead' }"
+                                    icon="terp-document-new" type="action" />
+                                <button string="Send New Email"
+                                    name="%(crm.action_crm_send_mail)d"
+                                    context="{'mail':'new', 'model': 'crm.lead'}"
+                                    icon="terp-mail-message-new" type="action" />
+                            </page>
+                            <page string="Extra Info" groups="at_sale_simple.group_sale_extended">
+                                <group col="2" colspan="2">
+                                    <separator string="Dates"
+                                        colspan="2" />
+                                    <field name="create_date" />
+                                    <field name="write_date" />
+                                    <field name="date_closed" />
+                                    <field name="date_open" />
+                                </group>
+                                <group col="2" colspan="2">
+                                    <separator string="Misc"
+                                        colspan="2" />
+                                    <field name="active" />
+                                    <field name="day_open" />
+                                    <field name="day_close" />
+                                    <field name="referred" />
+                                </group>
+                                <separator colspan="4"
+                                    string="References" />
+                                <field name="ref" />
+                                <field name="ref2" />
+                            </page>
+                        </notebook>
+                    </form>
+                </form>
+
+            </field>
+        </record>
+        
+        <record id="myopportunity_tree" model="ir.ui.view">
+            <field name="name">Opportunities</field>
+            <field name="model">crm.lead</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="crm.crm_case_my_open_oppor"/>
+            <field name="arch" type="xml">
+	            <field name="name" position="before">
+	               <field name="create_uid"/>
+	             </field>
+            </field>
+        </record>
+  
+        <record id="lead_tree" model="ir.ui.view">
+            <field name="name">Leads</field>
+            <field name="model">crm.lead</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="crm.crm_case_tree_view_leads"/>
+            <field name="arch" type="xml">
+              <field name="name" position="before">
+                 <field name="create_uid"/>
+               </field>
+            </field>
+        </record>
+  
+  
+        <record id="opportunity_tree" model="ir.ui.view">
+            <field name="name">Opportunities</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">               
+		             <field name="name" position="before">
+		                <field name="create_uid"/>
+		              </field>
+	                <field name="partner_id" position="replace">
+	                    <field name="partner_id" string="Customer"
+	                        groups="at_sale_simple.group_sale_extended" />
+	                    <field name="partner_address_id" string="Contact" />
+	                </field>
+	                <field name="date_action" position="replace">
+	                    <field name="date_action" groups="at_sale_simple.group_sale_extended" />
+	                </field>
+	                <field name="title_action" position="replace">
+	                    <field name="title_action" groups="at_sale_simple.group_sale_extended" />
+	                </field>
+	                <field name="stage_id" position="replace">
+	                    <field name="stage_id" groups="at_sale_simple.group_sale_extended" />
+	                </field>
+	                <field name="country_id" position="replace">
+	                    <field name="country_id"
+	                        invisible="context.get('invisible_country', True)"
+	                        groups="at_sale_simple.group_sale_extended" />
+	                </field>
+	                <button name="stage_previous" position="replace">
+	                    <button name="stage_previous" string="Previous Stage"
+	                        states="open,pending" type="object" icon="gtk-go-back"
+	                        groups="at_sale_simple.group_sale_extended" />
+	                </button>
+	                <button name="stage_next" position="replace">
+	                    <button name="stage_next" string="Next Stage"
+	                        states="open,pending" type="object" icon="gtk-go-forward"
+	                        groups="at_sale_simple.group_sale_extended" />
+	                </button>
+	                <field name="planned_revenue" position="replace">
+	                    <field name="planned_revenue" sum="Expected Revenues"
+	                        groups="at_sale_simple.group_sale_extended" />
+	                </field>
+	                <field name="probability" position="replace">
+	                    <field name="probability" widget="progressbar"
+	                        avg="Avg. of Probability" groups="at_sale_simple.group_sale_extended" />
+	                </field>
+	                <field name="section_id" position="replace">
+	                    <field name="section_id"
+	                        invisible="context.get('invisible_section', True)" />
+	                </field>
+	                <field name="priority" position="replace">
+	                    <field name="priority" />
+	                </field>	             
+            </field>
+        </record>
+
+
+        <record id="crm_case_opportunities_filter" model="ir.ui.view">
+            <field name="name">CRM - Opportunities Search</field>
+            <field name="model">crm.lead</field>
+            <field name="type">search</field>
+            <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter" />
+            <field name="arch" type="xml">
+                <field name="partner_id" position="replace">
+                    <field name="partner_id" string="Customer"
+                        groups="at_sale_simple.group_sale_extended" />
+                    <field name="partner_address_id" string="Contact" />
+                </field>
+                <field name="section_id" position="replace">
+                    <field name="section_id" default="context.get('section_id', False)"
+                        context="{'invisible_section': False}" widget="selection"
+                        groups="at_sale_simple.group_sale_extended">
+                        <filter icon="terp-personal+" groups="at_sale_simple.group_sale_extended"
+                            domain="['|', ('section_id', '=', context.get('section_id')), '|', ('section_id.user_id','=',uid), ('section_id.member_ids', 'in', [uid])]"
+                            context="{'invisible_section': False}" help="My Sales Team(s)" />
+                        <filter icon="terp-personal+" groups="at_sale_simple.group_sale_extended"
+                            context="{'invisible_section': False}"
+                            domain="[]" help="Show Sales Team" />
+                    </field>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -27,7 +27,7 @@ from itertools import groupby
 
 from openerp.osv import fields, osv, orm
 from openerp.tools.translate import _
-from openerp import netsvc
+from openerp import workflow
 from openerp import tools
 from openerp.tools import float_compare, DEFAULT_SERVER_DATETIME_FORMAT
 import openerp.addons.decimal_precision as dp
@@ -49,7 +49,6 @@ class stock_incoterms(osv.osv):
         'active': True,
     }
 
-stock_incoterms()
 
 class stock_journal(osv.osv):
     _name = "stock.journal"
@@ -62,7 +61,6 @@ class stock_journal(osv.osv):
         'user_id': lambda s, c, u, ctx: u
     }
 
-stock_journal()
 
 #----------------------------------------------------------
 # Stock Location
@@ -161,6 +159,10 @@ class stock_location(osv.osv):
                        \n* Production: Virtual counterpart location for production operations: this location consumes the raw material and produces finished products
                       """, select = True),
          # temporarily removed, as it's unused: 'allocation_method': fields.selection([('fifo', 'FIFO'), ('lifo', 'LIFO'), ('nearest', 'Nearest')], 'Allocation Method', required=True),
+
+        # as discussed on bug 765559, the main purpose of this field is to allow sorting the list of locations
+        # according to the displayed names, and reversing that sort by clicking on a column. It does not work for
+        # translated values though - so it needs fixing.
         'complete_name': fields.function(_complete_name, type='char', size=256, string="Location Name",
                             store={'stock.location': (_get_sublocations, ['name', 'location_id'], 10)}),
 
@@ -487,7 +489,6 @@ class stock_location(osv.osv):
                     continue
         return False
 
-stock_location()
 
 
 class stock_tracking(osv.osv):
@@ -553,7 +554,6 @@ class stock_tracking(osv.osv):
         """
         return self.pool.get('action.traceability').action_traceability(cr,uid,ids,context)
 
-stock_tracking()
 
 #----------------------------------------------------------
 # Stock Picking
@@ -631,7 +631,7 @@ class stock_picking(osv.osv):
         return res
 
     def create(self, cr, user, vals, context=None):
-        if ('name' not in vals) or (vals.get('name')=='/'):
+        if ('name' not in vals) or (vals.get('name')=='/') or (vals.get('name') == False):
             seq_obj_name =  self._name
             vals['name'] = self.pool.get('ir.sequence').get(cr, user, seq_obj_name)
         new_id = super(stock_picking, self).create(cr, user, vals, context)
@@ -718,6 +718,7 @@ class stock_picking(osv.osv):
             default = {}
         default = default.copy()
         picking_obj = self.browse(cr, uid, id, context=context)
+        move_obj = self.pool.get('stock.move')
         if ('name' not in default) or (picking_obj.name == '/'):
             seq_obj_name = 'stock.picking.' + picking_obj.type
             default['name'] = self.pool.get('ir.sequence').get(cr, uid, seq_obj_name)
@@ -726,6 +727,10 @@ class stock_picking(osv.osv):
         if 'invoice_state' not in default and picking_obj.invoice_state == 'invoiced':
             default['invoice_state'] = '2binvoiced'
         res = super(stock_picking, self).copy(cr, uid, id, default, context)
+        if res:
+            picking_obj = self.browse(cr, uid, res, context=context)
+            for move in picking_obj.move_lines:
+                move_obj.write(cr, uid, [move.id], {'tracking_id': False, 'prodlot_id': False, 'move_history_ids2': [(6, 0, [])], 'move_history_ids': [(6, 0, [])]})
         return res
 
     def fields_view_get(self, cr, uid, view_id=None, view_type=False, context=None, toolbar=False, submenu=False):
@@ -768,10 +773,9 @@ class stock_picking(osv.osv):
         """ Changes state of picking to available if all moves are confirmed.
         @return: True
         """
-        wf_service = netsvc.LocalService("workflow")
         for pick in self.browse(cr, uid, ids):
             if pick.state == 'draft':
-                wf_service.trg_validate(uid, 'stock.picking', pick.id, 'button_confirm', cr)
+                self.signal_button_confirm(cr, uid, [pick.id])
             move_ids = [x.id for x in pick.move_lines if x.state == 'confirmed']
             if not move_ids:
                 raise osv.except_osv(_('Warning!'),_('Not enough stock, unable to reserve the products.'))
@@ -782,46 +786,41 @@ class stock_picking(osv.osv):
         """ Changes state of picking to available if moves are confirmed or waiting.
         @return: True
         """
-        wf_service = netsvc.LocalService("workflow")
         for pick in self.browse(cr, uid, ids):
             move_ids = [x.id for x in pick.move_lines if x.state in ['confirmed','waiting']]
             self.pool.get('stock.move').force_assign(cr, uid, move_ids)
-            wf_service.trg_write(uid, 'stock.picking', pick.id, cr)
+            workflow.trg_write(uid, 'stock.picking', pick.id, cr)
         return True
 
     def draft_force_assign(self, cr, uid, ids, *args):
         """ Confirms picking directly from draft state.
         @return: True
         """
-        wf_service = netsvc.LocalService("workflow")
         for pick in self.browse(cr, uid, ids):
             if not pick.move_lines:
                 raise osv.except_osv(_('Error!'),_('You cannot process picking without stock moves.'))
-            wf_service.trg_validate(uid, 'stock.picking', pick.id,
-                'button_confirm', cr)
+            self.signal_button_confirm(cr, uid, [pick.id])
         return True
 
     def draft_validate(self, cr, uid, ids, context=None):
         """ Validates picking directly from draft state.
         @return: True
         """
-        wf_service = netsvc.LocalService("workflow")
         self.draft_force_assign(cr, uid, ids)
         for pick in self.browse(cr, uid, ids, context=context):
             move_ids = [x.id for x in pick.move_lines]
             self.pool.get('stock.move').force_assign(cr, uid, move_ids)
-            wf_service.trg_write(uid, 'stock.picking', pick.id, cr)
+            workflow.trg_write(uid, 'stock.picking', pick.id, cr)
         return self.action_process(
             cr, uid, ids, context=context)
     def cancel_assign(self, cr, uid, ids, *args):
         """ Cancels picking and moves.
         @return: True
         """
-        wf_service = netsvc.LocalService("workflow")
         for pick in self.browse(cr, uid, ids):
             move_ids = [x.id for x in pick.move_lines]
             self.pool.get('stock.move').cancel_assign(cr, uid, move_ids)
-            wf_service.trg_write(uid, 'stock.picking', pick.id, cr)
+            workflow.trg_write(uid, 'stock.picking', pick.id, cr)
         return True
 
     def action_assign_wkf(self, cr, uid, ids, context=None):
@@ -1011,6 +1010,7 @@ class stock_picking(osv.osv):
             'origin': (invoice.origin or '') + ', ' + (picking.name or '') + (picking.origin and (':' + picking.origin) or ''),
             'comment': (comment and (invoice.comment and invoice.comment + "\n" + comment or comment)) or (invoice.comment and invoice.comment or ''),
             'date_invoice': context.get('date_inv', False),
+            'user_id': uid,
         }
 
     def _prepare_invoice(self, cr, uid, picking, partner, inv_type, journal_id, context=None):
@@ -1131,13 +1131,13 @@ class stock_picking(osv.osv):
             if not inv_type:
                 inv_type = self._get_invoice_type(picking)
 
-            invoice_vals = self._prepare_invoice(cr, uid, picking, partner, inv_type, journal_id, context=context)
             if group and partner.id in invoices_group:
                 invoice_id = invoices_group[partner.id]
                 invoice = invoice_obj.browse(cr, uid, invoice_id)
                 invoice_vals_group = self._prepare_invoice_group(cr, uid, picking, partner, invoice, context=context)
                 invoice_obj.write(cr, uid, [invoice_id], invoice_vals_group, context=context)
             else:
+                invoice_vals = self._prepare_invoice(cr, uid, picking, partner, inv_type, journal_id, context=context)
                 invoice_id = invoice_obj.create(cr, uid, invoice_vals, context=context)
                 invoices_group[partner.id] = invoice_id
             res[picking.id] = invoice_id
@@ -1235,7 +1235,6 @@ class stock_picking(osv.osv):
         currency_obj = self.pool.get('res.currency')
         uom_obj = self.pool.get('product.uom')
         sequence_obj = self.pool.get('ir.sequence')
-        wf_service = netsvc.LocalService("workflow")
         for pick in self.browse(cr, uid, ids, context=context):
             new_picking = None
             complete, too_many, too_few = [], [], []
@@ -1305,7 +1304,6 @@ class stock_picking(osv.osv):
                                {'name': sequence_obj.get(cr, uid,
                                             'stock.picking.%s'%(pick.type)),
                                })
-                    pick.refresh()
                     new_picking = self.copy(cr, uid, pick.id,
                             {
                                 'name': new_picking_name,
@@ -1357,17 +1355,18 @@ class stock_picking(osv.osv):
 
             # At first we confirm the new picking (if necessary)
             if new_picking:
-                wf_service.trg_validate(uid, 'stock.picking', new_picking, 'button_confirm', cr)
+                self.signal_button_confirm(cr, uid, [new_picking])
                 # Then we finish the good picking
                 self.write(cr, uid, [pick.id], {'backorder_id': new_picking})
                 self.action_move(cr, uid, [new_picking], context=context)
-                wf_service.trg_validate(uid, 'stock.picking', new_picking, 'button_done', cr)
-                wf_service.trg_write(uid, 'stock.picking', pick.id, cr)
-                delivered_pack_id = new_picking
-                self.message_post(cr, uid, new_picking, body=_("Back order <em>%s</em> has been <b>created</b>.") % (pick.name), context=context)
+                self.signal_button_done(cr, uid, [new_picking])
+                workflow.trg_write(uid, 'stock.picking', pick.id, cr)
+                delivered_pack_id = pick.id
+                back_order_name = self.browse(cr, uid, delivered_pack_id, context=context).name
+                self.message_post(cr, uid, new_picking, body=_("Back order <em>%s</em> has been <b>created</b>.") % (back_order_name), context=context)
             else:
                 self.action_move(cr, uid, [pick.id], context=context)
-                wf_service.trg_validate(uid, 'stock.picking', pick.id, 'button_done', cr)
+                self.signal_button_done(cr, uid, [pick.id])
                 delivered_pack_id = pick.id
 
             delivered_pack = self.browse(cr, uid, delivered_pack_id, context=context)
@@ -1486,7 +1485,7 @@ class stock_production_lot(osv.osv):
         'product_id': lambda x, y, z, c: c.get('product_id', False),
     }
     _sql_constraints = [
-        ('name_ref_uniq', 'unique (name, ref, product_id, company_id)', 'The combination of Serial Number, internal reference, Product and Company must be unique !'),
+        ('name_ref_uniq', 'unique (name, ref)', 'The combination of Serial Number and internal reference must be unique !'),
     ]
     def action_traceability(self, cr, uid, ids, context=None):
         """ It traces the information of a product
@@ -1506,7 +1505,6 @@ class stock_production_lot(osv.osv):
         default.update(date=time.strftime('%Y-%m-%d %H:%M:%S'), move_ids=[])
         return super(stock_production_lot, self).copy(cr, uid, id, default=default, context=context)
 
-stock_production_lot()
 
 class stock_production_lot_revision(osv.osv):
     _name = 'stock.production.lot.revision'
@@ -1527,7 +1525,6 @@ class stock_production_lot_revision(osv.osv):
         'date': fields.date.context_today,
     }
 
-stock_production_lot_revision()
 
 # ----------------------------------------------------
 # Move
@@ -1800,15 +1797,12 @@ class stock_move(osv.osv):
                                              _('Quantities, Units of Measure, Products and Locations cannot be modified on stock moves that have already been processed (except by the Administrator).'))
         return  super(stock_move, self).write(cr, uid, ids, vals, context=context)
 
-    def copy_data(self, cr, uid, id, default=None, context=None):
+    def copy(self, cr, uid, id, default=None, context=None):
         if default is None:
             default = {}
         default = default.copy()
-        default.setdefault('tracking_id', False)
-        default.setdefault('prodlot_id', False)
-        default.setdefault('move_history_ids', [])
-        default.setdefault('move_history_ids2', [])
-        return super(stock_move, self).copy_data(cr, uid, id, default, context=context)
+        default.update({'move_history_ids2': [], 'move_history_ids': []})
+        return super(stock_move, self).copy(cr, uid, id, default, context=context)
 
     def _auto_init(self, cursor, context=None):
         res = super(stock_move, self)._auto_init(cursor, context=context)
@@ -1900,6 +1894,7 @@ class stock_move(osv.osv):
         result = {
                   'product_qty': 0.00
           }
+        warning = {}
 
         if (not product_id) or (product_uos_qty <=0.0):
             result['product_uos_qty'] = 0.0
@@ -1907,15 +1902,22 @@ class stock_move(osv.osv):
 
         product_obj = self.pool.get('product.product')
         uos_coeff = product_obj.read(cr, uid, product_id, ['uos_coeff'])
-
-        # No warning if the quantity was decreased to avoid double warnings:
-        # The clients should call onchange_quantity too anyway
+        
+        # Warn if the quantity was decreased 
+        for move in self.read(cr, uid, ids, ['product_uos_qty']):
+            if product_uos_qty < move['product_uos_qty']:
+                warning.update({
+                   'title': _('Warning: No Back Order'),
+                   'message': _("By changing the quantity here, you accept the "
+                                "new quantity as complete: OpenERP will not "
+                                "automatically generate a Back Order.") })
+                break
 
         if product_uos and product_uom and (product_uom != product_uos):
             result['product_qty'] = product_uos_qty / uos_coeff['uos_coeff']
         else:
             result['product_qty'] = product_uos_qty
-        return {'value': result}
+        return {'value': result, 'warning': warning}
 
     def onchange_product_id(self, cr, uid, ids, prod_id=False, loc_id=False,
                             loc_dest_id=False, partner_id=False):
@@ -2066,51 +2068,45 @@ class stock_move(osv.osv):
         res_obj = self.pool.get('res.company')
         location_obj = self.pool.get('stock.location')
         move_obj = self.pool.get('stock.move')
-        wf_service = netsvc.LocalService("workflow")
         new_moves = []
         if context is None:
             context = {}
         seq_obj = self.pool.get('ir.sequence')
-        for picking, chained_moves in self._chain_compute(cr, uid, moves, context=context).items():
-            # We group the moves by automatic move type, so it creates different pickings for different types
-            moves_by_type = {}
-            for move in chained_moves:
-                moves_by_type.setdefault(move[1][1], []).append(move)
-            for todo in moves_by_type.values():
-                ptype = todo[0][1][5] and todo[0][1][5] or location_obj.picking_type_get(cr, uid, todo[0][0].location_dest_id, todo[0][1][0])
-                if picking:
-                    # name of new picking according to its type
-                    if ptype == 'internal':
-                        new_pick_name = seq_obj.get(cr, uid,'stock.picking')
-                    else :
-                        new_pick_name = seq_obj.get(cr, uid, 'stock.picking.' + ptype)
-                    pickid = self._create_chained_picking(cr, uid, new_pick_name, picking, ptype, todo, context=context)
-                    # Need to check name of old picking because it always considers picking as "OUT" when created from Sales Order
-                    old_ptype = location_obj.picking_type_get(cr, uid, picking.move_lines[0].location_id, picking.move_lines[0].location_dest_id)
-                    if old_ptype != picking.type:
-                        old_pick_name = seq_obj.get(cr, uid, 'stock.picking.' + old_ptype)
-                        self.pool.get('stock.picking').write(cr, uid, [picking.id], {'name': old_pick_name, 'type': old_ptype}, context=context)
-                else:
-                    pickid = False
-                for move, (loc, dummy, delay, dummy, company_id, ptype, invoice_state) in todo:
-                    new_id = move_obj.copy(cr, uid, move.id, {
-                        'location_id': move.location_dest_id.id,
-                        'location_dest_id': loc.id,
-                        'date': time.strftime('%Y-%m-%d'),
-                        'picking_id': pickid,
-                        'state': 'waiting',
-                        'company_id': company_id or res_obj._company_default_get(cr, uid, 'stock.company', context=context)  ,
-                        'move_history_ids': [],
-                        'date_expected': (datetime.strptime(move.date, '%Y-%m-%d %H:%M:%S') + relativedelta(days=delay or 0)).strftime('%Y-%m-%d'),
-                        'move_history_ids2': []}
-                    )
-                    move_obj.write(cr, uid, [move.id], {
-                        'move_dest_id': new_id,
-                        'move_history_ids': [(4, new_id)]
-                    })
-                    new_moves.append(self.browse(cr, uid, [new_id])[0])
-                if pickid:
-                    wf_service.trg_validate(uid, 'stock.picking', pickid, 'button_confirm', cr)
+        for picking, todo in self._chain_compute(cr, uid, moves, context=context).items():
+            ptype = todo[0][1][5] and todo[0][1][5] or location_obj.picking_type_get(cr, uid, todo[0][0].location_dest_id, todo[0][1][0])
+            if picking:
+                # name of new picking according to its type
+                if ptype == 'internal':
+                    new_pick_name = seq_obj.get(cr, uid,'stock.picking')
+                else :
+                    new_pick_name = seq_obj.get(cr, uid, 'stock.picking.' + ptype)
+                pickid = self._create_chained_picking(cr, uid, new_pick_name, picking, ptype, todo, context=context)
+                # Need to check name of old picking because it always considers picking as "OUT" when created from Sales Order
+                old_ptype = location_obj.picking_type_get(cr, uid, picking.move_lines[0].location_id, picking.move_lines[0].location_dest_id)
+                if old_ptype != picking.type:
+                    old_pick_name = seq_obj.get(cr, uid, 'stock.picking.' + old_ptype)
+                    self.pool.get('stock.picking').write(cr, uid, [picking.id], {'name': old_pick_name, 'type': old_ptype}, context=context)
+            else:
+                pickid = False
+            for move, (loc, dummy, delay, dummy, company_id, ptype, invoice_state) in todo:
+                new_id = move_obj.copy(cr, uid, move.id, {
+                    'location_id': move.location_dest_id.id,
+                    'location_dest_id': loc.id,
+                    'date': time.strftime('%Y-%m-%d'),
+                    'picking_id': pickid,
+                    'state': 'waiting',
+                    'company_id': company_id or res_obj._company_default_get(cr, uid, 'stock.company', context=context)  ,
+                    'move_history_ids': [],
+                    'date_expected': (datetime.strptime(move.date, '%Y-%m-%d %H:%M:%S') + relativedelta(days=delay or 0)).strftime('%Y-%m-%d'),
+                    'move_history_ids2': []}
+                )
+                move_obj.write(cr, uid, [move.id], {
+                    'move_dest_id': new_id,
+                    'move_history_ids': [(4, new_id)]
+                })
+                new_moves.append(self.browse(cr, uid, [new_id])[0])
+            if pickid:
+                self.pool.get('stock.picking').signal_button_confirm(cr, uid, [pickid])
         if new_moves:
             new_moves += self.create_chained_picking(cr, uid, new_moves, context)
         return new_moves
@@ -2140,10 +2136,9 @@ class stock_move(osv.osv):
         @return: True
         """
         self.write(cr, uid, ids, {'state': 'assigned'})
-        wf_service = netsvc.LocalService('workflow')
         for move in self.browse(cr, uid, ids, context):
             if move.picking_id:
-                wf_service.trg_write(uid, 'stock.picking', move.picking_id.id, cr)
+                workflow.trg_write(uid, 'stock.picking', move.picking_id.id, cr)
         return True
 
     def cancel_assign(self, cr, uid, ids, context=None):
@@ -2155,10 +2150,9 @@ class stock_move(osv.osv):
         # fix for bug lp:707031
         # called write of related picking because changing move availability does
         # not trigger workflow of picking in order to change the state of picking
-        wf_service = netsvc.LocalService('workflow')
         for move in self.browse(cr, uid, ids, context):
             if move.picking_id:
-                wf_service.trg_write(uid, 'stock.picking', move.picking_id.id, cr)
+                workflow.trg_write(uid, 'stock.picking', move.picking_id.id, cr)
         return True
 
     #
@@ -2191,12 +2185,12 @@ class stock_move(osv.osv):
                     done.append(move.id)
                     pickings[move.picking_id.id] = 1
                     r = res.pop(0)
-                    product_uos_qty = self.pool.get('stock.move').onchange_quantity(cr, uid, [move.id], move.product_id.id, r[0], move.product_id.uom_id.id, move.product_id.uos_id.id)['value']['product_uos_qty']
+                    product_uos_qty = self.pool.get('stock.move').onchange_quantity(cr, uid, ids, move.product_id.id, r[0], move.product_id.uom_id.id, move.product_id.uos_id.id)['value']['product_uos_qty']
                     cr.execute('update stock_move set location_id=%s, product_qty=%s, product_uos_qty=%s where id=%s', (r[1], r[0],product_uos_qty, move.id))
 
                     while res:
                         r = res.pop(0)
-                        product_uos_qty = self.pool.get('stock.move').onchange_quantity(cr, uid, [move.id], move.product_id.id, r[0], move.product_id.uom_id.id, move.product_id.uos_id.id)['value']['product_uos_qty']
+                        product_uos_qty = self.pool.get('stock.move').onchange_quantity(cr, uid, ids, move.product_id.id, r[0], move.product_id.uom_id.id, move.product_id.uos_id.id)['value']['product_uos_qty']
                         move_id = self.copy(cr, uid, move.id, {'product_uos_qty': product_uos_qty, 'product_qty': r[0], 'location_id': r[1]})
                         done.append(move_id)
         if done:
@@ -2205,8 +2199,7 @@ class stock_move(osv.osv):
 
         if count:
             for pick_id in pickings:
-                wf_service = netsvc.LocalService("workflow")
-                wf_service.trg_write(uid, 'stock.picking', pick_id, cr)
+                workflow.trg_write(uid, 'stock.picking', pick_id, cr)
         return count
 
     def setlast_tracking(self, cr, uid, ids, context=None):
@@ -2241,17 +2234,15 @@ class stock_move(osv.osv):
             if move.move_dest_id and move.move_dest_id.state == 'waiting':
                 self.write(cr, uid, [move.move_dest_id.id], {'state': 'confirmed'}, context=context)
                 if context.get('call_unlink',False) and move.move_dest_id.picking_id:
-                    wf_service = netsvc.LocalService("workflow")
-                    wf_service.trg_write(uid, 'stock.picking', move.move_dest_id.picking_id.id, cr)
+                    workflow.trg_write(uid, 'stock.picking', move.move_dest_id.picking_id.id, cr)
         self.write(cr, uid, ids, {'state': 'cancel', 'move_dest_id': False}, context=context)
         if not context.get('call_unlink',False):
             for pick in self.pool.get('stock.picking').browse(cr, uid, list(pickings), context=context):
                 if all(move.state == 'cancel' for move in pick.move_lines):
                     self.pool.get('stock.picking').write(cr, uid, [pick.id], {'state': 'cancel'}, context=context)
 
-        wf_service = netsvc.LocalService("workflow")
         for id in ids:
-            wf_service.trg_trigger(uid, 'stock.move', id, cr)
+            workflow.trg_trigger(uid, 'stock.move', id, cr)
         return True
 
     def _get_accounting_data_for_valuation(self, cr, uid, move, context=None):
@@ -2313,9 +2304,7 @@ class stock_move(osv.osv):
 
         # if product is set to average price and a specific value was entered in the picking wizard,
         # we use it
-        if move.location_dest_id.usage != 'internal' and move.product_id.cost_method == 'average':
-            reference_amount = qty * move.product_id.standard_price
-        elif move.product_id.cost_method == 'average' and move.price_unit:
+        if move.product_id.cost_method == 'average' and move.price_unit:
             reference_amount = qty * move.price_unit
             reference_currency_id = move.price_currency_id.id or reference_currency_id
 
@@ -2381,7 +2370,6 @@ class stock_move(osv.osv):
         """
         picking_ids = []
         move_ids = []
-        wf_service = netsvc.LocalService("workflow")
         if context is None:
             context = {}
 
@@ -2402,14 +2390,14 @@ class stock_move(osv.osv):
                 picking_ids.append(move.picking_id.id)
             if move.move_dest_id.id and (move.state != 'done'):
                 # Downstream move should only be triggered if this move is the last pending upstream move
-                other_upstream_move_ids = self.search(cr, uid, [('id','not in',move_ids),('state','not in',['done','cancel']),
+                other_upstream_move_ids = self.search(cr, uid, [('id','!=',move.id),('state','not in',['done','cancel']),
                                             ('move_dest_id','=',move.move_dest_id.id)], context=context)
                 if not other_upstream_move_ids:
                     self.write(cr, uid, [move.id], {'move_history_ids': [(4, move.move_dest_id.id)]})
                     if move.move_dest_id.state in ('waiting', 'confirmed'):
                         self.force_assign(cr, uid, [move.move_dest_id.id], context=context)
                         if move.move_dest_id.picking_id:
-                            wf_service.trg_write(uid, 'stock.picking', move.move_dest_id.picking_id.id, cr)
+                            workflow.trg_write(uid, 'stock.picking', move.move_dest_id.picking_id.id, cr)
                         if move.move_dest_id.auto_validate:
                             self.action_done(cr, uid, [move.move_dest_id.id], context=context)
 
@@ -2422,10 +2410,10 @@ class stock_move(osv.osv):
 
         self.write(cr, uid, move_ids, {'state': 'done', 'date': time.strftime(DEFAULT_SERVER_DATETIME_FORMAT)}, context=context)
         for id in move_ids:
-             wf_service.trg_trigger(uid, 'stock.move', id, cr)
+             workflow.trg_trigger(uid, 'stock.move', id, cr)
 
         for pick_id in picking_ids:
-            wf_service.trg_write(uid, 'stock.picking', pick_id, cr)
+            workflow.trg_write(uid, 'stock.picking', pick_id, cr)
 
         return True
 
@@ -2678,7 +2666,6 @@ class stock_move(osv.osv):
         product_obj = self.pool.get('product.product')
         currency_obj = self.pool.get('res.currency')
         uom_obj = self.pool.get('product.uom')
-        wf_service = netsvc.LocalService("workflow")
 
         if context is None:
             context = {}
@@ -2779,11 +2766,10 @@ class stock_move(osv.osv):
                 res = cr.fetchall()
                 if len(res) == len(move.picking_id.move_lines):
                     picking_obj.action_move(cr, uid, [move.picking_id.id])
-                    wf_service.trg_validate(uid, 'stock.picking', move.picking_id.id, 'button_done', cr)
+                    picking_obj.signal_button_done(cr, uid, [move.picking_id.id])
 
         return [move.id for move in complete]
 
-stock_move()
 
 class stock_inventory(osv.osv):
     _name = "stock.inventory"
@@ -2906,7 +2892,6 @@ class stock_inventory(osv.osv):
             self.write(cr, uid, [inv.id], {'state': 'cancel'}, context=context)
         return True
 
-stock_inventory()
 
 class stock_inventory_line(osv.osv):
     _name = "stock.inventory.line"
@@ -2951,7 +2936,6 @@ class stock_inventory_line(osv.osv):
         result = {'product_qty': amount, 'product_uom': uom, 'prod_lot_id': False}
         return {'value': result}
 
-stock_inventory_line()
 
 #----------------------------------------------------------
 # Stock Warehouse
@@ -2995,7 +2979,6 @@ class stock_warehouse(osv.osv):
         'lot_output_id': _default_lot_output_id,
     }
 
-stock_warehouse()
 
 #----------------------------------------------------------
 # "Empty" Classes that are used to vary from the original stock.picking  (that are dedicated to the internal pickings)
@@ -3013,9 +2996,6 @@ class stock_picking_in(osv.osv):
     def read(self, cr, uid, ids, fields=None, context=None, load='_classic_read'):
         return self.pool.get('stock.picking').read(cr, uid, ids, fields=fields, context=context, load=load)
 
-    def read_group(self, cr, uid, domain, fields, groupby, offset=0, limit=None, context=None, orderby=False):
-        return self.pool['stock.picking'].read_group(cr, uid, domain, fields, groupby, offset=offset, limit=limit, context=context, orderby=orderby)
-
     def check_access_rights(self, cr, uid, operation, raise_exception=True):
         #override in order to redirect the check of acces rights on the stock.picking object
         return self.pool.get('stock.picking').check_access_rights(cr, uid, operation, raise_exception=raise_exception)
@@ -3024,15 +3004,25 @@ class stock_picking_in(osv.osv):
         #override in order to redirect the check of acces rules on the stock.picking object
         return self.pool.get('stock.picking').check_access_rule(cr, uid, ids, operation, context=context)
 
-    def _workflow_trigger(self, cr, uid, ids, trigger, context=None):
-        #override in order to trigger the workflow of stock.picking at the end of create, write and unlink operation
-        #instead of it's own workflow (which is not existing)
-        return self.pool.get('stock.picking')._workflow_trigger(cr, uid, ids, trigger, context=context)
+    def create_workflow(self, cr, uid, ids, context=None):
+        # overridden in order to trigger the workflow of stock.picking at the end of create,
+        # write and unlink operation instead of its own workflow (which is not existing)
+        return self.pool.get('stock.picking').create_workflow(cr, uid, ids, context=context)
 
-    def _workflow_signal(self, cr, uid, ids, signal, context=None):
-        #override in order to fire the workflow signal on given stock.picking workflow instance
-        #instead of it's own workflow (which is not existing)
-        return self.pool.get('stock.picking')._workflow_signal(cr, uid, ids, signal, context=context)
+    def delete_workflow(self, cr, uid, ids, context=None):
+        # overridden in order to trigger the workflow of stock.picking at the end of create,
+        # write and unlink operation instead of its own workflow (which is not existing)
+        return self.pool.get('stock.picking').delete_workflow(cr, uid, ids, context=context)
+
+    def step_workflow(self, cr, uid, ids, context=None):
+        # overridden in order to trigger the workflow of stock.picking at the end of create,
+        # write and unlink operation instead of its own workflow (which is not existing)
+        return self.pool.get('stock.picking').step_workflow(cr, uid, ids, context=context)
+
+    def signal_workflow(self, cr, uid, ids, signal, context=None):
+        # overridden in order to fire the workflow signal on given stock.picking workflow instance
+        # instead of its own workflow (which is not existing)
+        return self.pool.get('stock.picking').signal_workflow(cr, uid, ids, signal, context=context)
 
     def message_post(self, *args, **kwargs):
         """Post the message on stock.picking to be able to see it in the form view when using the chatter"""
@@ -3086,9 +3076,6 @@ class stock_picking_out(osv.osv):
     def read(self, cr, uid, ids, fields=None, context=None, load='_classic_read'):
         return self.pool.get('stock.picking').read(cr, uid, ids, fields=fields, context=context, load=load)
 
-    def read_group(self, cr, uid, domain, fields, groupby, offset=0, limit=None, context=None, orderby=False):
-        return self.pool['stock.picking'].read_group(cr, uid, domain, fields, groupby, offset=offset, limit=limit, context=context, orderby=orderby)
-
     def check_access_rights(self, cr, uid, operation, raise_exception=True):
         #override in order to redirect the check of acces rights on the stock.picking object
         return self.pool.get('stock.picking').check_access_rights(cr, uid, operation, raise_exception=raise_exception)
@@ -3097,15 +3084,25 @@ class stock_picking_out(osv.osv):
         #override in order to redirect the check of acces rules on the stock.picking object
         return self.pool.get('stock.picking').check_access_rule(cr, uid, ids, operation, context=context)
 
-    def _workflow_trigger(self, cr, uid, ids, trigger, context=None):
-        #override in order to trigger the workflow of stock.picking at the end of create, write and unlink operation
-        #instead of it's own workflow (which is not existing)
-        return self.pool.get('stock.picking')._workflow_trigger(cr, uid, ids, trigger, context=context)
+    def create_workflow(self, cr, uid, ids, context=None):
+        # overridden in order to trigger the workflow of stock.picking at the end of create,
+        # write and unlink operation instead of its own workflow (which is not existing)
+        return self.pool.get('stock.picking').create_workflow(cr, uid, ids, context=context)
 
-    def _workflow_signal(self, cr, uid, ids, signal, context=None):
-        #override in order to fire the workflow signal on given stock.picking workflow instance
-        #instead of it's own workflow (which is not existing)
-        return self.pool.get('stock.picking')._workflow_signal(cr, uid, ids, signal, context=context)
+    def delete_workflow(self, cr, uid, ids, context=None):
+        # overridden in order to trigger the workflow of stock.picking at the end of create,
+        # write and unlink operation instead of its own workflow (which is not existing)
+        return self.pool.get('stock.picking').delete_workflow(cr, uid, ids, context=context)
+
+    def step_workflow(self, cr, uid, ids, context=None):
+        # overridden in order to trigger the workflow of stock.picking at the end of create,
+        # write and unlink operation instead of its own workflow (which is not existing)
+        return self.pool.get('stock.picking').step_workflow(cr, uid, ids, context=context)
+
+    def signal_workflow(self, cr, uid, ids, signal, context=None):
+        # overridden in order to fire the workflow signal on given stock.picking workflow instance
+        # instead of its own workflow (which is not existing)
+        return self.pool.get('stock.picking').signal_workflow(cr, uid, ids, signal, context=context)
 
     def message_post(self, *args, **kwargs):
         """Post the message on stock.picking to be able to see it in the form view when using the chatter"""

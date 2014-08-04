@@ -1,0 +1,141 @@
+<openerp>
+	<data>
+		<record id="search_purchase_request_line" model="ir.ui.view">
+            <field name="name">supplier.search_purchase_request_line</field>
+            <field name="model">purchase.order.line</field>
+            <field name="type">search</field>                    
+            <field name="arch" type="xml">
+                <search string="Search Purchase Order">
+                     <group>
+                     	<field name="category_id"/>
+	                    <field name="level_id"/>     
+	                    <field name="date_planned"/>
+                     </group>
+                     <newline/>
+                     <group expand="0" string="Group By...">
+                     <filter string="Category" icon="terp-stock" domain="[]" context="{'group_by' : 'category_id'}" />
+                     <filter string="Date" icon="terp-calendar" domain="[]" context="{'group_by' : 'date_planned'}" />                        
+                     </group>
+               </search>
+         	</field>
+         </record> 
+         
+		 <record id="tree_purchase_request_line" model="ir.ui.view">
+            <field name="name">supplier.tree_purchase_request_line</field>
+            <field name="model">purchase.order.line</field>
+            <field name="type">tree</field>
+            <field name="priority">100</field>            
+            <field name="arch" type="xml">
+                <tree string="Purchase Order Lines"
+                	  colors="red:(date_planned&lt;current_date);red:(severity=='2');orange:(severity=='1');blue:(severity=='0');gray:(priority=='0')">                	
+                	<button name="stage_next" string="Next Stage" states="draft,confirmed"  type="object"  icon="gtk-go-forward" attrs="{'invisible':[('state','==','done')]}"/>               	 	                	                	
+                	<field name="date_planned"  width="135"/>
+                	<field name="category_id"/>                	
+                	<field name="shop_id"/>
+                	<field name="state" invisible="1"/>
+                	<field name="severity" invisible="1"/>
+                	<field name="priority" invisible="1"/>                	
+                	<field name="level_id"/>              
+                	<field name="write_date"/>
+                </tree>
+            </field>
+        </record>
+                
+        <record id="action_purchase_request_line_confirmed" model="ir.actions.act_window">
+            <field name="name">Purchase Order Lines</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order.line</field>          
+            <field name="view_mode">tree,form</field>                                  
+            <field name="search_view_id" ref="search_purchase_request_line"/>
+            <field name="view_id" ref="tree_purchase_request_line"/>
+            <field name="domain">[('state','=','confirmed')]</field>                        
+        </record>       
+        <record id="action_purchase_request_line_confirmed_tree" model="ir.actions.act_window.view">
+         	<field name="sequence" eval="1"/>         	
+         	<field name="view_mode">tree</field>
+         	<field name="view_id" ref="tree_purchase_request_line"/>
+         	<field name="act_window_id" ref="action_purchase_request_line_confirmed"/>
+         </record>       	
+       	<record id="action_purchase_request_line_confirmed_form" model="ir.actions.act_window.view">
+         	<field name="sequence" eval="2"/>
+         	<field name="view_mode">form</field>
+         	<field name="view_id" ref="form_purchase_line"/>
+         	<field name="act_window_id" ref="action_purchase_request_line_confirmed"/>
+        </record>
+         
+        <record id="action_purchase_line_changed" model="ir.actions.act_window">
+            <field name="name">Purchase Order Lines</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order.line</field>          
+            <field name="view_mode">tree,form</field>                                  
+            <field name="search_view_id" ref="search_purchase_request_line"/>
+            <field name="view_id" ref="tree_purchase_request_line"/>
+            <field name="domain">[('state','=','confirmed'),('supplier_update','=',True)]</field>
+        </record>       
+        <record id="action_purchase_line_changed_tree" model="ir.actions.act_window.view">
+         	<field name="sequence" eval="1"/>         	
+         	<field name="view_mode">tree</field>
+         	<field name="view_id" ref="tree_purchase_request_line"/>
+         	<field name="act_window_id" ref="action_purchase_line_changed"/>
+         </record>       	
+       	<record id="action_purchase_line_changed_form" model="ir.actions.act_window.view">
+         	<field name="sequence" eval="2"/>
+         	<field name="view_mode">form</field>
+         	<field name="view_id" ref="form_purchase_line"/>
+         	<field name="act_window_id" ref="action_purchase_line_changed"/>
+        </record>
+         
+        <record id="action_purchase_line_quote" model="ir.actions.act_window">
+            <field name="name">Purchase Order Lines</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order.line</field>          
+            <field name="view_mode">tree,form</field>                                  
+            <field name="search_view_id" ref="search_purchase_request_line"/>
+            <field name="view_id" ref="tree_purchase_request_line"/>                        
+            <field name="domain">[('state','=','draft'),('supplier_update','=',True)]</field>
+        </record>       
+        <record id="action_purchase_line_quote_tree" model="ir.actions.act_window.view">
+         	<field name="sequence" eval="1"/>         	
+         	<field name="view_mode">tree</field>
+         	<field name="view_id" ref="tree_purchase_request_line"/>
+         	<field name="act_window_id" ref="action_purchase_line_quote"/>
+         </record>       	
+       	<record id="action_purchase_line_quote_form" model="ir.actions.act_window.view">
+         	<field name="sequence" eval="2"/>
+         	<field name="view_mode">form</field>
+         	<field name="view_id" ref="form_purchase_line"/>
+         	<field name="act_window_id" ref="action_purchase_line_quote"/>
+        </record>
+         
+        <record id="board_supplier_area" model="ir.ui.view">
+        	<field name="name">board.supplier.area</field>
+        	<field name="model">board.board</field>
+        	<field name="type">form</field>
+        	<field name="arch" type="xml">
+        		<form string="My Board">
+        		  	<hpaned>
+		        		<child1>
+		        			<action colspan="4" height="600"  width="510" 
+		        				name="%(action_purchase_request_line_confirmed)d" string="Confirmed Purchases"/>
+		        		</child1>		        			
+		        		<child2>
+		        			<action colspan="4" height="300" 
+		        				name="%(action_purchase_line_changed)d" string="Updates"/>
+		        				
+		        			<action colspan="4" height="300"
+		        				name="%(action_purchase_line_quote)d" string="Quote Requests"/>
+		        		</child2>
+		        	</hpaned>
+        		</form>
+        	</field>
+        </record>
+        <record id="open_supplier_area" model="ir.actions.act_window">
+            <field name="name">Supplier Dashboard</field>
+            <field name="res_model">board.board</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="usage">menu</field>
+            <field name="view_id" ref="board_supplier_area"/>
+        </record>    
+	</data>
+</openerp>

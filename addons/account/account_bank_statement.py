@@ -61,8 +61,7 @@ class account_bank_statement(osv.osv):
         return res
 
     def _get_period(self, cr, uid, context=None):
-        ctx = dict(context or {}, account_period_prefer_normal=True)
-        periods = self.pool.get('account.period').find(cr, uid, context=ctx)
+        periods = self.pool.get('account.period').find(cr, uid, context=context)
         if periods:
             return periods[0]
         return False
@@ -86,7 +85,7 @@ class account_bank_statement(osv.osv):
             currency_id = res[statement_id]
             res[statement_id] = (currency_id, currency_names[currency_id])
         return res
-
+    
     def _get_statement(self, cr, uid, ids, context=None):
         result = {}
         for line in self.pool.get('account.bank.statement.line').browse(cr, uid, ids, context=context):
@@ -107,13 +106,13 @@ class account_bank_statement(osv.osv):
         'balance_start': fields.float('Starting Balance', digits_compute=dp.get_precision('Account'),
             states={'confirm':[('readonly',True)]}),
         'balance_end_real': fields.float('Ending Balance', digits_compute=dp.get_precision('Account'),
-            states={'confirm': [('readonly', True)]}),
+            states={'confirm': [('readonly', True)]}, help="Computed using the cash control lines"),
         'balance_end': fields.function(_end_balance,
             store = {
                 'account.bank.statement': (lambda self, cr, uid, ids, c={}: ids, ['line_ids','move_line_ids','balance_start'], 10),
                 'account.bank.statement.line': (_get_statement, ['amount'], 10),
             },
-            string="Computed Balance", help='Balance as calculated based on Starting Balance and transaction lines'),
+            string="Computed Balance", help='Balance as calculated based on Opening Balance and transaction lines'),
         'company_id': fields.related('journal_id', 'company_id', type='many2one', relation='res.company', string='Company', store=True, readonly=True),
         'line_ids': fields.one2many('account.bank.statement.line',
             'statement_id', 'Statement lines',
@@ -129,6 +128,7 @@ class account_bank_statement(osv.osv):
         'currency': fields.function(_currency, string='Currency',
             type='many2one', relation='res.currency'),
         'account_id': fields.related('journal_id', 'default_debit_account_id', type='many2one', relation='account.account', string='Account used in this journal', readonly=True, help='used in statement reconciliation domain, but shouldn\'t be used elswhere.'),
+        'cash_control': fields.related('journal_id', 'cash_control' , type='boolean', relation='account.journal',string='Cash control'),
     }
 
     _defaults = {
@@ -160,7 +160,7 @@ class account_bank_statement(osv.osv):
         if context is None:
             context = {}
         ctx = context.copy()
-        ctx.update({'company_id': company_id, 'account_period_prefer_normal': True})
+        ctx.update({'company_id': company_id})
         pids = period_pool.find(cr, uid, dt=date, context=ctx)
         if pids:
             res.update({'period_id': pids[0]})
@@ -224,7 +224,7 @@ class account_bank_statement(osv.osv):
             amount_currency=amt_cur, currency_id=cur_id, analytic_id=anl_id, context=context)
         return res
 
-    def _get_counter_part_account(sefl, cr, uid, st_line, context=None):
+    def _get_counter_part_account(self, cr, uid, st_line, context=None):
         """Retrieve the account to use in the counterpart move.
            This method may be overridden to implement custom move generation (making sure to
            call super() to establish a clean extension chain).
@@ -237,7 +237,7 @@ class account_bank_statement(osv.osv):
             return st_line.statement_id.journal_id.default_credit_account_id.id
         return st_line.statement_id.journal_id.default_debit_account_id.id
 
-    def _get_counter_part_partner(sefl, cr, uid, st_line, context=None):
+    def _get_counter_part_partner(self, cr, uid, st_line, context=None):
         """Retrieve the partner to use in the counterpart move.
            This method may be overridden to implement custom move generation (making sure to
            call super() to establish a clean extension chain).
@@ -451,22 +451,25 @@ class account_bank_statement(osv.osv):
     def _compute_balance_end_real(self, cr, uid, journal_id, context=None):
         res = False
         if journal_id:
-            cr.execute('SELECT balance_end_real \
-                    FROM account_bank_statement \
-                    WHERE journal_id = %s AND NOT state = %s \
-                    ORDER BY date DESC,id DESC LIMIT 1', (journal_id, 'draft'))
-            res = cr.fetchone()
+            journal = self.pool.get('account.journal').browse(cr, uid, journal_id, context=context)
+            if journal.with_last_closing_balance:
+                cr.execute('SELECT balance_end_real \
+                      FROM account_bank_statement \
+                      WHERE journal_id = %s AND NOT state = %s \
+                      ORDER BY date DESC,id DESC LIMIT 1', (journal_id, 'draft'))
+                res = cr.fetchone()
         return res and res[0] or 0.0
 
     def onchange_journal_id(self, cr, uid, statement_id, journal_id, context=None):
         if not journal_id:
             return {}
         balance_start = self._compute_balance_end_real(cr, uid, journal_id, context=context)
-
-        journal_data = self.pool.get('account.journal').read(cr, uid, journal_id, ['company_id', 'currency'], context=context)
-        company_id = journal_data['company_id']
-        currency_id = journal_data['currency'] or self.pool.get('res.company').browse(cr, uid, company_id[0], context=context).currency_id.id
-        return {'value': {'balance_start': balance_start, 'company_id': company_id, 'currency': currency_id}}
+        journal = self.pool.get('account.journal').browse(cr, uid, journal_id, context=context)
+        currency = journal.currency or journal.company_id.currency_id
+        res = {'balance_start': balance_start, 'company_id': journal.company_id.id, 'currency': currency.id}
+        if journal.type == 'cash':
+            res['cash_control'] = journal.cash_control
+        return {'value': res}
 
     def unlink(self, cr, uid, ids, context=None):
         stat = self.read(cr, uid, ids, ['state'], context=context)
@@ -492,6 +495,7 @@ class account_bank_statement(osv.osv):
       ctx = (context or {}).copy()
       ctx['journal_id'] = self.browse(cr, uid, ids[0], context=context).journal_id.id
       return {
+        'name': _('Journal Items'),
         'view_type':'form',
         'view_mode':'tree',
         'res_model':'account.move.line',
@@ -501,7 +505,6 @@ class account_bank_statement(osv.osv):
         'context':ctx,
       }
 
-account_bank_statement()
 
 class account_bank_statement_line(osv.osv):
 
@@ -548,7 +551,7 @@ class account_bank_statement_line(osv.osv):
     _name = "account.bank.statement.line"
     _description = "Bank Statement Line"
     _columns = {
-        'name': fields.char('OBI', required=True, help="Originator to Beneficiary Information"),
+        'name': fields.char('Description', required=True),
         'date': fields.date('Date', required=True),
         'amount': fields.float('Amount', digits_compute=dp.get_precision('Account')),
         'type': fields.selection([
@@ -577,6 +580,5 @@ class account_bank_statement_line(osv.osv):
         'type': 'general',
     }
 
-account_bank_statement_line()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

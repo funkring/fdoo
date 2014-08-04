@@ -19,10 +19,12 @@
 #
 ##############################################################################
 
+from operator import attrgetter
+import time
+
 from openerp.osv import fields, osv
 from openerp.tools.translate import _
-from openerp import netsvc
-import time
+from openerp import workflow
 import openerp.addons.decimal_precision as dp
 
 # Procurement
@@ -42,7 +44,6 @@ class mrp_property_group(osv.osv):
         'name': fields.char('Property Group', size=64, required=True),
         'description': fields.text('Description'),
     }
-mrp_property_group()
 
 class mrp_property(osv.osv):
     """
@@ -59,7 +60,6 @@ class mrp_property(osv.osv):
     _defaults = {
         'composition': lambda *a: 'min',
     }
-mrp_property()
 
 class StockMove(osv.osv):
     _inherit = 'stock.move'
@@ -73,7 +73,6 @@ class StockMove(osv.osv):
         default['procurements'] = []
         return super(StockMove, self).copy_data(cr, uid, id, default, context=context)
 
-StockMove()
 
 class procurement_order(osv.osv):
     """
@@ -104,7 +103,7 @@ class procurement_order(osv.osv):
             readonly=True, required=True, help="If you encode manually a Procurement, you probably want to use" \
             " a make to order method."),
         'note': fields.text('Note'),
-        'message': fields.char('Latest error', size=124, help="Exception occurred while computing procurement orders."),
+        'message': fields.text('Latest error', help="Exception occurred while computing procurement orders."),
         'state': fields.selection([
             ('draft','Draft'),
             ('cancel','Cancelled'),
@@ -392,14 +391,13 @@ class procurement_order(osv.osv):
                     self.write(cr, uid, [procurement.id], {'message': message},context=ctx_wkf)
         return ok
 
-    def _workflow_trigger(self, cr, uid, ids, trigger, context=None):
-        """ Don't trigger workflow for the element specified in trigger
-        """
-        wkf_op_key = 'workflow.%s.%s' % (trigger, self._name)
+    def step_workflow(self, cr, uid, ids, context=None):
+        """ Don't trigger workflow for the element specified in trigger """
+        wkf_op_key = 'workflow.trg_write.%s' % self._name
         if context and not context.get(wkf_op_key, True):
             # make sure we don't have a trigger loop while processing triggers
             return 
-        return super(procurement_order,self)._workflow_trigger(cr, uid, ids, trigger, context=context)
+        return super(procurement_order, self).step_workflow(cr, uid, ids, context=context)
 
     def action_produce_assign_service(self, cr, uid, ids, context=None):
         """ Changes procurement state to Running.
@@ -441,12 +439,10 @@ class procurement_order(osv.osv):
         if len(to_cancel):
             move_obj.action_cancel(cr, uid, to_cancel)
         if len(to_assign):
-            move_obj.write(cr, uid, to_assign, {'state': 'confirmed'})
-            move_obj.action_assign(cr, uid, to_assign)
+            move_obj.write(cr, uid, to_assign, {'state': 'assigned'})
         self.write(cr, uid, ids, {'state': 'cancel'})
-        wf_service = netsvc.LocalService("workflow")
         for id in ids:
-            wf_service.trg_trigger(uid, 'procurement.order', id, cr)
+            workflow.trg_trigger(uid, 'procurement.order', id, cr)
         return True
 
     def action_check_finished(self, cr, uid, ids):
@@ -480,22 +476,18 @@ class procurement_order(osv.osv):
                 if procurement.close_move and (procurement.move_id.state <> 'done'):
                     move_obj.action_done(cr, uid, [procurement.move_id.id])
         res = self.write(cr, uid, ids, {'state': 'done', 'date_close': time.strftime('%Y-%m-%d')})
-        wf_service = netsvc.LocalService("workflow")
         for id in ids:
-            wf_service.trg_trigger(uid, 'procurement.order', id, cr)
+            workflow.trg_trigger(uid, 'procurement.order', id, cr)
         return res
 
 class StockPicking(osv.osv):
     _inherit = 'stock.picking'
-    def test_finished(self, cursor, user, ids):
-        wf_service = netsvc.LocalService("workflow")
-        res = super(StockPicking, self).test_finished(cursor, user, ids)
-        for picking in self.browse(cursor, user, ids):
+    def test_finished(self, cr, uid, ids):
+        res = super(StockPicking, self).test_finished(cr, uid, ids)
+        for picking in self.browse(cr, uid, ids):
             for move in picking.move_lines:
                 if move.state == 'done' and move.procurements:
-                    for procurement in move.procurements:
-                        wf_service.trg_validate(user, 'procurement.order',
-                            procurement.id, 'button_check', cursor)
+                    self.pool.get('procurement.order').signal_button_check(cr, uid, map(attrgetter('id'), move.procurements))
         return res
 
 class stock_warehouse_orderpoint(osv.osv):
@@ -565,14 +557,14 @@ class stock_warehouse_orderpoint(osv.osv):
     ]
 
     def default_get(self, cr, uid, fields, context=None):
-        warehouse_obj = self.pool.get('stock.warehouse')
         res = super(stock_warehouse_orderpoint, self).default_get(cr, uid, fields, context)
         # default 'warehouse_id' and 'location_id'
         if 'warehouse_id' not in res:
-            warehouse_ids = res.get('company_id') and warehouse_obj.search(cr, uid, [('company_id', '=', res['company_id'])], limit=1, context=context) or []
-            res['warehouse_id'] = warehouse_ids and warehouse_ids[0] or False
+            warehouse = self.pool.get('ir.model.data').get_object(cr, uid, 'stock', 'warehouse0', context)
+            res['warehouse_id'] = warehouse.id
         if 'location_id' not in res:
-            res['location_id'] = res.get('warehouse_id') and warehouse_obj.browse(cr, uid, res['warehouse_id'], context).lot_stock_id.id or False
+            warehouse = self.pool.get('stock.warehouse').browse(cr, uid, res['warehouse_id'], context)
+            res['location_id'] = warehouse.lot_stock_id.id
         return res
 
     def onchange_warehouse_id(self, cr, uid, ids, warehouse_id, context=None):

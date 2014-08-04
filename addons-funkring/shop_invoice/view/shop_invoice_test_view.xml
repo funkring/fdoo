@@ -1,0 +1,17 @@
+<openerp>
+	<data>		
+		<record id="form_shop_invoice" model="ir.ui.view">
+            <field name="name">account.form_shop_invoice</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<data>
+            		<field name="journal_id" position="after" >
+            			<field name="invoice_text" height="200"/>
+            		</field>
+            	</data>
+            </field>
+        </record>
+	</data>
+</openerp>

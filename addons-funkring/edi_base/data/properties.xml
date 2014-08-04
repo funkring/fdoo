@@ -1,0 +1,9 @@
+<openerp>
+	<data>
+		<record id="property_mapped_user" model="ir.property">
+		    <field name="name">property_mapped_user</field>
+		    <field name="fields_id" search="[('model','=','edi.server_profile'),('name','=','property_mapped_user')]"/>
+		    <field name="value" eval="'res.users,'+str(user_edi)"/>		    
+		</record>
+	</data>
+</openerp>

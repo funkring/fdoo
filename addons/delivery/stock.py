@@ -140,7 +140,6 @@ class stock_picking(osv.osv):
         'weight_uom_id': lambda self,cr,uid,c: self._get_default_uom(cr,uid,c)
     }
 
-stock_picking()
 
 class stock_move(osv.osv):
     _inherit = 'stock.move'
@@ -167,17 +166,6 @@ class stock_move(osv.osv):
                             }
         return res
 
-    def _prepare_chained_picking(self, cr, uid, picking_name, picking, picking_type, moves_todo, context=None):
-        values = super(stock_move, self)._prepare_chained_picking(cr, uid, picking_name, picking, picking_type, moves_todo, context=context)
-        if picking.carrier_id:
-            values['carrier_id'] = picking.carrier_id.id
-        values['volume'] = picking.volume
-        values['weight'] = picking.weight
-        values['weight_net'] = picking.weight_net
-        values['carrier_tracking_ref'] = picking.carrier_tracking_ref
-        values['number_of_packages'] = picking.number_of_packages
-        return values
-
     _columns = {
         'weight': fields.function(_cal_move_weight, type='float', string='Weight', digits_compute= dp.get_precision('Stock Weight'), multi='_cal_move_weight',
                   store={
@@ -195,7 +183,6 @@ class stock_move(osv.osv):
     _defaults = {
         'weight_uom_id': lambda self,cr,uid,c: self._get_default_uom(cr,uid,c)
     }
-stock_move()
 
 # Redefinition of the new fields in order to update the model stock.picking.out in the orm
 # FIXME: this is a temporary workaround because of a framework bug (ref: lp996816). It should be removed as soon as
@@ -230,7 +217,6 @@ class stock_picking_out(osv.osv):
         'number_of_packages': fields.integer('Number of Packages'),
         'weight_uom_id': fields.many2one('product.uom', 'Unit of Measure', required=True,readonly="1",help="Unit of measurement for Weight",),
         }
-stock_picking_out()
 
 class stock_picking_in(osv.osv):
     _inherit = 'stock.picking.in'
@@ -258,7 +244,6 @@ class stock_picking_in(osv.osv):
         'number_of_packages': fields.integer('Number of Packages'),
         'weight_uom_id': fields.many2one('product.uom', 'Unit of Measure', required=True,readonly="1",help="Unit of measurement for Weight",),
         }
-stock_picking_in()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

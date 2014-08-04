@@ -1,0 +1,51 @@
+<openerp>
+	<data>		
+		<record id="form_server_profile" model="ir.ui.view">
+            <field name="name">edi_base.form_server_profile</field>
+            <field name="model">edi.server_profile</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Server Profile">
+                    <field name="system_id"/>
+		            <field name="enabled"/>
+                    <notebook colspan="4">
+                        <page string="General">                            
+		                    <group colspan="2" col="2">
+		                        <separator col="2" colspan="2" string="Access"/>
+		                    	<field name="user_id"/>
+		                    	<field name="login"/>
+		                    	<field name="password"/>    
+		                    </group>           
+		                    <group colspan="2" col="2">
+                                <separator col="2" colspan="2" string="Mapped User"/>
+                                <field name="property_mapped_user"/>
+                            </group>    
+	                    </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record id="tree_server_profile" model="ir.ui.view">
+            <field name="name">edi_base.tree_server_profile</field>
+            <field name="model">edi.server_profile</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Server Profiles">
+                	<field name="system_id"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_server_profile" model="ir.actions.act_window">
+            <field name="name">Server Profile</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">edi.server_profile</field>            
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+				
+        <menuitem id="menu_server_profile" name="Server Profile" parent="menu_edi" sequence="3"
+        		  action="action_server_profile"/>		
+	</data>
+</openerp>

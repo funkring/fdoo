@@ -1,0 +1,63 @@
+<openerp>
+	<data>
+		<record id="form_sale_order" model="ir.ui.view">
+			<field name="name">Sale Order form</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="at_sale.sale_order_form" />
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<data>
+					<page name="description" position="after">
+						<page name="formation" string="Formation">
+							<field name="formation_ids" nolabel="1"/>
+						</page>
+					</page>
+					<xpath expr="//notebook/page/field[@name='order_line']/form/notebook/page/field[@name='product_id']" position="before">
+						<field name="formation_id" domain="[('order_id','=',parent.id)]"  context="{ 'default_order_id': parent.id }" colspan="4"/>
+					</xpath>
+					<xpath expr="//notebook/page/field[@name='order_line']/tree/field[@name='name']" position="before">
+						<field name="formation_id" />
+					</xpath>
+				</data>
+			</field>
+		</record>
+		
+		<record id="form_sale_order_formation" model="ir.ui.view">
+			<field name="name">Sale order formation form</field>
+			<field name="model">sale.order.formation</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form>
+					<group col="2" colspan="2">
+						<separator col="2" colspan="2" string="Positioning"/>
+						<field name="name"/>
+						<field name="parent_id"/>
+						<field name="description"/>
+						<field name="line_ids" invisible="1" />
+						<field name="child_ids" invisible="1" />
+					</group>
+					<group col="2" colspan="2">
+						<separator col="2" colspan="2" string="Preferences"/>
+						<field name="print_sum"/>
+						<field name="print_formation"/>
+						<field name="print_optional" />
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		<record id="tree_sale_order_formation" model="ir.ui.view">
+			<field name="name">Sale order formation tree</field>
+			<field name="model">sale.order.formation</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Formation">
+					<field name="complete_pos"/>
+					<field name="description"/>
+				</tree>
+			</field>
+		</record>
+		
+		
+	</data>
+</openerp>

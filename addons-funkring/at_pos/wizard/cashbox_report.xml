@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+	
+		<record id="cashbox_report_view" model="ir.ui.view">
+		  <field name="name">Cashbox Report</field>
+		  <field name="model">pos.cashbox_report.wizard</field>
+		  <field name="type">form</field>
+		  <field name="arch" type="xml">
+		    <form string="Cashbox Report">
+		      <group col="4" colspan="4">
+		        <separator col="4" colspan="4" string="Selection"/>
+		      	<field name="period_id"/>
+		      	<field name="journal_id"/>
+		      	<field name="detail"/>
+		      </group>
+		      <group col="4" colspan="4">
+		        <separator col="4" colspan="4"/>
+		        <button icon='gtk-cancel' special="cancel" string="Close" />
+           		<button name="print_report" string="Print Report" colspan="1" type="object" icon="gtk-print" />
+		      </group>
+		    </form>		  
+		  </field>		
+		</record>		 
+		
+     <record id="action_cashbox_report" model="ir.actions.act_window">
+          <field name="name">Cashbox Report</field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="res_model">pos.cashbox_report.wizard</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">form</field>
+          <field name="target">new</field>
+     </record>
+      
+     <menuitem icon="STOCK_PRINT" action="action_cashbox_report"
+         id="menu_cashbox_report" parent="point_of_sale.menu_point_rep" sequence="8"/>   
+        
+         
+	</data>
+</openerp>

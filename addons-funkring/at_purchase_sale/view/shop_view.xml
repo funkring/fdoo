@@ -1,0 +1,20 @@
+<openerp>
+	<data>
+		
+		<record id="form_sale_shop" model="ir.ui.view">
+			<field name="name">at_purchase_sale.form_sale_shop</field>
+			<field name="model">sale.shop</field>
+			<field name="inherit_id" ref="at_sale.form_sale_shop" />
+			<field name="arch" type="xml">
+				<group name="general_grp" position="inside">
+					<group name="logistic_grp" string="Logistic">
+						<field name="supplier_ships_default" />
+						<field name="neutral_delivery" />
+						<field name="sender_address_id" />
+					</group>
+				</group>
+			</field>
+		</record>
+		
+	</data>
+</openerp>

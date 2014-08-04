@@ -1,21 +1,20 @@
-# Turkish translation for openobject-addons
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
-# This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* hr_holidays
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openobject-addons\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:36+0000\n"
-"PO-Revision-Date: 2013-08-04 16:33+0000\n"
-"Last-Translator: Ediz Duman <neps1192@gmail.com>\n"
-"Language-Team: Turkish <tr@li.org>\n"
+"Project-Id-Version: OpenERP Server 6.0dev\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-12-21 17:04+0000\n"
+"PO-Revision-Date: 2010-10-30 09:36+0000\n"
+"Last-Translator: Fabien (Open ERP) <fp@tinyerp.com>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-21 06:12+0000\n"
-"X-Generator: Launchpad (build 16831)\n"
+"X-Launchpad-Export-Date: 2014-03-27 06:53+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: hr_holidays
 #: selection:hr.holidays.status,color_name:0
@@ -173,6 +172,12 @@ msgid "Refuse"
 msgstr "Reddet"
 
 #. module: hr_holidays
+#: code:addons/hr_holidays/hr_holidays.py:433
+#, python-format
+msgid "Request <b>approved</b>, waiting second validation."
+msgstr "İstek <b> onaylanan </ b>, ikinci doğrulama bekliyor."
+
+#. module: hr_holidays
 #: view:hr.employee:0
 #: model:ir.actions.act_window,name:hr_holidays.act_hr_employee_holiday_request
 #: model:ir.ui.menu,name:hr_holidays.menu_open_ask_holidays
@@ -185,9 +190,9 @@ msgid "Messages"
 msgstr "Mesajlar"
 
 #. module: hr_holidays
-#: model:ir.model,name:hr_holidays.model_hr_holidays
-msgid "Leave"
-msgstr "İzin"
+#: xsl:holidays.summary:0
+msgid "Analyze from"
+msgstr "Analiz"
 
 #. module: hr_holidays
 #: code:addons/hr_holidays/wizard/hr_holidays_summary_department.py:44
@@ -291,8 +296,8 @@ msgstr "İzin Toplantıs"
 
 #. module: hr_holidays
 #: model:hr.holidays.status,name:hr_holidays.holiday_status_cl
-msgid "Legal Leaves 2013"
-msgstr "Yasal 2013 İzinleri"
+msgid "Legal Leaves 2012"
+msgstr "Yasal 2012 İzinleri"
 
 #. module: hr_holidays
 #: selection:hr.holidays.summary.dept,holiday_type:0
@@ -557,6 +562,11 @@ msgstr ""
 "            "
 
 #. module: hr_holidays
+#: sql_constraint:hr.holidays:0
+msgid "The employee or employee category of this request is missing."
+msgstr ""
+
+#. module: hr_holidays
 #: view:hr.holidays:0
 msgid "Category"
 msgstr "Kategori"
@@ -666,16 +676,10 @@ msgid "Active"
 msgstr "Etkin"
 
 #. module: hr_holidays
-#: sql_constraint:hr.holidays:0
-msgid ""
-"The employee or employee category of this request is missing. Please make "
-"sure that your user login is linked to an employee."
-msgstr ""
-
-#. module: hr_holidays
-#: view:hr.holidays:0
-msgid "Add a reason..."
-msgstr "Bir neden Ekle ..."
+#: view:hr.employee:0
+#: field:hr.employee,remaining_leaves:0
+msgid "Remaining Legal Leaves"
+msgstr "Kalan Yasal İzinler"
 
 #. module: hr_holidays
 #: field:hr.holidays,manager_id:0
@@ -724,6 +728,11 @@ msgid "My Department Leaves"
 msgstr "Departmen İzinlerim"
 
 #. module: hr_holidays
+#: model:mail.message.subtype,description:hr_holidays.mt_holidays_confirmed
+msgid "Request confirmed, waiting confirmation"
+msgstr ""
+
+#. module: hr_holidays
 #: field:hr.employee,current_leave_state:0
 msgid "Current Leave Status"
 msgstr "Mevcut İzin Durum"
@@ -766,11 +775,6 @@ msgstr "İzin Analizleri"
 #: view:hr.holidays.summary.employee:0
 msgid "Cancel"
 msgstr "İptal"
-
-#. module: hr_holidays
-#: model:mail.message.subtype,description:hr_holidays.mt_holidays_confirmed
-msgid "Request created and waiting confirmation"
-msgstr "İstek oluşturuldu ve onay bekliyor"
 
 #. module: hr_holidays
 #: view:hr.holidays:0
@@ -857,12 +861,6 @@ msgid "Description"
 msgstr "Açıklama"
 
 #. module: hr_holidays
-#: view:hr.employee:0
-#: field:hr.employee,remaining_leaves:0
-msgid "Remaining Legal Leaves"
-msgstr "Kalan Yasal İzinler"
-
-#. module: hr_holidays
 #: selection:hr.holidays,holiday_type:0
 msgid "By Employee Tag"
 msgstr "Personel Etiketi"
@@ -936,12 +934,6 @@ msgid "Both Approved and Confirmed"
 msgstr "Onaylandı ve Doğrulandı"
 
 #. module: hr_holidays
-#: code:addons/hr_holidays/hr_holidays.py:451
-#, python-format
-msgid "Request approved, waiting second validation."
-msgstr "İstek onayladı, ikinci doğrulama bekliyor."
-
-#. module: hr_holidays
 #: view:hr.holidays:0
 msgid "Approve"
 msgstr "Onayla"
@@ -960,9 +952,9 @@ msgid "The start date must be anterior to the end date."
 msgstr "Başlangıç ​​tarihi bitiş tarihinden anterior olmalıdır."
 
 #. module: hr_holidays
-#: xsl:holidays.summary:0
-msgid "Analyze from"
-msgstr "Analiz"
+#: model:ir.model,name:hr_holidays.model_hr_holidays
+msgid "Leave"
+msgstr "İzin"
 
 #. module: hr_holidays
 #: help:hr.holidays.status,double_validation:0
@@ -1043,9 +1035,29 @@ msgstr "Nedenleri"
 msgid "Select Leave Type"
 msgstr "İzin Türü Seç"
 
-#, python-format
-#~ msgid "Request <b>approved</b>, waiting second validation."
-#~ msgstr "İstek <b> onaylanan </ b>, ikinci doğrulama bekliyor."
+#~ msgid "Set to Draft"
+#~ msgstr "Taslak olarak Ayarla"
 
-#~ msgid "Legal Leaves 2012"
-#~ msgstr "Yasal 2012 İzinleri"
+#~ msgid "Holidays"
+#~ msgstr "İzinler"
+
+#~ msgid "Confirm"
+#~ msgstr "Onayla"
+
+#~ msgid "Both Validated and Confirmed"
+#~ msgstr "Her ikisi doğrulandı ve onaylandı"
+
+#~ msgid "General"
+#~ msgstr "Genel"
+
+#~ msgid "Select Holiday Type"
+#~ msgstr "İzin Tipi Seç"
+
+#~ msgid "Human Resources: Holidays management"
+#~ msgstr "İnsan Kaynakları: İzin Yönetimi"
+
+#~ msgid "Requests Approve"
+#~ msgstr "İstek Onayl"
+
+#~ msgid "Allocation Type"
+#~ msgstr "Tahsis Türü"

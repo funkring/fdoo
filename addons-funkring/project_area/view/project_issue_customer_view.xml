@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+
+
+		<record model="ir.ui.view" id="form_project_issue">
+			<field name="name">Project Issue Tracker Form</field>
+			<field name="model">project.issue</field>
+			<field name="type">form</field>
+			<field name="priority">99</field>
+			<field name="arch" type="xml">
+				<form string="Issue Tracker Form">
+					<field name="name" />
+					<field name="partner_id" invisible="True" />
+					<field name="project_id" required="True" on_change="on_change_project(project_id)" />
+					<field name="user_id" invisible="1" />
+					<field name="type_id" string="Resolution" readonly="1"/>
+					<field name="email_from" />
+					<field name="project_phase_id" />
+					<field name="priority" />
+					<notebook colspan="4">
+						<page string="Description">
+							<field name="description" nolabel="1" colspan="4" />
+							<separator colspan="4" col="4"/>
+							<group colspan="4" col="8">
+								<field name="state" colspan="6" />
+								<button name="case_open" string="Confirm" states="draft" type="object" icon="gtk-go-forward" colspan="1" />
+								<button name="case_reset" string="Reset to Draft" states="done,cancel,open" type="object" icon="gtk-convert" colspan="1" />
+							</group>
+						</page>
+					</notebook>					
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="tree_project_issue">
+			<field name="name">Project Issue Tracker Tree</field>
+			<field name="model">project.issue</field>
+			<field name="type">tree</field>
+			<field name="priority">99</field>
+			<field name="arch" type="xml">
+				<tree string="Issue Tracker Tree" colors="black:state=='open';blue:state=='pending';grey:state in ('cancel', 'done')">
+					<field name="id" />
+					<field name="create_date" />
+					<field name="name" />
+					<field name="project_id" />
+					<field name="priority" string="Priority" />
+					<field name="type_id" widget="selection" readonly="1" string="Resolution" />
+					<field name="progress" widget="progressbar" attrs="{'invisible':[('Ticket_id','=',False)]}" />
+					<field name="state" />
+					<field name="project_phase_id" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="filter_project_issue" model="ir.ui.view">
+			<field name="name">Project Issue Tracker Search</field>
+			<field name="model">project.issue</field>
+			<field name="type">search</field>
+			<field name="priority">99</field>
+			<field name="arch" type="xml">
+				<search string="Issue Tracker Search">
+					<group>
+						<field name="name" />
+						<field name="project_id" />
+						<field name="id" />
+					</group>
+				</search>
+			</field>
+		</record>
+
+		<record id="action_view_draft_ticket" model="ir.actions.act_window">
+			<field name="name">Draft Ticket</field>
+			<field name="res_model">project.issue</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="filter" eval="False" />
+			<field name="view_id" ref="tree_project_issue" />
+			<field name="domain">[('state','=','draft')]</field>
+			<field name="search_view_id" ref="filter_project_issue" />
+		</record>
+		<record model="ir.actions.act_window.view" id="action_view_draft_ticket_tree">
+			<field name="sequence" eval="1" />
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="tree_project_issue" />
+			<field name="act_window_id" ref="action_view_draft_ticket" />
+		</record>
+		<record model="ir.actions.act_window.view" id="action_view_draft_ticket_form">
+			<field name="sequence" eval="3" />
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="form_project_issue" />
+			<field name="act_window_id" ref="action_view_draft_ticket" />
+		</record>
+
+		<record id="action_view_nondraft_ticket" model="ir.actions.act_window">
+			<field name="name">Pending Tickets</field>
+			<field name="res_model">project.issue</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="filter" eval="False" />
+			<field name="view_id" ref="tree_project_issue" />
+			<field name="domain">[('state','!=','done')]</field>
+			<field name="search_view_id" ref="filter_project_issue" />
+		</record>
+		<record model="ir.actions.act_window.view" id="action_view_nondraft_ticket_tree">
+			<field name="sequence" eval="1" />
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="tree_project_issue" />
+			<field name="act_window_id" ref="action_view_nondraft_ticket" />
+		</record>
+		<record model="ir.actions.act_window.view" id="action_view_nondraft_ticket_form">
+			<field name="sequence" eval="3" />
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="form_project_issue" />
+			<field name="act_window_id" ref="action_view_nondraft_ticket" />
+		</record>
+
+
+
+	</data>
+</openerp>

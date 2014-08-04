@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>		
+		<!--		
+		<menuitem id="menu_customer_request" parent="base.menu_sales" name="New Customer Request"  sequence="0" 
+				action="action_customer_request"/>  -->
+		
+		<record model="ir.ui.menu" id="base.menu_partner_address_form">
+    		<field name="groups_id" eval="[(6, 0, [])]" />
+		</record>
+		
+	    <record model="ir.ui.menu" id="crm.menu_crm_case_categ0_act_leads">
+	        <field name="groups_id" eval="[(6, 0, [ref('at_sale_simple.group_sale_extended')])]" />
+	    </record>
+          
+		<record model="ir.ui.menu" id="base.menu_partner_address_form">
+    		<field name="groups_id" eval="[(6, 0, [])]" />
+		</record>		
+		
+		<record model="ir.actions.act_window" id="crm.act_crm_opportunity_crm_phonecall_new">
+    		<field name="groups_id" eval="[(6, 0, [])]" />
+		</record>		
+			 	
+		<record model="ir.ui.menu" id="base.menu_partner_address_form">
+    		<field name="groups_id" eval="[(6, 0, [])]" />
+		</record>
+			
+		<record model="ir.actions.report.xml" id="stock.report_product_history">
+    		<field name="groups_id" eval="[(6, 0, [ref('base.group_extended'),ref('at_sale_simple.group_sale_production')])]"/>
+		</record>		
+											
+		<record model="ir.actions.act_window" id="stock.act_product_stock_move_open">
+    		<field name="groups_id" eval="[(6, 0, [ref('at_sale_simple.group_sale_production')])]"/>
+		</record>		
+		
+		<record model="ir.actions.act_window" id="procurement.act_product_product_2_stock_warehouse_orderpoint">
+    		<field name="groups_id" eval="[(6, 0, [ref('at_sale_simple.group_sale_production')])]"/>
+		</record>		
+				
+		<act_window
+            id="act_opportunity_to_order"
+            name="Sale Orders"            
+            res_model="sale.order"
+            src_model="crm.lead"
+            view_mode="tree,form"
+            context="{'default_opportunity_id': active_id}"
+            domain="[('opportunity_id', '=', active_id)]"
+            view_type="form"/>								
+	</data>
+</openerp>

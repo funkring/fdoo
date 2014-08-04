@@ -1,0 +1,11 @@
+<openerp>
+	<data>
+		 <act_window id="wizard_send_invoice" 
+            name="Send Invoice"
+            res_model="at_mail_wizard.mail_wizard"
+            src_model="account.invoice"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"/>          
+	</data>
+</openerp>

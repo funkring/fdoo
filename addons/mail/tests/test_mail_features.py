@@ -19,30 +19,32 @@
 #
 ##############################################################################
 
-from openerp.addons.mail.tests.test_mail_base import TestMailBase
+from openerp.addons.mail.mail_mail import mail_mail
+from openerp.addons.mail.mail_thread import mail_thread
+from openerp.addons.mail.tests.common import TestMail
+from openerp.tools import mute_logger, email_split
 from openerp.tools.mail import html_sanitize
 
 
-class test_mail(TestMailBase):
-    
+class test_mail(TestMail):
+
     def test_000_alias_setup(self):
         """ Test basic mail.alias setup works, before trying to use them for routing """
         cr, uid = self.cr, self.uid
         self.user_valentin_id = self.res_users.create(cr, uid,
-            {'name': 'Valentin Cognito', 'email': 'valentin.cognito@gmail.com', 'login': 'valentin.cognito'})
+            {'name': 'Valentin Cognito', 'email': 'valentin.cognito@gmail.com', 'login': 'valentin.cognito', 'alias_name': 'valentin.cognito'})
         self.user_valentin = self.res_users.browse(cr, uid, self.user_valentin_id)
         self.assertEquals(self.user_valentin.alias_name, self.user_valentin.login, "Login should be used as alias")
 
         self.user_pagan_id = self.res_users.create(cr, uid,
-            {'name': 'Pagan Le Marchant', 'email': 'plmarchant@gmail.com', 'login': 'plmarchant@gmail.com'})
+            {'name': 'Pagan Le Marchant', 'email': 'plmarchant@gmail.com', 'login': 'plmarchant@gmail.com', 'alias_name': 'plmarchant@gmail.com'})
         self.user_pagan = self.res_users.browse(cr, uid, self.user_pagan_id)
         self.assertEquals(self.user_pagan.alias_name, 'plmarchant', "If login is an email, the alias should keep only the local part")
 
         self.user_barty_id = self.res_users.create(cr, uid,
-            {'name': 'Bartholomew Ironside', 'email': 'barty@gmail.com', 'login': 'b4r+_#_R3wl$$'})
+            {'name': 'Bartholomew Ironside', 'email': 'barty@gmail.com', 'login': 'b4r+_#_R3wl$$', 'alias_name': 'b4r+_#_R3wl$$'})
         self.user_barty = self.res_users.browse(cr, uid, self.user_barty_id)
         self.assertEquals(self.user_barty.alias_name, 'b4r+_-_r3wl-', 'Disallowed chars should be replaced by hyphens')
-
 
     def test_00_followers_function_field(self):
         """ Tests designed for the many2many function field 'follower_ids'.
@@ -225,6 +227,136 @@ class test_mail(TestMailBase):
         self.assertIn('expandable', result, 'Expandable should be present.')
         self.assertNotIn('First answer, should not be displayed', result, 'Old answer should not be in quote.')
         self.assertNotIn('My answer I am propagating', result, 'Thread header content should be in quote.')
+
+    def test_11_notification_url(self):
+        """ Tests designed to test the URL added in notification emails. """
+        cr, uid, group_pigs = self.cr, self.uid, self.group_pigs
+        # Test URL formatting
+        base_url = self.registry('ir.config_parameter').get_param(cr, uid, 'web.base.url')
+
+        # Partner data
+        partner_raoul = self.res_partner.browse(cr, uid, self.partner_raoul_id)
+        partner_bert_id = self.res_partner.create(cr, uid, {'name': 'bert'})
+        partner_bert = self.res_partner.browse(cr, uid, partner_bert_id)
+        # Mail data
+        mail_mail_id = self.mail_mail.create(cr, uid, {'state': 'exception'})
+        mail = self.mail_mail.browse(cr, uid, mail_mail_id)
+
+        # Test: link for nobody -> None
+        url = mail_mail._get_partner_access_link(self.mail_mail, cr, uid, mail)
+        self.assertEqual(url, None,
+                         'notification email: mails not send to a specific partner should not have any URL')
+
+        # Test: link for partner -> None
+        url = mail_mail._get_partner_access_link(self.mail_mail, cr, uid, mail, partner=partner_bert)
+        self.assertEqual(url, None,
+                         'notification email: mails send to a not-user partner should not have any URL')
+
+        # Test: link for user -> signin
+        url = mail_mail._get_partner_access_link(self.mail_mail, cr, uid, mail, partner=partner_raoul)
+        self.assertIn(base_url, url,
+                      'notification email: link should contain web.base.url')
+        self.assertIn('db=%s' % cr.dbname, url,
+                      'notification email: link should contain database name')
+        self.assertIn('action=mail.action_mail_redirect', url,
+                      'notification email: link should contain the redirect action')
+        self.assertIn('login=%s' % partner_raoul.user_ids[0].login, url,
+                      'notification email: link should contain the user login')
+
+        # Test: link for user -> with model and res_id
+        mail_mail_id = self.mail_mail.create(cr, uid, {'model': 'mail.group', 'res_id': group_pigs.id})
+        mail = self.mail_mail.browse(cr, uid, mail_mail_id)
+        url = mail_mail._get_partner_access_link(self.mail_mail, cr, uid, mail, partner=partner_raoul)
+        self.assertIn(base_url, url,
+                      'notification email: link should contain web.base.url')
+        self.assertIn('db=%s' % cr.dbname, url,
+                      'notification email: link should contain database name')
+        self.assertIn('action=mail.action_mail_redirect', url,
+                      'notification email: link should contain the redirect action')
+        self.assertIn('login=%s' % partner_raoul.user_ids[0].login, url,
+                      'notification email: link should contain the user login')
+        self.assertIn('model=mail.group', url,
+                      'notification email: link should contain the model when having not notification email on a record')
+        self.assertIn('res_id=%s' % group_pigs.id, url,
+                      'notification email: link should contain the res_id when having not notification email on a record')
+
+        # Test: link for user -> with model and res_id
+        mail_mail_id = self.mail_mail.create(cr, uid, {'notification': True, 'model': 'mail.group', 'res_id': group_pigs.id})
+        mail = self.mail_mail.browse(cr, uid, mail_mail_id)
+        url = mail_mail._get_partner_access_link(self.mail_mail, cr, uid, mail, partner=partner_raoul)
+        self.assertIn(base_url, url,
+                      'notification email: link should contain web.base.url')
+        self.assertIn('db=%s' % cr.dbname, url,
+                      'notification email: link should contain database name')
+        self.assertIn('action=mail.action_mail_redirect', url,
+                      'notification email: link should contain the redirect action')
+        self.assertIn('login=%s' % partner_raoul.user_ids[0].login, url,
+                      'notification email: link should contain the user login')
+        self.assertIn('message_id=%s' % mail.mail_message_id.id, url,
+                      'notification email: link based on message should contain the mail_message id')
+        self.assertNotIn('model=mail.group', url,
+                         'notification email: link based on message should not contain model')
+        self.assertNotIn('res_id=%s' % group_pigs.id, url,
+                         'notification email: link based on message should not contain res_id')
+
+    @mute_logger('openerp.addons.mail.mail_thread', 'openerp.osv.orm')
+    def test_12_inbox_redirection(self):
+        """ Tests designed to test the inbox redirection of emails notification URLs. """
+        cr, uid, user_admin, group_pigs = self.cr, self.uid, self.user_admin, self.group_pigs
+        model, act_id = self.ir_model_data.get_object_reference(cr, uid, 'mail', 'action_mail_inbox_feeds')
+        # Data: post a message on pigs
+        msg_id = self.group_pigs.message_post(body='My body', partner_ids=[self.partner_bert_id], type='comment', subtype='mail.mt_comment')
+
+        # No specific parameters -> should redirect to Inbox
+        action = mail_thread.message_redirect_action(self.mail_thread, cr, self.user_raoul_id, {'params': {}})
+        self.assertEqual(
+            action.get('type'), 'ir.actions.client',
+            'URL redirection: action without parameters should redirect to client action Inbox'
+        )
+        self.assertEqual(
+            action.get('id'), act_id,
+            'URL redirection: action without parameters should redirect to client action Inbox'
+        )
+
+        # Raoul has read access to Pigs -> should redirect to form view of Pigs
+        action = mail_thread.message_redirect_action(self.mail_thread, cr, self.user_raoul_id, {'params': {'message_id': msg_id}})
+        self.assertEqual(
+            action.get('type'), 'ir.actions.act_window',
+            'URL redirection: action with message_id for read-accredited user should redirect to Pigs'
+        )
+        self.assertEqual(
+            action.get('res_id'), group_pigs.id,
+            'URL redirection: action with message_id for read-accredited user should redirect to Pigs'
+        )
+        action = mail_thread.message_redirect_action(self.mail_thread, cr, self.user_raoul_id, {'params': {'model': 'mail.group', 'res_id': group_pigs.id}})
+        self.assertEqual(
+            action.get('type'), 'ir.actions.act_window',
+            'URL redirection: action with message_id for read-accredited user should redirect to Pigs'
+        )
+        self.assertEqual(
+            action.get('res_id'), group_pigs.id,
+            'URL redirection: action with message_id for read-accredited user should redirect to Pigs'
+        )
+
+        # Bert has no read access to Pigs -> should redirect to Inbox
+        action = mail_thread.message_redirect_action(self.mail_thread, cr, self.user_bert_id, {'params': {'message_id': msg_id}})
+        self.assertEqual(
+            action.get('type'), 'ir.actions.client',
+            'URL redirection: action without parameters should redirect to client action Inbox'
+        )
+        self.assertEqual(
+            action.get('id'), act_id,
+            'URL redirection: action without parameters should redirect to client action Inbox'
+        )
+        action = mail_thread.message_redirect_action(self.mail_thread, cr, self.user_bert_id, {'params': {'model': 'mail.group', 'res_id': group_pigs.id}})
+        self.assertEqual(
+            action.get('type'), 'ir.actions.client',
+            'URL redirection: action without parameters should redirect to client action Inbox'
+        )
+        self.assertEqual(
+            action.get('id'), act_id,
+            'URL redirection: action without parameters should redirect to client action Inbox'
+        )
 
     def test_20_message_post(self):
         """ Tests designed for message_post. """
@@ -419,8 +551,8 @@ class test_mail(TestMailBase):
                             'message_post: notification email sent to more than one email address instead of a precise partner')
             self.assertIn(sent_email['email_to'][0], test_emailto,
                             'message_post: notification email email_to incorrect')
-            self.assertEqual(sent_email['reply_to'], '"Followers of Pigs" <r@r>',
-                            'message_post: notification email reply_to incorrect: should name Followers of Pigs, and have raoul email')
+            self.assertEqual(email_split(sent_email['reply_to']), ['r@r'],  # was '"Followers of Pigs" <r@r>', but makes no sense
+                            'message_post: notification email reply_to incorrect: should have raoul email')
             self.assertEqual(_mail_subject, sent_email['subject'],
                             'message_post: notification email subject incorrect')
             self.assertIn(html_sanitize(_body2), sent_email['body'],
@@ -571,6 +703,7 @@ class test_mail(TestMailBase):
             {
                 'subject': _subject,
                 'body': '${object.description}',
+                'post': True,
                 'partner_ids': [(4, p_c_id), (4, p_d_id)],
             }, context={
                 'default_composition_mode': 'mass_mail',
@@ -580,7 +713,7 @@ class test_mail(TestMailBase):
             })
         compose = mail_compose.browse(cr, uid, compose_id)
 
-        # D: Post the comment, get created message for each group
+        # Do: Post the comment, get created message for each group
         mail_compose.send_mail(cr, user_raoul.id, [compose_id], context={
                         'default_res_id': -1,
                         'active_ids': [self.group_pigs_id, group_bird_id]
@@ -618,6 +751,38 @@ class test_mail(TestMailBase):
         test_pids = [self.partner_admin_id]
         self.assertEqual(set(bird_pids), set(test_pids),
                         'compose wizard: mail_post_autofollow and mail_create_nosubscribe context keys not correctly taken into account')
+
+        # Do: Compose in mass_mail, coming from list_view, we have an active_domain that should be supported
+        compose_id = mail_compose.create(cr, user_raoul.id,
+            {
+                'subject': _subject,
+                'body': '${object.description}',
+                'post': True,
+                'partner_ids': [(4, p_c_id), (4, p_d_id)],
+            }, context={
+                'default_composition_mode': 'mass_mail',
+                'default_model': 'mail.group',
+                'default_res_id': False,
+                'active_ids': [self.group_pigs_id],
+                'active_domain': [('name', 'in', ['Pigs', 'Bird'])],
+            })
+        compose = mail_compose.browse(cr, uid, compose_id)
+
+        # Do: Post the comment, get created message for each group
+        mail_compose.send_mail(
+            cr, user_raoul.id, [compose_id], context={
+                'default_res_id': -1,
+                'active_ids': [self.group_pigs_id, group_bird_id]
+            })
+        group_pigs.refresh()
+        group_bird.refresh()
+        message1 = group_pigs.message_ids[0]
+        message2 = group_bird.message_ids[0]
+
+        # Test: Pigs and Bird did receive their message
+        test_msg_ids = self.mail_message.search(cr, uid, [], limit=2)
+        self.assertIn(message1.id, test_msg_ids, 'compose wizard: Pigs did not receive its mass mailing message')
+        self.assertIn(message2.id, test_msg_ids, 'compose wizard: Bird did not receive its mass mailing message')
 
     def test_30_needaction(self):
         """ Tests for mail.message needaction. """
@@ -679,18 +844,21 @@ class test_mail(TestMailBase):
         self.ir_model_data.create(cr, uid, {'name': 'mt_private', 'model': 'mail.message.subtype', 'module': 'mail', 'res_id': mt_private_id})
         mt_name_supername_id = self.mail_message_subtype.create(cr, uid, {'name': 'name_supername', 'description': 'Supername name'})
         self.ir_model_data.create(cr, uid, {'name': 'mt_name_supername', 'model': 'mail.message.subtype', 'module': 'mail', 'res_id': mt_name_supername_id})
+        mt_group_public_set_id = self.mail_message_subtype.create(cr, uid, {'name': 'group_public_set', 'description': 'Group set'})
+        self.ir_model_data.create(cr, uid, {'name': 'mt_group_public_set', 'model': 'mail.message.subtype', 'module': 'mail', 'res_id': mt_group_public_set_id})
         mt_group_public_id = self.mail_message_subtype.create(cr, uid, {'name': 'group_public', 'description': 'Group changed'})
         self.ir_model_data.create(cr, uid, {'name': 'mt_group_public', 'model': 'mail.message.subtype', 'module': 'mail', 'res_id': mt_group_public_id})
 
         # Data: alter mail_group model for testing purposes (test on classic, selection and many2one fields)
         self.mail_group._track = {
             'public': {
-                'mail.mt_private': lambda self, cr, uid, obj, ctx=None: obj['public'] == 'private',
+                'mail.mt_private': lambda self, cr, uid, obj, ctx=None: obj.public == 'private',
             },
             'name': {
-                'mail.mt_name_supername': lambda self, cr, uid, obj, ctx=None: obj['name'] == 'supername',
+                'mail.mt_name_supername': lambda self, cr, uid, obj, ctx=None: obj.name == 'supername',
             },
             'group_public_id': {
+                'mail.mt_group_public_set': lambda self, cr, uid, obj, ctx=None: obj.group_public_id,
                 'mail.mt_group_public': lambda self, cr, uid, obj, ctx=None: True,
             },
         }
@@ -727,21 +895,37 @@ class test_mail(TestMailBase):
         self.assertIn(u'Public\u2192Private', _strip_string_spaces(last_msg.body), 'tracked: message body incorrect')
         self.assertIn(u'Pigs\u2192supername', _strip_string_spaces(last_msg.body), 'tracked feature: message body does not hold always tracked field')
 
-        # Test: change public as public, group_public_id -> 1 subtype, name always tracked
+        # Test: change public as public, group_public_id -> 2 subtypes, name always tracked
         self.mail_group.write(cr, self.user_raoul_id, [self.group_pigs_id], {'public': 'public', 'group_public_id': group_system_id})
         self.group_pigs.refresh()
-        self.assertEqual(len(self.group_pigs.message_ids), 4, 'tracked: one message should have been produced')
-        # Test: first produced message: mt_group_public_id, with name always tracked, public tracked on change
+        self.assertEqual(len(self.group_pigs.message_ids), 5, 'tracked: one message should have been produced')
+        # Test: first produced message: mt_group_public_set_id, with name always tracked, public tracked on change
         last_msg = self.group_pigs.message_ids[-4]
-        self.assertEqual(last_msg.subtype_id.id, mt_group_public_id, 'tracked: message should not be linked to any subtype')
+        self.assertEqual(last_msg.subtype_id.id, mt_group_public_set_id, 'tracked: message should be linked to mt_group_public_set_id')
+        self.assertIn('Group set', last_msg.body, 'tracked: message body does not hold the subtype description')
+        self.assertIn(u'Private\u2192Public', _strip_string_spaces(last_msg.body), 'tracked: message body does not hold changed tracked field')
+        self.assertIn(u'HumanResources/Employee\u2192Administration/Settings', _strip_string_spaces(last_msg.body), 'tracked: message body does not hold always tracked field')
+        # Test: second produced message: mt_group_public_id, with name always tracked, public tracked on change
+        last_msg = self.group_pigs.message_ids[-5]
+        self.assertEqual(last_msg.subtype_id.id, mt_group_public_id, 'tracked: message should be linked to mt_group_public_id')
         self.assertIn('Group changed', last_msg.body, 'tracked: message body does not hold the subtype description')
         self.assertIn(u'Private\u2192Public', _strip_string_spaces(last_msg.body), 'tracked: message body does not hold changed tracked field')
         self.assertIn(u'HumanResources/Employee\u2192Administration/Settings', _strip_string_spaces(last_msg.body), 'tracked: message body does not hold always tracked field')
 
+        # Test: change group_public_id to False -> 1 subtype, name always tracked
+        self.mail_group.write(cr, self.user_raoul_id, [self.group_pigs_id], {'group_public_id': False})
+        self.group_pigs.refresh()
+        self.assertEqual(len(self.group_pigs.message_ids), 6, 'tracked: one message should have been produced')
+        # Test: first produced message: mt_group_public_set_id, with name always tracked, public tracked on change
+        last_msg = self.group_pigs.message_ids[-6]
+        self.assertEqual(last_msg.subtype_id.id, mt_group_public_id, 'tracked: message should be linked to mt_group_public_id')
+        self.assertIn('Group changed', last_msg.body, 'tracked: message body does not hold the subtype description')
+        self.assertIn(u'Administration/Settings\u2192', _strip_string_spaces(last_msg.body), 'tracked: message body does not hold always tracked field')
+
         # Test: change not tracked field, no tracking message
         self.mail_group.write(cr, self.user_raoul_id, [self.group_pigs_id], {'description': 'Dummy'})
         self.group_pigs.refresh()
-        self.assertEqual(len(self.group_pigs.message_ids), 4, 'tracked: No message should have been produced')
+        self.assertEqual(len(self.group_pigs.message_ids), 6, 'tracked: No message should have been produced')
 
         # Data: removed changes
         public_col.track_visibility = None

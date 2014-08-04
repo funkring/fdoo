@@ -1,0 +1,454 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* supplier_area
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1-dev\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2013-04-08 15:29+0000\n"
+"PO-Revision-Date: 2013-04-09 12:36+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: supplier_area
+#: view:purchase.order.line:0
+msgid "Category"
+msgstr "Kategorie"
+
+#. module: supplier_area
+#: view:purchase.order.line:0
+#: selection:purchase.stage_wizard,state:0
+msgid "Confirmed"
+msgstr "Bestätigt"
+
+#. module: supplier_area
+#: field:supplier_area.delivery_today_stock_wizard,date_from:0
+#: field:supplier_area.delivery_today_wizard,date_from:0
+msgid "From"
+msgstr "Von"
+
+#. module: supplier_area
+#: code:addons/supplier_area/report/delivery_report.py:35
+#: code:addons/supplier_area/report/delivery_stock_report.py:35
+#, python-format
+msgid "Alteration Date"
+msgstr "Änderungsdatum"
+
+#. module: supplier_area
+#: code:addons/supplier_area/wizard/purchase_stage_wizard.py:49
+#, python-format
+msgid "No"
+msgstr "Nein"
+
+#. module: supplier_area
+#: view:purchase.order.line:0
+msgid "Log Entries"
+msgstr "Protokoll Einträge"
+
+#. module: supplier_area
+#: model:ir.model,name:supplier_area.model_purchase_order_line
+#: view:purchase.order.line:0
+msgid "Purchase Order Line"
+msgstr "Einkaufspositionen"
+
+#. module: supplier_area
+#: view:purchase.order.line:0
+msgid "Validate"
+msgstr "Validate"
+
+#. module: supplier_area
+#: view:purchase.order.line:0
+msgid "Priority"
+msgstr "Priorität"
+
+#. module: supplier_area
+#: view:purchase.order.line:0
+msgid "Group By..."
+msgstr "Gruppierung..."
+
+#. module: supplier_area
+#: view:purchase.order.line:0
+#: field:purchase.stage_wizard,state:0
+msgid "State"
+msgstr "Status"
+
+#. module: supplier_area
+#: view:purchase.order.line:0
+#: selection:purchase.stage_wizard,state:0
+msgid "Draft"
+msgstr "Entwurf"
+
+#. module: supplier_area
+#: view:purchase.order.line:0
+msgid "Today Planned"
+msgstr "Heute geplant"
+
+#. module: supplier_area
+#: code:addons/supplier_area/wizard/purchase_stage_wizard.py:56
+#, python-format
+msgid "Supplier unit price changed to %s"
+msgstr "Lieferant hat den Preis auf %s geändert"
+
+#. module: supplier_area
+#: view:supplier_area.delivery_today_stock_wizard:0
+#: view:supplier_area.delivery_today_wizard:0
+msgid "Print"
+msgstr "Drucken"
+
+#. module: supplier_area
+#: code:addons/supplier_area/wizard/purchase_stage_wizard.py:49
+#, python-format
+msgid "Yes"
+msgstr "Ja"
+
+#. module: supplier_area
+#: view:purchase.order.line:0
+msgid "Confirmed Purchase line"
+msgstr "Bestätigte Bestellposition"
+
+#. module: supplier_area
+#: model:ir.actions.act_window,name:supplier_area.open_supplier_area
+#: model:ir.ui.menu,name:supplier_area.menu_board_supplier_area
+msgid "Supplier Dashboard"
+msgstr "Lieferantenübersicht"
+
+#. module: supplier_area
+#: view:purchase.order.line:0
+msgid "Ship"
+msgstr "Ausliefern"
+
+#. module: supplier_area
+#: code:addons/supplier_area/report/delivery_report.py:39
+#: code:addons/supplier_area/report/delivery_stock_report.py:39
+#, python-format
+msgid "Product"
+msgstr "Produkt"
+
+#. module: supplier_area
+#: view:purchase.order.line:0
+msgid "Draft Purchase line"
+msgstr "Preisanfrage"
+
+#. module: supplier_area
+#: view:purchase.stage_wizard:0
+#: field:purchase.stage_wizard,description:0
+msgid "Description"
+msgstr "Beschreibung"
+
+#. module: supplier_area
+#: view:board.board:0
+msgid "Quote Requests"
+msgstr "Preisanfragen"
+
+#. module: supplier_area
+#: view:purchase.order.line:0
+msgid "Today Changed"
+msgstr "Heute geändert"
+
+#. module: supplier_area
+#: model:ir.model,name:supplier_area.model_purchase_stage_wizard
+msgid "Next Purchase Stage"
+msgstr "Nächste Stufe"
+
+#. module: supplier_area
+#: field:purchase.stage_wizard,delivery:0
+msgid "Delivery"
+msgstr "Ausliefern/Versenden"
+
+#. module: supplier_area
+#: view:board.board:0
+msgid "Request for Quotations"
+msgstr "Angebotsanfragen"
+
+#. module: supplier_area
+#: code:addons/supplier_area/wizard/purchase_stage_wizard.py:51
+#, python-format
+msgid "Supplier invoice state changed to %s"
+msgstr "Lieferant hat den Verrechnet Status auf %s geändert"
+
+#. module: supplier_area
+#: help:purchase.stage_wizard,supplier_invoiced:0
+msgid "Has Supplier invoiced?"
+msgstr "Hat Lieferant fakturiert?"
+
+#. module: supplier_area
+#: field:purchase.stage_wizard,supplier_unit_price:0
+msgid "Supplier Unit Price"
+msgstr "Einzelpreis Lieferant"
+
+#. module: supplier_area
+#: code:addons/supplier_area/report/delivery_report.py:36
+#: code:addons/supplier_area/report/delivery_stock_report.py:36
+#, python-format
+msgid "Address"
+msgstr "Adresse"
+
+#. module: supplier_area
+#: view:purchase.order.line:0
+msgid "Delivery Address"
+msgstr "Lieferaddresse"
+
+#. module: supplier_area
+#: view:purchase.order.line:0
+msgid "Picking"
+msgstr "Packliste"
+
+#. module: supplier_area
+#: code:addons/supplier_area/report/delivery_report.py:53
+#: code:addons/supplier_area/report/delivery_stock_report.py:53
+#, python-format
+msgid "Order Overview %s"
+msgstr "Bestellübersicht %s"
+
+#. module: supplier_area
+#: view:board.board:0
+msgid "Updates"
+msgstr "Neuigkeiten"
+
+#. module: supplier_area
+#: view:purchase.order.line:0
+msgid "Info"
+msgstr "Info"
+
+#. module: supplier_area
+#: view:purchase.order.line:0
+#: field:supplier_area.delivery_today_stock_wizard,shop_id:0
+#: field:supplier_area.delivery_today_wizard,shop_id:0
+msgid "Shop"
+msgstr "Shop"
+
+#. module: supplier_area
+#: view:purchase.stage_wizard:0
+msgid "Ok"
+msgstr "Ok"
+
+#. module: supplier_area
+#: field:purchase.order.line,supplier_update:0
+msgid "Supplier Update"
+msgstr "Lieferanten Update"
+
+#. module: supplier_area
+#: field:purchase.stage_wizard,level_id:0
+#: field:supplier_area.delivery_today_wizard,level_id:0
+msgid "Level"
+msgstr "Stufe"
+
+#. module: supplier_area
+#: view:purchase.order.line:0
+msgid "Notes"
+msgstr "Bemerkungen"
+
+#. module: supplier_area
+#: model:ir.ui.menu,name:supplier_area.menu_root
+msgid "Supplier Area"
+msgstr "Lieferant"
+
+#. module: supplier_area
+#: field:supplier_area.delivery_today_stock_wizard,date_to:0
+#: field:supplier_area.delivery_today_wizard,date_to:0
+msgid "To"
+msgstr "Bis"
+
+#. module: supplier_area
+#: code:addons/supplier_area/purchase.py:86
+#: view:purchase.order.line:0
+#: view:purchase.stage_wizard:0
+#, python-format
+msgid "Next Stage"
+msgstr "Nächste Stufe"
+
+#. module: supplier_area
+#: code:addons/supplier_area/wizard/purchase_stage_wizard.py:46
+#, python-format
+msgid "Level changed to %s"
+msgstr "Stufe geändert auf %s"
+
+#. module: supplier_area
+#: view:purchase.order.line:0
+msgid "Date"
+msgstr "Datum"
+
+#. module: supplier_area
+#: model:ir.actions.act_window,name:supplier_area.action_sale_order_purchase_lines_twoweeks
+#: model:ir.ui.menu,name:supplier_area.menu_purchase_line_twoweeks
+msgid "Purchase Order Lines (Two Weeks)"
+msgstr "Bestellpositionen (2 Wochen)"
+
+#. module: supplier_area
+#: view:purchase.order.line:0
+msgid "Log Entry"
+msgstr "Protokolleintrag"
+
+#. module: supplier_area
+#: view:board.board:0
+msgid "Confirmed Purchases"
+msgstr "Bestätigte Beschaffungsaufträge"
+
+#. module: supplier_area
+#: model:ir.actions.act_window,name:supplier_area.action_sale_order_purchase_lines_fourweeks
+#: model:ir.ui.menu,name:supplier_area.menu_purchase_line_fourweeks
+msgid "Purchase Order Lines (Four Weeks)"
+msgstr "Bestellpositionen (4 Wochen)"
+
+#. module: supplier_area
+#: model:ir.model,name:supplier_area.model_supplier_area_delivery_today_stock_wizard
+#: model:ir.model,name:supplier_area.model_supplier_area_delivery_today_wizard
+msgid "Deliveries Today"
+msgstr "Auslieferung Heute"
+
+#. module: supplier_area
+#: selection:purchase.stage_wizard,state:0
+msgid "Cancelled"
+msgstr "Abgebrochen"
+
+#. module: supplier_area
+#: view:purchase.order.line:0
+msgid "Picking Small"
+msgstr "Packliste (A6)"
+
+#. module: supplier_area
+#: view:board.board:0
+msgid "My Board"
+msgstr "Meine Pinnwand"
+
+#. module: supplier_area
+#: view:purchase.order.line:0
+msgid "Purchase Order"
+msgstr "Beschaffungsauftrag"
+
+#. module: supplier_area
+#: view:purchase.order.line:0
+#: view:purchase.stage_wizard:0
+#: field:purchase.stage_wizard,message:0
+msgid "Message"
+msgstr "Nachricht"
+
+#. module: supplier_area
+#: code:addons/supplier_area/report/delivery_report.py:37
+#: code:addons/supplier_area/report/delivery_stock_report.py:37
+#, python-format
+msgid "Quantity"
+msgstr "Menge"
+
+#. module: supplier_area
+#: code:addons/supplier_area/report/delivery_report.py:34
+#: code:addons/supplier_area/report/delivery_stock_report.py:34
+#: view:purchase.order.line:0
+#, python-format
+msgid "Origin"
+msgstr "Ursprung"
+
+#. module: supplier_area
+#: view:purchase.order.line:0
+msgid "Search Purchase Order"
+msgstr "Suche Beschaffungsauftrag"
+
+#. module: supplier_area
+#: view:purchase.order.line:0
+msgid "Attachments"
+msgstr "Anhänge"
+
+#. module: supplier_area
+#: view:purchase.stage_wizard:0
+msgid "Supplier"
+msgstr "Lieferant"
+
+#. module: supplier_area
+#: model:ir.actions.report.xml,name:supplier_area.report_delivery_pdf
+#: model:ir.actions.report.xml,name:supplier_area.report_delivery_stock_pdf
+msgid "Order Overview"
+msgstr "Auftragsübersicht"
+
+#. module: supplier_area
+#: model:ir.actions.act_window,name:supplier_area.action_delivery_today
+#: model:ir.actions.act_window,name:supplier_area.action_delivery_today_stock
+#: view:supplier_area.delivery_today_stock_wizard:0
+#: view:supplier_area.delivery_today_wizard:0
+msgid "Delivery Date"
+msgstr "Auslieferung - Datum"
+
+#. module: supplier_area
+#: model:ir.actions.act_window,name:supplier_area.action_sale_order_purchase_lines3
+msgid "Purchase Quote Lines"
+msgstr "Preisanfragen"
+
+#. module: supplier_area
+#: model:ir.actions.act_window,name:supplier_area.action_purchase_line
+#: model:ir.ui.menu,name:supplier_area.menu_purchase_line
+msgid "Supplier Purchase Order Lines"
+msgstr "Lieferanten Bestellpositionen"
+
+#. module: supplier_area
+#: view:board.board:0
+msgid "Purchase Order Waiting Approval"
+msgstr "Erwarte Auftragsbestätigung"
+
+#. module: supplier_area
+#: code:addons/supplier_area/report/delivery_report.py:40
+#: code:addons/supplier_area/report/delivery_stock_report.py:40
+#, python-format
+msgid "Product Number"
+msgstr "Artikelnummer"
+
+#. module: supplier_area
+#: selection:purchase.stage_wizard,state:0
+msgid "Done"
+msgstr "Erledigt"
+
+#. module: supplier_area
+#: view:purchase.order.line:0
+msgid "Customer Reference"
+msgstr "Kundenreferenz"
+
+#. module: supplier_area
+#: view:purchase.stage_wizard:0
+#: view:supplier_area.delivery_today_stock_wizard:0
+#: view:supplier_area.delivery_today_wizard:0
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#. module: supplier_area
+#: model:ir.actions.act_window,name:supplier_area.action_purchase_line2
+#: model:ir.actions.act_window,name:supplier_area.action_purchase_line_blocked
+#: model:ir.actions.act_window,name:supplier_area.action_purchase_line_changed
+#: model:ir.actions.act_window,name:supplier_area.action_purchase_line_quote
+#: model:ir.actions.act_window,name:supplier_area.action_purchase_request_line_confirmed
+#: model:ir.actions.act_window,name:supplier_area.action_sale_order_purchase_lines
+#: model:ir.ui.menu,name:supplier_area.menu_purchase_line_user
+#: view:purchase.order.line:0
+msgid "Purchase Order Lines"
+msgstr "Bestellpositionen"
+
+#. module: supplier_area
+#: view:board.board:0
+msgid "Blocked Order Lines"
+msgstr "Blockierte Bestellpositionen"
+
+#. module: supplier_area
+#: view:purchase.stage_wizard:0
+msgid "Stage Wizard"
+msgstr "Stufen Eingabe"
+
+#. module: supplier_area
+#: code:addons/supplier_area/purchase.py:72
+#: view:purchase.order.line:0
+#, python-format
+msgid "Order Line"
+msgstr "Bestellzeile"
+
+#. module: supplier_area
+#: model:ir.actions.act_window,name:supplier_area.action_sale_order_purchase_lines_oneweek
+#: model:ir.ui.menu,name:supplier_area.menu_purchase_line_oneweek
+msgid "Purchase Order Lines (One Week)"
+msgstr "Bestellpositionen (1 Woche)"
+
+#. module: supplier_area
+#: field:purchase.stage_wizard,supplier_invoiced:0
+msgid "Invoiced"
+msgstr "Verrechnet"
+

@@ -1,65 +1,64 @@
-# Swedish translation for openobject-addons
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
-# This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* board
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openobject-addons\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:36+0000\n"
-"PO-Revision-Date: 2014-03-27 12:29+0000\n"
-"Last-Translator: Anders Wallenquist <anders.wallenquist@vertel.se>\n"
-"Language-Team: Swedish <sv@li.org>\n"
+"Project-Id-Version: OpenERP Server 5.0.14\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-12-21 17:05+0000\n"
+"PO-Revision-Date: 2011-08-03 23:18+0000\n"
+"Last-Translator: Stefan Lind <Unknown>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-03-28 06:44+0000\n"
+"X-Launchpad-Export-Date: 2014-03-27 06:54+0000\n"
 "X-Generator: Launchpad (build 16967)\n"
 
 #. module: board
 #: model:ir.actions.act_window,name:board.action_board_create
 #: model:ir.ui.menu,name:board.menu_board_create
 msgid "Create Board"
-msgstr "Skapa en anslagstavla"
+msgstr ""
 
 #. module: board
 #: view:board.create:0
 msgid "Create"
-msgstr "Skapa"
+msgstr ""
 
 #. module: board
 #. openerp-web
 #: code:addons/board/static/src/xml/board.xml:4
 #, python-format
 msgid "Reset Layout.."
-msgstr "Återställ layouten"
+msgstr ""
 
 #. module: board
 #: view:board.create:0
 msgid "Create New Dashboard"
-msgstr "Skapa ny anslagstavla"
+msgstr ""
 
 #. module: board
 #. openerp-web
 #: code:addons/board/static/src/xml/board.xml:40
 #, python-format
 msgid "Choose dashboard layout"
-msgstr "Välj anslagstavellayout"
+msgstr ""
 
 #. module: board
 #. openerp-web
 #: code:addons/board/static/src/xml/board.xml:70
 #, python-format
 msgid "Add"
-msgstr "Lägg till"
+msgstr ""
 
 #. module: board
 #. openerp-web
 #: code:addons/board/static/src/js/dashboard.js:139
 #, python-format
 msgid "Are you sure you want to remove this item ?"
-msgstr "Är du säker på att du vill radera?"
+msgstr ""
 
 #. module: board
 #: model:ir.model,name:board.model_board_board
@@ -71,31 +70,31 @@ msgstr "Bräde"
 #: model:ir.actions.act_window,name:board.open_board_my_dash_action
 #: model:ir.ui.menu,name:board.menu_board_my_dash
 msgid "My Dashboard"
-msgstr "Min anslagstavla"
+msgstr ""
 
 #. module: board
 #: field:board.create,name:0
 msgid "Board Name"
-msgstr "Tavelnamn"
+msgstr ""
 
 #. module: board
 #: model:ir.model,name:board.model_board_create
 msgid "Board Creation"
-msgstr "Anslagstavelbyggande"
+msgstr ""
 
 #. module: board
 #. openerp-web
 #: code:addons/board/static/src/xml/board.xml:67
 #, python-format
 msgid "Add to Dashboard"
-msgstr "Lägg till anslagstavlan"
+msgstr ""
 
 #. module: board
 #. openerp-web
 #: code:addons/board/static/src/xml/board.xml:28
 #, python-format
 msgid "&nbsp;"
-msgstr "&nbsp;"
+msgstr ""
 
 #. module: board
 #: model:ir.actions.act_window,help:board.open_board_my_dash_action
@@ -115,28 +114,13 @@ msgid ""
 "              </div>\n"
 "            "
 msgstr ""
-"<div class=\"oe_empty_custom_dashboard\">\n"
-"                   <p>\n"
-"                     <b> Din personliga anslagstavla är tom. </ b>\n"
-"                   </ p>\n"
-"                     För att lägga till din första rapport i denna tavla, gå "
-"till någon\n"
-"                     meny, växla till lista eller graf visa och klicka <i> "
-"\"Lägg till\n"
-"                     anslagstavlan \"</ i> i de utökade sökmöjligheter.\n"
-"                   </ p>\n"
-"                     Du kan välja och gruppera data innan du sätter in i\n"
-"                     instrumentpanel med sökalternativen.\n"
-"                   </ p>\n"
-"               </ div>\n"
-"            "
 
 #. module: board
 #. openerp-web
 #: code:addons/board/static/src/xml/board.xml:6
 #, python-format
 msgid "Reset"
-msgstr "Återställ"
+msgstr ""
 
 #. module: board
 #: field:board.create,menu_parent_id:0
@@ -148,21 +132,21 @@ msgstr "Parent Menu"
 #: code:addons/board/static/src/xml/board.xml:8
 #, python-format
 msgid "Change Layout.."
-msgstr "Ändra layout..."
+msgstr ""
 
 #. module: board
 #. openerp-web
 #: code:addons/board/static/src/js/dashboard.js:93
 #, python-format
 msgid "Edit Layout"
-msgstr "Ändra layout"
+msgstr ""
 
 #. module: board
 #. openerp-web
 #: code:addons/board/static/src/xml/board.xml:10
 #, python-format
 msgid "Change Layout"
-msgstr "Ändra layout"
+msgstr ""
 
 #. module: board
 #: view:board.create:0
@@ -172,11 +156,260 @@ msgstr "Cancel"
 #. module: board
 #: view:board.create:0
 msgid "or"
-msgstr "eller"
+msgstr ""
 
 #. module: board
 #. openerp-web
 #: code:addons/board/static/src/xml/board.xml:69
 #, python-format
 msgid "Title of new dashboard item"
-msgstr "Titel på anslagstavlan"
+msgstr ""
+
+#~ msgid ""
+#~ "The Object name must start with x_ and not contain any special character !"
+#~ msgstr ""
+#~ "Objektnamnet måste börja med x_ och får inte innehålla några specialtecken!"
+
+#~ msgid "Configuration"
+#~ msgstr "Konfiguration"
+
+#~ msgid "board.board"
+#~ msgstr "board.board"
+
+#~ msgid "Author"
+#~ msgstr "Author"
+
+#~ msgid "Dashboard main module"
+#~ msgstr "Instrumentpanel huvudmodul"
+
+#, python-format
+#~ msgid "User Error!"
+#~ msgstr "User Error!"
+
+#~ msgid "Note"
+#~ msgstr "Note"
+
+#~ msgid "Width"
+#~ msgstr "Width"
+
+#~ msgid "Invalid model name in the action definition."
+#~ msgstr "Invalid model name in the action definition."
+
+#~ msgid "Title"
+#~ msgstr "Title"
+
+#~ msgid "Dashboard Definition"
+#~ msgstr "Instrumentpanelsdefinition"
+
+#~ msgid "Publish a note"
+#~ msgstr "Publicera en anteckning"
+
+#~ msgid "Menu Information"
+#~ msgstr "Menu Information"
+
+#~ msgid "Action Views"
+#~ msgstr "Action Views"
+
+#~ msgid "board.note"
+#~ msgstr "board.note"
+
+#~ msgid "Date"
+#~ msgstr "Date"
+
+#~ msgid "Note Type"
+#~ msgstr "Note Type"
+
+#~ msgid "Create Menu For Dashboard"
+#~ msgstr "Skapa meny för instrumentpanel"
+
+#~ msgid "Invalid XML for View Architecture!"
+#~ msgstr "Invalid XML for View Architecture!"
+
+#~ msgid "Notes"
+#~ msgstr "Notes"
+
+#, python-format
+#~ msgid "Please Insert Dashboard View(s) !"
+#~ msgstr "Var vänlig lägg in instrumentpanelsvy(er)!"
+
+#~ msgid "board.note.type"
+#~ msgstr "board.note.type"
+
+#~ msgid "Dashboard"
+#~ msgstr "Instrumentpanel"
+
+#~ msgid "Base module for all dashboards."
+#~ msgstr "Basmodul för alla instrumentpaneler."
+
+#~ msgid "Position"
+#~ msgstr "Position"
+
+#~ msgid "Open Dashboard"
+#~ msgstr "Öppna instrumentpanel"
+
+#~ msgid "Menu Name"
+#~ msgstr "Menu Name"
+
+#~ msgid "Note type"
+#~ msgstr "Note type"
+
+#~ msgid "Left"
+#~ msgstr "Left"
+
+#~ msgid "Board View"
+#~ msgstr "Board View"
+
+#~ msgid "Right"
+#~ msgstr "Right"
+
+#~ msgid "Sequence"
+#~ msgstr "Sequence"
+
+#~ msgid "Create Menu"
+#~ msgstr "Create Menu"
+
+#~ msgid "Dashboards"
+#~ msgstr "Instrumentpaneler"
+
+#~ msgid "Height"
+#~ msgstr "Height"
+
+#~ msgid "Create Board Menu"
+#~ msgstr "Create Board Menu"
+
+#~ msgid "Dashboard View"
+#~ msgstr "Instrumentpanelsvy"
+
+#~ msgid "board.board.line"
+#~ msgstr "board.board.line"
+
+#~ msgid "Subject"
+#~ msgstr "Subject"
+
+#~ msgid "  Year  "
+#~ msgstr "  År  "
+
+#~ msgid "Menu Create"
+#~ msgstr "Skapa meny"
+
+#~ msgid "Month"
+#~ msgstr "Månad"
+
+#~ msgid "Group By..."
+#~ msgstr "Gruppera på..."
+
+#~ msgid "Log Report"
+#~ msgstr "Logg rapport"
+
+#~ msgid "Day"
+#~ msgstr "Dag"
+
+#~ msgid "July"
+#~ msgstr "Juli"
+
+#~ msgid "Creation Date"
+#~ msgstr "Skapad datum"
+
+#~ msgid "June"
+#~ msgstr "Juni"
+
+#~ msgid "March"
+#~ msgstr "Mars"
+
+#~ msgid "August"
+#~ msgstr "Augusti"
+
+#~ msgid "November"
+#~ msgstr "November"
+
+#~ msgid "January"
+#~ msgstr "Januari"
+
+#~ msgid "October"
+#~ msgstr "Oktober"
+
+#~ msgid "February"
+#~ msgstr "Februari"
+
+#~ msgid "Latest Activities"
+#~ msgstr "Senaste aktiviteterna"
+
+#~ msgid "Model"
+#~ msgstr "Modell"
+
+#~ msgid "April"
+#~ msgstr "April"
+
+#~ msgid "September"
+#~ msgstr "September"
+
+#~ msgid "Year"
+#~ msgstr "År"
+
+#~ msgid "May"
+#~ msgstr "Maj"
+
+#~ msgid "Object"
+#~ msgstr "Objekt"
+
+#~ msgid "   Month   "
+#~ msgstr "   Månad   "
+
+#~ msgid "December"
+#~ msgstr "December"
+
+#~ msgid "Extended Filters..."
+#~ msgstr "Utökat filter..."
+
+#~ msgid "Latest Connections"
+#~ msgstr "Senaste anslutningarna"
+
+#~ msgid "Weekly Global Activity"
+#~ msgstr "Global aktivitet veckovis"
+
+#~ msgid "Log created in current month"
+#~ msgstr "Loggar skapade i innevarande månad"
+
+#~ msgid "Configuration Overview"
+#~ msgstr "Konfigurationsöversikt"
+
+#~ msgid "Log created in last month"
+#~ msgstr "Loggar från senaste månaden"
+
+#~ msgid "Log created in current year"
+#~ msgstr "Loggar från innevarande år"
+
+#~ msgid "# of Entries"
+#~ msgstr "# av transaktioner"
+
+#~ msgid "Monthly Activity per Document"
+#~ msgstr "Månatlig aktivitet per dokument"
+
+#~ msgid "User Connections"
+#~ msgstr "Användarens anslutningar"
+
+#~ msgid "Administration Dashboard"
+#~ msgstr "Administrera infopanel"
+
+#~ msgid ""
+#~ "Gives the sequence order                         when displaying a list of "
+#~ "board lines."
+#~ msgstr "Ger ordningsföljden när panelraderna visas"
+
+#~ msgid "Board Line"
+#~ msgstr "Panelrad"
+
+#~ msgid "    Month-1    "
+#~ msgstr "    Månad-1    "
+
+#~ msgid "Log Analysis"
+#~ msgstr "Logganalys"
+
+#~ msgid "Action"
+#~ msgstr "Åtgärd"
+
+#~ msgid "Home Page"
+#~ msgstr "Webbplats"
+
+#~ msgid "Users"
+#~ msgstr "Användare"

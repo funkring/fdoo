@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:36+0000\n"
-"PO-Revision-Date: 2012-12-21 23:00+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2012-12-21 17:05+0000\n"
+"PO-Revision-Date: 2012-12-12 10:19+0000\n"
+"Last-Translator: Kaare Pettersen <Unknown>\n"
 "Language-Team: Norwegian Bokmal <nb@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-21 06:03+0000\n"
-"X-Generator: Launchpad (build 16831)\n"
+"X-Launchpad-Export-Date: 2014-03-27 07:33+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: base_import
 #. openerp-web
@@ -270,6 +270,17 @@ msgstr "Noen verdi."
 
 #. module: base_import
 #. openerp-web
+#: code:addons/base_import/static/src/xml/import.xml:231
+#, python-format
+msgid ""
+"The following CSV file shows how to import \n"
+"                        suppliers and their respective contacts"
+msgstr ""
+"Følgende CSV-filen viser hvordan du importerer\n"
+"leverandører og deres respektive kontakter."
+
+#. module: base_import
+#. openerp-web
 #: code:addons/base_import/static/src/xml/import.xml:109
 #, python-format
 msgid ""
@@ -338,10 +349,10 @@ msgstr ""
 
 #. module: base_import
 #. openerp-web
-#: code:addons/base_import/static/src/js/import.js:174
+#: code:addons/base_import/static/src/xml/import.xml:233
 #, python-format
-msgid "Semicolon"
-msgstr ""
+msgid "Suppliers and their respective contacts"
+msgstr "Leverandører og deres respektive kontakter."
 
 #. module: base_import
 #. openerp-web
@@ -384,13 +395,6 @@ msgid ""
 "                        you to modify only the encoding when saving \n"
 "                        (in 'Save As' dialog box > click 'Tools' dropdown \n"
 "                        list > Encoding tab)."
-msgstr ""
-
-#. module: base_import
-#. openerp-web
-#: code:addons/base_import/static/src/js/import.js:175
-#, python-format
-msgid "Tab"
 msgstr ""
 
 #. module: base_import
@@ -581,11 +585,9 @@ msgid "Reload data to check changes."
 msgstr "Lad data til å sjekke endringer."
 
 #. module: base_import
-#. openerp-web
-#: code:addons/base_import/static/src/xml/import.xml:233
-#, python-format
-msgid "Customers and their respective contacts"
-msgstr ""
+#: model:ir.model,name:base_import.model_base_import_tests_models_char_readonly
+msgid "base_import.tests.models.char.readonly"
+msgstr "Base_import.tester.modeller.char.lesbare."
 
 #. module: base_import
 #. openerp-web
@@ -888,15 +890,6 @@ msgstr "XXX/ID."
 
 #. module: base_import
 #. openerp-web
-#: code:addons/base_import/static/src/xml/import.xml:231
-#, python-format
-msgid ""
-"The following CSV file shows how to import \n"
-"                        customers and their respective contacts"
-msgstr ""
-
-#. module: base_import
-#. openerp-web
 #: code:addons/base_import/static/src/xml/import.xml:275
 #, python-format
 msgid ""
@@ -976,13 +969,6 @@ msgstr ""
 
 #. module: base_import
 #. openerp-web
-#: code:addons/base_import/static/src/js/import.js:176
-#, python-format
-msgid "Space"
-msgstr ""
-
-#. module: base_import
-#. openerp-web
 #: code:addons/base_import/static/src/xml/import.xml:249
 #, python-format
 msgid ""
@@ -1023,11 +1009,6 @@ msgid ""
 "                        take care of creating or modifying each record \n"
 "                        depending if it's new or not."
 msgstr ""
-
-#. module: base_import
-#: model:ir.model,name:base_import.model_base_import_tests_models_char_readonly
-msgid "base_import.tests.models.char.readonly"
-msgstr "Base_import.tester.modeller.char.lesbare."
 
 #. module: base_import
 #. openerp-web
@@ -1078,14 +1059,6 @@ msgid ""
 "                        addtional row that does not have any information in "
 "\n"
 "                        the fields relative to the order."
-msgstr ""
-
-#. module: base_import
-#. openerp-web
-#: code:addons/base_import/static/src/js/import.js:173
-#: code:addons/base_import/static/src/js/import.js:184
-#, python-format
-msgid "Comma"
 msgstr ""
 
 #. module: base_import
@@ -1213,15 +1186,3 @@ msgstr ""
 #: field:base_import.import,file:0
 msgid "File"
 msgstr ""
-
-#, python-format
-#~ msgid "Suppliers and their respective contacts"
-#~ msgstr "Leverandører og deres respektive kontakter."
-
-#, python-format
-#~ msgid ""
-#~ "The following CSV file shows how to import \n"
-#~ "                        suppliers and their respective contacts"
-#~ msgstr ""
-#~ "Følgende CSV-filen viser hvordan du importerer\n"
-#~ "leverandører og deres respektive kontakter."

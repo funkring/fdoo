@@ -1,0 +1,32 @@
+<openerp>
+	<data>		
+		<record id="wizard_product_assign" model="ir.ui.view">
+            <field name="name">at_product_assign_from.wizard_product_assign</field>
+            <field name="model">product.assign_wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Assign Product From Template Wizard">
+                    <field name="category_id"/>
+                    <field name="product_id"/>
+                    <field name="product_type"/>
+                    <newline/>
+                    <field name="assign_suppliers"/>
+                    <group col="6" colspan="4">
+	                    <label string="" colspan="4"/>
+		                <button special="cancel" string="Cancel" icon="gtk-cancel"/>
+						<button name="assign_to_products" string="Update Products" type="object" icon="gtk-go-forward"/>	    	            
+	                </group>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_product_assign" model="ir.actions.act_window">
+			<field name="name">Assign Product From Template</field>
+		    <field name="type">ir.actions.act_window</field>
+		    <field name="res_model">product.assign_wizard</field>            
+		    <field name="view_mode">form</field>                                  
+		    <field name="view_id" ref="wizard_product_assign"/>
+		    <field name="target">new</field>
+		</record>        
+    </data>
+</openerp>

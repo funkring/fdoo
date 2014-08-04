@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:37+0000\n"
-"PO-Revision-Date: 2012-12-21 23:00+0000\n"
+"POT-Creation-Date: 2012-12-21 17:06+0000\n"
+"PO-Revision-Date: 2012-05-10 17:42+0000\n"
 "Last-Translator: Raphael Collet (OpenERP) <Unknown>\n"
 "Language-Team: Vietnamese <vi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-21 06:32+0000\n"
-"X-Generator: Launchpad (build 16831)\n"
+"X-Launchpad-Export-Date: 2014-03-27 07:14+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: resource
 #: help:resource.calendar.leaves,resource_id:0
@@ -49,16 +49,6 @@ msgstr ""
 #: field:resource.calendar.attendance,dayofweek:0
 msgid "Day of Week"
 msgstr "Ngày trong tuần"
-
-#. module: resource
-#: model:ir.actions.act_window,help:resource.action_resource_calendar_form
-msgid ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"                Define working hours and time table that could be scheduled "
-"to your project members\n"
-"              </p>\n"
-"            "
-msgstr ""
 
 #. module: resource
 #: selection:resource.calendar.attendance,dayofweek:0
@@ -254,6 +244,13 @@ msgid "Work from"
 msgstr "Làm việc từ"
 
 #. module: resource
+#: model:ir.actions.act_window,help:resource.action_resource_calendar_form
+msgid ""
+"Define working hours and time table that could be scheduled to your project "
+"members"
+msgstr ""
+
+#. module: resource
 #: help:resource.resource,user_id:0
 msgid "Related user name for the resource to manage its access."
 msgstr ""
@@ -352,3 +349,12 @@ msgstr ""
 #: selection:resource.calendar.attendance,dayofweek:0
 msgid "Saturday"
 msgstr ""
+
+#~ msgid "Starting date"
+#~ msgstr "Ngày bắt đầu"
+
+#~ msgid "Day of week"
+#~ msgstr "Ngày trong tuần"
+
+#~ msgid "Workgroup manager"
+#~ msgstr "Trưởng nhóm"

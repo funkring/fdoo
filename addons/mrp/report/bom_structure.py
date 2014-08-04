@@ -19,18 +19,22 @@
 #
 ##############################################################################
 
-import time
-from openerp.report import report_sxw
 from openerp.osv import osv
-from openerp import pooler
 
-class bom_structure(report_sxw.rml_parse):
-    def __init__(self, cr, uid, name, context):
-        super(bom_structure, self).__init__(cr, uid, name, context=context)
-        self.localcontext.update({
-            'time': time,
-            'get_children':self.get_children,
-        })
+
+class bom_structure(osv.AbstractModel):
+    _name = 'report.mrp.report_mrpbomstructure'
+
+    def render_html(self, cr, uid, ids, data=None, context=None):
+        mrpbom_obj = self.pool['mrp.bom']
+        report_obj = self.pool['report']
+        docs = mrpbom_obj.browse(cr, uid, ids, context=context)
+
+        docargs = {
+            'docs': docs,
+            'get_children': self.get_children,
+        }
+        return report_obj.render(cr, uid, [], 'mrp.report_mrpbomstructure', docargs, context=context)
 
     def get_children(self, object, level=0):
         result = []
@@ -57,8 +61,5 @@ class bom_structure(report_sxw.rml_parse):
         children = _get_rec(object,level)
 
         return children
-
-report_sxw.report_sxw('report.bom.structure','mrp.bom','mrp/report/bom_structure.rml',parser=bom_structure,header='internal')
-
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

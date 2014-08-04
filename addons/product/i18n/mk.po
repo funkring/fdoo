@@ -1,33 +1,26 @@
 # Macedonian translation for openobject-addons
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
 # This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
-# Sofce Dimitrijeva <sofce@eskon.com.mk>, 2013.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
-"Report-Msgid-Bugs-To: OpenERP Macedonian <openerp-i18n-"
-"macedonian@lists.launchpad.net >\n"
-"POT-Creation-Date: 2013-06-07 19:37+0000\n"
-"PO-Revision-Date: 2013-03-28 23:28+0000\n"
-"Last-Translator: Sofce Dimitrijeva <Unknown>\n"
-"Language-Team: ESKON-INZENERING\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2012-12-21 17:06+0000\n"
+"PO-Revision-Date: 2013-02-21 13:44+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Macedonian <mk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-21 06:27+0000\n"
-"X-Generator: Launchpad (build 16831)\n"
-"Language: mk\n"
+"X-Launchpad-Export-Date: 2014-03-27 06:41+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: product
 #: field:product.packaging,rows:0
 msgid "Number of Layers"
 msgstr "Број на слоеви"
-
-#. module: product
-#: view:res.partner:0
-msgid "the parent company"
-msgstr ""
 
 #. module: product
 #: help:product.pricelist.item,base:0
@@ -307,11 +300,6 @@ msgid "Laptop E5023"
 msgstr "Laptop E5023"
 
 #. module: product
-#: field:product.price_list,qty1:0
-msgid "Quantity-1"
-msgstr "Количина-1"
-
-#. module: product
 #: help:product.packaging,ul_qty:0
 msgid "The number of packages by layer"
 msgstr "Број на пакувања по слој"
@@ -516,9 +504,9 @@ msgid "Quantity-3"
 msgstr "Количина-3"
 
 #. module: product
-#: model:res.groups,name:product.group_product_variant
-msgid "Product Variant (not supported)"
-msgstr "Варијанта на производ (не е поддржано)"
+#: field:product.price_list,qty1:0
+msgid "Quantity-1"
+msgstr "Количина-1"
 
 #. module: product
 #: field:product.price_list,qty4:0
@@ -840,14 +828,13 @@ msgid "External Hard disk"
 msgstr "Надворешен Хард диск"
 
 #. module: product
-#: view:product.product:0
-msgid "describe the product characteristics..."
-msgstr "опишете ги карактеристиките на производот..."
-
-#. module: product
-#: view:res.partner:0
-msgid "Pricelists are managed on"
+#: help:product.template,standard_price:0
+msgid ""
+"Cost price of the product used for standard stock valuation in accounting "
+"and used as a base price on purchase orders."
 msgstr ""
+"Цена на производот што се користи за стандардно вреднување на стоката во "
+"сметководството и се користи како основна цена при нарачки."
 
 #. module: product
 #: field:product.category,child_id:0
@@ -1202,10 +1189,10 @@ msgid "Price Surcharge"
 msgstr "Доплата на цена"
 
 #. module: product
-#: code:addons/product/pricelist.py:380
-#, python-format
-msgid "Supplier Prices on the product form"
-msgstr ""
+#: field:product.product,code:0
+#: field:product.product,default_code:0
+msgid "Internal Reference"
+msgstr "Внатрешна референца"
 
 #. module: product
 #: model:product.template,name:product.product_product_8_product_template
@@ -1400,11 +1387,6 @@ msgid "Specify the minimum amount of margin over the base price."
 msgstr "Одредете ја минималната маржа врз база на основната цена."
 
 #. module: product
-#: field:product.product,name_template:0
-msgid "Template Name"
-msgstr "Име на урнек"
-
-#. module: product
 #: field:product.template,weight_net:0
 msgid "Net Weight"
 msgstr "Нето тежина"
@@ -1433,11 +1415,6 @@ msgstr ""
 "Назначи категорија на производ доколку ова правило припаѓа само на оваа "
 "категорија или на категориите што произлегуваат од неа. Во спротивно "
 "оставете го празно."
-
-#. module: product
-#: view:product.product:0
-msgid "This note will be displayed on requests for quotation..."
-msgstr "Оваа белешка ќе биде прикажана на барањата за понуда..."
 
 #. module: product
 #: view:product.product:0
@@ -1477,13 +1454,6 @@ msgstr "Единици мерки"
 #: field:product.supplierinfo,min_qty:0
 msgid "Minimal Quantity"
 msgstr "Минимална количина"
-
-#. module: product
-#: view:product.supplierinfo:0
-msgid ""
-"The prices below will only be taken into account when your pricelist is set "
-"as based on supplier prices."
-msgstr ""
 
 #. module: product
 #: help:product.supplierinfo,product_code:0
@@ -1855,11 +1825,6 @@ msgid "Price:"
 msgstr "Цена:"
 
 #. module: product
-#: view:product.pricelist.item:0
-msgid "Min. Margin"
-msgstr "Минимална маржа"
-
-#. module: product
 #: field:product.template,weight:0
 msgid "Gross Weight"
 msgstr "Бруто тежина"
@@ -2004,6 +1969,12 @@ msgid "Default Unit of Measure"
 msgstr "Сатндардна единица мерка"
 
 #. module: product
+#: code:addons/product/pricelist.py:377
+#, python-format
+msgid "Partner section of the product form"
+msgstr "Дел за партнер од формуларот за производот"
+
+#. module: product
 #: help:product.price.type,name:0
 msgid "Name of this kind of price."
 msgstr "Има на овој тип на цена"
@@ -2048,17 +2019,6 @@ msgstr "Должина / Растојание"
 #: model:product.category,name:product.product_category_8
 msgid "Components"
 msgstr "Компоненти"
-
-#. module: product
-#: field:product.product,code:0
-#: field:product.product,default_code:0
-msgid "Internal Reference"
-msgstr "Внатрешна референца"
-
-#. module: product
-#: view:product.product:0
-msgid "e.g. 5901234123457"
-msgstr "на пр. 5901234123457"
 
 #. module: product
 #: model:ir.model,name:product.model_product_pricelist_type
@@ -2422,13 +2382,9 @@ msgid "Max. Price Margin"
 msgstr "Макс. ценовна маржа"
 
 #. module: product
-#: help:product.template,standard_price:0
-msgid ""
-"Cost price of the product used for standard stock valuation in accounting "
-"and used as a base price on purchase orders."
-msgstr ""
-"Цена на производот што се користи за стандардно вреднување на стоката во "
-"сметководството и се користи како основна цена при нарачки."
+#: view:product.pricelist.item:0
+msgid "Min. Margin"
+msgstr "Минимална маржа"
 
 #. module: product
 #: help:product.supplierinfo,product_name:0
@@ -2649,11 +2605,6 @@ msgstr "Мерна единица на добавувачот"
 
 #. module: product
 #: view:product.product:0
-msgid "note to be displayed on quotations..."
-msgstr "белешка што се прикажува на понудите..."
-
-#. module: product
-#: view:product.product:0
 msgid "Product Variant"
 msgstr "Варијанта на производ"
 
@@ -2817,7 +2768,3 @@ msgstr "Волумен во m3."
 #: field:product.pricelist.item,price_discount:0
 msgid "Price Discount"
 msgstr "Ценовен попуст"
-
-#, python-format
-#~ msgid "Partner section of the product form"
-#~ msgstr "Дел за партнер од формуларот за производот"

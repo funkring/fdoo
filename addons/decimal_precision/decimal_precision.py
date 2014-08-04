@@ -19,12 +19,13 @@
 #
 ##############################################################################
 
+import openerp
 from openerp import SUPERUSER_ID
-from openerp import pooler, tools
-from openerp.osv import osv, fields
+from openerp import tools
+from openerp.osv import orm, fields
 from openerp.modules.registry import RegistryManager
 
-class decimal_precision(osv.osv):
+class decimal_precision(orm.Model):
     _name = 'decimal.precision'
     _columns = {
         'name': fields.char('Usage', size=50, select=True, required=True),
@@ -68,12 +69,37 @@ class decimal_precision(osv.osv):
         self.clear_cache(cr)
         return res
 
-decimal_precision()
 
 def get_precision(application):
     def change_digit(cr):
-        res = pooler.get_pool(cr.dbname).get('decimal.precision').precision_get(cr, SUPERUSER_ID, application)
+        decimal_precision = openerp.registry(cr.dbname)['decimal.precision']
+        res = decimal_precision.precision_get(cr, SUPERUSER_ID, application)
         return (16, res)
     return change_digit
+
+class DecimalPrecisionFloat(orm.AbstractModel):
+    """ Override qweb.field.float to add a `decimal_precision` domain option
+    and use that instead of the column's own value if it is specified
+    """
+    _inherit = 'ir.qweb.field.float'
+
+
+    def precision(self, cr, uid, column, options=None, context=None):
+        dp = options and options.get('decimal_precision')
+        if dp:
+            return self.pool['decimal.precision'].precision_get(
+                cr, uid, dp)
+
+        return super(DecimalPrecisionFloat, self).precision(
+            cr, uid, column, options=options, context=context)
+
+class DecimalPrecisionTestModel(orm.Model):
+    _name = 'decimal.precision.test'
+
+    _columns = {
+        'float': fields.float(),
+        'float_2': fields.float(digits=(16, 2)),
+        'float_4': fields.float(digits=(16, 4)),
+    }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

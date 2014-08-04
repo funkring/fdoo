@@ -1,0 +1,953 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* at_pos
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1-dev\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2013-02-10 01:22+0000\n"
+"PO-Revision-Date: 2013-02-10 02:24+0100\n"
+"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: at_pos
+#: field:pos.cashbox_report.wizard,detail:0
+msgid "Attach Daily Cash Reports"
+msgstr "Tägliche Kassenberichte anhängen"
+
+#. module: at_pos
+#: help:at_pos.pos_system,balance_journal_id:0
+msgid "Balance Journal for balance the order with asset or a credit note. Auto opening must be enabled for this journal  and balance_credit must also be enabled"
+msgstr "Ausgleichs- Journal um Verkäufe mit dem Kundenguthaben auszugleichen. Das automatische Öffnen und das Ausgleichen über das Kundenguthaben, muss aktiviert sein"
+
+#. module: at_pos
+#: model:ir.model,name:at_pos.model_account_bank_statement
+msgid "Bankauszug"
+msgstr "Bankauszug"
+
+#. module: at_pos
+#: field:pos.order,payment_cash:0
+msgid "Payment Cash"
+msgstr "Bar Zahlung"
+
+#. module: at_pos
+#: field:at_pos.pos_system,balance_journal_id:0
+msgid "Balance Journal"
+msgstr "Ausgleichs Journal"
+
+#. module: at_pos
+#: code:addons/at_pos/report/cashbox_period_report.py:234
+#: code:addons/at_pos/report/cashbox_report.py:219
+#, python-format
+msgid "Credits (%s)"
+msgstr "Gutschriften (%s)"
+
+#. module: at_pos
+#: view:at_pos.product_eval_view:0
+msgid "Year from Creation date of cash register"
+msgstr "Jahr der Eröffnung der Kassa"
+
+#. module: at_pos
+#: selection:at_pos.product_eval_view,month:0
+msgid "March"
+msgstr "März"
+
+#. module: at_pos
+#: field:at_pos.pos_system,bon_printer_id:0
+msgid "BON Printer"
+msgstr "BON Printer"
+
+#. module: at_pos
+#: selection:pos.order.payment,type:0
+msgid "Gutschein"
+msgstr "Gutschein"
+
+#. module: at_pos
+#: field:account.journal,printer_escpos:0
+#: selection:at_pos.pos_printer,type:0
+msgid "ESC/POS Network Printer"
+msgstr "ESC/POS Netzwerk Drucker"
+
+#. module: at_pos
+#: model:ir.model,name:at_pos.model_pos_order_payment
+msgid "POS Verkauf Zahlung"
+msgstr "POS Verkauf Zahlung"
+
+#. module: at_pos
+#: field:product.product,has_sn:0
+msgid "Serial Number"
+msgstr "Serien Nummer"
+
+#. module: at_pos
+#: code:addons/at_pos/pos_system.py:48
+#, python-format
+msgid "Balancing"
+msgstr "Ausgleich"
+
+#. module: at_pos
+#: help:account.journal,balance_credit:0
+msgid ""
+"If checked credit notes from customer are automatically reconciled if statement are closed\n"
+"this is an special option for customer credit note reconcilation"
+msgstr ""
+"Wenn aktiviert, dient dieses Journal als Ausgleichsjournal. Gutschriften von Kunden werden\n"
+"automatisch gegen verrechnet. "
+
+#. module: at_pos
+#: view:at_pos.pos_system:0
+msgid "Journals"
+msgstr "Journale"
+
+#. module: at_pos
+#: view:at_pos.product_eval_view:0
+#: field:at_pos.product_eval_view,day:0
+msgid "Day"
+msgstr "Tag"
+
+#. module: at_pos
+#: view:at_pos.product_eval_view:0
+msgid "Product Analysis created in current month"
+msgstr "Produkt Analyse für aktuelles Monat"
+
+#. module: at_pos
+#: code:addons/at_pos/pos_system.py:876
+#: selection:pos.order.payment,type:0
+#, python-format
+msgid "Bar"
+msgstr "Bar"
+
+#. module: at_pos
+#: view:at_pos.product_eval_view:0
+msgid "Month from Creation date of cash register"
+msgstr "Monat des Kassa Erstellungsdatum"
+
+#. module: at_pos
+#: code:addons/at_pos/pos_system.py:54
+#, python-format
+msgid "Sale"
+msgstr "Verkauf"
+
+#. module: at_pos
+#: field:pos.order.payment,amount:0
+msgid "Amount"
+msgstr "Betrag"
+
+#. module: at_pos
+#: model:ir.model,name:at_pos.model_at_pos_pos_printer
+msgid "POS Drucker"
+msgstr "POS Drucker"
+
+#. module: at_pos
+#: model:ir.actions.report.xml,name:at_pos.report_pos_pdf
+msgid "Bon (Pdf)"
+msgstr "Bon (Pdf)"
+
+#. module: at_pos
+#: field:product.product,info_line:0
+msgid "Info Line"
+msgstr "Info Zeile"
+
+#. module: at_pos
+#: field:account.journal,child_ids:0
+msgid "Childs"
+msgstr "Untergeordnet"
+
+#. module: at_pos
+#: model:ir.module.module,description:at_pos.module_meta_information
+msgid ""
+"\n"
+"       POS (Point of Sale) Extensions for the Funkring.net POS Touch&Cash\n"
+"    "
+msgstr ""
+"\n"
+"       POS (Point of Sale) Extensions for the Funkring.net POS Touch&Cash\n"
+"    "
+
+#. module: at_pos
+#: model:ir.model,name:at_pos.model_pos_make_payment
+msgid "Kassa Zahlung"
+msgstr "Kassa Zahlung"
+
+#. module: at_pos
+#: code:addons/at_pos/cash_statement.py:64
+#, python-format
+msgid "Statment must have an parent statement from journal %s"
+msgstr "Bericht/Auszug muss als Übergeordneten Bericht/Auszug von folgendem Journal haben %s"
+
+#. module: at_pos
+#: sql_constraint:account.journal:0
+msgid "The code of the journal must be unique per company !"
+msgstr "Die Journalkurzbezeichnung sollte innerhalb eines Unternehmens eindeutig sein !"
+
+#. module: at_pos
+#: model:ir.actions.act_window,name:at_pos.action_product_eval_view
+#: model:ir.ui.menu,name:at_pos.menu_product_eval_view
+msgid "Produkt Analyse"
+msgstr "Produkt Analyse"
+
+#. module: at_pos
+#: model:ir.model,name:at_pos.model_res_partner
+msgid "Partner"
+msgstr "Partner"
+
+#. module: at_pos
+#: code:addons/at_pos/pos.py:761
+#, python-format
+msgid "There is no receivable account defined for this journal: \"%s\" (id:%d)"
+msgstr "Es ist kein Eingangskonto für dieses Journal definiert: \"%s\" (id:%d)"
+
+#. module: at_pos
+#: constraint:res.company:0
+msgid "Error! You can not create recursive companies."
+msgstr "Fehler! Sie können keine rekursiven Unternehmen erzeugen."
+
+#. module: at_pos
+#: field:account.journal,balance_credit:0
+msgid "Balance Credit"
+msgstr "Ausgleich über Guthaben"
+
+#. module: at_pos
+#: field:account.journal,pos_printer:0
+msgid "POS-Printer"
+msgstr "POS-Printer"
+
+#. module: at_pos
+#: code:addons/at_pos/pos.py:168
+#, python-format
+msgid "Modify line failed !"
+msgstr "Modifizieren der Position fehlgeschlagens !"
+
+#. module: at_pos
+#: code:addons/at_pos/report/cashbox_report.py:95
+#, python-format
+msgid "Balance: %s %s"
+msgstr "Guthaben: %s %s"
+
+#. module: at_pos
+#: field:pos.order,payment_residual:0
+msgid "Payment Residual"
+msgstr "Offene Zahlung"
+
+#. module: at_pos
+#: view:at_pos.product_eval_view:0
+msgid "Month -1"
+msgstr "Monat -1"
+
+#. module: at_pos
+#: code:addons/at_pos/pos.py:441
+#: code:addons/at_pos/pos_system.py:859
+#, python-format
+msgid "incl. %s"
+msgstr "inkl. %s"
+
+#. module: at_pos
+#: view:account.journal:0
+#: view:at_pos.pos_printer:0
+#: view:at_pos.pos_system:0
+msgid "Printer"
+msgstr "Drucker"
+
+#. module: at_pos
+#: code:addons/at_pos/pos.py:691
+#: code:addons/at_pos/pos.py:760
+#, python-format
+msgid "Error !"
+msgstr "Fehler !"
+
+#. module: at_pos
+#: code:addons/at_pos/report/cashbox_period_report.py:226
+#: code:addons/at_pos/report/cashbox_report.py:211
+#, python-format
+msgid "Receipts (%s)"
+msgstr "Erlöse (%s)"
+
+#. module: at_pos
+#: code:addons/at_pos/pos.py:160
+#, python-format
+msgid "Create line failed !"
+msgstr "Erstellen der Zeile fehlgeschlagen !"
+
+#. module: at_pos
+#: selection:at_pos.product_eval_view,month:0
+msgid "July"
+msgstr "Juli"
+
+#. module: at_pos
+#: code:addons/at_pos/report/cashbox_report.py:92
+#, python-format
+msgid "Number: %s"
+msgstr "Nummer: %s"
+
+#. module: at_pos
+#: model:ir.actions.act_window,name:at_pos.action_cashbox_report
+#: model:ir.ui.menu,name:at_pos.menu_cashbox_report
+msgid "Kassenbuch Bericht"
+msgstr "Kassenbuch Bericht"
+
+#. module: at_pos
+#: view:at_pos.product_eval_view:0
+msgid "Cash Analysis created during this year"
+msgstr "Cash Analysis created during this year"
+
+#. module: at_pos
+#: help:account.journal,parent_id:0
+msgid ""
+"If an parent account is defined.\n"
+"Statement with this journal could only opened with  an parent statement of the same journal"
+msgstr ""
+"Wenn ein übergeordnetes Journal definiert wurde, \n"
+"muss vor dem Öffnen des Kassabuchs ein übergordnetes Kassabuch eingetragen werden. "
+
+#. module: at_pos
+#: field:at_pos.pos_system,report_printer_id:0
+msgid "Report Printer"
+msgstr "Bericht Drucker"
+
+#. module: at_pos
+#: field:account.bank.statement,pos_paid_order_ids:0
+msgid "Paid Orders"
+msgstr "Bezahlte Verkäufe"
+
+#. module: at_pos
+#: model:ir.model,name:at_pos.model_at_pos_pos_system
+msgid "POS System"
+msgstr "POS System"
+
+#. module: at_pos
+#: field:pos.order,payment_all:0
+msgid "Payment All"
+msgstr "Zahlungen Gesamt"
+
+#. module: at_pos
+#: help:at_pos.pos_system,voucher_journal_id:0
+msgid "Journal for vouchers"
+msgstr "Gutschein Journal"
+
+#. module: at_pos
+#: view:pos.cashbox_report.wizard:0
+msgid "Selection"
+msgstr "Auswahl"
+
+#. module: at_pos
+#: field:account.bank.statement,parent_id:0
+#: field:account.journal,parent_id:0
+msgid "Parent"
+msgstr "Übergeordnet"
+
+#. module: at_pos
+#: selection:at_pos.product_eval_view,month:0
+msgid "September"
+msgstr "September"
+
+#. module: at_pos
+#: selection:at_pos.product_eval_view,month:0
+msgid "December"
+msgstr "Dezember"
+
+#. module: at_pos
+#: code:addons/at_pos/pos_system.py:896
+#: field:res.partner,calculated_balance:0
+#, python-format
+msgid "Calculated Balance"
+msgstr "Aktuelles Guthaben"
+
+#. module: at_pos
+#: view:at_pos.product_eval_view:0
+#: field:at_pos.product_eval_view,month:0
+msgid "Month"
+msgstr "Monat"
+
+#. module: at_pos
+#: code:addons/at_pos/pos_system.py:354
+#, python-format
+msgid "Only Statement in Open state could be confirmed"
+msgstr "Nur geöffnete Kassbücher können geschlossen werden"
+
+#. module: at_pos
+#: help:product.product,has_sn:0
+msgid "Has Serialnumber? This is an article like voucher with an serial number"
+msgstr "Hat der Artikel eine Seriennummer? (z.B. Gutschein)"
+
+#. module: at_pos
+#: model:ir.model,name:at_pos.model_res_company
+msgid "Unternehmen"
+msgstr "Unternehmen"
+
+#. module: at_pos
+#: code:addons/at_pos/report/cashbox_report.py:96
+#, python-format
+msgid "New Balance %s %s"
+msgstr "Neues Guthaben %s %s"
+
+#. module: at_pos
+#: view:at_pos.pos_system:0
+#: field:at_pos.pos_system,product_category_ids:0
+msgid "Product Categories"
+msgstr "Produkt Kategorien"
+
+#. module: at_pos
+#: help:product.product,cashbox_report_detail:0
+msgid "Show as Extra Line in Cashbox Report"
+msgstr "Zeige als Extra Zeile im Kassenbericht"
+
+#. module: at_pos
+#: code:addons/at_pos/pos_system.py:561
+#, python-format
+msgid "No Voucher journal defined for POS System %s"
+msgstr "Es ist kein Gutschein Journal definiert für das Kassensystem %s"
+
+#. module: at_pos
+#: view:at_pos.product_eval_view:0
+msgid "Day from Creation date of cash register"
+msgstr "Tag der Kassa Eröffnung"
+
+#. module: at_pos
+#: code:addons/at_pos/pos_system.py:49
+#: code:addons/at_pos/report/cashbox_report.py:44
+#, python-format
+msgid "Closed"
+msgstr "Geschlossen"
+
+#. module: at_pos
+#: code:addons/at_pos/pos_system.py:732
+#, python-format
+msgid "Online"
+msgstr "Online"
+
+#. module: at_pos
+#: field:pos.order.payment,statement_line_id:0
+msgid "Statement Line"
+msgstr "Auszugszeile"
+
+#. module: at_pos
+#: model:ir.actions.report.xml,name:at_pos.report_cashbox_pdf
+#: model:ir.model,name:at_pos.model_pos_order
+msgid "Kassa"
+msgstr "Kassa"
+
+#. module: at_pos
+#: selection:at_pos.pos_printer,type:0
+msgid "Local"
+msgstr "Lokal"
+
+#. module: at_pos
+#: model:ir.model,name:at_pos.model_pos_config_journal
+msgid "Journal Konfiguration"
+msgstr "Journal Konfiguration"
+
+#. module: at_pos
+#: code:addons/at_pos/pos_system.py:556
+#, python-format
+msgid "No Balance journal defined for POS System %s"
+msgstr "Es wurde kein Ausgleichsjournal für POS System %s definiert"
+
+#. module: at_pos
+#: model:ir.model,name:at_pos.model_at_pos_product_eval_view
+msgid "POS Produktentwicklungs Ansicht"
+msgstr "POS Produktentwicklungs Ansicht"
+
+#. module: at_pos
+#: selection:at_pos.product_eval_view,month:0
+msgid "August"
+msgstr "August"
+
+#. module: at_pos
+#: selection:at_pos.product_eval_view,month:0
+msgid "October"
+msgstr "Oktober"
+
+#. module: at_pos
+#: field:product.product,is_detail_product:0
+msgid "Is detail Product"
+msgstr "Detail Produkt"
+
+#. module: at_pos
+#: selection:at_pos.product_eval_view,month:0
+msgid "June"
+msgstr "Juni"
+
+#. module: at_pos
+#: code:addons/at_pos/pos_system.py:57
+#, python-format
+msgid "Paid"
+msgstr "Bezahlt"
+
+#. module: at_pos
+#: selection:at_pos.product_eval_view,month:0
+msgid "November"
+msgstr "November"
+
+#. module: at_pos
+#: view:res.company:0
+#: field:res.company,escpos_header:0
+msgid "ESC/POS Header"
+msgstr "ESC/POS Header"
+
+#. module: at_pos
+#: code:addons/at_pos/pos_system.py:569
+#, python-format
+msgid "Amount of sale and payment is different"
+msgstr "Betrag Verkauf und Zahlungen sind unterschiedlich"
+
+#. module: at_pos
+#: field:at_pos.pos_system,voucher_journal_id:0
+msgid "Voucher Journal"
+msgstr "Gutschein Journal"
+
+#. module: at_pos
+#: code:addons/at_pos/pos_system.py:152
+#, python-format
+msgid "Child cash statement could not have the same journal (%s) as the main cash statement (%s)"
+msgstr "Das Untergeordnete Kassabuch kann nicht das selbe Journal (%s) wie das Hauptbuch haben (%s)"
+
+#. module: at_pos
+#: view:at_pos.pos_system:0
+#: model:ir.actions.act_window,name:at_pos.action_pos_system
+#: model:ir.ui.menu,name:at_pos.menu_pos_system
+#: model:ir.ui.menu,name:at_pos.menu_pos_system_data
+#: field:pos.order,system_id:0
+msgid "System"
+msgstr "System"
+
+#. module: at_pos
+#: field:product.product,price_brutto:0
+msgid "Brutto Unit Price"
+msgstr "Brutto Einzelpreis"
+
+#. module: at_pos
+#: code:addons/at_pos/cash_statement.py:64
+#: code:addons/at_pos/pos.py:160
+#: code:addons/at_pos/pos.py:168
+#: code:addons/at_pos/pos_system.py:64
+#: code:addons/at_pos/pos_system.py:152
+#: code:addons/at_pos/pos_system.py:276
+#: code:addons/at_pos/pos_system.py:303
+#: code:addons/at_pos/pos_system.py:305
+#: code:addons/at_pos/pos_system.py:324
+#: code:addons/at_pos/pos_system.py:326
+#: code:addons/at_pos/pos_system.py:352
+#: code:addons/at_pos/pos_system.py:354
+#: code:addons/at_pos/pos_system.py:410
+#: code:addons/at_pos/pos_system.py:523
+#: code:addons/at_pos/pos_system.py:533
+#: code:addons/at_pos/pos_system.py:556
+#: code:addons/at_pos/pos_system.py:561
+#: code:addons/at_pos/pos_system.py:569
+#: code:addons/at_pos/pos_system.py:608
+#: code:addons/at_pos/pos_system.py:775
+#, python-format
+msgid "Error"
+msgstr "Fehler"
+
+#. module: at_pos
+#: code:addons/at_pos/pos_system.py:878
+#: field:pos.order.payment,balance:0
+#: selection:pos.order.payment,type:0
+#, python-format
+msgid "Balance"
+msgstr "Ausgleich"
+
+#. module: at_pos
+#: view:pos.cashbox_report.wizard:0
+msgid "Cashbox Report"
+msgstr "Kassenbuch Bericht"
+
+#. module: at_pos
+#: code:addons/at_pos/pos_system.py:523
+#, python-format
+msgid "Finished Orders could not be paid again"
+msgstr "Bezahlte Verkäufe können nicht nochmal bezahlt werden"
+
+#. module: at_pos
+#: field:at_pos.product_eval_view,qty:0
+msgid "Quantity"
+msgstr "Menge"
+
+#. module: at_pos
+#: model:ir.model,name:at_pos.model_pos_order_line
+msgid "Auftragspositionen POS"
+msgstr "Auftragspositionen POS"
+
+#. module: at_pos
+#: code:addons/at_pos/pos_system.py:303
+#: code:addons/at_pos/pos_system.py:324
+#: code:addons/at_pos/pos_system.py:352
+#, python-format
+msgid "There is no Cash Statement with ID %d"
+msgstr "Es existiert kein Kassabuch mit der ID %d"
+
+#. module: at_pos
+#: code:addons/at_pos/pos_system.py:775
+#, python-format
+msgid "No POS System %s found"
+msgstr "Kein POS System %s gefunden"
+
+#. module: at_pos
+#: field:product.product,cashbox_report_detail:0
+msgid "Show in Cashbox Report"
+msgstr "Zeige im Kassenbuch Bericht"
+
+#. module: at_pos
+#: field:pos.cashbox_report.wizard,period_id:0
+msgid "Period"
+msgstr "Periode"
+
+#. module: at_pos
+#: view:res.company:0
+msgid "Header"
+msgstr "Kopf"
+
+#. module: at_pos
+#: code:addons/at_pos/pos_system.py:58
+#, python-format
+msgid "Done"
+msgstr "Erledigt"
+
+#. module: at_pos
+#: code:addons/at_pos/pos_system.py:880
+#, python-format
+msgid "Voucher"
+msgstr "Gutschein"
+
+#. module: at_pos
+#: code:addons/at_pos/pos_system.py:59
+#, python-format
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#. module: at_pos
+#: view:pos.cashbox_report.wizard:0
+msgid "Close"
+msgstr "Schließen"
+
+#. module: at_pos
+#: view:pos.order:0
+msgid "Open"
+msgstr "Öffnen"
+
+#. module: at_pos
+#: field:account.bank.statement,child_ids:0
+msgid "Children"
+msgstr "Untergeordnet"
+
+#. module: at_pos
+#: view:pos.cashbox_report.wizard:0
+msgid "Print Report"
+msgstr "Ausdruck"
+
+#. module: at_pos
+#: code:addons/at_pos/pos_system.py:410
+#, python-format
+msgid "Cannot create order in closed cash statement for journal %s"
+msgstr "Es kann kein Verkauf in einem geschlossenen Kassenbuch erzeugt werden (Journal %s)"
+
+#. module: at_pos
+#: model:ir.actions.act_window,name:at_pos.action_pos_printer
+#: model:ir.ui.menu,name:at_pos.menu_pos_printer
+#: model:ir.ui.menu,name:at_pos.menu_pos_printer_data
+msgid "Drucker"
+msgstr "Drucker"
+
+#. module: at_pos
+#: model:ir.module.module,shortdesc:at_pos.module_meta_information
+msgid "at_pos"
+msgstr "at_pos"
+
+#. module: at_pos
+#: code:addons/at_pos/report/cashbox_period_report.py:160
+#: code:addons/at_pos/report/cashbox_report.py:191
+#, python-format
+msgid "w/o tax"
+msgstr "Keine Steuer"
+
+#. module: at_pos
+#: sql_constraint:account.journal:0
+msgid "The name of the journal must be unique per company !"
+msgstr "Die Journalbezeichnung sollte pro Unternehmen eindeutig sein."
+
+#. module: at_pos
+#: view:at_pos.product_eval_view:0
+#: field:at_pos.product_eval_view,categ2_id:0
+msgid "Category 2"
+msgstr "Kategorie 2"
+
+#. module: at_pos
+#: view:at_pos.product_eval_view:0
+#: field:at_pos.product_eval_view,categ3_id:0
+msgid "Category 3"
+msgstr "Kategorie 3"
+
+#. module: at_pos
+#: view:at_pos.product_eval_view:0
+#: field:at_pos.product_eval_view,categ1_id:0
+msgid "Category 1"
+msgstr "Kategorie 1"
+
+#. module: at_pos
+#: model:ir.model,name:at_pos.model_pos_receipt
+msgid "Kassen BON"
+msgstr "Kassen BON"
+
+#. module: at_pos
+#: field:pos.order,payment_other:0
+msgid "Payment Other"
+msgstr "Andere Zahlung"
+
+#. module: at_pos
+#: code:addons/at_pos/pos_system.py:276
+#, python-format
+msgid "There are more than one Cash Statement active for Journal %s"
+msgstr "Es ist mehr als ein Kassabuch für das Journal %s geöffnet"
+
+#. module: at_pos
+#: code:addons/at_pos/pos.py:425
+#: code:addons/at_pos/pos_system.py:843
+#, python-format
+msgid "  - %s %% Discount\n"
+msgstr "  - %s %% Rabatt\n"
+
+#. module: at_pos
+#: help:product.product,needs_measure:0
+msgid "This Article needs measurement before it could be sold"
+msgstr "Der Artikel muss gewogen werden, bevor er verkauft wird"
+
+#. module: at_pos
+#: code:addons/at_pos/pos_system.py:608
+#, python-format
+msgid "Closed Orders could not be changed"
+msgstr "Geschlossene Verkäufer können nicht verändert werden"
+
+#. module: at_pos
+#: model:ir.actions.report.xml,name:at_pos.report_cashbox_period_pdf
+#: model:ir.model,name:at_pos.model_pos_cashbox_report_wizard
+msgid "Kassenbuch Monatsbericht"
+msgstr "Kassenbuch Monatsbericht"
+
+#. module: at_pos
+#: view:at_pos.product_eval_view:0
+#: field:at_pos.product_eval_view,product_id:0
+msgid "Product"
+msgstr "Produkt"
+
+#. module: at_pos
+#: code:addons/at_pos/pos_system.py:326
+#, python-format
+msgid "Only Statement in Open state could be finished"
+msgstr "Nur geöffnete Kassabücher können beendet werden"
+
+#. module: at_pos
+#: code:addons/at_pos/pos.py:428
+#: code:addons/at_pos/pos_system.py:846
+#: field:pos.order.line,subtotal_brutto:0
+#, python-format
+msgid "Total (Brutto)"
+msgstr "Gesamt (Brutto)"
+
+#. module: at_pos
+#: code:addons/at_pos/pos_system.py:47
+#, python-format
+msgid "Opening"
+msgstr "Eröffnung"
+
+#. module: at_pos
+#: selection:at_pos.product_eval_view,month:0
+msgid "May"
+msgstr "Mai"
+
+#. module: at_pos
+#: field:at_pos.pos_printer,type:0
+#: field:pos.order.payment,type:0
+msgid "Type"
+msgstr "Typ"
+
+#. module: at_pos
+#: view:account.journal:0
+#: model:ir.model,name:at_pos.model_account_journal
+#: field:pos.cashbox_report.wizard,journal_id:0
+msgid "Journal"
+msgstr "Journal"
+
+#. module: at_pos
+#: model:ir.ui.menu,name:at_pos.menu_pos
+msgid "POS"
+msgstr "POS"
+
+#. module: at_pos
+#: view:pos.order:0
+#: field:pos.order,payment_ids:0
+msgid "Payment Proposal"
+msgstr "Zahlungsvorschlag"
+
+#. module: at_pos
+#: code:addons/at_pos/pos_system.py:533
+#, python-format
+msgid "No Cash Statement open for payment"
+msgstr "Es ist kein Kassbuch für die Zahlung geöffnet"
+
+#. module: at_pos
+#: field:at_pos.product_eval_view,date:0
+msgid "Create Date"
+msgstr "Erstellungsdatum"
+
+#. module: at_pos
+#: field:product.product,needs_measure:0
+msgid "Needs Measurement"
+msgstr "Wird Gewogen"
+
+#. module: at_pos
+#: selection:at_pos.product_eval_view,month:0
+msgid "January"
+msgstr "Jänner"
+
+#. module: at_pos
+#: code:addons/at_pos/pos_system.py:55
+#: code:addons/at_pos/pos_system.py:542
+#: view:pos.order:0
+#, python-format
+msgid "Payment"
+msgstr "Zahlung"
+
+#. module: at_pos
+#: code:addons/at_pos/pos_system.py:56
+#, python-format
+msgid "Advance"
+msgstr "Fortschreitend"
+
+#. module: at_pos
+#: selection:at_pos.product_eval_view,month:0
+msgid "February"
+msgstr "Februar"
+
+#. module: at_pos
+#: field:at_pos.pos_printer,name:0
+#: field:at_pos.pos_system,name:0
+#: field:pos.order.payment,name:0
+msgid "Name"
+msgstr "Name"
+
+#. module: at_pos
+#: view:at_pos.product_eval_view:0
+msgid "    Today    "
+msgstr "  Heute  "
+
+#. module: at_pos
+#: model:ir.model,name:at_pos.model_product_product
+msgid "Produkt"
+msgstr "Produkt"
+
+#. module: at_pos
+#: field:at_pos.product_eval_view,lines:0
+msgid "Lines"
+msgstr "Zeilen"
+
+#. module: at_pos
+#: selection:at_pos.product_eval_view,month:0
+msgid "April"
+msgstr "April"
+
+#. module: at_pos
+#: code:addons/at_pos/pos_system.py:871
+#, python-format
+msgid "Payments"
+msgstr "Zahlung(en)"
+
+#. module: at_pos
+#: field:pos.order,statement_id:0
+msgid "Cash Statement"
+msgstr "Kassenbuch"
+
+#. module: at_pos
+#: view:at_pos.product_eval_view:0
+msgid "Product Analysis created in last month"
+msgstr "Product Analysis created in last month"
+
+#. module: at_pos
+#: field:pos.order.payment,order_id:0
+msgid "Order"
+msgstr "Verkauf"
+
+#. module: at_pos
+#: code:addons/at_pos/pos.py:691
+#, python-format
+msgid "There is no income account defined for this product: \"%s\" (id:%d)"
+msgstr "Es ist kein Verkaufskonto für das Produkt: \"%s\" (id:%d) definiert"
+
+#. module: at_pos
+#: field:at_pos.product_eval_view,subtotal:0
+msgid "Subtotal"
+msgstr "Gesamt"
+
+#. module: at_pos
+#: code:addons/at_pos/pos_system.py:305
+#, python-format
+msgid "Only Statement in Draft State could opened"
+msgstr "Nur Kassa im Entwurfsstatus kann geöffnet werden"
+
+#. module: at_pos
+#: field:at_pos.product_eval_view,leaf_categ_id:0
+msgid "Leaf Category"
+msgstr "(Blatt)Kategorie"
+
+#. module: at_pos
+#: view:at_pos.product_eval_view:0
+msgid "Product Analysis created by today"
+msgstr "Produkt Analyse per Tag"
+
+#. module: at_pos
+#: view:pos.order:0
+msgid "Make Payment"
+msgstr "Erfasse Zahlung"
+
+#. module: at_pos
+#: view:at_pos.product_eval_view:0
+msgid "Group By..."
+msgstr "Gruppiert nach..."
+
+#. module: at_pos
+#: view:at_pos.product_eval_view:0
+msgid "Point of Sale Product Analysis"
+msgstr "Point of Sale Produkt Analayse"
+
+#. module: at_pos
+#: field:account.bank.statement,pos_paid_order_line_ids:0
+msgid "Paid Order Lines"
+msgstr "Bezahlte Bonzeilen"
+
+#. module: at_pos
+#: field:at_pos.pos_system,cash_journal_id:0
+msgid "Cash Journal"
+msgstr "Kassa Journal"
+
+#. module: at_pos
+#: constraint:product.product:0
+msgid "Error: Invalid ean code"
+msgstr "Fehler: Falscher EAN code"
+
+#. module: at_pos
+#: code:addons/at_pos/report/cashbox_report.py:46
+#, python-format
+msgid "Unclosed"
+msgstr "Offen"
+
+#. module: at_pos
+#: code:addons/at_pos/pos_system.py:64
+#, python-format
+msgid "POS System with ID %s is invalid!"
+msgstr "POS System mit der ID %s ist ungültig!"
+
+#. module: at_pos
+#: view:at_pos.product_eval_view:0
+#: field:at_pos.product_eval_view,year:0
+msgid "Year"
+msgstr "Jahr"
+
+#. module: at_pos
+#: field:pos.order.line,price_brutto:0
+msgid "Price (Brutto)"
+msgstr "Preis (Brutto)"
+

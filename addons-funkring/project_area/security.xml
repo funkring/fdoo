@@ -1,0 +1,400 @@
+<openerp>
+	<data>
+		<record id="group_project" model="res.groups">
+			<field name="name">Area / Project</field>
+		</record>
+		
+		<record id="access_log_ticket_report_project" model="ir.model.access">
+			<field name="name">ticket_log_report/project</field>
+			<field name="model_id" ref="at_project_issue.model_at_project_ticket_log_report"/>
+			<field name="group_id" ref="group_project"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="False"/>
+			<field name="perm_write" eval="False"/>
+		</record>
+		<record id="access_mailgate_message_project" model="ir.model.access">
+			<field name="name">mailgate_message/project</field>
+			<field name="model_id" ref="mail_gateway.model_mailgate_message" ></field>
+			<field name="group_id" ref="group_project" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_write" eval="False" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_unlink" eval="False" />
+		</record>
+		<record id="access_ir_property_project" model="ir.model.access">
+			<field name="name">ir_property/project</field>
+			<field name="model_id" ref="base.model_ir_property" />
+			<field name="group_id" ref="group_project" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_write" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_unlink" eval="False" />
+		</record>
+		
+		<record id="access_report_mimetypes_project" model="ir.model.access">
+			<field name="name">report_mimetypes/project</field>
+			<field name="model_id" ref="report_aeroo.model_report_mimetypes" />
+			<field name="group_id" ref="group_project" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+		<record id="access_report_stylesheet_project" model="ir.model.access">
+			<field name="name">report_stylesheet/project</field>
+			<field name="model_id" ref="report_aeroo.model_report_stylesheets" />
+			<field name="group_id" ref="group_project" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+
+		<record id="access_ir_attachment_project" model="ir.model.access">
+			<field name="name">ir_attachment/project</field>
+			<field name="model_id" ref="base.model_ir_attachment" />
+			<field name="group_id" ref="group_project" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+
+		<record id="access_board_board_project" model="ir.model.access">
+			<field name="name">board_board/project</field>
+			<field name="model_id" ref="board.model_board_board" />
+			<field name="group_id" ref="group_project" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+
+		<record id="access_board_board_line_project" model="ir.model.access">
+			<field name="name">board_board_line/project</field>
+			<field name="model_id" ref="board.model_board_board_line" />
+			<field name="group_id" ref="group_project" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+
+		<record id="access_board_note_type_project" model="ir.model.access">
+			<field name="name">board_note_type/project</field>
+			<field name="model_id" ref="board.model_board_note_type" />
+			<field name="group_id" ref="group_project" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+
+		<record id="access_board_note_project" model="ir.model.access">
+			<field name="name">board_note/project</field>
+			<field name="model_id" ref="board.model_board_note" />
+			<field name="group_id" ref="group_project" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+
+		<record id="access_project_project" model="ir.model.access">
+			<field name="name">project/project</field>
+			<field name="model_id" ref="project.model_project_project" />
+			<field name="group_id" ref="group_project" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+
+		<record id="access_project_task_project" model="ir.model.access">
+			<field name="name">project_task/project</field>
+			<field name="model_id" ref="project.model_project_task" />
+			<field name="group_id" ref="group_project" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+
+		<record id="access_project_task_type_project" model="ir.model.access">
+			<field name="name">project_task_type/project</field>
+			<field name="model_id" ref="project.model_project_task_type" />
+			<field name="group_id" ref="group_project" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+
+		<record id="access_project_task_work_project" model="ir.model.access">
+			<field name="name">project_task_work/project</field>
+			<field name="model_id" ref="project.model_project_task_work" />
+			<field name="group_id" ref="group_project" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+
+		<record id="access_account_analytic_journal_project" model="ir.model.access">
+			<field name="name">account_analytic_journal/project</field>
+			<field name="model_id" ref="account.model_account_analytic_journal" />
+			<field name="group_id" ref="group_project" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+
+		<record id="access_analytic_account_project" model="ir.model.access">
+			<field name="name">analytic_account/project</field>
+			<field name="model_id" ref="analytic.model_account_analytic_account" />
+			<field name="group_id" ref="group_project" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+
+		<record id="access_project_issue_project" model="ir.model.access">
+			<field name="name">project_issue/project</field>
+			<field name="model_id" ref="project_issue.model_project_issue" />
+			<field name="group_id" ref="group_project" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+		<record id="access_crm_case_categ_project" model="ir.model.access">
+			<field name="name">crm_case_categ/project</field>
+			<field name="model_id" ref="crm.model_crm_case_categ" />
+			<field name="group_id" ref="group_project" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+
+		<record id="access_project_issue_version_project" model="ir.model.access">
+			<field name="name">project_issue_version/project</field>
+			<field name="model_id" ref="project_issue.model_project_issue_version" />
+			<field name="group_id" ref="group_project" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+		
+		<record id="access_crm_case_section_project" model="ir.model.access">
+			<field name="name">crm_case_section/project</field>
+			<field name="model_id" ref="crm.model_crm_case_section"/>
+			<field name="group_id" ref="group_project"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="False"/>
+			<field name="perm_write" eval="False"/>
+		</record>
+		
+ 		<record id="access_partner_project" model="ir.model.access">
+			<field name="name">partner/project</field>
+			<field name="model_id" ref="base.model_res_partner"/>
+			<field name="group_id" ref="group_project"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="False"/>
+			<field name="perm_write" eval="False"/>
+		</record>
+		<record id="access_partner_address_project" model="ir.model.access">
+			<field name="name">partner/project</field>
+			<field name="model_id" ref="base.model_res_partner_address"/>
+			<field name="group_id" ref="group_project"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="False"/>
+			<field name="perm_write" eval="False"/>
+		</record>
+
+		<record id="access_project_log_report_project" model="ir.model.access">
+			<field name="name">project_log_report/project</field>
+			<field name="model_id" ref="at_project.model_project_log_report" />
+			<field name="group_id" ref="group_project" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+		
+		<record id="access_project_phase_project" model="ir.model.access">
+			<field name="name">project_phase/project</field>
+			<field name="model_id" ref="project_long_term.model_project_phase" />
+			<field name="group_id" ref="group_project" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>project.resource.allocation
+		
+		<record id="access_project_resource_allocation_project" model="ir.model.access">
+			<field name="name">project_resource_allocation/project</field>
+			<field name="model_id" ref="project_long_term.model_project_resource_allocation" />
+			<field name="group_id" ref="group_project" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_write" eval="False" />
+		</record>
+		
+		<record id="access_timesheet_line_project" model="ir.model.access">
+			<field name="name">timesheet_line/group_project</field>
+			<field name="model_id" ref="hr_timesheet.model_hr_analytic_timesheet"/>
+			<field name="group_id" ref="group_project"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="False"/>
+			<field name="perm_write" eval="False"/>
+		</record>
+		
+		<record id="access_product_project" model="ir.model.access">
+			<field name="name">product/group_project</field>
+			<field name="model_id" ref="product.model_product_product"/>
+			<field name="group_id" ref="group_project"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="False"/>
+			<field name="perm_write" eval="False"/>
+		</record>
+		
+		<record id="access_account_analytic_line_project" model="ir.model.access">
+			<field name="name">account_analytic_line/group_project</field>
+			<field name="model_id" ref="account.model_account_analytic_line"/>
+			<field name="group_id" ref="group_project"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="False"/>
+			<field name="perm_write" eval="False"/>
+		</record>
+		
+ 		<record id="rule_project_phase" model="ir.rule">
+			<field name="name">Project Phase</field>
+			<field name="model_id" ref="project_long_term.model_project_phase" />
+			<field name="domain_force">[('project_id.partner_id','=',user.partner_id.id)]</field>
+			<field name="groups" eval="[(4,ref('group_project'))]" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_write" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_unlink" eval="False" />
+		</record>
+		
+		<record id="rule_project" model="ir.rule">
+			<field name="name">Project Rule for Project Area</field>
+			<field name="model_id" ref="project.model_project_project" />
+			<field name="domain_force">[('partner_id','=',user.partner_id.id)]</field>
+			<field name="groups" eval="[(4,ref('group_project'))]" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_write" eval="True" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_unlink" eval="False" />
+		</record>
+
+		<record id="rule_project_issue" model="ir.rule">
+			<field name="name">project_issue/</field>
+			<field name="model_id" ref="project_issue.model_project_issue" />
+			<field name="domain_force">[('project_id.partner_id', '=', user.partner_id.id)]</field>
+			<field name="groups" eval="[(4,ref('group_project'))]" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_write" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_unlink" eval="False" />
+		</record>
+
+		<record id="rule_project_task" model="ir.rule">
+			<field name="name">Task Rule for Project Area</field>
+			<field name="model_id" ref="project.model_project_task" />
+			<field name="domain_force">['|',('create_uid','=',user.id),('project_id.partner_id','=',user.partner_id.id)]</field>
+			<field name="groups" eval="[(4,ref('group_project'))]" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_write" eval="True" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_unlink" eval="False" />
+		</record>
+
+		<record id="rule_partner" model="ir.rule">
+			<field name="name">Rule for Partner Selection</field>
+			<field name="model_id" ref="base.model_res_partner" />
+			<field name="domain_force">[('id','=',user.partner_id.id)]</field>
+			<field name="groups" eval="[(4,ref('group_project'))]" />
+			<field name="perm_read" eval="True"/>
+			<field name="perm_write" eval="False"/>
+			<field name="perm_create" eval="False"/>
+			<field name="perm_unlink" eval="False"/>
+		</record>
+		
+		<record id="rule_partner_address" model="ir.rule">
+			<field name="name">Rule for Partner</field>
+			<field name="model_id" ref="base.model_res_partner_address"/>
+			<field name="domain_force">[('partner_id','=',user.partner_id.id)]</field>
+			<field name="groups" eval="[(4,ref('group_project'))]" />
+			<field name="perm_read" eval="True"/>
+			<field name="perm_write" eval="False"/>
+			<field name="perm_create" eval="False"/>
+			<field name="perm_unlink" eval="False"/>
+		</record>
+
+		<record id="rule_user" model="ir.rule">
+			<field name="name">User Rule for Project Area</field>
+			<field name="model_id" ref="base.model_res_users" />
+			<field name="domain_force">[('id','in',[x.id for x in user.partner_id.project_user_ids])]</field>
+			<field name="groups" eval="[(4,ref('group_project'))]" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_write" eval="True" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_unlink" eval="True" />
+		</record>
+
+		<record id="rule_project_log" model="ir.rule">
+			<field name="name">project/log</field>
+			<field name="model_id" ref="at_project.model_project_log_report" />
+			<field name="domain_force">['|',('user_id','=',user.id),('project_id.partner_id','=',user.partner_id.id)]</field>
+			<field name="groups" eval="[(4,ref('group_project'))]" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_write" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_unlink" eval="False" />
+		</record>
+
+		<record id="rule_ticket_log" model="ir.rule">
+			<field name="name">ticket/log</field>
+			<field name="model_id" ref="at_project_issue.model_at_project_ticket_log_report" />
+			<field name="domain_force">['|',('user_id','=',user.id),('project_id.partner_id','=',user.partner_id.id)]</field>
+			<field name="groups" eval="[(4,ref('group_project'))]" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_write" eval="False" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_unlink" eval="False" />
+		</record>
+
+		<record id="rule_timesheet_line" model="ir.rule">
+		  	<field name="name">project_area/timesheet_line</field>
+		   	<field name="model_id" ref="hr_timesheet.model_hr_analytic_timesheet"/>
+		   	<field name="domain_force">[('account_id.partner_id', '=', user.partner_id.id), ('invoice_id','=', None), ('to_invoice','!=', None)]</field>
+		   	<field name="groups" eval="[(4,ref('group_project'))]"/>
+		   	<field name="perm_read" eval="True"/>	    	
+		   	<field name="perm_write" eval="False"/>	    	
+		   	<field name="perm_create" eval="False"/>
+		   	<field name="perm_unlink" eval="False"/>
+		</record>
+
+		<!-- <record id="rule_user_self" model="ir.rule"> <field name="name">User 
+			Rule for Project Area</field> <field name="model_id" ref="base.model_res_users"/> 
+			<field name="domain_force">['|',('company_id.child_ids','child_of',[user.company_id.id]),('company_id','child_of',[user.company_id.id])]</field> 
+			<field name="groups" eval="[(4,ref('group_project'))]"/> <field name="perm_read" 
+			eval="True"/> <field name="perm_write" eval="True"/> <field name="perm_create" 
+			eval="True"/> <field name="perm_unlink" eval=""/> </record> -->
+
+	</data>
+</openerp>

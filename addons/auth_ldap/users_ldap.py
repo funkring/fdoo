@@ -191,7 +191,7 @@ class CompanyLDAP(osv.osv):
                 user_id = res[0]
         elif conf['create_user']:
             _logger.debug("Creating new OpenERP user \"%s\" from LDAP" % login)
-            user_obj = self.pool.get('res.users')
+            user_obj = self.pool['res.users']
             values = self.map_ldap_attributes(cr, uid, conf, login, ldap_entry)
             if conf['user']:
                 values['active'] = True
@@ -231,7 +231,6 @@ class CompanyLDAP(osv.osv):
         'create_user': True,
     }
 
-CompanyLDAP()
 
 
 class res_company(osv.osv):
@@ -240,7 +239,6 @@ class res_company(osv.osv):
         'ldaps': fields.one2many(
             'res.company.ldap', 'company', 'LDAP Parameters'),
     }
-res_company()
 
 
 class users(osv.osv):
@@ -276,5 +274,4 @@ class users(osv.osv):
                         return
             raise
         
-users()
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

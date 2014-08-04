@@ -1,0 +1,17 @@
+<openerp>
+	<data>
+		
+		<record id="property_commission_product" model="ir.property">
+			<field name="name">property_commission_sale</field>
+			<field name="fields_id" search="[('model','=','crm.case.section'),('name','=','property_commission_product')]"/>
+			<field name="value" eval="'product.product,'+str(product_default)"/>
+		</record>
+		
+		<record id="property_analytic_journal" model="ir.property">
+			<field name="name">property_analytic_journal</field>
+			<field name="fields_id" search="[('model','=','crm.case.section'),('name','=','property_analytic_journal')]"/>
+			<field name="value" eval="'account.analytic.journal,'+str(analytic_journal_default)"/>
+		</record>
+		
+	</data>
+</openerp>

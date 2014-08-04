@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="sale_order_form" model="ir.ui.view">
+			<field name="name">sales_order</field>
+			<field name="model">sale.order</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="at_sale.sale_order_form" />
+			<field name="arch" type="xml">
+				<page name="offer" position="after">		
+					<page string="Salesmen">
+						<field name="salesmen_part_ids" mode="tree,form" nolabel="1" widget="one2many_list">
+							<form string="Salesmen Parts">
+								<field name="part"/>
+								<field name="salesmen_id"/>
+							</form>
+							<tree string="Salesmen Parts">
+								<field name="part"/>
+								<field name="salesmen_id"/>
+							</tree>
+						</field>				
+					</page>
+				</page>
+			</field>
+		</record>
+	</data>
+</openerp>

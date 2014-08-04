@@ -2,21 +2,20 @@
 # Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
 # This file is distributed under the same license as the openobject-addons package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
-# Sofce Dimitrijeva <sofce@eskon.com.mk>, 2013.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:37+0000\n"
-"PO-Revision-Date: 2013-03-28 23:04+0000\n"
-"Last-Translator: Sofce Dimitrijeva <Unknown>\n"
-"Language-Team: ESKON-INZENERING\n"
+"POT-Creation-Date: 2012-12-21 17:05+0000\n"
+"PO-Revision-Date: 2012-10-09 08:00+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Macedonian <mk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-21 06:11+0000\n"
-"X-Generator: Launchpad (build 16831)\n"
-"Language: mk\n"
+"X-Launchpad-Export-Date: 2014-03-27 06:51+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: hr_contract
 #: field:hr.contract,wage:0
@@ -42,11 +41,6 @@ msgstr "Службено Возило"
 #: view:hr.contract:0
 msgid "Group By..."
 msgstr "Групирај По..."
-
-#. module: hr_contract
-#: view:hr.contract:0
-msgid "Advantages..."
-msgstr "Предности..."
 
 #. module: hr_contract
 #: field:hr.contract,department_id:0
@@ -238,3 +232,43 @@ msgstr "Пробен Краен Датум"
 #: view:hr.contract.type:0
 msgid "Search Contract Type"
 msgstr "Пребарај Тип на Договор"
+
+#~ msgid "Miscellaneous"
+#~ msgstr "Разно"
+
+#~ msgid "Current"
+#~ msgstr "Тековен"
+
+#~ msgid "Medical Examination"
+#~ msgstr "Систематски Преглед"
+
+#~ msgid "Trial Period"
+#~ msgstr "Пробен Период"
+
+#~ msgid "Overpassed"
+#~ msgstr "Изминат"
+
+#~ msgid "Personal Info"
+#~ msgstr "Лични информации"
+
+#~ msgid "Contracts whose end date already passed"
+#~ msgstr "Договори чии што краен рок е веќе поминат"
+
+#~ msgid "Contracts in progress"
+#~ msgstr "Договори во тек"
+
+#~ msgid "Home-Work Distance"
+#~ msgstr "Дома-Работа Одалеченост"
+
+#~ msgid "Valid for"
+#~ msgstr "Валиден за"
+
+#~ msgid "Error ! You cannot create recursive Hierarchy of Employees."
+#~ msgstr "Грешка! Не можете да креирате рекурзивна хиерархија на вработените."
+
+#~ msgid "Job Info"
+#~ msgstr "Информации за Работата"
+
+#~ msgid "Error! contract start-date must be lower then contract end-date."
+#~ msgstr ""
+#~ "Грешка! Почетниот датум на договорот мора да биде помал од крајниот датум."

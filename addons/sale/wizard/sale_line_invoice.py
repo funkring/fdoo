@@ -21,7 +21,7 @@
 
 from openerp.osv import osv, fields
 from openerp.tools.translate import _
-from openerp import netsvc
+from openerp import workflow
 
 class sale_order_line_make_invoice(osv.osv_memory):
     _name = "sale.order.line.make.invoice"
@@ -61,10 +61,10 @@ class sale_order_line_make_invoice(osv.osv_memory):
             else:
                 pay_term = False
             inv = {
-                'name': order.client_order_ref or '',
+                'name': order.client_order_ref or order.name,
                 'origin': order.name,
                 'type': 'out_invoice',
-                'reference': "P%dSO%d" % (order.partner_id.id, order.id),
+                'reference': order.client_order_ref or order.name,
                 'account_id': a,
                 'partner_id': order.partner_invoice_id.id,
                 'invoice_line': [(6, 0, lines)],
@@ -81,7 +81,6 @@ class sale_order_line_make_invoice(osv.osv_memory):
 
         sales_order_line_obj = self.pool.get('sale.order.line')
         sales_order_obj = self.pool.get('sale.order')
-        wf_service = netsvc.LocalService('workflow')
         for line in sales_order_line_obj.browse(cr, uid, context.get('active_ids', []), context=context):
             if (not line.invoiced) and (line.state not in ('draft', 'cancel')):
                 if not line.order_id in invoices:
@@ -94,13 +93,15 @@ class sale_order_line_make_invoice(osv.osv_memory):
             cr.execute('INSERT INTO sale_order_invoice_rel \
                     (order_id,invoice_id) values (%s,%s)', (order.id, res))
             flag = True
+            sales_order_obj.message_post(cr, uid, [order.id], body=_("Invoice created"), context=context)
             data_sale = sales_order_obj.browse(cr, uid, order.id, context=context)
             for line in data_sale.order_line:
                 if not line.invoiced:
                     flag = False
                     break
             if flag:
-                wf_service.trg_validate(uid, 'sale.order', order.id, 'manual_invoice', cr)
+                workflow.trg_validate(uid, 'sale.order', order.id, 'manual_invoice', cr)
+                sales_order_obj.write(cr, uid, [order.id], {'state': 'progress'})
 
         if not invoices:
             raise osv.except_osv(_('Warning!'), _('Invoice cannot be created for this Sales Order Line due to one of the following reasons:\n1.The state of this sales order line is either "draft" or "cancel"!\n2.The Sales Order Line is Invoiced!'))
@@ -128,6 +129,5 @@ class sale_order_line_make_invoice(osv.osv_memory):
             'type': 'ir.actions.act_window',
         }
 
-sale_order_line_make_invoice()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

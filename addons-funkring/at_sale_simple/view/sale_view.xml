@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="sale_order_form" model="ir.ui.view">
+            <field name="name">Sale Order From</field>
+            <field name="model">sale.order</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="at_sale.sale_order_form" />
+            <field name="arch" type="xml">
+            	<data>
+	                <field name="partner_id" position="after">
+	                    <field name="opportunity_id" groups="at_sale_simple.group_sale_extended" />
+	                </field>
+	                <field name="shipped" position="replace">
+	                    <field name="shipped" groups="at_sale_simple.group_sale_production" />
+	                </field>
+	                <field name="invoiced" position="replace">
+	                    <field name="invoiced" groups="base.group_extended" />
+	                </field>
+	                <field name="partner_order_id" position="replace">
+	                    <field domain="[('partner_id','=',partner_id)]"
+	                        name="partner_order_id" />
+	                </field>
+	                <field name="partner_invoice_id" position="replace">
+	                    <field domain="[('partner_id','=',partner_id)]"
+	                        name="partner_invoice_id" />
+	                </field>
+	                <field name="partner_shipping_id" position="replace">
+	                    <field domain="[('partner_id','=',partner_id)]"
+	                        name="partner_shipping_id" />
+	                </field>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

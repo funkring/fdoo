@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	
+    	<menuitem name="Attributes"
+        	id="menu_product_attributes" parent="product.prod_config_main" sequence="10"/>
+        	
+    	    	
+        <record id="form_product_format" model="ir.ui.view">
+            <field name="name">Format Form</field>
+            <field name="model">product.pr_format</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Format">
+                    <field name="name" select="1" />
+                    <field name="code" select="1" />
+                </form>
+            </field>
+        </record>        
+        <record id="tree_product_format" model="ir.ui.view">
+            <field name="name">Format Tree</field>
+            <field name="model">product.pr_format</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Format">
+                    <field name="name" select="1" />
+                    <field name="code" select="1" />
+                </tree>
+            </field>
+        </record>
+    	<record id="action_product_format" model="ir.actions.act_window">
+            <field name="name">Format</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.pr_format</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help">Create and manage product formats</field>
+        </record>
+        <menuitem  action="action_product_format"  
+        	id="menu_product_format" parent="menu_product_attributes" sequence="10"/>
+        	
+        	
+        <record id="form_product_leteral_pressure" model="ir.ui.view">
+            <field name="name">Leteral Pressure</field>
+            <field name="model">product.pr_leteral_pressure</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Leteral Pressure">
+                    <field name="name" select="1" />
+                    <field name="code" select="1" />
+                </form>
+            </field>
+        </record>        
+        <record id="tree_product_leteral_pressure" model="ir.ui.view">
+            <field name="name">Leteral Pressure</field>
+            <field name="model">product.pr_leteral_pressure</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Leteral Pressure">
+                    <field name="name" select="1" />
+                    <field name="code" select="1" />
+                </tree>
+            </field>
+        </record>
+    	<record id="action_product_leteral_pressure" model="ir.actions.act_window">
+            <field name="name">Leteral Pressure</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.pr_leteral_pressure</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help">Create and manage leteral pressure</field>
+        </record>
+        <menuitem  action="action_product_leteral_pressure"  
+        	id="menu_product_leteral_pressure" parent="menu_product_attributes" sequence="11"/>
+
+		
+		<record id="form_product_gram" model="ir.ui.view">
+            <field name="name">Grammature</field>
+            <field name="model">product.pr_gram</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Grammature">
+                    <field name="name" select="1" />
+                    <field name="code" select="1" />
+                </form>
+            </field>
+        </record>        
+        <record id="tree_product_gram" model="ir.ui.view">
+            <field name="name">Grammature</field>
+            <field name="model">product.pr_gram</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Grammature">
+                    <field name="name" select="1" />
+                    <field name="code" select="1" />
+                </tree>
+            </field>
+        </record>
+    	<record id="action_product_gram" model="ir.actions.act_window">
+            <field name="name">Grammature</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.pr_gram</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help">Create and manage grammature</field>
+        </record>
+        <menuitem  action="action_product_gram"
+        	id="menu_product_gram" parent="menu_product_attributes" sequence="12"/>
+
+
+  		<record id="form_product_material" model="ir.ui.view">
+            <field name="name">Material Form</field>
+            <field name="model">product.pr_material</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Material">
+                    <field name="name" select="1" />
+                    <field name="code" select="1" />
+                </form>
+            </field>
+        </record>        
+        <record id="tree_product_material" model="ir.ui.view">
+            <field name="name">Material Tree</field>
+            <field name="model">product.pr_material</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Material">
+                    <field name="name" select="1" />
+                    <field name="code" select="1" />
+                </tree>
+            </field>
+        </record>
+    	<record id="action_product_material" model="ir.actions.act_window">
+            <field name="name">Material</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.pr_material</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help">Create and manage product materials</field>
+        </record>
+        <menuitem  action="action_product_material"  
+        	id="menu_product_material" parent="menu_product_attributes" sequence="13"/>
+    	
+    	
+    	<record id="form_product_material_surface" model="ir.ui.view">
+            <field name="name">Material Surface Form</field>
+            <field name="model">product.pr_material_surface</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Material Surface">
+                    <field name="name" select="1" />
+                    <field name="code" select="1" />
+                </form>
+            </field>
+        </record>        
+        <record id="tree_product_material_surface" model="ir.ui.view">
+            <field name="name">Material Surface Tree</field>
+            <field name="model">product.pr_material_surface</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Material Surface">
+                    <field name="name" select="1" />
+                    <field name="code" select="1" />
+                </tree>
+            </field>
+        </record>
+    	<record id="action_product_material_surface" model="ir.actions.act_window">
+            <field name="name">Material Surface</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.pr_material_surface</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help">Create and manage product material surfaces</field>
+        </record>
+        <menuitem  action="action_product_material_surface"  
+        	id="menu_product_material_surface" parent="menu_product_attributes" sequence="14"/>
+        	
+        	       	    	
+        <record id="form_product_orientation" model="ir.ui.view">
+            <field name="name">Orientation Form</field>
+            <field name="model">product.pr_orientation</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Orientation">
+                    <field name="name" select="1" />
+                    <field name="code" select="1" />
+                </form>
+            </field>
+        </record>        
+        <record id="tree_product_orientation" model="ir.ui.view">
+            <field name="name">Orientation Tree</field>
+            <field name="model">product.pr_orientation</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Orientation">
+                    <field name="name" select="1" />
+                    <field name="code" select="1" />
+                </tree>
+            </field>
+        </record>
+    	<record id="action_product_orientation" model="ir.actions.act_window">
+            <field name="name">Orientation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.pr_orientation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help">Create and manage product orientation</field>
+        </record>
+        <menuitem  action="action_product_orientation"  
+        	id="menu_product_orientation" parent="menu_product_attributes" sequence="15"/>
+        	        
+       
+        <record id="form_product_color" model="ir.ui.view">
+            <field name="name">Color Form</field>
+            <field name="model">product.pr_color</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Color">
+                    <field name="name" select="1" />
+                    <field name="code" select="1" />
+                </form>
+            </field>
+        </record>        
+        <record id="tree_product_color" model="ir.ui.view">
+            <field name="name">Format Tree</field>
+            <field name="model">product.pr_color</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Color">
+                    <field name="name" select="1" />
+                    <field name="code" select="1" />
+                </tree>
+            </field>
+        </record>
+    	<record id="action_product_color" model="ir.actions.act_window">
+            <field name="name">Color</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.pr_color</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help">Create and manage product colors</field>
+        </record>
+        <menuitem  action="action_product_color"  
+        	id="menu_product_color" parent="menu_product_attributes" sequence="16"/>
+        
+                    	
+        <record id="form_product_attribute" model="ir.ui.view">
+            <field name="name">Attribute Form</field>
+            <field name="model">product.pr_attribute</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Attribute">
+                    <field name="name" select="1" />
+                    <field name="code" select="1" />
+                </form>
+            </field>
+        </record>        
+        <record id="tree_product_attribute" model="ir.ui.view">
+            <field name="name">Attribute Tree</field>
+            <field name="model">product.pr_attribute</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Attribute">
+                    <field name="name" select="1" />
+                    <field name="code" select="1" />
+                </tree>
+            </field>
+        </record>
+    	<record id="action_product_attribute" model="ir.actions.act_window">
+            <field name="name">Attribute</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.pr_attribute</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help">Create and manage product attributes</field>
+        </record>
+        <menuitem  action="action_product_attribute"  
+        	id="menu_product_attribute" parent="menu_product_attributes" sequence="17"/>
+        		   	
+    	
+    	<record id="product_normal_form_view" model="ir.ui.view">
+            <field name="name">product.normal.form</field>
+            <field name="model">product.product</field>
+            <field name="type">form</field>
+            <field eval="7" name="priority"/>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+            	<data>
+            		<group name="volume_and_weight" position="replace">            			
+            		</group>
+            		            		
+            		<field name="variants" position="replace">
+            			<field name="variants" />
+            		</field>
+            		
+            		<page string="Information" position="after">
+            			<page string="Attributes">
+            				<group name="volume_and_weight" colspan="2" col="2" groups="base.group_extended">
+                                <separator string="Weights" colspan="2"/>
+                                <field digits="(14, 3)" name="volume" attrs="{'readonly':[('type','=','service')]}"/>
+                                <field digits="(14, 3)" name="weight" attrs="{'readonly':[('type','=','service')]}"/>
+                                <field digits="(14, 3)" name="weight_net" attrs="{'readonly':[('type','=','service')]}"/>
+                            </group>
+                            <group name="dimension" colspan="2" col="2">
+                            	<separator string="Dimension" colspan="2"/>
+                            	<field name="pr_unit"/>
+                            	<field name="pr_format_id"/>
+                            	<field name="pr_leteral_pressure_id"/>     
+                            	<field name="pr_gram_id"/>                       	
+                            </group>        				
+                            <group name="material" colspan="2" col="2">
+                            	<separator string="Material" colspan="2"/>
+                            	<field name="pr_material_id"/>
+                            	<field name="pr_material_surface_id"/>
+                            </group>
+                            <group name="orientation_color" colspan="2" col="2">
+                            	<separator string="Orientation &amp; Color" colspan="2"/>
+                            	<field name="pr_orientation_id"/>           
+                            	<field name="pr_color_id"/>                 	
+                            </group>  
+                            <group name="additional_attribs" colspan="4" col="2">                          
+	                            <separator string="Additional Attributes" colspan="2"/>
+	                            <field name="pr_attribute_ids"/>
+	                        </group>
+            			</page>            			
+            		</page>         		
+            	</data>
+            </field>
+        </record>
+	</data>
+</openerp>

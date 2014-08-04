@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	    
+	    <record id="supplier_purchase_line" model="ir.rule">
+	    	<field name="name">Purchase Line</field>
+	    	<field name="model_id" ref="purchase.model_purchase_order_line"/>
+	    	<field name="domain_force">[('partner_id','=',user.partner_id.id)]</field>
+	    	<field name="groups" eval="[(4,ref('group_supplier'))]"/>
+	    	<field name="perm_read" eval="True"/>	    	
+	    	<field name="perm_write" eval="True"/>	    	
+	    	<field name="perm_create" eval="False"/>
+	    	<field name="perm_unlink" eval="False"/>
+	    </record>
+	    
+	    <record id="supplier_purchase_order" model="ir.rule">
+	    	<field name="name">Purchase Order</field>
+	    	<field name="model_id" ref="purchase.model_purchase_order"/>
+	    	<field name="domain_force">[('partner_id','=',user.partner_id.id)]</field>
+	    	<field name="groups" eval="[(4,ref('group_supplier'))]"/>
+	    	<field name="perm_read" eval="True"/>	    	
+	    	<field name="perm_write" eval="True"/>	    	
+	    	<field name="perm_create" eval="False"/>
+	    	<field name="perm_unlink" eval="False"/>
+	    </record>
+	    
+	     <record id="supplier_procurement_order" model="ir.rule">
+	    	<field name="name">Procurement Order</field>
+	    	<field name="model_id" ref="procurement.model_procurement_order"/>
+	    	<field name="domain_force">[('purchase_id.partner_id','=',user.partner_id.id)]</field>
+	    	<field name="groups" eval="[(4,ref('group_supplier'))]"/>
+	    	<field name="perm_read" eval="True"/>	    	
+	    	<field name="perm_write" eval="True"/>	    	
+	    	<field name="perm_create" eval="False"/>
+	    	<field name="perm_unlink" eval="False"/>
+	    </record>
+	     		     
+    </data>
+</openerp>

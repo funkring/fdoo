@@ -1,5 +1,8 @@
 -
-  In order to test process of the Sale Order,
+  In order to test process of the Sale Order with access rights of saleman,
+-
+  !context
+    uid: 'res_sale_stock_salesman'
 -
   Add SO line with service type product in SO to check flow which contain service type product in SO(BUG#1167330).
 -
@@ -38,7 +41,7 @@
   !python {model: sale.order}: |
     from datetime import datetime, timedelta
     from dateutil.relativedelta import relativedelta
-    from tools import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT
+    from openerp.tools import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT
     order = self.browse(cr, uid, ref("sale.sale_order_6"))
     for order_line in order.order_line:
         procurement = order_line.procurement_id
@@ -51,17 +54,27 @@
         assert procurement.product_uom.id == order_line.product_uom.id, "UOM is not correspond."
         assert procurement.procure_method == order_line.type, "Procurement method is not correspond."
 -
+  Only stock user can change data related warehouse therefore test with that user which have stock user rights,
+-
+  !context
+    uid: 'res_stock_user'
+-
   I run the scheduler.
 -
   !python {model: procurement.order}: |
     self.run_scheduler(cr, uid)
+-
+  Salesman can also check order therefore test with that user which have salesman rights,
+-
+  !context
+    uid: 'res_sale_stock_salesman'
 -
   I check the details of delivery order after confirmed quotation.
 -
   !python {model: sale.order}: |
     from datetime import datetime, timedelta
     from dateutil.relativedelta import relativedelta
-    from tools import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT
+    from openerp.tools import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT
     sale_order = self.browse(cr, uid, ref("sale.sale_order_6"))
     assert sale_order.picking_ids, "Delivery order is not created."
     for picking in sale_order.picking_ids:
@@ -73,8 +86,8 @@
       assert picking.note == sale_order.note,"Note is not correspond with sale order."
       assert picking.invoice_state == (sale_order.order_policy=='picking' and '2binvoiced') or 'none',"Invoice policy is not correspond with sale order."
       assert len(picking.move_lines) == len(sale_order.order_line) - 1, "Total move of delivery order are not corresposning with total sale order lines."
-      location_id = sale_order.shop_id.warehouse_id.lot_stock_id.id
-      output_id = sale_order.shop_id.warehouse_id.lot_output_id.id
+      location_id = sale_order.warehouse_id.lot_stock_id.id
+      output_id = sale_order.warehouse_id.lot_output_id.id
       for move in picking.move_lines:
          order_line = move.sale_line_id
          sale_order_date = self.date_to_datetime(cr, uid, sale_order.date_order, context)
@@ -147,14 +160,18 @@
         assert inv_line.quantity == (so_line.product_uos and so_line.product_uos_qty) or so_line.product_uom_qty , "Product qty is not correspond."
         assert inv_line.price_subtotal == so_line.price_subtotal, "Price sub total is not correspond."
 -
+  Only Stock manager can open the Invoice therefore test with that user which have stock manager rights,
+-
+  !context
+    uid: 'res_stock_manager'
+-
   I open the Invoice.
 -
   !python {model: sale.order}: |
-    import netsvc
-    wf_service = netsvc.LocalService("workflow")
     so = self.browse(cr, uid, ref("sale.sale_order_6"))
+    account_invoice_obj = self.pool.get('account.invoice')
     for invoice in so.invoice_ids:
-      wf_service.trg_validate(uid, 'account.invoice', invoice.id, 'invoice_open', cr)
+      account_invoice_obj.signal_invoice_open(cr, uid, [invoice.id])
 -
   I pay the invoice
 -
@@ -169,6 +186,11 @@
             ref('account.period_8'), journal_ids[0],
             name='test')
 -
+  To test process of the Sale Order with access rights of saleman,
+-
+  !context
+    uid: 'res_sale_stock_salesman'
+-
   I check the order after paid invoice.
 -
   !python {model: sale.order}: |
@@ -176,12 +198,3 @@
     assert order.invoiced == True, "Sale order is not invoiced."
     assert order.invoiced_rate == 100, "Invoiced progress is not 100%."
     assert order.state == 'done', 'Order should be in closed.'
--
-  I print a sale order report.
--
-  !python {model: sale.order}: |
-    import netsvc, tools, os
-    (data, format) = netsvc.LocalService('report.sale.order').create(cr, uid, [ref('sale.sale_order_6')], {}, {})
-    if tools.config['test_report_directory']:
-        file(os.path.join(tools.config['test_report_directory'], 'sale-sale_order.'+format), 'wb+').write(data)
-

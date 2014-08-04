@@ -1,0 +1,3 @@
+import hr_timesheet
+import hr_timesheet_invoice
+import partner

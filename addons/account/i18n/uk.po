@@ -1,21 +1,20 @@
-# Ukrainian translation for openobject-addons
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
-# This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* account
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openobject-addons\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-14 22:29+0000\n"
-"PO-Revision-Date: 2012-12-21 23:00+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Ukrainian <uk@li.org>\n"
+"Project-Id-Version: OpenERP Server 6.0dev\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-12-21 17:04+0000\n"
+"PO-Revision-Date: 2012-05-10 18:19+0000\n"
+"Last-Translator: Eugene Babiy <eugene.babiy@gmail.com>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-21 05:54+0000\n"
-"X-Generator: Launchpad (build 16831)\n"
+"X-Launchpad-Export-Date: 2014-03-27 06:30+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: account
 #: model:process.transition,name:account.process_transition_supplierreconcilepaid0
@@ -33,11 +32,6 @@ msgstr ""
 msgid ""
 "Determine the display order in the report 'Accounting \\ Reporting \\ "
 "Generic Reporting \\ Taxes \\ Taxes Report'"
-msgstr ""
-
-#. module: account
-#: view:res.partner:0
-msgid "the parent company"
 msgstr ""
 
 #. module: account
@@ -386,11 +380,6 @@ msgid "Creation date"
 msgstr "Дата створення"
 
 #. module: account
-#: view:account.invoice:0
-msgid "Cancel Invoice"
-msgstr ""
-
-#. module: account
 #: selection:account.journal,type:0
 msgid "Purchase Refund"
 msgstr ""
@@ -596,14 +585,10 @@ msgid "The accountant confirms the statement."
 msgstr ""
 
 #. module: account
-#: report:account.account.balance:0
-#: selection:account.balance.report,display_account:0
-#: selection:account.common.account.report,display_account:0
-#: report:account.general.ledger_landscape:0
-#: selection:account.report.general.ledger,display_account:0
-#: selection:account.tax,type_tax_use:0
-#: selection:account.tax.template,type_tax_use:0
-msgid "All"
+#. openerp-web
+#: code:addons/account/static/src/xml/account_move_reconciliation.xml:31
+#, python-format
+msgid "Nothing to reconcile"
 msgstr ""
 
 #. module: account
@@ -671,18 +656,6 @@ msgid "No period found or more than one period found for the given date."
 msgstr ""
 
 #. module: account
-#: help:res.partner,last_reconciliation_date:0
-msgid ""
-"Date on which the partner accounting entries were fully reconciled last "
-"time. It differs from the last date where a reconciliation has been made for "
-"this partner, as here we depict the fact that nothing more was to be "
-"reconciled at this date. This can be achieved in 2 different ways: either "
-"the last unreconciled debit/credit entry of this partner was reconciled, "
-"either the user pressed the button \"Nothing more to reconcile\" during the "
-"manual reconciliation process."
-msgstr ""
-
-#. module: account
 #: model:ir.model,name:account.model_report_account_type_sales
 msgid "Report of the Sales by Account Type"
 msgstr ""
@@ -725,13 +698,6 @@ msgstr ""
 #. module: account
 #: model:ir.model,name:account.model_account_journal_period
 msgid "Journal Period"
-msgstr ""
-
-#. module: account
-#: constraint:account.move.line:0
-msgid ""
-"The amount expressed in the secondary currency must be positive when the "
-"journal item is a debit and negative when if it is a credit."
 msgstr ""
 
 #. module: account
@@ -810,11 +776,6 @@ msgstr ""
 msgid ""
 "Cannot %s invoice which is already reconciled, invoice should be "
 "unreconciled first. You can only refund this invoice."
-msgstr ""
-
-#. module: account
-#: view:account.account:0
-msgid "Account code"
 msgstr ""
 
 #. module: account
@@ -940,13 +901,6 @@ msgstr ""
 #: selection:report.account.sales,month:0
 #: selection:report.account_type.sales,month:0
 msgid "September"
-msgstr ""
-
-#. module: account
-#. openerp-web
-#: code:addons/account/static/src/xml/account_move_reconciliation.xml:24
-#, python-format
-msgid "Latest Manual Reconciliation Processed:"
 msgstr ""
 
 #. module: account
@@ -1204,8 +1158,9 @@ msgid "Refund "
 msgstr ""
 
 #. module: account
-#: help:account.config.settings,company_footer:0
-msgid "Bank accounts as printed in the footer of each printed document"
+#: code:addons/account/account_analytic_line.py:90
+#, python-format
+msgid "There is no expense account defined for this product: \"%s\" (id:%d)."
 msgstr ""
 
 #. module: account
@@ -1272,6 +1227,11 @@ msgid "Confirm statement"
 msgstr ""
 
 #. module: account
+#: view:account.tax:0
+msgid "Account Tax"
+msgstr "Податок за рахунком"
+
+#. module: account
 #: help:account.account,foreign_balance:0
 msgid ""
 "Total amount (in Secondary currency) for transactions held in secondary "
@@ -1294,6 +1254,13 @@ msgstr "Зосередження по кредиту"
 #: model:ir.ui.menu,name:account.menu_action_account_tax_code_template_form
 msgid "Tax Code Templates"
 msgstr "Шаблони Кодів Податків"
+
+#. module: account
+#: constraint:account.move.line:0
+msgid ""
+"The amount expressed in the secondary currency must be positif when journal "
+"item are debit and negatif when journal item are credit."
+msgstr ""
 
 #. module: account
 #: view:account.invoice.cancel:0
@@ -1522,13 +1489,6 @@ msgid "Invoice Status"
 msgstr ""
 
 #. module: account
-#: view:account.open.closed.fiscalyear:0
-#: model:ir.actions.act_window,name:account.action_account_open_closed_fiscalyear
-#: model:ir.ui.menu,name:account.menu_wizard_account_open_closed_fiscalyear
-msgid "Cancel Closing Entries"
-msgstr ""
-
-#. module: account
 #: view:account.bank.statement:0
 #: model:ir.model,name:account.model_account_bank_statement
 #: model:process.node,name:account.process_node_accountingstatemententries0
@@ -1660,14 +1620,6 @@ msgid "Supplier Refunds"
 msgstr "Повернення Постачальнику"
 
 #. module: account
-#: report:account.invoice:0
-#: view:account.invoice:0
-#: field:account.invoice,date_invoice:0
-#: field:report.invoice.created,date_invoice:0
-msgid "Invoice Date"
-msgstr ""
-
-#. module: account
 #: field:account.tax.code,code:0
 #: field:account.tax.code.template,code:0
 msgid "Case Code"
@@ -1702,11 +1654,6 @@ msgstr ""
 #. module: account
 #: view:account.subscription:0
 msgid "Recurring"
-msgstr ""
-
-#. module: account
-#: report:account.invoice:0
-msgid "TIN :"
 msgstr ""
 
 #. module: account
@@ -1900,6 +1847,11 @@ msgstr ""
 #. module: account
 #: view:account.analytic.account:0
 msgid "Pending Accounts"
+msgstr ""
+
+#. module: account
+#: view:account.open.closed.fiscalyear:0
+msgid "Cancel Fiscal Year Opening Entries"
 msgstr ""
 
 #. module: account
@@ -2756,8 +2708,23 @@ msgid "Bank Details"
 msgstr "Деталі Банку"
 
 #. module: account
-#: view:account.bank.statement:0
-msgid "Cancel CashBox"
+#: model:ir.actions.act_window,help:account.action_move_journal_line
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                Click to create a journal entry.\n"
+"              </p><p>\n"
+"                A journal entry consists of several journal items, each of\n"
+"                which is either a debit or a credit transaction.\n"
+"              </p><p>\n"
+"                OpenERP automatically creates one journal entry per "
+"accounting\n"
+"                document: invoice, refund, supplier payment, bank "
+"statements,\n"
+"                etc. So, you should record journal entries manually "
+"only/mainly\n"
+"                for miscellaneous operations.\n"
+"              </p>\n"
+"            "
 msgstr ""
 
 #. module: account
@@ -3057,10 +3024,8 @@ msgid "You cannot delete a posted journal entry \"%s\"."
 msgstr ""
 
 #. module: account
-#: help:account.tax,account_collected_id:0
-msgid ""
-"Set the account that will be set by default on invoice tax lines for "
-"invoices. Leave empty to use the expense account."
+#: view:account.invoice:0
+msgid "Accounting Period"
 msgstr ""
 
 #. module: account
@@ -3128,11 +3093,6 @@ msgstr ""
 #. module: account
 #: field:accounting.report,debit_credit:0
 msgid "Display Debit/Credit Columns"
-msgstr ""
-
-#. module: account
-#: report:account.journal.period.print:0
-msgid "Reference Number"
 msgstr ""
 
 #. module: account
@@ -3926,6 +3886,11 @@ msgid "This purchase tax will be assigned by default on new products."
 msgstr ""
 
 #. module: account
+#: report:account.invoice:0
+msgid "VAT :"
+msgstr ""
+
+#. module: account
 #: report:account.account.balance:0
 #: report:account.central.journal:0
 #: view:account.config.settings:0
@@ -4030,9 +3995,15 @@ msgid ""
 msgstr ""
 
 #. module: account
-#: view:account.tax:0
-msgid "Account Tax"
-msgstr "Податок за рахунком"
+#: report:account.account.balance:0
+#: selection:account.balance.report,display_account:0
+#: selection:account.common.account.report,display_account:0
+#: report:account.general.ledger_landscape:0
+#: selection:account.report.general.ledger,display_account:0
+#: selection:account.tax,type_tax_use:0
+#: selection:account.tax.template,type_tax_use:0
+msgid "All"
+msgstr ""
 
 #. module: account
 #: model:ir.ui.menu,name:account.menu_finance_reporting_budgets
@@ -4165,11 +4136,6 @@ msgstr ""
 #. module: account
 #: field:account.config.settings,complete_tax_set:0
 msgid "Complete set of taxes"
-msgstr ""
-
-#. module: account
-#: field:res.partner,last_reconciliation_date:0
-msgid "Latest Full Reconciliation Date"
 msgstr ""
 
 #. module: account
@@ -4479,19 +4445,8 @@ msgid "Account Type"
 msgstr "Тип рахунку"
 
 #. module: account
-#: model:ir.actions.act_window,help:account.action_bank_tree
-msgid ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"            Click to setup a new bank account. \n"
-"          </p><p>\n"
-"            Configure your company's bank account and select those that "
-"must\n"
-"            appear on the report footer.\n"
-"          </p><p>\n"
-"            If you use the accounting application of OpenERP, journals and\n"
-"            accounts will be created automatically based on these data.\n"
-"          </p>\n"
-"        "
+#: view:account.bank.statement:0
+msgid "Close CashBox"
 msgstr ""
 
 #. module: account
@@ -4513,8 +4468,19 @@ msgid ""
 msgstr ""
 
 #. module: account
-#: view:account.bank.statement:0
-msgid "Close CashBox"
+#: model:ir.actions.act_window,help:account.action_bank_tree
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"            Click to setup a new bank account. \n"
+"          </p><p>\n"
+"            Configure your company's bank account and select those that "
+"must\n"
+"            appear on the report footer.\n"
+"          </p><p>\n"
+"            If you use the accounting application of OpenERP, journals and\n"
+"            accounts will be created automatically based on these data.\n"
+"          </p>\n"
+"        "
 msgstr ""
 
 #. module: account
@@ -4667,9 +4633,10 @@ msgid "Opening Entries Reconciliation"
 msgstr ""
 
 #. module: account
-#: code:addons/account/wizard/account_fiscalyear_close.py:41
+#. openerp-web
+#: code:addons/account/static/src/xml/account_move_reconciliation.xml:24
 #, python-format
-msgid "End of Fiscal Year Entry"
+msgid "Last Reconciliation:"
 msgstr ""
 
 #. module: account
@@ -4688,12 +4655,6 @@ msgstr ""
 msgid ""
 "There is currently no company without chart of account. The wizard will "
 "therefore not be executed."
-msgstr ""
-
-#. module: account
-#: view:account.move:0
-#: view:account.move.line:0
-msgid "Add an internal note..."
 msgstr ""
 
 #. module: account
@@ -4884,11 +4845,6 @@ msgid "It acts as a default account for credit amount"
 msgstr ""
 
 #. module: account
-#: view:account.move.line:0
-msgid "Number (Move)"
-msgstr ""
-
-#. module: account
 #: view:cash.box.out:0
 msgid "Describe why you take money from the cash register:"
 msgstr ""
@@ -4898,12 +4854,6 @@ msgstr ""
 #: selection:account.invoice.report,state:0
 #: selection:report.invoice.created,state:0
 msgid "Cancelled"
-msgstr ""
-
-#. module: account
-#: code:addons/account/account.py:1903
-#, python-format
-msgid " (Copy)"
 msgstr ""
 
 #. module: account
@@ -4975,11 +4925,6 @@ msgid "Sale Tax"
 msgstr ""
 
 #. module: account
-#: view:account.move:0
-msgid "Cancel Entry"
-msgstr ""
-
-#. module: account
 #: field:account.tax,ref_tax_code_id:0
 #: field:account.tax.template,ref_tax_code_id:0
 msgid "Refund Tax Code"
@@ -5007,11 +4952,6 @@ msgstr ""
 #: code:addons/account/account.py:3205
 #, python-format
 msgid "MISC"
-msgstr ""
-
-#. module: account
-#: view:res.partner:0
-msgid "Accounting-related settings are managed on"
 msgstr ""
 
 #. module: account
@@ -5144,6 +5084,13 @@ msgid "Draft invoices are validated. "
 msgstr ""
 
 #. module: account
+#: help:account.tax,account_collected_id:0
+msgid ""
+"Set the account that will be set by default on invoice tax lines for "
+"invoices. Leave empty to use the expense account."
+msgstr ""
+
+#. module: account
 #: code:addons/account/account.py:890
 #, python-format
 msgid "Opening Period"
@@ -5164,11 +5111,6 @@ msgstr ""
 #: view:account.subscription:0
 msgid "Compute"
 msgstr "Розрахувати"
-
-#. module: account
-#: view:account.invoice:0
-msgid "Additional notes..."
-msgstr ""
 
 #. module: account
 #: field:account.tax,type_tax_use:0
@@ -5224,8 +5166,9 @@ msgid "Balance by Type of Account"
 msgstr "Баланс за типом рахунку"
 
 #. module: account
-#: view:account.fiscalyear.close:0
-msgid "Generate Fiscal Year Opening Entries"
+#: code:addons/account/account_cash_statement.py:301
+#, python-format
+msgid "There is no %s Account on the journal %s."
 msgstr ""
 
 #. module: account
@@ -5269,11 +5212,6 @@ msgstr ""
 #. module: account
 #: model:ir.model,name:account.model_account_vat_declaration
 msgid "Account Vat Declaration"
-msgstr ""
-
-#. module: account
-#: view:account.bank.statement:0
-msgid "Cancel Statement"
 msgstr ""
 
 #. module: account
@@ -5548,6 +5486,12 @@ msgid "Amount"
 msgstr "Сума"
 
 #. module: account
+#: code:addons/account/wizard/account_fiscalyear_close.py:41
+#, python-format
+msgid "End of Fiscal Year Entry"
+msgstr ""
+
+#. module: account
 #: model:process.transition,name:account.process_transition_customerinvoice0
 #: model:process.transition,name:account.process_transition_paymentorderreconcilation0
 #: model:process.transition,name:account.process_transition_statemententries0
@@ -5569,6 +5513,17 @@ msgstr ""
 #: field:account.tax,child_depend:0
 #: field:account.tax.template,child_depend:0
 msgid "Tax on Children"
+msgstr ""
+
+#. module: account
+#: help:res.partner,last_reconciliation_date:0
+msgid ""
+"Date on which the partner accounting entries were fully reconciled last "
+"time. It differs from the date of the last reconciliation made for this "
+"partner, as here we depict the fact that nothing more was to be reconciled "
+"at this date. This can be achieved in 2 ways: either the last debit/credit "
+"entry was reconciled, either the user pressed the button \"Fully "
+"Reconciled\" in the manual reconciliation process"
 msgstr ""
 
 #. module: account
@@ -5850,23 +5805,8 @@ msgid "Quantity"
 msgstr "Кількість"
 
 #. module: account
-#: model:ir.actions.act_window,help:account.action_move_journal_line
-msgid ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"                Click to create a journal entry.\n"
-"              </p><p>\n"
-"                A journal entry consists of several journal items, each of\n"
-"                which is either a debit or a credit transaction.\n"
-"              </p><p>\n"
-"                OpenERP automatically creates one journal entry per "
-"accounting\n"
-"                document: invoice, refund, supplier payment, bank "
-"statements,\n"
-"                etc. So, you should record journal entries manually "
-"only/mainly\n"
-"                for miscellaneous operations.\n"
-"              </p>\n"
-"            "
+#: view:account.move.line:0
+msgid "Number (Move)"
 msgstr ""
 
 #. module: account
@@ -5884,15 +5824,6 @@ msgstr ""
 msgid ""
 "This payment term will be used instead of the default one for purchase "
 "orders and supplier invoices"
-msgstr ""
-
-#. module: account
-#: code:addons/account/account_invoice.py:474
-#, python-format
-msgid ""
-"You cannot delete an invoice after it has been validated (and received a "
-"number).  You can set it back to \"Draft\" state and modify its content, "
-"then re-confirm it."
 msgstr ""
 
 #. module: account
@@ -6059,12 +5990,6 @@ msgstr "Постачальник"
 #: selection:report.account.sales,month:0
 #: selection:report.account_type.sales,month:0
 msgid "March"
-msgstr ""
-
-#. module: account
-#: code:addons/account/account.py:1031
-#, python-format
-msgid "You can not re-open a period which belongs to closed fiscal year"
 msgstr ""
 
 #. module: account
@@ -6367,6 +6292,11 @@ msgid "Root Account"
 msgstr "Основний Рахунок"
 
 #. module: account
+#: field:res.partner,last_reconciliation_date:0
+msgid "Latest Reconciliation Date"
+msgstr ""
+
+#. module: account
 #: view:account.analytic.line:0
 #: model:ir.model,name:account.model_account_analytic_line
 msgid "Analytic Line"
@@ -6577,6 +6507,11 @@ msgid "Custom"
 msgstr ""
 
 #. module: account
+#: view:account.analytic.account:0
+msgid "Current"
+msgstr ""
+
+#. module: account
 #: field:account.journal,cashbox_line_ids:0
 msgid "CashBox"
 msgstr ""
@@ -6622,11 +6557,6 @@ msgstr "Степінь"
 #: code:addons/account/account.py:3465
 #, python-format
 msgid "Cannot generate an unused journal code."
-msgstr ""
-
-#. module: account
-#: view:account.invoice:0
-msgid "force period"
 msgstr ""
 
 #. module: account
@@ -7013,11 +6943,6 @@ msgid "Create entry"
 msgstr ""
 
 #. module: account
-#: view:account.open.closed.fiscalyear:0
-msgid "Cancel Fiscal Year Closing Entries"
-msgstr ""
-
-#. module: account
 #: selection:account.account.type,report_type:0
 #: code:addons/account/account.py:189
 #, python-format
@@ -7305,11 +7230,6 @@ msgid "Taxes used in Sales"
 msgstr ""
 
 #. module: account
-#: view:account.period:0
-msgid "Re-Open Period"
-msgstr ""
-
-#. module: account
 #: model:ir.actions.act_window,name:account.action_invoice_tree1
 #: model:ir.ui.menu,name:account.menu_action_invoice_tree1
 msgid "Customer Invoices"
@@ -7366,14 +7286,8 @@ msgid "Source Document"
 msgstr ""
 
 #. module: account
-#: code:addons/account/account_analytic_line.py:90
-#, python-format
-msgid "There is no expense account defined for this product: \"%s\" (id:%d)."
-msgstr ""
-
-#. module: account
-#: view:account.account.template:0
-msgid "Internal notes..."
+#: help:account.config.settings,company_footer:0
+msgid "Bank accounts as printed in the footer of each printed document"
 msgstr ""
 
 #. module: account
@@ -7398,6 +7312,14 @@ msgstr ""
 #: report:account.invoice:0
 msgid "Taxes:"
 msgstr "ПДВ:"
+
+#. module: account
+#: code:addons/account/account_invoice.py:458
+#, python-format
+msgid ""
+"You can not delete an invoice which is not cancelled. You should refund it "
+"instead."
+msgstr ""
 
 #. module: account
 #: help:account.tax,amount:0
@@ -7491,8 +7413,11 @@ msgid "For percent enter a ratio between 0-1."
 msgstr ""
 
 #. module: account
+#: report:account.invoice:0
 #: view:account.invoice:0
-msgid "Accounting Period"
+#: field:account.invoice,date_invoice:0
+#: field:report.invoice.created,date_invoice:0
+msgid "Invoice Date"
 msgstr ""
 
 #. module: account
@@ -8080,14 +8005,6 @@ msgid "Reconciliation Transactions"
 msgstr "Коригуючі проводки"
 
 #. module: account
-#: code:addons/account/account_invoice.py:472
-#, python-format
-msgid ""
-"You cannot delete an invoice which is not draft or cancelled. You should "
-"refund it instead."
-msgstr ""
-
-#. module: account
 #: model:ir.ui.menu,name:account.menu_finance_legal_statement
 msgid "Legal Reports"
 msgstr ""
@@ -8255,9 +8172,9 @@ msgid ""
 msgstr ""
 
 #. module: account
-#: selection:account.model.line,date_maturity:0
-msgid "Partner Payment Term"
-msgstr "Термін оплати партнера"
+#: report:account.analytic.account.inverted.balance:0
+msgid "Inverted Analytic Balance -"
+msgstr ""
 
 #. module: account
 #: help:account.move.reconcile,opening_reconciliation:0
@@ -8577,6 +8494,12 @@ msgid "Automatic import of the bank sta"
 msgstr ""
 
 #. module: account
+#: code:addons/account/account_invoice.py:381
+#, python-format
+msgid "Unknown Error!"
+msgstr ""
+
+#. module: account
 #: model:ir.model,name:account.model_account_move_bank_reconcile
 msgid "Move bank reconcile"
 msgstr ""
@@ -8757,11 +8680,6 @@ msgstr ""
 #: view:account.journal:0
 msgid "Accounts Type Allowed (empty for no control)"
 msgstr "Дозволений тип рахунків (порожнє - без контролю)"
-
-#. module: account
-#: view:account.payment.term:0
-msgid "Payment term explanation for the customer..."
-msgstr ""
 
 #. module: account
 #: help:account.move.line,amount_residual:0
@@ -9448,11 +9366,6 @@ msgid "Payable"
 msgstr "До сплати"
 
 #. module: account
-#: view:account.account:0
-msgid "Account name"
-msgstr ""
-
-#. module: account
 #: view:board.board:0
 msgid "Account Board"
 msgstr ""
@@ -9469,9 +9382,8 @@ msgid "Accounting entries are the first input of the reconciliation."
 msgstr ""
 
 #. module: account
-#: code:addons/account/account_cash_statement.py:301
-#, python-format
-msgid "There is no %s Account on the journal %s."
+#: view:account.fiscalyear.close:0
+msgid "Generate Fiscal Year Opening Entries"
 msgstr ""
 
 #. module: account
@@ -9758,23 +9670,10 @@ msgid ""
 msgstr ""
 
 #. module: account
-#: code:addons/account/account_move_line.py:780
-#, python-format
-msgid "Journal Item '%s' (id: %s), Move '%s' is already reconciled!"
-msgstr ""
-
-#. module: account
 #: view:account.invoice:0
 #: view:account.invoice.report:0
 #: model:process.node,name:account.process_node_supplierdraftinvoices0
 msgid "Draft Invoices"
-msgstr ""
-
-#. module: account
-#. openerp-web
-#: code:addons/account/static/src/xml/account_move_reconciliation.xml:31
-#, python-format
-msgid "Nothing more to reconcile"
 msgstr ""
 
 #. module: account
@@ -10026,11 +9925,6 @@ msgid "Currency Rate"
 msgstr ""
 
 #. module: account
-#: view:account.config.settings:0
-msgid "e.g. sales@openerp.com"
-msgstr ""
-
-#. module: account
 #: field:account.account,tax_ids:0
 #: view:account.account.template:0
 #: field:account.account.template,tax_ids:0
@@ -10050,6 +9944,12 @@ msgstr ""
 #. module: account
 #: model:account.financial.report,name:account.account_financial_report_profitloss_toreport0
 msgid "Profit (Loss) to report"
+msgstr ""
+
+#. module: account
+#: code:addons/account/account_invoice.py:379
+#, python-format
+msgid "There is no Sale/Purchase Journal(s) defined."
 msgstr ""
 
 #. module: account
@@ -10177,6 +10077,13 @@ msgstr "Введений"
 #: field:accounting.report,date_to:0
 #: field:accounting.report,date_to_cmp:0
 msgid "End Date"
+msgstr ""
+
+#. module: account
+#: view:account.open.closed.fiscalyear:0
+#: model:ir.actions.act_window,name:account.action_account_open_closed_fiscalyear
+#: model:ir.ui.menu,name:account.menu_wizard_account_open_closed_fiscalyear
+msgid "Cancel Opening Entries"
 msgstr ""
 
 #. module: account
@@ -10500,9 +10407,15 @@ msgid "Receivable accounts"
 msgstr "Рахунки дебіторів"
 
 #. module: account
-#: report:account.analytic.account.inverted.balance:0
-msgid "Inverted Analytic Balance -"
+#: code:addons/account/account_move_line.py:783
+#, python-format
+msgid "Already reconciled."
 msgstr ""
+
+#. module: account
+#: selection:account.model.line,date_maturity:0
+msgid "Partner Payment Term"
+msgstr "Термін оплати партнера"
 
 #. module: account
 #: field:temp.range,name:0
@@ -10936,3 +10849,721 @@ msgid ""
 "The residual amount on a receivable or payable of a journal entry expressed "
 "in its currency (maybe different of the company currency)."
 msgstr ""
+
+#, python-format
+#~ msgid "Integrity Error !"
+#~ msgstr "Помилка Цілісності !"
+
+#~ msgid "Unpaid Supplier Invoices"
+#~ msgstr "Неоплачені інвойси постачальника"
+
+#~ msgid "Entries Encoding"
+#~ msgstr "Кодування Записів"
+
+#~ msgid "Select Message"
+#~ msgstr "Вибрати Повідомлення"
+
+#~ msgid "Reconciliation result"
+#~ msgstr "Результат звірки"
+
+#~ msgid "Print Taxes Report"
+#~ msgstr "Друк Податкового Звіту"
+
+#~ msgid "Unreconcile entries"
+#~ msgstr "Відмна вивірки проводок"
+
+#~ msgid "Confirm draft invoices"
+#~ msgstr "Прийняти чорновик інвойса"
+
+#~ msgid "Charts of Account"
+#~ msgstr "План Рахунків"
+
+#~ msgid "Move line select"
+#~ msgstr "Перемістити вибраний рядок"
+
+#~ msgid "Entry label"
+#~ msgstr "Мітка запису"
+
+#, python-format
+#~ msgid "You have to provide an account for the write off entry !"
+#~ msgstr "Ви повинні вказати рахунок для запису !"
+
+#~ msgid "Account Entry Line"
+#~ msgstr "Рядок проводки за рахунком"
+
+#~ msgid "Aged Trial Balance"
+#~ msgstr "Пробний баланс за період"
+
+#~ msgid "Recurrent Entries"
+#~ msgstr "Періодичні Записи"
+
+#~ msgid "Accounting Entries-"
+#~ msgstr "Записи Обліку"
+
+#~ msgid "Origin"
+#~ msgstr "Походження"
+
+#~ msgid "Account Num."
+#~ msgstr "Номер Рахунку"
+
+#, python-format
+#~ msgid "No analytic journal !"
+#~ msgstr "Немає  аналітичного журналу !"
+
+#~ msgid "Description on invoices"
+#~ msgstr "Опис за інвойсами"
+
+#~ msgid "Total entries"
+#~ msgstr "Разом записів"
+
+#~ msgid "All Analytic Entries"
+#~ msgstr "Всі Аналітичні Записи"
+
+#~ msgid "Negative"
+#~ msgstr "Негативний"
+
+#~ msgid "State"
+#~ msgstr "Стан"
+
+#~ msgid "Unpaid Supplier Refunds"
+#~ msgstr "Неоплачені Повернення Постачальникові"
+
+#~ msgid "Periodical Processing"
+#~ msgstr "Періодична обробка"
+
+#~ msgid "Analytic Entries Stats"
+#~ msgstr "Статистика записів аналітики"
+
+#, python-format
+#~ msgid "Supplier invoice"
+#~ msgstr "Інвойс постачальника"
+
+#~ msgid "Line"
+#~ msgstr "Рядок"
+
+#~ msgid "account.tax"
+#~ msgstr "account.tax"
+
+#, python-format
+#~ msgid "Bank Journal "
+#~ msgstr "Банківський Журнал "
+
+#~ msgid "Printing Date"
+#~ msgstr "Дата Друку"
+
+#~ msgid "Contact"
+#~ msgstr "Контакт"
+
+#~ msgid "Account Entry Reconcile"
+#~ msgstr "Звірка проводки за рахунком"
+
+#~ msgid "Open for bank reconciliation"
+#~ msgstr "Відкрити для звірки з банком"
+
+#, python-format
+#~ msgid "You can not add/modify entries in a closed journal."
+#~ msgstr "Ви не можете додати/змінити записи в закритому журналі."
+
+#~ msgid "Keep empty if the fiscal year belongs to several companies."
+#~ msgstr "Залишити пустим, якщо податковий рік належить кільком компаніям."
+
+#~ msgid "St."
+#~ msgstr "вул."
+
+#~ msgid "Field Name"
+#~ msgstr "Назва поля"
+
+#~ msgid "Sign for parent"
+#~ msgstr "Ознака власника"
+
+#~ msgid "Partial Payment"
+#~ msgstr "Часткова Оплата"
+
+#~ msgid "Move Lines Created."
+#~ msgstr "Перемістити Створені Рядки."
+
+#~ msgid "Partner account"
+#~ msgstr "Рахунок партнера"
+
+#~ msgid "Generate entries before:"
+#~ msgstr "Генерувати проводки до:"
+
+#~ msgid "Account cost and revenue by journal"
+#~ msgstr "Видатки та доходи рахунку за журналом"
+
+#~ msgid "Bank Reconciliation"
+#~ msgstr "Звірка з банком"
+
+#~ msgid "Print Journal"
+#~ msgstr "Друкувати журнал"
+
+#~ msgid "Required"
+#~ msgstr "Обов'язково"
+
+#~ msgid "Fiscal Year to Open"
+#~ msgstr "Фіскальний Рік до Відкриття"
+
+#~ msgid "Entries by Statements"
+#~ msgstr "Проводки по Звітах"
+
+#~ msgid "Grand total"
+#~ msgstr "Основний підсумок"
+
+#~ msgid "UoM"
+#~ msgstr "Од.вим."
+
+#~ msgid "New Supplier Invoice"
+#~ msgstr "Новий інвойс постачальника"
+
+#~ msgid "Amount paid"
+#~ msgstr "Оплачена сума"
+
+#~ msgid "Print Analytic Journals"
+#~ msgstr "Друк аналітичних журналів"
+
+#~ msgid "Voucher Nb"
+#~ msgstr "Документ"
+
+#~ msgid ""
+#~ "The sequence field is used to order the payment term lines from the lowest "
+#~ "sequences to the higher ones"
+#~ msgstr ""
+#~ "Поле послідовності використовується для впорядкування термінів платежів"
+
+#~ msgid "Total write-off"
+#~ msgstr "Разом списати"
+
+#~ msgid "New Analytic Account"
+#~ msgstr "Новий Аналітичний Рахунок"
+
+#~ msgid "Standard entry"
+#~ msgstr "Стандартна проводка"
+
+#~ msgid "Tax Report"
+#~ msgstr "Податковий звіт"
+
+#~ msgid "Bank account"
+#~ msgstr "Банківський рахунок"
+
+#~ msgid "Purchase Taxes"
+#~ msgstr "Податки на придбання"
+
+#~ msgid "Line Name"
+#~ msgstr "Назва рядку"
+
+#~ msgid "Value"
+#~ msgstr "Вартість"
+
+#~ msgid "Centralised counterpart"
+#~ msgstr "Централізований аналог"
+
+#~ msgid ""
+#~ "If you unreconciliate transactions, you must also verify all the actions "
+#~ "that are linked to those transactions because they will not be disable"
+#~ msgstr ""
+#~ "Якщо Ви відміняєте звірку операцій, то також мусите перевірити всі дії, "
+#~ "пов'язані з цими операціями, тому що вони не будуть відмінені"
+
+#~ msgid "Customer Credit"
+#~ msgstr "Кредит клієнта"
+
+#~ msgid "Compute Entry Dates"
+#~ msgstr "Розрахувати дати проводок"
+
+#~ msgid "Statement reconcile line"
+#~ msgstr "Рядок виписки вивірки"
+
+#~ msgid "Positive"
+#~ msgstr "Позитивне"
+
+#~ msgid "Print General Journal"
+#~ msgstr "Друкувати загальний журнал"
+
+#~ msgid "Invoice Movement"
+#~ msgstr "Рух інвойса"
+
+#~ msgid "Open for reconciliation"
+#~ msgstr "Відкрити для звірки"
+
+#~ msgid "VAT"
+#~ msgstr "ПДВ"
+
+#~ msgid "Account to reconcile"
+#~ msgstr "Рахунок до звірки"
+
+#~ msgid "Partner Ref."
+#~ msgstr "Партнер"
+
+#~ msgid "Total quantity"
+#~ msgstr "Загальна кількість"
+
+#~ msgid "Third party"
+#~ msgstr "Третя сторона"
+
+#~ msgid "Costs & Revenues"
+#~ msgstr "Доходи та витрати"
+
+#~ msgid "Account Number"
+#~ msgstr "Номер рахунку"
+
+#~ msgid "Gives the sequence order when displaying a list of account types."
+#~ msgstr "Надає порядок послідовності відображення переліку типів рахунків."
+
+#~ msgid "Include in base amount"
+#~ msgstr "Включити до основної суми"
+
+#~ msgid "Cost Legder for period"
+#~ msgstr "Книга витрат за період"
+
+#~ msgid "New Statement"
+#~ msgstr "Новий Звіт"
+
+#~ msgid "Print Central Journal"
+#~ msgstr "Друкувати центральний журнал"
+
+#~ msgid "Period length (days)"
+#~ msgstr "Тривалість періоду (днів)"
+
+#~ msgid "Account Manager"
+#~ msgstr "Головний бухгалтер"
+
+#~ msgid "Untaxed amount"
+#~ msgstr "Неоподаткована сума"
+
+#~ msgid "Pay invoice"
+#~ msgstr "Оплата інвойса"
+
+#~ msgid "Draft Customer Invoices"
+#~ msgstr "Чорновики інвойсів клієнтів"
+
+#~ msgid "Invalid XML for View Architecture!"
+#~ msgstr "Неправильний XML для Архітектури Вигляду!"
+
+#~ msgid "Analytic Journal Report"
+#~ msgstr "Звіт за аналітичним журналом"
+
+#~ msgid "Validate Account Moves"
+#~ msgstr "Підтвердити рух по рахунку"
+
+#~ msgid "Unpaid invoices"
+#~ msgstr "Неоплачені інвойси"
+
+#~ msgid "Statements reconciliation"
+#~ msgstr "Вивірка виписок"
+
+#~ msgid "Value Amount"
+#~ msgstr "Сума вартості"
+
+#~ msgid "Contact Address"
+#~ msgstr "Контактна адреса"
+
+#~ msgid "(keep empty to use the current period)"
+#~ msgstr "(залишити порожнім для використання поточного періоду)"
+
+#~ msgid "Draft Supplier Invoices"
+#~ msgstr "Чорновики інвойсів постачальників"
+
+#~ msgid ""
+#~ "Exception made of a mistake of our side, it seems that the following bills "
+#~ "stay unpaid. Please, take appropriate measures in order to carry out this "
+#~ "payment in the next 8 days."
+#~ msgstr ""
+#~ "Виключна ситуація сталася через помилку з нашого боку. Наступні рахунки "
+#~ "залишилися неоплаченими. Будь ласка, вжийте відповідних заходів для "
+#~ "здійснення оплати у наступні 8 днів."
+
+#~ msgid "Create subscription entries"
+#~ msgstr "Створити записи підписки"
+
+#~ msgid "Date Invoiced"
+#~ msgstr "Дата виписки"
+
+#~ msgid "Reference Type"
+#~ msgstr "Тип посилання"
+
+#~ msgid "Automatic reconciliation"
+#~ msgstr "Автоматична вивірка"
+
+#~ msgid "Date End"
+#~ msgstr "Кінцева дата"
+
+#~ msgid "Entries Encoding by Line"
+#~ msgstr "Кодування записів за рядками"
+
+#~ msgid "The amount in the currency of the journal"
+#~ msgstr "Сума у валюті журналу"
+
+#~ msgid "Acc. Type Name"
+#~ msgstr "Назва типу рахунку"
+
+#~ msgid "Use this code for the VAT declaration."
+#~ msgstr "Використовуйте цей код для декларації ПДВ"
+
+#~ msgid "Litigation"
+#~ msgstr "Спірний"
+
+#~ msgid "Dear Sir/Madam,"
+#~ msgstr "Шановний(а)"
+
+#~ msgid "-"
+#~ msgstr "-"
+
+#~ msgid "Analytic Chart of Accounts"
+#~ msgstr "Аналітичний План Рахунків"
+
+#~ msgid "Select Period and Journal for Validation"
+#~ msgstr "Виберіть Період та Журнал для Перевірки"
+
+#~ msgid "Reconciliation transactions"
+#~ msgstr "Коригуючі проводки"
+
+#~ msgid "Journal View"
+#~ msgstr "Вигляд журналу"
+
+#~ msgid "New Customer Invoice"
+#~ msgstr "Новий інвойс клієнту"
+
+#~ msgid "Best regards."
+#~ msgstr "З найкращими побажаннями."
+
+#~ msgid "Analytic account costs and revenues"
+#~ msgstr "Доходи та витрати аналітичного рахунку"
+
+#~ msgid "Are you sure you want to refund this invoice ?"
+#~ msgstr "Ви впевнені, що хочете відкликати цей інвойс?"
+
+#~ msgid "Open State"
+#~ msgstr "Відкритий стан"
+
+#~ msgid "Draft Supplier Refunds"
+#~ msgstr "Чорновики повернень постачальникам"
+
+#~ msgid "Unreconciliation transactions"
+#~ msgstr "Операції відміни звірки"
+
+#~ msgid "Draft Customer Refunds"
+#~ msgstr "Чорновики повернень покупців"
+
+#~ msgid "Readonly"
+#~ msgstr "Лише для читання"
+
+#~ msgid ""
+#~ "The maturity date of the generated entries for this model. You can chosse "
+#~ "between the date of the creation action or the the date of the creation of "
+#~ "the entries plus the partner payment terms."
+#~ msgstr ""
+#~ "Дата проведення згенерованих проводок для цієї моделі. Ви можете вибрати "
+#~ "дату з проміжку між датою дії створення або датою створення проводок і "
+#~ "терміном оплати партнера."
+
+#~ msgid "Cancel selected invoices"
+#~ msgstr "Відмінити вибрані інвойси"
+
+#~ msgid "("
+#~ msgstr "("
+
+#~ msgid "Financial Management"
+#~ msgstr "Фінанси"
+
+#~ msgid "Additionnal Information"
+#~ msgstr "Додаткова інформація"
+
+#~ msgid "Partner Accounts"
+#~ msgstr "Рахунки Партнера"
+
+#~ msgid ""
+#~ "If a default tax if given in the partner it only override taxes from account "
+#~ "(or product) of the same group."
+#~ msgstr ""
+#~ "Якщо типовий податок взято у партнера, він лише замінює податки з рахунку "
+#~ "(або продукту) з цієї ж самої групи."
+
+#~ msgid "Real Entries"
+#~ msgstr "Реальні записи"
+
+#~ msgid "Invoice line"
+#~ msgstr "Рядок інвойса"
+
+#~ msgid "Force all moves for this account to have this secondary currency."
+#~ msgstr "Зробити ввесь рух за цим рахунком з другою валютою."
+
+#~ msgid ""
+#~ "All draft account entries in this journal and period will be validated. It "
+#~ "means you won't be able to modify their accouting fields."
+#~ msgstr ""
+#~ "Всі чорнові проводки у цьому журналі, а також період, будуть затверджені. Це "
+#~ "означає, що Ви більше не зможете змінювати тут поля рахунків."
+
+#~ msgid "Bank account owner"
+#~ msgstr "Власник банківського рахунку"
+
+#~ msgid "Pay and reconcile"
+#~ msgstr "Оплатити і звірити"
+
+#~ msgid "New Supplier Refund"
+#~ msgstr "Нове Повернення Постачальнику"
+
+#~ msgid "Entry Model"
+#~ msgstr "Модель проводки"
+
+#~ msgid "Journal code"
+#~ msgstr "Код журналу"
+
+#~ msgid "Entry Name"
+#~ msgstr "Назва запису"
+
+#~ msgid "Entry encoding"
+#~ msgstr "Кодування запису"
+
+#~ msgid "Standard entries"
+#~ msgstr "Стандартні записи"
+
+#~ msgid "Other"
+#~ msgstr "Інший"
+
+#~ msgid "Columns"
+#~ msgstr "Колонки"
+
+#~ msgid "Financial Journals"
+#~ msgstr "Фінансові Журнали"
+
+#~ msgid "."
+#~ msgstr "."
+
+#~ msgid "Customer Accounting Properties"
+#~ msgstr "Налаштування Обліку Клієнта"
+
+#~ msgid "Select entries"
+#~ msgstr "Вибрати записи"
+
+#~ msgid ""
+#~ "Indicate if the tax computation is based on the value computed for the "
+#~ "computation of child taxes or based on the total amount."
+#~ msgstr ""
+#~ "Вказати, чи розрахунок податку базується на значенні, що обчислюється на "
+#~ "розрахунках підлеглих податків, чи базується на загальній сумі."
+
+#~ msgid "Taxed Amount"
+#~ msgstr "Оподатковувана Сума"
+
+#~ msgid "Subtotal w/o tax"
+#~ msgstr "Разом без податку"
+
+#~ msgid "Invoice Ref"
+#~ msgstr "Посилання на інвойс"
+
+#~ msgid ""
+#~ "You can check this box to mark the entry line as a litigation with the "
+#~ "associated partner"
+#~ msgstr ""
+#~ "Ви можете зробити відмітку рядку проводки як спірний стосовно відповідного "
+#~ "партнера"
+
+#~ msgid "Separated Journal Sequences"
+#~ msgstr "Різні Порядки Журналу"
+
+#~ msgid "The currency of the journal"
+#~ msgstr "Валюта журналу"
+
+#~ msgid "Journal Column"
+#~ msgstr "Колонка журналу"
+
+#~ msgid "Search Entries"
+#~ msgstr "Шукати записи"
+
+#~ msgid ""
+#~ "The Object name must start with x_ and not contain any special character !"
+#~ msgstr ""
+#~ "Назва об'єкту має починатися з x_ і не містити ніяких спеціальних символів!"
+
+#~ msgid ""
+#~ "This field is used for payable and receivable entries. You can put the limit "
+#~ "date for the payment of this entry line."
+#~ msgstr ""
+#~ "Це поле використовується для проводок розрахунків з дебіторами та "
+#~ "кредиторами. Ви можете встановити кінцеву дату проведення для цієї проводки."
+
+#~ msgid "Third party (Country)"
+#~ msgstr "Третя сторона (країна)"
+
+#~ msgid "The sequence gives the display order for a list of journals"
+#~ msgstr "Ця послідовність надає порядок відображення для списку журналів"
+
+#~ msgid "Payment date"
+#~ msgstr "Дата платежу"
+
+#~ msgid "Unpaid Customer Invoices"
+#~ msgstr "Неоплачені інвойси клієнтів"
+
+#~ msgid ")"
+#~ msgstr ")"
+
+#~ msgid "Canceled Invoice"
+#~ msgstr "Скасований інвойс"
+
+#~ msgid "End of Year Treatments"
+#~ msgstr "Виправлення кінця року"
+
+#~ msgid "Entry Model Line"
+#~ msgstr "Рядок моделі проводки"
+
+#~ msgid "Supplier Debit"
+#~ msgstr "Дебетове сальдо постачальника"
+
+#, python-format
+#~ msgid "Accounting Entries"
+#~ msgstr "Бухгалтерські проводки"
+
+#~ msgid "Quantities"
+#~ msgstr "Кількість"
+
+#~ msgid "Date Start"
+#~ msgstr "Початкова дата"
+
+#~ msgid "The date of the generated entries"
+#~ msgstr "Дата сформованих записів"
+
+#~ msgid "Supplier Accounting Properties"
+#~ msgstr "Налаштування Обліку Постачальників"
+
+#~ msgid "Analytic Entries by Journal"
+#~ msgstr "Аналітичні Записи по Журналу"
+
+#~ msgid ""
+#~ "Indicate if the amount of tax must be included in the base amount for the "
+#~ "computation of the next taxes"
+#~ msgstr ""
+#~ "Вказати, якщо сума податку має бути включена до до базової суми для "
+#~ "розрахунку наступних податків."
+
+#~ msgid "Journal name"
+#~ msgstr "Назва журналу"
+
+#~ msgid "Reconcile entries"
+#~ msgstr "Вивірити проводки"
+
+#~ msgid "Journal - Period"
+#~ msgstr "Журнал - період"
+
+#~ msgid "Invoice Address"
+#~ msgstr "Адреса інвойса"
+
+#~ msgid "Account cost and revenue by journal (This Month)"
+#~ msgstr "Видатки та доходи рахунку за журналом (цей місяць)"
+
+#~ msgid "Open for unreconciliation"
+#~ msgstr "Відкрито для відміни звірки"
+
+#~ msgid "OK"
+#~ msgstr "Ок"
+
+#~ msgid "Account Balance"
+#~ msgstr "Сальдо за рахунком"
+
+#~ msgid "Analytic Check"
+#~ msgstr "Контроль аналітики"
+
+#~ msgid "account.analytic.journal"
+#~ msgstr "account.analytic.journal"
+
+#~ msgid "Sale Taxes"
+#~ msgstr "Податки з Продажу"
+
+#~ msgid "Payment amount"
+#~ msgstr "Сума платежу"
+
+#~ msgid "All Months"
+#~ msgstr "Всі місяці"
+
+#~ msgid "/"
+#~ msgstr "/"
+
+#~ msgid "Total amount"
+#~ msgstr "Разом"
+
+#~ msgid "Tax Group"
+#~ msgstr "Податкова група"
+
+#~ msgid "New Customer Refund"
+#~ msgstr "Нове Повернення Клієнтові"
+
+#~ msgid "Account Data"
+#~ msgstr "Дані Рахунку"
+
+#~ msgid "Subscription Periods"
+#~ msgstr "Періоди підписки"
+
+#~ msgid "Write-Off journal"
+#~ msgstr "Журнал списання"
+
+#~ msgid "Full Payment"
+#~ msgstr "Повна Оплата"
+
+#~ msgid "This Month"
+#~ msgstr "Цей місяць"
+
+#~ msgid "No"
+#~ msgstr "Ні"
+
+#~ msgid "Unpaid Customer Refunds"
+#~ msgstr "Невиплачені повернення клієнтові"
+
+#~ msgid "Are you sure ?"
+#~ msgstr "Ви впевнені?"
+
+#~ msgid ":"
+#~ msgstr ":"
+
+#~ msgid "Amount reconciled"
+#~ msgstr "Рахунок звірено"
+
+#~ msgid "and Journals"
+#~ msgstr "і журнали"
+
+#~ msgid "Subscription Entries"
+#~ msgstr "Записи підписки"
+
+#~ msgid "PRO-FORMA Customer Invoices"
+#~ msgstr "ПРО-ФОРМА інвойсів клієнтів"
+
+#~ msgid "Analytic Journal Definition"
+#~ msgstr "Визначення аналітичного журналу"
+
+#~ msgid "Skip 'Draft' State for Created Entries"
+#~ msgstr "Пропустити 'Чорновий' стан для Створених Записів"
+
+#~ msgid "account.tax.template"
+#~ msgstr "account.tax.template"
+
+#~ msgid "List of Accounts"
+#~ msgstr "Список Рахунків"
+
+#~ msgid "Validate Account Entries"
+#~ msgstr "Перевірити Записи по Рахунку"
+
+#~ msgid "Current Date"
+#~ msgstr "Поточна дата"
+
+#~ msgid "Financial Accounts"
+#~ msgstr "Фінансові Рахунки"
+
+#~ msgid "Accounting Properties"
+#~ msgstr "Налаштування Обліку"
+
+#~ msgid "Models Definition"
+#~ msgstr "Визначення моделей"
+
+#~ msgid "Statement reconcile"
+#~ msgstr "Вивірка виписки"
+
+#~ msgid "Column Name"
+#~ msgstr "Назва колонки"
+
+#~ msgid "Accounting Dashboard"
+#~ msgstr "Панель бухгалтерії"
+
+#~ msgid "Income Accounts"
+#~ msgstr "Рухунки доходів"
+
+#~ msgid "Accounts by type"
+#~ msgstr "Рахунки за типом"

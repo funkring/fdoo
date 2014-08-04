@@ -1,21 +1,21 @@
 # Russian translation for openobject-addons
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# Copyright (c) 2011 Rosetta Contributors and Canonical Ltd 2011
 # This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:36+0000\n"
-"PO-Revision-Date: 2013-07-03 06:41+0000\n"
-"Last-Translator: Paul Korotkov <korotkov.paul@gmail.com>\n"
+"POT-Creation-Date: 2012-12-21 17:04+0000\n"
+"PO-Revision-Date: 2012-12-29 10:04+0000\n"
+"Last-Translator: Chertykov Denis <chertykov@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-21 06:19+0000\n"
-"X-Generator: Launchpad (build 16831)\n"
+"X-Launchpad-Export-Date: 2014-03-27 07:26+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: mail
 #: view:mail.followers:0
@@ -23,10 +23,9 @@ msgid "Followers Form"
 msgstr "Форма подписчиков"
 
 #. module: mail
-#: code:addons/mail/mail_thread.py:246
-#, python-format
-msgid "%s created"
-msgstr "%s создан"
+#: model:ir.model,name:mail.model_publisher_warranty_contract
+msgid "publisher_warranty.contract"
+msgstr "publisher_warranty.contract"
 
 #. module: mail
 #: field:mail.compose.message,author_id:0
@@ -56,13 +55,6 @@ msgid "Comments"
 msgstr "Комментарии"
 
 #. module: mail
-#. openerp-web
-#: code:addons/mail/static/src/xml/mail.xml:313
-#, python-format
-msgid "more messages"
-msgstr "больше сообщений"
-
-#. module: mail
 #: view:mail.alias:0
 #: view:mail.mail:0
 msgid "Group By..."
@@ -90,13 +82,11 @@ msgid "Compose Email"
 msgstr "Написать письмо"
 
 #. module: mail
-#: constraint:mail.alias:0
-msgid ""
-"Invalid expression, it must be a literal python dictionary definition e.g. "
-"\"{'field': 'value'}\""
-msgstr ""
-"Неправильное выражение, здесь должен быть объявление словаря python например "
-"\"{'field': 'value'}\""
+#. openerp-web
+#: code:addons/mail/static/src/xml/mail.xml:132
+#, python-format
+msgid "Add them into recipients and followers"
+msgstr "Добавить их к получателям и подписчикам"
 
 #. module: mail
 #: view:mail.group:0
@@ -107,13 +97,6 @@ msgstr "Название группы"
 #: selection:mail.group,public:0
 msgid "Public"
 msgstr "Общедоступное"
-
-#. module: mail
-#. openerp-web
-#: code:addons/mail/static/src/xml/mail.xml:277
-#, python-format
-msgid "to"
-msgstr "для"
 
 #. module: mail
 #: view:mail.mail:0
@@ -142,13 +125,6 @@ msgstr "Мастер составления эл. почты"
 
 #. module: mail
 #. openerp-web
-#: code:addons/mail/static/src/xml/mail.xml:268
-#, python-format
-msgid "updated document"
-msgstr "обновил документ"
-
-#. module: mail
-#. openerp-web
 #: code:addons/mail/static/src/xml/mail_followers.xml:23
 #, python-format
 msgid "Add others"
@@ -158,24 +134,6 @@ msgstr "Пригласить"
 #: field:mail.message.subtype,parent_id:0
 msgid "Parent"
 msgstr "Источник"
-
-#. module: mail
-#: help:res.partner,notification_email_send:0
-msgid ""
-"Policy to receive emails for new messages pushed to your personal Inbox:\n"
-"- Never: no emails are sent\n"
-"- Incoming Emails only: for messages received by the system via email\n"
-"- Incoming Emails and Discussions: for incoming emails along with internal "
-"discussions\n"
-"- All Messages: for every notification you receive in your Inbox"
-msgstr ""
-"Политика получения эл. почты по новым сообщениям в ящике OpenERP:\n"
-"- Никогда: эл. почта не используется\n"
-"- Только входящая эл. почта: для сообщений в ящике OpenERP, полученых по эл. "
-"почте\n"
-"- Входящая эл. почта и обсуждения: для входящей эл. почты в ящике OpenERP и "
-"внутренних обсуждений\n"
-"- Все сообщения: для всех сообщений, приходящих в ящик OpenERP"
 
 #. module: mail
 #: field:mail.group,message_unread:0
@@ -221,24 +179,10 @@ msgstr "Поиск групп"
 
 #. module: mail
 #. openerp-web
-#: code:addons/mail/static/src/js/mail_followers.js:110
+#: code:addons/mail/static/src/js/mail_followers.js:157
 #, python-format
-msgid ""
-"Warning! \n"
-" %s won't be notified of any email or discussion on this document. Do you "
-"really want to remove him from the followers ?"
-msgstr ""
-"Внимание! \n"
-" %s не будет оповещен(а) о письмах и обсуждениях по данному документу. Вы "
-"действительно хотите исключить пользователя из подписчиков?"
-
-#. module: mail
-#: field:mail.compose.message,res_id:0
-#: field:mail.followers,res_id:0
-#: field:mail.message,res_id:0
-#: field:mail.wizard.invite,res_id:0
-msgid "Related Document ID"
-msgstr "ID связанного документа"
+msgid "followers"
+msgstr "подписано"
 
 #. module: mail
 #: code:addons/mail/mail_message.py:737
@@ -290,13 +234,6 @@ msgid "Received"
 msgstr "Получено"
 
 #. module: mail
-#. openerp-web
-#: code:addons/mail/static/src/xml/mail.xml:71
-#, python-format
-msgid "Attach a File"
-msgstr "Прикрепить файл"
-
-#. module: mail
 #: view:mail.mail:0
 msgid "Thread"
 msgstr "Цепочка"
@@ -331,19 +268,16 @@ msgid "References"
 msgstr "Ссылки"
 
 #. module: mail
-#: view:mail.wizard.invite:0
-msgid "Add Followers"
-msgstr "Добавить подписчиков"
+#. openerp-web
+#: code:addons/mail/static/src/xml/mail.xml:206
+#, python-format
+msgid "No messages."
+msgstr "Нет сообщений."
 
 #. module: mail
-#: help:mail.compose.message,author_id:0
-#: help:mail.message,author_id:0
-msgid ""
-"Author of the message. If not set, email_from may hold an email address that "
-"did not match any partner."
-msgstr ""
-"Автор сообщения. Если не установлен, email_from может содержать адрес почты, "
-"который не соответствует ни одному партнеру."
+#: model:ir.model,name:mail.model_mail_group
+msgid "Discussion group"
+msgstr "Дискуссионная группа"
 
 #. module: mail
 #. openerp-web
@@ -399,13 +333,6 @@ msgid "<div>You have been invited to follow %s.</div>"
 msgstr "<div>Вы были подписаны на %s.</div>"
 
 #. module: mail
-#. openerp-web
-#: code:addons/mail/static/src/xml/mail.xml:53
-#, python-format
-msgid "Send a message"
-msgstr "Отправить сообщение"
-
-#. module: mail
 #: help:mail.group,message_unread:0
 #: help:mail.thread,message_unread:0
 #: help:res.partner,message_unread:0
@@ -432,20 +359,6 @@ msgstr "Тип сообщения"
 #: field:mail.mail,auto_delete:0
 msgid "Auto Delete"
 msgstr "Авто удаление"
-
-#. module: mail
-#. openerp-web
-#: code:addons/mail/static/src/xml/mail.xml:294
-#, python-format
-msgid "notified"
-msgstr "оповещён"
-
-#. module: mail
-#. openerp-web
-#: code:addons/mail/static/src/xml/mail.xml:274
-#, python-format
-msgid "logged a note"
-msgstr "создал(а) заметку"
 
 #. module: mail
 #. openerp-web
@@ -512,11 +425,6 @@ msgstr ""
 "записи в этой модели."
 
 #. module: mail
-#: view:base.config.settings:0
-msgid "mycompany.my.openerp.com"
-msgstr "mycompany.my.openerp.com"
-
-#. module: mail
 #: field:mail.message.subtype,relation_field:0
 msgid "Relation field"
 msgstr "Относящееся поле"
@@ -526,11 +434,6 @@ msgstr "Относящееся поле"
 #: selection:mail.message,type:0
 msgid "System notification"
 msgstr "Системное уведомление"
-
-#. module: mail
-#: view:mail.message:0
-msgid "To Read"
-msgstr "Непрочитанные"
 
 #. module: mail
 #: model:ir.model,name:mail.model_res_partner
@@ -566,14 +469,6 @@ msgid "From"
 msgstr "От"
 
 #. module: mail
-#: field:mail.compose.message,subtype_id:0
-#: field:mail.followers,subtype_ids:0
-#: field:mail.message,subtype_id:0
-#: view:mail.message.subtype:0
-msgid "Subtype"
-msgstr "Подтип"
-
-#. module: mail
 #: view:mail.mail:0
 #: view:mail.message.subtype:0
 msgid "Email message"
@@ -583,18 +478,6 @@ msgstr "Сообщение эл. почты"
 #: model:ir.model,name:mail.model_base_config_settings
 msgid "base.config.settings"
 msgstr "base.config.settings"
-
-#. module: mail
-#. openerp-web
-#: code:addons/mail/static/src/js/mail_followers.js:157
-#, python-format
-msgid "followers"
-msgstr "подписано"
-
-#. module: mail
-#: view:mail.group:0
-msgid "Send a message to the group"
-msgstr "Отправить сообщение группе"
 
 #. module: mail
 #. openerp-web
@@ -617,11 +500,6 @@ msgid "Failed"
 msgstr "Ошибка"
 
 #. module: mail
-#: view:mail.mail:0
-msgid "Cancel Email"
-msgstr "Отменить письмо"
-
-#. module: mail
 #. openerp-web
 #: code:addons/mail/static/src/xml/mail_followers.xml:22
 #: model:ir.actions.act_window,name:mail.action_view_followers
@@ -641,11 +519,6 @@ msgid "Archives"
 msgstr "Архивы"
 
 #. module: mail
-#: view:mail.compose.message:0
-msgid "Subject..."
-msgstr "Тема"
-
-#. module: mail
 #. openerp-web
 #: code:addons/mail/static/src/xml/mail.xml:95
 #: code:addons/mail/static/src/xml/mail.xml:107
@@ -654,10 +527,12 @@ msgid "Delete this attachment"
 msgstr "Удалить вложение"
 
 #. module: mail
-#: code:addons/mail/mail_thread.py:112
+#. openerp-web
+#: code:addons/mail/static/src/xml/mail.xml:245
+#: view:mail.mail:0
 #, python-format
-msgid "New"
-msgstr "Новый"
+msgid "Reply"
+msgstr "Ответить"
 
 #. module: mail
 #. openerp-web
@@ -665,14 +540,6 @@ msgstr "Новый"
 #, python-format
 msgid "One follower"
 msgstr "1 подписчик"
-
-#. module: mail
-#: field:mail.compose.message,model:0
-#: field:mail.followers,res_model:0
-#: field:mail.message,model:0
-#: field:mail.wizard.invite,res_model:0
-msgid "Related Document Model"
-msgstr "Модель связанного документа"
 
 #. module: mail
 #: field:mail.compose.message,type:0
@@ -693,14 +560,14 @@ msgid "Mail Group"
 msgstr "Почтовая группа"
 
 #. module: mail
+#: selection:res.partner,notification_email_send:0
+msgid "Comments and Emails"
+msgstr "Комментарии и эл. почта"
+
+#. module: mail
 #: field:mail.alias,alias_defaults:0
 msgid "Default Values"
 msgstr "Значения по умолчанию"
-
-#. module: mail
-#: view:mail.mail:0
-msgid "by"
-msgstr "по"
 
 #. module: mail
 #: code:addons/mail/res_users.py:89
@@ -733,6 +600,13 @@ msgid "<<<"
 msgstr "<<<"
 
 #. module: mail
+#. openerp-web
+#: code:addons/mail/static/src/xml/mail.xml:43
+#, python-format
+msgid "Write to the followers of this document..."
+msgstr "Написать подписанным на этот документ..."
+
+#. module: mail
 #: field:mail.group,group_public_id:0
 msgid "Authorized Group"
 msgstr "Авторизованная группа"
@@ -748,13 +622,6 @@ msgid "Message sender, taken from user preferences."
 msgstr "Отправитель сообщения, взятый из настроек пользователя."
 
 #. module: mail
-#. openerp-web
-#: code:addons/mail/static/src/js/mail.js:978
-#, python-format
-msgid "read more"
-msgstr "подробнее"
-
-#. module: mail
 #: code:addons/mail/wizard/invite.py:40
 #, python-format
 msgid "<div>You have been invited to follow a new document.</div>"
@@ -767,22 +634,12 @@ msgid "Parent Message"
 msgstr "Родительское сообщение"
 
 #. module: mail
-#: selection:res.partner,notification_email_send:0
-msgid "All Messages (discussions, emails, followed system notifications)"
-msgstr "Все сообщения (обсуждения, эл. почта, уведомления по подписке)"
-
-#. module: mail
-#. openerp-web
-#: code:addons/mail/static/src/js/mail_followers.js:252
-#, python-format
-msgid ""
-"Warning! \n"
-"You won't be notified of any email or discussion on this document. Do you "
-"really want to unfollow this document ?"
-msgstr ""
-"Внимание! \n"
-"Вы не будете оповещены обо всех письмах и обсуждениях по данному документу. "
-"Вы действительно хотите отменить подписку на этот документ?"
+#: field:mail.compose.message,res_id:0
+#: field:mail.followers,res_id:0
+#: field:mail.message,res_id:0
+#: field:mail.wizard.invite,res_id:0
+msgid "Related Document ID"
+msgstr "ID связанного документа"
 
 #. module: mail
 #: model:ir.actions.client,help:mail.action_mail_to_me_feeds
@@ -807,9 +664,16 @@ msgid "R&D"
 msgstr "НИОКР"
 
 #. module: mail
-#: model:ir.model,name:mail.model_mail_wizard_invite
-msgid "Invite wizard"
-msgstr "Мастер приглашений"
+#. openerp-web
+#: code:addons/mail/static/src/xml/mail.xml:61
+#, python-format
+msgid "/web/binary/upload_attachment"
+msgstr "/web/binary/upload_attachment"
+
+#. module: mail
+#: model:ir.model,name:mail.model_mail_thread
+msgid "Email Thread"
+msgstr "Цепочка эл.почты"
 
 #. module: mail
 #: view:mail.mail:0
@@ -850,13 +714,6 @@ msgstr ""
 #: help:mail.wizard.invite,res_model:0
 msgid "Model of the followed resource"
 msgstr "Модель обсуждаемого ресурса"
-
-#. module: mail
-#. openerp-web
-#: code:addons/mail/static/src/js/mail.js:979
-#, python-format
-msgid "read less"
-msgstr "свернуть"
 
 #. module: mail
 #. openerp-web
@@ -932,12 +789,11 @@ msgid "Message subtypes"
 msgstr "Подтип сообщения"
 
 #. module: mail
-#. openerp-web
-#: code:addons/mail/static/src/xml/mail.xml:37
-#: code:addons/mail/static/src/xml/mail.xml:55
-#, python-format
-msgid "Log a note"
-msgstr "Создать заметку"
+#: help:mail.compose.message,notified_partner_ids:0
+#: help:mail.message,notified_partner_ids:0
+msgid ""
+"Partners that have a notification pushing this message in their mailboxes"
+msgstr "Партнеры которые имеют уведомление доставляемое в их почтовые ящики"
 
 #. module: mail
 #: selection:mail.compose.message,type:0
@@ -1011,6 +867,16 @@ msgid "Photo"
 msgstr "Фото"
 
 #. module: mail
+#. openerp-web
+#: code:addons/mail/static/src/xml/mail.xml:54
+#: code:addons/mail/static/src/xml/mail.xml:191
+#: view:mail.compose.message:0
+#: view:mail.wizard.invite:0
+#, python-format
+msgid "or"
+msgstr "или"
+
+#. module: mail
 #: help:mail.compose.message,vote_user_ids:0
 #: help:mail.message,vote_user_ids:0
 msgid "Users that voted for this message"
@@ -1047,10 +913,9 @@ msgid "Owner"
 msgstr "Владелец"
 
 #. module: mail
-#: code:addons/mail/res_partner.py:52
-#, python-format
-msgid "Partner Profile"
-msgstr "Профиль партнёра"
+#: model:ir.model,name:mail.model_res_users
+msgid "Users"
+msgstr "Пользователи"
 
 #. module: mail
 #: model:ir.model,name:mail.model_mail_message
@@ -1125,11 +990,9 @@ msgid "Please complete partner's informations"
 msgstr "Пожалуйста дополните информацию о партнере"
 
 #. module: mail
-#: code:addons/mail/mail_mail.py:190
-#, python-format
-msgid "<p>Access this document <a href=\"%s\">directly in OpenERP</a></p>"
-msgstr ""
-"<p>Открыть этот документ <a href=\"%s\">непосредственно в OpenERP</a></p>"
+#: view:mail.wizard.invite:0
+msgid "Add Followers"
+msgstr "Добавить подписчиков"
 
 #. module: mail
 #: view:mail.compose.message:0
@@ -1140,11 +1003,6 @@ msgstr "Подписчики выбранных пунктов и"
 #: field:mail.alias,alias_force_thread_id:0
 msgid "Record Thread ID"
 msgstr "ID цепочки записей"
-
-#. module: mail
-#: model:ir.model,name:mail.model_publisher_warranty_contract
-msgid "publisher_warranty.contract"
-msgstr "publisher_warranty.contract"
 
 #. module: mail
 #: model:ir.ui.menu,name:mail.mail_group_root
@@ -1187,20 +1045,9 @@ msgid "Outgoing"
 msgstr "Исходящее"
 
 #. module: mail
-#. openerp-web
-#: code:addons/mail/static/src/xml/mail.xml:54
-#: code:addons/mail/static/src/xml/mail.xml:191
-#: view:mail.compose.message:0
-#: view:mail.wizard.invite:0
-#, python-format
-msgid "or"
-msgstr "или"
-
-#. module: mail
-#: code:addons/mail/mail_thread.py:111
-#, python-format
-msgid "You have one unread message"
-msgstr "У Вас одно непрочитанное сообщение"
+#: selection:res.partner,notification_email_send:0
+msgid "All feeds"
+msgstr "Все ленты"
 
 #. module: mail
 #: help:mail.compose.message,record_name:0
@@ -1236,13 +1083,6 @@ msgstr ""
 "отключит создание новых записей полностью."
 
 #. module: mail
-#. openerp-web
-#: code:addons/mail/static/src/xml/mail.xml:311
-#, python-format
-msgid "show more message"
-msgstr "показать больше сообщений"
-
-#. module: mail
 #: help:mail.message.subtype,name:0
 msgid ""
 "Message subtype gives a more precise type on the message, especially for "
@@ -1258,9 +1098,9 @@ msgstr ""
 "стене."
 
 #. module: mail
-#: field:res.partner,notification_email_send:0
-msgid "Receive Messages by Email"
-msgstr "Получать сообщения по эл. почте"
+#: view:mail.mail:0
+msgid "by"
+msgstr "по"
 
 #. module: mail
 #: model:mail.group,name:mail.group_best_sales_practices
@@ -1302,21 +1142,16 @@ msgid "Date"
 msgstr "Дата"
 
 #. module: mail
+#. openerp-web
+#: code:addons/mail/static/src/xml/mail.xml:34
+#, python-format
+msgid "Post"
+msgstr "Послать"
+
+#. module: mail
 #: view:mail.mail:0
 msgid "Extended Filters..."
 msgstr "Расширенные фильтры..."
-
-#. module: mail
-#: selection:res.partner,notification_email_send:0
-msgid "Incoming Emails only"
-msgstr "Только входящая эл. почта"
-
-#. module: mail
-#. openerp-web
-#: code:addons/mail/static/src/xml/mail.xml:292
-#, python-format
-msgid "more"
-msgstr "подробнее"
 
 #. module: mail
 #. openerp-web
@@ -1343,9 +1178,11 @@ msgid "Default"
 msgstr "По умолчанию"
 
 #. module: mail
-#: model:ir.model,name:mail.model_res_users
-msgid "Users"
-msgstr "Пользователи"
+#. openerp-web
+#: code:addons/mail/static/src/xml/mail.xml:311
+#, python-format
+msgid "show more message"
+msgstr "показать больше сообщений"
 
 #. module: mail
 #. openerp-web
@@ -1360,6 +1197,11 @@ msgid "Parent subtype, used for automatic subscription."
 msgstr "Вышестоящий подтип, используемый для автоподписки"
 
 #. module: mail
+#: model:ir.model,name:mail.model_mail_wizard_invite
+msgid "Invite wizard"
+msgstr "Мастер приглашений"
+
+#. module: mail
 #: field:mail.group,message_summary:0
 #: field:mail.thread,message_summary:0
 #: field:res.partner,message_summary:0
@@ -1367,17 +1209,20 @@ msgid "Summary"
 msgstr "Описание"
 
 #. module: mail
-#: code:addons/mail/mail_mail.py:222
-#: code:addons/mail/mail_mail.py:244
-#, python-format
-msgid "\"Followers of %s\" <%s>"
-msgstr "\"Подписчики документа %s\" <%s>"
+#: help:mail.message.subtype,res_model:0
+msgid ""
+"Model the subtype applies to. If False, this subtype applies to all models."
+msgstr ""
+"Модель, к которой применяется подтип. Если не выбрано, то применяется ко "
+"всем моделям."
 
 #. module: mail
-#: view:mail.compose.message:0
-#: view:mail.wizard.invite:0
-msgid "Add contacts to notify..."
-msgstr "Добавить получателей..."
+#: field:mail.compose.message,subtype_id:0
+#: field:mail.followers,subtype_ids:0
+#: field:mail.message,subtype_id:0
+#: view:mail.message.subtype:0
+msgid "Subtype"
+msgstr "Подтип"
 
 #. module: mail
 #: view:mail.group:0
@@ -1392,9 +1237,11 @@ msgid "Starred"
 msgstr "Отмеченные"
 
 #. module: mail
-#: field:mail.group,menu_id:0
-msgid "Related Menu"
-msgstr "Связанное меню"
+#. openerp-web
+#: code:addons/mail/static/src/xml/mail.xml:313
+#, python-format
+msgid "more messages"
+msgstr "больше сообщений"
 
 #. module: mail
 #: code:addons/mail/update.py:93
@@ -1437,12 +1284,6 @@ msgid "And"
 msgstr "И"
 
 #. module: mail
-#: code:addons/mail/mail_thread.py:111
-#, python-format
-msgid "You have %d unread messages"
-msgstr "У Вас %d непрочитанных сообщений"
-
-#. module: mail
 #: field:mail.compose.message,message_id:0
 #: field:mail.message,message_id:0
 msgid "Message-Id"
@@ -1479,11 +1320,6 @@ msgstr "Копия"
 #: help:mail.notification,starred:0
 msgid "Starred message that goes into the todo mailbox"
 msgstr "Отмеченное сообщение, которое попадает в список дел"
-
-#. module: mail
-#: view:mail.group:0
-msgid "Topics discussed in this group..."
-msgstr "Темы, обсуждаемые в этой группе"
 
 #. module: mail
 #. openerp-web
@@ -1523,6 +1359,11 @@ msgid "Follow"
 msgstr "Подписаться"
 
 #. module: mail
+#: field:mail.group,name:0
+msgid "Name"
+msgstr "Название"
+
+#. module: mail
 #: model:mail.group,name:mail.group_all_employees
 msgid "Whole Company"
 msgstr "Вся компания"
@@ -1547,16 +1388,16 @@ msgid "Creation Month"
 msgstr "Месяц создания"
 
 #. module: mail
-#: help:mail.compose.message,notified_partner_ids:0
-#: help:mail.message,notified_partner_ids:0
-msgid ""
-"Partners that have a notification pushing this message in their mailboxes"
-msgstr "Партнеры которые имеют уведомление доставляемое в их почтовые ящики"
+#. openerp-web
+#: code:addons/mail/static/src/xml/mail.xml:323
+#, python-format
+msgid "Compose new Message"
+msgstr "Написать новое сообщение"
 
 #. module: mail
-#: view:mail.message:0
-msgid "Show already read messages"
-msgstr "Показать прочитанные сообщения"
+#: field:mail.group,menu_id:0
+msgid "Related Menu"
+msgstr "Связанное меню"
 
 #. module: mail
 #: view:mail.message:0
@@ -1569,25 +1410,10 @@ msgid "To"
 msgstr "Кому"
 
 #. module: mail
-#. openerp-web
-#: code:addons/mail/static/src/xml/mail.xml:245
-#: view:mail.mail:0
-#, python-format
-msgid "Reply"
-msgstr "Ответить"
-
-#. module: mail
 #: field:mail.compose.message,notified_partner_ids:0
 #: field:mail.message,notified_partner_ids:0
 msgid "Notified partners"
 msgstr "Уведомленные партнеры"
-
-#. module: mail
-#. openerp-web
-#: code:addons/mail/static/src/xml/mail.xml:126
-#, python-format
-msgid "this document"
-msgstr "этого документа"
 
 #. module: mail
 #: help:mail.group,public:0
@@ -1602,6 +1428,15 @@ msgstr ""
 #: model:mail.group,name:mail.group_board
 msgid "Board meetings"
 msgstr "Совещания"
+
+#. module: mail
+#: constraint:mail.alias:0
+msgid ""
+"Invalid expression, it must be a literal python dictionary definition e.g. "
+"\"{'field': 'value'}\""
+msgstr ""
+"Неправильное выражение, здесь должен быть объявление словаря python например "
+"\"{'field': 'value'}\""
 
 #. module: mail
 #: field:mail.alias,alias_model_id:0
@@ -1668,9 +1503,10 @@ msgstr ""
 "сообщением"
 
 #. module: mail
-#: model:ir.model,name:mail.model_mail_thread
-msgid "Email Thread"
-msgstr "Цепочка эл.почты"
+#: help:res.partner,notification_email_send:0
+msgid ""
+"Choose in which case you want to receive an email when you receive new feeds."
+msgstr "Выберите в каких случаях Вы хотите получать письма по подписке."
 
 #. module: mail
 #: model:ir.actions.act_window,name:mail.action_view_groups
@@ -1719,32 +1555,20 @@ msgstr "Вернуть в список задач"
 
 #. module: mail
 #. openerp-web
-#: code:addons/mail/static/src/xml/mail.xml:154
+#: code:addons/mail/static/src/xml/mail.xml:126
 #, python-format
-msgid "Attach a note that will not be sent to the followers"
-msgstr "Создать заметку, которая не будет отправлена подписчикам"
+msgid "this document"
+msgstr "этого документа"
 
 #. module: mail
-#. openerp-web
-#: code:addons/mail/static/src/xml/mail.xml:279
-#, python-format
-msgid "nobody"
-msgstr "никто"
+#: field:mail.compose.message,filter_id:0
+msgid "Filters"
+msgstr "Фильтры"
 
 #. module: mail
-#: selection:res.partner,notification_email_send:0
-msgid "Incoming Emails and Discussions"
-msgstr "Входящая эл. почта и обсуждения"
-
-#. module: mail
-#: field:mail.group,name:0
-msgid "Name"
-msgstr "Название"
-
-#. module: mail
-#: constraint:res.partner:0
-msgid "You cannot create recursive Partner hierarchies."
-msgstr "Не допускается создание рекурсивных иерархий Партнёров"
+#: field:res.partner,notification_email_send:0
+msgid "Receive Feeds by Email"
+msgstr "Получать Ленты по эл. почте"
 
 #. module: mail
 #: help:base.config.settings,alias_domain:0
@@ -1802,13 +1626,6 @@ msgstr ""
 "для доступа к оповещаемым партнерам."
 
 #. module: mail
-#. openerp-web
-#: code:addons/mail/static/src/xml/mail.xml:149
-#, python-format
-msgid "(no email address)"
-msgstr "(нет адреса эл. почты)"
-
-#. module: mail
 #: model:ir.ui.menu,name:mail.mail_feeds
 #: model:ir.ui.menu,name:mail.mail_feeds_main
 msgid "Messaging"
@@ -1821,11 +1638,9 @@ msgid "Model"
 msgstr "Модель"
 
 #. module: mail
-#. openerp-web
-#: code:addons/mail/static/src/xml/mail.xml:206
-#, python-format
-msgid "No messages."
-msgstr "Нет сообщений."
+#: view:mail.message:0
+msgid "Unread"
+msgstr "Непрочитанное"
 
 #. module: mail
 #: help:mail.followers,subtype_ids:0
@@ -1852,12 +1667,12 @@ msgid "Composition mode"
 msgstr "Режим составления"
 
 #. module: mail
-#: help:mail.message.subtype,res_model:0
-msgid ""
-"Model the subtype applies to. If False, this subtype applies to all models."
-msgstr ""
-"Модель, к которой применяется подтип. Если не выбрано, то применяется ко "
-"всем моделям."
+#: field:mail.compose.message,model:0
+#: field:mail.followers,res_model:0
+#: field:mail.message,model:0
+#: field:mail.wizard.invite,res_model:0
+msgid "Related Document Model"
+msgstr "Модель связанного документа"
 
 #. module: mail
 #. openerp-web
@@ -1867,9 +1682,14 @@ msgid "unlike"
 msgstr "не нравится"
 
 #. module: mail
-#: model:ir.model,name:mail.model_mail_group
-msgid "Discussion group"
-msgstr "Дискуссионная группа"
+#: help:mail.compose.message,author_id:0
+#: help:mail.message,author_id:0
+msgid ""
+"Author of the message. If not set, email_from may hold an email address that "
+"did not match any partner."
+msgstr ""
+"Автор сообщения. Если не установлен, email_from может содержать адрес почты, "
+"который не соответствует ни одному партнеру."
 
 #. module: mail
 #: help:mail.mail,email_cc:0
@@ -1936,11 +1756,9 @@ msgid "HR Policies"
 msgstr "Политика СП"
 
 #. module: mail
-#. openerp-web
-#: code:addons/mail/static/src/xml/mail.xml:323
-#, python-format
-msgid "Compose new Message"
-msgstr "Написать новое сообщение"
+#: selection:res.partner,notification_email_send:0
+msgid "Emails only"
+msgstr "Только эл. почта"
 
 #. module: mail
 #: model:ir.actions.client,name:mail.action_mail_inbox_feeds
@@ -1949,9 +1767,11 @@ msgid "Inbox"
 msgstr "Входящие"
 
 #. module: mail
-#: field:mail.compose.message,filter_id:0
-msgid "Filters"
-msgstr "Фильтры"
+#. openerp-web
+#: code:addons/mail/static/src/xml/mail.xml:58
+#, python-format
+msgid "File"
+msgstr "Файл"
 
 #. module: mail
 #. openerp-web
@@ -1981,41 +1801,148 @@ msgstr "Маленькое фото"
 msgid "Preferred response address for the message"
 msgstr "Предпочтительный адрес ответа для сообщения"
 
-#~ msgid "Receive Feeds by Email"
-#~ msgstr "Получать Ленты по эл. почте"
+#~ msgid "Open Attachments"
+#~ msgstr "Открыть вложения"
+
+#~ msgid "Details"
+#~ msgstr "Подробности"
+
+#~ msgid "Bcc"
+#~ msgstr "Скрытая копия"
 
 #, python-format
-#~ msgid "Write to the followers of this document..."
-#~ msgstr "Написать подписанным на этот документ..."
-
-#~ msgid "Comments and Emails"
-#~ msgstr "Комментарии и эл. почта"
-
-#~ msgid "All feeds"
-#~ msgstr "Все ленты"
+#~ msgid "History"
+#~ msgstr "История"
 
 #, python-format
-#~ msgid "Add them into recipients and followers"
-#~ msgstr "Добавить их к получателям и подписчикам"
+#~ msgid " on "
+#~ msgstr " на "
+
+#~ msgid "Display Text"
+#~ msgstr "Вывести текст"
+
+#~ msgid "Message type"
+#~ msgstr "Тип сообщения"
+
+#~ msgid "Communication History"
+#~ msgstr "История общения"
+
+#~ msgid "Open Related Document"
+#~ msgstr "Открыть связанный документ"
+
+#~ msgid "Permanently delete emails after sending"
+#~ msgstr "Не сохранять сообщения после отправки"
+
+#~ msgid "Plain-text version of the message"
+#~ msgstr "Простая текстовая версия сообщения"
+
+#~ msgid "Rich-text/HTML version of the message"
+#~ msgstr "Форматный текст/HTML версия сообщения"
+
+#~ msgid "Blind carbon copy message recipients"
+#~ msgstr "Получатели скрытой копии сообщения"
+
+#~ msgid "Text contents"
+#~ msgstr "Текстовое содержимое"
+
+#~ msgid "State"
+#~ msgstr "Состояние"
 
 #, python-format
-#~ msgid "/web/binary/upload_attachment"
-#~ msgstr "/web/binary/upload_attachment"
+#~ msgid "On %(date)s, "
+#~ msgstr "За %(date)s, "
 
-#, python-format
-#~ msgid "Post"
-#~ msgstr "Послать"
-
-#~ msgid "Unread"
-#~ msgstr "Непрочитанное"
-
-#~ msgid "Emails only"
-#~ msgstr "Только эл. почта"
-
-#, python-format
-#~ msgid "File"
-#~ msgstr "Файл"
+#~ msgid "Related Document model"
+#~ msgstr "Модель связанного документа"
 
 #~ msgid ""
-#~ "Choose in which case you want to receive an email when you receive new feeds."
-#~ msgstr "Выберите в каких случаях Вы хотите получать письма по подписке."
+#~ "Type of message, usually 'html' or 'plain', used to select plaintext or rich "
+#~ "text contents accordingly"
+#~ msgstr ""
+#~ "Тип сообщения, обычно 'html' или 'простой', используемый для выбора "
+#~ "содержимого соответственно простого текста или форматного текста"
+
+#~ msgid "E-mail composition wizard"
+#~ msgstr "Мастер создания электронной почты"
+
+#~ msgid "Partner Name"
+#~ msgstr "Название партнера"
+
+#, python-format
+#~ msgid "%(sender_name)s wrote:"
+#~ msgstr "%(sender_name)s написал:"
+
+#~ msgid "Rich-text contents"
+#~ msgstr "Форматное текстовое сообщение"
+
+#~ msgid "Related partner"
+#~ msgstr "Связанный партнер"
+
+#~ msgid "Original"
+#~ msgstr "Оригинал"
+
+#~ msgid ""
+#~ "Message sender, taken from user preferences. If empty, this is not a mail "
+#~ "but a message."
+#~ msgstr ""
+#~ "Отправитель сообщения, взятый из параметров пользователя. Если пусто, то это "
+#~ "не почта, а сообщение."
+
+#~ msgid "Body (Plain)"
+#~ msgstr "Текст (простой)"
+
+#~ msgid "Open"
+#~ msgstr "Открыть"
+
+#, python-format
+#~ msgid "[OpenERP-Forward-Failed] %s"
+#~ msgstr "[OpenERP-Forward-Failed] %s"
+
+#~ msgid "Related user"
+#~ msgstr "Связанный пользователь"
+
+#~ msgid ""
+#~ "Full message headers, e.g. SMTP session headers (usually available on "
+#~ "inbound messages only)"
+#~ msgstr ""
+#~ "Полные заголовки сообщения, т.е. заголовки сессии SMTP (обычно доступные "
+#~ "только во входящих сообщениях)"
+
+#~ msgid "Email Threads"
+#~ msgstr "Цепочки эл.писем"
+
+#, python-format
+#~ msgid ""
+#~ "%s wrote on %s: \n"
+#~ " Subject: %s \n"
+#~ "\t"
+#~ msgstr ""
+#~ "%s написал на %s: \n"
+#~ " Тема: %s \n"
+#~ "\t"
+
+#~ msgid "Body (Rich)"
+#~ msgstr "Текст (форматный)"
+
+#, python-format
+#~ msgid "You"
+#~ msgstr "Вы"
+
+#~ msgid "mail.message.common"
+#~ msgstr "mail.message.common"
+
+#~ msgid "Message headers"
+#~ msgstr "Заголовки сообщения"
+
+#~ msgid "Error ! You cannot create recursive associated members."
+#~ msgstr "Ошибка! Вы не можете создавать рекурсивные ссылки на участников."
+
+#, python-format
+#~ msgid "Mail attachment"
+#~ msgstr "Почтовое вложение"
+
+#~ msgid "Email Message"
+#~ msgstr "Сообщение эл.почты"
+
+#~ msgid "Original version of the message, as it was sent on the network"
+#~ msgstr "Оригинальная версия сообщения, как было отправлено в сеть"

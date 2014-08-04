@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="customer_request_view" model="ir.ui.view">
+			<field name="name">Customer Request</field>
+			<field name="model">at_sale_simple.wizard.customer_request</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Customer Request">
+					<group colspan="4">
+						 <group colspan="4" col="4">
+						 	<field name="partner_address_id" string="Contact" colspan="4"/>
+							<field name="has_delivery_address"/>						
+						 </group>
+						 <newline/>
+						 <group colspan="2" col="4">
+	                        <separator string="Contact" colspan="4" col="4"/>
+							<field name="title" colspan="2" domain="[('domain', '=', 'contact')]" widget="selection"  attrs="{'readonly':[('partner_address_id','!=',False)] }"/>
+	                        <field name="name"  colspan="2" string="Name"  attrs="{'required':[('partner_address_id','=',False)], 'readonly':[('partner_address_id','!=',False)] }"/>	                                                      
+	                        <field name="street" colspan="4"  attrs="{'readonly':[('partner_address_id','!=',False)] }"/>                        
+                          <field name="street2" colspan="4"  attrs="{'readonly':[('partner_address_id','!=',False)] }"/>
+	                        <field name="zip"  attrs="{'readonly':[('partner_address_id','!=',False)] }" on_change="on_change_zip(zip,city)"/>
+	                        <field name="city" attrs="{'readonly':[('partner_address_id','!=',False)] }"/>
+	                        <field name="country_id" attrs="{'readonly':[('partner_address_id','!=',False)] }"/>
+	                        <field name="state_id" attrs="{'readonly':[('partner_address_id','!=',False)] }"/>
+	                    </group>
+	                    <group colspan="2" col="2">
+	                        <separator string="Communication" colspan="2"/>
+							<field name="phone"  attrs="{'readonly':[('partner_address_id','!=',False)]}"/>
+	                        <field name="fax"    attrs="{'readonly':[('partner_address_id','!=',False)]}"/>
+	                        <field name="mobile" attrs="{'readonly':[('partner_address_id','!=',False)]}"/>
+							<field name="email" widget="email" attrs="{'readonly':[('partner_address_id','!=',False)]}"/>
+							<separator string="Ansprechpartner" colspan="2"/>
+							<field name="ref_person_title" colspan="1" domain="[('domain', '=', 'contact')]" size="0" widget="selection" attrs="{'readonly':[('partner_address_id','!=',False)]}"/>
+	                        <field name="ref_person_name"  colspan="1" attrs="{'readonly':[('partner_address_id','!=',False)]}"/>
+	                        <field name="ref_person_phone" attrs="{'readonly':[('partner_address_id','!=',False)]}"/>
+	                        <field name="ref_person_mobile" attrs="{'readonly':[('partner_address_id','!=',False)]}"/>
+	                        <field name="ref_person_fax" attrs="{'readonly':[('partner_address_id','!=',False)]}"/>
+	                        <field name="ref_person_email" widget="email" attrs="{'readonly':[('partner_address_id','!=',False)]}"/>
+	                    </group>						
+						<newline/>
+						<group colspan="2" col="4">
+	                        <separator string="Delivery Address" colspan="4" col="4"/>
+                          <field name="delivery_name" colspan="4" attrs="{'readonly':[('has_delivery_address','=',False)]}"/>
+	                        <field name="delivery_street" colspan="4" attrs="{'readonly':[('has_delivery_address','=',False)]}"/>                        
+                          <field name="delivery_street2" colspan="4" attrs="{'readonly':[('has_delivery_address','=',False)]}"/>
+	                        <field name="delivery_zip" attrs="{'readonly':[('has_delivery_address','=',False)]}" on_change="on_change_delivery_zip(delivery_zip)"/>
+	                        <field name="delivery_city" attrs="{'readonly':[('has_delivery_address','=',False)]}"/>
+	                        <field name="delivery_country_id" attrs="{'readonly':[('has_delivery_address','=',False)]}"/>
+	                        <field name="delivery_state_id" attrs="{'readonly':[('has_delivery_address','=',False)]}"/>
+	                    </group>
+						<newline/>
+						<group col="6" colspan="4">
+	                    	<label string="" colspan="2"/>
+		                   	<button special="cancel" string="Cancel" icon="gtk-cancel"/>
+							<button name="action_create_phone_call" string="Phone Call" type="object" icon="gtk-go-forward"/>
+	    	                <button name="action_create_opportunity" string="Opportunity" type="object" icon="gtk-go-forward"/>
+							<button name="action_create_sale_order" string="Sales Order" type="object" icon="gtk-go-forward"/>
+	                	</group>
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		<record id="action_customer_request" model="ir.actions.act_window">
+			<field name="name">Kundenanfrage erstellen"</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">at_sale_simple.wizard.customer_request</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+		
+	</data>
+</openerp>

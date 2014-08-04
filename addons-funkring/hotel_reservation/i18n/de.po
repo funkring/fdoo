@@ -1,0 +1,355 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* hotel_reservation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1-dev\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-08-29 12:51+0000\n"
+"PO-Revision-Date: 2011-08-29 12:51+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#: model:ir.ui.menu,name:hotel_reservation.menu_action_hotel_reservation_tree_draft
+#. module: hotel_reservation
+msgid "Reservation (Draft)"
+msgstr "Reservierung (Entwurf)"
+
+#: field:hotel.reservation,folio_id:0
+#. module: hotel_reservation
+msgid "Folio"
+msgstr "Gästeblatt"
+
+#: report:checkout.detail:0
+#: field:hotel.reservation,partner_id:0
+#: report:reservation.detail:0
+#. module: hotel_reservation
+msgid "Guest Name"
+msgstr "Gast Name"
+
+#: field:hotel_reservation.line,reserve:0
+#. module: hotel_reservation
+msgid "Reserve"
+msgstr "Reserve"
+
+#: model:ir.actions.act_window,name:hotel_reservation.action_hotel_reservation_tree_draft
+#. module: hotel_reservation
+msgid "All Draft Reservation"
+msgstr "Alle Reservierungen (Entwurf)"
+
+#: model:ir.actions.act_window,name:hotel_reservation.action_hotel_reservation_tree_confirm
+#. module: hotel_reservation
+msgid "All Confirm Reservation"
+msgstr "Alle Reservierungen (Bestätigt)"
+
+#: field:hotel.reservation,checkout:0
+#. module: hotel_reservation
+msgid "Expected-Date-Departure"
+msgstr "Arwartete Abreise"
+
+#: model:ir.ui.menu,name:hotel_reservation.menu_open_hotel_reservation_form_tree
+#. module: hotel_reservation
+msgid "New Reservation"
+msgstr "Neue Reservierung"
+
+#: view:hotel.reservation:0
+#: selection:hotel.reservation,state:0
+#. module: hotel_reservation
+msgid "Confirm"
+msgstr "Bestätigt"
+
+#: selection:hotel.reservation,state:0
+#. module: hotel_reservation
+msgid "Cancle"
+msgstr "Abbrechen"
+
+#: wizard_field:hotel.reservation.report_reservation,init,date_end:0
+#. module: hotel_reservation
+msgid "End Date"
+msgstr "Ende"
+
+#: selection:hotel.reservation,state:0
+#. module: hotel_reservation
+msgid "Draft"
+msgstr "Entwurf"
+
+#: model:ir.actions.act_window,name:hotel_reservation.action_hotel_reservation_tree_all
+#: model:ir.ui.menu,name:hotel_reservation.menu_action_hotel_reservation_tree_all
+#. module: hotel_reservation
+msgid "All Reservation"
+msgstr "Alle Reservierungen"
+
+#: model:ir.module.module,shortdesc:hotel_reservation.module_meta_information
+#. module: hotel_reservation
+msgid "Hotel Reservation Management"
+msgstr "Hotel Reservierungs Management"
+
+#: view:hotel.reservation:0
+#. module: hotel_reservation
+msgid " Reservation"
+msgstr "Reservierung"
+
+#: report:checkout.detail:0
+#: view:hotel.reservation:0
+#: field:hotel_reservation.line,categ_id:0
+#: report:reservation.detail:0
+#. module: hotel_reservation
+msgid "Room Type"
+msgstr "Zimmertyp"
+
+#: field:hotel.reservation,partner_order_id:0
+#. module: hotel_reservation
+msgid "Ordering Contact"
+msgstr "Reservierungskontakt"
+
+#: field:hotel.reservation,reservation_no:0
+#. module: hotel_reservation
+msgid "Reservation No"
+msgstr "Reservierungs Nr."
+
+#: view:hotel.reservation:0
+#. module: hotel_reservation
+msgid "Select Room "
+msgstr "Zimmerauswahl"
+
+#: report:checkout.detail:0
+#. module: hotel_reservation
+msgid "CheckOut Guest List"
+msgstr "CheckOut Gästeliste"
+
+#: model:ir.actions.act_window,name:hotel_reservation.action_hotel_reservation_tree_done
+#. module: hotel_reservation
+msgid "All Done Reservation"
+msgstr "Alle abgeschlossenen Reservierungen"
+
+#: field:hotel.reservation,partner_shipping_id:0
+#. module: hotel_reservation
+msgid "Shipping Address"
+msgstr "Lieferaddresse"
+
+#: wizard_button:hotel.reservation.report_reservation,init,print_checkin:0
+#. module: hotel_reservation
+msgid "CheckIn List"
+msgstr "CheckIn Liste"
+
+#: report:checkout.detail:0
+#: report:maxroom.detail:0
+#: report:reservation.detail:0
+#. module: hotel_reservation
+msgid "Room No"
+msgstr "Zimmer Nr."
+
+#: model:ir.actions.report.xml,name:hotel_reservation.hotel_checkin_details
+#. module: hotel_reservation
+msgid "CheckOut Detail"
+msgstr "CheckOut Detail"
+
+#: view:hotel.reservation:0
+#: field:hotel_reservation.line,line_id:0
+#: model:ir.actions.act_window,name:hotel_reservation.open_hotel_reservation_form_tree
+#: model:ir.model,name:hotel_reservation.model_hotel_reservation
+#. module: hotel_reservation
+msgid "Reservation"
+msgstr "Reservierung"
+
+#: field:hotel.reservation,pricelist_id:0
+#. module: hotel_reservation
+msgid "Pricelist"
+msgstr "Preisliste"
+
+#: view:hotel.reservation:0
+#. module: hotel_reservation
+msgid "No Of Rooms"
+msgstr "Zimmernummern"
+
+#: model:ir.ui.menu,name:hotel_reservation.menu_action_hotel_reservation_tree_done
+#. module: hotel_reservation
+msgid "Reservation (Done)"
+msgstr "Reservierungen (Erledigt)"
+
+#: view:hotel.reservation:0
+#. module: hotel_reservation
+msgid "Current Reservation"
+msgstr "Aktuelle Reservierungen"
+
+#: field:hotel.reservation,dummy:0
+#. module: hotel_reservation
+msgid "Dummy"
+msgstr "Dummy"
+
+#: model:ir.actions.report.xml,name:hotel_reservation.hotel_reservation_details
+#. module: hotel_reservation
+msgid "Reservation Detail"
+msgstr "Reservierungs Detail"
+
+#: wizard_button:hotel.folio.make_folio,init,folio:0
+#. module: hotel_reservation
+msgid "Create Folios"
+msgstr "Erstelle Gästeblatt"
+
+#: field:hotel.reservation,checkin:0
+#. module: hotel_reservation
+msgid "Expected-Date-Arrival"
+msgstr "Erwartete Ankunft"
+
+#: field:hotel.reservation,shop_id:0
+#. module: hotel_reservation
+msgid "Shop"
+msgstr "Geschäftsfeld"
+
+#: field:hotel.reservation,date_order:0
+#. module: hotel_reservation
+msgid "Date Ordered"
+msgstr "Bestelldatum"
+
+#: report:reservation.detail:0
+#. module: hotel_reservation
+msgid "Resevation No"
+msgstr "Reservierungs Nr."
+
+#: model:ir.actions.report.xml,name:hotel_reservation.max_hotel_room
+#. module: hotel_reservation
+msgid "Max Room Detail"
+msgstr "Zimmer Detail"
+
+#: model:ir.actions.wizard,name:hotel_reservation.wizard_hotel_reservation_report_reservation
+#. module: hotel_reservation
+msgid "Reservation Details"
+msgstr "Reservierungs Detail"
+
+#: model:ir.module.module,description:hotel_reservation.module_meta_information
+#. module: hotel_reservation
+msgid "\n"
+"    Basically developed by Tiny an continued by Funkring\n"
+"    \n"
+"    Module for Hotel/Resort/Property management. You can manage:\n"
+"    * Guest Reservation\n"
+"    * Group Reservartion\n"
+"      Different reports are also provided, mainly for hotel statistics.\n"
+"    "
+msgstr "\n"
+"    Basically developed by Tiny an continued by Funkring\n"
+"    \n"
+"    Module for Hotel/Resort/Property management. You can manage:\n"
+"    * Guest Reservation\n"
+"    * Group Reservartion\n"
+"      Different reports are also provided, mainly for hotel statistics.\n"
+"    "
+
+#: report:reservation.detail:0
+#. module: hotel_reservation
+msgid "Check-In-Date"
+msgstr "Check-In-Datum"
+
+#: model:ir.ui.menu,name:hotel_reservation.wizard_res_menu
+#. module: hotel_reservation
+msgid "Hotel Reservation Report"
+msgstr "Hotel Reservierungsbericht"
+
+#: wizard_view:hotel.folio.make_folio,init:0
+#: view:hotel.reservation:0
+#. module: hotel_reservation
+msgid "Create Folio"
+msgstr "Erstelle Gästeblatt"
+
+#: view:hotel.reservation:0
+#: field:hotel.reservation,reservation_line:0
+#: model:ir.model,name:hotel_reservation.model_hotel_reservation_line
+#. module: hotel_reservation
+msgid "Reservation Line"
+msgstr "Reservierungsposition"
+
+#: model:ir.ui.menu,name:hotel_reservation.menu_action_hotel_reservation_tree_confirm
+#. module: hotel_reservation
+msgid "Reservation (Confirmed)"
+msgstr "Reservierung (Bestätigut)"
+
+#: field:hotel.reservation,partner_invoice_id:0
+#. module: hotel_reservation
+msgid "Invoice Address"
+msgstr "Rechnungsaddresse"
+
+#: model:ir.actions.wizard,name:hotel_reservation.wizard_hotel_folio_make_folio
+#. module: hotel_reservation
+msgid "Make Folios"
+msgstr "Erstelle Gästeblätter"
+
+#: field:hotel.reservation,adults:0
+#. module: hotel_reservation
+msgid "Adults"
+msgstr "Erwachsene"
+
+#: wizard_button:hotel.reservation.report_reservation,init,print_checkout:0
+#. module: hotel_reservation
+msgid "CheckOut List"
+msgstr "CheckOut Liste"
+
+#: wizard_view:hotel.reservation.report_reservation,init:0
+#: wizard_button:hotel.reservation.report_reservation,init,print_report:0
+#: report:reservation.detail:0
+#. module: hotel_reservation
+msgid "Reservation List"
+msgstr "Reservierungs Liste"
+
+#: field:hotel.reservation,state:0
+#. module: hotel_reservation
+msgid "State"
+msgstr "Status"
+
+#: report:checkout.detail:0
+#: report:reservation.detail:0
+#. module: hotel_reservation
+msgid "Check-Out-Date"
+msgstr "Check-Out-Datum"
+
+#: selection:hotel.reservation,state:0
+#. module: hotel_reservation
+msgid "Done"
+msgstr "Erledigt"
+
+#: help:hotel.reservation,partner_order_id:0
+#. module: hotel_reservation
+msgid "The name and address of the contact that requested the order or quotation."
+msgstr "Der Name und die Addresse von dem Kontakt welcher für den Auftrag/Reservierung verwendet wird"
+
+#: report:maxroom.detail:0
+#. module: hotel_reservation
+msgid "No of Times used"
+msgstr "Keine Zeiten gebucht"
+
+#: wizard_button:hotel.folio.make_folio,init,end:0
+#: wizard_button:hotel.reservation.report_reservation,init,end:0
+#. module: hotel_reservation
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: wizard_field:hotel.reservation.report_reservation,init,date_start:0
+#. module: hotel_reservation
+msgid "Start Date"
+msgstr "Beginn"
+
+#: wizard_button:hotel.reservation.report_reservation,init,print_room_used:0
+#. module: hotel_reservation
+msgid "Room Used Maximum"
+msgstr "Zimmer benutzt (Maximum)"
+
+#: field:hotel.reservation,childs:0
+#. module: hotel_reservation
+msgid "Children"
+msgstr "Kinder"
+
+#: wizard_field:hotel.folio.make_folio,init,grouped:0
+#. module: hotel_reservation
+msgid "Group the Folios"
+msgstr "Gruppieren der Gästeblätter"
+
+#: wizard_view:hotel.folio.make_folio,init:0
+#. module: hotel_reservation
+msgid "Do you really want to create the Folio ?"
+msgstr "Wollen sie das Gästeblatt wirklich anlegen ?"
+

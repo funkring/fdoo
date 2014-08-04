@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>    	    	
+    	<menuitem icon="terp-partner" id="menu_root" name="Supplier Area" sequence="0"    	
+           groups="group_supplier"
+           web_icon="images/area-hover.png"
+           web_icon_hover="images/area.png"
+           action="open_supplier_area"
+         />
+      
+        <!--  menu for supplier board -->
+        <menuitem action="open_supplier_area"  icon="terp-graph"  id="menu_board_supplier_area" parent="menu_root" sequence="4"
+        		groups="group_supplier"/>            
+        
+           
+        <!--  menu for supplier -->
+        <menuitem action="action_purchase_line" id="menu_purchase_line" parent="menu_root" groups="group_supplier"/>
+        
+        <!--  menu for purchaser -->
+        <menuitem action="action_purchase_line2" id="menu_purchase_line_user" parent="purchase.menu_procurement_management"/>        
+        
+        <menuitem action="action_sale_order_purchase_lines_oneweek" id="menu_purchase_line_oneweek" parent="menu_root" sequence="10"></menuitem>
+        <menuitem action="action_sale_order_purchase_lines_twoweeks" id="menu_purchase_line_twoweeks" parent="menu_root" sequence="20"></menuitem>
+        <menuitem action="action_sale_order_purchase_lines_fourweeks" id="menu_purchase_line_fourweeks" parent="menu_root" sequence="30"></menuitem>
+    </data>    
+</openerp>

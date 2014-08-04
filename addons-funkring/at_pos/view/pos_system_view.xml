@@ -1,0 +1,54 @@
+<openerp>
+	<data>		
+		<record id="form_pos_system" model="ir.ui.view">
+            <field name="name">at_pos.form_pos_system</field>
+            <field name="model">at_pos.pos_system</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="System">
+                    <group colspan="4" col="2">
+                		<field name="name" colspan="4"/>
+                	</group>                	
+                	<group name="printer" col="2" colspan="2">
+                		<separator colspan="2" col="2" string="Printer"/>
+                		<field name="bon_printer_id" />
+                		<field name="report_printer_id"/>
+                	</group>
+                	<group name="journals" col="2" colspan="2">
+                	    <separator colspan="2" col="2" string="Journals"/>
+                	    <field name="cash_journal_id"/>
+                	    <field name="balance_journal_id"/>
+                	    <field name="voucher_journal_id"/>                	    
+                	</group>                	   
+                	<separator string="Product Categories" colspan="4"/>               
+                	<field name="product_category_ids" colspan="4" nolabel="1"/>
+                </form>
+            </field>
+        </record>
+
+        <record id="tree_pos_system" model="ir.ui.view">
+            <field name="name">at_pos.tree_pos_system</field>
+            <field name="model">at_pos.pos_system</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="System">
+                	<field name="name" />
+                	<field name="bon_printer_id" />
+                	<field name="cash_journal_id" /> 
+                	<field name="balance_journal_id"/>
+                	<field name="voucher_journal_id"/>          	
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_pos_system" model="ir.actions.act_window">
+            <field name="name">System</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">at_pos.pos_system</field>            
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+				
+        	
+	</data>
+</openerp>

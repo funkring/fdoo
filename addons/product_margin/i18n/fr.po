@@ -1,22 +1,20 @@
-# French translation for openobject-addons
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
-# This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* product_margin
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openobject-addons\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:37+0000\n"
-"PO-Revision-Date: 2013-07-14 00:28+0000\n"
-"Last-Translator: Maxime Chambreuil (http://www.savoirfairelinux.com) "
-"<maxime.chambreuil@savoirfairelinux.com>\n"
-"Language-Team: French <fr@li.org>\n"
+"Project-Id-Version: OpenERP Server 5.0.4\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-12-21 17:06+0000\n"
+"PO-Revision-Date: 2012-11-28 17:23+0000\n"
+"Last-Translator: Numérigraphe <Unknown>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-21 06:28+0000\n"
-"X-Generator: Launchpad (build 16831)\n"
+"X-Launchpad-Export-Date: 2014-03-27 07:00+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: product_margin
 #: view:product.product:0
@@ -290,3 +288,85 @@ msgstr "ou"
 #: model:ir.model,name:product_margin.model_product_margin
 msgid "Product Margin"
 msgstr "Marge de l'article"
+
+#~ msgid ""
+#~ "Sum of Multification of Sale Catalog price and quantity of Customer Invoices"
+#~ msgstr ""
+#~ "Somme de la Multiplication du prix de Catalogue de Vente et de la quantité "
+#~ "des Factures Clients"
+
+#~ msgid "To Date"
+#~ msgstr "Date de Fin"
+
+#~ msgid "From Date"
+#~ msgstr "Date de Début"
+
+#~ msgid "Reporting"
+#~ msgstr "Reporting"
+
+#~ msgid ""
+#~ "Sum of Multification of Invoice price and quantity of Supplier Invoices "
+#~ msgstr ""
+#~ "Somme de la Multiplication du prix de la Facture et de la quantité des "
+#~ "Factures Fournisseurs "
+
+#~ msgid "Excepted Sale - Turn Over"
+#~ msgstr "Ventes Attendues - Chiffre d'Affaires"
+
+#~ msgid "# Invoiced"
+#~ msgstr "# Facturés"
+
+#~ msgid "Invalid XML for View Architecture!"
+#~ msgstr "XML non valide pour l'architecture de la vue"
+
+#~ msgid "Excepted Sale - Normal Cost"
+#~ msgstr "Ventes Attendues - Coût Normal"
+
+#~ msgid "Turnorder - Total Cost"
+#~ msgstr "Chiffre d'Affaires - Coût Total"
+
+#~ msgid ""
+#~ "Sum of Multification of Invoice price and quantity of Customer Invoices"
+#~ msgstr ""
+#~ "Somme de la Multiplication du prix Facturé et de la quantité des Factures "
+#~ "Clients"
+
+#~ msgid "Avg. Price in Customer Invoices)"
+#~ msgstr "Prix moyen dans les factures clients"
+
+#~ msgid "Select "
+#~ msgstr "Sélectionnez "
+
+#~ msgid "Total Margin (%)"
+#~ msgstr "Marge Totale (%)"
+
+#~ msgid "View Stock of Products"
+#~ msgstr "Voir le Stock des Produits"
+
+#~ msgid "Margins in Product"
+#~ msgstr "Marges sur le produit"
+
+#~ msgid "Error: Invalid ean code"
+#~ msgstr "Erreur : Code ean incorrect"
+
+#~ msgid "Turnorder - Standard price"
+#~ msgstr "Prix standard"
+
+#~ msgid ""
+#~ "\n"
+#~ "Adds a reporting menu in products that computes sales, purchases, margins\n"
+#~ "and other interesting indicators based on invoices. The wizard to launch\n"
+#~ "the report has several options to help you get the data you need.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Ajoute un menu rapport sur les produits qui calcule les ventes, les achats, "
+#~ "les marges\n"
+#~ "et d'autres indicateurs intéressants basés sur les factures. L'assistant de "
+#~ "lancement\n"
+#~ "du rapport a plusieurs options pour vous aider à obtenir les informations "
+#~ "dont vous avez besoin.\n"
+
+#~ msgid "Sum of Multification of Cost price and quantity of Supplier Invoices"
+#~ msgstr ""
+#~ "Somme de la multiplication du prix de revient et de la quantité des factures "
+#~ "fournisseurs"

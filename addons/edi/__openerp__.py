@@ -40,6 +40,7 @@ documentation at http://doc.openerp.com.
     'js': ['static/src/js/edi.js'],
     'css': ['static/src/css/edi.css'],
     'qweb': ['static/src/xml/*.xml'],
+    'data' : ['security.xml'],
     'auto_install': False,
 }
 

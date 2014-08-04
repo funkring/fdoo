@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="form_checklist_view" model="ir.ui.view">
+			<field name="name">project.form_checklist_view</field>
+			<field name="model">project.task</field>
+			<field name="inherit_id" ref="project.view_task_form2" />
+			<field name="arch" type="xml">	
+				<xpath expr="//notebook" position="inside">               
+					<page string="Checkpoints">
+						<field name="checkpoint_ids" >
+							<form string="Checkpoint" version="7.0" >
+								<group>
+									<label for="check" string="Checkpoint"/>
+									<div class="checkpoint_format">
+										<field name="check" style="width: 8%%"/>
+										<field name="name" style="width: 88%%"/>
+									</div>
+									<field name="sequence" invisible="1"/>
+								</group>
+							</form>
+							<tree string="Checkpoints" editable="top">
+								<field name="sequence" invisible="1" />
+								<field name="check"/>
+								<field name="name" />
+							</tree>
+						</field>
+					</page>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</openerp>

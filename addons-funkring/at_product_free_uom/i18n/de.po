@@ -1,0 +1,37 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* at_product_free_uom
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1-dev\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-06-25 14:34+0000\n"
+"PO-Revision-Date: 2011-06-25 14:34+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: at_product_free_uom
+#: model:ir.model,name:at_product_free_uom.model_product_product
+msgid "Product"
+msgstr "Produkt"
+
+#. module: at_product_free_uom
+#: constraint:product.product:0
+msgid "Error: Invalid ean code"
+msgstr "Fehler: Falscher EAN code"
+
+#. module: at_product_free_uom
+#: model:ir.model,name:at_product_free_uom.model_sale_order_line
+msgid "Sale Order Line"
+msgstr "Auftragspositionen"
+
+#. module: at_product_free_uom
+#: field:product.product,free_uom:0
+msgid "Free Quantity Unit"
+msgstr "Freie Produkt Einheit"
+

@@ -1,25 +1,21 @@
 # Macedonian translation for openobject-addons
-# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
 # This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
-# Ivica Dimitrijev <palifra@gmail.com>, 2013.
-# Aleksandar <server986@gmail.com>, 2013.
-# Sofce Dimitrijeva <sofce@eskon.com.mk>, 2013.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
-"Report-Msgid-Bugs-To: OpenERP Macedonian <openerp-i18n-"
-"macedonian@lists.launchpad.net >\n"
-"POT-Creation-Date: 2014-02-06 15:56+0000\n"
-"PO-Revision-Date: 2013-03-31 13:46+0000\n"
-"Last-Translator: Sofce Dimitrijeva <Unknown>\n"
-"Language-Team: ESKON-INZENERING\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2012-12-21 17:04+0000\n"
+"PO-Revision-Date: 2012-04-23 11:27+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Macedonian <mk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-02-07 07:11+0000\n"
-"X-Generator: Launchpad (build 16916)\n"
-"Language: mk\n"
+"X-Launchpad-Export-Date: 2014-03-27 05:52+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: stock
 #: field:stock.inventory.line.split,line_exist_ids:0
@@ -172,11 +168,6 @@ msgstr "Количината не може да биде негативна."
 #: view:stock.picking.in:0
 msgid "Picking list"
 msgstr "Листа за требување"
-
-#. module: stock
-#: view:stock.inventory:0
-msgid "e.g. Annual inventory"
-msgstr "на пр. Годишен попис"
 
 #. module: stock
 #: report:lot.stock.overview:0
@@ -493,12 +484,9 @@ msgid "Ready to Deliver"
 msgstr "Спремно за испорака"
 
 #. module: stock
-#: code:addons/stock/stock.py:2525
-#, python-format
-msgid ""
-"Forbidden operation: it is not allowed to scrap products from a virtual "
-"location."
-msgstr ""
+#: model:ir.model,name:stock.model_action_traceability
+msgid "Action traceability "
+msgstr "Следивост на акција "
 
 #. module: stock
 #: selection:stock.move,state:0
@@ -899,11 +887,6 @@ msgid "Procurement Location"
 msgstr "Локација на набавката"
 
 #. module: stock
-#: view:stock.picking:0
-msgid "e.g. PO0032"
-msgstr "на пр. PO0032"
-
-#. module: stock
 #: model:ir.actions.act_window,name:stock.action_location_tree
 #: model:ir.ui.menu,name:stock.menu_action_location_tree
 msgid "Location Structure"
@@ -956,6 +939,13 @@ msgstr "Својства на сметката за залиха"
 #: sql_constraint:stock.picking.out:0
 msgid "Reference must be unique per Company!"
 msgstr "Референцата мора да биде единствена по компанија!"
+
+#. module: stock
+#: field:stock.picking,date:0
+#: field:stock.picking.in,date:0
+#: field:stock.picking.out,date:0
+msgid "Time"
+msgstr "Време"
 
 #. module: stock
 #: code:addons/stock/product.py:448
@@ -1038,10 +1028,10 @@ msgid "Location & Warehouse"
 msgstr "Локација и Магацин"
 
 #. module: stock
-#: selection:report.stock.inventory,month:0
-#: selection:report.stock.move,month:0
-msgid "December"
-msgstr "Декември"
+#: selection:report.stock.inventory,location_type:0
+#: selection:stock.location,usage:0
+msgid "Transit Location for Inter-Companies Transfers"
+msgstr "Транзитна локација за трансферите меѓу компаниите"
 
 #. module: stock
 #: code:addons/stock/stock.py:1204
@@ -1081,13 +1071,6 @@ msgstr "Идни P&L"
 #: view:stock.picking.in:0
 msgid "Incoming Shipments"
 msgstr "Влезни пратки"
-
-#. module: stock
-#: help:stock.picking,date:0
-#: help:stock.picking.in,date:0
-#: help:stock.picking.out,date:0
-msgid "Creation date, usually the time of the order."
-msgstr ""
 
 #. module: stock
 #: view:report.stock.inventory:0
@@ -1184,6 +1167,12 @@ msgid "Ready to Receive"
 msgstr "Подготвено за Прием"
 
 #. module: stock
+#: view:stock.move:0
+#: view:stock.picking:0
+msgid "_Cancel"
+msgstr "_Откажи"
+
+#. module: stock
 #: field:report.stock.move,day_diff:0
 msgid "Execution Lead Time (Days)"
 msgstr "Потребно време за извршување (денови)"
@@ -1270,11 +1259,6 @@ msgstr "Лев Родител"
 #: field:product.category,property_stock_valuation_account_id:0
 msgid "Stock Valuation Account"
 msgstr "Сметка за вреднување на залихата"
-
-#. module: stock
-#: view:stock.return.picking.memory:0
-msgid "Return Picking Memory"
-msgstr "Врати меморија за требување"
 
 #. module: stock
 #: view:stock.config.settings:0
@@ -1592,11 +1576,6 @@ msgstr "Следење на лотови за производство"
 #: selection:stock.move,state:0
 msgid "Waiting Another Move"
 msgstr "Чекам друго движење"
-
-#. module: stock
-#: selection:stock.picking,state:0
-msgid "Transferred"
-msgstr "Префрлени"
 
 #. module: stock
 #: help:stock.change.product.qty,new_quantity:0
@@ -1990,10 +1969,9 @@ msgid "Stock Valuation Account (Outgoing)"
 msgstr "Сметка за вреднување на залихата (Излезно)"
 
 #. module: stock
-#: code:addons/stock/stock.py:1805
-#, python-format
-msgid "Operation Forbidden!"
-msgstr ""
+#: view:stock.return.picking.memory:0
+msgid "Return Picking Memory"
+msgstr "Врати меморија за требување"
 
 #. module: stock
 #: model:ir.actions.act_window,name:stock.action_move_form2
@@ -2104,6 +2082,15 @@ msgstr "Испорачана количина"
 #: view:stock.partial.picking:0
 msgid "Transfer Products"
 msgstr "Префрлање на производи"
+
+#. module: stock
+#: help:product.template,property_stock_inventory:0
+msgid ""
+"This stock location will be used, instead of the default one, as the source "
+"location for stock moves generated when you do an inventory."
+msgstr ""
+"Оваа локација на залихата ќе биде употребена наместо стандардната, како "
+"изворна локација за движење на залихата генерирана при правење на попис."
 
 #. module: stock
 #: help:product.template,property_stock_account_output:0
@@ -2474,11 +2461,6 @@ msgid "Supplier Address :"
 msgstr "Адреса на Добавувач :"
 
 #. module: stock
-#: field:stock.config.settings,group_product_variant:0
-msgid "Support multiple variants per products  "
-msgstr "Поддршка за повеќе варијанти на производите  "
-
-#. module: stock
 #: view:stock.inventory.line:0
 msgid "Stock Inventory Lines"
 msgstr "Ставки на попис на залиха"
@@ -2558,6 +2540,12 @@ msgstr "Види производи на залиха"
 #: view:stock.move:0
 msgid "Creation"
 msgstr "Креирање"
+
+#. module: stock
+#: code:addons/stock/stock.py:1776
+#, python-format
+msgid "Operation forbidden !"
+msgstr "Забранета операција !"
 
 #. module: stock
 #: view:report.stock.inventory:0
@@ -2758,12 +2746,9 @@ msgid "Notes"
 msgstr "Белешки"
 
 #. module: stock
-#: code:addons/stock/wizard/stock_partial_picking.py:181
-#, python-format
-msgid ""
-"The unit of measure rounding does not allow you to ship \"%s %s\", only "
-"rounding of \"%s %s\" is accepted by the Unit of Measure."
-msgstr ""
+#: selection:stock.picking,state:0
+msgid "Transferred"
+msgstr "Префрлени"
 
 #. module: stock
 #: report:lot.stock.overview:0
@@ -2980,9 +2965,9 @@ msgid "Cancel Inventory"
 msgstr "Откажи залиха"
 
 #. module: stock
-#: view:stock.move:0
-msgid "Cancel Move"
-msgstr "Откажи движење"
+#: field:stock.config.settings,group_product_variant:0
+msgid "Support multiple variants per products  "
+msgstr "Поддршка за повеќе варијанти на производите  "
 
 #. module: stock
 #: code:addons/stock/stock.py:2290
@@ -3034,11 +3019,6 @@ msgstr "При рака:"
 #: model:ir.model,name:stock.model_stock_report_prodlots
 msgid "Stock report by serial number"
 msgstr "Извештај за стоката според сериски број"
-
-#. module: stock
-#: view:stock.picking:0
-msgid "Cancel Transfer"
-msgstr "Откажи трансфер"
 
 #. module: stock
 #: selection:report.stock.inventory,month:0
@@ -3343,6 +3323,12 @@ msgid "Properties"
 msgstr "Својства"
 
 #. module: stock
+#: code:addons/stock/stock.py:1120
+#, python-format
+msgid "Error, no partner !"
+msgstr "Грешка, нема партнер !"
+
+#. module: stock
 #: field:stock.inventory.line.split.lines,wizard_exist_id:0
 #: field:stock.inventory.line.split.lines,wizard_id:0
 #: field:stock.move.split.lines,wizard_id:0
@@ -3594,11 +3580,6 @@ msgstr "Не е итно"
 #: view:stock.move:0
 msgid "Scheduled"
 msgstr "Закажано"
-
-#. module: stock
-#: view:stock.picking:0
-msgid "Add an internal note..."
-msgstr "Додади внатрешна белешка..."
 
 #. module: stock
 #: model:ir.actions.act_window,name:stock.action_warehouse_form
@@ -3884,6 +3865,13 @@ msgid "Shelf 1"
 msgstr "Полица 1"
 
 #. module: stock
+#: help:stock.picking,date:0
+#: help:stock.picking.in,date:0
+#: help:stock.picking.out,date:0
+msgid "Creation time, usually the time of the order."
+msgstr "Време на создавање, обично времето на порачката."
+
+#. module: stock
 #: field:stock.tracking,name:0
 msgid "Pack Reference"
 msgstr "Референца на пакет"
@@ -3906,15 +3894,6 @@ msgstr "Сметководствени внесови"
 #: model:res.groups,name:stock.group_stock_manager
 msgid "Manager"
 msgstr "Менаџер"
-
-#. module: stock
-#: code:addons/stock/wizard/stock_partial_picking.py:192
-#, python-format
-msgid ""
-"The rounding of the initial uom does not allow you to ship \"%s %s\", as it "
-"would let a quantity of \"%s %s\" to ship and only rounding of \"%s %s\" is "
-"accepted by the uom."
-msgstr ""
 
 #. module: stock
 #: model:stock.location,name:stock.stock_location_intermediatelocation0
@@ -4130,12 +4109,6 @@ msgid "Icon"
 msgstr "Икона"
 
 #. module: stock
-#: selection:report.stock.inventory,location_type:0
-#: selection:stock.location,usage:0
-msgid "Transit Location for Inter-Companies Transfers"
-msgstr "Транзитна локација за трансферите меѓу компаниите"
-
-#. module: stock
 #: field:stock.partial.move,hide_tracking:0
 #: field:stock.partial.move.line,tracking:0
 #: field:stock.partial.picking,hide_tracking:0
@@ -4249,12 +4222,14 @@ msgid "This picking list does not require invoicing."
 msgstr "Оваа листа на требување нема потреба од фактурирање."
 
 #. module: stock
-#: code:addons/stock/wizard/stock_partial_move.py:72
-#: code:addons/stock/wizard/stock_return_picking.py:189
+#: code:addons/stock/wizard/stock_partial_picking.py:181
 #, python-format
 msgid ""
-"You have manually created product lines, please delete them to proceed"
+"The unit of measure rounding does not allow you to ship \"%s %s\", only "
+"roundings of \"%s %s\" is accepted by the Unit of Measure."
 msgstr ""
+"Заокружувањето на мерната единица не дозволува испорака на \"%s %s\", туку "
+"прифатени се само \"%s %s\" заокружувања."
 
 #. module: stock
 #: model:stock.location,name:stock.stock_location_shop0
@@ -4312,10 +4287,12 @@ msgid "Serial Number Revisions"
 msgstr "Ревизија на сериски броеви"
 
 #. module: stock
-#: code:addons/stock/stock.py:1134
-#, python-format
-msgid "Error, no partner!"
-msgstr ""
+#: model:ir.actions.act_window,name:stock.action_picking_tree
+#: model:ir.model,name:stock.model_stock_picking_out
+#: model:ir.ui.menu,name:stock.menu_action_picking_tree
+#: view:stock.picking.out:0
+msgid "Delivery Orders"
+msgstr "Испратници"
 
 #. module: stock
 #: view:stock.picking:0
@@ -4397,11 +4374,6 @@ msgstr "Вкупно излезна количина"
 #: field:stock.picking.out,backorder_id:0
 msgid "Back Order of"
 msgstr "Заостаната обврска на"
-
-#. module: stock
-#: model:ir.model,name:stock.model_action_traceability
-msgid "Action traceability "
-msgstr "Следивост на акција "
 
 #. module: stock
 #: help:stock.partial.move.line,cost:0
@@ -4559,12 +4531,10 @@ msgid "Product Template"
 msgstr "Урнек на производ"
 
 #. module: stock
-#: model:ir.actions.act_window,name:stock.action_picking_tree
-#: model:ir.model,name:stock.model_stock_picking_out
-#: model:ir.ui.menu,name:stock.menu_action_picking_tree
-#: view:stock.picking.out:0
-msgid "Delivery Orders"
-msgstr "Испратници"
+#: selection:report.stock.inventory,month:0
+#: selection:report.stock.move,month:0
+msgid "December"
+msgstr "Декември"
 
 #. module: stock
 #: selection:stock.location,chained_auto_packing:0
@@ -5227,13 +5197,6 @@ msgid "Invoiced date"
 msgstr "Датум на фактурирање"
 
 #. module: stock
-#: code:addons/stock/wizard/stock_partial_move.py:72
-#: code:addons/stock/wizard/stock_return_picking.py:189
-#, python-format
-msgid "Warning !"
-msgstr ""
-
-#. module: stock
 #: model:stock.location,name:stock.stock_location_output
 msgid "Output"
 msgstr "Излез"
@@ -5286,13 +5249,16 @@ msgid ""
 msgstr ""
 
 #. module: stock
-#: help:product.template,property_stock_inventory:0
+#: code:addons/stock/wizard/stock_partial_picking.py:192
+#, python-format
 msgid ""
-"This stock location will be used, instead of the default one, as the source "
-"location for stock moves generated when you do an inventory."
+"The rounding of the initial uom does not allow you to ship \"%s %s\", as it "
+"would let a quantity of \"%s %s\" to ship and only roundings of \"%s %s\" is "
+"accepted by the uom."
 msgstr ""
-"Оваа локација на залихата ќе биде употребена наместо стандардната, како "
-"изворна локација за движење на залихата генерирана при правење на попис."
+"Заокружувањето на првичната ЕМ не ви дозволува да испорачате \"%s %s\", како "
+"што ќе ви дозволи да испорачате количина од \"%s %s\" и единствено "
+"заокружувања од \"%s %s\" се прифатени за таа ЕМ."
 
 #. module: stock
 #: help:stock.move,move_dest_id:0
@@ -5328,38 +5294,3 @@ msgstr "Подготвено за обработка"
 #: report:stock.picking.list.out:0
 msgid "Warehouse Address :"
 msgstr "Адреса на магацинот :"
-
-#~ msgid "Time"
-#~ msgstr "Време"
-
-#~ msgid "_Cancel"
-#~ msgstr "_Откажи"
-
-#, python-format
-#~ msgid "Operation forbidden !"
-#~ msgstr "Забранета операција !"
-
-#, python-format
-#~ msgid "Error, no partner !"
-#~ msgstr "Грешка, нема партнер !"
-
-#~ msgid "Creation time, usually the time of the order."
-#~ msgstr "Време на создавање, обично времето на порачката."
-
-#, python-format
-#~ msgid ""
-#~ "The unit of measure rounding does not allow you to ship \"%s %s\", only "
-#~ "roundings of \"%s %s\" is accepted by the Unit of Measure."
-#~ msgstr ""
-#~ "Заокружувањето на мерната единица не дозволува испорака на \"%s %s\", туку "
-#~ "прифатени се само \"%s %s\" заокружувања."
-
-#, python-format
-#~ msgid ""
-#~ "The rounding of the initial uom does not allow you to ship \"%s %s\", as it "
-#~ "would let a quantity of \"%s %s\" to ship and only roundings of \"%s %s\" is "
-#~ "accepted by the uom."
-#~ msgstr ""
-#~ "Заокружувањето на првичната ЕМ не ви дозволува да испорачате \"%s %s\", како "
-#~ "што ќе ви дозволи да испорачате количина од \"%s %s\" и единствено "
-#~ "заокружувања од \"%s %s\" се прифатени за таа ЕМ."

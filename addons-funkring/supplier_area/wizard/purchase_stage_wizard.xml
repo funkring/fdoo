@@ -1,0 +1,37 @@
+<openerp>
+	<data>
+		
+		<record id="wizard_purchase_stage" model="ir.ui.view">
+            <field name="name">purchase.wizard_purchase_stage</field>
+            <field name="model">purchase.stage_wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Stage Wizard">
+                	<notebook colspan="4">
+                		<page string="Next Stage">
+		                    <field name="level_id" widget="selection" colspan="4"/>     
+		                    <field name="delivery" attrs="{'invisible':[('state','==','draft')]}"/>
+		                    <field name="state" invisible="1"/>
+		                    <newline/>               
+		                    <separator string="Message" colspan="4"/>
+	                    	<field name="message" nolabel="1" colspan="4"/>
+                    	</page>
+                    	<page string="Supplier">
+                    		<field name="supplier_unit_price"/>
+                    		<field name="supplier_invoiced" attrs="{'invisible':[('state','==','draft')]}"/>
+                    		<separator string="Description" colspan="4"/>
+                    		<field name="description" nolabel="1" colspan="4"/>
+                    	</page>
+                    </notebook>
+                    <group col="6" colspan="4">
+                    	<separator colspan="6"/>	   
+                    	<label string="" colspan="2"/>                 
+		                <button special="cancel" string="Cancel" icon="gtk-cancel"/>
+						<button name="stage_next" string="Ok" type="object" icon="gtk-go-forward"/>	    	            
+	                </group>
+                </form>
+            </field>
+        </record>
+        
+    </data>
+</openerp>

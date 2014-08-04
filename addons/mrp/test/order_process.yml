@@ -225,32 +225,12 @@
                 assert line.product_id.id == wc.product_id.id, "Product is not correspond."
                 assert line.product_uom_id.id == wc.product_id.uom_id.id, "UOM is not correspond."
 -
-  I print a "BOM Structure".
--
-  !context
-    uid: 'res_users_mrp_user'
--
-  !python {model: mrp.production}: |
-    import netsvc, tools, os
-    order = self.browse(cr, uid, ref("mrp_production_test1"))
-    (data, format) = netsvc.LocalService('report.bom.structure').create(cr, uid, [order.bom_id.id], {}, {})
-    if tools.config['test_report_directory']:
-        file(os.path.join(tools.config['test_report_directory'], 'mrp-bom_structure_report.'+format), 'wb+').write(data)
--
-  I print "Production Order".
--
-  !python {model: mrp.production}: |
-    import netsvc, tools, os
-    (data, format) = netsvc.LocalService('report.mrp.production.order').create(cr, uid, [ref("mrp_production_test1")], {}, {})
-    if tools.config['test_report_directory']:
-        file(os.path.join(tools.config['test_report_directory'], 'mrp-production_order_report.'+format), 'wb+').write(data)
--
   I print "Work Center Load Report".
 -
   !python {model: mrp.workcenter}: |
     ctx = context.copy()
     ctx.update({'model': 'mrp.workcenter','active_ids': [ref('mrp_workcenter_0'),ref('mrp_workcenter_1')]})
     data_dict = {'time_unit': 'day', 'measure_unit': 'hours'}
-    from tools import test_reports
+    from openerp.tools import test_reports
     test_reports.try_report_action(cr, uid, 'action_mrp_workcenter_load_wizard',wiz_data=data_dict, context=ctx, our_module='mrp')
     

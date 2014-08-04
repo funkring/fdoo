@@ -22,7 +22,6 @@
 import time
 from lxml import etree
 
-from openerp import netsvc
 from openerp.osv import fields, osv
 import openerp.addons.decimal_precision as dp
 from openerp.tools.translate import _
@@ -32,19 +31,13 @@ from openerp.report import report_sxw
 class res_currency(osv.osv):
     _inherit = "res.currency"
 
-    def _current_rate(self, cr, uid, ids, name, arg, context=None):
+    def _get_current_rate(self, cr, uid, ids, raise_on_no_rate=True, context=None):
         if context is None:
             context = {}
-        res = super(res_currency, self)._current_rate(cr, uid, ids, name, arg, context=context)
+        res = super(res_currency, self)._get_current_rate(cr, uid, ids, raise_on_no_rate, context=context)
         if context.get('voucher_special_currency') in ids and context.get('voucher_special_currency_rate'):
             res[context.get('voucher_special_currency')] = context.get('voucher_special_currency_rate')
         return res
-
-    _columns = {
-        # same definition of rate that in base in order to just overwrite the function
-        'rate': fields.function(_current_rate, string='Current Rate', digits=(12,6),
-            help='The rate of the currency to the currency of rate 1.'),
-    }
 
 
 class res_company(osv.osv):
@@ -60,7 +53,6 @@ class res_company(osv.osv):
             domain="[('type', '=', 'other')]",),
     }
 
-res_company()
 
 class account_config_settings(osv.osv_memory):
     _inherit = 'account.config.settings'
@@ -105,8 +97,7 @@ class account_voucher(osv.osv):
         if context is None: context = {}
         if context.get('period_id', False):
             return context.get('period_id')
-        ctx = dict(context, account_period_prefer_normal=True)
-        periods = self.pool.get('account.period').find(cr, uid, context=ctx)
+        periods = self.pool.get('account.period').find(cr, uid, context=context)
         return periods and periods[0] or False
 
     def _make_journal_search(self, cr, uid, ttype, context=None):
@@ -236,9 +227,9 @@ class account_voucher(osv.osv):
         debit = credit = 0.0
         sign = type == 'payment' and -1 or 1
         for l in line_dr_ids:
-            debit += l['amount']
-        for l in line_cr_ids:
-            credit += l['amount']
+            debit += ((l and l['amount']) or 0.0)
+        for l in line_cr_ids:            
+            credit += ((l and l['amount']) or 0.0)
         return amount - sign * (credit - debit)
 
     def onchange_line_ids(self, cr, uid, ids, line_dr_ids, line_cr_ids, amount, voucher_currency, type, context=None):
@@ -414,7 +405,7 @@ class account_voucher(osv.osv):
         'company_id': lambda self,cr,uid,c: self.pool.get('res.company')._company_default_get(cr, uid, 'account.voucher',context=c),
         'tax_id': _get_tax,
         'payment_option': 'without_writeoff',
-        'comment': _('Write-Off'),
+        'comment': lambda *a: _('Write-Off'),
         'payment_rate': 1.0,
         'payment_rate_currency_id': _get_payment_rate_currency,
     }
@@ -741,17 +732,13 @@ class account_voucher(osv.osv):
 
         total_credit = 0.0
         total_debit = 0.0
-        account_type = None
-        if context.get('account_id'):
-            account_type = self.pool['account.account'].browse(cr, uid, context['account_id'], context=context).type
+        account_type = 'receivable'
         if ttype == 'payment':
-            if not account_type:
-                account_type = 'payable'
+            account_type = 'payable'
             total_debit = price or 0.0
         else:
             total_credit = price or 0.0
-            if not account_type:
-                account_type = 'receivable'
+            account_type = 'receivable'
 
         if not context.get('move_line_ids', False):
             ids = move_line_pool.search(cr, uid, [('state','=','valid'), ('account_id.type', '=', account_type), ('reconcile_id', '=', False), ('partner_id', '=', partner_id)], context=context)
@@ -792,7 +779,6 @@ class account_voucher(osv.osv):
                 total_credit += line.credit and line.amount_currency or 0.0
                 total_debit += line.debit and line.amount_currency or 0.0
 
-        remaining_amount = price
         #voucher line creation
         for line in account_move_lines:
 
@@ -813,13 +799,13 @@ class account_voucher(osv.osv):
                 'move_line_id':line.id,
                 'account_id':line.account_id.id,
                 'amount_original': amount_original,
-                'amount': (line.id in move_lines_found) and min(abs(remaining_amount), amount_unreconciled) or 0.0,
+                'amount': (line.id in move_lines_found) and min(abs(price), amount_unreconciled) or 0.0,
                 'date_original':line.date,
                 'date_due':line.date_maturity,
                 'amount_unreconciled': amount_unreconciled,
                 'currency_id': line_currency_id,
             }
-            remaining_amount -= rs['amount']
+            price -= rs['amount']
             #in case a corresponding move_line hasn't been found, we now try to assign the voucher amount
             #on existing invoices: we split voucher amount by most old first, but only for lines in the same currency
             if not move_lines_found:
@@ -841,9 +827,9 @@ class account_voucher(osv.osv):
             else:
                 default['value']['line_dr_ids'].append(rs)
 
-            if len(default['value']['line_cr_ids']) > 0:
+            if ttype == 'payment' and len(default['value']['line_cr_ids']) > 0:
                 default['value']['pre_line'] = 1
-            elif len(default['value']['line_dr_ids']) > 0:
+            elif ttype == 'receipt' and len(default['value']['line_dr_ids']) > 0:
                 default['value']['pre_line'] = 1
             default['value']['writeoff_amount'] = self._compute_writeoff_amount(cr, uid, default['value']['line_dr_ids'], default['value']['line_cr_ids'], price, ttype)
         return default
@@ -932,10 +918,7 @@ class account_voucher(osv.osv):
         return vals
 
     def button_proforma_voucher(self, cr, uid, ids, context=None):
-        context = context or {}
-        wf_service = netsvc.LocalService("workflow")
-        for vid in ids:
-            wf_service.trg_validate(uid, 'account.voucher', vid, 'proforma_voucher', cr)
+        self.signal_proforma_voucher(cr, uid, ids)
         return {'type': 'ir.actions.act_window_close'}
 
     def proforma_voucher(self, cr, uid, ids, context=None):
@@ -943,28 +926,26 @@ class account_voucher(osv.osv):
         return True
 
     def action_cancel_draft(self, cr, uid, ids, context=None):
-        wf_service = netsvc.LocalService("workflow")
-        for voucher_id in ids:
-            wf_service.trg_create(uid, 'account.voucher', voucher_id, cr)
+        self.create_workflow(cr, uid, ids)
         self.write(cr, uid, ids, {'state':'draft'})
         return True
 
     def cancel_voucher(self, cr, uid, ids, context=None):
         reconcile_pool = self.pool.get('account.move.reconcile')
         move_pool = self.pool.get('account.move')
-        move_line_pool = self.pool.get('account.move.line')
+
         for voucher in self.browse(cr, uid, ids, context=context):
             # refresh to make sure you don't unlink an already removed move
             voucher.refresh()
+            recs = []
             for line in voucher.move_ids:
-                # refresh to make sure you don't unreconcile an already unreconciled entry
-                line.refresh()
                 if line.reconcile_id:
-                    move_lines = [move_line.id for move_line in line.reconcile_id.line_id]
-                    move_lines.remove(line.id)
-                    reconcile_pool.unlink(cr, uid, [line.reconcile_id.id])
-                    if len(move_lines) >= 2:
-                        move_line_pool.reconcile_partial(cr, uid, move_lines, 'auto',context=context)
+                    recs += [line.reconcile_id.id]
+                if line.reconcile_partial_id:
+                    recs += [line.reconcile_partial_id.id]
+
+            reconcile_pool.unlink(cr, uid, recs)
+
             if voucher.move_id:
                 move_pool.button_cancel(cr, uid, [voucher.move_id.id])
                 move_pool.unlink(cr, uid, [voucher.move_id.id])
@@ -1598,7 +1579,6 @@ class account_voucher_line(osv.osv):
             'type':ttype
         })
         return values
-account_voucher_line()
 
 class account_bank_statement(osv.osv):
     _inherit = 'account.bank.statement'
@@ -1624,7 +1604,6 @@ class account_bank_statement(osv.osv):
 
     def create_move_from_st_line(self, cr, uid, st_line_id, company_currency_id, next_number, context=None):
         voucher_obj = self.pool.get('account.voucher')
-        wf_service = netsvc.LocalService("workflow")
         move_line_obj = self.pool.get('account.move.line')
         bank_st_line_obj = self.pool.get('account.bank.statement.line')
         st_line = bank_st_line_obj.browse(cr, uid, st_line_id, context=context)
@@ -1636,7 +1615,7 @@ class account_bank_statement(osv.osv):
                             context=context)
             if st_line.voucher_id.state == 'cancel':
                 voucher_obj.action_cancel_draft(cr, uid, [st_line.voucher_id.id], context=context)
-            wf_service.trg_validate(uid, 'account.voucher', st_line.voucher_id.id, 'proforma_voucher', cr)
+            voucher_obj.signal_proforma_voucher(cr, uid, [st_line.voucher_id.id])
 
             v = voucher_obj.browse(cr, uid, st_line.voucher_id.id, context=context)
             bank_st_line_obj.write(cr, uid, [st_line_id], {
@@ -1655,7 +1634,6 @@ class account_bank_statement(osv.osv):
                     raise osv.except_osv(_('Unable to Change Journal!'), _('You can not change the journal as you already reconciled some statement lines!'))
         return super(account_bank_statement, self).write(cr, uid, ids, vals, context=context)
 
-account_bank_statement()
 
 class account_bank_statement_line(osv.osv):
     _inherit = 'account.bank.statement.line'
@@ -1684,7 +1662,7 @@ class account_bank_statement_line(osv.osv):
     def _check_amount(self, cr, uid, ids, context=None):
         for obj in self.browse(cr, uid, ids, context=context):
             if obj.voucher_id:
-                diff = abs(obj.amount) - abs(obj.voucher_id.amount)
+                diff = abs(obj.amount) - obj.voucher_id.amount
                 if not self.pool.get('res.currency').is_zero(cr, uid, obj.statement_id.currency, diff):
                     return False
         return True
@@ -1709,7 +1687,6 @@ class account_bank_statement_line(osv.osv):
         voucher_obj.unlink(cr, uid, unlink_ids, context=context)
         return super(account_bank_statement_line, self).unlink(cr, uid, ids, context=context)
 
-account_bank_statement_line()
 
 def resolve_o2m_operations(cr, uid, target_osv, operations, fields, context):
     results = []

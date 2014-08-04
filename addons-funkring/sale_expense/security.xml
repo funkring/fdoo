@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+	<data>
+		<record id="access_expense_purchase_lines_group_sale_salesman" model="ir.model.access">
+			<field name="name">expense_purchase_lines/group_sale_salesman</field>
+			<field name="model_id" ref="model_sale_expense_expense_purchase_lines" />
+			<field name="group_id" ref="base.group_sale_salesman" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+
+		<record id="access_expense_employee_lines_group_sale_salesman" model="ir.model.access">
+			<field name="name">expense_employee_lines/group_sale_salesman</field>
+			<field name="model_id" ref="model_sale_expense_expense_employee_lines" />
+			<field name="group_id" ref="base.group_sale_salesman" />
+			<field name="perm_read" eval="True" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_create" eval="True" />
+			<field name="perm_write" eval="True" />
+		</record>
+
+	
+
+	</data>
+</openerp>

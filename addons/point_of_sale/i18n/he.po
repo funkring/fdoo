@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:36+0000\n"
-"PO-Revision-Date: 2013-06-09 17:39+0000\n"
-"Last-Translator: Johny Raid <j@johnyraid.co.il>\n"
+"POT-Creation-Date: 2012-12-21 17:04+0000\n"
+"PO-Revision-Date: 2013-06-09 16:04+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Hebrew <he@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-21 06:23+0000\n"
-"X-Generator: Launchpad (build 16831)\n"
+"X-Launchpad-Export-Date: 2014-03-27 06:06+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: point_of_sale
 #: field:report.transaction.pos,product_nb:0
@@ -271,13 +271,6 @@ msgid "Accounting Information"
 msgstr "פרטי חשבון"
 
 #. module: point_of_sale
-#. openerp-web
-#: code:addons/point_of_sale/static/src/xml/pos.xml:427
-#, python-format
-msgid "0.00€"
-msgstr "0.00₪"
-
-#. module: point_of_sale
 #: field:pos.session.opening,show_config:0
 msgid "Show Config"
 msgstr "הצג הגדרות"
@@ -401,14 +394,6 @@ msgid "Open Cashbox"
 msgstr "פתח מגירה"
 
 #. module: point_of_sale
-#: code:addons/point_of_sale/point_of_sale.py:536
-#, python-format
-msgid ""
-"You cannot change the partner of a POS order for which an invoice has "
-"already been issued."
-msgstr "אינך יכול לשנות שותף\\ספק עבור ההמנה לאחר שנסגרה או סופקה."
-
-#. module: point_of_sale
 #: view:pos.session.opening:0
 msgid "Select your Point of Sale"
 msgstr "אנה בחר את הקופה שלך"
@@ -459,16 +444,6 @@ msgstr "הינך חייב לבחור קופה לחשבון המכירות שלך
 #: view:pos.order.line:0
 msgid "Total qty"
 msgstr "כמות כוללת"
-
-#. module: point_of_sale
-#. openerp-web
-#: code:addons/point_of_sale/static/src/js/screens.js:458
-#: code:addons/point_of_sale/static/src/js/screens.js:487
-#: code:addons/point_of_sale/static/src/js/screens.js:678
-#: code:addons/point_of_sale/static/src/js/screens.js:874
-#, python-format
-msgid "Back"
-msgstr "חזרה"
 
 #. module: point_of_sale
 #: model:product.template,name:point_of_sale.fanta_orange_33cl_product_template
@@ -860,13 +835,6 @@ msgstr "טל:"
 
 #. module: point_of_sale
 #. openerp-web
-#: code:addons/point_of_sale/static/src/js/widgets.js:981
-#, python-format
-msgid "Self-Checkout"
-msgstr "רכישה אצמית"
-
-#. module: point_of_sale
-#. openerp-web
 #: code:addons/point_of_sale/static/src/xml/pos.xml:254
 #: model:ir.actions.act_window,name:point_of_sale.action_report_pos_receipt
 #, python-format
@@ -1053,12 +1021,6 @@ msgstr "מרץ"
 #: report:pos.user.product:0
 msgid "User's Product"
 msgstr "מוצרי משתמש"
-
-#. module: point_of_sale
-#: code:addons/point_of_sale/point_of_sale.py:1007
-#, python-format
-msgid "The POS order must have lines when calling this method"
-msgstr "צו קופה חייב להכיל שורות זמן קריא לפעולה זו"
 
 #. module: point_of_sale
 #: code:addons/point_of_sale/point_of_sale.py:1173
@@ -1271,13 +1233,6 @@ msgstr "סה\"כ מכירות"
 #, python-format
 msgid "ABC"
 msgstr "ABC"
-
-#. module: point_of_sale
-#. openerp-web
-#: code:addons/point_of_sale/static/src/js/screens.js:812
-#, python-format
-msgid "Print"
-msgstr "הדפס"
 
 #. module: point_of_sale
 #: model:product.template,name:point_of_sale.ijsboerke_dame_blanche_2,5l_product_template
@@ -1565,6 +1520,11 @@ msgid "&auml;"
 msgstr "&auml;"
 
 #. module: point_of_sale
+#: report:pos.invoice:0
+msgid "VAT :"
+msgstr ""
+
+#. module: point_of_sale
 #: view:pos.order.line:0
 msgid "POS Order lines"
 msgstr "שורות הזמנה לקופה"
@@ -1622,13 +1582,6 @@ msgstr "עדכן הנחה"
 #: model:res.groups,name:point_of_sale.group_pos_user
 msgid "User"
 msgstr "משתמש/ת"
-
-#. module: point_of_sale
-#: code:addons/point_of_sale/point_of_sale.py:413
-#, python-format
-msgid ""
-"The type of the journal for your payment method should be bank or cash "
-msgstr "סוג יומן תשלומים חייב להיות מזומן או בנק "
 
 #. module: point_of_sale
 #. openerp-web
@@ -1790,13 +1743,6 @@ msgid "Peach"
 msgstr "אפרסק"
 
 #. module: point_of_sale
-#. openerp-web
-#: code:addons/point_of_sale/static/src/js/screens.js:772
-#, python-format
-msgid "Pay"
-msgstr "שלם"
-
-#. module: point_of_sale
 #: model:product.template,name:point_of_sale.timmermans_kriek_37,5cl_product_template
 msgid "Timmermans Kriek 37.5cl"
 msgstr ""
@@ -1901,13 +1847,6 @@ msgstr ""
 #: view:report.transaction.pos:0
 msgid "POS"
 msgstr "קופה"
-
-#. module: point_of_sale
-#. openerp-web
-#: code:addons/point_of_sale/static/src/xml/pos.xml:587
-#, python-format
-msgid "Subtotal:"
-msgstr "סיכום ביניים:"
 
 #. module: point_of_sale
 #: model:product.template,name:point_of_sale.coca_regular_33cl_product_template
@@ -2142,14 +2081,6 @@ msgid "Others"
 msgstr ""
 
 #. module: point_of_sale
-#. openerp-web
-#: code:addons/point_of_sale/static/src/js/screens.js:495
-#: code:addons/point_of_sale/static/src/js/screens.js:882
-#, python-format
-msgid "Validate"
-msgstr ""
-
-#. module: point_of_sale
 #: model:pos.category,name:point_of_sale.autres_legumes_frais
 msgid "Other fresh vegetables"
 msgstr ""
@@ -2254,11 +2185,10 @@ msgid "Coca-Cola Zero 1L"
 msgstr ""
 
 #. module: point_of_sale
-#. openerp-web
-#: code:addons/point_of_sale/static/src/js/screens.js:268
-#: code:addons/point_of_sale/static/src/js/screens.js:718
-#, python-format
-msgid "Help"
+#: report:pos.sales.user:0
+#: report:pos.sales.user.today:0
+#: field:report.pos.order,date:0
+msgid "Date Order"
 msgstr ""
 
 #. module: point_of_sale
@@ -2316,13 +2246,6 @@ msgstr ""
 #: report:account.statement:0
 #: model:ir.actions.report.xml,name:point_of_sale.account_statement
 msgid "Statement"
-msgstr ""
-
-#. module: point_of_sale
-#. openerp-web
-#: code:addons/point_of_sale/static/src/xml/pos.xml:351
-#, python-format
-msgid "Sorry, we could not create a session for this user."
 msgstr ""
 
 #. module: point_of_sale
@@ -2515,13 +2438,6 @@ msgid "Year of order date"
 msgstr ""
 
 #. module: point_of_sale
-#: report:pos.sales.user:0
-#: report:pos.sales.user.today:0
-#: field:report.pos.order,date:0
-msgid "Date Order"
-msgstr ""
-
-#. module: point_of_sale
 #: help:product.product,to_weight:0
 msgid ""
 "Check if the product should be weighted (mainly used with self check-out "
@@ -2581,11 +2497,6 @@ msgstr ""
 #. module: point_of_sale
 #: field:pos.config,iface_cashdrawer:0
 msgid "Cashdrawer Interface"
-msgstr ""
-
-#. module: point_of_sale
-#: report:pos.invoice:0
-msgid "TIN :"
 msgstr ""
 
 #. module: point_of_sale
@@ -3836,13 +3747,6 @@ msgid "Close Session"
 msgstr ""
 
 #. module: point_of_sale
-#. openerp-web
-#: code:addons/point_of_sale/static/src/js/widgets.js:975
-#, python-format
-msgid "Close"
-msgstr ""
-
-#. module: point_of_sale
 #: view:pos.order:0
 msgid "Order lines"
 msgstr ""
@@ -3909,15 +3813,6 @@ msgstr ""
 #. module: point_of_sale
 #: report:pos.sales.user.today:0
 msgid "Today's Sales By User"
-msgstr ""
-
-#. module: point_of_sale
-#: help:account.journal,amount_authorized_diff:0
-msgid ""
-"This field depicts the maximum difference allowed between the ending balance "
-"and the theorical cash when closing a session, for non-POS managers. If this "
-"maximum is reached, the user will have an error message at the closing of "
-"his session saying that he needs to contact his manager."
 msgstr ""
 
 #. module: point_of_sale
@@ -4105,9 +4000,9 @@ msgstr ""
 
 #. module: point_of_sale
 #. openerp-web
-#: code:addons/point_of_sale/static/src/js/screens.js:818
+#: code:addons/point_of_sale/static/src/xml/pos.xml:351
 #, python-format
-msgid "Next Order"
+msgid "Sorry, we could not create a session for this user."
 msgstr ""
 
 #. module: point_of_sale
@@ -4148,3 +4043,11 @@ msgstr ""
 #: field:pos.session,order_ids:0
 msgid "Orders"
 msgstr ""
+
+#, python-format
+#~ msgid "Print"
+#~ msgstr "הדפס"
+
+#, python-format
+#~ msgid "Subtotal:"
+#~ msgstr "סיכום ביניים:"

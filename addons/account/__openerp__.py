@@ -99,7 +99,6 @@ for a particular financial year and for preparation of vouchers there is a modul
         'project/wizard/project_account_analytic_line_view.xml',
         'account_end_fy.xml',
         'account_invoice_view.xml',
-        'partner_view.xml',
         'data/account_data.xml',
         'data/data_account_type.xml',
         'data/configurable_account_chart.xml',
@@ -112,6 +111,7 @@ for a particular financial year and for preparation of vouchers there is a modul
         'project/wizard/account_analytic_journal_report_view.xml',
         'project/wizard/account_analytic_cost_ledger_for_journal_report_view.xml',
         'project/wizard/account_analytic_chart_view.xml',
+        'partner_view.xml',
         'product_view.xml',
         'account_assert_test.xml',
         'process/statement_process.xml',
@@ -123,7 +123,9 @@ for a particular financial year and for preparation of vouchers there is a modul
         'edi/invoice_action_data.xml',
         'account_bank_view.xml',
         'res_config_view.xml',
-        'account_pre_install.yml'
+        'account_pre_install.yml',
+
+        'views/report_vat.xml',
     ],
     'js': [
         'static/src/js/account_move_reconciliation.js',
@@ -135,7 +137,8 @@ for a particular financial year and for preparation of vouchers there is a modul
     ],
     'css':[
         'static/src/css/account_move_reconciliation.css',
-        'static/src/css/account_move_line_quickadd.css'
+        'static/src/css/account_move_line_quickadd.css',
+        'static/src/css/account_bank_and_cash.css',
     ],
     'demo': [
         'demo/account_demo.xml',
@@ -146,6 +149,7 @@ for a particular financial year and for preparation of vouchers there is a modul
         'account_unit_test.xml',
     ],
     'test': [
+        'test/account_test_users.yml',
         'test/account_customer_invoice.yml',
         'test/account_supplier_invoice.yml',
         'test/account_change_currency.yml',

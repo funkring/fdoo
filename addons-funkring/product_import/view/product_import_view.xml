@@ -1,0 +1,60 @@
+<openerp>
+	<data>		
+		<record id="form_import_task" model="ir.ui.view">
+            <field name="name">product_import.form_import_task</field>
+            <field name="model">product.import_task</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Product Import">
+                	<group colspan="4" col="2">
+	                	<field name="sale_pricelist_id"/>
+	                	<field name="sale_pricelist_2_id"/>
+	                	<field name="import_file"/>
+	                	<field name="update_only"/>
+	                	<field name="update_only_fields"/>
+                	</group>              	                	                	
+                	<field name="log_ids" colspan="4" nolabel="1" readonly="1">
+                		<tree string="Result" colors="red:severity in ('2');orange:severity in ('1');black:severity in ('0')">
+                			<field name="name"/>
+                			<field name="severity"/>
+                		</tree>
+                		<form string="Result">
+                			<field name="name"/>
+                			<field name="severity"/>
+                		</form>
+                	</field>                	
+                	<group colspan="4" col="6">                		
+						<field name="state"/>						
+						<button icon="gtk-cancel" type="object" states="progress" name="cancel_tasks" string="Stop"/>
+						<button icon="gtk-cancel" type="object" states="validated,finished,canceled" name="reset_to_draft" string="Draft"/>
+						<button icon="terp-gtk-go-back-rtl" type="object" states="new,validated" string="Validate" name="run_validation"/>												
+						<button icon="terp-gtk-go-back-rtl" type="object" states="validated,canceled" string="Import" name="run_tasks"/>					
+					</group>
+                </form>
+            </field>
+        </record>
+            
+        <record id="tree_import_task" model="ir.ui.view">
+        	<field name="name">product_import.tree_import_task</field>
+        	<field name="model">product.import_task</field>
+        	<field name="type">tree</field>
+        	<field name="arch" type="xml">
+        		<tree string="Product Imports">
+        			<field name="create_date"/>
+        			<field name="state"/>
+        			<field name="percent" widget="progressbar"/>
+        		</tree>        	
+        	</field>        
+        </record>    
+         
+        <record id="action_import_task" model="ir.actions.act_window">
+            <field name="name">Product Import</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.import_task</field>            
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>            
+        </record>
+       
+	</data>
+</openerp>
+

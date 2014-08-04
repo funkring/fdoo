@@ -1,21 +1,20 @@
-# Bulgarian translation for openobject-addons
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
-# This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* purchase
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openobject-addons\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:36+0000\n"
-"PO-Revision-Date: 2012-12-21 23:00+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Bulgarian <bg@li.org>\n"
+"Project-Id-Version: OpenERP Server 6.0dev\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-12-21 17:04+0000\n"
+"PO-Revision-Date: 2011-11-07 12:53+0000\n"
+"Last-Translator: Boris <boris.t.ivanov@gmail.com>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-21 06:30+0000\n"
-"X-Generator: Launchpad (build 16831)\n"
+"X-Launchpad-Export-Date: 2014-03-27 05:59+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: purchase
 #: model:res.groups,name:purchase.group_analytic_accounting
@@ -65,11 +64,6 @@ msgstr ""
 #: field:purchase.report,day:0
 msgid "Day"
 msgstr "Ден"
-
-#. module: purchase
-#: view:purchase.order:0
-msgid "Cancel Order"
-msgstr ""
 
 #. module: purchase
 #: view:purchase.report:0
@@ -135,11 +129,17 @@ msgid "No supplier defined for this product !"
 msgstr ""
 
 #. module: purchase
-#: help:res.company,po_lead:0
+#: model:ir.actions.act_window,help:purchase.action_picking_tree4_picking_to_invoice
 msgid ""
-"Margin of error for supplier lead times. When the systemgenerates Purchase "
-"Orders for procuring products,they will be scheduled that many days earlier "
-"to cope with unexpected supplier delays."
+"<p>\n"
+"                Here you can track all the product receptions of purchase\n"
+"                orders where the invoicing is \"Based on Incoming "
+"Shipments\",\n"
+"                and for which you have not received a supplier invoice yet.\n"
+"                You can generate a supplier invoice based on those "
+"receptions.\n"
+"              </p>\n"
+"            "
 msgstr ""
 
 #. module: purchase
@@ -730,11 +730,6 @@ msgid "RFQ"
 msgstr ""
 
 #. module: purchase
-#: view:purchase.order:0
-msgid "Send by Email"
-msgstr ""
-
-#. module: purchase
 #: report:purchase.order:0
 #: view:purchase.order:0
 #: field:purchase.order,date_order:0
@@ -947,6 +942,87 @@ msgid "a draft purchase order"
 msgstr ""
 
 #. module: purchase
+#: model:email.template,body_html:purchase.email_template_edi_purchase
+msgid ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-"
+"serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"\n"
+"    <p>Hello$ ${object.partner_id.name},</p>\n"
+"    \n"
+"    <p>Here is a ${object.state in ('draft', 'sent') and 'request for "
+"quotation' or 'purchase order confirmation'} from ${object.company_id.name}: "
+"</p>\n"
+"    \n"
+"    <p style=\"border-left: 1px solid #8e0000; margin-left: 30px;\">\n"
+"       &nbsp;&nbsp;<strong>REFERENCES</strong><br />\n"
+"       &nbsp;&nbsp;Order number: <strong>${object.name}</strong><br />\n"
+"       &nbsp;&nbsp;Order total: <strong>${object.amount_total} "
+"${object.pricelist_id.currency_id.name}</strong><br />\n"
+"       &nbsp;&nbsp;Order date: ${object.date_order}<br />\n"
+"       % if object.origin:\n"
+"       &nbsp;&nbsp;Order reference: ${object.origin}<br />\n"
+"       % endif\n"
+"       % if object.partner_ref:\n"
+"       &nbsp;&nbsp;Your reference: ${object.partner_ref}<br />\n"
+"       % endif\n"
+"       % if object.validator:\n"
+"       &nbsp;&nbsp;Your contact: <a href=\"mailto:${object.validator.email "
+"or ''}?subject=Order%20${object.name}\">${object.validator.name}</a>\n"
+"       % endif\n"
+"    </p>\n"
+"\n"
+"    <br/>\n"
+"    <p>If you have any question, do not hesitate to contact us.</p>\n"
+"    <p>Thank you!</p>\n"
+"    <br/>\n"
+"    <br/>\n"
+"    <div style=\"width: 375px; margin: 0px; padding: 0px; background-color: "
+"#8E0000; border-top-left-radius: 5px 5px; border-top-right-radius: 5px 5px; "
+"background-repeat: repeat no-repeat;\">\n"
+"        <h3 style=\"margin: 0px; padding: 2px 14px; font-size: 12px; color: "
+"#DDD;\">\n"
+"            <strong style=\"text-"
+"transform:uppercase;\">${object.company_id.name}</strong></h3>\n"
+"    </div>\n"
+"    <div style=\"width: 347px; margin: 0px; padding: 5px 14px; line-height: "
+"16px; background-color: #F2F2F2;\">\n"
+"        <span style=\"color: #222; margin-bottom: 5px; display: block; \">\n"
+"        % if object.company_id.street:\n"
+"            ${object.company_id.street}<br/>\n"
+"        % endif\n"
+"        % if object.company_id.street2:\n"
+"            ${object.company_id.street2}<br/>\n"
+"        % endif\n"
+"        % if object.company_id.city or object.company_id.zip:\n"
+"            ${object.company_id.zip} ${object.company_id.city}<br/>\n"
+"        % endif\n"
+"        % if object.company_id.country_id:\n"
+"            ${object.company_id.state_id and ('%s, ' % "
+"object.company_id.state_id.name) or ''} ${object.company_id.country_id.name "
+"or ''}<br/>\n"
+"        % endif\n"
+"        </span>\n"
+"        % if object.company_id.phone:\n"
+"            <div style=\"margin-top: 0px; margin-right: 0px; margin-bottom: "
+"0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: "
+"0px; padding-left: 0px; \">\n"
+"                Phone:&nbsp; ${object.company_id.phone}\n"
+"            </div>\n"
+"        % endif\n"
+"        % if object.company_id.website:\n"
+"            <div>\n"
+"                Web :&nbsp;<a "
+"href=\"${object.company_id.website}\">${object.company_id.website}</a>\n"
+"            </div>\n"
+"        %endif\n"
+"        <p></p>\n"
+"    </div>\n"
+"</div>\n"
+"            "
+msgstr ""
+
+#. module: purchase
 #: view:purchase.report:0
 msgid "Order of Year"
 msgstr ""
@@ -1109,11 +1185,6 @@ msgid "Products"
 msgstr "Продукти"
 
 #. module: purchase
-#: view:purchase.order:0
-msgid "Terms and conditions..."
-msgstr ""
-
-#. module: purchase
 #: model:ir.model,name:purchase.model_stock_move
 msgid "Stock Move"
 msgstr "Движение в склад"
@@ -1224,22 +1295,6 @@ msgid "Please create Invoices."
 msgstr ""
 
 #. module: purchase
-#: model:ir.actions.act_window,help:purchase.action_picking_tree4_picking_to_invoice
-msgid ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"                Click to create a new incoming shipment.\n"
-"              </p><p> \n"
-"                Here you can track all the product receptions of purchase\n"
-"                orders where the invoicing is \"Based on Incoming "
-"Shipments\",\n"
-"                and for which you have not received a supplier invoice yet.\n"
-"                You can generate a supplier invoice based on those "
-"receptions.\n"
-"              </p>\n"
-"            "
-msgstr ""
-
-#. module: purchase
 #: model:ir.model,name:purchase.model_procurement_order
 msgid "Procurement"
 msgstr "Снабдаване"
@@ -1270,6 +1325,11 @@ msgstr "Получаване на продукти"
 #: field:purchase.report,month:0
 msgid "Month"
 msgstr "Месец"
+
+#. module: purchase
+#: help:res.company,po_lead:0
+msgid "This is the leads/security time for each purchase order."
+msgstr ""
 
 #. module: purchase
 #: model:process.node,note:purchase.process_node_invoiceafterpacking0
@@ -1325,8 +1385,8 @@ msgid "PO: %s"
 msgstr ""
 
 #. module: purchase
-#: model:process.node,note:purchase.process_node_packinginvoice0
-msgid "Outgoing products to invoice"
+#: view:purchase.order:0
+msgid "Send by EMail"
 msgstr ""
 
 #. module: purchase
@@ -1743,10 +1803,11 @@ msgid "Net Price"
 msgstr "Нетна цена"
 
 #. module: purchase
-#: model:process.node,name:purchase.process_node_confirmpurchaseorder0
-#: selection:purchase.order.line,state:0
-msgid "Confirmed"
-msgstr "Потвърдена"
+#: model:ir.model,name:purchase.model_purchase_order_line
+#: view:purchase.order.line:0
+#: field:stock.move,purchase_line_id:0
+msgid "Purchase Order Line"
+msgstr "Ред от поръчка за доставка"
 
 #. module: purchase
 #: model:process.transition.action,name:purchase.process_transition_action_confirmpurchaseorder0
@@ -1848,6 +1909,11 @@ msgid "Reference Unit of Measure"
 msgstr ""
 
 #. module: purchase
+#: model:process.node,note:purchase.process_node_packinginvoice0
+msgid "Outgoing products to invoice"
+msgstr ""
+
+#. module: purchase
 #: report:purchase.order:0
 #: field:purchase.report,validator:0
 msgid "Validated By"
@@ -1912,11 +1978,10 @@ msgid "Invoiced"
 msgstr "Фактурирани"
 
 #. module: purchase
-#: model:ir.model,name:purchase.model_purchase_order_line
-#: view:purchase.order.line:0
-#: field:stock.move,purchase_line_id:0
-msgid "Purchase Order Line"
-msgstr "Ред от поръчка за доставка"
+#: model:process.node,name:purchase.process_node_confirmpurchaseorder0
+#: selection:purchase.order.line,state:0
+msgid "Confirmed"
+msgstr "Потвърдена"
 
 #. module: purchase
 #: selection:purchase.order.line,state:0
@@ -2031,87 +2096,6 @@ msgid "Expected Delivery address:"
 msgstr ""
 
 #. module: purchase
-#: model:email.template,body_html:purchase.email_template_edi_purchase
-msgid ""
-"\n"
-"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-"
-"serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
-"\n"
-"    <p>Hello ${object.partner_id.name},</p>\n"
-"    \n"
-"    <p>Here is a ${object.state in ('draft', 'sent') and 'request for "
-"quotation' or 'purchase order confirmation'} from ${object.company_id.name}: "
-"</p>\n"
-"    \n"
-"    <p style=\"border-left: 1px solid #8e0000; margin-left: 30px;\">\n"
-"       &nbsp;&nbsp;<strong>REFERENCES</strong><br />\n"
-"       &nbsp;&nbsp;Order number: <strong>${object.name}</strong><br />\n"
-"       &nbsp;&nbsp;Order total: <strong>${object.amount_total} "
-"${object.pricelist_id.currency_id.name}</strong><br />\n"
-"       &nbsp;&nbsp;Order date: ${object.date_order}<br />\n"
-"       % if object.origin:\n"
-"       &nbsp;&nbsp;Order reference: ${object.origin}<br />\n"
-"       % endif\n"
-"       % if object.partner_ref:\n"
-"       &nbsp;&nbsp;Your reference: ${object.partner_ref}<br />\n"
-"       % endif\n"
-"       % if object.validator:\n"
-"       &nbsp;&nbsp;Your contact: <a href=\"mailto:${object.validator.email "
-"or ''}?subject=Order%20${object.name}\">${object.validator.name}</a>\n"
-"       % endif\n"
-"    </p>\n"
-"\n"
-"    <br/>\n"
-"    <p>If you have any question, do not hesitate to contact us.</p>\n"
-"    <p>Thank you!</p>\n"
-"    <br/>\n"
-"    <br/>\n"
-"    <div style=\"width: 375px; margin: 0px; padding: 0px; background-color: "
-"#8E0000; border-top-left-radius: 5px 5px; border-top-right-radius: 5px 5px; "
-"background-repeat: repeat no-repeat;\">\n"
-"        <h3 style=\"margin: 0px; padding: 2px 14px; font-size: 12px; color: "
-"#DDD;\">\n"
-"            <strong style=\"text-"
-"transform:uppercase;\">${object.company_id.name}</strong></h3>\n"
-"    </div>\n"
-"    <div style=\"width: 347px; margin: 0px; padding: 5px 14px; line-height: "
-"16px; background-color: #F2F2F2;\">\n"
-"        <span style=\"color: #222; margin-bottom: 5px; display: block; \">\n"
-"        % if object.company_id.street:\n"
-"            ${object.company_id.street}<br/>\n"
-"        % endif\n"
-"        % if object.company_id.street2:\n"
-"            ${object.company_id.street2}<br/>\n"
-"        % endif\n"
-"        % if object.company_id.city or object.company_id.zip:\n"
-"            ${object.company_id.zip} ${object.company_id.city}<br/>\n"
-"        % endif\n"
-"        % if object.company_id.country_id:\n"
-"            ${object.company_id.state_id and ('%s, ' % "
-"object.company_id.state_id.name) or ''} ${object.company_id.country_id.name "
-"or ''}<br/>\n"
-"        % endif\n"
-"        </span>\n"
-"        % if object.company_id.phone:\n"
-"            <div style=\"margin-top: 0px; margin-right: 0px; margin-bottom: "
-"0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: "
-"0px; padding-left: 0px; \">\n"
-"                Phone:&nbsp; ${object.company_id.phone}\n"
-"            </div>\n"
-"        % endif\n"
-"        % if object.company_id.website:\n"
-"            <div>\n"
-"                Web :&nbsp;<a "
-"href=\"${object.company_id.website}\">${object.company_id.website}</a>\n"
-"            </div>\n"
-"        %endif\n"
-"        <p></p>\n"
-"    </div>\n"
-"</div>\n"
-"            "
-msgstr ""
-
-#. module: purchase
 #: selection:purchase.report,month:0
 msgid "February"
 msgstr "Февруари"
@@ -2216,3 +2200,275 @@ msgstr ""
 #: view:purchase.report:0
 msgid "Orders"
 msgstr ""
+
+#~ msgid "Invalid XML for View Architecture!"
+#~ msgstr "Невалиден XML за преглед на архитектурата"
+
+#~ msgid ""
+#~ "The Object name must start with x_ and not contain any special character !"
+#~ msgstr ""
+#~ "Името на обекта трябва да започва с \"x_\" и да не съдържа никакви специални "
+#~ "символи!"
+
+#~ msgid "Invoiced & Paid"
+#~ msgstr "Фактуриран и платен"
+
+#, python-format
+#~ msgid "No Pricelist !"
+#~ msgstr "Няма ценова листа !"
+
+#~ msgid "Delivery"
+#~ msgstr "Доставка"
+
+#~ msgid "Invalid model name in the action definition."
+#~ msgstr "Невалидно име на модел при задаване на действие"
+
+#~ msgid "From Order"
+#~ msgstr "От поръчка"
+
+#~ msgid "Purchase Process"
+#~ msgstr "Обработка на покупка"
+
+#~ msgid "Invoice from Packing list"
+#~ msgstr "Фактура от списък за пакетиране"
+
+#~ msgid "Confirmed Purchase"
+#~ msgstr "Потвърдена поръчка"
+
+#~ msgid "Purchase Orders in Progress"
+#~ msgstr "Активни заявки за покупка"
+
+#~ msgid ""
+#~ "You can create a request for quotation when you want to buy products to a "
+#~ "supplier but the purchase is not confirmed yet. Use also this menu to review "
+#~ "requests for quotation created automatically based on your logistic rules "
+#~ "(minimum stock, MTO, etc). You can convert the request for quotation into a "
+#~ "purchase order once the order is confirmed. If you use the extended "
+#~ "interface (from user's preferences), you can select the way to control your "
+#~ "supplier invoices: based on the order, based on the receptions or manual "
+#~ "encoding."
+#~ msgstr ""
+#~ "Можете да създадете заявка за оферта, когато искате да купите продукти от "
+#~ "доставчика, но покупката не е потвърдена все още. Използвайте това меню, "
+#~ "преглед на автоматично създадени поръчки в зависимотс то вашите логистични "
+#~ "правила (минимални запаси, средносрочната бюджетна цел и др.) Можете да "
+#~ "конвертирате искане за оферта в поръчка за закупуване, след като поръчката е "
+#~ "потвърдена. Ако използвате разширен интерфейс (от настройки на потребителя), "
+#~ "можете да изберете как да се генерират фактурите: въз основа на реда, въз "
+#~ "основа на приемане или ръчно кодиране."
+
+#~ msgid "Destination Address"
+#~ msgstr "Адрес назначение"
+
+#~ msgid "Do you want to generate the supplier invoices ?"
+#~ msgstr "Искате ли да генерирате фактури на доставчик"
+
+#~ msgid "Current purchases"
+#~ msgstr "Текущи покупки"
+
+#~ msgid ""
+#~ "Put an address if you want to deliver directly from the supplier to the "
+#~ "customer.In this case, it will remove the warehouse link and set the "
+#~ "customer location."
+#~ msgstr ""
+#~ "Сложете адрес, ако искате да доставите директно от доставчика на клиента. В "
+#~ "този случай, ще бъде премахната връзката склад и ще буде определено "
+#~ "местоположението на клиента."
+
+#, python-format
+#~ msgid "Purchase order '%s' is confirmed."
+#~ msgstr "Поръчката '%s' е потвърдена."
+
+#~ msgid "Origin"
+#~ msgstr "Произход"
+
+#~ msgid "Approve Purchase"
+#~ msgstr "Одобри поръчка"
+
+#, python-format
+#~ msgid ""
+#~ "You have to select a pricelist or a supplier in the purchase form !\n"
+#~ "Please set one before choosing a product."
+#~ msgstr ""
+#~ "Вие трябва да изберете ценова листа или доставчик на във формата за "
+#~ "поръчка!\n"
+#~ " Моля, изберете преди избора на продукт."
+
+#~ msgid "Configuration Progress"
+#~ msgstr "Прогрес на конфигурирането"
+
+#~ msgid "Configure Your Purchases Management Application"
+#~ msgstr "Конфигурирайте приложението за управление на поръчки"
+
+#, python-format
+#~ msgid "Purchase amount over the limit"
+#~ msgstr "Поръчката е над лимита"
+
+#~ msgid "Convert to Purchase Order"
+#~ msgstr "Превърни в поръчка"
+
+#~ msgid "   Month   "
+#~ msgstr "   Месец   "
+
+#, python-format
+#~ msgid "Cannot delete Purchase Order(s) which are in %s State!"
+#~ msgstr "Не могат да се трият Поръчка/и в състояние %s!"
+
+#, python-format
+#~ msgid "Warning"
+#~ msgstr "Предупреждение"
+
+#~ msgid "Dest. Address Contact Name"
+#~ msgstr "Адрес за получаване име за контакт"
+
+#~ msgid "Order Line"
+#~ msgstr "Ред от поръчка"
+
+#, python-format
+#~ msgid "Wrong Product UOM !"
+#~ msgstr "Грешни мерни единици"
+
+#~ msgid "Error! You can not create recursive companies."
+#~ msgstr "Грешка! НЕ може да създавате рекурсивни фирми"
+
+#~ msgid "State"
+#~ msgstr "Област"
+
+#, python-format
+#~ msgid "No Partner!"
+#~ msgstr "Няма партньор"
+
+#~ msgid "Address Contact Name"
+#~ msgstr "Адрес на лице за контакт"
+
+#~ msgid "Untaxed amount"
+#~ msgstr "Сума без данъци"
+
+#, python-format
+#~ msgid "Error !"
+#~ msgstr "Грешка !"
+
+#~ msgid "General Information"
+#~ msgstr "Обща информация"
+
+#, python-format
+#~ msgid "Invalid action !"
+#~ msgstr "Невалидно действие !"
+
+#~ msgid "Manual"
+#~ msgstr "Ръчно"
+
+#~ msgid "    Month-1    "
+#~ msgstr "    Месец-1    "
+
+#~ msgid "Image"
+#~ msgstr "Изображение"
+
+#~ msgid "Purchase Order Waiting Approval"
+#~ msgstr "Чакаща одобрение поръчка"
+
+#~ msgid "Purchase Lines Not Invoiced"
+#~ msgstr "Редове от поръчката, които не са фактурирани"
+
+#~ msgid "Purchase Management"
+#~ msgstr "Управление на поръчки"
+
+#~ msgid "  Year  "
+#~ msgstr "  Година  "
+
+#~ msgid "Error ! You can not create recursive associated members."
+#~ msgstr "Грешка ! Не може да създадете рекурсивно свързани членове"
+
+#~ msgid "Purchase Properties"
+#~ msgstr "Параметри на поръчка"
+
+#~ msgid "Order State"
+#~ msgstr "Състояние на поръчка"
+
+#~ msgid "Qty. per product"
+#~ msgstr "Кол. продукт"
+
+#~ msgid "Sales & Purchases"
+#~ msgstr "Продажби и поръчки"
+
+#~ msgid "Configure"
+#~ msgstr "Настройване"
+
+#, python-format
+#~ msgid ""
+#~ "Somebody has just confirmed a purchase with an amount over the defined limit"
+#~ msgstr "Някой токущо е потвърдил поръчка с количество на определения лимит"
+
+#, python-format
+#~ msgid "You must first cancel all invoices attached to this purchase order."
+#~ msgstr "Трябва първо да откажете всички фактури прикрепени към тази поръчка"
+
+#~ msgid "Dashboard"
+#~ msgstr "Табло"
+
+#~ msgid "Compute"
+#~ msgstr "Изчисление"
+
+#, python-format
+#~ msgid ""
+#~ "The selected supplier has a minimal quantity set to %s, you cannot purchase "
+#~ "less."
+#~ msgstr ""
+#~ "Избрания доставчик има изискване за минимално количество %s. Не може да "
+#~ "поръчвате по-молко."
+
+#~ msgid "Cancel Purchase Order"
+#~ msgstr "Откажи поръчка"
+
+#~ msgid "Pricelists Types"
+#~ msgstr "Типове ценови листи"
+
+#~ msgid "Purchase order per month"
+#~ msgstr "Поръчка за месец"
+
+#~ msgid "History"
+#~ msgstr "Хронология"
+
+#~ msgid "Waiting"
+#~ msgstr "Изчакване"
+
+#~ msgid ""
+#~ "Extend your Purchases Management Application with additional functionalities."
+#~ msgstr "Разшири приложението с допулнители функционалности"
+
+#~ msgid "Delivery & Invoicing"
+#~ msgstr "Доставка и Фактуриране"
+
+#~ msgid "Product UOM"
+#~ msgstr "Продукт мер. ед."
+
+#~ msgid "Address"
+#~ msgstr "Адрес"
+
+#~ msgid "Products Categories"
+#~ msgstr "Категории продукти"
+
+#~ msgid "To Approve"
+#~ msgstr "За одобрение"
+
+#, python-format
+#~ msgid "Purchase order '%s' is cancelled."
+#~ msgstr "Поръчка '%s' е отказана."
+
+#~ msgid "Invoicing"
+#~ msgstr "Фактуриране"
+
+#~ msgid "Addresses"
+#~ msgstr "Адреси"
+
+#~ msgid "title"
+#~ msgstr "заглавие"
+
+#~ msgid "Order Reference must be unique !"
+#~ msgstr "Препратката на поръчката трябва да бъде уникална!"
+
+#~ msgid "Partial Picking"
+#~ msgstr "Частично товарене"
+
+#~ msgid "Reference UoM"
+#~ msgstr "Референтна м. ед."

@@ -1,20 +1,20 @@
 # Japanese translation for openobject-addons
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
 # This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-01-07 16:56+0000\n"
-"PO-Revision-Date: 2014-04-01 14:20+0000\n"
-"Last-Translator: hiro TAKADA <tkhiro0712@gmail.com>\n"
+"POT-Creation-Date: 2012-12-21 17:04+0000\n"
+"PO-Revision-Date: 2012-07-09 05:13+0000\n"
+"Last-Translator: Akira Hiyama <Unknown>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-04-02 06:44+0000\n"
+"X-Launchpad-Export-Date: 2014-03-27 06:11+0000\n"
 "X-Generator: Launchpad (build 16967)\n"
 
 #. module: crm
@@ -85,11 +85,6 @@ msgid "Delay to close"
 msgstr "締めを延期する"
 
 #. module: crm
-#: view:crm.lead:0
-msgid "Available for mass mailing"
-msgstr ""
-
-#. module: crm
 #: view:crm.case.stage:0
 #: field:crm.case.stage,name:0
 msgid "Stage Name"
@@ -137,9 +132,11 @@ msgid "Exp. Closing"
 msgstr "見込完了"
 
 #. module: crm
-#: view:crm.phonecall:0
-msgid "Cancel Call"
-msgstr "通話キャンセル"
+#: help:crm.case.section,message_unread:0
+#: help:crm.lead,message_unread:0
+#: help:crm.phonecall,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr ""
 
 #. module: crm
 #: help:crm.lead.report,creation_day:0
@@ -230,8 +227,9 @@ msgstr "オプトアウト"
 
 #. module: crm
 #: view:crm.lead:0
-msgid "Opportunities that are assigned to me"
-msgstr ""
+#: field:crm.lead,state_id:0
+msgid "State"
+msgstr "状態"
 
 #. module: crm
 #: field:res.partner,meeting_count:0
@@ -249,9 +247,9 @@ msgid "Criteria"
 msgstr "基準"
 
 #. module: crm
-#: view:crm.lead:0
-msgid "Assigned to My Team(s)"
-msgstr ""
+#: view:crm.segmentation:0
+msgid "Excluded Answers :"
+msgstr "回答を除く"
 
 #. module: crm
 #: model:ir.model,name:crm.model_crm_merge_opportunity
@@ -266,16 +264,16 @@ msgid "Leads Analysis"
 msgstr "リード分析"
 
 #. module: crm
+#: code:addons/crm/crm_lead.py:1010
+#, python-format
+msgid "<b>%s a call</b> for the <em>%s</em>."
+msgstr ""
+
+#. module: crm
 #: model:ir.actions.act_window,name:crm.crm_case_resource_type_act
 #: model:ir.ui.menu,name:crm.menu_crm_case_resource_type_act
 msgid "Campaigns"
 msgstr "キャンペーン"
-
-#. module: crm
-#: view:crm.lead:0
-#: field:crm.lead,state_id:0
-msgid "State"
-msgstr "状態"
 
 #. module: crm
 #: view:crm.lead:0
@@ -285,9 +283,11 @@ msgid "Categories"
 msgstr "分類"
 
 #. module: crm
-#: view:crm.segmentation:0
-msgid "Segmentation Test"
-msgstr "分類のテスト"
+#: help:crm.lead,opt_out:0
+msgid ""
+"If opt-out is checked, this contact has refused to receive emails or "
+"unsubscribed to a campaign."
+msgstr "オプトアウトをチェックした場合、この連絡先はEメールの受信を拒否するか、またはキャンペーンには未参加となります。"
 
 #. module: crm
 #: model:process.transition,name:crm.process_transition_leadpartner0
@@ -445,6 +445,11 @@ msgid ""
 msgstr ""
 
 #. module: crm
+#: view:crm.lead:0
+msgid "Leads that are assigned to one of the sale teams I manage, or to me"
+msgstr ""
+
+#. module: crm
 #: field:crm.lead,partner_address_email:0
 msgid "Partner Contact Email"
 msgstr "パートナの連絡先Eメール"
@@ -519,12 +524,6 @@ msgid "Planned Revenue"
 msgstr "計画売上高"
 
 #. module: crm
-#: code:addons/crm/crm_lead.py:1004
-#, python-format
-msgid "Customer Email"
-msgstr ""
-
-#. module: crm
 #: field:crm.lead,planned_revenue:0
 msgid "Expected Revenue"
 msgstr "見込売上"
@@ -537,9 +536,9 @@ msgid "October"
 msgstr "10月"
 
 #. module: crm
-#: view:crm.phonecall:0
-msgid "Reset to Todo"
-msgstr "ToDoにリセット"
+#: view:crm.segmentation:0
+msgid "Included Answers :"
+msgstr "回答を含む："
 
 #. module: crm
 #: help:crm.phonecall,state:0
@@ -564,6 +563,11 @@ msgid "Merge"
 msgstr ""
 
 #. module: crm
+#: model:email.template,subject:crm.email_template_opportunity_mail
+msgid "Opportunity ${object.name | h})"
+msgstr ""
+
+#. module: crm
 #: view:crm.case.categ:0
 msgid "Case Category"
 msgstr "案件分類"
@@ -581,12 +585,9 @@ msgid ""
 msgstr ""
 
 #. module: crm
-#: code:addons/crm/crm_lead.py:759
-#, python-format
-msgid ""
-"No customer name defined. Please fill one of the following fields: Company "
-"Name, Contact Name or Email (\"Name <email@address>\")"
-msgstr ""
+#: view:crm.segmentation:0
+msgid "Profiling Options"
+msgstr "プロファイリングオプション"
 
 #. module: crm
 #: view:crm.phonecall.report:0
@@ -664,12 +665,6 @@ msgid "Partner Segmentation"
 msgstr "パートナの分類"
 
 #. module: crm
-#: code:addons/crm/crm_lead.py:1064
-#, python-format
-msgid "Logged a call for %(date)s. %(description)s"
-msgstr ""
-
-#. module: crm
 #: field:crm.lead,company_currency:0
 msgid "Currency"
 msgstr ""
@@ -690,9 +685,9 @@ msgid "The name of the segmentation."
 msgstr "分類の名前"
 
 #. module: crm
-#: model:ir.filters,name:crm.filter_usa_lead
-msgid "Leads from USA"
-msgstr ""
+#: field:crm.case.stage,probability:0
+msgid "Probability (%)"
+msgstr "確率(%)"
 
 #. module: crm
 #: sql_constraint:crm.lead:0
@@ -760,11 +755,6 @@ msgid ""
 msgstr ""
 
 #. module: crm
-#: field:crm.segmentation.line,expr_value:0
-msgid "Value"
-msgstr "値"
-
-#. module: crm
 #: field:calendar.attendee,categ_id:0
 msgid "Event Type"
 msgstr "イベントタイプ"
@@ -783,11 +773,6 @@ msgstr "%s から：%s"
 #. module: crm
 #: view:crm.lead2opportunity.partner.mass:0
 msgid "Convert to Opportunities"
-msgstr ""
-
-#. module: crm
-#: view:crm.lead:0
-msgid "Leads that did not ask not to be included in mass mailing campaigns"
 msgstr ""
 
 #. module: crm
@@ -868,18 +853,13 @@ msgstr "アウトバウンド"
 
 #. module: crm
 #: view:crm.lead:0
-msgid "Leads that are assigned to me"
-msgstr ""
-
-#. module: crm
-#: view:crm.lead:0
 msgid "Mark Won"
 msgstr "受注とマーク"
 
 #. module: crm
-#: field:crm.case.stage,probability:0
-msgid "Probability (%)"
-msgstr "確率(%)"
+#: model:ir.filters,name:crm.filter_usa_lead
+msgid "Leads from USA"
+msgstr ""
 
 #. module: crm
 #: view:crm.lead:0
@@ -904,21 +884,15 @@ msgid "Send Email"
 msgstr ""
 
 #. module: crm
-#: help:crm.case.section,message_unread:0
-#: help:crm.lead,message_unread:0
-#: help:crm.phonecall,message_unread:0
-msgid "If checked new messages require your attention."
-msgstr ""
+#: code:addons/crm/wizard/crm_lead_to_opportunity.py:89
+#, python-format
+msgid "Warning !"
+msgstr "警告"
 
 #. module: crm
 #: field:crm.lead,day_open:0
 msgid "Days to Open"
 msgstr "開始日"
-
-#. module: crm
-#: view:crm.lead:0
-msgid "ZIP"
-msgstr ""
 
 #. module: crm
 #: field:crm.lead,mobile:0
@@ -930,6 +904,13 @@ msgstr "携帯電話"
 #: field:crm.lead,ref:0
 msgid "Reference"
 msgstr "参照"
+
+#. module: crm
+#: view:crm.lead:0
+msgid ""
+"Opportunities that are assigned to either me or one of the sale teams I "
+"manage"
+msgstr ""
 
 #. module: crm
 #: help:crm.case.section,resource_calendar_id:0
@@ -978,6 +959,11 @@ msgstr "商談のみ表示"
 #: field:crm.lead,name:0
 msgid "Subject"
 msgstr "標題"
+
+#. module: crm
+#: view:crm.lead:0
+msgid "New Leads"
+msgstr "新規リード"
 
 #. module: crm
 #: view:crm.lead:0
@@ -1037,16 +1023,6 @@ msgid "Creation Date"
 msgstr "作成日"
 
 #. module: crm
-#: help:crm.lead,opt_out:0
-msgid ""
-"If opt-out is checked, this contact has refused to receive emails for mass "
-"mailing and marketing campaign. Filter 'Available for Mass Mailing' allows "
-"users to filter the leads when performing mass mailing."
-msgstr ""
-"オプトアウトをチェックすると、大量メールとマーケティングキャンペーンのためのメールは受信が拒絶されます。'Available for Mass "
-"Mailing'フィルタは大量メールを実行する際に見込み客を選別できます。"
-
-#. module: crm
 #: code:addons/crm/crm_lead.py:712
 #, python-format
 msgid "Lead <b>converted into an Opportunity</b>"
@@ -1061,11 +1037,6 @@ msgstr "仕入高"
 #: view:crm.phonecall.report:0
 msgid "Year of call"
 msgstr "通話年"
-
-#. module: crm
-#: view:crm.lead:0
-msgid "Open Leads"
-msgstr ""
 
 #. module: crm
 #: view:crm.case.stage:0
@@ -1085,11 +1056,6 @@ msgstr ""
 #: field:crm.lead,user_login:0
 msgid "User Login"
 msgstr "ユーザログイン"
-
-#. module: crm
-#: view:crm.lead:0
-msgid "No salesperson"
-msgstr ""
 
 #. module: crm
 #: view:crm.phonecall.report:0
@@ -1126,11 +1092,6 @@ msgstr ""
 #. module: crm
 #: view:crm.lead:0
 msgid "í"
-msgstr ""
-
-#. module: crm
-#: view:crm.phonecall:0
-msgid "Description..."
 msgstr ""
 
 #. module: crm
@@ -1307,10 +1268,9 @@ msgid "Sales Marketing Department"
 msgstr "営業マーケティング部"
 
 #. module: crm
-#: code:addons/crm/crm_lead.py:582
-#, python-format
-msgid "Merged lead"
-msgstr ""
+#: view:crm.phonecall.report:0
+msgid "Date of call"
+msgstr "通話日"
 
 #. module: crm
 #: help:crm.lead,section_id:0
@@ -1323,6 +1283,16 @@ msgstr "メールを送信する時、デフォルトEメールアドレスは�
 msgid ""
 "Phone Calls Assigned to the current user or with a team having the current "
 "user as team leader"
+msgstr ""
+
+#. module: crm
+#: view:crm.segmentation:0
+msgid "Segmentation Description"
+msgstr "分類の説明"
+
+#. module: crm
+#: view:crm.lead:0
+msgid "Lead Description"
 msgstr ""
 
 #. module: crm
@@ -1344,7 +1314,7 @@ msgstr "コード"
 #. module: crm
 #: view:sale.config.settings:0
 msgid "Features"
-msgstr "特徴"
+msgstr ""
 
 #. module: crm
 #: field:crm.case.section,child_ids:0
@@ -1375,6 +1345,11 @@ msgstr "参照"
 #: view:crm.phonecall2phonecall:0
 msgid "Cancel"
 msgstr "キャンセル"
+
+#. module: crm
+#: view:crm.lead:0
+msgid "Opportunities Assigned to Me or My Team(s)"
+msgstr ""
 
 #. module: crm
 #: model:crm.case.categ,name:crm.categ_oppor4
@@ -1436,8 +1411,8 @@ msgid "Leads/Opportunities which are in open state"
 msgstr "リード / 商談は開いています。"
 
 #. module: crm
-#: view:crm.lead:0
-msgid "Opportunities that are assigned to any sales teams I am member of"
+#: model:ir.model,name:crm.model_res_users
+msgid "Users"
 msgstr ""
 
 #. module: crm
@@ -1497,6 +1472,12 @@ msgid "Leads/Opportunities that are assigned to me"
 msgstr ""
 
 #. module: crm
+#: field:crm.lead.report,date_closed:0
+#: field:crm.phonecall.report,date_closed:0
+msgid "Close Date"
+msgstr "契約日"
+
+#. module: crm
 #: view:crm.lead.report:0
 msgid "My Case(s)"
 msgstr "私の案件"
@@ -1512,11 +1493,6 @@ msgstr ""
 #: view:crm.lead:0
 msgid "Show Countries"
 msgstr ""
-
-#. module: crm
-#: view:crm.phonecall.report:0
-msgid "Date of call"
-msgstr "通話日"
 
 #. module: crm
 #: view:crm.lead:0
@@ -1559,11 +1535,6 @@ msgstr "締めを延期する"
 #: view:crm.phonecall.report:0
 msgid "Group By..."
 msgstr "グループ化…"
-
-#. module: crm
-#: model:email.template,subject:crm.email_template_opportunity_mail
-msgid "${object.name}"
-msgstr ""
 
 #. module: crm
 #: view:crm.merge.opportunity:0
@@ -1613,11 +1584,6 @@ msgid "Month of call"
 msgstr "通話の月"
 
 #. module: crm
-#: view:crm.lead:0
-msgid "Describe the lead..."
-msgstr "リードを記述してください..."
-
-#. module: crm
 #: code:addons/crm/crm_phonecall.py:292
 #, python-format
 msgid "Partner has been <b>created</b>."
@@ -1626,7 +1592,7 @@ msgstr ""
 #. module: crm
 #: field:sale.config.settings,module_crm_claim:0
 msgid "Manage Customer Claims"
-msgstr "顧客クレーム管理"
+msgstr ""
 
 #. module: crm
 #: model:ir.actions.act_window,help:crm.action_report_crm_lead
@@ -1661,9 +1627,9 @@ msgid "Notes"
 msgstr "注記"
 
 #. module: crm
-#: view:crm.opportunity2phonecall:0
-msgid "Call Description"
-msgstr ""
+#: field:crm.segmentation.line,expr_value:0
+msgid "Value"
+msgstr "値"
 
 #. module: crm
 #: field:crm.lead,partner_name:0
@@ -1792,6 +1758,11 @@ msgid "Telesales"
 msgstr "電話セールス"
 
 #. module: crm
+#: view:crm.lead:0
+msgid "Leads Assigned to Me or My Team(s)"
+msgstr ""
+
+#. module: crm
 #: model:ir.model,name:crm.model_crm_segmentation_line
 msgid "Segmentation line"
 msgstr "分類行"
@@ -1834,12 +1805,6 @@ msgstr "リード / 顧客"
 #: model:crm.case.section,name:crm.crm_case_section_2
 msgid "Support Department"
 msgstr "サポート部門"
-
-#. module: crm
-#: code:addons/crm/crm_lead.py:1078
-#, python-format
-msgid "Meeting scheduled at '%s'<br> Subject: %s <br> Duration: %s hour(s)"
-msgstr ""
 
 #. module: crm
 #: view:crm.lead.report:0
@@ -1979,11 +1944,6 @@ msgid "Pending"
 msgstr "保留中"
 
 #. module: crm
-#: view:crm.lead:0
-msgid "Assigned to Me"
-msgstr ""
-
-#. module: crm
 #: model:process.transition,name:crm.process_transition_leadopportunity0
 msgid "Prospect Opportunity"
 msgstr "商談の見込み"
@@ -2033,6 +1993,11 @@ msgstr "有効"
 #: selection:crm.segmentation.line,operator:0
 msgid "Mandatory Expression"
 msgstr "必須の表現"
+
+#. module: crm
+#: view:crm.lead:0
+msgid "Send Mail"
+msgstr ""
 
 #. module: crm
 #: selection:crm.lead2opportunity.partner,action:0
@@ -2130,16 +2095,16 @@ msgid "Address"
 msgstr "住所"
 
 #. module: crm
-#: view:crm.lead:0
-msgid "Leads that are assigned to any sales teams I am member of"
-msgstr ""
-
-#. module: crm
 #: help:crm.case.section,alias_id:0
 msgid ""
 "The email address associated with this team. New emails received will "
 "automatically create new leads assigned to the team."
 msgstr ""
+
+#. module: crm
+#: view:crm.lead:0
+msgid "Unassigned Opportunities"
+msgstr "未割当の商談"
 
 #. module: crm
 #: view:crm.lead:0
@@ -2175,6 +2140,11 @@ msgstr "この連絡先はどのキャンペーン（セミナー、マーケテ
 #: model:ir.model,name:crm.model_calendar_attendee
 msgid "Attendee information"
 msgstr "出席者情報"
+
+#. module: crm
+#: view:crm.segmentation:0
+msgid "Segmentation Test"
+msgstr "分類のテスト"
 
 #. module: crm
 #: view:crm.segmentation:0
@@ -2276,6 +2246,11 @@ msgid "Lead converted into an opportunity"
 msgstr ""
 
 #. module: crm
+#: view:crm.lead:0
+msgid "Unassigned Leads"
+msgstr "見割当リード"
+
+#. module: crm
 #: model:mail.message.subtype,description:crm.mt_lead_won
 msgid "Opportunity won"
 msgstr ""
@@ -2298,7 +2273,7 @@ msgstr ""
 #. module: crm
 #: view:sale.config.settings:0
 msgid "After-Sale Services"
-msgstr "アフターサービス"
+msgstr ""
 
 #. module: crm
 #: field:crm.case.section,message_ids:0
@@ -2328,15 +2303,9 @@ msgid "Cancelled"
 msgstr "キャンセル済"
 
 #. module: crm
-#: view:crm.lead:0
-msgid "Street..."
-msgstr "番地…"
-
-#. module: crm
-#: field:crm.lead.report,date_closed:0
-#: field:crm.phonecall.report,date_closed:0
-msgid "Close Date"
-msgstr "契約日"
+#: field:crm.lead,color:0
+msgid "Color Index"
+msgstr "カラーインデックス"
 
 #. module: crm
 #: model:ir.actions.act_window,help:crm.action_report_crm_phonecall
@@ -2363,11 +2332,6 @@ msgstr "関連ステータス"
 #: field:crm.phonecall,name:0
 msgid "Call Summary"
 msgstr "通話の概要"
-
-#. module: crm
-#: field:crm.lead,color:0
-msgid "Color Index"
-msgstr "カラーインデックス"
 
 #. module: crm
 #: field:crm.segmentation.line,expr_operator:0
@@ -2526,11 +2490,6 @@ msgstr "新規見込み客との最初の接触"
 #: view:res.partner:0
 msgid "Calls"
 msgstr "通話"
-
-#. module: crm
-#: view:crm.lead:0
-msgid "Cancel Case"
-msgstr ""
 
 #. module: crm
 #: field:crm.case.stage,on_change:0
@@ -2716,7 +2675,7 @@ msgstr "番地"
 #. module: crm
 #: field:sale.config.settings,module_crm_helpdesk:0
 msgid "Manage Helpdesk and Support"
-msgstr "ヘルプデスクおよびサポート管理"
+msgstr ""
 
 #. module: crm
 #: field:crm.lead.report,delay_open:0
@@ -2770,30 +2729,19 @@ msgid "Planned Revenues"
 msgstr "計画売上高"
 
 #. module: crm
+#: view:crm.lead:0
+msgid "Exp.Closing"
+msgstr "見込完了"
+
+#. module: crm
 #: help:crm.lead.report,deadline_year:0
 msgid "Expected closing year"
 msgstr "見込完了年"
 
 #. module: crm
-#: view:crm.lead:0
-msgid "e.g. Call for proposal"
-msgstr ""
-
-#. module: crm
 #: model:ir.model,name:crm.model_crm_case_stage
 msgid "Stage of case"
 msgstr "案件ステージ"
-
-#. module: crm
-#: code:addons/crm/crm_lead.py:582
-#, python-format
-msgid "Merged opportunity"
-msgstr ""
-
-#. module: crm
-#: view:crm.lead:0
-msgid "Unassigned"
-msgstr ""
 
 #. module: crm
 #: selection:crm.opportunity2phonecall,action:0
@@ -2826,6 +2774,11 @@ msgstr "通話"
 #: view:crm.phonecall.report:0
 msgid "Phone calls that are assigned to one of the sale teams I manage"
 msgstr ""
+
+#. module: crm
+#: view:crm.lead:0
+msgid "Create date"
+msgstr "作成日"
 
 #. module: crm
 #: view:crm.lead:0
@@ -2923,10 +2876,9 @@ msgid "Referred By"
 msgstr "紹介者"
 
 #. module: crm
-#: code:addons/crm/crm_lead.py:1066
-#, python-format
-msgid "Scheduled a call for %(date)s. %(description)s"
-msgstr ""
+#: view:crm.phonecall:0
+msgid "Reset to Todo"
+msgstr "ToDoにリセット"
 
 #. module: crm
 #: field:crm.case.section,working_hours:0
@@ -3001,6 +2953,11 @@ msgid "Campaign Name"
 msgstr "キャンペーン名"
 
 #. module: crm
+#: view:crm.segmentation:0
+msgid "Profiling"
+msgstr "プロファイリング"
+
+#. module: crm
 #: model:ir.model,name:crm.model_crm_phonecall_report
 msgid "Phone calls by user and section"
 msgstr "ユーザとセクション別通話"
@@ -3066,41 +3023,1073 @@ msgid ""
 "            "
 msgstr ""
 
+#~ msgid "Today"
+#~ msgstr "本日"
+
+#~ msgid "Date of month"
+#~ msgstr "日付"
+
+#~ msgid "Need Services"
+#~ msgstr "必要なサービス"
+
+#~ msgid "Accept"
+#~ msgstr "同意"
+
+#~ msgid "Option"
+#~ msgstr "オプション"
+
+#~ msgid "Second"
+#~ msgstr "秒"
+
+#~ msgid "="
+#~ msgstr "="
+
+#~ msgid "Google Adwords 2"
+#~ msgstr "Google アドワーズ ２"
+
+#~ msgid "Privacy"
+#~ msgstr "プライバシー"
+
+#~ msgid "Location of Event"
+#~ msgstr "イベント場所"
+
+#~ msgid "Opportunity Analysis"
+#~ msgstr "商談分析"
+
+#~ msgid "End date"
+#~ msgstr "終了日"
+
+#~ msgid "Details"
+#~ msgstr "詳細"
+
+#~ msgid "Continue"
+#~ msgstr "続行"
+
+#~ msgid "Supplier"
+#~ msgstr "仕入先"
+
+#~ msgid "My Meetings"
+#~ msgstr "私のミーティング"
+
+#~ msgid "<"
+#~ msgstr "<"
+
+#~ msgid "Change Color"
+#~ msgstr "色の変更"
+
+#~ msgid "Previous"
+#~ msgstr "前へ"
+
+#~ msgid "From"
+#~ msgstr "差出人"
+
+#~ msgid "Next"
+#~ msgstr "次へ"
+
+#~ msgid "My Opportunities"
+#~ msgstr "私の商談"
+
+#~ msgid "History Information"
+#~ msgstr "履歴情報"
+
+#~ msgid "Opportunity Name"
+#~ msgstr "商談名"
+
+#~ msgid "Write Date"
+#~ msgstr "記入日"
+
+#~ msgid "Monday"
+#~ msgstr "月曜日"
+
+#~ msgid "Create a Partner"
+#~ msgstr "パートナを作成"
+
+#~ msgid "Schedule a Call"
+#~ msgstr "通話予定"
+
+#~ msgid "Error ! You cannot create recursive associated members."
+#~ msgstr "エラーです。再帰的な関係となる会員を作ることはできません。"
+
+#~ msgid "Visibility"
+#~ msgstr "表示"
+
 #, python-format
-#~ msgid "Warning !"
-#~ msgstr "警告"
+#~ msgid "Can not add note!"
+#~ msgstr "注記を追加することは出来ません。"
 
-#~ msgid "Excluded Answers :"
-#~ msgstr "回答を除く"
+#~ msgid " "
+#~ msgstr " "
 
-#~ msgid "Included Answers :"
-#~ msgstr "回答を含む："
+#~ msgid "Show as"
+#~ msgstr "として表示"
 
-#~ msgid "Exp.Closing"
-#~ msgstr "見込完了"
+#~ msgid "Organizer"
+#~ msgstr "主催者"
+
+#~ msgid "Configuration"
+#~ msgstr "設定"
+
+#~ msgid "Public"
+#~ msgstr "公開"
+
+#~ msgid "Dates"
+#~ msgstr "日付"
+
+#~ msgid "Delegate"
+#~ msgstr "委任"
+
+#~ msgid "Tuesday"
+#~ msgstr "火曜日"
+
+#~ msgid "Select Action"
+#~ msgstr "アクションを選択"
+
+#~ msgid "Communication"
+#~ msgstr "コミュニケーション"
+
+#~ msgid "Phonecalls during last 7 days"
+#~ msgstr "過去7日間の通話"
+
+#~ msgid "Company Currency"
+#~ msgstr "会社の通貨"
+
+#~ msgid "Monthly"
+#~ msgstr "月次"
+
+#, python-format
+#~ msgid "The lead '%s' has been closed."
+#~ msgstr "リード %s は閉じられました。"
+
+#~ msgid "Yearly"
+#~ msgstr "年次"
+
+#~ msgid "Send New Email"
+#~ msgstr "新規Eメール送信"
 
 #~ msgid ""
-#~ "If opt-out is checked, this contact has refused to receive emails or "
-#~ "unsubscribed to a campaign."
-#~ msgstr "オプトアウトをチェックした場合、この連絡先はEメールの受信を拒否するか、またはキャンペーンには未参加となります。"
+#~ "Leads Analysis allows you to check different CRM related information. Check "
+#~ "for treatment delays, number of responses given and emails sent. You can "
+#~ "sort out your leads analysis by different groups to get accurate grained "
+#~ "analysis."
+#~ msgstr ""
+#~ "リード分析は異なるCRMの関連情報を確認することができます。取り扱いの遅延、与えられた回答の番号、送信されたEメールをチェックします。正確な粒度の分析を得"
+#~ "るために、異なったグループによるリード分析を並べ変えることができます。"
 
-#~ msgid "Profiling Options"
-#~ msgstr "プロファイリングオプション"
+#~ msgid "Recurrence termination"
+#~ msgstr "定期の終了"
 
-#~ msgid "New Leads"
-#~ msgstr "新規リード"
+#~ msgid "_Merge"
+#~ msgstr "統合"
 
-#~ msgid "Segmentation Description"
-#~ msgstr "分類の説明"
+#, python-format
+#~ msgid "The lead '%s' has been opened."
+#~ msgstr "%s のリードが開かれました。"
 
-#~ msgid "Unassigned Opportunities"
-#~ msgstr "未割当の商談"
+#~ msgid "Link to an existing partner"
+#~ msgstr "既存パートナにリンク"
 
-#~ msgid "Unassigned Leads"
-#~ msgstr "見割当リード"
+#~ msgid "Regular Expression on Case History"
+#~ msgstr "案件の履歴の正規表現"
 
-#~ msgid "Create date"
-#~ msgstr "作成日"
+#~ msgid "Mail Gateway"
+#~ msgstr "メールゲートウェイ"
 
-#~ msgid "Profiling"
-#~ msgstr "プロファイリング"
+#~ msgid "Recurrent Rule"
+#~ msgstr "定期ルール"
+
+#~ msgid "E-Mail"
+#~ msgstr "Eメール"
+
+#~ msgid "State of Mind Computation"
+#~ msgstr "精神状態の計算"
+
+#~ msgid ""
+#~ "Default state of mind for period preceeding the 'Max Interval' computation. "
+#~ "This is the starting state of mind by default if the partner has no event."
+#~ msgstr "最大間隔の計算前の期間のためのデフォルトの精神状態。パートナがイベントを持たない場合、これがデフォルトによる開始時の精神状態です。"
+
+#~ msgid "Error: The mail is not well formated"
+#~ msgstr "エラー：メールが上手くフォーマットされていません。"
+
+#, python-format
+#~ msgid "The meeting '%s' has been confirmed."
+#~ msgstr "ミーティング %s は確認されました。"
+
+#~ msgid ""
+#~ "Defines a rule or repeating pattern of time to exclude from the recurring "
+#~ "rule."
+#~ msgstr "ルールまたは反復ルールから除外する時間の繰り返しパターンを定義します。"
+
+#~ msgid "Salesmans"
+#~ msgstr "販売員"
+
+#~ msgid "Previous Stage"
+#~ msgstr "前の段階"
+
+#~ msgid "Next Stage"
+#~ msgstr "次の段階"
+
+#~ msgid "Stage:"
+#~ msgstr "段階："
+
+#~ msgid "Month-1"
+#~ msgstr "月-1"
+
+#, python-format
+#~ msgid "Changed Stage to: %s"
+#~ msgstr "段階を変更： %s"
+
+#, python-format
+#~ msgid "The stage of lead '%s' has been changed to '%s'."
+#~ msgstr "リード %s の段階は %s に変更されました。"
+
+#~ msgid "Used to order stages."
+#~ msgstr "オーダー段階で使用されます。"
+
+#~ msgid "Planned Revenue By Stage"
+#~ msgstr "段階別計画売上高"
+
+#~ msgid "Review Sales Stages"
+#~ msgstr "営業段階のレビュー"
+
+#~ msgid "My Planned Revenues by Stage"
+#~ msgstr "段階別私の計画売上高"
+
+#~ msgid "By day"
+#~ msgstr "日別"
+
+#~ msgid "Set Team to"
+#~ msgstr "チーム設定先"
+
+#, python-format
+#~ msgid ""
+#~ "You cannot delete lead '%s'; it must be in state 'Draft' to be deleted. You "
+#~ "should better cancel it, instead of deleting it."
+#~ msgstr "リード %s は削除できません；削除するためにはドラフト状態である必要があります。削除の代わりにキャンセルする必要があります。"
+
+#~ msgid ""
+#~ "This property defines the list of date/time exceptions for a recurring "
+#~ "calendar component."
+#~ msgstr "このプロパティは定期的なカレンダーコンポーネントのために日付 / 時刻の例外のリストを定義します。"
+
+#~ msgid "Add Note"
+#~ msgstr "メモの追加"
+
+#~ msgid "Recurrent Meeting"
+#~ msgstr "定期ミーティング"
+
+#~ msgid ""
+#~ "Create specific phone call categories to better define the type of calls "
+#~ "tracked in the system."
+#~ msgstr "システム内の通話追跡をより良くするタイプの定義として、特定の通話分類を作成します。"
+
+#~ msgid "Phone calls made in last month"
+#~ msgstr "先月になされた通話"
+
+#~ msgid "Phone calls made in current month"
+#~ msgstr "今月なされた通話"
+
+#~ msgid "Todays's Phonecalls"
+#~ msgstr "本日の通話"
+
+#~ msgid "Scheduled Phonecalls"
+#~ msgstr "スケジュール済通話"
+
+#~ msgid "Are you sure you want to create a partner based on this Phonecall ?"
+#~ msgstr "この通話を元に、本当にパートナを作成したいのですか？"
+
+#~ msgid "Phonecall to Partner"
+#~ msgstr "通話からパートナへ"
+
+#~ msgid "Recurrent"
+#~ msgstr "定期"
+
+#~ msgid "Recurrent ID"
+#~ msgstr "定期ID"
+
+#~ msgid "Phone calls made in current year"
+#~ msgstr "今年になされた通話"
+
+#~ msgid "Recurrent ID date"
+#~ msgstr "定期ID日付"
+
+#~ msgid "Create Partner"
+#~ msgstr "パートナの作成"
+
+#~ msgid "Opt-In"
+#~ msgstr "オプトイン"
+
+#~ msgid ""
+#~ "If the active field is set to          true, it will allow you to hide the "
+#~ "event alarm information without removing it."
+#~ msgstr "アクティブ項目をTrueに設定した場合，イベントアラーム情報を削除することなく，非表示にできます。"
+
+#~ msgid "Repeat Until"
+#~ msgstr "繰り返し（まで）"
+
+#~ msgid "Statistics"
+#~ msgstr "統計"
+
+#~ msgid "Deadline"
+#~ msgstr "締切"
+
+#~ msgid ""
+#~ "Deadline Date is automatically                         computed from Start "
+#~ "Date + Duration"
+#~ msgstr "締切日は 開始日 + 期間 から自動的に計算されます。"
+
+#~ msgid "State of Mind"
+#~ msgstr "精神の状態"
+
+#~ msgid "Tue"
+#~ msgstr "火"
+
+#~ msgid "Need a Website Design"
+#~ msgstr "Webサイトデザインが必要"
+
+#~ msgid "Call Details"
+#~ msgstr "通話詳細"
+
+#~ msgid "Let the event automatically repeat at that interval"
+#~ msgstr "イベントをその間隔で自動的に繰り返します。"
+
+#~ msgid "Mail to Partner"
+#~ msgstr "パートナへ送付"
+
+#~ msgid "Condition Case Fields"
+#~ msgstr "案件項目の状態"
+
+#~ msgid "Mark as"
+#~ msgstr "マーク"
+
+#~ msgid "Sunday"
+#~ msgstr "日曜"
+
+#~ msgid "Sun"
+#~ msgstr "日"
+
+#~ msgid "Choose day in the month where repeat the meeting"
+#~ msgstr "ミーティングを定期的に行う場合は月の日を選択します。"
+
+#~ msgid "Mon"
+#~ msgstr "月"
+
+#~ msgid "Repeat every (Days/Week/Month/Year)"
+#~ msgstr "反復間隔（日 / 週 / 月 / 年）"
+
+#~ msgid "Day of month"
+#~ msgstr "月の日"
+
+#~ msgid "Common to All Teams"
+#~ msgstr "全てのチームに共通"
+
+#~ msgid "Wed"
+#~ msgstr "水"
+
+#~ msgid "Wednesday"
+#~ msgstr "水曜"
+
+#~ msgid "Thursday"
+#~ msgstr "木曜"
+
+#~ msgid "Thu"
+#~ msgstr "木"
+
+#~ msgid "Fri"
+#~ msgstr "金"
+
+#~ msgid "Friday"
+#~ msgstr "金曜"
+
+#~ msgid "Saturday"
+#~ msgstr "土曜"
+
+#~ msgid "Sat"
+#~ msgstr "土"
+
+#~ msgid "Reminder"
+#~ msgstr "通知"
+
+#~ msgid "Set an alarm at this time, before the event occurs"
+#~ msgstr "イベントが発生する前に今回アラームを設定します。"
+
+#~ msgid ""
+#~ "The state is set to 'Todo', when a case is created.                          "
+#~ "        \n"
+#~ "If the case is in progress the state is set to 'Open'.                       "
+#~ "           \n"
+#~ "When the call is over, the state is set to 'Held'.                           "
+#~ "       \n"
+#~ "If the call needs to be done then the state is set to 'Not Held'."
+#~ msgstr ""
+#~ "案件が作成された時に、状態はToDoにセットされます。\n"
+#~ "案件が進行中の時に、状態は開くにセットされます。\n"
+#~ "通話が終了した時に、状態は保留にセットされます。\n"
+#~ "通話が行われる必要がある場合は、状態は未保留にセットされます。"
+
+#, python-format
+#~ msgid "The case '%s' has been closed."
+#~ msgstr "案件は %s は閉じられました。"
+
+#~ msgid "Define Sales Team"
+#~ msgstr "営業チームの定義"
+
+#~ msgid ""
+#~ "Create specific partner categories which you can assign to your partners to "
+#~ "better manage your interactions with them. The segmentation tool is able to "
+#~ "assign categories to partners according to criteria you set."
+#~ msgstr ""
+#~ "パートナとの間のより良い相互作用を管理するために、特別のパートナ分類の作成をして、それをパートナに割り当てることができます。分類ツールはあなたが設定した基"
+#~ "準にしたがってパートナに分類を割り当てることができます。"
+
+#~ msgid "Exception Rule"
+#~ msgstr "例外ルール"
+
+#~ msgid "Check this if you want the rule to send an email to the partner."
+#~ msgstr "パートナにEメールを送信するルールを望む場合は、これをチェックします。"
+
+#~ msgid "Mail"
+#~ msgstr "手紙"
+
+#~ msgid "Do not link to a partner"
+#~ msgstr "パートナとリンクしない"
+
+#~ msgid "Choose day where repeat the meeting"
+#~ msgstr "定例ミーティングの日を選択します。"
+
+#~ msgid "Search Meetings"
+#~ msgstr "ミーティングの検索"
+
+#~ msgid "Alarm"
+#~ msgstr "アラーム"
+
+#~ msgid "Unconfirmed"
+#~ msgstr "未確定"
+
+#~ msgid "_Convert"
+#~ msgstr "変換"
+
+#~ msgid "The"
+#~ msgstr "・"
+
+#~ msgid "Birthdate"
+#~ msgstr "生年月日"
+
+#~ msgid "Meeting / Partner"
+#~ msgstr "ミーティング / パートナ"
+
+#~ msgid "Total of Planned Revenue"
+#~ msgstr "計画売上高合計"
+
+#~ msgid "Fifth"
+#~ msgstr "第５"
+
+#~ msgid "Potential Reseller"
+#~ msgstr "リセラーの候補"
+
+#~ msgid ""
+#~ "When escalating to this team override the saleman with the team leader."
+#~ msgstr "このチームに拡大する時、チームリーダとともに販売員を置き換えます。"
+
+#~ msgid ""
+#~ "With Meeting Invitations you can create and manage the meeting invitations "
+#~ "sent/to be sent to your colleagues/partners. You can not only invite OpenERP "
+#~ "users, but also external parties, such as a customer."
+#~ msgstr ""
+#~ "ミーティング招待は同僚やパートナにミーティングの招待を送信する / "
+#~ "されるための作成と管理ができます。OpenERPユーザのみならず、顧客といった外部の関係者を招待することができます。"
+
+#, python-format
+#~ msgid "The case '%s' has been opened."
+#~ msgstr "案件 %s は開いています。"
+
+#~ msgid "Invitation details"
+#~ msgstr "招待詳細"
+
+#~ msgid "Optional linked partner, usually after conversion of the lead"
+#~ msgstr "通常はリードの変換後のオプションのリンクされたパートナ"
+
+#~ msgid "Campaign 1"
+#~ msgstr "キャンペーン1"
+
+#~ msgid "Campaign 2"
+#~ msgstr "キャンペーン2"
+
+#~ msgid "Leads/Opportunities created in last month"
+#~ msgstr "先月作成されたリード / 商談"
+
+#~ msgid "Opportunity / Customer"
+#~ msgstr "商談 / 顧客"
+
+#, python-format
+#~ msgid "The opportunity '%s' has been marked as lost."
+#~ msgstr "商談 %s は失注としてマークされています。"
+
+#, python-format
+#~ msgid "Lead '%s' has been converted to an opportunity."
+#~ msgstr "リード %s は商談に変換されました。"
+
+#~ msgid "Convert To Opportunity "
+#~ msgstr "商談に変換 "
+
+#~ msgid ""
+#~ "Stages will allow salesmen to easily track how a specific opportunity is "
+#~ "positioned in the sales cycle. In order to efficiently manage your sales "
+#~ "pipeline, it's important to define conditions to go to the next step. "
+#~ "Example: to set an opportunity as 'Qualified', you must set the \"Expected "
+#~ "Revenue\" and the \"Expected Closing Date.\" You should also have a look at "
+#~ "the tooltip of the field \"Change Probability Automatically\"."
+#~ msgstr ""
+#~ "ステージは販売員が簡単にどのように特定の商談が販売サイクルの中に位置づけられるのかを追跡できます。効率的に販売パイプラインを管理するために、次のステップに"
+#~ "行くための条件を定義することは重要です。例：資格ありとして商談はセットされます。予想売上と予想終了日を設定する必要があります。同じく自動可能性変更の項目の"
+#~ "ヒントを見るべきです。"
+
+#~ msgid ""
+#~ "The meeting calendar is shared between the sales teams and fully integrated "
+#~ "with other applications such as the employee holidays or the business "
+#~ "opportunities. You can also synchronize meetings with your mobile phone "
+#~ "using the caldav interface.\n"
+#~ "        "
+#~ msgstr ""
+#~ "ミーティングカレンダは営業チーム間で共有され、従業員休暇やビジネス商談のような他のアプリケーションに完全に統合されています。ミーティングはCalDAVイン"
+#~ "タフェースを使って、携帯電話と同期させることもできます。\n"
+#~ "        "
+
+#~ msgid "Partner To Opportunity"
+#~ msgstr "パートナから商談へ"
+
+#~ msgid "Merge two Opportunities"
+#~ msgstr "２つの商談を統合"
+
+#~ msgid "Opportunities by Categories"
+#~ msgstr "分類別商談"
+
+#~ msgid "Convert into Opportunities"
+#~ msgstr "商談に変換"
+
+#~ msgid "Opportunity by Categories"
+#~ msgstr "分類別商談"
+
+#~ msgid ""
+#~ "Add specific stages to leads and opportunities allowing your sales to better "
+#~ "organise their sales pipeline. Stages will allow them to easily track how a "
+#~ "specific lead or opportunity is positioned in the sales cycle."
+#~ msgstr ""
+#~ "リードと商談に特定の段階を追加することは、営業のために営業パイプラインのより良い組織化を実現します。段階は営業サイクルの中にどのように特定のリードと商談を"
+#~ "配置されるのかを簡単に追跡することができます。"
+
+#~ msgid "Opportunities By Categories"
+#~ msgstr "分類別商談"
+
+#~ msgid ""
+#~ "The name of the future partner that will be created while converting the "
+#~ "lead into opportunity"
+#~ msgstr "将来のパートナの名前はリードから商談に変換する間に作成されます。"
+
+#~ msgid "Convert opportunities"
+#~ msgstr "商談の変換"
+
+#~ msgid "Phonecall To Opportunity"
+#~ msgstr "通話から商談へ"
+
+#~ msgid "Convert To Opportunity"
+#~ msgstr "商談に変換"
+
+#~ msgid "Merge Opportunities"
+#~ msgstr "商談の統合"
+
+#, python-format
+#~ msgid "The opportunity '%s' has been opened."
+#~ msgstr "商談 %s は開かれました。"
+
+#, python-format
+#~ msgid "The stage of opportunity '%s' has been changed to '%s'."
+#~ msgstr "商談 %s の段階は %s に変更されました。"
+
+#~ msgid "Leads/Opportunities created in current month"
+#~ msgstr "今月作成されたリード / 商談"
+
+#~ msgid "My Open Opportunities"
+#~ msgstr "私の開いている商談"
+
+#~ msgid "Leads/Opportunities created in current year"
+#~ msgstr "今年作成されたリード / 商談"
+
+#~ msgid "Opportunities by User and Team"
+#~ msgstr "ユーザとチーム別の商談"
+
+#, python-format
+#~ msgid "Closed/Cancelled Leads can not be converted into Opportunity"
+#~ msgstr "閉じた / キャンセル済リードは商談に変換することはできません。"
+
+#, python-format
+#~ msgid "The opportunity '%s' has been been won."
+#~ msgstr "商談 %s は受注されています。"
+
+#~ msgid ""
+#~ "This tool allows you to log your inbound calls on the fly. Each call you get "
+#~ "will appear on the partner form to trace every contact you have with a "
+#~ "partner. From the phone call form, you can trigger a request for another "
+#~ "call, a meeting or an opportunity."
+#~ msgstr ""
+#~ "このツールはその場であなたの着信通話をログに記録することができます。各通話はあなたとパートナが行った全てのコンタクトを追加するためにパートナフォーム上に表"
+#~ "示されます。通話フォームから、他の通話、ミーティング、商談の要求を起動できます。"
+
+#~ msgid ""
+#~ "Track from where is coming your leads and opportunities by creating specific "
+#~ "channels that will be maintained at the creation of a document in the "
+#~ "system. Some examples of channels can be: Website, Phone Call, Reseller, etc."
+#~ msgstr ""
+#~ "システム内のドキュメント作成において、維持管理される特定のチャネルの作成によって、リードと商談がどこから来るのかを追跡します。幾つかのチャネルの例：Web"
+#~ "サイト、通話、リセラーなど。"
+
+#~ msgid "Merge with existing Opportunity"
+#~ msgstr "既存の商談の統合"
+
+#~ msgid "Allow Delete"
+#~ msgstr "削除を許可"
+
+#~ msgid "Free"
+#~ msgstr "空き"
+
+#~ msgid "Recurrency Option"
+#~ msgstr "定期のオプション"
+
+#~ msgid "Mail Campaign 2"
+#~ msgstr "メールキャンペーン2"
+
+#~ msgid "Mail Campaign 1"
+#~ msgstr "メールキャンペーン1"
+
+#~ msgid "Reset to Draft"
+#~ msgstr "ドラフトに再設定"
+
+#~ msgid "Create"
+#~ msgstr "作成"
+
+#~ msgid ""
+#~ "Create different meeting categories to better organize and classify your "
+#~ "meetings."
+#~ msgstr "ミーティングをより良く構成したり分類するための異なるミーティング分類を作成します。"
+
+#~ msgid "Reply"
+#~ msgstr "返信"
+
+#, python-format
+#~ msgid "Error !"
+#~ msgstr "エラー"
+
+#~ msgid "Location"
+#~ msgstr "場所"
+
+#~ msgid "Caldav URL"
+#~ msgstr "CalDAVのURL"
+
+#~ msgid "Leads creating during last 7 days"
+#~ msgstr "過去7日間で作成されたリード"
+
+#~ msgid ""
+#~ "Define a Sales Team to organize your different salesmen or sales departments "
+#~ "into separate teams. Each team will work in its own list of opportunities, "
+#~ "sales orders, etc. Each user can set a default team in his user preferences. "
+#~ "The opportunities and sales order displayed, will automatically be filtered "
+#~ "according to his team."
+#~ msgstr ""
+#~ "独立したチームに異なる販売員や営業部門を組織化するための営業チームを定義します。各チームは独自の商談、受注オーダーなどのリストにより活動します。各ユーザは"
+#~ "そのユーザ設定の中にデフォルトのチームを設定することができます。表示された商談と受注オーダーはそのチームにしたがって自動的にフィルタされます。"
+
+#~ msgid "Repeat x times"
+#~ msgstr "ｘ回繰り返し"
+
+#~ msgid "Pending Opportunities"
+#~ msgstr "保留中商談"
+
+#, python-format
+#~ msgid "Please select more than one opportunity from the list view."
+#~ msgstr "リストビューから１つ以上の商談を選択して下さい。"
+
+#~ msgid "Lead to Partner"
+#~ msgstr "リードからパートナへ"
+
+#~ msgid "Reset to Unconfirmed"
+#~ msgstr "未確認にリセット"
+
+#~ msgid "Create a new partner"
+#~ msgstr "新規パートナの作成"
+
+#~ msgid "Start Date"
+#~ msgstr "開始日"
+
+#~ msgid "If opt-in is checked, this contact has accepted to receive emails."
+#~ msgstr "オプトインをチェックした場合、この連絡先はEメールの受信を許諾します。"
+
+#~ msgid "Decline"
+#~ msgstr "拒否"
+
+#~ msgid "Internal Meeting"
+#~ msgstr "内部ミーティング"
+
+#~ msgid "The chosen company is not in the allowed companies for this user"
+#~ msgstr "選択した会社は、このユーザに許された会社ではありません。"
+
+#~ msgid "Customer Meeting"
+#~ msgstr "顧客ミーティング"
+
+#~ msgid "Uncertain"
+#~ msgstr "不確実"
+
+#~ msgid "Number of repetitions"
+#~ msgstr "繰り返し数"
+
+#~ msgid "Weekly"
+#~ msgstr "週次"
+
+#~ msgid "Sales"
+#~ msgstr "受注"
+
+#~ msgid "Decrease (0>1)"
+#~ msgstr "減少（0>1）"
+
+#~ msgid "History"
+#~ msgstr "履歴"
+
+#~ msgid "Busy"
+#~ msgstr "割当済"
+
+#~ msgid "Max Interval"
+#~ msgstr "最大間隔"
+
+#, python-format
+#~ msgid ""
+#~ "You can not escalate, you are already at the top level regarding your sales-"
+#~ "team category."
+#~ msgstr "あなたは拡大できません。既にあなたの営業チームの分類は最高位にあります。"
+
+#~ msgid "Done"
+#~ msgstr "完了"
+
+#~ msgid "Repeat every"
+#~ msgstr "反復（間隔）"
+
+#~ msgid "Third"
+#~ msgstr "第３"
+
+#~ msgid "End Date"
+#~ msgstr "終了日"
+
+#~ msgid "Weekday"
+#~ msgstr "平日"
+
+#~ msgid "Recurrency period"
+#~ msgstr "定期の期間"
+
+#~ msgid ""
+#~ "The computation is made on all events that occured during this interval, the "
+#~ "past X periods."
+#~ msgstr "計算はこの期間と過去x期間の中で発生した全てのイベントで行われます。"
+
+#~ msgid "# of Emails"
+#~ msgstr "Eメール数"
+
+#~ msgid "Set New State To"
+#~ msgstr "新規状態の設定先"
+
+#~ msgid "Sales Dashboard"
+#~ msgstr "受注ダッシュボード"
+
+#~ msgid "Unchanged"
+#~ msgstr "未変更"
+
+#~ msgid "Fourth"
+#~ msgstr "第４"
+
+#~ msgid "Select Salesman"
+#~ msgstr "販売員の選択"
+
+#~ msgid "Show countries"
+#~ msgstr "国を表示"
+
+#~ msgid "Partners Segmentation"
+#~ msgstr "パートナ分類"
+
+#~ msgid "Subject of Email"
+#~ msgstr "Eメールの標題"
+
+#~ msgid "Assignment"
+#~ msgstr "割当"
+
+#~ msgid "All Day"
+#~ msgstr "終日"
+
+#~ msgid "E-mail address of the contact"
+#~ msgstr "連絡先のEメールアドレス"
+
+#, python-format
+#~ msgid "Error!"
+#~ msgstr "エラー"
+
+#~ msgid "Last"
+#~ msgstr "最後"
+
+#~ msgid "Add Internal Note"
+#~ msgstr "内部注記を追加"
+
+#~ msgid ""
+#~ "Leads allow you to manage and keep track of all initial contacts with a "
+#~ "prospect or partner showing interest in your products or services. A lead is "
+#~ "usually the first step in your sales cycle. Once qualified, a lead may be "
+#~ "converted into a business opportunity, while creating the related partner "
+#~ "for further detailed tracking of any linked activities. You can import a "
+#~ "database of prospects, keep track of your business cards or integrate your "
+#~ "website's contact form with the OpenERP Leads. Leads can be connected to the "
+#~ "email gateway: new emails may create leads, each of them automatically gets "
+#~ "the history of the conversation with the prospect."
+#~ msgstr ""
+#~ "リードは製品やサービスに興味を見せる見込み客やパートナに対して全ての初期接触の管理と追跡を続けることを許します。リードは通常、営業サイクルの最初のステップ"
+#~ "です。一度、資格を認められると、リードはビジネスの商談に変換することができます。と同時に、全てのリンクする活動をそれ以上詳細の追跡のために、関連するパート"
+#~ "ナを作成します。見込みのデータベースのインポート、名刺の継続追跡、またはIpenERPリードとあなたのWebサイトの連絡先フォームの統合ができます。リード"
+#~ "はEメールゲートウェイとの接続も可能です：新規Eメールはリードを作成し、それらの各々は自動的に見込みとともに会話の履歴を取得します。"
+
+#~ msgid ""
+#~ "With opportunities you can manage and keep track of your sales pipeline by "
+#~ "creating specific customer- or prospect-related sales documents to follow up "
+#~ "potential sales. Information such as expected revenue, opportunity stage, "
+#~ "expected closing date, communication history and much more can be stored. "
+#~ "Opportunities can be connected to the email gateway: new emails may create "
+#~ "opportunities, each of them automatically gets the history of the "
+#~ "conversation with the customer.\n"
+#~ "\n"
+#~ "You and your team(s) will be able to plan meetings and phone calls from "
+#~ "opportunities, convert them into quotations, manage related documents, track "
+#~ "all customer related activities, and much more."
+#~ msgstr ""
+#~ "商談とともに見込み営業を継続するために特定の顧客または見込みに関係する営業ドキュメントを作成することで営業パイプラインの管理と追跡の継続が可能です。予想売"
+#~ "上、商談の段階、予想終了日、通信履歴などの情報を保存することができます。商談はEメールゲートウェイと接続しています：新規Eメールは商談を作成し、それらの各"
+#~ "々は顧客の通信履歴を自動的に取得します。\n"
+#~ "\n"
+#~ "あなたとあなたのチームは、商談からミーティングや電話の計画を行い、それらを見積りに変換し、関係ドキュメントを管理し、全ての顧客に関連する活動を追跡すること"
+#~ "などが可能です。"
+
+#~ msgid ""
+#~ "Create specific categories that fit your company's activities to better "
+#~ "classify and analyse your leads and opportunities. Such categories could for "
+#~ "instance reflect your product structure or the different types of sales you "
+#~ "do."
+#~ msgstr ""
+#~ "より良い分類とリードや商談を分析するために、会社の活動に適合する特定の分類を作成します。それらの分類は、例えば商品構造やあなたの行う異なったタイプの営業を"
+#~ "反映します。"
+
+#~ msgid "Note Body"
+#~ msgstr "注記本文"
+
+#~ msgid "Links"
+#~ msgstr "リンク"
+
+#~ msgid "Todays' Leads"
+#~ msgstr "本日のリード"
+
+#~ msgid ""
+#~ "Scheduled calls list all the calls to be done by your sales team. A salesman "
+#~ "can record the information about the call in the form view. This information "
+#~ "will be stored in the partner form to trace every contact you have with a "
+#~ "customer. You can also import a .CSV file with a list of calls to be done by "
+#~ "your sales team."
+#~ msgstr ""
+#~ "スケジュールされた通話はあなたの営業チームにより行われた全ての通話をリストします。販売員はフォームビューの中の通話についての情報を記録できます。この情報は"
+#~ "あなたと顧客とが行った全てのコンタクトを追跡するため、パートナフォームの中に保存することができます。あなたの営業チームにより行われた通話のリストのCSVフ"
+#~ "ァイルをインポートすることもできます。"
+
+#~ msgid "Exception Date/Times"
+#~ msgstr "例外の日付 / 時間"
+
+#~ msgid "Set Category to"
+#~ msgstr "分類の設定先"
+
+#~ msgid "Need Information"
+#~ msgstr "情報が必要"
+
+#~ msgid "Fed. State"
+#~ msgstr "都道府県"
+
+#~ msgid "_Cancel"
+#~ msgstr "キャンセル"
+
+#~ msgid "Mail To"
+#~ msgstr "メール宛先"
+
+#~ msgid "CRM Dashboard"
+#~ msgstr "CRMダッシュボード"
+
+#~ msgid "# Mails"
+#~ msgstr "メールの数"
+
+#~ msgid ""
+#~ "Define sales teams to structure your sales organization and assign users to "
+#~ "each team. You should also define the sales stage to each team. As an "
+#~ "example, if you use Solutions Selling techniques to track your "
+#~ "opportunities, you can assign the following stage to the team: Territory, "
+#~ "Qualified, Qualified Sponsors, Proposition, Negociaton, Won/Lost."
+#~ msgstr ""
+#~ "営業組織を構築するために営業チームを定義し、ユーザを各チームに割り当てます。各チームに営業段階を定義する必要があります。例として、あなたが商談を追跡するた"
+#~ "めに提案型営業技法を使用する場合、チームに次の段階を割り当てることができます：関心、資格、資格スポンサー、提案、交渉、受注 / 失注。"
+
+#~ msgid "Condition on Communication History"
+#~ msgstr "通信履歴の条件"
+
+#~ msgid "Daily"
+#~ msgstr "日次"
+
+#, python-format
+#~ msgid "A partner is already defined."
+#~ msgstr "パートナは既に定義済です。"
+
+#~ msgid "First"
+#~ msgstr "第１"
+
+#~ msgid ""
+#~ "If the partner has not purchased (or bought) during a period, decrease the "
+#~ "state of mind by this factor. It's a multiplication"
+#~ msgstr "パートナは期間中に仕入れや購入しなかった場合は、この要因により、精神状態が低下します。それは乗算されます。"
+
+#~ msgid "Allows to delete non draft cases"
+#~ msgstr "非ドラフト案件の削除を許可"
+
+#~ msgid "Repeat"
+#~ msgstr "繰り返し"
+
+#~ msgid "Timezone"
+#~ msgstr "タイムゾーン"
+
+#~ msgid ""
+#~ "A period is the average number of days between two cycle of sale or purchase "
+#~ "for this segmentation.                 \n"
+#~ "It's mainly used to detect if a partner has not purchased or buy for a too "
+#~ "long time,                  \n"
+#~ "so we suppose that his state of mind has decreased because he probably "
+#~ "bought goods to another supplier.                  \n"
+#~ "Use this functionality for recurring businesses."
+#~ msgstr ""
+#~ "期間はこの分類のための販売または購入の２つの周期の間の平均日数です。\n"
+#~ "これは主に、パートナが長期間にわたり仕入れや購入しなかったことを検出するのに使用されます。\n"
+#~ "それは、彼は他の仕入先から製品の購入をしているため、精神状態は低下しているものと考えられます。\n"
+#~ "定期的なビジネスのためにこの機能を使用します。"
+
+#~ msgid "Partner Name"
+#~ msgstr "パートナ名"
+
+#~ msgid "Salesman"
+#~ msgstr "販売員"
+
+#~ msgid "Invitation Detail"
+#~ msgstr "招待の詳細"
+
+#~ msgid "Interest in Computer"
+#~ msgstr "コンピュータへの関心"
+
+#~ msgid "Contacts"
+#~ msgstr "コンタクト"
+
+#~ msgid "Default (0=None)"
+#~ msgstr "デフォルト（0=なし）"
+
+#~ msgid "Success Probability"
+#~ msgstr "成功確率"
+
+#~ msgid "7 Days"
+#~ msgstr "7日間"
+
+#~ msgid "Attendees"
+#~ msgstr "出席者"
+
+#~ msgid "Communication & History"
+#~ msgstr "通信と履歴"
+
+#, python-format
+#~ msgid "The case '%s' has been cancelled."
+#~ msgstr "案件 %s はキャンセル済です。"
+
+#~ msgid "Meeting Categories"
+#~ msgstr "ミーティングの分類"
+
+#~ msgid "You may have to verify that this partner does not exist already."
+#~ msgstr "このパートナが既に存在しないことを確認する必要があります。"
+
+#~ msgid "Error ! You can not create recursive profiles."
+#~ msgstr "エラー。再帰的なプロファイルの作成はできません。"
+
+#~ msgid "You can not have two users with the same login !"
+#~ msgstr "同じログインでは２つのユーザを持てません。"
+
+#, python-format
+#~ msgid "Error"
+#~ msgstr "エラー"
+
+#~ msgid "Need Consulting"
+#~ msgstr "コンサルティングが必要"
+
+#~ msgid "Partner Contact"
+#~ msgstr "パートナ連絡先"
+
+#~ msgid "Action Rules"
+#~ msgstr "アクションルール"
+
+#~ msgid "Recurrency"
+#~ msgstr "定期的"
+
+#~ msgid "To"
+#~ msgstr "宛先"
+
+#, python-format
+#~ msgid "Close"
+#~ msgstr "閉じる"
+
+#~ msgid "_Add"
+#~ msgstr "追加"
+
+#, python-format
+#~ msgid "No E-Mail Found for your Company address!"
+#~ msgstr "会社の住所にEメールがありません。"
+
+#~ msgid "Interest in Accessories"
+#~ msgstr "アクセサリーへの関心"
+
+#~ msgid "Public for Employees"
+#~ msgstr "従業員の一般"
+
+#~ msgid "Private"
+#~ msgstr "非公開"
+
+#~ msgid "Edit"
+#~ msgstr "編集"
+
+#~ msgid "E-mail composition wizard"
+#~ msgstr "Eメール作成ウィザード"
+
+#~ msgid "Invite People"
+#~ msgstr "人を招待"
+
+#~ msgid "Meeting Type"
+#~ msgstr "ミーティングタイプ"
+
+#~ msgid "Meeting Invitations"
+#~ msgstr "会議への招待"
+
+#~ msgid ""
+#~ "The state is set to 'Draft', when a case is created.                         "
+#~ "         \n"
+#~ "If the case is in progress the state is set to 'Open'.                       "
+#~ "           \n"
+#~ "When the case is over, the state is set to 'Done'.                           "
+#~ "       \n"
+#~ "If the case needs to be reviewed then the state is set to 'Pending'."
+#~ msgstr ""
+#~ "案件が作成されると、状態はドラフトにセットされます。\n"
+#~ "案件が進行中になると、状態は開くにセットされます。\n"
+#~ "案件が終了すると、状態は完了にセットされます。\n"
+#~ "案件のレビューが必要な場合、状態は保留中にセットされます。"
+
+#~ msgid "# Emails"
+#~ msgstr "Eメールの数"
+
+#~ msgid "Maximum Communication History"
+#~ msgstr "通信履歴の最大"

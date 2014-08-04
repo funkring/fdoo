@@ -1,21 +1,20 @@
-# Croatian translation for openobject-addons
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
-# This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* point_of_sale
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openobject-addons\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:36+0000\n"
-"PO-Revision-Date: 2013-03-13 19:40+0000\n"
-"Last-Translator: Davor Bojkić <bole@dajmi5.com>\n"
-"Language-Team: Croatian <hr@li.org>\n"
+"Project-Id-Version: OpenERP Server 6.0dev\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-12-21 17:04+0000\n"
+"PO-Revision-Date: 2012-12-10 07:14+0000\n"
+"Last-Translator: Goran Kliska <gkliska@gmail.com>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-21 06:24+0000\n"
-"X-Generator: Launchpad (build 16831)\n"
+"X-Launchpad-Export-Date: 2014-03-27 06:08+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: point_of_sale
 #: field:report.transaction.pos,product_nb:0
@@ -281,13 +280,6 @@ msgid "Accounting Information"
 msgstr "Računovodstvo"
 
 #. module: point_of_sale
-#. openerp-web
-#: code:addons/point_of_sale/static/src/xml/pos.xml:427
-#, python-format
-msgid "0.00€"
-msgstr ""
-
-#. module: point_of_sale
 #: field:pos.session.opening,show_config:0
 msgid "Show Config"
 msgstr "Pokaži konfig"
@@ -411,14 +403,6 @@ msgid "Open Cashbox"
 msgstr "Otvori blagajnu"
 
 #. module: point_of_sale
-#: code:addons/point_of_sale/point_of_sale.py:536
-#, python-format
-msgid ""
-"You cannot change the partner of a POS order for which an invoice has "
-"already been issued."
-msgstr ""
-
-#. module: point_of_sale
 #: view:pos.session.opening:0
 msgid "Select your Point of Sale"
 msgstr "Odaberite vaše prodajno mjesto"
@@ -469,16 +453,6 @@ msgstr "Trebate dodijeliti prodajno mjesto za vašu smjenu"
 #: view:pos.order.line:0
 msgid "Total qty"
 msgstr "Uk. količina"
-
-#. module: point_of_sale
-#. openerp-web
-#: code:addons/point_of_sale/static/src/js/screens.js:458
-#: code:addons/point_of_sale/static/src/js/screens.js:487
-#: code:addons/point_of_sale/static/src/js/screens.js:678
-#: code:addons/point_of_sale/static/src/js/screens.js:874
-#, python-format
-msgid "Back"
-msgstr ""
 
 #. module: point_of_sale
 #: model:product.template,name:point_of_sale.fanta_orange_33cl_product_template
@@ -887,13 +861,6 @@ msgstr "Tel.:"
 
 #. module: point_of_sale
 #. openerp-web
-#: code:addons/point_of_sale/static/src/js/widgets.js:981
-#, python-format
-msgid "Self-Checkout"
-msgstr ""
-
-#. module: point_of_sale
-#. openerp-web
 #: code:addons/point_of_sale/static/src/xml/pos.xml:254
 #: model:ir.actions.act_window,name:point_of_sale.action_report_pos_receipt
 #, python-format
@@ -1084,12 +1051,6 @@ msgstr "Ožujak"
 #: report:pos.user.product:0
 msgid "User's Product"
 msgstr "Korisnikov proizvod"
-
-#. module: point_of_sale
-#: code:addons/point_of_sale/point_of_sale.py:1007
-#, python-format
-msgid "The POS order must have lines when calling this method"
-msgstr "POS narudžba mora sadržavati stavke kada pozivate ovu metodu"
 
 #. module: point_of_sale
 #: code:addons/point_of_sale/point_of_sale.py:1173
@@ -1302,13 +1263,6 @@ msgstr "Ukupno prodaje"
 #, python-format
 msgid "ABC"
 msgstr "ABC"
-
-#. module: point_of_sale
-#. openerp-web
-#: code:addons/point_of_sale/static/src/js/screens.js:812
-#, python-format
-msgid "Print"
-msgstr ""
 
 #. module: point_of_sale
 #: model:product.template,name:point_of_sale.ijsboerke_dame_blanche_2,5l_product_template
@@ -1597,6 +1551,11 @@ msgid "&auml;"
 msgstr ""
 
 #. module: point_of_sale
+#: report:pos.invoice:0
+msgid "VAT :"
+msgstr "PDV :"
+
+#. module: point_of_sale
 #: view:pos.order.line:0
 msgid "POS Order lines"
 msgstr "Stavke prodaje"
@@ -1654,13 +1613,6 @@ msgstr "Primjeni popust"
 #: model:res.groups,name:point_of_sale.group_pos_user
 msgid "User"
 msgstr "Korisnik"
-
-#. module: point_of_sale
-#: code:addons/point_of_sale/point_of_sale.py:413
-#, python-format
-msgid ""
-"The type of the journal for your payment method should be bank or cash "
-msgstr ""
 
 #. module: point_of_sale
 #. openerp-web
@@ -1826,13 +1778,6 @@ msgid "Peach"
 msgstr "Breskve"
 
 #. module: point_of_sale
-#. openerp-web
-#: code:addons/point_of_sale/static/src/js/screens.js:772
-#, python-format
-msgid "Pay"
-msgstr ""
-
-#. module: point_of_sale
 #: model:product.template,name:point_of_sale.timmermans_kriek_37,5cl_product_template
 msgid "Timmermans Kriek 37.5cl"
 msgstr ""
@@ -1937,13 +1882,6 @@ msgstr ""
 #: view:report.transaction.pos:0
 msgid "POS"
 msgstr "POS"
-
-#. module: point_of_sale
-#. openerp-web
-#: code:addons/point_of_sale/static/src/xml/pos.xml:587
-#, python-format
-msgid "Subtotal:"
-msgstr "Međuzbroj:"
 
 #. module: point_of_sale
 #: model:product.template,name:point_of_sale.coca_regular_33cl_product_template
@@ -2184,14 +2122,6 @@ msgid "Others"
 msgstr "Ostali"
 
 #. module: point_of_sale
-#. openerp-web
-#: code:addons/point_of_sale/static/src/js/screens.js:495
-#: code:addons/point_of_sale/static/src/js/screens.js:882
-#, python-format
-msgid "Validate"
-msgstr "Potvrdi"
-
-#. module: point_of_sale
 #: model:pos.category,name:point_of_sale.autres_legumes_frais
 msgid "Other fresh vegetables"
 msgstr "Ostalo svježe povrće"
@@ -2296,12 +2226,11 @@ msgid "Coca-Cola Zero 1L"
 msgstr ""
 
 #. module: point_of_sale
-#. openerp-web
-#: code:addons/point_of_sale/static/src/js/screens.js:268
-#: code:addons/point_of_sale/static/src/js/screens.js:718
-#, python-format
-msgid "Help"
-msgstr ""
+#: report:pos.sales.user:0
+#: report:pos.sales.user.today:0
+#: field:report.pos.order,date:0
+msgid "Date Order"
+msgstr "Date Order"
 
 #. module: point_of_sale
 #: view:pos.order:0
@@ -2376,13 +2305,6 @@ msgstr "Smjena POS-a"
 #: model:ir.actions.report.xml,name:point_of_sale.account_statement
 msgid "Statement"
 msgstr "Izvod"
-
-#. module: point_of_sale
-#. openerp-web
-#: code:addons/point_of_sale/static/src/xml/pos.xml:351
-#, python-format
-msgid "Sorry, we could not create a session for this user."
-msgstr "Oprostite, nismo mogli otvoriti smjenu za ovog korisnika."
 
 #. module: point_of_sale
 #: report:pos.invoice:0
@@ -2574,13 +2496,6 @@ msgid "Year of order date"
 msgstr "Godina sa datuma narudžbe"
 
 #. module: point_of_sale
-#: report:pos.sales.user:0
-#: report:pos.sales.user.today:0
-#: field:report.pos.order,date:0
-msgid "Date Order"
-msgstr "Date Order"
-
-#. module: point_of_sale
 #: help:product.product,to_weight:0
 msgid ""
 "Check if the product should be weighted (mainly used with self check-out "
@@ -2643,11 +2558,6 @@ msgstr "Zatvoreno"
 #: field:pos.config,iface_cashdrawer:0
 msgid "Cashdrawer Interface"
 msgstr "Sučelje ladice za novac"
-
-#. module: point_of_sale
-#: report:pos.invoice:0
-msgid "TIN :"
-msgstr ""
 
 #. module: point_of_sale
 #: model:pos.category,name:point_of_sale.tomates
@@ -3919,13 +3829,6 @@ msgid "Close Session"
 msgstr "Zatvori smjenu"
 
 #. module: point_of_sale
-#. openerp-web
-#: code:addons/point_of_sale/static/src/js/widgets.js:975
-#, python-format
-msgid "Close"
-msgstr "Zatvori"
-
-#. module: point_of_sale
 #: view:pos.order:0
 msgid "Order lines"
 msgstr "Stavke narudžbe"
@@ -3993,19 +3896,6 @@ msgstr "Ispiši preko proxija"
 #: report:pos.sales.user.today:0
 msgid "Today's Sales By User"
 msgstr "Današnje prodaje po korisniku"
-
-#. module: point_of_sale
-#: help:account.journal,amount_authorized_diff:0
-msgid ""
-"This field depicts the maximum difference allowed between the ending balance "
-"and the theorical cash when closing a session, for non-POS managers. If this "
-"maximum is reached, the user will have an error message at the closing of "
-"his session saying that he needs to contact his manager."
-msgstr ""
-"Ovo polje opisuje maksimalnu razliku između stvarnog i teoretskog stanja u "
-"blagajni prilikom zatvaranja smjene, za korisnike POS-a. Ukoliko je dosegnut "
-"maksimum, korisnik će dobiti poruku o grešci prilikom zatvaranja smjene, "
-"koja mu govori da se javi svom voditelju."
 
 #. module: point_of_sale
 #: report:pos.invoice:0
@@ -4210,10 +4100,10 @@ msgstr "Prodaja po korisniku"
 
 #. module: point_of_sale
 #. openerp-web
-#: code:addons/point_of_sale/static/src/js/screens.js:818
+#: code:addons/point_of_sale/static/src/xml/pos.xml:351
 #, python-format
-msgid "Next Order"
-msgstr "Sljedeći račun"
+msgid "Sorry, we could not create a session for this user."
+msgstr "Oprostite, nismo mogli otvoriti smjenu za ovog korisnika."
 
 #. module: point_of_sale
 #: code:addons/point_of_sale/point_of_sale.py:98
@@ -4254,5 +4144,265 @@ msgstr ""
 msgid "Orders"
 msgstr "Nalozi"
 
-#~ msgid "VAT :"
-#~ msgstr "PDV :"
+#~ msgid "Set to draft"
+#~ msgstr "Stavi u pripremu"
+
+#~ msgid "Discount :"
+#~ msgstr "Popust"
+
+#~ msgid ","
+#~ msgstr ","
+
+#~ msgid "Orders of the day"
+#~ msgstr "Današnje narudžbe"
+
+#~ msgid "VAT"
+#~ msgstr "PDV"
+
+#~ msgid "Code"
+#~ msgstr "Šifra"
+
+#~ msgid "Refund Orders"
+#~ msgstr "Storno"
+
+#~ msgid "VAT(%)"
+#~ msgstr "PDV(%)"
+
+#~ msgid "Scan Barcode"
+#~ msgstr "Očitaj barkod"
+
+#~ msgid "Confirm"
+#~ msgstr "Potvrdi"
+
+#~ msgid "State"
+#~ msgstr "Stanje"
+
+#~ msgid "Date :"
+#~ msgstr "Datum :"
+
+#~ msgid "Order Payments"
+#~ msgstr "Plaćanja"
+
+#~ msgid "Payment date"
+#~ msgstr "Datum plaćanja"
+
+#~ msgid "Payment name"
+#~ msgstr "Naziv plaćanja"
+
+#~ msgid "Point Of Sale"
+#~ msgstr "Blagajna"
+
+#~ msgid "Invalid XML for View Architecture!"
+#~ msgstr "Neispravan XML za arhitekturu prikaza!"
+
+#~ msgid "POS Lines of the day"
+#~ msgstr "Dnevna prodaja blagajne"
+
+#~ msgid "Add products"
+#~ msgstr "Dodaj proizvode"
+
+#~ msgid "E-mail :"
+#~ msgstr "E-mail :"
+
+#~ msgid "Add"
+#~ msgstr "Dodaj"
+
+#~ msgid "Payment Name"
+#~ msgstr "Naziv plaćanja"
+
+#~ msgid "Sales of the day"
+#~ msgstr "Dnevna prodaja"
+
+#~ msgid "Period:"
+#~ msgstr "Razdoblje:"
+
+#~ msgid "All the sales"
+#~ msgstr "Sve prodaje"
+
+#~ msgid "Compute"
+#~ msgstr "Izračunaj"
+
+#~ msgid ":"
+#~ msgstr ":"
+
+#~ msgid "Mode of payment"
+#~ msgstr "Način plaćanja"
+
+#~ msgid "Refund order :"
+#~ msgstr "Povrat:"
+
+#~ msgid "Discount percentage"
+#~ msgstr "Postotak popusta"
+
+#~ msgid "Other"
+#~ msgstr "Ostalo"
+
+#~ msgid "Pos Box Out"
+#~ msgstr "Pos Box Out"
+
+#~ msgid "Register Analysis"
+#~ msgstr "Register Analysis"
+
+#~ msgid "Add payment :"
+#~ msgstr "Dodaj plaćanje :"
+
+#~ msgid "Origin"
+#~ msgstr "Izvor"
+
+#~ msgid "Cash Register Management"
+#~ msgstr "Cash Register Management"
+
+#~ msgid "["
+#~ msgstr "["
+
+#~ msgid "Output Operation"
+#~ msgstr "Output Operation"
+
+#~ msgid "Sale by Date and User"
+#~ msgstr "Sale by Date and User"
+
+#~ msgid "Closing Balance"
+#~ msgstr "Završni saldo"
+
+#~ msgid "Close Statements"
+#~ msgstr "Close Statements"
+
+#~ msgid ""
+#~ "The amount of the voucher must be the same amount as the one on the "
+#~ "statement line"
+#~ msgstr "Iznos vaučera mora biti jednak iznosu stavke izvoda banke/blagajne."
+
+#~ msgid "Payment For Sale"
+#~ msgstr "Plaćanje za prodaju"
+
+#~ msgid "Create Date"
+#~ msgstr "Kreiraj datum"
+
+#~ msgid "]"
+#~ msgstr "]"
+
+#~ msgid "The name of the journal must be unique per company !"
+#~ msgstr "Naziv dnevnika mora biti jedinstven za jednu organizaciju!"
+
+#~ msgid "Sale Order"
+#~ msgstr "Sale Order"
+
+#~ msgid "Payment Report For Sale"
+#~ msgstr "Payment Report For Sale"
+
+#~ msgid "Connected Salesman"
+#~ msgstr "Connected Salesman"
+
+#~ msgid "Print the receipt of the sale"
+#~ msgstr "Ispis računa POS-a"
+
+#~ msgid "Month -1"
+#~ msgstr "Month -1"
+
+#~ msgid "Open Cash Registers"
+#~ msgstr "Open Cash Registers"
+
+#~ msgid "state"
+#~ msgstr "stanje"
+
+#~ msgid "Automatic Opening"
+#~ msgstr "Automatic Opening"
+
+#~ msgid "Start Date"
+#~ msgstr "Početni datum"
+
+#~ msgid "Discount"
+#~ msgstr "Discount"
+
+#~ msgid "Quotation"
+#~ msgstr "Quotation"
+
+#~ msgid "Journal Configuration"
+#~ msgstr "Postava dnevnika"
+
+#~ msgid ""
+#~ "Person who uses the the cash register. It could be a reliever, a student or "
+#~ "an interim employee."
+#~ msgstr ""
+#~ "Person who uses the the cash register. It could be a reliever, a student or "
+#~ "an interim employee."
+
+#~ msgid "End Date"
+#~ msgstr "Završni Datum"
+
+#~ msgid "Date Ordered"
+#~ msgstr "Date Ordered"
+
+#~ msgid "Yes"
+#~ msgstr "Da"
+
+#~ msgid "Point of Sale Cash Register Analysis"
+#~ msgstr "Point of Sale Cash Register Analysis"
+
+#~ msgid "Close Cash Register"
+#~ msgstr "Close Cash Register"
+
+#~ msgid "Confirmed"
+#~ msgstr "Potvrđeno"
+
+#~ msgid "Sales Lines"
+#~ msgstr "Stavke prodaje"
+
+#~ msgid "Reporting"
+#~ msgstr "Izvještavanje"
+
+#~ msgid "Put Money"
+#~ msgstr "Stavi novac"
+
+#~ msgid "The code of the journal must be unique per company !"
+#~ msgstr "Šifra dnevnika mora biti jedinstvena (za organizaciju) !"
+
+#~ msgid "Take Money"
+#~ msgstr "Take Money"
+
+#~ msgid "No"
+#~ msgstr "Ne"
+
+#~ msgid "Draft"
+#~ msgstr "Nacrt"
+
+#~ msgid "POS Payment Report according to date"
+#~ msgstr "POS Payment Report according to date"
+
+#, python-format
+#~ msgid "Close Cash Registers"
+#~ msgstr "Close Cash Registers"
+
+#, python-format
+#~ msgid "Close"
+#~ msgstr "Zatvori"
+
+#~ msgid "POS Details :"
+#~ msgstr "POS Detalji :"
+
+#~ msgid "    Today    "
+#~ msgstr "    Danas    "
+
+#~ msgid "Add product :"
+#~ msgstr "Dodaj proizvod :"
+
+#~ msgid "Add payment"
+#~ msgstr "Dodaj plaćanje"
+
+#, python-format
+#~ msgid "Validate"
+#~ msgstr "Potvrdi"
+
+#~ msgid "Back to Products"
+#~ msgstr "Povratak"
+
+#, python-format
+#~ msgid "Next Order"
+#~ msgstr "Sljedeći račun"
+
+#~ msgid "Disc (%)"
+#~ msgstr "Popust(%)"
+
+#, python-format
+#~ msgid "Subtotal:"
+#~ msgstr "Međuzbroj:"

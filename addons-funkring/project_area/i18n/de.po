@@ -1,0 +1,432 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* project_area
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1-dev\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-11-09 08:00+0000\n"
+"PO-Revision-Date: 2012-11-09 09:01+0100\n"
+"Last-Translator: Pichler Edwin <edwin.pichler@funkring.net>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: project_area
+#: view:project.task:0
+msgid "Information"
+msgstr "Information"
+
+#. module: project_area
+#: view:project.task:0
+msgid "In Progress"
+msgstr "In Bearbeitung"
+
+#. module: project_area
+#: model:ir.model,name:project_area.model_project_issue
+msgid "Projekt Problem"
+msgstr "Projekt Problem"
+
+#. module: project_area
+#: view:project.task:0
+msgid "Remaining Hours"
+msgstr "Verbleibende Stunden"
+
+#. module: project_area
+#: view:project.issue:0
+msgid "Confirm"
+msgstr "Bestätigen"
+
+#. module: project_area
+#: view:project.issue:0
+msgid "Priority"
+msgstr "Priorität"
+
+#. module: project_area
+#: model:ir.model,name:project_area.model_project_area_hour_overview
+msgid "project_area.hour_overview"
+msgstr "project_area.hour_overview"
+
+#. module: project_area
+#: view:project.project:0
+msgid "Search Project"
+msgstr "Suche Projekt"
+
+#. module: project_area
+#: view:board.board:0
+#: view:project.task:0
+msgid "Pending Tasks"
+msgstr "Aufgaben in Bearbeitung"
+
+#. module: project_area
+#: model:ir.actions.act_window,help:project_area.action_project_issue
+msgid "Probleme wie Softwarefehler, Beschwerden von Kunden, Materialfehler können hier zentral gesammelt werden. Sie können Bearbeitungsschritte für die Bearbeitung der Vorgänge zuweisen (Problemanalyse, Entwicklung, Abschluss des Vorgangs). Über das Mailgateway, können Sie Probleme fest mit einer Emailadresse verbinden (z.B. support@mycompany.com)."
+msgstr "Probleme wie Softwarefehler, Beschwerden von Kunden, Materialfehler können hier zentral gesammelt werden. Sie können Bearbeitungsschritte für die Bearbeitung der Vorgänge zuweisen (Problemanalyse, Entwicklung, Abschluss des Vorgangs). Über das Mailgateway, können Sie Probleme fest mit einer Emailadresse verbinden (z.B. support@mycompany.com)."
+
+#. module: project_area
+#: view:project.project:0
+#: view:project.task:0
+msgid "Current"
+msgstr "Aktuell"
+
+#. module: project_area
+#: view:board.board:0
+msgid "Confirmed Tasks are pending and finished. Only from the confirmed tasks from the customer are processed"
+msgstr "Bestätigte und Abgeschlossene Aufgaben. Nur Bestätigte Aufgaben werden bearbeitet!"
+
+#. module: project_area
+#: view:project.task:0
+msgid "State"
+msgstr "Status"
+
+#. module: project_area
+#: view:board.board:0
+msgid "Unconfirmed Tasks"
+msgstr "Nicht bestätigte Aufgaben"
+
+#. module: project_area
+#: view:project.project:0
+#: view:project.task:0
+msgid "Draft"
+msgstr "Entwurf"
+
+#. module: project_area
+#: model:ir.actions.act_window,help:project_area.action_view_project_all
+msgid "Ein Projekt besteht aus einer Reihe von Einzelaufgaben oder projektbezogenen Problemstellungen, die durch Ihre Mitarbeiter zu bearbeiten sind. Ein Projekt kann in eine bestehende multidimensionale Projekthierachie, z.B. als Teilprojekt platziert werden. Jeder Anwender kann dabei sein eigenes Projekt in seinen Benutzer Eigenschaften hinterlegen, wodurch für die Anzeige der zu bearbeitenden Aufgaben ein automatischer Filter nur für dieses Projekt angewendet wird. Wenn Sie Ihre Anwendung für Projekte so konfiguriert haben, dass eine unmittelbare Weiterberechnung von erledigten Aufgaben möglich sein soll, können Sie einstellen, ob für ein Projekt die Abrechnungsfunktion angewendet werden soll oder nicht."
+msgstr "Ein Projekt besteht aus einer Reihe von Einzelaufgaben oder projektbezogenen Problemstellungen, die durch Ihre Mitarbeiter zu bearbeiten sind. Ein Projekt kann in eine bestehende multidimensionale Projekthierachie, z.B. als Teilprojekt platziert werden. Jeder Anwender kann dabei sein eigenes Projekt in seinen Benutzer Eigenschaften hinterlegen, wodurch für die Anzeige der zu bearbeitenden Aufgaben ein automatischer Filter nur für dieses Projekt angewendet wird. Wenn Sie Ihre Anwendung für Projekte so konfiguriert haben, dass eine unmittelbare Weiterberechnung von erledigten Aufgaben möglich sein soll, können Sie einstellen, ob für ein Projekt die Abrechnungsfunktion angewendet werden soll oder nicht."
+
+#. module: project_area
+#: view:project.task:0
+msgid "Task edition"
+msgstr "Aufgaben bearbeiten"
+
+#. module: project_area
+#: view:project.task:0
+msgid "Change Type"
+msgstr "Typ ändern"
+
+#. module: project_area
+#: view:project.project:0
+msgid "Project Manager"
+msgstr "Projekt Manager"
+
+#. module: project_area
+#: view:project.task:0
+msgid "For changing to done state"
+msgstr "Um in den erledigt Status zu setzen"
+
+#. module: project_area
+#: model:ir.actions.act_window,name:project_area.action_view_nondraft_ticket
+msgid "Unerledigte Tickets"
+msgstr "Unerledigte Tickets"
+
+#. module: project_area
+#: view:project.task:0
+msgid "Draft and In Progress tasks"
+msgstr "Entwurf und in Bearbeitung Status"
+
+#. module: project_area
+#: view:board.board:0
+msgid "Recent changes on projects and tasks"
+msgstr "Kürzliche Änderungen von Projekten und Aufgaben"
+
+#. module: project_area
+#: view:project.issue:0
+msgid "Description"
+msgstr "Beschreibung"
+
+#. module: project_area
+#: view:project.project:0
+msgid "Parent"
+msgstr "Hauptprojekt"
+
+#. module: project_area
+#: view:project.task:0
+msgid "Task Work"
+msgstr "Erledigte Aufgaben"
+
+#. module: project_area
+#: view:project.project:0
+msgid "Project Name"
+msgstr "Projekt Bezeichnung"
+
+#. module: project_area
+#: view:hr.analytic.timesheet:0
+msgid "Total Amount"
+msgstr "Gesamtmenge"
+
+#. module: project_area
+#: model:ir.ui.menu,name:project_area.menu_project
+msgid "Kunden Projekte"
+msgstr "Kunden Projekte"
+
+#. module: project_area
+#: view:board.board:0
+msgid "Unconfirmed Tickets"
+msgstr "Unbestätigte Tickets"
+
+#. module: project_area
+#: view:project.task:0
+msgid "For cancelling the task"
+msgstr "Zum abbrechen der Aufgabe"
+
+#. module: project_area
+#: view:project.task:0
+msgid "Pending"
+msgstr "Im Wartezustand"
+
+#. module: project_area
+#: view:hr.analytic.timesheet:0
+msgid "Hour Overview"
+msgstr "Stundenübersicht"
+
+#. module: project_area
+#: model:ir.actions.act_window,help:project_area.open_project_area
+msgid "Diese Übersicht zeigt ein Protokoll mit Tätigkeiten an Projekt und Aufgaben In der Aufgabenübersicht wird der Status der bestätigten Aufgaben angezeigt. Eine Aufgabe wird erst dann bearbeitet wenn sie bestätigt ist! In der Übersicht mit den unbestätigten Aufgaben sind alle jene Aufgaben die erst evaluiert werden. Erst wenn sie vom Kunden bestätigt werden, werden sei von uns bearbeitet. Die Bestätigung ist mit einer Auftragserteilung gleichzusetzen."
+msgstr "Diese Übersicht zeigt ein Protokoll mit Tätigkeiten an Projekt und Aufgaben In der Aufgabenübersicht wird der Status der bestätigten Aufgaben angezeigt. Eine Aufgabe wird erst dann bearbeitet wenn sie bestätigt ist! In der Übersicht mit den unbestätigten Aufgaben sind alle jene Aufgaben die erst evaluiert werden. Erst wenn sie vom Kunden bestätigt werden, werden sei von uns bearbeitet. Die Bestätigung ist mit einer Auftragserteilung gleichzusetzen."
+
+#. module: project_area
+#: view:project.task:0
+msgid "Done"
+msgstr "Erledigt"
+
+#. module: project_area
+#: view:project.task:0
+msgid "Stage"
+msgstr "Stufe"
+
+#. module: project_area
+#: view:project.project:0
+msgid "Projects"
+msgstr "Projekte"
+
+#. module: project_area
+#: view:board.board:0
+msgid "Pending Tickets"
+msgstr "Unerledigte Tickets"
+
+#. module: project_area
+#: model:ir.actions.act_window,name:project_area.action_view_project_all
+#: model:ir.ui.menu,name:project_area.menu_project_all
+msgid "Projekte"
+msgstr "Projekte"
+
+#. module: project_area
+#: view:project.project:0
+#: view:project.task:0
+msgid "End Date"
+msgstr "Ende Datum"
+
+#. module: project_area
+#: view:board.board:0
+msgid "Recent changes on tickets"
+msgstr "Kürzliche Änderungen bei den Tickets"
+
+#. module: project_area
+#: view:project.project:0
+msgid "Members"
+msgstr "Mitarbeiter"
+
+#. module: project_area
+#: view:board.board:0
+msgid "Unconfirmed Tickets This Tickets are in draft state, working on this Tickets starts if the customer starts it."
+msgstr "Unbestätigte Tickets.Diese Tickets sind im Entwurfsstatus, sie werden bearbeitet, sobald sie bestätigt sind."
+
+#. module: project_area
+#: model:ir.actions.act_window,help:project_area.action_view_task
+msgid "Eine Aufgabe repräsentiert einen zu erledigenden Arbeitsauftrag. Jeder Benutzer verfügt über einen eigene Aufgabenliste, über die er seine erledigte Arbeit aufzeichnen kann. Durch die Delegation einer Aufgabe an einen anderen Benutzer, erhalten Sie eine neue Aufgabe mit Status 'In Wartezustand', die zu Ihrer Kontrolle wiedereröffnet wird, wenn der andere Benutzer die delegierte Aufgabe erledigt. Wenn Sie das Modul project_timesheet installieren, können Sie erledigte Aufgaben in Projekten unmittelbar auf Basis der Projektzeiterfassung abrechnen. Durch das project_mrp Modul, können auch automatisch Aufgaben aus Verkaufsaufträgen generiert werden."
+msgstr "Eine Aufgabe repräsentiert einen zu erledigenden Arbeitsauftrag. Jeder Benutzer verfügt über einen eigene Aufgabenliste, über die er seine erledigte Arbeit aufzeichnen kann. Durch die Delegation einer Aufgabe an einen anderen Benutzer, erhalten Sie eine neue Aufgabe mit Status 'In Wartezustand', die zu Ihrer Kontrolle wiedereröffnet wird, wenn der andere Benutzer die delegierte Aufgabe erledigt. Wenn Sie das Modul project_timesheet installieren, können Sie erledigte Aufgaben in Projekten unmittelbar auf Basis der Projektzeiterfassung abrechnen. Durch das project_mrp Modul, können auch automatisch Aufgaben aus Verkaufsaufträgen generiert werden."
+
+#. module: project_area
+#: view:project.task:0
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#. module: project_area
+#: view:board.board:0
+msgid "Project/Ticket Journal"
+msgstr "Project/Ticket Journal"
+
+#. module: project_area
+#: view:project.project:0
+msgid "Notes"
+msgstr "Bemerkungen"
+
+#. module: project_area
+#: model:ir.actions.act_window,name:project_area.action_timesheet_line
+#: model:ir.ui.menu,name:project_area.menu_timesheet
+msgid "Stundenübersicht"
+msgstr "Stundenübersicht"
+
+#. module: project_area
+#: view:project.project:0
+msgid "Open and Pending Projects"
+msgstr "Offene und Projekte in Bearbeitung"
+
+#. module: project_area
+#: view:board.board:0
+msgid "Ticket Board"
+msgstr "Ticket Board"
+
+#. module: project_area
+#: model:ir.actions.act_window,name:project_area.action_view_task
+#: model:ir.ui.menu,name:project_area.menu_task_all
+msgid "Aufgaben"
+msgstr "Aufgaben"
+
+#. module: project_area
+#: view:project.project:0
+#: view:project.task:0
+msgid "Project"
+msgstr "Projekt"
+
+#. module: project_area
+#: view:project.project:0
+#: view:project.task:0
+msgid "Start Task"
+msgstr "Starte Aufgabe"
+
+#. module: project_area
+#: view:board.board:0
+msgid "Project Phase"
+msgstr "Projektphase"
+
+#. module: project_area
+#: view:project.task:0
+msgid "In Progress Tasks"
+msgstr "Aufgaben in Bearbeitung"
+
+#. module: project_area
+#: view:project.task:0
+msgid "Spent Hours"
+msgstr "Geleistete Stunden"
+
+#. module: project_area
+#: model:ir.actions.act_window,name:project_area.action_project_issue
+#: model:ir.ui.menu,name:project_area.menu_project_issue
+msgid "Tickets"
+msgstr "Tickets"
+
+#. module: project_area
+#: model:ir.actions.act_window,name:project_area.action_view_draft_ticket
+msgid "Entwurfs Ticket"
+msgstr "Entwurfs Ticket"
+
+#. module: project_area
+#: view:board.board:0
+msgid "My Board"
+msgstr "Meine Pinnwand"
+
+#. module: project_area
+#: view:project.issue:0
+msgid "Resolution"
+msgstr "Stufe"
+
+#. module: project_area
+#: view:project.task:0
+msgid "Change Stage"
+msgstr "Stufe ändern"
+
+#. module: project_area
+#: view:project.issue:0
+msgid "Issue Tracker Search"
+msgstr "Problem Suche"
+
+#. module: project_area
+#: view:board.board:0
+msgid "Confirmed Tickets are pending and finished. Only from the confirmed Tickets from the customer are processed"
+msgstr "Bestätigte Tickets sind unerledigt oder fertig.Nur bestätigte Tickets werden bearbeitet."
+
+#. module: project_area
+#: model:ir.actions.act_window,name:project_area.open_project_ticket_area
+#: model:ir.ui.menu,name:project_area.menu_project_log_report
+msgid "Ticket Dashboard"
+msgstr "Ticket Dashboard"
+
+#. module: project_area
+#: view:project.task:0
+msgid "Tasks"
+msgstr "Aufgaben"
+
+#. module: project_area
+#: view:project.project:0
+#: view:project.task:0
+msgid "Group By..."
+msgstr "Gruppierung..."
+
+#. module: project_area
+#: model:ir.actions.act_window,help:project_area.open_project_ticket_area
+msgid "Diese Übersicht zeigt den Verlauf von den Tickets und einige Dinge mehr."
+msgstr "Diese Übersicht zeigt den Verlauf von den Tickets und einige Dinge mehr."
+
+#. module: project_area
+#: view:project.issue:0
+msgid "Issue Tracker Form"
+msgstr "Problem Erfassung"
+
+#. module: project_area
+#: view:project.issue:0
+msgid "Issue Tracker Tree"
+msgstr "Probleme Listenansicht"
+
+#. module: project_area
+#: view:board.board:0
+msgid "Unconfirmed Tasks. This tasks are in draft state, working on this tasks starts if the customer starts it."
+msgstr "Nicht Bestätigte Aufgaben. Diese befinden sich in der Evaluierungsphase. Erst wenn der Kunde die Aufgabe startet, wird der Auftrag zur Bearbeitung erteilt!"
+
+#. module: project_area
+#: view:board.board:0
+msgid "Project/Task Journal"
+msgstr "Projekt/Aufgaben Journal"
+
+#. module: project_area
+#: view:project.project:0
+msgid "Manager"
+msgstr "Manager"
+
+#. module: project_area
+#: view:project.issue:0
+msgid "Reset to Draft"
+msgstr "Zurücksetzen"
+
+#. module: project_area
+#: view:project.task:0
+msgid "Deadline"
+msgstr "Frist"
+
+#. module: project_area
+#: view:project.task:0
+msgid "For changing to open state"
+msgstr "Um in den Offen Status zu wechseln"
+
+#. module: project_area
+#: view:project.project:0
+#: view:project.task:0
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#. module: project_area
+#: view:project.task:0
+msgid "Users"
+msgstr "Benutzer"
+
+#. module: project_area
+#: view:project.project:0
+#: view:project.task:0
+msgid "Start Date"
+msgstr "Start Datum"
+
+#. module: project_area
+#: model:ir.actions.act_window,name:project_area.open_project_area
+#: model:ir.ui.menu,name:project_area.menu_board_project_area
+msgid "Projektmitarbeiter Dashboard"
+msgstr "Projektmitarbeiter Dashboard"
+
+#. module: project_area
+#: view:project.task:0
+msgid "Task Edition"
+msgstr "Aufgaben bearbeiten"
+

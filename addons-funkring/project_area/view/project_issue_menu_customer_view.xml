@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<openerp>
+<data>
+
+    <!--
+        ALL BUGS
+    -->
+    <record model="ir.actions.act_window" id="action_project_issue">
+        <field name="name">Issues</field>
+        <field name="res_model">project.issue</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="tree_project_issue"/>
+        <field name="domain" eval=""/>
+        <field name="context">{"search_default_user_id": uid, "search_default_current":1, "search_default_project_id": project_id, "project_area" : True }</field>
+        <field name="search_view_id" ref="filter_project_issue"/>
+        <field name="help">Issues such as system bugs, customer complaints, and material breakdowns are collected here. You can define the stages assigned when solving the project issue (analysis, development, done). With the mailgateway module, issues can be integrated through an email address (example: support@mycompany.com)</field>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_tree_crm_tag">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="tree_project_issue"/>
+        <field name="act_window_id" ref="action_project_issue"/>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_form_crm_tag">
+        <field name="sequence" eval="3"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="form_project_issue"/>
+        <field name="act_window_id" ref="action_project_issue"/>
+    </record>
+
+      
+</data>
+</openerp>

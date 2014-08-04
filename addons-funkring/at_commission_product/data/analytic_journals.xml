@@ -1,0 +1,8 @@
+<openerp>
+	<data>
+		<record id="analytic_journal_default" model="account.analytic.journal">
+			<field name="name">Produkt Provision</field>
+			<field name="type">purchase</field>
+		</record>
+	</data>
+</openerp>

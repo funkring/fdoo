@@ -1,0 +1,40 @@
+<openerp>
+	<data>
+	
+		<record id="form_res_partner" model="ir.ui.view">
+			<field name="name">password_management.form_res_partner</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.view_partner_form" />
+			<field name="arch" type="xml">
+				<notebook position="inside">
+					<page string="Passwords">
+						<field name="password_ids">
+							<form string="Password" version="7.0">
+								<group>
+									<group>
+										<field name="subject" />
+										<field name="login" />
+										<field name="password" />
+									</group>
+									<group>
+										<field name="group_id" />
+									</group>
+								</group>
+								<label for="description" string="Description" />
+								<div>
+									<field name="description" />
+								</div>
+							</form>
+							<tree string="Passwords">
+								<field name="subject" />
+								<field name="login" />
+								<field name="password" />
+							</tree>
+						</field>
+					</page>
+				</notebook>
+			</field>
+		</record>
+		
+	</data>
+</openerp>

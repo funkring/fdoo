@@ -2,21 +2,20 @@
 # Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
 # This file is distributed under the same license as the openobject-addons package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
-# Sofce Dimitrijeva <sofce@eskon.com.mk>, 2013.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:36+0000\n"
-"PO-Revision-Date: 2013-03-31 13:36+0000\n"
-"Last-Translator: Sofce Dimitrijeva <Unknown>\n"
-"Language-Team: ESKON-INZENERING\n"
+"POT-Creation-Date: 2012-12-21 17:04+0000\n"
+"PO-Revision-Date: 2013-02-21 13:25+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Macedonian <mk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-21 06:00+0000\n"
-"X-Generator: Launchpad (build 16831)\n"
-"Language: mk\n"
+"X-Launchpad-Export-Date: 2014-03-27 06:58+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: account_voucher
 #: field:account.bank.statement.line,voucher_id:0
@@ -117,16 +116,9 @@ msgid "Transaction reference number."
 msgstr "Референтен број на трансакцијата"
 
 #. module: account_voucher
-#: view:account.voucher:0
-msgid "Allocation"
-msgstr "Распределба"
-
-#. module: account_voucher
-#: help:account.voucher,currency_help_label:0
-msgid ""
-"This sentence helps you to know how to specify the payment rate by giving "
-"you the direct effect it has"
-msgstr ""
+#: view:sale.receipt.report:0
+msgid "Group by year of Invoice Date"
+msgstr "Групирај по година од дата на фактура"
 
 #. module: account_voucher
 #: view:sale.receipt.report:0
@@ -148,11 +140,6 @@ msgid ""
 msgstr ""
 "Не можете да извршите промена на дневникот бидејќи веќе сте порамниле некои "
 "од ставките на изводот!"
-
-#. module: account_voucher
-#: model:mail.message.subtype,description:account_voucher.mt_voucher_state_change
-msgid "Status changed"
-msgstr "Статусот е променет"
 
 #. module: account_voucher
 #: view:account.voucher:0
@@ -261,11 +248,6 @@ msgstr "Износ"
 #: view:account.voucher:0
 msgid "Payment Options"
 msgstr "Опции за плаќање"
-
-#. module: account_voucher
-#: view:account.voucher:0
-msgid "e.g. 003/10"
-msgstr "на пр. 003/10"
 
 #. module: account_voucher
 #: view:account.voucher:0
@@ -383,11 +365,6 @@ msgid "Import Invoices"
 msgstr "Увези фактури"
 
 #. module: account_voucher
-#: view:account.voucher:0
-msgid "e.g. Invoice SAJ/0042"
-msgstr "на пр. Фактура SAJ/0042"
-
-#. module: account_voucher
 #: code:addons/account_voucher/account_voucher.py:1208
 #, python-format
 msgid "Wrong voucher line"
@@ -422,11 +399,6 @@ msgstr ""
 #: view:account.voucher:0
 msgid "Sales Lines"
 msgstr "Ставки за продажба"
-
-#. module: account_voucher
-#: view:account.voucher:0
-msgid "Cancel Voucher"
-msgstr "Откажи Ваучер"
 
 #. module: account_voucher
 #: view:account.voucher:0
@@ -480,12 +452,10 @@ msgid "Pro-forma Vouchers"
 msgstr "Про-Фактура Ваучери"
 
 #. module: account_voucher
-#: code:addons/account_voucher/account_voucher.py:318
-#, python-format
-msgid ""
-"At the operation date, the exchange rate was\n"
-"%s = %s"
-msgstr ""
+#: view:account.voucher:0
+#: model:ir.actions.act_window,name:account_voucher.act_journal_voucher_open
+msgid "Voucher Entries"
+msgstr "Внесови на ваучер"
 
 #. module: account_voucher
 #: model:ir.actions.act_window,help:account_voucher.action_vendor_payment
@@ -522,21 +492,10 @@ msgid "Memo"
 msgstr "Мемо"
 
 #. module: account_voucher
-#: code:addons/account_voucher/invoice.py:34
-#, python-format
-msgid "Pay Invoice"
-msgstr "Плати фактура"
-
-#. module: account_voucher
 #: view:account.voucher:0
 msgid "Are you sure to unreconcile and cancel this record ?"
 msgstr ""
 "Сигурно ли сакате да извршите отпорамнување и да го откажете записот?"
-
-#. module: account_voucher
-#: view:account.voucher:0
-msgid "Sales Receipt"
-msgstr "Потврда за продажба"
 
 #. module: account_voucher
 #: field:account.voucher,is_multi_currency:0
@@ -586,9 +545,10 @@ msgid "Avg. Due Delay"
 msgstr "Просечно задоцнување"
 
 #. module: account_voucher
-#: view:account.voucher:0
-msgid "Are you sure you want to unreconcile this record?"
-msgstr "Дали сте сигурни дека сакате да од отпорамните овој запис?"
+#: code:addons/account_voucher/invoice.py:34
+#, python-format
+msgid "Pay Invoice"
+msgstr "Плати фактура"
 
 #. module: account_voucher
 #: code:addons/account_voucher/account_voucher.py:1249
@@ -680,6 +640,11 @@ msgid "Expense Lines"
 msgstr "Ставки за трошоци"
 
 #. module: account_voucher
+#: view:account.voucher:0
+msgid "Sale voucher"
+msgstr "Ваучер за продажба"
+
+#. module: account_voucher
 #: help:account.voucher,is_multi_currency:0
 msgid ""
 "Fields with internal purpose only that depicts if the voucher is a multi "
@@ -738,6 +703,11 @@ msgid "Voucher Status"
 msgstr "Статус на ваучер"
 
 #. module: account_voucher
+#: view:account.voucher:0
+msgid "Are you sure to unreconcile this record?"
+msgstr "Сигурно ли сакате да го откажете записот за порамнување?"
+
+#. module: account_voucher
 #: field:account.voucher,company_id:0
 #: field:account.voucher.line,company_id:0
 #: view:sale.receipt.report:0
@@ -754,11 +724,6 @@ msgstr "Ваучерот е целосно платен."
 #: selection:account.voucher,payment_option:0
 msgid "Reconcile Payment Balance"
 msgstr "Порамнување на платниот биланс"
-
-#. module: account_voucher
-#: view:account.voucher:0
-msgid "Cancel Receipt"
-msgstr ""
 
 #. module: account_voucher
 #: code:addons/account_voucher/account_voucher.py:1067
@@ -791,9 +756,9 @@ msgid "Status"
 msgstr "Статус"
 
 #. module: account_voucher
-#: view:sale.receipt.report:0
-msgid "Group by year of Invoice Date"
-msgstr "Групирај по година од дата на фактура"
+#: view:account.voucher:0
+msgid "Allocation"
+msgstr "Распределба"
 
 #. module: account_voucher
 #: view:account.statement.from.invoice.lines:0
@@ -971,11 +936,6 @@ msgstr "Објави"
 #: view:account.voucher:0
 msgid "Invoices and outstanding transactions"
 msgstr "Фактури и неподмирени трансакции"
-
-#. module: account_voucher
-#: field:account.voucher,currency_help_label:0
-msgid "Helping Sentence"
-msgstr ""
 
 #. module: account_voucher
 #: view:sale.receipt.report:0
@@ -1156,6 +1116,11 @@ msgstr "Мај"
 
 #. module: account_voucher
 #: view:account.voucher:0
+msgid "Sale Receipt"
+msgstr "Потврда за продажба"
+
+#. module: account_voucher
+#: view:account.voucher:0
 #: field:account.voucher,journal_id:0
 #: view:sale.receipt.report:0
 #: field:sale.receipt.report,journal_id:0
@@ -1228,12 +1193,6 @@ msgstr "Фактури на добавувач и неподмирени тра�
 #: field:account.voucher,reference:0
 msgid "Ref #"
 msgstr "Референтен #"
-
-#. module: account_voucher
-#: view:account.voucher:0
-#: model:ir.actions.act_window,name:account_voucher.act_journal_voucher_open
-msgid "Voucher Entries"
-msgstr "Внесови на ваучер"
 
 #. module: account_voucher
 #: view:sale.receipt.report:0
@@ -1355,6 +1314,11 @@ msgid "Open Balance"
 msgstr "Отвори салдо"
 
 #. module: account_voucher
+#: model:mail.message.subtype,description:account_voucher.mt_voucher_state_change
+msgid "Status <b>changed</b>"
+msgstr "Статусот е <b>променет</b>"
+
+#. module: account_voucher
 #: code:addons/account_voucher/account_voucher.py:1106
 #: code:addons/account_voucher/account_voucher.py:1110
 #, python-format
@@ -1372,14 +1336,5 @@ msgstr ""
 "неактивни, со што се дозволува да се сокрие плаќањето на "
 "купувачот/добавувачот додека не се потврди изводот на банката."
 
-#~ msgid "Sale voucher"
-#~ msgstr "Ваучер за продажба"
-
-#~ msgid "Are you sure to unreconcile this record?"
-#~ msgstr "Сигурно ли сакате да го откажете записот за порамнување?"
-
-#~ msgid "Sale Receipt"
+#~ msgid "Sales Receipt"
 #~ msgstr "Потврда за продажба"
-
-#~ msgid "Status <b>changed</b>"
-#~ msgstr "Статусот е <b>променет</b>"

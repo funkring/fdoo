@@ -1,21 +1,21 @@
-# German translation for openobject-addons
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
-# This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* mrp_operations
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openobject-addons\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:37+0000\n"
-"PO-Revision-Date: 2014-05-01 12:17+0000\n"
-"Last-Translator: Rudolf Schnapka <rs@techno-flex.de>\n"
-"Language-Team: German <de@li.org>\n"
+"Project-Id-Version: OpenERP Server 6.0dev\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-12-21 17:05+0000\n"
+"PO-Revision-Date: 2012-12-17 08:59+0000\n"
+"Last-Translator: Thorsten Vocks (OpenBig.org) <thorsten.vocks@big-"
+"consulting.net>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-05-02 06:46+0000\n"
-"X-Generator: Launchpad (build 16985)\n"
+"X-Launchpad-Export-Date: 2014-03-27 06:56+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: mrp_operations
 #: model:ir.actions.act_window,name:mrp_operations.mrp_production_wc_action_form
@@ -29,7 +29,7 @@ msgstr "Arbeitsaufträge"
 #: code:addons/mrp_operations/mrp_operations.py:484
 #, python-format
 msgid "Operation is already finished!"
-msgstr "Vorgang ist bereits abgeschlossen!"
+msgstr "Vorgang ist bereits beendet"
 
 #. module: mrp_operations
 #: model:process.node,note:mrp_operations.process_node_canceloperation0
@@ -55,7 +55,7 @@ msgstr "Information von der Arbeitsplan Definition"
 #. module: mrp_operations
 #: field:mrp.production.workcenter.line,uom:0
 msgid "Unit of Measure"
-msgstr "Mengeneinheit"
+msgstr "ME"
 
 #. module: mrp_operations
 #: selection:mrp.workorder,month:0
@@ -102,7 +102,7 @@ msgstr "Fertigungsauftrag"
 #. module: mrp_operations
 #: model:process.process,name:mrp_operations.process_process_mrpoperationprocess0
 msgid "Mrp Operations"
-msgstr "MRP-Vorgänge"
+msgstr "Arbeitsaufträge"
 
 #. module: mrp_operations
 #: view:mrp.workorder:0
@@ -113,7 +113,7 @@ msgstr "Tag"
 #. module: mrp_operations
 #: view:mrp.production:0
 msgid "Cancel Order"
-msgstr "Auftrag abbrechen"
+msgstr "Storno Bestellung"
 
 #. module: mrp_operations
 #: model:process.node,name:mrp_operations.process_node_productionorder0
@@ -128,7 +128,7 @@ msgstr "Ausnahme Lieferauftrag"
 #. module: mrp_operations
 #: model:process.transition,name:mrp_operations.process_transition_productionstart0
 msgid "Creation of the work order"
-msgstr "Erstellung des Arbeitsauftrags"
+msgstr "Erstellung von Arbeitsaufträgen"
 
 #. module: mrp_operations
 #: model:process.transition,note:mrp_operations.process_transition_productionstart0
@@ -144,14 +144,14 @@ msgstr ""
 #: code:addons/mrp_operations/mrp_operations.py:484
 #, python-format
 msgid "Error!"
-msgstr "Fehler!"
+msgstr "Fehler !"
 
 #. module: mrp_operations
 #: selection:mrp.production.workcenter.line,state:0
 #: selection:mrp.workorder,state:0
 #: selection:mrp_operations.operation.code,start_stop:0
 msgid "Cancelled"
-msgstr "Abgebrochen"
+msgstr "Storniert"
 
 #. module: mrp_operations
 #: code:addons/mrp_operations/mrp_operations.py:477
@@ -163,18 +163,18 @@ msgstr "Vorgang ist bereits storniert"
 #: model:ir.actions.act_window,name:mrp_operations.mrp_production_operation_action
 #: view:mrp.production.workcenter.line:0
 msgid "Operations"
-msgstr "Vorgänge"
+msgstr "Arbeitsaufträge"
 
 #. module: mrp_operations
 #: model:ir.model,name:mrp_operations.model_stock_move
 msgid "Stock Move"
-msgstr "Lagerbuchung"
+msgstr "Lieferung"
 
 #. module: mrp_operations
 #: code:addons/mrp_operations/mrp_operations.py:481
 #, python-format
 msgid "No operation to cancel."
-msgstr "Kein Vorgang zum Abbrechen."
+msgstr "Es gibt keinen Auftrag, der storniert werden könnte."
 
 #. module: mrp_operations
 #: code:addons/mrp_operations/mrp_operations.py:474
@@ -182,7 +182,7 @@ msgstr "Kein Vorgang zum Abbrechen."
 msgid ""
 "In order to Finish the operation, it must be in the Start or Resume state!"
 msgstr ""
-"Um einen Vorgang abschließen zu können, muss dieser Im Status Start oder "
+"Um einen Vorgang abzuschließen muss dieser Im Status Start oder "
 "Wiederaufnahme sein!"
 
 #. module: mrp_operations
@@ -213,7 +213,7 @@ msgstr "Arbeitsplatz"
 #: field:mrp.production.workcenter.line,date_planned_end:0
 #: field:mrp_operations.operation,date_finished:0
 msgid "End Date"
-msgstr "Enddatum"
+msgstr "Ende Datum"
 
 #. module: mrp_operations
 #: selection:mrp.production.workcenter.line,production_state:0
@@ -232,8 +232,8 @@ msgid ""
 "There is 1 work order per work center. The information about the number of "
 "cycles or the cycle time."
 msgstr ""
-"Es gibt einen Arbeitsauftrag je Arbeitsplatz. Information zu Anzahl der "
-"Arbeitszyklen oder der Zyklendauer."
+"Hier finden Sie je einen Arbeitsauftrag je Arbeitsplatz. Diese Information "
+"wird generiert von der Anzahl der Arbeitszyklen oder der Zyklendauer."
 
 #. module: mrp_operations
 #: model:ir.ui.menu,name:mrp_operations.menu_report_mrp_workorders_tree
@@ -243,18 +243,18 @@ msgstr "Statistik Arbeitsaufträge"
 #. module: mrp_operations
 #: model:ir.ui.menu,name:mrp_operations.menu_mrp_production_wc_action_planning
 msgid "Work Orders By Resource"
-msgstr "Arbeitsaufträge nach Ressource"
+msgstr "Arbeitsaufträge"
 
 #. module: mrp_operations
 #: view:mrp.production.workcenter.line:0
 msgid "Planned Date"
-msgstr "Plandatum"
+msgstr "Geplantes Datum"
 
 #. module: mrp_operations
 #: view:mrp.workorder:0
 #: field:mrp.workorder,product_qty:0
 msgid "Product Qty"
-msgstr "Produktmenge"
+msgstr "Produkt Anz."
 
 #. module: mrp_operations
 #: code:addons/mrp_operations/mrp_operations.py:134
@@ -346,7 +346,7 @@ msgstr "Arbeitsauftrag wurde storniert"
 #. module: mrp_operations
 #: view:mrp.production:0
 msgid "Pause Work Order"
-msgstr "Arbeitsauftrag aussetzen"
+msgstr "Unterbreche Arbeitsauftrag"
 
 #. module: mrp_operations
 #: selection:mrp.workorder,month:0
@@ -367,7 +367,7 @@ msgstr "Monat"
 #. module: mrp_operations
 #: selection:mrp.production.workcenter.line,production_state:0
 msgid "Canceled"
-msgstr "Abgebrochen"
+msgstr "Storniert"
 
 #. module: mrp_operations
 #: model:ir.model,name:mrp_operations.model_mrp_operations_operation
@@ -377,13 +377,13 @@ msgstr "mrp_operations.operation"
 #. module: mrp_operations
 #: model:ir.model,name:mrp_operations.model_mrp_workorder
 msgid "Work Order Report"
-msgstr "Arbeitsaufträge-Bericht"
+msgstr "Bericht Arbeitsauftrag"
 
 #. module: mrp_operations
 #: field:mrp.production.workcenter.line,date_start:0
 #: field:mrp_operations.operation,date_start:0
 msgid "Start Date"
-msgstr "Startdatum"
+msgstr "Start Datum"
 
 #. module: mrp_operations
 #: selection:mrp.production.workcenter.line,production_state:0
@@ -414,7 +414,7 @@ msgstr "In Bearbeitung"
 msgid ""
 "In order to Pause the operation, it must be in the Start or Resume state!"
 msgstr ""
-"Um einen Vorgang auszusetzen, muss dieser den Status Start oder "
+"Um einen Vorgang zu unterbrechen, muss dieser den Status Start oder "
 "Wiederaufnahme haben"
 
 #. module: mrp_operations
@@ -480,7 +480,7 @@ msgstr "August"
 #. module: mrp_operations
 #: view:mrp.workorder:0
 msgid "Started"
-msgstr "Begonnen"
+msgstr "Start Datum"
 
 #. module: mrp_operations
 #: view:mrp.production.workcenter.line:0
@@ -516,7 +516,7 @@ msgstr "Abhängige Lieferungen"
 #. module: mrp_operations
 #: model:ir.actions.act_window,name:mrp_operations.mrp_production_wc_action_planning
 msgid "Work Orders Planning"
-msgstr "Arbeitsaufträgeplanung"
+msgstr "Planung Arbeitsaufträge"
 
 #. module: mrp_operations
 #: view:mrp.production.workcenter.line:0
@@ -563,7 +563,7 @@ msgstr "Arbeitsauftrag wurde noch nicht gestartet !"
 #. module: mrp_operations
 #: model:process.node,note:mrp_operations.process_node_productionorder0
 msgid "Information from the production order."
-msgstr "Information aus dem Fertigungsauftrag."
+msgstr "Information zum Fertigungsauftrag."
 
 #. module: mrp_operations
 #: code:addons/mrp_operations/mrp_operations.py:454
@@ -598,12 +598,12 @@ msgstr "Auftragskürzel"
 #. module: mrp_operations
 #: field:mrp.production.workcenter.line,qty:0
 msgid "Qty"
-msgstr "Menge"
+msgstr "Anzahl"
 
 #. module: mrp_operations
 #: model:process.node,name:mrp_operations.process_node_doneoperation0
 msgid "Operation Done"
-msgstr "Arbeitsauftrag abgeschlossen"
+msgstr "Arbeitsauftrag erledigt"
 
 #. module: mrp_operations
 #: selection:mrp.production.workcenter.line,production_state:0
@@ -724,7 +724,7 @@ msgstr "Arbeitsplatz"
 #. module: mrp_operations
 #: field:mrp.production.workcenter.line,date_planned:0
 msgid "Scheduled Date"
-msgstr "Plantermin"
+msgstr "Geplantes Datum"
 
 #. module: mrp_operations
 #: field:mrp.production.workcenter.line,product:0
@@ -745,8 +745,8 @@ msgid ""
 "Check this to be able to move independently all production orders, without "
 "moving dependent ones."
 msgstr ""
-"Aktivieren Sie diese Option, wenn Sie Fertigungsaufträge ohne "
-"Berücksichtigung von Abhängikeiten verschieben möchten."
+"Aktivieren Sie diese Option, wenn Sie möchten, dass unabhängig voneinander "
+"alle Fertigungsaufträge verschoben werden können."
 
 #. module: mrp_operations
 #: selection:mrp.workorder,month:0
@@ -784,12 +784,12 @@ msgstr "Februar"
 #. module: mrp_operations
 #: model:process.transition,name:mrp_operations.process_transition_startcanceloperation0
 msgid "Operation cancelled"
-msgstr "Vorgang abgebrochen"
+msgstr "Arbeitsauftrag storniert"
 
 #. module: mrp_operations
 #: model:process.node,note:mrp_operations.process_node_startoperation0
 msgid "Start the operation."
-msgstr "Vorgang beginnen"
+msgstr "Starte Arbeitsauftrag"
 
 #. module: mrp_operations
 #: selection:mrp.workorder,month:0
@@ -799,7 +799,7 @@ msgstr "April"
 #. module: mrp_operations
 #: model:process.transition,name:mrp_operations.process_transition_startdoneoperation0
 msgid "Operation done"
-msgstr "Vorgang abgeschlossen"
+msgstr "Arbeitsauftrag erledigt"
 
 #. module: mrp_operations
 #: view:mrp.workorder:0
@@ -835,3 +835,345 @@ msgstr "Jahr"
 #: view:mrp.production.workcenter.line:0
 msgid "Duration"
 msgstr "Dauer"
+
+#~ msgid ""
+#~ "The Object name must start with x_ and not contain any special character !"
+#~ msgstr ""
+#~ "Der Objekt Name muss mit einem x_ starten und darf keine Sonderzeichen "
+#~ "beinhalten"
+
+#~ msgid "Operation is started"
+#~ msgstr "Vorgang wurde gestartet"
+
+#~ msgid "Start working"
+#~ msgstr "Starte Auftrag"
+
+#~ msgid "Operations Code"
+#~ msgstr "Vorgang Code"
+
+#, python-format
+#~ msgid "Production Order Cannot start in [%s] state"
+#~ msgstr "Fertigungsauftrag kann nicht starten im [%s] Status"
+
+#~ msgid "Mrp Operation Process"
+#~ msgstr "Materialbedarfsplanung Prozess"
+
+#~ msgid "Work Order Events Using Bar Codes"
+#~ msgstr "Arbeitsauftragsvorgänge mit Barcodes"
+
+#~ msgid "Date Planned"
+#~ msgstr "Plandatum"
+
+#~ msgid "Start - Stop Codes"
+#~ msgstr "Kurzbezeichnung (Start / Stop)"
+
+#~ msgid "From production order, create the workorder"
+#~ msgstr "Erzeuge Arbeitsreihenfolge durch Definition Fertigungsauftrag"
+
+#~ msgid "Start Cancel Operation"
+#~ msgstr "Starte Abbruch"
+
+#~ msgid ")"
+#~ msgstr ")"
+
+#~ msgid "("
+#~ msgstr "("
+
+#~ msgid "Workcenters Barcode"
+#~ msgstr "Arbeitsplatz Barcode"
+
+#~ msgid "Operation is done"
+#~ msgstr "Vorgang erledigt"
+
+#~ msgid "Start Done Operation"
+#~ msgstr "Starte abgeschlossenen Vorgang"
+
+#~ msgid "Production order for any products"
+#~ msgstr "Fertigungsauftrag für Produkte"
+
+#~ msgid "Invalid XML for View Architecture!"
+#~ msgstr "Fehlerhafter xml Code für diese Ansicht!"
+
+#~ msgid "This is delay between operation start and stop in this workcenter"
+#~ msgstr ""
+#~ "Verzögerung zwischen Vorgangsstart und Vorgangsbeendigung dieses "
+#~ "Arbeitsplatzes"
+
+#~ msgid "From work order, define the cycles and hour for creating product"
+#~ msgstr ""
+#~ "Durch den Arbeitsauftrag werden die Zyklen und Stunden für die "
+#~ "Produktherstellung bestimmt."
+
+#~ msgid "Production Work Center"
+#~ msgstr "Fertigungsarbeitsplatz"
+
+#~ msgid "Production start Operation"
+#~ msgstr "Auftragsstart Vorgang"
+
+#~ msgid "Workcenter"
+#~ msgstr "Arbeitsplatz"
+
+#~ msgid "Graph view in hours by workcenter"
+#~ msgstr "Graph. Ansicht Stunden Arbeitsplatz"
+
+#~ msgid "Work Orders to Do"
+#~ msgstr "Auftragsliste"
+
+#~ msgid "Cancel Operation"
+#~ msgstr "Abbrechen Vorgang"
+
+#~ msgid "Work start Operation"
+#~ msgstr "Auftragsstart Vorgang"
+
+#~ msgid "Done Operation"
+#~ msgstr "Vorgang erledigt"
+
+#~ msgid "Operation is cancelled"
+#~ msgstr "Vorgang wurde beendet"
+
+#~ msgid "Prod.State"
+#~ msgstr "Produktions Status"
+
+#~ msgid "Workcenter Production start end workflow"
+#~ msgstr "Arbeitsplatz Produktion Anfang Ende Arbeitsfluss"
+
+#~ msgid "All Work Orders"
+#~ msgstr "alle Arbaitsaufträge"
+
+#~ msgid "UOM"
+#~ msgstr "ME"
+
+#~ msgid "State"
+#~ msgstr "Status"
+
+#~ msgid "Month -1"
+#~ msgstr "Monat -1"
+
+#~ msgid "Invalid model name in the action definition."
+#~ msgstr "Ungültiger Modulname in der Aktionsdefinition."
+
+#~ msgid ""
+#~ "* When a work order is created it is set in 'Draft' state.\n"
+#~ "* When user sets work order in start mode that time it will be set in 'In "
+#~ "Progress' state.\n"
+#~ "* When work order is in running mode, during that time if user wants to stop "
+#~ "or to make changes in order then can set in 'Pause' state.\n"
+#~ "* When the user cancels the work order it will be set in 'Canceled' state.\n"
+#~ "* When order is completely processed that time it is set in 'Finished' state."
+#~ msgstr ""
+#~ "* Wenn ein Arbeitsauftrag erstellt wird , ist der Status zu Beginn immer "
+#~ "'Entwurf'.\n"
+#~ "* Wenn ein Benutzer einen Arbeitsauftrag startet, wird der Status des "
+#~ "Fertigungsauftrags automatisch auf 'In Bearbeitung' geändert.\n"
+#~ "* Wenn ein Arbeitsauftrag noch in Arbeit ist, kann der Benutzer den Vorgang "
+#~ "anhalten (Stop), um z.B. den Fertigungsauftrag anzupassen, wodurch der "
+#~ "Status des Auftrags dann auf 'Pause' wechselt.\n"
+#~ "* Wenn ein Benutzer einen Arbeitsauftrag abbricht, ändert sich der Status "
+#~ "auf 'Abgebrochen'\n"
+#~ "* Wenn alle Arbeitsaufträge  beendet werden, wechselt der Status für den "
+#~ "Fertigungsauftrag automatisch zu 'Erledigt'."
+
+#, python-format
+#~ msgid ""
+#~ "Operation has already started !' 'You  can either Pause /Finish/Cancel the "
+#~ "operation"
+#~ msgstr ""
+#~ "Fertigungsvorgang wurde bereits gestartet !' ' Sie können fortfahren mit "
+#~ "entweder Pause / Ende / Abbruch"
+
+#, python-format
+#~ msgid " You cannot Resume the operation other then Pause state !"
+#~ msgstr ""
+#~ " Sie können den Vorgang nicht fortsetzen, wenn er nicht im Pause Status ist !"
+
+#~ msgid "Work Center Production start end workflow"
+#~ msgstr ""
+#~ "Starte und Beende einzelne Arbeitsaufträge und erfasse dadurch deren "
+#~ "tatsächliche Dauer zu einem Fertigungsauftrag."
+
+#~ msgid "Real"
+#~ msgstr "Tatsächliche Fertigung"
+
+#~ msgid "Production State"
+#~ msgstr "Fertigungsstatus"
+
+#~ msgid "Order quantity cannot be negative or zero !"
+#~ msgstr "Bestellmengen können nicht negativ oder '0' sein !"
+
+#~ msgid "You must assign a production lot for this product"
+#~ msgstr "Sie müssen zwingend eine Losnummer für dieses Produkt angeben"
+
+#~ msgid "You try to assign a lot which is not from the same product"
+#~ msgstr ""
+#~ "Sie versuchen eine Losnummer ohne Bezug zu diesem Produkt zuzuweisen."
+
+#, python-format
+#~ msgid "You cannot Pause the Operation other then Start/Resume state !"
+#~ msgstr ""
+#~ "Sie können den Arbeitsauftrag nicht unterbrechen, wenn der aktuelle Status "
+#~ "'Erledigt' oder 'Entwurf' ist."
+
+#, python-format
+#~ msgid "There is no Operation to be cancelled !"
+#~ msgstr "Es gibt keinen Arbeitsauftrag der zu beenden wäre !"
+
+#, python-format
+#~ msgid "You cannot finish the operation without Starting/Resuming it !"
+#~ msgstr ""
+#~ "Sie können den Arbeitsauftrag nicht beenden ohne ihn vorher zu Starten oder "
+#~ "Fortzusetzen !"
+
+#~ msgid ""
+#~ "To manufacture or assemble products, and use raw materials and finished "
+#~ "products you must also handle manufacturing operations. Manufacturing "
+#~ "operations are often called Work Orders. The various operations will have "
+#~ "different impacts on the costs of manufacturing and planning depending on "
+#~ "the available workload."
+#~ msgstr ""
+#~ "Für die Fertigung oder die Montage von Produkten durch die Verwendung von "
+#~ "Vormaterial müssen Arbeitspläne beschrieben werden. Arbeitspläne werden "
+#~ "oftmals auch durch Arbeitsaufträge repräsentiert. Unterschiedliche "
+#~ "Arbeitspläne haben dabei auch unterschiedliche Auswirkungen auf die "
+#~ "Fertigungskosten und Planung der Fertigungskapazität."
+
+#, python-format
+#~ msgid ""
+#~ "Operation has already started !You  can either Pause /Finish/Cancel the "
+#~ "operation"
+#~ msgstr ""
+#~ "Arbeitsauftrag wurde bereits gestartet! Sie können den Zustand durch Pause / "
+#~ "Beenden / Abbrechen ändern"
+
+#~ msgid ""
+#~ "\n"
+#~ "     This module adds state, date_start,date_stop in production order "
+#~ "operation lines\n"
+#~ "     (in the \"Work Centers\" tab)\n"
+#~ "     State: draft, confirm, done, cancel\n"
+#~ "     When finishing/confirming,cancelling production orders set all state "
+#~ "lines to the according state\n"
+#~ "     Create menus:\n"
+#~ "         Production Management > All Operations\n"
+#~ "         Production Management > All Operations > Operations To Do "
+#~ "(state=\"confirm\")\n"
+#~ "     Which is a view on \"Work Centers\" lines in production order,\n"
+#~ "     editable tree\n"
+#~ "\n"
+#~ "    Add buttons in the form view of production order under workcenter tab:\n"
+#~ "    * start (set state to confirm), set date_start\n"
+#~ "    * done (set state to done), set date_stop\n"
+#~ "    * set to draft (set state to draft)\n"
+#~ "    * cancel set state to cancel\n"
+#~ "\n"
+#~ "    When the production order becomes \"ready to produce\", operations must\n"
+#~ "    become 'confirmed'. When the production order is done, all operations\n"
+#~ "    must become done.\n"
+#~ "\n"
+#~ "    The field delay is the delay(stop date - start date).\n"
+#~ "    So that we can compare the theoretic delay and real delay.\n"
+#~ "\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "     Diese Anwendung erweitert die Fertigungsaufträge um Status, Start Datum "
+#~ "und Ende Datum für Arbeitsaufträge\n"
+#~ "     (im Aktenreiter Arbeitsaufträge)\n"
+#~ "      Status: Entwurf, Bestätigt, Fertig, Abgebrochen\n"
+#~ "      Bei Klick auf Beendigen, Bestätigen oder  Abbrechen wird zunächst auch "
+#~ "der Status geändert.\n"
+#~ "      Erstellte Menüs:\n"
+#~ "      Fertigung/Fertigung/Arbeitsaufträge\n"
+#~ "      Fertigung/Fertigungsterminierung/Arbeitsaufträge\n"
+#~ "\n"
+#~ "      Im Formular eines Fertigungsauftrags wurden beim Aktenreiter "
+#~ "\"Arbeitsaufträge\" folgende Buttons für den\n"
+#~ "      Workflow ergänzt:\n"
+#~ "      * Start (setze Status auf Bestätigen),\n"
+#~ "      * Erledigt (setze Status auf Beenden),\n"
+#~ "      * Setze auf Entwurf (Setze Status auf Entwurf)\n"
+#~ "      * Abbrechen Statusänderung\n"
+#~ "\n"
+#~ "Zum Zeitpunkt, zu dem der Fertigungsauftrag \"Startbereit fü sitr die "
+#~ "Fertigung\", wurden scheinbar alle\n"
+#~ "Vorgänge bestätigt. Wenn der Produktionsauftrag erledigt wurde, mussten alle "
+#~ "Vorgänge erledigt sein.\n"
+#~ "\n"
+#~ "Das Feld \"Zeitverzug\" ist der Verzug (Stop Datum - Ende Datum).\n"
+#~ "Somit können wir den theoretischen Verzug und den tatsächlichen V ertug "
+#~ "geändert.\n"
+#~ "\n"
+#~ "    "
+
+#, python-format
+#~ msgid "Operation is already finished !"
+#~ msgstr "Arbeitsauftrag ist bereits abgeschlossen !"
+
+#~ msgid "This is lead time between operation start and stop in this workcenter"
+#~ msgstr ""
+#~ "Die Zeitverzögerung zwischen Start und Ende des Arbeitsauftrags an dieser "
+#~ "Fertigungsstelle"
+
+#, python-format
+#~ msgid "Operation is Already Cancelled  !"
+#~ msgstr "Arbeitsauftrag wurde bereits storniert !"
+
+#~ msgid ""
+#~ "Work Orders is the list of operations to be performed for each manufacturing "
+#~ "order. Once you start the first work order of a manufacturing order, the "
+#~ "manufacturing order is automatically marked as started. Once you finish the "
+#~ "latest operation of a manufacturing order, the MO is automatically done and "
+#~ "the related products are produced."
+#~ msgstr ""
+#~ "Arbeitsaufträge repräsentieren einzelne Schritte eines Arbeitsplans im "
+#~ "Rahmen von Fertigungsaufträgen. Sobald Sie einen Arbeitsauftrag beginnen, "
+#~ "wird der Fertigungsauftrag automatisch als 'In Bearbeitung' gekennzeichnet. "
+#~ "Sobald Sie den letzten Arbeitsauftrag zu einem Fertigungsauftrag beenden, "
+#~ "wird auch der Fertigungsauftrag beendet sowie das zu produzierende Produkt "
+#~ "als fertig erstellt gemeldet."
+
+#, python-format
+#~ msgid "There is no Operation to be cancelled!"
+#~ msgstr "Es gibt keinen stornierbaren Vorgang"
+
+#~ msgid "You can not move products from or to a location of the type view."
+#~ msgstr ""
+#~ "Sie dürfen keine Sicht als Quelle oder Ziel einer Lagerbewegung angeben"
+
+#~ msgid "Work orders during last month"
+#~ msgstr "Arbeitsauftäge letztes Monat"
+
+#~ msgid "Reference must be unique per Company!"
+#~ msgstr "Die Referenz muss je Firma eindeutig sein"
+
+#~ msgid "Work orders made during current month"
+#~ msgstr "Arbeitsaufträge laufender Monat"
+
+#~ msgid "Order quantity cannot be negative or zero!"
+#~ msgstr "Die Bestellmenge kann nicht negativ oder 0 sein"
+
+#~ msgid ""
+#~ "* When a work order is created it is set in 'Draft' state.\n"
+#~ "* When user sets work order in start mode that time it will be set in 'In "
+#~ "Progress' state.\n"
+#~ "* When work order is in running mode, during that time if user wants to stop "
+#~ "or to make changes in order then can set in 'Pending' state.\n"
+#~ "* When the user cancels the work order it will be set in 'Canceled' state.\n"
+#~ "* When order is completely processed that time it is set in 'Finished' state."
+#~ msgstr ""
+#~ "Der Status eines Arbeitsauftrages ist:\n"
+#~ "* Entwurf, wenn dieser erstellt wird.\n"
+#~ "* In Bearbeitung, wenn dieser gestartet wird.\n"
+#~ "* Angehalten, wenn der Auftrag angehalten wird.\n"
+#~ "* Storniert, wenn der Auftrag storniert wird.\n"
+#~ "* Erledigt, wenn der Auftrag vollständig erledigt ist."
+
+#, python-format
+#~ msgid ""
+#~ "Operation has already started !Youcan either Pause/Finish/Cancel the "
+#~ "operation"
+#~ msgstr ""
+#~ "Der Vorgang wurde bereits gestartet. Sie können diesen entweder "
+#~ "Unterbrechen,Beenden oder Abbrechen"
+
+#~ msgid "Work orders made during current year"
+#~ msgstr "Arbeitsaufträge aktuelles Jahr"

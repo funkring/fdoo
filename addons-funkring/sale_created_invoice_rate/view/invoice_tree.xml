@@ -1,0 +1,15 @@
+<openerp>
+	<data>		
+		<record id="tree_sale_order" model="ir.ui.view">
+            <field name="name">sale_created_invoice_rate.tree_sale_order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+            	<field name="picked_rate" position="after">
+            		<field name="createdinv_rate" widget="progressbar"/>
+            	</field>   
+            </field>
+        </record>
+	</data>
+</openerp>

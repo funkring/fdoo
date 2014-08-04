@@ -1,21 +1,20 @@
-# Arabic translation for openobject-addons
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
-# This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* point_of_sale
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openobject-addons\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:36+0000\n"
-"PO-Revision-Date: 2012-12-21 23:00+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Arabic <ar@li.org>\n"
+"Project-Id-Version: OpenERP Server 5.0.4\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-12-21 17:04+0000\n"
+"PO-Revision-Date: 2009-02-03 06:25+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-21 06:23+0000\n"
-"X-Generator: Launchpad (build 16831)\n"
+"X-Launchpad-Export-Date: 2014-03-27 06:05+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: point_of_sale
 #: field:report.transaction.pos,product_nb:0
@@ -258,13 +257,6 @@ msgid "Accounting Information"
 msgstr "معلومات محاسبية"
 
 #. module: point_of_sale
-#. openerp-web
-#: code:addons/point_of_sale/static/src/xml/pos.xml:427
-#, python-format
-msgid "0.00€"
-msgstr ""
-
-#. module: point_of_sale
 #: field:pos.session.opening,show_config:0
 msgid "Show Config"
 msgstr ""
@@ -386,14 +378,6 @@ msgid "Open Cashbox"
 msgstr ""
 
 #. module: point_of_sale
-#: code:addons/point_of_sale/point_of_sale.py:536
-#, python-format
-msgid ""
-"You cannot change the partner of a POS order for which an invoice has "
-"already been issued."
-msgstr ""
-
-#. module: point_of_sale
 #: view:pos.session.opening:0
 msgid "Select your Point of Sale"
 msgstr ""
@@ -444,16 +428,6 @@ msgstr ""
 #: view:pos.order.line:0
 msgid "Total qty"
 msgstr "إجمالي الكمية"
-
-#. module: point_of_sale
-#. openerp-web
-#: code:addons/point_of_sale/static/src/js/screens.js:458
-#: code:addons/point_of_sale/static/src/js/screens.js:487
-#: code:addons/point_of_sale/static/src/js/screens.js:678
-#: code:addons/point_of_sale/static/src/js/screens.js:874
-#, python-format
-msgid "Back"
-msgstr ""
 
 #. module: point_of_sale
 #: model:product.template,name:point_of_sale.fanta_orange_33cl_product_template
@@ -823,13 +797,6 @@ msgstr "هاتف:"
 
 #. module: point_of_sale
 #. openerp-web
-#: code:addons/point_of_sale/static/src/js/widgets.js:981
-#, python-format
-msgid "Self-Checkout"
-msgstr ""
-
-#. module: point_of_sale
-#. openerp-web
 #: code:addons/point_of_sale/static/src/xml/pos.xml:254
 #: model:ir.actions.act_window,name:point_of_sale.action_report_pos_receipt
 #, python-format
@@ -1009,12 +976,6 @@ msgstr "مارس"
 #: model:ir.actions.report.xml,name:point_of_sale.pos_users_product_re
 #: report:pos.user.product:0
 msgid "User's Product"
-msgstr ""
-
-#. module: point_of_sale
-#: code:addons/point_of_sale/point_of_sale.py:1007
-#, python-format
-msgid "The POS order must have lines when calling this method"
 msgstr ""
 
 #. module: point_of_sale
@@ -1225,13 +1186,6 @@ msgstr ""
 #: code:addons/point_of_sale/static/src/xml/pos.xml:741
 #, python-format
 msgid "ABC"
-msgstr ""
-
-#. module: point_of_sale
-#. openerp-web
-#: code:addons/point_of_sale/static/src/js/screens.js:812
-#, python-format
-msgid "Print"
 msgstr ""
 
 #. module: point_of_sale
@@ -1518,6 +1472,11 @@ msgid "&auml;"
 msgstr ""
 
 #. module: point_of_sale
+#: report:pos.invoice:0
+msgid "VAT :"
+msgstr "ضريبة القيمة المضافة:"
+
+#. module: point_of_sale
 #: view:pos.order.line:0
 msgid "POS Order lines"
 msgstr ""
@@ -1575,13 +1534,6 @@ msgstr ""
 #: model:res.groups,name:point_of_sale.group_pos_user
 msgid "User"
 msgstr "مستخدم"
-
-#. module: point_of_sale
-#: code:addons/point_of_sale/point_of_sale.py:413
-#, python-format
-msgid ""
-"The type of the journal for your payment method should be bank or cash "
-msgstr ""
 
 #. module: point_of_sale
 #. openerp-web
@@ -1739,13 +1691,6 @@ msgid "Peach"
 msgstr ""
 
 #. module: point_of_sale
-#. openerp-web
-#: code:addons/point_of_sale/static/src/js/screens.js:772
-#, python-format
-msgid "Pay"
-msgstr ""
-
-#. module: point_of_sale
 #: model:product.template,name:point_of_sale.timmermans_kriek_37,5cl_product_template
 msgid "Timmermans Kriek 37.5cl"
 msgstr ""
@@ -1849,13 +1794,6 @@ msgstr ""
 #: view:report.sales.by.user.pos.month:0
 #: view:report.transaction.pos:0
 msgid "POS"
-msgstr ""
-
-#. module: point_of_sale
-#. openerp-web
-#: code:addons/point_of_sale/static/src/xml/pos.xml:587
-#, python-format
-msgid "Subtotal:"
 msgstr ""
 
 #. module: point_of_sale
@@ -2088,14 +2026,6 @@ msgid "Others"
 msgstr "أخرى"
 
 #. module: point_of_sale
-#. openerp-web
-#: code:addons/point_of_sale/static/src/js/screens.js:495
-#: code:addons/point_of_sale/static/src/js/screens.js:882
-#, python-format
-msgid "Validate"
-msgstr "تحقق"
-
-#. module: point_of_sale
 #: model:pos.category,name:point_of_sale.autres_legumes_frais
 msgid "Other fresh vegetables"
 msgstr ""
@@ -2200,12 +2130,11 @@ msgid "Coca-Cola Zero 1L"
 msgstr ""
 
 #. module: point_of_sale
-#. openerp-web
-#: code:addons/point_of_sale/static/src/js/screens.js:268
-#: code:addons/point_of_sale/static/src/js/screens.js:718
-#, python-format
-msgid "Help"
-msgstr ""
+#: report:pos.sales.user:0
+#: report:pos.sales.user.today:0
+#: field:report.pos.order,date:0
+msgid "Date Order"
+msgstr "ترتيب التواريخ"
 
 #. module: point_of_sale
 #: view:pos.order:0
@@ -2263,13 +2192,6 @@ msgstr ""
 #: model:ir.actions.report.xml,name:point_of_sale.account_statement
 msgid "Statement"
 msgstr "إفادة"
-
-#. module: point_of_sale
-#. openerp-web
-#: code:addons/point_of_sale/static/src/xml/pos.xml:351
-#, python-format
-msgid "Sorry, we could not create a session for this user."
-msgstr ""
 
 #. module: point_of_sale
 #: report:pos.invoice:0
@@ -2461,13 +2383,6 @@ msgid "Year of order date"
 msgstr ""
 
 #. module: point_of_sale
-#: report:pos.sales.user:0
-#: report:pos.sales.user.today:0
-#: field:report.pos.order,date:0
-msgid "Date Order"
-msgstr "ترتيب التواريخ"
-
-#. module: point_of_sale
 #: help:product.product,to_weight:0
 msgid ""
 "Check if the product should be weighted (mainly used with self check-out "
@@ -2527,11 +2442,6 @@ msgstr "مغلق"
 #. module: point_of_sale
 #: field:pos.config,iface_cashdrawer:0
 msgid "Cashdrawer Interface"
-msgstr ""
-
-#. module: point_of_sale
-#: report:pos.invoice:0
-msgid "TIN :"
 msgstr ""
 
 #. module: point_of_sale
@@ -3782,13 +3692,6 @@ msgid "Close Session"
 msgstr ""
 
 #. module: point_of_sale
-#. openerp-web
-#: code:addons/point_of_sale/static/src/js/widgets.js:975
-#, python-format
-msgid "Close"
-msgstr "إغلاق"
-
-#. module: point_of_sale
 #: view:pos.order:0
 msgid "Order lines"
 msgstr ""
@@ -3855,15 +3758,6 @@ msgstr ""
 #. module: point_of_sale
 #: report:pos.sales.user.today:0
 msgid "Today's Sales By User"
-msgstr ""
-
-#. module: point_of_sale
-#: help:account.journal,amount_authorized_diff:0
-msgid ""
-"This field depicts the maximum difference allowed between the ending balance "
-"and the theorical cash when closing a session, for non-POS managers. If this "
-"maximum is reached, the user will have an error message at the closing of "
-"his session saying that he needs to contact his manager."
 msgstr ""
 
 #. module: point_of_sale
@@ -4051,9 +3945,9 @@ msgstr ""
 
 #. module: point_of_sale
 #. openerp-web
-#: code:addons/point_of_sale/static/src/js/screens.js:818
+#: code:addons/point_of_sale/static/src/xml/pos.xml:351
 #, python-format
-msgid "Next Order"
+msgid "Sorry, we could not create a session for this user."
 msgstr ""
 
 #. module: point_of_sale
@@ -4095,5 +3989,242 @@ msgstr ""
 msgid "Orders"
 msgstr ""
 
-#~ msgid "VAT :"
-#~ msgstr "ضريبة القيمة المضافة:"
+#~ msgid "Origin"
+#~ msgstr "الاصل"
+
+#~ msgid "VAT"
+#~ msgstr "ضريبة القيمة المضافة"
+
+#~ msgid "State"
+#~ msgstr "الحالة"
+
+#~ msgid "Miscelleanous"
+#~ msgstr "متفرقات"
+
+#~ msgid "Other Information"
+#~ msgstr "معلومات أخرى"
+
+#~ msgid "["
+#~ msgstr "["
+
+#~ msgid "Quotations"
+#~ msgstr "التسعيرات"
+
+#~ msgid "Save & New"
+#~ msgstr "حفظ و جديد"
+
+#, python-format
+#~ msgid "Invalid action !"
+#~ msgstr "إجراء خاطئ!"
+
+#~ msgid "Companies"
+#~ msgstr "الشركات"
+
+#~ msgid "Extended Filters..."
+#~ msgstr "مرشحات مفصلة..."
+
+#~ msgid "Your Reference"
+#~ msgstr "مرجعك"
+
+#~ msgid "Information"
+#~ msgstr "معلومات"
+
+#~ msgid "Barcode"
+#~ msgstr "باركود"
+
+#~ msgid "First Name"
+#~ msgstr "الإسم الأول"
+
+#~ msgid "Other"
+#~ msgstr "أخرى"
+
+#~ msgid "]"
+#~ msgstr "]"
+
+#~ msgid "Create Date"
+#~ msgstr "إنشاء تاريخ"
+
+#~ msgid "Sale Order"
+#~ msgstr "طلب بيع"
+
+#~ msgid "Order date"
+#~ msgstr "تاريخ الأمر"
+
+#~ msgid "Account"
+#~ msgstr "الحساب"
+
+#~ msgid "Code"
+#~ msgstr "الرمز"
+
+#~ msgid "Picking List"
+#~ msgstr "قائمة الالتقاط"
+
+#, python-format
+#~ msgid "Error !"
+#~ msgstr "خطأ !"
+
+#~ msgid "state"
+#~ msgstr "الولاية"
+
+#~ msgid "Start Date"
+#~ msgstr "تاريخ البدء"
+
+#~ msgid "Create Invoice"
+#~ msgstr "إنشاء فاتورة"
+
+#~ msgid "Closing Balance"
+#~ msgstr "رصيد الإغلاق"
+
+#~ msgid "Date Ordered"
+#~ msgstr "تاريخ الأمر"
+
+#~ msgid "End Date"
+#~ msgstr "تاريخ الإنتهاء"
+
+#, python-format
+#~ msgid "There is no income account defined for this product: \"%s\" (id:%d)"
+#~ msgstr "لا يوجد حساب دخل معرّف لهذا المنتج: \"%s\" (id:%d)"
+
+#~ msgid "Serial Number"
+#~ msgstr "الرقم التسلسلي"
+
+#~ msgid "Confirm"
+#~ msgstr "تأكيد"
+
+#~ msgid "Error! You can not create recursive companies."
+#~ msgstr "خطأ! لا يمكنك إنشاء شركات متداخلة (شركات تستخدم نفسها)."
+
+#~ msgid "Sales Order"
+#~ msgstr "أمر المبيعات"
+
+#~ msgid "Confirmed"
+#~ msgstr "مؤكد"
+
+#~ msgid "Reporting"
+#~ msgstr "التقارير"
+
+#, python-format
+#~ msgid "Message"
+#~ msgstr "رسالة"
+
+#~ msgid "No"
+#~ msgstr "كلا"
+
+#~ msgid "Draft"
+#~ msgstr "مسودة"
+
+#~ msgid "Add"
+#~ msgstr "إضافة"
+
+#, python-format
+#~ msgid "Error"
+#~ msgstr "خطأ"
+
+#, python-format
+#~ msgid "Close"
+#~ msgstr "إغلاق"
+
+#~ msgid "Save & Close"
+#~ msgstr "حفظ و إغلاق"
+
+#~ msgid "Advance"
+#~ msgstr "مقدم"
+
+#~ msgid "Running"
+#~ msgstr "قيد التنفيذ"
+
+#~ msgid "Account Entry"
+#~ msgstr "قيد الحساب"
+
+#~ msgid "Yes"
+#~ msgstr "نعم"
+
+#~ msgid ""
+#~ "Configuration error! The currency chosen should be shared by the default "
+#~ "accounts too."
+#~ msgstr ""
+#~ "خطأ في الإعدادات! يجب أن تكون العملة المختارة مشتركة للحسابات الإفتراضية "
+#~ "أيضأً."
+
+#~ msgid "Description / Reason"
+#~ msgstr "وصف / سبب"
+
+#, python-format
+#~ msgid "Configuration Error !"
+#~ msgstr "خطأ في الإعدادات!"
+
+#~ msgid ""
+#~ "The amount of the voucher must be the same amount as the one on the "
+#~ "statement line"
+#~ msgstr "يجب ان تكون كمية الايصال نفس كمية الايصال في خط البيان"
+
+#~ msgid "The name of the journal must be unique per company !"
+#~ msgstr "يجب ان يكون الاسم لليومية فريد لكل شركة!"
+
+#~ msgid "Update"
+#~ msgstr "تحديث"
+
+#~ msgid "Month -1"
+#~ msgstr "شهر  - ١"
+
+#~ msgid "Quotation"
+#~ msgstr "التسعيرة"
+
+#~ msgid "Discount"
+#~ msgstr "الخصم"
+
+#~ msgid "The journal and period chosen have to belong to the same company."
+#~ msgstr "يجب أن يكون اليومية و الفترة مرتبطين لشركة واحدة."
+
+#~ msgid "The code of the journal must be unique per company !"
+#~ msgstr "يجب ان يكون الكود لليومية فريد لكل شركة !"
+
+#~ msgid "Yesterday"
+#~ msgstr "أمس"
+
+#~ msgid "    Today    "
+#~ msgstr "    اليوم    "
+
+#~ msgid "Disc (%)"
+#~ msgstr "نسبة الخصم"
+
+#, python-format
+#~ msgid "Validate"
+#~ msgstr "تحقق"
+
+#~ msgid "pending orders"
+#~ msgstr "أوامر معلقة"
+
+#~ msgid "Add payment :"
+#~ msgstr "إضافة دفع جديد"
+
+#~ msgid "Month from Creation date of cash register"
+#~ msgstr "شهر منذ يوم إنشاء صندوق الدفع"
+
+#~ msgid "PoS Categories"
+#~ msgstr "فئات نقاط البيع"
+
+#~ msgid "Cash Register Management"
+#~ msgstr "إدارة تسجيل النقدية"
+
+#~ msgid "Fill in this form if you put money in the cash register:"
+#~ msgstr "تعبئة هذا النموذج إذا وضعت المال في مسجيل النقدية:"
+
+#~ msgid "Day from Creation date of cash register"
+#~ msgstr "يوم من تاريخ إنشاء تسجيل النقدية"
+
+#~ msgid "Register Analysis"
+#~ msgstr "تحليل التسجيل"
+
+#~ msgid "Year from Creation date of cash register"
+#~ msgstr "سنة من تاريخ إنشاء تسجيل النقدية"
+
+#~ msgid ""
+#~ "If you want to sell this product through the point of sale, select the "
+#~ "category it belongs to."
+#~ msgstr ""
+#~ "إذا كنت ترغب في بيع هذا المنتج من خلال نقطة البيع، اختار التصنيف الذي تنتمي "
+#~ "إليه"
+
+#~ msgid "Output Operation"
+#~ msgstr "مخرجات التشغيل"

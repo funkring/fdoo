@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <report id="report_product_label_pdf"        	   
+               string="Product Label"
+               name="product.product_label"
+               auto="False"
+               stylesheet="none"
+               report_type="aeroo"
+               model="product.product"
+               in_format="oo-odt"
+               out_format="oo-pdf"
+               parser="product_label/report/product_label_report.py"
+               rml="product_label/report/product_label_report.odt"/>
+    </data>
+</openerp>

@@ -1,0 +1,317 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* edi_base
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1-dev\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-11-29 14:57+0000\n"
+"PO-Revision-Date: 2012-11-29 16:06+0100\n"
+"Last-Translator: Pichler Edwin <edwin.pichler@funkring.net>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: edi_base
+#: field:edi.transfer,res_id:0
+msgid "Resource ID"
+msgstr "Resource ID"
+
+#. module: edi_base
+#: view:edi.transfer:0
+#: model:ir.actions.act_window,name:edi_base.action_edi_transfer
+#: model:ir.model,name:edi_base.model_edi_transfer
+#: model:ir.ui.menu,name:edi_base.menu_edi_transfer
+msgid "EDI Transfer"
+msgstr "EDI Transfer"
+
+#. module: edi_base
+#: field:edi.client_profile,system_id:0
+#: field:edi.link,system_id:0
+#: field:edi.profile,system_id:0
+#: field:edi.remoteref,system_id:0
+#: field:edi.server_profile,system_id:0
+#: view:edi.system:0
+#: model:ir.actions.act_window,name:edi_base.action_edi_system
+#: model:ir.ui.menu,name:edi_base.menu_edi_system
+msgid "System"
+msgstr "System"
+
+#. module: edi_base
+#: view:edi.client_profile:0
+#: view:edi.server_profile:0
+msgid "Access"
+msgstr "Zugriff"
+
+#. module: edi_base
+#: selection:edi.transfer,state:0
+msgid "Failed"
+msgstr "Fehlgeschlagen"
+
+#. module: edi_base
+#: field:edi.transfer,state:0
+msgid "State"
+msgstr "Status"
+
+#. module: edi_base
+#: model:ir.model,name:edi_base.model_edi_profile
+msgid "EDI Profile"
+msgstr "EDI Profil"
+
+#. module: edi_base
+#: view:edi.system:0
+msgid "Systems"
+msgstr "Systeme"
+
+#. module: edi_base
+#: model:ir.model,name:edi_base.model_edi_server_profile
+msgid "EDI Server Profil"
+msgstr "EDI Server Profil"
+
+#. module: edi_base
+#: view:edi.client_profile:0
+msgid "Client Profiles"
+msgstr "Client Profil"
+
+#. module: edi_base
+#: model:ir.actions.act_window,name:edi_base.action_server_profile
+#: model:ir.ui.menu,name:edi_base.menu_server_profile
+msgid "Server Profil"
+msgstr "Server Profil"
+
+#. module: edi_base
+#: field:edi.link,local_model:0
+#: field:edi.transfer,model:0
+msgid "Model"
+msgstr "Model"
+
+#. module: edi_base
+#: model:ir.actions.act_window,name:edi_base.action_client_profile
+#: model:ir.ui.menu,name:edi_base.menu_client_profile
+msgid "Client Profil"
+msgstr "Client Profil"
+
+#. module: edi_base
+#: field:edi.transfer,error_log_id:0
+msgid "Error Log"
+msgstr "Fehler Log"
+
+#. module: edi_base
+#: field:edi.transfer,wait_count:0
+msgid "Wait Count"
+msgstr "Wartezeit"
+
+#. module: edi_base
+#: view:edi.client_profile:0
+#: field:edi.system,client_profile_ids:0
+msgid "Client Profile"
+msgstr "Client Profil"
+
+#. module: edi_base
+#: field:edi.client_profile,retry:0
+msgid "Retry on Error"
+msgstr "Wiederholung bei Fehler"
+
+#. module: edi_base
+#: field:edi.client_profile,url:0
+msgid "Url"
+msgstr "Url"
+
+#. module: edi_base
+#: code:addons/edi_base/edi.py:402
+#: code:addons/edi_base/edi.py:458
+#, python-format
+msgid "Unexpected EDI Transfer Error"
+msgstr "Unerwarteter EDI Übertragungsfehler"
+
+#. module: edi_base
+#: help:edi.server_profile,property_mapped_user:0
+msgid ""
+"The user is used for system interaction, but could only used for a function \n"
+" where a user mapping is done."
+msgstr ""
+"Dieser Benutzer wird für Systemeingriffe benutzt, aber konnte nur für eine Funktion verwendet werden, \n"
+"wo eine Benutzerabbildung erledigt wurde."
+
+#. module: edi_base
+#: view:edi.server_profile:0
+#: field:edi.server_profile,property_mapped_user:0
+msgid "Mapped User"
+msgstr "Abgebildeter Benutzer"
+
+#. module: edi_base
+#: field:edi.client_profile,password:0
+#: field:edi.server_profile,password:0
+msgid "Password"
+msgstr "Passwort"
+
+#. module: edi_base
+#: view:edi.server_profile:0
+msgid "Server Profiles"
+msgstr "Server Profil"
+
+#. module: edi_base
+#: model:ir.model,name:edi_base.model_edi_link
+msgid "EDI Link"
+msgstr "EDI Link"
+
+#. module: edi_base
+#: view:edi.system:0
+msgid "Dummy"
+msgstr "Dummy"
+
+#. module: edi_base
+#: field:edi.transfer,function:0
+msgid "Function"
+msgstr "Funktion"
+
+#. module: edi_base
+#: model:ir.model,name:edi_base.model_edi_client_profile
+msgid "EDI Client Profil"
+msgstr "EDI Client Profil"
+
+#. module: edi_base
+#: field:edi.client_profile,name:0
+#: field:edi.link,name:0
+#: field:edi.profile,name:0
+#: field:edi.server_profile,name:0
+#: field:edi.system,name:0
+#: field:edi.transfer,name:0
+msgid "Name"
+msgstr "Name"
+
+#. module: edi_base
+#: field:edi.client_profile,database:0
+msgid "Database"
+msgstr "Datenbank"
+
+#. module: edi_base
+#: view:edi.client_profile:0
+msgid "URL"
+msgstr "URL"
+
+#. module: edi_base
+#: view:edi.client_profile:0
+msgid "Password/User"
+msgstr "Passwort/Benutzer"
+
+#. module: edi_base
+#: field:edi.client_profile,enabled:0
+#: field:edi.profile,enabled:0
+#: field:edi.server_profile,enabled:0
+msgid "Enabled"
+msgstr "Aktiviert"
+
+#. module: edi_base
+#: code:addons/edi_base/edi.py:249
+#: code:addons/edi_base/edi.py:255
+#, python-format
+msgid "Cannot find server profile"
+msgstr "Kann kein Serverprofil finden"
+
+#. module: edi_base
+#: model:ir.model,name:edi_base.model_edi_remoteref
+msgid "EDI Remote Reference"
+msgstr "EDI Remote Reference"
+
+#. module: edi_base
+#: field:edi.transfer,client_profile_id:0
+msgid "Client"
+msgstr "Client"
+
+#. module: edi_base
+#: field:edi.link,local_id:0
+msgid "Local ID"
+msgstr "Lokale ID"
+
+#. module: edi_base
+#: code:addons/edi_base/edi.py:249
+#: code:addons/edi_base/edi.py:255
+#, python-format
+msgid "Error"
+msgstr "Fehler"
+
+#. module: edi_base
+#: field:edi.remoteref,name:0
+msgid "Remote Name"
+msgstr "Name (Extern)"
+
+#. module: edi_base
+#: field:edi.link,remote_model:0
+#: field:edi.remoteref,remote_model:0
+msgid "Remote Model"
+msgstr "Model (Extern)"
+
+#. module: edi_base
+#: field:edi.server_profile,login:0
+msgid "Login"
+msgstr "Login"
+
+#. module: edi_base
+#: view:edi.client_profile:0
+msgid "Error Handling"
+msgstr "Fehlerbehandlung"
+
+#. module: edi_base
+#: field:edi.transfer,retry_count:0
+msgid "Retry Count"
+msgstr "Wiederholgungen"
+
+#. module: edi_base
+#: selection:edi.transfer,state:0
+msgid "Queued"
+msgstr "Eingereiht"
+
+#. module: edi_base
+#: code:addons/edi_base/edi.py:399
+#: code:addons/edi_base/edi.py:456
+#, python-format
+msgid "EDI Transfer Error: %s"
+msgstr "EDI Übertragungsfehler: %s"
+
+#. module: edi_base
+#: field:edi.system,links:0
+msgid "Links"
+msgstr "Links"
+
+#. module: edi_base
+#: model:ir.model,name:edi_base.model_edi_system
+msgid "EDI System"
+msgstr "EDI System"
+
+#. module: edi_base
+#: model:ir.ui.menu,name:edi_base.menu_edi
+msgid "EDI"
+msgstr "EDI"
+
+#. module: edi_base
+#: view:edi.server_profile:0
+msgid "General"
+msgstr "Allgemein"
+
+#. module: edi_base
+#: field:edi.client_profile,user:0
+#: field:edi.server_profile,user_id:0
+msgid "User"
+msgstr "Benutzer"
+
+#. module: edi_base
+#: field:edi.system,partner_id:0
+msgid "Partner"
+msgstr "Partner"
+
+#. module: edi_base
+#: view:edi.server_profile:0
+#: field:edi.system,server_profile_ids:0
+msgid "Server Profile"
+msgstr "Server Profil"
+
+#. module: edi_base
+#: field:edi.link,remote_id:0
+#: field:edi.remoteref,remote_id:0
+msgid "Remote ID"
+msgstr "Remote ID"
+

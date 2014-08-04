@@ -1,0 +1,17 @@
+<openerp>
+	<data>
+	
+		<record id="tree_timesheet_day" model="ir.ui.view">
+			<field name="name">at_timereg.tree_timesheet_day</field>
+			<field name="model">hr_timesheet_sheet.sheet.day</field>
+			<field name="inherit_id" ref="hr_timesheet_sheet.hr_timesheet_day_tree" />
+			<field name="arch" type="xml">
+				<field name="total_difference" position="after">
+					<field name="total_saldo" />
+					<field name="total_target" />
+				</field>
+			</field>
+		</record>
+		
+	</data>
+</openerp>

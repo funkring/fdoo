@@ -1,0 +1,56 @@
+<openerp>
+	<data>		
+		<record id="form_partner_import" model="ir.ui.view">
+            <field name="name">partner_import.form_partner_import</field>
+            <field name="model">partner.import_task</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Partner Import">
+                	<field name="type"/>
+                    <field name="import_file"/>
+                    <field name="log_ids" colspan="4" nolabel="1" readonly="1">
+                		<tree string="Result" colors="red:severity in ('2');orange:severity in ('1');black:severity in ('0')">
+                			<field name="name"/>
+                			<field name="severity"/>
+                		</tree>
+                		<form string="Result">
+                			<field name="name"/>
+                			<field name="severity"/>
+                		</form>
+                	</field>                
+                	<group colspan="4" col="6">                		
+						<field name="state"/>
+						<button icon="gtk-cancel" type="object" states="progress" name="cancel_tasks" string="Stop"/>
+						<button icon="gtk-cancel" type="object" states="validated,finished,canceled" name="reset_to_draft" string="Draft"/>
+						<button icon="terp-gtk-go-back-rtl" type="object" states="new,validated" string="Validate" name="run_validation"/>						
+						<button icon="terp-gtk-go-back-rtl" type="object" states="validated,canceled" string="Import" name="run_tasks"/>					
+					</group>
+                </form>
+            </field>
+        </record>
+
+        <record id="tree_partner_import" model="ir.ui.view">
+            <field name="name">partner_import.tree_partner_import</field>
+            <field name="model">partner.import_task</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Partner Import">
+                	<field name="create_date"/>        			
+        			<field name="percent" widget="progressbar"/>
+        			<field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_partner_import" model="ir.actions.act_window">
+            <field name="name">Partner Import</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">partner.import_task</field>            
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+				
+        <menuitem id="menu_partner_import" name="Partner Import" parent="base.menu_config_address_book" sequence="30"
+        		  action="action_partner_import"/>		
+	</data>
+</openerp>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+      <report id="report_cashbox_pdf"
+               string="Cashbox"
+               name="at_pos.cashbox"
+               auto="False"              
+               report_type="aeroo"
+               model="account.bank.statement"
+               in_format="oo-odt"
+               out_format="oo-pdf"
+               stylesheet="none"
+               parser="at_pos/report/cashbox_report.py"
+               rml="at_pos/report/cashbox_report.odt"/>
+               
+      <report id="report_cashbox_period_pdf"
+            string="Cashbox Period Report"
+            name="at_pos.cashbox_period"
+            auto="False"
+            report_type="aeroo"
+            model="account.period"
+            in_format="oo-odt"
+            out_format="oo-pdf"
+            stylesheet="none"
+            parser="at_pos/report/cashbox_period_report.py"
+            rml="at_pos/report/cashbox_period_report.odt"/>
+     
+	</data>
+</openerp>

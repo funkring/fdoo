@@ -1,0 +1,43 @@
+<openerp>
+	<data>
+		<record id="tree_project_view" model="ir.ui.view">
+			<field name="name">project_sequence.tree_project_view</field>
+			<field name="model">project.task</field>
+			<field name="inherit_id" ref="project.view_task_tree2" />
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<data>
+					<field name="name" position="before">
+						<field name="seq" />
+					</field>
+				</data>
+			</field>
+		</record>
+
+		<record id="form_project_view" model="ir.ui.view">
+			<field name="name">project_sequence.form_project_view</field>
+			<field name="model">project.task</field>
+			<field name="inherit_id" ref="project.view_task_form2" />
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<data>
+					<field name="name" position="before">
+						<field name="seq" invisible="1" />
+					</field>
+				</data>
+			</field>
+		</record>
+
+		<record forcecreate="1" id="seq_type_id" model="ir.sequence.type">
+			<field name="name">Project Seq</field>
+			<field name="code">project_seq</field>
+		</record>
+
+		<record forcecreate="1" id="seq_id" model="ir.sequence">
+			<field name="name">project_seq</field>
+			<field name="code">project_seq</field>
+			<field name="padding" eval="1" />
+		</record>
+	
+	</data>
+</openerp>

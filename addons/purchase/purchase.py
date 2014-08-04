@@ -21,13 +21,12 @@
 
 import time
 import pytz
-from openerp import SUPERUSER_ID
+from openerp import SUPERUSER_ID, workflow
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+from operator import attrgetter
 
 from openerp.osv import fields, osv
-from openerp import netsvc
-from openerp import pooler
 from openerp.tools.translate import _
 import openerp.addons.decimal_precision as dp
 from openerp.osv.orm import browse_record, browse_null
@@ -134,7 +133,10 @@ class purchase_order(osv.osv):
     def _invoiced(self, cursor, user, ids, name, arg, context=None):
         res = {}
         for purchase in self.browse(cursor, user, ids, context=context):
-            res[purchase.id] = all(line.invoiced for line in purchase.order_line)
+            invoiced = False
+            if purchase.invoiced_rate == 100.00:
+                invoiced = True
+            res[purchase.id] = invoiced
         return res
     
     def _get_journal(self, cr, uid, context=None):
@@ -160,8 +162,9 @@ class purchase_order(osv.osv):
     ]
     _track = {
         'state': {
-            'purchase.mt_rfq_confirmed': lambda self, cr, uid, obj, ctx=None: obj['state'] == 'confirmed',
-            'purchase.mt_rfq_approved': lambda self, cr, uid, obj, ctx=None: obj['state'] == 'approved',
+            'purchase.mt_rfq_confirmed': lambda self, cr, uid, obj, ctx=None: obj.state == 'confirmed',
+            'purchase.mt_rfq_approved': lambda self, cr, uid, obj, ctx=None: obj.state == 'approved',
+            'purchase.mt_rfq_done': lambda self, cr, uid, obj, ctx=None: obj.state == 'done',
         },
     }
     _columns = {
@@ -183,7 +186,7 @@ class purchase_order(osv.osv):
         'warehouse_id': fields.many2one('stock.warehouse', 'Destination Warehouse'),
         'location_id': fields.many2one('stock.location', 'Destination', required=True, domain=[('usage','<>','view')], states={'confirmed':[('readonly',True)], 'approved':[('readonly',True)],'done':[('readonly',True)]} ),
         'pricelist_id':fields.many2one('product.pricelist', 'Pricelist', required=True, states={'confirmed':[('readonly',True)], 'approved':[('readonly',True)],'done':[('readonly',True)]}, help="The pricelist sets the currency used for this purchase order. It also computes the supplier price for the selected products/quantities."),
-        'currency_id': fields.related('pricelist_id', 'currency_id', type="many2one", relation="res.currency", string="Currency",readonly=True, required=True),
+        'currency_id': fields.many2one('res.currency','Currency', readonly=True, required=True,states={'draft': [('readonly', False)],'sent': [('readonly', False)]}),
         'state': fields.selection(STATE_SELECTION, 'Status', readonly=True, help="The status of the purchase order or the quotation request. A quotation is a purchase order in a 'Draft' status. Then the order has to be confirmed by the user, the status switch to 'Confirmed'. Then the supplier must confirm the order to change the status to 'Approved'. When the purchase order is paid and received, the status becomes 'Done'. If a cancel action occurs in the invoice or in the reception of goods, the status becomes in exception.", select=True),
         'order_line': fields.one2many('purchase.order.line', 'order_id', 'Order Lines', states={'approved':[('readonly',True)],'done':[('readonly',True)]}),
         'validator' : fields.many2one('res.users', 'Validated by', readonly=True),
@@ -192,13 +195,13 @@ class purchase_order(osv.osv):
         'picking_ids': fields.one2many('stock.picking.in', 'purchase_id', 'Picking List', readonly=True, help="This is the list of incoming shipments that have been generated for this purchase order."),
         'shipped':fields.boolean('Received', readonly=True, select=True, help="It indicates that a picking has been done"),
         'shipped_rate': fields.function(_shipped_rate, string='Received Ratio', type='float'),
-        'invoiced': fields.function(_invoiced, string='Invoice Received', type='boolean', help="It indicates that an invoice has been validated"),
+        'invoiced': fields.function(_invoiced, string='Invoice Received', type='boolean', help="It indicates that an invoice has been paid"),
         'invoiced_rate': fields.function(_invoiced_rate, string='Invoiced', type='float'),
         'invoice_method': fields.selection([('manual','Based on Purchase Order lines'),('order','Based on generated draft invoice'),('picking','Based on incoming shipments')], 'Invoicing Control', required=True,
             readonly=True, states={'draft':[('readonly',False)], 'sent':[('readonly',False)]},
-            help="Based on Purchase Order lines: place individual lines in 'Invoice Control > Based on P.O. lines' from where you can selectively create an invoice.\n" \
+            help="Based on Purchase Order lines: place individual lines in 'Invoice Control / On Purchase Order lines' from where you can selectively create an invoice.\n" \
                 "Based on generated invoice: create a draft invoice you can validate later.\n" \
-                "Bases on incoming shipments: let you create an invoice when receptions are validated."
+                "Based on incoming shipments: let you create an invoice when receptions are validated."
         ),
         'minimum_planned_date':fields.function(_minimum_planned_date, fnct_inv=_set_minimum_planned_date, string='Expected Date', type='date', select=True, help="This is computed as the minimum scheduled date of all purchase order lines' products.",
             store = {
@@ -234,6 +237,7 @@ class purchase_order(osv.osv):
         'pricelist_id': lambda self, cr, uid, context: context.get('partner_id', False) and self.pool.get('res.partner').browse(cr, uid, context['partner_id']).property_product_pricelist_purchase.id,
         'company_id': lambda self,cr,uid,c: self.pool.get('res.company')._company_default_get(cr, uid, 'purchase.order', context=c),
         'journal_id': _get_journal,
+        'currency_id': lambda self, cr, uid, context: self.pool.get('res.users').browse(cr, uid, uid, context=context).company_id.currency_id.id
     }
     _sql_constraints = [
         ('name_uniq', 'unique(name, company_id)', 'Order Reference must be unique per Company!'),
@@ -246,7 +250,11 @@ class purchase_order(osv.osv):
     def create(self, cr, uid, vals, context=None):
         if vals.get('name','/')=='/':
             vals['name'] = self.pool.get('ir.sequence').get(cr, uid, 'purchase.order') or '/'
+        if context is None:
+            context = {}
+        context.update({'mail_create_nolog': True})
         order =  super(purchase_order, self).create(cr, uid, vals, context=context)
+        self.message_post(cr, uid, [order], body=_("RFQ created"), context=context)
         return order
 
     def unlink(self, cr, uid, ids, context=None):
@@ -259,9 +267,7 @@ class purchase_order(osv.osv):
                 raise osv.except_osv(_('Invalid Action!'), _('In order to delete a purchase order, you must cancel it first.'))
 
         # automatically sending subflow.delete upon deletion
-        wf_service = netsvc.LocalService("workflow")
-        for id in unlink_ids:
-            wf_service.trg_validate(uid, 'purchase.order', id, 'purchase_cancel', cr)
+        self.signal_purchase_cancel(cr, uid, unlink_ids)
 
         return super(purchase_order, self).unlink(cr, uid, unlink_ids, context=context)
 
@@ -368,7 +374,7 @@ class purchase_order(osv.osv):
             pick_ids += [picking.id for picking in po.picking_ids]
 
         action_model, action_id = tuple(mod_obj.get_object_reference(cr, uid, 'stock', 'action_picking_tree4'))
-        action = self.pool.get(action_model).read(cr, uid, action_id, context=context)
+        action = self.pool[action_model].read(cr, uid, action_id, context=context)
         ctx = eval(action['context'])
         ctx.update({
             'search_default_purchase_id': ids[0]
@@ -423,6 +429,7 @@ class purchase_order(osv.osv):
             'default_composition_mode': 'comment',
         })
         return {
+            'name': _('Compose Email'),
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
@@ -438,14 +445,8 @@ class purchase_order(osv.osv):
         This function prints the request for quotation and mark it as sent, so that we can see more easily the next step of the workflow
         '''
         assert len(ids) == 1, 'This option should only be used for a single id at a time'
-        wf_service = netsvc.LocalService("workflow")
-        wf_service.trg_validate(uid, 'purchase.order', ids[0], 'send_rfq', cr)
-        datas = {
-                 'model': 'purchase.order',
-                 'ids': ids,
-                 'form': self.read(cr, uid, ids[0], context=context),
-        }
-        return {'type': 'ir.actions.report.xml', 'report_name': 'purchase.quotation', 'datas': datas, 'nodestroy': True}
+        self.signal_send_rfq(cr, uid, ids)
+        return self.pool['report'].get_action(cr, uid, ids, 'purchase.report_purchasequotation', context=context)
 
     #TODO: implement messages system
     def wkf_confirm_order(self, cr, uid, ids, context=None):
@@ -493,19 +494,17 @@ class purchase_order(osv.osv):
             'uos_id': order_line.product_uom.id or False,
             'invoice_line_tax_id': [(6, 0, [x.id for x in order_line.taxes_id])],
             'account_analytic_id': order_line.account_analytic_id.id or False,
+            'purchase_line_id': order_line.id,
         }
 
     def action_cancel_draft(self, cr, uid, ids, context=None):
         if not len(ids):
             return False
         self.write(cr, uid, ids, {'state':'draft','shipped':0})
-        for purchase in self.browse(cr, uid, ids, context=context):
-            self.pool['purchase.order.line'].write(cr, uid, [l.id for l in  purchase.order_line], {'state': 'draft'})
-        wf_service = netsvc.LocalService("workflow")
         for p_id in ids:
             # Deleting the existing instance of workflow for PO
-            wf_service.trg_delete(uid, 'purchase.order', p_id, cr)
-            wf_service.trg_create(uid, 'purchase.order', p_id, cr)
+            self.delete_workflow(cr, uid, [p_id]) # TODO is it necessary to interleave the calls?
+            self.create_workflow(cr, uid, [p_id])
         return True
 
     def action_invoice_create(self, cr, uid, ids, context=None):
@@ -543,7 +542,7 @@ class purchase_order(osv.osv):
                 inv_line_id = inv_line_obj.create(cr, uid, inv_line_data, context=context)
                 inv_lines.append(inv_line_id)
 
-                po_line.write({'invoice_lines': [(4, inv_line_id)]}, context=context)
+                po_line.write({'invoiced': True, 'invoice_lines': [(4, inv_line_id)]}, context=context)
 
             # get invoice data and create invoice
             inv_data = {
@@ -552,7 +551,7 @@ class purchase_order(osv.osv):
                 'account_id': pay_acc_id,
                 'type': 'in_invoice',
                 'partner_id': order.partner_id.id,
-                'currency_id': order.pricelist_id.currency_id.id,
+                'currency_id': order.currency_id.id,
                 'journal_id': len(journal_ids) and journal_ids[0] or False,
                 'invoice_line': [(6, 0, inv_lines)],
                 'origin': order.name,
@@ -582,28 +581,24 @@ class purchase_order(osv.osv):
         return False
 
     def action_cancel(self, cr, uid, ids, context=None):
-        wf_service = netsvc.LocalService("workflow")
         for purchase in self.browse(cr, uid, ids, context=context):
             for pick in purchase.picking_ids:
                 if pick.state not in ('draft','cancel'):
                     raise osv.except_osv(
                         _('Unable to cancel this purchase order.'),
                         _('First cancel all receptions related to this purchase order.'))
-            for pick in purchase.picking_ids:
-                wf_service.trg_validate(uid, 'stock.picking', pick.id, 'button_cancel', cr)
+            self.pool.get('stock.picking') \
+                .signal_button_cancel(cr, uid, map(attrgetter('id'), purchase.picking_ids))
             for inv in purchase.invoice_ids:
                 if inv and inv.state not in ('cancel','draft'):
                     raise osv.except_osv(
                         _('Unable to cancel this purchase order.'),
                         _('You must first cancel all receptions related to this purchase order.'))
-                if inv:
-                    wf_service.trg_validate(uid, 'account.invoice', inv.id, 'invoice_cancel', cr)
-            self.pool['purchase.order.line'].write(cr, uid, [l.id for l in  purchase.order_line],
-                    {'state': 'cancel'})
+            self.pool.get('account.invoice') \
+                .signal_invoice_cancel(cr, uid, map(attrgetter('id'), purchase.invoice_ids))
         self.write(cr,uid,ids,{'state':'cancel'})
 
-        for (id, name) in self.name_get(cr, uid, ids):
-            wf_service.trg_validate(uid, 'purchase.order', id, 'purchase_cancel', cr)
+        self.signal_purchase_cancel(cr, uid, ids)
         return True
 
     def date_to_datetime(self, cr, uid, userdate, context=None):
@@ -643,6 +638,7 @@ class purchase_order(osv.osv):
         }
 
     def _prepare_order_line_move(self, cr, uid, order, order_line, picking_id, context=None):
+        ''' prepare the stock move data from the PO line '''
         return {
             'name': order_line.name or '',
             'product_id': order_line.product_id.id,
@@ -683,11 +679,11 @@ class purchase_order(osv.osv):
                                will be added. A new picking will be created if omitted.
         :return: list of IDs of pickings used/created for the given order lines (usually just one)
         """
+        stock_picking = self.pool.get('stock.picking')
         if not picking_id:
-            picking_id = self.pool.get('stock.picking').create(cr, uid, self._prepare_order_picking(cr, uid, order, context=context))
+            picking_id = stock_picking.create(cr, uid, self._prepare_order_picking(cr, uid, order, context=context))
         todo_moves = []
         stock_move = self.pool.get('stock.move')
-        wf_service = netsvc.LocalService("workflow")
         for order_line in order_lines:
             if not order_line.product_id:
                 continue
@@ -698,7 +694,7 @@ class purchase_order(osv.osv):
                 todo_moves.append(move)
         stock_move.action_confirm(cr, uid, todo_moves)
         stock_move.force_assign(cr, uid, todo_moves)
-        wf_service.trg_validate(uid, 'stock.picking', picking_id, 'button_confirm', cr)
+        stock_picking.signal_button_confirm(cr, uid, [picking_id])
         return [picking_id]
 
     def action_picking_create(self, cr, uid, ids, context=None):
@@ -714,6 +710,7 @@ class purchase_order(osv.osv):
 
     def picking_done(self, cr, uid, ids, context=None):
         self.write(cr, uid, ids, {'shipped':1,'state':'approved'}, context=context)
+        self.message_post(cr, uid, ids, body=_("Products received"), context=context)
         return True
 
     def copy(self, cr, uid, id, default=None, context=None):
@@ -750,7 +747,6 @@ class purchase_order(osv.osv):
 
         """
         #TOFIX: merged order line should be unlink
-        wf_service = netsvc.LocalService("workflow")
         def make_key(br, fields):
             list_key = []
             for field in fields:
@@ -767,6 +763,9 @@ class purchase_order(osv.osv):
                 list_key.append((field, field_val))
             list_key.sort()
             return tuple(list_key)
+
+        if context is None:
+            context = {}
 
         # Compute what the new orders should contain
 
@@ -831,14 +830,16 @@ class purchase_order(osv.osv):
             order_data['order_line'] = [(0, 0, value) for value in order_data['order_line'].itervalues()]
 
             # create the new order
+            context.update({'mail_create_nolog': True})
             neworder_id = self.create(cr, uid, order_data)
+            self.message_post(cr, uid, [neworder_id], body=_("RFQ created"), context=context)
             orders_info.update({neworder_id: old_ids})
             allorders.append(neworder_id)
 
             # make triggers pointing to the old orders point to the new order
             for old_id in old_ids:
-                wf_service.trg_redirect(uid, 'purchase.order', old_id, neworder_id, cr)
-                wf_service.trg_validate(uid, 'purchase.order', old_id, 'purchase_cancel', cr)
+                self.redirect_workflow(cr, uid, [(old_id, neworder_id)])
+                self.signal_purchase_cancel(cr, uid, [old_id]) # TODO Is it necessary to interleave the calls?
         return orders_info
 
 
@@ -883,7 +884,7 @@ class purchase_order_line(osv.osv):
         'invoice_lines': fields.many2many('account.invoice.line', 'purchase_order_line_invoice_rel', 'order_line_id', 'invoice_id', 'Invoice Lines', readonly=True),
         'invoiced': fields.boolean('Invoiced', readonly=True),
         'partner_id': fields.related('order_id','partner_id',string='Partner',readonly=True,type="many2one", relation="res.partner", store=True),
-        'date_order': fields.related('order_id','date_order',string='Order Date',readonly=True,type="date")
+        'date_order': fields.related('order_id','date_order',string='Order Date',readonly=True,type="date"),
 
     }
     _defaults = {
@@ -905,8 +906,6 @@ class purchase_order_line(osv.osv):
     def unlink(self, cr, uid, ids, context=None):
         procurement_ids_to_cancel = []
         for line in self.browse(cr, uid, ids, context=context):
-            if line.state not in ['draft', 'cancel']:
-                raise osv.except_osv(_('Invalid Action!'), _('Cannot delete a purchase order line which is in state \'%s\'.') %(line.state,))
             if line.move_dest_id:
                 procurement_ids_to_cancel.extend(procurement.id for procurement in line.move_dest_id.procurements)
         if procurement_ids_to_cancel:
@@ -965,7 +964,6 @@ class purchase_order_line(osv.osv):
         product_product = self.pool.get('product.product')
         product_uom = self.pool.get('product.uom')
         res_partner = self.pool.get('res.partner')
-        product_supplierinfo = self.pool.get('product.supplierinfo')
         product_pricelist = self.pool.get('product.pricelist')
         account_fiscal_position = self.pool.get('account.fiscal.position')
         account_tax = self.pool.get('account.tax')
@@ -1046,7 +1044,6 @@ class purchase_order_line(osv.osv):
         self.write(cr, uid, ids, {'state': 'confirmed'}, context=context)
         return True
 
-purchase_order_line()
 
 class procurement_order(osv.osv):
     _inherit = 'procurement.order'
@@ -1253,8 +1250,7 @@ class mail_mail(osv.Model):
 
     def _postprocess_sent_message(self, cr, uid, mail, context=None):
         if mail.model == 'purchase.order':
-            wf_service = netsvc.LocalService("workflow")
-            wf_service.trg_validate(uid, 'purchase.order', mail.res_id, 'send_rfq', cr)
+            self.pool.get('purchase.order').signal_send_rfq(cr, uid, [mail.res_id])
         return super(mail_mail, self)._postprocess_sent_message(cr, uid, mail=mail, context=context)
 
 
@@ -1276,13 +1272,15 @@ class mail_compose_message(osv.Model):
         context = context or {}
         if context.get('default_model') == 'purchase.order' and context.get('default_res_id'):
             context = dict(context, mail_post_autofollow=True)
-            wf_service = netsvc.LocalService("workflow")
-            wf_service.trg_validate(uid, 'purchase.order', context['default_res_id'], 'send_rfq', cr)
+            self.pool.get('purchase.order').signal_send_rfq(cr, uid, [context['default_res_id']])
         return super(mail_compose_message, self).send_mail(cr, uid, ids, context=context)
 
+
 class account_invoice(osv.Model):
+    """ Override account_invoice to add Chatter messages on the related purchase
+        orders, logging the invoice reception or payment. """
     _inherit = 'account.invoice'
-    
+
     def invoice_validate(self, cr, uid, ids, context=None):
         res = super(account_invoice, self).invoice_validate(cr, uid, ids, context=context)
         purchase_order_obj = self.pool.get('purchase.order')
@@ -1292,16 +1290,31 @@ class account_invoice(osv.Model):
         else:
             user_id = uid
         po_ids = purchase_order_obj.search(cr, user_id, [('invoice_ids', 'in', ids)], context=context)
-        wf_service = netsvc.LocalService("workflow")
-        for order in purchase_order_obj.browse(cr, uid, po_ids, context=context):
-            # Signal purchase order workflow that an invoice has been validated.
-            invoiced = []
-            for po_line in order.order_line:
-                if any(line.invoice_id.state not in ['draft', 'cancel'] for line in po_line.invoice_lines):
-                    invoiced.append(po_line.id)
-            if invoiced:
-                self.pool['purchase.order.line'].write(cr, uid, invoiced, {'invoiced': True})
-            wf_service.trg_write(uid, 'purchase.order', order.id, cr)
+        for po_id in po_ids:
+            purchase_order_obj.message_post(cr, user_id, po_id, body=_("Invoice received"), context=context)
+            workflow.trg_write(uid, 'purchase.order', po_id, cr)
         return res
+
+    def confirm_paid(self, cr, uid, ids, context=None):
+        res = super(account_invoice, self).confirm_paid(cr, uid, ids, context=context)
+        purchase_order_obj = self.pool.get('purchase.order')
+        # read access on purchase.order object is not required
+        if not purchase_order_obj.check_access_rights(cr, uid, 'read', raise_exception=False):
+            user_id = SUPERUSER_ID
+        else:
+            user_id = uid
+        po_ids = purchase_order_obj.search(cr, user_id, [('invoice_ids', 'in', ids)], context=context)
+        for po_id in po_ids:
+            purchase_order_obj.message_post(cr, user_id, po_id, body=_("Invoice paid"), context=context)
+        return res
+
+class account_invoice_line(osv.Model):
+    """ Override account_invoice_line to add the link to the purchase order line it is related to"""
+    _inherit = 'account.invoice.line'
+    _columns = {
+        'purchase_line_id': fields.many2one('purchase.order.line',
+            'Purchase Order Line', ondelete='set null', select=True,
+            readonly=True),
+    }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

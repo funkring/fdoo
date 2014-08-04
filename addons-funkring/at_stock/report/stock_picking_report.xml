@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+	
+		<report id="report_picking_list_pdf" override_id="stock.report_picking_list"
+			string="Picking Report" name="stock.picking.list" auto="False"
+			report_type="aeroo" process_sep="True" model="stock.picking"
+			in_format="oo-odt" out_format="oo-pdf"
+			parser="at_stock/report/stock_picking_report.py" rml="at_stock/report/stock_picking_report.odt" />
+
+		<report id="report_picking_list_out_pdf" override_id="stock.report_picking_list_out"
+			string="Picking Report" name="stock.picking.list.out" auto="False"
+			report_type="aeroo" process_sep="True" model="stock.picking.out"
+			in_format="oo-odt" out_format="oo-pdf"
+			parser="at_stock/report/stock_picking_report.py" rml="at_stock/report/stock_picking_report.odt" />
+
+		<report id="report_picking_list_in_pdf" override_id="stock.report_picking_list_in"
+			string="Picking Report" name="stock.picking.list.in" auto="False"
+			report_type="aeroo" process_sep="True" model="stock.picking.in"
+			in_format="oo-odt" out_format="oo-pdf"
+			parser="at_stock/report/stock_picking_report.py" rml="at_stock/report/stock_picking_report.odt" />
+
+		<report id="report_picking_list_purchase_line_pdf" string="Picking Report"
+			name="purchase.order.line.picking_list" auto="False" report_type="aeroo"
+			process_sep="True" model="purchase.order.line" in_format="oo-odt"
+			out_format="oo-pdf" parser="at_stock/report/stock_picking_report.py"
+			rml="at_stock/report/stock_picking_report.odt" />
+
+		<report id="report_picking_list_small_pdf" string="Small Picking Report"
+			name="stock.picking.list_small" menu="False" auto="False"
+			report_type="aeroo" process_sep="True" model="stock.picking"
+			in_format="oo-odt" out_format="oo-pdf" stylesheet="none"
+			parser="at_stock/report/stock_picking_report.py" rml="at_stock/report/stock_picking_report.odt" />
+
+		<report id="report_delivery_order_pdf" override_id="delivery.report_shipping"
+			string="Delivery order" name="sale.shipping" multi="True" menu="False"
+			auto="False" report_type="aeroo" process_sep="True" model="stock.picking"
+			in_format="oo-odt" out_format="oo-pdf"
+			parser="at_stock/report/stock_picking_report.py" rml="at_stock/report/stock_picking_report.odt" />
+
+	</data>
+</openerp>

@@ -1,21 +1,21 @@
-# Lithuanian translation for openobject-addons
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
-# This file is distributed under the same license as the openobject-addons package.
-# Giedrius Slavinskas <giedrius@inovera.lt>, 2012.
-#
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# * stock
+# Giedrius Slavinskas <giedrius.slavinskas@gmail.com>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: openobject-addons\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-02-06 15:56+0000\n"
-"PO-Revision-Date: 2013-04-30 16:29+0000\n"
+"Project-Id-Version: OpenERP Server 6.0dev\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-12-21 17:04+0000\n"
+"PO-Revision-Date: 2012-05-10 17:48+0000\n"
 "Last-Translator: Giedrius Slavinskas - inovera.lt <giedrius@inovera.lt>\n"
-"Language-Team: Lithuanian <lt@li.org>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-02-07 07:11+0000\n"
-"X-Generator: Launchpad (build 16916)\n"
+"X-Launchpad-Export-Date: 2014-03-27 05:52+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
+"Language: lt\n"
 
 #. module: stock
 #: field:stock.inventory.line.split,line_exist_ids:0
@@ -166,11 +166,6 @@ msgstr ""
 #: view:stock.picking.in:0
 msgid "Picking list"
 msgstr ""
-
-#. module: stock
-#: view:stock.inventory:0
-msgid "e.g. Annual inventory"
-msgstr "pvz. Kasmetinė inventorizacija"
 
 #. module: stock
 #: report:lot.stock.overview:0
@@ -486,11 +481,8 @@ msgid "Ready to Deliver"
 msgstr "Galima išsiųsti"
 
 #. module: stock
-#: code:addons/stock/stock.py:2525
-#, python-format
-msgid ""
-"Forbidden operation: it is not allowed to scrap products from a virtual "
-"location."
+#: model:ir.model,name:stock.model_action_traceability
+msgid "Action traceability "
 msgstr ""
 
 #. module: stock
@@ -880,11 +872,6 @@ msgid "Procurement Location"
 msgstr "Planinių užsakymų vieta"
 
 #. module: stock
-#: view:stock.picking:0
-msgid "e.g. PO0032"
-msgstr "pvz. PO0032"
-
-#. module: stock
 #: model:ir.actions.act_window,name:stock.action_location_tree
 #: model:ir.ui.menu,name:stock.menu_action_location_tree
 msgid "Location Structure"
@@ -935,6 +922,13 @@ msgstr "Atsargų apskaitos savybės"
 #: sql_constraint:stock.picking.out:0
 msgid "Reference must be unique per Company!"
 msgstr ""
+
+#. module: stock
+#: field:stock.picking,date:0
+#: field:stock.picking.in,date:0
+#: field:stock.picking.out,date:0
+msgid "Time"
+msgstr "Data"
 
 #. module: stock
 #: code:addons/stock/product.py:448
@@ -1015,10 +1009,10 @@ msgid "Location & Warehouse"
 msgstr ""
 
 #. module: stock
-#: selection:report.stock.inventory,month:0
-#: selection:report.stock.move,month:0
-msgid "December"
-msgstr "Gruodis"
+#: selection:report.stock.inventory,location_type:0
+#: selection:stock.location,usage:0
+msgid "Transit Location for Inter-Companies Transfers"
+msgstr "Tranzitinė atsargų vieta"
 
 #. module: stock
 #: code:addons/stock/stock.py:1204
@@ -1056,13 +1050,6 @@ msgstr ""
 #: view:stock.picking.in:0
 msgid "Incoming Shipments"
 msgstr "Atvykstančios siuntos"
-
-#. module: stock
-#: help:stock.picking,date:0
-#: help:stock.picking.in,date:0
-#: help:stock.picking.out,date:0
-msgid "Creation date, usually the time of the order."
-msgstr ""
 
 #. module: stock
 #: view:report.stock.inventory:0
@@ -1157,6 +1144,12 @@ msgid "Ready to Receive"
 msgstr "Atvyksta"
 
 #. module: stock
+#: view:stock.move:0
+#: view:stock.picking:0
+msgid "_Cancel"
+msgstr ""
+
+#. module: stock
 #: field:report.stock.move,day_diff:0
 msgid "Execution Lead Time (Days)"
 msgstr "Įvykdymo terminas (dienos)"
@@ -1239,11 +1232,6 @@ msgstr "Kairė"
 #: field:product.category,property_stock_valuation_account_id:0
 msgid "Stock Valuation Account"
 msgstr "Atsargų apskaitos sąskaita"
-
-#. module: stock
-#: view:stock.return.picking.memory:0
-msgid "Return Picking Memory"
-msgstr ""
 
 #. module: stock
 #: view:stock.config.settings:0
@@ -1546,11 +1534,6 @@ msgstr "Sekti gaminamas partijas"
 #: selection:stock.move,state:0
 msgid "Waiting Another Move"
 msgstr ""
-
-#. module: stock
-#: selection:stock.picking,state:0
-msgid "Transferred"
-msgstr "Perduota"
 
 #. module: stock
 #: help:stock.change.product.qty,new_quantity:0
@@ -1918,9 +1901,8 @@ msgid "Stock Valuation Account (Outgoing)"
 msgstr "Atsargų apskaitos sąskaita (Tiekiama)"
 
 #. module: stock
-#: code:addons/stock/stock.py:1805
-#, python-format
-msgid "Operation Forbidden!"
+#: view:stock.return.picking.memory:0
+msgid "Return Picking Memory"
 msgstr ""
 
 #. module: stock
@@ -2032,6 +2014,15 @@ msgstr "Pristatyti kiekiai"
 #: view:stock.partial.picking:0
 msgid "Transfer Products"
 msgstr "Perduoti produktus"
+
+#. module: stock
+#: help:product.template,property_stock_inventory:0
+msgid ""
+"This stock location will be used, instead of the default one, as the source "
+"location for stock moves generated when you do an inventory."
+msgstr ""
+"Vykdant inventorizaciją, ši vieta naudojama atsargų judėjime kaip paėmimo "
+"vieta (vietoj numatytosios)."
 
 #. module: stock
 #: help:product.template,property_stock_account_output:0
@@ -2364,11 +2355,6 @@ msgid "Supplier Address :"
 msgstr "Tiekėjo adresas:"
 
 #. module: stock
-#: field:stock.config.settings,group_product_variant:0
-msgid "Support multiple variants per products  "
-msgstr ""
-
-#. module: stock
 #: view:stock.inventory.line:0
 msgid "Stock Inventory Lines"
 msgstr "Atsargų eilutės"
@@ -2449,6 +2435,12 @@ msgstr "Žiūrėti atsargas"
 #: view:stock.move:0
 msgid "Creation"
 msgstr "Sukurta"
+
+#. module: stock
+#: code:addons/stock/stock.py:1776
+#, python-format
+msgid "Operation forbidden !"
+msgstr ""
 
 #. module: stock
 #: view:report.stock.inventory:0
@@ -2645,12 +2637,9 @@ msgid "Notes"
 msgstr "Pastabos"
 
 #. module: stock
-#: code:addons/stock/wizard/stock_partial_picking.py:181
-#, python-format
-msgid ""
-"The unit of measure rounding does not allow you to ship \"%s %s\", only "
-"rounding of \"%s %s\" is accepted by the Unit of Measure."
-msgstr ""
+#: selection:stock.picking,state:0
+msgid "Transferred"
+msgstr "Perduota"
 
 #. module: stock
 #: report:lot.stock.overview:0
@@ -2861,9 +2850,9 @@ msgid "Cancel Inventory"
 msgstr "Atšaukti inventorizaciją"
 
 #. module: stock
-#: view:stock.move:0
-msgid "Cancel Move"
-msgstr "Atšaukti veiksmą"
+#: field:stock.config.settings,group_product_variant:0
+msgid "Support multiple variants per products  "
+msgstr ""
 
 #. module: stock
 #: code:addons/stock/stock.py:2290
@@ -2911,11 +2900,6 @@ msgstr "Turima:"
 #: model:ir.model,name:stock.model_stock_report_prodlots
 msgid "Stock report by serial number"
 msgstr ""
-
-#. module: stock
-#: view:stock.picking:0
-msgid "Cancel Transfer"
-msgstr "Atšaukti siuntą"
 
 #. module: stock
 #: selection:report.stock.inventory,month:0
@@ -3190,6 +3174,12 @@ msgid "Properties"
 msgstr "Savybės"
 
 #. module: stock
+#: code:addons/stock/stock.py:1120
+#, python-format
+msgid "Error, no partner !"
+msgstr "Klaida, nėra nurodytas partneris!"
+
+#. module: stock
 #: field:stock.inventory.line.split.lines,wizard_exist_id:0
 #: field:stock.inventory.line.split.lines,wizard_id:0
 #: field:stock.move.split.lines,wizard_id:0
@@ -3426,11 +3416,6 @@ msgstr "Neskubu"
 #: view:stock.move:0
 msgid "Scheduled"
 msgstr "Suplanuota"
-
-#. module: stock
-#: view:stock.picking:0
-msgid "Add an internal note..."
-msgstr "Įveskite vidines pastabas..."
 
 #. module: stock
 #: model:ir.actions.act_window,name:stock.action_warehouse_form
@@ -3714,6 +3699,13 @@ msgid "Shelf 1"
 msgstr ""
 
 #. module: stock
+#: help:stock.picking,date:0
+#: help:stock.picking.in,date:0
+#: help:stock.picking.out,date:0
+msgid "Creation time, usually the time of the order."
+msgstr "Sukūrimo data, dažniausiai tai yra užsakymo data."
+
+#. module: stock
 #: field:stock.tracking,name:0
 msgid "Pack Reference"
 msgstr "Pako numeris"
@@ -3736,15 +3728,6 @@ msgstr "Apskaitos įrašai"
 #: model:res.groups,name:stock.group_stock_manager
 msgid "Manager"
 msgstr "Vadovas"
-
-#. module: stock
-#: code:addons/stock/wizard/stock_partial_picking.py:192
-#, python-format
-msgid ""
-"The rounding of the initial uom does not allow you to ship \"%s %s\", as it "
-"would let a quantity of \"%s %s\" to ship and only rounding of \"%s %s\" is "
-"accepted by the uom."
-msgstr ""
 
 #. module: stock
 #: model:stock.location,name:stock.stock_location_intermediatelocation0
@@ -3944,12 +3927,6 @@ msgid "Icon"
 msgstr "Piktograma"
 
 #. module: stock
-#: selection:report.stock.inventory,location_type:0
-#: selection:stock.location,usage:0
-msgid "Transit Location for Inter-Companies Transfers"
-msgstr "Tranzitinė atsargų vieta"
-
-#. module: stock
 #: field:stock.partial.move,hide_tracking:0
 #: field:stock.partial.move.line,tracking:0
 #: field:stock.partial.picking,hide_tracking:0
@@ -4063,11 +4040,11 @@ msgid "This picking list does not require invoicing."
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/wizard/stock_partial_move.py:72
-#: code:addons/stock/wizard/stock_return_picking.py:189
+#: code:addons/stock/wizard/stock_partial_picking.py:181
 #, python-format
 msgid ""
-"You have manually created product lines, please delete them to proceed"
+"The unit of measure rounding does not allow you to ship \"%s %s\", only "
+"roundings of \"%s %s\" is accepted by the Unit of Measure."
 msgstr ""
 
 #. module: stock
@@ -4122,10 +4099,12 @@ msgid "Serial Number Revisions"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/stock.py:1134
-#, python-format
-msgid "Error, no partner!"
-msgstr ""
+#: model:ir.actions.act_window,name:stock.action_picking_tree
+#: model:ir.model,name:stock.model_stock_picking_out
+#: model:ir.ui.menu,name:stock.menu_action_picking_tree
+#: view:stock.picking.out:0
+msgid "Delivery Orders"
+msgstr "Išvykstančios siuntos"
 
 #. module: stock
 #: view:stock.picking:0
@@ -4204,11 +4183,6 @@ msgstr "Bendras išvykstantis kiekis"
 #: field:stock.picking.out,backorder_id:0
 msgid "Back Order of"
 msgstr "Pradinis užsakymas"
-
-#. module: stock
-#: model:ir.model,name:stock.model_action_traceability
-msgid "Action traceability "
-msgstr ""
 
 #. module: stock
 #: help:stock.partial.move.line,cost:0
@@ -4356,12 +4330,10 @@ msgid "Product Template"
 msgstr "Produkto šablonas"
 
 #. module: stock
-#: model:ir.actions.act_window,name:stock.action_picking_tree
-#: model:ir.model,name:stock.model_stock_picking_out
-#: model:ir.ui.menu,name:stock.menu_action_picking_tree
-#: view:stock.picking.out:0
-msgid "Delivery Orders"
-msgstr "Išvykstančios siuntos"
+#: selection:report.stock.inventory,month:0
+#: selection:report.stock.move,month:0
+msgid "December"
+msgstr "Gruodis"
 
 #. module: stock
 #: selection:stock.location,chained_auto_packing:0
@@ -4991,13 +4963,6 @@ msgid "Invoiced date"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/wizard/stock_partial_move.py:72
-#: code:addons/stock/wizard/stock_return_picking.py:189
-#, python-format
-msgid "Warning !"
-msgstr ""
-
-#. module: stock
 #: model:stock.location,name:stock.stock_location_output
 msgid "Output"
 msgstr "Išvežimas"
@@ -5051,13 +5016,13 @@ msgstr ""
 "lauką, tipas bus priskirtas automatiškai pagal paėmimo ir pristatymo vietas)."
 
 #. module: stock
-#: help:product.template,property_stock_inventory:0
+#: code:addons/stock/wizard/stock_partial_picking.py:192
+#, python-format
 msgid ""
-"This stock location will be used, instead of the default one, as the source "
-"location for stock moves generated when you do an inventory."
+"The rounding of the initial uom does not allow you to ship \"%s %s\", as it "
+"would let a quantity of \"%s %s\" to ship and only roundings of \"%s %s\" is "
+"accepted by the uom."
 msgstr ""
-"Vykdant inventorizaciją, ši vieta naudojama atsargų judėjime kaip paėmimo "
-"vieta (vietoj numatytosios)."
 
 #. module: stock
 #: help:stock.move,move_dest_id:0
@@ -5094,12 +5059,603 @@ msgstr "Paruošta apdorojimui"
 msgid "Warehouse Address :"
 msgstr ""
 
+#~ msgid "Sales & Purchases"
+#~ msgstr "Pirkimai ir pardavimai"
+
+#~ msgid "Internal Ref"
+#~ msgstr "Vidinė nuoroda"
+
+#~ msgid "Others info"
+#~ msgstr "Kita informacija"
+
+#~ msgid "LIFO"
+#~ msgstr "LIFO"
+
+#~ msgid "State"
+#~ msgstr "Būsena"
+
+#~ msgid "Recipient"
+#~ msgstr "Gavėjas"
+
+#~ msgid "Date Created"
+#~ msgstr "Sukūrimo data"
+
+#~ msgid "Dest. Address"
+#~ msgstr "Pristatymo adresas"
+
+#~ msgid "FIFO"
+#~ msgstr "FIFO"
+
+#~ msgid "Nearest"
+#~ msgstr "Artimiausias"
+
+#~ msgid "Add"
+#~ msgstr "Pridėti"
+
+#~ msgid "Stock Management"
+#~ msgstr "Atsargų valdymas"
+
+#~ msgid "Unreceived Products"
+#~ msgstr "Negauti produktai"
+
+#~ msgid "Revision"
+#~ msgstr "Revizija"
+
+#~ msgid "Production lot"
+#~ msgstr "Gamybos partija"
+
+#~ msgid ""
+#~ "The Object name must start with x_ and not contain any special character !"
+#~ msgstr ""
+#~ "Objekto pavadinimas turi prasidėti x_ ir neturėti jokių specialių simbolių!"
+
+#~ msgid "Sub Products"
+#~ msgstr "Vaikiniai produktai"
+
+#~ msgid "terp-account"
+#~ msgstr "OpenERP-sąskaita"
+
+#~ msgid "Total :"
+#~ msgstr "Iš viso:"
+
+#~ msgid "UoM"
+#~ msgstr "Mat. vnt."
+
+#~ msgid "Return packing"
+#~ msgstr "Grąžinti važtaraštį"
+
+#~ msgid "Fill Inventory for specific location"
+#~ msgstr "Užpildyti inventorių specifinėms vietoms"
+
+#~ msgid "Packing list"
+#~ msgstr "Važtaraštis"
+
+#~ msgid "Amount"
+#~ msgstr "Suma"
+
+#~ msgid "Products Received"
+#~ msgstr "Produktai gauti"
+
+#~ msgid "Force to use a Production Lot during receptions"
+#~ msgstr "Priverstinai naudoti gamybos partiją registruojant užsakymus"
+
+#~ msgid "Move History"
+#~ msgstr "Perkėlimo istorija"
+
+#~ msgid "UOM"
+#~ msgstr "Matavimo vnt."
+
+#~ msgid "Make Parcel"
+#~ msgstr "Užregistruoti"
+
+#~ msgid "Packing result"
+#~ msgstr "Važtaraščio rezultatas"
+
+#~ msgid "terp-hr"
+#~ msgstr "OpenERP-personalas"
+
+#~ msgid "terp-purchase"
+#~ msgstr "OpenERP-pirkimai"
+
+#~ msgid "Products Sent"
+#~ msgstr "Išsiųsti produktai"
+
+#~ msgid "Serial"
+#~ msgstr "Serija"
+
+#~ msgid "Customer Refund"
+#~ msgstr "Kliento grąžinimas"
+
+#~ msgid "Production Lot Revisions"
+#~ msgstr "Atsargų partijos revizija"
+
+#~ msgid "Stock location"
+#~ msgstr "Vieta"
+
+#~ msgid "Move Information"
+#~ msgstr "Judėjimo informacija"
+
+#~ msgid "Move Lines"
+#~ msgstr "Perkėlimo eilutės"
+
+#~ msgid "Include all childs for the location"
+#~ msgstr "Įtraukti visas vaikines vietas"
+
+#~ msgid "Production Lots"
+#~ msgstr "Gamybos partijos"
+
+#~ msgid "Track line"
+#~ msgstr "Priskirti partiją"
+
+#~ msgid "terp-graph"
+#~ msgstr "OpenERP-grafikas"
+
+#~ msgid "Process Now"
+#~ msgstr "Vykdyti dabar"
+
+#~ msgid "Stock Level 1"
+#~ msgstr "Atsargų lygis 1"
+
+#~ msgid "Stock Properties"
+#~ msgstr "Atsargų ypatybės"
+
+#~ msgid "Make Picking"
+#~ msgstr "Sukurti važtaraštį"
+
+#~ msgid "Draft Moves"
+#~ msgstr "Perkėlimų juodraščiai"
+
+#~ msgid "Customer Invoice"
+#~ msgstr "Sąskaita faktūra klientui"
+
+#~ msgid "Force to use a Production Lot during production order"
+#~ msgstr "Priverstinai naudoti gamybos partiją per gamybos užsakymą"
+
+#~ msgid ""
+#~ "For the current product (template), this stock location will be used, "
+#~ "instead of the default one, as the source location for stock moves generated "
+#~ "when you do an inventory"
+#~ msgstr ""
+#~ "Šiam produktui (šablonui) ši gamybos vieta bus naudojama vietoj numatytos "
+#~ "šaltinio vietos, registruoti atsargų judėjimui, sugeneruotam iš atliekamos "
+#~ "inventorizacijos."
+
+#~ msgid "This account will be used to value the output stock"
+#~ msgstr "Sąskaita naudojama registruoti atsargų sumažėjimą."
+
+#~ msgid ""
+#~ "This journal will be used for the accounting move generated by stock move"
+#~ msgstr "Šis žurnalas bus skirtas registruoti atsargų judėjimo įrašams."
+
+#~ msgid "Calendar of Deliveries"
+#~ msgstr "Pristatymų kalendorius"
+
+#~ msgid "Stock report by production lots"
+#~ msgstr "Atsargų ataskaita pagal produkcijos partijas"
+
+#~ msgid "Latest Date of Inventory"
+#~ msgstr "Paskutinė inventorizacijos data"
+
+#~ msgid "New Reception Packing"
+#~ msgstr "Naujas važtaraštis"
+
+#~ msgid "Quantity per lot"
+#~ msgstr "Kiekis Partijoje"
+
+#~ msgid "Tracking Lot"
+#~ msgstr "Sekti Partija"
+
+#~ msgid "Date Done"
+#~ msgstr "Atlikimo data"
+
+#~ msgid "Expected Shipping Date"
+#~ msgstr "Tikėtina pristatymo data"
+
+#~ msgid "Tracking/Serial"
+#~ msgstr "Stebėjimas/Serijos"
+
+#~ msgid ""
+#~ "Tracking lot is the code that will be put on the logistical unit/pallet"
+#~ msgstr "Partijos kodas, kuris bus įtrauktas į logistikos vienetą / padėklą."
+
+#~ msgid "Tracking Number"
+#~ msgstr "Partijų numeriai"
+
+#~ msgid "terp-stock"
+#~ msgstr "OpenERP-atsargos"
+
+#~ msgid "Packing List:"
+#~ msgstr "Važtaraščio sąrašas:"
+
 #, python-format
-#~ msgid "Error, no partner !"
-#~ msgstr "Klaida, nėra nurodytas partneris!"
+#~ msgid "UserError"
+#~ msgstr "Naudotojo klaida"
 
-#~ msgid "Time"
-#~ msgstr "Data"
+#~ msgid "Non Assigned Products:"
+#~ msgstr "Nepriskirti produktai:"
 
-#~ msgid "Creation time, usually the time of the order."
-#~ msgstr "Sukūrimo data, dažniausiai tai yra užsakymo data."
+#~ msgid "Production lot revisions"
+#~ msgstr "Gamybos partijų inventorizacija"
+
+#~ msgid "Packing Done"
+#~ msgstr "Važtaraštis atliktas"
+
+#~ msgid "Available Packing"
+#~ msgstr "Rezervuoti važtaraščiai"
+
+#~ msgid "terp-report"
+#~ msgstr "OpenERP-ataskaita"
+
+#~ msgid "Location Content (With children)"
+#~ msgstr "Vietos turinys (su vaikiniais lygiais)"
+
+#~ msgid "Packing"
+#~ msgstr "Važtaraštis"
+
+#~ msgid "New Internal Packing"
+#~ msgstr "Nauja vidaus pakuotė"
+
+#~ msgid "General Informations"
+#~ msgstr "Bendra informacija"
+
+#~ msgid "Finished products"
+#~ msgstr "Pagaminti produktai"
+
+#~ msgid "Date create"
+#~ msgstr "Sukūrimo data"
+
+#~ msgid "All Stock Moves"
+#~ msgstr "Visi atsargų perkėlimai"
+
+#~ msgid "Invalid XML for View Architecture!"
+#~ msgstr "Netinkamas XML peržiūros struktūrai!"
+
+#~ msgid "This account will be used to value the input stock"
+#~ msgstr "Sąskaita naudojama registruoti atsargų padidėjimą."
+
+#, python-format
+#~ msgid "Invoice state"
+#~ msgstr "Sąskaitos faktūros būsena"
+
+#~ msgid "Stocks"
+#~ msgstr "Sandėliai"
+
+#~ msgid "Allocation Method"
+#~ msgstr "Paskirstymo metodas"
+
+#~ msgid "terp-administration"
+#~ msgstr "OpenERP-administravimas"
+
+#, python-format
+#~ msgid "Please select at least two inventories."
+#~ msgstr "Prašome pasirinkti bent jau dvi atsargas."
+
+#~ msgid "The packing has been successfully made !"
+#~ msgstr "Važtaraštis buvo sėkmingai sukurtas!"
+
+#~ msgid "Periodical Inventory"
+#~ msgstr "Periodinis inventorizavimas"
+
+#~ msgid "terp-crm"
+#~ msgstr "OpenERP-crm"
+
+#~ msgid "terp-partner"
+#~ msgstr "OpenERP-partneriai"
+
+#, python-format
+#~ msgid "You can not remove a lot line !"
+#~ msgstr "Jūs negalite ištrinti partijos eilutės!"
+
+#~ msgid "Draft Periodical Inventories"
+#~ msgstr "Periodinių inventorizavimų juordaščiai"
+
+#~ msgid "Split in production lots"
+#~ msgstr "Suskirstyti į gamybos partijas"
+
+#~ msgid "Stock Tracking Lots"
+#~ msgstr "Atsargų Partijų Stebėjimas"
+
+#~ msgid "Origin Reference"
+#~ msgstr "Užsakymo nuoroda"
+
+#~ msgid "Available Moves"
+#~ msgstr "Rezervuoti perkėlimai"
+
+#~ msgid "Related Picking"
+#~ msgstr "Susijęs važtaraštis"
+
+#~ msgid "Open Products"
+#~ msgstr "Atviri produktai"
+
+#~ msgid "Input Packing List"
+#~ msgstr "Ateinančių važtaraščių eilutės"
+
+#~ msgid "Packing List"
+#~ msgstr "Važtaraštis"
+
+#~ msgid "Supplier Refund"
+#~ msgstr "Grąžinimas tiekėjui"
+
+#~ msgid "Stock Location Analysis"
+#~ msgstr "Atsargų vietų analizė"
+
+#~ msgid "Not from Packing"
+#~ msgstr "Ne iš važtaraščio"
+
+#~ msgid "Tracking a move"
+#~ msgstr "Judėjimo sekimas"
+
+#~ msgid "Validate"
+#~ msgstr "Patvirtinti"
+
+#~ msgid "Move lines"
+#~ msgstr "Perkėlimo eilutės"
+
+#~ msgid "Partial packing"
+#~ msgstr "Dalinis važtaraštis"
+
+#~ msgid "terp-calendar"
+#~ msgstr "OpenERP-kalendorius"
+
+#~ msgid "Fill From Unreceived Products"
+#~ msgstr "Užpildyti iš neatvežtų produktų"
+
+#~ msgid "Dest. Move"
+#~ msgstr "Tikslo perkėlimas"
+
+#~ msgid "New Periodical Inventory"
+#~ msgstr "Naujas periodinis inventorizavimas"
+
+#~ msgid "Delivery Orders to Process"
+#~ msgstr "Vykdomi pristatymo užsakymai"
+
+#~ msgid "Invoice Status"
+#~ msgstr "Sąskaitos faktūros būsena"
+
+#~ msgid "Units"
+#~ msgstr "Vienetai"
+
+#~ msgid "Future Stock Forecast"
+#~ msgstr "Būsimų atsargų prognozė"
+
+#, python-format
+#~ msgid "Error !"
+#~ msgstr "Klaida!"
+
+#~ msgid ""
+#~ "OpenERP Stock Management module can manage multi-warehouses, multi and "
+#~ "structured stock locations.\n"
+#~ "Thanks to the double entry management, the inventory controlling is powerful "
+#~ "and flexible:\n"
+#~ "* Moves history and planning,\n"
+#~ "* Different inventory methods (FIFO, LIFO, ...)\n"
+#~ "* Stock valuation (standard or average price, ...)\n"
+#~ "* Robustness faced with Inventory differences\n"
+#~ "* Automatic reordering rules (stock level, JIT, ...)\n"
+#~ "* Bar code supported\n"
+#~ "* Rapid detection of mistakes through double entry system\n"
+#~ "* Traceability (upstream/downstream, production lots, serial number, ...)\n"
+#~ "    "
+#~ msgstr ""
+#~ "Open ERP atsargų valdymo modulis gali valdyti kelis sandėlius, atsargų "
+#~ "vietas.\n"
+#~ "Dvejybinio įrašo dėka, inventoriaus valdymas yra lankstus:\n"
+#~ "* Judėjimo istorija ir planavimas,\n"
+#~ "* Įvairūs inventorizacijos metodai (FIFO, LIFO, ...)\n"
+#~ "* Atsargų įvertinimas (standartine arba vidutine kaina, ...)\n"
+#~ "* Įvairaus inventoriaus valdymas\n"
+#~ "* Bar kodo palaikymas\n"
+#~ "* Greitas klaidų nustatymas per dvejybinio įrašo sistemą\n"
+#~ "* Atsekamumas (aukštyn / žemyn, gamybos partijų, serijinis numeris, ...)\n"
+#~ "    "
+
+#~ msgid "Planned Date"
+#~ msgstr "Suplanuota data"
+
+#, python-format
+#~ msgid "No production sequence defined"
+#~ msgstr "Nėra nurodyta gamybos seka"
+
+#~ msgid "Lots by location"
+#~ msgstr "Partijos pagal vietas"
+
+#~ msgid "Created Date"
+#~ msgstr "Sukūrimo data"
+
+#~ msgid "Future Delivery Orders"
+#~ msgstr "Būsimi pristatymo užsakymai"
+
+#~ msgid "Tracking Lots"
+#~ msgstr "Sekti partijas"
+
+#~ msgid "STOCK_PROPERTIES"
+#~ msgstr "Atsargų ypatybės"
+
+#~ msgid "Create invoices"
+#~ msgstr "Sukurti sąskaitas faktūras"
+
+#~ msgid "Set Stock to Zero"
+#~ msgstr "Ištrinti atsargas"
+
+#~ msgid "Packing to Process"
+#~ msgstr "Važtaraščiai laukiantys įvykdymo"
+
+#~ msgid "Make packing"
+#~ msgstr "Sukurti važtaraštį"
+
+#~ msgid "Back Order"
+#~ msgstr "Užsakymas"
+
+#~ msgid "Tracking prefix"
+#~ msgstr "Stebėjimo prefiksas"
+
+#~ msgid "Accounting Stock Properties"
+#~ msgstr "Atsargų apskaitos savybės"
+
+#~ msgid "terp-mrp"
+#~ msgstr "OpenERP-gamyba"
+
+#~ msgid "Force to use a Production Lot during deliveries"
+#~ msgstr ""
+#~ "Priverstinai naudoti gamybos partiją registruojant pristatymo dokumentus"
+
+#~ msgid "Split move lines in two"
+#~ msgstr "Skelti eilutes"
+
+#~ msgid "Auto-Packing"
+#~ msgstr "Automatinis partijų sukūrimas"
+
+#~ msgid "Product UOM"
+#~ msgstr "Produkto mato vnt."
+
+#~ msgid "terp-tools"
+#~ msgstr "OpenERP-įrankiai"
+
+#~ msgid "Location Overview"
+#~ msgstr "Vietos atsargos"
+
+#~ msgid "Split move line"
+#~ msgstr "Suskirstyti judėjimo eilutę"
+
+#~ msgid "terp-sale"
+#~ msgstr "OpenERP-pardavimai"
+
+#~ msgid "Chained Delay (days)"
+#~ msgstr "Atidėjimas (dienomis)"
+
+#~ msgid ""
+#~ "This is used only if you selected a chained location type.\n"
+#~ "The 'Automatic Move' value will create a stock move after the current one "
+#~ "that will be validated automatically. With 'Manual Operation', the stock "
+#~ "move has to be validated by a worker. With 'Automatic No Step Added', the "
+#~ "location is replaced in the original move."
+#~ msgstr ""
+#~ "Tai naudojama tik tuo atveju, jeigu jūs pasirinkote vietos tipą. Jei "
+#~ "naudosite \"Automatiniai įrašai\", atsargų judėjimas bus patvirtintas "
+#~ "automatiškai. Naudodami \"Rankinės operacijas\", atsargų judėjimas turi būti "
+#~ "patvirtintas darbuotojo. Jei naudosite \"Automatinis s/f sukūrimas po "
+#~ "pristatymo\", tai automatiškai po atsargų pristatymo bus sukuriama sąskaita "
+#~ "faktūra."
+
+#~ msgid ""
+#~ "This account will be used, instead of the default one, to value input stock"
+#~ msgstr ""
+#~ "Ši sąskaita naudojama vietoj numatytos, jeigu registruojant važtaraštyje "
+#~ "nenurodyta tikslo vieta."
+
+#~ msgid "Do you want to merge theses inventories ?"
+#~ msgstr "Ar Jūs norite apjungti šį inventorių?"
+
+#~ msgid "Max. Planned Date"
+#~ msgstr "Maksimali suplanuota data"
+
+#~ msgid "Stock Locations Structure"
+#~ msgstr "Vietų struktūra"
+
+#~ msgid ""
+#~ "This account will be used, instead of the default one, to value output stock"
+#~ msgstr ""
+#~ "Ši sąskaita naudojama vietoj numatytos, jeigu registruojant važtaraštyje "
+#~ "nenurodyta šaltinio vieta."
+
+#~ msgid "Confirm (Do Not Process Now)"
+#~ msgstr "Patvirtinti"
+
+#~ msgid "Moves Tracked"
+#~ msgstr "Partijų judėjimas"
+
+#~ msgid "Reporting"
+#~ msgstr "Ataskaitos"
+
+#~ msgid "terp-project"
+#~ msgstr "OpenERP-projektas"
+
+#~ msgid "Stock by Lots"
+#~ msgstr "Atsargos pagal partiją"
+
+#~ msgid ""
+#~ "For the current product (template), this stock location will be used, "
+#~ "instead of the default one, as the source location for stock moves generated "
+#~ "by production orders"
+#~ msgstr ""
+#~ "Šiam produktui (šablonui) ši gamybos vieta bus naudojama vietoj numatytos "
+#~ "šaltinio vietos, registruoti atsargų judėjimui, sugeneruotam iš planinių "
+#~ "užsakymų."
+
+#~ msgid "Confirmed Packing Waiting Availability"
+#~ msgstr "Patvirtinti važtaraščiai laukiantys rezervacijos"
+
+#~ msgid "Set Stock to 0"
+#~ msgstr "Ištrinti atsargas"
+
+#~ msgid "Localisation"
+#~ msgstr "Lokalizacija"
+
+#~ msgid "Do you want to set stocks to zero ?"
+#~ msgstr "Ar Jūs tikrai norite ištrinti atsargas ?"
+
+#~ msgid "Direct Delivery"
+#~ msgstr "Tiesioginis pristatymas"
+
+#~ msgid "Track Production Lots"
+#~ msgstr "Sekti gaminamus produktus"
+
+#~ msgid "Split in Two"
+#~ msgstr "Suskaidyti į dvi"
+
+#~ msgid ""
+#~ "For the current product (template), this stock location will be used, "
+#~ "instead of the default one, as the source location for stock moves generated "
+#~ "by procurements"
+#~ msgstr ""
+#~ "Šiam produktui (šablonui) ši gamybos vieta bus naudojama vietoj numatytos "
+#~ "šaltinio vietos, registruoti atsargų judėjimui, sugeneruotam gamybos "
+#~ "užsakymu."
+
+#~ msgid "Date Order"
+#~ msgstr "Užsakymo data"
+
+#~ msgid "Supplier Invoice"
+#~ msgstr "Tiekėjo sąskaita"
+
+#, python-format
+#~ msgid "to be invoiced"
+#~ msgstr "sąskaitą faktūra bus išrašyta"
+
+#~ msgid "terp-product"
+#~ msgstr "OpenERP-produktas"
+
+#~ msgid "Close"
+#~ msgstr "Uždaryta"
+
+#~ msgid "Print Item Labels"
+#~ msgstr "Spausdinti etiketes"
+
+#~ msgid "Inventory Account"
+#~ msgstr "Atsargų sąskaita"
+
+#~ msgid "Set Stocks to Zero"
+#~ msgstr "Ištrinti atsargas"
+
+#~ msgid "Low Level"
+#~ msgstr "Prekių knyga"
+
+#~ msgid "Locations' Values"
+#~ msgstr "Vietų vertės"
+
+#~ msgid "Inventory line"
+#~ msgstr "Atsargų eilutė"
+
+#~ msgid "Move State"
+#~ msgstr "Judėjimo būsena"
+
+#, python-format
+#~ msgid "Invoice cannot be created from Packing."
+#~ msgstr "Sąskaita fakūra negali būti sukurta iš važtaraščio."
+
+#~ msgid "Production lot is used to put a serial number on the production"
+#~ msgstr ""
+#~ "Gamybos partija naudojama sukurti numerių seriją pagamintiems produktams"
+
+#~ msgid "Product Id"
+#~ msgstr "Produkto nr."

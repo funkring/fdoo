@@ -4,12 +4,14 @@ openerp_announcement = function(instance) {
             return $.when(this._super.apply(this, arguments)).then(this.proxy('show_annoucement_bar'));
         },
         _ab_location: function(dbuuid) {
-            return _.str.sprintf('https://services.openerp.com/openerp-enterprise/ab/css/%s.css', dbuuid);
+            return '/mail/static/src/css/announcement-register.css';
         },
         show_annoucement_bar: function() {
+        	return;
+        	/*
             if (this.session.get_cookie('ab') === 'c') {
                 return;
-            }
+            }*/
             var self = this;
             var config_parameter = new instance.web.Model('ir.config_parameter');
             var $bar = this.$el.find('.announcement_bar');

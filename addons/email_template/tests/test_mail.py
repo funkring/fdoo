@@ -20,11 +20,11 @@
 ##############################################################################
 
 import base64
-from openerp.addons.mail.tests.test_mail_base import TestMailBase
+from openerp.addons.mail.tests.common import TestMail
 from openerp.tools import mute_logger
 
 
-class test_message_compose(TestMailBase):
+class test_message_compose(TestMail):
 
     def setUp(self):
         super(test_message_compose, self).setUp()
@@ -74,7 +74,7 @@ class test_message_compose(TestMailBase):
 
         # 1. Comment on pigs
         compose_id = mail_compose.create(cr, uid,
-            {'subject': 'Forget me subject', 'body': '<p>Dummy body</p>'},
+            {'subject': 'Forget me subject', 'body': '<p>Dummy body</p>', 'post': True},
             {'default_composition_mode': 'comment',
                 'default_model': 'mail.group',
                 'default_res_id': self.group_pigs_id,
@@ -102,7 +102,7 @@ class test_message_compose(TestMailBase):
             'default_template_id': email_template_id,
             'active_ids': [self.group_pigs_id, self.group_bird_id]
         }
-        compose_id = mail_compose.create(cr, uid, {'subject': 'Forget me subject', 'body': 'Dummy body'}, context)
+        compose_id = mail_compose.create(cr, uid, {'subject': 'Forget me subject', 'body': 'Dummy body', 'post': True}, context)
         compose = mail_compose.browse(cr, uid, compose_id, context)
         onchange_res = compose.onchange_template_id(email_template_id, 'comment', 'mail.group', self.group_pigs_id)['value']
         onchange_res['partner_ids'] = [(4, partner_id) for partner_id in onchange_res.pop('partner_ids', [])]
@@ -139,13 +139,14 @@ class test_message_compose(TestMailBase):
         # 1. Mass_mail on pigs and bird, with a default_partner_ids set to check he is correctly added
         context = {
             'default_composition_mode': 'mass_mail',
+            'default_notify': True,
             'default_model': 'mail.group',
             'default_res_id': self.group_pigs_id,
             'default_template_id': email_template_id,
             'default_partner_ids': [p_a_id],
             'active_ids': [self.group_pigs_id, self.group_bird_id]
         }
-        compose_id = mail_compose.create(cr, uid, {'subject': 'Forget me subject', 'body': 'Dummy body'}, context)
+        compose_id = mail_compose.create(cr, uid, {'subject': 'Forget me subject', 'body': 'Dummy body', 'post': True}, context)
         compose = mail_compose.browse(cr, uid, compose_id, context)
         onchange_res = compose.onchange_template_id(email_template_id, 'mass_mail', 'mail.group', self.group_pigs_id)['value']
         onchange_res['partner_ids'] = [(4, partner_id) for partner_id in onchange_res.pop('partner_ids', [])]
@@ -179,20 +180,20 @@ class test_message_compose(TestMailBase):
         self.assertEqual(set(message_bird_pids), set(partner_ids), 'mail.message on bird notified_partner_ids incorrect')
 
         # ----------------------------------------
-        # CASE4: test newly introduced email_recipients field
+        # CASE4: test newly introduced partner_to field
         # ----------------------------------------
 
         # get already-created partners back
         p_b_id = self.res_partner.search(cr, uid, [('email', '=', 'b@b.b')])[0]
         p_c_id = self.res_partner.search(cr, uid, [('email', '=', 'c@c.c')])[0]
         p_d_id = self.res_partner.search(cr, uid, [('email', '=', 'd@d.d')])[0]
-        # modify template: use email_recipients, use template and email address in email_to to test all features together
+        # modify template: use partner_to, use template and email address in email_to to test all features together
         user_model_id = self.registry('ir.model').search(cr, uid, [('model', '=', 'res.users')])[0]
         email_template.write(cr, uid, [email_template_id], {
             'model_id': user_model_id,
             'body_html': '${object.login}',
             'email_to': '${object.email}, c@c',
-            'email_recipients': '%i,%i' % (p_b_id, p_c_id),
+            'partner_to': '%i,%i' % (p_b_id, p_c_id),
             'email_cc': 'd@d',
             })
         # patner by email + partner by id (no double)
@@ -216,23 +217,28 @@ class test_message_compose(TestMailBase):
             'subject': '${object.name}',
             'body_html': '${object.description}',
             'user_signature': True,
-            'email_to': 'b@b.b c@c.c',
+            'email_to': 'b@b.b, c@c.c',
             'email_cc': 'd@d.d',
-            'email_recipients': '${user.partner_id.id},%s,%s,-1' % (self.user_raoul.partner_id.id, self.user_bert.partner_id.id)
+            'partner_to': '${user.partner_id.id},%s,%s,-1' % (self.user_raoul.partner_id.id, self.user_bert.partner_id.id)
         })
 
         # not force send: email_recipients is not taken into account
         msg_id = email_template.send_mail(cr, uid, email_template_id, self.group_pigs_id, context=context)
         mail = self.mail_mail.browse(cr, uid, msg_id, context=context)
         self.assertEqual(mail.subject, 'Pigs', 'email_template: send_mail: wrong subject')
-        self.assertEqual(mail.email_to, 'b@b.b c@c.c', 'email_template: send_mail: wrong email_to')
+        self.assertEqual(mail.email_to, 'b@b.b, c@c.c', 'email_template: send_mail: wrong email_to')
         self.assertEqual(mail.email_cc, 'd@d.d', 'email_template: send_mail: wrong email_cc')
+        self.assertEqual(
+            set([partner.id for partner in mail.recipient_ids]),
+            set((self.partner_admin_id, self.user_raoul.partner_id.id, self.user_bert.partner_id.id)),
+            'email_template: send_mail: wrong management of partner_to')
 
         # force send: take email_recipients into account
         email_template.send_mail(cr, uid, email_template_id, self.group_pigs_id, force_send=True, context=context)
         sent_emails = self._build_email_kwargs_list
-        email_to_lst = ['"Followers of Pigs" <admin@example.com>', '"Followers of Pigs" <raoul@raoul.fr>', '"Followers of Pigs" <bert@bert.fr>']
-        self.assertEqual(len(sent_emails), 3, 'email_template: send_mail: 3 valid email recipients -> should send 3 emails')
+        email_to_lst = [
+            ['b@b.b', 'c@c.c'], ['"Followers of Pigs" <admin@yourcompany.example.com>'],
+            ['"Followers of Pigs" <raoul@raoul.fr>'], ['"Followers of Pigs" <bert@bert.fr>']]
+        self.assertEqual(len(sent_emails), 4, 'email_template: send_mail: 3 valid email recipients + email_to -> should send 4 emails')
         for email in sent_emails:
-            self.assertEqual(len(email['email_to']), 1, 'email_template: send_mail: email_recipient should send email to one recipient at a time')
-            self.assertIn(email['email_to'][0], email_to_lst, 'email_template: send_mail: wrong email_recipients')
+            self.assertIn(email['email_to'], email_to_lst, 'email_template: send_mail: wrong email_recipients')

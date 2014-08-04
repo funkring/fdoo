@@ -1,0 +1,19 @@
+<openerp>
+	<data>
+		<record id="view_product" model="ir.ui.view">
+            <field name="name">product.view_product</field>
+            <field name="model">product.product</field>
+            <field name="type">form</field>
+            <field eval="7" name="priority"/>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+            	<field name="default_code" position="replace">
+            		<group colspan="2" col="2">            		
+            			<field name="auto_ref"/>
+            		</group>
+            		<field name="default_code" attrs="{'readonly':[('auto_ref','=',True)]}"/>
+            	</field>
+            </field>
+        </record>	
+	</data>
+</openerp>

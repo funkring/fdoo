@@ -1,0 +1,24 @@
+<openerp>
+	<data>
+	
+		<menuitem id="menu_finance_dunning" 
+			      parent="account.menu_finance" 
+			      name="Dunning" 
+			      sequence="13"/>
+		
+		<menuitem action="action_account_dunning_profile"
+				  id="menu_account_dunning_profile" 
+				  name="Reminder Profile" 
+				  parent="account.menu_configuration_misc"/>				  
+		 
+		<menuitem action="action_account_reminder"
+    			  id="menu_account_reminder"
+    			  parent="menu_finance_dunning"
+    			  sequence="10" />
+    			  
+   		<menuitem action="action_account_dunning" 
+   				  id="menu_dunning_wizard" 
+   				  parent="menu_finance_dunning" 
+   				  sequence="12"/>
+	</data>
+</openerp>        		  

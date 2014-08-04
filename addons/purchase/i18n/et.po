@@ -1,21 +1,90 @@
-# Estonian translation for openobject-addons
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
-# This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* purchase
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openobject-addons\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:36+0000\n"
-"PO-Revision-Date: 2012-12-25 13:19+0000\n"
+"Project-Id-Version: OpenERP Server 6.0dev\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-12-21 17:04+0000\n"
+"PO-Revision-Date: 2012-12-21 20:41+0000\n"
 "Last-Translator: Ahti Hinnov <sipelgas@gmail.com>\n"
-"Language-Team: Estonian <et@li.org>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-21 06:30+0000\n"
-"X-Generator: Launchpad (build 16831)\n"
+"X-Launchpad-Export-Date: 2014-03-27 05:59+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
+
+#. module: purchase
+#: field:purchase.order,name:0
+#: view:purchase.order.line:0
+#: field:purchase.order.line,order_id:0
+msgid "Order Reference"
+msgstr "Tellimuse viide"
+
+#. module: purchase
+#: field:purchase.order.line,move_ids:0
+msgid "Reservation"
+msgstr "Reserveerimine"
+
+#. module: purchase
+#: field:purchase.order,validator:0
+#: view:purchase.report:0
+msgid "Validated by"
+msgstr ""
+
+#. module: purchase
+#: field:purchase.order,invoice_method:0
+msgid "Invoicing Control"
+msgstr "Arveldus"
+
+#. module: purchase
+#: model:ir.actions.report.xml,name:purchase.report_purchase_order
+#: model:ir.model,name:purchase.model_purchase_order
+#: model:process.node,name:purchase.process_node_purchaseorder0
+#: field:procurement.order,purchase_id:0
+#: view:purchase.config.settings:0
+#: view:purchase.order:0
+#: selection:purchase.order,state:0
+#: field:res.partner,purchase_order_ids:0
+#: model:res.request.link,name:purchase.req_link_purchase_order
+#: field:stock.picking,purchase_id:0
+#: field:stock.picking.in,purchase_id:0
+msgid "Purchase Order"
+msgstr "Ostutukorraldus"
+
+#. module: purchase
+#: report:purchase.order:0
+msgid "Our Order Reference"
+msgstr "Meie tellimuse viide"
+
+#. module: purchase
+#: report:purchase.order:0
+msgid "Your Order Reference"
+msgstr "Sinu tellimuse viide"
+
+#, python-format
+#~ msgid "No Pricelist !"
+#~ msgstr "Hinnakiri puudub !"
+
+#, python-format
+#~ msgid "Invalid action !"
+#~ msgstr "Vigane tegevus !"
+
+#~ msgid "From Order"
+#~ msgstr "Tellimusest"
+
+#, python-format
+#~ msgid ""
+#~ "You have to select a partner in the purchase form !\n"
+#~ "Please set one partner before choosing a product."
+#~ msgstr ""
+#~ "Sa pead valima partneri ostuvormil!\n"
+#~ "Palun määra partner enne toote valimist."
+
+#~ msgid "Request For Quotations"
+#~ msgstr "Hinnapäringud"
 
 #. module: purchase
 #: model:res.groups,name:purchase.group_analytic_accounting
@@ -64,11 +133,6 @@ msgstr ""
 #: view:purchase.report:0
 #: field:purchase.report,day:0
 msgid "Day"
-msgstr ""
-
-#. module: purchase
-#: view:purchase.order:0
-msgid "Cancel Order"
 msgstr ""
 
 #. module: purchase
@@ -135,11 +199,17 @@ msgid "No supplier defined for this product !"
 msgstr ""
 
 #. module: purchase
-#: help:res.company,po_lead:0
+#: model:ir.actions.act_window,help:purchase.action_picking_tree4_picking_to_invoice
 msgid ""
-"Margin of error for supplier lead times. When the systemgenerates Purchase "
-"Orders for procuring products,they will be scheduled that many days earlier "
-"to cope with unexpected supplier delays."
+"<p>\n"
+"                Here you can track all the product receptions of purchase\n"
+"                orders where the invoicing is \"Based on Incoming "
+"Shipments\",\n"
+"                and for which you have not received a supplier invoice yet.\n"
+"                You can generate a supplier invoice based on those "
+"receptions.\n"
+"              </p>\n"
+"            "
 msgstr ""
 
 #. module: purchase
@@ -186,13 +256,6 @@ msgstr "Kinnita korraldus"
 #: field:purchase.config.settings,module_warning:0
 msgid "Alerts by products or supplier"
 msgstr ""
-
-#. module: purchase
-#: field:purchase.order,name:0
-#: view:purchase.order.line:0
-#: field:purchase.order.line,order_id:0
-msgid "Order Reference"
-msgstr "Korralduse viide"
 
 #. module: purchase
 #: view:purchase.config.settings:0
@@ -445,11 +508,6 @@ msgstr ""
 #: model:ir.actions.act_window,name:purchase.purchase_draft
 msgid "Request for Quotations"
 msgstr "Hinnapäringud"
-
-#. module: purchase
-#: field:purchase.order.line,move_ids:0
-msgid "Reservation"
-msgstr "Reserveerimine"
 
 #. module: purchase
 #: view:purchase.order:0
@@ -730,11 +788,6 @@ msgid "RFQ"
 msgstr "Hinnapäring"
 
 #. module: purchase
-#: view:purchase.order:0
-msgid "Send by Email"
-msgstr ""
-
-#. module: purchase
 #: report:purchase.order:0
 #: view:purchase.order:0
 #: field:purchase.order,date_order:0
@@ -947,6 +1000,87 @@ msgid "a draft purchase order"
 msgstr ""
 
 #. module: purchase
+#: model:email.template,body_html:purchase.email_template_edi_purchase
+msgid ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-"
+"serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"\n"
+"    <p>Hello$ ${object.partner_id.name},</p>\n"
+"    \n"
+"    <p>Here is a ${object.state in ('draft', 'sent') and 'request for "
+"quotation' or 'purchase order confirmation'} from ${object.company_id.name}: "
+"</p>\n"
+"    \n"
+"    <p style=\"border-left: 1px solid #8e0000; margin-left: 30px;\">\n"
+"       &nbsp;&nbsp;<strong>REFERENCES</strong><br />\n"
+"       &nbsp;&nbsp;Order number: <strong>${object.name}</strong><br />\n"
+"       &nbsp;&nbsp;Order total: <strong>${object.amount_total} "
+"${object.pricelist_id.currency_id.name}</strong><br />\n"
+"       &nbsp;&nbsp;Order date: ${object.date_order}<br />\n"
+"       % if object.origin:\n"
+"       &nbsp;&nbsp;Order reference: ${object.origin}<br />\n"
+"       % endif\n"
+"       % if object.partner_ref:\n"
+"       &nbsp;&nbsp;Your reference: ${object.partner_ref}<br />\n"
+"       % endif\n"
+"       % if object.validator:\n"
+"       &nbsp;&nbsp;Your contact: <a href=\"mailto:${object.validator.email "
+"or ''}?subject=Order%20${object.name}\">${object.validator.name}</a>\n"
+"       % endif\n"
+"    </p>\n"
+"\n"
+"    <br/>\n"
+"    <p>If you have any question, do not hesitate to contact us.</p>\n"
+"    <p>Thank you!</p>\n"
+"    <br/>\n"
+"    <br/>\n"
+"    <div style=\"width: 375px; margin: 0px; padding: 0px; background-color: "
+"#8E0000; border-top-left-radius: 5px 5px; border-top-right-radius: 5px 5px; "
+"background-repeat: repeat no-repeat;\">\n"
+"        <h3 style=\"margin: 0px; padding: 2px 14px; font-size: 12px; color: "
+"#DDD;\">\n"
+"            <strong style=\"text-"
+"transform:uppercase;\">${object.company_id.name}</strong></h3>\n"
+"    </div>\n"
+"    <div style=\"width: 347px; margin: 0px; padding: 5px 14px; line-height: "
+"16px; background-color: #F2F2F2;\">\n"
+"        <span style=\"color: #222; margin-bottom: 5px; display: block; \">\n"
+"        % if object.company_id.street:\n"
+"            ${object.company_id.street}<br/>\n"
+"        % endif\n"
+"        % if object.company_id.street2:\n"
+"            ${object.company_id.street2}<br/>\n"
+"        % endif\n"
+"        % if object.company_id.city or object.company_id.zip:\n"
+"            ${object.company_id.zip} ${object.company_id.city}<br/>\n"
+"        % endif\n"
+"        % if object.company_id.country_id:\n"
+"            ${object.company_id.state_id and ('%s, ' % "
+"object.company_id.state_id.name) or ''} ${object.company_id.country_id.name "
+"or ''}<br/>\n"
+"        % endif\n"
+"        </span>\n"
+"        % if object.company_id.phone:\n"
+"            <div style=\"margin-top: 0px; margin-right: 0px; margin-bottom: "
+"0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: "
+"0px; padding-left: 0px; \">\n"
+"                Phone:&nbsp; ${object.company_id.phone}\n"
+"            </div>\n"
+"        % endif\n"
+"        % if object.company_id.website:\n"
+"            <div>\n"
+"                Web :&nbsp;<a "
+"href=\"${object.company_id.website}\">${object.company_id.website}</a>\n"
+"            </div>\n"
+"        %endif\n"
+"        <p></p>\n"
+"    </div>\n"
+"</div>\n"
+"            "
+msgstr ""
+
+#. module: purchase
 #: view:purchase.report:0
 msgid "Order of Year"
 msgstr ""
@@ -1109,11 +1243,6 @@ msgid "Products"
 msgstr "Tooted"
 
 #. module: purchase
-#: view:purchase.order:0
-msgid "Terms and conditions..."
-msgstr ""
-
-#. module: purchase
 #: model:ir.model,name:purchase.model_stock_move
 msgid "Stock Move"
 msgstr ""
@@ -1123,12 +1252,6 @@ msgstr ""
 #, python-format
 msgid "Invalid Action!"
 msgstr ""
-
-#. module: purchase
-#: field:purchase.order,validator:0
-#: view:purchase.report:0
-msgid "Validated by"
-msgstr "Valideerija:"
 
 #. module: purchase
 #: view:purchase.report:0
@@ -1224,22 +1347,6 @@ msgid "Please create Invoices."
 msgstr ""
 
 #. module: purchase
-#: model:ir.actions.act_window,help:purchase.action_picking_tree4_picking_to_invoice
-msgid ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"                Click to create a new incoming shipment.\n"
-"              </p><p> \n"
-"                Here you can track all the product receptions of purchase\n"
-"                orders where the invoicing is \"Based on Incoming "
-"Shipments\",\n"
-"                and for which you have not received a supplier invoice yet.\n"
-"                You can generate a supplier invoice based on those "
-"receptions.\n"
-"              </p>\n"
-"            "
-msgstr ""
-
-#. module: purchase
 #: model:ir.model,name:purchase.model_procurement_order
 msgid "Procurement"
 msgstr ""
@@ -1269,6 +1376,11 @@ msgstr "Võta vastu"
 #: view:purchase.report:0
 #: field:purchase.report,month:0
 msgid "Month"
+msgstr ""
+
+#. module: purchase
+#: help:res.company,po_lead:0
+msgid "This is the leads/security time for each purchase order."
 msgstr ""
 
 #. module: purchase
@@ -1325,9 +1437,9 @@ msgid "PO: %s"
 msgstr ""
 
 #. module: purchase
-#: model:process.node,note:purchase.process_node_packinginvoice0
-msgid "Outgoing products to invoice"
-msgstr ""
+#: view:purchase.order:0
+msgid "Send by EMail"
+msgstr "Saada e-kirjaga"
 
 #. module: purchase
 #: code:addons/purchase/purchase.py:517
@@ -1549,11 +1661,6 @@ msgid "Invoice Received"
 msgstr "Arve loodud"
 
 #. module: purchase
-#: field:purchase.order,invoice_method:0
-msgid "Invoicing Control"
-msgstr "Arveldamishaldus"
-
-#. module: purchase
 #: model:process.transition.action,name:purchase.process_transition_action_approvingpurchaseorder0
 msgid "Approve"
 msgstr "Nõustu"
@@ -1670,21 +1777,6 @@ msgid "Messages"
 msgstr ""
 
 #. module: purchase
-#: model:ir.actions.report.xml,name:purchase.report_purchase_order
-#: model:ir.model,name:purchase.model_purchase_order
-#: model:process.node,name:purchase.process_node_purchaseorder0
-#: field:procurement.order,purchase_id:0
-#: view:purchase.config.settings:0
-#: view:purchase.order:0
-#: selection:purchase.order,state:0
-#: field:res.partner,purchase_order_ids:0
-#: model:res.request.link,name:purchase.req_link_purchase_order
-#: field:stock.picking,purchase_id:0
-#: field:stock.picking.in,purchase_id:0
-msgid "Purchase Order"
-msgstr "Ostukorraldus"
-
-#. module: purchase
 #: code:addons/purchase/purchase.py:322
 #: code:addons/purchase/purchase.py:458
 #: code:addons/purchase/purchase.py:516
@@ -1743,10 +1835,11 @@ msgid "Net Price"
 msgstr "Netohind"
 
 #. module: purchase
-#: model:process.node,name:purchase.process_node_confirmpurchaseorder0
-#: selection:purchase.order.line,state:0
-msgid "Confirmed"
-msgstr "Kinnitatud"
+#: model:ir.model,name:purchase.model_purchase_order_line
+#: view:purchase.order.line:0
+#: field:stock.move,purchase_line_id:0
+msgid "Purchase Order Line"
+msgstr "Ostukorralduse rida"
 
 #. module: purchase
 #: model:process.transition.action,name:purchase.process_transition_action_confirmpurchaseorder0
@@ -1848,6 +1941,11 @@ msgid "Reference Unit of Measure"
 msgstr ""
 
 #. module: purchase
+#: model:process.node,note:purchase.process_node_packinginvoice0
+msgid "Outgoing products to invoice"
+msgstr ""
+
+#. module: purchase
 #: report:purchase.order:0
 #: field:purchase.report,validator:0
 msgid "Validated By"
@@ -1912,11 +2010,10 @@ msgid "Invoiced"
 msgstr "Arveldatud"
 
 #. module: purchase
-#: model:ir.model,name:purchase.model_purchase_order_line
-#: view:purchase.order.line:0
-#: field:stock.move,purchase_line_id:0
-msgid "Purchase Order Line"
-msgstr "Ostukorralduse rida"
+#: model:process.node,name:purchase.process_node_confirmpurchaseorder0
+#: selection:purchase.order.line,state:0
+msgid "Confirmed"
+msgstr "Kinnitatud"
 
 #. module: purchase
 #: selection:purchase.order.line,state:0
@@ -1947,11 +2044,6 @@ msgstr ""
 #: view:purchase.order.line:0
 msgid "Manual Invoices"
 msgstr ""
-
-#. module: purchase
-#: report:purchase.order:0
-msgid "Our Order Reference"
-msgstr "Meie tellimuse viide"
 
 #. module: purchase
 #: selection:purchase.report,month:0
@@ -2031,87 +2123,6 @@ msgid "Expected Delivery address:"
 msgstr "Eeldatav kättetoimetamise aadress:"
 
 #. module: purchase
-#: model:email.template,body_html:purchase.email_template_edi_purchase
-msgid ""
-"\n"
-"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-"
-"serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
-"\n"
-"    <p>Hello ${object.partner_id.name},</p>\n"
-"    \n"
-"    <p>Here is a ${object.state in ('draft', 'sent') and 'request for "
-"quotation' or 'purchase order confirmation'} from ${object.company_id.name}: "
-"</p>\n"
-"    \n"
-"    <p style=\"border-left: 1px solid #8e0000; margin-left: 30px;\">\n"
-"       &nbsp;&nbsp;<strong>REFERENCES</strong><br />\n"
-"       &nbsp;&nbsp;Order number: <strong>${object.name}</strong><br />\n"
-"       &nbsp;&nbsp;Order total: <strong>${object.amount_total} "
-"${object.pricelist_id.currency_id.name}</strong><br />\n"
-"       &nbsp;&nbsp;Order date: ${object.date_order}<br />\n"
-"       % if object.origin:\n"
-"       &nbsp;&nbsp;Order reference: ${object.origin}<br />\n"
-"       % endif\n"
-"       % if object.partner_ref:\n"
-"       &nbsp;&nbsp;Your reference: ${object.partner_ref}<br />\n"
-"       % endif\n"
-"       % if object.validator:\n"
-"       &nbsp;&nbsp;Your contact: <a href=\"mailto:${object.validator.email "
-"or ''}?subject=Order%20${object.name}\">${object.validator.name}</a>\n"
-"       % endif\n"
-"    </p>\n"
-"\n"
-"    <br/>\n"
-"    <p>If you have any question, do not hesitate to contact us.</p>\n"
-"    <p>Thank you!</p>\n"
-"    <br/>\n"
-"    <br/>\n"
-"    <div style=\"width: 375px; margin: 0px; padding: 0px; background-color: "
-"#8E0000; border-top-left-radius: 5px 5px; border-top-right-radius: 5px 5px; "
-"background-repeat: repeat no-repeat;\">\n"
-"        <h3 style=\"margin: 0px; padding: 2px 14px; font-size: 12px; color: "
-"#DDD;\">\n"
-"            <strong style=\"text-"
-"transform:uppercase;\">${object.company_id.name}</strong></h3>\n"
-"    </div>\n"
-"    <div style=\"width: 347px; margin: 0px; padding: 5px 14px; line-height: "
-"16px; background-color: #F2F2F2;\">\n"
-"        <span style=\"color: #222; margin-bottom: 5px; display: block; \">\n"
-"        % if object.company_id.street:\n"
-"            ${object.company_id.street}<br/>\n"
-"        % endif\n"
-"        % if object.company_id.street2:\n"
-"            ${object.company_id.street2}<br/>\n"
-"        % endif\n"
-"        % if object.company_id.city or object.company_id.zip:\n"
-"            ${object.company_id.zip} ${object.company_id.city}<br/>\n"
-"        % endif\n"
-"        % if object.company_id.country_id:\n"
-"            ${object.company_id.state_id and ('%s, ' % "
-"object.company_id.state_id.name) or ''} ${object.company_id.country_id.name "
-"or ''}<br/>\n"
-"        % endif\n"
-"        </span>\n"
-"        % if object.company_id.phone:\n"
-"            <div style=\"margin-top: 0px; margin-right: 0px; margin-bottom: "
-"0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: "
-"0px; padding-left: 0px; \">\n"
-"                Phone:&nbsp; ${object.company_id.phone}\n"
-"            </div>\n"
-"        % endif\n"
-"        % if object.company_id.website:\n"
-"            <div>\n"
-"                Web :&nbsp;<a "
-"href=\"${object.company_id.website}\">${object.company_id.website}</a>\n"
-"            </div>\n"
-"        %endif\n"
-"        <p></p>\n"
-"    </div>\n"
-"</div>\n"
-"            "
-msgstr ""
-
-#. module: purchase
 #: selection:purchase.report,month:0
 msgid "February"
 msgstr ""
@@ -2127,11 +2138,6 @@ msgstr "Mustandarvetel"
 #: model:ir.ui.menu,name:purchase.menu_action_purchase_order_report_all
 msgid "Purchase Analysis"
 msgstr ""
-
-#. module: purchase
-#: report:purchase.order:0
-msgid "Your Order Reference"
-msgstr "Sinu tellimuse viide"
 
 #. module: purchase
 #: report:purchase.order:0
@@ -2217,5 +2223,321 @@ msgstr ""
 msgid "Orders"
 msgstr ""
 
-#~ msgid "Send by EMail"
-#~ msgstr "Saada e-kirjaga"
+#~ msgid "Manual"
+#~ msgstr "Käsitsi"
+
+#~ msgid "Approve Purchase"
+#~ msgstr "Kiida ost heaks"
+
+#, python-format
+#~ msgid ""
+#~ "You have to select a pricelist in the purchase form !\n"
+#~ "Please set one before choosing a product."
+#~ msgstr ""
+#~ "Sa pead valima hinnakirja ostuvormil!\n"
+#~ "Palun vali üks enne toote valimist."
+
+#~ msgid "Product recept invoice"
+#~ msgstr "Toote kviitungi arve"
+
+#~ msgid "Delivery"
+#~ msgstr "Tarnimine"
+
+#~ msgid "Confirmed Purchase"
+#~ msgstr "Kinnitatud ost"
+
+#~ msgid "Purchase Process"
+#~ msgstr "Ostuprotseduur"
+
+#, python-format
+#~ msgid "Error !"
+#~ msgstr "Viga !"
+
+#~ msgid "Planned Date"
+#~ msgstr "Planeeritud kuupäev"
+
+#~ msgid "Merge purchases"
+#~ msgstr "Ühenda ostud"
+
+#~ msgid "Invalid XML for View Architecture!"
+#~ msgstr "Vigane XML vaate arhitektuurile!"
+
+#~ msgid "Invoice from Purchase"
+#~ msgstr "Ostuarve"
+
+#~ msgid "Confirming Purchase"
+#~ msgstr "Kinnita ost"
+
+#~ msgid "Purchase Management"
+#~ msgstr "Ostuhaldus"
+
+#~ msgid "Partner Ref."
+#~ msgstr "Partneri viide."
+
+#~ msgid "Destination Address"
+#~ msgstr "Sihtkoha aadress"
+
+#~ msgid "Compute"
+#~ msgstr "Arvuta"
+
+#~ msgid "Purchases Properties"
+#~ msgstr "Ostude omadused"
+
+#~ msgid ""
+#~ "The Object name must start with x_ and not contain any special character !"
+#~ msgstr ""
+#~ "Objekti nimi peab algama x_'ga ja ei tohi sisaldada ühtegi erisümbolit !"
+
+#~ msgid "Confirming Purchase Order"
+#~ msgstr "Kinnitan ostukorralduse"
+
+#~ msgid "Purchase Invoice"
+#~ msgstr "Ostuarve"
+
+#~ msgid "Approving Purchase Order"
+#~ msgstr "Kiidan heaks ostukorralduse"
+
+#~ msgid "Invalid model name in the action definition."
+#~ msgstr "Vigane mudeli nimi toimingu definitsioonis."
+
+#~ msgid "Supplier Invoice pre-generated on receptions for control"
+#~ msgstr "Vastuvõtmistel kontrolliks eelgenereeritud tarnija arve"
+
+#~ msgid "Invoiced & Paid"
+#~ msgstr "Arveldatud ja makstud"
+
+#~ msgid "From Picking"
+#~ msgstr "Noppest"
+
+#~ msgid "Packing"
+#~ msgstr "Pakkimine"
+
+#~ msgid "TVA :"
+#~ msgstr "KM :"
+
+#~ msgid ""
+#~ "The state of the purchase order or the quotation request. A quotation is a "
+#~ "purchase order in a 'Draft' state. Then the order has to be confirmed by the "
+#~ "user, the state switch to 'Confirmed'. Then the supplier must confirm the "
+#~ "order to change the state to 'Approved'. When the purchase order is paid and "
+#~ "received, the state becomes 'Done'. If a cancel action occurs in the invoice "
+#~ "or in the reception of goods, the state becomes in exception."
+#~ msgstr ""
+#~ "Ostukorralduse või hinnapäringu olek. Hinnapäring on ostukorraldus 'Mustand' "
+#~ "olekus. Siis peab kasutaja tellimuse kinnitama ja olek muutub 'Kinnitatud'. "
+#~ "Siis peab tarnija kinnitama tellimuse, et muuta olekut 'Heakskiidetud'. Kui "
+#~ "ostukorraldus on makstud ja kätte saadud siis muutub olek 'Tehtud'. Kui "
+#~ "katkestamine toimub arveldamisel või kaupade kättesaamisel siis olek muutub "
+#~ "'Hälve'."
+
+#~ msgid "Origin"
+#~ msgstr "Päritolu"
+
+#~ msgid "Waiting"
+#~ msgstr "Ootel"
+
+#~ msgid "Product Receipt"
+#~ msgstr "Toote kviitung"
+
+#, python-format
+#~ msgid "Wrong Product UOM !"
+#~ msgstr "Vale toote MÜ!"
+
+#~ msgid "Invoice based on deliveries"
+#~ msgstr "Arve kättetoimetamiste põhjal"
+
+#~ msgid ""
+#~ "From Order: a draft invoice will be pre-generated based on the purchase "
+#~ "order. The accountant will just have to validate this invoice for control.\n"
+#~ "From Picking: a draft invoice will be pre-genearted based on validated "
+#~ "receptions.\n"
+#~ "Manual: no invoice will be pre-generated. The accountant will have to encode "
+#~ "manually."
+#~ msgstr ""
+#~ "Korraldusest: mustandarve eelgenereeritakse ostukorralduse põhjal. "
+#~ "Raamatupidaja peab lihtsalt valideerima selle arve kontrolliks.\n"
+#~ "Noppest: mustandarve eelgenereeritakse valideeritud vastuvõtmiste põhjal.\n"
+#~ "Manuaalne: arvet ei eelgenereerita. Raamatupidaja peab kodeerima manuaalselt."
+
+#~ msgid "Pre-generated supplier invoice to control based on order"
+#~ msgstr "Korralduse põhjal eelgenereeritud tarnija arve kontrolliks"
+
+#~ msgid "Packing is created for the products reception control."
+#~ msgstr "Pakkeleht luuakse toodete vastuvõtmise kontrollimiseks."
+
+#~ msgid ""
+#~ "Put an address if you want to deliver directly from the supplier to the "
+#~ "customer.In this case, it will remove the warehouse link and set the "
+#~ "customer location."
+#~ msgstr ""
+#~ "Sisesta aadress, kui sa tahad kättetoimetamist tarnijalt otse kliendile. Sel "
+#~ "juhul eemaldame me laohoone viida ja määrame kliendi asukoha."
+
+#~ msgid "Confirm Purchase order from Request for quotation"
+#~ msgstr "Kinnita ostukorraldus hinnapäringust"
+
+#~ msgid ""
+#~ "This is the list of picking list that have been generated for this purchase"
+#~ msgstr "See on noppelehe nimekiri, mis on genereeritud selle ostu jaoks."
+
+#~ msgid "Encoded manually by the user."
+#~ msgstr "Kodeeritud manuaalselt kasutaja poolt."
+
+#, python-format
+#~ msgid ""
+#~ "You have to select a product UOM in the same category than the purchase UOM "
+#~ "of the product"
+#~ msgstr ""
+#~ "Sa pead valima toote mõõtühiku samast kategooriast, mis toote ostu mõõtõhik."
+
+#~ msgid "Scheduled date"
+#~ msgstr "Planeeritud kuupäev"
+
+#~ msgid "Tél. :"
+#~ msgstr "Tel. :"
+
+#, python-format
+#~ msgid "There is no expense account defined for this product: \"%s\" (id:%d)"
+#~ msgstr "Sellele tootele pole määratud kulukontot: \"%s\" (id:%d)"
+
+#~ msgid "Reference of the document that generated this purchase order request."
+#~ msgstr "Viide dokumendile, mis genereeris selle ostukorralduse päringu."
+
+#~ msgid "Delivery & Invoices"
+#~ msgstr "Kättetoimetamine ja arved"
+
+#~ msgid "Creates invoice from packin list"
+#~ msgstr "Loob arve pakkelehelt"
+
+#~ msgid "Packing Invoice"
+#~ msgstr "Pakkimise arve"
+
+#~ msgid "Control invoices on receptions"
+#~ msgstr "Halda arveid vastuvõtmisel"
+
+#~ msgid "Invoice from Packing list"
+#~ msgstr "Arve pakkelehelt"
+
+#~ msgid "Create Packing list"
+#~ msgstr "Loo pakkeleht"
+
+#, python-format
+#~ msgid "No Partner!"
+#~ msgstr "Puudub partner!"
+
+#~ msgid "Product UOM"
+#~ msgstr "Toote MÜ"
+
+#, python-format
+#~ msgid "You must first cancel all packing attached to this purchase order."
+#~ msgstr ""
+#~ "Sa pead kõigepealt tühistama kõik pakendamised, mis on manustatud sellele "
+#~ "ostukorraldusele."
+
+#~ msgid "Date Ordered"
+#~ msgstr "Tellimise kuupäev"
+
+#~ msgid "From Packing list, Create invoice."
+#~ msgstr "Loo arve pakkelehest"
+
+#~ msgid "Purchase Control"
+#~ msgstr "Ostuhaldus"
+
+#~ msgid "When controlling invoice from orders"
+#~ msgstr "Kontrollides arveid korraldustest"
+
+#~ msgid "Request for quotation is proposed by the system."
+#~ msgstr "Hinnapäringut pakutakse süsteemi poolt"
+
+#~ msgid "Approved by Supplier"
+#~ msgstr "Heaks kiidetud tarnija poolt"
+
+#~ msgid "Approved Purchase"
+#~ msgstr "Heaks kiidetud ost"
+
+#~ msgid "When purchase order is approved , it creates its packing list."
+#~ msgstr "Kui ostukorraldus on heaks kiidetud, loob see pakkimise nimekirja."
+
+#~ msgid "After approved purchase order , it comes into the supplier invoice"
+#~ msgstr "Peale ostukorralduse heaks kiitmist läheb see kliendiarveks"
+
+#~ msgid ""
+#~ "Module for purchase management\n"
+#~ "    Request for quotation, Create Supplier Invoice, Print Order..."
+#~ msgstr ""
+#~ "Moodul ostuhalduseks\n"
+#~ "    Hinnapäringud, Tarnija arvete loomine, Korralduste printimine..."
+
+#~ msgid "Confirm Purchase order from Request for quotation without origin"
+#~ msgstr "Kinnita ostukorraldus päritoluta hinnapäringust."
+
+#~ msgid "You cannot have 2 pricelist versions that overlap!"
+#~ msgstr "Sul ei saa olla 2 hinnakirja versiooni, mis kattuvad!"
+
+#~ msgid "Untaxed amount"
+#~ msgstr "Maksuvaba summa"
+
+#~ msgid "Approve Purchase order after Confirming"
+#~ msgstr "Kiida ostukorraldus heaks peale kinnitamist"
+
+#~ msgid "Order Line"
+#~ msgstr "Korralduse rida"
+
+#~ msgid "Purchase Order lines"
+#~ msgstr "Ostukorralduse read"
+
+#, python-format
+#~ msgid "You must first cancel all invoices attached to this purchase order."
+#~ msgstr ""
+#~ "Sa pead kõigepealt tühistama kõik arved, mis on lisatud sellele "
+#~ "ostukorraldusele."
+
+#~ msgid "Purchase order is confirmed by the user."
+#~ msgstr "Ostukorraldus on kinnitatud kasutaja poolt."
+
+#~ msgid "After Purchase order , Create invoice."
+#~ msgstr "Pärast ostukorraldust loo arve."
+
+#~ msgid "Confirm Purchase Order"
+#~ msgstr "Kinnita ostukorraldus"
+
+#~ msgid "Order Ref"
+#~ msgstr "Korralduse viide"
+
+#~ msgid "Purchase orders"
+#~ msgstr "Ostukorraldused"
+
+#~ msgid "Purchase order is approved by supplier."
+#~ msgstr "Ostukorraldus on heaks kiidetud tarnija poolt."
+
+#~ msgid "Cancel Purchase Order"
+#~ msgstr "Tühista ostukorraldus"
+
+#~ msgid "Purchase order"
+#~ msgstr "Ostukorraldus"
+
+#~ msgid "New Purchase Order"
+#~ msgstr "Uus ostukorraldus"
+
+#, python-format
+#~ msgid "Could not cancel this purchase order !"
+#~ msgstr "Seda ostukorraldust ei saa tühistada !"
+
+#~ msgid "Purchase Order Waiting Approval"
+#~ msgstr "Ostukorraldused mis ootavad heaks kiitmist"
+
+#~ msgid "Are you sure you want to merge these orders ?"
+#~ msgstr "Oled kindel, et tahad ühendada need korraldused ?"
+
+#, python-format
+#~ msgid "Could not cancel purchase order !"
+#~ msgstr "Ostukorraldust ei saa tühistada !"
+
+#~ msgid "Purchase Orders in Progress"
+#~ msgstr "Ostukorraldused töötlemisel"
+
+#~ msgid "Date"
+#~ msgstr "Kuupäev"
+
+#~ msgid "History"
+#~ msgstr "Ajalugu"

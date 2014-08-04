@@ -1,0 +1,36 @@
+<openerp>
+	<data>
+		<record id="search_crm_case_section" model="ir.ui.view">
+            <field name="name">sale_team.search_crm_case_section</field>
+            <field name="model">crm.case.section</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Sales Team">
+                    <filter string="Parent" icon="terp-folder-orange" domain="[]" context="{'group_by':'parent_id'}"/>
+                    <field  string="Parent Team" name="parent_id"/>
+                    <separator orientation="vertical"/>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="user_id"/>
+               </search>
+            </field>
+		</record>
+		
+		<record id="tree_crm_case_section" model="ir.ui.view">
+            <field name="name">sale_team.tree_crm_case_section</field>
+            <field name="model">crm.case.section</field>
+            <field name="inherit_id" ref="crm.crm_case_section_view_tree"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <data>   
+                    <field name="name" position="before">
+                        <field name="parent_id"/>
+                    </field>                 
+	          		<field name="user_id" position="after">		          		    
+	          		    <field name="members_text"/>	          		     
+	          		</field>
+          		</data>                    
+            </field>
+        </record>
+	</data>
+</openerp>

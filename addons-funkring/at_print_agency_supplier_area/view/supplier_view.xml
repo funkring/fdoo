@@ -1,0 +1,37 @@
+<openerp>
+	<data>
+	
+			<record id="search_purchase_line" model="ir.ui.view">
+            <field name="name">at_print_agency_supplier_area.search_purchase_line</field>
+            <field name="model">purchase.order.line</field>
+            <field name="inherit_id" ref="supplier_area.search_purchase_line"/>
+            <field name="type">search</field>                    
+            <field name="arch" type="xml">
+            	<data>
+	            	<field name="category_id" position="after">
+	            	 	<field name="pr_gram_id"/>
+		                <field name="pr_format_id"/>
+	            	</field>            		
+	            	<filter string="Priority" position="after">
+	                    <filter string="Gram" icon="terp-mrp" domain="[]" context="{'group_by' : 'pr_gram_id'}" />                        
+	                    <filter string="Format" icon="terp-mrp" domain="[]" context="{'group_by' : 'pr_format_id'}" />
+	                </filter>
+                </data>
+         	</field>
+         </record> 
+	
+			<record id="tree_purchase_line" model="ir.ui.view">
+	            <field name="name">at_print_agency_supplier_area.tree_purchase_line</field>
+	            <field name="model">purchase.order.line</field>
+	            <field name="inherit_id" ref="supplier_area.tree_purchase_line"/>
+	            <field name="type">form</field>
+	            <field name="priority">100</field>
+	            <field name="arch" type="xml">
+					<field name="category_id" position="after">
+						<field name="pr_gram_id"/>
+						<field name="pr_format_id"/>
+					</field>                
+	            </field>
+	        </record>
+	</data>	
+</openerp>

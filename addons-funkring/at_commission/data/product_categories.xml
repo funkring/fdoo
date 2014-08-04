@@ -1,0 +1,7 @@
+<openerp>
+	<data>		
+	    <record id="product_category" model="product.category">
+			<field name="name">Commissions</field>	
+		</record>	    
+	</data>
+</openerp>

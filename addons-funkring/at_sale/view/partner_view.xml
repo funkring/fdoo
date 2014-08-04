@@ -1,0 +1,21 @@
+<openerp>
+	<data>
+			<record id="form_partner_view" model="ir.ui.view">
+            <field name="name">base.form_partner_view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+            	<page string="Sales &amp; Purchases" position="inside">
+            		<group>
+            			<group name="invoicing">
+            				<field name="invoice_partner_id"/>            			  
+            			</group>
+            			<group name="invoicing2">
+            				<field name="detailed_invoice" />
+            			</group>
+            		</group>
+            	</page>
+            </field>
+        </record>
+	</data>
+</openerp>

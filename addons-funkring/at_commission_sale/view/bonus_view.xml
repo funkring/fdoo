@@ -1,0 +1,48 @@
+<openerp>
+	<data>		
+		<record id="form_bonus" model="ir.ui.view">
+            <field name="name">at_commission_sale.form_bonus</field>
+            <field name="model">at_commission_sale.bonus</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Sales Bonus">
+                	<field name="name"/>
+                	<field name="line_ids" nolabel="1" colspan="4">
+                	    <tree editable="bottom" string="Lines">
+                	        <field name="name"/>
+	                		<field name="volume_of_sales"/>
+	                		<field name="bonus"/>
+	                	</tree>
+	                	<form string="Line">
+	                	    <field name="name"/>
+	                		<field name="volume_of_sales"/>
+	                		<field name="bonus"/>	                	    
+	                	</form>
+                	</field>
+                </form>
+            </field>
+        </record>
+
+        <record id="tree_bonus" model="ir.ui.view">
+            <field name="name">at_commission_sale.tree_bonus</field>
+            <field name="model">at_commission_sale.bonus</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Sales Bonus">
+                	<field name="name"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_bonus" model="ir.actions.act_window">
+            <field name="name">Sales Bonus</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">at_commission_sale.bonus</field>            
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+				
+        <menuitem id="menu_bonus" name="Sales Bonus" parent="base.menu_sale_config_sales" sequence="14"
+        		  action="action_bonus"/>		
+	</data>
+</openerp>

@@ -1,21 +1,21 @@
 # Swedish translation for openobject-addons
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
 # This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:36+0000\n"
-"PO-Revision-Date: 2014-04-04 08:45+0000\n"
-"Last-Translator: Anders Wallenquist <anders.wallenquist@vertel.se>\n"
+"POT-Creation-Date: 2012-12-21 17:04+0000\n"
+"PO-Revision-Date: 2010-12-16 00:45+0000\n"
+"Last-Translator: OpenERP Administrators <Unknown>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-04-05 06:18+0000\n"
-"X-Generator: Launchpad (build 16976)\n"
+"X-Launchpad-Export-Date: 2014-03-27 07:17+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: hr_recruitment
 #: help:hr.applicant,active:0
@@ -35,17 +35,17 @@ msgstr "Krav"
 #. module: hr_recruitment
 #: view:hr.applicant:0
 msgid "Application Summary"
-msgstr "Summering av ansökningar"
+msgstr ""
 
 #. module: hr_recruitment
 #: view:hr.applicant:0
 msgid "Start Interview"
-msgstr "Starta intervju"
+msgstr ""
 
 #. module: hr_recruitment
 #: view:hr.applicant:0
 msgid "Mobile:"
-msgstr "Mobil:"
+msgstr ""
 
 #. module: hr_recruitment
 #: help:hr.recruitment.stage,fold:0
@@ -53,8 +53,6 @@ msgid ""
 "This stage is not visible, for example in status bar or kanban view, when "
 "there are no records in that stage to display."
 msgstr ""
-"Denna etapp är inte synlig, t.ex. i statusfältet eller kanbanvyn, i de fall "
-"etappen saknar poster."
 
 #. module: hr_recruitment
 #: model:hr.recruitment.degree,name:hr_recruitment.degree_graduate
@@ -96,11 +94,6 @@ msgstr "Jobb"
 
 #. module: hr_recruitment
 #: view:hr.applicant:0
-msgid "Extra advantages..."
-msgstr "Extra förmåner..."
-
-#. module: hr_recruitment
-#: view:hr.applicant:0
 msgid "Pending Jobs"
 msgstr "Vilande arbeten"
 
@@ -108,7 +101,7 @@ msgstr "Vilande arbeten"
 #: view:hr.applicant:0
 #: field:hr.applicant,message_unread:0
 msgid "Unread Messages"
-msgstr "Olästa meddelanden"
+msgstr ""
 
 #. module: hr_recruitment
 #: field:hr.applicant,company_id:0
@@ -161,28 +154,12 @@ msgid ""
 "              </p>\n"
 "            "
 msgstr ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"                 Klicka för att lägga till en ny jobbsökande.\n"
-"               </ p>\n"
-"                 OpenERP hjälper dig att spåra de sökande i "
-"rekryteringsprocessen\n"
-"                 och följa upp all verksamhet: möten, intervjuer etc.\n"
-"               </p><p>\n"
-"                 Om du ställer in den e-postbrygga sökande och deras "
-"bifogade\n"
-"                 CV skapas automatiskt när en e-post skickas till\n"
-"                 jobs@yourcompany.com. Om du installerar dokumenthantering\n"
-"                 moduler är alla meritförteckningar automatiskt indexerade, "
-"så att du kan\n"
-"                 enkelt söka igenom deras innehåll.\n"
-"               </p>\n"
-"            "
 
 #. module: hr_recruitment
 #: model:ir.actions.act_window,name:hr_recruitment.crm_case_categ0_act_job
 #: model:ir.ui.menu,name:hr_recruitment.menu_crm_case_categ0_act_job
 msgid "Applications"
-msgstr "Ansökningar"
+msgstr ""
 
 #. module: hr_recruitment
 #: field:hr.applicant,day_open:0
@@ -192,12 +169,12 @@ msgstr "Dagar för att öppna"
 #. module: hr_recruitment
 #: field:hr.applicant,emp_id:0
 msgid "employee"
-msgstr "anställd"
+msgstr ""
 
 #. module: hr_recruitment
 #: field:hr.config.settings,fetchmail_applicants:0
 msgid "Create applicants from an incoming email account"
-msgstr "Skapa en ansökan från inkommande e-post"
+msgstr ""
 
 #. module: hr_recruitment
 #: view:hr.recruitment.report:0
@@ -209,7 +186,7 @@ msgstr "Dag"
 #: view:hr.recruitment.partner.create:0
 #: model:ir.actions.act_window,name:hr_recruitment.action_hr_recruitment_partner_create
 msgid "Create Contact"
-msgstr "Skapa kontakt"
+msgstr ""
 
 #. module: hr_recruitment
 #: view:hr.applicant:0
@@ -241,7 +218,7 @@ msgstr "Nästa åtgärd"
 #: code:addons/hr_recruitment/wizard/hr_recruitment_create_partner_job.py:56
 #, python-format
 msgid "Error!"
-msgstr "Fel!"
+msgstr ""
 
 #. module: hr_recruitment
 #: model:hr.recruitment.degree,name:hr_recruitment.degree_bac5
@@ -264,7 +241,7 @@ msgstr ""
 #. module: hr_recruitment
 #: help:hr.applicant,message_unread:0
 msgid "If checked new messages require your attention."
-msgstr "Om ikryssad nya meddelanden som kräver din uppmärksamhet"
+msgstr ""
 
 #. module: hr_recruitment
 #: field:hr.applicant,color:0
@@ -274,7 +251,7 @@ msgstr "Färgindex"
 #. module: hr_recruitment
 #: model:ir.actions.act_window,name:hr_recruitment.act_hr_applicant_to_meeting
 msgid "Meetings"
-msgstr "Möten"
+msgstr ""
 
 #. module: hr_recruitment
 #: view:hr.applicant:0
@@ -313,8 +290,6 @@ msgid ""
 "Holds the Chatter summary (number of messages, ...). This summary is "
 "directly in html format in order to be inserted in kanban views."
 msgstr ""
-"Lagrar pladder-sammanfattning (antal meddelanden, ...). Denna sammanfattning "
-"presenteras i html-format för att kunna sättas in i kanban vyer."
 
 #. module: hr_recruitment
 #: code:addons/hr_recruitment/hr_recruitment.py:435
@@ -369,7 +344,7 @@ msgstr "Rekryteringsstatistik"
 #. module: hr_recruitment
 #: view:hr.applicant:0
 msgid "Print interview report"
-msgstr "Skriv ut intervjurapport"
+msgstr ""
 
 #. module: hr_recruitment
 #: view:hr.recruitment.report:0
@@ -388,15 +363,9 @@ msgid "Source"
 msgstr "Källa"
 
 #. module: hr_recruitment
-#: view:hr.recruitment.report:0
-#: field:hr.recruitment.report,year:0
-msgid "Year"
-msgstr "År"
-
-#. module: hr_recruitment
 #: field:hr.applicant,message_follower_ids:0
 msgid "Followers"
-msgstr "Följare"
+msgstr ""
 
 #. module: hr_recruitment
 #: model:hr.recruitment.source,name:hr_recruitment.source_monster
@@ -406,7 +375,7 @@ msgstr "Monster"
 #. module: hr_recruitment
 #: model:mail.message.subtype,name:hr_recruitment.mt_applicant_hired
 msgid "Applicant Hired"
-msgstr "Sökande anställd"
+msgstr ""
 
 #. module: hr_recruitment
 #: field:hr.applicant,email_from:0
@@ -426,16 +395,6 @@ msgid ""
 "          </p>\n"
 "        "
 msgstr ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"             Klicka för att lägga till en ny fas i rekryteringsprocessen.\n"
-"           </p><p>\n"
-"             Här definierar du dina etapper i rekryteringsprocessen, till "
-"exempel:\n"
-"             kvalificeringssamtal, första intervjun, andra intervju, "
-"avslag,\n"
-"             anställd.\n"
-"           </p>\n"
-"        "
 
 #. module: hr_recruitment
 #: view:hr.recruitment.report:0
@@ -575,9 +534,6 @@ msgid ""
 "the case needs to be reviewed then the status is                       set "
 "to 'Pending'."
 msgstr ""
-"Statusen är satt till \"Utkast\", när ett ärende skapas. Om ärendet pågår är "
-"status inställd på \"Öppna\". När fallet är över, sätts status till "
-"\"Klar\". Om ärendet måste granskas är status \"Väntar\"."
 
 #. module: hr_recruitment
 #: selection:hr.recruitment.report,month:0
@@ -609,12 +565,12 @@ msgstr "Pågående"
 #. module: hr_recruitment
 #: view:hr.applicant:0
 msgid "Hire & Create Employee"
-msgstr "Anställ och skapa medarbetare"
+msgstr ""
 
 #. module: hr_recruitment
 #: model:mail.message.subtype,description:hr_recruitment.mt_applicant_hired
 msgid "Applicant hired"
-msgstr "Sökande anställd"
+msgstr ""
 
 #. module: hr_recruitment
 #: view:hr.applicant:0
@@ -650,17 +606,12 @@ msgstr ""
 #. module: hr_recruitment
 #: field:hr.applicant,categ_ids:0
 msgid "Tags"
-msgstr "Etiketter"
+msgstr ""
 
 #. module: hr_recruitment
 #: model:ir.model,name:hr_recruitment.model_hr_applicant_category
 msgid "Category of applicant"
-msgstr "Sökandekategori"
-
-#. module: hr_recruitment
-#: view:hr.applicant:0
-msgid "e.g. Call for interview"
-msgstr "eg Kalla till intervju"
+msgstr ""
 
 #. module: hr_recruitment
 #: view:hr.recruitment.report:0
@@ -674,9 +625,9 @@ msgid "Answer related job question"
 msgstr ""
 
 #. module: hr_recruitment
-#: model:ir.model,name:hr_recruitment.model_hr_recruitment_degree
-msgid "Degree of Recruitment"
-msgstr "Grad av rekrytering"
+#: model:hr.recruitment.stage,name:hr_recruitment.stage_job2
+msgid "First Interview"
+msgstr "Första intervjuen"
 
 #. module: hr_recruitment
 #: field:hr.applicant,write_date:0
@@ -698,12 +649,12 @@ msgstr "Ämne"
 #: view:hired.employee:0
 #: view:hr.recruitment.partner.create:0
 msgid "or"
-msgstr "eller"
+msgstr ""
 
 #. module: hr_recruitment
 #: model:mail.message.subtype,name:hr_recruitment.mt_applicant_refused
 msgid "Applicant Refused"
-msgstr "Sökande avslagen"
+msgstr ""
 
 #. module: hr_recruitment
 #: view:hr.applicant:0
@@ -813,7 +764,7 @@ msgstr ""
 #: code:addons/hr_recruitment/hr_recruitment.py:397
 #, python-format
 msgid "Applicant <b>created</b>"
-msgstr "Sökande <b>skapad</b>"
+msgstr ""
 
 #. module: hr_recruitment
 #: view:hr.applicant:0
@@ -843,7 +794,7 @@ msgstr "Dagar i behandling"
 #. module: hr_recruitment
 #: field:hr.applicant,message_is_follower:0
 msgid "Is a Follower"
-msgstr "Är en följare"
+msgstr ""
 
 #. module: hr_recruitment
 #: field:hr.recruitment.report,user_id:0
@@ -865,7 +816,7 @@ msgstr "Aktiva"
 #: view:hr.recruitment.report:0
 #: field:hr.recruitment.report,nbr:0
 msgid "# of Applications"
-msgstr "# sökanden"
+msgstr ""
 
 #. module: hr_recruitment
 #: model:ir.actions.act_window,help:hr_recruitment.hr_recruitment_stage_act
@@ -879,13 +830,6 @@ msgid ""
 "          </p>\n"
 "        "
 msgstr ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"             Klicka för att lägga till en ny etapp i rekryteringsprocessen.\n"
-"           </p><p>\n"
-"             Glöm inte att ange vilken avdelning om din rekryteringsprocess\n"
-"             skiljer sig beroende på befattning.\n"
-"           </p>\n"
-"        "
 
 #. module: hr_recruitment
 #: field:hr.applicant,response:0
@@ -916,7 +860,7 @@ msgstr "januari"
 #: code:addons/hr_recruitment/wizard/hr_recruitment_create_partner_job.py:56
 #, python-format
 msgid "A contact is already existing with the same name."
-msgstr "Kontakt med samma namn finns redan"
+msgstr ""
 
 #. module: hr_recruitment
 #: model:ir.actions.act_window,name:hr_recruitment.hr_recruitment_stage_form_installer
@@ -926,7 +870,7 @@ msgstr "Granska etapperna i rektryteringsprocessen"
 #. module: hr_recruitment
 #: view:hr.applicant:0
 msgid "Contact:"
-msgstr "Kontakt:"
+msgstr ""
 
 #. module: hr_recruitment
 #: view:hr.applicant:0
@@ -952,7 +896,7 @@ msgstr "Vill du lägga upp en anställd ?"
 #. module: hr_recruitment
 #: view:hr.applicant:0
 msgid "Degree:"
-msgstr "Examen:"
+msgstr ""
 
 #. module: hr_recruitment
 #: view:hr.recruitment.report:0
@@ -972,7 +916,7 @@ msgstr ""
 #. module: hr_recruitment
 #: view:hr.config.settings:0
 msgid "Configure"
-msgstr "Konfigurera"
+msgstr ""
 
 #. module: hr_recruitment
 #: model:hr.recruitment.stage,name:hr_recruitment.stage_job4
@@ -990,10 +934,10 @@ msgid "The name of the Degree of Recruitment must be unique!"
 msgstr "Namnet på examen för rekryteringen måste vara unik!"
 
 #. module: hr_recruitment
-#: code:addons/hr_recruitment/hr_recruitment.py:349
-#, python-format
-msgid "Contact Email"
-msgstr "Kontaktpersonens e-postadress"
+#: view:hr.recruitment.report:0
+#: field:hr.recruitment.report,year:0
+msgid "Year"
+msgstr "År"
 
 #. module: hr_recruitment
 #: view:hired.employee:0
@@ -1034,7 +978,7 @@ msgstr "Ger sorteringsordningen när listan med examina visas."
 #. module: hr_recruitment
 #: model:mail.message.subtype,description:hr_recruitment.mt_stage_changed
 msgid "Stage changed"
-msgstr "Steg ändrat"
+msgstr ""
 
 #. module: hr_recruitment
 #: view:hr.applicant:0
@@ -1063,7 +1007,7 @@ msgstr "LinkedIn"
 #. module: hr_recruitment
 #: model:mail.message.subtype,name:hr_recruitment.mt_job_new_applicant
 msgid "New Applicant"
-msgstr "Ny sökande"
+msgstr ""
 
 #. module: hr_recruitment
 #: model:ir.model,name:hr_recruitment.model_hr_recruitment_stage
@@ -1098,7 +1042,7 @@ msgstr "Källnamn"
 #. module: hr_recruitment
 #: view:hr.applicant:0
 msgid "Day(s)"
-msgstr "Dag(ar)"
+msgstr ""
 
 #. module: hr_recruitment
 #: field:hr.applicant,description:0
@@ -1108,7 +1052,7 @@ msgstr "Beskrivning"
 #. module: hr_recruitment
 #: model:mail.message.subtype,name:hr_recruitment.mt_stage_changed
 msgid "Stage Changed"
-msgstr "Etapp ändrad"
+msgstr ""
 
 #. module: hr_recruitment
 #: selection:hr.recruitment.report,month:0
@@ -1158,12 +1102,12 @@ msgstr "Anställd"
 #. module: hr_recruitment
 #: field:hr.applicant,reference:0
 msgid "Referred By"
-msgstr "Hänvisad av"
+msgstr ""
 
 #. module: hr_recruitment
 #: view:hr.applicant:0
 msgid "Departement:"
-msgstr "Avdelning:"
+msgstr ""
 
 #. module: hr_recruitment
 #: selection:hr.applicant,priority:0
@@ -1172,14 +1116,14 @@ msgid "On Average"
 msgstr "I medeltal"
 
 #. module: hr_recruitment
-#: model:hr.recruitment.stage,name:hr_recruitment.stage_job2
-msgid "First Interview"
-msgstr "Första intervjuen"
+#: model:ir.model,name:hr_recruitment.model_hr_recruitment_degree
+msgid "Degree of Recruitment"
+msgstr "Grad av rekrytering"
 
 #. module: hr_recruitment
 #: field:hr.recruitment.report,salary_prop_avg:0
 msgid "Avg. Proposed Salary"
-msgstr "Erbjuden lön i medeltal"
+msgstr ""
 
 #. module: hr_recruitment
 #: view:hr.applicant:0
@@ -1232,12 +1176,7 @@ msgstr "De här personerna kommer att ta emot e-post."
 #. module: hr_recruitment
 #: field:hr.job,alias_id:0
 msgid "Alias"
-msgstr "Alias"
-
-#. module: hr_recruitment
-#: view:hr.applicant:0
-msgid "Feedback of interviews..."
-msgstr "Återkoppling från intervjuer..."
+msgstr ""
 
 #. module: hr_recruitment
 #: view:hr.recruitment.report:0
@@ -1247,22 +1186,22 @@ msgstr "Vilande rekryteringar"
 #. module: hr_recruitment
 #: view:hr.applicant:0
 msgid "Contract"
-msgstr "Avtal"
+msgstr ""
 
 #. module: hr_recruitment
 #: field:hr.applicant,message_summary:0
 msgid "Summary"
-msgstr "Sammandrag"
+msgstr ""
 
 #. module: hr_recruitment
 #: help:hr.applicant,message_ids:0
 msgid "Messages and communication history"
-msgstr "Meddelande- och kommunikationshistorik"
+msgstr ""
 
 #. module: hr_recruitment
 #: model:mail.message.subtype,description:hr_recruitment.mt_applicant_refused
 msgid "Applicant refused"
-msgstr "Ansökan avslagen"
+msgstr ""
 
 #. module: hr_recruitment
 #: field:hr.recruitment.stage,department_id:0
@@ -1293,7 +1232,7 @@ msgstr "Icke tilldelade rekryteringar"
 #. module: hr_recruitment
 #: model:ir.model,name:hr_recruitment.model_hr_config_settings
 msgid "hr.config.settings"
-msgstr "hr.config.settings"
+msgstr ""
 
 #. module: hr_recruitment
 #: help:hr.recruitment.stage,state:0
@@ -1327,4 +1266,207 @@ msgstr ""
 #. module: hr_recruitment
 #: view:hr.applicant:0
 msgid "Schedule Interview"
-msgstr "Planerad intervju"
+msgstr ""
+
+#~ msgid "Add Internal Note"
+#~ msgstr "Lägg till intern notering"
+
+#~ msgid "Goals"
+#~ msgstr "Mål"
+
+#~ msgid "Notes"
+#~ msgstr "Anteckningar"
+
+#~ msgid "Reference"
+#~ msgstr "Referens"
+
+#, python-format
+#~ msgid "Phone Call"
+#~ msgstr "Telefonsamtal"
+
+#~ msgid "Previous"
+#~ msgstr "Föregående"
+
+#~ msgid "Next"
+#~ msgstr "Nästa"
+
+#, python-format
+#~ msgid "Error !"
+#~ msgstr "Fel !"
+
+#~ msgid "Planned Date"
+#~ msgstr "Planerat datum"
+
+#~ msgid "Dates"
+#~ msgstr "Datum"
+
+#~ msgid "# of Cases"
+#~ msgstr "# Ärenden"
+
+#~ msgid "Avg. Delay to Open"
+#~ msgstr "Ledtid innan öppning i medeltal"
+
+#~ msgid "Refered By"
+#~ msgstr "Refererad av"
+
+#~ msgid "Create Partner"
+#~ msgstr "Skapa företag"
+
+#~ msgid "Contract Data"
+#~ msgstr "Avtalsdata"
+
+#~ msgid "Partner Contact Name"
+#~ msgstr "Företagskontaktnamn"
+
+#~ msgid "Change Color"
+#~ msgstr "Byt färg"
+
+#~ msgid "Send New Email"
+#~ msgstr "Skicka nytt e-postmeddelande"
+
+#, python-format
+#~ msgid "Changed Stage to: %s"
+#~ msgstr "Ändra läge till: %s"
+
+#~ msgid "Availability (Days)"
+#~ msgstr "Tillgänglig (dagar)"
+
+#~ msgid "    Month-1    "
+#~ msgstr "    Månad-1    "
+
+#~ msgid "History Information"
+#~ msgstr "Historikinformation"
+
+#~ msgid "Qualification"
+#~ msgstr "Kvalificering"
+
+#~ msgid "Job Info"
+#~ msgstr "Arbetsinformation"
+
+#~ msgid "Recruitment during last month"
+#~ msgstr "Rekryteringar gjorda förra månaden"
+
+#~ msgid "# Cases"
+#~ msgstr "# ärenden"
+
+#~ msgid "Category"
+#~ msgstr "Kategori"
+
+#~ msgid "Reset to New"
+#~ msgstr "Återställ till ny"
+
+#~ msgid "Answer"
+#~ msgstr "Svar"
+
+#~ msgid "Communication & History"
+#~ msgstr "Kommunikation och historik"
+
+#~ msgid "Global CC"
+#~ msgstr "Global kopia"
+
+#~ msgid "Meeting"
+#~ msgstr "Möte"
+
+#~ msgid "Avg Salary Proposed"
+#~ msgstr "Föreslagen snittlön"
+
+#~ msgid ""
+#~ "From this menu you can track applicants in the recruitment process and "
+#~ "manage all operations: meetings, interviews, phone calls, etc. If you setup "
+#~ "the email gateway, applicants and their attached CV are created "
+#~ "automatically when an email is sent to jobs@yourcompany.com. If you install "
+#~ "the document management modules, all documents (CV and motivation letters) "
+#~ "are indexed automatically, so that you can easily search through their "
+#~ "content."
+#~ msgstr ""
+#~ "Från denna meny kan du följa de sökande i rekryteringsprocessen och hantera "
+#~ "alla verksamheter: möten, intervjuer, telefonsamtal, etc. Om du ställa in e-"
+#~ "postbrygga, de sökande och deras medföljande CV skapas automatiskt när ett e-"
+#~ "postmeddelande skickas till jobb@yourcompany. com. Om du installerar "
+#~ "modulerna dokumenthantering, indexerad alla dokument (CV och brev "
+#~ "motivation) automatiskt, så att du enkelt kan söka igenom deras innehåll."
+
+#~ msgid "Phone Call Description"
+#~ msgstr "Samtalsbeskrivning"
+
+#~ msgid "Schedule Phone Call"
+#~ msgstr "Planera telefonsamtal"
+
+#~ msgid "History"
+#~ msgstr "Historik"
+
+#~ msgid "State"
+#~ msgstr "Status"
+
+#~ msgid "Partner Contact"
+#~ msgstr "Företagskontakt"
+
+#, python-format
+#~ msgid "A partner is already existing with the same name."
+#~ msgstr "Ett företag med samma namn finns redan"
+
+#~ msgid "Applicant Categories"
+#~ msgstr "Sökandekategorier"
+
+#, python-format
+#~ msgid "Applicant '%s' is being hired."
+#~ msgstr "Sökande '%s' har fått anställning."
+
+#~ msgid "Reply"
+#~ msgstr "Svara"
+
+#~ msgid "Edit"
+#~ msgstr "Redigera"
+
+#~ msgid "Assign To"
+#~ msgstr "Tilldelad till"
+
+#~ msgid "The name of the job position must be unique per company!"
+#~ msgstr "Namnet på befattningen måste vara unikt per bolag!"
+
+#~ msgid "Job Positions"
+#~ msgstr "Befattningar"
+
+#~ msgid "Hire"
+#~ msgstr "Anställa"
+
+#, python-format
+#~ msgid "A partner is already defined on this job request."
+#~ msgstr "Ett företag är redan definierat på denna ansökan."
+
+#~ msgid "Recruitment performed in current year"
+#~ msgstr "Rekrytering gjord inom innevarande år"
+
+#, python-format
+#~ msgid "The job request '%s' has been set 'in progress'."
+#~ msgstr "Arbetssökan '%s' är satt i pågående"
+
+#~ msgid "Recruitment performed in current month"
+#~ msgstr "Rektyrering gjord i innevarande månad"
+
+#~ msgid ""
+#~ "Define here your stages of the recruitment process, for example: "
+#~ "qualification call, first interview, second interview, refused, hired."
+#~ msgstr ""
+#~ "Här definierar du dina etapper i rekryteringsprocessen, till exempel: "
+#~ "kvalificeringssamtal, första intervju, andra intervjun, avvisad, anställd."
+
+#~ msgid ""
+#~ "Stages of the recruitment process may be different per department. If this "
+#~ "stage is common to all departments, keep tempy this field."
+#~ msgstr ""
+#~ "Stegen i rekryteringsprocessen kan vara olika per avdelning. Om detta steg "
+#~ "är gemensamt för alla avdelningar, håll detta fält tomt."
+
+#~ msgid "Are you sure you want to create a partner based on this job request ?"
+#~ msgstr ""
+#~ "Är du säker på att du vill skapa en partner utifrån den här begäran om "
+#~ "jobbet?"
+
+#~ msgid ""
+#~ " Check if the following stages are matching your recruitment process. Don't "
+#~ "forget to specify the department if your recruitment process is different "
+#~ "according to the job position."
+#~ msgstr ""
+#~ " Kontrollera om följande steg matchar din rekryteringsprocess. Glöm inte att "
+#~ "ange avdelning om din rekryteringsprocess är olika beroende på befattning."

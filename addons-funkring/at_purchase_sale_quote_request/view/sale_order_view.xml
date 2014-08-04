@@ -1,0 +1,48 @@
+<openerp>
+	<data>		
+		<record id="form_sale_order" model="ir.ui.view">
+            <field name="name">at_purchase_sale_quote_request.form_sale_order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="at_sale.sale_order_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">         
+            	<data>
+	            	<field name="preferred_seller_id" position="replace">	            	 
+	            		 <field name="preferred_seller_id" domain="[('product_id','=',product_id)]"  colspan="2"/>
+	            		 <button name="request_quote" string="Quote Request" type="object" icon="terp-document-new" states="draft"/>
+	            	</field>
+	            	<group name="group_procurement_note" position="replace">
+	            		<group colspan="2" col="2" name="group_procurement_note" fill="1">                    
+		                   	<separator string="Procurement Note" colspan="2"/>	                
+		                   	<field name="procurement_note" colspan="2" nolabel="1"/>	                   	
+		                </group>
+		                <group colspan="2" col="2" fill="1">
+		                   	<separator string="Quote Requests" colspan="2"/>
+		                   	<field name="purchase_request_ids" colspan="2" nolabel="1" height="250" mode="tree">		                   		
+		                   		<tree string="Purchase Requests">		                   		
+		                   			<button name="mail_quote_request" string="Mail Quote Request" icon="terp-mail-forward" type="object"/>
+		                   			<field name="order_id"/>
+		                   			<field name="partner_id"/>		                   			
+		                   			<field name="supplier_unit_price"/>
+		                   		</tree>
+		                   	</field>
+		                </group>
+		             </group>
+	             </data>
+            </field>
+        </record>
+                
+        <record id="tree_sale_order" model="ir.ui.view">
+            <field name="name">at_purchase_sale_quote_request.tree_sale_order</field>
+            <field name="model">sale.order</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+               <field name="invoiced_rate" position="after">
+               		<field name="quote_rate" widget="progressbar"/>
+               </field>
+            </field>
+        </record>
+                
+	</data>
+</openerp>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="crm_meeting_view">
+            <field name="name">CRM - Meetings Form</field>
+            <field name="model">crm.meeting</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_meet" />
+            <field name="arch" type="xml">
+                <field name="alarm_id" position="after">
+                    <field name="phonecall_id" invisible="1" />
+                    <field name="opportunity_id" invisible="1" />
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

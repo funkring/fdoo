@@ -124,4 +124,3 @@ class account_voucher(osv.osv):
             res['arch'] = etree.tostring(doc)
         return res
 
-account_voucher()

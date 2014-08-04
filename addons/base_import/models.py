@@ -11,7 +11,6 @@ except ImportError:
 import psycopg2
 
 from openerp.osv import orm, fields
-from openerp.osv.orm import BaseModel
 from openerp.tools.translate import _
 
 FIELDS_RECURSION_LIMIT = 2
@@ -115,6 +114,8 @@ class ir_import(orm.TransientModel):
             elif field['type'] == 'one2many' and depth:
                 f['fields'] = self.get_fields(
                     cr, uid, field['relation'], context=context, depth=depth-1)
+                if self.pool['res.users'].has_group(cr, uid, 'base.group_no_one'):
+                    f['fields'].append({'id' : '.id', 'name': '.id', 'string': _("Database ID"), 'required': False, 'fields': []})
 
             fields.append(f)
 
@@ -225,12 +226,13 @@ class ir_import(orm.TransientModel):
             headers, matches = self._match_headers(rows, fields, options)
             # Match should have consumed the first row (iif headers), get
             # the ``count`` next rows for preview
-            preview = itertools.islice(rows, count)
+            preview = list(itertools.islice(rows, count))
+            assert preview, "CSV file seems to have no content"
             return {
                 'fields': fields,
                 'matches': matches or False,
                 'headers': headers or False,
-                'preview': list(preview),
+                'preview': preview,
             }
         except Exception, e:
             # Due to lazy generators, UnicodeDecodeError (for
@@ -317,12 +319,8 @@ class ir_import(orm.TransientModel):
             }]
 
         _logger.info('importing %d rows...', len(data))
-        # DO NOT FORWARD PORT, already fixed in trunk
-        # hack to avoid to call the load method from ir_translation (name clash)
-        if record.res_model == 'ir.translation':
-            import_result = BaseModel.load(self.pool['ir.translation'], cr, uid, import_fields, data, context=context)
-        else:
-            import_result = self.pool[record.res_model].load(cr, uid, import_fields, data, context=context)
+        import_result = self.pool[record.res_model].load(
+            cr, uid, import_fields, data, context=context)
         _logger.info('done')
 
         # If transaction aborted, RELEASE SAVEPOINT is going to raise

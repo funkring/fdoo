@@ -1,0 +1,13 @@
+<openerp>
+	<data>
+		<record id="product_commission_uom_category" model="product.uom.categ">
+			<field name="name">Commission</field>			
+		</record>
+		<record id="product_commission_uom" model="product.uom">
+		    <field name="category_id" ref="product_commission_uom_category"/>
+			<field name="name">Commission</field>	
+			<field name="factor" eval="1.0"/>
+            <field name="rounding" eval="1.0"/>		
+		</record>
+	</data>
+</openerp>

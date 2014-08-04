@@ -1,0 +1,99 @@
+<openerp>
+	<data>		
+				<record id="form_sale_shop" model="ir.ui.view">
+            <field name="name">at_sale.form_sale_shop</field>
+            <field name="model">sale.shop</field>
+            <field name="arch" type="xml">
+                <form string="Shop" version="7.0">
+                  	<header>
+                  	</header>
+                  	<group>
+                  		<group>
+                  			<group>
+	                  			<field name="name"/>
+	                  			<field name="code"/>
+                  			</group>
+                  			<group>
+                  				<field name="company_id" widget="selection" groups="base.group_multi_company"/>                  					
+                  			</group>                  			
+                  		</group>                  			
+                  	</group>  
+                  	<notebook>
+                  			<page string="General">
+                  					<group name="general_grp">
+	                  					<group name="condition_grp" string="Conditions">
+		                  					<field name="payment_default_id" />
+																<field name="pricelist_id" domain="[('type','=','sale')]"/>															
+															</group>
+															<group name="analytic_grp" string="Analytic Accounting" groups="analytic.group_analytic_accounting">
+																<field name="project_id"/>
+															</group>
+														</group>														
+														<div>
+															<field name="note"/>
+														</div>
+                  			</page>
+                  			<page string="Product Categories">
+                  				<div>
+														<field name="product_category_ids"/>	
+													</div>
+												</page>
+												<page string="Invoice/Refund Text">
+													<group>
+														<label for="invoice_text"/>
+														<div>
+															<field name="invoice_text"/>
+														</div>
+														<label for="invoice_in_text"/>
+														<div>
+															<field name="invoice_in_text"/>
+														</div>
+														<label for="refund_text"/>
+														<div>
+															<field name="refund_text"/>
+														</div>
+														<label for="refund_in_text"/>
+														<div>
+															<field name="refund_in_text"/>
+														</div>
+													</group>
+												</page>
+                  	</notebook>                 
+                </form>
+            </field>
+        </record>
+
+        <record id="tree_sale_shop" model="ir.ui.view">
+            <field name="name">at_sale.tree_sale_shop</field>
+            <field name="model">sale.shop</field>
+            <field name="arch" type="xml">
+                <tree string="Shops">
+                	<field name="name"/>
+                	<field name="company_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_sale_shop" model="ir.actions.act_window">
+            <field name="name">Shop</field>
+            <field name="res_model">sale.shop</field>            
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+            	 <p class="oe_view_nocontent_create">
+                Click to create a new Shop
+              </p><p>
+                A shop defines defines Sale specific Configuration
+                for Quotation, Invoice and Delivery.                
+              </p>
+              <p>
+              	Also the available product categories are defined within 
+              	the shop
+              </p>
+            </field>
+        </record>
+				
+        <menuitem id="menu_sale_shop" name="Shop" parent="base.menu_base_config" sequence="0"
+        		  action="action_sale_shop"/>		
+	</data>
+</openerp>

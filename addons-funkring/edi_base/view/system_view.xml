@@ -1,0 +1,44 @@
+<openerp>
+	<data>		
+		<record id="form_edi_system" model="ir.ui.view">
+            <field name="name">edi_base.form_edi_system</field>
+            <field name="model">edi.system</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="System">
+                   <group colspan="4" col="4">
+                      <field name="name"/>
+                   	  <field name="partner_id"/>
+                   </group>                      
+                   <notebook colspan="4">
+                       <page string="Dummy" invisible="1">
+                       </page>                                              
+                   </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record id="tree_edi_system" model="ir.ui.view">
+            <field name="name">edi_base.tree_edi_system</field>
+            <field name="model">edi.system</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Systems">
+                	<field name="name"/>
+                   <field name="partner_id"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_edi_system" model="ir.actions.act_window">
+            <field name="name">System</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">edi.system</field>            
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+				
+        <menuitem id="menu_edi_system" name="System" parent="menu_edi" sequence="1"
+        		  action="action_edi_system"/>		
+	</data>
+</openerp>

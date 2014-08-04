@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:37+0000\n"
-"PO-Revision-Date: 2014-02-21 11:34+0000\n"
-"Last-Translator: biniyam <life2enough@gmail.com>\n"
+"POT-Creation-Date: 2012-12-21 17:06+0000\n"
+"PO-Revision-Date: 2014-02-03 07:50+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Amharic <am@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-02-22 07:33+0000\n"
-"X-Generator: Launchpad (build 16926)\n"
+"X-Launchpad-Export-Date: 2014-03-27 07:18+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: procurement
 #: model:ir.ui.menu,name:procurement.menu_stock_sched
@@ -26,14 +26,6 @@ msgstr "ግዜ ማስያዝ"
 #: model:ir.model,name:procurement.model_make_procurement
 msgid "Make Procurements"
 msgstr "ግዢ መፈፀም"
-
-#. module: procurement
-#: help:res.company,schedule_range:0
-msgid ""
-"This is the time frame analysed by the scheduler when computing "
-"procurements. All procurements that are not between today and today+range "
-"are skipped for future computation."
-msgstr ""
 
 #. module: procurement
 #: help:procurement.order.compute.all,automatic:0
@@ -59,11 +51,6 @@ msgid ""
 "required quantities are always\n"
 "                           available"
 msgstr "ሁል ግዜ የሚፈለገውን ያህል ብዛት መኖር አለበት"
-
-#. module: procurement
-#: view:procurement.order:0
-msgid "External note..."
-msgstr "የውጭ ማስታወሻ"
 
 #. module: procurement
 #: view:product.product:0
@@ -117,20 +104,6 @@ msgid "Reason"
 msgstr "ምክንያት"
 
 #. module: procurement
-#: model:ir.actions.act_window,help:procurement.action_orderpoint_form
-msgid ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"              You can define your minimum stock rules, so that OpenERP will "
-"automatically create draft manufacturing orders or purchase quotations "
-"according to the stock level.Once the virtual stock of a product (= stock on "
-"hand minus all confirmed orders and reservations) is below the minimum "
-"quantity, OpenERP will generate a procurement request to increase the stock "
-"up to the maximum quantity.\n"
-"              </p>\n"
-"            "
-msgstr ""
-
-#. module: procurement
 #: view:procurement.order.compute:0
 msgid "Compute Procurements"
 msgstr "ግዢ መፈፀም"
@@ -156,14 +129,25 @@ msgid "Latest procurement"
 msgstr "አዳዲስ ግዢዎች"
 
 #. module: procurement
+#: model:ir.actions.act_window,help:procurement.action_orderpoint_form
+msgid ""
+"You can define your minimum stock rules, so that OpenERP will automatically "
+"create draft manufacturing orders or purchase quotations according to the "
+"stock level. Once the virtual stock of a product (= stock on hand minus all "
+"confirmed orders and reservations) is below the minimum quantity, OpenERP "
+"will generate a procurement request to increase the stock up to the maximum "
+"quantity."
+msgstr ""
+
+#. module: procurement
 #: field:procurement.order,message_ids:0
 msgid "Messages"
 msgstr "መልእክቶች"
 
 #. module: procurement
-#: view:procurement.order:0
-msgid "Cancel Procurement"
-msgstr "የተሰረዙ ግዢዎች"
+#: help:procurement.order,message:0
+msgid "Exception occurred while computing procurement orders."
+msgstr ""
 
 #. module: procurement
 #: view:product.product:0
@@ -473,11 +457,6 @@ msgid "Compute Stock"
 msgstr "የግምጃ ቤት እቃዎችን ማወቅ"
 
 #. module: procurement
-#: view:procurement.order:0
-msgid "e.g. SO005"
-msgstr ""
-
-#. module: procurement
 #: field:stock.warehouse.orderpoint,procurement_draft_ids:0
 msgid "Related Procurement Orders"
 msgstr ""
@@ -514,9 +493,13 @@ msgid ""
 msgstr ""
 
 #. module: procurement
-#: view:procurement.order:0
-msgid "Internal note..."
-msgstr "የውስጥ መልእክት"
+#: view:product.product:0
+msgid ""
+"When you sell this service, nothing special will be triggered\n"
+"                           to deliver the customer, as you set the "
+"procurement method as\n"
+"                           'Make to Stock'."
+msgstr ""
 
 #. module: procurement
 #: help:procurement.orderpoint.compute,automatic:0
@@ -675,15 +658,6 @@ msgid "Qty Multiple"
 msgstr "ብዛት"
 
 #. module: procurement
-#: view:product.product:0
-msgid ""
-"When you sell this service, nothing special will be triggered\n"
-"                           to deliver the customer, as you set the "
-"procurement method as\n"
-"                           'Make to Stock'."
-msgstr ""
-
-#. module: procurement
 #: help:stock.warehouse.orderpoint,qty_multiple:0
 msgid "The procurement quantity will be rounded up to this multiple."
 msgstr ""
@@ -793,13 +767,10 @@ msgid "Not urgent"
 msgstr "አስቸኾይ ያልሆነ"
 
 #. module: procurement
-#: model:ir.actions.act_window,name:procurement.procurement_action5
-#: model:ir.actions.act_window,name:procurement.procurement_action_board
-#: model:ir.actions.act_window,name:procurement.procurement_exceptions
-#: model:ir.ui.menu,name:procurement.menu_stock_procurement_action
-#: view:procurement.order:0
-msgid "Procurement Exceptions"
-msgstr ""
+#: model:ir.actions.act_window,name:procurement.product_open_orderpoint
+#: view:product.product:0
+msgid "Orderpoints"
+msgstr "የማዘዣ ግዜ"
 
 #. module: procurement
 #: help:stock.warehouse.orderpoint,product_max_qty:0
@@ -825,10 +796,13 @@ msgid "Procurements in Exception"
 msgstr ""
 
 #. module: procurement
-#: model:ir.actions.act_window,name:procurement.product_open_orderpoint
-#: view:product.product:0
-msgid "Orderpoints"
-msgstr "የማዘዣ ግዜ"
+#: model:ir.actions.act_window,name:procurement.procurement_action5
+#: model:ir.actions.act_window,name:procurement.procurement_action_board
+#: model:ir.actions.act_window,name:procurement.procurement_exceptions
+#: model:ir.ui.menu,name:procurement.menu_stock_procurement_action
+#: view:procurement.order:0
+msgid "Procurement Exceptions"
+msgstr ""
 
 #. module: procurement
 #: field:product.product,orderpoint_ids:0
@@ -838,7 +812,7 @@ msgstr "አነስተኛው የግምጃ ቤት ቀሪ"
 #. module: procurement
 #: view:make.procurement:0
 msgid ""
-"Use this assistant to generate a procurement request for this\n"
+"Fill is this for to launch a procurement request for this\n"
 "                        product. According to the product configuration, "
 "this may\n"
 "                        trigger a draft purchase order, a manufacturing "
@@ -967,8 +941,11 @@ msgid "Search Procurement"
 msgstr "ግዢዎችን መፈለግ"
 
 #. module: procurement
-#: help:procurement.order,message:0
-msgid "Exception occurred while computing procurement orders."
+#: help:res.company,schedule_range:0
+msgid ""
+"This is the time frame analysed by the scheduler when computing "
+"procurements. All procurements that are not between today and today+range "
+"are skipped for future computation."
 msgstr ""
 
 #. module: procurement

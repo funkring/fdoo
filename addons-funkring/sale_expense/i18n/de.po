@@ -1,0 +1,191 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* sale_expense
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1-dev\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-10-17 08:33+0000\n"
+"PO-Revision-Date: 2012-10-17 10:34+0100\n"
+"Last-Translator: Pichler Edwin <edwin.pichler@funkring.net>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: sale_expense
+#: view:sale.order:0
+msgid "Sum"
+msgstr "Gesamtwert"
+
+#. module: sale_expense
+#: model:ir.model,name:sale_expense.model_sale_expense_expense_purchase_lines
+msgid "sale_expense.expense_purchase_lines"
+msgstr "sale_expense.expense_purchase_lines"
+
+#. module: sale_expense
+#: view:sale.order:0
+#: field:sale_expense.expense_purchase_lines,supplier_id:0
+msgid "Supplier"
+msgstr "Lieferant"
+
+#. module: sale_expense
+#: model:ir.model,name:sale_expense.model_sale_order
+msgid "Verkaufsauftrag"
+msgstr "Verkaufsauftrag"
+
+#. module: sale_expense
+#: code:addons/sale_expense/sale_expense.py:114
+#, python-format
+msgid "There is no product defined for the employee. You have to insert a product for the employee if you want to continue!"
+msgstr "Es ist kein Produkt für den Mitarbeiter hinterlegt. Sie müssen ein Produkt einfügen um fortzufahren!"
+
+#. module: sale_expense
+#: view:sale.order:0
+#: selection:sale.order,expense_status:0
+msgid "Draft"
+msgstr "Entwurf"
+
+#. module: sale_expense
+#: view:sale.order:0
+#: field:sale_expense.expense_employee_lines,employee_id:0
+msgid "Employee"
+msgstr "Mitarbeiter"
+
+#. module: sale_expense
+#: field:sale.order,expense_status:0
+msgid "Status"
+msgstr "Status"
+
+#. module: sale_expense
+#: field:sale_expense.expense_purchase_lines,product_id:0
+msgid "Product"
+msgstr "Produkt"
+
+#. module: sale_expense
+#: field:sale.order,expense_employee_lines_ids:0
+msgid "Expense Employee Lines"
+msgstr "Mitarbeiter Aufwandseintrag"
+
+#. module: sale_expense
+#: field:sale_expense.expense_employee_lines,name:0
+#: field:sale_expense.expense_purchase_lines,name:0
+msgid "Description"
+msgstr "Beschreibung"
+
+#. module: sale_expense
+#: field:sale_expense.expense_purchase_lines,price:0
+msgid "Price"
+msgstr "Preis"
+
+#. module: sale_expense
+#: field:sale_expense.expense_employee_lines,date:0
+#: field:sale_expense.expense_purchase_lines,date:0
+msgid "Date"
+msgstr "Datum"
+
+#. module: sale_expense
+#: view:sale.order:0
+msgid "Other Information"
+msgstr "Andere Informationen"
+
+#. module: sale_expense
+#: view:sale.order:0
+msgid "Validate"
+msgstr "Validieren"
+
+#. module: sale_expense
+#: view:sale.order:0
+msgid "Total amount"
+msgstr "Gesamtmenge"
+
+#. module: sale_expense
+#: field:sale_expense.expense_purchase_lines,account_id:0
+msgid "Account"
+msgstr "Konto"
+
+#. module: sale_expense
+#: help:sale_expense.expense_purchase_lines,account_id:0
+msgid "The income or expense account related to the selected product."
+msgstr "Das Erlös- oder Aufwandskonto bezieht sich auf das ausgewählt Produkt"
+
+#. module: sale_expense
+#: view:sale.order:0
+msgid "Employees"
+msgstr "Mitarbeiter"
+
+#. module: sale_expense
+#: field:sale_expense.expense_employee_lines,sale_order_id:0
+#: field:sale_expense.expense_purchase_lines,sale_order_id:0
+msgid "Sale Order"
+msgstr "Verkaufsauftrag"
+
+#. module: sale_expense
+#: sql_constraint:sale.order:0
+msgid "Order Reference must be unique !"
+msgstr "Die Referenz muss eindeutig sein!"
+
+#. module: sale_expense
+#: code:addons/sale_expense/sale_expense.py:114
+#, python-format
+msgid "Error"
+msgstr "Error"
+
+#. module: sale_expense
+#: field:sale_expense.expense_employee_lines,unit_amount:0
+#: field:sale_expense.expense_purchase_lines,quantity:0
+msgid "Quantity"
+msgstr "Menge"
+
+#. module: sale_expense
+#: selection:sale.order,expense_status:0
+msgid "Validated"
+msgstr "Validiert"
+
+#. module: sale_expense
+#: field:sale_expense.expense_employee_lines,timesheet_line_id:0
+msgid "Timesheet Line"
+msgstr "Zeiterfassungseintrag"
+
+#. module: sale_expense
+#: field:sale_expense.expense_purchase_lines,invoice_line_id:0
+msgid "Invoice Line"
+msgstr "Rechnungseintrag"
+
+#. module: sale_expense
+#: view:sale.order:0
+msgid "Expenses"
+msgstr "Aufwände"
+
+#. module: sale_expense
+#: field:sale.order,expense_purchase_lines_ids:0
+msgid "Expense Purchase Lines"
+msgstr "Lieferanten Aufwandseinträge"
+
+#. module: sale_expense
+#: model:ir.model,name:sale_expense.model_sale_expense_expense_employee_lines
+msgid "sale_expense.expense_employee_lines"
+msgstr "sale_expense.expense_employee_lines"
+
+#. module: sale_expense
+#: field:sale_expense.expense_purchase_lines,amount_total:0
+msgid "Total"
+msgstr "Gesamt"
+
+#. module: sale_expense
+#: field:sale_expense.expense_employee_lines,is_open:0
+msgid "Open"
+msgstr "Offen"
+
+#. module: sale_expense
+#: field:sale_expense.expense_purchase_lines,journal_id:0
+msgid "Journal"
+msgstr "Journal"
+
+#. module: sale_expense
+#: field:sale_expense.expense_purchase_lines,is_invoiced:0
+msgid "Invoiced"
+msgstr "Verrechnet"
+

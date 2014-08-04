@@ -1,0 +1,47 @@
+<openerp>
+	<data>		
+		<record id="form_edi_transfer" model="ir.ui.view">
+            <field name="name">edi_base.form_edi_transfer</field>
+            <field name="model">edi.transfer</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="EDI Transfer">
+                    <field name="name"/>
+                    <field name="client_profile_id"/>
+                    <field name="model"/>
+                    <field name="res_id"/>
+                    <field name="retry_count"/>
+                    <field name="wait_count"/>
+                    <field name="state"/>
+                    <field name="error_log_id"/>
+                </form>
+            </field>
+        </record>
+
+        <record id="tree_edi_transfer" model="ir.ui.view">
+            <field name="name">edi_base.tree_edi_transfer</field>
+            <field name="model">edi.transfer</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="EDI Transfer">
+                	<field name="client_profile_id"/>
+                	<field name="name"/>
+                	<field name="retry_count"/>
+                	<field name="wait_count"/>
+                	<field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_edi_transfer" model="ir.actions.act_window">
+            <field name="name">EDI Transfer</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">edi.transfer</field>            
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+				
+        <menuitem id="menu_edi_transfer" name="EDI Transfer" parent="menu_edi" sequence="23"
+        		  action="action_edi_transfer"/>		
+	</data>
+</openerp>

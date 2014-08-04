@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<!-- Security Salesmanager -->
+          
+		<record id="access_salesmen_part_manager" model="ir.model.access">
+			<field name="name">salesmen_part/sale_manager</field>
+			<field name="model_id" search="[('model','=','at_sale.salesmen_part')]"/>
+			<field name="group_id" ref="base.group_sale_manager"/>
+			<field name="perm_read" eval="True"/>
+			<field name="perm_write" eval="True"/>
+			<field name="perm_create" eval="True"/>
+		</record>
+		
+		<record id="access_salesmen_part_user" model="ir.model.access">
+			<field name="name">salesmen_part/salesman</field>
+			<field name="model_id" search="[('model','=','at_sale.salesmen_part')]"/>
+			<field name="group_id" ref="base.group_sale_salesman"/>
+			<field name="perm_read" eval="True"/>
+			<field name="perm_write" eval="True"/>
+			<field name="perm_create" eval="True"/>
+		</record>		
+	</data>
+</openerp>

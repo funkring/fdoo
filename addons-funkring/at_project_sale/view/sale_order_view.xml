@@ -1,0 +1,18 @@
+<openerp>
+	<data>
+
+		<record id="form_sale_order" model="ir.ui.view">
+			<field name="name">at_project_sale.form_sale_order</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale_margin.sale_margin_sale_order" />		
+			<field name="arch" type="xml">
+				<group name="sale_margin_grp" position="inside" >
+						<field name="pre_calc" />
+						<field name="margin_contrib_percent" />
+						<field name="post_calc" />
+				</group>				
+			</field>
+		</record>
+		
+	</data>
+</openerp>

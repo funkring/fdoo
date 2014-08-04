@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <report id="report_purchasequotation_pdf"
+        	   override_id="purchase.report_purchase_quotation"
+               string="Quote Request"
+               name="purchase.report_purchasequotation"
+               auto="False"
+               process_sep="True"
+               report_type="aeroo"
+               model="purchase.order"
+               in_format="oo-odt"
+               out_format="oo-pdf"
+               parser="at_purchase/report/purchase_quote_request_report.py"
+               rml="at_purchase/report/purchase_quote_request_report.odt"/>
+    </data>
+</openerp>

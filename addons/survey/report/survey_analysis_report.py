@@ -22,15 +22,17 @@
 
 import time
 
-from openerp import pooler, tools
+import openerp
+from openerp import tools
 from openerp.report import report_sxw
 from openerp.report.interface import report_rml
 from openerp.tools import to_xml
 
 class survey_analysis(report_rml):
     def create(self, cr, uid, ids, datas, context):
-        surv_obj = pooler.get_pool(cr.dbname).get('survey')
-        user_obj = pooler.get_pool(cr.dbname).get('res.users')
+        registry = openerp.registry(cr.dbname)
+        surv_obj = registry['survey']
+        user_obj = registry['res.users']
         rml_obj=report_sxw.rml_parse(cr, uid, surv_obj._name,context)
         company=user_obj.browse(cr,uid,[uid],context)[0].company_id
 
@@ -41,9 +43,9 @@ class survey_analysis(report_rml):
                         <pageGraphics>
                         <fill color="black"/>
                         <stroke color="black"/>
-                        <setFont name="DejaVu Sans" size="8"/>
+                        <setFont name="DejaVuSans" size="8"/>
                         <drawString x="1.3cm" y="28.3cm"> """+to_xml(rml_obj.formatLang(time.strftime("%Y-%m-%d %H:%M:%S"),date_time=True))+"""</drawString>
-                        <setFont name="DejaVu Sans Bold" size="10"/>
+                        <setFont name="DejaVuSans-Bold" size="10"/>
                         <drawString x="9.8cm" y="28.3cm">"""+ to_xml(company.name) +"""</drawString>
                         <stroke color="#000000"/>
                         <lines>1.3cm 28.1cm 20cm 28.1cm</lines>

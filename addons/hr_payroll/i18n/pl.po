@@ -1,21 +1,21 @@
 # Polish translation for openobject-addons
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
 # This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:36+0000\n"
-"PO-Revision-Date: 2014-04-16 13:43+0000\n"
-"Last-Translator: Dariusz Żbikowski (Krokus) <darek@krokus.com.pl>\n"
+"POT-Creation-Date: 2012-12-21 17:04+0000\n"
+"PO-Revision-Date: 2014-02-08 18:26+0000\n"
+"Last-Translator: Grzegorz Grzelak (OpenGLOBE.pl) <grzegorz@openglobe.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-04-17 06:53+0000\n"
-"X-Generator: Launchpad (build 16985)\n"
+"X-Launchpad-Export-Date: 2014-03-27 07:12+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: hr_payroll
 #: field:hr.payslip.line,condition_select:0
@@ -173,7 +173,7 @@ msgstr "Generuj"
 #: help:hr.payslip.line,amount_percentage_base:0
 #: help:hr.salary.rule,amount_percentage_base:0
 msgid "result will be affected to a variable"
-msgstr "rezultat będzie zależny od zmiennej"
+msgstr ""
 
 #. module: hr_payroll
 #: report:contribution.register.lines:0
@@ -241,7 +241,7 @@ msgstr "Połącz system płacowy z księgowym"
 #: help:hr.payslip.line,amount_select:0
 #: help:hr.salary.rule,amount_select:0
 msgid "The computation method for the rule amount."
-msgstr "Metoda obliczania dla wartości reguły."
+msgstr ""
 
 #. module: hr_payroll
 #: view:payslip.lines.contribution.register:0
@@ -257,7 +257,7 @@ msgstr "Ostrzeżenie !"
 #. module: hr_payroll
 #: report:paylip.details:0
 msgid "Details by Salary Rule Category:"
-msgstr "Szczegóły według Kategorii reguły wynagrodzenia:"
+msgstr ""
 
 #. module: hr_payroll
 #: report:paylip.details:0
@@ -282,13 +282,13 @@ msgstr "Projekt listy płac"
 #: code:addons/hr_payroll/hr_payroll.py:432
 #, python-format
 msgid "Normal Working Days paid at 100%"
-msgstr "Zwykłe dni robocze płatne 100%"
+msgstr ""
 
 #. module: hr_payroll
 #: field:hr.payslip.line,condition_range_max:0
 #: field:hr.salary.rule,condition_range_max:0
 msgid "Maximum Range"
-msgstr "Zakres maksymalny"
+msgstr ""
 
 #. module: hr_payroll
 #: report:paylip.details:0
@@ -310,11 +310,6 @@ msgstr "Partner"
 #: view:hr.payslip:0
 msgid "Total Working Days"
 msgstr "Suma dni roboczych"
-
-#. module: hr_payroll
-#: constraint:hr.payroll.structure:0
-msgid "Error ! You cannot create a recursive Salary Structure."
-msgstr ""
 
 #. module: hr_payroll
 #: help:hr.payslip.line,code:0
@@ -372,7 +367,7 @@ msgstr ""
 #: report:contribution.register.lines:0
 #: report:paylip.details:0
 msgid "Register Name"
-msgstr "Nazwa rejestru"
+msgstr ""
 
 #. module: hr_payroll
 #: view:hr.payslip.employees:0
@@ -400,7 +395,7 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.salary.rule:0
 msgid "Search Salary Rule"
-msgstr "Szukaj według reguł wynagrodzenia"
+msgstr ""
 
 #. module: hr_payroll
 #: field:hr.payslip,employee_id:0
@@ -423,34 +418,34 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.payslip.run:0
 msgid "Search Payslip Batches"
-msgstr "Szukaj list płac"
+msgstr ""
 
 #. module: hr_payroll
 #: field:hr.payslip.line,amount_percentage_base:0
 #: field:hr.salary.rule,amount_percentage_base:0
 msgid "Percentage based on"
-msgstr "Procentowo bazując na"
+msgstr ""
 
 #. module: hr_payroll
 #: code:addons/hr_payroll/hr_payroll.py:90
 #, python-format
 msgid "%s (copy)"
-msgstr "%s (kopia)"
+msgstr ""
 
 #. module: hr_payroll
 #: help:hr.config.settings,module_hr_payroll_account:0
 msgid "Create journal entries from payslips"
-msgstr "Twórz zapisy księgowe z pasków wymagrodzenia"
+msgstr ""
 
 #. module: hr_payroll
 #: field:hr.payslip,paid:0
 msgid "Made Payment Order ? "
-msgstr "Wykonano polecenie płatności ? "
+msgstr ""
 
 #. module: hr_payroll
 #: report:contribution.register.lines:0
 msgid "PaySlip Lines by Contribution Register"
-msgstr "Pozycje paska wypłaty wg Rejestru Składek"
+msgstr ""
 
 #. module: hr_payroll
 #: view:hr.payslip:0
@@ -488,7 +483,7 @@ msgstr "Refundacja: "
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_payslip_lines_contribution_register
 msgid "PaySlip Lines by Contribution Registers"
-msgstr "Pozycje paska wypłaty wg Rejestrów Składek"
+msgstr ""
 
 #. module: hr_payroll
 #: view:hr.payslip:0
@@ -539,7 +534,7 @@ msgstr ""
 #. module: hr_payroll
 #: field:hr.payslip,details_by_salary_rule_category:0
 msgid "Details by Salary Rule Category"
-msgstr "Szczegóły wg kategorii Reguł wynagrodzenia"
+msgstr ""
 
 #. module: hr_payroll
 #: model:ir.actions.act_window,name:hr_payroll.action_payslip_lines_contribution_register
@@ -566,13 +561,13 @@ msgstr "Lista płac"
 #: field:hr.payslip.line,condition_range_min:0
 #: field:hr.salary.rule,condition_range_min:0
 msgid "Minimum Range"
-msgstr "Zakres minimalny"
+msgstr ""
 
 #. module: hr_payroll
 #: field:hr.payslip.line,child_ids:0
 #: field:hr.salary.rule,child_ids:0
 msgid "Child Salary Rule"
-msgstr "Podrzędne reguły wynagrodzenia"
+msgstr ""
 
 #. module: hr_payroll
 #: report:contribution.register.lines:0
@@ -594,7 +589,7 @@ msgstr "Zakres"
 #: model:ir.actions.act_window,name:hr_payroll.action_view_hr_payroll_structure_tree
 #: model:ir.ui.menu,name:hr_payroll.menu_hr_payroll_structure_tree
 msgid "Salary Structures Hierarchy"
-msgstr "Hierarchia Struktur wynagrodzeń"
+msgstr ""
 
 #. module: hr_payroll
 #: help:hr.employee,total_wage:0
@@ -616,7 +611,7 @@ msgstr "Korekta"
 #: view:hr.payslip:0
 #: model:ir.actions.act_window,name:hr_payroll.act_payslip_lines
 msgid "Payslip Computation Details"
-msgstr "Wyliczenia Paska wypłaty szczegółowo"
+msgstr ""
 
 #. module: hr_payroll
 #: help:hr.payslip.line,appears_on_payslip:0
@@ -627,19 +622,14 @@ msgstr ""
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payslip_input
 msgid "Payslip Input"
-msgstr "Wejścia Paska wypłaty"
+msgstr ""
 
 #. module: hr_payroll
 #: view:hr.salary.rule.category:0
 #: model:ir.actions.act_window,name:hr_payroll.action_hr_salary_rule_category
 #: model:ir.ui.menu,name:hr_payroll.menu_hr_salary_rule_category
 msgid "Salary Rule Categories"
-msgstr "Kategorie Reguł wynagrodzenia"
-
-#. module: hr_payroll
-#: view:hr.payslip:0
-msgid "Cancel Payslip"
-msgstr "Anuluj Pasek wypłaty"
+msgstr ""
 
 #. module: hr_payroll
 #: help:hr.payslip.input,contract_id:0
@@ -683,7 +673,7 @@ msgstr "Kategoria"
 #. module: hr_payroll
 #: view:hr.salary.rule:0
 msgid "Company Contribution"
-msgstr "Składki firmowe"
+msgstr ""
 
 #. module: hr_payroll
 #: help:hr.payslip.run,credit_note:0
@@ -702,12 +692,12 @@ msgstr ""
 #: model:ir.actions.act_window,name:hr_payroll.action_view_hr_payroll_structure_list_form
 #: model:ir.ui.menu,name:hr_payroll.menu_hr_payroll_structure_view
 msgid "Salary Structures"
-msgstr "Struktury wynagrodzeń"
+msgstr ""
 
 #. module: hr_payroll
 #: view:hr.payslip.run:0
 msgid "Draft Payslip Batches"
-msgstr "Projekty list płac"
+msgstr ""
 
 #. module: hr_payroll
 #: view:hr.payslip:0
@@ -730,12 +720,12 @@ msgstr "Data Początkowa"
 #. module: hr_payroll
 #: view:hr.payslip.run:0
 msgid "Done Payslip Batches"
-msgstr "Wykonane listy płac"
+msgstr ""
 
 #. module: hr_payroll
 #: report:paylip.details:0
 msgid "Payslip Lines by Contribution Register:"
-msgstr "Pozycje paska wypłaty wg Rejestrów Składek:"
+msgstr ""
 
 #. module: hr_payroll
 #: view:hr.salary.rule:0
@@ -759,7 +749,7 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.payslip:0
 msgid "Worked Day"
-msgstr "Dzień roboczy"
+msgstr ""
 
 #. module: hr_payroll
 #: view:hr.payroll.structure:0
@@ -769,7 +759,7 @@ msgstr "Funkcja pracownika"
 #. module: hr_payroll
 #: model:ir.actions.report.xml,name:hr_payroll.payslip_report
 msgid "Employee PaySlip"
-msgstr "Pasek pracownika"
+msgstr ""
 
 #. module: hr_payroll
 #: field:hr.payslip.line,salary_rule_id:0
@@ -779,7 +769,7 @@ msgstr "Reguła"
 #. module: hr_payroll
 #: model:ir.actions.report.xml,name:hr_payroll.payslip_details_report
 msgid "PaySlip Details"
-msgstr "Pasek wypłaty szczegółowo"
+msgstr ""
 
 #. module: hr_payroll
 #: view:hr.payslip:0
@@ -795,7 +785,7 @@ msgstr "Aktywne"
 #. module: hr_payroll
 #: view:hr.salary.rule:0
 msgid "Child Rules"
-msgstr "Reguły podrzędne"
+msgstr ""
 
 #. module: hr_payroll
 #: help:hr.payslip.line,condition_range_min:0
@@ -856,12 +846,12 @@ msgstr ""
 #: field:hr.payslip.line,condition_python:0
 #: field:hr.salary.rule,condition_python:0
 msgid "Python Condition"
-msgstr "Warunek Python"
+msgstr ""
 
 #. module: hr_payroll
 #: view:hr.contribution.register:0
 msgid "Contribution"
-msgstr "Składka"
+msgstr "Dotacja"
 
 #. module: hr_payroll
 #: code:addons/hr_payroll/hr_payroll.py:351
@@ -873,7 +863,7 @@ msgstr ""
 #: field:hr.rule.input,input_id:0
 #: model:ir.model,name:hr_payroll.model_hr_rule_input
 msgid "Salary Rule Input"
-msgstr "Wejście Reguły wynagrodzenia"
+msgstr ""
 
 #. module: hr_payroll
 #: field:hr.payslip.line,quantity:0
@@ -918,7 +908,7 @@ msgstr "Numeracja"
 #. module: hr_payroll
 #: view:hr.payslip:0
 msgid "Period"
-msgstr "Okres"
+msgstr ""
 
 #. module: hr_payroll
 #: view:hr.payslip.run:0
@@ -934,12 +924,12 @@ msgstr "Ogólne"
 #: code:addons/hr_payroll/hr_payroll.py:674
 #, python-format
 msgid "Salary Slip of %s for %s"
-msgstr "Wynagrodzenie %s dla %s"
+msgstr ""
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payslip_employees
 msgid "Generate payslips for all selected employees"
-msgstr "Generuj paski wynagrodzenia dla wybranych pracowników"
+msgstr ""
 
 #. module: hr_payroll
 #: field:hr.contract,struct_id:0
@@ -954,6 +944,11 @@ msgstr "Struktura wynagrodzenia"
 #: field:hr.contribution.register,register_line_ids:0
 msgid "Register Line"
 msgstr ""
+
+#. module: hr_payroll
+#: view:hr.payslip:0
+msgid "Cancel"
+msgstr "Anuluj"
 
 #. module: hr_payroll
 #: view:hr.payslip.run:0
@@ -989,13 +984,13 @@ msgstr "Co 2 miesiące"
 #. module: hr_payroll
 #: report:paylip.details:0
 msgid "Pay Slip Details"
-msgstr "Pasek wypłaty szczegółowo"
+msgstr ""
 
 #. module: hr_payroll
 #: model:ir.actions.act_window,name:hr_payroll.action_view_hr_payslip_form
 #: model:ir.ui.menu,name:hr_payroll.menu_department_tree
 msgid "Employee Payslips"
-msgstr "Paski wypłat"
+msgstr ""
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_config_settings
@@ -1008,7 +1003,7 @@ msgstr ""
 #: field:hr.salary.rule,register_id:0
 #: model:ir.model,name:hr_payroll.model_hr_contribution_register
 msgid "Contribution Register"
-msgstr "Rejestr składek"
+msgstr ""
 
 #. module: hr_payroll
 #: view:payslip.lines.contribution.register:0
@@ -1035,7 +1030,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:hr_payroll.action_hr_payslip_run_tree
 #: model:ir.ui.menu,name:hr_payroll.menu_hr_payslip_run
 msgid "Payslips Batches"
-msgstr "Generowanie Listy płac"
+msgstr ""
 
 #. module: hr_payroll
 #: view:hr.contribution.register:0
@@ -1063,7 +1058,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:hr_payroll.action_contribution_register_form
 #: model:ir.ui.menu,name:hr_payroll.menu_action_hr_contribution_register_form
 msgid "Contribution Registers"
-msgstr "Rejestry składek"
+msgstr ""
 
 #. module: hr_payroll
 #: model:ir.ui.menu,name:hr_payroll.menu_hr_payroll_reporting
@@ -1098,7 +1093,7 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.salary.rule.category:0
 msgid "Salary Categories"
-msgstr "Kategorie wynagrodzeń"
+msgstr ""
 
 #. module: hr_payroll
 #: report:contribution.register.lines:0
@@ -1182,7 +1177,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:hr_payroll.action_hr_salary_rule_category_tree_view
 #: model:ir.ui.menu,name:hr_payroll.menu_hr_salary_rule_category_tree_view
 msgid "Salary Rule Categories Hierarchy"
-msgstr "Hierarchia kategorii Reguł wynagrodzenia"
+msgstr ""
 
 #. module: hr_payroll
 #: code:addons/hr_payroll/hr_payroll.py:882
@@ -1201,7 +1196,7 @@ msgstr "Suma"
 #. module: hr_payroll
 #: view:hr.payslip:0
 msgid "Salary Computation"
-msgstr "Obliczanie wynagrodzenia"
+msgstr ""
 
 #. module: hr_payroll
 #: view:hr.payslip:0
@@ -1225,7 +1220,7 @@ msgstr ""
 #: view:hr.payslip.run:0
 #: model:ir.actions.act_window,name:hr_payroll.action_hr_payslip_by_employees
 msgid "Generate Payslips"
-msgstr "Generuj paski wypłat"
+msgstr ""
 
 #. module: hr_payroll
 #: view:hr.payslip.line:0
@@ -1246,7 +1241,7 @@ msgstr ""
 #. module: hr_payroll
 #: report:contribution.register.lines:0
 msgid "PaySlip Name"
-msgstr "Nazwa paska"
+msgstr ""
 
 #. module: hr_payroll
 #: view:hr.payslip:0
@@ -1257,7 +1252,493 @@ msgstr "Księgowość"
 #: field:hr.payslip.line,condition_range:0
 #: field:hr.salary.rule,condition_range:0
 msgid "Range Based on"
-msgstr "Zakres bazujący na"
+msgstr ""
 
-#~ msgid "Cancel"
-#~ msgstr "Anuluj"
+#~ msgid "Analytic Account for Salary Analysis"
+#~ msgstr "Konto analityczne do analizy wynagrodzeń"
+
+#~ msgid "Net Salary"
+#~ msgstr "Wynagrodzenie netto"
+
+#~ msgid "Working Days"
+#~ msgstr "Dni pracy"
+
+#~ msgid "(Based on type Payroll will calculate basic salary)"
+#~ msgstr "(Oparty na Liście płac do obliczeń podstawowych wynagrodzeń)"
+
+#~ msgid "E-mail Address"
+#~ msgstr "Adres e-mail"
+
+#~ msgid "Invalid model name in the action definition."
+#~ msgstr "Nieprawidłowa nazwa modelu w definicji akcji."
+
+#~ msgid "Department"
+#~ msgstr "Dział"
+
+#~ msgid "Employee No"
+#~ msgstr "Nr pracownika"
+
+#~ msgid "Year Salary Report"
+#~ msgstr "Raport wynagrodzeń rocznych"
+
+#~ msgid "Others"
+#~ msgstr "Inne"
+
+#~ msgid "Calculations Rules"
+#~ msgstr "Reguły obliczeń"
+
+#~ msgid "Salary"
+#~ msgstr "Wynagrodzenie"
+
+#~ msgid "Account"
+#~ msgstr "Konto"
+
+#~ msgid "Register"
+#~ msgstr "Rejestr"
+
+#~ msgid "Leaves"
+#~ msgstr "Nieobecności"
+
+#~ msgid "Name of the Employee"
+#~ msgstr "Nazwisko pracownika"
+
+#~ msgid "Value"
+#~ msgstr "Wartość"
+
+#~ msgid "Bank"
+#~ msgstr "Bank"
+
+#~ msgid "Based on"
+#~ msgstr "Bazując na"
+
+#~ msgid "Analytic Account"
+#~ msgstr "Konto analityczne"
+
+#~ msgid "Payment"
+#~ msgstr "Wypłata"
+
+#~ msgid "Force Period"
+#~ msgstr "Wymuś okres"
+
+#~ msgid "Sub Total"
+#~ msgstr "Suma"
+
+#~ msgid "Employee Year Salary"
+#~ msgstr "Wynagrodzenie roczne"
+
+#~ msgid "Error! You can not create recursive analytic accounts."
+#~ msgstr "Błąd! Nie możesz tworzyć rekurencyjnych kont analitycznych"
+
+#~ msgid "Human Resource Payroll"
+#~ msgstr "Lista płac"
+
+#~ msgid "Notes:"
+#~ msgstr "Uwagi:"
+
+#~ msgid "End Date"
+#~ msgstr "Data końcowa"
+
+#~ msgid "Accounting Informations"
+#~ msgstr "Informacje o koncie"
+
+#~ msgid "Type"
+#~ msgstr "Typ"
+
+#, python-format
+#~ msgid "Integrity Error !"
+#~ msgstr "Błąd integracji !"
+
+#~ msgid "Miscelleanous"
+#~ msgstr "Różne"
+
+#~ msgid "Start Date"
+#~ msgstr "Data Początkowa"
+
+#~ msgid "Gross Salary"
+#~ msgstr "Wynagrodzenie brutto"
+
+#~ msgid "Employee Salary"
+#~ msgstr "Wymagrodzenie pracownika"
+
+#~ msgid "Invalid XML for View Architecture!"
+#~ msgstr "Niewłaściwy XML dla architektury widoku!"
+
+#~ msgid "Expense"
+#~ msgstr "Wydatek"
+
+#~ msgid "Payment Entries"
+#~ msgstr "Zapisy płatności"
+
+#~ msgid "Salary Structure:"
+#~ msgstr "Struktura wynagrodzenia:"
+
+#~ msgid "State"
+#~ msgstr "Stan"
+
+#~ msgid "Confirm Sheet"
+#~ msgstr "Potwierdź listę"
+
+#~ msgid "Contracts"
+#~ msgstr "Umowy"
+
+#~ msgid "Others:"
+#~ msgstr "Inne:"
+
+#~ msgid "Net Amount"
+#~ msgstr "Kwota netto"
+
+#~ msgid "Employee Code"
+#~ msgstr "Kod pracownika"
+
+#~ msgid ""
+#~ "The Object name must start with x_ and not contain any special character !"
+#~ msgstr ""
+#~ "Nazwa obiektu musi zaczynać się od x_ oraz nie może zawierać znaków "
+#~ "specjalnych !"
+
+#~ msgid "Bank Journal"
+#~ msgstr "Dziennik bankowy"
+
+#~ msgid "Salary Account"
+#~ msgstr "Konto wynagrodzenia"
+
+#~ msgid "Employee Name"
+#~ msgstr "Nazwisko pracownika"
+
+#~ msgid "Expanse Journal"
+#~ msgstr "Dziennik wydatków"
+
+#~ msgid "For"
+#~ msgstr "Dla"
+
+#~ msgid "Reject"
+#~ msgstr "Odrzucone"
+
+#~ msgid "Title"
+#~ msgstr "Tytuł"
+
+#~ msgid "Payment Lines"
+#~ msgstr "Pozycje płatności"
+
+#~ msgid "Basic Salary"
+#~ msgstr "Wynagrodzenie podstawowe"
+
+#~ msgid "Wating for HR Verification"
+#~ msgstr "Oczekiwanie na weryfikację"
+
+#~ msgid "Condition"
+#~ msgstr "Warunek"
+
+#~ msgid "Compute"
+#~ msgstr "Oblicz"
+
+#~ msgid "Employee Account"
+#~ msgstr "Konto pracownika"
+
+#~ msgid "Phone No."
+#~ msgstr "Nr. Telefonu"
+
+#~ msgid "Draft Sheet"
+#~ msgstr "Projekt listy"
+
+#~ msgid "Date"
+#~ msgstr "Data"
+
+#~ msgid "General Account"
+#~ msgstr "Konto główne"
+
+#~ msgid "Loan"
+#~ msgstr "Pożyczka"
+
+#~ msgid "To"
+#~ msgstr "Do"
+
+#~ msgid "Process"
+#~ msgstr "Przetwórz"
+
+#~ msgid "Number"
+#~ msgstr "Numer"
+
+#~ msgid "General Information"
+#~ msgstr "Informacje ogólne"
+
+#~ msgid "E-mail"
+#~ msgstr "Adres email"
+
+#~ msgid "Account Information"
+#~ msgstr "Informacje o koncie"
+
+#~ msgid "Contract Duration"
+#~ msgstr "Czas trwania umowy"
+
+#~ msgid "Year Salary"
+#~ msgstr "Wynagrodzenie roczne"
+
+#~ msgid "Function"
+#~ msgstr "Funkcja"
+
+#~ msgid "Dear Sir/Madam,"
+#~ msgstr "Droga(i) Pani(e)"
+
+#~ msgid "Categoty Name"
+#~ msgstr "Nazwa kategorii"
+
+#~ msgid "Fiscal Year"
+#~ msgstr "Rok podatkowy"
+
+#~ msgid "Bank Details"
+#~ msgstr "Szczegóły banku"
+
+#~ msgid "Payroll Configurtion"
+#~ msgstr "Konfiguracja listy płac"
+
+#~ msgid "Deductions:"
+#~ msgstr "Potrącenia:"
+
+#~ msgid "Salary Payment Register"
+#~ msgstr "Rejestr płac"
+
+#~ msgid "The Manager"
+#~ msgstr "Przełożony"
+
+#~ msgid "Half-Pay Holiday"
+#~ msgstr "Urlop półpłatny"
+
+#~ msgid "Payment From"
+#~ msgstr "Formularz płatności"
+
+#~ msgid "Country of Issue"
+#~ msgstr "Kraj wydania"
+
+#~ msgid "Employees Salary Details"
+#~ msgstr "Szczegóły wynagrodzenia"
+
+#~ msgid "Passport Expire Date"
+#~ msgstr "Data ważności paszportu"
+
+#~ msgid "Other Deduction"
+#~ msgstr "Inne potrącenia"
+
+#~ msgid "Work Permit No"
+#~ msgstr "Nr pozwolenia na pracę"
+
+#~ msgid "Paid Holiday"
+#~ msgstr "Urlop płatny"
+
+#~ msgid "Un-Paid Holiday"
+#~ msgstr "Urlop bezpłatny"
+
+#~ msgid "Passport Detail"
+#~ msgstr "Szczegóły paszportu"
+
+#~ msgid "Visa No"
+#~ msgstr "Nr wizy"
+
+#~ msgid "By Salary"
+#~ msgstr "Wg wynagrodzenia"
+
+#~ msgid "Amount (in words) :"
+#~ msgstr "Kwota (słownie)"
+
+#~ msgid "Passport"
+#~ msgstr "Paszport"
+
+#~ msgid "Salary Detail"
+#~ msgstr "Szczegóły wynagrodzenia"
+
+#~ msgid "Account Lines"
+#~ msgstr "Pozycje"
+
+#~ msgid "By Employee Function"
+#~ msgstr "Według funkcji pracownika"
+
+#~ msgid "Year Salary Detail"
+#~ msgstr "Szczegóły wynagrodzenia rocznego"
+
+#~ msgid "Wating for Verification"
+#~ msgstr "Oczekuje na weryfikację"
+
+#~ msgid "Deduction"
+#~ msgstr "Potrącenie"
+
+#~ msgid "Passport and Visa"
+#~ msgstr "Paszport i wiza"
+
+#~ msgid "Function of the Employee"
+#~ msgstr "Funkcja pracownika"
+
+#~ msgid "All Passports"
+#~ msgstr "Wszystkie paszporty"
+
+#~ msgid "Employee Contract"
+#~ msgstr "Umowa pracownika"
+
+#~ msgid "Payroll Register"
+#~ msgstr "Rejestr list płac"
+
+#~ msgid "HR Manager"
+#~ msgstr "Dyrektor kadrowy"
+
+#~ msgid "Yearly Salary Details"
+#~ msgstr "Szczegóły wynagrodzenia rocznego"
+
+#~ msgid "Salary Information"
+#~ msgstr "Inofrmacja o wynagrodzeniu"
+
+#~ msgid "Categoty Code"
+#~ msgstr "Kod kategorii"
+
+#~ msgid "Visa Expire Date"
+#~ msgstr "Data ważności wizy"
+
+#~ msgid "Payroll Head"
+#~ msgstr "Nagłówek listy płac"
+
+#~ msgid "Included in Salary ?"
+#~ msgstr "Włączone do wynagrodzenia ?"
+
+#~ msgid "Passport No"
+#~ msgstr "Nr paszportu"
+
+#~ msgid "Current Month Date"
+#~ msgstr "Data w tym miesiącu"
+
+#~ msgid "Process Form"
+#~ msgstr "Przetwarzaj formularz"
+
+#~ msgid "Contract Detail:"
+#~ msgstr "Szczegóły umowy:"
+
+#~ msgid "Amount / Percentage"
+#~ msgstr "Kwota / Procent"
+
+#~ msgid "for period"
+#~ msgstr "dla okresu"
+
+#~ msgid "Other Informations"
+#~ msgstr "Inne informacje"
+
+#~ msgid "Configure Payroll"
+#~ msgstr "Konfiguruj listę płac"
+
+#~ msgid "Cancel Sheet"
+#~ msgstr "Anuluj listę"
+
+#~ msgid "Expanse account when Salary Expanse will be recorded"
+#~ msgstr "Konto wydatków, na którym będą zapisane wydatki wynagrodzeń"
+
+#~ msgid "Select Bank Account from where Salary Expanse will be Paid"
+#~ msgstr "Wybierz konto bankowe, z którego wynagrodzenie będzie wypłacone"
+
+#~ msgid "Employee Functions"
+#~ msgstr "Funkcja pracownika"
+
+#~ msgid "Letter Content"
+#~ msgstr "Zawartość listu"
+
+#~ msgid "Deductions"
+#~ msgstr "Potrącenia"
+
+#~ msgid "Passport Issue Date"
+#~ msgstr "Data wydania paszportu"
+
+#~ msgid "No of Leaves"
+#~ msgstr "Liczba nieobecności"
+
+#~ msgid "Recompute Sheet"
+#~ msgstr "Przelicz arkusz"
+
+#~ msgid "Paid Salary"
+#~ msgstr "Wypłacone wynagrodzenie"
+
+#~ msgid "Select the Bank Address from whcih the salary is going to be paid"
+#~ msgstr "Wybierz adres banku, z którego wynagrodzenie ma być wypłacone."
+
+#~ msgid "Expire"
+#~ msgstr "Wygasa"
+
+#~ msgid ""
+#~ "Error ! You cannot select a department for which the employee is the manager."
+#~ msgstr "Błąd ! Nie możesz wybrać działu, którego pracownik jest przełożonym."
+
+#~ msgid "Percentage"
+#~ msgstr "Procentowo"
+
+#~ msgid "Valid From"
+#~ msgstr "Ważne od"
+
+#~ msgid "Leave Type"
+#~ msgstr "Typ urlopu"
+
+#~ msgid "Date :"
+#~ msgstr "Data :"
+
+#~ msgid "Posted"
+#~ msgstr "Zaksięgowano"
+
+#~ msgid "Formula"
+#~ msgstr "Formuła"
+
+#, python-format
+#~ msgid "Error !"
+#~ msgstr "Błąd !"
+
+#~ msgid "Verify Sheet"
+#~ msgstr "Weryfikuj arkusz"
+
+#~ msgid "Basic"
+#~ msgstr "Podstawowe"
+
+#~ msgid "Heads"
+#~ msgstr "Składniki"
+
+#~ msgid "Paid"
+#~ msgstr "Zapłacono"
+
+#~ msgid "Applied this head for calculation if condition is true"
+#~ msgstr "Uwzględnij ten składnik, jeśli warunek jest spełniony"
+
+#~ msgid "Validation"
+#~ msgstr "Zatwierdzenie"
+
+#~ msgid "User"
+#~ msgstr "Użytkownik"
+
+#~ msgid "Error ! You cannot create recursive Hierarchy of Employees."
+#~ msgstr "Błąd ! Nie mozesz tworzyć rekurencyjnych hierarchii pracowników"
+
+#~ msgid "Category Code"
+#~ msgstr "Kod Kategorii"
+
+#~ msgid "Label"
+#~ msgstr "Etykieta"
+
+#~ msgid "Print Report"
+#~ msgstr "Drukuj raport"
+
+#~ msgid "Salary Heads"
+#~ msgstr "Składniki wynagrodzenia"
+
+#~ msgid "Total Salary"
+#~ msgstr "Suma wynagrodzenia"
+
+#~ msgid "Month"
+#~ msgstr "Miesiąc"
+
+#~ msgid "Issue"
+#~ msgstr "Wydano"
+
+#~ msgid "Category Name"
+#~ msgstr "Nazwa kategorii"
+
+#~ msgid "Wage Type"
+#~ msgstr "Typ zarobku"
+
+#~ msgid "Advance"
+#~ msgstr "Zaliczka"
+
+#~ msgid "Total Payment"
+#~ msgstr "Suma płatności"
+
+#~ msgid "Country"
+#~ msgstr "Kraj"

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+       <report id="report_pos_pdf"
+               string="Bon (Pdf)"
+               name="at_pos.bon"
+               auto="False"
+               menu="False"
+               report_type="aeroo"
+               model="pos.order"
+               in_format="oo-odt"
+               out_format="oo-pdf"
+               stylesheet="none"
+               parser="at_pos/report/bon_report.py"
+               rml="at_pos/report/bon_report.odt"/>
+	</data>
+</openerp>

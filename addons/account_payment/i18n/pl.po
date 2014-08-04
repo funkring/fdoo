@@ -1,21 +1,20 @@
-# Polish translation for openobject-addons
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
-# This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* account_payment
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openobject-addons\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:36+0000\n"
-"PO-Revision-Date: 2014-04-12 14:49+0000\n"
+"Project-Id-Version: OpenERP Server 6.0dev\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-12-21 17:05+0000\n"
+"PO-Revision-Date: 2012-12-14 12:29+0000\n"
 "Last-Translator: Grzegorz Grzelak (OpenGLOBE.pl) <grzegorz@openglobe.pl>\n"
-"Language-Team: Polish <pl@li.org>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-04-13 06:20+0000\n"
-"X-Generator: Launchpad (build 16976)\n"
+"X-Launchpad-Export-Date: 2014-03-27 06:46+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: account_payment
 #: model:ir.actions.act_window,help:account_payment.action_payment_order_tree
@@ -70,6 +69,15 @@ msgstr "Pozycje płatności"
 #: view:payment.order:0
 msgid "Owner Account"
 msgstr "Właściciel konta"
+
+#. module: account_payment
+#: help:account.invoice,amount_to_pay:0
+msgid ""
+"The amount which should be paid at the current date\n"
+"minus the amount which is already in payment order"
+msgstr ""
+"Kwota, która powinna być zapłacona w bieżącym dniu\n"
+"minus kwota, która już jest w poleceniu płatności"
 
 #. module: account_payment
 #: field:payment.line,company_id:0
@@ -668,31 +676,15 @@ msgid "Order"
 msgstr "Polecenie"
 
 #. module: account_payment
-#: view:payment.order:0
-msgid "Cancel Payments"
-msgstr "Anuluj płatność"
-
-#. module: account_payment
 #: field:payment.order,total:0
 msgid "Total"
 msgstr "Suma"
-
-#. module: account_payment
-#: code:addons/account_payment/wizard/account_payment_order.py:112
-#, python-format
-msgid "Entry Lines"
-msgstr "Pozycje zapisu"
 
 #. module: account_payment
 #: view:account.payment.make.payment:0
 #: model:ir.actions.act_window,name:account_payment.action_account_payment_make_payment
 msgid "Make Payment"
 msgstr "Wykonaj płatność"
-
-#. module: account_payment
-#: help:account.invoice,amount_to_pay:0
-msgid "The amount which should be paid at the current date. "
-msgstr "Wartość jaka powinna zostać opłacona dla aktualnej daty. "
 
 #. module: account_payment
 #: field:payment.order,date_prefered:0
@@ -711,9 +703,183 @@ msgstr "lub"
 msgid "Bank Account for the Payment Mode"
 msgstr "Konto bankowe dla sposobu płatności"
 
+#~ msgid "State"
+#~ msgstr "Stan"
+
+#~ msgid "Invalid XML for View Architecture!"
+#~ msgstr "XML niewłaściwy dla tej architektury wyświetlania!"
+
+#~ msgid "_Cancel"
+#~ msgstr "_Anuluj"
+
+#~ msgid "User"
+#~ msgstr "Użytkownik"
+
+#~ msgid "Date"
+#~ msgstr "Data"
+
 #~ msgid ""
-#~ "The amount which should be paid at the current date\n"
-#~ "minus the amount which is already in payment order"
+#~ "The Object name must start with x_ and not contain any special character !"
 #~ msgstr ""
-#~ "Kwota, która powinna być zapłacona w bieżącym dniu\n"
-#~ "minus kwota, która już jest w poleceniu płatności"
+#~ "Nazwa obiektu musi zaczynać się od x_ oraz nie może zawierać znaków "
+#~ "specjalnych !"
+
+#~ msgid "Creation date"
+#~ msgstr "Data utworzenia"
+
+#~ msgid "Maturity Date"
+#~ msgstr "Termin płatności"
+
+#~ msgid "Code"
+#~ msgstr "Kod"
+
+#~ msgid "Pay"
+#~ msgstr "Zapłać"
+
+#~ msgid "Destination Bank account"
+#~ msgstr "Docelowe konto bankowe"
+
+#~ msgid "Payment type"
+#~ msgstr "Typ płatności"
+
+#~ msgid "_Search"
+#~ msgstr "_Szukaj"
+
+#~ msgid "Preferred date"
+#~ msgstr "Preferowana data"
+
+#~ msgid "Scheduled date if fixed"
+#~ msgstr "Planowana data jeśli jest ustalona"
+
+#~ msgid "Account Entry Line"
+#~ msgstr "Pozycja zapisu konta"
+
+#~ msgid "Execution date:"
+#~ msgstr "Data realizacji:"
+
+#~ msgid "Suitable bank types"
+#~ msgstr "Typy banków"
+
+#, python-format
+#~ msgid "Error !"
+#~ msgstr "Błąd !"
+
+#~ msgid "Execution date"
+#~ msgstr "Data realizacji"
+
+#~ msgid "Payment Management"
+#~ msgstr "Zarzędzanie płatnościami"
+
+#, python-format
+#~ msgid "No partner defined on entry line"
+#~ msgstr "Brak partnera w pozycji zapisu"
+
+#~ msgid "Reference:"
+#~ msgstr "Odnośnik:"
+
+#~ msgid "Import payment lines"
+#~ msgstr "Importuj pozycje płatności"
+
+#~ msgid "Specify the Code for Payment Type"
+#~ msgstr "Podaj kod dla typu płatności"
+
+#~ msgid "_Add"
+#~ msgstr "_Dodaj"
+
+#, python-format
+#~ msgid "Partner '+ line.partner_id.name+ ' has no bank account defined"
+#~ msgstr ""
+#~ "Partner '+ line.partner_id.name+ ' nie ma zdefiniowanego konta bankowego"
+
+#~ msgid "Total debit"
+#~ msgstr "Suma Winien"
+
+#~ msgid "Total credit"
+#~ msgstr "Suma Ma"
+
+#~ msgid "Draft Payment Order"
+#~ msgstr "Projekty poleceń płatności"
+
+#~ msgid "Cash Journal for the Payment Mode"
+#~ msgstr "Dziennik kasowy dla sposobu płatności"
+
+#~ msgid "Payment Orders to Validate"
+#~ msgstr "Polecenia płatności do zatwierdzenia"
+
+#~ msgid "Select the Payment Type for the Payment Mode."
+#~ msgstr "Wybierz typ płatności dla sposobu płatności"
+
+#~ msgid "Payment mode"
+#~ msgstr "Sposób płatności"
+
+#~ msgid ""
+#~ "The date of your Journal Entry is not in the defined period! You should "
+#~ "change the date or remove this constraint from the journal."
+#~ msgstr ""
+#~ "Data jest poza okresem! Musisz zmienić datę lub zdjąć ograniczenie w "
+#~ "dzienniku."
+
+#~ msgid "Invalid BBA Structured Communication !"
+#~ msgstr "Niedozwolona komunikacja strukturalna BBA !"
+
+#~ msgid "Wrong credit or debit value in accounting entry !"
+#~ msgstr "Niepoprawna wartość Winien lub Ma w zapisie !"
+
+#~ msgid ""
+#~ "When an order is placed the state is 'Draft'.\n"
+#~ " Once the bank is confirmed the state is set to 'Confirmed'.\n"
+#~ " Then the order is paid the state is 'Done'."
+#~ msgstr ""
+#~ "Kiedy polecenie jest w stanie 'Projekt'.\n"
+#~ " Kiedy bank potwierdza to stan zmienia się na 'Potwierdzone'.\n"
+#~ " Następnie kiedy jest zapłacone, to stan zmienia się na 'Wykonane'."
+
+#~ msgid ""
+#~ "The selected account of your Journal Entry forces to provide a secondary "
+#~ "currency. You should remove the secondary currency on the account or select "
+#~ "a multi-currency view on the journal."
+#~ msgstr ""
+#~ "Wybrane konto wymaga podania drugiej waluty. Powinieneś usunąć drugą walutę "
+#~ "z konta lub wybrać wielowalutowy widok w dzienniku."
+
+#~ msgid "You can not create journal items on an account of type view."
+#~ msgstr "Nie można tworzyć zapisów dla kont typu widok."
+
+#~ msgid "Invoice Number must be unique per Company!"
+#~ msgstr "Numer faktury musi być unikalny w firmie!"
+
+#~ msgid "Company must be the same for its related account and period."
+#~ msgstr "Firma musi być ta sama dla związanego konta i okresu."
+
+#~ msgid "You can not create journal items on closed account."
+#~ msgstr "Nie możesz księgować na zamkniętych kontach"
+
+#~ msgid ""
+#~ "A payment order is a payment request from your company to pay a supplier "
+#~ "invoice or a customer credit note. Here you can register all payment orders "
+#~ "that should be done, keep track of all payment orders and mention the "
+#~ "invoice reference and the partner the payment should be done for."
+#~ msgstr "Polecenie zapłaty służy do obsługi płatności."
+
+#~ msgid "You can not create move line on closed account."
+#~ msgstr "Nie możesz utworzyć przesunięcia na zamkniętym koncie."
+
+#~ msgid "You can not create move line on view account."
+#~ msgstr "Nie możesz tworzyć przesunięć w widoku konta."
+
+#~ msgid "Company must be same for its related account and period."
+#~ msgstr "Firma musi odpowiednia do konta i okresu."
+
+#~ msgid ""
+#~ "\n"
+#~ "This module provides :\n"
+#~ "* a more efficient way to manage invoice payment.\n"
+#~ "* a basic mechanism to easily plug various automated payment.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "Ten moduł dostarcza :\n"
+#~ "* bardziej efektywny sposób zarządzania płatnościami faktur.\n"
+#~ "* podstawowy mechanizm do łatwego wprowadzania rozmaitych automatycznych "
+#~ "płatności.\n"
+#~ "    "

@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:37+0000\n"
-"PO-Revision-Date: 2014-02-10 08:28+0000\n"
-"Last-Translator: Yoshi Tashiro <yostashiro@gmail.com>\n"
+"POT-Creation-Date: 2012-12-21 17:06+0000\n"
+"PO-Revision-Date: 2012-09-21 14:08+0000\n"
+"Last-Translator: OpenERP Administrators <Unknown>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-02-11 06:41+0000\n"
-"X-Generator: Launchpad (build 16916)\n"
+"X-Launchpad-Export-Date: 2014-03-27 07:31+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: sale_stock
 #: help:sale.config.settings,group_invoice_deli_orders:0
@@ -76,11 +76,6 @@ msgid "Validate"
 msgstr "確認"
 
 #. module: sale_stock
-#: view:sale.order:0
-msgid "Cancel Order"
-msgstr "オーダ取消"
-
-#. module: sale_stock
 #: code:addons/sale_stock/sale_stock.py:209
 #, python-format
 msgid ""
@@ -105,9 +100,23 @@ msgid ""
 msgstr "全ての受注オーダー行について、調達オーダーは販売された製品の供給を作成します。"
 
 #. module: sale_stock
+#: code:addons/sale_stock/sale_stock.py:615
+#, python-format
+msgid "Error!"
+msgstr ""
+
+#. module: sale_stock
 #: field:sale.order,picking_policy:0
 msgid "Shipping Policy"
 msgstr "出荷方針"
+
+#. module: sale_stock
+#: code:addons/sale_stock/sale_stock.py:616
+#, python-format
+msgid ""
+"You cannot make an advance on a sales order                      that is "
+"defined as 'Automatic Invoice after delivery'."
+msgstr ""
 
 #. module: sale_stock
 #: model:ir.ui.menu,name:sale_stock.menu_action_shop_form
@@ -153,11 +162,6 @@ msgid "Procurement Order"
 msgstr "調達オーダー"
 
 #. module: sale_stock
-#: model:ir.actions.act_window,name:sale_stock.res_partner_rule_children
-msgid "Contact Details"
-msgstr "コンタクトの詳細"
-
-#. module: sale_stock
 #: selection:sale.config.settings,default_order_policy:0
 msgid "Invoice based on deliveries"
 msgstr "配達基準の請求書"
@@ -189,6 +193,12 @@ msgid ""
 msgstr ""
 "受注オーダーが確認されると同時に調達オーダーとしてすぐに、集荷リストフォームが作成されます。これは受注オーダー部品の割り当てを表しています。受注オーダー行"
 "による１つの集荷リストは部品の入手可能性とともに展開します。"
+
+#. module: sale_stock
+#: help:res.company,security_lead:0
+msgid ""
+"This is the days added to what you promise to customers for security purpose"
+msgstr "これは安全目的のために顧客に約束するために加える日数です。"
 
 #. module: sale_stock
 #: model:ir.model,name:sale_stock.model_stock_picking
@@ -243,12 +253,9 @@ msgstr "プロジェクトMRP"
 #. module: sale_stock
 #: model:process.transition,note:sale_stock.process_transition_invoiceafterdelivery0
 msgid ""
-"If the sale order was set to create the invoice 'On Delivery Order', then an "
-"invoice is automatically created based on what you delivered. If you rather "
-"want to create your invoice based on your sale order, you can set the sale "
-"order to create invoice 'On Demand', then track and process the sales order "
-"that have been fully delivered and invoice them from there."
-msgstr ""
+"The invoice is created automatically if the shipping policy is 'Invoice from "
+"pick' or 'Invoice on order after delivery'."
+msgstr "出荷方針が集荷時に請求または配達後に請求の場合は、請求書は自動的に作成されます。"
 
 #. module: sale_stock
 #: field:sale.order.line,procurement_id:0
@@ -368,14 +375,6 @@ msgstr "これは受注オーダーが配達されたことを示します。こ
 #: field:sale.order.line,property_ids:0
 msgid "Properties"
 msgstr "属性"
-
-#. module: sale_stock
-#: help:res.company,security_lead:0
-msgid ""
-"Margin of error for dates promised to customers. Products will be scheduled "
-"for procurement and delivery that many days earlier than the actual promised "
-"date, to cope with unexpected delays in the supply chain."
-msgstr "顧客に約束した日付の許容誤差。サプライチェーンの予想外の遅延に対処するため、製品は実際に約束した日より何日も前にスケジュールされます。"
 
 #. module: sale_stock
 #: field:sale.config.settings,group_mrp_properties:0
@@ -613,12 +612,3 @@ msgid ""
 "output area and the customer is done through the Delivery Order manually or "
 "automatically."
 msgstr "製造品場所の設定によって、製造領域と顧客の間の移動は、手動または自動的な配達オーダーを通して実施されます。"
-
-#~ msgid ""
-#~ "The invoice is created automatically if the shipping policy is 'Invoice from "
-#~ "pick' or 'Invoice on order after delivery'."
-#~ msgstr "出荷方針が集荷時に請求または配達後に請求の場合は、請求書は自動的に作成されます。"
-
-#~ msgid ""
-#~ "This is the days added to what you promise to customers for security purpose"
-#~ msgstr "これは安全目的のために顧客に約束するために加える日数です。"

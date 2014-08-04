@@ -1,0 +1,11 @@
+<openerp>
+	<data>
+		 <act_window id="wizard_send_offer" 
+            name="Send Quotation/Offer"
+            res_model="at_mail_wizard.mail_wizard"
+            src_model="sale.order"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"/>          
+	</data>
+</openerp>

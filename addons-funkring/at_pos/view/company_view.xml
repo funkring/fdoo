@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="form_company_inherited">
+            <field name="name">Company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="model">res.company</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">                
+            	<field name="rml_header" position="replace">
+            		 <separator string="Header" colspan="3"/>
+                     <separator string="ESC/POS Header" colspan="1"/>
+                     <field colspan="3" name="rml_header" nolabel="1"/>
+                     <field colspan="1" name="escpos_header" nolabel="1"/>                		
+            	</field>                
+            </field>
+        </record>
+	</data>
+</openerp>

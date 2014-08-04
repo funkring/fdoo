@@ -1,0 +1,71 @@
+<openerp>
+	<data>
+	
+		<record id="view_bmd_export_param" model="ir.ui.view">
+			<field name="name">bmd.view_bmd_export_param</field>
+			<field name="model">bmd.export_param</field>
+			<field name="arch" type="xml">
+				<form string="BMD Export" version="7.0">
+					<group string="Export">
+						<group>
+							<field name="profile_id" />
+							<field name="period_id" on_change="onchange_period(period_id,context)"/>
+						</group>
+						<group>
+							<field name="name"/>
+						</group>
+					</group>					
+					<footer>
+						<button icon="terp-gtk-go-back-rtl" type="object" string="Export"
+							name="config_export" class="oe_highlight" />
+						or
+						<button string="Abbrechen" class="oe_link" special="cancel" />
+					</footer>
+				</form>
+			</field>
+		</record>
+		
+		<record id="action_bmd_export_wizard" model="ir.actions.act_window">
+			<field name="name">BMD Export Assistent</field>
+			<field name="res_model">bmd.export_param</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_bmd_export_param" />
+			<field name="target">new</field>
+		</record>
+		
+		<record id="view_bmd_export_result" model="ir.ui.view">
+			<field name="name">bmd.view_bmd_export_result</field>
+			<field name="model">bmd.export_result</field>
+			<field name="arch" type="xml">
+				<form string="BMD Export Dateien" version="7.0">
+					<group>
+						<field name="stamerf" filename="stamerf_name" />
+						<field name="stamerf_name" invisible="1"/>
+						<field name="buerf" filename="buerf_name"/>
+						<field name="buerf_name" invisible="1"/>
+					</group>
+					<div>
+						<field name="log_ids"/>
+					</div>
+					<footer>
+						<button icon="terp-gtk-go-back-rtl" type="object" string="Anzeigen"
+							name="action_show" class="oe_highlight" />
+						or
+						<button string="Abbrechen" class="oe_link" special="cancel" />
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<record id="action_bmd_export_result" model="ir.actions.act_window">
+			<field name="name">Export Dateien</field>
+			<field name="res_model">bmd.export_result</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="view_bmd_export_result" />
+			<field name="target">new</field>
+		</record>
+		
+	</data>
+</openerp>

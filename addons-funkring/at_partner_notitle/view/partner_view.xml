@@ -1,0 +1,18 @@
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="form_partner_address">
+			<field name="name">Partner Address</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.view_partner_form" />
+			<field name="type">form</field>
+			<field eval="1" name="priority" />
+			<field name="arch" type="xml">
+				<data>
+					<field name="title" position="replace">
+						<field name="title" invisible="1" />
+					</field>
+				</data>
+			</field>
+		</record>
+	</data>
+</openerp>

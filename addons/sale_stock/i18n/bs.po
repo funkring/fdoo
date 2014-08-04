@@ -1,21 +1,20 @@
-# Bosnian translation for openobject-addons
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
-# This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* sale
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openobject-addons\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:37+0000\n"
-"PO-Revision-Date: 2013-10-26 14:34+0000\n"
-"Last-Translator: Bosko Stojakovic <bluesoft83@gmail.com>\n"
-"Language-Team: Bosnian <bs@li.org>\n"
+"Project-Id-Version: OpenERP Server 6.0dev\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-12-21 17:06+0000\n"
+"PO-Revision-Date: 2012-09-21 14:16+0000\n"
+"Last-Translator: qdp (OpenERP) <qdp-launchpad@tinyerp.com>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-21 06:34+0000\n"
-"X-Generator: Launchpad (build 16831)\n"
+"X-Launchpad-Export-Date: 2014-03-27 07:31+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: sale_stock
 #: help:sale.config.settings,group_invoice_deli_orders:0
@@ -78,11 +77,6 @@ msgid "Validate"
 msgstr "Potvrdi"
 
 #. module: sale_stock
-#: view:sale.order:0
-msgid "Cancel Order"
-msgstr "Otkaži narudžbu"
-
-#. module: sale_stock
 #: code:addons/sale_stock/sale_stock.py:209
 #, python-format
 msgid ""
@@ -111,9 +105,23 @@ msgstr ""
 "obezbjedio proizvod koji se prodaje."
 
 #. module: sale_stock
+#: code:addons/sale_stock/sale_stock.py:615
+#, python-format
+msgid "Error!"
+msgstr ""
+
+#. module: sale_stock
 #: field:sale.order,picking_policy:0
 msgid "Shipping Policy"
 msgstr "Način otpreme"
+
+#. module: sale_stock
+#: code:addons/sale_stock/sale_stock.py:616
+#, python-format
+msgid ""
+"You cannot make an advance on a sales order                      that is "
+"defined as 'Automatic Invoice after delivery'."
+msgstr ""
 
 #. module: sale_stock
 #: model:ir.ui.menu,name:sale_stock.menu_action_shop_form
@@ -159,11 +167,6 @@ msgid "Procurement Order"
 msgstr "Nalog naručivanja"
 
 #. module: sale_stock
-#: model:ir.actions.act_window,name:sale_stock.res_partner_rule_children
-msgid "Contact Details"
-msgstr "Detalji o kontaktu"
-
-#. module: sale_stock
 #: selection:sale.config.settings,default_order_policy:0
 msgid "Invoice based on deliveries"
 msgstr "Faktura baziran na dostavama"
@@ -197,6 +200,12 @@ msgstr ""
 "potvrdi, u isto vrijeme kao i nalog naručivanja. Predstavlja dodjeljivanje "
 "dijelova prodajnoj narudžbi. Postoji 1 lista prikupljanja proizvoda po "
 "stavci prodajne narudžbe koja napreduje sa dostupnosti dijelova."
+
+#. module: sale_stock
+#: help:res.company,security_lead:0
+msgid ""
+"This is the days added to what you promise to customers for security purpose"
+msgstr ""
 
 #. module: sale_stock
 #: model:ir.model,name:sale_stock.model_stock_picking
@@ -251,18 +260,9 @@ msgstr "Projekat proizvodnje"
 #. module: sale_stock
 #: model:process.transition,note:sale_stock.process_transition_invoiceafterdelivery0
 msgid ""
-"If the sale order was set to create the invoice 'On Delivery Order', then an "
-"invoice is automatically created based on what you delivered. If you rather "
-"want to create your invoice based on your sale order, you can set the sale "
-"order to create invoice 'On Demand', then track and process the sales order "
-"that have been fully delivered and invoice them from there."
+"The invoice is created automatically if the shipping policy is 'Invoice from "
+"pick' or 'Invoice on order after delivery'."
 msgstr ""
-"Ako je prodajna narudžba postavljena da kreira fakturu 'Pri narudžbi "
-"dostave', tada će se automatski kreirati faktura bazirano na onome šta je "
-"dostavljeno. Ako radije želite da kreirate vašu fakturu bazirano na vašoj "
-"prodajnoj narudžbi, možete da postavite prodajnu narudžbu da kreira fakturu "
-"'Pri zahtjevu', tada pratite i obrađujte prodajnu narudžbu koja je bila u "
-"potpunosti dostavljena i fakturišite odatle."
 
 #. module: sale_stock
 #: field:sale.order.line,procurement_id:0
@@ -394,17 +394,6 @@ msgstr ""
 #: field:sale.order.line,property_ids:0
 msgid "Properties"
 msgstr "Postavke"
-
-#. module: sale_stock
-#: help:res.company,security_lead:0
-msgid ""
-"Margin of error for dates promised to customers. Products will be scheduled "
-"for procurement and delivery that many days earlier than the actual promised "
-"date, to cope with unexpected delays in the supply chain."
-msgstr ""
-"Granice grešaka za datume obećane kupcima. Proizvodi će biti zakazani za "
-"naručivanje i dostavu onoliko dana prije nego što je u stvari obećano, da bi "
-"se izborili sa neplaniranim odgodama u lancu snadbjevanja."
 
 #. module: sale_stock
 #: field:sale.config.settings,group_mrp_properties:0

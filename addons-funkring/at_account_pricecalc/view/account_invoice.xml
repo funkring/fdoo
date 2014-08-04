@@ -1,0 +1,15 @@
+<openerp>
+	<data>		
+		<record id="tree_invoice_line" model="ir.ui.view">
+            <field name="name">account.tree_invoice_line</field>
+            <field name="model">account.invoice.line</field>
+            <field name="inherit_id" ref="account.view_invoice_line_tree"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+               <field name="discount" position="after">
+               		<button name="%(action_pricecalc)d" type="action" icon="terp-dolar" states="draft" string="Price Calculation"/> 
+               </field>               
+            </field>
+        </record>     	    
+	</data>
+</openerp>

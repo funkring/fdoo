@@ -1,0 +1,35 @@
+<openerp>
+	<data>
+		<record id="form_account_invoice" model="ir.ui.view">
+			<field name="name">Invoice</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_form" />
+			<field name="arch" type="xml">
+				<field name="payment_ids" position="before">
+					<group>
+						<group>
+							<field name="profile_line_id" />
+							<field name="noremind" />
+						</group>
+						<group>
+							<field name="dunning_date" />
+						</group>
+					</group>
+				</field>
+			</field>
+		</record>
+
+		<record id="tree_account_invoice" model="ir.ui.view">
+			<field name="name">Invoices</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_tree" />
+			<field name="arch" type="xml">
+				<field name="state" position="after">
+					<field name="profile_line_id" />
+					<field name="dunning_date" />
+				</field>
+			</field>
+		</record>
+
+	</data>
+</openerp>

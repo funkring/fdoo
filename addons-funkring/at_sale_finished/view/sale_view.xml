@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		 <record id="view_order_tree" model="ir.ui.view">
+	        <field name="name">sale.order.tree</field>
+	        <field name="model">sale.order</field>
+	        <field name="type">tree</field>      
+	        <field name="priority">2</field>
+	        <field name="inherit_id" ref="sale.view_order_tree"/>
+	        <field name="arch" type="xml">
+	        	<field name="state" position="after">	       
+					<field name="order_finished"/>	        		 		
+	        		<button name="finish_order" attrs="{'invisible' : [('order_finished','=',True)]}" type="object" states="progress" string="Finish" icon="terp-camera_test"/>
+	        	</field>
+	        </field>
+	     </record>    
+	     
+	   	<record id="view_order_form" model="ir.ui.view">
+			<field name="name">Sale Order</field>
+			<field name="model">sale.order</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="at_sale.sale_order_form" />
+			<field name="arch" type="xml">				
+				<field name="invoiced" position="after">
+					<field name="order_finished"/>
+				</field>
+			</field>			
+		</record>
+	  	  
+	  	<record id="at_sale.action_ordertoinvoice2" model="ir.actions.act_window">
+			<field name="domain">[('order_finished','=',False),('state','!=','draft'),('state','!=','cancel')]</field>			
+		</record>
+		
+	  	<record id="at_sale.action_ordertoinvoice" model="ir.actions.act_window">
+	  		<field name="domain">[('order_finished','=',False)]</field>			
+		</record>
+		
+    </data>
+</openerp>

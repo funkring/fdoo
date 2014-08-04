@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-02-06 15:56+0000\n"
-"PO-Revision-Date: 2013-12-21 04:37+0000\n"
-"Last-Translator: Pepe B. @TelFast Perú <pepebalbuena@gmail.com>\n"
+"POT-Creation-Date: 2012-12-21 17:04+0000\n"
+"PO-Revision-Date: 2013-12-09 19:30+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Spanish (Peru) <es_PE@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-02-07 07:13+0000\n"
-"X-Generator: Launchpad (build 16916)\n"
+"X-Launchpad-Export-Date: 2014-03-27 05:55+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: stock
 #: field:stock.inventory.line.split,line_exist_ids:0
@@ -157,11 +157,6 @@ msgstr ""
 #: view:stock.picking.in:0
 msgid "Picking list"
 msgstr "Guía"
-
-#. module: stock
-#: view:stock.inventory:0
-msgid "e.g. Annual inventory"
-msgstr ""
 
 #. module: stock
 #: report:lot.stock.overview:0
@@ -473,11 +468,8 @@ msgid "Ready to Deliver"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/stock.py:2525
-#, python-format
-msgid ""
-"Forbidden operation: it is not allowed to scrap products from a virtual "
-"location."
+#: model:ir.model,name:stock.model_action_traceability
+msgid "Action traceability "
 msgstr ""
 
 #. module: stock
@@ -851,11 +843,6 @@ msgid "Procurement Location"
 msgstr ""
 
 #. module: stock
-#: view:stock.picking:0
-msgid "e.g. PO0032"
-msgstr ""
-
-#. module: stock
 #: model:ir.actions.act_window,name:stock.action_location_tree
 #: model:ir.ui.menu,name:stock.menu_action_location_tree
 msgid "Location Structure"
@@ -903,6 +890,13 @@ msgstr ""
 #: sql_constraint:stock.picking.in:0
 #: sql_constraint:stock.picking.out:0
 msgid "Reference must be unique per Company!"
+msgstr ""
+
+#. module: stock
+#: field:stock.picking,date:0
+#: field:stock.picking.in,date:0
+#: field:stock.picking.out,date:0
+msgid "Time"
 msgstr ""
 
 #. module: stock
@@ -984,9 +978,9 @@ msgid "Location & Warehouse"
 msgstr ""
 
 #. module: stock
-#: selection:report.stock.inventory,month:0
-#: selection:report.stock.move,month:0
-msgid "December"
+#: selection:report.stock.inventory,location_type:0
+#: selection:stock.location,usage:0
+msgid "Transit Location for Inter-Companies Transfers"
 msgstr ""
 
 #. module: stock
@@ -1026,13 +1020,6 @@ msgstr ""
 #: model:ir.ui.menu,name:stock.menu_action_picking_tree4
 #: view:stock.picking.in:0
 msgid "Incoming Shipments"
-msgstr ""
-
-#. module: stock
-#: help:stock.picking,date:0
-#: help:stock.picking.in,date:0
-#: help:stock.picking.out,date:0
-msgid "Creation date, usually the time of the order."
 msgstr ""
 
 #. module: stock
@@ -1125,6 +1112,12 @@ msgid "Ready to Receive"
 msgstr ""
 
 #. module: stock
+#: view:stock.move:0
+#: view:stock.picking:0
+msgid "_Cancel"
+msgstr ""
+
+#. module: stock
 #: field:report.stock.move,day_diff:0
 msgid "Execution Lead Time (Days)"
 msgstr ""
@@ -1206,11 +1199,6 @@ msgstr ""
 #: field:product.category,property_stock_valuation_account_id:0
 msgid "Stock Valuation Account"
 msgstr ""
-
-#. module: stock
-#: view:stock.return.picking.memory:0
-msgid "Return Picking Memory"
-msgstr "Memoría de Guía de Devolución"
 
 #. module: stock
 #: view:stock.config.settings:0
@@ -1483,11 +1471,6 @@ msgstr ""
 #. module: stock
 #: selection:stock.move,state:0
 msgid "Waiting Another Move"
-msgstr ""
-
-#. module: stock
-#: selection:stock.picking,state:0
-msgid "Transferred"
 msgstr ""
 
 #. module: stock
@@ -1859,10 +1842,9 @@ msgid "Stock Valuation Account (Outgoing)"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/stock.py:1805
-#, python-format
-msgid "Operation Forbidden!"
-msgstr ""
+#: view:stock.return.picking.memory:0
+msgid "Return Picking Memory"
+msgstr "Memoría de Guía de Devolución"
 
 #. module: stock
 #: model:ir.actions.act_window,name:stock.action_move_form2
@@ -1967,6 +1949,13 @@ msgstr ""
 #. module: stock
 #: view:stock.partial.picking:0
 msgid "Transfer Products"
+msgstr ""
+
+#. module: stock
+#: help:product.template,property_stock_inventory:0
+msgid ""
+"This stock location will be used, instead of the default one, as the source "
+"location for stock moves generated when you do an inventory."
 msgstr ""
 
 #. module: stock
@@ -2276,11 +2265,6 @@ msgid "Supplier Address :"
 msgstr ""
 
 #. module: stock
-#: field:stock.config.settings,group_product_variant:0
-msgid "Support multiple variants per products  "
-msgstr ""
-
-#. module: stock
 #: view:stock.inventory.line:0
 msgid "Stock Inventory Lines"
 msgstr ""
@@ -2357,6 +2341,12 @@ msgstr ""
 #. module: stock
 #: view:stock.move:0
 msgid "Creation"
+msgstr ""
+
+#. module: stock
+#: code:addons/stock/stock.py:1776
+#, python-format
+msgid "Operation forbidden !"
 msgstr ""
 
 #. module: stock
@@ -2544,11 +2534,8 @@ msgid "Notes"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/wizard/stock_partial_picking.py:181
-#, python-format
-msgid ""
-"The unit of measure rounding does not allow you to ship \"%s %s\", only "
-"rounding of \"%s %s\" is accepted by the Unit of Measure."
+#: selection:stock.picking,state:0
+msgid "Transferred"
 msgstr ""
 
 #. module: stock
@@ -2755,8 +2742,8 @@ msgid "Cancel Inventory"
 msgstr ""
 
 #. module: stock
-#: view:stock.move:0
-msgid "Cancel Move"
+#: field:stock.config.settings,group_product_variant:0
+msgid "Support multiple variants per products  "
 msgstr ""
 
 #. module: stock
@@ -2804,11 +2791,6 @@ msgstr ""
 #. module: stock
 #: model:ir.model,name:stock.model_stock_report_prodlots
 msgid "Stock report by serial number"
-msgstr ""
-
-#. module: stock
-#: view:stock.picking:0
-msgid "Cancel Transfer"
 msgstr ""
 
 #. module: stock
@@ -3084,6 +3066,12 @@ msgid "Properties"
 msgstr ""
 
 #. module: stock
+#: code:addons/stock/stock.py:1120
+#, python-format
+msgid "Error, no partner !"
+msgstr ""
+
+#. module: stock
 #: field:stock.inventory.line.split.lines,wizard_exist_id:0
 #: field:stock.inventory.line.split.lines,wizard_id:0
 #: field:stock.move.split.lines,wizard_id:0
@@ -3294,11 +3282,6 @@ msgstr ""
 #. module: stock
 #: view:stock.move:0
 msgid "Scheduled"
-msgstr ""
-
-#. module: stock
-#: view:stock.picking:0
-msgid "Add an internal note..."
 msgstr ""
 
 #. module: stock
@@ -3547,6 +3530,13 @@ msgid "Shelf 1"
 msgstr ""
 
 #. module: stock
+#: help:stock.picking,date:0
+#: help:stock.picking.in,date:0
+#: help:stock.picking.out,date:0
+msgid "Creation time, usually the time of the order."
+msgstr ""
+
+#. module: stock
 #: field:stock.tracking,name:0
 msgid "Pack Reference"
 msgstr ""
@@ -3568,15 +3558,6 @@ msgstr ""
 #. module: stock
 #: model:res.groups,name:stock.group_stock_manager
 msgid "Manager"
-msgstr ""
-
-#. module: stock
-#: code:addons/stock/wizard/stock_partial_picking.py:192
-#, python-format
-msgid ""
-"The rounding of the initial uom does not allow you to ship \"%s %s\", as it "
-"would let a quantity of \"%s %s\" to ship and only rounding of \"%s %s\" is "
-"accepted by the uom."
 msgstr ""
 
 #. module: stock
@@ -3769,12 +3750,6 @@ msgid "Icon"
 msgstr ""
 
 #. module: stock
-#: selection:report.stock.inventory,location_type:0
-#: selection:stock.location,usage:0
-msgid "Transit Location for Inter-Companies Transfers"
-msgstr ""
-
-#. module: stock
 #: field:stock.partial.move,hide_tracking:0
 #: field:stock.partial.move.line,tracking:0
 #: field:stock.partial.picking,hide_tracking:0
@@ -3879,11 +3854,11 @@ msgid "This picking list does not require invoicing."
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/wizard/stock_partial_move.py:72
-#: code:addons/stock/wizard/stock_return_picking.py:189
+#: code:addons/stock/wizard/stock_partial_picking.py:181
 #, python-format
 msgid ""
-"You have manually created product lines, please delete them to proceed"
+"The unit of measure rounding does not allow you to ship \"%s %s\", only "
+"roundings of \"%s %s\" is accepted by the Unit of Measure."
 msgstr ""
 
 #. module: stock
@@ -3930,9 +3905,11 @@ msgid "Serial Number Revisions"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/stock.py:1134
-#, python-format
-msgid "Error, no partner!"
+#: model:ir.actions.act_window,name:stock.action_picking_tree
+#: model:ir.model,name:stock.model_stock_picking_out
+#: model:ir.ui.menu,name:stock.menu_action_picking_tree
+#: view:stock.picking.out:0
+msgid "Delivery Orders"
 msgstr ""
 
 #. module: stock
@@ -4010,11 +3987,6 @@ msgstr ""
 #: field:stock.picking.in,backorder_id:0
 #: field:stock.picking.out,backorder_id:0
 msgid "Back Order of"
-msgstr ""
-
-#. module: stock
-#: model:ir.model,name:stock.model_action_traceability
-msgid "Action traceability "
 msgstr ""
 
 #. module: stock
@@ -4153,11 +4125,9 @@ msgid "Product Template"
 msgstr ""
 
 #. module: stock
-#: model:ir.actions.act_window,name:stock.action_picking_tree
-#: model:ir.model,name:stock.model_stock_picking_out
-#: model:ir.ui.menu,name:stock.menu_action_picking_tree
-#: view:stock.picking.out:0
-msgid "Delivery Orders"
+#: selection:report.stock.inventory,month:0
+#: selection:report.stock.move,month:0
+msgid "December"
 msgstr ""
 
 #. module: stock
@@ -4767,13 +4737,6 @@ msgid "Invoiced date"
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/wizard/stock_partial_move.py:72
-#: code:addons/stock/wizard/stock_return_picking.py:189
-#, python-format
-msgid "Warning !"
-msgstr ""
-
-#. module: stock
 #: model:stock.location,name:stock.stock_location_output
 msgid "Output"
 msgstr ""
@@ -4816,10 +4779,12 @@ msgid ""
 msgstr ""
 
 #. module: stock
-#: help:product.template,property_stock_inventory:0
+#: code:addons/stock/wizard/stock_partial_picking.py:192
+#, python-format
 msgid ""
-"This stock location will be used, instead of the default one, as the source "
-"location for stock moves generated when you do an inventory."
+"The rounding of the initial uom does not allow you to ship \"%s %s\", as it "
+"would let a quantity of \"%s %s\" to ship and only roundings of \"%s %s\" is "
+"accepted by the uom."
 msgstr ""
 
 #. module: stock

@@ -1,0 +1,370 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* at_commission
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1-dev\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-10-25 06:19+0000\n"
+"PO-Revision-Date: 2012-10-25 08:20+0100\n"
+"Last-Translator: Pichler Edwin <edwin.pichler@funkring.net>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: at_commission
+#: view:at_commission.recalc_wizard:0
+msgid "Do you really want to recalculate all commissions? It will take several minutes!"
+msgstr "Wollen Sie wirklich alle Provisionen neu berechnen? Das kann bis zu mehreren Minuten dauern!"
+
+#. module: at_commission
+#: model:ir.model,name:at_commission.model_at_commission_recalc_wizard
+msgid "Assistent um die Provisionen neu zu berechnen"
+msgstr "Assistent um die Provisionen neu zu berechnen"
+
+#. module: at_commission
+#: view:at_commission.commission_invoice_wizard:0
+msgid "Create Invoices"
+msgstr "Erstelle Rechnungen"
+
+#. module: at_commission
+#: view:at_commission.line:0
+#: field:at_commission.line,partner_id:0
+msgid "Salesman"
+msgstr "Verkäufer"
+
+#. module: at_commission
+#: model:ir.model,name:at_commission.model_at_commission_line
+msgid "Provisionseintrag"
+msgstr "Provisionseintrag"
+
+#. module: at_commission
+#: selection:res.company,commission_type:0
+msgid "Customer Invoice"
+msgstr "Ausgangsrechnung"
+
+#. module: at_commission
+#: constraint:res.company:0
+msgid "Error! You can not create recursive companies."
+msgstr "Fehler! Sie können keine rekursiven Unternehmen erzeugen."
+
+#. module: at_commission
+#: field:at_commission.line,base_commission:0
+msgid "Base Commission %"
+msgstr "Grundprovision %"
+
+#. module: at_commission
+#: help:at_commission.commission_invoice_wizard,related_invoice:0
+msgid "The related invoice will be displayed"
+msgstr "Zugehörige Rechnung wird angezeigt"
+
+#. module: at_commission
+#: view:at_commission.line:0
+#: field:at_commission.line,period_id:0
+#: view:at_commission.recalc_wizard:0
+msgid "Period"
+msgstr "Periode"
+
+#. module: at_commission
+#: view:at_commission.line:0
+#: view:res.company:0
+msgid "Commission"
+msgstr "Provision"
+
+#. module: at_commission
+#: model:ir.model,name:at_commission.model_sale_order
+msgid "Verkaufsauftrag"
+msgstr "Verkaufsauftrag"
+
+#. module: at_commission
+#: field:at_commission.commission_invoice_wizard,related_invoice:0
+msgid "Related Invoice"
+msgstr "Zugehörige Rechnung"
+
+#. module: at_commission
+#: model:ir.model,name:at_commission.model_at_commission_commission_invoice_wizard
+msgid "Erstelle Rechnung von Provisionen"
+msgstr "Erstelle Rechnung von Provisionen"
+
+#. module: at_commission
+#: view:at_commission.recalc_wizard:0
+msgid "Recalculate Commissions"
+msgstr "Neuberechnung der Provisionen"
+
+#. module: at_commission
+#: view:at_commission.line:0
+msgid "Total subtotal"
+msgstr "Gesamtumsatz"
+
+#. module: at_commission
+#: view:at_commission.commission_invoice_wizard:0
+msgid "Commission Invoice Wizard"
+msgstr "Rechnungsprovions Assistent"
+
+#. module: at_commission
+#: view:at_commission.line:0
+msgid "To Invoice"
+msgstr "Abzurechnen"
+
+#. module: at_commission
+#: view:at_commission.line:0
+msgid "Total commissions"
+msgstr "Gesamtprovisionen"
+
+#. module: at_commission
+#: view:at_commission.line:0
+#: field:at_commission.line,sale_product_id:0
+msgid "Product"
+msgstr "Produkt"
+
+#. module: at_commission
+#: sql_constraint:sale.order:0
+msgid "Order Reference must be unique !"
+msgstr "Die Referenz muss eindeutig sein!"
+
+#. module: at_commission
+#: code:addons/at_commission/commission_invoice_wizard.py:93
+#, python-format
+msgid "Error !"
+msgstr "Fehler !"
+
+#. module: at_commission
+#: field:at_commission.commission_invoice_wizard,name:0
+msgid "Description"
+msgstr "Beschreibung"
+
+#. module: at_commission
+#: code:addons/at_commission/commission_invoice_wizard.py:94
+#, python-format
+msgid "There is no purchase journal defined for this company: \"%s\" (id:%d)"
+msgstr "Es ist kein Einkaufs Journal definiert, für die Firma: \"%s\" (id:%d)"
+
+#. module: at_commission
+#: view:at_commission.line:0
+msgid "Journal"
+msgstr "Journal"
+
+#. module: at_commission
+#: field:at_commission.line,order_id:0
+msgid "Order"
+msgstr "Auftrag"
+
+#. module: at_commission
+#: field:at_commission.recalc_wizard,date_to:0
+msgid "Date to"
+msgstr "Bis"
+
+#. module: at_commission
+#: model:ir.model,name:at_commission.model_account_invoice
+msgid "Rechnung"
+msgstr "Rechnung"
+
+#. module: at_commission
+#: selection:res.company,commission_type:0
+msgid "Sale Order"
+msgstr "Verkaufsauftrag"
+
+#. module: at_commission
+#: field:res.company,commission_type:0
+msgid "Commission Type"
+msgstr "Provisionsbasis"
+
+#. module: at_commission
+#: code:addons/at_commission/commission_invoice_wizard.py:42
+#, python-format
+msgid "Provision %s"
+msgstr "Provision %s"
+
+#. module: at_commission
+#: view:res.company:0
+msgid "Configuration"
+msgstr "Konfiguration"
+
+#. module: at_commission
+#: model:product.uom,name:at_commission.product_commission_uom
+#: model:product.uom.categ,name:at_commission.product_commission_uom_category
+msgid "Provision"
+msgstr "Provision"
+
+#. module: at_commission
+#: code:addons/at_commission/commission_invoice_wizard.py:62
+#, python-format
+msgid "%s %% Commission +%s %% Bonus from %s %s"
+msgstr "%s %%  Provision +%s %% Bonus von %s %s"
+
+#. module: at_commission
+#: code:addons/at_commission/commission_invoice_wizard.py:60
+#, python-format
+msgid "%s %% Commission from %s %s"
+msgstr "%s %%  Provision von %s %s"
+
+#. module: at_commission
+#: model:ir.actions.act_window,name:at_commission.action_commission_invoice_wizard
+msgid "Rechnungsprovisionen"
+msgstr "Rechnungsprovisionen"
+
+#. module: at_commission
+#: field:at_commission.line,order_line_id:0
+msgid "Order Line"
+msgstr "Auftragszeile"
+
+#. module: at_commission
+#: view:at_commission.recalc_wizard:0
+msgid "Recalculate"
+msgstr "Neuberechnung"
+
+#. module: at_commission
+#: field:at_commission.line,line_id:0
+msgid "Analytic line"
+msgstr "Analytische Zeile"
+
+#. module: at_commission
+#: model:ir.module.module,shortdesc:at_commission.module_meta_information
+msgid "at_commission"
+msgstr "at_commission"
+
+#. module: at_commission
+#: code:addons/at_commission/commission_invoice_wizard.py:66
+#, python-format
+msgid "%s %% Commission -%s %% Malus from %s %s"
+msgstr "%s %%  Provision -%s %% Malus von %s %s"
+
+#. module: at_commission
+#: view:at_commission.line:0
+msgid "Total amount"
+msgstr "Gesamtbetrag"
+
+#. module: at_commission
+#: model:ir.ui.menu,name:at_commission.menu_commission_line
+#: model:product.category,name:at_commission.product_category
+msgid "Provisionen"
+msgstr "Provisionen"
+
+#. module: at_commission
+#: view:at_commission.line:0
+msgid "Sale"
+msgstr "Verkauf"
+
+#. module: at_commission
+#: view:at_commission.line:0
+msgid "Total unit amount"
+msgstr "Gesamtmenge"
+
+#. module: at_commission
+#: model:ir.actions.act_window,name:at_commission.action_commission_line
+msgid "Provisionszeile"
+msgstr "Provisionszeile"
+
+#. module: at_commission
+#: model:ir.model,name:at_commission.model_res_company
+msgid "Unternehmen"
+msgstr "Unternehmen"
+
+#. module: at_commission
+#: field:at_commission.line,total_commission:0
+msgid "Commission %"
+msgstr "Provision %"
+
+#. module: at_commission
+#: view:at_commission.line:0
+msgid "Invoicing"
+msgstr "Verrechnung"
+
+#. module: at_commission
+#: model:ir.actions.act_window,name:at_commission.action_commission_recalc
+#: model:ir.ui.menu,name:at_commission.menu_at_commission_recalc_wizard
+msgid "Neuberechnung der Provisionen"
+msgstr "Neuberechnung der Provisionen"
+
+#. module: at_commission
+#: view:at_commission.line:0
+msgid "Volumne of Amount"
+msgstr "Umsatz"
+
+#. module: at_commission
+#: view:at_commission.line:0
+msgid "Group By..."
+msgstr "Guppieren..."
+
+#. module: at_commission
+#: view:at_commission.commission_invoice_wizard:0
+msgid "Do you want to show details of work in invoice ?"
+msgstr "Wollen Sie weitere Details in der Rechnung zeigen?"
+
+#. module: at_commission
+#: model:ir.module.module,description:at_commission.module_meta_information
+msgid ""
+"\n"
+"       Das Grundmodule um Provisionen zu verwalten\n"
+"    "
+msgstr ""
+"\n"
+"       Das Grundmodule um Provisionen zu verwalten\n"
+"    "
+
+#. module: at_commission
+#: field:at_commission.line,invoice_line_id:0
+msgid "Invoice Line"
+msgstr "Rechnungszeile"
+
+#. module: at_commission
+#: view:at_commission.line:0
+msgid "General"
+msgstr "Allgemein"
+
+#. module: at_commission
+#: field:at_commission.line,price_sub:0
+msgid "Subtotal"
+msgstr "Zwischensumme"
+
+#. module: at_commission
+#: field:at_commission.recalc_wizard,date_from:0
+msgid "Date from"
+msgstr "Von"
+
+#. module: at_commission
+#: field:at_commission.line,invoice_id:0
+msgid "Invoice"
+msgstr "Rechnung"
+
+#. module: at_commission
+#: view:at_commission.commission_invoice_wizard:0
+#: view:at_commission.recalc_wizard:0
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#. module: at_commission
+#: view:at_commission.line:0
+#: field:at_commission.line,sale_partner_id:0
+msgid "Partner"
+msgstr "Partner"
+
+#. module: at_commission
+#: view:at_commission.line:0
+msgid "Commission Lines"
+msgstr "Provisionszeilen"
+
+#. module: at_commission
+#: field:at_commission.line,invoiced_id:0
+msgid "Invoiced"
+msgstr "Abzurechnen"
+
+#. module: at_commission
+#: view:at_commission.line:0
+msgid "Commission Line"
+msgstr "Provisionszeile"
+
+#. module: at_commission
+#: help:at_commission.recalc_wizard,date_from:0
+#: help:at_commission.recalc_wizard,date_to:0
+msgid "The date which you entered is involved!"
+msgstr "Das angegebene Datum ist in der Suche miteinbezogen!"
+
+#. module: at_commission
+#: view:at_commission.commission_invoice_wizard:0
+msgid "Billing Data"
+msgstr "Abrechnungsdaten"
+

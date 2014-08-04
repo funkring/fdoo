@@ -21,7 +21,7 @@
 from openerp.osv import osv, fields
 from openerp.addons.edi import EDIMixin
 
-from werkzeug import url_encode
+from urllib import urlencode
 
 INVOICE_LINE_EDI_STRUCT = {
     'name': True,
@@ -274,7 +274,7 @@ class account_invoice(osv.osv, EDIMixin):
                     "no_note": "1",
                     "bn": "OpenERP_Invoice_PayNow_" + inv.currency_id.name,
                 }
-                res[inv.id] = "https://www.paypal.com/cgi-bin/webscr?" + url_encode(params)
+                res[inv.id] = "https://www.paypal.com/cgi-bin/webscr?" + urlencode(params)
         return res
 
     _columns = {

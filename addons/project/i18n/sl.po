@@ -1,21 +1,20 @@
-# Slovenian translation for openobject-addons
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
-# This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* project
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openobject-addons\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:36+0000\n"
-"PO-Revision-Date: 2013-11-21 11:30+0000\n"
-"Last-Translator: Dušan Laznik (Mentis) <laznik@mentis.si>\n"
-"Language-Team: Slovenian <sl@li.org>\n"
+"Project-Id-Version: OpenERP Server 6.0dev\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-12-21 17:04+0000\n"
+"PO-Revision-Date: 2010-08-03 09:21+0000\n"
+"Last-Translator: Mantavya Gajjar (Open ERP) <Unknown>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-22 06:03+0000\n"
-"X-Generator: Launchpad (build 16831)\n"
+"X-Launchpad-Export-Date: 2014-03-27 05:49+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: project
 #: view:project.project:0
@@ -204,18 +203,9 @@ msgid "Planned Time"
 msgstr "Planirani čas"
 
 #. module: project
-#: view:project.task:0
-#: selection:project.task,state:0
-#: selection:project.task.delegate,state:0
-#: selection:project.task.history,state:0
-#: selection:project.task.history.cumulative,state:0
-#: model:project.task.type,name:project.project_tt_deployment
-#: selection:project.task.type,state:0
-#: view:report.project.task.user:0
-#: selection:report.project.task.user,state:0
-#: view:res.partner:0
-msgid "Done"
-msgstr "Zaključeno"
+#: selection:project.project,privacy_visibility:0
+msgid "Public"
+msgstr "Javno"
 
 #. module: project
 #: model:project.category,name:project.project_category_01
@@ -338,11 +328,6 @@ msgid "June"
 msgstr "Junij"
 
 #. module: project
-#: view:project.task:0
-msgid "Gantt View"
-msgstr "Gantt diagram"
-
-#. module: project
 #: selection:report.project.task.user,month:0
 msgid "October"
 msgstr "Oktober"
@@ -371,11 +356,6 @@ msgstr "Ko je naloga končana , preide v status zaključeno."
 #: field:project.task,message_summary:0
 msgid "Summary"
 msgstr "Povzetek"
-
-#. module: project
-#: view:project.task:0
-msgid "Task summary..."
-msgstr "Povzetek naloge..."
 
 #. module: project
 #: view:project.project:0
@@ -484,11 +464,6 @@ msgstr "Delegiranje"
 #: field:project.task,create_date:0
 msgid "Create Date"
 msgstr "Datum nastanka"
-
-#. module: project
-#: view:project.task:0
-msgid "Add a Description..."
-msgstr "Dodajanje opisa ..."
 
 #. module: project
 #: view:res.partner:0
@@ -886,11 +861,6 @@ msgid "GTD"
 msgstr "GTD"
 
 #. module: project
-#: view:project.project:0
-msgid "Project Stages"
-msgstr "Stopnje projekta"
-
-#. module: project
 #: help:project.task,state:0
 msgid ""
 "The status is set to 'Draft', when a case is created.                      "
@@ -940,11 +910,6 @@ msgstr ""
 #: view:project.task:0
 msgid "10"
 msgstr "10"
-
-#. module: project
-#: view:project.project:0
-msgid "Cancel Project"
-msgstr "Preklic projekta"
 
 #. module: project
 #: help:project.project,analytic_account_id:0
@@ -1010,22 +975,9 @@ msgid "Manager"
 msgstr "Vodja"
 
 #. module: project
-#: model:ir.actions.act_window,help:project.project_category_action
-msgid ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"                Click to add a new tag.\n"
-"              </p>\n"
-"            "
-msgstr ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"                Nova ključna beseda.\n"
-"              </p>\n"
-"            "
-
-#. module: project
-#: model:ir.ui.menu,name:project.menu_task_types_view
-msgid "Task Stages"
-msgstr "Stopnje opravil"
+#: selection:project.task,priority:0
+msgid "Important"
+msgstr "Pomembno"
 
 #. module: project
 #: field:project.category,name:0
@@ -1305,11 +1257,6 @@ msgid "Delay Hours"
 msgstr "Zamuda v urah"
 
 #. module: project
-#: view:project.task.type:0
-msgid "Add a description..."
-msgstr "Dodajanje opisa..."
-
-#. module: project
 #: view:project.project:0
 msgid "Team"
 msgstr "Ekipa"
@@ -1481,9 +1428,18 @@ msgid "Attachments"
 msgstr "Priloge"
 
 #. module: project
-#: view:project.category:0
-msgid "Issue Version"
-msgstr "Verzija"
+#: view:project.task:0
+#: selection:project.task,state:0
+#: selection:project.task.delegate,state:0
+#: selection:project.task.history,state:0
+#: selection:project.task.history.cumulative,state:0
+#: model:project.task.type,name:project.project_tt_deployment
+#: selection:project.task.type,state:0
+#: view:report.project.task.user:0
+#: selection:report.project.task.user,state:0
+#: view:res.partner:0
+msgid "Done"
+msgstr "Zaključeno"
 
 #. module: project
 #: code:addons/project/project.py:182
@@ -1713,9 +1669,9 @@ msgid "Generate tasks from sale orders"
 msgstr "Generiranje nalog iz naročil kupcev"
 
 #. module: project
-#: selection:project.task,priority:0
-msgid "Important"
-msgstr "Pomembno"
+#: model:ir.ui.menu,name:project.menu_task_types_view
+msgid "Task Stages"
+msgstr "Stopnje opravil"
 
 #. module: project
 #: model:process.node,note:project.process_node_drafttask0
@@ -2172,6 +2128,11 @@ msgstr ""
 "                Namesti modul project_issue_sheet."
 
 #. module: project
+#: selection:project.project,privacy_visibility:0
+msgid "Followers Only"
+msgstr "Samo sledilci"
+
+#. module: project
 #: view:board.board:0
 #: field:project.project,task_count:0
 msgid "Open Tasks"
@@ -2210,8 +2171,106 @@ msgstr "Leto"
 msgid "Tasks Stages"
 msgstr "Stopnje nalog"
 
-#~ msgid "Public"
-#~ msgstr "Javno"
+#~ msgid "Configuration"
+#~ msgstr "Konfiguracija"
 
-#~ msgid "Followers Only"
-#~ msgstr "Samo sledilci"
+#~ msgid "Invalid XML for View Architecture!"
+#~ msgstr "Neveljaven XML za arhitekturo pogleda."
+
+#~ msgid ""
+#~ "The Object name must start with x_ and not contain any special character !"
+#~ msgstr ""
+#~ "Naziv objekta se mora začeti z 'x_' in ne sme vsebovati posebnih znakov."
+
+#~ msgid "Close Task"
+#~ msgstr "Zapri opravilo"
+
+#~ msgid "Subproject"
+#~ msgstr "Podprojekt"
+
+#~ msgid "Update"
+#~ msgstr "Posodobi"
+
+#~ msgid "Validate"
+#~ msgstr "Preveri"
+
+#~ msgid "Days"
+#~ msgstr "dni"
+
+#~ msgid "All Tasks"
+#~ msgstr "Vsa opravila"
+
+#~ msgid "Send Message"
+#~ msgstr "Pošlji sporočilo"
+
+#~ msgid "Invalid model name in the action definition."
+#~ msgstr "Napačno ime modela v definiciji dejanja."
+
+#~ msgid "Assigned tasks"
+#~ msgstr "Dodeljene naloge"
+
+#~ msgid "Importance"
+#~ msgstr "Pomembnost"
+
+#~ msgid "My projects"
+#~ msgstr "Moji projekti"
+
+#~ msgid "New Project"
+#~ msgstr "Nov projekt"
+
+#~ msgid "Weeks"
+#~ msgstr "Tedni"
+
+#~ msgid "Type"
+#~ msgstr "Tip"
+
+#~ msgid "Hours"
+#~ msgstr "Ur"
+
+#~ msgid "Task Details"
+#~ msgstr "Podrobnosti opravila"
+
+#~ msgid "Dates"
+#~ msgstr "Datumi"
+
+#~ msgid "New Task"
+#~ msgstr "Novo opravilo"
+
+#~ msgid "Planned"
+#~ msgstr "Načrtovano"
+
+#~ msgid "Review"
+#~ msgstr "Pregled"
+
+#~ msgid "Information"
+#~ msgstr "Informacije"
+
+#~ msgid "Bug"
+#~ msgstr "Hrošč"
+
+#~ msgid "Quotation"
+#~ msgstr "Ponudba"
+
+#~ msgid "Months"
+#~ msgstr "Meseci"
+
+#~ msgid "Date Closed"
+#~ msgstr "Datum zaključka"
+
+#~ msgid "Task summary"
+#~ msgstr "Povzetek naloge"
+
+#~ msgid "Delay"
+#~ msgstr "Zakasnitev"
+
+#~ msgid "Running"
+#~ msgstr "V teku"
+
+#~ msgid "Project tasks"
+#~ msgstr "Naloge projekta"
+
+#~ msgid "Timesheets"
+#~ msgstr "Časovnice"
+
+#~ msgid "My Open Tasks"
+#~ msgstr "Moje odprte naloge"

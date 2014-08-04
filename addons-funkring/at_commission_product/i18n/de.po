@@ -1,0 +1,149 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* at_commission_product
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1-dev\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-10-24 09:52+0000\n"
+"PO-Revision-Date: 2012-10-24 11:53+0100\n"
+"Last-Translator: Pichler Edwin <edwin.pichler@funkring.net>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: at_commission_product
+#: model:ir.model,name:at_commission_product.model_at_commission_recalc_wizard
+msgid "Assistent um die Provisionen neu zu berechnen"
+msgstr "Assistent um die Provisionen neu zu berechnen"
+
+#. module: at_commission_product
+#: code:addons/at_commission_product/account.py:70
+#: code:addons/at_commission_product/sale.py:48
+#: code:addons/at_commission_product/sale.py:100
+#, python-format
+msgid "Product Commission: %s"
+msgstr "Produkt Provision: %s"
+
+#. module: at_commission_product
+#: view:product.product:0
+#: field:product.product,commission_ids:0
+#: view:res.partner:0
+msgid "Commission"
+msgstr "Provision"
+
+#. module: at_commission_product
+#: model:ir.model,name:at_commission_product.model_sale_order
+msgid "Verkaufsauftrag"
+msgstr "Verkaufsauftrag"
+
+#. module: at_commission_product
+#: field:at_commission_product.commission,product_id:0
+msgid "Product"
+msgstr "Produkt"
+
+#. module: at_commission_product
+#: sql_constraint:sale.order:0
+msgid "Order Reference must be unique !"
+msgstr "Die Referenz muss eindeutig sein!"
+
+#. module: at_commission_product
+#: code:addons/at_commission_product/sale.py:44
+#: code:addons/at_commission_product/sale.py:96
+#, python-format
+msgid "Error !"
+msgstr "Error !"
+
+#. module: at_commission_product
+#: field:res.partner,product_commission_ids:0
+msgid "Product Commission"
+msgstr "Produkt Provision"
+
+#. module: at_commission_product
+#: view:res.partner:0
+msgid "Product Commissions"
+msgstr "Produkt Provisionen"
+
+#. module: at_commission_product
+#: model:ir.model,name:at_commission_product.model_at_commission_product_commission
+msgid "Provision"
+msgstr "Provision"
+
+#. module: at_commission_product
+#: field:at_commission_product.commission,property_commission_product:0
+msgid "Invoice Product"
+msgstr "Verrechnungsprodukt"
+
+#. module: at_commission_product
+#: model:ir.model,name:at_commission_product.model_account_invoice
+msgid "Rechnung"
+msgstr "Rechnung"
+
+#. module: at_commission_product
+#: model:ir.model,name:at_commission_product.model_product_product
+msgid "Produkt"
+msgstr "Produkt"
+
+#. module: at_commission_product
+#: model:ir.module.module,description:at_commission_product.module_meta_information
+msgid ""
+"\n"
+"       Ein Modul zum Verrechnen von Provisionen anhand von Produkten\n"
+"    "
+msgstr ""
+"\n"
+"       Ein Modul zum Verrechnen von Provisionen anhand von Produkten\n"
+"    "
+
+#. module: at_commission_product
+#: model:product.template,name:at_commission_product.product_default_product_template
+msgid "Produkt Provision"
+msgstr "Produkt Provision"
+
+#. module: at_commission_product
+#: view:product.product:0
+#: view:res.partner:0
+msgid "Commissions"
+msgstr "Provisionen"
+
+#. module: at_commission_product
+#: model:ir.module.module,shortdesc:at_commission_product.module_meta_information
+msgid "at_commission_product"
+msgstr "at_commission_product"
+
+#. module: at_commission_product
+#: constraint:product.product:0
+msgid "Error: Invalid ean code"
+msgstr "Fehler: Falscher EAN code"
+
+#. module: at_commission_product
+#: field:at_commission_product.commission,property_analytic_journal:0
+msgid "Commission Journal"
+msgstr "Provision Journal"
+
+#. module: at_commission_product
+#: code:addons/at_commission_product/sale.py:44
+#: code:addons/at_commission_product/sale.py:96
+#, python-format
+msgid "No Period found for creating commission line"
+msgstr "Keine Periode gefunden um eine Provisionszeile anzulegen"
+
+#. module: at_commission_product
+#: field:at_commission_product.commission,partner_id:0
+#: model:ir.model,name:at_commission_product.model_res_partner
+msgid "Partner"
+msgstr "Partner"
+
+#. module: at_commission_product
+#: field:at_commission_product.commission,commission_percent:0
+msgid "Commission %"
+msgstr "Provision %"
+
+#. module: at_commission_product
+#: view:product.product:0
+msgid "Partner Commissions"
+msgstr "Partner Provision"
+

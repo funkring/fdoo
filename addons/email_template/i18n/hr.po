@@ -1,21 +1,21 @@
 # Croatian translation for openobject-addons
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# Copyright (c) 2011 Rosetta Contributors and Canonical Ltd 2011
 # This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:37+0000\n"
-"PO-Revision-Date: 2013-11-07 11:02+0000\n"
-"Last-Translator: Krešimir Jeđud <kresimir.jedud@infokom.hr>\n"
+"POT-Creation-Date: 2012-12-21 17:05+0000\n"
+"PO-Revision-Date: 2011-12-19 17:08+0000\n"
+"Last-Translator: Goran Kliska <gkliska@gmail.com>\n"
 "Language-Team: Croatian <hr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-21 06:08+0000\n"
-"X-Generator: Launchpad (build 16831)\n"
+"X-Launchpad-Export-Date: 2014-03-27 07:15+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: email_template
 #: field:email.template,email_from:0
@@ -24,12 +24,9 @@ msgid "From"
 msgstr "Od"
 
 #. module: email_template
-#: view:res.partner:0
-msgid ""
-"Partners that did not ask not to be included in mass mailing campaigns"
-msgstr ""
-"Partneri koji nisu tražili da budu uključeni u kampanju masovnog slanja e-"
-"mailova."
+#: field:mail.compose.message,template_id:0
+msgid "Template"
+msgstr "Predložak"
 
 #. module: email_template
 #: help:email.template,ref_ir_value:0
@@ -43,19 +40,10 @@ msgid "Opt-Out"
 msgstr "Isključiti iz masove e-pošte"
 
 #. module: email_template
-#: view:email.template:0
-msgid "Email contents (in raw HTML format)"
-msgstr ""
-
-#. module: email_template
-#: help:email.template,email_from:0
-#: help:email_template.preview,email_from:0
-msgid ""
-"Sender address (placeholders may be used here). If not set, the default "
-"value will be the author's email alias if configured, or email address."
-msgstr ""
-"Adresa pošiljatelja. Ako nije podešena, koristiti će se e-mail alias autora "
-"ukoliko je podešen, ili e-mail adresa."
+#: field:email.template,email_to:0
+#: field:email_template.preview,email_to:0
+msgid "To (Emails)"
+msgstr "Za (E-mail)"
 
 #. module: email_template
 #: field:email.template,mail_server_id:0
@@ -78,21 +66,31 @@ msgid "Field"
 msgstr "Polje"
 
 #. module: email_template
+#: help:email.template,email_from:0
+#: help:email_template.preview,email_from:0
+msgid "Sender address (placeholders may be used here)"
+msgstr ""
+
+#. module: email_template
 #: view:email.template:0
 msgid "Remove context action"
 msgstr "Ukloni dodatnu akciju"
+
+#. module: email_template
+#: help:email.template,mail_server_id:0
+#: help:email_template.preview,mail_server_id:0
+msgid ""
+"Optional preferred server for outgoing mails. If not set, the highest "
+"priority one will be used."
+msgstr ""
+"Preferirani server za izlaznu poštu. Ako nije podešen koristiti će se onaj "
+"sa najvišim prioritetom."
 
 #. module: email_template
 #: field:email.template,report_name:0
 #: field:email_template.preview,report_name:0
 msgid "Report Filename"
 msgstr ""
-
-#. module: email_template
-#: field:email.template,email_to:0
-#: field:email_template.preview,email_to:0
-msgid "To (Emails)"
-msgstr "Za (E-mail)"
 
 #. module: email_template
 #: view:email.template:0
@@ -123,11 +121,6 @@ msgid "%s (copy)"
 msgstr "%s (kopija)"
 
 #. module: email_template
-#: field:mail.compose.message,template_id:0
-msgid "Template"
-msgstr "Predložak"
-
-#. module: email_template
 #: help:email.template,user_signature:0
 #: help:email_template.preview,user_signature:0
 msgid ""
@@ -155,11 +148,6 @@ msgid ""
 msgstr ""
 
 #. module: email_template
-#: view:res.partner:0
-msgid "Available for mass mailing"
-msgstr "Dostupan za masovno slanje e-pošte"
-
-#. module: email_template
 #: model:ir.model,name:email_template.model_email_template
 msgid "Email Templates"
 msgstr "E-mail predlošci"
@@ -171,12 +159,6 @@ msgid ""
 "Name to use for the generated report file (may contain placeholders)\n"
 "The extension can be omitted and will then come from the report type."
 msgstr ""
-
-#. module: email_template
-#: code:addons/email_template/email_template.py:234
-#, python-format
-msgid "Warning"
-msgstr "Upozorenje"
 
 #. module: email_template
 #: field:email.template,ref_ir_act_window:0
@@ -257,14 +239,6 @@ msgstr "Pregled"
 #. module: email_template
 #: view:email_template.preview:0
 msgid "Using sample document"
-msgstr ""
-
-#. module: email_template
-#: help:res.partner,opt_out:0
-msgid ""
-"If opt-out is checked, this contact has refused to receive emails for mass "
-"mailing and marketing campaign. Filter 'Available for Mass Mailing' allows "
-"users to filter the partners when performing mass mailing."
 msgstr ""
 
 #. module: email_template
@@ -447,14 +421,11 @@ msgid "Send Mail (%s)"
 msgstr "Pošalji e-mail (%s)"
 
 #. module: email_template
-#: help:email.template,mail_server_id:0
-#: help:email_template.preview,mail_server_id:0
+#: help:res.partner,opt_out:0
 msgid ""
-"Optional preferred server for outgoing mails. If not set, the highest "
-"priority one will be used."
+"If checked, this partner will not receive any automated email notifications, "
+"such as the availability of invoices."
 msgstr ""
-"Preferirani server za izlaznu poštu. Ako nije podešen koristiti će se onaj "
-"sa najvišim prioritetom."
 
 #. module: email_template
 #: help:email.template,auto_delete:0
@@ -476,9 +447,10 @@ msgid ""
 msgstr ""
 
 #. module: email_template
-#: view:res.partner:0
-msgid "Suppliers"
-msgstr "Dobavljači"
+#: code:addons/email_template/email_template.py:234
+#, python-format
+msgid "Warning"
+msgstr "Upozorenje"
 
 #. module: email_template
 #: field:email.template,user_signature:0
@@ -523,3 +495,30 @@ msgstr "Sadržaj"
 #: field:email_template.preview,subject:0
 msgid "Subject"
 msgstr "Naslov"
+
+#~ msgid "Email Content  "
+#~ msgstr "Sadržaj e-pošte  "
+
+#~ msgid "Approved"
+#~ msgstr "Odobreno"
+
+#~ msgid "Email Accounts"
+#~ msgstr "Korisnički računi e-pošte"
+
+#~ msgid "Send all mails"
+#~ msgstr "Pošalji svu e-poštu"
+
+#~ msgid "Send now"
+#~ msgstr "Pošalji odmah"
+
+#~ msgid "Not Applicable"
+#~ msgstr "nije primjenjivo"
+
+#~ msgid "Send Mail"
+#~ msgstr "Pošalji mail"
+
+#~ msgid "OK"
+#~ msgstr "U redu"
+
+#~ msgid "Accounts"
+#~ msgstr "Korisnički računi"

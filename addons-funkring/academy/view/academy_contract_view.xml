@@ -1,0 +1,50 @@
+<openerp>
+	<data>		
+		<record id="form_academy_contract" model="ir.ui.view">
+            <field name="name">academy.form_academy_contract</field>
+            <field name="model">academy.contract</field>
+            <field name="arch" type="xml">
+                <form string="Contract" version="7.0">
+                    <sheet>
+                    	<group>
+                    		<group>
+		                    	<field name="name" />
+		                    	<field name="date" />
+		                    	<field name="partner_id" />
+		                    </group>
+		                    <group>
+		                    	<field name="date_start" />
+		                    	<field name="date_end" />
+		                    </group>
+                    	</group>
+                    	<notebook>
+                    		<page string="Topics">
+	                    		<field name="topic_ids" />
+	                    	</page>
+	                    </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="tree_academy_contract" model="ir.ui.view">
+            <field name="name">academy.tree_academy_contract</field>
+            <field name="model">academy.contract</field>
+            <field name="arch" type="xml">
+                <tree string="Contract">
+                	<field name="name" />
+                   	<field name="date_start" />
+                   	<field name="date_end" />
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_academy_contract" model="ir.actions.act_window">
+            <field name="name">Contract</field>
+            <field name="res_model">academy.contract</field>            
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+				
+	</data>
+</openerp>

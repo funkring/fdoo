@@ -1,0 +1,6 @@
+<openerp>
+	<data>
+		<menuitem id="menu_product_assign_wizard" name="Product Assign from Template" parent="product.prod_config_main" 
+        		  action="action_product_assign" sequence="6"/>		
+	</data>
+</openerp>

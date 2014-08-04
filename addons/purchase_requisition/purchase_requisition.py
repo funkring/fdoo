@@ -22,7 +22,6 @@
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 import time
-from openerp import netsvc
 
 from openerp.osv import fields,osv
 from openerp.tools.translate import _
@@ -38,7 +37,7 @@ class purchase_requisition(osv.osv):
         'date_start': fields.datetime('Requisition Date'),
         'date_end': fields.datetime('Requisition Deadline'),
         'user_id': fields.many2one('res.users', 'Responsible'),
-        'exclusive': fields.selection([('exclusive','Purchase Requisition (exclusive)'),('multiple','Multiple Requisitions')],'Requisition Type', required=True, help="Purchase Requisition (exclusive):  On the confirmation of a purchase order, it cancels the remaining purchase order.\nPurchase Requisition(Multiple):  It allows to have multiple purchase orders.On confirmation of a purchase order it does not cancel the remaining orders"""),
+        'exclusive': fields.selection([('exclusive','Purchase Requisition (exclusive)'),('multiple','Multiple Requisitions')],'Requisition Type', required=True, help="Purchase Requisition (exclusive): On the confirmation of a purchase order, it cancels the remaining purchase order.\nMultiple Requisitions: It allows to have multiple purchase orders.On confirmation of a purchase order it does not cancel the remaining orders"""),
         'description': fields.text('Description'),
         'company_id': fields.many2one('res.company', 'Company', required=True),
         'purchase_ids' : fields.one2many('purchase.order','requisition_id','Purchase Orders',states={'done': [('readonly', True)]}),
@@ -72,8 +71,6 @@ class purchase_requisition(osv.osv):
             for purchase_id in purchase.purchase_ids:
                 if str(purchase_id.state) in('draft'):
                     purchase_order_obj.action_cancel(cr,uid,[purchase_id.id])
-        procurement_ids = self.pool['procurement.order'].search(cr, uid, [('requisition_id', 'in', ids)], context=context)
-        self.pool['procurement.order'].action_done(cr, uid, procurement_ids)
         return self.write(cr, uid, ids, {'state': 'cancel'})
 
     def tender_in_progress(self, cr, uid, ids, context=None):
@@ -83,8 +80,6 @@ class purchase_requisition(osv.osv):
         return self.write(cr, uid, ids, {'state': 'draft'})
 
     def tender_done(self, cr, uid, ids, context=None):
-        procurement_ids = self.pool['procurement.order'].search(cr, uid, [('requisition_id', 'in', ids)], context=context)
-        self.pool['procurement.order'].action_done(cr, uid, procurement_ids)
         return self.write(cr, uid, ids, {'state':'done', 'date_end':time.strftime('%Y-%m-%d %H:%M:%S')}, context=context)
 
     def _planned_date(self, requisition, delay=0.0):
@@ -101,7 +96,6 @@ class purchase_requisition(osv.osv):
     def _seller_details(self, cr, uid, requisition_line, supplier, context=None):
         product_uom = self.pool.get('product.uom')
         pricelist = self.pool.get('product.pricelist')
-        supplier_info = self.pool.get("product.supplierinfo")
         product = requisition_line.product_id
         default_uom_po_id = product.uom_po_id.id
         qty = product_uom._compute_qty(cr, uid, requisition_line.product_uom_id.id, requisition_line.product_qty, default_uom_po_id)
@@ -113,7 +107,7 @@ class purchase_requisition(osv.osv):
                 seller_delay = product_supplier.delay
                 seller_qty = product_supplier.qty
         supplier_pricelist = supplier.property_product_pricelist_purchase or False
-        seller_price = pricelist.price_get(cr, uid, [supplier_pricelist.id], product.id, qty, supplier.id, {'uom': default_uom_po_id})[supplier_pricelist.id]
+        seller_price = pricelist.price_get(cr, uid, [supplier_pricelist.id], product.id, qty, False, {'uom': default_uom_po_id})[supplier_pricelist.id]
         if seller_qty:
             qty = max(qty,seller_qty)
         date_planned = self._planned_date(requisition_line.requisition_id, seller_delay)
@@ -137,6 +131,7 @@ class purchase_requisition(osv.osv):
             if supplier.id in filter(lambda x: x, [rfq.state <> 'cancel' and rfq.partner_id.id or None for rfq in requisition.purchase_ids]):
                  raise osv.except_osv(_('Warning!'), _('You have already one %s purchase order for this partner, you must cancel this purchase order to create a new quotation.') % rfq.state)
             location_id = requisition.warehouse_id.lot_input_id.id
+            context.update({'mail_create_nolog': True})
             purchase_id = purchase_order.create(cr, uid, {
                         'origin': requisition.name,
                         'partner_id': supplier.id,
@@ -148,6 +143,7 @@ class purchase_requisition(osv.osv):
                         'notes':requisition.description,
                         'warehouse_id':requisition.warehouse_id.id ,
             })
+            purchase_order.message_post(cr, uid, [purchase_id], body=_("RFQ created"), context=context)
             res[requisition.id] = purchase_id
             for line in requisition.line_ids:
                 product = line.product_id
@@ -197,7 +193,6 @@ class purchase_requisition_line(osv.osv):
     _defaults = {
         'company_id': lambda self, cr, uid, c: self.pool.get('res.company')._company_default_get(cr, uid, 'purchase.requisition.line', context=c),
     }
-purchase_requisition_line()
 
 class purchase_order(osv.osv):
     _inherit = "purchase.order"
@@ -215,16 +210,10 @@ class purchase_order(osv.osv):
                         proc_ids = proc_obj.search(cr, uid, [('purchase_id', '=', order.id)])
                         if proc_ids and po.state=='confirmed':
                             proc_obj.write(cr, uid, proc_ids, {'purchase_id': po.id})
-                        wf_service = netsvc.LocalService("workflow")
-                        wf_service.trg_validate(uid, 'purchase.order', order.id, 'purchase_cancel', cr)
+                        self.signal_purchase_cancel(cr, uid, [order.id])
                     po.requisition_id.tender_done(context=context)
-            if po.requisition_id and all(purchase_id.state in ['draft', 'cancel'] for purchase_id in po.requisition_id.purchase_ids if purchase_id.id != po.id):
-                procurement_ids = self.pool['procurement.order'].search(cr, uid, [('requisition_id', '=', po.requisition_id.id)], context=context)
-                for procurement in proc_obj.browse(cr, uid, procurement_ids, context=context):
-                    procurement.move_id.write({'location_id': procurement.move_id.location_dest_id.id})
         return res
 
-purchase_order()
 
 class product_product(osv.osv):
     _inherit = 'product.product'
@@ -236,7 +225,6 @@ class product_product(osv.osv):
         'purchase_requisition': False
     }
 
-product_product()
 
 class procurement_order(osv.osv):
     _inherit = 'procurement.order'
@@ -280,7 +268,7 @@ class procurement_order(osv.osv):
         for procurement in self.browse(cr, uid, ids, context=context):
             if procurement.product_id.purchase_requisition:
                 user_company = self.pool['res.users'].browse(cr, uid, uid, context=context).company_id
-                req = requisition_obj.create(cr, uid, {
+                req = res[procurement.id] = requisition_obj.create(cr, uid, {
                     'origin': procurement.origin,
                     'date_end': procurement.date_planned,
                     'warehouse_id': self._get_warehouse(procurement, user_company),
@@ -296,7 +284,6 @@ class procurement_order(osv.osv):
                     'state': 'running',
                     'requisition_id': req
                 })
-                res[procurement.id] = 0
             else:
                 non_requisition.append(procurement.id)
 
@@ -305,6 +292,5 @@ class procurement_order(osv.osv):
 
         return res
 
-procurement_order()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

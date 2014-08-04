@@ -1,0 +1,13 @@
+<openerp>
+	<data>
+			<record id="access_edi_edi_all" model="ir.model.access">
+				<field name="name">edi_edi/all</field>
+				<field name="model_id" ref="model_edi_edi"/>
+				<field name="perm_read" eval="True"/>			
+				<field name="perm_unlink" eval="True"/>
+				<field name="perm_create" eval="True"/>
+				<field name="perm_write" eval="True"/>
+			</record>								
+	</data>
+</openerp>
+

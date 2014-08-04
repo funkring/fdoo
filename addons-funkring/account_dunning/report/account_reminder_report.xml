@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <report id="report_account_reminder_pdf"
+	               string="Account reminder report"
+	               name="account.reminder"
+	               auto="False"
+	               report_type="aeroo"
+	               model="account.reminder"
+	               process_sep="True"
+	               in_format="oo-odt"
+	               out_format="oo-pdf"
+	               parser="account_dunning/report/account_reminder_report.py"
+	               rml="account_dunning/report/account_reminder_report.odt"/>
+    </data>
+</openerp>

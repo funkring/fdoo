@@ -1,0 +1,42 @@
+<openerp>
+	<data>		
+		<record id="wizard_product_label" model="ir.ui.view">
+            <field name="name">product_label.wizard_product_label</field>
+            <field name="model">product.product_label_wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Product Label Wizard">
+                    <field name="product_ids" nolabel="1"/>  
+      
+                    <group col="6" colspan="4">
+	                    <label string="" colspan="4"/>
+		                <button special="cancel" string="Cancel" icon="gtk-cancel"/>
+						<button name="do_print" string="Print" type="object" icon="gtk-go-forward"/>	    	            
+	                </group>
+                </form>
+            </field>
+        </record>
+        
+     	<record id="action_product_label_wizard" model="ir.actions.act_window">
+			<field name="name">Product Label Wizard</field>
+		    <field name="type">ir.actions.act_window</field>		    
+		    <field name="res_model">product.product_label_wizard</field>   
+		    <field name="view_type">form</field>         
+		    <field name="view_mode">form</field>                                  
+		    <field name="view_id" ref="wizard_product_label"/>
+		    <field name="multi">True</field>
+		    <field name="target">new</field>
+		</record>	
+		
+		<record id="irconfig_product_label_wizard" model="ir.values" >
+		    <field name="model_id" ref="product.model_product_product" />
+		    <field name="model">product.product</field>
+		    <field name="object" eval="1" />
+		    <field name="name">Product Label Wizard</field>
+		    <field name="key2">client_action_multi</field>
+		    <field name="value" eval="'ir.actions.act_window,' + str(ref('action_product_label_wizard'))" />
+		    <field name="key">action</field>
+		</record>
+				
+    </data>
+</openerp>

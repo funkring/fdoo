@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <report id="report_delivery_stock_pdf"
+               string="Order Overview"
+               name="stock.picking.delivery"
+               auto="False"
+               stylesheet="global"
+               report_type="aeroo"
+               model="stock.picking"
+               in_format="oo-odt"
+               out_format="oo-pdf"
+               parser="supplier_area/report/delivery_stock_report.py"
+               rml="supplier_area/report/delivery_stock_report.odt"/>
+    </data>
+</openerp>

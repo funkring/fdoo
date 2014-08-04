@@ -22,7 +22,6 @@ import time
 import datetime
 
 from openerp.osv import fields, osv
-from openerp import pooler
 from openerp import tools
 from openerp.tools.translate import _
 
@@ -70,7 +69,6 @@ class project_project(osv.osv):
         result['help'] = help
         return result
 
-project_project()
 
 class project_work(osv.osv):
     _inherit = "project.task.work"
@@ -115,7 +113,10 @@ class project_work(osv.osv):
         if not context.get('no_analytic_entry',False):
             task_obj = task_obj.browse(cr, uid, vals['task_id'])
             result = self.get_user_related_details(cr, uid, vals.get('user_id', uid))
-            vals_line['name'] = '%s: %s' % (tools.ustr(task_obj.name), tools.ustr(vals['name'] or '/'))
+            if vals.get('name'):
+                vals_line['name'] = '%s: %s' % (tools.ustr(task_obj.name), tools.ustr(vals['name']) or '/')
+            else:
+                vals_line['name'] = tools.ustr(task_obj.name)
             vals_line['user_id'] = vals['user_id']
             vals_line['product_id'] = result['product_id']
             vals_line['date'] = vals['date'][:10]
@@ -172,7 +173,10 @@ class project_work(osv.osv):
 
             vals_line = {}
             if 'name' in vals:
-                vals_line['name'] = '%s: %s' % (tools.ustr(task.task_id.name), tools.ustr(vals['name'] or '/'))
+                if vals.get("name"):
+                    vals_line['name'] = '%s: %s' % (tools.ustr(task.task_id.name), tools.ustr(vals['name']) or '/')
+                else:
+                    vals_line['name'] = tools.ustr(task.task_id.name)
             if 'user_id' in vals:
                 vals_line['user_id'] = vals['user_id']
             if 'date' in vals:
@@ -200,8 +204,7 @@ class project_work(osv.osv):
                 if amount_unit and 'amount' in amount_unit.get('value',{}):
                     vals_line['amount'] = amount_unit['value']['amount']
 
-            if vals_line:
-                self.pool.get('hr.analytic.timesheet').write(cr, uid, [line_id.id], vals_line, context=context)
+            self.pool.get('hr.analytic.timesheet').write(cr, uid, [line_id.id], vals_line, context=context)
 
         return super(project_work,self).write(cr, uid, ids, vals, context)
 
@@ -220,7 +223,6 @@ class project_work(osv.osv):
         'hr_analytic_timesheet_id':fields.many2one('hr.analytic.timesheet','Related Timeline Id', ondelete='set null'),
     }
 
-project_work()
 
 class task(osv.osv):
     _inherit = "project.task"
@@ -252,11 +254,13 @@ class task(osv.osv):
                         if vals.get('project_id',False):
                             vals_line['account_id'] = acc_id
                         if vals.get('name',False):
-                            vals_line['name'] = '%s: %s' % (tools.ustr(vals['name']), tools.ustr(task_work.name) or '/')
+                            if task_work.name:
+                                vals_line['name'] = '%s: %s' % (tools.ustr(vals['name']), tools.ustr(task_work.name) or '/')
+                            else:
+                                vals_line['name'] = tools.ustr(vals['name'])
                         hr_anlytic_timesheet.write(cr, uid, [line_id], vals_line, {})
         return super(task,self).write(cr, uid, ids, vals, context)
 
-task()
 
 class res_partner(osv.osv):
     _inherit = 'res.partner'
@@ -268,7 +272,6 @@ class res_partner(osv.osv):
         return super(res_partner,self).unlink(cursor, user, ids,
                 context=context)
 
-res_partner()
 
 class account_analytic_line(osv.osv):
    _inherit = "account.analytic.line"
@@ -295,6 +298,5 @@ class account_analytic_line(osv.osv):
            raise osv.except_osv(_('Invalid Analytic Account!'), _('You cannot select a Analytic Account which is in Close or Cancelled state.'))
        return res
 
-account_analytic_line()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

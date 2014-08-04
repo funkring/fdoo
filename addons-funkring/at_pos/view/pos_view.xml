@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+	<data>
+
+		<record id="journal_view" model="ir.ui.view">
+			<field name="name">POS Journal</field>
+			<field name="model">account.journal</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="point_of_sale.view_account_journal_pos_user_form"/>
+			<field name="arch" type="xml">
+			    <data>
+			        <group name="pos_config" position="inside">
+			            <field name="balance_credit"/>
+			        </group>			        
+					<group name="pos_config" position="after">		
+					    <group col="2" colspan="2" name="journal">
+					        <separator string="Journal" colspan="2"/>
+					        <field name="parent_id"/>
+					    </group>			    
+						<group col="2" colspan="2" name="pos_printer">
+							<separator string="Printer" colspan="2"/>
+							<field name="pos_printer"/>
+							<field name="printer_escpos"/>
+						</group>
+					</group>
+				</data>
+			</field>
+		</record>
+		
+		<record id="pos_view" model="ir.ui.view">
+			<field name="name">Pos Order</field>
+			<field name="model">pos.order</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+			<field name="arch" type="xml">
+				<button string="Make Payment" position="after">
+					<button name="open_cashdrawer"  string="Open" icon="terp-dolar" type="object" states="draft,advance"/>
+				</button>
+				<page string="Payment" position="after">
+					<page string="Payment Proposal" attrs="{'invisible' : [('user_id', '!=', 1)]}">
+						<field name="payment_ids" nolabel="1" colspan="4" 
+								attrs="{'readonly' : [('state', 'in', ('paid', 'done'))]}"/>
+					</page>
+				</page>
+				<field name="user_id" position="after">
+					<field name="system_id" />
+				</field>
+			</field>
+		</record>
+	</data>
+</openerp>

@@ -1,0 +1,27 @@
+<openerp>
+	<data>		
+		<record id="form_client_profile" model="ir.ui.view">
+            <field name="name">edi_product.form_client_profile</field>
+            <field name="model">edi.client_profile</field>
+            <field name="inherit_id" ref="edi_base.form_client_profile"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                 <data>
+                     <notebook position="inside">
+                        <page string="Product Synchronisation">
+	                       <group colspan="4" col="4">	                           
+	                           <field name="product_sync"/>
+	                           <field name="product_has_same_ref"/>	                           
+	                       </group>	                    
+                           <group colspan="4" col="10">
+                               <separator colspan="10" col="10"/>
+	                           <label string="" colspan="9"/>
+	                           <button colspan="1" name="do_product_sync" string="Product Sync" type="object"/>                               
+	                       </group>  	                       
+	                   </page>
+                     </notebook>                     
+                 </data>    
+            </field>
+        </record>
+	</data>
+</openerp>

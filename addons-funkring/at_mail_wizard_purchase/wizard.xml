@@ -1,0 +1,21 @@
+<openerp>
+	<data>
+		<act_window id="wizard_send_purchase_qote_request" 
+            name="Send Quote Request"
+            res_model="at_mail_wizard.mail_wizard"
+            src_model="purchase.order"
+            context="{ 'report_name' : 'purchase.quotation', 'prepare_email' : 'quotation' }"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"/>
+                                                
+        <act_window id="wizard_send_purchase_order" 
+            name="Send Purchase Order"
+            res_model="at_mail_wizard.mail_wizard"
+            src_model="purchase.order"            
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"/>
+                 
+	</data>
+</openerp>

@@ -1,21 +1,21 @@
 # Thai translation for openobject-addons
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
 # This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:36+0000\n"
-"PO-Revision-Date: 2013-06-26 12:31+0000\n"
+"POT-Creation-Date: 2012-12-21 17:04+0000\n"
+"PO-Revision-Date: 2011-01-19 11:33+0000\n"
 "Last-Translator: Rungsan Suyala <rungsan@gmail.com>\n"
 "Language-Team: Thai <th@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-21 06:31+0000\n"
-"X-Generator: Launchpad (build 16831)\n"
+"X-Launchpad-Export-Date: 2014-03-27 06:00+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: purchase
 #: model:res.groups,name:purchase.group_analytic_accounting
@@ -65,11 +65,6 @@ msgstr ""
 #: field:purchase.report,day:0
 msgid "Day"
 msgstr "วันที่"
-
-#. module: purchase
-#: view:purchase.order:0
-msgid "Cancel Order"
-msgstr "ยกเลิกคำสั่งซื้อ"
 
 #. module: purchase
 #: view:purchase.report:0
@@ -135,11 +130,17 @@ msgid "No supplier defined for this product !"
 msgstr ""
 
 #. module: purchase
-#: help:res.company,po_lead:0
+#: model:ir.actions.act_window,help:purchase.action_picking_tree4_picking_to_invoice
 msgid ""
-"Margin of error for supplier lead times. When the systemgenerates Purchase "
-"Orders for procuring products,they will be scheduled that many days earlier "
-"to cope with unexpected supplier delays."
+"<p>\n"
+"                Here you can track all the product receptions of purchase\n"
+"                orders where the invoicing is \"Based on Incoming "
+"Shipments\",\n"
+"                and for which you have not received a supplier invoice yet.\n"
+"                You can generate a supplier invoice based on those "
+"receptions.\n"
+"              </p>\n"
+"            "
 msgstr ""
 
 #. module: purchase
@@ -732,11 +733,6 @@ msgid "RFQ"
 msgstr "ใบแจ้งขอใบเสนอราคา"
 
 #. module: purchase
-#: view:purchase.order:0
-msgid "Send by Email"
-msgstr ""
-
-#. module: purchase
 #: report:purchase.order:0
 #: view:purchase.order:0
 #: field:purchase.order,date_order:0
@@ -949,6 +945,87 @@ msgid "a draft purchase order"
 msgstr ""
 
 #. module: purchase
+#: model:email.template,body_html:purchase.email_template_edi_purchase
+msgid ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-"
+"serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"\n"
+"    <p>Hello$ ${object.partner_id.name},</p>\n"
+"    \n"
+"    <p>Here is a ${object.state in ('draft', 'sent') and 'request for "
+"quotation' or 'purchase order confirmation'} from ${object.company_id.name}: "
+"</p>\n"
+"    \n"
+"    <p style=\"border-left: 1px solid #8e0000; margin-left: 30px;\">\n"
+"       &nbsp;&nbsp;<strong>REFERENCES</strong><br />\n"
+"       &nbsp;&nbsp;Order number: <strong>${object.name}</strong><br />\n"
+"       &nbsp;&nbsp;Order total: <strong>${object.amount_total} "
+"${object.pricelist_id.currency_id.name}</strong><br />\n"
+"       &nbsp;&nbsp;Order date: ${object.date_order}<br />\n"
+"       % if object.origin:\n"
+"       &nbsp;&nbsp;Order reference: ${object.origin}<br />\n"
+"       % endif\n"
+"       % if object.partner_ref:\n"
+"       &nbsp;&nbsp;Your reference: ${object.partner_ref}<br />\n"
+"       % endif\n"
+"       % if object.validator:\n"
+"       &nbsp;&nbsp;Your contact: <a href=\"mailto:${object.validator.email "
+"or ''}?subject=Order%20${object.name}\">${object.validator.name}</a>\n"
+"       % endif\n"
+"    </p>\n"
+"\n"
+"    <br/>\n"
+"    <p>If you have any question, do not hesitate to contact us.</p>\n"
+"    <p>Thank you!</p>\n"
+"    <br/>\n"
+"    <br/>\n"
+"    <div style=\"width: 375px; margin: 0px; padding: 0px; background-color: "
+"#8E0000; border-top-left-radius: 5px 5px; border-top-right-radius: 5px 5px; "
+"background-repeat: repeat no-repeat;\">\n"
+"        <h3 style=\"margin: 0px; padding: 2px 14px; font-size: 12px; color: "
+"#DDD;\">\n"
+"            <strong style=\"text-"
+"transform:uppercase;\">${object.company_id.name}</strong></h3>\n"
+"    </div>\n"
+"    <div style=\"width: 347px; margin: 0px; padding: 5px 14px; line-height: "
+"16px; background-color: #F2F2F2;\">\n"
+"        <span style=\"color: #222; margin-bottom: 5px; display: block; \">\n"
+"        % if object.company_id.street:\n"
+"            ${object.company_id.street}<br/>\n"
+"        % endif\n"
+"        % if object.company_id.street2:\n"
+"            ${object.company_id.street2}<br/>\n"
+"        % endif\n"
+"        % if object.company_id.city or object.company_id.zip:\n"
+"            ${object.company_id.zip} ${object.company_id.city}<br/>\n"
+"        % endif\n"
+"        % if object.company_id.country_id:\n"
+"            ${object.company_id.state_id and ('%s, ' % "
+"object.company_id.state_id.name) or ''} ${object.company_id.country_id.name "
+"or ''}<br/>\n"
+"        % endif\n"
+"        </span>\n"
+"        % if object.company_id.phone:\n"
+"            <div style=\"margin-top: 0px; margin-right: 0px; margin-bottom: "
+"0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: "
+"0px; padding-left: 0px; \">\n"
+"                Phone:&nbsp; ${object.company_id.phone}\n"
+"            </div>\n"
+"        % endif\n"
+"        % if object.company_id.website:\n"
+"            <div>\n"
+"                Web :&nbsp;<a "
+"href=\"${object.company_id.website}\">${object.company_id.website}</a>\n"
+"            </div>\n"
+"        %endif\n"
+"        <p></p>\n"
+"    </div>\n"
+"</div>\n"
+"            "
+msgstr ""
+
+#. module: purchase
 #: view:purchase.report:0
 msgid "Order of Year"
 msgstr ""
@@ -1111,11 +1188,6 @@ msgid "Products"
 msgstr "สินค้า"
 
 #. module: purchase
-#: view:purchase.order:0
-msgid "Terms and conditions..."
-msgstr ""
-
-#. module: purchase
 #: model:ir.model,name:purchase.model_stock_move
 msgid "Stock Move"
 msgstr "รายการเคลื่อนไหวสินค้า"
@@ -1226,22 +1298,6 @@ msgid "Please create Invoices."
 msgstr ""
 
 #. module: purchase
-#: model:ir.actions.act_window,help:purchase.action_picking_tree4_picking_to_invoice
-msgid ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"                Click to create a new incoming shipment.\n"
-"              </p><p> \n"
-"                Here you can track all the product receptions of purchase\n"
-"                orders where the invoicing is \"Based on Incoming "
-"Shipments\",\n"
-"                and for which you have not received a supplier invoice yet.\n"
-"                You can generate a supplier invoice based on those "
-"receptions.\n"
-"              </p>\n"
-"            "
-msgstr ""
-
-#. module: purchase
 #: model:ir.model,name:purchase.model_procurement_order
 msgid "Procurement"
 msgstr "ใบจัดหาสินค้า"
@@ -1272,6 +1328,11 @@ msgstr ""
 #: field:purchase.report,month:0
 msgid "Month"
 msgstr "เดือน"
+
+#. module: purchase
+#: help:res.company,po_lead:0
+msgid "This is the leads/security time for each purchase order."
+msgstr ""
 
 #. module: purchase
 #: model:process.node,note:purchase.process_node_invoiceafterpacking0
@@ -1327,8 +1388,8 @@ msgid "PO: %s"
 msgstr ""
 
 #. module: purchase
-#: model:process.node,note:purchase.process_node_packinginvoice0
-msgid "Outgoing products to invoice"
+#: view:purchase.order:0
+msgid "Send by EMail"
 msgstr ""
 
 #. module: purchase
@@ -1745,10 +1806,11 @@ msgid "Net Price"
 msgstr "ราคาสุทธิ"
 
 #. module: purchase
-#: model:process.node,name:purchase.process_node_confirmpurchaseorder0
-#: selection:purchase.order.line,state:0
-msgid "Confirmed"
-msgstr "ยืนยันแล้ว"
+#: model:ir.model,name:purchase.model_purchase_order_line
+#: view:purchase.order.line:0
+#: field:stock.move,purchase_line_id:0
+msgid "Purchase Order Line"
+msgstr "รายการสั่งซื้อ"
 
 #. module: purchase
 #: model:process.transition.action,name:purchase.process_transition_action_confirmpurchaseorder0
@@ -1853,6 +1915,11 @@ msgid "Reference Unit of Measure"
 msgstr ""
 
 #. module: purchase
+#: model:process.node,note:purchase.process_node_packinginvoice0
+msgid "Outgoing products to invoice"
+msgstr ""
+
+#. module: purchase
 #: report:purchase.order:0
 #: field:purchase.report,validator:0
 msgid "Validated By"
@@ -1917,11 +1984,10 @@ msgid "Invoiced"
 msgstr "แจ้งหนี้แล้ว"
 
 #. module: purchase
-#: model:ir.model,name:purchase.model_purchase_order_line
-#: view:purchase.order.line:0
-#: field:stock.move,purchase_line_id:0
-msgid "Purchase Order Line"
-msgstr "รายการสั่งซื้อ"
+#: model:process.node,name:purchase.process_node_confirmpurchaseorder0
+#: selection:purchase.order.line,state:0
+msgid "Confirmed"
+msgstr "ยืนยันแล้ว"
 
 #. module: purchase
 #: selection:purchase.order.line,state:0
@@ -2036,87 +2102,6 @@ msgid "Expected Delivery address:"
 msgstr ""
 
 #. module: purchase
-#: model:email.template,body_html:purchase.email_template_edi_purchase
-msgid ""
-"\n"
-"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-"
-"serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
-"\n"
-"    <p>Hello ${object.partner_id.name},</p>\n"
-"    \n"
-"    <p>Here is a ${object.state in ('draft', 'sent') and 'request for "
-"quotation' or 'purchase order confirmation'} from ${object.company_id.name}: "
-"</p>\n"
-"    \n"
-"    <p style=\"border-left: 1px solid #8e0000; margin-left: 30px;\">\n"
-"       &nbsp;&nbsp;<strong>REFERENCES</strong><br />\n"
-"       &nbsp;&nbsp;Order number: <strong>${object.name}</strong><br />\n"
-"       &nbsp;&nbsp;Order total: <strong>${object.amount_total} "
-"${object.pricelist_id.currency_id.name}</strong><br />\n"
-"       &nbsp;&nbsp;Order date: ${object.date_order}<br />\n"
-"       % if object.origin:\n"
-"       &nbsp;&nbsp;Order reference: ${object.origin}<br />\n"
-"       % endif\n"
-"       % if object.partner_ref:\n"
-"       &nbsp;&nbsp;Your reference: ${object.partner_ref}<br />\n"
-"       % endif\n"
-"       % if object.validator:\n"
-"       &nbsp;&nbsp;Your contact: <a href=\"mailto:${object.validator.email "
-"or ''}?subject=Order%20${object.name}\">${object.validator.name}</a>\n"
-"       % endif\n"
-"    </p>\n"
-"\n"
-"    <br/>\n"
-"    <p>If you have any question, do not hesitate to contact us.</p>\n"
-"    <p>Thank you!</p>\n"
-"    <br/>\n"
-"    <br/>\n"
-"    <div style=\"width: 375px; margin: 0px; padding: 0px; background-color: "
-"#8E0000; border-top-left-radius: 5px 5px; border-top-right-radius: 5px 5px; "
-"background-repeat: repeat no-repeat;\">\n"
-"        <h3 style=\"margin: 0px; padding: 2px 14px; font-size: 12px; color: "
-"#DDD;\">\n"
-"            <strong style=\"text-"
-"transform:uppercase;\">${object.company_id.name}</strong></h3>\n"
-"    </div>\n"
-"    <div style=\"width: 347px; margin: 0px; padding: 5px 14px; line-height: "
-"16px; background-color: #F2F2F2;\">\n"
-"        <span style=\"color: #222; margin-bottom: 5px; display: block; \">\n"
-"        % if object.company_id.street:\n"
-"            ${object.company_id.street}<br/>\n"
-"        % endif\n"
-"        % if object.company_id.street2:\n"
-"            ${object.company_id.street2}<br/>\n"
-"        % endif\n"
-"        % if object.company_id.city or object.company_id.zip:\n"
-"            ${object.company_id.zip} ${object.company_id.city}<br/>\n"
-"        % endif\n"
-"        % if object.company_id.country_id:\n"
-"            ${object.company_id.state_id and ('%s, ' % "
-"object.company_id.state_id.name) or ''} ${object.company_id.country_id.name "
-"or ''}<br/>\n"
-"        % endif\n"
-"        </span>\n"
-"        % if object.company_id.phone:\n"
-"            <div style=\"margin-top: 0px; margin-right: 0px; margin-bottom: "
-"0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: "
-"0px; padding-left: 0px; \">\n"
-"                Phone:&nbsp; ${object.company_id.phone}\n"
-"            </div>\n"
-"        % endif\n"
-"        % if object.company_id.website:\n"
-"            <div>\n"
-"                Web :&nbsp;<a "
-"href=\"${object.company_id.website}\">${object.company_id.website}</a>\n"
-"            </div>\n"
-"        %endif\n"
-"        <p></p>\n"
-"    </div>\n"
-"</div>\n"
-"            "
-msgstr ""
-
-#. module: purchase
 #: selection:purchase.report,month:0
 msgid "February"
 msgstr ""
@@ -2221,3 +2206,244 @@ msgstr ""
 #: view:purchase.report:0
 msgid "Orders"
 msgstr ""
+
+#~ msgid "Purchase Orders in Progress"
+#~ msgstr "ใบสั่งซื้ออยู่ระหว่างดำเนินการ"
+
+#~ msgid "Approve Purchase"
+#~ msgstr "อนุมัติการสั่งซื้อ"
+
+#, python-format
+#~ msgid "Wrong Product UOM !"
+#~ msgstr "หน่วยของสินค้าไม่ถูกต้อง!"
+
+#~ msgid "Waiting"
+#~ msgstr "กำลังรอ"
+
+#~ msgid "Invoiced & Paid"
+#~ msgstr "แจ้งหนี้และชำระเงินแล้ว"
+
+#~ msgid "Destination Address"
+#~ msgstr "ที่อยู่ปลายทาง"
+
+#~ msgid "Reference UoM"
+#~ msgstr "หน่วยอ้างอิง"
+
+#~ msgid "Origin"
+#~ msgstr "แหล่งที่มา"
+
+#, python-format
+#~ msgid "Purchase amount over the limit"
+#~ msgstr "จำนวนเงินที่ซื้อเกินขีดจำกัด"
+
+#~ msgid "Convert to Purchase Order"
+#~ msgstr "แปลงเป็นใบสั่งซื้อ"
+
+#~ msgid "   Month   "
+#~ msgstr "   เดือน   "
+
+#, python-format
+#~ msgid "Warning"
+#~ msgstr "คำเตือน"
+
+#~ msgid "Purchase Analytic Plans"
+#~ msgstr "แผนการจัดซื้อเชิงวิเคราะห์"
+
+#~ msgid "Order Line"
+#~ msgstr "รายการสั่งซื้อ"
+
+#~ msgid "State"
+#~ msgstr "สถานะ"
+
+#~ msgid "Address Contact Name"
+#~ msgstr "ชื่อที่อยู่ที่ติดต่อ"
+
+#~ msgid "Untaxed amount"
+#~ msgstr "จำนวนเงินที่ไม่ต้องเสียภาษี"
+
+#, python-format
+#~ msgid "Error !"
+#~ msgstr "ผิดพลาด !"
+
+#~ msgid "General Information"
+#~ msgstr "ข้อมูลทั่วไป"
+
+#~ msgid "Approved by Supplier"
+#~ msgstr "ได้รับการรับรองจากผู้จำหน่าย"
+
+#, python-format
+#~ msgid "Invalid action !"
+#~ msgstr "การกระทำไม่ถูกต้อง !"
+
+#~ msgid "Purchase by supplier"
+#~ msgstr "การจัดซื้อแบ่งตามผู้จำหน่าย"
+
+#~ msgid "Manual"
+#~ msgstr "กำหนดเอง"
+
+#~ msgid "    Month-1    "
+#~ msgstr "    เดือน - 1    "
+
+#~ msgid "From Picking"
+#~ msgstr "จากใบรับสินค้า"
+
+#, python-format
+#~ msgid "You can not confirm purchase order without Purchase Order Lines."
+#~ msgstr "คุณไม่สามารถยืนยันใบสั่งซื้อที่ไม่มีรายการสั่งซื้อได้"
+
+#~ msgid ""
+#~ "You can create a request for quotation when you want to buy products to a "
+#~ "supplier but the purchase is not confirmed yet. Use also this menu to review "
+#~ "requests for quotation created automatically based on your logistic rules "
+#~ "(minimum stock, MTO, etc). You can convert the request for quotation into a "
+#~ "purchase order once the order is confirmed. If you use the extended "
+#~ "interface (from user's preferences), you can select the way to control your "
+#~ "supplier invoices: based on the order, based on the receptions or manual "
+#~ "encoding."
+#~ msgstr ""
+#~ "คุณสามารถสร้างใบแจ้งขอใบเสนอราคาได้จากใบสั่งซื้อที่สถานะยังไม่ยืนยัน "
+#~ "และใช้สำหรับตรวจสอบใบแจ้งขอใบเสนอราคาที่ระบบสร้างขึ้นอัตโนมัติจากกฎต่างๆ "
+#~ "เช่น จากกฎการสั่งซื้อ เป็นต้น; คุณสามารถเปลี่ยนจากใบแจ้งขอใบเสนอราคา "
+#~ "ให้เป็นใบสั่งซื้อสถานะยืนยันได้; "
+#~ "หากคุณใช้มุมมองแบบแสดงทั้งหมด(สามารถเลือกได้จากการตั้งค่าของแต่ละผู้ใช้งาน) "
+#~ "คุณจะสามารถเลือกรูปแบบการสร้างใบแจ้งหนี้โดย สร้างจากใบสั่งซื้อ, "
+#~ "สร้างจากใบรับสินค้า และสร้างเอง"
+
+#, python-format
+#~ msgid ""
+#~ "You have to select a product UOM in the same category than the purchase UOM "
+#~ "of the product"
+#~ msgstr "คุณต้องเลือกหน่วยของสินค้าที่อยู่ในประเภทเดียวกันกับหน่วยที่สั่งซื้อ"
+
+#~ msgid "Order Reference must be unique !"
+#~ msgstr "เลขที่เอกสารห้ามซ้ำกัน!"
+
+#~ msgid "Do you want to generate the supplier invoices ?"
+#~ msgstr "คุณต้องการสร้างใบแจ้งหนี้หรือไม่?"
+
+#, python-format
+#~ msgid "No Pricelist !"
+#~ msgstr "ไม่มีรายการาคา!"
+
+#~ msgid "Select an Open Sale Order"
+#~ msgstr "เลือกใบสั่งขายสถานะเปิด"
+
+#, python-format
+#~ msgid "Purchase order '%s' is confirmed."
+#~ msgstr "ใบสั่งซื้อ '%s' นี้ถูกยืนยันแล้ว"
+
+#~ msgid "Partial Picking"
+#~ msgstr "ทยอยส่ง"
+
+#~ msgid ""
+#~ "Use this menu to search within your purchase orders by references, supplier, "
+#~ "products, etc. For each purchase order, you can track the products received, "
+#~ "and control the supplier invoices."
+#~ msgstr ""
+#~ "ใช้เมนูนี้เพื่อค้นหาใบสั่งซื้อจาก เลขที่, ผู้จัดจำหน่าย, สินค้า เป็นต้น; "
+#~ "คุณสามารถตรวจสอบสถานะใบสั่งซื้อได้ด้วยว่ารับสินค้ามาแล้วเท่าไหร่และแจ้งหนี้แล"
+#~ "้วเท่าใด"
+
+#~ msgid ""
+#~ "Put an address if you want to deliver directly from the supplier to the "
+#~ "customer.In this case, it will remove the warehouse link and set the "
+#~ "customer location."
+#~ msgstr ""
+#~ "ใส่ที่อยู่ในช่องนี้หากต้องการให้จัดส่งโดยตรงจากผู้จัดจำหน่ายไปยังลูกค้า, "
+#~ "สินค้าจะไม่ถูกส่งเข้าคลังแต่จะถูกตั้งค่าให้ส่งไปยังลูกค้าแทน"
+
+#, python-format
+#~ msgid ""
+#~ "You have to select a pricelist or a supplier in the purchase form !\n"
+#~ "Please set one before choosing a product."
+#~ msgstr ""
+#~ "คุณต้องเลือกรายการราคาและผู้จัดจำหน่ายลงในแบบฟอร์มใบสั่งซื้อ !\n"
+#~ "กรุณาเลือกก่อนที่จะเลือกสินค้า"
+
+#~ msgid "Configuration Progress"
+#~ msgstr "ความก้าวหน้าการตั้งค่า"
+
+#~ msgid ""
+#~ "A Pick list generates an invoice. Depending on the Invoicing control of the "
+#~ "sale order, the invoice is based on delivered or on ordered quantities."
+#~ msgstr ""
+#~ "ใบแจ้งหนี้จะสามารถสร้างขึ้นจากใบรับ/จ่ายสินค้าได้หรือไม่ "
+#~ "ขึ้นอยู่กับการตั้งค่าในใบสั่งขายว่าเลือกให้สร้างใบแจ้งหนี้ จากการจัดส่ง "
+#~ "หรือเลือกจากจำนวนสินค้าที่สั่ง"
+
+#~ msgid "Configure Your Purchases Management Application"
+#~ msgstr "ตั้งค่าแอพพลิเคชั่นการจัดการซื้อ"
+
+#, python-format
+#~ msgid "Cannot delete Purchase Order(s) which are in %s State!"
+#~ msgstr "ไม่สามารถลบใบสั่งซื้อที่อยู่ในสถานะ %s ได้!"
+
+#, python-format
+#~ msgid "Purchase order '%s' has been set in draft state."
+#~ msgstr "ใบสั่งซื้อ '%s' ถูกเปลี่ยนเป็นสถานะฉบับร่างแล้ว"
+
+#~ msgid "Dest. Address Contact Name"
+#~ msgstr "ที่อยู่ปลายทาง"
+
+#~ msgid "purchase.installer"
+#~ msgstr "ตัวติดตั้งใบสั่งซื้อ"
+
+#~ msgid "Error! You can not create recursive companies."
+#~ msgstr "พบข้อผิดพลาด! คุณไม่สามารถสร้างบริษัทที่มีลักษณะวนซ้ำกันได้"
+
+#, python-format
+#~ msgid "No Partner!"
+#~ msgstr "ไม่พบผู้จัดจำหน่าย!"
+
+#~ msgid ""
+#~ "From Order: a draft invoice will be pre-generated based on the purchase "
+#~ "order. The accountant will just have to validate this invoice for control.\n"
+#~ "From Picking: a draft invoice will be pre-generated based on validated "
+#~ "receptions.\n"
+#~ "Manual: allows you to generate suppliers invoices by chosing in the "
+#~ "uninvoiced lines of all manual purchase orders."
+#~ msgstr ""
+#~ "จากใบสั่งซื้อ: ใบแจ้งหนี้ฉบับร่างจะถูกสร้างขึ้นโดยยึดข้อมูลจากใบสั่งซื้อนี้ "
+#~ "เจ้าหน้าที่บัญชีเพียงแค่ยืนยันความถูกต้องของใบแจ้งหนี้\n"
+#~ "จากใบรับ: ใบแจ้งหนี้ฉบับร่างจะถูกสร้างขึ้นโดยยึดข้อมูลจากการรับสินค้า\n"
+#~ "กำหนดเอง: "
+#~ "อนุญาตให้สร้างใบแจ้งหนี้โดยเลือกรายการที่ยังไม่ถูกแจ้งหนี้ทั้งหมดของใบสั่งซื้"
+#~ "อปัจจุบัน นำมาสร้างเป็นใบแจ้งหนี้"
+
+#~ msgid "My Board"
+#~ msgstr "กระดานงานของฉัน"
+
+#~ msgid "From Order"
+#~ msgstr "สร้างจากใบสั่งซื้อ"
+
+#, python-format
+#~ msgid "You must first cancel all picking attached to this purchase order."
+#~ msgstr ""
+#~ "คุณต้องยกเลิกใบรับ/จ่ายสินค้าทั้งหมดที่เกี่ยวข้องกับใบสั่งซื้อนี้ก่อน"
+
+#~ msgid "Units of Measure Categories"
+#~ msgstr "หมวดหมู่ของหน่วยนับ"
+
+#~ msgid "Purchase Requisition"
+#~ msgstr "ใบขอซื้อ"
+
+#~ msgid "Purchase Order Waiting Approval"
+#~ msgstr "ใบสั่งซื้อรอการอนุมัติ"
+
+#~ msgid "Image"
+#~ msgstr "รูปภาพ"
+
+#~ msgid "Purchase Management"
+#~ msgstr "การจัดการซื้อ"
+
+#~ msgid "Purchase Lines Not Invoiced"
+#~ msgstr "รายการสั่งซื้อยังไม่ถูกแจ้งหนี้"
+
+#~ msgid "  Year  "
+#~ msgstr "  ปี  "
+
+#~ msgid "Purchase Properties"
+#~ msgstr "เกี่ยวกับการสั่งซื้อ"
+
+#~ msgid "Configure"
+#~ msgstr "ตั้งค่า"
