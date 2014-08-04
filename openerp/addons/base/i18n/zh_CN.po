@@ -1,21 +1,20 @@
-# Chinese (Simplified) translation for openobject-server
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
-# This file is distributed under the same license as the openobject-server package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* base
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openobject-server\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:35+0000\n"
-"PO-Revision-Date: 2013-11-26 10:01+0000\n"
-"Last-Translator: mrshelly <Unknown>\n"
-"Language-Team: Chinese (Simplified) <zh_CN@li.org>\n"
+"Project-Id-Version: OpenERP Server 5.0.4\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-12-21 17:04+0000\n"
+"PO-Revision-Date: 2012-12-28 14:33+0000\n"
+"Last-Translator: Wei \"oldrev\" Li <oldrev@gmail.com>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-04-30 06:59+0000\n"
-"X-Generator: Launchpad (build 16985)\n"
+"X-Launchpad-Export-Date: 2014-03-28 05:40+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_account_check_writing
@@ -29,11 +28,6 @@ msgstr ""
 "此模块用于支票填写和打印\n"
 "================================================\n"
 "    "
-
-#. module: base
-#: view:res.partner.bank:0
-msgid "e.g. GEBABEBB"
-msgstr "例如：GEBABEBB"
 
 #. module: base
 #: model:res.country,name:base.sh
@@ -286,43 +280,6 @@ msgid "Inuktitut / ᐃᓄᒃᑎᑐᑦ"
 msgstr "因纽特语"
 
 #. module: base
-#: model:ir.module.module,description:base.module_l10n_ch
-msgid ""
-"\n"
-" Swiss localization :\n"
-" ====================\n"
-" **Multilang swiss STERCHI account chart and taxes**\n"
-"  **Author:** Camptocamp SA\n"
-"\n"
-"  **Financial contributors:** Prisme Solutions Informatique SA, Quod SA\n"
-"\n"
-"  **Translation contributors:** brain-tec AG, Agile Business Group\n"
-"\n"
-" **This release will introduce major changes to l10n_ch.**\n"
-"\n"
-" Due to important refactoring needs and the Switzerland adoption of new "
-"international payment standard during 2013-2014. We have reorganised the "
-"swiss localization addons this way:\n"
-"\n"
-" - **l10n_ch**: Multilang swiss STERCHI account chart and taxes (official "
-"addon)\n"
-" - **l10n_ch_base_bank**: Technical module that introduces a new and "
-"simplified version of bank type management\n"
-" - **l10n_ch_bank**: List of swiss banks\n"
-" - **l10n_ch_zip**: List of swiss postal zip\n"
-" - **l10n_ch_dta**: Support of dta payment protocol (will be deprecated end "
-"2014)\n"
-" - **l10n_ch_payment_slip**: Support of ESR/BVR payment slip report and "
-"reconciliation. Report refactored with easy element positioning.\n"
-" - **l10n_ch_sepa**: Alpha implementation of PostFinance SEPA/PAIN support "
-"will be completed during 2013/2014\n"
-"\n"
-" The modules will be soon available on OpenERP swiss localization on "
-"launchpad:\n"
-" https://launchpad.net/openerp-swiss-localization\n"
-msgstr ""
-
-#. module: base
 #: model:res.groups,name:base.group_multi_currency
 msgid "Multi Currencies"
 msgstr "多货币"
@@ -481,11 +438,6 @@ msgstr "子应用"
 #: field:res.partner,credit_limit:0
 msgid "Credit Limit"
 msgstr "信用额度"
-
-#. module: base
-#: model:ir.module.module,shortdesc:base.module_portal_project_long_term
-msgid "Portal Project Long Term"
-msgstr "长期项目门户"
 
 #. module: base
 #: field:ir.model.constraint,date_update:0
@@ -684,9 +636,25 @@ msgid ""
 msgstr "如果您选中此处，当下次用户使用相同的附件名称打印时将返回以前的报表。"
 
 #. module: base
-#: model:res.country,name:base.ao
-msgid "Angola"
-msgstr "安哥拉"
+#: model:ir.module.module,description:base.module_mrp_byproduct
+msgid ""
+"\n"
+"This module allows you to produce several products from one production "
+"order.\n"
+"============================================================================="
+"\n"
+"\n"
+"You can configure by-products in the bill of material.\n"
+"\n"
+"Without this module:\n"
+"--------------------\n"
+"    A + B + C -> D\n"
+"\n"
+"With this module:\n"
+"-----------------\n"
+"    A + B + C -> D + E\n"
+"    "
+msgstr ""
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -742,11 +710,6 @@ msgstr "帕劳"
 #: view:res.partner:0
 msgid "Sales & Purchases"
 msgstr "销售与采购"
-
-#. module: base
-#: view:res.partner:0
-msgid "Put an internal note..."
-msgstr "写入一个内部提示……"
 
 #. module: base
 #: view:ir.translation:0
@@ -981,12 +944,6 @@ msgid "Overwrite Existing Terms"
 msgstr "覆盖已存在的术语"
 
 #. module: base
-#: code:addons/base/res/res_currency.py:52
-#, python-format
-msgid "No currency rate associated for currency %d for the given period"
-msgstr "在给定会计期间里， 货币%d 的汇率没有找到"
-
-#. module: base
 #: model:ir.module.module,description:base.module_hr_holidays
 msgid ""
 "\n"
@@ -1107,15 +1064,6 @@ msgstr "一个可选的目标数据过滤条件，使用 Python 表达式表示"
 #: model:ir.model,name:base.model_base_module_upgrade
 msgid "Module Upgrade"
 msgstr "模块升级"
-
-#. module: base
-#: view:res.bank:0
-#: view:res.company:0
-#: view:res.partner:0
-#: view:res.partner.bank:0
-#: view:res.users:0
-msgid "ZIP"
-msgstr "邮编"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -1404,9 +1352,10 @@ msgid "Delete Access Right"
 msgstr "删除访问权限"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_l10n_be_hr_payroll_account
-msgid "Belgium - Payroll with Accounting"
-msgstr "比利时 - 工资与会计"
+#: code:addons/base/ir/ir_mail_server.py:214
+#, python-format
+msgid "Connection test failed!"
+msgstr "连接测试失败！"
 
 #. module: base
 #: selection:ir.actions.server,state:0
@@ -1742,6 +1691,17 @@ msgid ""
 msgstr ""
 
 #. module: base
+#: model:ir.actions.act_window,help:base.action_res_partner_bank_account_form
+msgid ""
+"Configure your company's bank accounts and select those that must appear on "
+"the report footer. You can reorder bank accounts from the list view. If you "
+"use the accounting application of OpenERP, journals and accounts will be "
+"created automatically based on these data."
+msgstr ""
+"配置贵公司的银行帐户，并选择那些出现在报表页脚的信息。从列表视图中，您可以重新排列的银行帐户。如果你使用的的OpenERP会计应用，凭证簿和科目基于将这些"
+"数据被自动创建。"
+
+#. module: base
 #: report:ir.module.reference:0
 msgid "Version"
 msgstr "版本"
@@ -1887,33 +1847,6 @@ msgid ""
 msgstr "如果选定，则定制翻译会被系统翻译覆盖替换。"
 
 #. module: base
-#: model:ir.actions.act_window,help:base.action_res_partner_bank_account_form
-msgid ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"                Click to create a bank account.\n"
-"              </p><p>\n"
-"                Configure your company's bank accounts and select those that "
-"must appear on the report footer.\n"
-"                You can reorder bank accounts from the list view.\n"
-"              </p>\n"
-"              <p>\n"
-"                If you use the accounting application of OpenERP, journals "
-"and accounts will be created automatically based on these data.\n"
-"              </p>  \n"
-"            "
-msgstr ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"                点击新建银行账户\n"
-"              </p><p>\n"
-"                配置你公司的银行帐户并选择那些需要显示在报表页脚。\n"
-"                在列表视图中你可以重新排列你的银行账户。\n"
-"              </p>\n"
-"              <p>\n"
-"               如果你安装了OpenERP的会计与财务应用，当你创建银行账户的时候相应的账簿和科目都会基于这个账户自动创建\n"
-"              </p>  \n"
-"            "
-
-#. module: base
 #: model:ir.actions.act_window,name:base.ir_action_report_xml
 #: field:ir.module.module,reports_by_module:0
 #: model:ir.ui.menu,name:base.menu_ir_action_report_xml
@@ -1940,12 +1873,6 @@ msgid ""
 "'%s' contains too many dots. XML ids should not contain dots ! These are "
 "used to refer to other modules data, as in module.reference_id"
 msgstr "'%s'包含太多点。XML 标识符不应该包括点！其作用是引用到其他模块数据，如module.reference_id"
-
-#. module: base
-#: code:addons/base/ir/ir_model.py:85
-#, python-format
-msgid "Invalid Search Criteria"
-msgstr "无效的搜索条件"
 
 #. module: base
 #: field:res.users,login:0
@@ -2030,11 +1957,6 @@ msgstr "卢森堡 - 会计"
 #: model:res.country,name:base.tp
 msgid "East Timor"
 msgstr "东帝汶"
-
-#. module: base
-#: field:workflow.transition,act_to:0
-msgid "Destination Activity"
-msgstr "目标活动"
 
 #. module: base
 #: code:addons/base/module/module.py:414
@@ -2342,9 +2264,46 @@ msgid "Address Type"
 msgstr "地址类型"
 
 #. module: base
-#: model:res.country,name:base.dj
-msgid "Djibouti"
-msgstr "吉布提"
+#: model:ir.module.module,description:base.module_sale_stock
+msgid ""
+"\n"
+"Manage sales quotations and orders\n"
+"==================================\n"
+"\n"
+"This module makes the link between the sales and warehouses management "
+"applications.\n"
+"\n"
+"Preferences\n"
+"-----------\n"
+"* Shipping: Choice of delivery at once or partial delivery\n"
+"* Invoicing: choose how invoices will be paid\n"
+"* Incoterms: International Commercial terms\n"
+"\n"
+"You can choose flexible invoicing methods:\n"
+"\n"
+"* *On Demand*: Invoices are created manually from Sales Orders when needed\n"
+"* *On Delivery Order*: Invoices are generated from picking (delivery)\n"
+"* *Before Delivery*: A Draft invoice is created and must be paid before "
+"delivery\n"
+msgstr ""
+"\n"
+"管理销售报价单和订单\n"
+"==================================\n"
+"\n"
+"这个模块关联了销售和仓库管理程序。\n"
+"\n"
+"Preferences\n"
+"-----------\n"
+"* 运输: Choice of delivery at once or partial delivery\n"
+"* 开票: choose how invoices will be paid\n"
+"* 国际贸易术语: International Commercial terms\n"
+"\n"
+"You can choose flexible invoicing methods:\n"
+"\n"
+"* *On Demand*: Invoices are created manually from Sales Orders when needed\n"
+"* *On Delivery Order*: Invoices are generated from picking (delivery)\n"
+"* *Before Delivery*: A Draft invoice is created and must be paid before "
+"delivery\n"
 
 #. module: base
 #: field:ir.ui.menu,complete_name:0
@@ -2414,11 +2373,6 @@ msgstr "西班牙语 / Español"
 #: selection:base.language.install,lang:0
 msgid "Korean (KP) / 한국어 (KP)"
 msgstr "Korean (KP) / 한국어 (KP)"
-
-#. module: base
-#: model:ir.module.module,shortdesc:base.module_l10n_vn
-msgid "Vietnam Chart of Accounts"
-msgstr ""
 
 #. module: base
 #: model:res.country,name:base.ax
@@ -2889,41 +2843,6 @@ msgid "Action Target"
 msgstr "动作目标"
 
 #. module: base
-#: model:ir.module.module,description:base.module_account_report_company
-msgid ""
-"\n"
-"Add an extra Company dimension on Invoices for consolidated Invoice "
-"Analysis\n"
-"============================================================================"
-"\n"
-"\n"
-"By default Customer and Supplier invoices can be linked to a contact within\n"
-"a company, but the company is not a direct reference in the database "
-"structure for\n"
-"invoices. Journal Entries are however always linked to the company and not "
-"to\n"
-"contacts, so that Accounts Payable and Receivable are always correct and "
-"consolidated\n"
-"at company level.\n"
-"\n"
-"When many different contacts/departments need to be invoiced within the same "
-"parent company,\n"
-"this can make reporting by Company more difficult: reports are directly "
-"based on the\n"
-"database structure and would not provide an aggregated company dimension.\n"
-"\n"
-"This modules solves the problem by adding an explicit company reference on "
-"invoices,\n"
-"automatically computed from the invoice contact, and use this new dimension\n"
-"when grouping the list of Invoices or the Invoice Analysis report by "
-"Partner. \n"
-"\n"
-"Note: this module will likely be removed for the next major OpenERP version "
-"and\n"
-"directly integrated in the core accounting. \n"
-msgstr ""
-
-#. module: base
 #: model:res.country,name:base.ai
 msgid "Anguilla"
 msgstr "安圭拉"
@@ -3070,6 +2989,11 @@ msgstr ""
 #: field:ir.values,res_id:0
 msgid "Record ID"
 msgstr "记录 ID"
+
+#. module: base
+#: view:ir.filters:0
+msgid "My Filters"
+msgstr "我的过滤器"
 
 #. module: base
 #: field:ir.actions.server,email:0
@@ -3469,11 +3393,6 @@ msgid ""
 msgstr ""
 
 #. module: base
-#: view:res.company:0
-msgid "e.g. Global Business Solutions"
-msgstr ""
-
-#. module: base
 #: field:res.company,rml_header1:0
 msgid "Company Tagline"
 msgstr "公司标语"
@@ -3514,12 +3433,6 @@ msgstr ""
 "\n"
 "此模块用于管理波兰的科目表\n"
 "    "
-
-#. module: base
-#: code:addons/base/ir/ir_mail_server.py:222
-#, python-format
-msgid "Connection Test Succeeded!"
-msgstr ""
 
 #. module: base
 #: field:ir.actions.client,params_store:0
@@ -3866,12 +3779,6 @@ msgid "Fields Mapping"
 msgstr "字段映射"
 
 #. module: base
-#: code:addons/base/module/wizard/base_module_upgrade.py:84
-#, python-format
-msgid "Unmet Dependency!"
-msgstr ""
-
-#. module: base
 #: model:res.partner.title,name:base.res_partner_title_sir
 #: model:res.partner.title,shortcut:base.res_partner_title_sir
 msgid "Sir"
@@ -3901,6 +3808,11 @@ msgstr ""
 #: view:base.module.import:0
 msgid "Select module package to import (.zip file):"
 msgstr "选择要导入的模块包（.zip 文件）："
+
+#. module: base
+#: view:ir.filters:0
+msgid "Personal"
+msgstr "个人"
 
 #. module: base
 #: field:base.language.export,modules:0
@@ -4051,10 +3963,11 @@ msgid "Tasks on CRM"
 msgstr "CRM 任务"
 
 #. module: base
-#: model:ir.module.category,name:base.module_category_generic_modules_accounting
-#: view:res.company:0
-msgid "Accounting"
-msgstr "会计"
+#: help:ir.model.fields,relation_field:0
+msgid ""
+"For one2many fields, the field on the target model that implement the "
+"opposite many2one relationship"
+msgstr "对于一对多的字段，此字段在目标模型是实现了相反的多对一关系。"
 
 #. module: base
 #: view:ir.rule:0
@@ -4084,12 +3997,6 @@ msgstr "荷属圣马丁"
 #: model:ir.model,name:base.model_ir_filters
 msgid "Filters"
 msgstr "过滤"
-
-#. module: base
-#: code:addons/base/module/wizard/base_module_import.py:67
-#, python-format
-msgid "Can not create the module file: %s!"
-msgstr ""
 
 #. module: base
 #: model:ir.actions.act_window,name:base.ir_cron_act
@@ -4126,13 +4033,6 @@ msgstr "检测到循环。"
 #: model:ir.module.module,shortdesc:base.module_l10n_et
 msgid "Ethiopia - Accounting"
 msgstr ""
-
-#. module: base
-#: model:ir.actions.act_window,name:base.ir_config_list_action
-#: view:ir.config_parameter:0
-#: model:ir.ui.menu,name:base.ir_config_menu
-msgid "System Parameters"
-msgstr "系统参数"
 
 #. module: base
 #: code:addons/base/module/module.py:366
@@ -4826,12 +4726,6 @@ msgid "`code` must be unique."
 msgstr "“代码”必须唯一。"
 
 #. module: base
-#: code:addons/base/ir/workflow/workflow.py:99
-#, python-format
-msgid "Operation Forbidden"
-msgstr ""
-
-#. module: base
 #: model:ir.module.module,shortdesc:base.module_knowledge
 msgid "Knowledge Management System"
 msgstr "知识管理系统"
@@ -5174,13 +5068,6 @@ msgstr ""
 "请单击“继续”按钮开始享受您的 OpenERP 体验..."
 
 #. module: base
-#: help:ir.sequence,number_next_actual:0
-msgid ""
-"Next number that will be used. This number can be incremented frequently so "
-"the displayed value might already be obsolete"
-msgstr ""
-
-#. module: base
 #: model:ir.module.category,description:base.module_category_marketing
 msgid "Helps you manage your marketing campaigns step by step."
 msgstr "逐步管理您的市场营销。"
@@ -5204,12 +5091,6 @@ msgstr "加纳"
 #: field:res.lang,direction:0
 msgid "Direction"
 msgstr "方向"
-
-#. module: base
-#: code:addons/orm.py:4815
-#, python-format
-msgid "Sorting field %s not found on model %s"
-msgstr ""
 
 #. module: base
 #: view:ir.actions.act_window:0
@@ -6132,11 +6013,10 @@ msgid ""
 msgstr "来源活动. 当越过来源活动的时候就会测试条件是否能够满足启动 ACT_TO 活动."
 
 #. module: base
-#: help:ir.model.fields,relation_field:0
-msgid ""
-"For one2many fields, the field on the target model that implement the "
-"opposite many2one relationship"
-msgstr "对于一对多的字段，此字段在目标模型是实现了相反的多对一关系。"
+#: model:ir.module.category,name:base.module_category_generic_modules_accounting
+#: view:res.company:0
+msgid "Accounting"
+msgstr "会计"
 
 #. module: base
 #: model:ir.module.module,description:base.module_base_vat
@@ -6246,9 +6126,9 @@ msgid "Authentication"
 msgstr "身份验证"
 
 #. module: base
-#: model:res.country,name:base.gd
-msgid "Grenada"
-msgstr "格林纳达"
+#: model:res.country,name:base.sj
+msgid "Svalbard and Jan Mayen Islands"
+msgstr "斯瓦尔巴特和扬马延岛"
 
 #. module: base
 #: model:ir.model,name:base.model_ir_actions_wizard
@@ -6401,6 +6281,12 @@ msgid ""
 msgstr ""
 
 #. module: base
+#: code:addons/base/ir/workflow/workflow.py:99
+#, python-format
+msgid "Operation forbidden"
+msgstr "禁止操作"
+
+#. module: base
 #: view:ir.actions.server:0
 msgid "SMS Configuration"
 msgstr "短信设置"
@@ -6442,11 +6328,6 @@ msgstr "访问控制列表"
 #: model:res.country,name:base.um
 msgid "USA Minor Outlying Islands"
 msgstr "美国海外领土"
-
-#. module: base
-#: view:base.language.import:0
-msgid "e.g. English"
-msgstr ""
 
 #. module: base
 #: help:ir.cron,numbercall:0
@@ -6530,13 +6411,6 @@ msgstr "电话:"
 #: field:res.partner,is_company:0
 msgid "Is a Company"
 msgstr "是公司"
-
-#. module: base
-#: view:res.company:0
-#: view:res.partner:0
-#: view:res.users:0
-msgid "e.g. www.openerp.com"
-msgstr ""
 
 #. module: base
 #: selection:ir.cron,interval_type:0
@@ -6633,19 +6507,6 @@ msgstr "菜单名称"
 #: field:ir.values,key2:0
 msgid "Qualifier"
 msgstr "合格者"
-
-#. module: base
-#: model:ir.module.module,description:base.module_l10n_vn
-msgid ""
-"\n"
-"This is the module to manage the accounting chart for Vietnam in OpenERP.\n"
-"========================================================================\n"
-"\n"
-"This module applies to companies based in Vietnamese Accounting Standard "
-"(VAS).\n"
-"\n"
-"**Credits:** General Solutions.\n"
-msgstr ""
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_be_coda
@@ -6927,11 +6788,6 @@ msgid "Database Anonymization"
 msgstr "数据库隐藏"
 
 #. module: base
-#: field:res.partner,commercial_partner_id:0
-msgid "Commercial Entity"
-msgstr ""
-
-#. module: base
 #: selection:ir.mail_server,smtp_encryption:0
 msgid "SSL/TLS"
 msgstr "SSL/TLS"
@@ -6990,11 +6846,6 @@ msgid "ir.cron"
 msgstr "ir.cron"
 
 #. module: base
-#: model:ir.ui.menu,name:base.menu_sales_followup
-msgid "Payment Follow-up"
-msgstr ""
-
-#. module: base
 #: model:res.country,name:base.cw
 msgid "Curaçao"
 msgstr ""
@@ -7005,9 +6856,11 @@ msgid "Current Year without Century: %(y)s"
 msgstr "两位数的当前年份：%(y)s"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_l10n_es
-msgid "Spanish Charts of Accounts (PGCE 2008)"
-msgstr ""
+#: model:ir.actions.act_window,name:base.ir_config_list_action
+#: view:ir.config_parameter:0
+#: model:ir.ui.menu,name:base.ir_config_menu
+msgid "System Parameters"
+msgstr "系统参数"
 
 #. module: base
 #: help:ir.actions.client,tag:0
@@ -7070,14 +6923,6 @@ msgstr "苏丹"
 #: view:res.currency.rate.type:0
 msgid "Currency Rate Type"
 msgstr "货币汇率类型"
-
-#. module: base
-#: code:addons/base/res/res_lang.py:189
-#, python-format
-msgid ""
-"You cannot delete the language which is Active!\n"
-"Please de-activate the language first."
-msgstr ""
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_fr
@@ -7254,9 +7099,10 @@ msgid "Repeat Missed"
 msgstr "重做错过的动作"
 
 #. module: base
-#: help:ir.actions.server,state:0
-msgid "Type of the Action that is to be executed"
-msgstr "将要执行的动作的类型"
+#: code:addons/base/module/wizard/base_module_import.py:67
+#, python-format
+msgid "Can not create the module file: %s !"
+msgstr "无法创建模块文件：%s！"
 
 #. module: base
 #: field:ir.server.object.lines,server_id:0
@@ -7482,6 +7328,16 @@ msgstr "时间表"
 #: help:ir.values,company_id:0
 msgid "If set, action binding only applies for this company"
 msgstr "如果不为空，动作只为该公司绑定"
+
+#. module: base
+#: model:ir.module.module,description:base.module_l10n_cn
+msgid ""
+"\n"
+"添加中文省份数据\n"
+"科目类型\\会计科目表模板\\增值税\\辅助核算类别\\管理会计凭证簿\\财务会计凭证簿\n"
+"============================================================\n"
+"    "
+msgstr ""
 
 #. module: base
 #: model:res.country,name:base.lc
@@ -7755,6 +7611,12 @@ msgid "Connection Security"
 msgstr "连接安全"
 
 #. module: base
+#: code:addons/base/ir/ir_actions.py:606
+#, python-format
+msgid "Please specify an action to launch !"
+msgstr "请指定要启动的动作！"
+
+#. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_ec
 msgid "Ecuador - Accounting"
 msgstr "厄瓜多尔 - 会计"
@@ -7773,11 +7635,6 @@ msgstr "北马里亚纳群岛"
 #: field:change.password.user,user_login:0
 msgid "User Login"
 msgstr "用户登录名"
-
-#. module: base
-#: view:ir.filters:0
-msgid "Filters created by myself"
-msgstr ""
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_hn
@@ -7927,12 +7784,6 @@ msgid "Error"
 msgstr "错误"
 
 #. module: base
-#: code:addons/base/res/res_partner.py:566
-#, python-format
-msgid "Couldn't create contact without email address!"
-msgstr ""
-
-#. module: base
 #: help:res.partner,tz:0
 msgid ""
 "The partner's timezone, used to output proper date and time values inside "
@@ -8002,12 +7853,6 @@ msgstr "下一个序列号码"
 
 #. module: base
 #: view:res.partner:0
-#: view:res.users:0
-msgid "Tags..."
-msgstr ""
-
-#. module: base
-#: view:res.partner:0
 msgid "at"
 msgstr ""
 
@@ -8030,11 +7875,6 @@ msgstr "匿名门户"
 #: field:base.language.export,format:0
 msgid "File Format"
 msgstr "文件格式"
-
-#. module: base
-#: view:ir.filters:0
-msgid "My filters"
-msgstr ""
 
 #. module: base
 #: field:res.lang,iso_code:0
@@ -8372,12 +8212,6 @@ msgid "Rules can not be applied on Transient models."
 msgstr "规则不能应用在Transient 模型"
 
 #. module: base
-#: code:addons/base/ir/ir_mail_server.py:215
-#, python-format
-msgid "Connection Test Failed!"
-msgstr ""
-
-#. module: base
 #: selection:base.language.install,lang:0
 msgid "Dutch / Nederlands"
 msgstr "荷兰语 / Nederlands"
@@ -8641,15 +8475,9 @@ msgid ""
 msgstr "您试图升级的一个模块依赖模块： %s，但您的系统中该模块不可用。"
 
 #. module: base
-#: model:ir.module.module,description:base.module_portal_project_long_term
-msgid ""
-"\n"
-"This module adds necessary security rules and access rights for project long "
-"term and portal.\n"
-"============================================================================="
-"================\n"
-"    "
-msgstr ""
+#: field:workflow.transition,act_to:0
+msgid "Destination Activity"
+msgstr "目标活动"
 
 #. module: base
 #: help:res.currency,position:0
@@ -8775,12 +8603,6 @@ msgstr "科威特"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_account_followup
 msgid "Payment Follow-up Management"
-msgstr ""
-
-#. module: base
-#: code:addons/orm.py:5334
-#, python-format
-msgid "The value for the field '%s' already exists."
 msgstr ""
 
 #. module: base
@@ -9028,11 +8850,6 @@ msgstr "高级路线"
 #: model:ir.module.module,shortdesc:base.module_pad
 msgid "Collaborative Pads"
 msgstr "Collaborative Pads"
-
-#. module: base
-#: model:ir.module.module,shortdesc:base.module_account_anglo_saxon
-msgid "Anglo-Saxon Accounting"
-msgstr "英国会计系统"
 
 #. module: base
 #: model:res.country,name:base.np
@@ -10019,6 +9836,11 @@ msgid "Python Code"
 msgstr "Python 语言代码"
 
 #. module: base
+#: help:ir.actions.server,state:0
+msgid "Type of the Action that is to be executed"
+msgstr "将要执行的动作的类型"
+
+#. module: base
 #: model:ir.module.module,description:base.module_portal_crm
 msgid ""
 "\n"
@@ -10068,6 +9890,43 @@ msgid ""
 "Openerp Web Diagram view.\n"
 "=========================\n"
 "\n"
+msgstr ""
+
+#. module: base
+#: model:ir.module.module,description:base.module_l10n_ch
+msgid ""
+"\n"
+"Swiss localization :\n"
+"====================\n"
+"**Multilang swiss STERCHI account chart and taxes**\n"
+" **Author:** Camptocamp SA\n"
+"\n"
+" **Donors:** Hasa Sàrl, Open Net Sàrl and Prisme Solutions Informatique SA\n"
+"\n"
+" **Translators:** brain-tec AG, Agile Business Group\n"
+"\n"
+"**This release will introduce major changes to l10n_ch.**\n"
+"\n"
+"Due to important refactoring needs and the Switzerland adoption of new "
+"international payment standard during 2013-2014. We have reorganised the "
+"swiss localization addons this way:\n"
+"\n"
+"- **l10n_ch**: Multilang swiss STERCHI account chart and taxes (official "
+"addon)\n"
+"- **l10n_ch_base_bank**: Technical module that introduces a new and "
+"simplified version of bank type management\n"
+"- **l10n_ch_bank**: List of swiss banks\n"
+"- **l10n_ch_zip**: List of swiss postal zip\n"
+"- **l10n_ch_dta**: Support of dta payment protocol (will be deprecated end "
+"2014)\n"
+"- **l10n_ch_payment_slip**: Support of ESR/BVR payment slip report and "
+"reconciliation. Report refactored with easy element positioning.\n"
+"- **l10n_ch_sepa**: Alpha implementation of PostFinance SEPA/PAIN support "
+"will be completed during 2013/2014\n"
+"\n"
+"The modules will be soon available on OpenERP swiss localization on "
+"launchpad:\n"
+"https://launchpad.net/openerp-swiss-localization\n"
 msgstr ""
 
 #. module: base
@@ -10216,11 +10075,6 @@ msgid "New Language (Empty translation template)"
 msgstr "新语言(空的翻译模版)"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_account_report_company
-msgid "Invoice Analysis per Company"
-msgstr ""
-
-#. module: base
 #: help:ir.actions.server,email:0
 msgid ""
 "Expression that returns the email address to send to. Can be based on the "
@@ -10285,102 +10139,9 @@ msgid ""
 msgstr "选择动作（读、写、创建）执行所在之对象。"
 
 #. module: base
-#: model:ir.module.module,description:base.module_stock_location
-msgid ""
-"\n"
-"This module supplements the Warehouse application by effectively "
-"implementing Push and Pull inventory flows.\n"
-"============================================================================="
-"===============================\n"
-"\n"
-"Typically this could be used to:\n"
-"--------------------------------\n"
-"    * Manage product manufacturing chains\n"
-"    * Manage default locations per product\n"
-"    * Define routes within your warehouse according to business needs, such "
-"as:\n"
-"        - Quality Control\n"
-"        - After Sales Services\n"
-"        - Supplier Returns\n"
-"\n"
-"    * Help rental management, by generating automated return moves for "
-"rented products\n"
-"\n"
-"Once this module is installed, an additional tab appear on the product "
-"form,\n"
-"where you can add Push and Pull flow specifications. The demo data of CPU1\n"
-"product for that push/pull :\n"
-"\n"
-"Push flows:\n"
-"-----------\n"
-"Push flows are useful when the arrival of certain products in a given "
-"location\n"
-"should always be followed by a corresponding move to another location, "
-"optionally\n"
-"after a certain delay. The original Warehouse application already supports "
-"such\n"
-"Push flow specifications on the Locations themselves, but these cannot be\n"
-"refined per-product.\n"
-"\n"
-"A push flow specification indicates which location is chained with which "
-"location,\n"
-"and with what parameters. As soon as a given quantity of products is moved "
-"in the\n"
-"source location, a chained move is automatically foreseen according to the\n"
-"parameters set on the flow specification (destination location, delay, type "
-"of\n"
-"move, journal). The new move can be automatically processed, or require a "
-"manual\n"
-"confirmation, depending on the parameters.\n"
-"\n"
-"Pull flows:\n"
-"-----------\n"
-"Pull flows are a bit different from Push flows, in the sense that they are "
-"not\n"
-"related to the processing of product moves, but rather to the processing of\n"
-"procurement orders. What is being pulled is a need, not directly products. "
-"A\n"
-"classical example of Pull flow is when you have an Outlet company, with a "
-"parent\n"
-"Company that is responsible for the supplies of the Outlet.\n"
-"\n"
-"  [ Customer ] <- A - [ Outlet ]  <- B -  [ Holding ] <~ C ~ [ Supplier ]\n"
-"\n"
-"When a new procurement order (A, coming from the confirmation of a Sale "
-"Order\n"
-"for example) arrives in the Outlet, it is converted into another "
-"procurement\n"
-"(B, via a Pull flow of type 'move') requested from the Holding. When "
-"procurement\n"
-"order B is processed by the Holding company, and if the product is out of "
-"stock,\n"
-"it can be converted into a Purchase Order (C) from the Supplier (Pull flow "
-"of\n"
-"type Purchase). The result is that the procurement order, the need, is "
-"pushed\n"
-"all the way between the Customer and Supplier.\n"
-"\n"
-"Technically, Pull flows allow to process procurement orders differently, "
-"not\n"
-"only depending on the product being considered, but also depending on which\n"
-"location holds the 'need' for that product (i.e. the destination location "
-"of\n"
-"that procurement order).\n"
-"\n"
-"Use-Case:\n"
-"---------\n"
-"\n"
-"You can use the demo data as follow:\n"
-"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-"  **CPU1:** Sell some CPU1 from Chicago Shop and run the scheduler\n"
-"     - Warehouse: delivery order, Chicago Shop: reception\n"
-"  **CPU3:**\n"
-"     - When receiving the product, it goes to Quality Control location then\n"
-"       stored to shelf 2.\n"
-"     - When delivering the customer: Pick List -> Packing -> Delivery Order "
-"from Gate A\n"
-"    "
-msgstr ""
+#: field:base.language.import,name:0
+msgid "Language Name"
+msgstr "语言名"
 
 #. module: base
 #: selection:ir.property,type:0
@@ -10411,14 +10172,6 @@ msgstr "字段描述"
 #: model:ir.module.module,shortdesc:base.module_analytic_contract_hr_expense
 msgid "Contracts Management: hr_expense link"
 msgstr "联系人管理：hr_expense 链接"
-
-#. module: base
-#: code:addons/base/module/module.py:670
-#, python-format
-msgid ""
-"The `%s` module appears to be unavailable at the moment, please try again "
-"later."
-msgstr ""
 
 #. module: base
 #: view:ir.attachment:0
@@ -10647,6 +10400,13 @@ msgid "Afghanistan, Islamic State of"
 msgstr "阿富汗伊斯兰国"
 
 #. module: base
+#: code:addons/base/module/wizard/base_module_import.py:58
+#: code:addons/base/module/wizard/base_module_import.py:66
+#, python-format
+msgid "Error !"
+msgstr "错误！"
+
+#. module: base
 #: model:ir.module.module,shortdesc:base.module_marketing_campaign_crm_demo
 msgid "Marketing Campaign - Demo"
 msgstr "市场营销 - 示例"
@@ -10760,22 +10520,6 @@ msgid "Todo"
 msgstr "待办事项"
 
 #. module: base
-#: model:ir.module.module,description:base.module_l10n_es
-msgid ""
-"\n"
-"Spanish Charts of Accounts (PGCE 2008).\n"
-"=======================================\n"
-"\n"
-"    * Defines the following chart of account templates:\n"
-"        * Spanish General Chart of Accounts 2008\n"
-"        * Spanish General Chart of Accounts 2008 for small and medium "
-"companies\n"
-"        * Spanish General Chart of Accounts 2008 for associations\n"
-"    * Defines templates for sale and purchase VAT\n"
-"    * Defines tax code templates\n"
-msgstr ""
-
-#. module: base
 #: model:ir.module.module,shortdesc:base.module_product_visible_discount
 msgid "Prices Visible Discounts"
 msgstr "价格的显式折扣"
@@ -10802,14 +10546,6 @@ msgstr "巴拿马"
 msgid ""
 "The group that a user must have to be authorized to validate this transition."
 msgstr "用户组中的用户需要授权才能确认此迁移。"
-
-#. module: base
-#: view:res.bank:0
-#: view:res.company:0
-#: view:res.partner:0
-#: view:res.users:0
-msgid "Street..."
-msgstr "街道..."
 
 #. module: base
 #: constraint:res.users:0
@@ -11457,6 +11193,16 @@ msgid "Samoa"
 msgstr "萨摩亚"
 
 #. module: base
+#: code:addons/base/res/res_lang.py:189
+#, python-format
+msgid ""
+"You cannot delete the language which is Active !\n"
+"Please de-activate the language first."
+msgstr ""
+"您不能删除正在使用的语言包！\n"
+"请先切换成其它语言。"
+
+#. module: base
 #: code:addons/base/ir/ir_model.py:509
 #: code:addons/base/ir/ir_model.py:570
 #: code:addons/base/ir/ir_model.py:1031
@@ -11488,6 +11234,11 @@ msgstr "验证错误"
 #: view:base.module.update:0
 msgid "Open Modules"
 msgstr "打开模块"
+
+#. module: base
+#: model:ir.actions.act_window,help:base.action_res_bank_form
+msgid "Manage bank records you want to be used in the system."
+msgstr "你想用于管理银行记录在系统中."
 
 #. module: base
 #: view:base.module.import:0
@@ -11599,6 +11350,12 @@ msgstr ""
 #: model:ir.module.module,shortdesc:base.module_analytic_user_function
 msgid "Jobs on Contracts"
 msgstr "劳动合同"
+
+#. module: base
+#: code:addons/base/res/res_lang.py:187
+#, python-format
+msgid "You cannot delete the language which is User's Preferred Language !"
+msgstr "不能删除用户的首先语言."
 
 #. module: base
 #: view:ir.model.data:0
@@ -11728,11 +11485,6 @@ msgid "This field is used to set/get locales for user"
 msgstr "此字段用于设定或获取地区设置"
 
 #. module: base
-#: model:res.country,name:base.sj
-msgid "Svalbard and Jan Mayen Islands"
-msgstr "斯瓦尔巴特和扬马延岛"
-
-#. module: base
 #: view:ir.filters:0
 msgid "Shared"
 msgstr "分享"
@@ -11847,21 +11599,6 @@ msgid "Auto Search"
 msgstr "自动搜索"
 
 #. module: base
-#: model:ir.actions.act_window,help:base.action_partner_category_form
-msgid ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"                Click to create a new partner category.\n"
-"              </p><p>\n"
-"                Manage the partner categories in order to better classify "
-"them for tracking and analysis purposes.\n"
-"                A partner may belong to several categories and categories "
-"have a hierarchy structure: a partner belonging to a category also belong to "
-"his parent category.\n"
-"              </p>\n"
-"            "
-msgstr ""
-
-#. module: base
 #: field:ir.actions.act_window,filter:0
 msgid "Filter"
 msgstr "过滤"
@@ -11872,14 +11609,9 @@ msgid "Switzerland"
 msgstr "瑞士"
 
 #. module: base
-#: code:addons/base/res/res_partner.py:361
-#, python-format
-msgid ""
-"Changing the company of a contact should only be done if it was never "
-"correctly set. If an existing contact starts working for a new company then "
-"a new contact should be created under that new company. You can use the "
-"\"Discard\" button to abandon this change."
-msgstr ""
+#: model:res.country,name:base.gd
+msgid "Grenada"
+msgstr "格林纳达"
 
 #. module: base
 #: help:res.partner,customer:0
@@ -11944,9 +11676,10 @@ msgid ""
 msgstr ""
 
 #. module: base
-#: model:ir.model,name:base.model_res_request_history
-msgid "res.request.history"
-msgstr "res.request.history"
+#: code:addons/base/ir/ir_model.py:296
+#, python-format
+msgid "Size of the field can never be less than 1 !"
+msgstr "字段的长度不小于1"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_mrp_operations
@@ -11996,9 +11729,102 @@ msgid "GPL Version 3"
 msgstr "GPL Version 3"
 
 #. module: base
-#: field:base.language.import,name:0
-msgid "Language Name"
-msgstr "语言名"
+#: model:ir.module.module,description:base.module_stock_location
+msgid ""
+"\n"
+"This module supplements the Warehouse application by effectively "
+"implementing Push and Pull inventory flows.\n"
+"============================================================================="
+"===============================\n"
+"\n"
+"Typically this could be used to:\n"
+"--------------------------------\n"
+"    * Manage product manufacturing chains\n"
+"    * Manage default locations per product\n"
+"    * Define routes within your warehouse according to business needs, such "
+"as:\n"
+"        - Quality Control\n"
+"        - After Sales Services\n"
+"        - Supplier Returns\n"
+"\n"
+"    * Help rental management, by generating automated return moves for "
+"rented products\n"
+"\n"
+"Once this module is installed, an additional tab appear on the product "
+"form,\n"
+"where you can add Push and Pull flow specifications. The demo data of CPU1\n"
+"product for that push/pull :\n"
+"\n"
+"Push flows:\n"
+"-----------\n"
+"Push flows are useful when the arrival of certain products in a given "
+"location\n"
+"should always be followed by a corresponding move to another location, "
+"optionally\n"
+"after a certain delay. The original Warehouse application already supports "
+"such\n"
+"Push flow specifications on the Locations themselves, but these cannot be\n"
+"refined per-product.\n"
+"\n"
+"A push flow specification indicates which location is chained with which "
+"location,\n"
+"and with what parameters. As soon as a given quantity of products is moved "
+"in the\n"
+"source location, a chained move is automatically foreseen according to the\n"
+"parameters set on the flow specification (destination location, delay, type "
+"of\n"
+"move, journal). The new move can be automatically processed, or require a "
+"manual\n"
+"confirmation, depending on the parameters.\n"
+"\n"
+"Pull flows:\n"
+"-----------\n"
+"Pull flows are a bit different from Push flows, in the sense that they are "
+"not\n"
+"related to the processing of product moves, but rather to the processing of\n"
+"procurement orders. What is being pulled is a need, not directly products. "
+"A\n"
+"classical example of Pull flow is when you have an Outlet company, with a "
+"parent\n"
+"Company that is responsible for the supplies of the Outlet.\n"
+"\n"
+"  [ Customer ] <- A - [ Outlet ]  <- B -  [ Holding ] <~ C ~ [ Supplier ]\n"
+"\n"
+"When a new procurement order (A, coming from the confirmation of a Sale "
+"Order\n"
+"for example) arrives in the Outlet, it is converted into another "
+"procurement\n"
+"(B, via a Pull flow of type 'move') requested from the Holding. When "
+"procurement\n"
+"order B is processed by the Holding company, and if the product is out of "
+"stock,\n"
+"it can be converted into a Purchase Order (C) from the Supplier (Pull flow "
+"of\n"
+"type Purchase). The result is that the procurement order, the need, is "
+"pushed\n"
+"all the way between the Customer and Supplier.\n"
+"\n"
+"Technically, Pull flows allow to process procurement orders differently, "
+"not\n"
+"only depending on the product being considered, but also depending on which\n"
+"location holds the 'need' for that product (i.e. the destination location "
+"of\n"
+"that procurement order).\n"
+"\n"
+"Use-Case:\n"
+"---------\n"
+"\n"
+"You can use the demo data as follow:\n"
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+"  **CPU1:** Sell some CPU1 from Chicago Shop and run the scheduler\n"
+"     - Warehouse: delivery order, Chicago Shop: reception\n"
+"  **CPU3:**\n"
+"     - When receiving the product, it goes to Quality Control location then\n"
+"       stored to shelf 2.\n"
+"     - When delivering the customer: Pick List -> Packing -> Delivery Order "
+"from Gate A\n"
+"    "
+msgstr ""
 
 #. module: base
 #: model:ir.module.module,description:base.module_decimal_precision
@@ -12026,12 +11852,6 @@ msgstr "配置安装程序"
 #: field:res.partner,customer:0
 msgid "Customer"
 msgstr "客户"
-
-#. module: base
-#: view:res.partner:0
-#: view:res.users:0
-msgid "e.g. +32.81.81.37.00"
-msgstr "例如：+86 21 8888 8888"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -12084,12 +11904,6 @@ msgid "Month: %(month)s"
 msgstr "月：%(month)s"
 
 #. module: base
-#: model:ir.actions.client,name:base.modules_updates_act_cl
-#: model:ir.ui.menu,name:base.menu_module_updates
-msgid "Updates"
-msgstr "更新"
-
-#. module: base
 #: field:ir.actions.act_window.view,sequence:0
 #: field:ir.actions.server,sequence:0
 #: field:ir.actions.todo,sequence:0
@@ -12123,6 +11937,19 @@ msgstr "如果你不选中“有效”字段，将停用这条ACL而无需删除
 #: model:ir.model,name:base.model_ir_fields_converter
 msgid "ir.fields.converter"
 msgstr "ir.fields.converter"
+
+#. module: base
+#: code:addons/base/res/res_partner.py:439
+#, python-format
+msgid "Couldn't create contact without email address !"
+msgstr "不能建立没有email地址的联系人！"
+
+#. module: base
+#: model:ir.module.category,name:base.module_category_manufacturing
+#: model:ir.ui.menu,name:base.menu_mrp_config
+#: model:ir.ui.menu,name:base.menu_mrp_root
+msgid "Manufacturing"
+msgstr "生产"
 
 #. module: base
 #: model:res.country,name:base.km
@@ -12460,12 +12287,6 @@ msgid "Falkland Islands"
 msgstr "福克兰群岛"
 
 #. module: base
-#: code:addons/base/ir/ir_actions.py:606
-#, python-format
-msgid "Please specify an action to launch!"
-msgstr ""
-
-#. module: base
 #: model:res.country,name:base.lb
 msgid "Lebanon"
 msgstr "黎巴嫩"
@@ -12528,6 +12349,12 @@ msgid "XSL"
 msgstr "XSL"
 
 #. module: base
+#: code:addons/base/ir/ir_model.py:85
+#, python-format
+msgid "Invalid search criterions"
+msgstr "无效搜索规则"
+
+#. module: base
 #: view:ir.mail_server:0
 msgid "Connection Information"
 msgstr "连接信息"
@@ -12580,6 +12407,25 @@ msgstr "选中内容"
 #: view:res.users:0
 msgid "Change Password"
 msgstr "更改密码"
+
+#. module: base
+#: model:ir.module.module,description:base.module_l10n_es
+msgid ""
+"\n"
+"Spanish Charts of Accounts (PGCE 2008).\n"
+"=======================================\n"
+"\n"
+"    * Defines the following chart of account templates:\n"
+"        * Spanish General Chart of Accounts 2008\n"
+"        * Spanish General Chart of Accounts 2008 for small and medium "
+"companies\n"
+"    * Defines templates for sale and purchase VAT\n"
+"    * Defines tax code templates\n"
+"\n"
+"**Note:** You should install the l10n_ES_account_balance_report module for "
+"yearly\n"
+"      account reporting (balance, profit & losses).\n"
+msgstr ""
 
 #. module: base
 #: field:ir.actions.act_url,type:0
@@ -12868,11 +12714,6 @@ msgid "Address Format"
 msgstr "地址格式"
 
 #. module: base
-#: constraint:res.partner:0
-msgid "You cannot create recursive Partner hierarchies."
-msgstr ""
-
-#. module: base
 #: model:ir.model,name:base.model_change_password_user
 msgid "Change Password Wizard User"
 msgstr "密码更改向导"
@@ -12937,13 +12778,6 @@ msgstr ""
 #: view:ir.model.data:0
 #: model:ir.ui.menu,name:base.ir_model_data_menu
 msgid "External Identifiers"
-msgstr ""
-
-#. module: base
-#. openerp-web
-#: code:addons/base/static/src/js/apps.js:104
-#, python-format
-msgid "Showing locally available modules"
 msgstr ""
 
 #. module: base
@@ -13041,12 +12875,6 @@ msgid ""
 msgstr ""
 
 #. module: base
-#: code:addons/base/ir/ir_model.py:295
-#, python-format
-msgid "Size of the field can never be less than 0 !"
-msgstr ""
-
-#. module: base
 #: help:ir.actions.server,sequence:0
 msgid ""
 "Important when you deal with multiple actions, the execution order will be "
@@ -13136,6 +12964,12 @@ msgstr "翻译"
 #: field:res.request.history,body:0
 msgid "Body"
 msgstr "内容"
+
+#. module: base
+#: code:addons/base/ir/ir_mail_server.py:221
+#, python-format
+msgid "Connection test succeeded!"
+msgstr "连接测试成功！"
 
 #. module: base
 #: model:ir.module.module,description:base.module_project_gtd
@@ -13510,25 +13344,9 @@ msgid "Bulgaria"
 msgstr "保加利亚"
 
 #. module: base
-#: model:ir.module.module,description:base.module_mrp_byproduct
-msgid ""
-"\n"
-"This module allows you to produce several products from one production "
-"order.\n"
-"============================================================================="
-"\n"
-"\n"
-"You can configure by-products in the bill of material.\n"
-"\n"
-"Without this module:\n"
-"--------------------\n"
-"    A + B + C -> D\n"
-"\n"
-"With this module:\n"
-"-----------------\n"
-"    A + B + C -> D + E\n"
-"    "
-msgstr ""
+#: model:res.country,name:base.ao
+msgid "Angola"
+msgstr "安哥拉"
 
 #. module: base
 #: model:res.country,name:base.tf
@@ -13689,6 +13507,11 @@ msgid "ir.sequence.type"
 msgstr "ir.sequence.type"
 
 #. module: base
+#: model:ir.module.module,shortdesc:base.module_l10n_be_hr_payroll_account
+msgid "Belgium - Payroll with Accounting"
+msgstr "比利时 - 工资与会计"
+
+#. module: base
 #: selection:base.language.export,format:0
 msgid "CSV File"
 msgstr "CSV 文件"
@@ -13697,6 +13520,12 @@ msgstr "CSV 文件"
 #: field:res.company,account_no:0
 msgid "Account No."
 msgstr "科目号"
+
+#. module: base
+#: code:addons/base/res/res_lang.py:185
+#, python-format
+msgid "Base Language 'en_US' can not be deleted !"
+msgstr "不能删除基础语言 'en_US'!"
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_uk
@@ -13746,46 +13575,9 @@ msgid "Field Label"
 msgstr "字段标签"
 
 #. module: base
-#: model:ir.module.module,description:base.module_sale_stock
-msgid ""
-"\n"
-"Manage sales quotations and orders\n"
-"==================================\n"
-"\n"
-"This module makes the link between the sales and warehouses management "
-"applications.\n"
-"\n"
-"Preferences\n"
-"-----------\n"
-"* Shipping: Choice of delivery at once or partial delivery\n"
-"* Invoicing: choose how invoices will be paid\n"
-"* Incoterms: International Commercial terms\n"
-"\n"
-"You can choose flexible invoicing methods:\n"
-"\n"
-"* *On Demand*: Invoices are created manually from Sales Orders when needed\n"
-"* *On Delivery Order*: Invoices are generated from picking (delivery)\n"
-"* *Before Delivery*: A Draft invoice is created and must be paid before "
-"delivery\n"
-msgstr ""
-"\n"
-"管理销售报价单和订单\n"
-"==================================\n"
-"\n"
-"这个模块关联了销售和仓库管理程序。\n"
-"\n"
-"Preferences\n"
-"-----------\n"
-"* 运输: Choice of delivery at once or partial delivery\n"
-"* 开票: choose how invoices will be paid\n"
-"* 国际贸易术语: International Commercial terms\n"
-"\n"
-"You can choose flexible invoicing methods:\n"
-"\n"
-"* *On Demand*: Invoices are created manually from Sales Orders when needed\n"
-"* *On Delivery Order*: Invoices are generated from picking (delivery)\n"
-"* *Before Delivery*: A Draft invoice is created and must be paid before "
-"delivery\n"
+#: model:res.country,name:base.dj
+msgid "Djibouti"
+msgstr "吉布提"
 
 #. module: base
 #: field:ir.translation,value:0
@@ -13941,6 +13733,11 @@ msgid "Diagram"
 msgstr "图表"
 
 #. module: base
+#: model:ir.module.module,shortdesc:base.module_l10n_es
+msgid "Spanish - Accounting (PGCE 2008)"
+msgstr ""
+
+#. module: base
 #: model:ir.module.module,shortdesc:base.module_stock_no_autopicking
 msgid "Picking Before Manufacturing"
 msgstr "生产前领料"
@@ -13994,12 +13791,6 @@ msgid ""
 "\n"
 "You can assign several contracts per employee.\n"
 "    "
-msgstr ""
-
-#. module: base
-#: code:addons/base/res/res_lang.py:187
-#, python-format
-msgid "You cannot delete the language which is User's Preferred Language!"
 msgstr ""
 
 #. module: base
@@ -14216,6 +14007,11 @@ msgstr "客户业务伙伴"
 #: sql_constraint:res.users:0
 msgid "You can not have two users with the same login !"
 msgstr "用户名必须唯一！"
+
+#. module: base
+#: model:ir.model,name:base.model_res_request_history
+msgid "res.request.history"
+msgstr "res.request.history"
 
 #. module: base
 #: model:ir.model,name:base.model_multi_company_default
@@ -14448,11 +14244,6 @@ msgid "Luxembourg"
 msgstr "卢森堡"
 
 #. module: base
-#: view:res.partner:0
-msgid "(edit company address)"
-msgstr ""
-
-#. module: base
 #: model:ir.module.module,summary:base.module_base_calendar
 msgid "Personal & Shared Calendar"
 msgstr "个人和共享的日历"
@@ -14678,13 +14469,6 @@ msgid "Currency Rate"
 msgstr "汇率"
 
 #. module: base
-#. openerp-web
-#: code:addons/base/static/src/js/apps.js:104
-#, python-format
-msgid "OpenERP Apps Unreachable"
-msgstr ""
-
-#. module: base
 #: view:base.module.upgrade:0
 #: field:base.module.upgrade,module_info:0
 msgid "Modules to Update"
@@ -14804,11 +14588,6 @@ msgid "View Auto-Load"
 msgstr "自动加载视图"
 
 #. module: base
-#: view:res.country:0
-msgid "Address format..."
-msgstr ""
-
-#. module: base
 #: model:ir.module.module,description:base.module_l10n_et
 msgid ""
 "\n"
@@ -14881,6 +14660,12 @@ msgstr "源模型"
 #: view:ir.sequence:0
 msgid "Day of the Week (0:Monday): %(weekday)s"
 msgstr "一周的第几天 (0:星期一):%(weekday)s"
+
+#. module: base
+#: code:addons/base/module/wizard/base_module_upgrade.py:84
+#, python-format
+msgid "Unmet dependency !"
+msgstr "未满足依赖."
 
 #. module: base
 #: code:addons/base/ir/ir_model.py:509
@@ -15183,11 +14968,15 @@ msgid "Color Index"
 msgstr "颜色索引"
 
 #. module: base
-#: model:ir.module.category,name:base.module_category_manufacturing
-#: model:ir.ui.menu,name:base.menu_mrp_config
-#: model:ir.ui.menu,name:base.menu_mrp_root
-msgid "Manufacturing"
-msgstr "生产"
+#: model:ir.actions.act_window,help:base.action_partner_category_form
+msgid ""
+"Manage the partner categories in order to better classify them for tracking "
+"and analysis purposes. A partner may belong to several categories and "
+"categories have a hierarchy structure: a partner belonging to a category "
+"also belong to his parent category."
+msgstr ""
+"管理业务伙伴分类，以便更好地鉴它们用于进行数据的跟踪和分析。一个业务伙伴可以属于多个分类，分类是层次结构的形式，也就是说一个业务伙伴如果属于一个分类那么它"
+"也属于该分类的上级分类。"
 
 #. module: base
 #: model:ir.module.module,description:base.module_survey
@@ -15234,14 +15023,9 @@ msgid "Electronic Data Interchange (EDI)"
 msgstr "电子数据交换 (EDI)"
 
 #. module: base
-#: model:ir.module.module,description:base.module_l10n_cn
-msgid ""
-"\n"
-"添加中文省份数据\n"
-"科目类型\\会计科目表模板\\增值税\\辅助核算类别\\管理会计凭证簿\\财务会计凭证簿\n"
-"============================================================\n"
-"    "
-msgstr ""
+#: model:ir.module.module,shortdesc:base.module_account_anglo_saxon
+msgid "Anglo-Saxon Accounting"
+msgstr "英国会计系统"
 
 #. module: base
 #: model:res.country,name:base.vg
@@ -15253,11 +15037,6 @@ msgstr "英属维京群岛"
 #: model:ir.ui.menu,name:base.menu_ir_property
 msgid "Parameters"
 msgstr "参数"
-
-#. module: base
-#: view:res.partner:0
-msgid "e.g. Sales Director"
-msgstr ""
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -15438,11 +15217,6 @@ msgid "Automatic Installation"
 msgstr "自动化安装"
 
 #. module: base
-#: view:base.language.import:0
-msgid "e.g. en_US"
-msgstr ""
-
-#. module: base
 #: model:ir.module.module,description:base.module_l10n_hn
 msgid ""
 "\n"
@@ -15618,10 +15392,10 @@ msgid "Condition"
 msgstr "条件"
 
 #. module: base
-#: code:addons/base/module/module.py:669
-#, python-format
-msgid "Module not found"
-msgstr ""
+#: model:ir.actions.client,name:base.modules_updates_act_cl
+#: model:ir.ui.menu,name:base.menu_module_updates
+msgid "Updates"
+msgstr "更新"
 
 #. module: base
 #: help:res.currency,rate:0
@@ -15737,12 +15511,6 @@ msgstr "黄金"
 #, python-format
 msgid "Bank Accounts"
 msgstr "银行帐户"
-
-#. module: base
-#: code:addons/base/res/res_lang.py:185
-#, python-format
-msgid "Base Language 'en_US' can not be deleted!"
-msgstr ""
 
 #. module: base
 #: model:res.country,name:base.sl
@@ -16006,12 +15774,6 @@ msgid "Export Name"
 msgstr "导出名称"
 
 #. module: base
-#: code:addons/base/ir/ir_sequence.py:259
-#, python-format
-msgid "Invalid prefix or suffix for sequence '%s'"
-msgstr "序列 '%s' 的前缀或者后缀不正确"
-
-#. module: base
 #: help:res.partner,type:0
 msgid ""
 "Used to select automatically the right address according to the context in "
@@ -16051,85 +15813,4528 @@ msgstr "俄语 / русский язык"
 msgid "Signup"
 msgstr "注册"
 
-#, python-format
-#~ msgid "Please specify an action to launch !"
-#~ msgstr "请指定要启动的动作！"
+#~ msgid ","
+#~ msgstr ","
+
+#~ msgid "Reply"
+#~ msgstr "回复"
+
+#~ msgid "References"
+#~ msgstr "参考"
+
+#~ msgid "Channel"
+#~ msgstr "渠道"
+
+#~ msgid "Property"
+#~ msgstr "属性"
+
+#~ msgid "Categories"
+#~ msgstr "分类"
+
+#~ msgid ""
+#~ "0=Very Urgent\n"
+#~ "10=Not urgent"
+#~ msgstr "0=非常紧急10=不紧急"
+
+#~ msgid "API ID"
+#~ msgstr "API ID"
+
+#~ msgid "res.groups"
+#~ msgstr "组"
+
+#~ msgid "General Description"
+#~ msgstr "一般说明"
+
+#~ msgid "Meta Datas"
+#~ msgstr "元数据"
+
+#~ msgid "Events"
+#~ msgstr "事件"
+
+#~ msgid "Request History"
+#~ msgstr "请求记录"
+
+#~ msgid "Objects"
+#~ msgstr "对象"
+
+#~ msgid "Uninstall (beta)"
+#~ msgstr "卸载"
+
+#~ msgid "SMS Message"
+#~ msgstr "短信"
+
+#~ msgid "Sender's email"
+#~ msgstr "发送者email"
+
+#~ msgid "Send SMS"
+#~ msgstr "发送SMS"
+
+#~ msgid "Bulk SMS send"
+#~ msgstr "批量发送SMS"
+
+#~ msgid "VAT"
+#~ msgstr "增值税"
+
+#~ msgid "XSL path"
+#~ msgstr "XSL文件路径"
+
+#~ msgid "Rounding factor"
+#~ msgstr "舍入系数"
+
+#~ msgid "Report Header"
+#~ msgstr "报表头"
+
+#~ msgid "Type fields"
+#~ msgstr "类型域"
+
+#~ msgid "Send Email"
+#~ msgstr "发送邮件"
+
+#~ msgid "Channel Name"
+#~ msgstr "渠道名称"
+
+#~ msgid "Landscape"
+#~ msgstr "横向"
+
+#~ msgid "Send"
+#~ msgstr "发送"
+
+#~ msgid "XML path"
+#~ msgstr "XML文件路径"
+
+#~ msgid "Is Object"
+#~ msgstr "Is Object"
+
+#~ msgid "Portrait"
+#~ msgstr "纵向"
+
+#~ msgid "Code (eg:en__US)"
+#~ msgstr "语言代码(如：en__US)"
+
+#~ msgid "SMS - Gateway: clickatell"
+#~ msgstr "短信网关：clickatell"
 
 #, python-format
-#~ msgid "Can not create the module file: %s !"
-#~ msgstr "无法创建模块文件：%s！"
-
-#, python-format
-#~ msgid "Error !"
-#~ msgstr "错误！"
-
-#, python-format
-#~ msgid "You cannot delete the language which is User's Preferred Language !"
-#~ msgstr "不能删除用户的首先语言."
-
-#~ msgid "Manage bank records you want to be used in the system."
-#~ msgstr "你想用于管理银行记录在系统中."
-
-#, python-format
-#~ msgid "Size of the field can never be less than 1 !"
-#~ msgstr "字段的长度不小于1"
-
-#, python-format
-#~ msgid "Unmet dependency !"
-#~ msgstr "未满足依赖."
-
-#, python-format
-#~ msgid "Invalid search criterions"
-#~ msgstr "无效搜索规则"
-
-#, python-format
-#~ msgid "Base Language 'en_US' can not be deleted !"
-#~ msgstr "不能删除基础语言 'en_US'!"
+#~ msgid "The unlink method is not implemented on this object !"
+#~ msgstr "此对象尚未实现“unlink”方法！"
 
 #, python-format
 #~ msgid ""
-#~ "You cannot delete the language which is Active !\n"
-#~ "Please de-activate the language first."
-#~ msgstr ""
-#~ "您不能删除正在使用的语言包！\n"
-#~ "请先切换成其它语言。"
+#~ "Save this document to a %s file and edit it with a specific software or a "
+#~ "text editor. The file encoding is UTF-8."
+#~ msgstr "把此文档保存为 %s 文件之后可以用编辑器或相应的软件修改它。该文件的编码是 UTF-8。"
+
+#~ msgid "Workflow On"
+#~ msgstr "工作流作用于"
+
+#, python-format
+#~ msgid "new"
+#~ msgstr "新建"
+
+#~ msgid "On multiple doc."
+#~ msgstr "作用于多个文档。"
+
+#~ msgid "Select Action Type"
+#~ msgstr "选择动作类型"
+
+#, python-format
+#~ msgid "The read method is not implemented on this object !"
+#~ msgstr "该对象的“read”方法尚未实现！"
+
+#~ msgid "Schedule Upgrade"
+#~ msgstr "安排升级"
+
+#~ msgid "Export done"
+#~ msgstr "导出完成"
+
+#, python-format
+#~ msgid "You can not remove the model '%s' !"
+#~ msgstr "您不能删除模型“%s”！"
+
+#~ msgid "Basic Partner"
+#~ msgstr "基本业务伙伴"
+
+#~ msgid "This field is not used, it only helps you to select the right action."
+#~ msgstr "该字段并未使用，只是为了帮您选择正确的动作。"
+
+#~ msgid "client_action_multi, client_action_relate"
+#~ msgstr "client_action_multi, client_action_relate"
+
+#~ msgid "S. Georgia & S. Sandwich Isls."
+#~ msgstr "南乔治亚和南三文治群岛"
+
+#~ msgid "To export a new language, do not select a language."
+#~ msgstr "如果要导出新语言，这里请不要选择语言"
 
 #~ msgid ""
-#~ "Manage the partner categories in order to better classify them for tracking "
-#~ "and analysis purposes. A partner may belong to several categories and "
-#~ "categories have a hierarchy structure: a partner belonging to a category "
-#~ "also belong to his parent category."
+#~ "Provides the fields that will be used to fetch the email address, e.g. when "
+#~ "you select the invoice, then `object.invoice_address_id.email` is the field "
+#~ "which gives the correct address"
 #~ msgstr ""
-#~ "管理业务伙伴分类，以便更好地鉴它们用于进行数据的跟踪和分析。一个业务伙伴可以属于多个分类，分类是层次结构的形式，也就是说一个业务伙伴如果属于一个分类那么它"
-#~ "也属于该分类的上级分类。"
+#~ "指定用于获取电子邮件的字段，比如您选择了发票，那么“object.invoice_address_id.email”就是提供电子邮件的字段。"
 
-#, python-format
-#~ msgid "Connection test failed!"
-#~ msgstr "连接测试失败！"
+#~ msgid "-"
+#~ msgstr "-"
+
+#~ msgid "Payment Term (short name)"
+#~ msgstr "付款条件（缩写）"
+
+#~ msgid "wizard.ir.model.menu.create.line"
+#~ msgstr "wizard.ir.model.menu.create.line"
+
+#~ msgid "Attached ID"
+#~ msgstr "附件编号"
+
+#~ msgid "Keep 0 if the action must appear on all resources."
+#~ msgstr "如果该动作要显示于所有资源上的话请保持为“0”。"
 
 #~ msgid ""
-#~ "Configure your company's bank accounts and select those that must appear on "
-#~ "the report footer. You can reorder bank accounts from the list view. If you "
-#~ "use the accounting application of OpenERP, journals and accounts will be "
-#~ "created automatically based on these data."
+#~ "Specify the message. You can use the fields from the object. e.g. `Dear [[ "
+#~ "object.partner_id.name ]]`"
+#~ msgstr "请指定该消息。您可以使用对象的字段，如： `亲爱的 [[ object.partner_id.name ]]`"
+
+#~ msgid "Attached Model"
+#~ msgstr "附加的模型"
+
+#~ msgid "Trigger Name"
+#~ msgstr "触发器名称"
+
+#~ msgid ""
+#~ "Keep empty if you don't want the user to be able to connect on the system."
+#~ msgstr "如果您不想让该用户连接到本系统的话请保持为空。"
+
+#, python-format
+#~ msgid "Not implemented search_memory method !"
+#~ msgstr "尚未实现“search_memory”方法！"
+
+#, python-format
+#~ msgid ""
+#~ "Couldn't generate the next id because some partners have an alphabetic id !"
+#~ msgstr "不能产生下一个标识符，因为一些业务伙伴的标识符使用字母。"
+
+#, python-format
+#~ msgid "Not implemented set_memory method !"
+#~ msgstr "尚未实现“set_memory”方法!"
+
+#~ msgid "Action To Launch"
+#~ msgstr "要启动的动作"
+
+#~ msgid "Customization"
+#~ msgstr "自定义"
+
+#, python-format
+#~ msgid "The perm_read method is not implemented on this object !"
+#~ msgstr "该对象尚未实现“perm_read”方法！"
+
+#~ msgid "Ending Date"
+#~ msgstr "结束日期"
+
+#~ msgid "Openstuff.net"
+#~ msgstr "Openstuff.net"
+
+#~ msgid "Valid"
+#~ msgstr "有效"
+
+#~ msgid "HR sector"
+#~ msgstr "人力资源部门"
+
+#~ msgid "Draft"
+#~ msgstr "草稿"
+
+#~ msgid "Select the Signal name that is to be used as the trigger."
+#~ msgstr "选择要作为触发器的信号名称"
+
+#~ msgid "Unvalidated"
+#~ msgstr "未验证"
+
+#~ msgid "Payment Term"
+#~ msgstr "付款条件"
+
+#, python-format
+#~ msgid "Please check that all your lines have %d columns."
+#~ msgstr "请确保所有行都有 %d 列。"
+
+#~ msgid ""
+#~ "Value Added Tax number. Check the box if the partner is subjected to the "
+#~ "VAT. Used by the VAT legal statement."
+#~ msgstr "增值税编号，如该业务伙伴适用于增值税，请选择。用于增值税申报。"
+
+#~ msgid "Add or not the coporate RML header"
+#~ msgstr "公司／组织 RML 页眉"
+
+#~ msgid "Quality Certificate"
+#~ msgstr "质量证书编号"
+
+#~ msgid "Check this box if the partner is a customer."
+#~ msgstr "如果该业务伙伴是客户的话请选中"
+
+#, python-format
+#~ msgid ""
+#~ "Save this document to a .CSV file and open it with your favourite "
+#~ "spreadsheet software. The file encoding is UTF-8. You have to translate the "
+#~ "latest column before reimporting it."
+#~ msgstr "把文件存为 .CSV 格式用您喜好的电子表格程序打开。该文件的编码为 UTF-8。再重新导入到系统之前您应该翻译该文件的最后一列。"
+
+#~ msgid ""
+#~ "If the selected language is loaded in the system, all documents related to "
+#~ "this partner will be printed in this language. If not, it will be english."
+#~ msgstr "如果选择的语言被载入到系统，那么所有与业务伙伴相关的文档将使用该语言打印，留空则为英语。"
+
+#~ msgid "SXW content"
+#~ msgstr "SXW 内容"
+
+#~ msgid ""
+#~ "Specify the subject. You can use fields from the object, e.g. `Hello [[ "
+#~ "object.partner_id.name ]]`"
+#~ msgstr "请指定主题。您可以使用对象的字段，如：“尊敬的[[ object.partner_id.name ]]，您好：”"
+
+#, python-format
+#~ msgid "The create method is not implemented on this object !"
+#~ msgstr "该对象尚未实现“create”方法！"
+
+#~ msgid ""
+#~ "The kind of action or button in the client side that will trigger the action."
+#~ msgstr "客户端的该类动作或按钮将触发此动作。"
+
+#~ msgid "SXW path"
+#~ msgstr "SXW 路径"
+
+#~ msgid "Creator"
+#~ msgstr "创建者"
+
+#~ msgid "res.users"
+#~ msgstr "res.users"
+
+#, python-format
+#~ msgid "The write method is not implemented on this object !"
+#~ msgstr "该对象尚未实现“write”方法！"
+
+#~ msgid ""
+#~ "The internal user that is in charge of communicating with this partner if "
+#~ "any."
+#~ msgstr "负责与该业务伙伴沟通的内部用户"
+
+#~ msgid "Starter Partner"
+#~ msgstr "起始业务伙伴"
+
+#~ msgid "Client Actions Connections"
+#~ msgstr "客户端动作连接"
+
+#~ msgid "Client Action Configuration"
+#~ msgstr "客户端动作设置"
+
+#~ msgid "ir.actions.url"
+#~ msgstr "ir.actions.url"
+
+#, python-format
+#~ msgid "Wrong ID for the browse record, got %r, expected an integer."
+#~ msgstr "%r 错误的浏览记录标识符，其应该为一个整数。"
+
+#~ msgid "Partner Contacts"
+#~ msgstr "业务伙伴联系人"
+
+#~ msgid "Trigger On"
+#~ msgstr "触发于"
+
+#~ msgid "Create Action"
+#~ msgstr "创建动作"
+
+#~ msgid "Signal (button Name)"
+#~ msgstr "信号（按钮名称）"
+
+#~ msgid "Advice"
+#~ msgstr "建议"
+
+#~ msgid "Maintenance Contract"
+#~ msgstr "维护合同"
+
+#~ msgid "Select the object from the model on which the workflow will executed."
+#~ msgstr "在模型中选择要执行工作流的对象。"
+
+#~ msgid "Starting Date"
+#~ msgstr "开始日期"
+
+#~ msgid "On delete"
+#~ msgstr "当删除时"
+
+#, python-format
+#~ msgid "Not Implemented"
+#~ msgstr "尚未实现"
+
+#~ msgid "Textile Suppliers"
+#~ msgstr "纺织品供应商"
+
+#~ msgid "res.config.view"
+#~ msgstr "res.config.view"
+
+#~ msgid "acc_number"
+#~ msgstr "acc_number"
+
+#~ msgid "Addresses"
+#~ msgstr "地址"
+
+#~ msgid "XML Identifier"
+#~ msgstr "XML 标识符"
+
+#~ msgid "Skipped"
+#~ msgstr "已跳过"
+
+#~ msgid "Select Report"
+#~ msgstr "选择报表"
+
+#~ msgid "Connect Events to Actions"
+#~ msgstr "把事件关联到动作"
+
+#, python-format
+#~ msgid "Module %s: Invalid Quality Certificate"
+#~ msgstr "模块 %s：无效的证书号"
+
+#~ msgid "res.partner.event"
+#~ msgstr "res.partner.event"
+
+#~ msgid "Values for Event Type"
+#~ msgstr "事件类型的取值"
+
+#~ msgid "Easy to Refer action by name e.g. One Sales Order -> Many Invoices"
+#~ msgstr "简化依名字的查询操作，例如一张销售订单对应多张销售发票"
+
+#~ msgid "Seconde: %(sec)s"
+#~ msgstr "秒：%(sec)s"
+
+#~ msgid "Add User"
+#~ msgstr "添加用户"
+
+#~ msgid "_Close"
+#~ msgstr "关闭(_C)"
+
+#, python-format
+#~ msgid "The copy method is not implemented on this object !"
+#~ msgstr "该对象尚未实现“copy”方法！"
+
+#~ msgid "Number padding"
+#~ msgstr "数字位数"
+
+#~ msgid "ir.actions.todo"
+#~ msgstr "ir.actions.todo"
+
+#, python-format
+#~ msgid "Not implemented get_memory method !"
+#~ msgstr "该对象尚未实现“get_memory“方法！"
+
+#~ msgid "The kernel of OpenERP, needed for all installation."
+#~ msgstr "OpenERP 系统的核心，所有模块都需要它。"
+
+#~ msgid "Components Supplier"
+#~ msgstr "零件供应商"
+
+#~ msgid "Bad customers"
+#~ msgstr "劣质客户"
+
+#~ msgid "Create"
+#~ msgstr "创建"
+
+#~ msgid "country_id"
+#~ msgstr "country_id"
+
+#~ msgid "Installed version"
+#~ msgstr "已安装版本"
+
+#~ msgid "The state code in three chars.\n"
+#~ msgstr "三个字符的省／州代码\n"
+
+#~ msgid "Requests"
+#~ msgstr "请求"
+
+#~ msgid "Error ! You can not create recursive associated members."
+#~ msgstr "错误！您不能创建循环的关联成员。"
+
+#~ msgid "OpenERP Partners"
+#~ msgstr "OpenERP 业务伙伴"
+
+#~ msgid "Important customers"
+#~ msgstr "重要客户"
+
+#, python-format
+#~ msgid "The value \"%s\" for the field \"%s\" is not in the selection"
+#~ msgstr "字段 %s 的值 %s 不在选择之内"
+
+#~ msgid "Short Description"
+#~ msgstr "简短说明"
+
+#~ msgid "Gold Partner"
+#~ msgstr "金牌业务伙伴"
+
+#~ msgid "Load an Official Translation"
+#~ msgstr "载入一个官方翻译"
+
+#~ msgid "Open Source Service Company"
+#~ msgstr "开源服务公司"
+
+#~ msgid "Uncheck the active field to hide the contact."
+#~ msgstr "要隐藏该联系人的话反选“激活”字段"
+
+#~ msgid "Congo, The Democratic Republic of the"
+#~ msgstr "刚果民主共和国"
+
+#~ msgid "Modules to update"
+#~ msgstr "要更新的模块"
+
+#~ msgid "Add RML header"
+#~ msgstr "添加 RML 页眉"
+
+#~ msgid "Python code to be executed"
+#~ msgstr "要执行的 Python 代码"
+
+#~ msgid "Next"
+#~ msgstr "下一步"
+
+#~ msgid "RML content"
+#~ msgstr "RML 内容"
+
+#~ msgid ""
+#~ "Condition that is to be tested before action is executed, e.g. "
+#~ "object.list_price > object.cost_price"
+#~ msgstr "动作执行前所做的条件判断，如：object.list_price > object.cost_price"
+
+#~ msgid "Object ID"
+#~ msgstr "对象标识符 ID"
+
+#~ msgid "Other Actions Configuration"
+#~ msgstr "其他动作设置"
+
+#~ msgid "Channels"
+#~ msgstr "渠道"
+
+#~ msgid "Schedule for Installation"
+#~ msgstr "排定安装"
+
+#~ msgid "Keep empty for a private address, not related to partner."
+#~ msgstr "留空时为私人地址，不关联到业务伙伴。"
+
+#~ msgid "Internal Header/Footer"
+#~ msgstr "内部页眉／页脚"
+
+#, python-format
+#~ msgid ""
+#~ "Save this document to a .tgz file. This archive containt UTF-8 %s files and "
+#~ "may be uploaded to launchpad."
+#~ msgstr "把文档保存为 .tgz 格式文件。该压缩包包含 UTF-8 编码的 %s 文件且能上传到 launchpad。"
+
+#~ msgid ""
+#~ "Check this box if the partner is a supplier. If it's not checked, purchase "
+#~ "people will not see it when encoding a purchase order."
+#~ msgstr "选择此项表示该业务伙伴是供应商。如果没有选中则在采购订单中将无法看到该业务伙伴。"
+
+#~ msgid "https://translations.launchpad.net/openobject"
+#~ msgstr "https://translations.launchpad.net/openobject"
+
+#~ msgid "tree_but_action, client_print_multi"
+#~ msgstr "tree_but_action, client_print_multi"
+
+#~ msgid "Latest version"
+#~ msgstr "最新版本"
+
+#~ msgid "Filename"
+#~ msgstr "文件名"
+
+#~ msgid "Slovak Republic"
+#~ msgstr "斯洛伐克共和国"
+
+#~ msgid "Segmentation"
+#~ msgstr "细分"
+
+#~ msgid "Workflow to be executed on this model."
+#~ msgstr "将要在此模型上执行的工作流。"
+
+#, python-format
+#~ msgid "The search method is not implemented on this object !"
+#~ msgstr "该对象尚未实现“search”方法！"
+
+#~ msgid "Action Source"
+#~ msgstr "动作源"
+
+#~ msgid "IT sector"
+#~ msgstr "信息技术部门"
+
+#~ msgid "Your Logo - Use a size of about 450x150 pixels."
+#~ msgstr "您的徽标——使用大小约为 450x150 像素的图片"
+
+#~ msgid "Configuration Progress"
+#~ msgstr "设置进度"
+
+#~ msgid "This field is not used, it only helps you to select a good model."
+#~ msgstr "此字段不可用，其目的是帮您选择一个好的模型。"
+
+#~ msgid "Save As Attachment Prefix"
+#~ msgstr "另存为附件前缀"
+
+#~ msgid "BIC/Swift code"
+#~ msgstr "银行代码（BIC/Swift）"
+
+#~ msgid "E-Mail"
+#~ msgstr "电子邮件"
+
+#, python-format
+#~ msgid "Key/value '%s' not found in selection field '%s'"
+#~ msgstr "键/值对 '%s' 并未包含在选定的字段 '%s' 中"
+
+#~ msgid "Values"
+#~ msgstr "值"
+
+#~ msgid "Event Type"
+#~ msgstr "事件类型"
+
+#, python-format
+#~ msgid "The exists method is not implemented on this object !"
+#~ msgstr "该对象尚未实现“exists”方法 !"
+
+#, python-format
+#~ msgid "Object %s does not exists"
+#~ msgstr "对象%s不存在"
+
+#~ msgid "Demo data"
+#~ msgstr "示范数据"
+
+#~ msgid "Week of the year: %(woy)s"
+#~ msgstr "一年中的第几周：%(woy)s"
+
+#~ msgid "Day of the year: %(doy)s"
+#~ msgstr "一年中的第几天：%(doy)s"
+
+#~ msgid "Postal Address"
+#~ msgstr "邮政地址"
+
+#~ msgid "Open Report"
+#~ msgstr "打开报表"
+
+#~ msgid "Select Groups"
+#~ msgstr "选择组"
+
+#~ msgid "Localisation"
+#~ msgstr "本地化"
+
+#~ msgid "Parent Partner"
+#~ msgstr "上级业务伙伴"
+
+#~ msgid "Search Contact"
+#~ msgstr "搜索联系人"
+
+#~ msgid "Partner Addresses"
+#~ msgstr "业务伙伴地址列表"
+
+#~ msgid "Contact Name"
+#~ msgstr "联系人姓名"
+
+#~ msgid "FYROM"
+#~ msgstr "马其顿共和国"
+
+#~ msgid "Widget"
+#~ msgstr "窗口控件"
+
+#~ msgid "Wood Suppliers"
+#~ msgstr "木材供应商"
+
+#~ msgid "Display Menu Tips"
+#~ msgstr "显示菜单提示"
+
+#, python-format
+#~ msgid "\"smtp_server\" needs to be set to send mails to users"
+#~ msgstr "需要设置 \"smtp_server\" 给用户发邮件"
+
+#~ msgid "Certified"
+#~ msgstr "已认证"
+
+#~ msgid "Main report file path"
+#~ msgstr "主报表文件路径"
+
+#~ msgid "Request Date"
+#~ msgstr "请求日期"
+
+#~ msgid "Advanced"
+#~ msgstr "高级"
+
+#~ msgid "Logs"
+#~ msgstr "日志"
+
+#~ msgid "Miscellaneous Suppliers"
+#~ msgstr "其他供应商"
+
+#~ msgid ""
+#~ "OpenERP translations (core, modules, clients) are managed through "
+#~ "Launchpad.net, our open source project management facility. We use their "
+#~ "online interface to synchronize all translations efforts."
+#~ msgstr "OpenERP的翻译在Launchpad.net网站上进行，OpenERP项目本身也在这个网站上，并能定期通过接口同步所有语言的翻译。"
+
+#~ msgid "Want to check Ean ? "
+#~ msgstr "是否检查EAN码 "
+
+#~ msgid "Partner Form"
+#~ msgstr "业务伙伴"
+
+#~ msgid "description"
+#~ msgstr "描述"
+
+#~ msgid ""
+#~ "Groups are used to define access rights on objects and the visibility of "
+#~ "screens and menus"
+#~ msgstr "用户组用于设置对象访问权限和决定用户可以看到的屏幕和菜单"
+
+#~ msgid "res.config.users"
+#~ msgstr "res.config.users"
+
+#~ msgid ""
+#~ "Sets the language for the user's user interface, when UI translations are "
+#~ "available"
+#~ msgstr "设置该用户使用的界面语言"
+
+#~ msgid ""
+#~ "2. Group-specific rules are combined together with a logical AND operator"
+#~ msgstr "多个组规则采用AND逻辑最终起作用"
+
+#~ msgid ""
+#~ "To improve or expand the official translations, you should use directly "
+#~ "Lauchpad's web interface (Rosetta). If you need to perform mass translation, "
+#~ "Launchpad also allows uploading full .po files at once"
+#~ msgstr "改善翻译的最好方法是到Lauchpad网站上参与翻译。如果你有了一个完整的.po文件，也可以在Lauchpad网站上传。"
+
+#~ msgid "https://help.launchpad.net/Translations"
+#~ msgstr "https://help.launchpad.net/Translations"
+
+#~ msgid "Homepage Widgets"
+#~ msgstr "首页控件"
+
+#~ msgid ""
+#~ "Date : %(date)s\n"
+#~ "\n"
+#~ "Dear %(partner_name)s,\n"
+#~ "\n"
+#~ "Please find in attachment a reminder of all your unpaid invoices, for a "
+#~ "total amount due of:\n"
+#~ "\n"
+#~ "%(followup_amount).2f %(company_currency)s\n"
+#~ "\n"
+#~ "Thanks,\n"
+#~ "--\n"
+#~ "%(user_signature)s\n"
+#~ "%(company_name)s"
 #~ msgstr ""
-#~ "配置贵公司的银行帐户，并选择那些出现在报表页脚的信息。从列表视图中，您可以重新排列的银行帐户。如果你使用的的OpenERP会计应用，凭证簿和科目基于将这些"
-#~ "数据被自动创建。"
+#~ "日期 : %(date)s\n"
+#~ "\n"
+#~ "%(partner_name)s,\n"
+#~ "\n"
+#~ "以下是贵公司尚未付款的发票列表，金额总计：\n"
+#~ "\n"
+#~ "%(followup_amount).2f %(company_currency)s\n"
+#~ "\n"
+#~ "提请关注为盼，\n"
+#~ "--\n"
+#~ "%(user_signature)s\n"
+#~ "%(company_name)s"
 
-#~ msgid "My Filters"
-#~ msgstr "我的过滤器"
+#~ msgid "Domain Setup"
+#~ msgstr "筛选条件设置"
 
-#~ msgid "Personal"
-#~ msgstr "个人"
+#~ msgid ""
+#~ "Do not display this log if it belongs to the same object the user is working "
+#~ "on"
+#~ msgstr "如果用户在修改相同的对象，不显示这个log"
+
+#~ msgid "Field Information"
+#~ msgstr "字段内容"
+
+#~ msgid "Retailers"
+#~ msgstr "零售商"
+
+#~ msgid "Create Users"
+#~ msgstr "创建用户"
+
+#~ msgid ""
+#~ "The user's timezone, used to perform timezone conversions between the server "
+#~ "and the client."
+#~ msgstr "用户时区,用于服务器与客户端之间的时区转换."
+
+#~ msgid "Plugins"
+#~ msgstr "插件"
+
+#~ msgid "System update completed"
+#~ msgstr "系统更新完成"
+
+#~ msgid "Author Website"
+#~ msgstr "作者网站"
+
+#~ msgid "Load Official Translation"
+#~ msgstr "载入官方翻译"
+
+#~ msgid "Combination of rules"
+#~ msgstr "组合的规则"
+
+#~ msgid "Unread"
+#~ msgstr "未读"
+
+#~ msgid "Want to Clear Ids ? "
+#~ msgstr "要清除Ids吗？ "
+
+#~ msgid "The logging message."
+#~ msgstr "日志信息"
+
+#~ msgid "Integer Big"
+#~ msgstr "长整型"
+
+#~ msgid "Choose between the simplified interface and the extended one"
+#~ msgstr "在简单界面和扩展界面选择其一."
+
+#~ msgid "Arguments to be passed to the method. e.g. (uid,)"
+#~ msgstr "参数传送给方法,如(uid,)"
 
 #, python-format
-#~ msgid "Operation forbidden"
-#~ msgstr "禁止操作"
+#~ msgid "Please specify server option --email-from !"
+#~ msgstr "请指定服务器选项,email from!"
+
+#~ msgid "Object Identifiers"
+#~ msgstr "对象标识符"
+
+#~ msgid "To browse official translations, you can start with these links:"
+#~ msgstr "浏览官方的翻译，从这些连接开始:"
+
+#~ msgid "Module update result"
+#~ msgstr "模块更新结果"
+
+#~ msgid "E-mail"
+#~ msgstr "电子邮件"
+
+#~ msgid ""
+#~ "Please be patient, this operation may take a few minutes (depending on the "
+#~ "number of modules currently installed)..."
+#~ msgstr "请耐心等待,这些操作将花费一些时间.(取决于当前安装模块数量)..."
+
+#~ msgid "Start update"
+#~ msgstr "开始更新"
+
+#~ msgid "Website of Partner"
+#~ msgstr "伙伴网站"
+
+#~ msgid "Synchronize Translations"
+#~ msgstr "同步翻译"
+
+#~ msgid ""
+#~ "Number of time the function is called,\n"
+#~ "a negative number indicates no limit"
+#~ msgstr "函数执行次数（负数表示没有限制）"
+
+#~ msgid "Report file"
+#~ msgstr "报表文件"
+
+#~ msgid "Binary File or external URL"
+#~ msgstr "二进制文件或外部URL"
 
 #, python-format
-#~ msgid "Couldn't create contact without email address !"
-#~ msgstr "不能建立没有email地址的联系人！"
+#~ msgid "Could not load base module"
+#~ msgstr "不能载入基本模块"
 
 #, python-format
-#~ msgid "Connection test succeeded!"
-#~ msgstr "连接测试成功！"
+#~ msgid "module base cannot be loaded! (hint: verify addons-path)"
+#~ msgstr "模块库不能装载!(提示:检查addons路径)"
+
+#~ msgid ""
+#~ "When using CSV format, please also check that the first line of your file is "
+#~ "one of the following:"
+#~ msgstr "如果用CSV格式文件导入，请确定文件首行如下："
+
+#~ msgid "Simplified"
+#~ msgstr "简化界面"
+
+#~ msgid ""
+#~ "Example: GLOBAL_RULE_1 AND GLOBAL_RULE_2 AND ( (GROUP_A_RULE_1 AND "
+#~ "GROUP_A_RULE_2) OR (GROUP_B_RULE_1 AND GROUP_B_RULE_2) )"
+#~ msgstr ""
+#~ "例如：Example: GLOBAL_RULE_1 AND GLOBAL_RULE_2 AND ( (GROUP_A_RULE_1 AND "
+#~ "GROUP_A_RULE_2) OR (GROUP_B_RULE_1 AND GROUP_B_RULE_2) )"
+
+#~ msgid ""
+#~ "This wizard will scan all module repositories on the server side to detect "
+#~ "newly added modules as well as any change to existing modules."
+#~ msgstr "此向导会检查服务器上新增的或已修改的模块"
+
+#~ msgid "Portugese (BR) / Português (BR)"
+#~ msgstr "Portugese (BR) / Português (BR)"
+
+#~ msgid "Please be patient, as this operation may take a few seconds..."
+#~ msgstr "稍等一下，此操作需要些时间"
+
+#~ msgid "Clear IDs"
+#~ msgstr "清除 ID"
+
+#~ msgid ""
+#~ "Name of object whose function will be called when this scheduler will run. "
+#~ "e.g. 'res.partener'"
+#~ msgstr "作业运行时需要调用的方法所在的对象名 如res.partner"
+
+#~ msgid "Messages"
+#~ msgstr "信件"
+
+#~ msgid "Metadata"
+#~ msgstr "Meta信息"
+
+#, python-format
+#~ msgid ""
+#~ "Some installed modules depend on the module you plan to Uninstall :\n"
+#~ " %s"
+#~ msgstr "一些已安装的模块依赖您打算卸载的模块：%s"
+
+#~ msgid "Delivery"
+#~ msgstr "配送"
+
+#~ msgid "Payment term"
+#~ msgstr "付款方式"
+
+#~ msgid "Extended"
+#~ msgstr "扩展"
+
+#~ msgid "Restart"
+#~ msgstr "重启"
+
+#, python-format
+#~ msgid "The certificate ID of the module must be unique !"
+#~ msgstr "模块的认证ID必须唯一"
+
+#~ msgid "Ean check"
+#~ msgstr "条码检查"
+
+#~ msgid "Custom python parser"
+#~ msgstr "定制 Python 解析器"
+
+#~ msgid "Last Connection"
+#~ msgstr "最近连接"
+
+#~ msgid "Current Activity"
+#~ msgstr "当前活动"
+
+#~ msgid "Custom Reports"
+#~ msgstr "自定义报表"
+
+#~ msgid "Event"
+#~ msgstr "事件"
+
+#~ msgid "Always"
+#~ msgstr "总是"
+
+#~ msgid "_Ok"
+#~ msgstr "确定(_O)"
+
+#~ msgid "Cancelled"
+#~ msgstr "已取消"
+
+#~ msgid "Interface"
+#~ msgstr "界面"
+
+#~ msgid "In-memory model"
+#~ msgstr "内存内模型"
+
+#~ msgid "Widget Wizard"
+#~ msgstr "部件向导"
+
+#~ msgid "Salesman"
+#~ msgstr "销售员"
+
+#~ msgid "Widgets"
+#~ msgstr "部件"
+
+#~ msgid "Add"
+#~ msgstr "添加"
+
+#~ msgid "Partner Name"
+#~ msgstr "业务伙伴名称"
+
+#~ msgid "Check this box if the partner is an Employee."
+#~ msgstr "如果该业务伙伴是一个雇员的话选中此复选框"
+
+#~ msgid "False means for every user"
+#~ msgstr "False 表示作用于每个用户"
+
+#~ msgid "Read"
+#~ msgstr "读"
+
+#~ msgid "Has a web component"
+#~ msgstr "有 web 组件"
+
+#~ msgid "My Logs"
+#~ msgstr "我的日志列表"
+
+#~ msgid "SMS Send"
+#~ msgstr "发送手机短信"
+
+#~ msgid "Ignore"
+#~ msgstr "忽略"
+
+#~ msgid "Content"
+#~ msgstr "内容"
+
+#~ msgid "Secondary Log"
+#~ msgstr "次级日志"
+
+#~ msgid "Waiting"
+#~ msgstr "等待中"
+
+#~ msgid "Current"
+#~ msgstr "当前的"
+
+#~ msgid "Contracts"
+#~ msgstr "合同列表"
+
+#~ msgid "Canceled"
+#~ msgstr "已取消"
+
+#~ msgid ""
+#~ "You cannot have multiple records with the same id for the same module !"
+#~ msgstr "同一个模块中的多条记录不能有相同的标识符！"
+
+#, python-format
+#~ msgid "That contract is already registered in the system."
+#~ msgstr "该合同已经注册到系统中了。"
+
+#~ msgid "Create User"
+#~ msgstr "创建用户"
+
+#~ msgid "Clear Ids"
+#~ msgstr "清空标识符列表"
+
+#~ msgid "Next planned execution date for this scheduler"
+#~ msgstr "该计划任务的下次执行时间"
+
+#~ msgid "Creation Date"
+#~ msgstr "创建日期"
+
+#, python-format
+#~ msgid "Couldn't find previous ir.actions.todo"
+#~ msgstr "找不到上一个 ir.actions.todo"
+
+#~ msgid "Finished"
+#~ msgstr "已完成"
+
+#~ msgid "New User"
+#~ msgstr "新建用户"
+
+#~ msgid "Portugese / Português"
+#~ msgstr "葡萄牙语 / Português"
+
+#~ msgid ""
+#~ "Please double-check that the file encoding is set to UTF-8 (sometimes called "
+#~ "Unicode) when the translator exports it."
+#~ msgstr "请再次检查文件编码设为了 UTF-8 (有时候被称为 Unicode)."
+
+#~ msgid "Serial Key"
+#~ msgstr "产品密钥"
+
+#~ msgid "res.widget.user"
+#~ msgstr "res.widget.user"
+
+#~ msgid "- module,type,name,res_id,src,value"
+#~ msgstr "- module,type,name,res_id,src,value"
+
+#~ msgid "Homepage Widgets Management"
+#~ msgstr "首页部件管理"
+
+#~ msgid "Never"
+#~ msgstr "从不"
+
+#~ msgid "Search Widget"
+#~ msgstr "搜索部件"
+
+#~ msgid ""
+#~ "Supported file formats: *.csv (Comma-separated values) or *.po (GetText "
+#~ "Portable Objects)"
+#~ msgstr "支持的文件格式：*.csv (逗号分隔值) 和 *.po (GetText 可一直对象)"
+
+#, python-format
+#~ msgid "You cannot remove the field '%s' !"
+#~ msgstr "您不能删除字段 '%s' !"
+
+#~ msgid "View Ordering"
+#~ msgstr "视图顺序"
+
+#~ msgid "System Logs"
+#~ msgstr "系统日志"
+
+#~ msgid "On Skip"
+#~ msgstr "当跳过时"
+
+#~ msgid "Email & Signature"
+#~ msgstr "电子邮件与签名"
+
+#~ msgid "ir.wizard.screen"
+#~ msgstr "ir.wizard.screen"
+
+#~ msgid "XML ID"
+#~ msgstr "XML 标识"
+
+#~ msgid ""
+#~ "This wizard helps you add a new language to your OpenERP system. After "
+#~ "loading a new language it becomes available as default interface language "
+#~ "for users and partners."
+#~ msgstr "本向导将帮助您添加新语言到 OpenERP  系统。之后新语言将变成可用的默认界面语言。"
+
+#~ msgid "publisher_warranty.contract"
+#~ msgstr "publisher_warranty.contract"
+
+#~ msgid "maintenance.contract"
+#~ msgstr "maintenance.contract"
+
+#~ msgid "res.widget"
+#~ msgstr "res.widget"
+
+#~ msgid "Audit"
+#~ msgstr "审核"
+
+#~ msgid "Terminated"
+#~ msgstr "被终止"
+
+#~ msgid "Ms."
+#~ msgstr "女士"
+
+#, python-format
+#~ msgid "Warning !"
+#~ msgstr "警告 !"
+
+#, python-format
+#~ msgid ""
+#~ "Group(s) cannot be deleted, because some user(s) still belong to them: %s !"
+#~ msgstr "无法删除用户组，因为一些用户仍然属于该组：%s !"
+
+#~ msgid "Miscelleanous"
+#~ msgstr "杂项"
+
+#~ msgid "Created"
+#~ msgstr "创建时间"
+
+#~ msgid "Emails"
+#~ msgstr "电子邮件"
+
+#~ msgid "Add a widget for User"
+#~ msgstr "为用户添加一个窗口部件"
+
+#~ msgid "Register"
+#~ msgstr "注册"
+
+#~ msgid "User Widgets"
+#~ msgstr "用户窗体控件"
+
+#~ msgid "Rules are not supported for osv_memory objects !"
+#~ msgstr "访问规则不支持用于 osv_memory 对象！"
+
+#~ msgid "state"
+#~ msgstr "状态"
+
+#~ msgid "Extra Info"
+#~ msgstr "附加信息"
+
+#~ msgid "Client Events"
+#~ msgstr "客户端事件"
+
+#~ msgid "Menu Tips"
+#~ msgstr "菜单提示"
+
+#~ msgid "_Export"
+#~ msgstr "导出(_E)"
+
+#~ msgid "Ean Check"
+#~ msgstr "条码检查"
+
+#~ msgid "Event Logs"
+#~ msgstr "事件日志"
+
+#~ msgid "Publisher Warranty"
+#~ msgstr "发布者保障"
+
+#~ msgid ""
+#~ "If you use OpenERP for the first time we strongly advise you to select the "
+#~ "simplified interface, which has less features but is easier. You can always "
+#~ "switch later from the user preferences."
+#~ msgstr "如果您是第一次使用 OpenERP 的话我们强烈建议您选择简化界面，虽然功能较少但更加容易使用。您随时能够在用户首选项中切换。"
+
+#~ msgid ""
+#~ "This wizard helps you register a publisher warranty contract in your OpenERP "
+#~ "system. After the contract has been registered, you will be able to send "
+#~ "issues directly to OpenERP."
+#~ msgstr "下面将帮助您注册一个合同到系统中, 成功后, 您可以直接将问题反馈到OpenERP公司."
+
+#~ msgid "Validate"
+#~ msgstr "确认"
+
+#~ msgid ""
+#~ "If you need another language than the official ones available, you can "
+#~ "import a language pack from here. Other OpenERP languages than the official "
+#~ "ones can be found on launchpad."
+#~ msgstr "如果您需要使用其他官方支持的语言，您可以在此处导入语言包。其他官方尚未支持的语言可以在 launchpad.net 上下载。"
+
+#, python-format
+#~ msgid ""
+#~ "You can not write in this document (%s) ! Be sure your user belongs to one "
+#~ "of these groups: %s."
+#~ msgstr "您不能写入单据 (%s)！请确保您的帐号属于用户组：%s"
+
+#~ msgid "OpenERP Favorites"
+#~ msgstr "OpenERP 收藏夹"
+
+#~ msgid "Refresh Validation Dates"
+#~ msgstr "刷新验证日期"
+
+#~ msgid "Fund Raising"
+#~ msgstr "筹集资金"
+
+#, python-format
+#~ msgid "Contract validation error"
+#~ msgstr "合同验证错误"
+
+#~ msgid "Please enter the serial key provided in your contract document:"
+#~ msgstr "请输入合同中的序列号"
+
+#~ msgid "Report Footer 1"
+#~ msgstr "报表页脚1"
+
+#~ msgid "Report Footer 2"
+#~ msgstr "报表页脚 2"
+
+#, python-format
+#~ msgid ""
+#~ "You can not create this document (%s) ! Be sure your user belongs to one of "
+#~ "these groups: %s."
+#~ msgstr "您不能创建单据“%s”！您确定您的用户属于用户组：%s."
+
+#, python-format
+#~ msgid ""
+#~ "Operation prohibited by access rules, or performed on an already deleted "
+#~ "document (Operation: read, Document type: %s)."
+#~ msgstr "访问规则禁止对已删除的文件执行以下操作,(操作：读取，单据类型：%s)."
+
+#~ msgid "Facebook"
+#~ msgstr "Facebook"
+
+#, python-format
+#~ msgid "\"email_from\" needs to be set to send welcome mails to users"
+#~ msgstr "发送欢迎邮件必须设置 \"email_from\""
+
+#~ msgid ""
+#~ "If this log item has been read, get() should not send it to the client"
+#~ msgstr "如果此日志条目已被阅读，get() 将不会将其发送到客户端"
+
+#~ msgid ""
+#~ "Check out this box if you want to always display tips on each menu action"
+#~ msgstr "如果您希望总是在每个菜单动作上显示提示信息，请选中此框"
+
+#, python-format
+#~ msgid ""
+#~ "Invalid value for reference field \"%s\" (last part must be a non-zero "
+#~ "integer): \"%s\""
+#~ msgstr "引用字段的无效值： \"%s\" （最后一个部分必须是非零整数）\"%s\""
+
+#~ msgid "res.log"
+#~ msgstr "res.log"
+
+#~ msgid "Client Logs"
+#~ msgstr "客户端日志"
+
+#, python-format
+#~ msgid ""
+#~ "You can not read this document (%s) ! Be sure your user belongs to one of "
+#~ "these groups: %s."
+#~ msgstr "您无法读取单据“%s”！请确认您的用户组属于：%s"
+
+#, python-format
+#~ msgid "The read_group method is not implemented on this object !"
+#~ msgstr "该对象未实现 read_group 方法！"
+
+#~ msgid "The new user's real name, used for searching and most listings"
+#~ msgstr "新用户的真名，用于搜索和大多数列表中的显示"
+
+#~ msgid "Correct EAN13"
+#~ msgstr "正确的 EAN13 条形码"
+
+#~ msgid ""
+#~ "Enable this if you want to execute missed occurences as soon as the server "
+#~ "restarts."
+#~ msgstr "如果您希望当服务器重启以后尽快执行错过的计划任务的话请选中此处。"
+
+#, python-format
+#~ msgid "key '%s' not found in selection field '%s'"
+#~ msgstr "键“%s”在选择型字段“%s”里找不到"
+
+#~ msgid "Mss"
+#~ msgstr "Mss"
+
+#, python-format
+#~ msgid "Database ID doesn't exist: %s : %s"
+#~ msgstr "数据库标识不存在：%s：%s"
+
+#~ msgid "Google Maps"
+#~ msgstr "Google地图"
+
+#~ msgid "publisher_warranty.contract.wizard"
+#~ msgstr "publisher_warranty.contract.wizard"
+
+#~ msgid ""
+#~ "This wizard helps you add a new language to you OpenERP system. After "
+#~ "loading a new language it becomes available as default interface language "
+#~ "for users and partners."
+#~ msgstr "本向导将帮助您添加新语言到 OpenERP  系统。之后新语言将成为用户及业务伙伴可用的默认界面语言。"
+
+#~ msgid ""
+#~ "Name of the method to be called on the object when this scheduler is "
+#~ "executed."
+#~ msgstr "该名称指定的对象方法将在计划任务执行后被调用。"
+
+#~ msgid "Widgets per User"
+#~ msgstr "每个用户的部件"
+
+#~ msgid "Register a Contract"
+#~ msgstr "注册合同"
+
+#, python-format
+#~ msgid ""
+#~ "You can not delete this document (%s) ! Be sure your user belongs to one of "
+#~ "these groups: %s."
+#~ msgstr "您不能删除单据：%s！请确保您的用户账户属于用户组: %s."
+
+#~ msgid "Apply For Write"
+#~ msgstr "应用于写入"
+
+#~ msgid "Apply For Create"
+#~ msgstr "应用于创建"
+
+#~ msgid "Apply For Delete"
+#~ msgstr "应用于删除"
+
+#~ msgid "Apply For Read"
+#~ msgstr "应用于读取"
+
+#~ msgid "User Name"
+#~ msgstr "用户姓名"
+
+#~ msgid "XML Id"
+#~ msgstr "XML ID"
+
+#~ msgid "Customized Architecture"
+#~ msgstr "自定义视图架构"
+
+#~ msgid "M."
+#~ msgstr "先生"
+
+#~ msgid ""
+#~ "A customer is an entity you do business with, like a company or an "
+#~ "organization. A customer can have several contacts or addresses which are "
+#~ "the people working for this company. You can use the history tab, to follow "
+#~ "all transactions related to a customer: sales order, emails, opportunities, "
+#~ "claims, etc. If you use the email gateway, the Outlook or the Thunderbird "
+#~ "plugin, don't forget to register emails to each contact so that the gateway "
+#~ "will automatically attach incoming emails to the right partner."
+#~ msgstr ""
+#~ "客户就是一个您与之发生业务的实体，比如公司或组织。客户可以有多个联系人或联系地址。您可以使用历史标签页来查看一个客户所有的相关交易，比如：销售单、电子邮件"
+#~ "、商机等等，如果您使用邮件网关和 Outlook 或 Thunderbird "
+#~ "插件，别忘记给每个联系人注册邮件信息，这样系统可以自动把接收到的邮件附加到正确的业务伙伴上。"
+
+#~ msgid ""
+#~ "It gives the status if the tip has to be displayed or not when a user "
+#~ "executes an action"
+#~ msgstr "此处决定是否在用户执行操作时显示提示信息"
+
+#~ msgid ""
+#~ "You can install new modules in order to activate new features, menu, reports "
+#~ "or data in your OpenERP instance. To install some modules, click on the "
+#~ "button \"Schedule for Installation\" from the form view, then click on "
+#~ "\"Apply Scheduled Upgrades\" to migrate your system."
+#~ msgstr "您可以通过安装新模块来启用新的特性、菜单、报表或数据。要安装模块请先单击“准备安装”按钮然后单击“执行已安排的升级”来迁移您的系统。"
+
+#~ msgid "Consumers"
+#~ msgstr "客户"
+
+#~ msgid ""
+#~ "Indicates whether this object model lives in memory only, i.e. is not "
+#~ "persisted (osv.osv_memory)"
+#~ msgstr "标识此对象模型是否仅存于内存，比如一个不需要持久化的对象（osv.osv_memory）"
+
+#, python-format
+#~ msgid ""
+#~ "--\n"
+#~ "%(name)s %(email)s\n"
+#~ msgstr ""
+#~ "--\n"
+#~ "%(name)s %(email)s\n"
+
+#~ msgid ""
+#~ "Create additional users and assign them groups that will allow them to have "
+#~ "access to selected functionalities within the system. Click on 'Done' if you "
+#~ "do not wish to add more users at this stage, you can always do this later."
+#~ msgstr "创建其他的用户并赋予他们用户组可以让他们访问系统中对应的功能。如果您不想在这里添加用户的话请单击“完成”，以便以后再添加用户。"
+
+#~ msgid ""
+#~ "Customers (also called Partners in other areas of the system) helps you "
+#~ "manage your address book of companies whether they are prospects, customers "
+#~ "and/or suppliers. The partner form allows you to track and record all the "
+#~ "necessary information to interact with your partners from the company "
+#~ "address to their contacts as well as pricelists, and much more. If you "
+#~ "installed the CRM, with the history tab, you can track all the interactions "
+#~ "with a partner such as opportunities, emails, or sales orders issued."
+#~ msgstr ""
+#~ "客户（别的系统也有称为合作伙伴的）管理功能可以帮助您管理地址簿，包括潜在客户、客户和供应商。业务伙伴表单允许您跟踪和记录与您的业务伙伴往来的所有必须的信息"
+#~ "，从地址簿、联系人、价格表等。如果您安装了客户关系管理模块，那么在“历史”标签页您可以跟踪更多的与业务伙伴往来的信息，包括商机、电子邮件往来或销售单等。"
+
+#, python-format
+#~ msgid ""
+#~ "Operation prohibited by access rules, or performed on an already deleted "
+#~ "document (Operation: %s, Document type: %s)."
+#~ msgstr "操作被访问规则所禁止，或者是在操作已经删除了的单据（操作：%s，单据类型：%s）。"
+
+#~ msgid ""
+#~ "Only specify a value if you want to change the user password. This user will "
+#~ "have to logout and login again!"
+#~ msgstr "如果您要修改用户密码的话只需要输入一个新密码。用户应该先注销再登录。"
+
+#~ msgid ""
+#~ "This wizard will detect new terms to translate in the application, so that "
+#~ "you can then add translations manually or perform a complete export (as a "
+#~ "template for a new language example)."
+#~ msgstr "此向导将检测应用程序中待翻译的新术语，之后您可以手工添加翻译或进行完整的导出（作为一种新语言的模板）。"
+
+#~ msgid "- type,name,res_id,src,value"
+#~ msgstr "- type,name,res_id,src,value"
+
+#~ msgid ""
+#~ "Track from where is coming your leads and opportunities by creating specific "
+#~ "channels that will be maintained at the creation of a document in the "
+#~ "system. Some examples of channels can be: Website, Phone Call, Reseller, etc."
+#~ msgstr "渠道用于记录你的销售线索或商机的来源，并记录在这些单据上。例如：网站、电话、经销商等"
+
+#~ msgid ""
+#~ "Please note that the following payments are now due. If your payment         "
+#~ "                has been sent, kindly forward your payment details. If "
+#~ "payment will be                         delayed further, please contact us "
+#~ "to discuss.                         \n"
+#~ "Would your payment have been carried out after this mail was sent, please "
+#~ "consider the present one as void."
+#~ msgstr "请注意，下列款项现已到期。如果您已付款，请将您的付款详单发给我们。\\n 如果将进一步拖延付款，请联系我们洽谈。"
+
+#~ msgid ""
+#~ "You can access all information regarding your suppliers from the supplier "
+#~ "form: accounting data, history of emails, meetings, purchases, etc. You can "
+#~ "uncheck the 'Suppliers' filter button in order to search in all your "
+#~ "partners, including customers and prospects."
+#~ msgstr ""
+#~ "在供应商界面你能看到所有该供应商的信息：财务数据、邮件往来历史、会见记录、采购记录等。你也可以释放“供应商”那个过滤按钮，这样就可以在这个界面搜索到所有业"
+#~ "务伙伴，包括客户和潜在客户"
+
+#~ msgid "Maps to the ir_model_data for which this translation is provided."
+#~ msgstr "该翻译对应ir_model_data表中的数据条目"
+
+#~ msgid "vsep"
+#~ msgstr "vsep"
+
+#~ msgid "Iteration Action Configuration"
+#~ msgstr "重复活动设置"
+
+#~ msgid ""
+#~ "If an email is provided, the user will be sent a message welcoming him.\n"
+#~ "\n"
+#~ "Warning: if \"email_from\" and \"smtp_server\" aren't configured, it won't "
+#~ "be possible to email new users."
+#~ msgstr ""
+#~ "如果用户已提供电子邮件，将发送欢迎邮件给他们.\\n\n"
+#~ "\\n\n"
+#~ "警告:如果“email_from”和“smtp_server”（SMTP）没有设置，将无法发送邮件给新用户。"
+
+#~ msgid "Start Configuration"
+#~ msgstr "开始设置"
+
+#~ msgid "Configure Your Interface"
+#~ msgstr "设置你的界面"
+
+#~ msgid "Currency Converter"
+#~ msgstr "币别兑换"
+
+#~ msgid "Publisher Warranty Contract"
+#~ msgstr "保障合同"
+
+#, python-format
+#~ msgid "Error during communication with the publisher warranty server."
+#~ msgstr "当与保障服务器通信时发生错误。"
+
+#~ msgid ""
+#~ "Your publisher warranty contract is already subscribed in the system !"
+#~ msgstr "您的保障合约已经在系统中订阅。"
+
+#~ msgid "Publisher Warranty Contracts"
+#~ msgstr "担保合约"
+
+#, python-format
+#~ msgid "Please check your publisher warranty contract name and validity."
+#~ msgstr "请检查您的保障合同名称和有效性。"
+
+#~ msgid "Publisher warranty contract successfully registered!"
+#~ msgstr "保障合同注册成功！"
+
+#~ msgid "Human Resources Dashboard"
+#~ msgstr "人力资源控制台"
+
+#~ msgid "Dashboard"
+#~ msgstr "控制台"
+
+#~ msgid "HR Manager Dashboard"
+#~ msgstr "人力资源经理控制台"
+
+#~ msgid "Translation Terms"
+#~ msgstr "翻译术语条目"
+
+#~ msgid "Openerp web graph view"
+#~ msgstr "OpenERP Web 图表视图"
+
+#~ msgid "Partner Manager"
+#~ msgstr "业务伙伴经理"
+
+#~ msgid "Sales Orders Print Layout"
+#~ msgstr "销售单打印布局"
+
+#~ msgid "Action Binding"
+#~ msgstr "动作绑定"
+
+#~ msgid "Website of Partner."
+#~ msgstr "业务伙伴网站"
+
+#~ msgid "SugarCRM Import"
+#~ msgstr "SugarCRM 导入"
+
+#~ msgid ""
+#~ "\n"
+#~ "        OpenERP Web gantt chart view.\n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "        OpenERP Web 甘特图视图。\n"
+#~ "        "
+
+#~ msgid "General Information Footer"
+#~ msgstr "常规信息页脚"
+
+#~ msgid "Html View"
+#~ msgstr "HTML 视图"
+
+#, python-format
+#~ msgid "Website: "
+#~ msgstr "网站： "
+
+#~ msgid "Tools / Customization"
+#~ msgstr "工具/自定义"
+
+#~ msgid "Calendar Layer"
+#~ msgstr "日历层"
+
+#, python-format
+#~ msgid "Fax: "
+#~ msgstr "传真： "
+
+#~ msgid "Master Procurement Schedule"
+#~ msgstr "主需求计划表"
+
+#~ msgid "Administration Dashboard"
+#~ msgstr "管理员仪表盘"
+
+#~ msgid "HR Officer"
+#~ msgstr "人事官员"
+
+#, python-format
+#~ msgid "Applications"
+#~ msgstr "应用"
+
+#~ msgid "Set password"
+#~ msgstr "设置密码"
+
+#~ msgid "MRP Subproducts"
+#~ msgstr "MRP 子产品"
+
+#~ msgid "Tasks-Mail Integration"
+#~ msgstr "任务邮件集成"
+
+#~ msgid "Default Filters"
+#~ msgstr "默认过滤器"
+
+#~ msgid ""
+#~ "OpenERP offers a simplified and an extended user interface. If you use "
+#~ "OpenERP for the first time we strongly advise you to select the simplified "
+#~ "interface, which has less features but is easier to use. You can switch to "
+#~ "the other interface from the User/Preferences menu at any time."
+#~ msgstr ""
+#~ "OpenERP 提供了简化与扩展的用户界面。如果您是第一次使用 OpenERP， "
+#~ "我们强烈建议您选择简化界面，简化界面功能较少但更易用。您以后也可以在“用户”/“首选项”菜单中切换界面形式。"
+
+#~ msgid "Billing Rates on Contracts"
+#~ msgstr "合同开单率"
+
+#~ msgid ""
+#~ "\n"
+#~ "        添加中文省份数据\n"
+#~ "        科目类型\\会计科目表模板\\增值税\\辅助核算类别\\管理会计凭证簿\\财务会计凭证簿\n"
+#~ "        ============================================================\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "        添加中文省份数据\n"
+#~ "        科目类型\\会计科目表模板\\增值税\\辅助核算类别\\管理会计凭证簿\\财务会计凭证簿\n"
+#~ "        ============================================================\n"
+#~ "    "
+
+#~ msgid "Symbol position"
+#~ msgstr "货币符号位置"
+
+#~ msgid "OpenERP Web web"
+#~ msgstr "OpenERP Web web"
+
+#~ msgid "Openerp web Diagram view"
+#~ msgstr "OpenERP Web 图表视图"
+
+#~ msgid "web Dashboard"
+#~ msgstr "Web 仪表盘"
+
+#~ msgid "eMail Gateway for Leads"
+#~ msgstr "用于销售线索的电子邮件网关"
+
+#~ msgid "Point Of Sale"
+#~ msgstr "销售点"
+
+#~ msgid "Webkit Report Samples"
+#~ msgstr "Webkit报表示例"
+
+#~ msgid "Partner Firm"
+#~ msgstr "公司性质"
+
+#~ msgid "Day of the week (0:Monday): %(weekday)s"
+#~ msgstr "周日（0：周一）：%(weekday)s"
+
+#~ msgid ""
+#~ "\n"
+#~ "        This module provide a class import_framework to help importing \n"
+#~ "        complex data from other software\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "        此模块中有个import_framework类用于从其他软件中导入复杂的数据\n"
+#~ "    "
+
+#~ msgid "Specifications on PADs"
+#~ msgstr "用于平板电脑的功能"
+
+#~ msgid ""
+#~ "\n"
+#~ "Project management module tracks multi-level projects, tasks, work done on "
+#~ "tasks, eso.\n"
+#~ "============================================================================="
+#~ "=========\n"
+#~ "\n"
+#~ "It is able to render planning, order tasks, eso.\n"
+#~ "\n"
+#~ "Dashboard for project members that includes:\n"
+#~ "--------------------------------------------\n"
+#~ "    * List of my open tasks\n"
+#~ "    * List of my delegated tasks\n"
+#~ "    * Graph of My Projects: Planned vs Total Hours\n"
+#~ "    * Graph of My Remaining Hours by Project\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "项目管理模块管理多级项目、任务、进度等。\n"
+#~ "============================================================================="
+#~ "=========\n"
+#~ "\n"
+#~ "可以生成计划、设置任务优先级\n"
+#~ "\n"
+#~ "项目成员的仪表盘包括：\n"
+#~ "--------------------------------------------\n"
+#~ "    我的任务列表\n"
+#~ "    我委派的任务列表\n"
+#~ "    我的项目图表：计划与实际工时\n"
+#~ "    按项目显示我的剩余工时图表\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "Organization and management of events.\n"
+#~ "======================================\n"
+#~ "\n"
+#~ "This module allows you to create retro planning for managing your events.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "组织和管理线下活动\n"
+#~ "======================================\n"
+#~ "此模块用于创建倒排计划来管理线下活动\n"
+
+#~ msgid ""
+#~ "Keep track of your planning\n"
+#~ "This module helps you to manage your plannings.\n"
+#~ "===============================================\n"
+#~ "\n"
+#~ "This module is based on the analytic accounting and is totally integrated "
+#~ "with\n"
+#~ "* the timesheets encoding\n"
+#~ "* the holidays management\n"
+#~ "* the project management\n"
+#~ "\n"
+#~ "So that, each department manager can know if someone in his team has still "
+#~ "unallocated time for a given planning (taking in consideration the validated "
+#~ "leaves) or if he still needs to encode tasks.\n"
+#~ "\n"
+#~ "At the end of the month, the planning manager can also check if the encoded "
+#~ "timesheets are respecting the planned time on each analytic account.\n"
+#~ msgstr ""
+#~ "跟踪你的计划\n"
+#~ "此模块用于管理你的计划\n"
+#~ "===============================================\n"
+#~ "\n"
+#~ "此模块基于成本会计并与下列功能完美集成：\n"
+#~ "工时记录\n"
+#~ "假期管理\n"
+#~ "项目管理\n"
+#~ "\n"
+#~ "这样，每个部门经理就知道他团队里的某个人的时间是否被分配了任务（用以决定是否批准休假）或他是否输入了计工单。\n"
+#~ "\n"
+#~ "到了月底，计划经理也可以检查每个成本科目下已输入的计工单是否与计划的时间相对应。\n"
+
+#~ msgid ""
+#~ "Manual: Launched manually.\n"
+#~ "Automatic: Runs whenever the system is reconfigured.\n"
+#~ "Launch Manually Once: after hacing been launched manually, it sets "
+#~ "automatically to Done."
+#~ msgstr ""
+#~ "手动：手动执行\n"
+#~ "自动：每次系统重新配置都执行\n"
+#~ "手动执行一次：手动执行过一次以后，即完成。"
+
+#~ msgid ""
+#~ "The module adds google contact in partner address and add google calendar "
+#~ "events details in Meeting"
+#~ msgstr "此模块在业务伙伴地址内增加google联系人，还在会面上增加google日程表。"
+
+#~ msgid ""
+#~ "\n"
+#~ "Module to automate letters for unpaid invoices, with multi-level recalls.\n"
+#~ "==========================================================================\n"
+#~ "\n"
+#~ "You can define your multiple levels of recall through the menu:\n"
+#~ "    Accounting/Configuration/Miscellaneous/Follow-Ups\n"
+#~ "\n"
+#~ "Once it is defined, you can automatically print recalls every day through "
+#~ "simply clicking on the menu:\n"
+#~ "    Accounting/Periodical Processing/Billing/Send followups\n"
+#~ "\n"
+#~ "It will generate a PDF with all the letters according to the the\n"
+#~ "different levels of recall defined. You can define different policies\n"
+#~ "for different companies. You can also send mail to the customer.\n"
+#~ "\n"
+#~ "Note that if you want to check the followup level for a given "
+#~ "partner/account entry, you can do from in the menu:\n"
+#~ "    Accounting/Reporting/Generic Reporting/Partners/Follow-ups Sent\n"
+#~ "\n"
+#~ msgstr ""
+#~ "\n"
+#~ "此模块用于针对未付款的发票自动生成催款函，可在多个层级提醒:\n"
+#~ "==========================================================================\n"
+#~ "\n"
+#~ "你可以用以下菜单设置多个层级的提醒：\n"
+#~ "    会计/配置/其他/催款函\n"
+#~ "\n"
+#~ "设置好以后，你每天只需要进入以下菜单即可自动打印提醒：\n"
+#~ "    会计/定期处理/结算/打印催款函\n"
+#~ "\n"
+#~ "将生成pdf文件，包含根据层级策略抓取的所有催款函。你可以针对不同公司定义不同的策略，\n"
+#~ "也可以发邮件给客户。\n"
+#~ "\n"
+#~ "注意，如果你想查看特定业务伙伴或凭证的催款函层级，请进入菜单：\n"
+#~ "    会计/报表/通用报表/业务伙伴/发送催款函\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "This module lets administrator track every user operation on all the objects "
+#~ "of the system.\n"
+#~ "============================================================================="
+#~ "==============\n"
+#~ "\n"
+#~ "The administrator can subscribe to rules for read, write and\n"
+#~ "delete on objects and can check logs.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "此模块允许系统管理员监控每个用户对数据的操作记录。\n"
+#~ "============================================================================="
+#~ "==============\n"
+#~ "\n"
+#~ "系统管理员可以订阅对系统数据的读、写、删除操作，并查看日志。\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "Add additional date information to the sales order.\n"
+#~ "===================================================\n"
+#~ "\n"
+#~ "You can add the following additional dates to a sale order:\n"
+#~ "    * Requested Date\n"
+#~ "    * Commitment Date\n"
+#~ "    * Effective Date\n"
+#~ msgstr ""
+#~ "\n"
+#~ "向销售订单添加额外的日期信息。\n"
+#~ "===================================================\n"
+#~ "\n"
+#~ "    要求日期\n"
+#~ "    承诺日期\n"
+#~ "    生效日期\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Organization and management of Events.\n"
+#~ "======================================\n"
+#~ "\n"
+#~ "This module allows you\n"
+#~ "    * to manage your events and their registrations\n"
+#~ "    * to use emails to automatically confirm and send acknowledgements for "
+#~ "any registration to an event\n"
+#~ "    * ...\n"
+#~ "\n"
+#~ "Note that:\n"
+#~ "    - You can define new types of events in\n"
+#~ "        Association / Configuration / Types of Events\n"
+#~ msgstr ""
+#~ "\n"
+#~ "组织和管理线下活动\n"
+#~ "======================================\n"
+#~ "\n"
+#~ "此模块使您能够\n"
+#~ "    管理线下活动和报名\n"
+#~ "    用电子邮件自动确认和发送通知给活动的报名者\n"
+#~ "    ......\n"
+#~ "\n"
+#~ "注意：\n"
+#~ "    你可以用以下菜单定义新的线下活动类型\n"
+#~ "        联盟/配置/活动类型\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "This module adds generic sharing tools to your current OpenERP database.\n"
+#~ "========================================================================\n"
+#~ "\n"
+#~ "It specifically adds a 'share' button that is available in the Web client "
+#~ "to\n"
+#~ "share any kind of OpenERP data with colleagues, customers, friends, etc.\n"
+#~ "\n"
+#~ "The system will work by creating new users and groups on the fly, and by\n"
+#~ "combining the appropriate access rights and ir.rules to ensure that the\n"
+#~ "shared users only have access to the data that has been shared with them.\n"
+#~ "\n"
+#~ "This is extremely useful for collaborative work, knowledge sharing,\n"
+#~ "synchronization with other companies, etc.\n"
+#~ "\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "此模块向您的当前数据库添加了通用的分享工具\n"
+#~ "========================================================================\n"
+#~ "\n"
+#~ "它在OpenERP的Web界面上增加了“分享”按钮，用于向同事、客户或朋友分享OpenERP的任意数据。\n"
+#~ "\n"
+#~ "系统将自动创建用户和组，并分配对应的权限和规则，使得分享用户只能访问被分享的数据。\n"
+#~ "\n"
+#~ "这个功能对协同工作、知识分享、与其他公司同步很有用。\n"
+#~ "\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "This is a complete document management system.\n"
+#~ "==============================================\n"
+#~ "\n"
+#~ "    * User Authentication\n"
+#~ "    * Document Indexation :- .pptx and .docx files are not supported in "
+#~ "Windows platform.\n"
+#~ "    * Dashboard for Document that includes:\n"
+#~ "        * New Files (list)\n"
+#~ "        * Files by Resource Type (graph)\n"
+#~ "        * Files by Partner (graph)\n"
+#~ "        * Files Size by Month (graph)\n"
+#~ "\n"
+#~ "ATTENTION:\n"
+#~ "    - When you install this module in a running company that have already "
+#~ "PDF files stored into the database,\n"
+#~ "      you will lose them all.\n"
+#~ "    - After installing this module PDF's are no longer stored into the "
+#~ "database,\n"
+#~ "      but in the servers rootpad like /server/bin/filestore.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "这是个完整的文档管理系统。\n"
+#~ "==============================================\n"
+#~ "\n"
+#~ "    用户访问权限\n"
+#~ "    文档索引: 尚不支持Windows平台上的pptx和docx文件\n"
+#~ "    文档仪表盘包括：\n"
+#~ "        新文档列表\n"
+#~ "        按资源类型分组的文档图表\n"
+#~ "        按业务伙伴分组的文档图表\n"
+#~ "        按月分组的文件大小图表\n"
+#~ "\n"
+#~ "注意：\n"
+#~ "    如果你的公司已经运行OpenERP并在系统中存储了pdf文件，这些文件都会丢失。\n"
+#~ "    安装了此模块以后pdf文件讲不再存在数据库中\n"
+#~ "    而是存储在服务器的根目录如 server/bin/filestore。\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "This is the test module which shows HTML tag support in normal XML form "
+#~ "view.\n"
+#~ "============================================================================="
+#~ "\n"
+#~ "\n"
+#~ "Creates a sample form-view using HTML tags. It is visible only in OpenERP "
+#~ "Web.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "这是个示例模块，用于演示在XML的表单视图中使用HTML标签。\n"
+#~ "============================================================================="
+#~ "\n"
+#~ "\n"
+#~ "用HTML标签创建一个简单的表单视图。只在OpenERP的Web界面可用。\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "VAT validation for Partners' VAT numbers\n"
+#~ "========================================\n"
+#~ "\n"
+#~ "After installing this module, values entered in the VAT field of Partners "
+#~ "will\n"
+#~ "be validated for all supported countries. The country is inferred from the\n"
+#~ "2-letter country code that prefixes the VAT number, e.g. ``BE0477472701``\n"
+#~ "will be validated using the Belgian rules.\n"
+#~ "\n"
+#~ "There are two different levels of VAT number validation:\n"
+#~ "\n"
+#~ " * By default, a simple off-line check is performed using the known "
+#~ "validation\n"
+#~ "   rules for the country, usually a simple check digit. This is quick and \n"
+#~ "   always available, but allows numbers that are perhaps not truly "
+#~ "allocated,\n"
+#~ "   or not valid anymore.\n"
+#~ " * When the \"VAT VIES Check\" option is enabled (in the configuration of "
+#~ "the user's\n"
+#~ "   Company), VAT numbers will be instead submitted to the online EU VIES\n"
+#~ "   database, which will truly verify that the number is valid and currently\n"
+#~ "   allocated to a EU company. This is a little bit slower than the simple\n"
+#~ "   off-line check, requires an Internet connection, and may not be "
+#~ "available\n"
+#~ "   all the time. If the service is not available or does not support the\n"
+#~ "   requested country (e.g. for non-EU countries), a simple check will be "
+#~ "performed\n"
+#~ "   instead.\n"
+#~ "\n"
+#~ "Supported countries currently include EU countries, and a few non-EU "
+#~ "countries\n"
+#~ "such as Chile, Colombia, Mexico, Norway or Russia. For unsupported "
+#~ "countries,\n"
+#~ "only the country code will be validated.\n"
+#~ "\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "业务伙伴增值税号检查\n"
+#~ "========================================\n"
+#~ "\n"
+#~ "安装了这个模块以后，针对支持此功能的国家，业务伙伴的增值税号\n"
+#~ "字段会增加验证。国家作为税号的前两位，例如''BE0477472701\"符\n"
+#~ "合比利时的验证规则。\n"
+#~ "\n"
+#~ "有两级的税号验证规则：\n"
+#~ "\n"
+#~ "  默认的，使用一个简单的此国家的离线验证\n"
+#~ "规则，一般只检查税号长度。这样很快且总\n"
+#~ "是可用，但允许输入一个假的或者过期的税号。\n"
+#~ "\n"
+#~ " 当\"在线检查“被激活后（在用户所在的国家那\n"
+#~ "里设置），税号会被发送到在线的EU VIES数据\n"
+#~ "库上，会验证是否是一个真实存在的分配给某个\n"
+#~ "欧洲公司的税号。这种验证比简单的离线验证\n"
+#~ "慢一些，需要连接外部网络，或许有时不可用。\n"
+#~ "如果服务不可用或不支持所选国家（如非欧洲国家），\n"
+#~ "会使用简单的验证规则。\n"
+#~ "\n"
+#~ "现在支持的国家有欧洲国家和一些非欧洲国家如智利、\n"
+#~ "哥伦比亚、墨西哥、挪威和俄罗斯。对于不支持的国家，\n"
+#~ "只会检查国家代码。\n"
+#~ "\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "    The base module to manage lunch\n"
+#~ "\n"
+#~ "    keep track for the Lunch Order ,Cash Moves ,CashBox ,Product.\n"
+#~ "    Apply Different Category for the product.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "    这是一个管理午餐的模块\n"
+#~ "    管理午餐订单，现金划拨，钱箱，外卖品种等的信息。\n"
+#~ "   支持不同类型的外卖品种。\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "This module allows your user to easily and efficiently participate in "
+#~ "enterprise innovation.\n"
+#~ "============================================================================="
+#~ "===============\n"
+#~ "\n"
+#~ "It allows everybody to express ideas about different subjects.\n"
+#~ "Then, other users can comment on these ideas and vote for particular ideas.\n"
+#~ "Each idea has a score based on the different votes.\n"
+#~ "The managers can obtain an easy view of best ideas from all the users.\n"
+#~ "Once installed, check the menu 'Ideas' in the 'Tools' main menu."
+#~ msgstr ""
+#~ "\n"
+#~ "此模块用于管理公司内部的创新。\n"
+#~ "============================================================================="
+#~ "===============\n"
+#~ "\n"
+#~ "每个人都可以针对特定主题发布创意。\n"
+#~ "然后，，其他用户可以评论或为该创意投票。\n"
+#~ "每个创意会根据投票有个分数。\n"
+#~ "经理可以看到所有用户的最佳创意。\n"
+#~ "安装后，进入工具主菜单下的创意菜单。"
+
+#~ msgid ""
+#~ "\n"
+#~ "The sales journal modules allows you to categorise your sales and deliveries "
+#~ "(picking lists) between different journals.\n"
+#~ "============================================================================="
+#~ "===========================================\n"
+#~ "\n"
+#~ "This module is very helpful for bigger companies that\n"
+#~ "works by departments.\n"
+#~ "\n"
+#~ "You can use journal for different purposes, some examples:\n"
+#~ "    * isolate sales of different departments\n"
+#~ "    * journals for deliveries by truck or by UPS\n"
+#~ "\n"
+#~ "Journals have a responsible and evolves between different status:\n"
+#~ "    * draft, open, cancel, done.\n"
+#~ "\n"
+#~ "Batch operations can be processed on the different journals to\n"
+#~ "confirm all sales at once, to validate or invoice packing, ...\n"
+#~ "\n"
+#~ "It also supports batch invoicing methods that can be configured by partners "
+#~ "and sales orders, examples:\n"
+#~ "    * daily invoicing,\n"
+#~ "    * monthly invoicing, ...\n"
+#~ "\n"
+#~ "Some statistics by journals are provided.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "销售台帐功能允许你用不同的台帐对销售订单和发货进行分类。\n"
+#~ "\n"
+#~ "此模块有助于分部门管理的大公司。\n"
+#~ "\n"
+#~ "你可以按不同的目的设置台账，例如：\n"
+#~ "    区分不同部门的销售\n"
+#~ "    区分卡车或快递的发货单\n"
+#~ "\n"
+#~ "台帐有个负责人并有以下几个状态：\n"
+#~ "    草稿，开放，取消，完成。\n"
+#~ "\n"
+#~ "可以在不同的台账上做批量操作，如一次性确认所有订单、确认发货、开发票等。\n"
+#~ "\n"
+#~ "还支持批量生成发票，可以按业务伙伴或订单配置，例如：\n"
+#~ "    每天开票\n"
+#~ "    每月结算\n"
+#~ "\n"
+#~ "按台账做统计分析的功能\n"
+#~ "    "
+
+#~ msgid "Multi-Currency in Analytic"
+#~ msgstr "成本科目的多币种管理"
+
+#~ msgid ""
+#~ "\n"
+#~ "Base module for the Brazilian localization\n"
+#~ "==========================================\n"
+#~ "\n"
+#~ "This module consists in:\n"
+#~ "\n"
+#~ " - Generic Brazilian chart of accounts\n"
+#~ " - Brazilian taxes such as:\n"
+#~ "\n"
+#~ "        - IPI\n"
+#~ "        - ICMS\n"
+#~ "        - PIS\n"
+#~ "        - COFINS\n"
+#~ "        - ISS\n"
+#~ "        - IR\n"
+#~ "        - IRPJ\n"
+#~ "        - CSLL\n"
+#~ "\n"
+#~ " - Tax Situation Code (CST) required for the electronic fiscal invoicing "
+#~ "(NFe)\n"
+#~ "\n"
+#~ "The field tax_discount has also been added in the account.tax.template and "
+#~ "account.tax objects to allow the proper computation of some Brazilian VATs "
+#~ "such as ICMS. The chart of account creation wizard has been extended to "
+#~ "propagate those new data properly.\n"
+#~ "\n"
+#~ "It's important to note however that this module lack many implementations to "
+#~ "use OpenERP properly in Brazil. Those implementations (such as the "
+#~ "electronic fiscal Invoicing which is already operational) are brought by "
+#~ "more than 15 additional modules of the Brazilian Launchpad localization "
+#~ "project https://launchpad.net/openerp.pt-br-localiz and their dependencies "
+#~ "in the extra addons branch. Those modules aim at not breaking with the "
+#~ "remarkable OpenERP modularity, this is why they are numerous but small. One "
+#~ "of the reasons for maintaining those modules apart is that Brazilian "
+#~ "Localization leaders need commit rights agility to complete the localization "
+#~ "as companies fund the remaining legal requirements (such as soon fiscal "
+#~ "ledgers, accounting SPED, fiscal SPED and PAF ECF that are still missing as "
+#~ "September 2011). Those modules are also strictly licensed under AGPL V3 and "
+#~ "today don't come with any additional paid permission for online use of "
+#~ "'private modules'."
+#~ msgstr ""
+#~ "\n"
+#~ "巴西的本地化模块\n"
+#~ "==========================================\n"
+#~ "此模块包含巴西的科目表和税设置"
+
+#~ msgid ""
+#~ "\n"
+#~ "Manages job positions and the recruitment process.\n"
+#~ "==================================================\n"
+#~ "\n"
+#~ "It's integrated with the survey module to allow you to define interview for "
+#~ "different jobs.\n"
+#~ "\n"
+#~ "This module is integrated with the mail gateway to automatically tracks "
+#~ "email\n"
+#~ "sent to jobs@YOURCOMPANY.com. It's also integrated with the document "
+#~ "management\n"
+#~ "system to store and search in your CV base.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "管理岗位和招聘流程\n"
+#~ "==================================================\n"
+#~ "\n"
+#~ "它集成了问卷模块用于定义不同岗位的面试。\n"
+#~ "此模块集成了邮件功能从而自动跟踪发送到\n"
+#~ " jobs@YOURCOMPANY.com的邮件。他也\n"
+#~ "集成了文档管理功能用于存储和搜索简历。\n"
+#~ "    "
+
+#~ msgid "Report Header / Company Slogan"
+#~ msgstr "报表页眉/公司标识"
+
+#~ msgid ""
+#~ "\n"
+#~ "This module aims to manage employee's expenses.\n"
+#~ "===============================================\n"
+#~ "\n"
+#~ "The whole workflow is implemented:\n"
+#~ "    * Draft expense\n"
+#~ "    * Confirmation of the sheet by the employee\n"
+#~ "    * Validation by his manager\n"
+#~ "    * Validation by the accountant and invoice creation\n"
+#~ "    * Payment of the invoice to the employee\n"
+#~ "\n"
+#~ "This module also uses the analytic accounting and is compatible with\n"
+#~ "the invoice on timesheet module so that you will be able to automatically\n"
+#~ "re-invoice your customer's expenses if your work by project.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "此模块用于管理员工的费用报销。\n"
+#~ "===============================================\n"
+#~ "\n"
+#~ "实现了整个流程：\n"
+#~ "    新建报销单\n"
+#~ "    员工确认整张报销单\n"
+#~ "    由他的经理批准\n"
+#~ "    由会计批准并生成发票\n"
+#~ "    按发票 支付给员工\n"
+#~ "\n"
+#~ "这个模块也使用成本科目，并兼容按工时开票的功能。所以如\n"
+#~ "果你用项目管理的方式，也可以自动重新对你客户的费用开票。\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "This module adds a PAD in all project kanban views\n"
+#~ "==================================================\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "此模块为所有项目的看板视图添加了一个PAD\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "This module implements all concepts defined by the Getting Things Done "
+#~ "methodology.\n"
+#~ "============================================================================="
+#~ "======\n"
+#~ "\n"
+#~ "This module implements a simple personnal Todo list based on tasks. It adds "
+#~ "in\n"
+#~ "the project application an editable list of tasks simplified to the minimum\n"
+#~ "required fields.\n"
+#~ "\n"
+#~ "The todo list is based on the GTD methodology. This world-wide used "
+#~ "methodology\n"
+#~ "is used for personal time management improvement.\n"
+#~ "\n"
+#~ "Getting Things Done (commonly abbreviated as GTD) is an action management\n"
+#~ "method created by David Allen, and described in a book of the same name.\n"
+#~ "\n"
+#~ "GTD rests on the principle that a person needs to move tasks out of the mind "
+#~ "by\n"
+#~ "recording them externally. That way, the mind is freed from the job of\n"
+#~ "remembering everything that needs to be done, and can concentrate on "
+#~ "actually\n"
+#~ "performing those tasks.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "此模块实现了GTD方法中的所有概念\n"
+#~ "============================================================================="
+#~ "======\n"
+#~ "\n"
+#~ "此模块基于任务实现了一个简单的个人待办事件管理。它在\n"
+#~ "项目管理功能上添加了一个可编辑的任务列表，只有很少的必输字段。\n"
+#~ "\n"
+#~ "待办事项清单基于GTD方法。这个风靡全球的方法用于提高个人时间管理效率。\n"
+#~ "\n"
+#~ "搞定（简称GTD）由David Allen提出，并被写成一本同名书籍。\n"
+#~ "\n"
+#~ "GTD的模式是一个人需要通过外部工具记录把任务从大脑中移出去。\n"
+#~ "这样，大脑不需要记录需要做的事情，只需要关注于完成这些事情。\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "Module for resource management.\n"
+#~ "===============================\n"
+#~ "\n"
+#~ "A resource represent something that can be scheduled\n"
+#~ "(a developer on a task or a work center on manufacturing orders).\n"
+#~ "This module manages a resource calendar associated to every resource.\n"
+#~ "It also manages the leaves of every resource.\n"
+#~ "\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "此模块用于资源管理\n"
+#~ "===============================\n"
+#~ "\n"
+#~ "资源可以排程（任务中的人或生产订单中的加工中心）。\n"
+#~ "此模块管理每个资源的日程表。\n"
+#~ "还管理资源的休假。\n"
+#~ "\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "Synchronization with all objects.\n"
+#~ "=================================\n"
+#~ "\n"
+#~ "Configure servers and trigger synchronization with its database objects.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "同步所有对象\n"
+#~ "=================================\n"
+#~ "\n"
+#~ "配置服务器并触发他们数据库对象的同步。\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "This module provides a Wiki FAQ Template.\n"
+#~ "=========================================\n"
+#~ "\n"
+#~ "It provides demo data, thereby creating a Wiki Group and a Wiki Page\n"
+#~ "for Wiki FAQ.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "此模块提供了一个维基常见问题模版\n"
+#~ "=========================================\n"
+#~ "\n"
+#~ "它提供了示例数据，为常见问题创建了一个维基组和维基页面\n"
+#~ "    "
+
+#~ msgid "Wiki: Quality Manual"
+#~ msgstr "维基：质量手册"
+
+#~ msgid ""
+#~ "\n"
+#~ "    \n"
+#~ "Belgian localisation for in- and outgoing invoices (prereq to "
+#~ "account_coda):\n"
+#~ "    - Rename 'reference' field labels to 'Communication'\n"
+#~ "    - Add support for Belgian Structured Communication\n"
+#~ "\n"
+#~ "A Structured Communication can be generated automatically on outgoing "
+#~ "invoices according to the following algorithms:\n"
+#~ "    1) Random : +++RRR/RRRR/RRRDD+++\n"
+#~ "        R..R = Random Digits, DD = Check Digits\n"
+#~ "    2) Date : +++DOY/YEAR/SSSDD+++\n"
+#~ "        DOY = Day of the Year, SSS = Sequence Number, DD = Check Digits)\n"
+#~ "    3) Customer Reference +++RRR/RRRR/SSSDDD+++\n"
+#~ "        R..R = Customer Reference without non-numeric characters, SSS = "
+#~ "Sequence Number, DD = Check Digits)  \n"
+#~ "        \n"
+#~ "The preferred type of Structured Communication and associated Algorithm can "
+#~ "be specified on the Partner records. \n"
+#~ "A 'random' Structured Communication will generated if no algorithm is "
+#~ "specified on the Partner record. \n"
+#~ "\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "    \n"
+#~ "比利时的发票模块 \n"
+#~ "\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "The base module to manage quotations and sales orders.\n"
+#~ "======================================================\n"
+#~ "\n"
+#~ "Workflow with validation steps:\n"
+#~ "-------------------------------\n"
+#~ "    * Quotation -> Sales order -> Invoice\n"
+#~ "\n"
+#~ "Invoicing methods:\n"
+#~ "------------------\n"
+#~ "    * Invoice on order (before or after shipping)\n"
+#~ "    * Invoice on delivery\n"
+#~ "    * Invoice on timesheets\n"
+#~ "    * Advance invoice\n"
+#~ "\n"
+#~ "Partners preferences:\n"
+#~ "---------------------\n"
+#~ "    * shipping\n"
+#~ "    * invoicing\n"
+#~ "    * incoterm\n"
+#~ "\n"
+#~ "Products stocks and prices\n"
+#~ "--------------------------\n"
+#~ "\n"
+#~ "Delivery methods:\n"
+#~ "-----------------\n"
+#~ "    * all at once\n"
+#~ "    * multi-parcel\n"
+#~ "    * delivery costs\n"
+#~ "\n"
+#~ "Dashboard for Sales Manager that includes:\n"
+#~ "------------------------------------------\n"
+#~ "    * Quotations\n"
+#~ "    * Sales by Month\n"
+#~ "    * Graph of Sales by Salesman in last 90 days\n"
+#~ "    * Graph of Sales per Customer in last 90 days\n"
+#~ "    * Graph of Sales by Product's Category in last 90 days\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "管理报价和销售订单的基本模块。\n"
+#~ "======================================================\n"
+#~ "\n"
+#~ "审批工作流：报价 -> 订单 -> 发票\n"
+#~ "\n"
+#~ "开票方式\n"
+#~ "------------\n"
+#~ "    按订单开票（发货前或发货后）\n"
+#~ "    按发货开票\n"
+#~ "    按工时开票\n"
+#~ "    预付款发票\n"
+#~ "-------------\n"
+#~ "业务伙伴参数：发货、开票、贸易条款\n"
+#~ "----------------------------\n"
+#~ "产品库存和价格\n"
+#~ "----------------------------\n"
+#~ "发货策略\n"
+#~ "----------------------------\n"
+#~ "整体发货\n"
+#~ "分批发货\n"
+#~ "运费\n"
+#~ "\n"
+#~ "销售管理仪表盘包括\n"
+#~ "---------------------------------\n"
+#~ "报价单\n"
+#~ "每月销售\n"
+#~ "3个月内按销售员的销售图表\n"
+#~ "3个月内按客户的销售图表\n"
+#~ "30天内按产品类别的销售图表\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "Configure the price accuracy you need for different kinds of usage: "
+#~ "accounting, sales, purchases, etc.\n"
+#~ "============================================================================="
+#~ "=========================\n"
+#~ "\n"
+#~ "The decimal precision is configured per company.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "配置针对不同用途的价格小数位数：财务、销售、采购等\n"
+
+#~ msgid "Project Retro-planning"
+#~ msgstr "项目管理 - 反推计划"
+
+#~ msgid ""
+#~ "\n"
+#~ "This module allows users to perform segmentation within partners.\n"
+#~ "=================================================================\n"
+#~ "\n"
+#~ "It uses the profiles criteria from the earlier segmentation module and "
+#~ "improve it. Thanks to the new concept of questionnaire. You can now regroup "
+#~ "questions into a questionnaire and directly use it on a partner.\n"
+#~ "\n"
+#~ "It also has been merged with the earlier CRM & SRM segmentation tool because "
+#~ "they were overlapping.\n"
+#~ "\n"
+#~ "    * Note: this module is not compatible with the module segmentation, "
+#~ "since it's the same which has been renamed.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "此模块允许用户对客户进行分级\n"
+#~ "=================================================================\n"
+#~ "\n"
+#~ "他使用原来的分级模块里的参数条件并做了些增强。有了新的问卷概\n"
+#~ "念后，你可以把问题放在问卷内并把它用于某个客户。\n"
+#~ "\n"
+#~ "它也替换了CRM&SRM模块里的分级功能，因为重复了。\n"
+#~ "    注意，此模块与segmentation模块不兼容。因为它就是被重命名的segmentation模块。\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "This module defines 'portals' to customize the access to your OpenERP "
+#~ "database\n"
+#~ "for external users.\n"
+#~ "\n"
+#~ "A portal defines customized user menu and access rights for a group of "
+#~ "users\n"
+#~ "(the ones associated to that portal).  It also associates user groups to "
+#~ "the\n"
+#~ "portal users (adding a group in the portal automatically adds it to the "
+#~ "portal\n"
+#~ "users, etc).  That feature is very handy when used in combination with the\n"
+#~ "module 'share'.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "此模块实现了门户功能，自定义外部用户访问你的OpenERP数据库。\n"
+#~ "\n"
+#~ "门户定义了自定义的用户菜单和访问权限，只针对一组特定用\n"
+#~ "户（需要访问此门户的人）。还为门户用户指定了用户组（在门户\n"
+#~ "上添加的用户组会自动指定给门户用户）。此功能在和分享功能\n"
+#~ "联用的时候非常纠结。\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "This is the base module to manage the accounting chart for Luxembourg.\n"
+#~ "======================================================================\n"
+#~ "\n"
+#~ "    * the KLUWER Chart of Accounts,\n"
+#~ "    * the Tax Code Chart for Luxembourg\n"
+#~ "    * the main taxes used in Luxembourg"
+#~ msgstr ""
+#~ "\n"
+#~ "卢森堡科目表"
+
+#~ msgid ""
+#~ "\n"
+#~ "Module to manage invoice payment.\n"
+#~ "=================================\n"
+#~ "\n"
+#~ "This module provides :\n"
+#~ "----------------------\n"
+#~ "* a more efficient way to manage invoice payment.\n"
+#~ "* a basic mechanism to easily plug various automated payment.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "管理发票付款的模块\n"
+#~ "=================================\n"
+#~ "此模块提供了：\n"
+#~ "管理发票付款的更高效方式\n"
+#~ "一个基本的机制用于插接更多自动付款功能\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "        OpenERP Web chat module.\n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "        OpenERP官方在线客服模块\n"
+#~ "        "
+
+#~ msgid ""
+#~ "You can install new modules in order to activate new features, menu, reports "
+#~ "or data in your OpenERP instance. To install some modules, click on the "
+#~ "button \"Install\" from the form view and then click on \"Start Upgrade\"."
+#~ msgstr "安装新模块可以向当前数据库增加新功能、菜单和报表。要安装新模块，请单击安装按钮。"
+
+#~ msgid "Error ! You cannot create recursive associated members."
+#~ msgstr "错误，您不能创建循环引用的会员用户"
+
+#~ msgid ""
+#~ "\n"
+#~ "This module provides some features to improve the layout of the invoices.\n"
+#~ "=========================================================================\n"
+#~ "\n"
+#~ "It gives you the possibility to:\n"
+#~ "--------------------------------\n"
+#~ "    * order all the lines of an invoice\n"
+#~ "    * add titles, comment lines, sub total lines\n"
+#~ "    * draw horizontal lines and put page breaks\n"
+#~ "\n"
+#~ "Moreover, there is one option which allows you to print all the selected "
+#~ "invoices with a given special message at the bottom of it. This feature can "
+#~ "be very useful for printing your invoices with end-of-year wishes, special "
+#~ "punctual conditions.\n"
+#~ "\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "此模块增加了一些用于自定义发票格式的功能。\n"
+#~ "=========================================================================\n"
+#~ "\n"
+#~ "安装此模块后可以：\n"
+#~ "    对发票行重新排序\n"
+#~ "    添加标题，描述行，小计行\n"
+#~ "    画横线和强制分页\n"
+#~ "\n"
+#~ "另外，还有个选项使您能够在所选发票上打印一段特殊的话。此功能\n"
+#~ "非常适合在年底在发票上附上祝词或提醒。\n"
+#~ "\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "    * Multi language support for Chart of Accounts, Taxes, Tax Codes , "
+#~ "Journals, Accounting Templates,\n"
+#~ "        Analytic Chart of Accounts and Analytic Journals.\n"
+#~ "    * Setup wizard changes\n"
+#~ "        - Copy translations for COA, Tax, Tax Code and Fiscal Position from "
+#~ "templates to target objects.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "    会计科目、税、日记账、科目模版、成本科\n"
+#~ "        目和成本日记账的多语言支持。\n"
+#~ "    设置向导的修改\n"
+#~ "        复制科目表、税、税码和财务结构的翻译到对应的对象\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "        OpenERP Web mobile.\n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "        OpenERP移动客户端\n"
+#~ "        "
+
+#~ msgid ""
+#~ "Agrega una nomenclatura contable para Honduras. También incluye impuestos y "
+#~ "la moneda Lempira. -- Adds accounting chart for Honduras.  It also includes "
+#~ "taxes and the Lempira currency"
+#~ msgstr "洪都拉斯科目表"
+
+#~ msgid "iCal Support"
+#~ msgstr "iCal支持"
+
+#~ msgid ""
+#~ "\n"
+#~ "Accounting Access Rights.\n"
+#~ "=========================\n"
+#~ "\n"
+#~ "This module gives the admin user the access to all the accounting features\n"
+#~ "like the journal items and the chart of accounts.\n"
+#~ "\n"
+#~ "It assigns manager and user access rights to the Administrator, and only\n"
+#~ "user rights to Demo user.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "财务用户权限\n"
+#~ "=========================\n"
+#~ "\n"
+#~ "此模块给admin用户所有财务功能，如会计凭证、科目表的权限。\n"
+#~ "\n"
+#~ "它给管理员用户分配了财务经理和财务用户权限，给demo用户\n"
+#~ "分配了财务用户权限。\n"
+#~ "    "
+
+#~ msgid "OpenERP Web mobile"
+#~ msgstr "OpenERP移动客户端"
+
+#~ msgid ""
+#~ "Your OpenERP Publisher's Warranty Contract unique key, also called serial "
+#~ "number."
+#~ msgstr "您的 OpenERP 发布者保障合同唯一键，也叫做序列号。"
+
+#~ msgid "Expenses Management"
+#~ msgstr "报销管理"
+
+#~ msgid "Process"
+#~ msgstr "业务流程"
+
+#~ msgid "Openerp web web"
+#~ msgstr "Openerp web web"
+
+#~ msgid "web Graph"
+#~ msgstr "Web 图标"
+
+#~ msgid "web Gantt"
+#~ msgstr "Web 甘特图"
+
+#~ msgid "Receive User Feedback"
+#~ msgstr "接收用户反馈"
+
+#~ msgid "Bank Accounts Footer"
+#~ msgstr "银行账户页脚"
+
+#~ msgid "Web Chat"
+#~ msgstr "Web 聊天"
+
+#~ msgid "Test"
+#~ msgstr "测试"
+
+#~ msgid "Methodology: SCRUM"
+#~ msgstr "方法学：SCRUM"
+
+#~ msgid "Query Builder"
+#~ msgstr "查询构建器"
+
+#~ msgid "OpenERP Tweets"
+#~ msgstr "OpenERP 的推"
+
+#~ msgid "Hidden"
+#~ msgstr "隐藏"
+
+#~ msgid "Header/Footer of Reports"
+#~ msgstr "报表的页眉页脚"
+
+#~ msgid "Issues Tracker"
+#~ msgstr "问题跟踪程序"
+
+#~ msgid "function"
+#~ msgstr "职能"
+
+#~ msgid "Edit"
+#~ msgstr "编辑"
+
+#~ msgid ""
+#~ "\n"
+#~ "        United States - Chart of accounts\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "        美国 - 科目表\n"
+#~ "    "
+
+#~ msgid "Knowledge Management"
+#~ msgstr "知识管理"
+
+#~ msgid "Easy"
+#~ msgstr "容易"
+
+#~ msgid "Record and Create Modules"
+#~ msgstr "记录并创建模块"
+
+#~ msgid "Extended View"
+#~ msgstr "扩展视图"
+
+#~ msgid "E-Mail Templates"
+#~ msgstr "电子邮件模板"
+
+#~ msgid "Hide technical modules"
+#~ msgstr "隐藏技术性模块"
+
+#~ msgid "Wiki"
+#~ msgstr "维基"
+
+#~ msgid "Inline"
+#~ msgstr "内联"
+
+#~ msgid "Latest Connection"
+#~ msgstr "最近连接时间"
+
+#~ msgid "Resources Planing"
+#~ msgstr "资源计划管理"
+
+#~ msgid ""
+#~ "\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "    "
+
+#~ msgid "Preview Header"
+#~ msgstr "预览页眉"
+
+#~ msgid ""
+#~ "\n"
+#~ "The common interface for pugin.\n"
+#~ "=====================================================\n"
+#~ "\n"
+#~ msgstr ""
+#~ "\n"
+#~ "插件的公共接口。\n"
+#~ "=====================================================\n"
+#~ "\n"
+
+#~ msgid "Multi-DB Synchronization"
+#~ msgstr "多数据库同步"
+
+#~ msgid "Expert"
+#~ msgstr "专家级"
+
+#~ msgid "Leaves Management"
+#~ msgstr "假期管理"
+
+#~ msgid "Wiki: Sale FAQ"
+#~ msgstr "维基：销售常见问题解答"
+
+#~ msgid "Please be patient, this operation may take a few minutes..."
+#~ msgstr "请稍候，此操作需要一些时间..."
+
+#, python-format
+#~ msgid "VAT: "
+#~ msgstr "增值税： "
+
+#~ msgid "Google Import"
+#~ msgstr "Google 导入"
+
+#~ msgid "Wizard Category"
+#~ msgstr "向导分类"
+
+#~ msgid "Point of Sales"
+#~ msgstr "销售点"
+
+#~ msgid "Configuration Wizard Category"
+#~ msgstr "配置向导分类"
+
+#~ msgid "HR Manager"
+#~ msgstr "人事经理"
+
+#~ msgid "Emails Management"
+#~ msgstr "电子邮件管理"
+
+#~ msgid "Base Tools"
+#~ msgstr "基本工具"
+
+#~ msgid "The RIB and/or IBAN is not valid"
+#~ msgstr "RIB/IBAN 无效"
+
+#~ msgid "Send an SMS"
+#~ msgstr "发送手机短信"
+
+#~ msgid ""
+#~ "\n"
+#~ "Lets the user create a custom dashboard.\n"
+#~ "========================================\n"
+#~ "\n"
+#~ "This module also creates the Administration Dashboard.\n"
+#~ "\n"
+#~ "The user can also publish notes.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "允许用户创建自定义仪表盘。\n"
+#~ "========================================\n"
+#~ "\n"
+#~ "此模块也会自动创建系统管理仪表盘。\n"
+#~ "\n"
+#~ "也可以让用户发布通知。\n"
+#~ "    "
+
+#~ msgid ""
+#~ "Financial and accounting asset management.\n"
+#~ "    This Module manages the assets owned by a company or an individual. It "
+#~ "will keep track of depreciation's occurred on\n"
+#~ "    those assets. And it allows to create Move's of the depreciation lines.\n"
+#~ "    "
+#~ msgstr ""
+#~ "财务与会计资产管理。\n"
+#~ "    本模块用于管理公司或个人拥有的资产。本模块将跟踪资产折旧并且允许创建资产折旧明细的分录。\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "Module for human resource management.\n"
+#~ "=====================================\n"
+#~ "\n"
+#~ "You can manage:\n"
+#~ "    * Employees and hierarchies : You can define your employee with User and "
+#~ "display hierarchies\n"
+#~ "    * HR Departments\n"
+#~ "    * HR Jobs\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "人力资源管理模块。\n"
+#~ "=====================================\n"
+#~ "\n"
+#~ "您可以管理：\n"
+#~ "    * 员工与级次：您可以定义关联了用户帐号的员工信息并可以按级次显示。\n"
+#~ "    * 公司部门管理。\n"
+#~ "    * 职位管理。\n"
+#~ "    "
+
+#~ msgid "Meetings Synchronization"
+#~ msgstr "会议同步"
+
+#~ msgid "Contacts Management"
+#~ msgstr "联系人管理"
+
+#~ msgid ""
+#~ "The user this filter is available to. When left empty the filter is usable "
+#~ "by the system only."
+#~ msgstr "该过滤器所用于的用户。留空代表该过滤器只用于系统。"
+
+#~ msgid ""
+#~ "\n"
+#~ "This modules allows you to track your customers/suppliers claims and "
+#~ "grievances.\n"
+#~ "============================================================================="
+#~ "===\n"
+#~ "\n"
+#~ "It is fully integrated with the email gateway so that you can create\n"
+#~ "automatically new claims based on incoming emails.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "这个模块允许您跟踪您的客户/供应商索赔和申诉。\n"
+#~ "============================================================================="
+#~ "===\n"
+#~ "\n"
+#~ "它完整集成电子邮件网关使您可以根据传入的电子邮件\n"
+#~ "自动创建新的索赔。\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "This module is used for surveying.\n"
+#~ "==================================\n"
+#~ "\n"
+#~ "It depends on the answers or reviews of some questions by different users.\n"
+#~ "A survey may have multiple pages. Each page may contain multiple questions "
+#~ "and each question may have multiple answers.\n"
+#~ "Different users may give different answers of question and according to that "
+#~ "survey is done.\n"
+#~ "Partners are also sent mails with user name and password for the invitation "
+#~ "of the survey\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "此模块用于问卷调查。它依赖不同用户问题的答复或者回顾。\n"
+#~ "==================================\n"
+#~ " 一个问卷可以有多个页面。每个页面可以有多个问题，每个问题会有多个答案。\n"
+#~ " 针对完成的问卷，不同的用户可能给出不同的问题答案。\n"
+#~ " 对于问卷邀请，会发送带有用户名和密码的邮件给业务合作伙伴。\n"
+#~ "    "
+
+#~ msgid "Analyse Module Quality"
+#~ msgstr "模块质量评估"
+
+#~ msgid ""
+#~ "\n"
+#~ "Create recurring documents.\n"
+#~ "===========================\n"
+#~ "\n"
+#~ "This module allows to create new documents and add subscriptions on that "
+#~ "document.\n"
+#~ "\n"
+#~ "e.g. To have an invoice generated automatically periodically:\n"
+#~ "    * Define a document type based on Invoice object\n"
+#~ "    * Define a subscription whose source document is the document defined as "
+#~ "above. Specify the interval information and partner to be invoice.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "模块允许创建新的文档和对文档增加订阅\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "This module allows you to anonymize a database.\n"
+#~ "===============================================\n"
+#~ "\n"
+#~ "This module allows you to keep your data confidential for a given database.\n"
+#~ "This process is useful if you want to use the migration process and protect\n"
+#~ "your own or your customer’s confidential data. The principle is that you "
+#~ "run\n"
+#~ "an anonymization tool which will hide your confidential data(they are "
+#~ "replaced\n"
+#~ "by ‘XXX’ characters). Then you can send the anonymized database to the "
+#~ "migration\n"
+#~ "team. Once you get back your migrated database, you restore it and reverse "
+#~ "the\n"
+#~ "anonymization process to recover your previous data.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "这个字段允许你隐藏一个数据库\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "This is the module used by OpenERP SA to redirect customers to its partners, "
+#~ "based on geolocalization.\n"
+#~ "============================================================================="
+#~ "=========================\n"
+#~ "\n"
+#~ "You can geolocalize your opportunities by using this module.\n"
+#~ "\n"
+#~ "Use geolocalization when assigning opportunities to partners.\n"
+#~ "Determine the GPS coordinates according to the address of the partner.\n"
+#~ "The most appropriate partner can be assigned.\n"
+#~ "You can also use the geolocalization without using the GPS coordinates.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "这模块用于系统给业务伙伴定位的地理信息，其基于google的geolocalization服务\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "Purchase module is for generating a purchase order for purchase of goods "
+#~ "from a supplier.\n"
+#~ "============================================================================="
+#~ "============\n"
+#~ "\n"
+#~ "A supplier invoice is created for the particular purchase order.\n"
+#~ "\n"
+#~ "Dashboard for purchase management that includes:\n"
+#~ "    * Current Purchase Orders\n"
+#~ "    * Draft Purchase Orders\n"
+#~ "    * Graph for quantity and amount per month\n"
+#~ "\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "采购模块是向供应商采购产品生成采购订单。 从采购订单创建供应商发票 采购管理的控制台包括： \n"
+#~ "当前的采购订单 \n"
+#~ "每月的数量和金额图表\n"
+#~ "\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "With this module, the WebDAV server for documents is activated.\n"
+#~ "===============================================================\n"
+#~ "\n"
+#~ "You can then use any compatible browser to remotely see the attachments of "
+#~ "OpenObject.\n"
+#~ "\n"
+#~ "After installation, the WebDAV server can be controlled by a [webdav] "
+#~ "section in the server's config.\n"
+#~ "Server Configuration Parameter:\n"
+#~ "\n"
+#~ "    [webdav]\n"
+#~ "    ; enable = True ; Serve webdav over the http(s) servers\n"
+#~ "    ; vdir = webdav ; the directory that webdav will be served at\n"
+#~ "    ; this default val means that webdav will be\n"
+#~ "    ; on \"http://localhost:8069/webdav/\n"
+#~ "    ; verbose = True ; Turn on the verbose messages of webdav\n"
+#~ "    ; debug = True ; Turn on the debugging messages of webdav\n"
+#~ "    ; since the messages are routed to the python logging, with\n"
+#~ "    ; levels \"debug\" and \"debug_rpc\" respectively, you can leave\n"
+#~ "    ; these options on\n"
+#~ "\n"
+#~ "Also implements IETF RFC 5785 for services discovery on a http server,\n"
+#~ "which needs explicit configuration in openerp-server.conf, too.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "安装了这个模块，就为文档管理激活了WebDAV服务器。你就可以用兼容的浏览器远程查看OpenERP的文档了。安装后的WebDAV服务器可以由服务器配置文件"
+#~ "的webdav部分控制。服务器配置参数: [webdav] ; enable = True ; 在服务器上启用webdav ; vdir = "
+#~ "webdav ; webdav的虚拟目录，默认值的意思是是 \"http://localhost:8069/webdav/ ; verbose = "
+#~ "True ; 打开webdav的动态信息 ; debug = True ; 打开webdav的调试信息 Also implements IETF RFC "
+#~ "5785 for services discovery on a http server, which needs explicit "
+#~ "configuration in openerp-server.conf, too. 这里还实现了IETF RFC "
+#~ "5785标准用于在http服务器上发现服务。也需要在openerp-server.conf里显示地配置。\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Installer for extra Hidden like lunch, survey, idea, share, etc.\n"
+#~ "===============================================================\n"
+#~ "\n"
+#~ "Makes the Extra Hidden Configuration available from where you can install\n"
+#~ "modules like share, lunch, pad, idea, survey and subscription.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "安装一些工具类的模块，如午餐、调查问卷、周期性凭证和审计线索之类。\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "Account Voucher module includes all the basic requirements of Voucher "
+#~ "Entries for Bank, Cash, Sales, Purchase, Expanse, Contra, etc.\n"
+#~ "============================================================================="
+#~ "=======================================================\n"
+#~ "\n"
+#~ "    * Voucher Entry\n"
+#~ "    * Voucher Receipt\n"
+#~ "    * Cheque Register\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "会计凭证模块包括所有满足银行、现金、销售、采购、费用等凭证输入的需求。 \n"
+#~ "- 转账凭证\n"
+#~ "- 收款凭证 \n"
+#~ "- 付款凭证\n"
+#~ "    "
+
+#~ msgid ""
+#~ "Generate your Invoices from Expenses, Timesheet Entries, ...\n"
+#~ "Module to generate invoices based on costs (human resources, expenses, "
+#~ "...).\n"
+#~ "============================================================================"
+#~ "\n"
+#~ "\n"
+#~ "You can define price lists in analytic account, make some theoretical "
+#~ "revenue\n"
+#~ "reports, etc."
+#~ msgstr "模块生成发票基于的成本(人力资源,费用....) 你能在辅助核算项定义价格表，建立一些理论收入的报表。"
+
+#~ msgid ""
+#~ "\n"
+#~ "This module provides facility to the user to install mrp and sales modulesat "
+#~ "a time.\n"
+#~ "============================================================================="
+#~ "=======\n"
+#~ "\n"
+#~ "It is basically used when we want to keep track of production\n"
+#~ "orders generated from sales order.\n"
+#~ "It adds sales name and sales Reference on production order.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "这模块提方便用户一次安装MRP和销售模块。它基本是用于跟踪从销售订单生成生产单。它在生产单中加入销售名称和销售订单。\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "This module allows to use several analytic plans, according to the general "
+#~ "journal.\n"
+#~ "============================================================================="
+#~ "======\n"
+#~ "\n"
+#~ "Here multiple analytic lines are created when the invoice or the entries\n"
+#~ "are confirmed.\n"
+#~ "\n"
+#~ "For example, you can define the following analytic structure:\n"
+#~ "  Projects\n"
+#~ "      Project 1\n"
+#~ "          SubProj 1.1\n"
+#~ "          SubProj 1.2\n"
+#~ "\n"
+#~ "      Project 2\n"
+#~ "  Salesman\n"
+#~ "      Eric\n"
+#~ "      Fabien\n"
+#~ "\n"
+#~ "Here, we have two plans: Projects and Salesman. An invoice line must\n"
+#~ "be able to write analytic entries in the 2 plans: SubProj 1.1 and\n"
+#~ "Fabien. The amount can also be split. The following example is for\n"
+#~ "an invoice that touches the two subproject and assigned to one salesman:\n"
+#~ "\n"
+#~ "Plan1:\n"
+#~ "    SubProject 1.1 : 50%\n"
+#~ "    SubProject 1.2 : 50%\n"
+#~ "Plan2:\n"
+#~ "    Eric: 100%\n"
+#~ "\n"
+#~ "So when this line of invoice will be confirmed, it will generate 3 analytic "
+#~ "lines,\n"
+#~ "for one account entry.\n"
+#~ "The analytic plan validates the minimum and maximum percentage at the time "
+#~ "of creation\n"
+#~ "of distribution models.\n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "此模块允许你在输入会计凭证或发票时选择分摊模型，以便凭证或发票过账时生成多个辅助核算凭证行。 \n"
+#~ "例如，你有以下辅助核算项目： \n"
+#~ "项目 \n"
+#~ "项目1 \n"
+#~ "子项目1.1\n"
+#~ "子项目1.2 \n"
+#~ "项目2 \n"
+#~ "\n"
+#~ "销售员 \n"
+#~ "Eric \n"
+#~ "Fabien \n"
+#~ "这里我们有两个分配模型：项目和销售员。一个发票行需要生成两个纬度的辅助核算项目行：发票金额在项目间分摊和在销售员间分摊。分摊模型这样定义： \n"
+#~ "\n"
+#~ "plan1： \n"
+#~ "子项目1.1：50% \n"
+#~ "子项目1.2：50% \n"
+#~ "plan2： Eric：100% \n"
+#~ "\n"
+#~ "这样当这张发票过账后，会生成3个辅助核算凭证行属于一个会计凭证行。在创建分摊模型时可以验证最大或最小分摊百分比。\n"
+#~ "        "
+
+#~ msgid ""
+#~ "\n"
+#~ "This module allows accountants to manage analytic and crossovered budgets.\n"
+#~ "==========================================================================\n"
+#~ "\n"
+#~ "Once the Master Budgets and the Budgets are defined (in "
+#~ "Accounting/Budgets/),\n"
+#~ "the Project Managers can set the planned amount on each Analytic Account.\n"
+#~ "\n"
+#~ "The accountant has the possibility to see the total of amount planned for "
+#~ "each\n"
+#~ "Budget and Master Budget in order to ensure the total planned is not\n"
+#~ "greater/lower than what he planned for this Budget/Master Budget. Each list "
+#~ "of\n"
+#~ "record can also be switched to a graphical view of it.\n"
+#~ "\n"
+#~ "Three reports are available:\n"
+#~ "    1. The first is available from a list of Budgets. It gives the "
+#~ "spreading, for these Budgets, of the Analytic Accounts per Master Budgets.\n"
+#~ "\n"
+#~ "    2. The second is a summary of the previous one, it only gives the "
+#~ "spreading, for the selected Budgets, of the Analytic Accounts.\n"
+#~ "\n"
+#~ "    3. The last one is available from the Analytic Chart of Accounts. It "
+#~ "gives the spreading, for the selected Analytic Accounts, of the Master "
+#~ "Budgets per Budgets.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "\n"
+#~ "此模块使得会计可以管理预算。一旦输入了主预算和预算，管理层可以设置每个辅助核算项目的计划金额。会计可以看到主预算和预算合计的金额，以避免预算合计超出主预算"
+#~ "金额。预算列表可以以图表方式查看。有三个报表： \n"
+#~ "1.第一个报表挂在预算列表上。此报表列出此预算在每个主预算上的辅助核算项目金额。 \n"
+#~ "2.第二个报表挂在预算列表上，作为第一个报表的汇总。列出此预算上的辅助核算项目金额（跨主预算）。 \n"
+#~ "3.第三个报表挂在辅助核算项目树上。此报表列出此辅助核算项目在每个预算上的主预算金额。\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Chart of accounts for Costa Rica.\n"
+#~ "=================================\n"
+#~ "\n"
+#~ "Includes:\n"
+#~ "* account.type\n"
+#~ "* account.account.template\n"
+#~ "* account.tax.template\n"
+#~ "* account.tax.code.template\n"
+#~ "* account.chart.template\n"
+#~ "\n"
+#~ "Everything is in English with Spanish translation. Further translations are "
+#~ "welcome, please go to\n"
+#~ "http://translations.launchpad.net/openerp-costa-rica\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "哥斯达黎加会计科目\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "This module is for modifying account analytic view to show important data to "
+#~ "project manager of services companies.\n"
+#~ "============================================================================="
+#~ "======================================\n"
+#~ "\n"
+#~ "Adds menu to show relevant information to each manager.\n"
+#~ "You can also view the report of account analytic summary\n"
+#~ "user-wise as well as month wise.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "此模块在分析会计视图为公司的项目经理显示重要的数据,增加菜单为管理者显示有关信息。 \n"
+#~ "你可以按用户或月度查看会计分析报表\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "OpenERP Inventory Management module can manage multi-warehouses, multi and "
+#~ "structured stock locations.\n"
+#~ "============================================================================="
+#~ "=========================\n"
+#~ "\n"
+#~ "Thanks to the double entry management, the inventory controlling is powerful "
+#~ "and flexible:\n"
+#~ "    * Moves history and planning,\n"
+#~ "    * Different inventory methods (FIFO, LIFO, ...)\n"
+#~ "    * Stock valuation (standard or average price, ...)\n"
+#~ "    * Robustness faced with Inventory differences\n"
+#~ "    * Automatic reordering rules (stock level, JIT, ...)\n"
+#~ "    * Bar code supported\n"
+#~ "    * Rapid detection of mistakes through double entry system\n"
+#~ "    * Traceability (upstream/downstream, production lots, serial number, "
+#~ "...)\n"
+#~ "    * Dashboard for warehouse that includes:\n"
+#~ "        * Procurement in exception\n"
+#~ "        * List of Incoming Products\n"
+#~ "        * List of Outgoing Products\n"
+#~ "        * Graph : Products to receive in delay (date < = today)\n"
+#~ "        * Graph : Products to send in delay (date < = today)\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "系统的库存管理模块可以管理多个仓库,多层次的库存存储地点结构. 由于才用复式记账管理所以其库存控制是强大和灵活的. * 库存调拨日志和计划. * "
+#~ "不同的库存管理方式(先进先出,先进后出...) * 库存估价(标准价或平均价.....) * 对库存差异的鲁棒性. * "
+#~ "自动再订购规则(按库存设置,JIT...) * 支持条码. * 通过复式记账系统能快速发现错误. * 可追溯(先上,向下,生产批次,序号...) * "
+#~ "仓库控制台包括: * 接收的产品(日期 <=今天) * 异常需求. * 图表: 实际产品接收数量和计划的对比(每个工作日的条状图) * 图表: "
+#~ "实际产品发货数量和计划的对比(每个工作日的条状图)\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "This is the base module to manage the accounting chart for Belgium in "
+#~ "OpenERP.\n"
+#~ "============================================================================="
+#~ "=\n"
+#~ "\n"
+#~ "After installing this module, the Configuration wizard for accounting is "
+#~ "launched.\n"
+#~ "    * We have the account templates which can be helpful to generate Charts "
+#~ "of Accounts.\n"
+#~ "    * On that particular wizard, you will be asked to pass the name of the "
+#~ "company, the chart template to follow, the no. of digits to generate, the "
+#~ "code for your account and bank account, currency to create journals.\n"
+#~ "\n"
+#~ "Thus, the pure copy of Chart Template is generated.\n"
+#~ "\n"
+#~ "Wizards provided by this module:\n"
+#~ "    * Partner VAT Intra: Enlist the partners with their related VAT and "
+#~ "invoiced amounts.Prepares an XML file format.\n"
+#~ "            Path to access : Accounting/Reporting//Legal Statements/Belgium "
+#~ "Statements/Partner VAT Listing\n"
+#~ "    * Periodical VAT Declaration: Prepares an XML file for Vat Declaration "
+#~ "of the Main company of the User currently Logged in.\n"
+#~ "            Path to access : Accounting/Reporting/Legal Statements/Belgium "
+#~ "Statements/Periodical VAT Declaration\n"
+#~ "    * Annual Listing Of VAT-Subjected Customers: Prepares an XML file for "
+#~ "Vat Declaration of the Main company of the User currently Logged in.Based on "
+#~ "Fiscal year\n"
+#~ "            Path to access : Accounting/Reporting/Legal Statements/Belgium "
+#~ "Statements/Annual Listing Of VAT-Subjected Customers\n"
+#~ "\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "比利时会计科目表\n"
+#~ "\n"
+#~ "    "
+
+#~ msgid ""
+#~ "This is the latest UK OpenERP localisation necesary to run OpenERP "
+#~ "accounting for UK SME's with:\n"
+#~ "    - a CT600-ready chart of accounts\n"
+#~ "    - VAT100-ready tax structure\n"
+#~ "    - InfoLogic UK counties listing\n"
+#~ "    - a few other adaptations"
+#~ msgstr "英国会计科目表"
+
+#~ msgid ""
+#~ "\n"
+#~ "    Module to import CODA bank statements.\n"
+#~ "\n"
+#~ "    Supported are CODA flat files in V2 format from Belgian bank accounts.\n"
+#~ "    - CODA v1 support.\n"
+#~ "    - CODA v2.2 support.\n"
+#~ "    - Foreign Currency support.\n"
+#~ "    - Support for all data record types (0, 1, 2, 3, 4, 8, 9).\n"
+#~ "    - Parsing & logging of all Transaction Codes and Structured Format "
+#~ "Communications.\n"
+#~ "    - Automatic Financial Journal assignment via CODA configuration "
+#~ "parameters.\n"
+#~ "    - Support for multiple Journals per Bank Account Number.\n"
+#~ "    - Support for multiple statements from different bank accounts in a "
+#~ "single CODA file.\n"
+#~ "    - Support for 'parsing only' CODA Bank Accounts (defined as type='info' "
+#~ "in the CODA Bank Account configuration records).\n"
+#~ "    - Multi-language CODA parsing, parsing configuration data provided for "
+#~ "EN, NL, FR.\n"
+#~ "\n"
+#~ "    The machine readable CODA Files are parsed and stored in human readable "
+#~ "format in CODA Bank Statements.\n"
+#~ "    Also Bank Statements are generated containing a subset of the CODA "
+#~ "information (only those transaction lines\n"
+#~ "    that are required for the creation of the Financial Accounting "
+#~ "records).\n"
+#~ "    The CODA Bank Statement is a 'read-only' object, hence remaining a "
+#~ "reliable representation of the original CODA file\n"
+#~ "    whereas the Bank Statement will get modified as required by accounting "
+#~ "business processes.\n"
+#~ "\n"
+#~ "    CODA Bank Accounts configured as type 'Info' will only generate CODA "
+#~ "Bank Statements.\n"
+#~ "\n"
+#~ "    A removal of one object in the CODA processing results in the removal of "
+#~ "the associated objects.\n"
+#~ "    The removal of a CODA File containing multiple Bank Statements will also "
+#~ "remove those associated\n"
+#~ "    statements.\n"
+#~ "\n"
+#~ "    The following reconciliation logic has been implemented in the CODA "
+#~ "processing:\n"
+#~ "    1) The Company's Bank Account Number of the CODA statement is compared "
+#~ "against the Bank Account Number field\n"
+#~ "       of the Company's CODA Bank Account configuration records (whereby "
+#~ "bank accounts defined in type='info' configuration records are ignored).\n"
+#~ "       If this is the case an 'internal transfer' transaction is generated "
+#~ "using the 'Internal Transfer Account' field of the CODA File Import wizard.\n"
+#~ "    2) As a second step the 'Structured Communication' field of the CODA "
+#~ "transaction line is matched against\n"
+#~ "       the reference field of in- and outgoing invoices (supported : Belgian "
+#~ "Structured Communication Type).\n"
+#~ "    3) When the previous step doesn't find a match, the transaction "
+#~ "counterparty is located via the\n"
+#~ "       Bank Account Number configured on the OpenERP Customer and Supplier "
+#~ "records.\n"
+#~ "    4) In case the previous steps are not successful, the transaction is "
+#~ "generated by using the 'Default Account\n"
+#~ "       for Unrecognized Movement' field of the CODA File Import wizard in "
+#~ "order to allow further manual processing.\n"
+#~ "\n"
+#~ "    In stead of a manual adjustment of the generated Bank Statements, you "
+#~ "can also re-import the CODA\n"
+#~ "    after updating the OpenERP database with the information that was "
+#~ "missing to allow automatic reconciliation.\n"
+#~ "\n"
+#~ "    Remark on CODA V1 support:\n"
+#~ "    In some cases a transaction code, transaction category or structured "
+#~ "communication code has been given a new or clearer description in CODA V2.\n"
+#~ "    The description provided by the CODA configuration tables is based upon "
+#~ "the CODA V2.2 specifications.\n"
+#~ "    If required, you can manually adjust the descriptions via the CODA "
+#~ "configuration menu.\n"
+#~ "\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "    OpenERP与CODA银行接口模块\n"
+#~ "\n"
+#~ "    "
+
+#~ msgid "OPW"
+#~ msgstr "OPW"
+
+#~ msgid ""
+#~ "\n"
+#~ "This module allows you to define what is the default function of a specific "
+#~ "user on a given account.\n"
+#~ "============================================================================="
+#~ "=======================\n"
+#~ "\n"
+#~ "This is mostly used when a user encodes his timesheet: the values are "
+#~ "retrieved and the fields are auto-filled. But the possibility to change "
+#~ "these values is still available.\n"
+#~ "\n"
+#~ "Obviously if no data has been recorded for the current account, the default "
+#~ "value is given as usual by the employee data so that this module is "
+#~ "perfectly compatible with older configurations.\n"
+#~ "\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "此模块允许你定义给定的用户默认的职能。常用于用户输入计工单：这些预定义的值默认填充了字段，当然可以修改。当然，如果当前用户没有默认的数据，这些默认值会从员"
+#~ "工记录去取。所以此模块与之前的配置是兼容的。\n"
+#~ "\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "This module allows you to manage your contacts\n"
+#~ "==============================================\n"
+#~ "\n"
+#~ "It lets you define:\n"
+#~ "    * contacts unrelated to a partner,\n"
+#~ "    * contacts working at several addresses (possibly for different "
+#~ "partners),\n"
+#~ "    * contacts with possibly different functions for each of its job's "
+#~ "addresses\n"
+#~ "\n"
+#~ "It also adds new menu items located in\n"
+#~ "    Purchases / Address Book / Contacts\n"
+#~ "    Sales / Address Book / Contacts\n"
+#~ "\n"
+#~ "Pay attention that this module converts the existing addresses into "
+#~ "\"addresses + contacts\". It means that some fields of the addresses will be "
+#~ "missing (like the contact name), since these are supposed to be defined in "
+#~ "an other object.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "这个模块允许您完整地管理您的联系人。 它可以让你定义 \n"
+#~ "*联系人不关联合作伙伴，\n"
+#~ " *联系人工作在几个地址（这些地址可能是几个业务伙伴） \n"
+#~ "*联系人几个地址可能是不同职务 它还增加了新的菜单位于 合作伙伴\\联系人 合作伙伴\\职位 "
+#~ "注意，此模块转换成“地址+联系人”的现有地址。这意味着一些地址字段将会丢失（如联系人的姓名），因为这些都应该是在其他对象中定义的。\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "Generic Payroll system.\n"
+#~ "=======================\n"
+#~ "\n"
+#~ "    * Employee Details\n"
+#~ "    * Employee Contracts\n"
+#~ "    * Passport based Contract\n"
+#~ "    * Allowances / Deductions\n"
+#~ "    * Allow to configure Basic / Grows / Net Salary\n"
+#~ "    * Employee Payslip\n"
+#~ "    * Monthly Payroll Register\n"
+#~ "    * Integrated with Holiday Management\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "通用工资系统 \n"
+#~ "* 员工详细资料 \n"
+#~ "* 员工合同\n"
+#~ "* 签合同的护照 \n"
+#~ "* 津贴 / 扣除\n"
+#~ " * 允许设置基本 / 增长 /净薪酬 \n"
+#~ "* 员工工资表 \n"
+#~ "* 每月工资表记录 \n"
+#~ "* 整合假期的管理\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "This module lets users enter the banking details of Partners in the RIB "
+#~ "format (French standard for bank accounts details).\n"
+#~ "RIB Bank Accounts can be entered in the \"Accounting\" tab of the Partner "
+#~ "form by specifying the account type \"RIB\". The four standard RIB fields "
+#~ "will then become mandatory:\n"
+#~ "- Bank Code\n"
+#~ "- Office Code\n"
+#~ "- Account number\n"
+#~ "- RIB key\n"
+#~ "As a safety measure, OpenERP will check the RIB key whenever a RIB is saved, "
+#~ "and will refuse to record the data if the key is incorrect. Please bear in "
+#~ "mind that this can only happen when the user presses the \"save\" button, "
+#~ "for example on the Partner Form.\n"
+#~ "Since each bank account may relate to a Bank, users may enter the RIB Bank "
+#~ "Code in the Bank form - it will the pre-fill the Bank Code on the RIB when "
+#~ "they select the Bank. \n"
+#~ "To make this easier, this module will also let users find Banks using their "
+#~ "RIB code.\n"
+#~ "\n"
+#~ "The module base_iban can be a useful addition to this module, because French "
+#~ "banks are now progressively adopting the international IBAN format instead "
+#~ "of the RIB format.\n"
+#~ "The RIB and IBAN codes for a single account can be entered by recording two "
+#~ "Bank Accounts in OpenERP: the first with the type \"RIB\", the second with "
+#~ "the type \"IBAN\". \n"
+#~ msgstr ""
+#~ "\n"
+#~ "法国银行信息检查 \n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Module for defining analytic accounting object.\n"
+#~ "===============================================\n"
+#~ "\n"
+#~ "In OpenERP, analytic accounts are linked to general accounts but are "
+#~ "treated\n"
+#~ "totally independently. So you can enter various different analytic "
+#~ "operations\n"
+#~ "that have no counterpart in the general financial accounts.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "模块定义辅助核算对象\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "This is the module to manage the accounting chart for Mexico in OpenERP.\n"
+#~ "========================================================================\n"
+#~ "\n"
+#~ "Mexican accounting chart and localization.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "墨西哥会计模块\n"
+#~ "    "
+
+#~ msgid "Timesheets Validation"
+#~ msgstr "复核计工单"
+
+#~ msgid ""
+#~ "\n"
+#~ "Add all information on the employee form to manage contracts.\n"
+#~ "=============================================================\n"
+#~ "\n"
+#~ "    * Marital status,\n"
+#~ "    * Security number,\n"
+#~ "    * Place of birth, birth date, ...\n"
+#~ "\n"
+#~ "You can assign several contracts per employee.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "在管理合同里添加这员工的所有信息： \n"
+#~ "* 婚姻状况\n"
+#~ "* 社保号 \n"
+#~ "* 籍贯，出生日期。。。 \n"
+#~ "\n"
+#~ "您可以为员工签订几份合同。\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "This module adds a shortcut on one or several opportunity cases in the CRM.\n"
+#~ "===========================================================================\n"
+#~ "\n"
+#~ "This shortcut allows you to generate a sales order based on the selected "
+#~ "case.\n"
+#~ "If different cases are open (a list), it generates one sale order by\n"
+#~ "case.\n"
+#~ "The case is then closed and linked to the generated sales order.\n"
+#~ "\n"
+#~ "We suggest you to install this module if you installed both the sale and "
+#~ "the\n"
+#~ "crm modules.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "此模块在CRM中为一个或多个商机案例添加了快捷方式。这个快捷方式允许你为选中的商机生成销售订单。如果打开了不同的商机（列表）， "
+#~ "它会为每个商机生成一个销售订单。然后关闭商机，并且关联到生成的销售订单上。 如果你已经安装了销售和CRM模块，我建议你安装此模块。\n"
+#~ "    "
+
+#, python-format
+#~ msgid "Please verify your publisher warranty serial number and validity."
+#~ msgstr "请验证你官方维护合同的序列号和有效期"
+
+#, python-format
+#~ msgid "Reg: "
+#~ msgstr "地区 "
+
+#~ msgid ""
+#~ "\n"
+#~ "Changes dates according to change in project End Date.\n"
+#~ "======================================================\n"
+#~ "\n"
+#~ "If end date of project is changed then the deadline date and start date for "
+#~ "all the tasks will change accordingly.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "按项目的截止日期反推计划。\n"
+#~ "\n"
+#~ "如果项目的截止日期发生了变化，项目下所有任务的开始和截止日期都相应调整。\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "Add Feedback button in header.\n"
+#~ "==============================\n"
+#~ "\n"
+#~ "Invite OpenERP user feedback, powered by uservoice.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "在页眉添加反馈按钮。\n"
+#~ "\n"
+#~ "邀请在uservoice网站上用户反馈。\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "Allows you to add delivery methods in sale orders and picking.\n"
+#~ "==============================================================\n"
+#~ "\n"
+#~ "You can define your own carrier and delivery grids for prices.\n"
+#~ "When creating invoices from picking, OpenERP is able to add and compute the "
+#~ "shipping line.\n"
+#~ "\n"
+#~ "     "
+#~ msgstr ""
+#~ "\n"
+#~ "允许你在销售订单或出库单上增加发货方式。\n"
+#~ "你可以定义你自己的承运方和发货网格价格。\n"
+#~ "当基于发货单创建发票时，OpenERP可以增加和自动计算运费行。\n"
+#~ "\n"
+#~ "     "
+
+#~ msgid ""
+#~ "\n"
+#~ "Double-validation for purchases exceeding minimum amount.\n"
+#~ "=========================================================\n"
+#~ "\n"
+#~ "This module modifies the purchase workflow in order to validate purchases\n"
+#~ "that exceeds minimum amount set by configuration wizard.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "对高于限额的采购订单做两次审核。\n"
+#~ "此模块修改了采购工作流，对超出向导定义的最小金额的订单进行审核。\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "    Module for the Check writing and check printing  \n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "    用于填写和打印支票的模块  \n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "Automatically creates project tasks from procurement lines\n"
+#~ "==========================================================\n"
+#~ "\n"
+#~ "This module will automatically create a new task for each procurement\n"
+#~ "order line (e.g. for sale order lines), if the corresponding product\n"
+#~ "meets the following characteristics:\n"
+#~ "\n"
+#~ "  * Type = Service\n"
+#~ "  * Procurement method (Order fulfillment) = MTO (make to order)\n"
+#~ "  * Supply/Procurement method = Produce\n"
+#~ "\n"
+#~ "If on top of that a projet is specified on the product form (in the "
+#~ "Procurement\n"
+#~ "tab), then the new task will be created in that specific project.\n"
+#~ "Otherwise, the new task will not belong to any project, and may be added to "
+#~ "a\n"
+#~ "project manually later.\n"
+#~ "\n"
+#~ "When the project task is completed or cancelled, the workflow of the "
+#~ "corresponding\n"
+#~ "procurement line is updated accordingly. For example if this procurement "
+#~ "corresponds\n"
+#~ "to a sale order line, the sale order line will be considered delivered when "
+#~ "the\n"
+#~ "task is completed.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "\n"
+#~ "这个模块在包含服务类产品的需求单和项目管理的任务之间建立了联系 安装了这个模块以后，只要满足下列条件，就会为需求单的每个行创建一个任务： "
+#~ "产品类型为服务型 补货方式为按订单 供应方式为自制 新任务不属于任何项目，但可以手工指定给项目。 当任务完成或取消后，补货单的对应行状态也会更新。 "
+#~ "这个模块适用于针对任务开发票的公司按订单创建任务。\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "This module allows you to manage your Purchase Requisition.\n"
+#~ "===========================================================\n"
+#~ "\n"
+#~ "When a purchase order is created, you now have the opportunity to save the "
+#~ "related requisition.\n"
+#~ "This new object will regroup and will allow you to easily keep track and "
+#~ "order all your purchase orders.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "这模块允许您管理您的采购申请。在生成采购订单时您现在有机会保存相关的请购。这个对象现在将重组和将让您轻松跟踪和安排您所有的采购订单。\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "This module maintains internal sequence number for accounting entries.\n"
+#~ "======================================================================\n"
+#~ "\n"
+#~ "Allows you to configure the accounting sequences to be maintained.\n"
+#~ "\n"
+#~ "You can customize the following attributes of the sequence:\n"
+#~ "    * Prefix\n"
+#~ "    * Suffix\n"
+#~ "    * Next Number\n"
+#~ "    * Increment Number\n"
+#~ "    * Number Padding\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "此模块管理会计凭证的自动编号\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "This module can automatically create Project Tasks based on incoming emails\n"
+#~ "===========================================================================\n"
+#~ "\n"
+#~ "Allows creating tasks based on new emails arriving at a given mailbox,\n"
+#~ "similarly to what the CRM application has for Leads/Opportunities.\n"
+#~ "There are two common alternatives to configure the mailbox integration:\n"
+#~ "\n"
+#~ " * Install the ``fetchmail`` module and configure a new mailbox, then "
+#~ "select\n"
+#~ "   ``Project Tasks`` as the target for incoming emails.\n"
+#~ " * Set it up manually on your mail server based on the 'mail gateway' "
+#~ "script\n"
+#~ "   provided in the ``mail`` module - and connect it to the `project.task` "
+#~ "model.\n"
+#~ "\n"
+#~ "\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "此模块是邮件和任务的接口。允许在特定邮件服务器收到邮件后马上创建任务。还能跟踪进一步的沟通和任务阶段\n"
+#~ "\n"
+#~ "\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "This module allows you to manage all operations for managing memberships.\n"
+#~ "=========================================================================\n"
+#~ "\n"
+#~ "It supports different kind of members:\n"
+#~ "* Free member\n"
+#~ "* Associated member (eg.: a group subscribes to a membership for all "
+#~ "subsidiaries)\n"
+#~ "* Paid members,\n"
+#~ "* Special member prices, ...\n"
+#~ "\n"
+#~ "It is integrated with sales and accounting to allow you to automatically\n"
+#~ "invoice and send propositions for membership renewal.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "此模块用于管理所有会员管理的日常运营。支持多种会员资格：免费会员附属会员（一组会员共用一个会员资格）已付款会员特价会员与销售和财务系统集成并自动创建会员的"
+#~ "发票和续费提醒\n"
+#~ "    "
+
+#~ msgid "Invoice Layouts"
+#~ msgstr "发票格式"
+
+#~ msgid ""
+#~ "\n"
+#~ "This module allows you to manage leaves and leaves' requests.\n"
+#~ "=============================================================\n"
+#~ "\n"
+#~ "Implements a dashboard for human resource management that includes.\n"
+#~ "    * Leaves\n"
+#~ "\n"
+#~ "Note that:\n"
+#~ "    - A synchronisation with an internal agenda (use of the CRM module) is "
+#~ "possible: in order to automatically create a case when an holiday request is "
+#~ "accepted, you have to link the holidays status to a case section. You can "
+#~ "set up this info and your colour preferences in\n"
+#~ "                Human Resources/Configuration/Holidays/Leave Type\n"
+#~ "    - An employee can make an ask for more off-days by making a new "
+#~ "Allocation It will increase his total of that leave type available (if the "
+#~ "request is accepted).\n"
+#~ "    - There are two ways to print the employee's holidays:\n"
+#~ "        * The first will allow to choose employees by department and is used "
+#~ "by clicking the menu item located in\n"
+#~ "                Human Resources/Reporting/Holidays/Leaves by Department\n"
+#~ "        * The second will allow you to choose the holidays report for "
+#~ "specific employees. Go on the list\n"
+#~ "                Human Resources/Human Resources/Employees\n"
+#~ "                then select the ones you want to choose, click on the print "
+#~ "icon and select the option\n"
+#~ "                'Employee's Holidays'\n"
+#~ "    - The wizard allows you to choose if you want to print either the "
+#~ "Confirmed & Validated holidays or only the Validated ones. These states must "
+#~ "be set up by a user from the group 'HR'. You can define these features in "
+#~ "the security tab from the user data in\n"
+#~ "                Administration / Users / Users\n"
+#~ "                for example, you maybe will do it for the user 'admin'.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "人力资源：节假日跟踪和工作流程 \n"
+#~ "这模块允许您管理假期和假期申请。 \n"
+#~ "在人力资源内实现一个控制台。\n"
+#~ " * 我的假期 \n"
+#~ "* 我的费用\n"
+#~ " 备注：\n"
+#~ " - （使用CRM模块）可以同步内部的日程：当节假日申请被接受时业务里自动建立该休假，在事务里你能链接这节假日的状况。你能设定其信息和偏好的颜色。 "
+#~ "人力资源/设置/节假日状况。\n"
+#~ " - 一个员工可以申请更多的休假类型他将增加可获得的假期类型作出新的分配。（如果申请通过）\n"
+#~ " - 有两个办法打印员工的节假日： \n"
+#~ "* 第一个方法按部门选择员工并点击菜单（人力资源’节假日申请/打印节假日摘要）。 \n"
+#~ "* 第二个方法允许你选在具体员工的节假日报表（人力资源/员工列表/员工）选择员工后点击打印按钮选择”“打印员工节假日摘要”。 \n"
+#~ "- "
+#~ "向导可以让你选择打印确认并生效的节假日或者看确认或只看生效的，但必须要是人力资源组的用户，你可以在“管理/用户列表/用户”的安全标签里更改用户的数据。 例"
+#~ "如你可能把用户定义为admin\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Caldav features in Meeting.\n"
+#~ "===========================\n"
+#~ "\n"
+#~ "    *  Share meeting with other calendar clients like sunbird\n"
+#~ msgstr ""
+#~ "\n"
+#~ "会议的新功能\n"
+#~ " *通过连接Mozilla Sunbird与使用日程表的客户共享会议\n"
+
+#~ msgid "Fundraising"
+#~ msgstr "集资"
+
+#~ msgid ""
+#~ "\n"
+#~ "This module is to configure modules related to an association.\n"
+#~ "==============================================================\n"
+#~ "\n"
+#~ "It installs the profile for associations to manage events, registrations, "
+#~ "memberships, membership products (schemes), etc.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "此模块设置协会管理的功能\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "This module contains basic functionality for Caldav system.\n"
+#~ "===========================================================\n"
+#~ "\n"
+#~ "  - Webdav server that provides remote access to calendar\n"
+#~ "  - Synchronisation of calendar using WebDAV\n"
+#~ "  - Customize calendar event and todo attribute with any of OpenERP model\n"
+#~ "  - Provides iCal Import/Export functionality\n"
+#~ "\n"
+#~ "To access Calendars using CalDAV clients, point them to:\n"
+#~ "    http://HOSTNAME:PORT/webdav/DATABASE_NAME/calendars/users/USERNAME/c\n"
+#~ "\n"
+#~ "To access OpenERP Calendar using WebCal to remote site use the URL like:\n"
+#~ "    http://HOSTNAME:PORT/webdav/DATABASE_NAME/Calendars/CALENDAR_NAME.ics\n"
+#~ "\n"
+#~ "    Where,\n"
+#~ "        HOSTNAME: Host on which OpenERP server(With webdav) is running\n"
+#~ "        PORT : Port on which OpenERP server is running (By Default : 8069)\n"
+#~ "        DATABASE_NAME: Name of database on which OpenERP Calendar is "
+#~ "created\n"
+#~ "        CALENDAR_NAME: Name of calendar to access\n"
+#~ msgstr ""
+#~ "\n"
+#~ "本模块包括caldav服务器的基本功能： "
+#~ "WebDav服务器允许远程访问日程表用WebDav同步日程表设置日程表事件和待办事项与OpenERP的任意对象关联提供iCal的导入导出 "
+#~ "要用CalDAV客户端访问日程表，指定路径为： http://主机名:端口/webdav/数据库名/calendars/users/USERNAME/c "
+#~ "要从远端访问OpenERP的日程表请使用地址： http://主机名:端口/webdav/数据库名/Calendars/日程表名.ics "
+#~ "这里，主机名：OpenERP服务器所在的主机名端口：OpenERP "
+#~ "Server运行的端口（默认是8069）数据库名称：日程表所在的数据库日程表名：要访问的日程表\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "This is the base module to manage the accounting chart for Guatemala.\n"
+#~ "=====================================================================\n"
+#~ "\n"
+#~ "Agrega una nomenclatura contable para Guatemala. También icluye impuestos y "
+#~ "la moneda del Quetzal. -- Adds accounting chart for Guatemala.  It also "
+#~ "includes taxes and the Quetzal currency"
+#~ msgstr ""
+#~ "\n"
+#~ "危地马拉会计模块"
+
+#~ msgid ""
+#~ "\n"
+#~ "This module adds a new Report Engine based on WebKit library (wkhtmltopdf) "
+#~ "to support reports designed in HTML + CSS.\n"
+#~ "============================================================================="
+#~ "========================================\n"
+#~ "\n"
+#~ "The module structure and some code is inspired by the report_openoffice "
+#~ "module.\n"
+#~ "\n"
+#~ "The module allows:\n"
+#~ "\n"
+#~ "    - HTML report definition\n"
+#~ "    - Multi header support\n"
+#~ "    - Multi logo\n"
+#~ "    - Multi company support\n"
+#~ "    - HTML and CSS-3 support (In the limit of the actual WebKIT version)\n"
+#~ "    - JavaScript support\n"
+#~ "    - Raw HTML debugger\n"
+#~ "    - Book printing capabilities\n"
+#~ "    - Margins definition\n"
+#~ "    - Paper size definition\n"
+#~ "\n"
+#~ "... and much more\n"
+#~ "\n"
+#~ "Multiple headers and logos can be defined per company.\n"
+#~ "CSS style, header and footer body are defined per company.\n"
+#~ "\n"
+#~ "For a sample report see also the webkit_report_sample module, and this "
+#~ "video:\n"
+#~ "    http://files.me.com/nbessi/06n92k.mov\n"
+#~ "\n"
+#~ "Requirements and Installation\n"
+#~ "-----------------------------\n"
+#~ "This module requires the ``wkthtmltopdf`` library to render HTML documents "
+#~ "as\n"
+#~ "PDF. Version 0.9.9 or later is necessary, and can be found at "
+#~ "http://code.google.com/p/wkhtmltopdf/\n"
+#~ "for Linux, Mac OS X (i386) and Windows (32bits).\n"
+#~ "\n"
+#~ "After installing the library on the OpenERP Server machine, you need to set "
+#~ "the\n"
+#~ "path to the ``wkthtmltopdf`` executable file on each Company.\n"
+#~ "\n"
+#~ "If you are experiencing missing header/footer problems on Linux, be sure to\n"
+#~ "install a \"static\" version of the library. The default ``wkhtmltopdf`` on\n"
+#~ "Ubuntu is known to have this issue.\n"
+#~ "\n"
+#~ "\n"
+#~ "TODO\n"
+#~ "----\n"
+#~ "\n"
+#~ " * JavaScript support activation deactivation\n"
+#~ " * Collated and book format support\n"
+#~ " * Zip return for separated PDF\n"
+#~ " * Web client WYSIWYG\n"
+#~ "\n"
+#~ "                    "
+#~ msgstr ""
+#~ "\n"
+#~ "该模块增加了一个新的报表引擎的WebKit库（wkhtmltopdf）为基础，以支持在HTML+ "
+#~ "CSS设计的报表。这模块由report_openoffice模块的模块结构和一些代码的启发。该模块允许： -HTML的报表定义 -支持多报表头 -多标志 "
+#~ "-支持多公司 -支持HTML和CSS- 3的（在实际上WebKit版本限制） -支持JavaScript -原始的HTML调试 -能印刷书刊 -定义边距 "
+#~ "-定义纸大小还有更多 每家公司可以定义多个头和标志。每家公司定义CSS样式，页眉和页脚机构 安装该库可以在这里找到 "
+#~ "http://code.google.com/p/wkhtmltopdf/ 系统库支持Linux，Mac OS X的I386和Windows 32。 "
+#~ "OpenERP服务器计算机上安装wkhtmltopdf库后，您需要设置对本公司的wkthtmltopdf可执行文件的路径。 "
+#~ "示例报表webkit_report_sample模块，这个视频： http://files.me.com/nbessi/06n92k.mov TODO: "
+#~ "JavaScript支持激活失活支持j校对和电子书格式 ZIP返回分开的PDF 网络客户端的所见即所得\n"
+#~ "\n"
+#~ "                    "
+
+#~ msgid ""
+#~ "\n"
+#~ "This is the module for computing Procurements.\n"
+#~ "==============================================\n"
+#~ "\n"
+#~ "In the MRP process, procurements orders are created to launch manufacturing\n"
+#~ "orders, purchase orders, stock allocations, etc. Procurement orders are\n"
+#~ "generated automatically by the system and unless there is a problem, the\n"
+#~ "user will not be notified. In case of problems, the system will raise some\n"
+#~ "procurement exceptions to inform the user about blocking problems that need\n"
+#~ "to be resolved manually (like, missing BoM structure or missing supplier).\n"
+#~ "\n"
+#~ "The procurement order will schedule a proposal for automatic procurement\n"
+#~ "for the product which needs replenishment. This procurement will start a\n"
+#~ "task, either a purchase order form for the supplier, or a production order\n"
+#~ "depending on the product's configuration.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "此模块用于计算产品需求计划。\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "The base module to manage documents(wiki).\n"
+#~ "==========================================\n"
+#~ "\n"
+#~ "Keep track of Wiki groups, pages, and history.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "用来管理知识库的模块。\n"
+#~ "管理wiki组，页面和历史。\n"
+#~ "    "
+
+#~ msgid ""
+#~ "Set default values for your analytic accounts\n"
+#~ "Allows to automatically select analytic accounts based on criterions:\n"
+#~ "=====================================================================\n"
+#~ "\n"
+#~ "* Product\n"
+#~ "* Partner\n"
+#~ "* User\n"
+#~ "* Company\n"
+#~ "* Date\n"
+#~ "    "
+#~ msgstr ""
+#~ "按以下标准设置默认的成本科目：\n"
+#~ "产品\n"
+#~ "业务伙伴\n"
+#~ "用户\n"
+#~ "公司\n"
+#~ "日期\n"
+#~ "    "
+
+#~ msgid "Complexity"
+#~ msgstr "复杂度"
+
+#~ msgid ""
+#~ "\n"
+#~ "This module provides the Outlook Plug-in.\n"
+#~ "=========================================\n"
+#~ "Outlook plug-in allows you to select an object that you would like to add\n"
+#~ "to your email and its attachments from MS Outlook. You can select a partner, "
+#~ "a task,\n"
+#~ "a project, an analytical account, or any other object and archive selected\n"
+#~ "mail into mail.message with attachments.\n"
+#~ "      "
+#~ msgstr ""
+#~ "\n"
+#~ "这模块提供Outlook插件 Outlook插件允许你从微软的Outlook和它的附件选择添加的对象。 "
+#~ "你能选择在邮件网关中的一个业务伙伴，一个任务，一个计划，一个帐户分析，或任何对象和附件里选择邮件。\n"
+#~ "      "
+
+#~ msgid ""
+#~ "This module provides the standard Accounting Chart for Austria which is "
+#~ "based on the Template from BMF.gv.at. Please keep in mind that you should "
+#~ "review and adapt it with your Accountant, before using it in a live "
+#~ "Environment."
+#~ msgstr "奥地利会计模块"
+
+#~ msgid "Default Value Scope"
+#~ msgstr "默认值范围"
+
+#~ msgid ""
+#~ "\n"
+#~ "This module generates the Technical Guides of selected modules in "
+#~ "Restructured Text format (RST).\n"
+#~ "============================================================================="
+#~ "====================\n"
+#~ "\n"
+#~ "    * It uses the Sphinx (http://sphinx.pocoo.org) implementation of RST\n"
+#~ "    * It creates a tarball (.tgz file suffix) containing an index file and "
+#~ "one file per module\n"
+#~ "    * Generates Relationship Graph\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "*此模块生成所选模块的技术指南为改组后的文本格式（RST） \n"
+#~ "*它使用Sphinx（http://sphinx.pocoo.org）来实现RST \n"
+#~ "*它创建一个压缩包（.tgz文件后缀）其中包含索引文件和每个模块一个文件 \n"
+#~ "*生成关系图\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "This is the base module to manage the manufacturing process in OpenERP.\n"
+#~ "=======================================================================\n"
+#~ "\n"
+#~ "Features:\n"
+#~ "---------\n"
+#~ "    * Make to Stock / Make to Order (by line)\n"
+#~ "    * Multi-level BoMs, no limit\n"
+#~ "    * Multi-level routing, no limit\n"
+#~ "    * Routing and work center integrated with analytic accounting\n"
+#~ "    * Scheduler computation periodically / Just In Time module\n"
+#~ "    * Multi-pos, multi-warehouse\n"
+#~ "    * Different reordering policies\n"
+#~ "    * Cost method by product: standard price, average price\n"
+#~ "    * Easy analysis of troubles or needs\n"
+#~ "    * Very flexible\n"
+#~ "    * Allows to browse Bill of Materials in complete structure that include "
+#~ "child and phantom BoMs\n"
+#~ "\n"
+#~ "It supports complete integration and planification of stockable goods,\n"
+#~ "consumable of services. Services are completely integrated with the rest\n"
+#~ "of the software. For instance, you can set up a sub-contracting service\n"
+#~ "in a BoM to automatically purchase on order the assembly of your "
+#~ "production.\n"
+#~ "\n"
+#~ "Reports provided by this module:\n"
+#~ "--------------------------------\n"
+#~ "    * Bill of Material structure and components\n"
+#~ "    * Load forecast on Work Centers\n"
+#~ "    * Print a production order\n"
+#~ "    * Stock forecasts\n"
+#~ "\n"
+#~ "Dashboard provided by this module:\n"
+#~ "----------------------------------\n"
+#~ "    * List of next production orders\n"
+#~ "    * List of procurements in exception\n"
+#~ "    * Graph of work center load\n"
+#~ "    * Graph of stock value variation\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "这是OpenERP中管理生产过程的基本模块。功能：按订单生产或按库存生产多层物料清单，层数不限多层工艺，层数不限工艺和工作中心与辅助核算会计集成定期运行M"
+#~ "RP或使用即时计算模块多地点，多仓库多种补货规则每个产品的成本计价方式：标准价或移动平均价容易诊断问题和需求非常灵活能够以复杂的结构展示物料清单支持子BO"
+#~ "M和虚拟BOM "
+#~ "支持可库存产品、消耗品和服务的完全集成和计划服务也与软件的其他功能很好地集成了。例如，你可以在BOM里添加一个外包的服务产品，这样就能自动创建装配的外包订"
+#~ "单。 此模块提供的报表： BOM结构和部件工作中心的负载计划打印生产订单库存规划 "
+#~ "此模块提供的控制台：未完成的生产订单列表发货单列表工作中心负载图补货错误的列表\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "This module helps you to easily encode and validate timesheet and "
+#~ "attendances within the same view.\n"
+#~ "============================================================================="
+#~ "======================\n"
+#~ "\n"
+#~ "The upper part of the view is for attendances and track (sign in/sign out) "
+#~ "events.\n"
+#~ "The lower part is for timesheet.\n"
+#~ "\n"
+#~ "Other tabs contains statistics views to help you analyse your\n"
+#~ "time or the time of your team:\n"
+#~ "* Time spent by day (with attendances)\n"
+#~ "* Time spent by project\n"
+#~ "\n"
+#~ "This module also implements a complete timesheet validation process:\n"
+#~ "* Draft sheet\n"
+#~ "* Confirmation at the end of the period by the employee\n"
+#~ "* Validation by the project manager\n"
+#~ "\n"
+#~ "The validation can be configured in the company:\n"
+#~ "* Period size (day, week, month, year)\n"
+#~ "* Maximal difference between timesheet and attendances\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "这模块帮助你轻松编码和生效工作时间表和出勤表。在一些视图上半部分为出勤和跟踪每次（签入/签出）下半部分为工作时间表。 "
+#~ "其它标签包括统计视图帮助你核算你团队花费的时间：\n"
+#~ " * 每天花费的时间（出勤）\n"
+#~ " * 项目花费的时间\n"
+#~ "\n"
+#~ " 此模块还实现一个完整的审核过程： \n"
+#~ "* 工作时间表草稿\n"
+#~ "* 员工在期末确认 \n"
+#~ "* 项目经理审核 \n"
+#~ "\n"
+#~ "在公司能设置审核： \n"
+#~ "* 周期大小（天，周，月，年） \n"
+#~ "* 工作时间表和出勤表最大的区别\n"
+#~ "    "
+
+#~ msgid "The module adds google user in res user"
+#~ msgstr "此模块在用户记录上添加了google用户字段"
+
+#~ msgid ""
+#~ "\n"
+#~ "Retrieve incoming email on POP / IMAP servers\n"
+#~ "=============================================\n"
+#~ "\n"
+#~ "Enter the parameters of your POP/IMAP account(s), and any incoming\n"
+#~ "emails on these accounts will be automatically downloaded into your OpenERP\n"
+#~ "system. All POP3/IMAP-compatible servers are supported, included those\n"
+#~ "that require an encrypted SSL/TLS connection.\n"
+#~ "\n"
+#~ "This can be used to easily create email-based workflows for many\n"
+#~ "email-enabled OpenERP documents, such as:\n"
+#~ "\n"
+#~ " * CRM Leads/Opportunities\n"
+#~ " * CRM Claims\n"
+#~ " * Project Issues\n"
+#~ " * Project Tasks\n"
+#~ " * Human Resource Recruitments (Applicants)\n"
+#~ " * etc.\n"
+#~ "\n"
+#~ "Just install the relevant application, and you can assign any of\n"
+#~ "these document types (Leads, Project Issues, etc.) to your incoming\n"
+#~ "email accounts. New emails will automatically spawn new documents\n"
+#~ "of the chosen type, so it's a snap to create a mailbox-to-OpenERP\n"
+#~ "integration. Even better: these documents directly act as mini\n"
+#~ "conversations synchronized by email. You can reply from within\n"
+#~ "OpenERP, and the answers will automatically be collected when\n"
+#~ "they come back, and attached to the same *conversation* document.\n"
+#~ "\n"
+#~ "For more specific needs, you may also assign custom-defined actions\n"
+#~ "(technically: Server Actions) to be triggered for each incoming\n"
+#~ "mail. \n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "Fetchmail（取电子邮件）： 从Pop/IMAP服务器取电子邮件。 支持SSL 整合所有模块 自动接收邮件 邮件根据记录（新增/更新） \n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "Fundraising.\n"
+#~ "============\n"
+#~ "\n"
+#~ "When you wish to support your organization or a campaign, you can trace\n"
+#~ "all your activities for collecting money. The menu opens a search list\n"
+#~ "where you can find fund descriptions, email, history and probability of\n"
+#~ "success. Several action buttons allow you to easily modify your different\n"
+#~ "fund status.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "资金募集\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "This module allows you to define what is the default invoicing rate for a "
+#~ "specific journal on a given account.\n"
+#~ "============================================================================="
+#~ "=================================\n"
+#~ "\n"
+#~ "This is mostly used when a user encodes his timesheet: the values are "
+#~ "retrieved and the fields are auto-filled. But the possibility to change "
+#~ "these values is still available.\n"
+#~ "\n"
+#~ "Obviously if no data has been recorded for the current account, the default "
+#~ "value is given as usual by the account data so that this module is perfectly "
+#~ "compatible with older configurations.\n"
+#~ "\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "辅助核算分类账发票费率，为特定辅助核算分类账定义默认发票费率。\n"
+#~ "\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "Accounting and Financial Management.\n"
+#~ "====================================\n"
+#~ "\n"
+#~ "Financial and accounting module that covers:\n"
+#~ "--------------------------------------------\n"
+#~ "General accountings\n"
+#~ "Cost / Analytic accounting\n"
+#~ "Third party accounting\n"
+#~ "Taxes management\n"
+#~ "Budgets\n"
+#~ "Customer and Supplier Invoices\n"
+#~ "Bank statements\n"
+#~ "Reconciliation process by partner\n"
+#~ "\n"
+#~ "Creates a dashboard for accountants that includes:\n"
+#~ "--------------------------------------------------\n"
+#~ "* List of Customer Invoice to Approve\n"
+#~ "* Company Analysis\n"
+#~ "* Graph of Aged Receivables\n"
+#~ "* Graph of Treasury\n"
+#~ "\n"
+#~ "The processes like maintaining of general ledger is done through the defined "
+#~ "financial Journals (entry move line or\n"
+#~ "grouping is maintained through journal) for a particular financial year and "
+#~ "for preparation of vouchers there is a\n"
+#~ "module named account_voucher.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "财务和会计模块包括： 一般会计 成本与分析会计 第三方会计 税务管理 预算 客户和供应商发票 银行报表 业务伙伴的核销处理 对财务人员建立的控制台包括： "
+#~ "* 未开票报价列表 * 应收款分析图表 * 收入分析图表\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "Installer for reporting Hidden.\n"
+#~ "==============================\n"
+#~ "\n"
+#~ "Makes the Reporting Hidden Configuration available from where you can "
+#~ "install\n"
+#~ "modules like base_report_designer and base_report_creator.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "选择要安装的报表工具\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "Indian Accounting : Chart of Account.\n"
+#~ "=====================================\n"
+#~ "\n"
+#~ "Indian accounting chart and localization.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "印度会计模块\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "Allows to synchronise calendars with others applications.\n"
+#~ "=========================================================\n"
+#~ "\n"
+#~ "Will allow you to synchronise your OpenERP calendars with your phone, "
+#~ "outlook, Sunbird, ical, ...\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "允许的同步其它应用日程表\n"
+#~ "    "
+
+#~ msgid "eMail Gateway for Applicants"
+#~ msgstr "招聘的邮件网关"
+
+#~ msgid "Google Maps on Customers"
+#~ msgstr "Google客户地图"
+
+#~ msgid ""
+#~ "\n"
+#~ "Allows cancelling accounting entries.\n"
+#~ "=====================================\n"
+#~ "\n"
+#~ "This module adds 'Allow cancelling entries' field on form view of account "
+#~ "journal. If set to true it allows user to cancel entries & invoices.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "允许作废会计凭证\n"
+#~ "    "
+
+#~ msgid "Framework for complex import"
+#~ msgstr "复杂导入的框架"
+
+#~ msgid ""
+#~ "\n"
+#~ "Please define BIC/Swift code on bank for bank type IBAN Account to make "
+#~ "valid payments"
+#~ msgstr ""
+#~ "\n"
+#~ "请为 IBAN类型的银行指定 BIC/Swift代码，以便自动付款。"
+
+#~ msgid "Keywords"
+#~ msgstr "关键字"
+
+#~ msgid "Belgium - Import bank CODA statements"
+#~ msgstr "比利时银行接口模块"
+
+#~ msgid ""
+#~ "\n"
+#~ "Generic Payroll system Integrated with Accountings.\n"
+#~ "===================================================\n"
+#~ "\n"
+#~ "    * Expense Encoding\n"
+#~ "    * Payment Encoding\n"
+#~ "    * Company Contribution Management\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "通用工资系统整合会计 \n"
+#~ "* 费用编码 \n"
+#~ "* 付款编码 \n"
+#~ "* 公司捐款管理\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "This module installs the base for IBAN (International Bank Account Number) "
+#~ "bank accounts and checks for its validity.\n"
+#~ "============================================================================="
+#~ "========================================\n"
+#~ "\n"
+#~ "The ability to extract the correctly represented local accounts from IBAN "
+#~ "accounts with a single statement.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "支持IBAN（国际银行帐户号码）并检查其有效性的基础模块\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "General Chart of Accounts\n"
+#~ "=========================\n"
+#~ "\n"
+#~ "Provide Templates for Chart of Accounts, Taxes for Uruguay\n"
+#~ "\n"
+#~ msgstr ""
+#~ "\n"
+#~ "乌拉圭会计模块\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Samples for Webkit Report Engine (report_webkit module).\n"
+#~ "========================================================\n"
+#~ "\n"
+#~ "A sample invoice report is included in this module, as well as a wizard to\n"
+#~ "add Webkit Report entries on any Document in the system.\n"
+#~ "\n"
+#~ "You have to create the print buttons by calling the wizard. For more details "
+#~ "see:\n"
+#~ "    http://files.me.com/nbessi/06n92k.mov\n"
+#~ "                    "
+#~ msgstr ""
+#~ "\n"
+#~ "Webkit 报表引擎示例( Webkit 模块) 在这模块里除包含一个发票报表例子还有一在系统任何文档里加入 Webkit 报表引擎的向导。 "
+#~ "您必须要调用向导创建打印按钮，如更详细的资料请看：http://files.me.com/nbessi/06n92k.mov\n"
+#~ "                    "
+
+#~ msgid ""
+#~ "\n"
+#~ "The module adds Google Map field in partner address.\n"
+#~ "====================================================\n"
+#~ "\n"
+#~ "Using this you can directly open Google Map from the URL widget."
+#~ msgstr ""
+#~ "\n"
+#~ "该模块在业务伙伴加入谷歌地图字段使我们可以从URL直接打开谷歌地图"
+
+#~ msgid ""
+#~ "\n"
+#~ "A module that adds manufacturers and attributes on the product form.\n"
+#~ "====================================================================\n"
+#~ "\n"
+#~ "You can now define the following for a product:\n"
+#~ "    * Manufacturer\n"
+#~ "    * Manufacturer Product Name\n"
+#~ "    * Manufacturer Product Code\n"
+#~ "    * Product Attributes\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "可以在产品页面上定义产品属性和制造商\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "This module provides a Wiki Sales FAQ Template.\n"
+#~ "===============================================\n"
+#~ "\n"
+#~ "It provides demo data, thereby creating a Wiki Group and a Wiki Page\n"
+#~ "for Wiki Sale FAQ.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "此模块提供一个wiki的问答（FAQ）模板\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "This module allows to implement action rules for any object.\n"
+#~ "============================================================\n"
+#~ "\n"
+#~ "Use automated actions to automatically trigger actions for various screens.\n"
+#~ "\n"
+#~ "Example: a lead created by a specific user may be automatically set to a "
+#~ "specific\n"
+#~ "sales team, or an opportunity which still has status pending after 14 days "
+#~ "might\n"
+#~ "trigger an automatic reminder email.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "这个模块允许任何对象实现的行动规则。\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "This module provides a quick and easy sale process.\n"
+#~ "===================================================\n"
+#~ "\n"
+#~ "Main features :\n"
+#~ "---------------\n"
+#~ "    * Fast encoding of the sale.\n"
+#~ "    * Allow to choose one payment mode (the quick way) or to split the "
+#~ "payment between several payment mode.\n"
+#~ "    * Computation of the amount of money to return.\n"
+#~ "    * Create and confirm picking list automatically.\n"
+#~ "    * Allow the user to create invoice automatically.\n"
+#~ "    * Allow to refund former sales.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "主要特征: \n"
+#~ "- 销售快速输入\n"
+#~ "- 允许选择一个付款方式(快速方式)或在几个付款方式中分开付款 - 计算金额\n"
+#~ " - 自动创建和确认领料/提货单\n"
+#~ " - 允许用户自动创建发票\n"
+#~ " - 允许销售退款\n"
+#~ "    "
+
+#~ msgid ""
+#~ "Checked if this is an OpenERP Publisher's Warranty contract (versus older "
+#~ "contract types"
+#~ msgstr "如果这是OPW协议，在这里打勾。"
+
+#~ msgid "Retro-Planning on Events"
+#~ msgstr "活动的计划重排"
+
+#~ msgid ""
+#~ "\n"
+#~ "This module adds the 'Margin' on sales order.\n"
+#~ "=============================================\n"
+#~ "\n"
+#~ "This gives the profitability by calculating the difference between the Unit "
+#~ "Price and Cost Price.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "这个模块在销售订单上添加了‘利润’。 通过计算单价和成本价之间的差额给出盈利状况\n"
+#~ "    "
+
+#~ msgid "Wiki: Internal FAQ"
+#~ msgstr "Wiki: 内部FAQ"
+
+#~ msgid ""
+#~ "\n"
+#~ "This is the module to manage the accounting chart for Venezuela in OpenERP.\n"
+#~ "===========================================================================\n"
+#~ "\n"
+#~ "Este módulo es para manejar un catálogo de cuentas ejemplo para Venezuela.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "委内瑞拉会计模块\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "This module provides the functionality to send messages within a project.\n"
+#~ "=========================================================================\n"
+#~ "\n"
+#~ "A user can send messages individually to other user. He can even broadcast\n"
+#~ "it to all the users.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "此模块允许在项目内部发送消息。用户可以给另一个用户发消息。也可以对所有成员广播消息。\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "A module that adds intrastat reports.\n"
+#~ "=====================================\n"
+#~ "\n"
+#~ "This module gives the details of the goods traded between the countries of "
+#~ "European Union "
+#~ msgstr ""
+#~ "\n"
+#~ "这个模块增加了欧盟内部报表。 此模块提供了欧盟国家之间的货物交易细节 "
+
+#~ msgid "Support Level 1"
+#~ msgstr "一级支持"
+
+#~ msgid ""
+#~ "View type: set to 'tree' for a hierarchical tree view, or 'form' for other "
+#~ "views"
+#~ msgstr "视图类型：设为“树形列表”来使用树形控件显示层次数据，或者设为“表单”使用其他类型视图。"
+
+#~ msgid "Rule definition (domain filter)"
+#~ msgstr "规则定义(过滤条件)"
+
+#~ msgid ""
+#~ "The default language used in the graphical user interface, when translations "
+#~ "are available. To add a new language, you can use the 'Load an Official "
+#~ "Translation' wizard available from the 'Administration' menu."
+#~ msgstr "选可用的翻译作为图形界面的默认语言。你可以通过设置菜单的载入一个官方翻译来添加一个新翻译"
+
+#~ msgid ""
+#~ "The user's timezone, used to output proper date and time values inside "
+#~ "printed reports. It is important to set a value for this field. You should "
+#~ "use the same timezone that is otherwise used to pick and render date and "
+#~ "time values: your computer's timezone."
+#~ msgstr ""
+#~ "用户的时区为打印报表配置正确的日期时间输出格式。设置这个值是很重要的。你应该根据你的计算机时区来选取相同的时区，因为它也影响系统中日期的选取和呈现。"
+
+#~ msgid ""
+#~ "\n"
+#~ "        OpenERP Web example module.\n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "        OpenERP Web 示例模块。\n"
+#~ "        "
+
+#~ msgid ""
+#~ "Level of difficulty of module. Easy: intuitive and easy to use for everyone. "
+#~ "Normal: easy to use for business experts. Expert: requires technical skills."
+#~ msgstr "模块难度。简单：直观、易于使用。普通：对商务专家来说易于使用。专家：需要技术能力。"
+
+#~ msgid ""
+#~ "This wizard helps you to import a new module to your OpenERP system. After "
+#~ "importing a new module you can install it by clicking on the button "
+#~ "\"Install\" from the form view."
+#~ msgstr "此向导帮助您向 OpenERP 系统中导入一个新模块。模块导入后，您可以通过点击表单视图上的\"安装\"按钮进行安装。"
+
+#~ msgid "Generate Docs of Modules"
+#~ msgstr "生成模块文档"
+
+#~ msgid "DB Password Encryption"
+#~ msgstr "数据库密码加密"

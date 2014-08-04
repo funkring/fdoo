@@ -22,6 +22,7 @@
 """ Models registries.
 
 """
+from collections import Mapping
 from contextlib import contextmanager
 import logging
 import threading
@@ -35,7 +36,7 @@ from openerp.tools import assertion_report
 
 _logger = logging.getLogger(__name__)
 
-class Registry(object):
+class Registry(Mapping):
     """ Model registry for a particular database.
 
     The registry is essentially a mapping between model names and model
@@ -44,6 +45,7 @@ class Registry(object):
     """
 
     def __init__(self, db_name):
+        super(Registry, self).__init__()
         self.models = {}    # model name/model instance mapping
         self._sql_error = {}
         self._store_function = {}
@@ -80,6 +82,26 @@ class Registry(object):
         self.has_unaccent = openerp.tools.config['unaccent'] and has_unaccent
         cr.close()
 
+    #
+    # Mapping abstract methods implementation
+    # => mixin provides methods keys, items, values, get, __eq__, and __ne__
+    #
+    def __len__(self):
+        """ Return the size of the registry. """
+        return len(self.models)
+
+    def __iter__(self):
+        """ Return an iterator over all model names. """
+        return iter(self.models)
+
+    def __contains__(self, model_name):
+        """ Test whether the model with the given name exists. """
+        return model_name in self.models
+
+    def __getitem__(self, model_name):
+        """ Return the model with the given name or raise KeyError if it doesn't exist."""
+        return self.models[model_name]
+
     def do_parent_store(self, cr):
         for o in self._init_parent:
             self.get(o)._parent_store_compute(cr)
@@ -87,19 +109,11 @@ class Registry(object):
 
     def obj_list(self):
         """ Return the list of model names in this registry."""
-        return self.models.keys()
+        return self.keys()
 
     def add(self, model_name, model):
         """ Add or replace a model in the registry."""
         self.models[model_name] = model
-
-    def get(self, model_name):
-        """ Return a model for a given name or None if it doesn't exist."""
-        return self.models.get(model_name)
-
-    def __getitem__(self, model_name):
-        """ Return a model for a given name or raise KeyError if it doesn't exist."""
-        return self.models[model_name]
 
     def load(self, cr, module):
         """ Load a given module in the registry.
@@ -179,6 +193,21 @@ class Registry(object):
         finally:
             cr.close()
 
+class TestRLock(object):
+    def __init__(self):
+        self._lock = threading.RLock()
+    def acquire(self):
+        if openerp.tools.config['test_enable']:
+            return
+        return self._lock.acquire()
+    def release(self):
+        if openerp.tools.config['test_enable']:
+            return
+        return self._lock.release()
+    def __enter__(self):
+        self.acquire()
+    def __exit__(self, type, value, traceback):
+        self.release()
 
 class RegistryManager(object):
     """ Model registries manager.
@@ -190,7 +219,7 @@ class RegistryManager(object):
     # Mapping between db name and model registry.
     # Accessed through the methods below.
     registries = {}
-    registries_lock = threading.RLock()
+    registries_lock = TestRLock()
 
     @classmethod
     def get(cls, db_name, force_demo=False, status=None, update_module=False):
@@ -239,11 +268,13 @@ class RegistryManager(object):
             # indirectly new() again (when modules have to be uninstalled).
             # Yeah, crazy.
             registry = cls.registries[db_name]
-
+            
+            # funkring begin // clear cache, modules are in english if not done
+            # openerp.sql_db.clear_cache(db_name)
+            # funkring end 
             cr = registry.db.cursor()
             try:
                 registry.do_parent_store(cr)
-                registry.get('ir.actions.report.xml').register_all(cr)
                 cr.commit()
             finally:
                 cr.close()
@@ -287,6 +318,14 @@ class RegistryManager(object):
 
     @classmethod
     def check_registry_signaling(cls, db_name):
+        """
+        Check if the modules have changed and performs all necessary operations to update
+        the registry of the corresponding database.
+
+
+        :returns: True if changes has been detected in the database and False otherwise.
+        """
+        changed = False
         if openerp.multi_process and db_name in cls.registries:
             registry = cls.get(db_name)
             cr = registry.db.cursor()
@@ -303,12 +342,14 @@ class RegistryManager(object):
                 # Check if the model registry must be reloaded (e.g. after the
                 # database has been updated by another process).
                 if registry.base_registry_signaling_sequence is not None and registry.base_registry_signaling_sequence != r:
+                    changed = True
                     _logger.info("Reloading the model registry after database signaling.")
                     registry = cls.new(db_name)
                 # Check if the model caches must be invalidated (e.g. after a write
                 # occured on another process). Don't clear right after a registry
                 # has been reload.
                 elif registry.base_cache_signaling_sequence is not None and registry.base_cache_signaling_sequence != c:
+                    changed = True
                     _logger.info("Invalidating all model caches after database signaling.")
                     registry.clear_caches()
                     registry.reset_any_cache_cleared()
@@ -323,6 +364,7 @@ class RegistryManager(object):
                 registry.base_cache_signaling_sequence = c
             finally:
                 cr.close()
+        return changed
 
     @classmethod
     def signal_caches_change(cls, db_name):

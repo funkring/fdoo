@@ -19,107 +19,84 @@
 #
 ##############################################################################
 
-#.apidoc title: Common Services: netsvc
-#.apidoc module-mods: member-order: bysource
-
-import errno
 import logging
 import logging.handlers
 import os
-import platform
+import pprint
 import release
-import socket
 import sys
 import threading
-import time
-import types
-from pprint import pformat
 
-try:
-    import psutil
-except ImportError:
-    psutil = None
+import psycopg2
 
-# TODO modules that import netsvc only for things from loglevels must be changed to use loglevels.
-from loglevels import *
-import tools
 import openerp
+import sql_db
+import tools
 
 _logger = logging.getLogger(__name__)
 
-
-def close_socket(sock):
-    """ Closes a socket instance cleanly
-
-    :param sock: the network socket to close
-    :type sock: socket.socket
-    """
-    try:
-        sock.shutdown(socket.SHUT_RDWR)
-    except socket.error, e:
-        # On OSX, socket shutdowns both sides if any side closes it
-        # causing an error 57 'Socket is not connected' on shutdown
-        # of the other side (or something), see
-        # http://bugs.python.org/issue4397
-        # note: stdlib fixed test, not behavior
-        if e.errno != errno.ENOTCONN or platform.system() not in ['Darwin', 'Windows']:
-            raise
-    sock.close()
-
-def abort_response(dummy_1, description, dummy_2, details):
-    # TODO Replace except_{osv,orm} with these directly.
-    raise openerp.osv.osv.except_osv(description, details)
-
-class Service(object):
-    """ Base class for Local services
-    Functionality here is trusted, no authentication.
-    Workflow engine and reports subclass this.
-    """
-    _services = {}
-    def __init__(self, name):
-        Service._services[name] = self
-        self.__name = name
-
-    @classmethod
-    def exists(cls, name):
-        return name in cls._services
-
-    @classmethod
-    def remove(cls, name):
-        if cls.exists(name):
-            cls._services.pop(name)
+def log(logger, level, prefix, msg, depth=None):
+    indent=''
+    indent_after=' '*len(prefix)
+    for line in (prefix + pprint.pformat(msg, depth=depth)).split('\n'):
+        logger.log(level, indent+line)
+        indent=indent_after
 
 def LocalService(name):
-    # Special case for addons support, will be removed in a few days when addons
-    # are updated to directly use openerp.osv.osv.service.
-    if name == 'object_proxy':
-        return openerp.osv.osv.service
-
-    return Service._services[name]
-
-class ExportService(object):
-    """ Proxy for exported services.
-
-    Note that this class has no direct proxy, capable of calling
-    eservice.method(). Rather, the proxy should call
-    dispatch(method, params)
     """
+    The openerp.netsvc.LocalService() function is deprecated. It still works
+    in two cases: workflows and reports. For workflows, instead of using
+    LocalService('workflow'), openerp.workflow should be used (better yet,
+    methods on openerp.osv.orm.Model should be used). For reports,
+    openerp.report.render_report() should be used (methods on the Model should
+    be provided too in the future).
+    """
+    assert openerp.conf.deprecation.allow_local_service
+    _logger.warning("LocalService() is deprecated since march 2013 (it was called with '%s')." % name)
 
-    _services = {}
-    
-    def __init__(self, name):
-        ExportService._services[name] = self
-        self.__name = name
-        _logger.debug("Registered an exported service: %s" % name)
+    if name == 'workflow':
+        return openerp.workflow
 
-    @classmethod
-    def getService(cls,name):
-        return cls._services[name]
+    if name.startswith('report.'):
+        report = openerp.report.interface.report_int._reports.get(name)
+        if report:
+            return report
+        else:
+            dbname = getattr(threading.currentThread(), 'dbname', None)
+            if dbname:
+                registry = openerp.modules.registry.RegistryManager.get(dbname)
+                with registry.cursor() as cr:
+                    return registry['ir.actions.report.xml']._lookup_report(cr, name[len('report.'):])
 
-    # Dispatch a RPC call w.r.t. the method name. The dispatching
-    # w.r.t. the service (this class) is done by OpenERPDispatcher.
-    def dispatch(self, method, params):
-        raise Exception("stub dispatch at %s" % self.__name)
+class PostgreSQLHandler(logging.Handler):
+    """ PostgreSQL Loggin Handler will store logs in the database, by default
+    the current database, can be set using --log-db=DBNAME
+    """
+    def emit(self, record):
+        ct = threading.current_thread()
+        ct_db = getattr(ct, 'dbname', None)
+        ct_uid = getattr(ct, 'uid', None)
+        dbname = tools.config['log_db'] or ct_db
+        if dbname:
+            cr = None
+            try:
+                cr = sql_db.db_connect(dbname).cursor()
+                msg = unicode(record.msg)
+                traceback = getattr(record, 'exc_text', '')
+                if traceback:
+                    msg = "%s\n%s" % (msg, traceback)
+                level = logging.getLevelName(record.levelno)
+                val = (ct_uid, ct_uid, 'server', dbname, record.name, level, msg, record.pathname, record.lineno, record.funcName)
+                cr.execute("""
+                    INSERT INTO ir_logging(create_date, write_date, create_uid, write_uid, type, dbname, name, level, message, path, line, func)
+                    VALUES (NOW() at time zone 'UTC', NOW() at time zone 'UTC', %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                """, val )
+                cr.commit()
+            except Exception, e:
+                pass
+            finally:
+                if cr:
+                    cr.close()
 
 BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE, _NOTHING, DEFAULT = range(10)
 #The background is set with 40 plus the number of the color, and the foreground with 30
@@ -131,7 +108,6 @@ COLOR_PATTERN = "%s%s%%s%s" % (COLOR_SEQ, COLOR_SEQ, RESET_SEQ)
 LEVEL_COLOR_MAPPING = {
     logging.DEBUG: (BLUE, DEFAULT),
     logging.INFO: (GREEN, DEFAULT),
-    logging.TEST: (WHITE, BLUE),
     logging.WARNING: (YELLOW, DEFAULT),
     logging.ERROR: (RED, DEFAULT),
     logging.CRITICAL: (WHITE, RED),
@@ -167,7 +143,7 @@ def init_logger():
         if os.name == 'nt':
             handler = logging.handlers.NTEventLogHandler("%s %s" % (release.description, release.version))
         else:
-            handler = logging.handlers.SysLogHandler('/dev/log')
+            handler = logging.handlers.SysLogHandler()
         format = '%s %s' % (release.description, release.version) \
                 + ':%(dbname)s:%(levelname)s:%(name)s:%(message)s'
 
@@ -175,11 +151,12 @@ def init_logger():
         # LogFile Handler
         logf = tools.config['logfile']
         try:
+            # We check we have the right location for the log files
             dirname = os.path.dirname(logf)
             if dirname and not os.path.isdir(dirname):
                 os.makedirs(dirname)
             if tools.config['logrotate'] is not False:
-                handler = logging.handlers.TimedRotatingFileHandler(logf,'D',1,30)
+                handler = logging.handlers.TimedRotatingFileHandler(filename=logf, when='D', interval=1, backupCount=30)
             elif os.name == 'posix':
                 handler = logging.handlers.WatchedFileHandler(logf)
             else:
@@ -195,9 +172,10 @@ def init_logger():
     # behind Apache with mod_wsgi, handler.stream will have type mod_wsgi.Log,
     # which has no fileno() method. (mod_wsgi.Log is what is being bound to
     # sys.stderr when the logging.StreamHandler is being constructed above.)
-    if isinstance(handler, logging.StreamHandler) \
-        and hasattr(handler.stream, 'fileno') \
-        and os.isatty(handler.stream.fileno()):
+    def is_a_tty(stream):
+        return hasattr(stream, 'fileno') and os.isatty(stream.fileno())
+
+    if isinstance(handler, logging.StreamHandler) and is_a_tty(handler.stream):
         formatter = ColoredFormatter(format)
     else:
         formatter = DBFormatter(format)
@@ -205,126 +183,43 @@ def init_logger():
 
     logging.getLogger().addHandler(handler)
 
-    # Configure handlers
-    default_config = [
-        'openerp.netsvc.rpc.request:INFO',
-        'openerp.netsvc.rpc.response:INFO',
-        'openerp.addons.web.http:INFO',
-        'openerp.sql_db:INFO',
-        ':INFO',
-    ]
+    if tools.config['log_db']:
+        postgresqlHandler = PostgreSQLHandler()
+        postgresqlHandler.setLevel(logging.WARNING)
+        logging.getLogger().addHandler(postgresqlHandler)
 
-    if tools.config['log_level'] == 'info':
-        pseudo_config = []
-    elif tools.config['log_level'] == 'debug_rpc':
-        pseudo_config = ['openerp:DEBUG','openerp.netsvc.rpc.request:DEBUG']
-    elif tools.config['log_level'] == 'debug_rpc_answer':
-        pseudo_config = ['openerp:DEBUG','openerp.netsvc.rpc.request:DEBUG', 'openerp.netsvc.rpc.response:DEBUG']
-    elif tools.config['log_level'] == 'debug':
-        pseudo_config = ['openerp:DEBUG']
-    elif tools.config['log_level'] == 'test':
-        pseudo_config = ['openerp:TEST']
-    elif tools.config['log_level'] == 'warn':
-        pseudo_config = ['openerp:WARNING']
-    elif tools.config['log_level'] == 'error':
-        pseudo_config = ['openerp:ERROR']
-    elif tools.config['log_level'] == 'critical':
-        pseudo_config = ['openerp:CRITICAL']
-    elif tools.config['log_level'] == 'debug_sql':
-        pseudo_config = ['openerp.sql_db:DEBUG']
-    else:
-        pseudo_config = []
+    # Configure loggers levels
+    pseudo_config = PSEUDOCONFIG_MAPPER.get(tools.config['log_level'], [])
 
     logconfig = tools.config['log_handler']
 
-    for logconfig_item in default_config + pseudo_config + logconfig:
+    logging_configurations = DEFAULT_LOG_CONFIGURATION + pseudo_config + logconfig
+    for logconfig_item in logging_configurations:
         loggername, level = logconfig_item.split(':')
         level = getattr(logging, level, logging.INFO)
         logger = logging.getLogger(loggername)
         logger.setLevel(level)
 
-    for logconfig_item in default_config + pseudo_config + logconfig:
+    for logconfig_item in logging_configurations:
         _logger.debug('logger level set: "%s"', logconfig_item)
 
-# A alternative logging scheme for automated runs of the
-# server intended to test it.
-def init_alternative_logger():
-    class H(logging.Handler):
-        def emit(self, record):
-            if record.levelno > 20:
-                print record.levelno, record.pathname, record.msg
-    handler = H()
-    # Add the handler to the 'openerp' logger.
-    logger = logging.getLogger('openerp')
-    logger.addHandler(handler)
-    logger.setLevel(logging.ERROR)
-
-def replace_request_password(args):
-    # password is always 3rd argument in a request, we replace it in RPC logs
-    # so it's easier to forward logs for diagnostics/debugging purposes...
-    if len(args) > 2:
-        args = list(args)
-        args[2] = '*'
-    return tuple(args)
-
-def log(logger, level, prefix, msg, depth=None):
-    indent=''
-    indent_after=' '*len(prefix)
-    for line in (prefix+pformat(msg, depth=depth)).split('\n'):
-        logger.log(level, indent+line)
-        indent=indent_after
-
-def dispatch_rpc(service_name, method, params):
-    """ Handle a RPC call.
-
-    This is pure Python code, the actual marshalling (from/to XML-RPC or
-    NET-RPC) is done in a upper layer.
-    """
-    try:
-        rpc_request = logging.getLogger(__name__ + '.rpc.request')
-        rpc_response = logging.getLogger(__name__ + '.rpc.response')
-        rpc_request_flag = rpc_request.isEnabledFor(logging.DEBUG)
-        rpc_response_flag = rpc_response.isEnabledFor(logging.DEBUG)
-        if rpc_request_flag or rpc_response_flag:
-            start_time = time.time()
-            start_rss, start_vms = 0, 0
-            if psutil:
-                start_rss, start_vms = psutil.Process(os.getpid()).get_memory_info()
-            if rpc_request and rpc_response_flag:
-                log(rpc_request,logging.DEBUG,'%s.%s'%(service_name,method), replace_request_password(params))
-
-        result = ExportService.getService(service_name).dispatch(method, params)
-
-        if rpc_request_flag or rpc_response_flag:
-            end_time = time.time()
-            end_rss, end_vms = 0, 0
-            if psutil:
-                end_rss, end_vms = psutil.Process(os.getpid()).get_memory_info()
-            logline = '%s.%s time:%.3fs mem: %sk -> %sk (diff: %sk)' % (service_name, method, end_time - start_time, start_vms / 1024, end_vms / 1024, (end_vms - start_vms)/1024)
-            if rpc_response_flag:
-                log(rpc_response,logging.DEBUG, logline, result)
-            else:
-                log(rpc_request,logging.DEBUG, logline, replace_request_password(params), depth=1)
-
-        return result
-    except openerp.exceptions.AccessError:
-        raise
-    except openerp.exceptions.AccessDenied:
-        raise
-    except openerp.exceptions.Warning:
-        raise
-    except openerp.exceptions.DeferredException, e:
-        _logger.exception(tools.exception_to_unicode(e))
-        post_mortem(e.traceback)
-        raise
-    except Exception, e:
-        _logger.exception(tools.exception_to_unicode(e))
-        post_mortem(sys.exc_info())
-        raise
-
-def post_mortem(info):
-    if tools.config['debug_mode'] and isinstance(info[2], types.TracebackType):
-        import pdb
-        pdb.post_mortem(info[2])
+DEFAULT_LOG_CONFIGURATION = [
+    'openerp.workflow.workitem:WARNING',
+    'openerp.http.rpc.request:INFO',
+    'openerp.http.rpc.response:INFO',
+    'openerp.addons.web.http:INFO',
+    'openerp.sql_db:INFO',
+    ':INFO',
+]
+PSEUDOCONFIG_MAPPER = {
+    'debug_rpc_answer': ['openerp:DEBUG','openerp.http.rpc.request:DEBUG', 'openerp.http.rpc.response:DEBUG'],
+    'debug_rpc': ['openerp:DEBUG','openerp.http.rpc.request:DEBUG'],
+    'debug': ['openerp:DEBUG'],
+    'debug_sql': ['openerp.sql_db:DEBUG'],
+    'info': [],
+    'warn': ['openerp:WARNING'],
+    'error': ['openerp:ERROR'],
+    'critical': ['openerp:CRITICAL'],
+}
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

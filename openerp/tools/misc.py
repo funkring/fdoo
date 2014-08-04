@@ -3,7 +3,7 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2013 OpenERP s.a. (<http://openerp.com>).
+#    Copyright (C) 2010-2014 OpenERP s.a. (<http://openerp.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -20,7 +20,6 @@
 #
 ##############################################################################
 
-#.apidoc title: Utilities: tools.misc
 
 """
 Miscellaneous tools used by OpenERP.
@@ -36,12 +35,13 @@ import sys
 import threading
 import time
 import zipfile
-from collections import defaultdict
+from collections import defaultdict, Mapping
 from datetime import datetime
 from itertools import islice, izip, groupby
 from lxml import etree
 from which import which
 from threading import local
+import traceback
 
 try:
     from html2text import html2text
@@ -51,9 +51,10 @@ except ImportError:
 from config import config
 from cache import *
 
+import openerp
 # get_encodings, ustr and exception_to_unicode were originally from tools.misc.
 # There are moved to loglevels until we refactor tools.
-from openerp.loglevels import get_encodings, ustr, exception_to_unicode
+from openerp.loglevels import get_encodings, ustr, exception_to_unicode     # noqa
 
 _logger = logging.getLogger(__name__)
 
@@ -82,7 +83,8 @@ def exec_pg_command(name, *args):
         raise Exception('Couldn\'t find %s' % name)
     args2 = (prog,) + args
 
-    return subprocess.call(args2)
+    with open(os.devnull) as dn:
+        return subprocess.call(args2, stdout=dn, stderr=subprocess.STDOUT)
 
 def exec_pg_command_pipe(name, *args):
     prog = find_pg_tool(name)
@@ -111,6 +113,52 @@ def exec_command_pipe(name, *args):
 #----------------------------------------------------------
 #file_path_root = os.getcwd()
 #file_path_addons = os.path.join(file_path_root, 'addons')
+
+def get_path(name,subdir="addons"):
+    """Get a file from the OpenERP root, using a subdir folder.
+
+    >>> file_open('hr/report/timesheer.xsl')
+    >>> file_open('addons/hr/report/timesheet.xsl')
+
+    @param name: name of the file
+    @param mode: file open mode
+    @param subdir: subdirectory
+
+    @return: filepath
+    """
+    import openerp.modules as addons
+    adps = addons.module.ad_paths
+    rtp = os.path.normcase(os.path.abspath(config['root_path']))
+
+    if name.replace(os.path.sep, '/').startswith('addons/'):
+        subdir = 'addons'
+        name = name[7:]
+
+    # First try to locate in addons_path
+    if subdir:
+        subdir2 = subdir
+        if subdir2.replace(os.path.sep, '/').startswith('addons/'):
+            subdir2 = subdir2[7:]
+
+        subdir2 = (subdir2 != 'addons' or None) and subdir2
+
+        for adp in adps:
+            try:
+                if subdir2:
+                    fn = os.path.join(adp, subdir2, name)
+                else:
+                    fn = os.path.join(adp, name)
+                return os.path.normpath(fn)                
+            except IOError:
+                pass
+
+    if subdir:
+        name = os.path.join(rtp, subdir, name)
+    else:
+        name = os.path.join(rtp, name)
+
+    name = os.path.normpath(name)
+    return name
 
 def file_open(name, mode="r", subdir='addons', pathinfo=False):
     """Open a file from the OpenERP root, using a subdir folder.
@@ -273,18 +321,6 @@ def reverse_enumerate(l):
     """
     return izip(xrange(len(l)-1, -1, -1), reversed(l))
 
-#----------------------------------------------------------
-# SMS
-#----------------------------------------------------------
-# text must be latin-1 encoded
-def sms_send(user, password, api_id, text, to):
-    import urllib
-    url = "http://api.urlsms.com/SendSMS.aspx"
-    #url = "http://196.7.150.220/http/sendmsg"
-    params = urllib.urlencode({'UserID': user, 'Password': password, 'SenderID': api_id, 'MsgText': text, 'RecipientMobileNo':to})
-    urllib.urlopen(url+"?"+params)
-    # FIXME: Use the logger if there is an error
-    return True
 
 class UpdateableStr(local):
     """ Class that stores an updateable string (used in wizards)
@@ -486,7 +522,6 @@ ALL_LANGUAGES = {
         'lo_LA': u'Lao / ພາສາລາວ',
         'lt_LT': u'Lithuanian / Lietuvių kalba',
         'lv_LV': u'Latvian / latviešu valoda',
-        'mk_MK': u'Macedonian / македонски јазик',
         'ml_IN': u'Malayalam / മലയാളം',
         'mn_MN': u'Mongolian / монгол',
         'nb_NO': u'Norwegian Bokmål / Norsk bokmål',
@@ -629,7 +664,7 @@ __icons_list = ['STOCK_ABOUT', 'STOCK_ADD', 'STOCK_APPLY', 'STOCK_BOLD',
 'STOCK_UNDO', 'STOCK_UNINDENT', 'STOCK_YES', 'STOCK_ZOOM_100',
 'STOCK_ZOOM_FIT', 'STOCK_ZOOM_IN', 'STOCK_ZOOM_OUT',
 'terp-account', 'terp-crm', 'terp-mrp', 'terp-product', 'terp-purchase',
-'terp-sale', 'terp-tools', 'terp-administration', 'terp-hr', 'terp-partner',
+'terp-sale', 'terp-tools', 'terp-administration', 'terp-hr', 'terp-partner', 
 'terp-project', 'terp-report', 'terp-stock', 'terp-calendar', 'terp-graph',
 'terp-check','terp-go-month','terp-go-year','terp-go-today','terp-document-new','terp-camera_test',
 'terp-emblem-important','terp-gtk-media-pause','terp-gtk-stop','terp-gnome-cpu-frequency-applet+',
@@ -640,27 +675,13 @@ __icons_list = ['STOCK_ABOUT', 'STOCK_ADD', 'STOCK_APPLY', 'STOCK_BOLD',
 'terp-face-plain','terp-folder-blue','terp-folder-green','terp-folder-orange','terp-folder-yellow',
 'terp-gdu-smart-failing','terp-go-week','terp-gtk-select-all','terp-locked','terp-mail-forward',
 'terp-mail-message-new','terp-mail-replied','terp-rating-rated','terp-stage','terp-stock_format-scientific',
-'terp-dolar_ok!','terp-idea','terp-stock_format-default','terp-mail-','terp-mail_delete'
+'terp-dolar_ok!','terp-idea','terp-stock_format-default','terp-mail-','terp-mail_delete',
+'terp-network'
 ]
 
 def icons(*a, **kw):
     global __icons_list
     return [(x, x) for x in __icons_list ]
-
-def extract_zip_file(zip_file, outdirectory):
-    zf = zipfile.ZipFile(zip_file, 'r')
-    out = outdirectory
-    for path in zf.namelist():
-        tgt = os.path.join(out, path)
-        tgtdir = os.path.dirname(tgt)
-        if not os.path.exists(tgtdir):
-            os.makedirs(tgtdir)
-
-        if not tgt.endswith(os.sep):
-            fp = open(tgt, 'wb')
-            fp.write(zf.read(path))
-            fp.close()
-    zf.close()
 
 def detect_ip_addr():
     """Try a very crude method to figure out a valid external
@@ -849,6 +870,76 @@ DATETIME_FORMATS_MAP = {
         '%Z': '',
 }
 
+POSIX_TO_LDML = {
+    'a': 'E',
+    'A': 'EEEE',
+    'b': 'MMM',
+    'B': 'MMMM',
+    #'c': '',
+    'd': 'dd',
+    'H': 'HH',
+    'I': 'hh',
+    'j': 'DDD',
+    'm': 'MM',
+    'M': 'mm',
+    'p': 'a',
+    'S': 'ss',
+    'U': 'w',
+    'w': 'e',
+    'W': 'w',
+    'y': 'yy',
+    'Y': 'yyyy',
+    # see comments above, and babel's format_datetime assumes an UTC timezone
+    # for naive datetime objects
+    #'z': 'Z',
+    #'Z': 'z',
+}
+
+def posix_to_ldml(fmt, locale):
+    """ Converts a posix/strftime pattern into an LDML date format pattern.
+
+    :param fmt: non-extended C89/C90 strftime pattern
+    :param locale: babel locale used for locale-specific conversions (e.g. %x and %X)
+    :return: unicode
+    """
+    buf = []
+    pc = False
+    quoted = []
+
+    for c in fmt:
+        # LDML date format patterns uses letters, so letters must be quoted
+        if not pc and c.isalpha():
+            quoted.append(c if c != "'" else "''")
+            continue
+        if quoted:
+            buf.append("'")
+            buf.append(''.join(quoted))
+            buf.append("'")
+            quoted = []
+
+        if pc:
+            if c == '%': # escaped percent
+                buf.append('%')
+            elif c == 'x': # date format, short seems to match
+                buf.append(locale.date_formats['short'].pattern)
+            elif c == 'X': # time format, seems to include seconds. short does not
+                buf.append(locale.time_formats['medium'].pattern)
+            else: # look up format char in static mapping
+                buf.append(POSIX_TO_LDML[c])
+            pc = False
+        elif c == '%':
+            pc = True
+        else:
+            buf.append(c)
+
+    # flush anything remaining in quoted buffer
+    if quoted:
+        buf.append("'")
+        buf.append(''.join(quoted))
+        buf.append("'")
+
+    return ''.join(buf)
+
 def server_to_local_timestamp(src_tstamp_str, src_format, dst_format, dst_tz_name,
         tz_offset=True, ignore_unparsable_time=True):
     """
@@ -1032,6 +1123,8 @@ class mute_logger(object):
 
     def __enter__(self):
         for logger in self.loggers:
+            assert isinstance(logger, basestring),\
+                "A logger name must be a string, got %s" % type(logger)
             logging.getLogger(logger).addFilter(self)
 
     def __exit__(self, exc_type=None, exc_val=None, exc_tb=None):
@@ -1095,5 +1188,72 @@ def stripped_sys_argv(*strip_args):
             or (i >= 1 and (args[i - 1] in strip_args) and takes_value[args[i - 1]])
 
     return [x for i, x in enumerate(args) if not strip(args, i)]
+
+
+class ConstantMapping(Mapping):
+    """
+    An immutable mapping returning the provided value for every single key.
+
+    Useful for default value to methods
+    """
+    __slots__ = ['_value']
+    def __init__(self, val):
+        self._value = val
+
+    def __len__(self):
+        """
+        defaultdict updates its length for each individually requested key, is
+        that really useful?
+        """
+        return 0
+
+    def __iter__(self):
+        """
+        same as len, defaultdict udpates its iterable keyset with each key
+        requested, is there a point for this?
+        """
+        return iter([])
+
+    def __getitem__(self, item):
+        return self._value
+
+
+def dumpstacks(sig, frame):
+    """ Signal handler: dump a stack trace for each existing thread."""
+    code = []
+
+    def extract_stack(stack):
+        for filename, lineno, name, line in traceback.extract_stack(stack):
+            yield 'File: "%s", line %d, in %s' % (filename, lineno, name)
+            if line:
+                yield "  %s" % (line.strip(),)
+
+    # code from http://stackoverflow.com/questions/132058/getting-stack-trace-from-a-running-python-application#answer-2569696
+    # modified for python 2.5 compatibility
+    threads_info = dict([(th.ident, {'name': th.name, 'uid': getattr(th, 'uid', 'n/a')})
+                        for th in threading.enumerate()])
+    for threadId, stack in sys._current_frames().items():
+        thread_info = threads_info.get(threadId)
+        code.append("\n# Thread: %s (id:%s) (uid:%s)" %
+                    (thread_info and thread_info['name'] or 'n/a',
+                     threadId,
+                     thread_info and thread_info['uid'] or 'n/a'))
+        for line in extract_stack(stack):
+            code.append(line)
+
+    if openerp.evented:
+        # code from http://stackoverflow.com/questions/12510648/in-gevent-how-can-i-dump-stack-traces-of-all-running-greenlets
+        import gc
+        from greenlet import greenlet
+        for ob in gc.get_objects():
+            if not isinstance(ob, greenlet) or not ob:
+                continue
+            code.append("\n# Greenlet: %r" % (ob,))
+            for line in extract_stack(ob.gr_frame):
+                code.append(line)
+
+    _logger.info("\n".join(code))
+
+
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

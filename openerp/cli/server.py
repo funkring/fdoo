@@ -72,7 +72,7 @@ def report_configuration():
     """
     config = openerp.tools.config
     _logger.info("OpenERP version %s", __version__)
-    for name, value in [('addons paths', config['addons_path']),
+    for name, value in [('addons paths', openerp.modules.module.ad_paths),
                         ('database hostname', config['db_host'] or 'localhost'),
                         ('database port', config['db_port'] or '5432'),
                         ('database user', config['db_user'])]:
@@ -85,38 +85,9 @@ def setup_pid_file():
     """
     config = openerp.tools.config
     if config['pidfile']:
-        fd = open(config['pidfile'], 'w')
-        pidtext = "%d" % (os.getpid())
-        fd.write(pidtext)
-        fd.close()
-
-def preload_registry(dbname):
-    """ Preload a registry, and start the cron."""
-    try:
-        update_module = True if openerp.tools.config['init'] or openerp.tools.config['update'] else False
-        db, registry = openerp.pooler.get_db_and_pool(dbname,update_module=update_module)
-    except Exception:
-        _logger.exception('Failed to initialize database `%s`.', dbname)
-
-def run_test_file(dbname, test_file):
-    """ Preload a registry, possibly run a test file, and start the cron."""
-    try:
-        config = openerp.tools.config
-        db, registry = openerp.pooler.get_db_and_pool(dbname, update_module=config['init'] or config['update'])
-        cr = db.cursor()
-        _logger.info('loading test file %s', test_file)
-        openerp.tools.convert_yaml_import(cr, 'base', file(test_file), 'test', {}, 'init')
-
-        if config['test_commit']:
-            _logger.info('test %s has been commited', test_file)
-            cr.commit()
-        else:
-            _logger.info('test %s has been rollbacked', test_file)
-            cr.rollback()
-
-        cr.close()
-    except Exception:
-        _logger.exception('Failed to initialize database `%s` and run test file `%s`.', dbname, test_file)
+        with open(config['pidfile'], 'w') as fd:
+            pidtext = "%d" % (os.getpid())
+            fd.write(pidtext)
 
 def export_translation():
     config = openerp.tools.config
@@ -131,7 +102,8 @@ def export_translation():
 
     fileformat = os.path.splitext(config["translate_out"])[-1][1:].lower()
     buf = file(config["translate_out"], "w")
-    cr = openerp.pooler.get_db(dbname).cursor()
+    registry = openerp.modules.registry.RegistryManager.new(dbname)
+    cr = registry.db.cursor()
     openerp.tools.trans_export(config["language"],
         config["translate_modules"] or ["all"], buf, fileformat, cr)
     cr.close()
@@ -144,101 +116,23 @@ def import_translation():
     context = {'overwrite': config["overwrite_existing_translations"]}
     dbname = config['db_name']
 
-    cr = openerp.pooler.get_db(dbname).cursor()
+    registry = openerp.modules.registry.RegistryManager.new(dbname)
+    cr = registry.db.cursor()
     openerp.tools.trans_load( cr, config["translate_in"], config["language"],
         context=context)
     cr.commit()
     cr.close()
 
-# Variable keeping track of the number of calls to the signal handler defined
-# below. This variable is monitored by ``quit_on_signals()``.
-quit_signals_received = 0
-
-def signal_handler(sig, frame):
-    """ Signal handler: exit ungracefully on the second handled signal.
-
-    :param sig: the signal number
-    :param frame: the interrupted stack frame or None
-    """
-    global quit_signals_received
-    quit_signals_received += 1
-    if quit_signals_received > 1:
-        # logging.shutdown was already called at this point.
-        sys.stderr.write("Forced shutdown.\n")
-        os._exit(0)
-
-def dumpstacks(sig, frame):
-    """ Signal handler: dump a stack trace for each existing thread."""
-    # code from http://stackoverflow.com/questions/132058/getting-stack-trace-from-a-running-python-application#answer-2569696
-    # modified for python 2.5 compatibility
-    threads_info = dict([(th.ident, {'name': th.name,
-                                    'uid': getattr(th,'uid','n/a')})
-                                for th in threading.enumerate()])
-    code = []
-    for threadId, stack in sys._current_frames().items():
-        thread_info = threads_info.get(threadId)
-        code.append("\n# Thread: %s (id:%s) (uid:%s)" % \
-                    (thread_info and thread_info['name'] or 'n/a',
-                     threadId,
-                     thread_info and thread_info['uid'] or 'n/a'))
-        for filename, lineno, name, line in traceback.extract_stack(stack):
-            code.append('File: "%s", line %d, in %s' % (filename, lineno, name))
-            if line:
-                code.append("  %s" % (line.strip()))
-    _logger.info("\n".join(code))
-
-def setup_signal_handlers():
-    """ Register the signal handler defined above. """
-    SIGNALS = map(lambda x: getattr(signal, "SIG%s" % x), "INT TERM".split())
-    if os.name == 'posix':
-        map(lambda sig: signal.signal(sig, signal_handler), SIGNALS)
-        signal.signal(signal.SIGQUIT, dumpstacks)
-    elif os.name == 'nt':
-        import win32api
-        win32api.SetConsoleCtrlHandler(lambda sig: signal_handler(sig, None), 1)
-
-def quit_on_signals():
-    """ Wait for one or two signals then shutdown the server.
-
-    The first SIGINT or SIGTERM signal will initiate a graceful shutdown while
-    a second one if any will force an immediate exit.
-
-    """
-    # Wait for a first signal to be handled. (time.sleep will be interrupted
-    # by the signal handler.) The try/except is for the win32 case.
-    try:
-        while quit_signals_received == 0:
-            time.sleep(60)
-    except KeyboardInterrupt:
-        pass
-
-    config = openerp.tools.config
-    openerp.service.stop_services()
-
-    if getattr(openerp, 'phoenix', False):
-        # like the phoenix, reborn from ashes...
-        openerp.service._reexec()
-        return
-
-    if config['pidfile']:
-        os.unlink(config['pidfile'])
-    sys.exit(0)
-
 def main(args):
     check_root_user()
     openerp.tools.config.parse_config(args)
-
     check_postgres_user()
-    openerp.netsvc.init_logger()
     report_configuration()
 
     config = openerp.tools.config
 
-    setup_signal_handlers()
-
     if config["test_file"]:
-        run_test_file(config['db_name'], config['test_file'])
-        sys.exit(0)
+        config["test_enable"] = True
 
     if config["translate_out"]:
         export_translation()
@@ -248,24 +142,22 @@ def main(args):
         import_translation()
         sys.exit(0)
 
-    if not config["stop_after_init"]:
-        setup_pid_file()
-        # Some module register themselves when they are loaded so we need the
-        # services to be running before loading any registry.
-        if config['workers']:
-            openerp.service.start_services_workers()
-        else:
-            openerp.service.start_services()
+    # This needs to be done now to ensure the use of the multiprocessing
+    # signaling mecanism for registries loaded with -d
+    if config['workers']:
+        openerp.multi_process = True
 
+    preload = []
     if config['db_name']:
-        for dbname in config['db_name'].split(','):
-            preload_registry(dbname)
+        preload = config['db_name'].split(',')
 
-    if config["stop_after_init"]:
-        sys.exit(0)
+    stop = config["stop_after_init"]
 
-    _logger.info('OpenERP server is running, waiting for connections...')
-    quit_on_signals()
+    setup_pid_file()
+    rc = openerp.service.server.start(preload=preload, stop=stop)
+    if config['pidfile']:
+        os.unlink(config['pidfile'])
+    sys.exit(rc)
 
 class Server(Command):
     def run(self, args):

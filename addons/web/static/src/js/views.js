@@ -2,7 +2,10 @@
  * OpenERP web library
  *---------------------------------------------------------*/
 
-openerp.web.views = function(instance) {
+(function() {
+
+var instance = openerp;
+openerp.web.views = {};
 var QWeb = instance.web.qweb,
     _t = instance.web._t;
 
@@ -22,9 +25,9 @@ instance.web.ActionManager = instance.web.Widget.extend({
         this._super.apply(this, arguments);
         this.$el.on('click', 'a.oe_breadcrumb_item', this.on_breadcrumb_clicked);
     },
-    dialog_stop: function (reason) {
+    dialog_stop: function () {
         if (this.dialog) {
-            this.dialog.destroy(reason);
+            this.dialog.destroy();
         }
         this.dialog = null;
     },
@@ -49,7 +52,7 @@ instance.web.ActionManager = instance.web.Widget.extend({
         if (last) {
             last.hide();
         }
-        var item = _.extend({
+        item = _.extend({
             show: function(index) {
                 this.widget.$el.show();
             },
@@ -144,6 +147,19 @@ instance.web.ActionManager = instance.web.Widget.extend({
             this.inner_action = last_widget.action;
         }
     },
+    add_breadcrumb_url: function (url, label) {
+        // Add a pseudo breadcrumb that will redirect to an url
+        this.push_breadcrumb({
+            show: function() {
+                instance.web.redirect(url);
+            },
+            hide: function() {},
+            destroy: function() {},
+            get_title: function() {
+                return label;
+            }
+        });
+    },
     get_title: function() {
         var titles = [];
         for (var i = 0; i < this.breadcrumbs.length; i += 1) {
@@ -214,6 +230,12 @@ instance.web.ActionManager = instance.web.Widget.extend({
     do_load_state: function(state, warm) {
         var self = this,
             action_loaded;
+        if (!warm && 'return_label' in state) {
+            var return_url = state.return_url || document.referrer;
+            if (return_url) {
+                this.add_breadcrumb_url(return_url, state.return_label);
+            }
+        }
         if (state.action) {
             if (_.isString(state.action) && instance.web.client_actions.contains(state.action)) {
                 var action_client = {
@@ -222,7 +244,9 @@ instance.web.ActionManager = instance.web.Widget.extend({
                     params: state,
                     _push_me: state._push_me,
                 };
-                this.null_action();
+                if (warm) {
+                    this.null_action();
+                }
                 action_loaded = this.do_action(action_client);
             } else {
                 var run_action = (!this.inner_widget || !this.inner_widget.action) || this.inner_widget.action.id !== state.action;
@@ -241,7 +265,10 @@ instance.web.ActionManager = instance.web.Widget.extend({
                     } else if (state.active_id) {
                         add_context.active_ids = [state.active_id];
                     }
-                    this.null_action();
+                    add_context.params = state;
+                    if (warm) {
+                        this.null_action();
+                    }
                     action_loaded = this.do_action(state.action, { additional_context: add_context });
                     $.when(action_loaded || null).done(function() {
                         instance.webclient.menu.has_been_loaded.done(function() {
@@ -254,7 +281,9 @@ instance.web.ActionManager = instance.web.Widget.extend({
             }
         } else if (state.model && state.id) {
             // TODO handle context & domain ?
-            this.null_action();
+            if (warm) {
+                this.null_action();
+            }
             var action = {
                 res_model: state.model,
                 res_id: state.id,
@@ -264,7 +293,9 @@ instance.web.ActionManager = instance.web.Widget.extend({
             action_loaded = this.do_action(action);
         } else if (state.sa) {
             // load session action
-            this.null_action();
+            if (warm) {
+                this.null_action();
+            }
             action_loaded = this.rpc('/web/session/get_session_action',  {key: state.sa}).then(function(action) {
                 if (action) {
                     return self.do_action(action);
@@ -300,6 +331,7 @@ instance.web.ActionManager = instance.web.Widget.extend({
             action_menu_id: null,
             additional_context: {},
         });
+
         if (action === false) {
             action = { type: 'ir.actions.act_window_close' };
         } else if (_.isString(action) && instance.web.client_actions.contains(action)) {
@@ -376,7 +408,7 @@ instance.web.ActionManager = instance.web.Widget.extend({
             if (this.dialog_widget && !this.dialog_widget.isDestroyed()) {
                 this.dialog_widget.destroy();
             }
-            this.dialog_stop(executor.action);
+            this.dialog_stop();
             this.dialog = new instance.web.Dialog(this, {
                 dialogClass: executor.klass,
             });
@@ -394,7 +426,7 @@ instance.web.ActionManager = instance.web.Widget.extend({
             this.dialog.open();
             return initialized;
         } else  {
-            this.dialog_stop(executor.action);
+            this.dialog_stop();
             this.inner_action = executor.action;
             this.inner_widget = widget;
             executor.post_process(widget);
@@ -422,7 +454,7 @@ instance.web.ActionManager = instance.web.Widget.extend({
 
         if (!(ClientWidget.prototype instanceof instance.web.Widget)) {
             var next;
-            if (next = ClientWidget(this, action)) {
+            if ((next = ClientWidget(this, action))) {
                 return this.do_action(next, options);
             }
             return $.when();
@@ -458,55 +490,54 @@ instance.web.ActionManager = instance.web.Widget.extend({
             action_id: action.id,
             context: action.context || {}
         }).done(function (action) {
-            self.do_action(action, options)
+            self.do_action(action, options);
         });
     },
     ir_actions_report_xml: function(action, options) {
         var self = this;
         instance.web.blockUI();
-        return instance.web.pyeval.eval_domains_and_contexts({
-            contexts: [action.context],
-            domains: []
-        }).then(function(res) {
-            action = _.clone(action);
-            action.context = res.context;
+        action = _.clone(action);
+        var eval_contexts = ([instance.session.user_context] || []).concat([action.context]);
+        action.context = instance.web.pyeval.eval('contexts',eval_contexts);
 
-            // iOS devices doesn't allow iframe use the way we do it,
-            // opening a new window seems the best way to workaround
-            if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
-                var params = {
-                    action: JSON.stringify(action),
-                    token: new Date().getTime()
-                }
-                var url = self.session.url('/web/report', params)
-                instance.web.unblockUI();
-                $('<a href="'+url+'" target="_blank"></a>')[0].click();
-                return;
-            }
-
-            var c = instance.webclient.crashmanager;
-            return $.Deferred(function (d) {
-                self.session.get_file({
-                    url: '/web/report',
-                    data: {action: JSON.stringify(action)},
-                    complete: instance.web.unblockUI,
-                    success: function(){
-                        if (!self.dialog) {
-                            options.on_close();
-                        }
-                        self.dialog_stop();
-                        d.resolve();
-                    },
-                    error: function () {
-                        c.rpc_error.apply(c, arguments);
-                        d.reject();
+        // iOS devices doesn't allow iframe use the way we do it,
+        // opening a new window seems the best way to workaround
+        if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+            var params = {
+                action: JSON.stringify(action),
+                token: new Date().getTime()
+            };
+            var url = self.session.url('/web/report', params);
+            instance.web.unblockUI();
+            $('<a href="'+url+'" target="_blank"></a>')[0].click();
+            return;
+        }
+        var c = instance.webclient.crashmanager;
+        return $.Deferred(function (d) {
+            self.session.get_file({
+                url: '/web/report',
+                data: {action: JSON.stringify(action)},
+                complete: instance.web.unblockUI,
+                success: function(){
+                    if (!self.dialog) {
+                        options.on_close();
                     }
-                })
+                    self.dialog_stop();
+                    d.resolve();
+                },
+                error: function () {
+                    c.rpc_error.apply(c, arguments);
+                    d.reject();
+                }
             });
         });
     },
     ir_actions_act_url: function (action) {
-        window.open(action.url, action.target === 'self' ? '_self' : '_blank');
+        if (action.target === 'self') {
+            instance.web.redirect(action.url);
+        } else {
+            window.open(action.url, '_blank');
+        }
         return $.when();
     },
 });
@@ -564,6 +595,7 @@ instance.web.ViewManager =  instance.web.Widget.extend({
                     action_views_ids : views_ids
                 }, self.flags, self.flags[view.view_type] || {}, view.options || {})
             });
+            
             views_ids[view.view_type] = view.view_id;
         });
         if (this.flags.views_switcher === false) {
@@ -571,7 +603,11 @@ instance.web.ViewManager =  instance.web.Widget.extend({
         }
         // If no default view defined, switch to the first one in sequence
         var default_view = this.flags.default_view || this.views_src[0].view_type;
-        return this.switch_mode(default_view);
+  
+
+        return this.switch_mode(default_view, null, this.flags[default_view] && this.flags[default_view].options);
+      
+        
     },
     switch_mode: function(view_type, no_store, view_options) {
         var self = this;
@@ -579,6 +615,7 @@ instance.web.ViewManager =  instance.web.Widget.extend({
         var view_promise;
         var form = this.views['form'];
         if (!view || (form && form.controller && !form.controller.can_be_discarded())) {
+            self.trigger('switch_mode', view_type, no_store, view_options);
             return $.Deferred().reject();
         }
         if (!no_store) {
@@ -653,8 +690,8 @@ instance.web.ViewManager =  instance.web.Widget.extend({
         var container = this.$el.find("> .oe_view_manager_body > .oe_view_manager_view_" + view_type);
         var view_promise = controller.appendTo(container);
         this.views[view_type].controller = controller;
+        this.views[view_type].deferred.resolve(view_type);
         return $.when(view_promise).done(function() {
-            self.views[view_type].deferred.resolve(view_type);
             if (self.searchview
                     && self.flags.auto_search
                     && view.controller.searchable !== false) {
@@ -675,14 +712,7 @@ instance.web.ViewManager =  instance.web.Widget.extend({
         this.$el.find('.oe_view_title_text:first').text(title);
     },
     add_breadcrumb: function(options) {
-        var options = options || {};
-        // 7.0 backward compatibility
-        if (typeof options == 'function') {
-            options = {
-                on_reverse_breadcrumb: options
-            };
-        }
-        // end of 7.0 backward compatibility
+        options = options || {};
         var self = this;
         var views = [this.active_view || this.views_src[0].view_type];
         this.on('switch_mode', self, function(mode) {
@@ -785,6 +815,11 @@ instance.web.ViewManager =  instance.web.Widget.extend({
             contexts: [action_context].concat(contexts || []),
             group_by_seq: groupbys || []
         }).done(function (results) {
+            if (results.error) {
+                throw new Error(
+                        _.str.sprintf(_t("Failed to evaluate search criterions")+": \n%s",
+                                      JSON.stringify(results.error)));
+            }
             self.dataset._model = new instance.web.Model(
                 self.dataset.model, results.context, results.domain);
             var groupby = results.group_by.length
@@ -963,7 +998,6 @@ instance.web.ViewManagerAction = instance.web.ViewManager.extend({
                     view_type : 'list',
                     view_mode : 'list'
                 });
-                break;
             case 'edit':
                 this.do_edit_resource($option.data('model'), $option.data('id'), { name : $option.text() });
                 break;
@@ -1005,7 +1039,7 @@ instance.web.ViewManagerAction = instance.web.ViewManager.extend({
         evt.currentTarget.selectedIndex = 0;
     },
     do_edit_resource: function(model, id, action) {
-        var action = _.extend({
+        action = _.extend({
             res_model : model,
             res_id : id,
             type : 'ir.actions.act_window',
@@ -1043,7 +1077,7 @@ instance.web.ViewManagerAction = instance.web.ViewManager.extend({
     },
     get_action_manager: function() {
         var cur = this;
-        while (cur = cur.getParent()) {
+        while ((cur = cur.getParent())) {
             if (cur instanceof instance.web.ActionManager) {
                 return cur;
             }
@@ -1071,7 +1105,7 @@ instance.web.ViewManagerAction = instance.web.ViewManager.extend({
             );
         } 
 
-        $.when(this.views[this.active_view] ? this.views[this.active_view].deferred : $.when(), defs).done(function() {
+        $.when(defs).done(function() {
             self.views[self.active_view].controller.do_load_state(state, warm);
         });
     },
@@ -1127,7 +1161,7 @@ instance.web.Sidebar = instance.web.Widget.extend({
         self.$("[title]").tipsy({
             'html': true,
             'delayIn': 500,
-        })
+        });
     },
     /**
      * For each item added to the section:
@@ -1171,7 +1205,7 @@ instance.web.Sidebar = instance.web.Widget.extend({
                         label: items[i]['name'],
                         action: items[i],
                         classname: 'oe_sidebar_' + type
-                    }
+                    };
                 }
                 self.add_items(type=='print' ? 'print' : 'other', items);
             }
@@ -1181,32 +1215,46 @@ instance.web.Sidebar = instance.web.Widget.extend({
         var self = this;
         self.getParent().sidebar_eval_context().done(function (sidebar_eval_context) {
             var ids = self.getParent().get_selected_ids();
-            if (ids.length == 0) {
+            var domain;
+            if (self.getParent().get_active_domain) {
+                domain = self.getParent().get_active_domain();
+            }
+            else {
+                domain = $.Deferred().resolve(undefined);
+            }
+            if (ids.length === 0) {
                 instance.web.dialog($("<div />").text(_t("You must choose at least one record.")), { title: _t("Warning"), modal: true });
                 return false;
             }
             var active_ids_context = {
                 active_id: ids[0],
                 active_ids: ids,
-                active_model: self.getParent().dataset.model
-            }; 
-            var c = instance.web.pyeval.eval('context',
+                active_model: self.getParent().dataset.model,
+            };
+
+            $.when(domain).done(function (domain) {
+                if (domain !== undefined) {
+                    active_ids_context.active_domain = domain;
+                }
+                var c = instance.web.pyeval.eval('context',
                 new instance.web.CompoundContext(
                     sidebar_eval_context, active_ids_context));
-            self.rpc("/web/action/load", {
-                action_id: item.action.id,
-                context: c
-            }).done(function(result) {
-                result.context = new instance.web.CompoundContext(
-                    result.context || {}, active_ids_context)
-                        .set_eval_context(c);
-                result.flags = result.flags || {};
-                result.flags.new_window = true;
-                self.do_action(result, {
-                    on_close: function() {
-                        // reload view
-                        self.getParent().reload();
-                    },
+
+                self.rpc("/web/action/load", {
+                    action_id: item.action.id,
+                    context: c
+                }).done(function(result) {
+                    result.context = new instance.web.CompoundContext(
+                        result.context || {}, active_ids_context)
+                            .set_eval_context(c);
+                    result.flags = result.flags || {};
+                    result.flags.new_window = true;
+                    self.do_action(result, {
+                        on_close: function() {
+                            // reload view
+                            self.getParent().reload();
+                        },
+                    });
                 });
             });
         });
@@ -1345,6 +1393,8 @@ instance.web.View = instance.web.Widget.extend({
             }
         };
         var context = new instance.web.CompoundContext(dataset.get_context(), action_data.context || {});
+
+        // response handler
         var handler = function (action) {
             if (action && action.constructor == Object) {
                 // filter out context keys that are specific to the current action.
@@ -1352,7 +1402,7 @@ instance.web.View = instance.web.Widget.extend({
                 // Wrong group_by values will simply fail and forbid rendering of the destination view
                 var ncontext = new instance.web.CompoundContext(
                     _.object(_.reject(_.pairs(dataset.get_context().eval()), function(pair) {
-                      return pair[0].match('^(?:(?:default_|search_default_).+|.+_view_ref|group_by|group_by_no_leaf|active_id|active_ids)$') !== null;
+                      return pair[0].match('^(?:(?:default_|search_default_).+|group_by|group_by_no_leaf|active_id|active_ids)$') !== null;
                     }))
                 );
                 ncontext.add(action_data.context || {});
@@ -1397,7 +1447,7 @@ instance.web.View = instance.web.Widget.extend({
         } else if (action_data.type=="action") {
             return this.rpc('/web/action/load', {
                 action_id: action_data.name,
-                context: instance.web.pyeval.eval('context', context),
+                context: _.extend({'active_model': dataset.model, 'active_ids': dataset.ids, 'active_id': record_id}, instance.web.pyeval.eval('context', context)),
                 do_not_eval: true
             }).then(handler);
         } else  {
@@ -1439,7 +1489,7 @@ instance.web.View = instance.web.Widget.extend({
             if (self.is_active()) {
                 fn.apply(self, arguments);
             }
-        }
+        };
     },
     do_push_state: function(state) {
         if (this.getParent() && this.getParent().do_push_state) {
@@ -1485,7 +1535,7 @@ instance.web.View = instance.web.Widget.extend({
     is_action_enabled: function(action) {
         var attrs = this.fields_view.arch.attrs;
         return (action in attrs) ? JSON.parse(attrs[action]) : true;
-    }
+    },
 });
 
 /**
@@ -1550,9 +1600,10 @@ instance.web.xml_to_json = function(node, strip_whitespace) {
                 children: _.compact(_.map(node.childNodes, function(node) {
                     return instance.web.xml_to_json(node, strip_whitespace);
                 })),
-            }
+            };
     }
-}
+};
+
 instance.web.json_node_to_xml = function(node, human_readable, indent) {
     // For debugging purpose, this function will convert a json node back to xml
     indent = indent || 0;
@@ -1621,6 +1672,6 @@ instance.web.xml_to_str = function(node) {
  */
 instance.web.views = new instance.web.Registry();
 
-};
+})();
 
 // vim:et fdc=0 fdl=0 foldnestmax=3 fdm=syntax:

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import cStringIO
 import datetime
 import functools
 import operator
@@ -11,8 +12,7 @@ import pytz
 from openerp.osv import orm
 from openerp.tools.translate import _
 from openerp.tools.misc import DEFAULT_SERVER_DATE_FORMAT,\
-                               DEFAULT_SERVER_DATETIME_FORMAT,\
-                               ustr
+                               DEFAULT_SERVER_DATETIME_FORMAT
 from openerp.tools import html_sanitize
 
 REFERENCING_FIELDS = set([None, 'id', '.id'])
@@ -130,14 +130,17 @@ class ir_fields_converter(orm.Model):
 
         :param column: column object to generate a value for
         :type column: :class:`fields._column`
-        :param type fromtype: type to convert to something fitting for ``column``
+        :param fromtype: type to convert to something fitting for ``column``
+        :type fromtype: type | str
         :param context: openerp request context
         :return: a function (fromtype -> column.write_type), if a converter is found
         :rtype: Callable | None
         """
+        assert isinstance(fromtype, (type, str))
         # FIXME: return None
+        typename = fromtype.__name__ if isinstance(fromtype, type) else fromtype
         converter = getattr(
-            self, '_%s_to_%s' % (fromtype.__name__, column._type), None)
+            self, '_%s_to_%s' % (typename, column._type), None)
         if not converter: return None
 
         return functools.partial(
@@ -257,7 +260,6 @@ class ir_fields_converter(orm.Model):
             #        Or just copy context & remove lang?
             selection = selection(model, cr, uid, context=None)
         for item, label in selection:
-            label = ustr(label)
             labels = self._get_translations(
                 cr, uid, ('selection', 'model', 'code'), label, context=context)
             labels.append(label)
@@ -266,8 +268,8 @@ class ir_fields_converter(orm.Model):
         raise ValueError(
             _(u"Value '%s' not found in selection field '%%(field)s'") % (
                 value), {
-                'moreinfo': [_label or unicode(item) for item, _label in selection
-                             if _label or item]
+                'moreinfo': [label or unicode(item) for item, label in selection
+                             if label or item]
             })
 
 

@@ -63,8 +63,8 @@ openerp.base = function(instance) {
             if (instance.base.apps_client) {
                 return check_client_available(instance.base.apps_client);
             } else {
-                var Mod = new instance.web.Model('ir.module.module');
-                return Mod.call('get_apps_server').then(function(u) {
+                var ICP = new instance.web.Model('ir.config_parameter');
+                return ICP.call('get_param', ['apps.server', 'https://apps.openerp.com/apps']).then(function(u) {
                     var link = $(_.str.sprintf('<a href="%s"></a>', u))[0];
                     var host = _.str.sprintf('%s//%s', link.protocol, link.host);
                     var dbname = link.pathname;
@@ -92,7 +92,8 @@ openerp.base = function(instance) {
 
         start: function() {
             var self = this;
-            return self.get_client().
+            // desactivated for now because apps does not work anyway due to changes in the framework
+            /*return self.get_client().
                 done(function(client) {
                     client.replace(self.$el).
                         done(function() {
@@ -100,13 +101,13 @@ openerp.base = function(instance) {
                             client.do_action(self.remote_action_id, {hide_breadcrumb: true});
                         });
                 }).
-                fail(function(client) {
-                    self.do_warn(_t('OpenERP Apps Unreachable'), _t('Showing locally available modules'), true);
+                fail(function(client) {*/
+                    //self.do_warn(_t('OpenERP Apps Unreachable'), _t('Showing locally available modules'), true);
                     self.rpc('/web/action/load', {action_id: self.failback_action_id}).done(function(action) {
                         self.do_action(action);
                         instance.webclient.menu.open_action(action.id);
                     });
-                });
+                //});
         },
     });
 

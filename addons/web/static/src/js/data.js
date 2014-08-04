@@ -1,5 +1,8 @@
 
-openerp.web.data = function(instance) {
+(function() {
+
+var instance = openerp;
+openerp.web.data = {};
 
 /**
  * Serializes the sort criterion array of a dataset into a form which can be
@@ -100,7 +103,7 @@ instance.web.Query = instance.web.Class.extend({
      * @returns {jQuery.Deferred<Number>}
      */
     count: function () {
-        if (this._count != undefined) { return $.when(this._count); }
+        if (this._count !== undefined) { return $.when(this._count); }
         return this._model.call(
             'search_count', [this._filter], {
                 context: this._model.context(this._context)});
@@ -126,11 +129,14 @@ instance.web.Query = instance.web.Class.extend({
         if (_.isEmpty(grouping) && !ctx['group_by_no_leaf']) {
             return null;
         }
+        var raw_fields = _.map(grouping.concat(this._fields || []), function (field) {
+            return field.split(':')[0];
+        });
 
         var self = this;
         return this._model.call('read_group', {
             groupby: grouping,
-            fields: _.uniq(grouping.concat(this._fields || [])),
+            fields: _.uniq(raw_fields),
             domain: this._model.domain(this._filter),
             context: ctx,
             offset: this._offset,
@@ -215,11 +221,12 @@ instance.web.QueryGroup = instance.web.Class.extend({
             {__context: {group_by: []}, __domain: []},
             read_group_group);
 
+        var raw_field = grouping_field && grouping_field.split(':')[0];
         var aggregates = {};
         _(fixed_group).each(function (value, key) {
             if (key.indexOf('__') === 0
-                    || key === grouping_field
-                    || key === grouping_field + '_count') {
+                    || key === raw_field
+                    || key === raw_field + '_count') {
                 return;
             }
             aggregates[key] = value || 0;
@@ -228,14 +235,15 @@ instance.web.QueryGroup = instance.web.Class.extend({
         this.model = new instance.web.Model(
             model, fixed_group.__context, fixed_group.__domain);
 
-        var group_size = fixed_group[grouping_field + '_count'] || fixed_group.__count || 0;
+        var group_size = fixed_group[raw_field + '_count'] || fixed_group.__count || 0;
         var leaf_group = fixed_group.__context.group_by.length === 0;
+
         this.attributes = {
             folded: !!(fixed_group.__fold),
             grouped_on: grouping_field,
             // if terminal group (or no group) and group_by_no_leaf => use group.__count
             length: group_size,
-            value: fixed_group[grouping_field],
+            value: fixed_group[raw_field],
             // A group is open-able if it's not a leaf in group_by_no_leaf mode
             has_children: !(leaf_group && fixed_group.__context['group_by_no_leaf']),
 
@@ -253,19 +261,41 @@ instance.web.QueryGroup = instance.web.Class.extend({
     }
 });
 
-instance.web.Model = instance.web.Class.extend({
+instance.web.Model.include({
     /**
-     * @constructs instance.web.Model
-     * @extends instance.web.Class
-     *
-     * @param {String} model_name name of the OpenERP model this object is bound to
-     * @param {Object} [context]
-     * @param {Array} [domain]
-     */
-    init: function (model_name, context, domain) {
-        this.name = model_name;
+    new openerp.web.Model([session,] model_name[, context[, domain]])
+
+    @constructs instance.web.Model
+    @extends instance.web.Class
+    
+    @param {openerp.web.Session} [session] The session object used to communicate with
+    the server.
+    @param {String} model_name name of the OpenERP model this object is bound to
+    @param {Object} [context]
+    @param {Array} [domain]
+    */
+    init: function() {
+        var session, model_name, context, domain;
+        var args = _.toArray(arguments);
+        args.reverse();
+        session = args.pop();
+        if (session && ! (session instanceof openerp.web.Session)) {
+            model_name = session;
+            session = null;
+        } else {
+            model_name = args.pop();
+        }
+        context = args.length > 0 ? args.pop() : null;
+        domain = args.length > 0 ? args.pop() : null;
+
+        this._super(session, model_name, context, domain);
         this._context = context || {};
         this._domain = domain || [];
+    },
+    session: function() {
+        if (! this._session)
+            return instance.session;
+        return this._super();
     },
     /**
      * @deprecated does not allow to specify kwargs, directly use call() instead
@@ -294,13 +324,7 @@ instance.web.Model = instance.web.Class.extend({
             args = [];
         }
         instance.web.pyeval.ensure_evaluated(args, kwargs);
-        var debug = instance.session.debug ? '/'+this.name+':'+method : '';
-        return instance.session.rpc('/web/dataset/call_kw' + debug, {
-            model: this.name,
-            method: method,
-            args: args,
-            kwargs: kwargs
-        }, options);
+        return this._super(method, args, kwargs, options);
     },
     /**
      * Fetches a Query instance bound to this model, for searching
@@ -318,7 +342,7 @@ instance.web.Model = instance.web.Class.extend({
      * @param {String} signal signal to trigger on the workflow
      */
     exec_workflow: function (id, signal) {
-        return instance.session.rpc('/web/dataset/exec_workflow', {
+        return this.session().rpc('/web/dataset/exec_workflow', {
             model: this.name,
             id: id,
             signal: signal
@@ -355,7 +379,7 @@ instance.web.Model = instance.web.Class.extend({
      */
     call_button: function (method, args) {
         instance.web.pyeval.ensure_evaluated(args, {});
-        return instance.session.rpc('/web/dataset/call_button', {
+        return this.session().rpc('/web/dataset/call_button', {
             model: this.name,
             method: method,
             // Should not be necessary anymore. Integrate remote in this?
@@ -424,25 +448,18 @@ instance.web.DataSet =  instance.web.Class.extend(instance.web.PropertiesMixin, 
      * Read records.
      *
      * @param {Array} ids identifiers of the records to read
-     * @param {Array} fields fields to read and return, by default all fields are returned
+     * @param {Array} [fields] fields to read and return, by default all fields are returned
+     * @param {Object} [options]
      * @returns {$.Deferred}
      */
     read_ids: function (ids, fields, options) {
         if (_.isEmpty(ids))
             return $.Deferred().resolve([]);
-
+            
         options = options || {};
-        var method = 'read';
-        var ids_arg = ids;
-        var context = this.get_context(options.context);
-        if (options.check_access_rule === true){
-            method = 'search_read';
-            ids_arg = [['id', 'in', ids]];
-            context = new instance.web.CompoundContext(context, {active_test: false});
-        }
-        return this._model.call(method,
-                [ids_arg, fields || false],
-                {context: context})
+        return this._model.call('read',
+                [ids, fields || false],
+                {context: this.get_context(options.context)})
             .then(function (records) {
                 if (records.length <= 1) { return records; }
                 var indexes = {};
@@ -515,7 +532,7 @@ instance.web.DataSet =  instance.web.Class.extend(instance.web.PropertiesMixin, 
         return this._model.call('create', [data], {
             context: this.get_context()
         }).done(function () {
-            self.trigger('dataset_changed', data, options)
+            self.trigger('dataset_changed', data, options);
         });
     },
     /**
@@ -535,7 +552,7 @@ instance.web.DataSet =  instance.web.Class.extend(instance.web.PropertiesMixin, 
         return this._model.call('write', [[id], data], {
             context: this.get_context(options.context)
         }).done(function () {
-            self.trigger('dataset_changed', id, data, options)
+            self.trigger('dataset_changed', id, data, options);
         });
     },
     /**
@@ -548,7 +565,7 @@ instance.web.DataSet =  instance.web.Class.extend(instance.web.PropertiesMixin, 
         return this._model.call('unlink', [ids], {
             context: this.get_context()
         }).done(function () {
-            self.trigger('dataset_changed', ids)
+            self.trigger('dataset_changed', ids);
         });
     },
     /**
@@ -768,7 +785,7 @@ instance.web.DataSetSearch =  instance.web.DataSet.extend({
         });
     },
     size: function () {
-        if (this._length != null) {
+        if (this._length !== null) {
             return this._length;
         }
         return this._super();
@@ -832,7 +849,7 @@ instance.web.BufferedDataSet = instance.web.DataSetStatic.extend({
         var self = this;
         _.each(ids, function(id) {
             if (! _.detect(self.to_create, function(x) { return x.id === id; })) {
-                self.to_delete.push({id: id})
+                self.to_delete.push({id: id});
             }
         });
         this.to_create = _.reject(this.to_create, function(x) { return _.include(ids, x.id);});
@@ -863,7 +880,7 @@ instance.web.BufferedDataSet = instance.web.DataSetStatic.extend({
                 _.each(fields, function(x) {if (cached.values[x] === undefined)
                     cached.values[x] = created.defaults[x] || false;});
             } else {
-                if (!cached || !_.all(fields, function(x) {return cached.values[x] !== undefined}))
+                if (!cached || !_.all(fields, function(x) {return cached.values[x] !== undefined;}))
                     to_get.push(id);
             }
         });
@@ -1117,6 +1134,157 @@ instance.web.DropMisordered = instance.web.Class.extend({
     }
 });
 
-};
+instance.web.SimpleIndexedDB = instance.web.Class.extend({
+    /** 
+     * A simple wrapper around IndexedDB that provides an asynchronous 
+     * localStorage-like Key-Value api that persists between browser 
+     * restarts.
+     *
+     * It will not work if the browser doesn't support a recent version 
+     * of IndexedDB, and it may fail if the user refuses db access.
+     *
+     * All instances of SimpleIndexedDB will by default refer to the same
+     * IndexedDB database, if you want to pick another one, use the 'name'
+     * option on instanciation.
+     */
+    init: function(opts){
+        var self = this;
+        var opts = opts || {};
+
+        this.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+        this.db = undefined;
+        this._ready = new $.Deferred();
+
+        if(this.indexedDB && this.indexedDB.open){
+            var request = this.indexedDB.open( opts.name || "SimpleIndexedDB" ,1);
+
+            request.onerror = function(event){
+                self.db = null;
+                self._ready.reject(event.target.error);
+            };
+
+            request.onsuccess = function(event){
+                self.db = request.result;
+                self._ready.resolve();
+            };
+
+            request.onupgradeneeded = function(event){
+                self.db = event.target.result;
+
+                var objectStore = self.db.createObjectStore("keyvals", { keyPath:"key" });
+                self._ready.resolve();
+            };
+        }else{
+            this.db = null;
+            this._ready.reject({type:'UnknownError', message:'IndexedDB is not supported by your Browser'});
+        }
+    },
+
+    /**
+     * returns true if the browser supports the necessary IndexedDB API 
+     * (but doesn't tell if the db can be created, check ready() for that) 
+     */
+    isSupportedByBrowser: function(){
+        return this.indexedDB && this.indexedDB.open;
+    },
+
+    /**
+     * returns a deferred that resolves when the db has been successfully
+     * initialized. done/failed callbacks are optional.
+     */
+    ready: function(done,failed){
+        this._ready.then(done,failed);
+        return this._ready.promise();
+    },
+
+    /**
+     * fetches the value associated to 'key' in the db. if the key doesn't
+     * exists, it returns undefined. The returned value is provided as a 
+     * deferred, or as the first parameter of the optional 'done' callback.
+     */
+    getItem: function(key,done,failed){
+        var self = this;
+        var def = new $.Deferred();
+            def.then(done,failed);
+
+        this._ready.then(function(){
+                var request = self.db.transaction(["keyvals"],"readwrite")
+                                     .objectStore("keyvals")
+                                     .get(key);
+
+                request.onsuccess = function(){
+                    def.resolve(request.result ? request.result.value : undefined);
+                };
+
+                request.onerror = function(event){ 
+                    def.reject(event.target.error);
+                };
+            },function(){
+                def.reject({type:'UnknownError', message:'Could not initialize the IndexedDB database'});
+            });
+
+        return def.promise();
+    },
+    
+    /**
+     * Associates a value to 'key' in the db, overwriting previous value if
+     * necessary. Contrary to localStorage, the value is not limited to strings and
+     * can be any javascript object, even with cyclic references !
+     *
+     * Be sure to check for failure as the user may refuse to have data localy stored.
+     */
+    setItem: function(key,value,done,failed){
+        var self = this;
+        var def = new $.Deferred();
+            def.then(done,failed);
+
+        this._ready.then(function(){
+                var request = self.db.transaction(["keyvals"],"readwrite")
+                                     .objectStore("keyvals")
+                                     .put( {key:key, value:value} );
+
+                request.onsuccess = function(){
+                    def.resolve();
+                };
+
+                request.onerror = function(event){ 
+                    def.reject(event.target.error);
+                };
+            },function(){
+                def.reject({type:'UnknownError', message:'Could not initialize the IndexedDB database'});
+            });
+
+        return def.promise();
+    },
+
+    /**
+     * Removes the value associated with 'key' from the db. 
+     */
+    removeItem: function(key,done,failed){
+        var self = this;
+        var def = new $.Deferred();
+            def.then(done,failed);
+
+        this._ready.then(function(){
+                var request = self.db.transaction(["keyvals"],"readwrite")
+                                  .objectStore("keyvals")
+                                  .delete(key);
+
+                request.onsuccess = function(){
+                    def.resolve();
+                };
+
+                request.onerror = function(event){ 
+                    def.reject(event.target.error);
+                };
+            },function(){
+                def.reject({type:'UnknownError', message:'Could not initialize the IndexedDB database'});
+            });
+
+        return def.promise();
+    },
+});
+
+})();
 
 // vim:et fdc=0 fdl=0 foldnestmax=3 fdm=syntax:

@@ -31,29 +31,30 @@ CURRENCY_DISPLAY_PATTERN = re.compile(r'(\w+)\s*(?:\((.*)\))?')
 
 class res_currency(osv.osv):
     def _current_rate(self, cr, uid, ids, name, arg, context=None):
-        return self._current_rate_computation(cr, uid, ids, name, arg, True, context=context)
+        return self._get_current_rate(cr, uid, ids, context=context)
 
     def _current_rate_silent(self, cr, uid, ids, name, arg, context=None):
-        return self._current_rate_computation(cr, uid, ids, name, arg, False, context=context)
+        return self._get_current_rate(cr, uid, ids, raise_on_no_rate=False, context=context)
 
-    def _current_rate_computation(self, cr, uid, ids, name, arg, raise_on_no_rate, context=None):
+    def _get_current_rate(self, cr, uid, ids, raise_on_no_rate=True, context=None):
         if context is None:
             context = {}
         res = {}
-        if 'date' in context:
-            date = context['date']
-        else:
-            date = time.strftime('%Y-%m-%d')
-        date = date or time.strftime('%Y-%m-%d')
+
+        date = context.get('date') or time.strftime('%Y-%m-%d')
         # Convert False values to None ...
         currency_rate_type = context.get('currency_rate_type_id') or None
         # ... and use 'is NULL' instead of '= some-id'.
         operator = '=' if currency_rate_type else 'is'
         for id in ids:
-            cr.execute("SELECT currency_id, rate FROM res_currency_rate WHERE currency_id = %s AND name <= %s AND currency_rate_type_id " + operator +" %s ORDER BY name desc LIMIT 1" ,(id, date, currency_rate_type))
+            cr.execute('SELECT rate FROM res_currency_rate '
+                       'WHERE currency_id = %s '
+                         'AND name <= %s '
+                         'AND currency_rate_type_id ' + operator + ' %s '
+                       'ORDER BY name desc LIMIT 1',
+                       (id, date, currency_rate_type))
             if cr.rowcount:
-                id, rate = cr.fetchall()[0]
-                res[id] = rate
+                res[id] = cr.fetchone()[0]
             elif not raise_on_no_rate:
                 res[id] = 0
             else:
@@ -249,8 +250,8 @@ class res_currency_rate(osv.osv):
     _description = "Currency Rate"
 
     _columns = {
-        'name': fields.date('Date', required=True, select=True),
-        'rate': fields.float('Rate', digits=(12,6), help='The rate of the currency to the currency of rate 1'),
+        'name': fields.datetime('Date', required=True, select=True),
+        'rate': fields.float('Rate', digits=(12, 6), help='The rate of the currency to the currency of rate 1'),
         'currency_id': fields.many2one('res.currency', 'Currency', readonly=True),
         'currency_rate_type_id': fields.many2one('res.currency.rate.type', 'Currency Rate Type', help="Allow you to define your own currency rate types, like 'Average' or 'Year to Date'. Leave empty if you simply want to use the normal 'spot' rate type"),
     }

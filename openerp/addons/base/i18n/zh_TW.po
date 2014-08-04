@@ -1,21 +1,20 @@
-# Chinese (Traditional) translation for openobject-server
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
-# This file is distributed under the same license as the openobject-server package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* base
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openobject-server\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:35+0000\n"
-"PO-Revision-Date: 2013-12-01 17:36+0000\n"
-"Last-Translator: Andy Cheng <andy@dobtor.com>\n"
-"Language-Team: Chinese (Traditional) <zh_TW@li.org>\n"
+"Project-Id-Version: OpenERP Server 5.0.0\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-12-21 17:04+0000\n"
+"PO-Revision-Date: 2012-08-20 15:41+0000\n"
+"Last-Translator: Walter Cheuk <wwycheuk@gmail.com>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-04-30 06:59+0000\n"
-"X-Generator: Launchpad (build 16985)\n"
+"X-Launchpad-Export-Date: 2014-03-28 05:40+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_account_check_writing
@@ -29,11 +28,6 @@ msgstr ""
 "檢查書寫以及檢查列印的模組。\n"
 "================================================\n"
 "    "
-
-#. module: base
-#: view:res.partner.bank:0
-msgid "e.g. GEBABEBB"
-msgstr "如 GEBABEBB (銀行匯款swift code)"
 
 #. module: base
 #: model:res.country,name:base.sh
@@ -281,43 +275,6 @@ msgid "Inuktitut / ᐃᓄᒃᑎᑐᑦ"
 msgstr "梵文 / ᐃᓄᒃᑎᑐᑦ"
 
 #. module: base
-#: model:ir.module.module,description:base.module_l10n_ch
-msgid ""
-"\n"
-" Swiss localization :\n"
-" ====================\n"
-" **Multilang swiss STERCHI account chart and taxes**\n"
-"  **Author:** Camptocamp SA\n"
-"\n"
-"  **Financial contributors:** Prisme Solutions Informatique SA, Quod SA\n"
-"\n"
-"  **Translation contributors:** brain-tec AG, Agile Business Group\n"
-"\n"
-" **This release will introduce major changes to l10n_ch.**\n"
-"\n"
-" Due to important refactoring needs and the Switzerland adoption of new "
-"international payment standard during 2013-2014. We have reorganised the "
-"swiss localization addons this way:\n"
-"\n"
-" - **l10n_ch**: Multilang swiss STERCHI account chart and taxes (official "
-"addon)\n"
-" - **l10n_ch_base_bank**: Technical module that introduces a new and "
-"simplified version of bank type management\n"
-" - **l10n_ch_bank**: List of swiss banks\n"
-" - **l10n_ch_zip**: List of swiss postal zip\n"
-" - **l10n_ch_dta**: Support of dta payment protocol (will be deprecated end "
-"2014)\n"
-" - **l10n_ch_payment_slip**: Support of ESR/BVR payment slip report and "
-"reconciliation. Report refactored with easy element positioning.\n"
-" - **l10n_ch_sepa**: Alpha implementation of PostFinance SEPA/PAIN support "
-"will be completed during 2013/2014\n"
-"\n"
-" The modules will be soon available on OpenERP swiss localization on "
-"launchpad:\n"
-" https://launchpad.net/openerp-swiss-localization\n"
-msgstr ""
-
-#. module: base
 #: model:res.groups,name:base.group_multi_currency
 msgid "Multi Currencies"
 msgstr "多幣別"
@@ -458,11 +415,6 @@ msgstr "子應用程式"
 #: field:res.partner,credit_limit:0
 msgid "Credit Limit"
 msgstr "信用額度"
-
-#. module: base
-#: model:ir.module.module,shortdesc:base.module_portal_project_long_term
-msgid "Portal Project Long Term"
-msgstr ""
 
 #. module: base
 #: field:ir.model.constraint,date_update:0
@@ -642,9 +594,25 @@ msgid ""
 msgstr "如果您選中此處，當下次用戶使用相同的附件名稱列印時將返回以前的報表。"
 
 #. module: base
-#: model:res.country,name:base.ao
-msgid "Angola"
-msgstr "安哥拉"
+#: model:ir.module.module,description:base.module_mrp_byproduct
+msgid ""
+"\n"
+"This module allows you to produce several products from one production "
+"order.\n"
+"============================================================================="
+"\n"
+"\n"
+"You can configure by-products in the bill of material.\n"
+"\n"
+"Without this module:\n"
+"--------------------\n"
+"    A + B + C -> D\n"
+"\n"
+"With this module:\n"
+"-----------------\n"
+"    A + B + C -> D + E\n"
+"    "
+msgstr ""
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -700,11 +668,6 @@ msgstr "帛琉"
 #: view:res.partner:0
 msgid "Sales & Purchases"
 msgstr "銷售及採購"
-
-#. module: base
-#: view:res.partner:0
-msgid "Put an internal note..."
-msgstr "寫下內部記錄..."
 
 #. module: base
 #: view:ir.translation:0
@@ -960,12 +923,6 @@ msgid "Overwrite Existing Terms"
 msgstr "覆寫現有名詞"
 
 #. module: base
-#: code:addons/base/res/res_currency.py:52
-#, python-format
-msgid "No currency rate associated for currency %d for the given period"
-msgstr "該期間內沒有貨幣 %d 的匯率"
-
-#. module: base
 #: model:ir.module.module,description:base.module_hr_holidays
 msgid ""
 "\n"
@@ -1071,15 +1028,6 @@ msgstr ""
 #: model:ir.model,name:base.model_base_module_upgrade
 msgid "Module Upgrade"
 msgstr "模組升級"
-
-#. module: base
-#: view:res.bank:0
-#: view:res.company:0
-#: view:res.partner:0
-#: view:res.partner.bank:0
-#: view:res.users:0
-msgid "ZIP"
-msgstr "郵遞區號"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -1345,9 +1293,10 @@ msgid "Delete Access Right"
 msgstr "刪除存取權限"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_l10n_be_hr_payroll_account
-msgid "Belgium - Payroll with Accounting"
-msgstr "比利時 - 薪資（含會計）"
+#: code:addons/base/ir/ir_mail_server.py:214
+#, python-format
+msgid "Connection test failed!"
+msgstr "連接測試失敗！"
 
 #. module: base
 #: selection:ir.actions.server,state:0
@@ -1655,6 +1604,15 @@ msgid ""
 msgstr ""
 
 #. module: base
+#: model:ir.actions.act_window,help:base.action_res_partner_bank_account_form
+msgid ""
+"Configure your company's bank accounts and select those that must appear on "
+"the report footer. You can reorder bank accounts from the list view. If you "
+"use the accounting application of OpenERP, journals and accounts will be "
+"created automatically based on these data."
+msgstr ""
+
+#. module: base
 #: report:ir.module.reference:0
 msgid "Version"
 msgstr "版本"
@@ -1786,23 +1744,6 @@ msgid ""
 msgstr ""
 
 #. module: base
-#: model:ir.actions.act_window,help:base.action_res_partner_bank_account_form
-msgid ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"                Click to create a bank account.\n"
-"              </p><p>\n"
-"                Configure your company's bank accounts and select those that "
-"must appear on the report footer.\n"
-"                You can reorder bank accounts from the list view.\n"
-"              </p>\n"
-"              <p>\n"
-"                If you use the accounting application of OpenERP, journals "
-"and accounts will be created automatically based on these data.\n"
-"              </p>  \n"
-"            "
-msgstr ""
-
-#. module: base
 #: model:ir.actions.act_window,name:base.ir_action_report_xml
 #: field:ir.module.module,reports_by_module:0
 #: model:ir.ui.menu,name:base.menu_ir_action_report_xml
@@ -1829,12 +1770,6 @@ msgid ""
 "'%s' contains too many dots. XML ids should not contain dots ! These are "
 "used to refer to other modules data, as in module.reference_id"
 msgstr ""
-
-#. module: base
-#: code:addons/base/ir/ir_model.py:85
-#, python-format
-msgid "Invalid Search Criteria"
-msgstr "無效的搜尋條件"
 
 #. module: base
 #: field:res.users,login:0
@@ -1914,11 +1849,6 @@ msgstr ""
 #: model:res.country,name:base.tp
 msgid "East Timor"
 msgstr "東帝汶"
-
-#. module: base
-#: field:workflow.transition,act_to:0
-msgid "Destination Activity"
-msgstr "目的地動態"
 
 #. module: base
 #: code:addons/base/module/module.py:414
@@ -2201,9 +2131,28 @@ msgid "Address Type"
 msgstr "地址類型"
 
 #. module: base
-#: model:res.country,name:base.dj
-msgid "Djibouti"
-msgstr "吉布地"
+#: model:ir.module.module,description:base.module_sale_stock
+msgid ""
+"\n"
+"Manage sales quotations and orders\n"
+"==================================\n"
+"\n"
+"This module makes the link between the sales and warehouses management "
+"applications.\n"
+"\n"
+"Preferences\n"
+"-----------\n"
+"* Shipping: Choice of delivery at once or partial delivery\n"
+"* Invoicing: choose how invoices will be paid\n"
+"* Incoterms: International Commercial terms\n"
+"\n"
+"You can choose flexible invoicing methods:\n"
+"\n"
+"* *On Demand*: Invoices are created manually from Sales Orders when needed\n"
+"* *On Delivery Order*: Invoices are generated from picking (delivery)\n"
+"* *Before Delivery*: A Draft invoice is created and must be paid before "
+"delivery\n"
+msgstr ""
 
 #. module: base
 #: field:ir.ui.menu,complete_name:0
@@ -2273,11 +2222,6 @@ msgstr "西班牙文 / Español"
 #: selection:base.language.install,lang:0
 msgid "Korean (KP) / 한국어 (KP)"
 msgstr "韓文 (KP) / 한국어 (KP)"
-
-#. module: base
-#: model:ir.module.module,shortdesc:base.module_l10n_vn
-msgid "Vietnam Chart of Accounts"
-msgstr ""
 
 #. module: base
 #: model:res.country,name:base.ax
@@ -2714,41 +2658,6 @@ msgid "Action Target"
 msgstr "動作目標"
 
 #. module: base
-#: model:ir.module.module,description:base.module_account_report_company
-msgid ""
-"\n"
-"Add an extra Company dimension on Invoices for consolidated Invoice "
-"Analysis\n"
-"============================================================================"
-"\n"
-"\n"
-"By default Customer and Supplier invoices can be linked to a contact within\n"
-"a company, but the company is not a direct reference in the database "
-"structure for\n"
-"invoices. Journal Entries are however always linked to the company and not "
-"to\n"
-"contacts, so that Accounts Payable and Receivable are always correct and "
-"consolidated\n"
-"at company level.\n"
-"\n"
-"When many different contacts/departments need to be invoiced within the same "
-"parent company,\n"
-"this can make reporting by Company more difficult: reports are directly "
-"based on the\n"
-"database structure and would not provide an aggregated company dimension.\n"
-"\n"
-"This modules solves the problem by adding an explicit company reference on "
-"invoices,\n"
-"automatically computed from the invoice contact, and use this new dimension\n"
-"when grouping the list of Invoices or the Invoice Analysis report by "
-"Partner. \n"
-"\n"
-"Note: this module will likely be removed for the next major OpenERP version "
-"and\n"
-"directly integrated in the core accounting. \n"
-msgstr ""
-
-#. module: base
 #: model:res.country,name:base.ai
 msgid "Anguilla"
 msgstr "英屬安圭拉"
@@ -2855,6 +2764,11 @@ msgstr ""
 #: field:ir.values,res_id:0
 msgid "Record ID"
 msgstr "紀錄 ID"
+
+#. module: base
+#: view:ir.filters:0
+msgid "My Filters"
+msgstr "我的篩選器"
 
 #. module: base
 #: field:ir.actions.server,email:0
@@ -3243,11 +3157,6 @@ msgid ""
 msgstr ""
 
 #. module: base
-#: view:res.company:0
-msgid "e.g. Global Business Solutions"
-msgstr ""
-
-#. module: base
 #: field:res.company,rml_header1:0
 msgid "Company Tagline"
 msgstr ""
@@ -3284,12 +3193,6 @@ msgid ""
 "zakładając,\n"
 "że wszystkie towary są w obrocie hurtowym.\n"
 "    "
-msgstr ""
-
-#. module: base
-#: code:addons/base/ir/ir_mail_server.py:222
-#, python-format
-msgid "Connection Test Succeeded!"
 msgstr ""
 
 #. module: base
@@ -3633,12 +3536,6 @@ msgid "Fields Mapping"
 msgstr "欄位映射"
 
 #. module: base
-#: code:addons/base/module/wizard/base_module_upgrade.py:84
-#, python-format
-msgid "Unmet Dependency!"
-msgstr ""
-
-#. module: base
 #: model:res.partner.title,name:base.res_partner_title_sir
 #: model:res.partner.title,shortcut:base.res_partner_title_sir
 msgid "Sir"
@@ -3661,6 +3558,11 @@ msgstr ""
 #: view:base.module.import:0
 msgid "Select module package to import (.zip file):"
 msgstr "選取要匯入之模組套件 (.zip 檔)："
+
+#. module: base
+#: view:ir.filters:0
+msgid "Personal"
+msgstr "個人"
 
 #. module: base
 #: field:base.language.export,modules:0
@@ -3811,10 +3713,11 @@ msgid "Tasks on CRM"
 msgstr ""
 
 #. module: base
-#: model:ir.module.category,name:base.module_category_generic_modules_accounting
-#: view:res.company:0
-msgid "Accounting"
-msgstr "會計"
+#: help:ir.model.fields,relation_field:0
+msgid ""
+"For one2many fields, the field on the target model that implement the "
+"opposite many2one relationship"
+msgstr ""
 
 #. module: base
 #: view:ir.rule:0
@@ -3844,12 +3747,6 @@ msgstr ""
 #: model:ir.model,name:base.model_ir_filters
 msgid "Filters"
 msgstr "過濾器"
-
-#. module: base
-#: code:addons/base/module/wizard/base_module_import.py:67
-#, python-format
-msgid "Can not create the module file: %s!"
-msgstr ""
 
 #. module: base
 #: model:ir.actions.act_window,name:base.ir_cron_act
@@ -3886,13 +3783,6 @@ msgstr "偵測到有迴圈問題。"
 #: model:ir.module.module,shortdesc:base.module_l10n_et
 msgid "Ethiopia - Accounting"
 msgstr ""
-
-#. module: base
-#: model:ir.actions.act_window,name:base.ir_config_list_action
-#: view:ir.config_parameter:0
-#: model:ir.ui.menu,name:base.ir_config_menu
-msgid "System Parameters"
-msgstr "系統參數"
 
 #. module: base
 #: code:addons/base/module/module.py:366
@@ -4564,12 +4454,6 @@ msgid "`code` must be unique."
 msgstr "`code` 必須唯一。"
 
 #. module: base
-#: code:addons/base/ir/workflow/workflow.py:99
-#, python-format
-msgid "Operation Forbidden"
-msgstr ""
-
-#. module: base
 #: model:ir.module.module,shortdesc:base.module_knowledge
 msgid "Knowledge Management System"
 msgstr "知識管理系統"
@@ -4910,13 +4794,6 @@ msgid ""
 msgstr ""
 
 #. module: base
-#: help:ir.sequence,number_next_actual:0
-msgid ""
-"Next number that will be used. This number can be incremented frequently so "
-"the displayed value might already be obsolete"
-msgstr ""
-
-#. module: base
 #: model:ir.module.category,description:base.module_category_marketing
 msgid "Helps you manage your marketing campaigns step by step."
 msgstr "協助您逐步進行行銷活動。"
@@ -4940,12 +4817,6 @@ msgstr "迦納"
 #: field:res.lang,direction:0
 msgid "Direction"
 msgstr "方向"
-
-#. module: base
-#: code:addons/orm.py:4815
-#, python-format
-msgid "Sorting field %s not found on model %s"
-msgstr ""
 
 #. module: base
 #: view:ir.actions.act_window:0
@@ -5859,11 +5730,10 @@ msgid ""
 msgstr "來源地動態。當再無動態，會測試條件以決定是否開始 ACT_TO 動態。"
 
 #. module: base
-#: help:ir.model.fields,relation_field:0
-msgid ""
-"For one2many fields, the field on the target model that implement the "
-"opposite many2one relationship"
-msgstr ""
+#: model:ir.module.category,name:base.module_category_generic_modules_accounting
+#: view:res.company:0
+msgid "Accounting"
+msgstr "會計"
 
 #. module: base
 #: model:ir.module.module,description:base.module_base_vat
@@ -5973,9 +5843,9 @@ msgid "Authentication"
 msgstr "認證"
 
 #. module: base
-#: model:res.country,name:base.gd
-msgid "Grenada"
-msgstr "格林納達"
+#: model:res.country,name:base.sj
+msgid "Svalbard and Jan Mayen Islands"
+msgstr "冷岸及央麥恩群島"
 
 #. module: base
 #: model:ir.model,name:base.model_ir_actions_wizard
@@ -6124,6 +5994,12 @@ msgid ""
 msgstr ""
 
 #. module: base
+#: code:addons/base/ir/workflow/workflow.py:99
+#, python-format
+msgid "Operation forbidden"
+msgstr "禁止此項操作"
+
+#. module: base
 #: view:ir.actions.server:0
 msgid "SMS Configuration"
 msgstr "短訊設定"
@@ -6162,11 +6038,6 @@ msgstr "存取控制列表"
 #: model:res.country,name:base.um
 msgid "USA Minor Outlying Islands"
 msgstr "美國海外領土"
-
-#. module: base
-#: view:base.language.import:0
-msgid "e.g. English"
-msgstr ""
 
 #. module: base
 #: help:ir.cron,numbercall:0
@@ -6249,13 +6120,6 @@ msgstr "電話："
 #. module: base
 #: field:res.partner,is_company:0
 msgid "Is a Company"
-msgstr ""
-
-#. module: base
-#: view:res.company:0
-#: view:res.partner:0
-#: view:res.users:0
-msgid "e.g. www.openerp.com"
 msgstr ""
 
 #. module: base
@@ -6348,19 +6212,6 @@ msgstr "選單名稱"
 #. module: base
 #: field:ir.values,key2:0
 msgid "Qualifier"
-msgstr ""
-
-#. module: base
-#: model:ir.module.module,description:base.module_l10n_vn
-msgid ""
-"\n"
-"This is the module to manage the accounting chart for Vietnam in OpenERP.\n"
-"========================================================================\n"
-"\n"
-"This module applies to companies based in Vietnamese Accounting Standard "
-"(VAS).\n"
-"\n"
-"**Credits:** General Solutions.\n"
 msgstr ""
 
 #. module: base
@@ -6639,11 +6490,6 @@ msgid "Database Anonymization"
 msgstr "資料庫匿名"
 
 #. module: base
-#: field:res.partner,commercial_partner_id:0
-msgid "Commercial Entity"
-msgstr ""
-
-#. module: base
 #: selection:ir.mail_server,smtp_encryption:0
 msgid "SSL/TLS"
 msgstr ""
@@ -6702,11 +6548,6 @@ msgid "ir.cron"
 msgstr "ir.cron"
 
 #. module: base
-#: model:ir.ui.menu,name:base.menu_sales_followup
-msgid "Payment Follow-up"
-msgstr ""
-
-#. module: base
 #: model:res.country,name:base.cw
 msgid "Curaçao"
 msgstr ""
@@ -6717,9 +6558,11 @@ msgid "Current Year without Century: %(y)s"
 msgstr "不帶世紀之當前年份：%(y)s"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_l10n_es
-msgid "Spanish Charts of Accounts (PGCE 2008)"
-msgstr ""
+#: model:ir.actions.act_window,name:base.ir_config_list_action
+#: view:ir.config_parameter:0
+#: model:ir.ui.menu,name:base.ir_config_menu
+msgid "System Parameters"
+msgstr "系統參數"
 
 #. module: base
 #: help:ir.actions.client,tag:0
@@ -6779,14 +6622,6 @@ msgstr "蘇丹"
 #: field:res.currency.rate,currency_rate_type_id:0
 #: view:res.currency.rate.type:0
 msgid "Currency Rate Type"
-msgstr ""
-
-#. module: base
-#: code:addons/base/res/res_lang.py:189
-#, python-format
-msgid ""
-"You cannot delete the language which is Active!\n"
-"Please de-activate the language first."
 msgstr ""
 
 #. module: base
@@ -6964,9 +6799,10 @@ msgid "Repeat Missed"
 msgstr "重複錯過的"
 
 #. module: base
-#: help:ir.actions.server,state:0
-msgid "Type of the Action that is to be executed"
-msgstr "要執行動作之類型"
+#: code:addons/base/module/wizard/base_module_import.py:67
+#, python-format
+msgid "Can not create the module file: %s !"
+msgstr "無法建立模組檔案：%s！"
 
 #. module: base
 #: field:ir.server.object.lines,server_id:0
@@ -7191,6 +7027,16 @@ msgstr ""
 #. module: base
 #: help:ir.values,company_id:0
 msgid "If set, action binding only applies for this company"
+msgstr ""
+
+#. module: base
+#: model:ir.module.module,description:base.module_l10n_cn
+msgid ""
+"\n"
+"添加中文省份数据\n"
+"科目类型\\会计科目表模板\\增值税\\辅助核算类别\\管理会计凭证簿\\财务会计凭证簿\n"
+"============================================================\n"
+"    "
 msgstr ""
 
 #. module: base
@@ -7465,6 +7311,12 @@ msgid "Connection Security"
 msgstr "聯結安全性"
 
 #. module: base
+#: code:addons/base/ir/ir_actions.py:606
+#, python-format
+msgid "Please specify an action to launch !"
+msgstr "請指定要執行之動作！"
+
+#. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_ec
 msgid "Ecuador - Accounting"
 msgstr ""
@@ -7483,11 +7335,6 @@ msgstr "北馬里安納群島"
 #: field:change.password.user,user_login:0
 msgid "User Login"
 msgstr "使用者登入"
-
-#. module: base
-#: view:ir.filters:0
-msgid "Filters created by myself"
-msgstr ""
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_hn
@@ -7637,12 +7484,6 @@ msgid "Error"
 msgstr "錯誤"
 
 #. module: base
-#: code:addons/base/res/res_partner.py:566
-#, python-format
-msgid "Couldn't create contact without email address!"
-msgstr ""
-
-#. module: base
 #: help:res.partner,tz:0
 msgid ""
 "The partner's timezone, used to output proper date and time values inside "
@@ -7712,12 +7553,6 @@ msgstr "本序列下個號碼"
 
 #. module: base
 #: view:res.partner:0
-#: view:res.users:0
-msgid "Tags..."
-msgstr ""
-
-#. module: base
-#: view:res.partner:0
 msgid "at"
 msgstr "在"
 
@@ -7740,11 +7575,6 @@ msgstr "匿名網站"
 #: field:base.language.export,format:0
 msgid "File Format"
 msgstr "檔案格式"
-
-#. module: base
-#: view:ir.filters:0
-msgid "My filters"
-msgstr ""
 
 #. module: base
 #: field:res.lang,iso_code:0
@@ -8075,12 +7905,6 @@ msgid "Rules can not be applied on Transient models."
 msgstr ""
 
 #. module: base
-#: code:addons/base/ir/ir_mail_server.py:215
-#, python-format
-msgid "Connection Test Failed!"
-msgstr ""
-
-#. module: base
 #: selection:base.language.install,lang:0
 msgid "Dutch / Nederlands"
 msgstr "荷蘭文 / Nederlands"
@@ -8334,15 +8158,9 @@ msgstr ""
 "但此模組在您的系統未有提供。"
 
 #. module: base
-#: model:ir.module.module,description:base.module_portal_project_long_term
-msgid ""
-"\n"
-"This module adds necessary security rules and access rights for project long "
-"term and portal.\n"
-"============================================================================="
-"================\n"
-"    "
-msgstr ""
+#: field:workflow.transition,act_to:0
+msgid "Destination Activity"
+msgstr "目的地動態"
 
 #. module: base
 #: help:res.currency,position:0
@@ -8466,12 +8284,6 @@ msgstr "科威特"
 #: model:ir.module.module,shortdesc:base.module_account_followup
 msgid "Payment Follow-up Management"
 msgstr "付款後續管理"
-
-#. module: base
-#: code:addons/orm.py:5334
-#, python-format
-msgid "The value for the field '%s' already exists."
-msgstr ""
 
 #. module: base
 #: field:workflow.workitem,inst_id:0
@@ -8710,11 +8522,6 @@ msgstr "進階路徑"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_pad
 msgid "Collaborative Pads"
-msgstr ""
-
-#. module: base
-#: model:ir.module.module,shortdesc:base.module_account_anglo_saxon
-msgid "Anglo-Saxon Accounting"
 msgstr ""
 
 #. module: base
@@ -9675,6 +9482,11 @@ msgid "Python Code"
 msgstr "Python 代碼"
 
 #. module: base
+#: help:ir.actions.server,state:0
+msgid "Type of the Action that is to be executed"
+msgstr "要執行動作之類型"
+
+#. module: base
 #: model:ir.module.module,description:base.module_portal_crm
 msgid ""
 "\n"
@@ -9724,6 +9536,43 @@ msgid ""
 "Openerp Web Diagram view.\n"
 "=========================\n"
 "\n"
+msgstr ""
+
+#. module: base
+#: model:ir.module.module,description:base.module_l10n_ch
+msgid ""
+"\n"
+"Swiss localization :\n"
+"====================\n"
+"**Multilang swiss STERCHI account chart and taxes**\n"
+" **Author:** Camptocamp SA\n"
+"\n"
+" **Donors:** Hasa Sàrl, Open Net Sàrl and Prisme Solutions Informatique SA\n"
+"\n"
+" **Translators:** brain-tec AG, Agile Business Group\n"
+"\n"
+"**This release will introduce major changes to l10n_ch.**\n"
+"\n"
+"Due to important refactoring needs and the Switzerland adoption of new "
+"international payment standard during 2013-2014. We have reorganised the "
+"swiss localization addons this way:\n"
+"\n"
+"- **l10n_ch**: Multilang swiss STERCHI account chart and taxes (official "
+"addon)\n"
+"- **l10n_ch_base_bank**: Technical module that introduces a new and "
+"simplified version of bank type management\n"
+"- **l10n_ch_bank**: List of swiss banks\n"
+"- **l10n_ch_zip**: List of swiss postal zip\n"
+"- **l10n_ch_dta**: Support of dta payment protocol (will be deprecated end "
+"2014)\n"
+"- **l10n_ch_payment_slip**: Support of ESR/BVR payment slip report and "
+"reconciliation. Report refactored with easy element positioning.\n"
+"- **l10n_ch_sepa**: Alpha implementation of PostFinance SEPA/PAIN support "
+"will be completed during 2013/2014\n"
+"\n"
+"The modules will be soon available on OpenERP swiss localization on "
+"launchpad:\n"
+"https://launchpad.net/openerp-swiss-localization\n"
 msgstr ""
 
 #. module: base
@@ -9866,11 +9715,6 @@ msgid "New Language (Empty translation template)"
 msgstr "新語言 (空白翻譯範本)"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_account_report_company
-msgid "Invoice Analysis per Company"
-msgstr ""
-
-#. module: base
 #: help:ir.actions.server,email:0
 msgid ""
 "Expression that returns the email address to send to. Can be based on the "
@@ -9935,102 +9779,9 @@ msgid ""
 msgstr "選取動作（讀、寫、建立）執行對象物件。"
 
 #. module: base
-#: model:ir.module.module,description:base.module_stock_location
-msgid ""
-"\n"
-"This module supplements the Warehouse application by effectively "
-"implementing Push and Pull inventory flows.\n"
-"============================================================================="
-"===============================\n"
-"\n"
-"Typically this could be used to:\n"
-"--------------------------------\n"
-"    * Manage product manufacturing chains\n"
-"    * Manage default locations per product\n"
-"    * Define routes within your warehouse according to business needs, such "
-"as:\n"
-"        - Quality Control\n"
-"        - After Sales Services\n"
-"        - Supplier Returns\n"
-"\n"
-"    * Help rental management, by generating automated return moves for "
-"rented products\n"
-"\n"
-"Once this module is installed, an additional tab appear on the product "
-"form,\n"
-"where you can add Push and Pull flow specifications. The demo data of CPU1\n"
-"product for that push/pull :\n"
-"\n"
-"Push flows:\n"
-"-----------\n"
-"Push flows are useful when the arrival of certain products in a given "
-"location\n"
-"should always be followed by a corresponding move to another location, "
-"optionally\n"
-"after a certain delay. The original Warehouse application already supports "
-"such\n"
-"Push flow specifications on the Locations themselves, but these cannot be\n"
-"refined per-product.\n"
-"\n"
-"A push flow specification indicates which location is chained with which "
-"location,\n"
-"and with what parameters. As soon as a given quantity of products is moved "
-"in the\n"
-"source location, a chained move is automatically foreseen according to the\n"
-"parameters set on the flow specification (destination location, delay, type "
-"of\n"
-"move, journal). The new move can be automatically processed, or require a "
-"manual\n"
-"confirmation, depending on the parameters.\n"
-"\n"
-"Pull flows:\n"
-"-----------\n"
-"Pull flows are a bit different from Push flows, in the sense that they are "
-"not\n"
-"related to the processing of product moves, but rather to the processing of\n"
-"procurement orders. What is being pulled is a need, not directly products. "
-"A\n"
-"classical example of Pull flow is when you have an Outlet company, with a "
-"parent\n"
-"Company that is responsible for the supplies of the Outlet.\n"
-"\n"
-"  [ Customer ] <- A - [ Outlet ]  <- B -  [ Holding ] <~ C ~ [ Supplier ]\n"
-"\n"
-"When a new procurement order (A, coming from the confirmation of a Sale "
-"Order\n"
-"for example) arrives in the Outlet, it is converted into another "
-"procurement\n"
-"(B, via a Pull flow of type 'move') requested from the Holding. When "
-"procurement\n"
-"order B is processed by the Holding company, and if the product is out of "
-"stock,\n"
-"it can be converted into a Purchase Order (C) from the Supplier (Pull flow "
-"of\n"
-"type Purchase). The result is that the procurement order, the need, is "
-"pushed\n"
-"all the way between the Customer and Supplier.\n"
-"\n"
-"Technically, Pull flows allow to process procurement orders differently, "
-"not\n"
-"only depending on the product being considered, but also depending on which\n"
-"location holds the 'need' for that product (i.e. the destination location "
-"of\n"
-"that procurement order).\n"
-"\n"
-"Use-Case:\n"
-"---------\n"
-"\n"
-"You can use the demo data as follow:\n"
-"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-"  **CPU1:** Sell some CPU1 from Chicago Shop and run the scheduler\n"
-"     - Warehouse: delivery order, Chicago Shop: reception\n"
-"  **CPU3:**\n"
-"     - When receiving the product, it goes to Quality Control location then\n"
-"       stored to shelf 2.\n"
-"     - When delivering the customer: Pick List -> Packing -> Delivery Order "
-"from Gate A\n"
-"    "
-msgstr ""
+#: field:base.language.import,name:0
+msgid "Language Name"
+msgstr "語言名"
 
 #. module: base
 #: selection:ir.property,type:0
@@ -10057,14 +9808,6 @@ msgstr "欄位說明"
 #: model:ir.module.module,shortdesc:base.module_analytic_contract_hr_expense
 msgid "Contracts Management: hr_expense link"
 msgstr "合約管理: hr_expense link"
-
-#. module: base
-#: code:addons/base/module/module.py:670
-#, python-format
-msgid ""
-"The `%s` module appears to be unavailable at the moment, please try again "
-"later."
-msgstr ""
 
 #. module: base
 #: view:ir.attachment:0
@@ -10297,6 +10040,13 @@ msgid "Afghanistan, Islamic State of"
 msgstr "阿富汗"
 
 #. module: base
+#: code:addons/base/module/wizard/base_module_import.py:58
+#: code:addons/base/module/wizard/base_module_import.py:66
+#, python-format
+msgid "Error !"
+msgstr "錯誤！"
+
+#. module: base
 #: model:ir.module.module,shortdesc:base.module_marketing_campaign_crm_demo
 msgid "Marketing Campaign - Demo"
 msgstr "市場行銷推廣活動 - 展示用"
@@ -10410,22 +10160,6 @@ msgid "Todo"
 msgstr "待辦"
 
 #. module: base
-#: model:ir.module.module,description:base.module_l10n_es
-msgid ""
-"\n"
-"Spanish Charts of Accounts (PGCE 2008).\n"
-"=======================================\n"
-"\n"
-"    * Defines the following chart of account templates:\n"
-"        * Spanish General Chart of Accounts 2008\n"
-"        * Spanish General Chart of Accounts 2008 for small and medium "
-"companies\n"
-"        * Spanish General Chart of Accounts 2008 for associations\n"
-"    * Defines templates for sale and purchase VAT\n"
-"    * Defines tax code templates\n"
-msgstr ""
-
-#. module: base
 #: model:ir.module.module,shortdesc:base.module_product_visible_discount
 msgid "Prices Visible Discounts"
 msgstr ""
@@ -10451,14 +10185,6 @@ msgstr "巴拿馬"
 #: help:workflow.transition,group_id:0
 msgid ""
 "The group that a user must have to be authorized to validate this transition."
-msgstr ""
-
-#. module: base
-#: view:res.bank:0
-#: view:res.company:0
-#: view:res.partner:0
-#: view:res.users:0
-msgid "Street..."
 msgstr ""
 
 #. module: base
@@ -11100,6 +10826,16 @@ msgid "Samoa"
 msgstr "薩摩亞"
 
 #. module: base
+#: code:addons/base/res/res_lang.py:189
+#, python-format
+msgid ""
+"You cannot delete the language which is Active !\n"
+"Please de-activate the language first."
+msgstr ""
+"無法刪除使用中之語言！\n"
+"請先停用該語言。"
+
+#. module: base
 #: code:addons/base/ir/ir_model.py:509
 #: code:addons/base/ir/ir_model.py:570
 #: code:addons/base/ir/ir_model.py:1031
@@ -11131,6 +10867,11 @@ msgstr "檢驗錯誤"
 #: view:base.module.update:0
 msgid "Open Modules"
 msgstr "打開模組"
+
+#. module: base
+#: model:ir.actions.act_window,help:base.action_res_bank_form
+msgid "Manage bank records you want to be used in the system."
+msgstr ""
 
 #. module: base
 #: view:base.module.import:0
@@ -11240,6 +10981,12 @@ msgstr "讀取存取權限"
 #: model:ir.module.module,shortdesc:base.module_analytic_user_function
 msgid "Jobs on Contracts"
 msgstr "契約工作"
+
+#. module: base
+#: code:addons/base/res/res_lang.py:187
+#, python-format
+msgid "You cannot delete the language which is User's Preferred Language !"
+msgstr ""
 
 #. module: base
 #: view:ir.model.data:0
@@ -11369,11 +11116,6 @@ msgid "This field is used to set/get locales for user"
 msgstr ""
 
 #. module: base
-#: model:res.country,name:base.sj
-msgid "Svalbard and Jan Mayen Islands"
-msgstr "冷岸及央麥恩群島"
-
-#. module: base
 #: view:ir.filters:0
 msgid "Shared"
 msgstr "分享"
@@ -11488,21 +11230,6 @@ msgid "Auto Search"
 msgstr "自動搜尋"
 
 #. module: base
-#: model:ir.actions.act_window,help:base.action_partner_category_form
-msgid ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"                Click to create a new partner category.\n"
-"              </p><p>\n"
-"                Manage the partner categories in order to better classify "
-"them for tracking and analysis purposes.\n"
-"                A partner may belong to several categories and categories "
-"have a hierarchy structure: a partner belonging to a category also belong to "
-"his parent category.\n"
-"              </p>\n"
-"            "
-msgstr ""
-
-#. module: base
 #: field:ir.actions.act_window,filter:0
 msgid "Filter"
 msgstr "過濾器"
@@ -11513,14 +11240,9 @@ msgid "Switzerland"
 msgstr "瑞士"
 
 #. module: base
-#: code:addons/base/res/res_partner.py:361
-#, python-format
-msgid ""
-"Changing the company of a contact should only be done if it was never "
-"correctly set. If an existing contact starts working for a new company then "
-"a new contact should be created under that new company. You can use the "
-"\"Discard\" button to abandon this change."
-msgstr ""
+#: model:res.country,name:base.gd
+msgid "Grenada"
+msgstr "格林納達"
 
 #. module: base
 #: help:res.partner,customer:0
@@ -11577,9 +11299,10 @@ msgid ""
 msgstr ""
 
 #. module: base
-#: model:ir.model,name:base.model_res_request_history
-msgid "res.request.history"
-msgstr ""
+#: code:addons/base/ir/ir_model.py:296
+#, python-format
+msgid "Size of the field can never be less than 1 !"
+msgstr "欄位不得小於1!"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_mrp_operations
@@ -11629,9 +11352,102 @@ msgid "GPL Version 3"
 msgstr "GPL 第三版"
 
 #. module: base
-#: field:base.language.import,name:0
-msgid "Language Name"
-msgstr "語言名"
+#: model:ir.module.module,description:base.module_stock_location
+msgid ""
+"\n"
+"This module supplements the Warehouse application by effectively "
+"implementing Push and Pull inventory flows.\n"
+"============================================================================="
+"===============================\n"
+"\n"
+"Typically this could be used to:\n"
+"--------------------------------\n"
+"    * Manage product manufacturing chains\n"
+"    * Manage default locations per product\n"
+"    * Define routes within your warehouse according to business needs, such "
+"as:\n"
+"        - Quality Control\n"
+"        - After Sales Services\n"
+"        - Supplier Returns\n"
+"\n"
+"    * Help rental management, by generating automated return moves for "
+"rented products\n"
+"\n"
+"Once this module is installed, an additional tab appear on the product "
+"form,\n"
+"where you can add Push and Pull flow specifications. The demo data of CPU1\n"
+"product for that push/pull :\n"
+"\n"
+"Push flows:\n"
+"-----------\n"
+"Push flows are useful when the arrival of certain products in a given "
+"location\n"
+"should always be followed by a corresponding move to another location, "
+"optionally\n"
+"after a certain delay. The original Warehouse application already supports "
+"such\n"
+"Push flow specifications on the Locations themselves, but these cannot be\n"
+"refined per-product.\n"
+"\n"
+"A push flow specification indicates which location is chained with which "
+"location,\n"
+"and with what parameters. As soon as a given quantity of products is moved "
+"in the\n"
+"source location, a chained move is automatically foreseen according to the\n"
+"parameters set on the flow specification (destination location, delay, type "
+"of\n"
+"move, journal). The new move can be automatically processed, or require a "
+"manual\n"
+"confirmation, depending on the parameters.\n"
+"\n"
+"Pull flows:\n"
+"-----------\n"
+"Pull flows are a bit different from Push flows, in the sense that they are "
+"not\n"
+"related to the processing of product moves, but rather to the processing of\n"
+"procurement orders. What is being pulled is a need, not directly products. "
+"A\n"
+"classical example of Pull flow is when you have an Outlet company, with a "
+"parent\n"
+"Company that is responsible for the supplies of the Outlet.\n"
+"\n"
+"  [ Customer ] <- A - [ Outlet ]  <- B -  [ Holding ] <~ C ~ [ Supplier ]\n"
+"\n"
+"When a new procurement order (A, coming from the confirmation of a Sale "
+"Order\n"
+"for example) arrives in the Outlet, it is converted into another "
+"procurement\n"
+"(B, via a Pull flow of type 'move') requested from the Holding. When "
+"procurement\n"
+"order B is processed by the Holding company, and if the product is out of "
+"stock,\n"
+"it can be converted into a Purchase Order (C) from the Supplier (Pull flow "
+"of\n"
+"type Purchase). The result is that the procurement order, the need, is "
+"pushed\n"
+"all the way between the Customer and Supplier.\n"
+"\n"
+"Technically, Pull flows allow to process procurement orders differently, "
+"not\n"
+"only depending on the product being considered, but also depending on which\n"
+"location holds the 'need' for that product (i.e. the destination location "
+"of\n"
+"that procurement order).\n"
+"\n"
+"Use-Case:\n"
+"---------\n"
+"\n"
+"You can use the demo data as follow:\n"
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+"  **CPU1:** Sell some CPU1 from Chicago Shop and run the scheduler\n"
+"     - Warehouse: delivery order, Chicago Shop: reception\n"
+"  **CPU3:**\n"
+"     - When receiving the product, it goes to Quality Control location then\n"
+"       stored to shelf 2.\n"
+"     - When delivering the customer: Pick List -> Packing -> Delivery Order "
+"from Gate A\n"
+"    "
+msgstr ""
 
 #. module: base
 #: model:ir.module.module,description:base.module_decimal_precision
@@ -11659,12 +11475,6 @@ msgstr ""
 #: field:res.partner,customer:0
 msgid "Customer"
 msgstr "客戶"
-
-#. module: base
-#: view:res.partner:0
-#: view:res.users:0
-msgid "e.g. +32.81.81.37.00"
-msgstr ""
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -11717,12 +11527,6 @@ msgid "Month: %(month)s"
 msgstr "月份：%(month)s"
 
 #. module: base
-#: model:ir.actions.client,name:base.modules_updates_act_cl
-#: model:ir.ui.menu,name:base.menu_module_updates
-msgid "Updates"
-msgstr "更新檔"
-
-#. module: base
 #: field:ir.actions.act_window.view,sequence:0
 #: field:ir.actions.server,sequence:0
 #: field:ir.actions.todo,sequence:0
@@ -11756,6 +11560,19 @@ msgstr ""
 #: model:ir.model,name:base.model_ir_fields_converter
 msgid "ir.fields.converter"
 msgstr ""
+
+#. module: base
+#: code:addons/base/res/res_partner.py:439
+#, python-format
+msgid "Couldn't create contact without email address !"
+msgstr "若無電子郵件地址，則無法建立聯絡人！"
+
+#. module: base
+#: model:ir.module.category,name:base.module_category_manufacturing
+#: model:ir.ui.menu,name:base.menu_mrp_config
+#: model:ir.ui.menu,name:base.menu_mrp_root
+msgid "Manufacturing"
+msgstr "製造"
 
 #. module: base
 #: model:res.country,name:base.km
@@ -12093,12 +11910,6 @@ msgid "Falkland Islands"
 msgstr "福克蘭群島"
 
 #. module: base
-#: code:addons/base/ir/ir_actions.py:606
-#, python-format
-msgid "Please specify an action to launch!"
-msgstr ""
-
-#. module: base
 #: model:res.country,name:base.lb
 msgid "Lebanon"
 msgstr "黎巴嫩"
@@ -12161,6 +11972,12 @@ msgid "XSL"
 msgstr "XSL"
 
 #. module: base
+#: code:addons/base/ir/ir_model.py:85
+#, python-format
+msgid "Invalid search criterions"
+msgstr "搜尋準則無效"
+
+#. module: base
 #: view:ir.mail_server:0
 msgid "Connection Information"
 msgstr "連線資訊"
@@ -12213,6 +12030,25 @@ msgstr "選取範圍"
 #: view:res.users:0
 msgid "Change Password"
 msgstr "變更密碼"
+
+#. module: base
+#: model:ir.module.module,description:base.module_l10n_es
+msgid ""
+"\n"
+"Spanish Charts of Accounts (PGCE 2008).\n"
+"=======================================\n"
+"\n"
+"    * Defines the following chart of account templates:\n"
+"        * Spanish General Chart of Accounts 2008\n"
+"        * Spanish General Chart of Accounts 2008 for small and medium "
+"companies\n"
+"    * Defines templates for sale and purchase VAT\n"
+"    * Defines tax code templates\n"
+"\n"
+"**Note:** You should install the l10n_ES_account_balance_report module for "
+"yearly\n"
+"      account reporting (balance, profit & losses).\n"
+msgstr ""
 
 #. module: base
 #: field:ir.actions.act_url,type:0
@@ -12501,11 +12337,6 @@ msgid "Address Format"
 msgstr "地址格式"
 
 #. module: base
-#: constraint:res.partner:0
-msgid "You cannot create recursive Partner hierarchies."
-msgstr ""
-
-#. module: base
 #: model:ir.model,name:base.model_change_password_user
 msgid "Change Password Wizard User"
 msgstr ""
@@ -12568,13 +12399,6 @@ msgstr ""
 #: view:ir.model.data:0
 #: model:ir.ui.menu,name:base.ir_model_data_menu
 msgid "External Identifiers"
-msgstr ""
-
-#. module: base
-#. openerp-web
-#: code:addons/base/static/src/js/apps.js:104
-#, python-format
-msgid "Showing locally available modules"
 msgstr ""
 
 #. module: base
@@ -12670,12 +12494,6 @@ msgid ""
 msgstr ""
 
 #. module: base
-#: code:addons/base/ir/ir_model.py:295
-#, python-format
-msgid "Size of the field can never be less than 0 !"
-msgstr ""
-
-#. module: base
 #: help:ir.actions.server,sequence:0
 msgid ""
 "Important when you deal with multiple actions, the execution order will be "
@@ -12765,6 +12583,12 @@ msgstr "翻譯"
 #: field:res.request.history,body:0
 msgid "Body"
 msgstr "內容"
+
+#. module: base
+#: code:addons/base/ir/ir_mail_server.py:221
+#, python-format
+msgid "Connection test succeeded!"
+msgstr "連線測試成功！"
 
 #. module: base
 #: model:ir.module.module,description:base.module_project_gtd
@@ -13135,25 +12959,9 @@ msgid "Bulgaria"
 msgstr "保加利亞"
 
 #. module: base
-#: model:ir.module.module,description:base.module_mrp_byproduct
-msgid ""
-"\n"
-"This module allows you to produce several products from one production "
-"order.\n"
-"============================================================================="
-"\n"
-"\n"
-"You can configure by-products in the bill of material.\n"
-"\n"
-"Without this module:\n"
-"--------------------\n"
-"    A + B + C -> D\n"
-"\n"
-"With this module:\n"
-"-----------------\n"
-"    A + B + C -> D + E\n"
-"    "
-msgstr ""
+#: model:res.country,name:base.ao
+msgid "Angola"
+msgstr "安哥拉"
 
 #. module: base
 #: model:res.country,name:base.tf
@@ -13306,6 +13114,11 @@ msgid "ir.sequence.type"
 msgstr ""
 
 #. module: base
+#: model:ir.module.module,shortdesc:base.module_l10n_be_hr_payroll_account
+msgid "Belgium - Payroll with Accounting"
+msgstr "比利時 - 薪資（含會計）"
+
+#. module: base
 #: selection:base.language.export,format:0
 msgid "CSV File"
 msgstr "CSV 檔"
@@ -13314,6 +13127,12 @@ msgstr "CSV 檔"
 #: field:res.company,account_no:0
 msgid "Account No."
 msgstr "帳號"
+
+#. module: base
+#: code:addons/base/res/res_lang.py:185
+#, python-format
+msgid "Base Language 'en_US' can not be deleted !"
+msgstr "不能刪除基礎語言「en_US」！"
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_uk
@@ -13363,28 +13182,9 @@ msgid "Field Label"
 msgstr "欄位標籤"
 
 #. module: base
-#: model:ir.module.module,description:base.module_sale_stock
-msgid ""
-"\n"
-"Manage sales quotations and orders\n"
-"==================================\n"
-"\n"
-"This module makes the link between the sales and warehouses management "
-"applications.\n"
-"\n"
-"Preferences\n"
-"-----------\n"
-"* Shipping: Choice of delivery at once or partial delivery\n"
-"* Invoicing: choose how invoices will be paid\n"
-"* Incoterms: International Commercial terms\n"
-"\n"
-"You can choose flexible invoicing methods:\n"
-"\n"
-"* *On Demand*: Invoices are created manually from Sales Orders when needed\n"
-"* *On Delivery Order*: Invoices are generated from picking (delivery)\n"
-"* *Before Delivery*: A Draft invoice is created and must be paid before "
-"delivery\n"
-msgstr ""
+#: model:res.country,name:base.dj
+msgid "Djibouti"
+msgstr "吉布地"
 
 #. module: base
 #: field:ir.translation,value:0
@@ -13540,6 +13340,11 @@ msgid "Diagram"
 msgstr "圖表"
 
 #. module: base
+#: model:ir.module.module,shortdesc:base.module_l10n_es
+msgid "Spanish - Accounting (PGCE 2008)"
+msgstr ""
+
+#. module: base
 #: model:ir.module.module,shortdesc:base.module_stock_no_autopicking
 msgid "Picking Before Manufacturing"
 msgstr "製造前領料"
@@ -13593,12 +13398,6 @@ msgid ""
 "\n"
 "You can assign several contracts per employee.\n"
 "    "
-msgstr ""
-
-#. module: base
-#: code:addons/base/res/res_lang.py:187
-#, python-format
-msgid "You cannot delete the language which is User's Preferred Language!"
 msgstr ""
 
 #. module: base
@@ -13815,6 +13614,11 @@ msgstr "客戶夥伴"
 #: sql_constraint:res.users:0
 msgid "You can not have two users with the same login !"
 msgstr "兩個使用者不能使用相同的登入名稱！"
+
+#. module: base
+#: model:ir.model,name:base.model_res_request_history
+msgid "res.request.history"
+msgstr ""
 
 #. module: base
 #: model:ir.model,name:base.model_multi_company_default
@@ -14045,11 +13849,6 @@ msgid "Luxembourg"
 msgstr "盧森堡"
 
 #. module: base
-#: view:res.partner:0
-msgid "(edit company address)"
-msgstr ""
-
-#. module: base
 #: model:ir.module.module,summary:base.module_base_calendar
 msgid "Personal & Shared Calendar"
 msgstr "個人及分享日曆"
@@ -14275,13 +14074,6 @@ msgid "Currency Rate"
 msgstr "貨幣匯率"
 
 #. module: base
-#. openerp-web
-#: code:addons/base/static/src/js/apps.js:104
-#, python-format
-msgid "OpenERP Apps Unreachable"
-msgstr ""
-
-#. module: base
 #: view:base.module.upgrade:0
 #: field:base.module.upgrade,module_info:0
 msgid "Modules to Update"
@@ -14401,11 +14193,6 @@ msgid "View Auto-Load"
 msgstr "自動載入檢視"
 
 #. module: base
-#: view:res.country:0
-msgid "Address format..."
-msgstr ""
-
-#. module: base
 #: model:ir.module.module,description:base.module_l10n_et
 msgid ""
 "\n"
@@ -14476,6 +14263,12 @@ msgstr "來源模型"
 #: view:ir.sequence:0
 msgid "Day of the Week (0:Monday): %(weekday)s"
 msgstr ""
+
+#. module: base
+#: code:addons/base/module/wizard/base_module_upgrade.py:84
+#, python-format
+msgid "Unmet dependency !"
+msgstr "相依性未符合！"
 
 #. module: base
 #: code:addons/base/ir/ir_model.py:509
@@ -14777,11 +14570,13 @@ msgid "Color Index"
 msgstr ""
 
 #. module: base
-#: model:ir.module.category,name:base.module_category_manufacturing
-#: model:ir.ui.menu,name:base.menu_mrp_config
-#: model:ir.ui.menu,name:base.menu_mrp_root
-msgid "Manufacturing"
-msgstr "製造"
+#: model:ir.actions.act_window,help:base.action_partner_category_form
+msgid ""
+"Manage the partner categories in order to better classify them for tracking "
+"and analysis purposes. A partner may belong to several categories and "
+"categories have a hierarchy structure: a partner belonging to a category "
+"also belong to his parent category."
+msgstr ""
 
 #. module: base
 #: model:ir.module.module,description:base.module_survey
@@ -14828,13 +14623,8 @@ msgid "Electronic Data Interchange (EDI)"
 msgstr ""
 
 #. module: base
-#: model:ir.module.module,description:base.module_l10n_cn
-msgid ""
-"\n"
-"添加中文省份数据\n"
-"科目类型\\会计科目表模板\\增值税\\辅助核算类别\\管理会计凭证簿\\财务会计凭证簿\n"
-"============================================================\n"
-"    "
+#: model:ir.module.module,shortdesc:base.module_account_anglo_saxon
+msgid "Anglo-Saxon Accounting"
 msgstr ""
 
 #. module: base
@@ -14847,11 +14637,6 @@ msgstr "英屬維京群島"
 #: model:ir.ui.menu,name:base.menu_ir_property
 msgid "Parameters"
 msgstr "參數"
-
-#. module: base
-#: view:res.partner:0
-msgid "e.g. Sales Director"
-msgstr ""
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -15029,11 +14814,6 @@ msgid "Automatic Installation"
 msgstr "自動化安裝"
 
 #. module: base
-#: view:base.language.import:0
-msgid "e.g. en_US"
-msgstr ""
-
-#. module: base
 #: model:ir.module.module,description:base.module_l10n_hn
 msgid ""
 "\n"
@@ -15209,10 +14989,10 @@ msgid "Condition"
 msgstr "條件"
 
 #. module: base
-#: code:addons/base/module/module.py:669
-#, python-format
-msgid "Module not found"
-msgstr ""
+#: model:ir.actions.client,name:base.modules_updates_act_cl
+#: model:ir.ui.menu,name:base.menu_module_updates
+msgid "Updates"
+msgstr "更新檔"
 
 #. module: base
 #: help:res.currency,rate:0
@@ -15328,12 +15108,6 @@ msgstr "金色"
 #, python-format
 msgid "Bank Accounts"
 msgstr "銀行帳號"
-
-#. module: base
-#: code:addons/base/res/res_lang.py:185
-#, python-format
-msgid "Base Language 'en_US' can not be deleted!"
-msgstr ""
 
 #. module: base
 #: model:res.country,name:base.sl
@@ -15597,12 +15371,6 @@ msgid "Export Name"
 msgstr "匯出名稱"
 
 #. module: base
-#: code:addons/base/ir/ir_sequence.py:259
-#, python-format
-msgid "Invalid prefix or suffix for sequence '%s'"
-msgstr ""
-
-#. module: base
 #: help:res.partner,type:0
 msgid ""
 "Used to select automatically the right address according to the context in "
@@ -15642,60 +15410,972 @@ msgstr "俄文 / русский язык"
 msgid "Signup"
 msgstr ""
 
-#, python-format
-#~ msgid "Can not create the module file: %s !"
-#~ msgstr "無法建立模組檔案：%s！"
+#~ msgid "Is Object"
+#~ msgstr "Is Object"
 
-#, python-format
-#~ msgid "Error !"
-#~ msgstr "錯誤！"
+#~ msgid "Workflow On"
+#~ msgstr "工作流程作用於"
+
+#~ msgid "E-Mail"
+#~ msgstr "電子郵件"
+
+#~ msgid "Export done"
+#~ msgstr "匯出完成"
+
+#~ msgid "Payment term"
+#~ msgstr "付款條件"
+
+#~ msgid "Payment Term (short name)"
+#~ msgstr "付款條件（縮寫）"
+
+#~ msgid ""
+#~ "Provides the fields that will be used to fetch the email address, e.g. when "
+#~ "you select the invoice, then `object.invoice_address_id.email` is the field "
+#~ "which gives the correct address"
+#~ msgstr ""
+#~ "指定用於獲取電子郵件的欄位，比如您選擇了發票，那麼「object.invoice_address_id.email」就是提供電子郵件的欄位。"
+
+#~ msgid "Trigger Name"
+#~ msgstr "觸發器名稱"
+
+#~ msgid "References"
+#~ msgstr "參考"
+
+#~ msgid ""
+#~ "Keep empty if you don't want the user to be able to connect on the system."
+#~ msgstr "如果您不想讓該用戶連接到本系統的話請保持為空。"
+
+#~ msgid "Ending Date"
+#~ msgstr "結束日期"
+
+#~ msgid "Valid"
+#~ msgstr "有效"
+
+#~ msgid "Property"
+#~ msgstr "屬性"
+
+#~ msgid "Report Footer 1"
+#~ msgstr "報表頁尾1"
+
+#~ msgid "Report Footer 2"
+#~ msgstr "報表頁尾2"
+
+#~ msgid "Unvalidated"
+#~ msgstr "未驗證"
+
+#~ msgid "Payment Term"
+#~ msgstr "付款條件"
+
+#~ msgid "SXW content"
+#~ msgstr "SXW 內容"
+
+#~ msgid ""
+#~ "Condition that is to be tested before action is executed, e.g. "
+#~ "object.list_price > object.cost_price"
+#~ msgstr "動作執行前所做的條件判斷，如：object.list_price > object.cost_price"
+
+#~ msgid "Event Type"
+#~ msgstr "活動類型"
+
+#~ msgid "SXW path"
+#~ msgstr "SXW 路徑"
+
+#~ msgid "Creator"
+#~ msgstr "建立者"
+
+#~ msgid "Code (eg:en__US)"
+#~ msgstr "語言代碼（如：en__US）"
+
+#~ msgid "SMS - Gateway: clickatell"
+#~ msgstr "短訊閘道：clickatell"
 
 #, python-format
 #~ msgid ""
-#~ "You cannot delete the language which is Active !\n"
-#~ "Please de-activate the language first."
+#~ "Some installed modules depend on the module you plan to Uninstall :\n"
+#~ " %s"
 #~ msgstr ""
-#~ "無法刪除使用中之語言！\n"
-#~ "請先停用該語言。"
+#~ "某些已安裝模組依賴您計劃要移除之模組：\n"
+#~ " %s"
 
 #, python-format
-#~ msgid "Base Language 'en_US' can not be deleted !"
-#~ msgstr "不能刪除基礎語言「en_US」！"
+#~ msgid "new"
+#~ msgstr "新"
 
 #, python-format
-#~ msgid "Unmet dependency !"
-#~ msgstr "相依性未符合！"
+#~ msgid "\"smtp_server\" needs to be set to send mails to users"
+#~ msgstr "要先設定「smtp_server」以傳送郵件予用戶"
+
+#~ msgid "Miscellaneous Suppliers"
+#~ msgstr "雜項供應商"
+
+#~ msgid "description"
+#~ msgstr "說明"
+
+#~ msgid "New User"
+#~ msgstr "新使用者"
+
+#~ msgid "Contracts"
+#~ msgstr "合約"
+
+#~ msgid "S. Georgia & S. Sandwich Isls."
+#~ msgstr "南喬治亞與南三明治群島"
+
+#~ msgid "Dashboard"
+#~ msgstr "儀錶板"
+
+#~ msgid "Main report file path"
+#~ msgstr "主報表檔案路徑"
+
+#~ msgid ""
+#~ "Specify the message. You can use the fields from the object. e.g. `Dear [[ "
+#~ "object.partner_id.name ]]`"
+#~ msgstr "請指定該訊息。您可以使用物件的欄位，如：「親愛的 [[ object.partner_id.name ]]」"
+
+#~ msgid "Domain Setup"
+#~ msgstr "領域設置"
+
+#~ msgid "Basic Partner"
+#~ msgstr "基本伙伴"
+
+#~ msgid "Partner Form"
+#~ msgstr "伙伴表單"
+
+#~ msgid "Partner Name"
+#~ msgstr "伙伴名稱"
+
+#~ msgid "Parent Partner"
+#~ msgstr "上級伙伴"
+
+#~ msgid "Website of Partner"
+#~ msgstr "伙伴網站"
+
+#~ msgid "Partner Contacts"
+#~ msgstr "伙伴聯絡人"
+
+#~ msgid "Partner Addresses"
+#~ msgstr "伙伴地址"
+
+#~ msgid "Starter Partner"
+#~ msgstr "啟始伙伴"
+
+#~ msgid "OpenERP Partners"
+#~ msgstr "OpenERP 伙伴"
+
+#~ msgid "Keep empty for a private address, not related to partner."
+#~ msgstr "留空時為私人地址，不關聯到伙伴。"
+
+#~ msgid "Contact Name"
+#~ msgstr "聯絡人名稱"
+
+#~ msgid "Search Contact"
+#~ msgstr "搜尋聯絡人"
+
+#~ msgid "Uncheck the active field to hide the contact."
+#~ msgstr "要隱藏該聯絡人的話取消選取「啟動」欄位。"
+
+#~ msgid "Advanced"
+#~ msgstr "進階"
+
+#~ msgid "Uninstall (beta)"
+#~ msgstr "卸載（測試版）"
+
+#~ msgid "Simplified"
+#~ msgstr "簡化"
+
+#~ msgid "Values"
+#~ msgstr "值"
+
+#~ msgid "Messages"
+#~ msgstr "訊息"
+
+#~ msgid "Iteration Action Configuration"
+#~ msgstr "遍歷動作配置"
+
+#~ msgid "Canceled"
+#~ msgstr "取消"
+
+#~ msgid "Extended"
+#~ msgstr "延伸"
+
+#~ msgid "Start Configuration"
+#~ msgstr "開始配置"
+
+#~ msgid "Custom python parser"
+#~ msgstr "自訂 python 解析器"
+
+#~ msgid "Channel"
+#~ msgstr "通路"
+
+#~ msgid "VAT"
+#~ msgstr "增值稅"
+
+#~ msgid "Field Information"
+#~ msgstr "欄位資訊"
+
+#~ msgid "Categories"
+#~ msgstr "分類"
+
+#~ msgid "Send SMS"
+#~ msgstr "發送短訊"
+
+#~ msgid "Last Connection"
+#~ msgstr "最後連線"
+
+#~ msgid "Quality Certificate"
+#~ msgstr "品質證書"
+
+#~ msgid "Restart"
+#~ msgstr "重新開始"
+
+#~ msgid "Default Filters"
+#~ msgstr "預設過濾器"
+
+#~ msgid "HR sector"
+#~ msgstr "人力資源範疇"
+
+#~ msgid "IT sector"
+#~ msgstr "資訊科技範疇"
+
+#~ msgid "Always"
+#~ msgstr "必定"
+
+#~ msgid "Human Resources Dashboard"
+#~ msgstr "人力資源儀錶板"
+
+#~ msgid "To export a new language, do not select a language."
+#~ msgstr "如要匯出新語言，請勿選擇語言。"
+
+#~ msgid "Portugese (BR) / Português (BR)"
+#~ msgstr "葡萄牙文 (BR) / Português (BR)"
+
+#~ msgid "Customization"
+#~ msgstr "自訂義"
+
+#~ msgid "Draft"
+#~ msgstr "草案"
+
+#~ msgid "Portugese / Português"
+#~ msgstr "葡萄牙文 / Português"
 
 #, python-format
-#~ msgid "Invalid search criterions"
-#~ msgstr "搜尋準則無效"
+#~ msgid "Please check that all your lines have %d columns."
+#~ msgstr "請檢查所有行數皆有%d個欄位。"
 
 #, python-format
-#~ msgid "Please specify an action to launch !"
-#~ msgstr "請指定要執行之動作！"
+#~ msgid ""
+#~ "Save this document to a .CSV file and open it with your favourite "
+#~ "spreadsheet software. The file encoding is UTF-8. You have to translate the "
+#~ "latest column before reimporting it."
+#~ msgstr "將此文件儲存為副檔名為 .CSV 之檔案；稍後您可以最愛的試算表軟體開啟。檔案編碼為 UTF-8。重新匯入前請先行轉換最後欄位。"
+
+#~ msgid ""
+#~ "If the selected language is loaded in the system, all documents related to "
+#~ "this partner will be printed in this language. If not, it will be english."
+#~ msgstr "如果將選取之語言載入系統，那麼所有與此伙伴相關的文件將使用該語言列印。留空則使用英文。"
 
 #, python-format
-#~ msgid "Connection test failed!"
-#~ msgstr "連接測試失敗！"
+#~ msgid "\"email_from\" needs to be set to send welcome mails to users"
+#~ msgstr "須先設定「email_from」欄位以傳送歡迎郵件予用戶"
 
-#~ msgid "My Filters"
-#~ msgstr "我的篩選器"
+#~ msgid ""
+#~ "Specify the subject. You can use fields from the object, e.g. `Hello [[ "
+#~ "object.partner_id.name ]]`"
+#~ msgstr "請指定主題。您可使用物件欄位，如：「[[ object.partner_id.name ]] 您好」"
 
-#~ msgid "Personal"
-#~ msgstr "個人"
-
-#, python-format
-#~ msgid "Operation forbidden"
-#~ msgstr "禁止此項操作"
+#~ msgid "Create Users"
+#~ msgstr "建立用戶"
 
 #, python-format
-#~ msgid "Size of the field can never be less than 1 !"
-#~ msgstr "欄位不得小於1!"
+#~ msgid "You can not remove the model '%s' !"
+#~ msgstr "您無法移除「%s」模型"
+
+#~ msgid ""
+#~ "0=Very Urgent\n"
+#~ "10=Not urgent"
+#~ msgstr ""
+#~ "0=非常緊急\n"
+#~ "10=不緊急"
+
+#~ msgid "Retailers"
+#~ msgstr "零售商"
+
+#~ msgid "Custom Reports"
+#~ msgstr "自訂報表"
 
 #, python-format
-#~ msgid "Couldn't create contact without email address !"
-#~ msgstr "若無電子郵件地址，則無法建立聯絡人！"
+#~ msgid ""
+#~ "You can not create this document (%s) ! Be sure your user belongs to one of "
+#~ "these groups: %s."
+#~ msgstr "您無法建立此文件（%s）！請確定您的用戶屬於此等群組其中之一：%s."
+
+#~ msgid "System update completed"
+#~ msgstr "系統更新完成"
+
+#~ msgid "General Description"
+#~ msgstr "一般說明"
+
+#~ msgid "Configure Your Interface"
+#~ msgstr "配置介面"
+
+#~ msgid ""
+#~ "The internal user that is in charge of communicating with this partner if "
+#~ "any."
+#~ msgstr "負責與該伙伴聯絡之內部用戶。"
+
+#~ msgid "Demo data"
+#~ msgstr "演示資料"
+
+#~ msgid "The state code in three chars.\n"
+#~ msgstr "三個字元之省或州代碼\n"
+
+#~ msgid "Author Website"
+#~ msgstr "作者網站"
+
+#~ msgid "Load Official Translation"
+#~ msgstr "載入官方翻譯"
+
+#~ msgid "Currency Converter"
+#~ msgstr "貨幣轉換"
+
+#~ msgid "Trigger On"
+#~ msgstr "觸發於"
+
+#~ msgid "Request History"
+#~ msgstr "請求紀錄"
+
+#~ msgid "Request Date"
+#~ msgstr "請求日期"
+
+#~ msgid "Requests"
+#~ msgstr "請求"
+
+#~ msgid "Objects"
+#~ msgstr "物件"
+
+#~ msgid "Create Action"
+#~ msgstr "建立動作"
+
+#~ msgid "Signal (button Name)"
+#~ msgstr "信號（按鈕名稱）"
+
+#~ msgid "Unread"
+#~ msgstr "未讀"
+
+#~ msgid "Advice"
+#~ msgstr "忠告"
+
+#~ msgid "RML content"
+#~ msgstr "RML 內容"
+
+#~ msgid "Check this box if the partner is an Employee."
+#~ msgstr "如該伙伴為僱員，於此項打勾。"
+
+#~ msgid "Serial Key"
+#~ msgstr "序號鍵位"
+
+#~ msgid "Create User"
+#~ msgstr "建立用戶"
+
+#~ msgid "Audit"
+#~ msgstr "審計"
+
+#~ msgid "Cancelled"
+#~ msgstr "取消"
+
+#~ msgid "Interface"
+#~ msgstr "介面"
+
+#~ msgid "On delete"
+#~ msgstr "當刪除時"
 
 #, python-format
-#~ msgid "Connection test succeeded!"
-#~ msgstr "連線測試成功！"
+#~ msgid "Not Implemented"
+#~ msgstr "尚未完成"
+
+#~ msgid "Salesman"
+#~ msgstr "業務員"
+
+#~ msgid "Add"
+#~ msgstr "添加"
+
+#~ msgid "Textile Suppliers"
+#~ msgstr "紡織品供應商"
+
+#~ msgid "My Logs"
+#~ msgstr "我的日誌"
+
+#~ msgid "The logging message."
+#~ msgstr "日誌訊息"
+
+#~ msgid "Logs"
+#~ msgstr "日誌"
+
+#~ msgid "Read"
+#~ msgstr "已讀"
+
+#~ msgid "Latest version"
+#~ msgstr "最新版本"
+
+#~ msgid "Addresses"
+#~ msgstr "地址"
+
+#~ msgid "XML Identifier"
+#~ msgstr "XML 識別碼"
+
+#~ msgid "Skipped"
+#~ msgstr "略過"
+
+#~ msgid "SMS Message"
+#~ msgstr "短訊"
+
+#~ msgid "Select Report"
+#~ msgstr "選取報表"
+
+#~ msgid "Sender's email"
+#~ msgstr "發送者電郵"
+
+#, python-format
+#~ msgid "Module %s: Invalid Quality Certificate"
+#~ msgstr "%s 模組：品質證書無效"
+
+#~ msgid "SMS Send"
+#~ msgstr "發送短訊"
+
+#~ msgid "Easy to Refer action by name e.g. One Sales Order -> Many Invoices"
+#~ msgstr "簡化依名字的查詢操作，例如一張銷售訂單對應多張銷售發票"
+
+#~ msgid "Content"
+#~ msgstr "內容"
+
+#~ msgid "Seconde: %(sec)s"
+#~ msgstr "秒：%(sec)s"
+
+#~ msgid "Bulk SMS send"
+#~ msgstr "大量發送短訊"
+
+#, python-format
+#~ msgid "Object %s does not exists"
+#~ msgstr "無 %s 物件"
+
+#~ msgid "Add User"
+#~ msgstr "添加用戶"
+
+#~ msgid "_Close"
+#~ msgstr "關閉(_C)"
+
+#~ msgid "Waiting"
+#~ msgstr "正等候"
+
+#, python-format
+#~ msgid "Could not load base module"
+#~ msgstr "無法載入基礎模組"
+
+#~ msgid "Creation Date"
+#~ msgstr "建立日期"
+
+#~ msgid "Ignore"
+#~ msgstr "忽略"
+
+#~ msgid "XSL path"
+#~ msgstr "XSL 路徑"
+
+#~ msgid "The kernel of OpenERP, needed for all installation."
+#~ msgstr "OpenERP 系統核心，所有模組都需要。"
+
+#~ msgid "Components Supplier"
+#~ msgstr "零件供應商"
+
+#~ msgid "Current"
+#~ msgstr "目前"
+
+#~ msgid "Week of the year: %(woy)s"
+#~ msgstr "一年中的星期：%(woy)s"
+
+#~ msgid "Finished"
+#~ msgstr "完成"
+
+#, python-format
+#~ msgid "Please specify server option --email-from !"
+#~ msgstr "請指定伺服器選項 --email-from！"
+
+#~ msgid "Fund Raising"
+#~ msgstr "籌款"
+
+#~ msgid "Create"
+#~ msgstr "建立"
+
+#~ msgid "User Name"
+#~ msgstr "用戶名"
+
+#~ msgid "Day of the year: %(doy)s"
+#~ msgstr "一年中的天數：%(doy)s"
+
+#~ msgid "Object Identifiers"
+#~ msgstr "物件識別碼"
+
+#~ msgid "E-mail"
+#~ msgstr "電郵"
+
+#~ msgid "Installed version"
+#~ msgstr "已安裝版本"
+
+#~ msgid "Module update result"
+#~ msgstr "模組更新結果"
+
+#~ msgid "Postal Address"
+#~ msgstr "郵遞地址"
+
+#~ msgid "Start update"
+#~ msgstr "開始更新"
+
+#, python-format
+#~ msgid "Contract validation error"
+#~ msgstr "合約檢驗錯誤"
+
+#~ msgid "Ms."
+#~ msgstr "女士"
+
+#~ msgid "Rounding factor"
+#~ msgstr "捨入系數"
+
+#~ msgid "Open Report"
+#~ msgstr "開啟報表"
+
+#~ msgid "Important customers"
+#~ msgstr "重要客戶"
+
+#~ msgid "Correct EAN13"
+#~ msgstr "正確 EAN13"
+
+#~ msgid "Terminated"
+#~ msgstr "終止"
+
+#~ msgid "Short Description"
+#~ msgstr "簡短說明"
+
+#~ msgid "Synchronize Translations"
+#~ msgstr "翻譯同步"
+
+#~ msgid "Starting Date"
+#~ msgstr "開始日期"
+
+#, python-format
+#~ msgid "Warning !"
+#~ msgstr "警告！"
+
+#~ msgid "Gold Partner"
+#~ msgstr "金伙伴"
+
+#~ msgid "Load an Official Translation"
+#~ msgstr "載入官方翻譯"
+
+#~ msgid "Open Source Service Company"
+#~ msgstr "開源服務公司"
+
+#~ msgid "Miscelleanous"
+#~ msgstr "雜項"
+
+#~ msgid "Report file"
+#~ msgstr "報表檔"
+
+#~ msgid "Created"
+#~ msgstr "已建立"
+
+#~ msgid "Report Header"
+#~ msgstr "報表頁首"
+
+#~ msgid "Type fields"
+#~ msgstr "類型欄位"
+
+#~ msgid "Emails"
+#~ msgstr "電郵"
+
+#~ msgid "Binary File or external URL"
+#~ msgstr "二進位檔或外部網址"
+
+#~ msgid "Add RML header"
+#~ msgstr "添加 RML 頁首"
+
+#~ msgid "Modules to update"
+#~ msgstr "要更新模組"
+
+#~ msgid "Congo, The Democratic Republic of the"
+#~ msgstr "剛果民主共和國"
+
+#~ msgid "Python code to be executed"
+#~ msgstr "要執行之 Python 代碼"
+
+#~ msgid "Send Email"
+#~ msgstr "發送電郵"
+
+#~ msgid "Consumers"
+#~ msgstr "消費者"
+
+#~ msgid "Next"
+#~ msgstr "下一個"
+
+#~ msgid "Channel Name"
+#~ msgstr "通路名稱"
+
+#~ msgid "Landscape"
+#~ msgstr "橫向"
+
+#~ msgid "Object ID"
+#~ msgstr "物件 ID"
+
+#, python-format
+#~ msgid "module base cannot be loaded! (hint: verify addons-path)"
+#~ msgstr "無法載入模組基礎！（提示：檢查附加元件路徑）"
+
+#, python-format
+#~ msgid "Database ID doesn't exist: %s : %s"
+#~ msgstr "無此資料庫 ID：%s : %s"
+
+#~ msgid "Reply"
+#~ msgstr "回覆"
+
+#, python-format
+#~ msgid ""
+#~ "Operation prohibited by access rules, or performed on an already deleted "
+#~ "document (Operation: %s, Document type: %s)."
+#~ msgstr "存取規則禁止此操作，或該操作作用於已刪除文件（操作：%s，文件類型：%s）。"
+
+#~ msgid "Refresh Validation Dates"
+#~ msgstr "重新整理檢驗日期"
+
+#~ msgid "Add or not the coporate RML header"
+#~ msgstr "添加公司 RML 頁首與否"
+
+#~ msgid "Schedule for Installation"
+#~ msgstr "排定安裝"
+
+#~ msgid "Channels"
+#~ msgstr "通路"
+
+#~ msgid "Extra Info"
+#~ msgstr "額外資訊"
+
+#~ msgid "Ean Check"
+#~ msgstr "Ean 檢查"
+
+#~ msgid "Want to check Ean ? "
+#~ msgstr "是否檢查 Ean？ "
+
+#~ msgid "Ean check"
+#~ msgstr "Ean 檢查"
+
+#~ msgid "Send"
+#~ msgstr "發送"
+
+#~ msgid "Menu Tips"
+#~ msgstr "選單提示"
+
+#~ msgid "Internal Header/Footer"
+#~ msgstr "內部頁首／頁腳"
+
+#, python-format
+#~ msgid ""
+#~ "Save this document to a .tgz file. This archive containt UTF-8 %s files and "
+#~ "may be uploaded to launchpad."
+#~ msgstr "儲存此文件為 .tgz 檔，檔案內容為 UTF-8 %s 格式檔案，然後上傳至 launchpad"
+
+#~ msgid ""
+#~ "Check this box if the partner is a supplier. If it's not checked, purchase "
+#~ "people will not see it when encoding a purchase order."
+#~ msgstr "勾選此項表示該伙伴是供應商。如沒選則在採購訂單無法看到。"
+
+#~ msgid "_Export"
+#~ msgstr "匯出(_E)"
+
+#~ msgid "XML path"
+#~ msgstr "XML 路徑"
+
+#~ msgid "Register a Contract"
+#~ msgstr "登記合約"
+
+#~ msgid "System Logs"
+#~ msgstr "系統日誌"
+
+#, python-format
+#~ msgid "That contract is already registered in the system."
+#~ msgstr "該合約已於系統登記。"
+
+#~ msgid "Register"
+#~ msgstr "登記"
+
+#~ msgid "Please enter the serial key provided in your contract document:"
+#~ msgstr "請輸入合約文件序號："
+
+#~ msgid "publisher_warranty.contract"
+#~ msgstr "發佈者_保用.合約"
+
+#~ msgid ""
+#~ "This wizard helps you register a publisher warranty contract in your OpenERP "
+#~ "system. After the contract has been registered, you will be able to send "
+#~ "issues directly to OpenERP."
+#~ msgstr "本精靈助您為 OpenERP 系統登記發佈者保用合約。完成登記即可直接回報問題至 OpenERP。"
+
+#, python-format
+#~ msgid "Error during communication with the publisher warranty server."
+#~ msgstr "與發佈者保用伺服器聯絡時發生錯誤。"
+
+#~ msgid ""
+#~ "Your publisher warranty contract is already subscribed in the system !"
+#~ msgstr "閣下之發佈者保用合約已於系統註冊！"
+
+#~ msgid "Publisher Warranty Contracts"
+#~ msgstr "發佈者保用合約"
+
+#~ msgid "Publisher Warranty"
+#~ msgstr "發佈者保用"
+
+#~ msgid "publisher_warranty.contract.wizard"
+#~ msgstr "發佈者_保用.合約.精靈"
+
+#~ msgid "Publisher warranty contract successfully registered!"
+#~ msgstr "已成功登記發佈者保用合約！"
+
+#, python-format
+#~ msgid "Please check your publisher warranty contract name and validity."
+#~ msgstr "請檢查發佈者保用合約名稱及有效期。"
+
+#~ msgid "Publisher Warranty Contract"
+#~ msgstr "發佈者保用合約"
+
+#~ msgid "maintenance.contract"
+#~ msgstr "維修.合約"
+
+#~ msgid "Maintenance Contract"
+#~ msgstr "維修合約"
+
+#, python-format
+#~ msgid "You cannot remove the field '%s' !"
+#~ msgstr "無法移除「%s」欄位！"
+
+#~ msgid "Select the object from the model on which the workflow will executed."
+#~ msgstr "於模型選取工作流程要作用於之物件。"
+
+#~ msgid "Select the Signal name that is to be used as the trigger."
+#~ msgstr "選取要用作觸發之信號名稱。"
+
+#, python-format
+#~ msgid ""
+#~ "You can not delete this document (%s) ! Be sure your user belongs to one of "
+#~ "these groups: %s."
+#~ msgstr "無法刪除此文件 (%s)！確定用戶屬於以下群組之一：%s."
+
+#~ msgid ""
+#~ "Supported file formats: *.csv (Comma-separated values) or *.po (GetText "
+#~ "Portable Objects)"
+#~ msgstr "支援檔案格式：*.csv (逗號分隔值) 或 *.po (GetText Portable Objects)"
+
+#~ msgid "View Ordering"
+#~ msgstr "檢視排序"
+
+#~ msgid "Slovak Republic"
+#~ msgstr "斯洛伐克"
+
+#~ msgid "Filename"
+#~ msgstr "檔案名"
+
+#~ msgid "Email & Signature"
+#~ msgstr "電郵及簽名"
+
+#~ msgid "Workflow to be executed on this model."
+#~ msgstr "要作用於此模型之工作流程。"
+
+#~ msgid "Day of the week (0:Monday): %(weekday)s"
+#~ msgstr "週日 (0:週一)：%(weekday)s"
+
+#~ msgid "Select Groups"
+#~ msgstr "選取群組"
+
+#~ msgid "Configuration Progress"
+#~ msgstr "設置進度"
+
+#~ msgid "Portrait"
+#~ msgstr "直向"
+
+#~ msgid "Localisation"
+#~ msgstr "本地化"
+
+#~ msgid "Save As Attachment Prefix"
+#~ msgstr "另存為附件前綴"
+
+#~ msgid "This field is not used, it only helps you to select a good model."
+#~ msgstr "此欄位不用，其目的只為幫您選取好的模型。"
+
+#~ msgid "Never"
+#~ msgstr "絕不"
+
+#~ msgid "Delivery"
+#~ msgstr "運送"
+
+#~ msgid "BIC/Swift code"
+#~ msgstr "銀行代碼（BIC/Swift）"
+
+#~ msgid "Meta Datas"
+#~ msgstr "元數據"
+
+#~ msgid "Metadata"
+#~ msgstr "元數據"
+
+#~ msgid "On Skip"
+#~ msgstr "略過時"
+
+#~ msgid ""
+#~ "Only specify a value if you want to change the user password. This user will "
+#~ "have to logout and login again!"
+#~ msgstr "只在要變更用戶密碼時指定。該用戶要登出並再登入！"
+
+#~ msgid "Your Logo - Use a size of about 450x150 pixels."
+#~ msgstr "公司標誌 - 請用大小約為450×150像素圖片"
+
+#~ msgid ""
+#~ "Please be patient, this operation may take a few minutes (depending on the "
+#~ "number of modules currently installed)..."
+#~ msgstr "請耐心等候，本操作可能要花數分鐘（視安裝模組數目而定）..."
+
+#, python-format
+#~ msgid ""
+#~ "Couldn't generate the next id because some partners have an alphabetic id !"
+#~ msgstr "無法產生下個 ID，因為某些伙伴已有英文字母 ID！"
+
+#~ msgid "Check this box if the partner is a customer."
+#~ msgstr "如該伙伴是客戶請打勾。"
+
+#~ msgid "Segmentation"
+#~ msgstr "區間"
+
+#~ msgid "HR Manager Dashboard"
+#~ msgstr "人力資源經理儀錶板"
+
+#~ msgid "Current Activity"
+#~ msgstr "當前動態"
+
+#~ msgid "Events"
+#~ msgstr "活動"
+
+#~ msgid "Event Logs"
+#~ msgstr "活動日誌"
+
+#~ msgid "Values for Event Type"
+#~ msgstr "活動類型值"
+
+#~ msgid "Event"
+#~ msgstr "活動"
+
+#~ msgid "Connect Events to Actions"
+#~ msgstr "把活動關聯到動作"
+
+#~ msgid ""
+#~ "Check out this box if you want to always display tips on each menu action"
+#~ msgstr "如想於每個選單動作顯示提示，勾選此框"
+
+#, python-format
+#~ msgid "Couldn't find previous ir.actions.todo"
+#~ msgstr "找不到之前的 ir.actions.todo"
+
+#~ msgid "Other Actions Configuration"
+#~ msgstr "其他動作配置"
+
+#~ msgid "Action Source"
+#~ msgstr "動作來源地"
+
+#~ msgid "ir.actions.url"
+#~ msgstr "ir.actions.url"
+
+#~ msgid ""
+#~ "Track from where is coming your leads and opportunities by creating specific "
+#~ "channels that will be maintained at the creation of a document in the "
+#~ "system. Some examples of channels can be: Website, Phone Call, Reseller, etc."
+#~ msgstr "於系統建立文件，以保持特定渠道追蹤潛在客戶及商機之來源。渠道例子有網站、電話查詢、零售商等等。"
+
+#~ msgid ""
+#~ "A customer is an entity you do business with, like a company or an "
+#~ "organization. A customer can have several contacts or addresses which are "
+#~ "the people working for this company. You can use the history tab, to follow "
+#~ "all transactions related to a customer: sales order, emails, opportunities, "
+#~ "claims, etc. If you use the email gateway, the Outlook or the Thunderbird "
+#~ "plugin, don't forget to register emails to each contact so that the gateway "
+#~ "will automatically attach incoming emails to the right partner."
+#~ msgstr ""
+#~ "客戶是指您與其做生意者，例如公司或機構。客戶可有多個聯絡人或地址，均屬於其員工。您可用「歷史」分頁追蹤所有有關交易：訂單、電郵、商機、退款要求等等。如您用"
+#~ "電郵閘道、Outlook 或 Thunderbird 外掛程式，別忘了為聯絡人登記電郵，好讓閘道自動為合適伙伴寄送收到之電郵。"
+
+#~ msgid ""
+#~ "Customers (also called Partners in other areas of the system) helps you "
+#~ "manage your address book of companies whether they are prospects, customers "
+#~ "and/or suppliers. The partner form allows you to track and record all the "
+#~ "necessary information to interact with your partners from the company "
+#~ "address to their contacts as well as pricelists, and much more. If you "
+#~ "installed the CRM, with the history tab, you can track all the interactions "
+#~ "with a partner such as opportunities, emails, or sales orders issued."
+#~ msgstr ""
+#~ "客戶（於系統其他地方又稱「伙伴」）助您管理其他公司，包括潛在客戶、客戶及/或供應商，之通訊錄。「伙伴表單」讓您追蹤及紀錄所有所需資訊，以讓您處理公司地址、"
+#~ "聯絡人、報價單等等。如您安裝了客戶關係管理(CRM)模組，以歷史分頁您可追蹤與伙伴有關之所有來往，如商機、電郵或銷售訂單等。"
+
+#~ msgid "Client Actions Connections"
+#~ msgstr "用戶端動作連線"
+
+#~ msgid ""
+#~ "The user's timezone, used to perform timezone conversions between the server "
+#~ "and the client."
+#~ msgstr "用戶之時區，用以為伺服器及用戶端進行時區轉換。"
+
+#~ msgid ""
+#~ "The kind of action or button in the client side that will trigger the action."
+#~ msgstr "用戶端的該類動作或按鈕會觸發此動作。"
+
+#~ msgid "Client Logs"
+#~ msgstr "用戶端日誌"
+
+#~ msgid "Client Events"
+#~ msgstr "用戶端活動"
+
+#~ msgid "Validate"
+#~ msgstr "驗證"
+
+#~ msgid "Keep 0 if the action must appear on all resources."
+#~ msgstr "如該動作要顯示於所有資源的話請保持為「0」。"
+
+#~ msgid "Select Action Type"
+#~ msgstr "選取動作類型"
+
+#~ msgid "This field is not used, it only helps you to select the right action."
+#~ msgstr "此欄位並未使用，只是為了幫您選擇正確動作。"
+
+#~ msgid "Action To Launch"
+#~ msgstr "要執行之動作"
+
+#~ msgid "Client Action Configuration"
+#~ msgstr "用戶端動作設定"
+
+#~ msgid "On multiple doc."
+#~ msgstr "作用於多重文件。"
+
+#, python-format
+#~ msgid ""
+#~ "Save this document to a %s file and edit it with a specific software or a "
+#~ "text editor. The file encoding is UTF-8."
+#~ msgstr "將此檔案存為 %s 檔案，並以特定軟體或文字編輯程式修改。檔案編碼為 UTF-8。"
+
+#~ msgid "Schedule Upgrade"
+#~ msgstr "安排升級"
+
+#~ msgid "Display Menu Tips"
+#~ msgstr "顯示選單提示"
+
+#~ msgid "Wood Suppliers"
+#~ msgstr "木材供應商"
+
+#~ msgid ""
+#~ "Value Added Tax number. Check the box if the partner is subjected to the "
+#~ "VAT. Used by the VAT legal statement."
+#~ msgstr "增值稅編號。如該伙伴需要繳交增值稅，請選擇。用於申報增值稅。"
+
+#~ msgid "Customized Architecture"
+#~ msgstr "自訂化架構"
+
+#~ msgid "Bad customers"
+#~ msgstr "壞客戶"

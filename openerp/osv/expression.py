@@ -140,8 +140,6 @@ from openerp.osv import fields
 from openerp.osv.orm import MAGIC_COLUMNS
 import openerp.tools as tools
 
-#.apidoc title: Domain Expressions
-
 # Domain operators.
 NOT_OPERATOR = '!'
 OR_OPERATOR = '|'
@@ -430,10 +428,6 @@ def select_distinct_from_where_not_null(cr, select_field, from_table):
     cr.execute('SELECT distinct("%s") FROM "%s" where "%s" is not null' % (select_field, from_table, select_field))
     return [r[0] for r in cr.fetchall()]
 
-def get_unaccent_wrapper(cr):
-    if openerp.modules.registry.RegistryManager.get(cr.dbname).has_unaccent:
-        return lambda x: "unaccent(%s)" % (x,)
-    return lambda x: x
 
 # --------------------------------------------------
 # ExtendedLeaf class for managing leafs and contexts
@@ -635,7 +629,7 @@ class expression(object):
             :attr list expression: the domain expression, that will be normalized
                 and prepared
         """
-        self._unaccent = get_unaccent_wrapper(cr)
+        self.has_unaccent = openerp.modules.registry.RegistryManager.get(cr.dbname).has_unaccent
         self.joins = []
         self.root_model = table
 
@@ -763,7 +757,7 @@ class expression(object):
             field_path = left.split('.', 1)
             field = working_model._columns.get(field_path[0])
             if field and field._obj:
-                relational_model = working_model.pool.get(field._obj)
+                relational_model = working_model.pool[field._obj]
             else:
                 relational_model = None
 
@@ -792,7 +786,7 @@ class expression(object):
                 # comments about inherits'd fields
                 #  { 'field_name': ('parent_model', 'm2o_field_to_reach_parent',
                 #                    field_column_obj, origina_parent_model), ... }
-                next_model = working_model.pool.get(working_model._inherit_fields[field_path[0]][0])
+                next_model = working_model.pool[working_model._inherit_fields[field_path[0]][0]]
                 leaf.add_join_context(next_model, working_model._inherits[next_model._name], 'id', working_model._inherits[next_model._name])
                 push(leaf)
 
@@ -1017,7 +1011,7 @@ class expression(object):
 
             else:
                 if field._type == 'datetime' and right and len(right) == 10:
-                    if operator in ('>', '>='):
+                    if operator in ('>', '>=', '='):
                         right += ' 00:00:00'
                     elif operator in ('<', '<='):
                         right += ' 23:59:59'
@@ -1035,33 +1029,35 @@ class expression(object):
                         sql_operator = sql_operator[4:] if sql_operator[:3] == 'not' else '='
                         inselect_operator = 'not inselect'
 
-                    unaccent = self._unaccent if sql_operator.endswith('like') else lambda x: x
-
-                    instr = unaccent('%s')
-
+                    subselect = '( SELECT res_id'          \
+                             '    FROM ir_translation'  \
+                             '   WHERE name = %s'       \
+                             '     AND lang = %s'       \
+                             '     AND type = %s'
+                    instr = ' %s'
+                    #Covering in,not in operators with operands (%s,%s) ,etc.
                     if sql_operator == 'in':
-                        # params will be flatten by to_sql() => expand the placeholders
-                        instr = '(%s)' % ', '.join(['%s'] * len(right))
+                        instr = ','.join(['%s'] * len(right))
+                        subselect += '     AND value ' + sql_operator + ' ' + " (" + instr + ")"   \
+                             ') UNION ('                \
+                             '  SELECT id'              \
+                             '    FROM "' + working_model._table + '"'       \
+                             '   WHERE "' + left + '" ' + sql_operator + ' ' + " (" + instr + "))"
+                    else:
+                        subselect += '     AND value ' + sql_operator + instr +   \
+                             ') UNION ('                \
+                             '  SELECT id'              \
+                             '    FROM "' + working_model._table + '"'       \
+                             '   WHERE "' + left + '" ' + sql_operator + instr + ")"
 
-                    subselect = """WITH temp_irt_current (id, name) as (
-                            SELECT ct.id, coalesce(it.value,ct.{quote_left})
-                            FROM {current_table} ct 
-                            LEFT JOIN ir_translation it ON (it.name = %s and 
-                                        it.lang = %s and 
-                                        it.type = %s and 
-                                        it.res_id = ct.id and 
-                                        it.value != '')
-                            ) 
-                            SELECT id FROM temp_irt_current WHERE {name} {operator} {right} order by name
-                            """.format(current_table=working_model._table, quote_left=_quote(left), name=unaccent('name'), 
-                                       operator=sql_operator, right=instr)
-
-                    params = (
-                        working_model._name + ',' + left,
-                        context.get('lang') or 'en_US',
-                        'model',
-                        right,
-                    )
+                    params = [working_model._name + ',' + left,
+                              #funkring.net begin // or default language
+                              context.get('lang') or tools.config.defaultLang,
+                              #funkring.net end
+                              'model',
+                              right,
+                              right,
+                             ]
                     push(create_substitution_leaf(leaf, ('id', inselect_operator, (subselect, params)), working_model))
 
                 else:
@@ -1129,7 +1125,9 @@ class expression(object):
                     if left == 'id':
                         instr = ','.join(['%s'] * len(params))
                     else:
-                        instr = ','.join([model._columns[left]._symbol_set[0]] * len(params))
+                        ss = model._columns[left]._symbol_set
+                        instr = ','.join([ss[0]] * len(params))
+                        params = map(ss[1], params)
                     query = '(%s."%s" %s (%s))' % (table_alias, left, operator, instr)
                 else:
                     # The case for (left, 'in', []) or (left, 'not in', []).
@@ -1177,15 +1175,15 @@ class expression(object):
         else:
             need_wildcard = operator in ('like', 'ilike', 'not like', 'not ilike')
             sql_operator = {'=like': 'like', '=ilike': 'ilike'}.get(operator, operator)
-            cast = '::text' if  sql_operator.endswith('like') else ''
 
             if left in model._columns:
                 format = need_wildcard and '%s' or model._columns[left]._symbol_set[0]
-                unaccent = self._unaccent if sql_operator.endswith('like') else lambda x: x
-                column = '%s.%s' % (table_alias, _quote(left))
-                query = '(%s%s %s %s)' % (unaccent(column), cast, sql_operator, unaccent(format))
+                if self.has_unaccent and sql_operator in ('ilike', 'not ilike'):
+                    query = '(unaccent(%s."%s") %s unaccent(%s))' % (table_alias, left, sql_operator, format)
+                else:
+                    query = '(%s."%s" %s %s)' % (table_alias, left, sql_operator, format)
             elif left in MAGIC_COLUMNS:
-                    query = "(%s.\"%s\"%s %s %%s)" % (table_alias, left, cast, sql_operator)
+                    query = "(%s.\"%s\" %s %%s)" % (table_alias, left, sql_operator)
                     params = right
             else:  # Must not happen
                 raise ValueError("Invalid field %r in domain term %r" % (left, leaf))

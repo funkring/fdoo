@@ -1,21 +1,20 @@
-# Dutch translation for openobject-server
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
-# This file is distributed under the same license as the openobject-server package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* base
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openobject-server\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:35+0000\n"
-"PO-Revision-Date: 2014-03-13 08:48+0000\n"
+"Project-Id-Version: OpenERP Server 5.0.0\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-12-21 17:04+0000\n"
+"PO-Revision-Date: 2012-12-22 07:41+0000\n"
 "Last-Translator: Erwin van der Ploeg (BAS Solutions) <Unknown>\n"
-"Language-Team: Dutch <nl@li.org>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-04-30 06:47+0000\n"
-"X-Generator: Launchpad (build 16985)\n"
+"X-Launchpad-Export-Date: 2014-03-28 05:28+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_account_check_writing
@@ -29,11 +28,6 @@ msgstr ""
 "Module voor het maken en afdrukken van cheques. \n"
 "================================================\n"
 "    "
-
-#. module: base
-#: view:res.partner.bank:0
-msgid "e.g. GEBABEBB"
-msgstr "Bijv. GEBABEBB"
 
 #. module: base
 #: model:res.country,name:base.sh
@@ -299,43 +293,6 @@ msgid "Inuktitut / ᐃᓄᒃᑎᑐᑦ"
 msgstr "Inuktitut / ᐃᓄᒃᑎᑐᑦ"
 
 #. module: base
-#: model:ir.module.module,description:base.module_l10n_ch
-msgid ""
-"\n"
-" Swiss localization :\n"
-" ====================\n"
-" **Multilang swiss STERCHI account chart and taxes**\n"
-"  **Author:** Camptocamp SA\n"
-"\n"
-"  **Financial contributors:** Prisme Solutions Informatique SA, Quod SA\n"
-"\n"
-"  **Translation contributors:** brain-tec AG, Agile Business Group\n"
-"\n"
-" **This release will introduce major changes to l10n_ch.**\n"
-"\n"
-" Due to important refactoring needs and the Switzerland adoption of new "
-"international payment standard during 2013-2014. We have reorganised the "
-"swiss localization addons this way:\n"
-"\n"
-" - **l10n_ch**: Multilang swiss STERCHI account chart and taxes (official "
-"addon)\n"
-" - **l10n_ch_base_bank**: Technical module that introduces a new and "
-"simplified version of bank type management\n"
-" - **l10n_ch_bank**: List of swiss banks\n"
-" - **l10n_ch_zip**: List of swiss postal zip\n"
-" - **l10n_ch_dta**: Support of dta payment protocol (will be deprecated end "
-"2014)\n"
-" - **l10n_ch_payment_slip**: Support of ESR/BVR payment slip report and "
-"reconciliation. Report refactored with easy element positioning.\n"
-" - **l10n_ch_sepa**: Alpha implementation of PostFinance SEPA/PAIN support "
-"will be completed during 2013/2014\n"
-"\n"
-" The modules will be soon available on OpenERP swiss localization on "
-"launchpad:\n"
-" https://launchpad.net/openerp-swiss-localization\n"
-msgstr ""
-
-#. module: base
 #: model:res.groups,name:base.group_multi_currency
 msgid "Multi Currencies"
 msgstr "Meerdere valuta's"
@@ -483,11 +440,6 @@ msgstr "Child applicaties"
 #: field:res.partner,credit_limit:0
 msgid "Credit Limit"
 msgstr "Kredietlimiet"
-
-#. module: base
-#: model:ir.module.module,shortdesc:base.module_portal_project_long_term
-msgid "Portal Project Long Term"
-msgstr "Portaal langetermijnproject"
 
 #. module: base
 #: field:ir.model.constraint,date_update:0
@@ -693,9 +645,25 @@ msgstr ""
 "met dezelfde bijlagenaam afdrukt, het vorige rapport gebruikt."
 
 #. module: base
-#: model:res.country,name:base.ao
-msgid "Angola"
-msgstr "Angola"
+#: model:ir.module.module,description:base.module_mrp_byproduct
+msgid ""
+"\n"
+"This module allows you to produce several products from one production "
+"order.\n"
+"============================================================================="
+"\n"
+"\n"
+"You can configure by-products in the bill of material.\n"
+"\n"
+"Without this module:\n"
+"--------------------\n"
+"    A + B + C -> D\n"
+"\n"
+"With this module:\n"
+"-----------------\n"
+"    A + B + C -> D + E\n"
+"    "
+msgstr ""
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -751,11 +719,6 @@ msgstr "Palau"
 #: view:res.partner:0
 msgid "Sales & Purchases"
 msgstr "Verkopen & inkopen"
-
-#. module: base
-#: view:res.partner:0
-msgid "Put an internal note..."
-msgstr "Maak een interne notitie..."
 
 #. module: base
 #: view:ir.translation:0
@@ -998,12 +961,6 @@ msgid "Overwrite Existing Terms"
 msgstr "Bestaande vertalingen overschrijven"
 
 #. module: base
-#: code:addons/base/res/res_currency.py:52
-#, python-format
-msgid "No currency rate associated for currency %d for the given period"
-msgstr "Geen valutakoers ingevoerd voor de valuta %d op de ingegeven periode"
-
-#. module: base
 #: model:ir.module.module,description:base.module_hr_holidays
 msgid ""
 "\n"
@@ -1111,15 +1068,6 @@ msgstr ""
 #: model:ir.model,name:base.model_base_module_upgrade
 msgid "Module Upgrade"
 msgstr "Module bijwerken"
-
-#. module: base
-#: view:res.bank:0
-#: view:res.company:0
-#: view:res.partner:0
-#: view:res.partner.bank:0
-#: view:res.users:0
-msgid "ZIP"
-msgstr "Postcode"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -1400,9 +1348,10 @@ msgid "Delete Access Right"
 msgstr "Toegangsrechten verwijderen"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_l10n_be_hr_payroll_account
-msgid "Belgium - Payroll with Accounting"
-msgstr ""
+#: code:addons/base/ir/ir_mail_server.py:214
+#, python-format
+msgid "Connection test failed!"
+msgstr "Verbindings test mislukt!"
 
 #. module: base
 #: selection:ir.actions.server,state:0
@@ -1735,6 +1684,20 @@ msgstr ""
 "    "
 
 #. module: base
+#: model:ir.actions.act_window,help:base.action_res_partner_bank_account_form
+msgid ""
+"Configure your company's bank accounts and select those that must appear on "
+"the report footer. You can reorder bank accounts from the list view. If you "
+"use the accounting application of OpenERP, journals and accounts will be "
+"created automatically based on these data."
+msgstr ""
+"Stel uw bankrekeningnummers van uw bedrijf in en selecteer degene welke op "
+"uw rapportvoet moeten worden afgedrukt. U kunt de bankrekeningnummers "
+"sorteren in de lijst. Indien u gebruik maakt van de boekhouding in OpenERP, "
+"dan worden dagboeken en rekeningen automatisch aangemaakt op basis van deze "
+"gegevens."
+
+#. module: base
 #: report:ir.module.reference:0
 msgid "Version"
 msgstr "Versie"
@@ -1874,23 +1837,6 @@ msgstr ""
 "vervangen door de officiële vertalingen."
 
 #. module: base
-#: model:ir.actions.act_window,help:base.action_res_partner_bank_account_form
-msgid ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"                Click to create a bank account.\n"
-"              </p><p>\n"
-"                Configure your company's bank accounts and select those that "
-"must appear on the report footer.\n"
-"                You can reorder bank accounts from the list view.\n"
-"              </p>\n"
-"              <p>\n"
-"                If you use the accounting application of OpenERP, journals "
-"and accounts will be created automatically based on these data.\n"
-"              </p>  \n"
-"            "
-msgstr ""
-
-#. module: base
 #: model:ir.actions.act_window,name:base.ir_action_report_xml
 #: field:ir.module.module,reports_by_module:0
 #: model:ir.ui.menu,name:base.menu_ir_action_report_xml
@@ -1922,12 +1868,6 @@ msgstr ""
 "'%s' bevat teveel punten. XML-ids behoren geen punten te bevatten ! Punten "
 "worden gebruikt om te verwijzen naar gegevens in andere modules, zoals in "
 "module.reference_id"
-
-#. module: base
-#: code:addons/base/ir/ir_model.py:85
-#, python-format
-msgid "Invalid Search Criteria"
-msgstr "Ongeldige zoekcriteria"
 
 #. module: base
 #: field:res.users,login:0
@@ -2013,11 +1953,6 @@ msgstr "Luxemburg  - Boekhouding"
 #: model:res.country,name:base.tp
 msgid "East Timor"
 msgstr "Oost-Timor"
-
-#. module: base
-#: field:workflow.transition,act_to:0
-msgid "Destination Activity"
-msgstr "Doel activiteit"
 
 #. module: base
 #: code:addons/base/module/module.py:414
@@ -2304,9 +2239,48 @@ msgid "Address Type"
 msgstr "Soort adres"
 
 #. module: base
-#: model:res.country,name:base.dj
-msgid "Djibouti"
-msgstr "Djibouti"
+#: model:ir.module.module,description:base.module_sale_stock
+msgid ""
+"\n"
+"Manage sales quotations and orders\n"
+"==================================\n"
+"\n"
+"This module makes the link between the sales and warehouses management "
+"applications.\n"
+"\n"
+"Preferences\n"
+"-----------\n"
+"* Shipping: Choice of delivery at once or partial delivery\n"
+"* Invoicing: choose how invoices will be paid\n"
+"* Incoterms: International Commercial terms\n"
+"\n"
+"You can choose flexible invoicing methods:\n"
+"\n"
+"* *On Demand*: Invoices are created manually from Sales Orders when needed\n"
+"* *On Delivery Order*: Invoices are generated from picking (delivery)\n"
+"* *Before Delivery*: A Draft invoice is created and must be paid before "
+"delivery\n"
+msgstr ""
+"\n"
+"Beheer verkoop offertes en orders\n"
+"============================\n"
+"\n"
+"Deze module maakt de verbinding tussen de verkoop en voorraadbeheer "
+"applicaties.\n"
+"\n"
+"Voorkeuren\n"
+"-----------\n"
+"* Levering: Keuze uit levering ineens of deelleveringen\n"
+"* Facturatie: kies hoe facturen worden betaald\n"
+"* Incoterms: Internationale Commerciële voorwaarden\n"
+"\n"
+"U kunt flexibele facturatie methoden kiezen:\n"
+"\n"
+"* *Op aanvraag*: Facturen worden handmatig gemaakt vanuit verkooporders "
+"wanneer nodig\n"
+"* *Bij pakbon*: Facturen worden gegenereerd bij de levering\n"
+"* *Vooruitbetaling*: Een proeffactuur wordt gemaakt die betaald moet worden "
+"voorafgaand aan de levering\n"
 
 #. module: base
 #: field:ir.ui.menu,complete_name:0
@@ -2381,11 +2355,6 @@ msgstr "Spaans / Español"
 #: selection:base.language.install,lang:0
 msgid "Korean (KP) / 한국어 (KP)"
 msgstr "Koreaans (KP) / 한국어 (KP)"
-
-#. module: base
-#: model:ir.module.module,shortdesc:base.module_l10n_vn
-msgid "Vietnam Chart of Accounts"
-msgstr ""
 
 #. module: base
 #: model:res.country,name:base.ax
@@ -2856,41 +2825,6 @@ msgid "Action Target"
 msgstr "Doel actie"
 
 #. module: base
-#: model:ir.module.module,description:base.module_account_report_company
-msgid ""
-"\n"
-"Add an extra Company dimension on Invoices for consolidated Invoice "
-"Analysis\n"
-"============================================================================"
-"\n"
-"\n"
-"By default Customer and Supplier invoices can be linked to a contact within\n"
-"a company, but the company is not a direct reference in the database "
-"structure for\n"
-"invoices. Journal Entries are however always linked to the company and not "
-"to\n"
-"contacts, so that Accounts Payable and Receivable are always correct and "
-"consolidated\n"
-"at company level.\n"
-"\n"
-"When many different contacts/departments need to be invoiced within the same "
-"parent company,\n"
-"this can make reporting by Company more difficult: reports are directly "
-"based on the\n"
-"database structure and would not provide an aggregated company dimension.\n"
-"\n"
-"This modules solves the problem by adding an explicit company reference on "
-"invoices,\n"
-"automatically computed from the invoice contact, and use this new dimension\n"
-"when grouping the list of Invoices or the Invoice Analysis report by "
-"Partner. \n"
-"\n"
-"Note: this module will likely be removed for the next major OpenERP version "
-"and\n"
-"directly integrated in the core accounting. \n"
-msgstr ""
-
-#. module: base
 #: model:res.country,name:base.ai
 msgid "Anguilla"
 msgstr "Anguilla"
@@ -3024,6 +2958,11 @@ msgstr ""
 #: field:ir.values,res_id:0
 msgid "Record ID"
 msgstr "Record-id"
+
+#. module: base
+#: view:ir.filters:0
+msgid "My Filters"
+msgstr "Mijn Filters"
 
 #. module: base
 #: field:ir.actions.server,email:0
@@ -3423,11 +3362,6 @@ msgid ""
 msgstr ""
 
 #. module: base
-#: view:res.company:0
-msgid "e.g. Global Business Solutions"
-msgstr "Bijv. Global Business Solutions"
-
-#. module: base
 #: field:res.company,rml_header1:0
 msgid "Company Tagline"
 msgstr "Bedrijfs slogan"
@@ -3467,12 +3401,6 @@ msgid ""
 "że wszystkie towary są w obrocie hurtowym.\n"
 "    "
 msgstr ""
-
-#. module: base
-#: code:addons/base/ir/ir_mail_server.py:222
-#, python-format
-msgid "Connection Test Succeeded!"
-msgstr "Connectie test geslaagd!"
 
 #. module: base
 #: field:ir.actions.client,params_store:0
@@ -3829,12 +3757,6 @@ msgid "Fields Mapping"
 msgstr "Velden koppeling"
 
 #. module: base
-#: code:addons/base/module/wizard/base_module_upgrade.py:84
-#, python-format
-msgid "Unmet Dependency!"
-msgstr "Afhankelijkheid niet voldaan!"
-
-#. module: base
 #: model:res.partner.title,name:base.res_partner_title_sir
 #: model:res.partner.title,shortcut:base.res_partner_title_sir
 msgid "Sir"
@@ -3857,6 +3779,11 @@ msgstr ""
 #: view:base.module.import:0
 msgid "Select module package to import (.zip file):"
 msgstr "Selecteer te importeren modulepakket (.zip bestand):"
+
+#. module: base
+#: view:ir.filters:0
+msgid "Personal"
+msgstr "Persoonlijk"
 
 #. module: base
 #: field:base.language.export,modules:0
@@ -4008,10 +3935,13 @@ msgid "Tasks on CRM"
 msgstr "Relatiebeheer taken"
 
 #. module: base
-#: model:ir.module.category,name:base.module_category_generic_modules_accounting
-#: view:res.company:0
-msgid "Accounting"
-msgstr "Boekhouding"
+#: help:ir.model.fields,relation_field:0
+msgid ""
+"For one2many fields, the field on the target model that implement the "
+"opposite many2one relationship"
+msgstr ""
+"In het geval van one2many-velden: het veld op het doelmodel wat de "
+"corresponderende many2one-relatie implementeert."
 
 #. module: base
 #: view:ir.rule:0
@@ -4041,12 +3971,6 @@ msgstr "Sint Maarten (Nederlands deel)"
 #: model:ir.model,name:base.model_ir_filters
 msgid "Filters"
 msgstr "Filters"
-
-#. module: base
-#: code:addons/base/module/wizard/base_module_import.py:67
-#, python-format
-msgid "Can not create the module file: %s!"
-msgstr "Niet mogelijk het module bestand aan te maken: %s!"
 
 #. module: base
 #: model:ir.actions.act_window,name:base.ir_cron_act
@@ -4084,13 +4008,6 @@ msgstr "Recursiviteit ontdekt."
 #: model:ir.module.module,shortdesc:base.module_l10n_et
 msgid "Ethiopia - Accounting"
 msgstr "Ethiopië - Boekhouding"
-
-#. module: base
-#: model:ir.actions.act_window,name:base.ir_config_list_action
-#: view:ir.config_parameter:0
-#: model:ir.ui.menu,name:base.ir_config_menu
-msgid "System Parameters"
-msgstr "Systeem parameters"
 
 #. module: base
 #: code:addons/base/module/module.py:366
@@ -4772,12 +4689,6 @@ msgid "`code` must be unique."
 msgstr "`code`moet uniek zijn."
 
 #. module: base
-#: code:addons/base/ir/workflow/workflow.py:99
-#, python-format
-msgid "Operation Forbidden"
-msgstr "Niet toegestane bewerking"
-
-#. module: base
 #: model:ir.module.module,shortdesc:base.module_knowledge
 msgid "Knowledge Management System"
 msgstr "Kennis Management Systeem"
@@ -5136,15 +5047,6 @@ msgstr ""
 "Klik op 'Doorgaan' en geniet van uw OpenERP beleving..."
 
 #. module: base
-#: help:ir.sequence,number_next_actual:0
-msgid ""
-"Next number that will be used. This number can be incremented frequently so "
-"the displayed value might already be obsolete"
-msgstr ""
-"Volgende nummer dat wordt gebruikt. Dit nummer kan kan veelvuldig worden "
-"verhoogd, zodoende kan de weergegeven waarde alweer achterhaald zijn."
-
-#. module: base
 #: model:ir.module.category,description:base.module_category_marketing
 msgid "Helps you manage your marketing campaigns step by step."
 msgstr "Helpt uw marketing campagnes stap voor stap te beheren."
@@ -5168,12 +5070,6 @@ msgstr "Ghana"
 #: field:res.lang,direction:0
 msgid "Direction"
 msgstr "Richting"
-
-#. module: base
-#: code:addons/orm.py:4815
-#, python-format
-msgid "Sorting field %s not found on model %s"
-msgstr "Sorteerveld %s niet gevonden bij model %s"
 
 #. module: base
 #: view:ir.actions.act_window:0
@@ -6125,13 +6021,10 @@ msgstr ""
 "bepalen of de doelactiviteit gestart kan worden."
 
 #. module: base
-#: help:ir.model.fields,relation_field:0
-msgid ""
-"For one2many fields, the field on the target model that implement the "
-"opposite many2one relationship"
-msgstr ""
-"In het geval van one2many-velden: het veld op het doelmodel wat de "
-"corresponderende many2one-relatie implementeert."
+#: model:ir.module.category,name:base.module_category_generic_modules_accounting
+#: view:res.company:0
+msgid "Accounting"
+msgstr "Boekhouding"
 
 #. module: base
 #: model:ir.module.module,description:base.module_base_vat
@@ -6241,9 +6134,9 @@ msgid "Authentication"
 msgstr "Authenticatie"
 
 #. module: base
-#: model:res.country,name:base.gd
-msgid "Grenada"
-msgstr "Grenada"
+#: model:res.country,name:base.sj
+msgid "Svalbard and Jan Mayen Islands"
+msgstr "Svalbard en Jan Mayen eilanden"
 
 #. module: base
 #: model:ir.model,name:base.model_ir_actions_wizard
@@ -6398,6 +6291,12 @@ msgid ""
 msgstr ""
 
 #. module: base
+#: code:addons/base/ir/workflow/workflow.py:99
+#, python-format
+msgid "Operation forbidden"
+msgstr "Verwerking niet toegestaan"
+
+#. module: base
 #: view:ir.actions.server:0
 msgid "SMS Configuration"
 msgstr "SMS-instellingen"
@@ -6439,11 +6338,6 @@ msgstr "Overzicht toegangscontrole"
 #: model:res.country,name:base.um
 msgid "USA Minor Outlying Islands"
 msgstr "Kleine afgelegen eilanden van de Verenigde Staten"
-
-#. module: base
-#: view:base.language.import:0
-msgid "e.g. English"
-msgstr "Bijv. Engels"
 
 #. module: base
 #: help:ir.cron,numbercall:0
@@ -6531,13 +6425,6 @@ msgstr "Telefoon:"
 #: field:res.partner,is_company:0
 msgid "Is a Company"
 msgstr "Is een bedrijf"
-
-#. module: base
-#: view:res.company:0
-#: view:res.partner:0
-#: view:res.users:0
-msgid "e.g. www.openerp.com"
-msgstr "Bijv. www.openerp.com"
 
 #. module: base
 #: selection:ir.cron,interval_type:0
@@ -6637,19 +6524,6 @@ msgstr "Naam menu"
 #: field:ir.values,key2:0
 msgid "Qualifier"
 msgstr "Kwalificatie"
-
-#. module: base
-#: model:ir.module.module,description:base.module_l10n_vn
-msgid ""
-"\n"
-"This is the module to manage the accounting chart for Vietnam in OpenERP.\n"
-"========================================================================\n"
-"\n"
-"This module applies to companies based in Vietnamese Accounting Standard "
-"(VAS).\n"
-"\n"
-"**Credits:** General Solutions.\n"
-msgstr ""
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_be_coda
@@ -6939,11 +6813,6 @@ msgid "Database Anonymization"
 msgstr "Database anonimisatie"
 
 #. module: base
-#: field:res.partner,commercial_partner_id:0
-msgid "Commercial Entity"
-msgstr "Commerciële entiteit"
-
-#. module: base
 #: selection:ir.mail_server,smtp_encryption:0
 msgid "SSL/TLS"
 msgstr "SSL/TLS"
@@ -7002,11 +6871,6 @@ msgid "ir.cron"
 msgstr "ir.cron"
 
 #. module: base
-#: model:ir.ui.menu,name:base.menu_sales_followup
-msgid "Payment Follow-up"
-msgstr "Betalingsherinnering"
-
-#. module: base
 #: model:res.country,name:base.cw
 msgid "Curaçao"
 msgstr "Curaçao"
@@ -7017,9 +6881,11 @@ msgid "Current Year without Century: %(y)s"
 msgstr "Huidig jaar zonder eeuw: %(y)s"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_l10n_es
-msgid "Spanish Charts of Accounts (PGCE 2008)"
-msgstr ""
+#: model:ir.actions.act_window,name:base.ir_config_list_action
+#: view:ir.config_parameter:0
+#: model:ir.ui.menu,name:base.ir_config_menu
+msgid "System Parameters"
+msgstr "Systeem parameters"
 
 #. module: base
 #: help:ir.actions.client,tag:0
@@ -7082,16 +6948,6 @@ msgstr "Soedan"
 #: view:res.currency.rate.type:0
 msgid "Currency Rate Type"
 msgstr "Valutakoers soort"
-
-#. module: base
-#: code:addons/base/res/res_lang.py:189
-#, python-format
-msgid ""
-"You cannot delete the language which is Active!\n"
-"Please de-activate the language first."
-msgstr ""
-"Het is niet toegestaan een taal te verwijderen welke nog actief is!\n"
-"Maak de taal eerst inactief."
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_fr
@@ -7274,9 +7130,10 @@ msgid "Repeat Missed"
 msgstr "Herhaal gemiste"
 
 #. module: base
-#: help:ir.actions.server,state:0
-msgid "Type of the Action that is to be executed"
-msgstr "Soort uit te voeren actie"
+#: code:addons/base/module/wizard/base_module_import.py:67
+#, python-format
+msgid "Can not create the module file: %s !"
+msgstr "Kan het modulebestand niet maken: %s !"
 
 #. module: base
 #: field:ir.server.object.lines,server_id:0
@@ -7514,6 +7371,16 @@ msgstr "Urenstaten"
 msgid "If set, action binding only applies for this company"
 msgstr ""
 "Indien aangevinkt is deze regel alleen van toepassing voor dit bedrijf."
+
+#. module: base
+#: model:ir.module.module,description:base.module_l10n_cn
+msgid ""
+"\n"
+"添加中文省份数据\n"
+"科目类型\\会计科目表模板\\增值税\\辅助核算类别\\管理会计凭证簿\\财务会计凭证簿\n"
+"============================================================\n"
+"    "
+msgstr ""
 
 #. module: base
 #: model:res.country,name:base.lc
@@ -7792,6 +7659,12 @@ msgid "Connection Security"
 msgstr "Connectie beveiliging"
 
 #. module: base
+#: code:addons/base/ir/ir_actions.py:606
+#, python-format
+msgid "Please specify an action to launch !"
+msgstr "Geef alstublieft een actie om uit te voeren !"
+
+#. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_ec
 msgid "Ecuador - Accounting"
 msgstr "Ecuador  - Boekhouding"
@@ -7810,11 +7683,6 @@ msgstr "Noordelijke Marianaeilanden"
 #: field:change.password.user,user_login:0
 msgid "User Login"
 msgstr "Gebruikersnaam"
-
-#. module: base
-#: view:ir.filters:0
-msgid "Filters created by myself"
-msgstr "Filters aangemaakt door  mijzelf"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_hn
@@ -7968,12 +7836,6 @@ msgid "Error"
 msgstr "Fout"
 
 #. module: base
-#: code:addons/base/res/res_partner.py:566
-#, python-format
-msgid "Couldn't create contact without email address!"
-msgstr "Niet mogelijk een contactpersoon aan te maken zonder e-mail adres"
-
-#. module: base
 #: help:res.partner,tz:0
 msgid ""
 "The partner's timezone, used to output proper date and time values inside "
@@ -8047,12 +7909,6 @@ msgstr "Volgend nummer in deze reeks"
 
 #. module: base
 #: view:res.partner:0
-#: view:res.users:0
-msgid "Tags..."
-msgstr "Labels..."
-
-#. module: base
-#: view:res.partner:0
 msgid "at"
 msgstr "bij"
 
@@ -8075,11 +7931,6 @@ msgstr "Anoniem portaal"
 #: field:base.language.export,format:0
 msgid "File Format"
 msgstr "Bestandsformaat"
-
-#. module: base
-#: view:ir.filters:0
-msgid "My filters"
-msgstr "Mijn filters"
 
 #. module: base
 #: field:res.lang,iso_code:0
@@ -8420,12 +8271,6 @@ msgid "Rules can not be applied on Transient models."
 msgstr "Regels kunnen niet worden toegewezen aan Transient models."
 
 #. module: base
-#: code:addons/base/ir/ir_mail_server.py:215
-#, python-format
-msgid "Connection Test Failed!"
-msgstr "Connectie test niet geslaagd!"
-
-#. module: base
 #: selection:base.language.install,lang:0
 msgid "Dutch / Nederlands"
 msgstr "Dutch / Nederlands"
@@ -8703,15 +8548,9 @@ msgstr ""
 "maar deze module is niet beschikbaar op uw systeem."
 
 #. module: base
-#: model:ir.module.module,description:base.module_portal_project_long_term
-msgid ""
-"\n"
-"This module adds necessary security rules and access rights for project long "
-"term and portal.\n"
-"============================================================================="
-"================\n"
-"    "
-msgstr ""
+#: field:workflow.transition,act_to:0
+msgid "Destination Activity"
+msgstr "Doel activiteit"
 
 #. module: base
 #: help:res.currency,position:0
@@ -8839,12 +8678,6 @@ msgstr "Koeweit"
 #: model:ir.module.module,shortdesc:base.module_account_followup
 msgid "Payment Follow-up Management"
 msgstr "Beheer betaalherinneringen"
-
-#. module: base
-#: code:addons/orm.py:5334
-#, python-format
-msgid "The value for the field '%s' already exists."
-msgstr "De waarde van het veld '%s' bestaat al."
 
 #. module: base
 #: field:workflow.workitem,inst_id:0
@@ -9097,11 +8930,6 @@ msgstr "Geavanceerde routes"
 #: model:ir.module.module,shortdesc:base.module_pad
 msgid "Collaborative Pads"
 msgstr "Pads voor samenwerking"
-
-#. module: base
-#: model:ir.module.module,shortdesc:base.module_account_anglo_saxon
-msgid "Anglo-Saxon Accounting"
-msgstr "Angelsaksische boekhouding"
 
 #. module: base
 #: model:res.country,name:base.np
@@ -10095,6 +9923,11 @@ msgid "Python Code"
 msgstr "Python code"
 
 #. module: base
+#: help:ir.actions.server,state:0
+msgid "Type of the Action that is to be executed"
+msgstr "Soort uit te voeren actie"
+
+#. module: base
 #: model:ir.module.module,description:base.module_portal_crm
 msgid ""
 "\n"
@@ -10149,6 +9982,43 @@ msgstr ""
 "Openerp Web Diagram weergave.\n"
 "=========================\n"
 "\n"
+
+#. module: base
+#: model:ir.module.module,description:base.module_l10n_ch
+msgid ""
+"\n"
+"Swiss localization :\n"
+"====================\n"
+"**Multilang swiss STERCHI account chart and taxes**\n"
+" **Author:** Camptocamp SA\n"
+"\n"
+" **Donors:** Hasa Sàrl, Open Net Sàrl and Prisme Solutions Informatique SA\n"
+"\n"
+" **Translators:** brain-tec AG, Agile Business Group\n"
+"\n"
+"**This release will introduce major changes to l10n_ch.**\n"
+"\n"
+"Due to important refactoring needs and the Switzerland adoption of new "
+"international payment standard during 2013-2014. We have reorganised the "
+"swiss localization addons this way:\n"
+"\n"
+"- **l10n_ch**: Multilang swiss STERCHI account chart and taxes (official "
+"addon)\n"
+"- **l10n_ch_base_bank**: Technical module that introduces a new and "
+"simplified version of bank type management\n"
+"- **l10n_ch_bank**: List of swiss banks\n"
+"- **l10n_ch_zip**: List of swiss postal zip\n"
+"- **l10n_ch_dta**: Support of dta payment protocol (will be deprecated end "
+"2014)\n"
+"- **l10n_ch_payment_slip**: Support of ESR/BVR payment slip report and "
+"reconciliation. Report refactored with easy element positioning.\n"
+"- **l10n_ch_sepa**: Alpha implementation of PostFinance SEPA/PAIN support "
+"will be completed during 2013/2014\n"
+"\n"
+"The modules will be soon available on OpenERP swiss localization on "
+"launchpad:\n"
+"https://launchpad.net/openerp-swiss-localization\n"
+msgstr ""
 
 #. module: base
 #: model:res.country,name:base.nt
@@ -10317,11 +10187,6 @@ msgid "New Language (Empty translation template)"
 msgstr "Nieuwe taal (lege vertaling sjabloon)"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_account_report_company
-msgid "Invoice Analysis per Company"
-msgstr "Factuuranalyse per bedrijf"
-
-#. module: base
 #: help:ir.actions.server,email:0
 msgid ""
 "Expression that returns the email address to send to. Can be based on the "
@@ -10391,102 +10256,9 @@ msgstr ""
 "aanmaken)."
 
 #. module: base
-#: model:ir.module.module,description:base.module_stock_location
-msgid ""
-"\n"
-"This module supplements the Warehouse application by effectively "
-"implementing Push and Pull inventory flows.\n"
-"============================================================================="
-"===============================\n"
-"\n"
-"Typically this could be used to:\n"
-"--------------------------------\n"
-"    * Manage product manufacturing chains\n"
-"    * Manage default locations per product\n"
-"    * Define routes within your warehouse according to business needs, such "
-"as:\n"
-"        - Quality Control\n"
-"        - After Sales Services\n"
-"        - Supplier Returns\n"
-"\n"
-"    * Help rental management, by generating automated return moves for "
-"rented products\n"
-"\n"
-"Once this module is installed, an additional tab appear on the product "
-"form,\n"
-"where you can add Push and Pull flow specifications. The demo data of CPU1\n"
-"product for that push/pull :\n"
-"\n"
-"Push flows:\n"
-"-----------\n"
-"Push flows are useful when the arrival of certain products in a given "
-"location\n"
-"should always be followed by a corresponding move to another location, "
-"optionally\n"
-"after a certain delay. The original Warehouse application already supports "
-"such\n"
-"Push flow specifications on the Locations themselves, but these cannot be\n"
-"refined per-product.\n"
-"\n"
-"A push flow specification indicates which location is chained with which "
-"location,\n"
-"and with what parameters. As soon as a given quantity of products is moved "
-"in the\n"
-"source location, a chained move is automatically foreseen according to the\n"
-"parameters set on the flow specification (destination location, delay, type "
-"of\n"
-"move, journal). The new move can be automatically processed, or require a "
-"manual\n"
-"confirmation, depending on the parameters.\n"
-"\n"
-"Pull flows:\n"
-"-----------\n"
-"Pull flows are a bit different from Push flows, in the sense that they are "
-"not\n"
-"related to the processing of product moves, but rather to the processing of\n"
-"procurement orders. What is being pulled is a need, not directly products. "
-"A\n"
-"classical example of Pull flow is when you have an Outlet company, with a "
-"parent\n"
-"Company that is responsible for the supplies of the Outlet.\n"
-"\n"
-"  [ Customer ] <- A - [ Outlet ]  <- B -  [ Holding ] <~ C ~ [ Supplier ]\n"
-"\n"
-"When a new procurement order (A, coming from the confirmation of a Sale "
-"Order\n"
-"for example) arrives in the Outlet, it is converted into another "
-"procurement\n"
-"(B, via a Pull flow of type 'move') requested from the Holding. When "
-"procurement\n"
-"order B is processed by the Holding company, and if the product is out of "
-"stock,\n"
-"it can be converted into a Purchase Order (C) from the Supplier (Pull flow "
-"of\n"
-"type Purchase). The result is that the procurement order, the need, is "
-"pushed\n"
-"all the way between the Customer and Supplier.\n"
-"\n"
-"Technically, Pull flows allow to process procurement orders differently, "
-"not\n"
-"only depending on the product being considered, but also depending on which\n"
-"location holds the 'need' for that product (i.e. the destination location "
-"of\n"
-"that procurement order).\n"
-"\n"
-"Use-Case:\n"
-"---------\n"
-"\n"
-"You can use the demo data as follow:\n"
-"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-"  **CPU1:** Sell some CPU1 from Chicago Shop and run the scheduler\n"
-"     - Warehouse: delivery order, Chicago Shop: reception\n"
-"  **CPU3:**\n"
-"     - When receiving the product, it goes to Quality Control location then\n"
-"       stored to shelf 2.\n"
-"     - When delivering the customer: Pick List -> Packing -> Delivery Order "
-"from Gate A\n"
-"    "
-msgstr ""
+#: field:base.language.import,name:0
+msgid "Language Name"
+msgstr "Taalnaam"
 
 #. module: base
 #: selection:ir.property,type:0
@@ -10519,15 +10291,6 @@ msgstr "Omschrijving velden"
 #: model:ir.module.module,shortdesc:base.module_analytic_contract_hr_expense
 msgid "Contracts Management: hr_expense link"
 msgstr "Contract Management: hr_expense link"
-
-#. module: base
-#: code:addons/base/module/module.py:670
-#, python-format
-msgid ""
-"The `%s` module appears to be unavailable at the moment, please try again "
-"later."
-msgstr ""
-"De `%s` module is op dit moment niet beschikbaar, probeer het later opnieuw."
 
 #. module: base
 #: view:ir.attachment:0
@@ -10776,6 +10539,13 @@ msgid "Afghanistan, Islamic State of"
 msgstr "Afghanistan"
 
 #. module: base
+#: code:addons/base/module/wizard/base_module_import.py:58
+#: code:addons/base/module/wizard/base_module_import.py:66
+#, python-format
+msgid "Error !"
+msgstr "Fout !"
+
+#. module: base
 #: model:ir.module.module,shortdesc:base.module_marketing_campaign_crm_demo
 msgid "Marketing Campaign - Demo"
 msgstr "Marketing Campagne - Demo gegevens"
@@ -10893,22 +10663,6 @@ msgid "Todo"
 msgstr "Te doen"
 
 #. module: base
-#: model:ir.module.module,description:base.module_l10n_es
-msgid ""
-"\n"
-"Spanish Charts of Accounts (PGCE 2008).\n"
-"=======================================\n"
-"\n"
-"    * Defines the following chart of account templates:\n"
-"        * Spanish General Chart of Accounts 2008\n"
-"        * Spanish General Chart of Accounts 2008 for small and medium "
-"companies\n"
-"        * Spanish General Chart of Accounts 2008 for associations\n"
-"    * Defines templates for sale and purchase VAT\n"
-"    * Defines tax code templates\n"
-msgstr ""
-
-#. module: base
 #: model:ir.module.module,shortdesc:base.module_product_visible_discount
 msgid "Prices Visible Discounts"
 msgstr "Zichtbare korting op prijs"
@@ -10937,14 +10691,6 @@ msgid ""
 msgstr ""
 "De groep die de gebruiker moet hebben om geautoriseerd te zijn om deze "
 "overgang te bevestigen."
-
-#. module: base
-#: view:res.bank:0
-#: view:res.company:0
-#: view:res.partner:0
-#: view:res.users:0
-msgid "Street..."
-msgstr "Straat..."
 
 #. module: base
 #: constraint:res.users:0
@@ -11623,6 +11369,16 @@ msgid "Samoa"
 msgstr "Samoa"
 
 #. module: base
+#: code:addons/base/res/res_lang.py:189
+#, python-format
+msgid ""
+"You cannot delete the language which is Active !\n"
+"Please de-activate the language first."
+msgstr ""
+"U kunt de actieve taal niet verwijderen !\n"
+"De-activeer de taal eerst aub."
+
+#. module: base
 #: code:addons/base/ir/ir_model.py:509
 #: code:addons/base/ir/ir_model.py:570
 #: code:addons/base/ir/ir_model.py:1031
@@ -11654,6 +11410,11 @@ msgstr "Validatiefout"
 #: view:base.module.update:0
 msgid "Open Modules"
 msgstr "Modules openen"
+
+#. module: base
+#: model:ir.actions.act_window,help:base.action_res_bank_form
+msgid "Manage bank records you want to be used in the system."
+msgstr "Beheert de bankrelaties die u in het systeem wilt gebruiken."
 
 #. module: base
 #: view:base.module.import:0
@@ -11780,6 +11541,12 @@ msgstr "Leesrechten"
 #: model:ir.module.module,shortdesc:base.module_analytic_user_function
 msgid "Jobs on Contracts"
 msgstr "Werknemerfunctie per contract/kostenplaats"
+
+#. module: base
+#: code:addons/base/res/res_lang.py:187
+#, python-format
+msgid "You cannot delete the language which is User's Preferred Language !"
+msgstr "U kunt geen taal verwijderen die gebruikers voorkeurstaal is !"
 
 #. module: base
 #: view:ir.model.data:0
@@ -11912,11 +11679,6 @@ msgstr ""
 "Dit veld wordt gebruikt om de landvoorkeuren van de gebruiker in te stellen"
 
 #. module: base
-#: model:res.country,name:base.sj
-msgid "Svalbard and Jan Mayen Islands"
-msgstr "Svalbard en Jan Mayen eilanden"
-
-#. module: base
 #: view:ir.filters:0
 msgid "Shared"
 msgstr "Gedeeld"
@@ -12040,32 +11802,6 @@ msgid "Auto Search"
 msgstr "Automatisch Zoeken"
 
 #. module: base
-#: model:ir.actions.act_window,help:base.action_partner_category_form
-msgid ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"                Click to create a new partner category.\n"
-"              </p><p>\n"
-"                Manage the partner categories in order to better classify "
-"them for tracking and analysis purposes.\n"
-"                A partner may belong to several categories and categories "
-"have a hierarchy structure: a partner belonging to a category also belong to "
-"his parent category.\n"
-"              </p>\n"
-"            "
-msgstr ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"                Klik voor het aanmaken van een nieuwe relatiecategorie..\n"
-"              </p><p>\n"
-"                Koppel uw relaties aan een categorie om ze zo beter te "
-"kunnen classificeren, te volgen en te analyseren.\n"
-"                Een relatie kan behoren tot meerdere categorieën en "
-"categorieën hebben een Hiërarchische structuur.Een relatie     \n"
-"                welke toehoort aan een categorie behoort ook toe aan de "
-"bovenliggende categorie.\n"
-"              </p>\n"
-"            "
-
-#. module: base
 #: field:ir.actions.act_window,filter:0
 msgid "Filter"
 msgstr "Filter"
@@ -12076,19 +11812,9 @@ msgid "Switzerland"
 msgstr "Zwitserland"
 
 #. module: base
-#: code:addons/base/res/res_partner.py:361
-#, python-format
-msgid ""
-"Changing the company of a contact should only be done if it was never "
-"correctly set. If an existing contact starts working for a new company then "
-"a new contact should be created under that new company. You can use the "
-"\"Discard\" button to abandon this change."
-msgstr ""
-"Het wijzigen van het bedrijf van een contactpersoon doet u alleen als dit "
-"een foutieve instelling was. Indien een bestaand contactpersoon start met "
-"werken bij een nieuw bedrijf, dan dient u een nieuw contactpersoon aan te "
-"maken onder dit nieuwe bedrijf. U kunt klikken op 'Negeren' om deze "
-"wijziging af te breken."
+#: model:res.country,name:base.gd
+msgid "Grenada"
+msgstr "Grenada"
 
 #. module: base
 #: help:res.partner,customer:0
@@ -12154,9 +11880,10 @@ msgid ""
 msgstr ""
 
 #. module: base
-#: model:ir.model,name:base.model_res_request_history
-msgid "res.request.history"
-msgstr "res.request.history"
+#: code:addons/base/ir/ir_model.py:296
+#, python-format
+msgid "Size of the field can never be less than 1 !"
+msgstr "De veldlengte kan nooit kleiner dan 1 zijn !"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_mrp_operations
@@ -12206,9 +11933,102 @@ msgid "GPL Version 3"
 msgstr "GPL versie 3"
 
 #. module: base
-#: field:base.language.import,name:0
-msgid "Language Name"
-msgstr "Taalnaam"
+#: model:ir.module.module,description:base.module_stock_location
+msgid ""
+"\n"
+"This module supplements the Warehouse application by effectively "
+"implementing Push and Pull inventory flows.\n"
+"============================================================================="
+"===============================\n"
+"\n"
+"Typically this could be used to:\n"
+"--------------------------------\n"
+"    * Manage product manufacturing chains\n"
+"    * Manage default locations per product\n"
+"    * Define routes within your warehouse according to business needs, such "
+"as:\n"
+"        - Quality Control\n"
+"        - After Sales Services\n"
+"        - Supplier Returns\n"
+"\n"
+"    * Help rental management, by generating automated return moves for "
+"rented products\n"
+"\n"
+"Once this module is installed, an additional tab appear on the product "
+"form,\n"
+"where you can add Push and Pull flow specifications. The demo data of CPU1\n"
+"product for that push/pull :\n"
+"\n"
+"Push flows:\n"
+"-----------\n"
+"Push flows are useful when the arrival of certain products in a given "
+"location\n"
+"should always be followed by a corresponding move to another location, "
+"optionally\n"
+"after a certain delay. The original Warehouse application already supports "
+"such\n"
+"Push flow specifications on the Locations themselves, but these cannot be\n"
+"refined per-product.\n"
+"\n"
+"A push flow specification indicates which location is chained with which "
+"location,\n"
+"and with what parameters. As soon as a given quantity of products is moved "
+"in the\n"
+"source location, a chained move is automatically foreseen according to the\n"
+"parameters set on the flow specification (destination location, delay, type "
+"of\n"
+"move, journal). The new move can be automatically processed, or require a "
+"manual\n"
+"confirmation, depending on the parameters.\n"
+"\n"
+"Pull flows:\n"
+"-----------\n"
+"Pull flows are a bit different from Push flows, in the sense that they are "
+"not\n"
+"related to the processing of product moves, but rather to the processing of\n"
+"procurement orders. What is being pulled is a need, not directly products. "
+"A\n"
+"classical example of Pull flow is when you have an Outlet company, with a "
+"parent\n"
+"Company that is responsible for the supplies of the Outlet.\n"
+"\n"
+"  [ Customer ] <- A - [ Outlet ]  <- B -  [ Holding ] <~ C ~ [ Supplier ]\n"
+"\n"
+"When a new procurement order (A, coming from the confirmation of a Sale "
+"Order\n"
+"for example) arrives in the Outlet, it is converted into another "
+"procurement\n"
+"(B, via a Pull flow of type 'move') requested from the Holding. When "
+"procurement\n"
+"order B is processed by the Holding company, and if the product is out of "
+"stock,\n"
+"it can be converted into a Purchase Order (C) from the Supplier (Pull flow "
+"of\n"
+"type Purchase). The result is that the procurement order, the need, is "
+"pushed\n"
+"all the way between the Customer and Supplier.\n"
+"\n"
+"Technically, Pull flows allow to process procurement orders differently, "
+"not\n"
+"only depending on the product being considered, but also depending on which\n"
+"location holds the 'need' for that product (i.e. the destination location "
+"of\n"
+"that procurement order).\n"
+"\n"
+"Use-Case:\n"
+"---------\n"
+"\n"
+"You can use the demo data as follow:\n"
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+"  **CPU1:** Sell some CPU1 from Chicago Shop and run the scheduler\n"
+"     - Warehouse: delivery order, Chicago Shop: reception\n"
+"  **CPU3:**\n"
+"     - When receiving the product, it goes to Quality Control location then\n"
+"       stored to shelf 2.\n"
+"     - When delivering the customer: Pick List -> Packing -> Delivery Order "
+"from Gate A\n"
+"    "
+msgstr ""
 
 #. module: base
 #: model:ir.module.module,description:base.module_decimal_precision
@@ -12236,12 +12056,6 @@ msgstr "Instellingen installer"
 #: field:res.partner,customer:0
 msgid "Customer"
 msgstr "Klant"
-
-#. module: base
-#: view:res.partner:0
-#: view:res.users:0
-msgid "e.g. +32.81.81.37.00"
-msgstr "Bijv. +31 (0)20 -12 34 567"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -12294,12 +12108,6 @@ msgid "Month: %(month)s"
 msgstr "Maand: %(month)s"
 
 #. module: base
-#: model:ir.actions.client,name:base.modules_updates_act_cl
-#: model:ir.ui.menu,name:base.menu_module_updates
-msgid "Updates"
-msgstr "Updates"
-
-#. module: base
 #: field:ir.actions.act_window.view,sequence:0
 #: field:ir.actions.server,sequence:0
 #: field:ir.actions.todo,sequence:0
@@ -12333,6 +12141,19 @@ msgstr ""
 #: model:ir.model,name:base.model_ir_fields_converter
 msgid "ir.fields.converter"
 msgstr "ir.fields.converter"
+
+#. module: base
+#: code:addons/base/res/res_partner.py:439
+#, python-format
+msgid "Couldn't create contact without email address !"
+msgstr "Het was niet mogelijk een relatie aan te maken zinder e-mail adres!"
+
+#. module: base
+#: model:ir.module.category,name:base.module_category_manufacturing
+#: model:ir.ui.menu,name:base.menu_mrp_config
+#: model:ir.ui.menu,name:base.menu_mrp_root
+msgid "Manufacturing"
+msgstr "Productie"
 
 #. module: base
 #: model:res.country,name:base.km
@@ -12676,12 +12497,6 @@ msgid "Falkland Islands"
 msgstr "Falklandeilanden"
 
 #. module: base
-#: code:addons/base/ir/ir_actions.py:606
-#, python-format
-msgid "Please specify an action to launch!"
-msgstr "Specificeer een actie om te starten!"
-
-#. module: base
 #: model:res.country,name:base.lb
 msgid "Lebanon"
 msgstr "Libanon"
@@ -12744,6 +12559,12 @@ msgid "XSL"
 msgstr "XSL"
 
 #. module: base
+#: code:addons/base/ir/ir_model.py:85
+#, python-format
+msgid "Invalid search criterions"
+msgstr "Ongeldige zoekcriteria"
+
+#. module: base
 #: view:ir.mail_server:0
 msgid "Connection Information"
 msgstr "Verbindingsinformatie"
@@ -12798,6 +12619,25 @@ msgstr "Selectie"
 #: view:res.users:0
 msgid "Change Password"
 msgstr "Wachtwoord wijzigen"
+
+#. module: base
+#: model:ir.module.module,description:base.module_l10n_es
+msgid ""
+"\n"
+"Spanish Charts of Accounts (PGCE 2008).\n"
+"=======================================\n"
+"\n"
+"    * Defines the following chart of account templates:\n"
+"        * Spanish General Chart of Accounts 2008\n"
+"        * Spanish General Chart of Accounts 2008 for small and medium "
+"companies\n"
+"    * Defines templates for sale and purchase VAT\n"
+"    * Defines tax code templates\n"
+"\n"
+"**Note:** You should install the l10n_ES_account_balance_report module for "
+"yearly\n"
+"      account reporting (balance, profit & losses).\n"
+msgstr ""
 
 #. module: base
 #: field:ir.actions.act_url,type:0
@@ -13107,11 +12947,6 @@ msgid "Address Format"
 msgstr "Adres formaat"
 
 #. module: base
-#: constraint:res.partner:0
-msgid "You cannot create recursive Partner hierarchies."
-msgstr "Het is niet mogelijk een recursieve relatie hiërarchie te maken"
-
-#. module: base
 #: model:ir.model,name:base.model_change_password_user
 msgid "Change Password Wizard User"
 msgstr "Wijzig wachtwoord wizard"
@@ -13177,13 +13012,6 @@ msgstr ""
 #: model:ir.ui.menu,name:base.ir_model_data_menu
 msgid "External Identifiers"
 msgstr "Externe identifiers"
-
-#. module: base
-#. openerp-web
-#: code:addons/base/static/src/js/apps.js:104
-#, python-format
-msgid "Showing locally available modules"
-msgstr "Lokaal beschikbare modules worden weergegeven"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -13293,12 +13121,6 @@ msgid ""
 msgstr ""
 
 #. module: base
-#: code:addons/base/ir/ir_model.py:295
-#, python-format
-msgid "Size of the field can never be less than 0 !"
-msgstr "Grootte van het veld kan nooit minder dan 0 zijn!"
-
-#. module: base
 #: help:ir.actions.server,sequence:0
 msgid ""
 "Important when you deal with multiple actions, the execution order will be "
@@ -13392,6 +13214,12 @@ msgstr "Vertalen"
 #: field:res.request.history,body:0
 msgid "Body"
 msgstr "Inhoud"
+
+#. module: base
+#: code:addons/base/ir/ir_mail_server.py:221
+#, python-format
+msgid "Connection test succeeded!"
+msgstr "Connectietest geslaagd!"
 
 #. module: base
 #: model:ir.module.module,description:base.module_project_gtd
@@ -13784,25 +13612,9 @@ msgid "Bulgaria"
 msgstr "Bulgarije"
 
 #. module: base
-#: model:ir.module.module,description:base.module_mrp_byproduct
-msgid ""
-"\n"
-"This module allows you to produce several products from one production "
-"order.\n"
-"============================================================================="
-"\n"
-"\n"
-"You can configure by-products in the bill of material.\n"
-"\n"
-"Without this module:\n"
-"--------------------\n"
-"    A + B + C -> D\n"
-"\n"
-"With this module:\n"
-"-----------------\n"
-"    A + B + C -> D + E\n"
-"    "
-msgstr ""
+#: model:res.country,name:base.ao
+msgid "Angola"
+msgstr "Angola"
 
 #. module: base
 #: model:res.country,name:base.tf
@@ -13958,6 +13770,11 @@ msgid "ir.sequence.type"
 msgstr "ir.sequence.type"
 
 #. module: base
+#: model:ir.module.module,shortdesc:base.module_l10n_be_hr_payroll_account
+msgid "Belgium - Payroll with Accounting"
+msgstr ""
+
+#. module: base
 #: selection:base.language.export,format:0
 msgid "CSV File"
 msgstr "CSV-bestand"
@@ -13966,6 +13783,12 @@ msgstr "CSV-bestand"
 #: field:res.company,account_no:0
 msgid "Account No."
 msgstr "Rekeningnr."
+
+#. module: base
+#: code:addons/base/res/res_lang.py:185
+#, python-format
+msgid "Base Language 'en_US' can not be deleted !"
+msgstr "Basistaal 'en_US' kan niet worden verwijderd !"
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_uk
@@ -14015,48 +13838,9 @@ msgid "Field Label"
 msgstr "Veldlabel"
 
 #. module: base
-#: model:ir.module.module,description:base.module_sale_stock
-msgid ""
-"\n"
-"Manage sales quotations and orders\n"
-"==================================\n"
-"\n"
-"This module makes the link between the sales and warehouses management "
-"applications.\n"
-"\n"
-"Preferences\n"
-"-----------\n"
-"* Shipping: Choice of delivery at once or partial delivery\n"
-"* Invoicing: choose how invoices will be paid\n"
-"* Incoterms: International Commercial terms\n"
-"\n"
-"You can choose flexible invoicing methods:\n"
-"\n"
-"* *On Demand*: Invoices are created manually from Sales Orders when needed\n"
-"* *On Delivery Order*: Invoices are generated from picking (delivery)\n"
-"* *Before Delivery*: A Draft invoice is created and must be paid before "
-"delivery\n"
-msgstr ""
-"\n"
-"Beheer verkoop offertes en orders\n"
-"============================\n"
-"\n"
-"Deze module maakt de verbinding tussen de verkoop en voorraadbeheer "
-"applicaties.\n"
-"\n"
-"Voorkeuren\n"
-"-----------\n"
-"* Levering: Keuze uit levering ineens of deelleveringen\n"
-"* Facturatie: kies hoe facturen worden betaald\n"
-"* Incoterms: Internationale Commerciële voorwaarden\n"
-"\n"
-"U kunt flexibele facturatie methoden kiezen:\n"
-"\n"
-"* *Op aanvraag*: Facturen worden handmatig gemaakt vanuit verkooporders "
-"wanneer nodig\n"
-"* *Bij pakbon*: Facturen worden gegenereerd bij de levering\n"
-"* *Vooruitbetaling*: Een proeffactuur wordt gemaakt die betaald moet worden "
-"voorafgaand aan de levering\n"
+#: model:res.country,name:base.dj
+msgid "Djibouti"
+msgstr "Djibouti"
 
 #. module: base
 #: field:ir.translation,value:0
@@ -14217,6 +14001,11 @@ msgid "Diagram"
 msgstr "Diagram"
 
 #. module: base
+#: model:ir.module.module,shortdesc:base.module_l10n_es
+msgid "Spanish - Accounting (PGCE 2008)"
+msgstr "Spaans -  Boekhouding (PGCE 2008)"
+
+#. module: base
 #: model:ir.module.module,shortdesc:base.module_stock_no_autopicking
 msgid "Picking Before Manufacturing"
 msgstr "Picking voor produceren"
@@ -14271,14 +14060,6 @@ msgid ""
 "You can assign several contracts per employee.\n"
 "    "
 msgstr ""
-
-#. module: base
-#: code:addons/base/res/res_lang.py:187
-#, python-format
-msgid "You cannot delete the language which is User's Preferred Language!"
-msgstr ""
-"Het is niet toegestaan een taal te verwijderen welke de gebruikers voorkeur "
-"taal is!"
 
 #. module: base
 #: view:ir.model.data:0
@@ -14516,6 +14297,11 @@ msgstr "Klant relaties"
 #: sql_constraint:res.users:0
 msgid "You can not have two users with the same login !"
 msgstr "U kunt niet twee gebruikers hebben met dezelfde gebruikersnaam !"
+
+#. module: base
+#: model:ir.model,name:base.model_res_request_history
+msgid "res.request.history"
+msgstr "res.request.history"
 
 #. module: base
 #: model:ir.model,name:base.model_multi_company_default
@@ -14766,11 +14552,6 @@ msgid "Luxembourg"
 msgstr "Luxemburg"
 
 #. module: base
-#: view:res.partner:0
-msgid "(edit company address)"
-msgstr "(bijwerken bedrijfsadres)"
-
-#. module: base
 #: model:ir.module.module,summary:base.module_base_calendar
 msgid "Personal & Shared Calendar"
 msgstr "Persoonlijke en gedeelde agenda"
@@ -15000,13 +14781,6 @@ msgid "Currency Rate"
 msgstr "Wisselkoers"
 
 #. module: base
-#. openerp-web
-#: code:addons/base/static/src/js/apps.js:104
-#, python-format
-msgid "OpenERP Apps Unreachable"
-msgstr "OpenERP Apps onbereikbaar"
-
-#. module: base
 #: view:base.module.upgrade:0
 #: field:base.module.upgrade,module_info:0
 msgid "Modules to Update"
@@ -15143,11 +14917,6 @@ msgid "View Auto-Load"
 msgstr "Weergave automatisch verversen"
 
 #. module: base
-#: view:res.country:0
-msgid "Address format..."
-msgstr "Adres formaat..."
-
-#. module: base
 #: model:ir.module.module,description:base.module_l10n_et
 msgid ""
 "\n"
@@ -15221,6 +14990,12 @@ msgstr "Bron model"
 #: view:ir.sequence:0
 msgid "Day of the Week (0:Monday): %(weekday)s"
 msgstr "Dag van de Week (0:Maandag): %(weekday)s"
+
+#. module: base
+#: code:addons/base/module/wizard/base_module_upgrade.py:84
+#, python-format
+msgid "Unmet dependency !"
+msgstr "Niet voldane afhankelijkheid !"
 
 #. module: base
 #: code:addons/base/ir/ir_model.py:509
@@ -15526,11 +15301,17 @@ msgid "Color Index"
 msgstr "Kleur index"
 
 #. module: base
-#: model:ir.module.category,name:base.module_category_manufacturing
-#: model:ir.ui.menu,name:base.menu_mrp_config
-#: model:ir.ui.menu,name:base.menu_mrp_root
-msgid "Manufacturing"
-msgstr "Productie"
+#: model:ir.actions.act_window,help:base.action_partner_category_form
+msgid ""
+"Manage the partner categories in order to better classify them for tracking "
+"and analysis purposes. A partner may belong to several categories and "
+"categories have a hierarchy structure: a partner belonging to a category "
+"also belong to his parent category."
+msgstr ""
+"Beheert de relatie categorieën om ze beter te kunnen indelen voor controle "
+"en analyse doeleinden. Een relatie mag bij verschillende categorieën horen "
+"en categorieën hebben een hiërarchische structuur: een relatie die bij een "
+"categorie hoort, hoort ook bij de bovenliggende categorie."
 
 #. module: base
 #: model:ir.module.module,description:base.module_survey
@@ -15577,14 +15358,9 @@ msgid "Electronic Data Interchange (EDI)"
 msgstr "Electronic Data Interchange (EDI)"
 
 #. module: base
-#: model:ir.module.module,description:base.module_l10n_cn
-msgid ""
-"\n"
-"添加中文省份数据\n"
-"科目类型\\会计科目表模板\\增值税\\辅助核算类别\\管理会计凭证簿\\财务会计凭证簿\n"
-"============================================================\n"
-"    "
-msgstr ""
+#: model:ir.module.module,shortdesc:base.module_account_anglo_saxon
+msgid "Anglo-Saxon Accounting"
+msgstr "Angelsaksische boekhouding"
 
 #. module: base
 #: model:res.country,name:base.vg
@@ -15596,11 +15372,6 @@ msgstr "Maagdeneilanden (Brits)"
 #: model:ir.ui.menu,name:base.menu_ir_property
 msgid "Parameters"
 msgstr "Parameters"
-
-#. module: base
-#: view:res.partner:0
-msgid "e.g. Sales Director"
-msgstr "Bijv. Account manager"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -15794,11 +15565,6 @@ msgid "Automatic Installation"
 msgstr "Automatische installatie"
 
 #. module: base
-#: view:base.language.import:0
-msgid "e.g. en_US"
-msgstr "Bijv. nl_NL"
-
-#. module: base
 #: model:ir.module.module,description:base.module_l10n_hn
 msgid ""
 "\n"
@@ -15974,10 +15740,10 @@ msgid "Condition"
 msgstr "Voorwaarde"
 
 #. module: base
-#: code:addons/base/module/module.py:669
-#, python-format
-msgid "Module not found"
-msgstr "Module niet gevonden"
+#: model:ir.actions.client,name:base.modules_updates_act_cl
+#: model:ir.ui.menu,name:base.menu_module_updates
+msgid "Updates"
+msgstr "Updates"
 
 #. module: base
 #: help:res.currency,rate:0
@@ -16097,12 +15863,6 @@ msgstr "Goud"
 #, python-format
 msgid "Bank Accounts"
 msgstr "Bankrekeningen"
-
-#. module: base
-#: code:addons/base/res/res_lang.py:185
-#, python-format
-msgid "Base Language 'en_US' can not be deleted!"
-msgstr "Standaard taal 'en_US' kan niet worden verwijderd!"
 
 #. module: base
 #: model:res.country,name:base.sl
@@ -16382,12 +16142,6 @@ msgid "Export Name"
 msgstr "Exportnaam"
 
 #. module: base
-#: code:addons/base/ir/ir_sequence.py:259
-#, python-format
-msgid "Invalid prefix or suffix for sequence '%s'"
-msgstr "Ongeldig voor- of navoegsel voor reeks '%s'"
-
-#. module: base
 #: help:res.partner,type:0
 msgid ""
 "Used to select automatically the right address according to the context in "
@@ -16429,93 +16183,3045 @@ msgstr "Russisch / русский язык"
 msgid "Signup"
 msgstr "Aanmelden"
 
-#, python-format
-#~ msgid "Error !"
-#~ msgstr "Fout !"
+#~ msgid "SMS - Gateway: clickatell"
+#~ msgstr "SMS - Service : clickatell"
+
+#~ msgid "Workflow On"
+#~ msgstr "Werkschema op"
+
+#~ msgid "On multiple doc."
+#~ msgstr "Op meerdere doc."
+
+#~ msgid "E-Mail"
+#~ msgstr "E-mail"
+
+#~ msgid ","
+#~ msgstr ","
+
+#~ msgid "Payment term"
+#~ msgstr "Betalingstermijn"
+
+#~ msgid "This field is not used, it only helps you to select the right action."
+#~ msgstr ""
+#~ "Dit veld wordt niet gebruikt, het helpt u alleen de juiste actie te kiezen."
+
+#~ msgid "client_action_multi, client_action_relate"
+#~ msgstr "client_action_multi, client_action_relate"
+
+#~ msgid "wizard.ir.model.menu.create.line"
+#~ msgstr "wizard.ir.model.menu.create.line"
+
+#~ msgid "Attached ID"
+#~ msgstr "Bijlage ID"
+
+#~ msgid ""
+#~ "Specify the message. You can use the fields from the object. e.g. `Dear [[ "
+#~ "object.partner_id.name ]]`"
+#~ msgstr ""
+#~ "Geef het bericht. U kunt velden van het object gebruiken, bijv. `Beste [[ "
+#~ "object.partner_id.name ]]`"
+
+#~ msgid "Attached Model"
+#~ msgstr "Bijgevoegd model"
+
+#~ msgid "Reply"
+#~ msgstr "Antwoorden"
+
+#~ msgid "References"
+#~ msgstr "Referenties"
+
+#~ msgid "Action To Launch"
+#~ msgstr "Uit te voeren actie"
+
+#~ msgid "Values"
+#~ msgstr "Waarden"
+
+#~ msgid "Channel"
+#~ msgstr "Kanaal"
+
+#~ msgid "Ending Date"
+#~ msgstr "Einddatum"
+
+#~ msgid "Openstuff.net"
+#~ msgstr "Openstuff.net"
+
+#~ msgid "Valid"
+#~ msgstr "Geldig"
+
+#~ msgid "Iteration Action Configuration"
+#~ msgstr "Repeterende actie instelling"
+
+#~ msgid "Draft"
+#~ msgstr "Concept"
+
+#~ msgid "Select the Signal name that is to be used as the trigger."
+#~ msgstr "Kies de signaalnaam die wordt gebruikt als trigger."
+
+#~ msgid "Payment Term"
+#~ msgstr "Betalingsvoorwaarde"
+
+#~ msgid "Quality Certificate"
+#~ msgstr "Kwaliteitscertificaat"
+
+#~ msgid ""
+#~ "Specify the subject. You can use fields from the object, e.g. `Hello [[ "
+#~ "object.partner_id.name ]]`"
+#~ msgstr ""
+#~ "Geef het onderwerp. U kunt velden van het object gebruiken, bijv. `Beste [[ "
+#~ "object.partner_id.name ]]`"
+
+#~ msgid ""
+#~ "0=Very Urgent\n"
+#~ "10=Not urgent"
+#~ msgstr ""
+#~ "0=Zeer Urgent\n"
+#~ "10=Niet Urgent"
+
+#~ msgid "API ID"
+#~ msgstr "API ID"
+
+#~ msgid "res.groups"
+#~ msgstr "res.groups"
+
+#~ msgid "Creator"
+#~ msgstr "Maker"
+
+#~ msgid "res.users"
+#~ msgstr "res.users"
+
+#~ msgid "Events"
+#~ msgstr "Gebeurtenissen"
+
+#~ msgid "ir.actions.url"
+#~ msgstr "ir.actions.url"
+
+#~ msgid "Create Action"
+#~ msgstr "Nieuwe actie"
+
+#~ msgid "Objects"
+#~ msgstr "Objecten"
+
+#~ msgid "Advice"
+#~ msgstr "Advies"
+
+#~ msgid "Maintenance Contract"
+#~ msgstr "Onderhoudscontract"
+
+#~ msgid "Select the object from the model on which the workflow will executed."
+#~ msgstr ""
+#~ "Kies het object van het model waarop het werkschema wordt uitgevoerd."
+
+#~ msgid "Starting Date"
+#~ msgstr "Begindatum"
+
+#~ msgid "Textile Suppliers"
+#~ msgstr "Textiel leveranciers"
+
+#~ msgid "res.config.view"
+#~ msgstr "res.config.view"
+
+#~ msgid "acc_number"
+#~ msgstr "rekeningnummer"
+
+#~ msgid "Skipped"
+#~ msgstr "Overgeslagen"
+
+#~ msgid "Connect Events to Actions"
+#~ msgstr "Verbind gebeurtenissen met acties"
+
+#~ msgid "res.partner.event"
+#~ msgstr "res.partner.event"
+
+#~ msgid "Send SMS"
+#~ msgstr "SMS verzenden"
+
+#~ msgid "_Close"
+#~ msgstr "_Sluiten"
+
+#~ msgid "VAT"
+#~ msgstr "BTW"
+
+#~ msgid "Number padding"
+#~ msgstr "Nummer verspringing"
+
+#~ msgid "ir.actions.todo"
+#~ msgstr "ir.actions.todo"
+
+#~ msgid "The kernel of OpenERP, needed for all installation."
+#~ msgstr "De basis van OpenERP, noodzakelijk in alle installaties."
+
+#~ msgid "Components Supplier"
+#~ msgstr "Componenten leverancier"
+
+#~ msgid "Week of the year: %(woy)s"
+#~ msgstr "Week van het jaar: %(woy)s"
+
+#~ msgid "Bad customers"
+#~ msgstr "Slechte klanten"
+
+#~ msgid "Create"
+#~ msgstr "Aanmaken"
+
+#~ msgid "Day of the year: %(doy)s"
+#~ msgstr "Dag van het jaar: %(doy)s"
+
+#~ msgid "Installed version"
+#~ msgstr "Geïnstalleerde versie"
+
+#~ msgid "The state code in three chars.\n"
+#~ msgstr "De provinciecode in drie karakters.\n"
+
+#~ msgid "Requests"
+#~ msgstr "Verzoeken"
+
+#~ msgid "Rounding factor"
+#~ msgstr "Afrondingsfactor"
+
+#~ msgid "Important customers"
+#~ msgstr "Belangrijke klanten"
+
+#~ msgid "Short Description"
+#~ msgstr "Korte omschrijving"
+
+#~ msgid "Gold Partner"
+#~ msgstr "Gold Partner"
+
+#~ msgid "Type fields"
+#~ msgstr "Soort velden"
+
+#~ msgid "Uncheck the active field to hide the contact."
+#~ msgstr "Deselecteer het actieve veld op de contactpersoon te verbergen."
+
+#~ msgid "Congo, The Democratic Republic of the"
+#~ msgstr "Congo, Democratische Republiek"
+
+#~ msgid "Python code to be executed"
+#~ msgstr "Python code die moet worden uitgevoerd"
+
+#~ msgid "Send Email"
+#~ msgstr "E-mail verzenden"
+
+#~ msgid "Next"
+#~ msgstr "Volgende"
+
+#~ msgid "Channel Name"
+#~ msgstr "Kanaalnaam"
+
+#~ msgid "Object ID"
+#~ msgstr "Object ID"
+
+#~ msgid "Landscape"
+#~ msgstr "Liggend"
+
+#~ msgid "Channels"
+#~ msgstr "Kanalen"
+
+#~ msgid "Schedule for Installation"
+#~ msgstr "Inplannen voor installatie"
+
+#~ msgid "Send"
+#~ msgstr "Verzenden"
+
+#~ msgid "Internal Header/Footer"
+#~ msgstr "Interne Koptekst/Voettekst"
+
+#~ msgid ""
+#~ "Check this box if the partner is a supplier. If it's not checked, purchase "
+#~ "people will not see it when encoding a purchase order."
+#~ msgstr ""
+#~ "Vink dit vakje aan als de relatie een leverancier is. Als het niet is "
+#~ "aangevinkt zien inkopers de relatie niet bij het invoeren van een "
+#~ "inkooporder."
+
+#~ msgid "https://translations.launchpad.net/openobject"
+#~ msgstr "https://translations.launchpad.net/openobject"
+
+#~ msgid "tree_but_action, client_print_multi"
+#~ msgstr "tree_but_action, client_print_multi"
+
+#~ msgid "Filename"
+#~ msgstr "Bestandsnaam"
+
+#~ msgid "Slovak Republic"
+#~ msgstr "Slowakije"
+
+#~ msgid "Segmentation"
+#~ msgstr "Verdeling"
+
+#~ msgid "Day of the week (0:Monday): %(weekday)s"
+#~ msgstr "Dag van de week (0:Maandag): %(weekday)s"
+
+#~ msgid "Action Source"
+#~ msgstr "Actiebron"
+
+#~ msgid "Portrait"
+#~ msgstr "Staand"
+
+#~ msgid "This field is not used, it only helps you to select a good model."
+#~ msgstr ""
+#~ "Dit veld wordt niet gebruikt, het helpt u alleen om een goed model te kiezen."
+
+#~ msgid "Code (eg:en__US)"
+#~ msgstr "Code (bijv: nl__NL)"
 
 #, python-format
-#~ msgid "Please specify an action to launch !"
-#~ msgstr "Geef alstublieft een actie om uit te voeren !"
+#~ msgid "new"
+#~ msgstr "nieuw"
+
+#~ msgid "Contact Name"
+#~ msgstr "Naam contactpersoon"
+
+#~ msgid "Select Action Type"
+#~ msgstr "Kies soort actie"
+
+#~ msgid "Export done"
+#~ msgstr "Export voltooid"
+
+#~ msgid "Basic Partner"
+#~ msgstr "Basisrelatie"
+
+#~ msgid "To export a new language, do not select a language."
+#~ msgstr "Om een taal te exporteren, geen taal kiezen."
+
+#~ msgid "Payment Term (short name)"
+#~ msgstr "Betalingstermijn (korte naam)"
+
+#~ msgid "Keep 0 if the action must appear on all resources."
+#~ msgstr "Laat 0 als de actie op alle bronnen moet voorkomen."
+
+#~ msgid "Trigger Name"
+#~ msgstr "Naam trigger"
+
+#~ msgid ""
+#~ "Keep empty if you don't want the user to be able to connect on the system."
+#~ msgstr ""
+#~ "Laat leeg als u niet wilt dat de gebruiker op het systeem kan inloggen."
+
+#~ msgid "Search Contact"
+#~ msgstr "Zoek contactpersoon"
+
+#~ msgid "Uninstall (beta)"
+#~ msgstr "Verwijder (beta)"
+
+#~ msgid "Meta Datas"
+#~ msgstr "Metagegevens"
+
+#~ msgid "Property"
+#~ msgstr "Eigenschap"
+
+#~ msgid "Report Footer 1"
+#~ msgstr "Overzicht voetregels 1"
+
+#~ msgid "Report Footer 2"
+#~ msgstr "Overzicht voetregels 2"
+
+#~ msgid "Unvalidated"
+#~ msgstr "Ongevalideerd"
+
+#~ msgid ""
+#~ "Value Added Tax number. Check the box if the partner is subjected to the "
+#~ "VAT. Used by the VAT legal statement."
+#~ msgstr ""
+#~ "BTW-nummer. Kies dit vakje als de relatie BTW-plichtig is. Wordt gebruikt "
+#~ "bij de BTW-aangifte."
+
+#~ msgid "Categories"
+#~ msgstr "Categorieën"
+
+#~ msgid "Event Type"
+#~ msgstr "Soort gebeurtenis"
+
+#~ msgid "FYROM"
+#~ msgstr "FYROM"
+
+#~ msgid "General Description"
+#~ msgstr "Algemene omschrijving"
+
+#~ msgid "Parent Partner"
+#~ msgstr "Hoofdrelatie"
+
+#~ msgid ""
+#~ "The internal user that is in charge of communicating with this partner if "
+#~ "any."
+#~ msgstr ""
+#~ "De interne gebruiker die verantwoordelijk is voor de communicatie met deze "
+#~ "relatie, als die er is."
+
+#~ msgid "Client Actions Connections"
+#~ msgstr "Client-actie verbindingen"
+
+#~ msgid "Partner Contacts"
+#~ msgstr "Contactpersonen relatie"
+
+#~ msgid "Partner Addresses"
+#~ msgstr "Adressen relatie"
+
+#~ msgid "Request History"
+#~ msgstr "Verzoekenhistorie"
 
 #, python-format
-#~ msgid "Can not create the module file: %s !"
-#~ msgstr "Kan het modulebestand niet maken: %s !"
+#~ msgid "Module %s: Invalid Quality Certificate"
+#~ msgstr "Module %s: Ongeldig kwaliteitscertificaat"
 
-#, python-format
-#~ msgid "Size of the field can never be less than 1 !"
-#~ msgstr "De veldlengte kan nooit kleiner dan 1 zijn !"
+#~ msgid "Postal Address"
+#~ msgstr "Postadres"
+
+#~ msgid "Select Groups"
+#~ msgstr "Kies groepen"
+
+#~ msgid "Metadata"
+#~ msgstr "Metagegevens"
 
 #, python-format
 #~ msgid ""
-#~ "You cannot delete the language which is Active !\n"
-#~ "Please de-activate the language first."
+#~ "Save this document to a %s file and edit it with a specific software or a "
+#~ "text editor. The file encoding is UTF-8."
 #~ msgstr ""
-#~ "U kunt de actieve taal niet verwijderen !\n"
-#~ "De-activeer de taal eerst aub."
+#~ "Sla dit document op als een %s-bestand en bewerk het met daarvoor bedoelde "
+#~ "software of een tekstverwerker. De tekstcodering is UTF-8."
+
+#~ msgid "Schedule Upgrade"
+#~ msgstr "Upgrade inplannen"
 
 #, python-format
-#~ msgid "You cannot delete the language which is User's Preferred Language !"
-#~ msgstr "U kunt geen taal verwijderen die gebruikers voorkeurstaal is !"
+#~ msgid "You can not remove the model '%s' !"
+#~ msgstr "U kunt het model '%s' niet verwijderen !"
 
-#, python-format
-#~ msgid "Base Language 'en_US' can not be deleted !"
-#~ msgstr "Basistaal 'en_US' kan niet worden verwijderd !"
-
-#~ msgid "Manage bank records you want to be used in the system."
-#~ msgstr "Beheert de bankrelaties die u in het systeem wilt gebruiken."
+#~ msgid "S. Georgia & S. Sandwich Isls."
+#~ msgstr "St. Georgia & St. Sandwich-eilanden"
 
 #~ msgid ""
-#~ "Manage the partner categories in order to better classify them for tracking "
-#~ "and analysis purposes. A partner may belong to several categories and "
-#~ "categories have a hierarchy structure: a partner belonging to a category "
-#~ "also belong to his parent category."
+#~ "Provides the fields that will be used to fetch the email address, e.g. when "
+#~ "you select the invoice, then `object.invoice_address_id.email` is the field "
+#~ "which gives the correct address"
 #~ msgstr ""
-#~ "Beheert de relatie categorieën om ze beter te kunnen indelen voor controle "
-#~ "en analyse doeleinden. Een relatie mag bij verschillende categorieën horen "
-#~ "en categorieën hebben een hiërarchische structuur: een relatie die bij een "
-#~ "categorie hoort, hoort ook bij de bovenliggende categorie."
+#~ "Verzorgt de velden die worden gebruikt om een email adres op te halen. Bij "
+#~ "bijv. een factuur bevat het veld `object.invoice_address_id.email` het "
+#~ "juiste e-mail adres."
+
+#~ msgid "-"
+#~ msgstr "-"
 
 #, python-format
-#~ msgid "Unmet dependency !"
-#~ msgstr "Niet voldane afhankelijkheid !"
+#~ msgid ""
+#~ "Couldn't generate the next id because some partners have an alphabetic id !"
+#~ msgstr ""
+#~ "Kon geen volgend ID genereren omdat sommige relaties een alfabetisch ID "
+#~ "hebben !"
+
+#~ msgid "Customization"
+#~ msgstr "Aanpassingen"
+
+#~ msgid "Check this box if the partner is a customer."
+#~ msgstr "Vink dit aan als de relatie een klant is"
 
 #, python-format
-#~ msgid "Invalid search criterions"
-#~ msgstr "Ongeldige zoekcriteria"
-
-#, python-format
-#~ msgid "Connection test failed!"
-#~ msgstr "Verbindings test mislukt!"
-
-#~ msgid "Spanish - Accounting (PGCE 2008)"
-#~ msgstr "Spaans -  Boekhouding (PGCE 2008)"
-
-#, python-format
-#~ msgid "Connection test succeeded!"
-#~ msgstr "Connectietest geslaagd!"
+#~ msgid ""
+#~ "Save this document to a .CSV file and open it with your favourite "
+#~ "spreadsheet software. The file encoding is UTF-8. You have to translate the "
+#~ "latest column before reimporting it."
+#~ msgstr ""
+#~ "Bewaard dit document als een .CSV-bestand en open het met uw favoriete "
+#~ "spreadsheetprogramma. De bestandscodering is UTF-8. U dient de laatste kolom "
+#~ "te vertalen alvorens deze opnieuw te importeren."
 
 #~ msgid ""
-#~ "Configure your company's bank accounts and select those that must appear on "
-#~ "the report footer. You can reorder bank accounts from the list view. If you "
-#~ "use the accounting application of OpenERP, journals and accounts will be "
-#~ "created automatically based on these data."
+#~ "If the selected language is loaded in the system, all documents related to "
+#~ "this partner will be printed in this language. If not, it will be english."
 #~ msgstr ""
-#~ "Stel uw bankrekeningnummers van uw bedrijf in en selecteer degene welke op "
-#~ "uw rapportvoet moeten worden afgedrukt. U kunt de bankrekeningnummers "
-#~ "sorteren in de lijst. Indien u gebruik maakt van de boekhouding in OpenERP, "
-#~ "dan worden dagboeken en rekeningen automatisch aangemaakt op basis van deze "
-#~ "gegevens."
+#~ "Als de gekozen vertaling in het systeem is geladen, zullen alle aan deze "
+#~ "relatie gerelateerde documenten worden afgedrukt in deze taal. Indien niet, "
+#~ "dan zal dit in het Engels zijn."
 
-#~ msgid "My Filters"
-#~ msgstr "Mijn Filters"
+#~ msgid "SXW content"
+#~ msgstr "SXW-inhoud"
 
-#~ msgid "Personal"
-#~ msgstr "Persoonlijk"
+#~ msgid ""
+#~ "Condition that is to be tested before action is executed, e.g. "
+#~ "object.list_price > object.cost_price"
+#~ msgstr ""
+#~ "Voorwaarde die moet worden getest voordat de actie wordt uitgevoerd, bijv. "
+#~ "object.list_price > object.cost_price"
+
+#~ msgid ""
+#~ "The kind of action or button in the client side that will trigger the action."
+#~ msgstr "De soort actie of knop in de client die deze actie zal starten."
+
+#~ msgid "SXW path"
+#~ msgstr "SXW-pad"
+
+#~ msgid "Demo data"
+#~ msgstr "Demonstratiegegevens"
+
+#~ msgid "Starter Partner"
+#~ msgstr "Startende partner"
+
+#~ msgid "Client Action Configuration"
+#~ msgstr "Instellingen client-actie"
 
 #, python-format
-#~ msgid "Operation forbidden"
-#~ msgstr "Verwerking niet toegestaan"
+#~ msgid ""
+#~ "Some installed modules depend on the module you plan to Uninstall :\n"
+#~ " %s"
+#~ msgstr ""
+#~ "Sommige geïnstalleerde modules zijn afhankelijk van de module die u wilt "
+#~ "verwijderen: \n"
+#~ " %s"
+
+#~ msgid "Trigger On"
+#~ msgstr "Trigger op"
+
+#~ msgid "Signal (button Name)"
+#~ msgstr "Signaal (naam knop)"
+
+#~ msgid "On delete"
+#~ msgstr "Bij verwijderen"
+
+#~ msgid "XML Identifier"
+#~ msgstr "XML-herkenningsteken"
+
+#~ msgid "SMS Message"
+#~ msgstr "SMS-bericht"
+
+#~ msgid "Select Report"
+#~ msgstr "Kies overzicht"
+
+#~ msgid "Sender's email"
+#~ msgstr "E-mailadres afzender"
+
+#~ msgid "Values for Event Type"
+#~ msgstr "Waarde voor soort gebeurtenis"
+
+#~ msgid "Easy to Refer action by name e.g. One Sales Order -> Many Invoices"
+#~ msgstr ""
+#~ "Gemakkelijk te onthouden actie op naam. Bijv. Eén verkoopopdracht -> Veel "
+#~ "facturen"
+
+#~ msgid "Bulk SMS send"
+#~ msgstr "Bulk-SMS verzenden"
+
+#~ msgid "Seconde: %(sec)s"
+#~ msgstr "Seconden: %(sec)s"
+
+#~ msgid "Add User"
+#~ msgstr "Nieuwe gebruiker"
+
+#~ msgid "XSL path"
+#~ msgstr "XSL-pad"
+
+#~ msgid "country_id"
+#~ msgstr "Landcode"
+
+#~ msgid "OpenERP Partners"
+#~ msgstr "OpenERP-partners"
+
+#~ msgid "Open Report"
+#~ msgstr "Open overzicht"
+
+#~ msgid "Load an Official Translation"
+#~ msgstr "Laad een officiële vertaling"
+
+#~ msgid "Open Source Service Company"
+#~ msgstr "Open Source-dienstverlener"
+
+#~ msgid "Report Header"
+#~ msgstr "Kopregels overzicht"
+
+#~ msgid "Modules to update"
+#~ msgstr "Bij te werken modules"
+
+#~ msgid "Add RML header"
+#~ msgstr "Voeg RML-kopregels toe"
+
+#~ msgid "RML content"
+#~ msgstr "RML-inhoud"
+
+#~ msgid "Add or not the coporate RML header"
+#~ msgstr "Wel of niet RML-bedrijfskopregels toevoegen"
+
+#~ msgid "Other Actions Configuration"
+#~ msgstr "Instellingen andere handelingen"
+
+#~ msgid "Keep empty for a private address, not related to partner."
+#~ msgstr "Laat leeg voor een privé-adres, niet gerelateerd aan de relatie."
 
 #, python-format
-#~ msgid "Couldn't create contact without email address !"
-#~ msgstr "Het was niet mogelijk een relatie aan te maken zinder e-mail adres!"
+#~ msgid ""
+#~ "Save this document to a .tgz file. This archive containt UTF-8 %s files and "
+#~ "may be uploaded to launchpad."
+#~ msgstr ""
+#~ "Bewaar dit document als een .tgz-bestand. Dit archief bevat UTF-8 %s "
+#~ "bestanden en kan geladen worden in launchpad."
+
+#~ msgid "XML path"
+#~ msgstr "XML-pad"
+
+#~ msgid "Workflow to be executed on this model."
+#~ msgstr "Uit te voeren werkschema op dit model."
+
+#~ msgid "Is Object"
+#~ msgstr "Is object"
+
+#~ msgid "Your Logo - Use a size of about 450x150 pixels."
+#~ msgstr "Uw logo - gebruik een afmeting van ongeveer 450x150 pixels."
+
+#~ msgid "Latest version"
+#~ msgstr "Laatste versie"
+
+#~ msgid "Configuration Progress"
+#~ msgstr "Voortgang configuratie"
+
+#~ msgid "Localisation"
+#~ msgstr "Lokalisatie"
+
+#~ msgid "Save As Attachment Prefix"
+#~ msgstr "Opslaan als bijlage voorvoegsel"
+
+#~ msgid "BIC/Swift code"
+#~ msgstr "BIC/Swift-code"
+
+#~ msgid ""
+#~ "You cannot have multiple records with the same id for the same module !"
+#~ msgstr ""
+#~ "U kunt niet meer records hebben met dezelfde id voor dezelfde module !"
+
+#, python-format
+#~ msgid "The certificate ID of the module must be unique !"
+#~ msgstr "Het kwaliteitscertificaat id van de module moet uniek zijn !"
+
+#~ msgid "Widget"
+#~ msgstr "Widget"
+
+#~ msgid "Wood Suppliers"
+#~ msgstr "Houtleveranciers"
+
+#~ msgid "Display Menu Tips"
+#~ msgstr "Toon menu tips"
+
+#, python-format
+#~ msgid "\"smtp_server\" needs to be set to send mails to users"
+#~ msgstr ""
+#~ "\"smtp_server\" moet ingevuld zijn om mails te versturen naar gebruikers"
+
+#~ msgid "Miscellaneous Suppliers"
+#~ msgstr "Overige leveranciers"
+
+#~ msgid "Want to check Ean ? "
+#~ msgstr "EAN controleren ? "
+
+#~ msgid "Partner Form"
+#~ msgstr "Relatieformulier"
+
+#~ msgid ""
+#~ "OpenERP translations (core, modules, clients) are managed through "
+#~ "Launchpad.net, our open source project management facility. We use their "
+#~ "online interface to synchronize all translations efforts."
+#~ msgstr ""
+#~ "OpenERP vertalingen (kern, modules, cliënten) worden beheerd via "
+#~ "Launchpad.net, onze open source project management voorziening. We gebruiken "
+#~ "haar online interface om alle vertaalwerkzaamheden te synchroniseren."
+
+#~ msgid "Certified"
+#~ msgstr "Gecertificeerd"
+
+#~ msgid ""
+#~ "Groups are used to define access rights on objects and the visibility of "
+#~ "screens and menus"
+#~ msgstr ""
+#~ "Groepen worden gebruikt om toegangsrechten te definiëren voor objecten en de "
+#~ "zichtbaarheid van schermen en menu's"
+
+#~ msgid "res.config.users"
+#~ msgstr "res.config.users"
+
+#~ msgid ""
+#~ "Sets the language for the user's user interface, when UI translations are "
+#~ "available"
+#~ msgstr ""
+#~ "Stelt de taal voor het gebruikersinterface in, als de vertalingen "
+#~ "beschikbaar zijn"
+
+#~ msgid "Human Resources Dashboard"
+#~ msgstr "Personeel dashboard"
+
+#~ msgid ""
+#~ "To improve or expand the official translations, you should use directly "
+#~ "Lauchpad's web interface (Rosetta). If you need to perform mass translation, "
+#~ "Launchpad also allows uploading full .po files at once"
+#~ msgstr ""
+#~ "Om de officiële vertalingen te verbeteren of uit te breiden kunt u "
+#~ "rechtstreeks het webinterface van Launchpad (Rosetta) gebruiken. Als u "
+#~ "massale vertalingen moet doorvoeren laat Launchpad u hele .po bestanden "
+#~ "ineens uploaden"
+
+#~ msgid "Main report file path"
+#~ msgstr "Hoofd overzicht bestandspad"
+
+#~ msgid ""
+#~ "2. Group-specific rules are combined together with a logical AND operator"
+#~ msgstr ""
+#~ "2. Groep-specifieke regels worden samengevoegd met een logische EN operator"
+
+#~ msgid "Request Date"
+#~ msgstr "Aanvraagdatum"
+
+#~ msgid "Dashboard"
+#~ msgstr "Dashboard"
+
+#~ msgid "https://help.launchpad.net/Translations"
+#~ msgstr "https://help.launchpad.net/Translations"
+
+#~ msgid "Homepage Widgets"
+#~ msgstr "Beginpagina componenten"
+
+#~ msgid ""
+#~ "Date : %(date)s\n"
+#~ "\n"
+#~ "Dear %(partner_name)s,\n"
+#~ "\n"
+#~ "Please find in attachment a reminder of all your unpaid invoices, for a "
+#~ "total amount due of:\n"
+#~ "\n"
+#~ "%(followup_amount).2f %(company_currency)s\n"
+#~ "\n"
+#~ "Thanks,\n"
+#~ "--\n"
+#~ "%(user_signature)s\n"
+#~ "%(company_name)s"
+#~ msgstr ""
+#~ "Datum : %(date)s\n"
+#~ "\n"
+#~ "Beste %(partner_name)s,\n"
+#~ "\n"
+#~ "In de bijlage treft u een herinnering aan van al uw openstaande facturen "
+#~ "voor een totaal bedrag van: %(followup_amount).2f %(company_currency)s\n"
+#~ "\n"
+#~ "Met vriendelijke groet,\n"
+#~ "--\n"
+#~ "%(user_signature)s\n"
+#~ "%(company_name)s"
+
+#~ msgid "Domain Setup"
+#~ msgstr "Domein instellingen"
+
+#~ msgid ""
+#~ "Do not display this log if it belongs to the same object the user is working "
+#~ "on"
+#~ msgstr ""
+#~ "Toon deze log niet als het hoort bij hetzelfde object waar de gebruiker aan "
+#~ "werkt"
+
+#~ msgid "Advanced"
+#~ msgstr "Geavanceerd"
+
+#~ msgid ""
+#~ "When using CSV format, please also check that the first line of your file is "
+#~ "one of the following:"
+#~ msgstr ""
+#~ "Controleer bij gebruik van CSV formaat eveneens dat de eerste regel van uw "
+#~ "bestand een van de volgende is:"
+
+#~ msgid "Simplified"
+#~ msgstr "Eenvoudig"
+
+#~ msgid "Logs"
+#~ msgstr "Logboek"
+
+#~ msgid ""
+#~ "Example: GLOBAL_RULE_1 AND GLOBAL_RULE_2 AND ( (GROUP_A_RULE_1 AND "
+#~ "GROUP_A_RULE_2) OR (GROUP_B_RULE_1 AND GROUP_B_RULE_2) )"
+#~ msgstr ""
+#~ "Voorbeeld: GLOBAL_RULE_1 AND GLOBAL_RULE_2 AND ( (GROUP_A_RULE_1 AND "
+#~ "GROUP_A_RULE_2) OR (GROUP_B_RULE_1 AND GROUP_B_RULE_2) )"
+
+#~ msgid ""
+#~ "This wizard will scan all module repositories on the server side to detect "
+#~ "newly added modules as well as any change to existing modules."
+#~ msgstr ""
+#~ "Deze assistent doorloopt alle module opslagruimtes op de server om nieuw "
+#~ "toegevoegde modules en gewijzigde modules te herkennen."
+
+#~ msgid "Please be patient, as this operation may take a few seconds..."
+#~ msgstr "Even geduld aub omdat deze bewerking enkele seconden kan duren..."
+
+#~ msgid "Clear IDs"
+#~ msgstr "IDs opschonen"
+
+#~ msgid ""
+#~ "Name of object whose function will be called when this scheduler will run. "
+#~ "e.g. 'res.partener'"
+#~ msgstr ""
+#~ "Naam van het object waarvan de functie wordt opgeroepen als deze planner "
+#~ "loopt; bijv. 'res.partner'"
+
+#~ msgid "Partner Name"
+#~ msgstr "Relatienaam"
+
+#~ msgid "Extended"
+#~ msgstr "Uitgebreid"
+
+#~ msgid ""
+#~ "Please double-check that the file encoding is set to UTF-8 (sometimes called "
+#~ "Unicode) when the translator exports it."
+#~ msgstr ""
+#~ "Controleer dat de bestandscodering op UTF-8 (soms genoemd Unicode) is "
+#~ "ingesteld als de vertaler het exporteert."
+
+#~ msgid "HR sector"
+#~ msgstr "HR sector"
+
+#~ msgid "Apply For Write"
+#~ msgstr "Toepassen bij schrijven"
+
+#~ msgid "Field Information"
+#~ msgstr "Veld informatie"
+
+#~ msgid ""
+#~ "This wizard helps you add a new language to your OpenERP system. After "
+#~ "loading a new language it becomes available as default interface language "
+#~ "for users and partners."
+#~ msgstr ""
+#~ "Deze assistent helpt u een nieuwe taal aan uw OpenERP systeem toe te voegen. "
+#~ "Na het laden van een nieuwe taal komt het beschikbaar als standaard "
+#~ "interface taal voor gebruikers en relaties."
+
+#~ msgid "Custom python parser"
+#~ msgstr "Aangepaste python parser"
+
+#~ msgid "Last Connection"
+#~ msgstr "Laatste verbinding"
+
+#~ msgid "M."
+#~ msgstr "Hr."
+
+#~ msgid "Ean check"
+#~ msgstr "Ean controle"
+
+#~ msgid "Restart"
+#~ msgstr "Herstarten"
+
+#~ msgid "XML ID"
+#~ msgstr "XML ID"
+
+#~ msgid "Current Activity"
+#~ msgstr "Actuele activiteit"
+
+#~ msgid "Always"
+#~ msgstr "Altijd"
+
+#~ msgid "Retailers"
+#~ msgstr "Winkeliers"
+
+#~ msgid "Create Users"
+#~ msgstr "Gebruikers maken"
+
+#~ msgid "Event"
+#~ msgstr "Gebeurtenis"
+
+#~ msgid "OpenERP Favorites"
+#~ msgstr "OpenERP favorieten"
+
+#~ msgid "System update completed"
+#~ msgstr "Systeemupdate afgerond"
+
+#~ msgid "Apply For Delete"
+#~ msgstr "Toepassen bij verwijderen"
+
+#~ msgid "Translation Terms"
+#~ msgstr "Translation Terms"
+
+#~ msgid ""
+#~ "The user's timezone, used to perform timezone conversions between the server "
+#~ "and the client."
+#~ msgstr ""
+#~ "De tijdzone van de gebruiker, gebruikt voor tijdzone conversies tussen "
+#~ "server en cliënt."
+
+#~ msgid "Plugins"
+#~ msgstr "Plugins"
+
+#~ msgid "Configure Your Interface"
+#~ msgstr "Configureer uw interface"
+
+#~ msgid "Author Website"
+#~ msgstr "Website schrijver"
+
+#~ msgid "Load Official Translation"
+#~ msgstr "Officiële vertaling laden"
+
+#~ msgid "Combination of rules"
+#~ msgstr "Combinatie van regels"
+
+#~ msgid "Start Configuration"
+#~ msgstr "Configuratie starten"
+
+#~ msgid "vsep"
+#~ msgstr "vsep"
+
+#~ msgid "Unread"
+#~ msgstr "Ongelezen"
+
+#~ msgid "Clear Ids"
+#~ msgstr "Ids opschonen"
+
+#~ msgid "Want to Clear Ids ? "
+#~ msgstr "Wilt u Ids opschonen ? "
+
+#~ msgid "Cancelled"
+#~ msgstr "Geannuleerd"
+
+#~ msgid "- module,type,name,res_id,src,value"
+#~ msgstr "- module,type,name,res_id,src,value"
+
+#~ msgid "In-memory model"
+#~ msgstr "In-memory model"
+
+#~ msgid "Salesman"
+#~ msgstr "Verkoper"
+
+#~ msgid "Widgets"
+#~ msgstr "Componenten"
+
+#~ msgid "res.widget.user"
+#~ msgstr "res.widget.user"
+
+#~ msgid "_Ok"
+#~ msgstr "_Ok"
+
+#~ msgid "False means for every user"
+#~ msgstr "False betekent voor elke gebruiker"
+
+#~ msgid "Interface"
+#~ msgstr "Interface"
+
+#~ msgid "Read"
+#~ msgstr "Lezen"
+
+#~ msgid "The logging message."
+#~ msgstr "Het logboek bericht"
+
+#~ msgid ""
+#~ "If this log item has been read, get() should not send it to the client"
+#~ msgstr ""
+#~ "Als dit logboek item is gelezen zou get() het niet naar de cliënt moeten "
+#~ "sturen"
+
+#~ msgid "Has a web component"
+#~ msgstr "Heeft een web component"
+
+#~ msgid "Addresses"
+#~ msgstr "Adressen"
+
+#~ msgid "Content"
+#~ msgstr "Inhoud"
+
+#~ msgid "SMS Send"
+#~ msgstr "SMS versturen"
+
+#~ msgid "Integer Big"
+#~ msgstr "Grote integer"
+
+#~ msgid "Next planned execution date for this scheduler"
+#~ msgstr "Volgende geplande uitvoeringsdatum voor deze planner"
+
+#~ msgid "Choose between the simplified interface and the extended one"
+#~ msgstr "Kies tussen het eenvoudige interface en de uitgebreide"
+
+#~ msgid "Arguments to be passed to the method. e.g. (uid,)"
+#~ msgstr "Argumenten om door te geven aan de methode, bijv (uid.)"
+
+#~ msgid "Waiting"
+#~ msgstr "Wachtend"
+
+#~ msgid "Ignore"
+#~ msgstr "Negeren"
+
+#~ msgid "Secondary Log"
+#~ msgstr "Secundair logboek"
+
+#, python-format
+#~ msgid ""
+#~ "--\n"
+#~ "%(name)s %(email)s\n"
+#~ msgstr ""
+#~ "--\n"
+#~ "%(name)s %(email)s\n"
+
+#~ msgid "res.widget"
+#~ msgstr "res.widget"
+
+#~ msgid ""
+#~ "If an email is provided, the user will be sent a message welcoming him.\n"
+#~ "\n"
+#~ "Warning: if \"email_from\" and \"smtp_server\" aren't configured, it won't "
+#~ "be possible to email new users."
+#~ msgstr ""
+#~ "Als een emailadres is opgegeven ontvangt de gebruiker een welkomsbericht.\n"
+#~ "\n"
+#~ "Waarschuwing: als \"email_from\" en \"smtp_server\" niet zijn geconfigureerd "
+#~ "is met niet mogelijk een email aan nieuwe gebruikers te sturen."
+
+#, python-format
+#~ msgid "Couldn't find previous ir.actions.todo"
+#~ msgstr "Kon vorige ir.actions.todo niet vinden"
+
+#, python-format
+#~ msgid "Please specify server option --email-from !"
+#~ msgstr "Geef aub server optie --email-from op !"
+
+#~ msgid "Current"
+#~ msgstr "Actueel"
+
+#~ msgid ""
+#~ "It gives the status if the tip has to be displayed or not when a user "
+#~ "executes an action"
+#~ msgstr ""
+#~ "Het geeft de status of de tip moet worden getoond of niet als de gebruiker "
+#~ "een actie uitvoert"
+
+#~ msgid ""
+#~ "Check out this box if you want to always display tips on each menu action"
+#~ msgstr "Vink dit aan om altijd tips te tonen bij elke menu actie."
+
+#~ msgid "Apply For Read"
+#~ msgstr "Toepassen bij lezen"
+
+#~ msgid ""
+#~ "View type: set to 'tree' for a hierarchical tree view, or 'form' for other "
+#~ "views"
+#~ msgstr ""
+#~ "Weergavesoort: zet op 'tree' voor een hierarchische boomstructuur weergave, "
+#~ "of 'form' voor andere weergaves"
+
+#~ msgid "Fund Raising"
+#~ msgstr "Fondsenwerving"
+
+#~ msgid "res.log"
+#~ msgstr "res.log"
+
+#~ msgid "User Name"
+#~ msgstr "Gebruikersnaam"
+
+#~ msgid "Object Identifiers"
+#~ msgstr "Object Identifiers"
+
+#~ msgid "To browse official translations, you can start with these links:"
+#~ msgstr "Om officiële vertalingen te bekijken begint u met deze links:"
+
+#~ msgid "Module update result"
+#~ msgstr "Module update resultaat"
+
+#~ msgid "E-mail"
+#~ msgstr "E-mail"
+
+#~ msgid ""
+#~ "Please be patient, this operation may take a few minutes (depending on the "
+#~ "number of modules currently installed)..."
+#~ msgstr ""
+#~ "Wees aub geduldig, deze bewerking kan een paar minuten duren (afhankelijk "
+#~ "van het aantal geïnstalleerde modules)..."
+
+#~ msgid "Start update"
+#~ msgstr "Start bijwerken"
+
+#~ msgid ""
+#~ "Enable this if you want to execute missed occurences as soon as the server "
+#~ "restarts."
+#~ msgstr ""
+#~ "Zet dit aan om gemiste gebeurtenissen alsnog uit te voeren na herstart van "
+#~ "de server."
+
+#~ msgid "The new user's real name, used for searching and most listings"
+#~ msgstr ""
+#~ "De echte naam van de gebruiker, gebruikt voor zoeken en de meeste overzichten"
+
+#~ msgid "Error ! You can not create recursive associated members."
+#~ msgstr "Fout ! U kunt geen recursieve aangesloten leden maken."
+
+#~ msgid "HR Manager Dashboard"
+#~ msgstr "HR Manager dashboard"
+
+#~ msgid "Mss"
+#~ msgstr "Mej."
+
+#~ msgid "Ms."
+#~ msgstr "Mw."
+
+#~ msgid "description"
+#~ msgstr "omschrijving"
+
+#~ msgid "Correct EAN13"
+#~ msgstr "Correcte EAN13"
+
+#~ msgid "Audit"
+#~ msgstr "Controle"
+
+#~ msgid "Synchronize Translations"
+#~ msgstr "Vertalingen synchroniseren"
+
+#, python-format
+#~ msgid "Warning !"
+#~ msgstr "Waarschuwing !"
+
+#~ msgid "- type,name,res_id,src,value"
+#~ msgstr "- type,name,res_id,src,value"
+
+#~ msgid "Website of Partner"
+#~ msgstr "Website van relatie"
+
+#~ msgid ""
+#~ "Number of time the function is called,\n"
+#~ "a negative number indicates no limit"
+#~ msgstr ""
+#~ "Aantal keren dat de functie wordt aangeroepen,\n"
+#~ "een negatief getal betekent geen limiet"
+
+#~ msgid "Miscelleanous"
+#~ msgstr "Overig"
+
+#~ msgid "Report file"
+#~ msgstr "Overzichtbestand"
+
+#~ msgid "Created"
+#~ msgstr "Gemaakt"
+
+#~ msgid "Emails"
+#~ msgstr "Emails"
+
+#~ msgid "Binary File or external URL"
+#~ msgstr "Binair bestand of externe URL"
+
+#~ msgid ""
+#~ "Indicates whether this object model lives in memory only, i.e. is not "
+#~ "persisted (osv.osv_memory)"
+#~ msgstr ""
+#~ "Geeft aan of dit object model alleen in geheugen bestaat, d.i. het ligt niet "
+#~ "vast (osv.osv_memory)"
+
+#~ msgid "Consumers"
+#~ msgstr "Consumenten"
+
+#~ msgid ""
+#~ "Name of the method to be called on the object when this scheduler is "
+#~ "executed."
+#~ msgstr ""
+#~ "Naam van de aan te roepen methode op het object als de planner wordt "
+#~ "uitgevoerd."
+
+#~ msgid ""
+#~ "This wizard will detect new terms to translate in the application, so that "
+#~ "you can then add translations manually or perform a complete export (as a "
+#~ "template for a new language example)."
+#~ msgstr ""
+#~ "Deze assistent zal nieuwe te vertalen termen ontdekken in de applicatie, "
+#~ "zodat u handmatig vertalingen kunt toevoegen of een volledige export kunt "
+#~ "maken (als een sjabloon voor bijvoorbeeld een nieuwe taal)."
+
+#~ msgid "Widgets per User"
+#~ msgstr "Componenten per gebruiker"
+
+#~ msgid "User Widgets"
+#~ msgstr "Gebruiker componenten"
+
+#~ msgid "Rules are not supported for osv_memory objects !"
+#~ msgstr "Regels worden niet ondersteund bij osv_memory objecten !"
+
+#~ msgid "Event Logs"
+#~ msgstr "Logboek gebeurtenissen"
+
+#~ msgid "state"
+#~ msgstr "status"
+
+#~ msgid "Extra Info"
+#~ msgstr "Extra info"
+
+#~ msgid "Client Events"
+#~ msgstr "Cliënt gebeurtenissen"
+
+#~ msgid "Menu Tips"
+#~ msgstr "Menu tips"
+
+#~ msgid "_Export"
+#~ msgstr "_Export"
+
+#~ msgid "Ean Check"
+#~ msgstr "Ean controle"
+
+#~ msgid "Apply For Create"
+#~ msgstr "Toepassen bij maken"
+
+#, python-format
+#~ msgid "You cannot remove the field '%s' !"
+#~ msgstr "U kunt het veld '%s' niet verwijderen !"
+
+#~ msgid "On Skip"
+#~ msgstr "On Skip"
+
+#~ msgid "Email & Signature"
+#~ msgstr "Email & Handtekening"
+
+#~ msgid "View Ordering"
+#~ msgstr "Weergave volgorde"
+
+#~ msgid "ir.wizard.screen"
+#~ msgstr "ir.wizard.screen"
+
+#~ msgid "IT sector"
+#~ msgstr "IT sector"
+
+#~ msgid "Never"
+#~ msgstr "Nooit"
+
+#~ msgid "Search Widget"
+#~ msgstr "Component zoeken"
+
+#~ msgid "Portugese (BR) / Português (BR)"
+#~ msgstr "Portugees (BR) / Portugal (BR)"
+
+#~ msgid "Messages"
+#~ msgstr "Berichten"
+
+#~ msgid ""
+#~ "If you need another language than the official ones available, you can "
+#~ "import a language pack from here. Other OpenERP languages than the official "
+#~ "ones can be found on launchpad."
+#~ msgstr ""
+#~ "Als u een andere taal nodig heeft dan de officiële beschikbare, kunt u een "
+#~ "taalpakket hier importeren. Andere OpenERP talen dan de officiële worden "
+#~ "gevonden op launchpad."
+
+#, python-format
+#~ msgid "\"email_from\" needs to be set to send welcome mails to users"
+#~ msgstr ""
+#~ "\"email_from\" moet worden ingesteld om welkomstberichten naar gebruikers te "
+#~ "sturen"
+
+#~ msgid "Portugese / Português"
+#~ msgstr "Portugees / Portugal"
+
+#~ msgid ""
+#~ "Track from where is coming your leads and opportunities by creating specific "
+#~ "channels that will be maintained at the creation of a document in the "
+#~ "system. Some examples of channels can be: Website, Phone Call, Reseller, etc."
+#~ msgstr ""
+#~ "Volg hier waar uw leads en verkoopkansen vandaan komen door specifieke "
+#~ "kanalen te maken die worden bijgehouden bij het maken van een document in "
+#~ "het systeem, Enkele voorbeelden van kanalen kunnen zijn: Website, "
+#~ "Telefonisch, Dealer, etc."
+
+#, python-format
+#~ msgid "Could not load base module"
+#~ msgstr "Kon basis module niet laden"
+
+#, python-format
+#~ msgid "module base cannot be loaded! (hint: verify addons-path)"
+#~ msgstr "Basis module kan niet worden geladen! (hint: controleer addons-pad)"
+
+#, python-format
+#~ msgid ""
+#~ "Group(s) cannot be deleted, because some user(s) still belong to them: %s !"
+#~ msgstr ""
+#~ "Groep(en) kunnen niet worden verwijderd omdat er nog gebruiker(s) in zitten: "
+#~ "%s !"
+
+#~ msgid "Contracts"
+#~ msgstr "Contracten"
+
+#~ msgid ""
+#~ "This wizard helps you register a publisher warranty contract in your OpenERP "
+#~ "system. After the contract has been registered, you will be able to send "
+#~ "issues directly to OpenERP."
+#~ msgstr ""
+#~ "Deze assistent helpt u bij het registreren van een uitgever garantie "
+#~ "contract in uw OpenERP systeem. Nadat het contract is geregistreerd kunt u "
+#~ "problemen rechtstreeks doorsturen naar OpenERP."
+
+#, python-format
+#~ msgid "Error during communication with the publisher warranty server."
+#~ msgstr "Fout tijdens communicatie met de uitgevers garantie server."
+
+#~ msgid ""
+#~ "Create additional users and assign them groups that will allow them to have "
+#~ "access to selected functionalities within the system. Click on 'Done' if you "
+#~ "do not wish to add more users at this stage, you can always do this later."
+#~ msgstr ""
+#~ "Maak aanvullende gebruikers en ken ze toe aan groepen waarmee ze toegang "
+#~ "krijgen tot specifieke functies in het systeem. Klik op 'Klaar' als u nu "
+#~ "niet meer gebruikers wilt toevoegen; u kunt dit altijd later doen."
+
+#~ msgid "New User"
+#~ msgstr "Nieuwe gebruiker"
+
+#~ msgid "Validate"
+#~ msgstr "Bevestigen"
+
+#~ msgid "Canceled"
+#~ msgstr "Geannuleerd"
+
+#, python-format
+#~ msgid "That contract is already registered in the system."
+#~ msgstr "Dat contract is al geregisteerd in het systeem."
+
+#~ msgid "publisher_warranty.contract"
+#~ msgstr "publisher_warranty.contract"
+
+#~ msgid "Please enter the serial key provided in your contract document:"
+#~ msgstr "Vul aub de sleutelcode in die staat in uw contract document:"
+
+#~ msgid "Serial Key"
+#~ msgstr "Sleutelcode"
+
+#~ msgid "Create User"
+#~ msgstr "Gebruiker aanmaken"
+
+#~ msgid "Widget Wizard"
+#~ msgstr "Componenten assistent"
+
+#~ msgid "Refresh Validation Dates"
+#~ msgstr "Bevestigingsdata verversen"
+
+#~ msgid "Add"
+#~ msgstr "Toevoegen"
+
+#~ msgid "Publisher Warranty Contracts"
+#~ msgstr "Uitgever garantie contracten"
+
+#~ msgid "Register a Contract"
+#~ msgstr "Een contract registreren"
+
+#~ msgid ""
+#~ "Your publisher warranty contract is already subscribed in the system !"
+#~ msgstr "Uw uitgever garantie contract is al geregistreerd in het systeem !"
+
+#~ msgid "Finished"
+#~ msgstr "Beëindigd"
+
+#~ msgid "Creation Date"
+#~ msgstr "Datum gemaakt"
+
+#, python-format
+#~ msgid "Contract validation error"
+#~ msgstr "Contract bevestiging fout"
+
+#~ msgid "Add a widget for User"
+#~ msgstr "Een component voor gebruiker toevoegen"
+
+#~ msgid "publisher_warranty.contract.wizard"
+#~ msgstr "publisher_warranty.contract.wizard"
+
+#~ msgid "Terminated"
+#~ msgstr "Afgebroken"
+
+#, python-format
+#~ msgid "Please check your publisher warranty contract name and validity."
+#~ msgstr "Controleer aub uw uitgever garantie contact naam en geldigheid."
+
+#~ msgid "System Logs"
+#~ msgstr "Systeem Logboeken"
+
+#~ msgid "Register"
+#~ msgstr "Registreren"
+
+#~ msgid "Publisher warranty contract successfully registered!"
+#~ msgstr "Uitgever garantie contract succesvol geregistreerd!"
+
+#~ msgid ""
+#~ "If you use OpenERP for the first time we strongly advise you to select the "
+#~ "simplified interface, which has less features but is easier. You can always "
+#~ "switch later from the user preferences."
+#~ msgstr ""
+#~ "Als u OpenERP voor de eerste keer gebruikt adviseren we u dringend het "
+#~ "eenvoudige interface te selecteren die minder functies kent maar eenvoudiger "
+#~ "werkt. U kunt later altijd nog omschakelen via de gebruiker voorkeuren."
+
+#~ msgid "Publisher Warranty"
+#~ msgstr "Uitgever garantie"
+
+#~ msgid "Publisher Warranty Contract"
+#~ msgstr "Uitgever garantie contract"
+
+#~ msgid "Homepage Widgets Management"
+#~ msgstr "Beginpagina componenten beheer"
+
+#, python-format
+#~ msgid "Key/value '%s' not found in selection field '%s'"
+#~ msgstr "Sleutel/waarde '%s' niet gevonden in selectie veld '%s'"
+
+#, python-format
+#~ msgid ""
+#~ "You can not write in this document (%s) ! Be sure your user belongs to one "
+#~ "of these groups: %s."
+#~ msgstr ""
+#~ "U kunt niet schrijven in dit document (%s) ! Controleer of uw gebruiker "
+#~ "behoort bij één van deze groepen: %s."
+
+#, python-format
+#~ msgid "The unlink method is not implemented on this object !"
+#~ msgstr "De unlink-methode is niet geïmplementeerd voor dit object !"
+
+#, python-format
+#~ msgid "The read method is not implemented on this object !"
+#~ msgstr "De read methode is niet in dit object geïmplementeerd !"
+
+#, python-format
+#~ msgid "The search method is not implemented on this object !"
+#~ msgstr "De search-methode is niet in dit object geïmplementeerd !"
+
+#~ msgid "Facebook"
+#~ msgstr "Facebook"
+
+#, python-format
+#~ msgid "Not implemented set_memory method !"
+#~ msgstr "Niet geïmplenteerde set_memory methode !"
+
+#, python-format
+#~ msgid "The perm_read method is not implemented on this object !"
+#~ msgstr "De perm_read methode is niet in dit object geïmplementeerd !"
+
+#, python-format
+#~ msgid "Not implemented search_memory method !"
+#~ msgstr "Niet geïmplementeerde search_method methode !"
+
+#, python-format
+#~ msgid "Please check that all your lines have %d columns."
+#~ msgstr "Controleer aub of alle regels %d kolummen hebben."
+
+#~ msgid "maintenance.contract"
+#~ msgstr "maintenance.contract"
+
+#, python-format
+#~ msgid ""
+#~ "Operation prohibited by access rules, or performed on an already deleted "
+#~ "document (Operation: read, Document type: %s)."
+#~ msgstr ""
+#~ "Bewerking geweigerd door toegangsregels, of uitgevoerd op een al verwijderd "
+#~ "document (Bewerking: lezen, Documentsoort: %s)."
+
+#, python-format
+#~ msgid "Wrong ID for the browse record, got %r, expected an integer."
+#~ msgstr ""
+#~ "Onjuist ID voor het te bekijken record. Ontving %r, verwachtte een integer."
+
+#, python-format
+#~ msgid "The write method is not implemented on this object !"
+#~ msgstr "De write-methode is niet geïmplementeerd in dit object !"
+
+#~ msgid ""
+#~ "Please note that the following payments are now due. If your payment         "
+#~ "                has been sent, kindly forward your payment details. If "
+#~ "payment will be                         delayed further, please contact us "
+#~ "to discuss.                         \n"
+#~ "Would your payment have been carried out after this mail was sent, please "
+#~ "consider the present one as void."
+#~ msgstr ""
+#~ "Merk op dat de volgende betalingen nu vervallen zijn. Als uw betaling als is "
+#~ "verstuurd, wilt u daar dan de details van sturen. Als betaling verder wordt "
+#~ "uitgesteld, wilt u dan contact opnemen voor overleg.                         "
+#~ "\n"
+#~ "Is uw betaling uitgevoerd voordat deze mail was gestuurd, wilt u deze dan "
+#~ "als niet verstuurd beschouwen."
+
+#, python-format
+#~ msgid "Not Implemented"
+#~ msgstr "Niet geïmplementeerd"
+
+#~ msgid "Currency Converter"
+#~ msgstr "Valuta omzetter"
+
+#, python-format
+#~ msgid "The create method is not implemented on this object !"
+#~ msgstr "De create-methode is niet in dit object geïmplementeerd !"
+
+#, python-format
+#~ msgid "Object %s does not exists"
+#~ msgstr "Object %s bestaat niet"
+
+#, python-format
+#~ msgid "The exists method is not implemented on this object !"
+#~ msgstr "De exists-methode is niet in dit object geimplementeerd !"
+
+#, python-format
+#~ msgid ""
+#~ "Invalid value for reference field \"%s\" (last part must be a non-zero "
+#~ "integer): \"%s\""
+#~ msgstr ""
+#~ "Ongeldige waarde voor referentie veld \"%s\" (laatste deel moet een niet-nul "
+#~ "integer zijn): \"%s\""
+
+#, python-format
+#~ msgid "The copy method is not implemented on this object !"
+#~ msgstr "De copy-methode is niet in dit object geïmplementeerd"
+
+#, python-format
+#~ msgid "Not implemented get_memory method !"
+#~ msgstr "Niet geïmplementeerde get_memory methode !"
+
+#~ msgid "Client Logs"
+#~ msgstr "Klant logboek"
+
+#, python-format
+#~ msgid ""
+#~ "Operation prohibited by access rules, or performed on an already deleted "
+#~ "document (Operation: %s, Document type: %s)."
+#~ msgstr ""
+#~ "Bewerking geweigerd door toegangsregels of uitgevoerd op al verwijderd "
+#~ "document (Bewerking: %s, documentsoort: %s)."
+
+#~ msgid "Google Maps"
+#~ msgstr "Google Maps"
+
+#, python-format
+#~ msgid "The read_group method is not implemented on this object !"
+#~ msgstr "De read_group-methode op dit object is niet geimplementeerd !"
+
+#, python-format
+#~ msgid "The value \"%s\" for the field \"%s\" is not in the selection"
+#~ msgstr ""
+#~ "De waarde \"%s\" voor het veld \"%s\" is niet opgenomen in de selectie"
+
+#, python-format
+#~ msgid "key '%s' not found in selection field '%s'"
+#~ msgstr "sleutel '%s' niet gevonden in selectie veld '%s'"
+
+#, python-format
+#~ msgid "Database ID doesn't exist: %s : %s"
+#~ msgstr "Database ID bestaat niet: %s : %s"
+
+#~ msgid ""
+#~ "You can access all information regarding your suppliers from the supplier "
+#~ "form: accounting data, history of emails, meetings, purchases, etc. You can "
+#~ "uncheck the 'Suppliers' filter button in order to search in all your "
+#~ "partners, including customers and prospects."
+#~ msgstr ""
+#~ "U kunt alle informatie over uw leveranciers benaderen vanaf het "
+#~ "leveranciersformulier: financiele gegevens, geschiedenis van emails, "
+#~ "afspraken, inkopen, etc. U kunt de 'Leveranciers' filterknop uitzetten om in "
+#~ "al uw relaties te zoeken, inclusief klanten en prospects."
+
+#~ msgid "Maps to the ir_model_data for which this translation is provided."
+#~ msgstr "Verwijst naar de ir_model_data waarvoor deze vertaling is opgegeven."
+
+#~ msgid ""
+#~ "You can install new modules in order to activate new features, menu, reports "
+#~ "or data in your OpenERP instance. To install some modules, click on the "
+#~ "button \"Schedule for Installation\" from the form view, then click on "
+#~ "\"Apply Scheduled Upgrades\" to migrate your system."
+#~ msgstr ""
+#~ "U kunt nieuwe modules installeren om nieuwe features, onderdelen en "
+#~ "rapportages in te schakelen, of om data in te laden. Om modules te "
+#~ "installeren, klik op de knop \"Inplannen voor installatie\" op het "
+#~ "formulier, en klik vervolgens op \"Geplande acties uitvoeren\" om uw systeem "
+#~ "te migreren."
+
+#~ msgid "XML Id"
+#~ msgstr "XML Id"
+
+#~ msgid "Customized Architecture"
+#~ msgstr "Aangepaste architectuur"
+
+#~ msgid ""
+#~ "Only specify a value if you want to change the user password. This user will "
+#~ "have to logout and login again!"
+#~ msgstr ""
+#~ "Geef alleen een waarde op als u het gebruiker wachtwoord wilt wijzigen. De "
+#~ "gebruiker dient vervolgens opnieuw in te loggen!"
+
+#~ msgid "Default Filters"
+#~ msgstr "Standaard filters"
+
+#~ msgid ""
+#~ "This wizard helps you add a new language to you OpenERP system. After "
+#~ "loading a new language it becomes available as default interface language "
+#~ "for users and partners."
+#~ msgstr ""
+#~ "Deze assistent helpt u een nieuwe taal toe te voegen aan uw OpenERP systeem. "
+#~ "Na het laden van de nieuwe taal komt deze beschikbaar als standaard "
+#~ "interface taal voor gebruikers en relaties."
+
+#~ msgid "Process"
+#~ msgstr "Verwerken"
+
+#~ msgid "Tasks-Mail Integration"
+#~ msgstr "Taken-Mail integratie"
+
+#~ msgid "Website of Partner."
+#~ msgstr "Website van Partner."
+
+#~ msgid "Specifications on PADs"
+#~ msgstr "Specificaties van PADs"
+
+#~ msgid "Openerp web graph view"
+#~ msgstr "Openerp web grafiek view"
+
+#~ msgid "Sales Orders Print Layout"
+#~ msgstr "Verkooporder Afdruk Layout"
+
+#~ msgid "SugarCRM Import"
+#~ msgstr "SugarCRM Import"
+
+#~ msgid "OpenERP Web web"
+#~ msgstr "OpenERP Web"
+
+#~ msgid "Html View"
+#~ msgstr "Html weergave"
+
+#~ msgid "Symbol position"
+#~ msgstr "Symbool positie"
+
+#, python-format
+#~ msgid "Website: "
+#~ msgstr "Website: "
+
+#~ msgid "Tools / Customization"
+#~ msgstr "Tools / Voorkeuren"
+
+#, python-format
+#~ msgid "Fax: "
+#~ msgstr "Fax: "
+
+#~ msgid ""
+#~ "\n"
+#~ "        OpenERP Web gantt chart view.\n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "        OpenERP Web Gantt-diagram.\n"
+#~ "        "
+
+#~ msgid ""
+#~ "The user this filter is available to. When left empty the filter is usable "
+#~ "by the system only."
+#~ msgstr ""
+#~ "Het filter is ook beschikbaar voor de gebruiker. Wanneer deze wordt leeg "
+#~ "gelaten is het filter alleen beschikbaar voor het systeem."
+
+#~ msgid "Calendar Layer"
+#~ msgstr "Kalender laag"
+
+#~ msgid "Administration Dashboard"
+#~ msgstr "Beheer dashboard"
+
+#~ msgid "Openerp web Diagram view"
+#~ msgstr "OpenERP web-diagram weergave"
+
+#~ msgid "web Dashboard"
+#~ msgstr "web Dashboard"
+
+#~ msgid "The RIB and/or IBAN is not valid"
+#~ msgstr "De RIB en/of IBAN is niet gelding"
+
+#~ msgid "Webkit Report Samples"
+#~ msgstr "Webkit rapport voorbeelden"
+
+#~ msgid "Point Of Sale"
+#~ msgstr "Kassa (POS)"
+
+#~ msgid "Error ! You cannot create recursive associated members."
+#~ msgstr ""
+#~ "Fout! Het is niet mogelijk om recursieve geassocieerde leden te maken"
+
+#~ msgid "Set password"
+#~ msgstr "Stel wachtwoord in"
+
+#~ msgid "iCal Support"
+#~ msgstr "iCal ondersteuning"
+
+#~ msgid "OpenERP Web mobile"
+#~ msgstr "OpenERP Web mobiel"
+
+#~ msgid ""
+#~ "\n"
+#~ "        OpenERP Web mobile.\n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "        OpenERP Web mobiel.\n"
+#~ "        "
+
+#~ msgid "Openerp web web"
+#~ msgstr "Openerp web web"
+
+#~ msgid ""
+#~ "Your OpenERP Publisher's Warranty Contract unique key, also called serial "
+#~ "number."
+#~ msgstr ""
+#~ "Uw OpenERP Enterprice editie, unieke sleutel, ook wel het serienummer "
+#~ "genoemd."
+
+#~ msgid "web Graph"
+#~ msgstr "web Grafiek"
+
+#~ msgid "web Gantt"
+#~ msgstr "web Gantt"
+
+#~ msgid "Receive User Feedback"
+#~ msgstr "Ontvang gebruikers feedback"
+
+#~ msgid "Web Chat"
+#~ msgstr "Web Chat"
+
+#~ msgid "Test"
+#~ msgstr "Test"
+
+#~ msgid "Methodology: SCRUM"
+#~ msgstr "SCRUM methode"
+
+#~ msgid "Query Builder"
+#~ msgstr "Zoekopdracht bouwer"
+
+#~ msgid "OpenERP Tweets"
+#~ msgstr "OpenERP Tweets"
+
+#~ msgid "OPW"
+#~ msgstr "OPW"
+
+#~ msgid "Hidden"
+#~ msgstr "Verborgen"
+
+#~ msgid "Header/Footer of Reports"
+#~ msgstr "Kopteksten/voetteksten van rapporten"
+
+#~ msgid "Issues Tracker"
+#~ msgstr "Probleem registratie"
+
+#~ msgid "Edit"
+#~ msgstr "Bewerken"
+
+#, python-format
+#~ msgid "Applications"
+#~ msgstr "Toepassingen"
+
+#~ msgid "Timesheets Validation"
+#~ msgstr "Urenstaat validatie"
+
+#~ msgid "Contacts Management"
+#~ msgstr "Contacten management"
+
+#~ msgid ""
+#~ "OpenERP offers a simplified and an extended user interface. If you use "
+#~ "OpenERP for the first time we strongly advise you to select the simplified "
+#~ "interface, which has less features but is easier to use. You can switch to "
+#~ "the other interface from the User/Preferences menu at any time."
+#~ msgstr ""
+#~ "OpenERP biedt een simpele en uitgebreide weergave. Indien u OpenERP voor het "
+#~ "eerst gebruikt adviseren wij u ten zeerste om te kiezen voor de simpele "
+#~ "weergave. Deze heeft minder mogelijkheden, maar is eenvoudiger in gebruik. U "
+#~ "kan via de gebruikersinstellingen wisselen van weergave."
+
+#~ msgid "Knowledge Management"
+#~ msgstr "Kennisbeheer"
+
+#~ msgid "Fundraising"
+#~ msgstr "Fondsenwerving"
+
+#~ msgid "Easy"
+#~ msgstr "Gemakkelijk"
+
+#~ msgid "Record and Create Modules"
+#~ msgstr "Neem modules op en maak deze"
+
+#~ msgid "Extended View"
+#~ msgstr "Uitgebreide weergave"
+
+#~ msgid "Invoice Layouts"
+#~ msgstr "Factuuropmaken"
+
+#~ msgid "E-Mail Templates"
+#~ msgstr "E-Mail sjablonen"
+
+#~ msgid "Hide technical modules"
+#~ msgstr "Verberg technische modules"
+
+#~ msgid "Wiki"
+#~ msgstr "Wiki"
+
+#~ msgid "Latest Connection"
+#~ msgstr "Laatste verbinding"
+
+#~ msgid "Complexity"
+#~ msgstr "Complexiteit"
+
+#~ msgid ""
+#~ "The user's timezone, used to output proper date and time values inside "
+#~ "printed reports. It is important to set a value for this field. You should "
+#~ "use the same timezone that is otherwise used to pick and render date and "
+#~ "time values: your computer's timezone."
+#~ msgstr ""
+#~ "De gebruiker tijdzone, gebruikt om de juiste datum en tijd weer te geven op "
+#~ "rapporten. Het is belangrijk om een waarde voor dit veld in te stellen. U "
+#~ "moet gebruik maken van dezelfde tijdzone die anders wordt gebruikt o, de "
+#~ "datum en tijd te bepalen: uw computer tijdzone"
+
+#~ msgid ""
+#~ "\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "    "
+
+#~ msgid "Preview Header"
+#~ msgstr "Afdrukvoorbeeld koptekst"
+
+#~ msgid ""
+#~ "\n"
+#~ "        OpenERP Web example module.\n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "        OpenERP Web voorbeeld module.\n"
+#~ "        "
+
+#~ msgid "Expert"
+#~ msgstr "Expert"
+
+#~ msgid "Leaves Management"
+#~ msgstr "Verlofbeheer"
+
+#~ msgid "Please be patient, this operation may take a few minutes..."
+#~ msgstr "A.u.b. geduld. Deze bewerking kan een paar minuten duren..."
+
+#, python-format
+#~ msgid "VAT: "
+#~ msgstr "BTW: "
+
+#~ msgid "Framework for complex import"
+#~ msgstr "Framework voor complexe import"
+
+#~ msgid "Keywords"
+#~ msgstr "Trefwoorden"
+
+#~ msgid "Wizard Category"
+#~ msgstr "Wizard Categorie"
+
+#~ msgid ""
+#~ "\n"
+#~ "Please define BIC/Swift code on bank for bank type IBAN Account to make "
+#~ "valid payments"
+#~ msgstr ""
+#~ "\n"
+#~ "Definieer een BIC/Swift code voor banksoort IBAN rekeningen om geldige "
+#~ "betalingen te maken"
+
+#~ msgid "Point of Sales"
+#~ msgstr "Kassa's"
+
+#~ msgid "Configuration Wizard Category"
+#~ msgstr "Configuratie Wizard Categorie"
+
+#~ msgid ""
+#~ "Level of difficulty of module. Easy: intuitive and easy to use for everyone. "
+#~ "Normal: easy to use for business experts. Expert: requires technical skills."
+#~ msgstr ""
+#~ "Moeilijkheidsgraad van de module. Eenvoudig: intuïtieve en eenvoudig te "
+#~ "gebruiken voor iedereen. Normaal: makkelijk te gebruiken voor business "
+#~ "experts. Expert: vereist technische vaardigheden."
+
+#~ msgid "HR Manager"
+#~ msgstr "HR Manager"
+
+#~ msgid "Wiki: Internal FAQ"
+#~ msgstr "Wiki: InterneFAQ"
+
+#~ msgid "Draft and Active"
+#~ msgstr "Concept en actief"
+
+#~ msgid "Support Level 1"
+#~ msgstr "Support Level 1"
+
+#~ msgid "Emails Management"
+#~ msgstr "Emails Management"
+
+#~ msgid "Base Tools"
+#~ msgstr "Basishulpmiddelen"
+
+#~ msgid "Generate Docs of Modules"
+#~ msgstr "Genereert documenten van modules"
+
+#~ msgid "User - Own Leads Only"
+#~ msgstr "Gebruiker - Alleen eigen leads"
+
+#~ msgid "Time Tracking"
+#~ msgstr "Tijdregistratie"
+
+#~ msgid "User - All Leads"
+#~ msgstr "Gebruiker - Alle leads"
+
+#~ msgid "Set Bank Accounts"
+#~ msgstr "Stel bankrekeningen in"
+
+#~ msgid "Current User"
+#~ msgstr "Huidige gebruiker"
+
+#, python-format
+#~ msgid "Phone: "
+#~ msgstr "Telefoon: "
+
+#~ msgid "web calendar"
+#~ msgstr "online agenda"
+
+#~ msgid "Address Information"
+#~ msgstr "Adres Informatie"
+
+#~ msgid "DB Password Encryption"
+#~ msgstr "Database wachtwoord encryptie"
+
+#~ msgid ""
+#~ "\n"
+#~ "        OpenERP Web process view.\n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "        OpenERP Web verwerkingsweergave.\n"
+#~ "        "
+
+#~ msgid "Live Chat Support"
+#~ msgstr "Live Chat Support"
+
+#~ msgid ""
+#~ "\n"
+#~ "        OpenERP Web dashboard view.\n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "        OpenERP Web dashboard weergave.\n"
+#~ "        "
+
+#~ msgid "Appears by default on the top right corner of your printed documents."
+#~ msgstr ""
+#~ "Wordt standaard weergegeven aan de rechterbovenzijde van uw afgedrukte "
+#~ "documenten."
+
+#~ msgid ""
+#~ "\n"
+#~ "        OpenERP Web calendar view.\n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "        OpenERP Web kalender weergave.\n"
+#~ "        "
+
+#~ msgid "Report Designer"
+#~ msgstr "Rapportontwerper"
+
+#~ msgid "Auction Houses"
+#~ msgstr "Veilinghuizen"
+
+#~ msgid "Miscellaneous Tools"
+#~ msgstr "Diverse hulpmiddelen"
+
+#~ msgid "Share Calendar using CalDAV"
+#~ msgstr "Agenda delen middels CalDAV"
+
+#~ msgid "web"
+#~ msgstr "web"
+
+#~ msgid "In-Project Messaging System"
+#~ msgstr "In-project berichten systeem"
+
+#~ msgid "Change Color"
+#~ msgstr "Wijzig kleur"
+
+#~ msgid "In modules"
+#~ msgstr "In modules"
+
+#~ msgid "Send an SMS"
+#~ msgstr "SMS versturen"
+
+#~ msgid "India - Accounting"
+#~ msgstr "India - Boekhouding"
+
+#~ msgid ""
+#~ "\n"
+#~ "This module allows to implement action rules for any object.\n"
+#~ "============================================================\n"
+#~ "\n"
+#~ "Use automated actions to automatically trigger actions for various screens.\n"
+#~ "\n"
+#~ "Example: a lead created by a specific user may be automatically set to a "
+#~ "specific\n"
+#~ "sales team, or an opportunity which still has status pending after 14 days "
+#~ "might\n"
+#~ "trigger an automatic reminder email.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "Met deze module kunt u automatische  acties definiëren voor ieder object.\n"
+#~ "=============================================================\n"
+#~ "\n"
+#~ "Gebruik dit om automatische acties te triggeren voor diverse schermen.\n"
+#~ "\n"
+#~ "Bijvoorbeeld: Een lead aangemaakt door een speciale gebruiker kan\n"
+#~ "automatisch worden toegewezen aan een verkoopteam. Of een prospect \n"
+#~ "welke nog na 14 dagen nog steeds de status 'Lopende' heeft, kan een \n"
+#~ "automatische herinneringsmail versturen.\n"
+#~ "    "
+
+#~ msgid "eMail Gateway for Leads"
+#~ msgstr "E-Mail Gateway voor Leads"
+
+#~ msgid "Bank Accounts Footer"
+#~ msgstr "Bankrekening voettekst"
+
+#~ msgid "Report Header / Company Slogan"
+#~ msgstr "Rapport koptekst / Bedrijfsslogan"
+
+#~ msgid "General Information Footer"
+#~ msgstr "Algemene informatie voettekst"
+
+#~ msgid ""
+#~ "\n"
+#~ "Accounting and Financial Management.\n"
+#~ "====================================\n"
+#~ "\n"
+#~ "Financial and accounting module that covers:\n"
+#~ "--------------------------------------------\n"
+#~ "General accountings\n"
+#~ "Cost / Analytic accounting\n"
+#~ "Third party accounting\n"
+#~ "Taxes management\n"
+#~ "Budgets\n"
+#~ "Customer and Supplier Invoices\n"
+#~ "Bank statements\n"
+#~ "Reconciliation process by partner\n"
+#~ "\n"
+#~ "Creates a dashboard for accountants that includes:\n"
+#~ "--------------------------------------------------\n"
+#~ "* List of Customer Invoice to Approve\n"
+#~ "* Company Analysis\n"
+#~ "* Graph of Aged Receivables\n"
+#~ "* Graph of Treasury\n"
+#~ "\n"
+#~ "The processes like maintaining of general ledger is done through the defined "
+#~ "financial Journals (entry move line or\n"
+#~ "grouping is maintained through journal) for a particular financial year and "
+#~ "for preparation of vouchers there is a\n"
+#~ "module named account_voucher.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "Boekhouding en Financieel management.\n"
+#~ "=================================\n"
+#~ "Financial and accounting module that covers:\n"
+#~ "--------------------------------------------\n"
+#~ "General accountings\n"
+#~ "Cost / Analytic accounting\n"
+#~ "Third party accounting\n"
+#~ "Taxes management\n"
+#~ "Budgets\n"
+#~ "Customer and Supplier Invoices\n"
+#~ "Bank statements\n"
+#~ "Reconciliation process by partner\n"
+#~ "\n"
+#~ "Creates a dashboard for accountants that includes:\n"
+#~ "--------------------------------------------------\n"
+#~ "* List of Customer Invoice to Approve\n"
+#~ "* Company Analysis\n"
+#~ "* Graph of Aged Receivables\n"
+#~ "* Graph of Treasury\n"
+#~ "\n"
+#~ "The processes like maintaining of general ledger is done through the defined "
+#~ "financial Journals (entry move line or\n"
+#~ "grouping is maintained through journal) for a particular financial year and "
+#~ "for preparation of vouchers there is a\n"
+#~ "module named account_voucher.\n"
+#~ "    "
+
+#~ msgid "My Logs"
+#~ msgstr "Mijn logboeken"
+
+#~ msgid ""
+#~ "Set default values for your analytic accounts\n"
+#~ "Allows to automatically select analytic accounts based on criterions:\n"
+#~ "=====================================================================\n"
+#~ "\n"
+#~ "* Product\n"
+#~ "* Partner\n"
+#~ "* User\n"
+#~ "* Company\n"
+#~ "* Date\n"
+#~ "    "
+#~ msgstr ""
+#~ "Stelt standaard waarden in voor kostenplaatsen\n"
+#~ "Maakt het mogelijk om automatisch kostenplaatsen te selecteren op basis van "
+#~ "criteria:\n"
+#~ "======================================================================\n"
+#~ "* Product\n"
+#~ "* Relatie\n"
+#~ "* Gebruiker\n"
+#~ "* Bedrijf\n"
+#~ "* Datum\n"
+#~ "    "
+
+#~ msgid "Billing Rates on Contracts"
+#~ msgstr "Factureertarieven op contracten"
+
+#~ msgid "Check this box if the partner is an Employee."
+#~ msgstr "Vink aan als de relatie een werknemer is."
+
+#~ msgid "Retro-Planning on Events"
+#~ msgstr "Evenementen planning"
+
+#~ msgid "Meetings Synchronization"
+#~ msgstr "Afspraken synchronisatie"
+
+#~ msgid ""
+#~ "A customer is an entity you do business with, like a company or an "
+#~ "organization. A customer can have several contacts or addresses which are "
+#~ "the people working for this company. You can use the history tab, to follow "
+#~ "all transactions related to a customer: sales order, emails, opportunities, "
+#~ "claims, etc. If you use the email gateway, the Outlook or the Thunderbird "
+#~ "plugin, don't forget to register emails to each contact so that the gateway "
+#~ "will automatically attach incoming emails to the right partner."
+#~ msgstr ""
+#~ "Een klant is een entiteit waar u zaken mee doet, zoals een bedrijf of een "
+#~ "organisatie. Een klant kan verschillende contactpersonen of adressen hebben "
+#~ "wat de mensen zijn die voor het bedrijf werken. U kunt het geschiedenis "
+#~ "tabblad gebruiken om alle aan de klant gerelateerde transacties te volgen: "
+#~ "verkooporder, emails, prospects, klachten, etc. Als u de email gateway, de "
+#~ "outlook- of thunderbird plugin gebruikt, vergeet dan niet om emails van "
+#~ "iedere contactpersoon vast te leggen zodat de gateway inkomende email "
+#~ "automatisch koppelt aan de juiste relatie."
+
+#~ msgid ""
+#~ "Customers (also called Partners in other areas of the system) helps you "
+#~ "manage your address book of companies whether they are prospects, customers "
+#~ "and/or suppliers. The partner form allows you to track and record all the "
+#~ "necessary information to interact with your partners from the company "
+#~ "address to their contacts as well as pricelists, and much more. If you "
+#~ "installed the CRM, with the history tab, you can track all the interactions "
+#~ "with a partner such as opportunities, emails, or sales orders issued."
+#~ msgstr ""
+#~ "Klanten (ook wel relaties genoemd in andere delen van het systeem) helpt u "
+#~ "bij het beheren van uw adresboek van bedrijven; of ze nu prospect, klant "
+#~ "en/of leverancier zijn. Het relatieformulier laat u alle noodzakelijke "
+#~ "informatie vastleggen om te werken met uw relaties, van bedrijfsadres tot "
+#~ "hun contactpersonen alsmede prijslijsten en nog veel meer. Als u "
+#~ "Relatiebeheer heeft geïnstalleerd kunt u met het geschiedenis tabblad alle "
+#~ "interacties met de relaties volgen zoals prospects, e-mails of verkooporders."
+
+#~ msgid ""
+#~ "\n"
+#~ "This module is used for surveying.\n"
+#~ "==================================\n"
+#~ "\n"
+#~ "It depends on the answers or reviews of some questions by different users.\n"
+#~ "A survey may have multiple pages. Each page may contain multiple questions "
+#~ "and each question may have multiple answers.\n"
+#~ "Different users may give different answers of question and according to that "
+#~ "survey is done.\n"
+#~ "Partners are also sent mails with user name and password for the invitation "
+#~ "of the survey\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "Deze module wordt gebruikt voor het houden van enquêtes\n"
+#~ "==================================\n"
+#~ "\n"
+#~ "Het hangt af van de antwoorden of besprekingen van een aantal vragen door "
+#~ "verschillende gebruikers.\n"
+#~ "Een enquête kan meerdere pagina's bevatten. Elke pagina kan meerdere vragen "
+#~ "bevatten en elke vraag kan meerdere antwoorden hebben.\n"
+#~ "Verschillende gebruikers kunnen verschillende antwoorden geven op vragen.\n"
+#~ "Partners krijgen ook een e-mail met gebruikersnaam en wachtwoord voor de "
+#~ "uitnodiging van de enquête.\n"
+#~ "    "
+
+#~ msgid "eMail Gateway for Applicants"
+#~ msgstr "E-Mail Gateway voor sollicitanten"
+
+#~ msgid "eMail Gateway for Project Issues"
+#~ msgstr "E-Mail Gateway voor projecten"
+
+#~ msgid "Custom Reports"
+#~ msgstr "Aangepaste rapporten"
+
+#~ msgid "Master Procurement Schedule"
+#~ msgstr "Productieplanning"
+
+#~ msgid "MRP Subproducts"
+#~ msgstr "Productiebeheer bijproducten"
+
+#~ msgid "Google Maps on Customers"
+#~ msgstr "Klantlocatie opzoeken met Google Maps"
+
+#~ msgid ""
+#~ "Our records indicate that the following payments are still due. If the "
+#~ "amount\n"
+#~ "has already been paid, please disregard this notice. However, if you have "
+#~ "any\n"
+#~ "queries regarding your account, please contact us.\n"
+#~ "Thank you in advance.\n"
+#~ msgstr ""
+#~ "Uit onze gegevens blijkt dat de volgende betalingen over tijd zijn. Indien "
+#~ "het bedrag\n"
+#~ "reeds is betaald, dan kunt u dit bericht negeren. Indien u vragen heeft over "
+#~ "uw\n"
+#~ "rekening, neemt u dan alstublieft contact met ons op.\n"
+#~ "Bij voorbaat dank.\n"
+
+#~ msgid "Partner Firm"
+#~ msgstr "Juridische entiteit"
+
+#~ msgid "Followup Management"
+#~ msgstr "Betalingsherinneringen"
+
+#~ msgid "Expenses Management"
+#~ msgstr "Declaratiebeheer"
+
+#~ msgid ""
+#~ "Supported file formats: *.csv (Comma-separated values) or *.po (GetText "
+#~ "Portable Objects)"
+#~ msgstr ""
+#~ "Ondersteunde bestandsformaten: *.csv (komma gescheiden waarden) of *.po "
+#~ "(GetText Portable Objecten)"
+
+#~ msgid ""
+#~ "\n"
+#~ "The base module to manage analytic distribution and purchase orders.\n"
+#~ "====================================================================\n"
+#~ "\n"
+#~ "Allows the user to maintain several analysis plans. These let you split\n"
+#~ "a line on a supplier purchase order into several accounts and analytic "
+#~ "plans.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "Basis module om kostenplaatsen te verdelen over inkooporderregels.\n"
+#~ "========================================================\n"
+#~ "\n"
+#~ "Deze module geeft de gebruiker de mogelijkheid om meerdere\n"
+#~ "kostenplaatsen te onderhouden. Het is mogelijk om inkooporder-\n"
+#~ "regels op te delen in meerdere kostenplaatsen.\n"
+#~ "    "
+
+#~ msgid "function"
+#~ msgstr "Functie"
+
+#, python-format
+#~ msgid ""
+#~ "You can not delete this document (%s) ! Be sure your user belongs to one of "
+#~ "these groups: %s."
+#~ msgstr ""
+#~ "U kunt dit document (%s) niet verwijderen! Controleer of u voldoende rechten "
+#~ "heeft. Om dit document te kunnen verwijderen dient u rechten te hebben tot "
+#~ "één van deze groepen: %s."
+
+#, python-format
+#~ msgid ""
+#~ "You can not create this document (%s) ! Be sure your user belongs to one of "
+#~ "these groups: %s."
+#~ msgstr ""
+#~ "U kunt dit document (%s) niet maken ! Controleer of u voldoende rechten "
+#~ "heeft. Om dit document te kunnen maken dient u rechten te hebben tot één van "
+#~ "deze groepen: %s."
+
+#, python-format
+#~ msgid ""
+#~ "You can not read this document (%s) ! Be sure your user belongs to one of "
+#~ "these groups: %s."
+#~ msgstr ""
+#~ "U kunt dit document (%s) niet lezen! Controleer of u voldoende rechten "
+#~ "heeft. Om dit document te kunnen lezen dient u rechten te hebben tot één van "
+#~ "deze groepen: %s."
+
+#~ msgid ""
+#~ "\n"
+#~ "    Module for the Check writing and check printing  \n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "    Module voor het aanmaken en afdrukken van cheques  \n"
+#~ "    "
+
+#~ msgid "Check writing"
+#~ msgstr "Cheques maken"
+
+#~ msgid ""
+#~ "\n"
+#~ "Caldav features in Meeting.\n"
+#~ "===========================\n"
+#~ "\n"
+#~ "    *  Share meeting with other calendar clients like sunbird\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Deel uw CRM afspraken door gebruik te maken van CalDAV\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Project management module tracks multi-level projects, tasks, work done on "
+#~ "tasks, eso.\n"
+#~ "============================================================================="
+#~ "=========\n"
+#~ "\n"
+#~ "It is able to render planning, order tasks, eso.\n"
+#~ "\n"
+#~ "Dashboard for project members that includes:\n"
+#~ "--------------------------------------------\n"
+#~ "    * List of my open tasks\n"
+#~ "    * List of my delegated tasks\n"
+#~ "    * Graph of My Projects: Planned vs Total Hours\n"
+#~ "    * Graph of My Remaining Hours by Project\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "Projectmanagement module voor het beheren van muti-level projecten, taken, "
+#~ "gewerkte tijd op taken, etc.\n"
+#~ "\n"
+#~ "Het is mogelijk om planningen en taakopdrachten te genereren\n"
+#~ "\n"
+#~ "Dashboard voor projectmedewerkers, welke bevat:\n"
+#~ "* Lijst van open taken\n"
+#~ "* Lijst van gedeligeerde taken\n"
+#~ "* Grafiek  van mijn projecten, geplande en totale uren\n"
+#~ "* Grafiek van mijn resterende uren per project\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "        This module provide a class import_framework to help importing \n"
+#~ "        complex data from other software\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "        Deze module stelt een import klasse beschikbaar welke gebruikt\n"
+#~ "        kan worden om complex data van andere software te importeren\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "Organization and management of events.\n"
+#~ "======================================\n"
+#~ "\n"
+#~ "This module allows you to create retro planning for managing your events.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Organisatie en beheer van evenementen.\n"
+
+#~ msgid ""
+#~ "Keep track of your planning\n"
+#~ "This module helps you to manage your plannings.\n"
+#~ "===============================================\n"
+#~ "\n"
+#~ "This module is based on the analytic accounting and is totally integrated "
+#~ "with\n"
+#~ "* the timesheets encoding\n"
+#~ "* the holidays management\n"
+#~ "* the project management\n"
+#~ "\n"
+#~ "So that, each department manager can know if someone in his team has still "
+#~ "unallocated time for a given planning (taking in consideration the validated "
+#~ "leaves) or if he still needs to encode tasks.\n"
+#~ "\n"
+#~ "At the end of the month, the planning manager can also check if the encoded "
+#~ "timesheets are respecting the planned time on each analytic account.\n"
+#~ msgstr ""
+#~ "Met deze module kunt u, uw planningen beheren.\n"
+#~ "========================================\n"
+#~ "\n"
+#~ "Deze module is gebaseerd op kostenplaatsen en is geheel geïntegreerd met:\n"
+#~ "* Urenstaten\n"
+#~ "* Vakantiedagen\n"
+#~ "* projectmanagement\n"
+#~ "\n"
+#~ "Op deze wijze kan iedere afdelingsmanager zien of iemand van zijn team nog "
+#~ "niet verwerkte uren heeft voor een bepaalde planning (rekening houdende met "
+#~ "geaccordeerde afwezigheid) of nog uren moet indienen.\n"
+#~ "\n"
+#~ "Aan het einde van de maand kan de planningsmanager de ingediende uren en de "
+#~ "geplande uren controleren op de kostenplaats.\n"
+
+#~ msgid ""
+#~ "Manual: Launched manually.\n"
+#~ "Automatic: Runs whenever the system is reconfigured.\n"
+#~ "Launch Manually Once: after hacing been launched manually, it sets "
+#~ "automatically to Done."
+#~ msgstr ""
+#~ "Handmatig: Start handmatig.\n"
+#~ "Automatisch: Start wanneer het systeem is geconfigureerd.\n"
+#~ "Start eenmalig handmatig: Nadat handmatig gestart, wordt deze automatisch op "
+#~ "klaar gezet."
+
+#~ msgid ""
+#~ "\n"
+#~ "Organization and management of Events.\n"
+#~ "======================================\n"
+#~ "\n"
+#~ "This module allows you\n"
+#~ "    * to manage your events and their registrations\n"
+#~ "    * to use emails to automatically confirm and send acknowledgements for "
+#~ "any registration to an event\n"
+#~ "    * ...\n"
+#~ "\n"
+#~ "Note that:\n"
+#~ "    - You can define new types of events in\n"
+#~ "        Association / Configuration / Types of Events\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Organisatie en beheer van evenementen.\n"
+#~ "=================================\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "    The base module to manage lunch\n"
+#~ "\n"
+#~ "    keep track for the Lunch Order ,Cash Moves ,CashBox ,Product.\n"
+#~ "    Apply Different Category for the product.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "    Met deze module kunt u lunches beheren.\n"
+#~ "==================================\n"
+#~ "    "
+
+#~ msgid "Multi-Currency in Analytic"
+#~ msgstr "Meerdere valuta in kostenplaatsen"
+
+#~ msgid ""
+#~ "\n"
+#~ "This module aims to manage employee's expenses.\n"
+#~ "===============================================\n"
+#~ "\n"
+#~ "The whole workflow is implemented:\n"
+#~ "    * Draft expense\n"
+#~ "    * Confirmation of the sheet by the employee\n"
+#~ "    * Validation by his manager\n"
+#~ "    * Validation by the accountant and invoice creation\n"
+#~ "    * Payment of the invoice to the employee\n"
+#~ "\n"
+#~ "This module also uses the analytic accounting and is compatible with\n"
+#~ "the invoice on timesheet module so that you will be able to automatically\n"
+#~ "re-invoice your customer's expenses if your work by project.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "Beheer van personeel declaraties.\n"
+#~ "============================\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "Add additional date information to the sales order.\n"
+#~ "===================================================\n"
+#~ "\n"
+#~ "You can add the following additional dates to a sale order:\n"
+#~ "    * Requested Date\n"
+#~ "    * Commitment Date\n"
+#~ "    * Effective Date\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Deze module voegt extra informatie toe aan een verkooporder.\n"
+#~ "===================================================\n"
+#~ "\n"
+#~ "U kunt de navolgende extra data toevoegen aan een verkooporder:\n"
+#~ "* Aanvraagdatum\n"
+#~ "* Bevestigde datum\n"
+#~ "* Boek datum\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "This module lets administrator track every user operation on all the objects "
+#~ "of the system.\n"
+#~ "============================================================================="
+#~ "==============\n"
+#~ "\n"
+#~ "The administrator can subscribe to rules for read, write and\n"
+#~ "delete on objects and can check logs.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "Met deze module heeft de administrator de mogelijkheid om iedere gebruikers "
+#~ "handeling op alle objecten in het systeem te volgen.\n"
+#~ "============================================================================="
+#~ "=======================\n"
+#~ "\n"
+#~ "De administrator kan regels voor lezen, schrijven en verwijderen definiëren "
+#~ "en logs hiervan bekijken\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "Synchronization with all objects.\n"
+#~ "=================================\n"
+#~ "\n"
+#~ "Configure servers and trigger synchronization with its database objects.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Synchronisatie van objecten.\n"
+#~ "=======================\n"
+#~ "Configureer servers and trigger database synchronisatie van de database "
+#~ "objecten.\n"
+
+#~ msgid ""
+#~ "The module adds google contact in partner address and add google calendar "
+#~ "events details in Meeting"
+#~ msgstr ""
+#~ "Deze module voegt Google contactersonen in relatie adressen en voegt Google "
+#~ "agenda items details in OpenERP agenda."
+
+#~ msgid ""
+#~ "\n"
+#~ "Track different dates on products and production lots.\n"
+#~ "======================================================\n"
+#~ "\n"
+#~ "Following dates can be tracked:\n"
+#~ "    - end of life\n"
+#~ "    - best before date\n"
+#~ "    - removal date\n"
+#~ "    - alert date\n"
+#~ "\n"
+#~ "Used, for example, in food industries."
+#~ msgstr ""
+#~ "\n"
+#~ "Traceer verschillende datums van producten and productie partijen.\n"
+#~ "=======================================================\n"
+#~ "\n"
+#~ "de volgende datums kunnen worden getraceerd:\n"
+#~ "    - THT datum\n"
+#~ "    - Te gebruiken voor datum\n"
+#~ "    - verwijder datum\n"
+#~ "    - waarschuwing datum\n"
+#~ "\n"
+#~ "Wordt bijvoorbeeld gebruikt in de voedingsmiddelen industrie."
+
+#~ msgid ""
+#~ "\n"
+#~ "Double-validation for purchases exceeding minimum amount.\n"
+#~ "=========================================================\n"
+#~ "\n"
+#~ "This module modifies the purchase workflow in order to validate purchases\n"
+#~ "that exceeds minimum amount set by configuration wizard.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "Dubbele controle voor inkopen, welke een minimum bedrag overstijgen.\n"
+#~ "==========================================================\n"
+#~ "\n"
+#~ "Deze module past de inkoop workflow aan, zodat inkopen, welke een \n"
+#~ "minimum bedrag overstijgen moeten worden gecontroleerd. Dit kan worden\n"
+#~ "ingesteld in de configuratie wizard.\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "Invoice Wizard for Delivery.\n"
+#~ "============================\n"
+#~ "\n"
+#~ "When you send or deliver goods, this module automatically launch\n"
+#~ "the invoicing wizard if the delivery is to be invoiced.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "Factuur wizard bij levering.\n"
+#~ "======================\n"
+#~ "\n"
+#~ "Deze module start de factuur wizard, direct na het verzamelen van een\n"
+#~ "inkomende of uitgaande levering en deze levering moet worden gefactureerd.\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "Changes dates according to change in project End Date.\n"
+#~ "======================================================\n"
+#~ "\n"
+#~ "If end date of project is changed then the deadline date and start date for "
+#~ "all the tasks will change accordingly.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "Verander de data op basis van een verandering in de einddatum.\n"
+#~ "===================================================\n"
+#~ "\n"
+#~ "Indien de einddatun van een project is gewijzigd, dan worden de deadline "
+#~ "datum en de startdatum van alle taken ook gewijzgd.\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "This module allows accountants to manage analytic and crossovered budgets.\n"
+#~ "==========================================================================\n"
+#~ "\n"
+#~ "Once the Master Budgets and the Budgets are defined (in "
+#~ "Accounting/Budgets/),\n"
+#~ "the Project Managers can set the planned amount on each Analytic Account.\n"
+#~ "\n"
+#~ "The accountant has the possibility to see the total of amount planned for "
+#~ "each\n"
+#~ "Budget and Master Budget in order to ensure the total planned is not\n"
+#~ "greater/lower than what he planned for this Budget/Master Budget. Each list "
+#~ "of\n"
+#~ "record can also be switched to a graphical view of it.\n"
+#~ "\n"
+#~ "Three reports are available:\n"
+#~ "    1. The first is available from a list of Budgets. It gives the "
+#~ "spreading, for these Budgets, of the Analytic Accounts per Master Budgets.\n"
+#~ "\n"
+#~ "    2. The second is a summary of the previous one, it only gives the "
+#~ "spreading, for the selected Budgets, of the Analytic Accounts.\n"
+#~ "\n"
+#~ "    3. The last one is available from the Analytic Chart of Accounts. It "
+#~ "gives the spreading, for the selected Analytic Accounts, of the Master "
+#~ "Budgets per Budgets.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Deze module geeft accountants de mogelijkheid om kostenplaats- en "
+#~ "overlappende budgetten te beheren.\n"
+#~ "============================================================================="
+#~ "==========\n"
+#~ "\n"
+#~ "Wanneer de hoofdbudgetten en onderliggende budgetten zijn gedefinieerd (in "
+#~ "financieel/budgetten)\n"
+#~ "kunnen de projectmanagers de geplande bedragen invoeren per kostenplaats.\n"
+#~ "\n"
+#~ "De accountant heeft de mogelijkheid om alle gebudgetteerde bedragen te zien "
+#~ "van ieder\n"
+#~ "budget en hoofdbudget, zodat het totale gebudgetteerde bedrag niet groter of "
+#~ "lager \n"
+#~ "is dan wat was gebudgetteerd. deze informatie kan ook als grafiek worden "
+#~ "bekeken.\n"
+#~ "\n"
+#~ "Er zijn drie rapportages beschikbaar:\n"
+#~ "1. Deze is beschikbaar bij de lijst van budgetten. Het geeft de spreiding "
+#~ "van deze budgetten weer over de kostenplaatsen per hoofdbudget.\n"
+#~ "2. Dit is een totaal van het eerste rapport. het geeft alleen de spreiding "
+#~ "weer voor de geselecteerde budgetten van de kostenplaatsen.\n"
+#~ "3. Dit rapport is beschikbaar bij de kostenplaats. Het geeft de spreiding "
+#~ "weer van de geselecteerde kostenplaats van het hoofdbudget, per budget.\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "This module allows you to define what is the default invoicing rate for a "
+#~ "specific journal on a given account.\n"
+#~ "============================================================================="
+#~ "=================================\n"
+#~ "\n"
+#~ "This is mostly used when a user encodes his timesheet: the values are "
+#~ "retrieved and the fields are auto-filled. But the possibility to change "
+#~ "these values is still available.\n"
+#~ "\n"
+#~ "Obviously if no data has been recorded for the current account, the default "
+#~ "value is given as usual by the account data so that this module is perfectly "
+#~ "compatible with older configurations.\n"
+#~ "\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "Deze module geeft u de mogelijkheid om het standaard factuurtarief te "
+#~ "definiëren per kostenplaats.\n"
+#~ "============================================================================="
+#~ "====\n"
+#~ "\n"
+#~ "Dit wordt vaak gebruikt wanneer een werknemer zijn urenstaat invult. De "
+#~ "waarden worden dan automatisch ingevuld, maar de mogelijkheid om deze aan te "
+#~ "passen blijft bestaan.\n"
+#~ "\n"
+#~ "Indien geen gegevens zijn ingevoerd voor de rekening, wordt de standaard "
+#~ "waarde van de kostenplaats gebruikt.\n"
+#~ "\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "This module allows an intermediate picking process to provide raw materials "
+#~ "to production orders.\n"
+#~ "============================================================================="
+#~ "====================\n"
+#~ "\n"
+#~ "One example of usage of this module is to manage production made by your\n"
+#~ "suppliers (sub-contracting). To achieve this, set the assembled product\n"
+#~ "which is sub-contracted to \"No Auto-Picking\" and put the location of the\n"
+#~ "supplier in the routing of the assembly operation.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "Deze module maakt het mogelijk een tussentijdse verzamelproces mogelijk voor "
+#~ "de ontvangst van grondstoffen aan productieorders.\n"
+#~ "============================================================================="
+#~ "================\n"
+#~ "\n"
+#~ "Dit kunt u bijvoorbeeld gebruiken indien u productie uitbesteed aan uw "
+#~ "leverancier/onderaannemer.\n"
+#~ "Zet in dit geval bij de grondstof de optie \"Automatisch verzamelen\" uit en "
+#~ "zet de locatie van de leverancier\n"
+#~ "in de routing van de assemblage verwerking.\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "This module allows users to perform segmentation within partners.\n"
+#~ "=================================================================\n"
+#~ "\n"
+#~ "It uses the profiles criteria from the earlier segmentation module and "
+#~ "improve it. Thanks to the new concept of questionnaire. You can now regroup "
+#~ "questions into a questionnaire and directly use it on a partner.\n"
+#~ "\n"
+#~ "It also has been merged with the earlier CRM & SRM segmentation tool because "
+#~ "they were overlapping.\n"
+#~ "\n"
+#~ "    * Note: this module is not compatible with the module segmentation, "
+#~ "since it's the same which has been renamed.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "Met deze module kunt u relaties segmenten/indelen op basis van vragen.\n"
+#~ "===========================================================\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "This module allows you to define what is the default function of a specific "
+#~ "user on a given account.\n"
+#~ "============================================================================="
+#~ "=======================\n"
+#~ "\n"
+#~ "This is mostly used when a user encodes his timesheet: the values are "
+#~ "retrieved and the fields are auto-filled. But the possibility to change "
+#~ "these values is still available.\n"
+#~ "\n"
+#~ "Obviously if no data has been recorded for the current account, the default "
+#~ "value is given as usual by the employee data so that this module is "
+#~ "perfectly compatible with older configurations.\n"
+#~ "\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "Met deze module kunt u aangeven welk factureerproduct moet worden gebruikt "
+#~ "als een werknemer uren boekt op het contract/kostenplaats.\n"
+#~ "\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "Create recurring documents.\n"
+#~ "===========================\n"
+#~ "\n"
+#~ "This module allows to create new documents and add subscriptions on that "
+#~ "document.\n"
+#~ "\n"
+#~ "e.g. To have an invoice generated automatically periodically:\n"
+#~ "    * Define a document type based on Invoice object\n"
+#~ "    * Define a subscription whose source document is the document defined as "
+#~ "above. Specify the interval information and partner to be invoice.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "Maak herhalende documenten (abonnementen).\n"
+#~ "=======================================\n"
+#~ "\n"
+#~ "Met deze module kunt u een nieuw document maken en een abonnement hieraan "
+#~ "koppelen.\n"
+#~ "\n"
+#~ "U kunt bijvoorbeeld een factuur automatisch periodiek laten aanmaken. Dit "
+#~ "doet u door:\n"
+#~ "* Maak een document type gebaseerd op het object factuur\n"
+#~ "* Maak een abonnement aan waarvan de bron het document is, zoals aangemaakt "
+#~ "bij stap 1.\n"
+#~ "* Specificeer het interval en de klant voor de factuur\n"
+#~ "    "
+
+#~ msgid ""
+#~ "Financial and accounting asset management.\n"
+#~ "    This Module manages the assets owned by a company or an individual. It "
+#~ "will keep track of depreciation's occurred on\n"
+#~ "    those assets. And it allows to create Move's of the depreciation lines.\n"
+#~ "    "
+#~ msgstr ""
+#~ "Financieel beheer van uw activa.\n"
+#~ "=========================\n"
+#~ "Met deze module beheert u, uw activa van uw bedrijf of van een individu. U "
+#~ "beheert uw afschrijvingen van \n"
+#~ "deze activa. Deze afschrijvingen worden als journaalposten verwerkt in uw "
+#~ "financiële administratie.\n"
+#~ "    "
+
+#~ msgid "Default Value Scope"
+#~ msgstr "Bereik standaard waarde"
+
+#~ msgid "Action Binding"
+#~ msgstr "Actie koppeling"
+
+#~ msgid "Project Retro-planning"
+#~ msgstr "Project Retro-planning"
+
+#~ msgid "Wiki: Quality Manual"
+#~ msgstr "Wiki: Kwaliteit handleiding"
+
+#~ msgid "HR Officer"
+#~ msgstr "HR Officer"
+
+#, python-format
+#~ msgid ""
+#~ "Please check that all your lines have %d columns.Stopped around line %d "
+#~ "having %d columns."
+#~ msgstr ""
+#~ "Controleer of al uw regels %d kolommen hebben. Gestopt bij regel %d met %d "
+#~ "kolommen."
+
+#~ msgid "Inline"
+#~ msgstr "Inline"
+
+#~ msgid "Resources Planing"
+#~ msgstr "Resource planing"
+
+#~ msgid "The module adds google user in res user"
+#~ msgstr "De module voegt een Google gebruiker toe aan het gebruikers bestand"
+
+#~ msgid ""
+#~ "\n"
+#~ "Todo list for CRM leads and opportunities.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "TODO lijst voor relatiebeheer leads en prospects.\n"
+#~ "    "
+
+#~ msgid "Wiki: Sale FAQ"
+#~ msgstr "Wiki: Verkoop FAQ"
+
+#~ msgid "Multi-DB Synchronization"
+#~ msgstr "Meerdere databases synchronisatie"
+
+#~ msgid "Google Import"
+#~ msgstr "Google Import"
+
+#~ msgid "Rule definition (domain filter)"
+#~ msgstr "Regel definitie (domein filter)"
+
+#~ msgid ""
+#~ "\n"
+#~ "        OpenERP Web kanban view.\n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "        OpenERP Web kanban weergave.\n"
+#~ "        "
+
+#~ msgid ""
+#~ "The default language used in the graphical user interface, when translations "
+#~ "are available. To add a new language, you can use the 'Load an Official "
+#~ "Translation' wizard available from the 'Administration' menu."
+#~ msgstr ""
+#~ "De standaard taal welke wordt gebruikt in de user interface, wanneer "
+#~ "vertalingen aanwezig zijn. Om een nieuwe taal toe te voegen kunt u de \"Laad "
+#~ "een officiële vertaling\" gebruiken vanuit het instellingen menu."
+
+#~ msgid ""
+#~ "\n"
+#~ "        OpenERP Web core module.\n"
+#~ "        This module provides the core of the OpenERP web client.\n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "        OpenERP Web core module.\n"
+#~ "        deze module bevat de core functionaliteiten van de web cliënt.\n"
+#~ "        "
+
+#~ msgid "Allow users to login through OpenID."
+#~ msgstr "Geeft gebruikers de mogelijkheid om in te loggen met OpenID."
+
+#~ msgid ""
+#~ "\n"
+#~ "        OpenERP Web test suite.\n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "        OpenERP Web test suite.\n"
+#~ "        "
+
+#~ msgid ""
+#~ "This field is computed automatically based on bank accounts defined, having "
+#~ "the display on footer checkbox set."
+#~ msgstr ""
+#~ "Dit veld wordt automatisch berekend, gebaseerd op de gedefinieerde "
+#~ "bankrekeningen, indien het veld voor het weergeven in de voet is aangevinkt."
+
+#~ msgid "Partner Manager"
+#~ msgstr "Relatiemanager"
+
+#~ msgid "eMail Gateway for CRM Claim"
+#~ msgstr "E-mail Gateway voor klachtenregistratie"
+
+#~ msgid ""
+#~ "\n"
+#~ "This modules allows you to track your customers/suppliers claims and "
+#~ "grievances.\n"
+#~ "============================================================================="
+#~ "===\n"
+#~ "\n"
+#~ "It is fully integrated with the email gateway so that you can create\n"
+#~ "automatically new claims based on incoming emails.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "Met deze module kunt u alle klachten van uw klanten en leveranciers "
+#~ "registreren.\n"
+#~ "==================================================================\n"
+#~ "\n"
+#~ "Deze module is volledig geïntegreerd met de e-mail gateway, zodat u "
+#~ "automatisch\n"
+#~ "nieuwe klachten kunt registreren op basis van inkomende e-mails.\n"
+#~ "    "
+
+#, python-format
+#~ msgid "Reg: "
+#~ msgstr "KVK: "
+
+#~ msgid ""
+#~ "\n"
+#~ "This module adds the 'Margin' on sales order.\n"
+#~ "=============================================\n"
+#~ "\n"
+#~ "This gives the profitability by calculating the difference between the Unit "
+#~ "Price and Cost Price.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "Deze module voegt het veld \"marge\" toe aan de verkooporders.\n"
+#~ "===================================================\n"
+#~ "\n"
+#~ "Het marge veld geeft de winstgevendheid aan door het berekenen van het "
+#~ "verschil tussen de inkoopwaarde en verkoopwaarde.\n"
+#~ "    "
+
+#~ msgid ""
+#~ "You can install new modules in order to activate new features, menu, reports "
+#~ "or data in your OpenERP instance. To install some modules, click on the "
+#~ "button \"Install\" from the form view and then click on \"Start Upgrade\"."
+#~ msgstr ""
+#~ "U kunt nieuwe modules installeren om nieuwe functies, menu, rapporten of "
+#~ "gegevens in OpenERP te activeren. Om modules te installeren, klik op de knop "
+#~ "\"Installeer\" uit de formulierweergave en klik dan op \"Start bijwerken\"."
+
+#~ msgid ""
+#~ "\n"
+#~ "This is a complete document management system.\n"
+#~ "==============================================\n"
+#~ "\n"
+#~ "    * User Authentication\n"
+#~ "    * Document Indexation :- .pptx and .docx files are not supported in "
+#~ "Windows platform.\n"
+#~ "    * Dashboard for Document that includes:\n"
+#~ "        * New Files (list)\n"
+#~ "        * Files by Resource Type (graph)\n"
+#~ "        * Files by Partner (graph)\n"
+#~ "        * Files Size by Month (graph)\n"
+#~ "\n"
+#~ "ATTENTION:\n"
+#~ "    - When you install this module in a running company that have already "
+#~ "PDF files stored into the database,\n"
+#~ "      you will lose them all.\n"
+#~ "    - After installing this module PDF's are no longer stored into the "
+#~ "database,\n"
+#~ "      but in the servers rootpad like /server/bin/filestore.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Deze module voegt een compleet Document Management Systeem (DMS) toe.\n"
+#~ "================================================================\n"
+#~ "* Gebruikerstoegang\n"
+#~ "* Document indexeren. Opmerking: .pptx en docx bestanden worden niet "
+#~ "ondersteund\n"
+#~ "* Dashboard voor documenten, met:\n"
+#~ "  * Nieuwe bestanden (lijst)\n"
+#~ "  * Bestanden per resource type (grafiek)\n"
+#~ "  * Bestanden per relatie (grafiek)\n"
+#~ "  * Bestandgrootte per maand (grafiek)\n"
+#~ "\n"
+#~ "Opmerking:\n"
+#~ "* Wanneer u deze module installeert in een bedrijf wat al gebruik maakt van "
+#~ "OpenERP, zullen bestaande PDF bestanden, welke zijn opgeslagen in de "
+#~ "database verloren gaan.\n"
+#~ "* Na installatie van deze module worden PDF bestanden niet langer opgeslagen "
+#~ "in de database, maar in een map van de server, zoals bijv.: "
+#~ "server/bin/filestore.\n"
+
+#~ msgid "Delivery"
+#~ msgstr "Afleveradres"
+
+#~ msgid ""
+#~ "This wizard helps you to import a new module to your OpenERP system. After "
+#~ "importing a new module you can install it by clicking on the button "
+#~ "\"Install\" from the form view."
+#~ msgstr ""
+#~ "Deze wizard helpt u om een nieuwe module in OpenERP te importeren. Na het "
+#~ "importeren van  een nieuwe module kan u op de \"Installeer\"knop drukken, "
+#~ "vanuit d formulierweergave."
+
+#, python-format
+#~ msgid "Please verify your publisher warranty serial number and validity."
+#~ msgstr "Controleer uw onderhoudscontract serienummer en geldigheid."
+
+#~ msgid ""
+#~ "Checked if this is an OpenERP Publisher's Warranty contract (versus older "
+#~ "contract types"
+#~ msgstr ""
+#~ "Gecontroleerd of dit een OpenERP onderhoudscontract is (in plaats van een "
+#~ "ouder contract type)"
+
+#, python-format
+#~ msgid ""
+#~ "Insufficient fields to generate a Calendar View for %s, missing a date_stop "
+#~ "or a date_delay\" % (self._name)))\n"
+#~ "\n"
+#~ "        return view\n"
+#~ "\n"
+#~ "    def _get_default_search_view(self, cr, uid, context=None):\n"
+#~ "        \"\n"
+#~ "        :param cr: database cursor\n"
+#~ "        :param int user: user id\n"
+#~ "        :param dict context: connection context\n"
+#~ "        :returns: an lxml document of the view\n"
+#~ "        :rtype: etree._Element\n"
+#~ "        \"\n"
+#~ "        form_view = self.fields_view_get(cr, uid, False, 'form', "
+#~ "context=context)\n"
+#~ "        tree_view = self.fields_view_get(cr, uid, False, 'tree', "
+#~ "context=context)\n"
+#~ "\n"
+#~ "        # TODO it seems _all_columns could be used instead of fields_get (no "
+#~ "need for translated fields info)\n"
+#~ "        fields = self.fields_get(cr, uid, context=context)\n"
+#~ "        fields_to_search = set(\n"
+#~ "            field for field, descriptor in fields.iteritems()\n"
+#~ "            if descriptor.get('select'))\n"
+#~ "\n"
+#~ "        for view in (form_view, tree_view):\n"
+#~ "            view_root = etree.fromstring(view['arch'])\n"
+#~ "            # Only care about select=1 in xpath below, because select=2 is "
+#~ "covered\n"
+#~ "            # by the custom advanced search in clients\n"
+#~ "            "
+#~ "fields_to_search.update(view_root.xpath(\"//field[@select=1]/@name"
+#~ msgstr ""
+#~ "Onvoldoende velden om een agenda weergave te genereren voor %s, er mist een  "
+#~ "date_stop of een date_delay\" % (self._name)))\n"
+#~ "\n"
+#~ "        return view\n"
+#~ "\n"
+#~ "    def _get_default_search_view(self, cr, uid, context=None):\n"
+#~ "        \"\n"
+#~ "        :param cr: database cursor\n"
+#~ "        :param int user: user id\n"
+#~ "        :param dict context: connection context\n"
+#~ "        :returns: an lxml document of the view\n"
+#~ "        :rtype: etree._Element\n"
+#~ "        \"\n"
+#~ "        form_view = self.fields_view_get(cr, uid, False, 'form', "
+#~ "context=context)\n"
+#~ "        tree_view = self.fields_view_get(cr, uid, False, 'tree', "
+#~ "context=context)\n"
+#~ "\n"
+#~ "        # TODO it seems _all_columns could be used instead of fields_get (no "
+#~ "need for translated fields info)\n"
+#~ "        fields = self.fields_get(cr, uid, context=context)\n"
+#~ "        fields_to_search = set(\n"
+#~ "            field for field, descriptor in fields.iteritems()\n"
+#~ "            if descriptor.get('select'))\n"
+#~ "\n"
+#~ "        for view in (form_view, tree_view):\n"
+#~ "            view_root = etree.fromstring(view['arch'])\n"
+#~ "            # Only care about select=1 in xpath below, because select=2 is "
+#~ "covered\n"
+#~ "            # by the custom advanced search in clients\n"
+#~ "            "
+#~ "fields_to_search.update(view_root.xpath(\"//field[@select=1]/@name"

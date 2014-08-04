@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openerp-web\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:37+0000\n"
-"PO-Revision-Date: 2014-05-11 00:33+0000\n"
-"Last-Translator: Kenneth Aalberg <kenneaal@gmail.com>\n"
+"POT-Creation-Date: 2012-12-21 17:06+0000\n"
+"PO-Revision-Date: 2013-03-30 20:15+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Norwegian Bokmal <nb@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-05-11 07:08+0000\n"
-"X-Generator: Launchpad (build 16996)\n"
+"X-Launchpad-Export-Date: 2014-04-01 06:09+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: web_graph
 #. openerp-web
@@ -43,7 +43,7 @@ msgstr "Diagram"
 #: code:addons/web_graph/static/src/xml/web_graph.xml:25
 #, python-format
 msgid "Inside"
-msgstr "Innenfor"
+msgstr ""
 
 #. module: web_graph
 #. openerp-web
@@ -57,14 +57,14 @@ msgstr "&iacute;"
 #: code:addons/web_graph/static/src/xml/web_graph.xml:11
 #, python-format
 msgid "Pie"
-msgstr "Sektor"
+msgstr "Kake"
 
 #. module: web_graph
 #. openerp-web
 #: code:addons/web_graph/static/src/xml/web_graph.xml:28
 #, python-format
 msgid "Actions"
-msgstr "Handlinger"
+msgstr "Handinger"
 
 #. module: web_graph
 #. openerp-web
@@ -92,7 +92,7 @@ msgstr "Last ned som PNG"
 #: code:addons/web_graph/static/src/xml/web_graph.xml:26
 #, python-format
 msgid "Top"
-msgstr "Topp"
+msgstr ""
 
 #. module: web_graph
 #. openerp-web
@@ -106,7 +106,7 @@ msgstr "Skjult"
 #: code:addons/web_graph/static/src/xml/web_graph.xml:3
 #, python-format
 msgid "Graph Options"
-msgstr "Diagramalternativer"
+msgstr "diagramalternativer"
 
 #. module: web_graph
 #. openerp-web
@@ -120,7 +120,7 @@ msgstr "Linjer"
 #: code:addons/web_graph/static/src/xml/web_graph.xml:20
 #, python-format
 msgid "Legend"
-msgstr "Tegnforklaring"
+msgstr "tegnforklaringer"
 
 #. module: web_graph
 #. openerp-web

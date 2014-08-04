@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rng:grammar xmlns:rng="http://relaxng.org/ns/structure/1.0">
+<rng:grammar xmlns:rng="http://relaxng.org/ns/structure/1.0"
+        datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
     <rng:define name="any">
-      <rng:element>
-        <rng:anyName/>
-        <rng:zeroOrMore>
-            <rng:choice>
-            <rng:attribute>
+        <rng:element>
             <rng:anyName/>
-            </rng:attribute>
-            <rng:text/>
-            <rng:ref name="any"/>
-            </rng:choice>
-        </rng:zeroOrMore>
+            <rng:zeroOrMore>
+                <rng:choice>
+                    <rng:attribute>
+                        <rng:anyName/>
+                    </rng:attribute>
+                    <rng:text/>
+                    <rng:ref name="any"/>
+                </rng:choice>
+            </rng:zeroOrMore>
         </rng:element>
     </rng:define>
 
@@ -107,6 +108,13 @@
             <rng:optional><rng:attribute name="sxw"/></rng:optional>
             <rng:optional><rng:attribute name="xml"/></rng:optional>
             <rng:optional><rng:attribute name="xsl"/></rng:optional>
+            <rng:optional><rng:attribute name="in_format"/></rng:optional>
+            <rng:optional><rng:attribute name="out_format"/></rng:optional>
+            <rng:optional><rng:attribute name="parser"/></rng:optional>
+            <rng:optional><rng:attribute name="parser_state"/></rng:optional>
+            <rng:optional><rng:attribute name="stylesheet"/></rng:optional>            
+            <rng:optional><rng:attribute name="override_id"/></rng:optional>
+            <rng:optional><rng:attribute name="process_sep"/></rng:optional>
             <rng:optional> <rng:attribute name="auto" /> </rng:optional>
             <rng:optional> <rng:attribute name="header" /> </rng:optional>
             <rng:optional> <rng:attribute name="webkit_header" /> </rng:optional>
@@ -124,19 +132,71 @@
     <rng:define name="field">
         <rng:element name="field">
             <rng:attribute name="name" />
-            <rng:optional><rng:attribute name="type"/></rng:optional>
-            <rng:optional><rng:attribute name="ref"/></rng:optional>
-            <rng:optional><rng:attribute name="eval"/></rng:optional>
-            <rng:optional><rng:attribute name="domain"/></rng:optional>
-            <rng:optional><rng:attribute name="search"/></rng:optional>
-            <rng:optional><rng:attribute name="model"/></rng:optional>
-            <rng:optional><rng:attribute name="use"/></rng:optional>
-            <rng:oneOrMore>
-                <rng:choice>
-                    <rng:ref name="any"/>
-                    <rng:text/>
-                </rng:choice>
-            </rng:oneOrMore>
+            <rng:choice>
+                <rng:group>
+                    <rng:attribute name="type">
+                        <rng:choice>
+                            <rng:value>base64</rng:value>
+                            <rng:value>char</rng:value>
+                            <rng:value>file</rng:value>
+                        </rng:choice>
+                    </rng:attribute>
+                    <rng:choice>
+                        <rng:group>
+                            <rng:attribute name="file"/>
+                            <rng:empty/>
+                        </rng:group>
+                        <rng:text/>
+                    </rng:choice>
+                </rng:group>
+                <rng:group>
+                    <rng:attribute name="type"><rng:value>int</rng:value></rng:attribute>
+                    <rng:choice>
+                        <rng:data type="int"/>
+                        <rng:value>None</rng:value>
+                    </rng:choice>
+                </rng:group>
+                <rng:group>
+                    <rng:attribute name="type"><rng:value>float</rng:value></rng:attribute>
+                    <rng:data type="float"/>
+                </rng:group>
+                <rng:group>
+                    <rng:attribute name="type">
+                        <rng:choice>
+                            <rng:value>list</rng:value>
+                            <rng:value>tuple</rng:value>
+                        </rng:choice>
+                    </rng:attribute>
+                    <rng:oneOrMore><rng:ref name="value"/></rng:oneOrMore>
+                </rng:group>
+                <rng:group>
+                    <rng:attribute name="type">
+                        <rng:choice>
+                            <rng:value>html</rng:value>
+                            <rng:value>xml</rng:value>
+                        </rng:choice>
+                    </rng:attribute>
+                    <rng:oneOrMore>
+                        <rng:ref name="any"/>
+                    </rng:oneOrMore>
+                </rng:group>
+                <rng:group>
+                    <rng:attribute name="ref"/>
+                    <rng:empty/>
+                </rng:group>
+                <rng:group>
+                    <rng:attribute name="eval"/>
+                    <rng:optional><rng:attribute name="model"/></rng:optional>
+                    <rng:empty/>
+                </rng:group>
+                <rng:group>
+                    <rng:attribute name="search"/>
+                    <rng:optional><rng:attribute name="model"/></rng:optional>
+                    <rng:optional><rng:attribute name="use"/></rng:optional>
+                    <rng:empty/>
+                </rng:group>
+                <rng:text/>
+            </rng:choice>
         </rng:element>
     </rng:define>
 
@@ -150,6 +210,33 @@
                 <rng:ref name="field" />
             </rng:zeroOrMore>
             <rng:optional><rng:attribute name="context"/></rng:optional>
+        </rng:element>
+    </rng:define>
+
+    <rng:define name="template">
+        <rng:element name="template">
+            <rng:optional><rng:attribute name="id"/></rng:optional>
+            <rng:optional><rng:attribute name="t-name"/></rng:optional>
+            <rng:optional><rng:attribute name="name"/></rng:optional>
+            <rng:optional><rng:attribute name="forcecreate"/></rng:optional>
+            <rng:optional><rng:attribute name="context"/></rng:optional>
+            <rng:optional><rng:attribute name="priority"/></rng:optional>
+            <rng:choice>
+                <rng:group>
+                    <rng:optional><rng:attribute name="inherit_id"/></rng:optional>
+                    <rng:optional><rng:attribute name="inherit_option_id"/></rng:optional>
+                    <rng:optional><rng:attribute name="groups"/></rng:optional>
+                </rng:group>
+                <rng:optional>
+                    <rng:attribute name="page"><rng:value>True</rng:value></rng:attribute>
+                </rng:optional>
+            </rng:choice>
+            <rng:zeroOrMore>
+                <rng:choice>
+                    <rng:text/>
+                    <rng:ref name="any"/>
+                </rng:choice>
+            </rng:zeroOrMore>
         </rng:element>
     </rng:define>
 
@@ -231,6 +318,7 @@
                     <rng:text/>
                     <rng:ref name="menuitem" />
                     <rng:ref name="record" />
+                    <rng:ref name="template" />
                     <rng:ref name="delete" />
                     <rng:ref name="wizard" />
                     <rng:ref name="act_window" />
@@ -246,17 +334,10 @@
     </rng:define>
 
     <rng:start>
-        <rng:choice>
-            <rng:element name="openerp">
-                <rng:oneOrMore>
-                    <rng:ref name="data" />
-                </rng:oneOrMore>
-            </rng:element>
-            <rng:element name="terp">
-                <rng:oneOrMore>
-                    <rng:ref name="data" />
-                </rng:oneOrMore>
-            </rng:element>
-        </rng:choice>
+        <rng:element name="openerp">
+            <rng:oneOrMore>
+                <rng:ref name="data" />
+            </rng:oneOrMore>
+        </rng:element>
     </rng:start>
 </rng:grammar>

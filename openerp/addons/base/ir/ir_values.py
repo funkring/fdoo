@@ -22,7 +22,6 @@ import pickle
 
 from openerp.osv import osv, fields
 from openerp.osv.orm import except_orm
-from openerp.tools.safe_eval import safe_eval as eval
 
 EXCLUDED_FIELDS = set((
     'report_sxw_content', 'report_rml_content', 'report_sxw', 'report_rml',
@@ -122,13 +121,7 @@ class ir_values(osv.osv):
         record = self.browse(cursor, user, id, context=context)
         if record.key == 'default':
             # default values are pickled on the fly
-            if isinstance(value, (str, unicode)):
-                try:
-                    value = pickle.dumps(eval(value))
-                except Exception:
-                    value = pickle.dumps(value)
-            else:
-                value = pickle.dumps(value)
+            value = pickle.dumps(value)
         self.write(cursor, user, id, {name[:-9]: value}, context=ctx)
 
     def onchange_object_id(self, cr, uid, ids, object_id, context=None):
@@ -401,17 +394,16 @@ class ir_values(osv.osv):
         for action in cr.dictfetchall():
             if not action['value']:
                 continue    # skip if undefined
-            action_model,id = action['value'].split(',')
-            fields = [
-                    field
-                    for field in self.pool.get(action_model)._all_columns
-                    if field not in EXCLUDED_FIELDS]
+            action_model_name, action_id = action['value'].split(',')
+            action_model = self.pool.get(action_model_name)
+            if not action_model:
+                continue    # unknow model? skip it
+            fields = [field for field in action_model._all_columns if field not in EXCLUDED_FIELDS]
             # FIXME: needs cleanup
             try:
-                action_def = self.pool.get(action_model).read(cr, uid, int(id), fields, context)
+                action_def = action_model.read(cr, uid, int(action_id), fields, context)
                 if action_def:
-                    if action_model in ('ir.actions.report.xml','ir.actions.act_window',
-                                        'ir.actions.wizard'):
+                    if action_model_name in ('ir.actions.report.xml', 'ir.actions.act_window'):
                         groups = action_def.get('groups_id')
                         if groups:
                             cr.execute('SELECT 1 FROM res_groups_users_rel WHERE gid IN %s AND uid=%s',

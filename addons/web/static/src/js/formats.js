@@ -1,5 +1,9 @@
 
-openerp.web.formats = function(instance) {
+(function() {
+
+var instance = openerp;
+openerp.web.formats = {};
+
 var _t = instance.web._t;
 
 /**
@@ -141,6 +145,7 @@ instance.web.format_value = function (value, descriptor, value_if_empty) {
                 return '';
             }
             console.warn('Field', descriptor, 'had an empty string as value, treating as false...');
+            return value_if_empty === undefined ?  '' : value_if_empty;
         case false:
         case undefined:
         case Infinity:
@@ -200,7 +205,7 @@ instance.web.format_value = function (value, descriptor, value_if_empty) {
         case 'selection': case 'statusbar':
             // Each choice is [value, label]
             if(_.isArray(value)) {
-                 value = value[0]
+                 return value[1];
             }
             var result = _(descriptor.selection).detect(function (choice) {
                 return choice[0] === value;
@@ -220,20 +225,19 @@ instance.web.parse_value = function (value, descriptor, value_if_empty) {
         case "":
             return value_if_empty === undefined ?  false : value_if_empty;
     }
+    var tmp;
     switch (descriptor.widget || descriptor.type || (descriptor.field && descriptor.field.type)) {
         case 'integer':
-            var tmp;
             do {
                 tmp = value;
                 value = value.replace(instance.web._t.database.parameters.thousands_sep, "");
             } while(tmp !== value);
             tmp = Number(value);
-            // do not accept not numbers or float values
-            if (isNaN(tmp) || tmp % 1)
+            if (isNaN(tmp))
                 throw new Error(_.str.sprintf(_t("'%s' is not a correct integer"), value));
             return tmp;
         case 'float':
-            var tmp = Number(value);
+            tmp = Number(value);
             if (!isNaN(tmp))
                 return tmp;
 
@@ -266,22 +270,12 @@ instance.web.parse_value = function (value, descriptor, value_if_empty) {
                     value, (date_pattern + ' ' + time_pattern));
             if (datetime !== null)
                 return instance.web.datetime_to_str(datetime);
-            datetime = Date.parseExact(value.toString().replace(/\d+/g, function(m){
-                return m.length === 1 ? "0" + m : m ;
-            }), (date_pattern + ' ' + time_pattern));
-            if (datetime !== null)
-                return instance.web.datetime_to_str(datetime);
             datetime = Date.parse(value);
             if (datetime !== null)
                 return instance.web.datetime_to_str(datetime);
             throw new Error(_.str.sprintf(_t("'%s' is not a correct datetime"), value));
         case 'date':
             var date = Date.parseExact(value, date_pattern);
-            if (date !== null)
-                return instance.web.date_to_str(date);
-            date = Date.parseExact(value.toString().replace(/\d+/g, function(m){
-                return m.length === 1 ? "0" + m : m ;
-            }), date_pattern);
             if (date !== null)
                 return instance.web.date_to_str(date);
             date = Date.parse(value);
@@ -356,4 +350,4 @@ instance.web.round_decimals = function(value, decimals){
     return instance.web.round_precision(value, Math.pow(10,-decimals));
 };
 
-};
+})();

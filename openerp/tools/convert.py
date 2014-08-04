@@ -25,10 +25,15 @@ import logging
 import os.path
 import pickle
 import re
+import sys
 
 # for eval context:
 import time
-import openerp.release as release
+
+import openerp
+import openerp.release
+import openerp.workflow
+from yaml_import import convert_yaml_import
 
 import assertion_report
 
@@ -44,9 +49,9 @@ except:
 
 
 from datetime import datetime, timedelta
-from lxml import etree
+from dateutil.relativedelta import relativedelta
+from lxml import etree, builder
 import misc
-import openerp.pooler as pooler
 from config import config
 from translate import _
 
@@ -61,27 +66,32 @@ from misc import unquote
 unsafe_eval = eval
 from safe_eval import safe_eval as eval
 
-class ConvertError(Exception):
-    def __init__(self, doc, orig_excpt):
-        self.d = doc
-        self.orig = orig_excpt
+class ParseError(Exception):
+    def __init__(self, msg, text, filename, lineno):
+        self.msg = msg
+        self.text = text
+        self.filename = filename
+        self.lineno = lineno
 
     def __str__(self):
-        return 'Exception:\n\t%s\nUsing file:\n%s' % (self.orig, self.d)
+        return '"%s" while parsing %s:%s, near\n%s' \
+            % (self.msg, self.filename, self.lineno, self.text)
 
 def _ref(self, cr):
     return lambda x: self.id_get(cr, x)
 
 def _obj(pool, cr, uid, model_str, context=None):
-    model = pool.get(model_str)
+    model = pool[model_str]
     return lambda x: model.browse(cr, uid, x, context=context)
 
 def _get_idref(self, cr, uid, model_str, context, idref):
     idref2 = dict(idref,
                   time=time,
                   DateTime=datetime,
+                  datetime=datetime,
                   timedelta=timedelta,
-                  version=release.major_version,
+                  relativedelta=relativedelta,
+                  version=openerp.release.major_version,
                   ref=_ref(self, cr),
                   pytz=pytz)
     if len(model_str):
@@ -120,10 +130,10 @@ def _eval_xml(self, node, pool, cr, uid, idref, context=None):
             if f_search:
                 idref2 = _get_idref(self, cr, uid, f_model, context, idref)
             q = unsafe_eval(f_search, idref2)
-            ids = pool.get(f_model).search(cr, uid, q)
+            ids = pool[f_model].search(cr, uid, q)
             if f_use != 'id':
-                ids = map(lambda x: x[f_use], pool.get(f_model).read(cr, uid, ids, [f_use]))
-            _cols = pool.get(f_model)._columns
+                ids = map(lambda x: x[f_use], pool[f_model].read(cr, uid, ids, [f_use]))
+            _cols = pool[f_model]._columns
             if (f_name in _cols) and _cols[f_name]._type=='many2many':
                 return ids
             f_val = False
@@ -142,11 +152,22 @@ def _eval_xml(self, node, pool, cr, uid, idref, context=None):
                     'Could not eval(%s) for %s in %s', a_eval, node.get('name'), context)
                 raise
         def _process(s, idref):
-            m = re.findall('[^%]%\((.*?)\)[ds]', s)
-            for id in m:
+            matches = re.finditer('[^%]%\((.*?)\)[ds]', s)
+            done = []
+            for m in matches:
+                found = m.group()[1:]
+                if found in done:
+                    continue
+                done.append(found)
+                id = m.groups()[0]
                 if not id in idref:
-                    idref[id]=self.id_get(cr, id)
-            return s % idref
+                    idref[id] = self.id_get(cr, id)
+                s = s.replace(found, str(idref[id]))
+
+            s = s.replace('%%', '%') # Quite wierd but it's for (somewhat) backward compatibility sake
+
+            return s
+
         if t == 'xml':
             _fix_multiple_roots(node)
             return '<?xml version="1.0"?>\n'\
@@ -155,20 +176,38 @@ def _eval_xml(self, node, pool, cr, uid, idref, context=None):
         if t == 'html':
             return _process("".join([etree.tostring(n, encoding='utf-8')
                                    for n in node]), idref)
-        if t in ('char', 'int', 'float'):
-            d = node.text
-            if t == 'int':
-                d = d.strip()
-                if d == 'None':
-                    return None
-                else:
-                    return int(d.strip())
-            elif t == 'float':
-                return float(d.strip())
-            return d
-        elif t in ('list','tuple'):
+
+        data = node.text
+        if node.get('file'):
+            with openerp.tools.file_open(node.get('file'), 'rb') as f:
+                data = f.read()
+
+        if t == 'file':
+            from ..modules import module
+            path = data.strip()
+            if not module.get_module_resource(self.module, path):
+                raise IOError("No such file or directory: '%s' in %s" % (
+                    path, self.module))
+            return '%s,%s' % (self.module, path)
+
+        if t == 'char':
+            return data
+
+        if t == 'base64':
+            return data.encode('base64')
+
+        if t == 'int':
+            d = data.strip()
+            if d == 'None':
+                return None
+            return int(d)
+
+        if t == 'float':
+            return float(data.strip())
+
+        if t in ('list','tuple'):
             res=[]
-            for n in node.findall('./value'):
+            for n in node.iterchildren(tag='value'):
                 res.append(_eval_xml(self,n,pool,cr,uid,idref))
             if t=='tuple':
                 return tuple(res)
@@ -192,7 +231,7 @@ def _eval_xml(self, node, pool, cr, uid, idref, context=None):
             return_val = _eval_xml(self,n, pool, cr, uid, idref, context)
             if return_val is not None:
                 args.append(return_val)
-        model = pool.get(node.get('model',''))
+        model = pool[node.get('model','')]
         method = node.get('name','')
         res = getattr(model, method)(cr, uid, *args)
         return res
@@ -252,7 +291,7 @@ class xml_import(object):
 maximum one dot. They are used to refer to other modules ID, in the
 form: module.record_id""" % (xml_id,)
             if module != self.module:
-                modcnt = self.pool.get('ir.module.module').search_count(self.cr, self.uid, ['&', ('name', '=', module), ('state', 'in', ['installed'])])
+                modcnt = self.pool['ir.module.module'].search_count(self.cr, self.uid, ['&', ('name', '=', module), ('state', 'in', ['installed'])])
                 assert modcnt == 1, """The ID "%s" refers to an uninstalled module""" % (xml_id,)
 
         if len(id) > 64:
@@ -266,38 +305,69 @@ form: module.record_id""" % (xml_id,)
 
         if d_search:
             idref = _get_idref(self, cr, self.uid, d_model, context={}, idref={})
-            try:
-                ids = self.pool.get(d_model).search(cr, self.uid, unsafe_eval(d_search, idref))
-            except ValueError:
-                _logger.warning('Skipping deletion for failed search `%r`', d_search, exc_info=True)
-                pass
+            ids = self.pool[d_model].search(cr, self.uid, unsafe_eval(d_search, idref))
         if d_id:
             try:
                 ids.append(self.id_get(cr, d_id))
-            except ValueError:
+            except:
                 # d_id cannot be found. doesn't matter in this case
-                _logger.warning('Skipping deletion for missing XML ID `%r`', d_id, exc_info=True)
                 pass
         if ids:
-            self.pool.get(d_model).unlink(cr, self.uid, ids)
+            self.pool[d_model].unlink(cr, self.uid, ids)
 
     def _remove_ir_values(self, cr, name, value, model):
-        ir_values_obj = self.pool.get('ir.values')
+        ir_values_obj = self.pool['ir.values']
         ir_value_ids = ir_values_obj.search(cr, self.uid, [('name','=',name),('value','=',value),('model','=',model)])
         if ir_value_ids:
             ir_values_obj.unlink(cr, self.uid, ir_value_ids)
 
         return True
-
+    
     def _tag_report(self, cr, rec, data_node=None):
-        res = {}
+        res = {}        
+        report_type=rec.get('report_type')
+        is_aeroo_report = report_type and report_type=="aeroo" 
+        if is_aeroo_report:            
+            res["tml_source"]="file"
+            res["parser_state"]="loc"            
+            res["styles_mode"]="global"
+            res["active"] = True
+            res["stylesheet_id"] = None
+            for dest,f in (('in_format','in_format'),('out_format','out_format')):                
+                res[dest] = rec.get(f,'').encode('utf8')
+                assert res[dest], "Attribute %s of report is empty !" % (f,)
+                if dest=='out_format':
+                    t_outFormatCode=res[dest]
+                    t_ids = self.pool.get('report.mimetypes').search(cr,self.uid,[('code','=',t_outFormatCode)])
+                    if t_ids:
+                        res[dest]=t_ids[0]  
+                    else:
+                        assert res[dest], "Output format %s of report not found !" % (f,)            
+            
         for dest,f in (('name','string'),('model','model'),('report_name','name')):
             res[dest] = rec.get(f,'').encode('utf8')
             assert res[dest], "Attribute %s of report is empty !" % (f,)
         for field,dest in (('rml','report_rml'),('file','report_rml'),('xml','report_xml'),('xsl','report_xsl'),
-                           ('attachment','attachment'),('attachment_use','attachment_use'), ('usage','usage')):
+                           ('attachment','attachment'),('attachment_use','attachment_use'), ('usage','usage'),                           
+                           #funkring.net begin // aeroo report specific
+                           ('parser','parser_loc'),('parser_state','parser_state'),('stylesheet','styles_mode'),('process_sep','process_sep'),
+                           #funkring.net end 
+                           ('report_type', 'report_type'), ('parser', 'parser')):
             if rec.get(field):
-                res[dest] = rec.get(field).encode('utf8')
+                if field == "stylesheet":
+                    value = rec.get(field).encode('utf8')
+                    value_lower = value.lower()                   
+                    if value_lower in ["none","default"]:
+                        res[dest]="default"                            
+                    elif value_lower in ["global","global_landscape","intern","intern_landscape"]:
+                        res[dest]=value_lower                            
+                    else:
+                        res[dest]="specified"
+                        stylesheet_ids = self.pool.get("report.stylesheets").search(cr,self.uid,[("name","=",value)])
+                        assert stylesheet_ids, "Stylesheet %s not found!" % (value,)
+                        res["stylesheet_id"]=stylesheet_ids[0]
+                else:
+                    res[dest] = rec.get(field).encode('utf8')
         if rec.get('auto'):
             res['auto'] = eval(rec.get('auto','False'))
         if rec.get('sxw'):
@@ -305,12 +375,20 @@ form: module.record_id""" % (xml_id,)
             res['report_sxw_content'] = sxw_content
         if rec.get('header'):
             res['header'] = eval(rec.get('header','False'))
-        if rec.get('report_type'):
-            res['report_type'] = rec.get('report_type')
 
         res['multi'] = rec.get('multi') and eval(rec.get('multi','False'))
 
+        module = self.module
         xml_id = rec.get('id','').encode('utf8')
+        override_id = rec.get('override_id','').encode('utf8')
+        if override_id:
+            if "." in override_id:
+                tokens = override_id.split(".")
+                module= tokens[0]
+                xml_id= tokens[1]
+            else:
+                xml_id=override_id
+        
         self._test_xml_id(xml_id)
 
         if rec.get('groups'):
@@ -325,17 +403,28 @@ form: module.record_id""" % (xml_id,)
                     groups_value.append((4, group_id))
             res['groups_id'] = groups_value
 
-        id = self.pool.get('ir.model.data')._update(cr, self.uid, "ir.actions.report.xml", self.module, res, xml_id, noupdate=self.isnoupdate(data_node), mode=self.mode)
-        self.idref[xml_id] = int(id)
+        #funkring.net begin // aeroo report specific
+        if is_aeroo_report:
+            try:
+                aeroo_rec = self.pool.get('ir.model.data').get_object(cr,self.uid,module,xml_id)
+                if aeroo_rec.user_defined:                
+                    del res["tml_source"]                
+                    del res["parser_state"]
+            except:
+                pass
+        #funkring.net end
+        
+        sid = self.pool['ir.model.data']._update(cr, self.uid, "ir.actions.report.xml", module, res, xml_id, noupdate=self.isnoupdate(data_node), mode=self.mode)
+        self.idref[xml_id] = int(sid)
 
         if not rec.get('menu') or eval(rec.get('menu','False')):
             keyword = str(rec.get('keyword', 'client_print_multi'))
-            value = 'ir.actions.report.xml,'+str(id)
+            value = 'ir.actions.report.xml,'+str(sid)
             replace = rec.get('replace', True)
-            self.pool.get('ir.model.data').ir_set(cr, self.uid, 'action', keyword, res['name'], [res['model']], value, replace=replace, isobject=True, xml_id=xml_id)
+            self.pool['ir.model.data'].ir_set(cr, self.uid, 'action', keyword, res['name'], [res['model']], value, replace=replace, isobject=True, xml_id=xml_id)
         elif self.mode=='update' and eval(rec.get('menu','False'))==False:
             # Special check for report having attribute menu=False on update
-            value = 'ir.actions.report.xml,'+str(id)
+            value = 'ir.actions.report.xml,'+str(sid)
             self._remove_ir_values(cr, res['name'], value, res['model'])
         return id
 
@@ -368,14 +457,14 @@ form: module.record_id""" % (xml_id,)
                     groups_value.append((4, group_id))
             res['groups_id'] = groups_value
 
-        id = self.pool.get('ir.model.data')._update(cr, self.uid, "ir.actions.wizard", self.module, res, xml_id, noupdate=self.isnoupdate(data_node), mode=self.mode)
+        id = self.pool['ir.model.data']._update(cr, self.uid, "ir.actions.wizard", self.module, res, xml_id, noupdate=self.isnoupdate(data_node), mode=self.mode)
         self.idref[xml_id] = int(id)
         # ir_set
         if (not rec.get('menu') or eval(rec.get('menu','False'))) and id:
             keyword = str(rec.get('keyword','') or 'client_action_multi')
             value = 'ir.actions.wizard,'+str(id)
             replace = rec.get("replace",'') or True
-            self.pool.get('ir.model.data').ir_set(cr, self.uid, 'action', keyword, string, [model], value, replace=replace, isobject=True, xml_id=xml_id)
+            self.pool['ir.model.data'].ir_set(cr, self.uid, 'action', keyword, string, [model], value, replace=replace, isobject=True, xml_id=xml_id)
         elif self.mode=='update' and (rec.get('menu') and eval(rec.get('menu','False'))==False):
             # Special check for wizard having attribute menu=False on update
             value = 'ir.actions.wizard,'+str(id)
@@ -390,7 +479,7 @@ form: module.record_id""" % (xml_id,)
 
         res = {'name': name, 'url': url, 'target':target}
 
-        id = self.pool.get('ir.model.data')._update(cr, self.uid, "ir.actions.act_url", self.module, res, xml_id, noupdate=self.isnoupdate(data_node), mode=self.mode)
+        id = self.pool['ir.model.data']._update(cr, self.uid, "ir.actions.act_url", self.module, res, xml_id, noupdate=self.isnoupdate(data_node), mode=self.mode)
         self.idref[xml_id] = int(id)
 
     def _tag_act_window(self, cr, rec, data_node=None):
@@ -489,8 +578,8 @@ form: module.record_id""" % (xml_id,)
         if rec.get('target'):
             res['target'] = rec.get('target','')
         if rec.get('multi'):
-            res['multi'] = rec.get('multi', False)
-        id = self.pool.get('ir.model.data')._update(cr, self.uid, 'ir.actions.act_window', self.module, res, xml_id, noupdate=self.isnoupdate(data_node), mode=self.mode)
+            res['multi'] = eval(rec.get('multi', 'False'))
+        id = self.pool['ir.model.data']._update(cr, self.uid, 'ir.actions.act_window', self.module, res, xml_id, noupdate=self.isnoupdate(data_node), mode=self.mode)
         self.idref[xml_id] = int(id)
 
         if src_model:
@@ -498,7 +587,7 @@ form: module.record_id""" % (xml_id,)
             keyword = rec.get('key2','').encode('utf-8') or 'client_action_relate'
             value = 'ir.actions.act_window,'+str(id)
             replace = rec.get('replace','') or True
-            self.pool.get('ir.model.data').ir_set(cr, self.uid, 'action', keyword, xml_id, [src_model], value, replace=replace, isobject=True, xml_id=xml_id)
+            self.pool['ir.model.data'].ir_set(cr, self.uid, 'action', keyword, xml_id, [src_model], value, replace=replace, isobject=True, xml_id=xml_id)
         # TODO add remove ir.model.data
 
     def _tag_ir_set(self, cr, rec, data_node=None):
@@ -509,7 +598,7 @@ form: module.record_id""" % (xml_id,)
             f_name = field.get("name",'').encode('utf-8')
             f_val = _eval_xml(self,field,self.pool, cr, self.uid, self.idref)
             res[f_name] = f_val
-        self.pool.get('ir.model.data').ir_set(cr, self.uid, res['key'], res['key2'], res['name'], res['models'], res['value'], replace=res.get('replace',True), isobject=res.get('isobject', False), meta=res.get('meta',None))
+        self.pool['ir.model.data'].ir_set(cr, self.uid, res['key'], res['key2'], res['name'], res['models'], res['value'], replace=res.get('replace',True), isobject=res.get('isobject', False), meta=res.get('meta',None))
 
     def _tag_workflow(self, cr, rec, data_node=None):
         if self.isnoupdate(data_node) and self.mode != 'init':
@@ -527,9 +616,7 @@ form: module.record_id""" % (xml_id,)
             id = _eval_xml(self, rec[0], self.pool, cr, self.uid, self.idref)
 
         uid = self.get_uid(cr, self.uid, data_node, rec)
-        import openerp.netsvc as netsvc
-        wf_service = netsvc.LocalService("workflow")
-        wf_service.trg_validate(uid, model,
+        openerp.workflow.trg_validate(uid, model,
             id,
             str(rec.get('action','')), cr)
 
@@ -564,7 +651,7 @@ form: module.record_id""" % (xml_id,)
                 else:
                     # the menuitem does't exist but we are in branch (not a leaf)
                     _logger.warning('Warning no ID for submenu %s of menu %s !', menu_elem, str(m_l))
-                    pid = self.pool.get('ir.ui.menu').create(cr, self.uid, {'parent_id' : pid, 'name' : menu_elem})
+                    pid = self.pool['ir.ui.menu'].create(cr, self.uid, {'parent_id' : pid, 'name' : menu_elem})
             values['parent_id'] = pid
         else:
             # The parent attribute was specified, if non-empty determine its ID, otherwise
@@ -607,9 +694,8 @@ form: module.record_id""" % (xml_id,)
                     "Verify that this is a window action or add a type argument." % (a_action,)
                 action_type,action_mode,action_name,view_id,target = rrres
                 if view_id:
-                    cr.execute('SELECT arch FROM ir_ui_view WHERE id=%s', (int(view_id),))
-                    arch, = cr.fetchone()
-                    action_mode = etree.fromstring(arch.encode('utf8')).tag
+                    view_arch = self.pool['ir.ui.view'].read(cr, 1, [view_id], ['arch'])
+                    action_mode = etree.fromstring(view_arch[0]['arch'].encode('utf8')).tag
                 cr.execute('SELECT view_mode FROM ir_act_window_view WHERE act_window_id=%s ORDER BY sequence LIMIT 1', (int(a_id),))
                 if cr.rowcount:
                     action_mode, = cr.fetchone()
@@ -658,14 +744,14 @@ form: module.record_id""" % (xml_id,)
                     groups_value.append((4, group_id))
             values['groups_id'] = groups_value
 
-        pid = self.pool.get('ir.model.data')._update(cr, self.uid, 'ir.ui.menu', self.module, values, rec_id, noupdate=self.isnoupdate(data_node), mode=self.mode, res_id=res and res[0] or False)
+        pid = self.pool['ir.model.data']._update(cr, self.uid, 'ir.ui.menu', self.module, values, rec_id, noupdate=self.isnoupdate(data_node), mode=self.mode, res_id=res and res[0] or False)
 
         if rec_id and pid:
             self.idref[rec_id] = int(pid)
 
         if rec.get('action') and pid:
             action = "ir.actions.%s,%d" % (a_type, a_id)
-            self.pool.get('ir.model.data').ir_set(cr, self.uid, 'action', 'tree_but_open', 'Menuitem', [('ir.ui.menu', int(pid))], action, True, True, xml_id=rec_id)
+            self.pool['ir.model.data'].ir_set(cr, self.uid, 'action', 'tree_but_open', 'Menuitem', [('ir.ui.menu', int(pid))], action, True, True, xml_id=rec_id)
         return 'ir.ui.menu', pid
 
     def _assert_equals(self, f1, f2, prec=4):
@@ -676,8 +762,7 @@ form: module.record_id""" % (xml_id,)
             return
 
         rec_model = rec.get("model",'').encode('ascii')
-        model = self.pool.get(rec_model)
-        assert model, "The model %s does not exist !" % (rec_model,)
+        model = self.pool[rec_model]
         rec_id = rec.get("id",'').encode('ascii')
         self._test_xml_id(rec_id)
         rec_src = rec.get("search",'').encode('utf8')
@@ -693,7 +778,7 @@ form: module.record_id""" % (xml_id,)
             ids = [self.id_get(cr, rec_id)]
         elif rec_src:
             q = unsafe_eval(rec_src, eval_dict)
-            ids = self.pool.get(rec_model).search(cr, uid, q, context=context)
+            ids = self.pool[rec_model].search(cr, uid, q, context=context)
             if rec_src_count:
                 count = int(rec_src_count)
                 if len(ids) != count:
@@ -738,13 +823,15 @@ form: module.record_id""" % (xml_id,)
 
     def _tag_record(self, cr, rec, data_node=None):
         rec_model = rec.get("model").encode('ascii')
-        model = self.pool.get(rec_model)
-        assert model, "The model %s does not exist !" % (rec_model,)
+        model = self.pool[rec_model]
         rec_id = rec.get("id",'').encode('ascii')
         rec_context = rec.get("context", None)
         if rec_context:
             rec_context = unsafe_eval(rec_context)
         self._test_xml_id(rec_id)
+        # in update mode, the record won't be updated if the data node explicitely
+        # opt-out using @noupdate="1". A second check will be performed in
+        # ir.model.data#_update() using the record's ir.model.data `noupdate` field.
         if self.isnoupdate(data_node) and self.mode != 'init':
             # check if the xml record has an id string
             if rec_id:
@@ -753,7 +840,7 @@ form: module.record_id""" % (xml_id,)
                 else:
                     module = self.module
                     rec_id2 = rec_id
-                id = self.pool.get('ir.model.data')._update_dummy(cr, self.uid, rec_model, module, rec_id2)
+                id = self.pool['ir.model.data']._update_dummy(cr, self.uid, rec_model, module, rec_id2)
                 # check if the resource already existed at the last update
                 if id:
                     # if it existed, we don't update the data, but we need to
@@ -777,8 +864,8 @@ form: module.record_id""" % (xml_id,)
             f_ref = field.get("ref",'').encode('utf-8')
             f_search = field.get("search",'').encode('utf-8')
             f_model = field.get("model",'').encode('utf-8')
-            if not f_model and model._all_columns.get(f_name,False):
-                f_model = model._all_columns[f_name].column._obj
+            if not f_model and model._columns.get(f_name,False):
+                f_model = model._columns[f_name]._obj
             f_use = field.get("use",'').encode('utf-8') or 'id'
             f_val = False
 
@@ -786,13 +873,13 @@ form: module.record_id""" % (xml_id,)
                 q = unsafe_eval(f_search, self.idref)
                 field = []
                 assert f_model, 'Define an attribute model="..." in your .XML file !'
-                f_obj = self.pool.get(f_model)
+                f_obj = self.pool[f_model]
                 # browse the objects searched
                 s = f_obj.browse(cr, self.uid, f_obj.search(cr, self.uid, q))
                 # column definitions of the "local" object
-                _cols = self.pool.get(rec_model)._all_columns
+                _cols = self.pool[rec_model]._columns
                 # if the current field is many2many
-                if (f_name in _cols) and _cols[f_name].column._type=='many2many':
+                if (f_name in _cols) and _cols[f_name]._type=='many2many':
                     f_val = [(6, 0, map(lambda x: x[f_use], s))]
                 elif len(s):
                     # otherwise (we are probably in a many2one field),
@@ -802,26 +889,68 @@ form: module.record_id""" % (xml_id,)
                 if f_ref=="null":
                     f_val = False
                 else:
-                    if f_name in model._all_columns \
-                              and model._all_columns[f_name].column._type == 'reference':
+                    if f_name in model._columns \
+                              and model._columns[f_name]._type == 'reference':
                         val = self.model_id_get(cr, f_ref)
                         f_val = val[0] + ',' + str(val[1])
                     else:
                         f_val = self.id_get(cr, f_ref)
             else:
                 f_val = _eval_xml(self,field, self.pool, cr, self.uid, self.idref)
-                if f_name in model._all_columns:
+                if model._columns.has_key(f_name):
                     import openerp.osv as osv
-                    if isinstance(model._all_columns[f_name].column, osv.fields.integer):
+                    if isinstance(model._columns[f_name], osv.fields.integer):
                         f_val = int(f_val)
             res[f_name] = f_val
 
-        id = self.pool.get('ir.model.data')._update(cr, self.uid, rec_model, self.module, res, rec_id or False, not self.isnoupdate(data_node), noupdate=self.isnoupdate(data_node), mode=self.mode, context=rec_context )
+        id = self.pool['ir.model.data']._update(cr, self.uid, rec_model, self.module, res, rec_id or False, not self.isnoupdate(data_node), noupdate=self.isnoupdate(data_node), mode=self.mode, context=rec_context )
         if rec_id:
             self.idref[rec_id] = int(id)
         if config.get('import_partial', False):
             cr.commit()
         return rec_model, id
+
+    def _tag_template(self, cr, el, data_node=None):
+        # This helper transforms a <template> element into a <record> and forwards it
+        tpl_id = el.get('id', el.get('t-name', '')).encode('ascii')
+        full_tpl_id = tpl_id
+        if '.' not in full_tpl_id:
+            full_tpl_id = '%s.%s' % (self.module, tpl_id)
+        # set the full template name for qweb <module>.<id>
+        if not (el.get('inherit_id') or el.get('inherit_option_id')):
+            el.set('t-name', full_tpl_id)
+            el.tag = 't'
+        else:
+            el.tag = 'data'
+        el.attrib.pop('id', None)
+
+        record_attrs = {
+            'id': tpl_id,
+            'model': 'ir.ui.view',
+        }
+        for att in ['forcecreate', 'context']:
+            if att in el.keys():
+                record_attrs[att] = el.attrib.pop(att)
+
+        Field = builder.E.field
+        name = el.get('name', tpl_id)
+
+        record = etree.Element('record', attrib=record_attrs)
+        record.append(Field(name, name='name'))
+        record.append(Field("qweb", name='type'))
+        record.append(Field(el.get('priority', "16"), name='priority'))
+        record.append(Field(el, name="arch", type="xml"))
+        for field_name in ('inherit_id','inherit_option_id'):
+            value = el.attrib.pop(field_name, None)
+            if value: record.append(Field(name=field_name, ref=value))
+        groups = el.attrib.pop('groups', None)
+        if groups:
+            grp_lst = map(lambda x: "ref('%s')" % x, groups.split(','))
+            record.append(Field(name="groups_id", eval="[(6, 0, ["+', '.join(grp_lst)+"])]"))
+        if el.attrib.pop('page', None) == 'True':
+            record.append(Field(name="page", eval="True"))
+
+        return self._tag_record(cr, record, data_node)
 
     def id_get(self, cr, id_str):
         if id_str in self.idref:
@@ -831,32 +960,25 @@ form: module.record_id""" % (xml_id,)
         return res
 
     def model_id_get(self, cr, id_str):
-        model_data_obj = self.pool.get('ir.model.data')
+        model_data_obj = self.pool['ir.model.data']
         mod = self.module
         if '.' in id_str:
             mod,id_str = id_str.split('.')
         return model_data_obj.get_object_reference(cr, self.uid, mod, id_str)
 
     def parse(self, de):
-        if not de.tag in ['terp', 'openerp']:
-            _logger.error("Mismatch xml format")
-            raise Exception( "Mismatch xml format: only terp or openerp as root tag" )
-
-        if de.tag == 'terp':
-            _logger.warning("The tag <terp/> is deprecated, use <openerp/>")
+        if de.tag != 'openerp':
+            raise Exception("Mismatch xml format: root tag must be `openerp`.")
 
         for n in de.findall('./data'):
             for rec in n:
                 if rec.tag in self._tags:
                     try:
                         self._tags[rec.tag](self.cr, rec, n)
-                    except:
-                        _logger.error('Parse error in %s:%d: \n%s',
-                                      rec.getroottree().docinfo.URL,
-                                      rec.sourceline,
-                                      etree.tostring(rec).strip(), exc_info=True)
+                    except Exception, e:
                         self.cr.rollback()
-                        raise
+                        exc_info = sys.exc_info()
+                        raise ParseError, (misc.ustr(e), etree.tostring(rec).rstrip(), rec.getroottree().docinfo.URL, rec.sourceline), exc_info[2]
         return True
 
     def __init__(self, cr, module, idref, mode, report=None, noupdate=False):
@@ -865,7 +987,7 @@ form: module.record_id""" % (xml_id,)
         self.module = module
         self.cr = cr
         self.idref = idref
-        self.pool = pooler.get_pool(cr.dbname)
+        self.pool = openerp.registry(cr.dbname)
         self.uid = 1
         if report is None:
             report = assertion_report.assertion_report()
@@ -874,6 +996,7 @@ form: module.record_id""" % (xml_id,)
         self._tags = {
             'menuitem': self._tag_menuitem,
             'record': self._tag_record,
+            'template': self._tag_template,
             'assert': self._tag_assert,
             'report': self._tag_report,
             'wizard': self._tag_wizard,
@@ -884,6 +1007,34 @@ form: module.record_id""" % (xml_id,)
             'act_window': self._tag_act_window,
             'url': self._tag_url
         }
+
+def convert_file(cr, module, filename, idref, mode='update', noupdate=False, kind=None, report=None, pathname=None):
+    if pathname is None:
+        pathname = os.path.join(module, filename)
+    fp = misc.file_open(pathname)
+    ext = os.path.splitext(filename)[1].lower()
+    try:
+        if ext == '.csv':
+            convert_csv_import(cr, module, pathname, fp.read(), idref, mode, noupdate)
+        elif ext == '.sql':
+            convert_sql_import(cr, fp)
+        elif ext == '.yml':
+            convert_yaml_import(cr, module, fp, kind, idref, mode, noupdate, report)
+        elif ext == '.xml':
+            convert_xml_import(cr, module, fp, idref, mode, noupdate, report)
+        elif ext == '.js':
+            pass # .js files are valid but ignored here.
+        else:
+            _logger.warning("Can't load unknown file type %s.", filename)
+    finally:
+        fp.close()
+
+def convert_sql_import(cr, fp):
+    queries = fp.read().split(';')
+    for query in queries:
+        new_query = ' '.join(query.split())
+        if new_query:
+            cr.execute(new_query)
 
 def convert_csv_import(cr, module, fname, csvcontent, idref=None, mode='init',
         noupdate=False):
@@ -896,8 +1047,6 @@ def convert_csv_import(cr, module, fname, csvcontent, idref=None, mode='init',
     model = ('.'.join(fname.split('.')[:-1]).split('-'))[0]
     #remove folder path from model
     head, model = os.path.split(model)
-
-    pool = pooler.get_pool(cr.dbname)
 
     input = cStringIO.StringIO(csvcontent) #FIXME
     reader = csv.reader(input, quotechar='"', delimiter=',')
@@ -923,13 +1072,15 @@ def convert_csv_import(cr, module, fname, csvcontent, idref=None, mode='init',
     uid = 1
     datas = []
     for line in reader:
-        if (not line) or not reduce(lambda x,y: x or y, line) :
+        if not (line and any(line)):
             continue
         try:
-            datas.append(map(lambda x: misc.ustr(x), line))
+            datas.append(map(misc.ustr, line))
         except:
             _logger.error("Cannot import the line: %s", line)
-    result, rows, warning_msg, dummy = pool.get(model).import_data(cr, uid, fields, datas,mode, module, noupdate, filename=fname_partial)
+
+    registry = openerp.registry(cr.dbname)
+    result, rows, warning_msg, dummy = registry[model].import_data(cr, uid, fields, datas,mode, module, noupdate, filename=fname_partial)
     if result < 0:
         # Report failed import and abort module install
         raise Exception(_('Module loading %s failed: file %s could not be processed:\n %s') % (module, fname, warning_msg))

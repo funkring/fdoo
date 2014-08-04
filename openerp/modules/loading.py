@@ -36,22 +36,16 @@ import openerp.modules.graph
 import openerp.modules.migration
 import openerp.modules.registry
 import openerp.osv as osv
-import openerp.pooler as pooler
 import openerp.tools as tools
 from openerp import SUPERUSER_ID
 
 from openerp.tools.translate import _
 from openerp.modules.module import initialize_sys_path, \
     load_openerp_module, init_module_models, adapt_version
+from module import runs_post_install
 
 _logger = logging.getLogger(__name__)
-
-def open_openerp_namespace():
-    # See comment for open_openerp_namespace.
-    if openerp.conf.deprecation.open_openerp_namespace:
-        for k, v in list(sys.modules.items()):
-            if k.startswith('openerp.') and sys.modules.get(k[8:]) is None:
-                sys.modules[k[8:]] = v
+_test_logger = logging.getLogger('openerp.tests')
 
 
 def load_module_graph(cr, graph, status=None, perform_checks=True, skip_modules=None, report=None):
@@ -63,35 +57,45 @@ def load_module_graph(cr, graph, status=None, perform_checks=True, skip_modules=
        :param skip_modules: optional list of module names (packages) which have previously been loaded and can be skipped
        :return: list of modules that were installed or updated
     """
-    def process_sql_file(cr, fp):
-        queries = fp.read().split(';')
-        for query in queries:
-            new_query = ' '.join(query.split())
-            if new_query:
-                cr.execute(new_query)
-
-    load_init_xml = lambda *args: _load_data(cr, *args, kind='init_xml')
-    load_update_xml = lambda *args: _load_data(cr, *args, kind='update_xml')
-    load_demo_xml = lambda *args: _load_data(cr, *args, kind='demo_xml')
-    load_data = lambda *args: _load_data(cr, *args, kind='data')
-    load_demo = lambda *args: _load_data(cr, *args, kind='demo')
-
     def load_test(module_name, idref, mode):
         cr.commit()
         try:
-            threading.currentThread().testing = True
             _load_data(cr, module_name, idref, mode, 'test')
             return True
         except Exception:
-            _logger.exception(
+            _test_logger.exception(
                 'module %s: an exception occurred in a test', module_name)
             return False
         finally:
-            threading.currentThread().testing = False
             if tools.config.options['test_commit']:
                 cr.commit()
             else:
                 cr.rollback()
+                # avoid keeping stale xml_id, etc. in cache 
+                openerp.modules.registry.RegistryManager.clear_caches(cr.dbname)
+
+
+    def _get_files_of_kind(kind):
+        if kind == 'demo':
+            kind = ['demo_xml', 'demo']
+        elif kind == 'data':
+            kind = ['init_xml', 'update_xml', 'data']
+        if isinstance(kind, str):
+            kind = [kind]
+        files = []
+        for k in kind:
+            for f in package.data[k]:
+                files.append(f)
+                if k.endswith('_xml') and not (k == 'init_xml' and not f.endswith('.xml')):
+                    # init_xml, update_xml and demo_xml are deprecated except
+                    # for the case of init_xml with yaml, csv and sql files as
+                    # we can't specify noupdate for those file.
+                    correct_key = 'demo' if k.count('demo') else 'data'
+                    _logger.warning(
+                        "module %s: key '%s' is deprecated in favor of '%s' for file '%s'.",
+                        package.name, k, correct_key, f
+                    )
+        return files
 
     def _load_data(cr, module_name, idref, mode, kind):
         """
@@ -102,49 +106,35 @@ def load_module_graph(cr, graph, status=None, perform_checks=True, skip_modules=
         init mode.
 
         """
-        for filename in package.data[kind]:
-            _logger.info("module %s: loading %s", module_name, filename)
-            _, ext = os.path.splitext(filename)
-            pathname = os.path.join(module_name, filename)
-            fp = tools.file_open(pathname)
-            noupdate = False
-            if kind in ('demo', 'demo_xml'):
-                noupdate = True
-            try:
-                ext = ext.lower()
-                if ext == '.csv':
-                    if kind in ('init', 'init_xml'):
-                        noupdate = True
-                    tools.convert_csv_import(cr, module_name, pathname, fp.read(), idref, mode, noupdate)
-                elif ext == '.sql':
-                    process_sql_file(cr, fp)
-                elif ext == '.yml':
-                    tools.convert_yaml_import(cr, module_name, fp, kind, idref, mode, noupdate, report)
-                elif ext == '.xml':
-                    tools.convert_xml_import(cr, module_name, fp, idref, mode, noupdate, report)
-                elif ext == '.js':
-                    pass # .js files are valid but ignored here.
-                else:
-                    _logger.warning("Can't load unknown file type %s.", filename)
-            finally:
-                fp.close()
+        try:
+            if kind in ('demo', 'test'):
+                threading.currentThread().testing = True
+            for filename in _get_files_of_kind(kind):
+                _logger.info("module %s: loading %s", module_name, filename)
+                noupdate = False
+                if kind in ('demo', 'demo_xml') or (filename.endswith('.csv') and kind in ('init', 'init_xml')):
+                    noupdate = True
+                tools.convert_file(cr, module_name, filename, idref, mode, noupdate, kind, report)
+        finally:
+            if kind in ('demo', 'test'):
+                threading.currentThread().testing = False
 
     if status is None:
         status = {}
 
     processed_modules = []
     loaded_modules = []
-    pool = pooler.get_pool(cr.dbname)
+    registry = openerp.registry(cr.dbname)
     migrations = openerp.modules.migration.MigrationManager(cr, graph)
     _logger.info('loading %d modules...', len(graph))
 
     # Query manual fields for all models at once and save them on the registry
     # so the initialization code for each model does not have to do it
     # one model at a time.
-    pool.fields_by_model = {}
+    registry.fields_by_model = {}
     cr.execute('SELECT * FROM ir_model_fields WHERE state=%s', ('manual',))
     for field in cr.dictfetchall():
-        pool.fields_by_model.setdefault(field['model'], []).append(field)
+        registry.fields_by_model.setdefault(field['model'], []).append(field)
 
     # register, instantiate and initialize models for each modules
     for index, package in enumerate(graph):
@@ -158,17 +148,17 @@ def load_module_graph(cr, graph, status=None, perform_checks=True, skip_modules=
         migrations.migrate_module(package, 'pre')
         load_openerp_module(package.name)
 
-        models = pool.load(cr, package)
+        models = registry.load(cr, package)
 
         loaded_modules.append(package.name)
         if hasattr(package, 'init') or hasattr(package, 'update') or package.state in ('to install', 'to upgrade'):
             init_module_models(cr, package.name, models)
-        pool._init_modules.add(package.name)
+        registry._init_modules.add(package.name)
         status['progress'] = float(index) / len(graph)
 
         # Can't put this line out of the loop: ir.module.module will be
         # registered by init_module_models() above.
-        modobj = pool.get('ir.module.module')
+        modobj = registry['ir.module.module']
 
         if perform_checks:
             modobj.check(cr, SUPERUSER_ID, [module_id])
@@ -183,37 +173,34 @@ def load_module_graph(cr, graph, status=None, perform_checks=True, skip_modules=
             if package.state=='to upgrade':
                 # upgrading the module information
                 modobj.write(cr, SUPERUSER_ID, [module_id], modobj.get_values_from_terp(package.data))
-            load_init_xml(module_name, idref, mode)
-            load_update_xml(module_name, idref, mode)
-            load_data(module_name, idref, mode)
-            if hasattr(package, 'demo') or (package.dbdemo and package.state != 'installed'):
+            _load_data(cr, module_name, idref, mode, kind='data')
+            has_demo = hasattr(package, 'demo') or (package.dbdemo and package.state != 'installed')
+            if has_demo:
                 status['progress'] = (index + 0.75) / len(graph)
-                load_demo_xml(module_name, idref, mode)
-                load_demo(module_name, idref, mode)
+                _load_data(cr, module_name, idref, mode, kind='demo')
                 cr.execute('update ir_module_module set demo=%s where id=%s', (True, module_id))
 
-                # launch tests only in demo mode, as most tests will depend
-                # on demo data. Other tests can be added into the regular
-                # 'data' section, but should probably not alter the data,
-                # as there is no rollback.
-                if tools.config.options['test_enable']:
-                    report.record_result(load_test(module_name, idref, mode))
+            migrations.migrate_module(package, 'post')
 
-                    # Run the `fast_suite` and `checks` tests given by the module.
-                    if module_name == 'base':
-                        # Also run the core tests after the database is created.
-                        report.record_result(openerp.modules.module.run_unit_tests('openerp'))
-                    report.record_result(openerp.modules.module.run_unit_tests(module_name))
+            if has_demo:
+                # launch tests only in demo mode, allowing tests to use demo data.
+                if tools.config.options['test_enable']:
+                    # Yamel test
+                    report.record_result(load_test(module_name, idref, mode))
+                    # Python tests
+                    ir_http = registry['ir.http']
+                    if hasattr(ir_http, '_routing_map'):
+                        # Force routing map to be rebuilt between each module test suite
+                        del(ir_http._routing_map)
+                    report.record_result(openerp.modules.module.run_unit_tests(module_name, cr.dbname))
 
             processed_modules.append(package.name)
-
-            migrations.migrate_module(package, 'post')
 
             ver = adapt_version(package.data['version'])
             # Set new modules and dependencies
             modobj.write(cr, SUPERUSER_ID, [module_id], {'state': 'installed', 'latest_version': ver})
             # Update translations for all installed languages
-            modobj.update_translations(cr, SUPERUSER_ID, [module_id], None, {'overwrite': openerp.tools.config["overwrite_existing_translations"]})
+            modobj.update_translations(cr, SUPERUSER_ID, [module_id], None)
 
             package.state = 'installed'
             for kind in ('init', 'demo', 'update'):
@@ -224,7 +211,7 @@ def load_module_graph(cr, graph, status=None, perform_checks=True, skip_modules=
 
     # The query won't be valid for models created later (i.e. custom model
     # created after the registry has been loaded), so empty its result.
-    pool.fields_by_model = None
+    registry.fields_by_model = None
     
     cr.commit()
 
@@ -259,14 +246,11 @@ def load_marked_modules(cr, graph, states, force, progressdict, report, loaded_m
         if not processed: break
     return processed_modules
 
-
 def load_modules(db, force_demo=False, status=None, update_module=False):
     # TODO status['progress'] reporting is broken: used twice (and reset each
     # time to zero) in load_module_graph, not fine-grained enough.
-    # It should be a method exposed by the pool.
+    # It should be a method exposed by the registry.
     initialize_sys_path()
-
-    open_openerp_namespace()
 
     force = []
     if force_demo:
@@ -282,8 +266,9 @@ def load_modules(db, force_demo=False, status=None, update_module=False):
             if not tools.config['without_demo']:
                 tools.config["demo"]['all'] = 1
 
-        # This is a brand new pool, just created in pooler.get_db_and_pool()
-        pool = pooler.get_pool(cr.dbname)
+        # This is a brand new registry, just created in
+        # openerp.modules.registry.RegistryManager.new().
+        registry = openerp.registry(cr.dbname)
 
         if 'base' in tools.config['update'] or 'all' in tools.config['update']:
             cr.execute("update ir_module_module set state=%s where name=%s and state=%s", ('to upgrade', 'base', 'installed'))
@@ -297,7 +282,7 @@ def load_modules(db, force_demo=False, status=None, update_module=False):
 
         # processed_modules: for cleanup step after install
         # loaded_modules: to avoid double loading
-        report = pool._assertion_report
+        report = registry._assertion_report
         loaded_modules, processed_modules = load_module_graph(cr, graph, status, perform_checks=update_module, report=report)
 
         if tools.config['load_language']:
@@ -306,7 +291,7 @@ def load_modules(db, force_demo=False, status=None, update_module=False):
 
         # STEP 2: Mark other modules to be loaded/updated
         if update_module:
-            modobj = pool.get('ir.module.module')
+            modobj = registry['ir.module.module']
             if ('base' in tools.config['init']) or ('base' in tools.config['update']):
                 _logger.info('updating modules list')
                 modobj.update_list(cr, SUPERUSER_ID)
@@ -356,14 +341,13 @@ def load_modules(db, force_demo=False, status=None, update_module=False):
         # load custom models
         cr.execute('select model from ir_model where state=%s', ('manual',))
         for model in cr.dictfetchall():
-            pool.get('ir.model').instanciate(cr, SUPERUSER_ID, model['model'], {})
+            registry['ir.model'].instanciate(cr, SUPERUSER_ID, model['model'], {})
 
         # STEP 4: Finish and cleanup installations
         if processed_modules:
             cr.execute("""select model,name from ir_model where id NOT IN (select distinct model_id from ir_model_access)""")
             for (model, name) in cr.fetchall():
-                model_obj = pool.get(model)
-                if model_obj and not model_obj.is_transient() and not isinstance(model_obj, openerp.osv.orm.AbstractModel):
+                if model in registry and not registry[model].is_virtual():
                     _logger.warning('The model %s has no access rules, consider adding one. E.g. access_%s,access_%s,model_%s,,1,1,1,1',
                         model, model.replace('.', '_'), model.replace('.', '_'), model.replace('.', '_'))
 
@@ -371,20 +355,18 @@ def load_modules(db, force_demo=False, status=None, update_module=False):
             # been replaced by owner-only access rights
             cr.execute("""select distinct mod.model, mod.name from ir_model_access acc, ir_model mod where acc.model_id = mod.id""")
             for (model, name) in cr.fetchall():
-                model_obj = pool.get(model)
-                if model_obj and model_obj.is_transient():
+                if model in registry and registry[model].is_transient():
                     _logger.warning('The transient model %s (%s) should not have explicit access rules!', model, name)
 
             cr.execute("SELECT model from ir_model")
             for (model,) in cr.fetchall():
-                obj = pool.get(model)
-                if obj:
-                    obj._check_removed_columns(cr, log=True)
+                if model in registry:
+                    registry[model]._check_removed_columns(cr, log=True)
                 else:
                     _logger.warning("Model %s is declared but cannot be loaded! (Perhaps a module was partially removed or renamed)", model)
 
             # Cleanup orphan records
-            pool.get('ir.model.data')._process_end(cr, SUPERUSER_ID, processed_modules)
+            registry['ir.model.data']._process_end(cr, SUPERUSER_ID, processed_modules)
 
         for kind in ('init', 'demo', 'update'):
             tools.config[kind] = {}
@@ -418,24 +400,39 @@ def load_modules(db, force_demo=False, status=None, update_module=False):
             cr.execute("SELECT id FROM ir_module_module WHERE state=%s", ('to remove',))
             mod_ids_to_remove = [x[0] for x in cr.fetchall()]
             if mod_ids_to_remove:
-                pool.get('ir.module.module').module_uninstall(cr, SUPERUSER_ID, mod_ids_to_remove)
+                registry['ir.module.module'].module_uninstall(cr, SUPERUSER_ID, mod_ids_to_remove)
                 # Recursive reload, should only happen once, because there should be no
                 # modules to remove next time
                 cr.commit()
                 _logger.info('Reloading registry once more after uninstalling modules')
-                return pooler.restart_pool(cr.dbname, force_demo, status, update_module)
+                return openerp.modules.registry.RegistryManager.new(cr.dbname, force_demo, status, update_module)
+
+        # STEP 7: verify custom views on every model
+        if update_module:
+            Views = registry['ir.ui.view']
+            custom_view_test = True
+            for model in registry.models.keys():
+                if not Views._validate_custom_views(cr, SUPERUSER_ID, model):
+                    custom_view_test = False
+                    _logger.error('invalid custom view(s) for model %s', model)
+            report.record_result(custom_view_test)
 
         if report.failures:
             _logger.error('At least one test failed when loading the modules.')
         else:
             _logger.info('Modules loaded.')
 
-        # STEP 7: call _register_hook on every model
-        for model in pool.models.values():
+        # STEP 8: call _register_hook on every model
+        for model in registry.models.values():
             model._register_hook(cr)
 
+        # STEP 9: Run the post-install tests
+        cr.commit()
+        if openerp.tools.config['test_enable']:
+            cr.execute("SELECT name FROM ir_module_module WHERE state='installed'")
+            for module_name in cr.fetchall():
+                report.record_result(openerp.modules.module.run_unit_tests(module_name[0], cr.dbname, position=runs_post_install))
     finally:
         cr.close()
-
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

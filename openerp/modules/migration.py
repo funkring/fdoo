@@ -3,7 +3,7 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2011 OpenERP s.a. (<http://openerp.com>).
+#    Copyright (C) 2010-2013 OpenERP s.a. (<http://openerp.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -22,34 +22,16 @@
 
 """ Modules migration handling. """
 
-import os, sys, imp
+import imp
+import logging
+import os
 from os.path import join as opj
-import itertools
-import zipimport
 
 import openerp
-
-import openerp.osv as osv
-import openerp.tools as tools
-import openerp.tools.osutil as osutil
-from openerp.tools.safe_eval import safe_eval as eval
-import openerp.pooler as pooler
-from openerp.tools.translate import _
-
-import openerp.netsvc as netsvc
-
-import zipfile
 import openerp.release as release
+import openerp.tools as tools
+from openerp.tools.parse_version import parse_version
 
-import re
-import base64
-from zipfile import PyZipFile, ZIP_DEFLATED
-from cStringIO import StringIO
-
-import logging
-
-import openerp.modules.db
-import openerp.modules.graph
 
 _logger = logging.getLogger(__name__)
 
@@ -103,15 +85,16 @@ class MigrationManager(object):
 
     def migrate_module(self, pkg, stage):
         assert stage in ('pre', 'post')
-        stageformat = {'pre': '[>%s]',
-                       'post': '[%s>]',
-                      }
+        stageformat = {
+            'pre': '[>%s]',
+            'post': '[%s>]',
+        }
 
-        if not (hasattr(pkg, 'update') or pkg.state == 'to upgrade'):
+        if not (hasattr(pkg, 'update') or pkg.state == 'to upgrade') or pkg.installed_version is None:
             return
 
         def convert_version(version):
-            if version.startswith(release.major_version) and version != release.major_version:
+            if version.count('.') >= 2:
                 return version  # the version number already containt the server version
             return "%s.%s" % (release.major_version, version)
 
@@ -132,9 +115,10 @@ class MigrationManager(object):
             m = self.migrations[pkg.name]
             lst = []
 
-            mapping = {'module': opj(pkg.name, 'migrations'),
-                       'maintenance': opj('base', 'maintenance', 'migrations', pkg.name),
-                      }
+            mapping = {
+                'module': opj(pkg.name, 'migrations'),
+                'maintenance': opj('base', 'maintenance', 'migrations', pkg.name),
+            }
 
             for x in mapping.keys():
                 if version in m[x]:
@@ -151,8 +135,6 @@ class MigrationManager(object):
             a = a.copy()
             a.update(b)
             return a
-
-        from openerp.tools.parse_version import parse_version
 
         parsed_installed_version = parse_version(pkg.installed_version or '')
         current_version = parse_version(convert_version(pkg.data['version']))
@@ -183,14 +165,14 @@ class MigrationManager(object):
                         try:
                             mod = imp.load_source(name, pyfile, fp2)
                             _logger.info('module %(addon)s: Running migration %(version)s %(name)s' % mergedict({'name': mod.__name__}, strfmt))
-                            mod.migrate(self.cr, pkg.installed_version)
+                            migrate = mod.migrate
                         except ImportError:
-                            _logger.error('module %(addon)s: Unable to load %(stage)s-migration file %(file)s' % mergedict({'file': pyfile}, strfmt))
+                            _logger.exception('module %(addon)s: Unable to load %(stage)s-migration file %(file)s' % mergedict({'file': pyfile}, strfmt))
                             raise
                         except AttributeError:
                             _logger.error('module %(addon)s: Each %(stage)s-migration file must have a "migrate(cr, installed_version)" function' % strfmt)
-                        except:
-                            raise
+                        else:
+                            migrate(self.cr, pkg.installed_version)
                     finally:
                         if fp:
                             fp.close()

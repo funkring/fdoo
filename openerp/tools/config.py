@@ -1,9 +1,9 @@
-# -*- coding: utf-8 -*-
+#openerp.loggers.handlers. -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2012 OpenERP s.a. (<http://openerp.com>).
+#    Copyright (C) 2010-2014 OpenERP s.a. (<http://openerp.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -29,6 +29,7 @@ import openerp.conf
 import openerp.loglevels as loglevels
 import logging
 import openerp.release as release
+import appdirs
 
 class MyOption (optparse.Option, object):
     """ optparse Option with two additional attributes.
@@ -47,7 +48,6 @@ class MyOption (optparse.Option, object):
         self.my_default = attrs.pop('my_default', None)
         super(MyOption, self).__init__(*opts, **attrs)
 
-#.apidoc title: Server Configuration Loader
 
 def check_ssl():
     try:
@@ -60,23 +60,30 @@ def check_ssl():
 
 DEFAULT_LOG_HANDLER = [':INFO']
 
+def _get_default_datadir():
+    return appdirs.user_data_dir(appname='OpenERP', appauthor=release.author)
+
 class configmanager(object):
     def __init__(self, fname=None):
+        
+        self.defaultLang = "de_DE"
+        self.baseLang = "en_US"
+        
         # Options not exposed on the command line. Command line options will be added
         # from optparse's parser.
         self.options = {
             'admin_passwd': 'admin',
             'csv_internal_sep': ',',
-            'login_message': False,
             'publisher_warranty_url': 'http://services.openerp.com/publisher-warranty/',
             'reportgz': False,
             'root_path': None,
         }
 
         # Not exposed in the configuration file.
-        self.blacklist_for_save = set(
-            ['publisher_warranty_url', 'load_language', 'root_path',
-            'init', 'save', 'config', 'update', 'stop_after_init'])
+        self.blacklist_for_save = set([
+            'publisher_warranty_url', 'load_language', 'root_path',
+            'init', 'save', 'config', 'update', 'stop_after_init'
+        ])
 
         # dictionary mapping option destination (keys in self.options) to MyOptions.
         self.casts = {}
@@ -85,7 +92,10 @@ class configmanager(object):
         self.config_file = fname
         self.has_ssl = check_ssl()
 
-        self._LOGLEVELS = dict([(getattr(loglevels, 'LOG_%s' % x), getattr(logging, x)) for x in ('CRITICAL', 'ERROR', 'WARNING', 'INFO', 'TEST', 'DEBUG', 'NOTSET')])
+        self._LOGLEVELS = dict([
+            (getattr(loglevels, 'LOG_%s' % x), getattr(logging, x)) 
+            for x in ('CRITICAL', 'ERROR', 'WARNING', 'INFO', 'DEBUG', 'NOTSET')
+        ])
 
         version = "%s %s" % (release.description, release.version)
         self.parser = parser = optparse.OptionParser(version=version, option_class=MyOption)
@@ -98,6 +108,7 @@ class configmanager(object):
         group.add_option("-i", "--init", dest="init", help="install one or more modules (comma-separated list, use \"all\" for all modules), requires -d")
         group.add_option("-u", "--update", dest="update",
                           help="update one or more modules (comma-separated list, use \"all\" for all modules). Requires -d.")
+        group.add_option("--cleanup", action="store_true",dest="cleanup",default=False),
         group.add_option("--without-demo", dest="without_demo",
                           help="disable loading demo data for modules to be installed (comma-separated, use \"all\" for all modules). Requires -d and -i. Default is %default",
                           my_default=False)
@@ -108,6 +119,9 @@ class configmanager(object):
                          help="specify additional addons paths (separated by commas).",
                          action="callback", callback=self._check_addons_path, nargs=1, type="string")
         group.add_option("--load", dest="server_wide_modules", help="Comma-separated list of server-wide modules default=web")
+
+        group.add_option("-D", "--data-dir", dest="data_dir", my_default=_get_default_datadir(),
+                         help="Directory where to store OpenERP data")
         parser.add_option_group(group)
 
         # XML-RPC / HTTP
@@ -120,6 +134,8 @@ class configmanager(object):
                          help="disable the XML-RPC protocol")
         group.add_option("--proxy-mode", dest="proxy_mode", action="store_true", my_default=False,
                          help="Enable correct behavior when behind a reverse proxy")
+        group.add_option("--longpolling-port", dest="longpolling_port", my_default=8072,
+                         help="specify the TCP port for longpolling requests", type="int")
         parser.add_option_group(group)
 
         # XML-RPC / HTTPS
@@ -140,35 +156,25 @@ class configmanager(object):
                          help="specify the private key file for the SSL connection")
         parser.add_option_group(group)
 
-        # NET-RPC
-        group = optparse.OptionGroup(parser, "NET-RPC Configuration")
-        group.add_option("--netrpc-interface", dest="netrpc_interface", my_default='',
-                         help="specify the TCP IP address for the NETRPC protocol")
-        group.add_option("--netrpc-port", dest="netrpc_port", my_default=8070,
-                         help="specify the TCP port for the NETRPC protocol", type="int")
-        # Needed a few day for runbot and saas
-        group.add_option("--no-netrpc", dest="netrpc", action="store_false", my_default=False, help="disable the NETRPC protocol")
-        group.add_option("--netrpc", dest="netrpc", action="store_true", my_default=False, help="enable the NETRPC protocol")
-        parser.add_option_group(group)
-
         # WEB
-        # TODO move to web addons after MetaOption merge
         group = optparse.OptionGroup(parser, "Web interface Configuration")
-        group.add_option("--db-filter", dest="dbfilter", my_default='.*',
+        group.add_option("--db-filter", dest="dbfilter", default='.*',
                          help="Filter listed database", metavar="REGEXP")
         parser.add_option_group(group)
-
-        # Static HTTP
-        group = optparse.OptionGroup(parser, "Static HTTP service")
-        group.add_option("--static-http-enable", dest="static_http_enable", action="store_true", my_default=False, help="enable static HTTP service for serving plain HTML files")
-        group.add_option("--static-http-document-root", dest="static_http_document_root", help="specify the directory containing your static HTML files (e.g '/var/www/')")
-        group.add_option("--static-http-url-prefix", dest="static_http_url_prefix", help="specify the URL root prefix where you want web browsers to access your static HTML files (e.g '/')")
+        
+        # funkring.net begin
+        # ErlNode
+        group = optparse.OptionGroup(parser, "ErlNode-RPC Configuration")
+        group.add_option("--erlnode", dest="erlnode", action="store_true", my_default=False, help="enable erlang node")
+        group.add_option("--erlnode_name",dest="erlnode_name",help="erlang node name, for example erp@localhost")
+        group.add_option("--erlnode_cookie",dest="erlnode_cookie",help="erlang node cookie")
         parser.add_option_group(group)
+        # funkring.net end        
 
         # Testing Group
         group = optparse.OptionGroup(parser, "Testing Configuration")
         group.add_option("--test-file", dest="test_file", my_default=False,
-                         help="Launch a YML test file.")
+                         help="Launch a python or YML test file.")
         group.add_option("--test-report-directory", dest="test_report_directory", my_default=False,
                          help="If set, will save sample of all reports in this directory.")
         group.add_option("--test-enable", action="store_true", dest="test_enable",
@@ -180,19 +186,23 @@ class configmanager(object):
         # Logging Group
         group = optparse.OptionGroup(parser, "Logging Configuration")
         group.add_option("--logfile", dest="logfile", help="file where the server log will be stored")
-        group.add_option("--no-logrotate", dest="logrotate", action="store_false", my_default=True, help="do not rotate the logfile")
+        group.add_option("--logrotate", dest="logrotate", action="store_true", my_default=False, help="enable logfile rotation")
         group.add_option("--syslog", action="store_true", dest="syslog", my_default=False, help="Send the log to the syslog server")
         group.add_option('--log-handler', action="append", default=DEFAULT_LOG_HANDLER, my_default=DEFAULT_LOG_HANDLER, metavar="PREFIX:LEVEL", help='setup a handler at LEVEL for a given PREFIX. An empty PREFIX indicates the root logger. This option can be repeated. Example: "openerp.orm:DEBUG" or "werkzeug:CRITICAL" (default: ":INFO")')
-        group.add_option('--log-request', action="append_const", dest="log_handler", const="openerp.netsvc.rpc.request:DEBUG", help='shortcut for --log-handler=openerp.netsvc.rpc.request:DEBUG')
-        group.add_option('--log-response', action="append_const", dest="log_handler", const="openerp.netsvc.rpc.response:DEBUG", help='shortcut for --log-handler=openerp.netsvc.rpc.response:DEBUG')
-        group.add_option('--log-web', action="append_const", dest="log_handler", const="openerp.addons.web.http:DEBUG", help='shortcut for --log-handler=openerp.addons.web.http:DEBUG')
+        group.add_option('--log-request', action="append_const", dest="log_handler", const="openerp.http.rpc.request:DEBUG", help='shortcut for --log-handler=openerp.http.rpc.request:DEBUG')
+        group.add_option('--log-response', action="append_const", dest="log_handler", const="openerp.http.rpc.response:DEBUG", help='shortcut for --log-handler=openerp.http.rpc.response:DEBUG')
+        group.add_option('--log-web', action="append_const", dest="log_handler", const="openerp.http:DEBUG", help='shortcut for --log-handler=openerp.http:DEBUG')
         group.add_option('--log-sql', action="append_const", dest="log_handler", const="openerp.sql_db:DEBUG", help='shortcut for --log-handler=openerp.sql_db:DEBUG')
+        group.add_option('--log-db', dest='log_db', help="Logging database", my_default=False)
         # For backward-compatibility, map the old log levels to something
         # quite close.
-        levels = ['info', 'debug_rpc', 'warn', 'test', 'critical',
-            'debug_sql', 'error', 'debug', 'debug_rpc_answer', 'notset']
-        group.add_option('--log-level', dest='log_level', type='choice', choices=levels,
-            my_default='info', help='specify the level of the logging. Accepted values: ' + str(levels) + ' (deprecated option).')
+        levels = [
+            'info', 'debug_rpc', 'warn', 'test', 'critical',
+            'debug_sql', 'error', 'debug', 'debug_rpc_answer', 'notset'
+        ]
+        group.add_option('--log-level', dest='log_level', type='choice',
+                         choices=levels, my_default='info',
+                         help='specify the level of the logging. Accepted values: %s (deprecated option).' % (levels,))
 
         parser.add_option_group(group)
 
@@ -235,10 +245,16 @@ class configmanager(object):
             "See i18n section of the user manual. Option '-d' is mandatory."
             "Option '-l' is mandatory in case of importation"
             )
+        group.add_option('--default-language', dest="default_language",
+                         help="specifies the default language. for management options en_US should be used")
         group.add_option('--load-language', dest="load_language",
                          help="specifies the languages for the translations you want to be loaded")
         group.add_option('-l', "--language", dest="language",
                          help="specify the language of the translation file. Use it with --i18n-export or --i18n-import")
+        group.add_option("--i18n-get",dest="translate_get",action="store_true", my_default=False, 
+                         help="Write Translation to module addon directory as po file")
+        group.add_option("--i18n-set", dest="translate_set",action="store_true", my_default=False,
+                         help="Read Translation from module addon directory from po file")
         group.add_option("--i18n-export", dest="translate_out",
                          help="export all sentences to be translated to a CSV file, a PO file or a TGZ archive and exit")
         group.add_option("--i18n-import", dest="translate_in",
@@ -256,6 +272,8 @@ class configmanager(object):
 
         # Advanced options
         group = optparse.OptionGroup(parser, "Advanced options")
+        if os.name == 'posix':
+            group.add_option('--auto-reload', dest='auto_reload', action='store_true', my_default=False, help='enable auto reload')
         group.add_option('--debug', dest='debug_mode', action='store_true', my_default=False, help='enable debug mode')
         group.add_option("--stop-after-init", action="store_true", dest="stop_after_init", my_default=False,
                           help="stop the server after its initialization")
@@ -275,29 +293,34 @@ class configmanager(object):
                          type="int")
         group.add_option("--unaccent", dest="unaccent", my_default=False, action="store_true",
                          help="Use the unaccent function provided by the database when available.")
+        #funkring.net begin
+        group.add_option("--disable-database-manager", dest="disable_database_manager", my_default=False, action="store_true",
+                         help="Disable the database manager.")
+        #funkrnig.net end
         parser.add_option_group(group)
 
-        group = optparse.OptionGroup(parser, "Multiprocessing options")
-        # TODO sensible default for the three following limits.
-        group.add_option("--workers", dest="workers", my_default=0,
-                         help="Specify the number of workers, 0 disable prefork mode.",
-                         type="int")
-        group.add_option("--limit-memory-soft", dest="limit_memory_soft", my_default=640 * 1024 * 1024,
-                         help="Maximum allowed virtual memory per worker, when reached the worker be reset after the current request (default 671088640 aka 640MB).",
-                         type="int")
-        group.add_option("--limit-memory-hard", dest="limit_memory_hard", my_default=768 * 1024 * 1024,
-                         help="Maximum allowed virtual memory per worker, when reached, any memory allocation will fail (default 805306368 aka 768MB).",
-                         type="int")
-        group.add_option("--limit-time-cpu", dest="limit_time_cpu", my_default=60,
-                         help="Maximum allowed CPU time per request (default 60).",
-                         type="int")
-        group.add_option("--limit-time-real", dest="limit_time_real", my_default=120,
-                         help="Maximum allowed Real time per request (default 120).",
-                         type="int")
-        group.add_option("--limit-request", dest="limit_request", my_default=8192,
-                         help="Maximum number of request to be processed per worker (default 8192).",
-                         type="int")
-        parser.add_option_group(group)
+        if os.name == 'posix':
+            group = optparse.OptionGroup(parser, "Multiprocessing options")
+            # TODO sensible default for the three following limits.
+            group.add_option("--workers", dest="workers", my_default=0,
+                             help="Specify the number of workers, 0 disable prefork mode.",
+                             type="int")
+            group.add_option("--limit-memory-soft", dest="limit_memory_soft", my_default=2048 * 1024 * 1024,
+                             help="Maximum allowed virtual memory per worker, when reached the worker be reset after the current request (default 671088640 aka 640MB).",
+                             type="int")
+            group.add_option("--limit-memory-hard", dest="limit_memory_hard", my_default=2560 * 1024 * 1024,
+                             help="Maximum allowed virtual memory per worker, when reached, any memory allocation will fail (default 805306368 aka 768MB).",
+                             type="int")
+            group.add_option("--limit-time-cpu", dest="limit_time_cpu", my_default=60,
+                             help="Maximum allowed CPU time per request (default 60).",
+                             type="int")
+            group.add_option("--limit-time-real", dest="limit_time_real", my_default=120,
+                             help="Maximum allowed Real time per request (default 120).",
+                             type="int")
+            group.add_option("--limit-request", dest="limit_request", my_default=8192,
+                             help="Maximum number of request to be processed per worker (default 8192).",
+                             type="int")
+            parser.add_option_group(group)
 
         # Copy all optparse options (i.e. MyOption) into self.options.
         for group in parser.option_groups:
@@ -306,9 +329,10 @@ class configmanager(object):
                     self.options[option.dest] = option.my_default
                     self.casts[option.dest] = option
 
-        self.parse_config(None, False)
+        # generate default config
+        self._parse_config()
 
-    def parse_config(self, args=None, complete=True):
+    def parse_config(self, args=None):
         """ Parse the configuration file (if any) and the command-line
         arguments.
 
@@ -322,10 +346,12 @@ class configmanager(object):
         Typical usage of this method:
 
             openerp.tools.config.parse_config(sys.argv[1:])
-
-        :param complete: this is a hack used in __init__(), leave it to True.
-
         """
+        self._parse_config(args)
+        openerp.netsvc.init_logger()
+        openerp.modules.module.initialize_sys_path()
+
+    def _parse_config(self, args=None):
         if args is None:
             args = []
         opt, args = self.parser.parse_args(args)
@@ -343,8 +369,8 @@ class configmanager(object):
         die(opt.translate_in and (not opt.language or not opt.db_name),
             "the i18n-import option cannot be used without the language (-l) and the database (-d) options")
 
-        die(opt.overwrite_existing_translations and not (opt.translate_in or opt.update),
-            "the i18n-overwrite option cannot be used without the i18n-import option or without the update option")
+        die(opt.overwrite_existing_translations and not (opt.translate_in or opt.update or opt.translate_set),
+            "the i18n-overwrite option cannot be used without the i18n-import option or without the update option or without the i18n-set option")
 
         die(opt.translate_out and (not opt.db_name),
             "the i18n-export option cannot be used without the database (-d) option")
@@ -358,6 +384,7 @@ class configmanager(object):
         # (../etc from the server)
         # if the server is run by an unprivileged user, he has to specify location of a config file where he has the rights to write,
         # else he won't be able to save the configurations, or even to start the server...
+        # TODO use appdirs
         if os.name == 'nt':
             rcfilepath = os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), 'openerp-server.conf')
         else:
@@ -368,7 +395,6 @@ class configmanager(object):
                 or os.environ.get('OPENERP_SERVER') or rcfilepath)
         self.load()
 
-
         # Verify that we want to log or not, if not the output will go to stdout
         if self.options['logfile'] in ('None', 'False'):
             self.options['logfile'] = False
@@ -377,14 +403,17 @@ class configmanager(object):
             self.options['pidfile'] = False
 
         # if defined dont take the configfile value even if the defined value is None
-        keys = ['xmlrpc_interface', 'xmlrpc_port', 'db_name', 'db_user', 'db_password', 'db_host',
+        keys = ['xmlrpc_interface', 'xmlrpc_port', 'longpolling_port',
+                'db_name', 'db_user', 'db_password', 'db_host',
                 'db_port', 'db_template', 'logfile', 'pidfile', 'smtp_port',
                 'email_from', 'smtp_server', 'smtp_user', 'smtp_password',
-                'netrpc_interface', 'netrpc_port', 'db_maxconn', 'import_partial', 'addons_path',
-                'netrpc', 'xmlrpc', 'syslog', 'without_demo', 'timezone',
+                'db_maxconn', 'import_partial', 'addons_path',
+                'xmlrpc', 'syslog', 'without_demo', 'timezone',
                 'xmlrpcs_interface', 'xmlrpcs_port', 'xmlrpcs',
-                'static_http_enable', 'static_http_document_root', 'static_http_url_prefix',
-                'secure_cert_file', 'secure_pkey_file', 'dbfilter', 'log_handler', 'log_level'
+                #funkring.net begin // erlang specific
+                'erlnode', 'erlnode_name', 'erlnode_cookie',
+                 #funkring.net end
+                'secure_cert_file', 'secure_pkey_file', 'dbfilter', 'log_handler', 'log_level', 'log_db'
                 ]
 
         for arg in keys:
@@ -396,23 +425,33 @@ class configmanager(object):
             elif isinstance(self.options[arg], basestring) and self.casts[arg].type in optparse.Option.TYPE_CHECKER:
                 self.options[arg] = optparse.Option.TYPE_CHECKER[self.casts[arg].type](self.casts[arg], arg, self.options[arg])
 
-
         if isinstance(self.options['log_handler'], basestring):
             self.options['log_handler'] = self.options['log_handler'].split(',')
 
         # if defined but None take the configfile value
         keys = [
-            'language', 'translate_out', 'translate_in', 'overwrite_existing_translations',
+            'default_language','language', 'translate_out', 'translate_in', 'translate_get', 'translate_set', 'overwrite_existing_translations',
             'debug_mode', 'smtp_ssl', 'load_language',
-            'stop_after_init', 'logrotate', 'without_demo', 'netrpc', 'xmlrpc', 'syslog',
+            'stop_after_init', 'logrotate', 'without_demo', 'xmlrpc', 'syslog',
             'list_db', 'xmlrpcs', 'proxy_mode',
             'test_file', 'test_enable', 'test_commit', 'test_report_directory',
-            'osv_memory_count_limit', 'osv_memory_age_limit', 'max_cron_threads', 'unaccent',
-            'workers', 'limit_memory_hard', 'limit_memory_soft', 'limit_time_cpu', 'limit_time_real', 'limit_request'
+            'osv_memory_count_limit', 'osv_memory_age_limit', 'max_cron_threads', 'unaccent', 'disable_database_manager',
+            'data_dir',
         ]
 
+        posix_keys = [
+            'auto_reload', 'workers',
+            'limit_memory_hard', 'limit_memory_soft',
+            'limit_time_cpu', 'limit_time_real', 'limit_request',
+        ]
+
+        if os.name == 'posix':
+            keys += posix_keys
+        else:
+            self.options.update(dict.fromkeys(posix_keys, None))
+
+        # Copy the command-line arguments...
         for arg in keys:
-            # Copy the command-line argument...
             if getattr(opt, arg) is not None:
                 self.options[arg] = getattr(opt, arg)
             # ... or keep, but cast, the config file value.
@@ -433,6 +472,12 @@ class configmanager(object):
         self.options['translate_modules'] = opt.translate_modules and map(lambda m: m.strip(), opt.translate_modules.split(',')) or ['all']
         self.options['translate_modules'].sort()
 
+        # CHECK default lang
+        if self.options['default_language']:          
+            if len(self.options['default_language']) > 5:
+                raise Exception('ERROR: The Lang name must take max 5 chars, Eg: -lde_DE')
+            self.defaultLang = self.options['default_language']
+        
         # TODO checking the type of the parameters should be done for every
         # parameters, not just the timezone.
         # The call to get_server_timezone() sets the timezone; this should
@@ -480,14 +525,18 @@ class configmanager(object):
         if opt.save:
             self.save()
 
+        #funkring.net begin
+        if self.options['db_name']:
+            self.options['dbfilter']=self.options['db_name']
+            self.options['disable_database_manager']=True
+            self.options['list_db']=False
+        #funkring.net end
+
         openerp.conf.addons_paths = self.options['addons_path'].split(',')
         if opt.server_wide_modules:
             openerp.conf.server_wide_modules = map(lambda m: m.strip(), opt.server_wide_modules.split(','))
         else:
             openerp.conf.server_wide_modules = ['web','web_kanban']
-        if complete:
-            openerp.modules.module.initialize_sys_path()
-            openerp.modules.loading.open_openerp_namespace()
 
     def _generate_pgpassfile(self):
         """
@@ -626,6 +675,27 @@ class configmanager(object):
 
     def __getitem__(self, key):
         return self.options[key]
+
+    @property
+    def addons_data_dir(self):
+        d = os.path.join(self['data_dir'], 'addons', release.series)
+        if not os.path.exists(d):
+            os.makedirs(d, 0700)
+        else:
+            os.chmod(d, 0700)
+        return d
+
+    @property
+    def session_dir(self):
+        d = os.path.join(self['data_dir'], 'sessions', release.series)
+        if not os.path.exists(d):
+            os.makedirs(d, 0700)
+        else:
+            os.chmod(d, 0700)
+        return d
+
+    def filestore(self, dbname):
+        return os.path.join(self['data_dir'], 'filestore', dbname)
 
 config = configmanager()
 

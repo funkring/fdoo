@@ -162,9 +162,13 @@ class lang(osv.osv):
     ]
 
     @tools.ormcache(skiparg=3)
-    def _lang_data_get(self, cr, uid, lang_id, monetary=False):
+    def _lang_data_get(self, cr, uid, lang, monetary=False):
+        if type(lang) in (str, unicode):
+            lang = self.search(cr, uid, [('code', '=', lang)]) or \
+                self.search(cr, uid, [('code', '=', tools.config.baseLang)])
+            lang = lang[0]
         conv = localeconv()
-        lang_obj = self.browse(cr, uid, lang_id)
+        lang_obj = self.browse(cr, uid, lang)
         thousands_sep = lang_obj.thousands_sep or conv[monetary and 'mon_thousands_sep' or 'thousands_sep']
         decimal_point = lang_obj.decimal_point
         grouping = lang_obj.grouping
@@ -181,8 +185,10 @@ class lang(osv.osv):
         languages = self.read(cr, uid, ids, ['code','active'], context=context)
         for language in languages:
             ctx_lang = context.get('lang')
-            if language['code']=='en_US':
-                raise osv.except_osv(_('User Error'), _("Base Language 'en_US' can not be deleted!"))
+            # funkring.net begin
+            if language['code']==tools.config.baseLang:
+                raise osv.except_osv(_('User Error'), (_("Base Language %s can not be deleted !") % tools.config.baseLang))
+            # funkring.net end            
             if ctx_lang and (language['code']==ctx_lang):
                 raise osv.except_osv(_('User Error'), _("You cannot delete the language which is User's Preferred Language!"))
             if language['active']:
@@ -192,32 +198,29 @@ class lang(osv.osv):
             trans_obj.unlink(cr, uid, trans_ids, context=context)
         return super(lang, self).unlink(cr, uid, ids, context=context)
 
+    #
+    # IDS: can be a list of IDS or a list of XML_IDS
+    #
     def format(self, cr, uid, ids, percent, value, grouping=False, monetary=False, context=None):
         """ Format() will return the language-specific output for float values"""
-
         if percent[0] != '%':
             raise ValueError("format() must be given exactly one %char format specifier")
 
-        lang_grouping, thousands_sep, decimal_point = self._lang_data_get(cr, uid, ids[0], monetary)
-        eval_lang_grouping = eval(lang_grouping)
-
         formatted = percent % value
+
         # floats and decimal ints need special action!
-        if percent[-1] in 'eEfFgG':
-            seps = 0
-            parts = formatted.split('.')
+        if grouping:
+            lang_grouping, thousands_sep, decimal_point = \
+                self._lang_data_get(cr, uid, ids[0], monetary)
+            eval_lang_grouping = eval(lang_grouping)
 
-            if grouping:
-                parts[0], seps = intersperse(parts[0], eval_lang_grouping, thousands_sep)
+            if percent[-1] in 'eEfFgG':
+                parts = formatted.split('.')
+                parts[0], _ = intersperse(parts[0], eval_lang_grouping, thousands_sep)
 
-            formatted = decimal_point.join(parts)
-            while seps:
-                sp = formatted.find(' ')
-                if sp == -1: break
-                formatted = formatted[:sp] + formatted[sp+1:]
-                seps -= 1
-        elif percent[-1] in 'diu':
-            if grouping:
+                formatted = decimal_point.join(parts)
+
+            elif percent[-1] in 'diu':
                 formatted = intersperse(formatted, eval_lang_grouping, thousands_sep)[0]
 
         return formatted
@@ -227,45 +230,6 @@ class lang(osv.osv):
 #                             r'(?P<modifiers>[-#0-9 +*.hlL]*?)[eEfFgGdiouxXcrs%]')
 
 lang()
-
-def original_group(s, grouping, thousands_sep=''):
-
-    if not grouping:
-        return s, 0
-
-    result = ""
-    seps = 0
-    spaces = ""
-
-    if s[-1] == ' ':
-        sp = s.find(' ')
-        spaces = s[sp:]
-        s = s[:sp]
-
-    while s and grouping:
-        # if grouping is -1, we are done
-        if grouping[0] == -1:
-            break
-        # 0: re-use last group ad infinitum
-        elif grouping[0] != 0:
-            #process last group
-            group = grouping[0]
-            grouping = grouping[1:]
-        if result:
-            result = s[-group:] + thousands_sep + result
-            seps += 1
-        else:
-            result = s[-group:]
-        s = s[:-group]
-        if s and s[-1] not in "0123456789":
-            # the leading string is only spaces and signs
-            return s + result + spaces, seps
-    if not result:
-        return s + spaces, seps
-    if s:
-        result = s + thousands_sep + result
-        seps += 1
-    return result + spaces, seps
 
 def split(l, counts):
     """
@@ -316,53 +280,5 @@ def intersperse(string, counts, separator=''):
     splits = split(reverse(rest), counts)
     res = separator.join(map(reverse, reverse(splits)))
     return left + res + right, len(splits) > 0 and len(splits) -1 or 0
-
-# TODO rewrite this with a unit test library
-def _group_examples():
-    for g in [original_group, intersperse]:
-        # print "asserts on", g.func_name
-        assert g("", []) == ("", 0)
-        assert g("0", []) == ("0", 0)
-        assert g("012", []) == ("012", 0)
-        assert g("1", []) == ("1", 0)
-        assert g("12", []) == ("12", 0)
-        assert g("123", []) == ("123", 0)
-        assert g("1234", []) == ("1234", 0)
-        assert g("123456789", []) == ("123456789", 0)
-        assert g("&ab%#@1", []) == ("&ab%#@1", 0)
-
-        assert g("0", []) == ("0", 0)
-        assert g("0", [1]) == ("0", 0)
-        assert g("0", [2]) == ("0", 0)
-        assert g("0", [200]) == ("0", 0)
-
-        # breaks original_group:
-        if g.func_name == 'intersperse':
-            assert g("12345678", [0], '.') == ('12345678', 0)
-            assert g("", [1], '.') == ('', 0)
-        assert g("12345678", [1], '.') == ('1234567.8', 1)
-        assert g("12345678", [1], '.') == ('1234567.8', 1)
-        assert g("12345678", [2], '.') == ('123456.78', 1)
-        assert g("12345678", [2,1], '.') == ('12345.6.78', 2)
-        assert g("12345678", [2,0], '.') == ('12.34.56.78', 3)
-        assert g("12345678", [-1,2], '.') == ('12345678', 0)
-        assert g("12345678", [2,-1], '.') == ('123456.78', 1)
-        assert g("12345678", [2,0,1], '.') == ('12.34.56.78', 3)
-        assert g("12345678", [2,0,0], '.') == ('12.34.56.78', 3)
-        assert g("12345678", [2,0,-1], '.') == ('12.34.56.78', 3)
-        assert g("12345678", [3,3,3,3], '.') == ('12.345.678', 2)
-
-    assert original_group("abc1234567xy", [2], '.') == ('abc1234567.xy', 1)
-    assert original_group("abc1234567xy8", [2], '.') == ('abc1234567xy8', 0) # difference here...
-    assert original_group("abc12", [3], '.') == ('abc12', 0)
-    assert original_group("abc12", [2], '.') == ('abc12', 0)
-    assert original_group("abc12", [1], '.') == ('abc1.2', 1)
-
-    assert intersperse("abc1234567xy", [2], '.') == ('abc1234567.xy', 1)
-    assert intersperse("abc1234567xy8", [2], '.') == ('abc1234567x.y8', 1) # ... w.r.t. here.
-    assert intersperse("abc12", [3], '.') == ('abc12', 0)
-    assert intersperse("abc12", [2], '.') == ('abc12', 0)
-    assert intersperse("abc12", [1], '.') == ('abc1.2', 1)
-
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

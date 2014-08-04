@@ -25,7 +25,6 @@ import fnmatch
 import inspect
 import locale
 import os
-import openerp.pooler as pooler
 import openerp.sql_db as sql_db
 import re
 import logging
@@ -43,6 +42,7 @@ import misc
 from misc import UpdateableStr
 from misc import SKIPPED_ELEMENT_TYPES
 import osutil
+import openerp
 from openerp import SUPERUSER_ID
 
 _logger = logging.getLogger(__name__)
@@ -136,7 +136,6 @@ _LOCALE2WIN32 = {
 
 }
 
-
 class UNIX_LINE_TERMINATOR(csv.excel):
     lineterminator = '\n'
 
@@ -208,8 +207,10 @@ class GettextAlias(object):
             (cr, dummy) = self._get_cr(frame, allow_create=False)
             uid = self._get_uid(frame)
             if pool and cr and uid:
-                lang = pool.get('res.users').context_get(cr, uid)['lang']
-        return lang
+                lang = pool['res.users'].context_get(cr, uid)['lang']
+        #funkring.net begin // lang or default lang
+        return lang or config.config.defaultLang
+        #funkring.net end
 
     def __call__(self, source):
         res = source
@@ -227,8 +228,8 @@ class GettextAlias(object):
                 cr, is_new_cr = self._get_cr(frame)
                 if cr:
                     # Try to use ir.translation to benefit from global cache if possible
-                    pool = pooler.get_pool(cr.dbname)
-                    res = pool.get('ir.translation')._get_source(cr, SUPERUSER_ID, None, ('code','sql_constraint'), lang, source)
+                    registry = openerp.registry(cr.dbname)
+                    res = registry['ir.translation']._get_source(cr, SUPERUSER_ID, None, ('code','sql_constraint'), lang, source)
                 else:
                     _logger.debug('no context cursor detected, skipping translation for "%r"', source)
             else:
@@ -458,12 +459,17 @@ def trans_export(lang, modules, buffer, format, cr):
                 row.setdefault('tnrs', []).append((type, name, res_id))
                 row.setdefault('comments', set()).update(comments)
 
-            for src, row in grouped_rows.items():
+            for src, row in sorted(grouped_rows.items()):
                 if not lang:
                     # translation template, so no translation value
                     row['translation'] = ''
                 elif not row.get('translation'):
-                    row['translation'] = src
+                    # funkring.net begin // export empty translation if not baselang
+                    if lang != config.config.baseLang:
+                        row['translation'] = ''                    
+                    else:
+                    # funkring.net end
+                        row['translation'] = src
                 writer.write(row['modules'], row['tnrs'], src, row['translation'], row['comments'])
 
         elif format == 'tgz':
@@ -492,7 +498,9 @@ def trans_export(lang, modules, buffer, format, cr):
     if not trans_lang and format == 'csv':
         # CSV files are meant for translators and they need a starting point,
         # so we at least put the original term in the translation column
-        trans_lang = 'en_US'
+        #funkring.net begin // global base lang 
+        trans_lang = config.config.baseLang
+        #funkring.net end
     translations = trans_generate(lang, modules, cr)
     modules = set([t[0] for t in translations[1:]])
     _process(format, modules, translations, buffer, lang)
@@ -613,11 +621,11 @@ def babel_extract_qweb(fileobj, keywords, comment_tags, options):
 def trans_generate(lang, modules, cr):
     dbname = cr.dbname
 
-    pool = pooler.get_pool(dbname)
-    trans_obj = pool.get('ir.translation')
-    model_data_obj = pool.get('ir.model.data')
+    registry = openerp.registry(dbname)
+    trans_obj = registry.get('ir.translation')
+    model_data_obj = registry.get('ir.model.data')
     uid = 1
-    l = pool.models.items()
+    l = registry.models.items()
     l.sort()
 
     query = 'SELECT name, model, res_id, module'    \
@@ -661,64 +669,25 @@ def trans_generate(lang, modules, cr):
         model = encode(model)
         xml_name = "%s.%s" % (module, encode(xml_name))
 
-        if not pool.get(model):
+        if model not in registry:
             _logger.error("Unable to find object %r", model)
             continue
 
-        exists = pool.get(model).exists(cr, uid, res_id)
+        exists = registry[model].exists(cr, uid, res_id)
         if not exists:
             _logger.warning("Unable to find object %r with id %d", model, res_id)
             continue
-        obj = pool.get(model).browse(cr, uid, res_id)
+
+        #funkring.net begin // passed context with base lang
+        obj = registry[model].browse(cr, uid, res_id, context= { "lang" : config.config.baseLang })
+        #funkring.net end
 
         if model=='ir.ui.view':
             d = etree.XML(encode(obj.arch))
             for t in trans_parse_view(d):
                 push_translation(module, 'view', encode(obj.model), 0, t)
         elif model=='ir.actions.wizard':
-            service_name = 'wizard.'+encode(obj.wiz_name)
-            import openerp.netsvc as netsvc
-            if netsvc.Service._services.get(service_name):
-                obj2 = netsvc.Service._services[service_name]
-                for state_name, state_def in obj2.states.iteritems():
-                    if 'result' in state_def:
-                        result = state_def['result']
-                        if result['type'] != 'form':
-                            continue
-                        name = "%s,%s" % (encode(obj.wiz_name), state_name)
-
-                        def_params = {
-                            'string': ('wizard_field', lambda s: [encode(s)]),
-                            'selection': ('selection', lambda s: [encode(e[1]) for e in ((not callable(s)) and s or [])]),
-                            'help': ('help', lambda s: [encode(s)]),
-                        }
-
-                        # export fields
-                        if not result.has_key('fields'):
-                            _logger.warning("res has no fields: %r", result)
-                            continue
-                        for field_name, field_def in result['fields'].iteritems():
-                            res_name = name + ',' + field_name
-
-                            for fn in def_params:
-                                if fn in field_def:
-                                    transtype, modifier = def_params[fn]
-                                    for val in modifier(field_def[fn]):
-                                        push_translation(module, transtype, res_name, 0, val)
-
-                        # export arch
-                        arch = result['arch']
-                        if arch and not isinstance(arch, UpdateableStr):
-                            d = etree.XML(arch)
-                            for t in trans_parse_view(d):
-                                push_translation(module, 'wizard_view', name, 0, t)
-
-                        # export button labels
-                        for but_args in result['state']:
-                            button_name = but_args[0]
-                            button_label = but_args[1]
-                            res_name = name + ',' + button_name
-                            push_translation(module, 'wizard_button', res_name, 0, button_label)
+            pass # TODO Can model really be 'ir.actions.wizard' ?
 
         elif model=='ir.model.fields':
             try:
@@ -726,7 +695,7 @@ def trans_generate(lang, modules, cr):
             except AttributeError, exc:
                 _logger.error("name error in %s: %s", xml_name, str(exc))
                 continue
-            objmodel = pool.get(obj.model)
+            objmodel = registry.get(obj.model)
             if not objmodel or not field_name in objmodel._columns:
                 continue
             field_def = objmodel._columns[field_name]
@@ -779,7 +748,7 @@ def trans_generate(lang, modules, cr):
                     _logger.exception("couldn't export translation for report %s %s %s", name, report_type, fname)
 
         for field_name,field_def in obj._table._columns.items():
-            if field_def.translate:
+            if field_def.translate:              
                 name = model + "," + field_name
                 try:
                     trad = getattr(obj, field_name) or ''
@@ -808,11 +777,11 @@ def trans_generate(lang, modules, cr):
                 push_constraint_msg(module, term_type, model._name, constraint[msg_pos])
             
     for (_, model, module) in cr.fetchall():
-        model_obj = pool.get(model)
-
-        if not model_obj:
+        if model not in registry:
             _logger.error("Unable to find object %r", model)
             continue
+
+        model_obj = registry[model]
 
         if model_obj._constraints:
             push_local_constraints(module, model_obj, 'constraints')
@@ -820,49 +789,32 @@ def trans_generate(lang, modules, cr):
         if model_obj._sql_constraints:
             push_local_constraints(module, model_obj, 'sql_constraints')
 
-    def get_module_from_path(path, mod_paths=None):
-        if not mod_paths:
-            # First, construct a list of possible paths
-            def_path = os.path.abspath(os.path.join(config.config['root_path'], 'addons'))     # default addons path (base)
-            ad_paths= map(lambda m: os.path.abspath(m.strip()),config.config['addons_path'].split(','))
-            mod_paths=[def_path]
-            for adp in ad_paths:
-                mod_paths.append(adp)
-                if not os.path.isabs(adp):
-                    mod_paths.append(adp)
-                elif adp.startswith(def_path):
-                    mod_paths.append(adp[len(def_path)+1:])
+
+    modobj = registry['ir.module.module']
+    installed_modids = modobj.search(cr, uid, [('state', '=', 'installed')])
+    installed_modules = map(lambda m: m['name'], modobj.read(cr, uid, installed_modids, ['name']))
+
+    path_list = list(openerp.modules.module.ad_paths)
+    # Also scan these non-addon paths
+    for bin_path in ['osv', 'report' ]:
+        path_list.append(os.path.join(config.config['root_path'], bin_path))
+
+    _logger.debug("Scanning modules at paths: ", path_list)
+
+    mod_paths = list(path_list)
+
+    def get_module_from_path(path):
         for mp in mod_paths:
             if path.startswith(mp) and (os.path.dirname(path) != mp):
                 path = path[len(mp)+1:]
                 return path.split(os.path.sep)[0]
         return 'base'   # files that are not in a module are considered as being in 'base' module
 
-    modobj = pool.get('ir.module.module')
-    installed_modids = modobj.search(cr, uid, [('state', '=', 'installed')])
-    installed_modules = map(lambda m: m['name'], modobj.read(cr, uid, installed_modids, ['name']))
-
-    root_path = os.path.join(config.config['root_path'], 'addons')
-
-    apaths = map(os.path.abspath, map(str.strip, config.config['addons_path'].split(',')))
-    if root_path in apaths:
-        path_list = apaths
-    else :
-        path_list = [root_path,] + apaths
-
-    # Also scan these non-addon paths
-    for bin_path in ['osv', 'report' ]:
-        path_list.append(os.path.join(config.config['root_path'], bin_path))
-
-    _logger.debug("Scanning modules at paths: %s", path_list)
-
-    mod_paths = []
-
     def verified_module_filepaths(fname, path, root):
         fabsolutepath = join(root, fname)
         frelativepath = fabsolutepath[len(path):]
         display_path = "addons%s" % frelativepath
-        module = get_module_from_path(fabsolutepath, mod_paths=mod_paths)
+        module = get_module_from_path(fabsolutepath)
         if ('all' in modules or module in modules) and module in installed_modules:
             return module, fabsolutepath, frelativepath, display_path
         return None, None, None, None
@@ -909,9 +861,11 @@ def trans_generate(lang, modules, cr):
     out = []
     _to_translate.sort()
     # translate strings marked as to be translated
-    for module, source, name, id, type, comments in _to_translate:
-        trans = '' if not lang else trans_obj._get_source(cr, uid, name, type, lang, source)
+    # funkring.net begin // modified the get of translations
+    for module, source, name, id, type, comments in _to_translate:        
+        trans = trans_obj._get_translation(cr, uid, name, type, lang, source)
         out.append([module, type, name, id, source, encode(trans) or '', comments])
+    # funkring.net end
     return out
 
 def trans_load(cr, filename, lang, verbose=True, module_name=None, context=None):
@@ -934,9 +888,9 @@ def trans_load_data(cr, fileobj, fileformat, lang, lang_name=None, verbose=True,
     if context is None:
         context = {}
     db_name = cr.dbname
-    pool = pooler.get_pool(db_name)
-    lang_obj = pool.get('res.lang')
-    trans_obj = pool.get('ir.translation')
+    registry = openerp.registry(db_name)
+    lang_obj = registry.get('res.lang')
+    trans_obj = registry.get('ir.translation')
     iso_lang = misc.get_iso_codes(lang)
     try:
         ids = lang_obj.search(cr, SUPERUSER_ID, [('code','=', lang)])
@@ -973,6 +927,7 @@ def trans_load_data(cr, fileobj, fileformat, lang, lang_name=None, verbose=True,
 
             # dictionary which holds values for this line of the csv file
             # {'lang': ..., 'type': ..., 'name': ..., 'res_id': ...,
+
             #  'src': ..., 'value': ..., 'module':...}
             dic = dict.fromkeys(('name', 'res_id', 'src', 'type', 'imd_model', 'imd_name', 'module', 'value', 'comments'))
             dic['lang'] = lang
@@ -982,6 +937,12 @@ def trans_load_data(cr, fileobj, fileformat, lang, lang_name=None, verbose=True,
             # This would skip terms that fail to specify a res_id
             if not dic.get('res_id'):
                 continue
+
+            # funkring.net begin // skip if value is empty
+            # This would skip if value is empty
+            if not dic.get('value'):
+                continue
+            # funkring.net end
 
             res_id = dic.pop('res_id')
             if res_id and isinstance(res_id, (int, long)) \
@@ -1057,11 +1018,10 @@ def load_language(cr, lang):
     :param lang: language ISO code with optional _underscore_ and l10n flavor (ex: 'fr', 'fr_BE', but not 'fr-BE')
     :type lang: str
     """
-    pool = pooler.get_pool(cr.dbname)
-    language_installer = pool.get('base.language.install')
-    uid = 1
-    oid = language_installer.create(cr, uid, {'lang': lang})
-    language_installer.lang_install(cr, uid, [oid], context=None)
+    registry = openerp.registry(cr.dbname)
+    language_installer = registry['base.language.install']
+    oid = language_installer.create(cr, SUPERUSER_ID, {'lang': lang})
+    language_installer.lang_install(cr, SUPERUSER_ID, [oid], context=None)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

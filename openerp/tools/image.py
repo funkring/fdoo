@@ -19,18 +19,20 @@
 #
 ##############################################################################
 
-import io
-import StringIO
+try:
+    import cStringIO as StringIO
+except ImportError:
+    import StringIO
 
 from PIL import Image
 from PIL import ImageEnhance
-from random import random
+from random import randint
 
 # ----------------------------------------
 # Image resizing
 # ----------------------------------------
 
-def image_resize_image(base64_source, size=(1024, 1024), encoding='base64', filetype='PNG', avoid_if_small=False):
+def image_resize_image(base64_source, size=(1024, 1024), encoding='base64', filetype=None, avoid_if_small=False):
     """ Function to resize an image. The image will be resized to the given
         size, while keeping the aspect ratios, and holes in the image will be
         filled with transparent background. The image will not be stretched if
@@ -56,7 +58,8 @@ def image_resize_image(base64_source, size=(1024, 1024), encoding='base64', file
             height mean an automatically computed value based respectivelly
             on height or width of the source image.
         :param encoding: the output encoding
-        :param filetype: the output filetype
+        :param filetype: the output filetype, by default the source image's
+        :type filetype: str, any PIL image format (supported for creation)
         :param avoid_if_small: do not resize if image height and width
             are smaller than the expected size.
     """
@@ -64,8 +67,10 @@ def image_resize_image(base64_source, size=(1024, 1024), encoding='base64', file
         return False
     if size == (None, None):
         return base64_source
-    image_stream = io.BytesIO(base64_source.decode(encoding))
+    image_stream = StringIO.StringIO(base64_source.decode(encoding))
     image = Image.open(image_stream)
+    # store filetype here, as Image.new below will lose image.format
+    filetype = filetype or image.format
 
     asked_width, asked_height = size
     if asked_width is None:
@@ -78,7 +83,7 @@ def image_resize_image(base64_source, size=(1024, 1024), encoding='base64', file
     if avoid_if_small and image.size[0] <= size[0] and image.size[1] <= size[1]:
         return base64_source
 
-    if image.size <> size:
+    if image.size != size:
         # create a thumbnail: will resize and keep ratios, then sharpen for better looking result
         image.thumbnail(size, Image.ANTIALIAS)
         sharpener = ImageEnhance.Sharpness(image.convert('RGBA'))
@@ -93,21 +98,21 @@ def image_resize_image(base64_source, size=(1024, 1024), encoding='base64', file
     image.save(background_stream, filetype)
     return background_stream.getvalue().encode(encoding)
 
-def image_resize_image_big(base64_source, size=(1204, 1204), encoding='base64', filetype='PNG', avoid_if_small=True):
+def image_resize_image_big(base64_source, size=(1204, 1024), encoding='base64', filetype=None, avoid_if_small=True):
     """ Wrapper on image_resize_image, to resize images larger than the standard
         'big' image size: 1024x1024px.
         :param size, encoding, filetype, avoid_if_small: refer to image_resize_image
     """
     return image_resize_image(base64_source, size, encoding, filetype, avoid_if_small)
 
-def image_resize_image_medium(base64_source, size=(128, 128), encoding='base64', filetype='PNG', avoid_if_small=False):
+def image_resize_image_medium(base64_source, size=(128, 128), encoding='base64', filetype=None, avoid_if_small=False):
     """ Wrapper on image_resize_image, to resize to the standard 'medium'
         image size: 180x180.
         :param size, encoding, filetype, avoid_if_small: refer to image_resize_image
     """
     return image_resize_image(base64_source, size, encoding, filetype, avoid_if_small)
 
-def image_resize_image_small(base64_source, size=(64, 64), encoding='base64', filetype='PNG', avoid_if_small=False):
+def image_resize_image_small(base64_source, size=(64, 64), encoding='base64', filetype=None, avoid_if_small=False):
     """ Wrapper on image_resize_image, to resize to the standard 'small' image
         size: 50x50.
         :param size, encoding, filetype, avoid_if_small: refer to image_resize_image
@@ -125,11 +130,11 @@ def image_colorize(original, randomize=True, color=(255, 255, 255)):
         :param color: background-color, if not randomize
     """
     # create a new image, based on the original one
-    original = Image.open(io.BytesIO(original))
+    original = Image.open(StringIO.StringIO(original))
     image = Image.new('RGB', original.size)
     # generate the background color, past it as background
     if randomize:
-        color = (int(random() * 192 + 32), int(random() * 192 + 32), int(random() * 192 + 32))
+        color = (randint(32, 224), randint(32, 224), randint(32, 224))
     image.paste(color)
     image.paste(original, mask=original)
     # return the new image

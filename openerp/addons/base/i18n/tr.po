@@ -1,21 +1,20 @@
-# Turkish translation for openobject-server
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
-# This file is distributed under the same license as the openobject-server package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* base
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openobject-server\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:35+0000\n"
-"PO-Revision-Date: 2013-08-03 19:47+0000\n"
-"Last-Translator: Ayhan KIZILTAN <Unknown>\n"
-"Language-Team: Turkish <tr@li.org>\n"
+"Project-Id-Version: OpenERP Server 5.0.4\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-12-21 17:04+0000\n"
+"PO-Revision-Date: 2012-11-28 08:41+0000\n"
+"Last-Translator: Ahmet Altınışık <Unknown>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-04-30 06:56+0000\n"
-"X-Generator: Launchpad (build 16985)\n"
+"X-Launchpad-Export-Date: 2014-03-28 05:37+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_account_check_writing
@@ -29,11 +28,6 @@ msgstr ""
 "Çek Yazma ve Bastırma Modülü.\n"
 "================================================\n"
 "    "
-
-#. module: base
-#: view:res.partner.bank:0
-msgid "e.g. GEBABEBB"
-msgstr "örn. GEBABEBB"
 
 #. module: base
 #: model:res.country,name:base.sh
@@ -296,43 +290,6 @@ msgid "Inuktitut / ᐃᓄᒃᑎᑐᑦ"
 msgstr "Eskimo / ᐃᓄᒃᑎᑐᑦ"
 
 #. module: base
-#: model:ir.module.module,description:base.module_l10n_ch
-msgid ""
-"\n"
-" Swiss localization :\n"
-" ====================\n"
-" **Multilang swiss STERCHI account chart and taxes**\n"
-"  **Author:** Camptocamp SA\n"
-"\n"
-"  **Financial contributors:** Prisme Solutions Informatique SA, Quod SA\n"
-"\n"
-"  **Translation contributors:** brain-tec AG, Agile Business Group\n"
-"\n"
-" **This release will introduce major changes to l10n_ch.**\n"
-"\n"
-" Due to important refactoring needs and the Switzerland adoption of new "
-"international payment standard during 2013-2014. We have reorganised the "
-"swiss localization addons this way:\n"
-"\n"
-" - **l10n_ch**: Multilang swiss STERCHI account chart and taxes (official "
-"addon)\n"
-" - **l10n_ch_base_bank**: Technical module that introduces a new and "
-"simplified version of bank type management\n"
-" - **l10n_ch_bank**: List of swiss banks\n"
-" - **l10n_ch_zip**: List of swiss postal zip\n"
-" - **l10n_ch_dta**: Support of dta payment protocol (will be deprecated end "
-"2014)\n"
-" - **l10n_ch_payment_slip**: Support of ESR/BVR payment slip report and "
-"reconciliation. Report refactored with easy element positioning.\n"
-" - **l10n_ch_sepa**: Alpha implementation of PostFinance SEPA/PAIN support "
-"will be completed during 2013/2014\n"
-"\n"
-" The modules will be soon available on OpenERP swiss localization on "
-"launchpad:\n"
-" https://launchpad.net/openerp-swiss-localization\n"
-msgstr ""
-
-#. module: base
 #: model:res.groups,name:base.group_multi_currency
 msgid "Multi Currencies"
 msgstr "Çoklu Para Birimli"
@@ -494,11 +451,6 @@ msgstr "Alt Uygulamalar"
 #: field:res.partner,credit_limit:0
 msgid "Credit Limit"
 msgstr "Kredi Limiti"
-
-#. module: base
-#: model:ir.module.module,shortdesc:base.module_portal_project_long_term
-msgid "Portal Project Long Term"
-msgstr "Portal Proje Uzun Dönem"
 
 #. module: base
 #: field:ir.model.constraint,date_update:0
@@ -688,9 +640,39 @@ msgstr ""
 "önceki rapor kullanılır."
 
 #. module: base
-#: model:res.country,name:base.ao
-msgid "Angola"
-msgstr "Angola"
+#: model:ir.module.module,description:base.module_mrp_byproduct
+msgid ""
+"\n"
+"This module allows you to produce several products from one production "
+"order.\n"
+"============================================================================="
+"\n"
+"\n"
+"You can configure by-products in the bill of material.\n"
+"\n"
+"Without this module:\n"
+"--------------------\n"
+"    A + B + C -> D\n"
+"\n"
+"With this module:\n"
+"-----------------\n"
+"    A + B + C -> D + E\n"
+"    "
+msgstr ""
+"\n"
+"Bu modül, bir üretim emrinden birçok ürün üretmenizi sağlar.\n"
+"==============================================================\n"
+"\n"
+"Ürün ağaçlarında yan ürünler tanımlayabilirsiniz.\n"
+"\n"
+"Bu modül olmadan:\n"
+"--------------------\n"
+"    A + B + C -> D\n"
+"\n"
+"Bu modül ile:\n"
+"-----------------\n"
+"    A + B + C -> D + E\n"
+"    "
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -746,11 +728,6 @@ msgstr "Palau"
 #: view:res.partner:0
 msgid "Sales & Purchases"
 msgstr "Satışlar ve Satınalmalar"
-
-#. module: base
-#: view:res.partner:0
-msgid "Put an internal note..."
-msgstr "Bir iç not ekle..."
 
 #. module: base
 #: view:ir.translation:0
@@ -1018,12 +995,6 @@ msgid "Overwrite Existing Terms"
 msgstr "Bulunan Kuralların Üzerine Yaz"
 
 #. module: base
-#: code:addons/base/res/res_currency.py:52
-#, python-format
-msgid "No currency rate associated for currency %d for the given period"
-msgstr "Belirli bir süre için para %d ilişkili bir döviz kuru"
-
-#. module: base
 #: model:ir.module.module,description:base.module_hr_holidays
 msgid ""
 "\n"
@@ -1130,15 +1101,6 @@ msgstr ""
 #: model:ir.model,name:base.model_base_module_upgrade
 msgid "Module Upgrade"
 msgstr "Modül Yükseltme"
-
-#. module: base
-#: view:res.bank:0
-#: view:res.company:0
-#: view:res.partner:0
-#: view:res.partner.bank:0
-#: view:res.users:0
-msgid "ZIP"
-msgstr "PK"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -1409,9 +1371,10 @@ msgid "Delete Access Right"
 msgstr "Erişim Yetkilerini Sil"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_l10n_be_hr_payroll_account
-msgid "Belgium - Payroll with Accounting"
-msgstr "Belçika - Muhasebe ile Bordrosu"
+#: code:addons/base/ir/ir_mail_server.py:214
+#, python-format
+msgid "Connection test failed!"
+msgstr "Bağlantı denemesi başarısız!"
 
 #. module: base
 #: selection:ir.actions.server,state:0
@@ -1736,6 +1699,15 @@ msgid ""
 msgstr ""
 
 #. module: base
+#: model:ir.actions.act_window,help:base.action_res_partner_bank_account_form
+msgid ""
+"Configure your company's bank accounts and select those that must appear on "
+"the report footer. You can reorder bank accounts from the list view. If you "
+"use the accounting application of OpenERP, journals and accounts will be "
+"created automatically based on these data."
+msgstr ""
+
+#. module: base
 #: report:ir.module.reference:0
 msgid "Version"
 msgstr "Versiyon"
@@ -1873,23 +1845,6 @@ msgstr ""
 "değiştirilecektir."
 
 #. module: base
-#: model:ir.actions.act_window,help:base.action_res_partner_bank_account_form
-msgid ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"                Click to create a bank account.\n"
-"              </p><p>\n"
-"                Configure your company's bank accounts and select those that "
-"must appear on the report footer.\n"
-"                You can reorder bank accounts from the list view.\n"
-"              </p>\n"
-"              <p>\n"
-"                If you use the accounting application of OpenERP, journals "
-"and accounts will be created automatically based on these data.\n"
-"              </p>  \n"
-"            "
-msgstr ""
-
-#. module: base
 #: model:ir.actions.act_window,name:base.ir_action_report_xml
 #: field:ir.module.module,reports_by_module:0
 #: model:ir.ui.menu,name:base.menu_ir_action_report_xml
@@ -1921,12 +1876,6 @@ msgstr ""
 "'%s' çok fazla nokta içermektedir. XML belirteçlerinde nokta bulunmaz ! "
 "Nokta diğer modüllerin verilerine atıfta bulunmak için kullanılır. Örneğin, "
 "module.reference_id ."
-
-#. module: base
-#: code:addons/base/ir/ir_model.py:85
-#, python-format
-msgid "Invalid Search Criteria"
-msgstr "Geçersiz Arama Kriterleri"
 
 #. module: base
 #: field:res.users,login:0
@@ -2012,11 +1961,6 @@ msgstr "Lüksemburg - Muhasebe"
 #: model:res.country,name:base.tp
 msgid "East Timor"
 msgstr "Doğu Timor"
-
-#. module: base
-#: field:workflow.transition,act_to:0
-msgid "Destination Activity"
-msgstr "Hedef Etkinlik"
 
 #. module: base
 #: code:addons/base/module/module.py:414
@@ -2305,9 +2249,28 @@ msgid "Address Type"
 msgstr "Adres Türü"
 
 #. module: base
-#: model:res.country,name:base.dj
-msgid "Djibouti"
-msgstr "Cibuti"
+#: model:ir.module.module,description:base.module_sale_stock
+msgid ""
+"\n"
+"Manage sales quotations and orders\n"
+"==================================\n"
+"\n"
+"This module makes the link between the sales and warehouses management "
+"applications.\n"
+"\n"
+"Preferences\n"
+"-----------\n"
+"* Shipping: Choice of delivery at once or partial delivery\n"
+"* Invoicing: choose how invoices will be paid\n"
+"* Incoterms: International Commercial terms\n"
+"\n"
+"You can choose flexible invoicing methods:\n"
+"\n"
+"* *On Demand*: Invoices are created manually from Sales Orders when needed\n"
+"* *On Delivery Order*: Invoices are generated from picking (delivery)\n"
+"* *Before Delivery*: A Draft invoice is created and must be paid before "
+"delivery\n"
+msgstr ""
 
 #. module: base
 #: field:ir.ui.menu,complete_name:0
@@ -2383,11 +2346,6 @@ msgstr "İspanyolca / Español"
 #: selection:base.language.install,lang:0
 msgid "Korean (KP) / 한국어 (KP)"
 msgstr "Korece (KP) / 한국어 (KP)"
-
-#. module: base
-#: model:ir.module.module,shortdesc:base.module_l10n_vn
-msgid "Vietnam Chart of Accounts"
-msgstr "Vietnam Hesap Planı"
 
 #. module: base
 #: model:res.country,name:base.ax
@@ -2861,41 +2819,6 @@ msgid "Action Target"
 msgstr "İşlem Hedefi"
 
 #. module: base
-#: model:ir.module.module,description:base.module_account_report_company
-msgid ""
-"\n"
-"Add an extra Company dimension on Invoices for consolidated Invoice "
-"Analysis\n"
-"============================================================================"
-"\n"
-"\n"
-"By default Customer and Supplier invoices can be linked to a contact within\n"
-"a company, but the company is not a direct reference in the database "
-"structure for\n"
-"invoices. Journal Entries are however always linked to the company and not "
-"to\n"
-"contacts, so that Accounts Payable and Receivable are always correct and "
-"consolidated\n"
-"at company level.\n"
-"\n"
-"When many different contacts/departments need to be invoiced within the same "
-"parent company,\n"
-"this can make reporting by Company more difficult: reports are directly "
-"based on the\n"
-"database structure and would not provide an aggregated company dimension.\n"
-"\n"
-"This modules solves the problem by adding an explicit company reference on "
-"invoices,\n"
-"automatically computed from the invoice contact, and use this new dimension\n"
-"when grouping the list of Invoices or the Invoice Analysis report by "
-"Partner. \n"
-"\n"
-"Note: this module will likely be removed for the next major OpenERP version "
-"and\n"
-"directly integrated in the core accounting. \n"
-msgstr ""
-
-#. module: base
 #: model:res.country,name:base.ai
 msgid "Anguilla"
 msgstr "Anguilla"
@@ -3013,6 +2936,11 @@ msgstr ""
 #: field:ir.values,res_id:0
 msgid "Record ID"
 msgstr "Kayıt ID"
+
+#. module: base
+#: view:ir.filters:0
+msgid "My Filters"
+msgstr "Fitrelerim"
 
 #. module: base
 #: field:ir.actions.server,email:0
@@ -3409,11 +3337,6 @@ msgid ""
 msgstr ""
 
 #. module: base
-#: view:res.company:0
-msgid "e.g. Global Business Solutions"
-msgstr "örn. Global İş Çözümleri"
-
-#. module: base
 #: field:res.company,rml_header1:0
 msgid "Company Tagline"
 msgstr "Firma Sloganı"
@@ -3453,12 +3376,6 @@ msgid ""
 "że wszystkie towary są w obrocie hurtowym.\n"
 "    "
 msgstr ""
-
-#. module: base
-#: code:addons/base/ir/ir_mail_server.py:222
-#, python-format
-msgid "Connection Test Succeeded!"
-msgstr "Bağlantı Testi Başarılı!"
 
 #. module: base
 #: field:ir.actions.client,params_store:0
@@ -3811,12 +3728,6 @@ msgid "Fields Mapping"
 msgstr "Alan Eşleşmeleri"
 
 #. module: base
-#: code:addons/base/module/wizard/base_module_upgrade.py:84
-#, python-format
-msgid "Unmet Dependency!"
-msgstr "Karşılanmamış Bağımlılık!"
-
-#. module: base
 #: model:res.partner.title,name:base.res_partner_title_sir
 #: model:res.partner.title,shortcut:base.res_partner_title_sir
 msgid "Sir"
@@ -3839,6 +3750,11 @@ msgstr ""
 #: view:base.module.import:0
 msgid "Select module package to import (.zip file):"
 msgstr "İçeri aktarılacak modül paketini seçin (.zip dosyası)"
+
+#. module: base
+#: view:ir.filters:0
+msgid "Personal"
+msgstr "Personel"
 
 #. module: base
 #: field:base.language.export,modules:0
@@ -3991,10 +3907,11 @@ msgid "Tasks on CRM"
 msgstr "CRM deki Görevler"
 
 #. module: base
-#: model:ir.module.category,name:base.module_category_generic_modules_accounting
-#: view:res.company:0
-msgid "Accounting"
-msgstr "Muhasebe"
+#: help:ir.model.fields,relation_field:0
+msgid ""
+"For one2many fields, the field on the target model that implement the "
+"opposite many2one relationship"
+msgstr ""
 
 #. module: base
 #: view:ir.rule:0
@@ -4024,12 +3941,6 @@ msgstr "Sint Maarten (Hollanda bölümü)"
 #: model:ir.model,name:base.model_ir_filters
 msgid "Filters"
 msgstr "Filtreler"
-
-#. module: base
-#: code:addons/base/module/wizard/base_module_import.py:67
-#, python-format
-msgid "Can not create the module file: %s!"
-msgstr "Modül dosyası oluşturamazsınız!: %s!"
 
 #. module: base
 #: model:ir.actions.act_window,name:base.ir_cron_act
@@ -4067,13 +3978,6 @@ msgstr "Kendini çağırma tespit edildi."
 #: model:ir.module.module,shortdesc:base.module_l10n_et
 msgid "Ethiopia - Accounting"
 msgstr "Etiyopya - Muhasebe"
-
-#. module: base
-#: model:ir.actions.act_window,name:base.ir_config_list_action
-#: view:ir.config_parameter:0
-#: model:ir.ui.menu,name:base.ir_config_menu
-msgid "System Parameters"
-msgstr "Sitem Parametreleri"
 
 #. module: base
 #: code:addons/base/module/module.py:366
@@ -4767,12 +4671,6 @@ msgid "`code` must be unique."
 msgstr "`kod` eşşiz olmalı."
 
 #. module: base
-#: code:addons/base/ir/workflow/workflow.py:99
-#, python-format
-msgid "Operation Forbidden"
-msgstr "Operasyon Yasak"
-
-#. module: base
 #: model:ir.module.module,shortdesc:base.module_knowledge
 msgid "Knowledge Management System"
 msgstr "Bilgi Yönetim Sistemi"
@@ -5121,13 +5019,6 @@ msgstr ""
 "'Devam' a basıp OpenERP nin keyfini çıkarmaya başlayın..."
 
 #. module: base
-#: help:ir.sequence,number_next_actual:0
-msgid ""
-"Next number that will be used. This number can be incremented frequently so "
-"the displayed value might already be obsolete"
-msgstr ""
-
-#. module: base
 #: model:ir.module.category,description:base.module_category_marketing
 msgid "Helps you manage your marketing campaigns step by step."
 msgstr "Pazarlama kampanyalarınızı adım adım yöntemeye yardım eder."
@@ -5151,12 +5042,6 @@ msgstr "Gana"
 #: field:res.lang,direction:0
 msgid "Direction"
 msgstr "Yön"
-
-#. module: base
-#: code:addons/orm.py:4815
-#, python-format
-msgid "Sorting field %s not found on model %s"
-msgstr ""
 
 #. module: base
 #: view:ir.actions.act_window:0
@@ -6102,11 +5987,10 @@ msgstr ""
 "başlatılıp başlatılmayacağı karar verilir."
 
 #. module: base
-#: help:ir.model.fields,relation_field:0
-msgid ""
-"For one2many fields, the field on the target model that implement the "
-"opposite many2one relationship"
-msgstr ""
+#: model:ir.module.category,name:base.module_category_generic_modules_accounting
+#: view:res.company:0
+msgid "Accounting"
+msgstr "Muhasebe"
 
 #. module: base
 #: model:ir.module.module,description:base.module_base_vat
@@ -6216,9 +6100,9 @@ msgid "Authentication"
 msgstr "Kimlik Doğrulama"
 
 #. module: base
-#: model:res.country,name:base.gd
-msgid "Grenada"
-msgstr "Grenada"
+#: model:res.country,name:base.sj
+msgid "Svalbard and Jan Mayen Islands"
+msgstr "Svalbard ve Jan Mayen"
 
 #. module: base
 #: model:ir.model,name:base.model_ir_actions_wizard
@@ -6371,6 +6255,12 @@ msgid ""
 msgstr ""
 
 #. module: base
+#: code:addons/base/ir/workflow/workflow.py:99
+#, python-format
+msgid "Operation forbidden"
+msgstr "Operasyon yasaklandı"
+
+#. module: base
 #: view:ir.actions.server:0
 msgid "SMS Configuration"
 msgstr "SMS Yapılandırma"
@@ -6415,11 +6305,6 @@ msgstr "Erişim Kısıtlama Listesi"
 #: model:res.country,name:base.um
 msgid "USA Minor Outlying Islands"
 msgstr "ABD Çevresi Adaları"
-
-#. module: base
-#: view:base.language.import:0
-msgid "e.g. English"
-msgstr "örn. Türkçe"
 
 #. module: base
 #: help:ir.cron,numbercall:0
@@ -6505,13 +6390,6 @@ msgstr "Telefon:"
 #: field:res.partner,is_company:0
 msgid "Is a Company"
 msgstr "Bu Bir Firmamı"
-
-#. module: base
-#: view:res.company:0
-#: view:res.partner:0
-#: view:res.users:0
-msgid "e.g. www.openerp.com"
-msgstr "örn. www.openerp.com"
 
 #. module: base
 #: selection:ir.cron,interval_type:0
@@ -6608,19 +6486,6 @@ msgstr "Menü Adı"
 #: field:ir.values,key2:0
 msgid "Qualifier"
 msgstr "Eleme"
-
-#. module: base
-#: model:ir.module.module,description:base.module_l10n_vn
-msgid ""
-"\n"
-"This is the module to manage the accounting chart for Vietnam in OpenERP.\n"
-"========================================================================\n"
-"\n"
-"This module applies to companies based in Vietnamese Accounting Standard "
-"(VAS).\n"
-"\n"
-"**Credits:** General Solutions.\n"
-msgstr ""
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_be_coda
@@ -6900,11 +6765,6 @@ msgid "Database Anonymization"
 msgstr "Veritabanı Anonimleştirmesi"
 
 #. module: base
-#: field:res.partner,commercial_partner_id:0
-msgid "Commercial Entity"
-msgstr "Ticari Varlık"
-
-#. module: base
 #: selection:ir.mail_server,smtp_encryption:0
 msgid "SSL/TLS"
 msgstr "SSL/TLS"
@@ -6963,11 +6823,6 @@ msgid "ir.cron"
 msgstr "ir.cron"
 
 #. module: base
-#: model:ir.ui.menu,name:base.menu_sales_followup
-msgid "Payment Follow-up"
-msgstr "Ödeme Takibi"
-
-#. module: base
 #: model:res.country,name:base.cw
 msgid "Curaçao"
 msgstr "Curaçao"
@@ -6978,9 +6833,11 @@ msgid "Current Year without Century: %(y)s"
 msgstr "Yüzyıl olmadan şimdiki Yıl: %(y)s"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_l10n_es
-msgid "Spanish Charts of Accounts (PGCE 2008)"
-msgstr ""
+#: model:ir.actions.act_window,name:base.ir_config_list_action
+#: view:ir.config_parameter:0
+#: model:ir.ui.menu,name:base.ir_config_menu
+msgid "System Parameters"
+msgstr "Sitem Parametreleri"
 
 #. module: base
 #: help:ir.actions.client,tag:0
@@ -7041,16 +6898,6 @@ msgstr "Sudan"
 #: view:res.currency.rate.type:0
 msgid "Currency Rate Type"
 msgstr "Para Birimi Kur Türü"
-
-#. module: base
-#: code:addons/base/res/res_lang.py:189
-#, python-format
-msgid ""
-"You cannot delete the language which is Active!\n"
-"Please de-activate the language first."
-msgstr ""
-"Active olan dili silemezsiniz!\n"
-"Lütfen dili pasif edin."
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_fr
@@ -7233,9 +7080,10 @@ msgid "Repeat Missed"
 msgstr "Cevapsız Tekrarlayan"
 
 #. module: base
-#: help:ir.actions.server,state:0
-msgid "Type of the Action that is to be executed"
-msgstr "Çalıştırılacak İşlem Türü"
+#: code:addons/base/module/wizard/base_module_import.py:67
+#, python-format
+msgid "Can not create the module file: %s !"
+msgstr "Modül dosyası oluşturulamadı: %s !"
 
 #. module: base
 #: field:ir.server.object.lines,server_id:0
@@ -7465,6 +7313,16 @@ msgstr "ZamanÇizelgeleri"
 #: help:ir.values,company_id:0
 msgid "If set, action binding only applies for this company"
 msgstr "Eğer işaretlenirse, Eylem bağlantıları sadece bu şirkete uygulanır"
+
+#. module: base
+#: model:ir.module.module,description:base.module_l10n_cn
+msgid ""
+"\n"
+"添加中文省份数据\n"
+"科目类型\\会计科目表模板\\增值税\\辅助核算类别\\管理会计凭证簿\\财务会计凭证簿\n"
+"============================================================\n"
+"    "
+msgstr ""
 
 #. module: base
 #: model:res.country,name:base.lc
@@ -7738,6 +7596,12 @@ msgid "Connection Security"
 msgstr "Bağlantı Güvenliği"
 
 #. module: base
+#: code:addons/base/ir/ir_actions.py:606
+#, python-format
+msgid "Please specify an action to launch !"
+msgstr "Lütfen başlatılacak bir işlem seçiniz !"
+
+#. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_ec
 msgid "Ecuador - Accounting"
 msgstr "Ekvador - Muhasebe"
@@ -7756,11 +7620,6 @@ msgstr "Kuzey Mariana Adaları"
 #: field:change.password.user,user_login:0
 msgid "User Login"
 msgstr "Kullanıcı Girişi"
-
-#. module: base
-#: view:ir.filters:0
-msgid "Filters created by myself"
-msgstr "Benim oluşturuduğum Filtreler"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_hn
@@ -7914,12 +7773,6 @@ msgid "Error"
 msgstr "Hata"
 
 #. module: base
-#: code:addons/base/res/res_partner.py:566
-#, python-format
-msgid "Couldn't create contact without email address!"
-msgstr "E-posta adresi olmayan kişi oluşturulamadı!"
-
-#. module: base
 #: help:res.partner,tz:0
 msgid ""
 "The partner's timezone, used to output proper date and time values inside "
@@ -7989,12 +7842,6 @@ msgstr "Sıranın bir sonraki sayısı"
 
 #. module: base
 #: view:res.partner:0
-#: view:res.users:0
-msgid "Tags..."
-msgstr "Etiketler..."
-
-#. module: base
-#: view:res.partner:0
 msgid "at"
 msgstr "de"
 
@@ -8017,11 +7864,6 @@ msgstr "Anonim portal"
 #: field:base.language.export,format:0
 msgid "File Format"
 msgstr "Dosya Biçimi"
-
-#. module: base
-#: view:ir.filters:0
-msgid "My filters"
-msgstr "Benim filtrelerim"
 
 #. module: base
 #: field:res.lang,iso_code:0
@@ -8354,12 +8196,6 @@ msgid "Rules can not be applied on Transient models."
 msgstr "Kurallar Geçiş modellerde uygulanamaz."
 
 #. module: base
-#: code:addons/base/ir/ir_mail_server.py:215
-#, python-format
-msgid "Connection Test Failed!"
-msgstr "Bağlantı Testi Başarısız!"
-
-#. module: base
 #: selection:base.language.install,lang:0
 msgid "Dutch / Nederlands"
 msgstr "Hollandaca / Nederlands"
@@ -8629,15 +8465,9 @@ msgstr ""
 "Fakat bu modül sisteminizde mevcut değil."
 
 #. module: base
-#: model:ir.module.module,description:base.module_portal_project_long_term
-msgid ""
-"\n"
-"This module adds necessary security rules and access rights for project long "
-"term and portal.\n"
-"============================================================================="
-"================\n"
-"    "
-msgstr ""
+#: field:workflow.transition,act_to:0
+msgid "Destination Activity"
+msgstr "Hedef Etkinlik"
 
 #. module: base
 #: help:res.currency,position:0
@@ -8761,12 +8591,6 @@ msgstr "Kuveyt"
 #: model:ir.module.module,shortdesc:base.module_account_followup
 msgid "Payment Follow-up Management"
 msgstr "Ödeme Takip Yönetimi"
-
-#. module: base
-#: code:addons/orm.py:5334
-#, python-format
-msgid "The value for the field '%s' already exists."
-msgstr ""
 
 #. module: base
 #: field:workflow.workitem,inst_id:0
@@ -9010,11 +8834,6 @@ msgstr "Gelişmiş Rotalar"
 #: model:ir.module.module,shortdesc:base.module_pad
 msgid "Collaborative Pads"
 msgstr "İşbirliği Bloknotları"
-
-#. module: base
-#: model:ir.module.module,shortdesc:base.module_account_anglo_saxon
-msgid "Anglo-Saxon Accounting"
-msgstr "Anglo-Saxon Muhasebe"
 
 #. module: base
 #: model:res.country,name:base.np
@@ -9989,6 +9808,11 @@ msgid "Python Code"
 msgstr "Python Kodu"
 
 #. module: base
+#: help:ir.actions.server,state:0
+msgid "Type of the Action that is to be executed"
+msgstr "Çalıştırılacak İşlem Türü"
+
+#. module: base
 #: model:ir.module.module,description:base.module_portal_crm
 msgid ""
 "\n"
@@ -10043,6 +9867,43 @@ msgstr ""
 "Openerp Web Diagram görünümü.\n"
 "=========================\n"
 "\n"
+
+#. module: base
+#: model:ir.module.module,description:base.module_l10n_ch
+msgid ""
+"\n"
+"Swiss localization :\n"
+"====================\n"
+"**Multilang swiss STERCHI account chart and taxes**\n"
+" **Author:** Camptocamp SA\n"
+"\n"
+" **Donors:** Hasa Sàrl, Open Net Sàrl and Prisme Solutions Informatique SA\n"
+"\n"
+" **Translators:** brain-tec AG, Agile Business Group\n"
+"\n"
+"**This release will introduce major changes to l10n_ch.**\n"
+"\n"
+"Due to important refactoring needs and the Switzerland adoption of new "
+"international payment standard during 2013-2014. We have reorganised the "
+"swiss localization addons this way:\n"
+"\n"
+"- **l10n_ch**: Multilang swiss STERCHI account chart and taxes (official "
+"addon)\n"
+"- **l10n_ch_base_bank**: Technical module that introduces a new and "
+"simplified version of bank type management\n"
+"- **l10n_ch_bank**: List of swiss banks\n"
+"- **l10n_ch_zip**: List of swiss postal zip\n"
+"- **l10n_ch_dta**: Support of dta payment protocol (will be deprecated end "
+"2014)\n"
+"- **l10n_ch_payment_slip**: Support of ESR/BVR payment slip report and "
+"reconciliation. Report refactored with easy element positioning.\n"
+"- **l10n_ch_sepa**: Alpha implementation of PostFinance SEPA/PAIN support "
+"will be completed during 2013/2014\n"
+"\n"
+"The modules will be soon available on OpenERP swiss localization on "
+"launchpad:\n"
+"https://launchpad.net/openerp-swiss-localization\n"
+msgstr ""
 
 #. module: base
 #: model:res.country,name:base.nt
@@ -10184,11 +10045,6 @@ msgid "New Language (Empty translation template)"
 msgstr "Yeni Dil (Boş çeviri şablonu)"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_account_report_company
-msgid "Invoice Analysis per Company"
-msgstr "Şirket başına Fatura Analizi"
-
-#. module: base
 #: help:ir.actions.server,email:0
 msgid ""
 "Expression that returns the email address to send to. Can be based on the "
@@ -10253,102 +10109,9 @@ msgid ""
 msgstr "İşlemin üzerinde çalışacağı (okuma, yazma, oluşturma) nesneyi seç."
 
 #. module: base
-#: model:ir.module.module,description:base.module_stock_location
-msgid ""
-"\n"
-"This module supplements the Warehouse application by effectively "
-"implementing Push and Pull inventory flows.\n"
-"============================================================================="
-"===============================\n"
-"\n"
-"Typically this could be used to:\n"
-"--------------------------------\n"
-"    * Manage product manufacturing chains\n"
-"    * Manage default locations per product\n"
-"    * Define routes within your warehouse according to business needs, such "
-"as:\n"
-"        - Quality Control\n"
-"        - After Sales Services\n"
-"        - Supplier Returns\n"
-"\n"
-"    * Help rental management, by generating automated return moves for "
-"rented products\n"
-"\n"
-"Once this module is installed, an additional tab appear on the product "
-"form,\n"
-"where you can add Push and Pull flow specifications. The demo data of CPU1\n"
-"product for that push/pull :\n"
-"\n"
-"Push flows:\n"
-"-----------\n"
-"Push flows are useful when the arrival of certain products in a given "
-"location\n"
-"should always be followed by a corresponding move to another location, "
-"optionally\n"
-"after a certain delay. The original Warehouse application already supports "
-"such\n"
-"Push flow specifications on the Locations themselves, but these cannot be\n"
-"refined per-product.\n"
-"\n"
-"A push flow specification indicates which location is chained with which "
-"location,\n"
-"and with what parameters. As soon as a given quantity of products is moved "
-"in the\n"
-"source location, a chained move is automatically foreseen according to the\n"
-"parameters set on the flow specification (destination location, delay, type "
-"of\n"
-"move, journal). The new move can be automatically processed, or require a "
-"manual\n"
-"confirmation, depending on the parameters.\n"
-"\n"
-"Pull flows:\n"
-"-----------\n"
-"Pull flows are a bit different from Push flows, in the sense that they are "
-"not\n"
-"related to the processing of product moves, but rather to the processing of\n"
-"procurement orders. What is being pulled is a need, not directly products. "
-"A\n"
-"classical example of Pull flow is when you have an Outlet company, with a "
-"parent\n"
-"Company that is responsible for the supplies of the Outlet.\n"
-"\n"
-"  [ Customer ] <- A - [ Outlet ]  <- B -  [ Holding ] <~ C ~ [ Supplier ]\n"
-"\n"
-"When a new procurement order (A, coming from the confirmation of a Sale "
-"Order\n"
-"for example) arrives in the Outlet, it is converted into another "
-"procurement\n"
-"(B, via a Pull flow of type 'move') requested from the Holding. When "
-"procurement\n"
-"order B is processed by the Holding company, and if the product is out of "
-"stock,\n"
-"it can be converted into a Purchase Order (C) from the Supplier (Pull flow "
-"of\n"
-"type Purchase). The result is that the procurement order, the need, is "
-"pushed\n"
-"all the way between the Customer and Supplier.\n"
-"\n"
-"Technically, Pull flows allow to process procurement orders differently, "
-"not\n"
-"only depending on the product being considered, but also depending on which\n"
-"location holds the 'need' for that product (i.e. the destination location "
-"of\n"
-"that procurement order).\n"
-"\n"
-"Use-Case:\n"
-"---------\n"
-"\n"
-"You can use the demo data as follow:\n"
-"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-"  **CPU1:** Sell some CPU1 from Chicago Shop and run the scheduler\n"
-"     - Warehouse: delivery order, Chicago Shop: reception\n"
-"  **CPU3:**\n"
-"     - When receiving the product, it goes to Quality Control location then\n"
-"       stored to shelf 2.\n"
-"     - When delivering the customer: Pick List -> Packing -> Delivery Order "
-"from Gate A\n"
-"    "
-msgstr ""
+#: field:base.language.import,name:0
+msgid "Language Name"
+msgstr "Dil Adı"
 
 #. module: base
 #: selection:ir.property,type:0
@@ -10375,14 +10138,6 @@ msgstr "Alan Açıklaması"
 #: model:ir.module.module,shortdesc:base.module_analytic_contract_hr_expense
 msgid "Contracts Management: hr_expense link"
 msgstr "Sözleşmeler Yönetimi: hr_expense link"
-
-#. module: base
-#: code:addons/base/module/module.py:670
-#, python-format
-msgid ""
-"The `%s` module appears to be unavailable at the moment, please try again "
-"later."
-msgstr ""
 
 #. module: base
 #: view:ir.attachment:0
@@ -10630,6 +10385,13 @@ msgid "Afghanistan, Islamic State of"
 msgstr "Afganistan"
 
 #. module: base
+#: code:addons/base/module/wizard/base_module_import.py:58
+#: code:addons/base/module/wizard/base_module_import.py:66
+#, python-format
+msgid "Error !"
+msgstr "Hata !"
+
+#. module: base
 #: model:ir.module.module,shortdesc:base.module_marketing_campaign_crm_demo
 msgid "Marketing Campaign - Demo"
 msgstr "Pazarlama Kampanyası - Demo"
@@ -10744,22 +10506,6 @@ msgid "Todo"
 msgstr "Yapılacak"
 
 #. module: base
-#: model:ir.module.module,description:base.module_l10n_es
-msgid ""
-"\n"
-"Spanish Charts of Accounts (PGCE 2008).\n"
-"=======================================\n"
-"\n"
-"    * Defines the following chart of account templates:\n"
-"        * Spanish General Chart of Accounts 2008\n"
-"        * Spanish General Chart of Accounts 2008 for small and medium "
-"companies\n"
-"        * Spanish General Chart of Accounts 2008 for associations\n"
-"    * Defines templates for sale and purchase VAT\n"
-"    * Defines tax code templates\n"
-msgstr ""
-
-#. module: base
 #: model:ir.module.module,shortdesc:base.module_product_visible_discount
 msgid "Prices Visible Discounts"
 msgstr "Görünür Fiyat indirimleri"
@@ -10786,14 +10532,6 @@ msgstr "Panama"
 msgid ""
 "The group that a user must have to be authorized to validate this transition."
 msgstr "Bu çeviriyi onaylaması için kullanıcının içinde olması gereken grup"
-
-#. module: base
-#: view:res.bank:0
-#: view:res.company:0
-#: view:res.partner:0
-#: view:res.users:0
-msgid "Street..."
-msgstr "Adres..."
 
 #. module: base
 #: constraint:res.users:0
@@ -11452,6 +11190,16 @@ msgid "Samoa"
 msgstr "Samoa"
 
 #. module: base
+#: code:addons/base/res/res_lang.py:189
+#, python-format
+msgid ""
+"You cannot delete the language which is Active !\n"
+"Please de-activate the language first."
+msgstr ""
+"Aktif olan dili silemezsiniz !\n"
+"lütfen önce dili değiştirin."
+
+#. module: base
 #: code:addons/base/ir/ir_model.py:509
 #: code:addons/base/ir/ir_model.py:570
 #: code:addons/base/ir/ir_model.py:1031
@@ -11483,6 +11231,11 @@ msgstr "DoğrulamaHatası"
 #: view:base.module.update:0
 msgid "Open Modules"
 msgstr "Modülleri Aç"
+
+#. module: base
+#: model:ir.actions.act_window,help:base.action_res_bank_form
+msgid "Manage bank records you want to be used in the system."
+msgstr "Sistemde kullanılacak banka hesaplarını yönetin."
 
 #. module: base
 #: view:base.module.import:0
@@ -11596,6 +11349,12 @@ msgstr "Erişim Hakkı Okuma"
 #: model:ir.module.module,shortdesc:base.module_analytic_user_function
 msgid "Jobs on Contracts"
 msgstr "Sözleşmeli İşler"
+
+#. module: base
+#: code:addons/base/res/res_lang.py:187
+#, python-format
+msgid "You cannot delete the language which is User's Preferred Language !"
+msgstr "Kullanıcının varsayılan dili olarak seçilmiş bir dili silemezsiniz !"
 
 #. module: base
 #: view:ir.model.data:0
@@ -11725,11 +11484,6 @@ msgid "This field is used to set/get locales for user"
 msgstr "This field is used to set/get locales for user"
 
 #. module: base
-#: model:res.country,name:base.sj
-msgid "Svalbard and Jan Mayen Islands"
-msgstr "Svalbard ve Jan Mayen"
-
-#. module: base
 #: view:ir.filters:0
 msgid "Shared"
 msgstr "Paylaşılan"
@@ -11847,31 +11601,6 @@ msgid "Auto Search"
 msgstr "Otomatik Arama"
 
 #. module: base
-#: model:ir.actions.act_window,help:base.action_partner_category_form
-msgid ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"                Click to create a new partner category.\n"
-"              </p><p>\n"
-"                Manage the partner categories in order to better classify "
-"them for tracking and analysis purposes.\n"
-"                A partner may belong to several categories and categories "
-"have a hierarchy structure: a partner belonging to a category also belong to "
-"his parent category.\n"
-"              </p>\n"
-"            "
-msgstr ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"                Yeni bir partner kategori oluşturmak için tıklayın.\n"
-"              </p><p>\n"
-"                Manage the partner categories in order to better classify "
-"them for tracking and analysis purposes.\n"
-"                A partner may belong to several categories and categories "
-"have a hierarchy structure: a partner belonging to a category also belong to "
-"his parent category.\n"
-"              </p>\n"
-"            "
-
-#. module: base
 #: field:ir.actions.act_window,filter:0
 msgid "Filter"
 msgstr "Filtre"
@@ -11882,14 +11611,9 @@ msgid "Switzerland"
 msgstr "İsviçre"
 
 #. module: base
-#: code:addons/base/res/res_partner.py:361
-#, python-format
-msgid ""
-"Changing the company of a contact should only be done if it was never "
-"correctly set. If an existing contact starts working for a new company then "
-"a new contact should be created under that new company. You can use the "
-"\"Discard\" button to abandon this change."
-msgstr ""
+#: model:res.country,name:base.gd
+msgid "Grenada"
+msgstr "Grenada"
 
 #. module: base
 #: help:res.partner,customer:0
@@ -11946,9 +11670,10 @@ msgid ""
 msgstr ""
 
 #. module: base
-#: model:ir.model,name:base.model_res_request_history
-msgid "res.request.history"
-msgstr "res.request.history"
+#: code:addons/base/ir/ir_model.py:296
+#, python-format
+msgid "Size of the field can never be less than 1 !"
+msgstr "Alanın boyutu 1 den küçük olamaz!"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_mrp_operations
@@ -11998,9 +11723,102 @@ msgid "GPL Version 3"
 msgstr "GPL Sürüm 3"
 
 #. module: base
-#: field:base.language.import,name:0
-msgid "Language Name"
-msgstr "Dil Adı"
+#: model:ir.module.module,description:base.module_stock_location
+msgid ""
+"\n"
+"This module supplements the Warehouse application by effectively "
+"implementing Push and Pull inventory flows.\n"
+"============================================================================="
+"===============================\n"
+"\n"
+"Typically this could be used to:\n"
+"--------------------------------\n"
+"    * Manage product manufacturing chains\n"
+"    * Manage default locations per product\n"
+"    * Define routes within your warehouse according to business needs, such "
+"as:\n"
+"        - Quality Control\n"
+"        - After Sales Services\n"
+"        - Supplier Returns\n"
+"\n"
+"    * Help rental management, by generating automated return moves for "
+"rented products\n"
+"\n"
+"Once this module is installed, an additional tab appear on the product "
+"form,\n"
+"where you can add Push and Pull flow specifications. The demo data of CPU1\n"
+"product for that push/pull :\n"
+"\n"
+"Push flows:\n"
+"-----------\n"
+"Push flows are useful when the arrival of certain products in a given "
+"location\n"
+"should always be followed by a corresponding move to another location, "
+"optionally\n"
+"after a certain delay. The original Warehouse application already supports "
+"such\n"
+"Push flow specifications on the Locations themselves, but these cannot be\n"
+"refined per-product.\n"
+"\n"
+"A push flow specification indicates which location is chained with which "
+"location,\n"
+"and with what parameters. As soon as a given quantity of products is moved "
+"in the\n"
+"source location, a chained move is automatically foreseen according to the\n"
+"parameters set on the flow specification (destination location, delay, type "
+"of\n"
+"move, journal). The new move can be automatically processed, or require a "
+"manual\n"
+"confirmation, depending on the parameters.\n"
+"\n"
+"Pull flows:\n"
+"-----------\n"
+"Pull flows are a bit different from Push flows, in the sense that they are "
+"not\n"
+"related to the processing of product moves, but rather to the processing of\n"
+"procurement orders. What is being pulled is a need, not directly products. "
+"A\n"
+"classical example of Pull flow is when you have an Outlet company, with a "
+"parent\n"
+"Company that is responsible for the supplies of the Outlet.\n"
+"\n"
+"  [ Customer ] <- A - [ Outlet ]  <- B -  [ Holding ] <~ C ~ [ Supplier ]\n"
+"\n"
+"When a new procurement order (A, coming from the confirmation of a Sale "
+"Order\n"
+"for example) arrives in the Outlet, it is converted into another "
+"procurement\n"
+"(B, via a Pull flow of type 'move') requested from the Holding. When "
+"procurement\n"
+"order B is processed by the Holding company, and if the product is out of "
+"stock,\n"
+"it can be converted into a Purchase Order (C) from the Supplier (Pull flow "
+"of\n"
+"type Purchase). The result is that the procurement order, the need, is "
+"pushed\n"
+"all the way between the Customer and Supplier.\n"
+"\n"
+"Technically, Pull flows allow to process procurement orders differently, "
+"not\n"
+"only depending on the product being considered, but also depending on which\n"
+"location holds the 'need' for that product (i.e. the destination location "
+"of\n"
+"that procurement order).\n"
+"\n"
+"Use-Case:\n"
+"---------\n"
+"\n"
+"You can use the demo data as follow:\n"
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+"  **CPU1:** Sell some CPU1 from Chicago Shop and run the scheduler\n"
+"     - Warehouse: delivery order, Chicago Shop: reception\n"
+"  **CPU3:**\n"
+"     - When receiving the product, it goes to Quality Control location then\n"
+"       stored to shelf 2.\n"
+"     - When delivering the customer: Pick List -> Packing -> Delivery Order "
+"from Gate A\n"
+"    "
+msgstr ""
 
 #. module: base
 #: model:ir.module.module,description:base.module_decimal_precision
@@ -12028,12 +11846,6 @@ msgstr "Yapılandırma Yükleyicisi"
 #: field:res.partner,customer:0
 msgid "Customer"
 msgstr "Müşteri"
-
-#. module: base
-#: view:res.partner:0
-#: view:res.users:0
-msgid "e.g. +32.81.81.37.00"
-msgstr "örn. +90.212.345.37.00"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -12086,12 +11898,6 @@ msgid "Month: %(month)s"
 msgstr "Ay: %(ay)lar"
 
 #. module: base
-#: model:ir.actions.client,name:base.modules_updates_act_cl
-#: model:ir.ui.menu,name:base.menu_module_updates
-msgid "Updates"
-msgstr "Güncellemeler"
-
-#. module: base
 #: field:ir.actions.act_window.view,sequence:0
 #: field:ir.actions.server,sequence:0
 #: field:ir.actions.todo,sequence:0
@@ -12125,6 +11931,19 @@ msgstr ""
 #: model:ir.model,name:base.model_ir_fields_converter
 msgid "ir.fields.converter"
 msgstr "ir.fields.converter"
+
+#. module: base
+#: code:addons/base/res/res_partner.py:439
+#, python-format
+msgid "Couldn't create contact without email address !"
+msgstr "E-posta adresi olmayan kontak oluşturmak olamazdı!"
+
+#. module: base
+#: model:ir.module.category,name:base.module_category_manufacturing
+#: model:ir.ui.menu,name:base.menu_mrp_config
+#: model:ir.ui.menu,name:base.menu_mrp_root
+msgid "Manufacturing"
+msgstr "Üretim"
 
 #. module: base
 #: model:res.country,name:base.km
@@ -12463,12 +12282,6 @@ msgid "Falkland Islands"
 msgstr "Falkland Adaları"
 
 #. module: base
-#: code:addons/base/ir/ir_actions.py:606
-#, python-format
-msgid "Please specify an action to launch!"
-msgstr "Başlatmak için bir eylem belirtin!"
-
-#. module: base
 #: model:res.country,name:base.lb
 msgid "Lebanon"
 msgstr "Lübnan"
@@ -12531,6 +12344,12 @@ msgid "XSL"
 msgstr "XSL"
 
 #. module: base
+#: code:addons/base/ir/ir_model.py:85
+#, python-format
+msgid "Invalid search criterions"
+msgstr "Geçersiz arama kriterleri"
+
+#. module: base
 #: view:ir.mail_server:0
 msgid "Connection Information"
 msgstr "Bağlantı Bilgileri"
@@ -12585,6 +12404,25 @@ msgstr "Seçim"
 #: view:res.users:0
 msgid "Change Password"
 msgstr "Parolayı Değiştir"
+
+#. module: base
+#: model:ir.module.module,description:base.module_l10n_es
+msgid ""
+"\n"
+"Spanish Charts of Accounts (PGCE 2008).\n"
+"=======================================\n"
+"\n"
+"    * Defines the following chart of account templates:\n"
+"        * Spanish General Chart of Accounts 2008\n"
+"        * Spanish General Chart of Accounts 2008 for small and medium "
+"companies\n"
+"    * Defines templates for sale and purchase VAT\n"
+"    * Defines tax code templates\n"
+"\n"
+"**Note:** You should install the l10n_ES_account_balance_report module for "
+"yearly\n"
+"      account reporting (balance, profit & losses).\n"
+msgstr ""
 
 #. module: base
 #: field:ir.actions.act_url,type:0
@@ -12880,11 +12718,6 @@ msgid "Address Format"
 msgstr "Adres Biçimi"
 
 #. module: base
-#: constraint:res.partner:0
-msgid "You cannot create recursive Partner hierarchies."
-msgstr "Özyinelemeli Partner hiyerarşileri oluşturamazsınız."
-
-#. module: base
 #: model:ir.model,name:base.model_change_password_user
 msgid "Change Password Wizard User"
 msgstr "Parola Değiştirme Sihirbazı Kullanıcısı"
@@ -12950,13 +12783,6 @@ msgstr ""
 #: model:ir.ui.menu,name:base.ir_model_data_menu
 msgid "External Identifiers"
 msgstr "Dış  Tanımlayıcılar"
-
-#. module: base
-#. openerp-web
-#: code:addons/base/static/src/js/apps.js:104
-#, python-format
-msgid "Showing locally available modules"
-msgstr "Yerel olarak kullanılabilir modülleri bakın"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -13054,12 +12880,6 @@ msgid ""
 msgstr ""
 
 #. module: base
-#: code:addons/base/ir/ir_model.py:295
-#, python-format
-msgid "Size of the field can never be less than 0 !"
-msgstr "Alan boyu 0'dan küçük olamaz!"
-
-#. module: base
 #: help:ir.actions.server,sequence:0
 msgid ""
 "Important when you deal with multiple actions, the execution order will be "
@@ -13153,6 +12973,12 @@ msgstr "Çevir"
 #: field:res.request.history,body:0
 msgid "Body"
 msgstr "Gövde"
+
+#. module: base
+#: code:addons/base/ir/ir_mail_server.py:221
+#, python-format
+msgid "Connection test succeeded!"
+msgstr "Bağlantı denemesi Başarılı!"
 
 #. module: base
 #: model:ir.module.module,description:base.module_project_gtd
@@ -13527,39 +13353,9 @@ msgid "Bulgaria"
 msgstr "Bulgaristan"
 
 #. module: base
-#: model:ir.module.module,description:base.module_mrp_byproduct
-msgid ""
-"\n"
-"This module allows you to produce several products from one production "
-"order.\n"
-"============================================================================="
-"\n"
-"\n"
-"You can configure by-products in the bill of material.\n"
-"\n"
-"Without this module:\n"
-"--------------------\n"
-"    A + B + C -> D\n"
-"\n"
-"With this module:\n"
-"-----------------\n"
-"    A + B + C -> D + E\n"
-"    "
-msgstr ""
-"\n"
-"Bu modül, bir üretim emrinden birçok ürün üretmenizi sağlar.\n"
-"==============================================================\n"
-"\n"
-"Ürün ağaçlarında yan ürünler tanımlayabilirsiniz.\n"
-"\n"
-"Bu modül olmadan:\n"
-"--------------------\n"
-"    A + B + C -> D\n"
-"\n"
-"Bu modül ile:\n"
-"-----------------\n"
-"    A + B + C -> D + E\n"
-"    "
+#: model:res.country,name:base.ao
+msgid "Angola"
+msgstr "Angola"
 
 #. module: base
 #: model:res.country,name:base.tf
@@ -13712,6 +13508,11 @@ msgid "ir.sequence.type"
 msgstr "ir.sequence.type"
 
 #. module: base
+#: model:ir.module.module,shortdesc:base.module_l10n_be_hr_payroll_account
+msgid "Belgium - Payroll with Accounting"
+msgstr "Belçika - Muhasebe ile Bordrosu"
+
+#. module: base
 #: selection:base.language.export,format:0
 msgid "CSV File"
 msgstr "CSV Dosyası"
@@ -13720,6 +13521,12 @@ msgstr "CSV Dosyası"
 #: field:res.company,account_no:0
 msgid "Account No."
 msgstr "Hesap No."
+
+#. module: base
+#: code:addons/base/res/res_lang.py:185
+#, python-format
+msgid "Base Language 'en_US' can not be deleted !"
+msgstr "Temel Dil 'en_US' silinemez !"
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_uk
@@ -13769,28 +13576,9 @@ msgid "Field Label"
 msgstr "Alan Etiketi"
 
 #. module: base
-#: model:ir.module.module,description:base.module_sale_stock
-msgid ""
-"\n"
-"Manage sales quotations and orders\n"
-"==================================\n"
-"\n"
-"This module makes the link between the sales and warehouses management "
-"applications.\n"
-"\n"
-"Preferences\n"
-"-----------\n"
-"* Shipping: Choice of delivery at once or partial delivery\n"
-"* Invoicing: choose how invoices will be paid\n"
-"* Incoterms: International Commercial terms\n"
-"\n"
-"You can choose flexible invoicing methods:\n"
-"\n"
-"* *On Demand*: Invoices are created manually from Sales Orders when needed\n"
-"* *On Delivery Order*: Invoices are generated from picking (delivery)\n"
-"* *Before Delivery*: A Draft invoice is created and must be paid before "
-"delivery\n"
-msgstr ""
+#: model:res.country,name:base.dj
+msgid "Djibouti"
+msgstr "Cibuti"
 
 #. module: base
 #: field:ir.translation,value:0
@@ -13946,6 +13734,11 @@ msgid "Diagram"
 msgstr "Diyagram"
 
 #. module: base
+#: model:ir.module.module,shortdesc:base.module_l10n_es
+msgid "Spanish - Accounting (PGCE 2008)"
+msgstr ""
+
+#. module: base
 #: model:ir.module.module,shortdesc:base.module_stock_no_autopicking
 msgid "Picking Before Manufacturing"
 msgstr "Üretim Öncesi Seçme"
@@ -14000,12 +13793,6 @@ msgid ""
 "You can assign several contracts per employee.\n"
 "    "
 msgstr ""
-
-#. module: base
-#: code:addons/base/res/res_lang.py:187
-#, python-format
-msgid "You cannot delete the language which is User's Preferred Language!"
-msgstr "Kullanıcının Tercih Ettiği dil silemezsiniz!"
 
 #. module: base
 #: view:ir.model.data:0
@@ -14223,6 +14010,11 @@ msgstr "Müşteri Partnerler"
 #: sql_constraint:res.users:0
 msgid "You can not have two users with the same login !"
 msgstr "Aynı kullanıcı adı ile iki kullanıcı oluşturamazsınız !"
+
+#. module: base
+#: model:ir.model,name:base.model_res_request_history
+msgid "res.request.history"
+msgstr "res.request.history"
 
 #. module: base
 #: model:ir.model,name:base.model_multi_company_default
@@ -14455,11 +14247,6 @@ msgid "Luxembourg"
 msgstr "Lüksemburg"
 
 #. module: base
-#: view:res.partner:0
-msgid "(edit company address)"
-msgstr "(şirket adresi düzenleyin)"
-
-#. module: base
 #: model:ir.module.module,summary:base.module_base_calendar
 msgid "Personal & Shared Calendar"
 msgstr "Kişisel & Paylaşılan Takvimi"
@@ -14687,13 +14474,6 @@ msgid "Currency Rate"
 msgstr "ParabBirimi Oranı"
 
 #. module: base
-#. openerp-web
-#: code:addons/base/static/src/js/apps.js:104
-#, python-format
-msgid "OpenERP Apps Unreachable"
-msgstr "OpenERP Ugulamaları Erişilebilir Değil"
-
-#. module: base
 #: view:base.module.upgrade:0
 #: field:base.module.upgrade,module_info:0
 msgid "Modules to Update"
@@ -14824,11 +14604,6 @@ msgid "View Auto-Load"
 msgstr "Görünüm Kendiliğinden Yüklenmesi"
 
 #. module: base
-#: view:res.country:0
-msgid "Address format..."
-msgstr "Adres formatı..."
-
-#. module: base
 #: model:ir.module.module,description:base.module_l10n_et
 msgid ""
 "\n"
@@ -14899,6 +14674,12 @@ msgstr "Kaynak Model"
 #: view:ir.sequence:0
 msgid "Day of the Week (0:Monday): %(weekday)s"
 msgstr "Haftanın Günü (0:Pazartesi): %(haftanıngün)leri"
+
+#. module: base
+#: code:addons/base/module/wizard/base_module_upgrade.py:84
+#, python-format
+msgid "Unmet dependency !"
+msgstr "Karşınlanmamış bağımlılık !"
 
 #. module: base
 #: code:addons/base/ir/ir_model.py:509
@@ -15202,11 +14983,16 @@ msgid "Color Index"
 msgstr "Renk İndeksi"
 
 #. module: base
-#: model:ir.module.category,name:base.module_category_manufacturing
-#: model:ir.ui.menu,name:base.menu_mrp_config
-#: model:ir.ui.menu,name:base.menu_mrp_root
-msgid "Manufacturing"
-msgstr "Üretim"
+#: model:ir.actions.act_window,help:base.action_partner_category_form
+msgid ""
+"Manage the partner categories in order to better classify them for tracking "
+"and analysis purposes. A partner may belong to several categories and "
+"categories have a hierarchy structure: a partner belonging to a category "
+"also belong to his parent category."
+msgstr ""
+"Partner  kategorilerini iş ortaklarınızı daha iyi sınıflandırmak, takip edip "
+"analiz etmek için kullanabilirsiniz. Bir iş ortağı bir çok kategoriye üye "
+"olabilir ve kategorilerin ağaç yapısında oluşturulabilirler."
 
 #. module: base
 #: model:ir.module.module,description:base.module_survey
@@ -15253,14 +15039,9 @@ msgid "Electronic Data Interchange (EDI)"
 msgstr "Elektronik Veri Değiş tokuşu (EDI)"
 
 #. module: base
-#: model:ir.module.module,description:base.module_l10n_cn
-msgid ""
-"\n"
-"添加中文省份数据\n"
-"科目类型\\会计科目表模板\\增值税\\辅助核算类别\\管理会计凭证簿\\财务会计凭证簿\n"
-"============================================================\n"
-"    "
-msgstr ""
+#: model:ir.module.module,shortdesc:base.module_account_anglo_saxon
+msgid "Anglo-Saxon Accounting"
+msgstr "Anglo-Saxon Muhasebe"
 
 #. module: base
 #: model:res.country,name:base.vg
@@ -15272,11 +15053,6 @@ msgstr "Virgin Adaları (İngiliz)"
 #: model:ir.ui.menu,name:base.menu_ir_property
 msgid "Parameters"
 msgstr "Parametreler"
-
-#. module: base
-#: view:res.partner:0
-msgid "e.g. Sales Director"
-msgstr "örn. Satış Yöneticisi"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -15461,11 +15237,6 @@ msgid "Automatic Installation"
 msgstr "Otomatik Yükleme"
 
 #. module: base
-#: view:base.language.import:0
-msgid "e.g. en_US"
-msgstr "örn. tr_TR"
-
-#. module: base
 #: model:ir.module.module,description:base.module_l10n_hn
 msgid ""
 "\n"
@@ -15641,10 +15412,10 @@ msgid "Condition"
 msgstr "Koşul"
 
 #. module: base
-#: code:addons/base/module/module.py:669
-#, python-format
-msgid "Module not found"
-msgstr "Modül bulunamadı"
+#: model:ir.actions.client,name:base.modules_updates_act_cl
+#: model:ir.ui.menu,name:base.menu_module_updates
+msgid "Updates"
+msgstr "Güncellemeler"
 
 #. module: base
 #: help:res.currency,rate:0
@@ -15760,12 +15531,6 @@ msgstr "Altın"
 #, python-format
 msgid "Bank Accounts"
 msgstr "Banka Hesapları"
-
-#. module: base
-#: code:addons/base/res/res_lang.py:185
-#, python-format
-msgid "Base Language 'en_US' can not be deleted!"
-msgstr "Baz Dil 'en_US' silinemez!"
 
 #. module: base
 #: model:res.country,name:base.sl
@@ -16042,12 +15807,6 @@ msgid "Export Name"
 msgstr "Dışa Aktarım Adı"
 
 #. module: base
-#: code:addons/base/ir/ir_sequence.py:259
-#, python-format
-msgid "Invalid prefix or suffix for sequence '%s'"
-msgstr "Dizisi için geçersiz önek veya sonek '%s'"
-
-#. module: base
 #: help:res.partner,type:0
 msgid ""
 "Used to select automatically the right address according to the context in "
@@ -16089,77 +15848,2126 @@ msgstr "Rusça / русский язык"
 msgid "Signup"
 msgstr "Bağlanma"
 
-#, python-format
-#~ msgid "Error !"
-#~ msgstr "Hata !"
+#~ msgid "Contact Name"
+#~ msgstr "Kişi Adı"
+
+#~ msgid "SMS Message"
+#~ msgstr "SMS Mesaj"
+
+#~ msgid "Skipped"
+#~ msgstr "Atlandı"
+
+#~ msgid "Report Header"
+#~ msgstr "Rapor Üst Bilgisi"
+
+#~ msgid "Workflow On"
+#~ msgstr "İş Akışı Açık"
 
 #, python-format
-#~ msgid "Can not create the module file: %s !"
-#~ msgstr "Modül dosyası oluşturulamadı: %s !"
+#~ msgid "new"
+#~ msgstr "yeni"
 
 #, python-format
-#~ msgid "Please specify an action to launch !"
-#~ msgstr "Lütfen başlatılacak bir işlem seçiniz !"
+#~ msgid "You can not remove the model '%s' !"
+#~ msgstr "Bu modeli kaldıramazsınız '%s' !"
 
-#, python-format
-#~ msgid "Size of the field can never be less than 1 !"
-#~ msgstr "Alanın boyutu 1 den küçük olamaz!"
+#~ msgid "Payment term"
+#~ msgstr "Ödeme şekli"
 
-#, python-format
-#~ msgid "Base Language 'en_US' can not be deleted !"
-#~ msgstr "Temel Dil 'en_US' silinemez !"
+#~ msgid "Payment Term (short name)"
+#~ msgstr "Ödeme Şekli (kısa adı)"
 
-#, python-format
-#~ msgid "You cannot delete the language which is User's Preferred Language !"
-#~ msgstr "Kullanıcının varsayılan dili olarak seçilmiş bir dili silemezsiniz !"
+#~ msgid "Reply"
+#~ msgstr "Cevapla"
 
-#~ msgid "Manage bank records you want to be used in the system."
-#~ msgstr "Sistemde kullanılacak banka hesaplarını yönetin."
+#~ msgid "References"
+#~ msgstr "Kaynaklar"
+
+#~ msgid "Values"
+#~ msgstr "Değerler"
+
+#~ msgid "Customization"
+#~ msgstr "Özelleştirme"
+
+#~ msgid "Channel"
+#~ msgstr "Kanal"
+
+#~ msgid "Ending Date"
+#~ msgstr "Bitiş Tarihi"
+
+#~ msgid "Valid"
+#~ msgstr "Geçerli"
+
+#~ msgid "HR sector"
+#~ msgstr "İnsan kaynakları bölümü"
+
+#~ msgid "Draft"
+#~ msgstr "Taslak"
+
+#~ msgid "Unvalidated"
+#~ msgstr "Doğrulanmadı"
+
+#~ msgid "Payment Term"
+#~ msgstr "Ödeme Şekli"
+
+#~ msgid "OpenERP Partners"
+#~ msgstr "OpenERP Ortakları"
+
+#~ msgid "Other Actions Configuration"
+#~ msgstr "Diğer İşlemleri Yapılandırma"
+
+#~ msgid "Basic Partner"
+#~ msgstr "Temel Ortak"
+
+#~ msgid "Check this box if the partner is a customer."
+#~ msgstr "Ortak müşteri ise bu kutuyu işaretleyiniz."
+
+#~ msgid "Parent Partner"
+#~ msgstr "Ana Ortak"
+
+#~ msgid "Starter Partner"
+#~ msgstr "Başlangıç Ortak"
+
+#~ msgid "Partner Addresses"
+#~ msgstr "Ortak Adresleri"
+
+#~ msgid "Partner Contacts"
+#~ msgstr "Ortak Bağlantıları"
+
+#~ msgid "Gold Partner"
+#~ msgstr "Altın Ortak"
+
+#~ msgid "res.partner.event"
+#~ msgstr "res.partner.event"
+
+#~ msgid "Keep empty for a private address, not related to partner."
+#~ msgstr ""
+#~ "Herhangi bir ortakla bağlantısı olmayan özel adresler için boş bırakınız."
+
+#~ msgid ""
+#~ "Check this box if the partner is a supplier. If it's not checked, purchase "
+#~ "people will not see it when encoding a purchase order."
+#~ msgstr ""
+#~ "Ortak tedarikçi ise bu kutuyu seçiniz. Aksi taktirde satınalma personeli "
+#~ "alım emri girerken bu ortağı görmeyecektir."
+
+#~ msgid "Localisation"
+#~ msgstr "Yerelleştirme"
+
+#~ msgid "The state code in three chars.\n"
+#~ msgstr "Üç karakterden oluşan eyalet kodu.\n"
+
+#~ msgid ","
+#~ msgstr ","
+
+#~ msgid "client_action_multi, client_action_relate"
+#~ msgstr "client_action_multi, client_action_relate"
+
+#~ msgid "S. Georgia & S. Sandwich Isls."
+#~ msgstr "Güney Georgia ve Güney Sandwich Adaları"
+
+#~ msgid "-"
+#~ msgstr "-"
+
+#~ msgid "wizard.ir.model.menu.create.line"
+#~ msgstr "wizard.ir.model.menu.create.lin"
+
+#~ msgid "Trigger Name"
+#~ msgstr "Tetik Adı"
+
+#~ msgid "Uninstall (beta)"
+#~ msgstr "Kaldır (beta)"
+
+#~ msgid ""
+#~ "Keep empty if you don't want the user to be able to connect on the system."
+#~ msgstr "Kullanıcının sisteme bağlanabilmesini istemiyorsanız boş bırakınız."
 
 #, python-format
 #~ msgid ""
-#~ "You cannot delete the language which is Active !\n"
-#~ "Please de-activate the language first."
+#~ "Couldn't generate the next id because some partners have an alphabetic id !"
 #~ msgstr ""
-#~ "Aktif olan dili silemezsiniz !\n"
-#~ "lütfen önce dili değiştirin."
+#~ "Bir sonraki sıra no oluşturulamadı çünkü bazı ortakların alfabetik sıra "
+#~ "noları var."
+
+#~ msgid "Search Contact"
+#~ msgstr "Bağlantı Ara"
+
+#~ msgid "Meta Datas"
+#~ msgstr "Meta Veriler"
+
+#~ msgid "Property"
+#~ msgstr "Özellik"
+
+#~ msgid "Openstuff.net"
+#~ msgstr "Openstuff.net"
+
+#~ msgid "Sender's email"
+#~ msgstr "Gönderenin E-Postası"
+
+#~ msgid "Schedule Upgrade"
+#~ msgstr "Güncelleme Zamanla"
 
 #, python-format
-#~ msgid "Invalid search criterions"
-#~ msgstr "Geçersiz arama kriterleri"
+#~ msgid ""
+#~ "Save this document to a %s file and edit it with a specific software or a "
+#~ "text editor. The file encoding is UTF-8."
+#~ msgstr ""
+#~ "Bu belgeyi bir %s dosyası olarak kaydedin ve ona özel bir yazılım veya metin "
+#~ "düzenleyicisi ile açın. Dosyanın kodlaması UTF-8'dir."
 
-#, python-format
-#~ msgid "Connection test failed!"
-#~ msgstr "Bağlantı denemesi başarısız!"
-
-#, python-format
-#~ msgid "Connection test succeeded!"
-#~ msgstr "Bağlantı denemesi Başarılı!"
-
-#~ msgid "My Filters"
-#~ msgstr "Fitrelerim"
-
-#~ msgid "Personal"
-#~ msgstr "Personel"
-
-#, python-format
-#~ msgid "Operation forbidden"
-#~ msgstr "Operasyon yasaklandı"
-
-#, python-format
-#~ msgid "Unmet dependency !"
-#~ msgstr "Karşınlanmamış bağımlılık !"
+#~ msgid "Export done"
+#~ msgstr "Dışa Aktarım tamamlandı."
 
 #~ msgid ""
-#~ "Manage the partner categories in order to better classify them for tracking "
-#~ "and analysis purposes. A partner may belong to several categories and "
-#~ "categories have a hierarchy structure: a partner belonging to a category "
-#~ "also belong to his parent category."
+#~ "Specify the message. You can use the fields from the object. e.g. `Dear [[ "
+#~ "object.partner_id.name ]]`"
 #~ msgstr ""
-#~ "Partner  kategorilerini iş ortaklarınızı daha iyi sınıflandırmak, takip edip "
-#~ "analiz etmek için kullanabilirsiniz. Bir iş ortağı bir çok kategoriye üye "
-#~ "olabilir ve kategorilerin ağaç yapısında oluşturulabilirler."
+#~ "Mesajı belirtiniz. Nesneden değerler kullanabilirsiniz. Örneğin, `Sayın [[ "
+#~ "object.parner_id.name ]]`"
+
+#~ msgid "To export a new language, do not select a language."
+#~ msgstr "Yeni bir dili dışa aktarmak için, hiç bir dil seçmeyiniz."
+
+#~ msgid ""
+#~ "Provides the fields that will be used to fetch the email address, e.g. when "
+#~ "you select the invoice, then `object.invoice_address_id.email` is the field "
+#~ "which gives the correct address"
+#~ msgstr ""
+#~ "E-posta adresini bulmak için kullanılacak alanları sağlar. Örneğin, faturayı "
+#~ "seçtiğinizde 'object.invoice_address_id.email' alanı doğru adresi verir."
+
+#~ msgid "Report Footer 1"
+#~ msgstr "Rapor Altı 1"
+
+#~ msgid "Report Footer 2"
+#~ msgstr "Raport Altı 2"
+
+#~ msgid "Select the Signal name that is to be used as the trigger."
+#~ msgstr "Tetik olarak kullanılacak Sinyal adını seçiniz."
+
+#~ msgid "VAT"
+#~ msgstr "KDV"
+
+#~ msgid "Send SMS"
+#~ msgstr "SMS Gönder"
+
+#~ msgid "Categories"
+#~ msgstr "Sınıflandırmalar"
 
 #, python-format
-#~ msgid "Couldn't create contact without email address !"
-#~ msgstr "E-posta adresi olmayan kontak oluşturmak olamazdı!"
+#~ msgid ""
+#~ "Save this document to a .CSV file and open it with your favourite "
+#~ "spreadsheet software. The file encoding is UTF-8. You have to translate the "
+#~ "latest column before reimporting it."
+#~ msgstr ""
+#~ "Bu belgeyi bir .CSV dosyasına kaydedin ve dilediğiniz elektronik çizelge "
+#~ "uygulaması ile açın. Dosya kodlaması UTF-8'dir. Tekrar içe almadan önce en "
+#~ "son sütunu tercüme etmelisiniz."
+
+#~ msgid ""
+#~ "If the selected language is loaded in the system, all documents related to "
+#~ "this partner will be printed in this language. If not, it will be english."
+#~ msgstr ""
+#~ "Seçilen dil systemde yüklü ise bu ortağa ait bütün belgeler bu dilde "
+#~ "yazdırılacaktır. Aksi taktirde, İngilizce kullanılır."
+
+#~ msgid "Quality Certificate"
+#~ msgstr "Kalite Belgesi"
+
+#~ msgid "SXW content"
+#~ msgstr "SXW İçeriği"
+
+#~ msgid ""
+#~ "Value Added Tax number. Check the box if the partner is subjected to the "
+#~ "VAT. Used by the VAT legal statement."
+#~ msgstr ""
+#~ "Katma Değer Vergisi numarası. Ortak KDV'ye tabi ise bu kutuyu seçiniz. KDV "
+#~ "hakkındaki yasal bildirimde kullanılır."
+
+#~ msgid ""
+#~ "Specify the subject. You can use fields from the object, e.g. `Hello [[ "
+#~ "object.partner_id.name ]]`"
+#~ msgstr ""
+#~ "Konuyu belirtiniz. Nesneden alanlar da kullanabilirsiniz. Örneğin, `Merhaba "
+#~ "[[ object.partner_id.name ]]`"
+
+#~ msgid "Event Type"
+#~ msgstr "Etkinlik Tipi"
+
+#~ msgid "FYROM"
+#~ msgstr "FYROM"
+
+#~ msgid ""
+#~ "0=Very Urgent\n"
+#~ "10=Not urgent"
+#~ msgstr ""
+#~ "0=Çok Acil\n"
+#~ "10=Acil Değil"
+
+#~ msgid "API ID"
+#~ msgstr "API Belirteci"
+
+#~ msgid "res.groups"
+#~ msgstr "res.groups"
+
+#~ msgid "SXW path"
+#~ msgstr "SXW dosya yolu"
+
+#~ msgid "General Description"
+#~ msgstr "Genel Tanım"
+
+#~ msgid "res.users"
+#~ msgstr "res.users"
+
+#~ msgid "Creator"
+#~ msgstr "Oluşturan"
+
+#~ msgid ""
+#~ "The internal user that is in charge of communicating with this partner if "
+#~ "any."
+#~ msgstr "Eğer varsa, bu ortak ile iletişimden sorumlu sistem kullanıcısı."
+
+#~ msgid "Demo data"
+#~ msgstr "Demo veri"
+
+#~ msgid "Events"
+#~ msgstr "Etkinlikler"
+
+#~ msgid "Signal (button Name)"
+#~ msgstr "Sinyal (Düğme adı)"
+
+#~ msgid "Maintenance Contract"
+#~ msgstr "Bakım Sözleşmesi"
+
+#~ msgid "Starting Date"
+#~ msgstr "Başlangıç Tarihi"
+
+#~ msgid "Select Report"
+#~ msgstr "Raporu Seçin"
+
+#, python-format
+#~ msgid "Module %s: Invalid Quality Certificate"
+#~ msgstr "Modül %s: Geçersiz Kalite Belgesi"
+
+#~ msgid "Bulk SMS send"
+#~ msgstr "Toplu SMS gönder"
+
+#~ msgid "Add User"
+#~ msgstr "Kullanıcı Ekle"
+
+#~ msgid "_Close"
+#~ msgstr "_Close"
+
+#~ msgid "Objects"
+#~ msgstr "Nesneler"
+
+#~ msgid "XSL path"
+#~ msgstr "XSL yolu"
+
+#~ msgid "Bad customers"
+#~ msgstr "Kötü müşteriler"
+
+#~ msgid "Week of the year: %(woy)s"
+#~ msgstr "Yılın Haftası: %(woy)s"
+
+#~ msgid "Create"
+#~ msgstr "Oluştur"
+
+#~ msgid "ir.actions.url"
+#~ msgstr "irc.actions.url"
+
+#, python-format
+#~ msgid ""
+#~ "Some installed modules depend on the module you plan to Uninstall :\n"
+#~ " %s"
+#~ msgstr ""
+#~ "Yüklü modüllerin bazıları kaldırmayı düşündüğünüz modüle bağımlıdır :\n"
+#~ " %s"
+
+#~ msgid "Trigger On"
+#~ msgstr "Tetik Açık"
+
+#~ msgid "Request History"
+#~ msgstr "İstek Tarihçesi"
+
+#~ msgid "Advice"
+#~ msgstr "Öğüt"
+
+#~ msgid "On delete"
+#~ msgstr "Silindiğinde"
+
+#~ msgid "Select the object from the model on which the workflow will executed."
+#~ msgstr "Modelden, üzerinde iş akışı işletilecek nesneyi seçiniz."
+
+#~ msgid "Textile Suppliers"
+#~ msgstr "Tekstil Tedarikçileri"
+
+#~ msgid "res.config.view"
+#~ msgstr "res.config.view"
+
+#~ msgid "acc_number"
+#~ msgstr "acc_number"
+
+#~ msgid "XML Identifier"
+#~ msgstr "XML Belirteci"
+
+#~ msgid "Values for Event Type"
+#~ msgstr "Etkinlik Türü için Değerler"
+
+#~ msgid "Seconde: %(sec)s"
+#~ msgstr "Saniye: %(sec)s"
+
+#~ msgid "ir.actions.todo"
+#~ msgstr "ir.actions.todo"
+
+#~ msgid "The kernel of OpenERP, needed for all installation."
+#~ msgstr "OpenERP'nin çekirdeği; bütün kurulumlar için gereklidir."
+
+#~ msgid "Components Supplier"
+#~ msgstr "Parça Tedarikçisi"
+
+#~ msgid "Number padding"
+#~ msgstr "Numara dolgusu"
+
+#~ msgid "country_id"
+#~ msgstr "country_id"
+
+#~ msgid "Day of the year: %(doy)s"
+#~ msgstr "Yılın günü: %(doy)s"
+
+#~ msgid "Postal Address"
+#~ msgstr "Posta Adresi"
+
+#~ msgid "Installed version"
+#~ msgstr "Yüklü sürüm"
+
+#~ msgid "Requests"
+#~ msgstr "İstekler"
+
+#~ msgid "Rounding factor"
+#~ msgstr "Yuvarlama Değeri"
+
+#~ msgid "Open Report"
+#~ msgstr "Raporu Aç"
+
+#~ msgid "Important customers"
+#~ msgstr "Önemli müşteriler"
+
+#~ msgid "Short Description"
+#~ msgstr "Kısa açıklama"
+
+#~ msgid "Open Source Service Company"
+#~ msgstr "Açık Kaynak Kodlu Hizmet Şirketi"
+
+#~ msgid "Load an Official Translation"
+#~ msgstr "Resmi Çeviri Yükle"
+
+#~ msgid "Type fields"
+#~ msgstr "Tür alanları"
+
+#~ msgid "Uncheck the active field to hide the contact."
+#~ msgstr "Etkin kutucuğunu seçmeyerek bağlantıyı saklayınız."
+
+#~ msgid "Congo, The Democratic Republic of the"
+#~ msgstr "Demokratik Kongo Cumhuriyeti"
+
+#~ msgid "Modules to update"
+#~ msgstr "Güncellenecek Modüller"
+
+#~ msgid "Add RML header"
+#~ msgstr "RML başlığı ekleyin."
+
+#~ msgid "Python code to be executed"
+#~ msgstr "Çalıştırılacak Python kodu"
+
+#~ msgid "Send Email"
+#~ msgstr "E-posta Gönder"
+
+#~ msgid "Next"
+#~ msgstr "Sonraki"
+
+#~ msgid "RML content"
+#~ msgstr "RML içerik"
+
+#~ msgid "Landscape"
+#~ msgstr "Yatay"
+
+#~ msgid "Channel Name"
+#~ msgstr "Kanal Adı"
+
+#~ msgid "Object ID"
+#~ msgstr "Nesne Belirteci"
+
+#~ msgid "Add or not the coporate RML header"
+#~ msgstr "Şirket RML başlığının eklenip eklenmeyeceği"
+
+#~ msgid "Keep 0 if the action must appear on all resources."
+#~ msgstr "İşlem bütün kaynaklarda görünecekse 0 olarak bırakınız."
+
+#~ msgid "This field is not used, it only helps you to select the right action."
+#~ msgstr ""
+#~ "Bu alan kullanılmamaktadır; sadece doğru işlemi seçmenize yardımcı olmak "
+#~ "içindir."
+
+#~ msgid "Action To Launch"
+#~ msgstr "Başlatılacak İşlem"
+
+#~ msgid "Select Action Type"
+#~ msgstr "İşlem Türünü Seçin"
+
+#~ msgid "Iteration Action Configuration"
+#~ msgstr "Silsile İşlemi Kurulumu"
+
+#~ msgid "Client Actions Connections"
+#~ msgstr "İstemci İşlemleri Bağlantıları"
+
+#~ msgid ""
+#~ "The kind of action or button in the client side that will trigger the action."
+#~ msgstr "İstemci tarafında işlemi tetikleyecek eylem veya tuş çeşidi."
+
+#~ msgid ""
+#~ "Condition that is to be tested before action is executed, e.g. "
+#~ "object.list_price > object.cost_price"
+#~ msgstr ""
+#~ "İşlem çalıştırılmadan önce sınanacak durum. Örneğin object.list_price > "
+#~ "object.cost_price"
+
+#~ msgid "Easy to Refer action by name e.g. One Sales Order -> Many Invoices"
+#~ msgstr "İşlem adı. Örneğin, Bir Satış Emri (Sipariş) -> Birden Fazla Fatura"
+
+#~ msgid "Client Action Configuration"
+#~ msgstr "İstemci İşlemi Yapılandırması"
+
+#~ msgid "Connect Events to Actions"
+#~ msgstr "Etkinlikleri İşlemlere Bağla"
+
+#~ msgid "Create Action"
+#~ msgstr "İşlem Oluştur"
+
+#~ msgid "Schedule for Installation"
+#~ msgstr "Kurulmak Üzere Sıraya Koy"
+
+#~ msgid "Channels"
+#~ msgstr "Kanallar"
+
+#~ msgid "Send"
+#~ msgstr "Gönder"
+
+#, python-format
+#~ msgid ""
+#~ "Save this document to a .tgz file. This archive containt UTF-8 %s files and "
+#~ "may be uploaded to launchpad."
+#~ msgstr ""
+#~ "Bu belgeyi bir .tgz dosyasına kaydet. Bu arşivde UTF-8 %s dosyaları bulunur "
+#~ "ve Launchpad'e gönderilebilir."
+
+#~ msgid "XML path"
+#~ msgstr "XML dizin yolu"
+
+#~ msgid "https://translations.launchpad.net/openobject"
+#~ msgstr "https://translations.launchpad.net/openobject"
+
+#~ msgid "tree_but_action, client_print_multi"
+#~ msgstr "tree_but_action, client_print_multi"
+
+#~ msgid "Segmentation"
+#~ msgstr "Bölümleme"
+
+#~ msgid "Filename"
+#~ msgstr "Dosya Adı"
+
+#~ msgid "Slovak Republic"
+#~ msgstr "Slovak Cumhuriyeti"
+
+#~ msgid "Workflow to be executed on this model."
+#~ msgstr "Bu model üzerinde çalışacak İş Akışı"
+
+#~ msgid "Day of the week (0:Monday): %(weekday)s"
+#~ msgstr "Haftanın günü (0:Pazartesi: %(weekday)"
+
+#~ msgid "Is Object"
+#~ msgstr "Is Object"
+
+#~ msgid "Select Groups"
+#~ msgstr "Grupları Seç"
+
+#~ msgid "Action Source"
+#~ msgstr "İşlem Kaynağı"
+
+#~ msgid "Latest version"
+#~ msgstr "En Son Sürüm"
+
+#~ msgid "Portrait"
+#~ msgstr "Dikey"
+
+#~ msgid "Your Logo - Use a size of about 450x150 pixels."
+#~ msgstr "Logonuz - Yaklaşık 450x150 pixel olmalıdır."
+
+#~ msgid "Configuration Progress"
+#~ msgstr "Kurulum Safhası"
+
+#~ msgid "Save As Attachment Prefix"
+#~ msgstr "Ek Ön Adı Olarak Kaydet"
+
+#~ msgid "This field is not used, it only helps you to select a good model."
+#~ msgstr ""
+#~ "Bu alan kullanılmamaktadır. Sadece düzgün bir model seçmenize yardımcı olur."
+
+#~ msgid "Delivery"
+#~ msgstr "Teslimat"
+
+#~ msgid "BIC/Swift code"
+#~ msgstr "BIC/Swift Kodu"
+
+#~ msgid "Internal Header/Footer"
+#~ msgstr "Dahili Üstbilgi/Altbilgi"
+
+#~ msgid "Code (eg:en__US)"
+#~ msgstr "Kod (örn:tr_TR)"
+
+#~ msgid "Metadata"
+#~ msgstr "Meta Bilgisi"
+
+#~ msgid "Display Menu Tips"
+#~ msgstr "Menu İpuçlarını Göster"
+
+#, python-format
+#~ msgid ""
+#~ "You can not write in this document (%s) ! Be sure your user belongs to one "
+#~ "of these groups: %s."
+#~ msgstr ""
+#~ "Bu dökümana (%s) yazamasınız ! Lütfen kullanıcınızın bu gruplardan birine "
+#~ "üye olduğundan emin olun:%s."
+
+#~ msgid "Widget"
+#~ msgstr "Araç"
+
+#~ msgid "Wood Suppliers"
+#~ msgstr "Ağaç Tedarikçileri"
+
+#, python-format
+#~ msgid "The read method is not implemented on this object !"
+#~ msgstr "Okuma yöntemi bu nesne üzerine uygulanmadı."
+
+#, python-format
+#~ msgid "\"smtp_server\" needs to be set to send mails to users"
+#~ msgstr ""
+#~ "\"smtp_server\" ın kullanıcılara e-posta gönderebilmesi için ayarlanması "
+#~ "gerekir"
+
+#, python-format
+#~ msgid "Key/value '%s' not found in selection field '%s'"
+#~ msgstr "Anahtar/değer '%s' seçim alanı '%s' de bulunamadı"
+
+#~ msgid "Want to check Ean ? "
+#~ msgstr "EAN numarası kontrol ediksin mi? "
+
+#~ msgid "description"
+#~ msgstr "Açıklama"
+
+#~ msgid "Certified"
+#~ msgstr "Sertifikalı"
+
+#~ msgid "Miscellaneous Suppliers"
+#~ msgstr "Muhtelif Tedarikçiler"
+
+#~ msgid "New User"
+#~ msgstr "Yeni Kullanıcı"
+
+#~ msgid ""
+#~ "OpenERP translations (core, modules, clients) are managed through "
+#~ "Launchpad.net, our open source project management facility. We use their "
+#~ "online interface to synchronize all translations efforts."
+#~ msgstr ""
+#~ "OpenERP yerelleştirmeleri (çekirdek, modüller, istemciler) Launchpad.net "
+#~ "(açık kaynak proje yönetim sistemi) üzerinden yapılmaktadır. Bütün çeviri "
+#~ "çalışmaları launchpad.net çeviri sistemi kullanılarak senkronize ediliyor."
+
+#~ msgid "Partner Form"
+#~ msgstr "Cari Formu"
+
+#~ msgid "res.config.users"
+#~ msgstr "res.config.users"
+
+#~ msgid ""
+#~ "Groups are used to define access rights on objects and the visibility of "
+#~ "screens and menus"
+#~ msgstr ""
+#~ "Ekranların ve menullerin görünürlüğünü ve nesnelerin erişim haklarını "
+#~ "tanımlamak için kullanılan gruplar."
+
+#~ msgid ""
+#~ "Sets the language for the user's user interface, when UI translations are "
+#~ "available"
+#~ msgstr "Kullanıcıların kullanıcı arabirimlerinin dilini değiştirir."
+
+#, python-format
+#~ msgid "The unlink method is not implemented on this object !"
+#~ msgstr "unlink metodu bu obje üzerinde uygulanmamıştır"
+
+#~ msgid "Contracts"
+#~ msgstr "Sözleşmeler"
+
+#~ msgid ""
+#~ "2. Group-specific rules are combined together with a logical AND operator"
+#~ msgstr "2. Gruba özel kurallar mantıksal VE operatörü ile birleştirilir"
+
+#~ msgid ""
+#~ "To improve or expand the official translations, you should use directly "
+#~ "Lauchpad's web interface (Rosetta). If you need to perform mass translation, "
+#~ "Launchpad also allows uploading full .po files at once"
+#~ msgstr ""
+#~ "Resmi çevirileri geliştirmek ve iyileştirmek için launchpad.net web "
+#~ "arayüzünü kollanmalısınız. Eğer toplu çeviri yapmaya ihtiyaç duyuyorsanız "
+#~ "Launchpad .po dosyalarını tek seferde yüklemeyi de destekliyor."
+
+#~ msgid "Request Date"
+#~ msgstr "Talep Tarihi"
+
+#~ msgid "Dashboard"
+#~ msgstr "Kontrol paneli"
+
+#, python-format
+#~ msgid "Error during communication with the publisher warranty server."
+#~ msgstr "Yayıncı garanti sunucusuyla iletişim kurulurken hata oluştu."
+
+#, python-format
+#~ msgid "The search method is not implemented on this object !"
+#~ msgstr "Arama metodu bu nesne için uygulanmadı !"
+
+#~ msgid "Main report file path"
+#~ msgstr "Ana rapor dosya yolu"
+
+#~ msgid ""
+#~ "Date : %(date)s\n"
+#~ "\n"
+#~ "Dear %(partner_name)s,\n"
+#~ "\n"
+#~ "Please find in attachment a reminder of all your unpaid invoices, for a "
+#~ "total amount due of:\n"
+#~ "\n"
+#~ "%(followup_amount).2f %(company_currency)s\n"
+#~ "\n"
+#~ "Thanks,\n"
+#~ "--\n"
+#~ "%(user_signature)s\n"
+#~ "%(company_name)s"
+#~ msgstr ""
+#~ "Tarih : %(date)s\n"
+#~ "\n"
+#~ "Sayın %(partner_name)s,\n"
+#~ "\n"
+#~ "Vadesi gelmiş borç bakiyenize ait hatırlatma notunu ekte bulabilirsiniz. "
+#~ "Toplam vadesi gelmiş borç bakiyeniz: %(followup_amount).2f "
+#~ "%(company_currency)s\n"
+#~ "\n"
+#~ "Saygılarımla,\n"
+#~ "--\n"
+#~ "%(user_signature)s\n"
+#~ "%(company_name)s"
+
+#~ msgid "Attached ID"
+#~ msgstr "Ekli ID"
+
+#~ msgid ""
+#~ "Do not display this log if it belongs to the same object the user is working "
+#~ "on"
+#~ msgstr ""
+#~ "Günlük eğer kullanıcının çalıştığı nesneyle aynı nesneye ait ise günlüğü "
+#~ "gösterme"
+
+#~ msgid "Validate"
+#~ msgstr "Doğrula"
+
+#~ msgid "Restart"
+#~ msgstr "Yeniden Başlat"
+
+#~ msgid "Default Filters"
+#~ msgstr "Öntanımlı Filtreler"
+
+#, python-format
+#~ msgid "\"email_from\" needs to be set to send welcome mails to users"
+#~ msgstr ""
+#~ "\"email_from\" kullanıcılara needs to be set to send welcome mails to users"
+
+#~ msgid "XML ID"
+#~ msgstr "XML ID"
+
+#~ msgid "Current Activity"
+#~ msgstr "Güncel Faaliyet"
+
+#, python-format
+#~ msgid "That contract is already registered in the system."
+#~ msgstr "O kontrat sistemde zaten kayıtlı"
+
+#~ msgid "XML Id"
+#~ msgstr "XML ID"
+
+#~ msgid "Retailers"
+#~ msgstr "Satıcılar"
+
+#~ msgid "Custom Reports"
+#~ msgstr "Özel Raporlar"
+
+#~ msgid "Event"
+#~ msgstr "Olay"
+
+#~ msgid "Create Users"
+#~ msgstr "Kullanıcı Oluştur"
+
+#~ msgid ""
+#~ "When using CSV format, please also check that the first line of your file is "
+#~ "one of the following:"
+#~ msgstr ""
+#~ "CSV biçimli dosya kullanırken lütfen dosyanın ilk satırını aşağıdakileri "
+#~ "içerdiğini kontrol edit."
+
+#~ msgid "Homepage Widgets"
+#~ msgstr "Anasayfa Araçları"
+
+#~ msgid "Attached Model"
+#~ msgstr "Ekli Model"
+
+#~ msgid "https://help.launchpad.net/Translations"
+#~ msgstr "https://help.launchpad.net/Translations"
+
+#, python-format
+#~ msgid "Not implemented search_memory method !"
+#~ msgstr "Uygulanmamış search_memory metodu !"
+
+#~ msgid "Domain Setup"
+#~ msgstr "Alan Ayarı"
+
+#~ msgid "Advanced"
+#~ msgstr "Gelişmiş"
+
+#, python-format
+#~ msgid ""
+#~ "You can not create this document (%s) ! Be sure your user belongs to one of "
+#~ "these groups: %s."
+#~ msgstr ""
+#~ "Bu tip döküman oluşturamazsınız (%s) ! Kullanıcınızın gerekli gruplardan "
+#~ "(%s) birine üye olduğundan emin olun."
+
+#~ msgid "OpenERP Favorites"
+#~ msgstr "OpenERP Favorileri"
+
+#~ msgid "Translation Terms"
+#~ msgstr "Çeviri Koşulları"
+
+#, python-format
+#~ msgid "Not implemented set_memory method !"
+#~ msgstr "Uygulanmamış set_memory metodu!"
+
+#~ msgid "Logs"
+#~ msgstr "Günlük Kayıtları"
+
+#~ msgid ""
+#~ "Example: GLOBAL_RULE_1 AND GLOBAL_RULE_2 AND ( (GROUP_A_RULE_1 AND "
+#~ "GROUP_A_RULE_2) OR (GROUP_B_RULE_1 AND GROUP_B_RULE_2) )"
+#~ msgstr ""
+#~ "Örnek: GLOBAL_RULE_1 AND GLOBAL_RULE_2 AND ( (GROUP_A_RULE_1 AND "
+#~ "GROUP_A_RULE_2) OR (GROUP_B_RULE_1 AND GROUP_B_RULE_2) )"
+
+#~ msgid ""
+#~ "Create additional users and assign them groups that will allow them to have "
+#~ "access to selected functionalities within the system. Click on 'Done' if you "
+#~ "do not wish to add more users at this stage, you can always do this later."
+#~ msgstr ""
+#~ "Yeni kullanıcılar ekleyip onları gruplara atayarak sistemde seçtiğiniz "
+#~ "fonksiyonlara erişim verebilirsiniz.\r\n"
+#~ "Başka kullanıcı eklemek istemediğiniz zaman Tamam tuşuna basarak devam "
+#~ "edebilirsiniz. Daha sonra da kullanıcıları ekleyebilirsiniz."
+
+#~ msgid ""
+#~ "This wizard will scan all module repositories on the server side to detect "
+#~ "newly added modules as well as any change to existing modules."
+#~ msgstr ""
+#~ "Bu sihirbaz sunucudaki bütün modül kitaplıklarını tarayarak yeni eklenen ve "
+#~ "güncellenen modülleri bulacak."
+
+#~ msgid ""
+#~ "A customer is an entity you do business with, like a company or an "
+#~ "organization. A customer can have several contacts or addresses which are "
+#~ "the people working for this company. You can use the history tab, to follow "
+#~ "all transactions related to a customer: sales order, emails, opportunities, "
+#~ "claims, etc. If you use the email gateway, the Outlook or the Thunderbird "
+#~ "plugin, don't forget to register emails to each contact so that the gateway "
+#~ "will automatically attach incoming emails to the right partner."
+#~ msgstr ""
+#~ "Müşteri birlikte iş yaptığınız tüzel ya da geçek kişi. Bir müşterinin bir "
+#~ "çok İletişim kişisi ve adresleri olabilir. Tarihçe sekmesini kullanarak "
+#~ "müşteriyle ilgili geçmiş bütün hareketlerini inceleyebilirsiniz (teklifler, "
+#~ "siparişler, e-postalar fırsatlar, talepler). Eğer e-posta  geçidi ya da "
+#~ "Outlook/Thunderbird eklentisi kullanıyorsanız müşteri firmadaki bütün "
+#~ "kişilerin e-posta adreslerini kaydedin böylece gelen bütün epostalar ilgili "
+#~ "cariye işlenecektir."
+
+#~ msgid ""
+#~ "The user's timezone, used to perform timezone conversions between the server "
+#~ "and the client."
+#~ msgstr ""
+#~ "Kullanıcının saat dilimi, (sunucu ve istemci bilgisayar arasında saat dilimi "
+#~ "çevrimlerinde kullanılır)"
+
+#~ msgid "publisher_warranty.contract"
+#~ msgstr "publisher_warranty.contract"
+
+#~ msgid "Currency Converter"
+#~ msgstr "Döviz Çevirici"
+
+#, python-format
+#~ msgid "Wrong ID for the browse record, got %r, expected an integer."
+#~ msgstr "İncelenen kayıtta hatalı ID, %r nin tamsayı olması gerekir."
+
+#~ msgid "Author Website"
+#~ msgstr "Sahip Websayfası"
+
+#~ msgid "Load Official Translation"
+#~ msgstr "Resmi Çeviriyi Yükle"
+
+#~ msgid "Simplified"
+#~ msgstr "Basitleştirilmiş"
+
+#, python-format
+#~ msgid "The perm_read method is not implemented on this object !"
+#~ msgstr "perm_read metodu bu nesnede uygulanmamış!"
+
+#~ msgid "Please be patient, as this operation may take a few seconds..."
+#~ msgstr "Lütfen sabırlı olun, Bu işlem birkaç saniye alabilir..."
+
+#~ msgid "Clear IDs"
+#~ msgstr "IDleri Temizle"
+
+#~ msgid ""
+#~ "Name of object whose function will be called when this scheduler will run. "
+#~ "e.g. 'res.partener'"
+#~ msgstr ""
+#~ "Zamanlayıcı çalıştığında fonksiyonu çağırılacak nesnenin adı. "
+#~ "ör.'res.partner'"
+
+#~ msgid "Portugese (BR) / Português (BR)"
+#~ msgstr "Portekizli (BR) / Português (BR)"
+
+#~ msgid "Facebook"
+#~ msgstr "Facebook"
+
+#~ msgid "Messages"
+#~ msgstr "Mesajlar"
+
+#~ msgid "Partner Name"
+#~ msgstr "Cari Adı"
+
+#~ msgid "Extended"
+#~ msgstr "Uzatılmış"
+
+#~ msgid "Canceled"
+#~ msgstr "İptal edildi"
+
+#~ msgid "Portugese / Português"
+#~ msgstr "Portekiz / Português"
+
+#~ msgid "Custom python parser"
+#~ msgstr "Özelleştirilmiş pyton derleyicisi"
+
+#~ msgid ""
+#~ "Please double-check that the file encoding is set to UTF-8 (sometimes called "
+#~ "Unicode) when the translator exports it."
+#~ msgstr ""
+#~ "Lütfen cevirici dışarı aktarırken dosya karakter kodlamasının UTF-8 "
+#~ "(unicode) olduğundan emin olun."
+
+#~ msgid "Start Configuration"
+#~ msgstr "Yapılandırmayı Başlat"
+
+#~ msgid "Apply For Write"
+#~ msgstr "Yazma için uygula"
+
+#~ msgid ""
+#~ "This wizard helps you add a new language to your OpenERP system. After "
+#~ "loading a new language it becomes available as default interface language "
+#~ "for users and partners."
+#~ msgstr ""
+#~ "Bu sihirbaz OpenERP sistemine yeni bir dil eklemenize yardım eder. Yeni dil "
+#~ "yüklendikten sonra cariler ve kullanıcılar için yeni varsayılan dil olarak "
+#~ "seçilir."
+
+#, python-format
+#~ msgid "Please check that all your lines have %d columns."
+#~ msgstr "Lütfen bütün satırların %d kolonu olduğunu kontrol edin."
+
+#~ msgid "Field Information"
+#~ msgstr "Alan Bilgisi"
+
+#~ msgid "maintenance.contract"
+#~ msgstr "maintenance.contract"
+
+#~ msgid ""
+#~ "You cannot have multiple records with the same id for the same module !"
+#~ msgstr "Aynı modül için aynı ID ile birden fazla kayıt oluşturamazsınız!"
+
+#~ msgid "M."
+#~ msgstr "M."
+
+#~ msgid "Ean check"
+#~ msgstr "EAN kontrolü"
+
+#~ msgid ""
+#~ "If you need another language than the official ones available, you can "
+#~ "import a language pack from here. Other OpenERP languages than the official "
+#~ "ones can be found on launchpad."
+#~ msgstr ""
+#~ "Eğer resmi olarak desteklenmeyen bir dil eklemek isterseniz. Yeni bir dil "
+#~ "paketini buradan ekleyebilirsiniz. Resmi olmayan dil paketlerini "
+#~ "launchpad.net de bulabilirsiniz."
+
+#~ msgid "Last Connection"
+#~ msgstr "Son Bağlantı"
+
+#, python-format
+#~ msgid "The certificate ID of the module must be unique !"
+#~ msgstr "Modülün sertifika IDsi tekil olmak zorunda!"
+
+#, python-format
+#~ msgid ""
+#~ "Operation prohibited by access rules, or performed on an already deleted "
+#~ "document (Operation: read, Document type: %s)."
+#~ msgstr ""
+#~ "İşlem erişim kurallarınca engellendi, ya da zaten silinmiş olan bir belgeye "
+#~ "uygulanmaya çalışılıyor (işlem:okuma, Döküman tipi:%s)"
+
+#~ msgid "Combination of rules"
+#~ msgstr "Kuralların kombinasyonu"
+
+#, python-format
+#~ msgid "The create method is not implemented on this object !"
+#~ msgstr "Oluştur metodu bu nesnede uygulanmadı !"
+
+#~ msgid "vsep"
+#~ msgstr "vsep"
+
+#~ msgid "Unread"
+#~ msgstr "Okunmamış"
+
+#~ msgid "Content"
+#~ msgstr "İçerik"
+
+#~ msgid "Next planned execution date for this scheduler"
+#~ msgstr "Bu zamanlayıcı için bir sonraki planlanan calışma zamanı"
+
+#~ msgid "SMS Send"
+#~ msgstr "SMS Gönder"
+
+#~ msgid ""
+#~ "Your publisher warranty contract is already subscribed in the system !"
+#~ msgstr "Yayıncı garanti sözleşmeniz halihazırda sistemde kayıtlı !"
+
+#~ msgid "Choose between the simplified interface and the extended one"
+#~ msgstr "Basitleştirilmiş arayüz ile gelişmiş arayüz arasında seçim yap."
+
+#~ msgid "Arguments to be passed to the method. e.g. (uid,)"
+#~ msgstr "metoda iletilen parametreler ör. (uid,)"
+
+#, python-format
+#~ msgid ""
+#~ "Invalid value for reference field \"%s\" (last part must be a non-zero "
+#~ "integer): \"%s\""
+#~ msgstr ""
+#~ "Referans alan %s için geçersiz değer (son kısım sıfır olmayan bir tamsayı "
+#~ "olmalı):\"%s\""
+
+#~ msgid "Human Resources Dashboard"
+#~ msgstr "İnsan Kaynakları Kontrol Paneli"
+
+#~ msgid "Customized Architecture"
+#~ msgstr "Özelleştirilmiş Mimari"
+
+#~ msgid "System update completed"
+#~ msgstr "Sistem güncellemesi tamamlandı"
+
+#~ msgid "Apply For Delete"
+#~ msgstr "Silme için başvur"
+
+#~ msgid "Configure Your Interface"
+#~ msgstr "Arayüzü Yapılandırın"
+
+#, python-format
+#~ msgid "module base cannot be loaded! (hint: verify addons-path)"
+#~ msgstr "Temel modül yüklenemedi! (ipucu: addons-path yolunu kontrol edin)"
+
+#~ msgid "Check this box if the partner is an Employee."
+#~ msgstr "Bu cari bir şirket çalışanıysa kutuyu işaretleyin."
+
+#~ msgid "- module,type,name,res_id,src,value"
+#~ msgstr "- module,type,name,res_id,src,value"
+
+#~ msgid "Create User"
+#~ msgstr "Kullanıcı Oluştur"
+
+#~ msgid "Serial Key"
+#~ msgstr "Seri No"
+
+#~ msgid "Audit"
+#~ msgstr "Denetim"
+
+#~ msgid "res.widget.user"
+#~ msgstr "res.widget.user"
+
+#~ msgid "Salesman"
+#~ msgstr "Satış Temsilcisi"
+
+#~ msgid "Widgets"
+#~ msgstr "Araçlar"
+
+#~ msgid "Widget Wizard"
+#~ msgstr "Araçlar Sihirbazı"
+
+#~ msgid "My Logs"
+#~ msgstr "Günlüklerim"
+
+#~ msgid "Addresses"
+#~ msgstr "Adresler"
+
+#~ msgid "Integer Big"
+#~ msgstr "Integer Big"
+
+#, python-format
+#~ msgid "Object %s does not exists"
+#~ msgstr "%s adlı bir nesne yok !"
+
+#~ msgid "Secondary Log"
+#~ msgstr "İkincil Günlük"
+
+#, python-format
+#~ msgid "Could not load base module"
+#~ msgstr "Temel modül yüklenemedi"
+
+#, python-format
+#~ msgid "Couldn't find previous ir.actions.todo"
+#~ msgstr "Önceki  ir.actions.todo bulunamıyor"
+
+#~ msgid "res.widget"
+#~ msgstr "res.widget"
+
+#~ msgid "Fund Raising"
+#~ msgstr "Para Toplama"
+
+#~ msgid "res.log"
+#~ msgstr "res.log"
+
+#~ msgid "E-mail"
+#~ msgstr "E-posta:"
+
+#~ msgid "Client Logs"
+#~ msgstr "İstemci Günlükleri"
+
+#~ msgid "Start update"
+#~ msgstr "Güncellemeye Başla"
+
+#~ msgid "Mss"
+#~ msgstr "Bayan"
+
+#~ msgid "HR Manager Dashboard"
+#~ msgstr "İK Yönetim Kontrol Paneli"
+
+#~ msgid "ir.wizard.screen"
+#~ msgstr "ir.wizard.screen"
+
+#~ msgid "Correct EAN13"
+#~ msgstr "Doğru EAN13"
+
+#~ msgid "Synchronize Translations"
+#~ msgstr "Çevirileri Senkronize et"
+
+#, python-format
+#~ msgid "Warning !"
+#~ msgstr "Uyarı"
+
+#~ msgid "Google Maps"
+#~ msgstr "Google Haritalar"
+
+#~ msgid "Website of Partner"
+#~ msgstr "Carinin Websitesi"
+
+#~ msgid "Emails"
+#~ msgstr "E-postalar"
+
+#~ msgid "Consumers"
+#~ msgstr "Tüketiciler"
+
+#, python-format
+#~ msgid ""
+#~ "--\n"
+#~ "%(name)s %(email)s\n"
+#~ msgstr ""
+#~ "--\n"
+#~ "%(name)s %(email)s\n"
+
+#~ msgid "Extra Info"
+#~ msgstr "Extra Bilgi"
+
+#~ msgid "Client Events"
+#~ msgstr "İstemci Olayları"
+
+#~ msgid "Ean Check"
+#~ msgstr "EAN Kontrolü"
+
+#~ msgid "Menu Tips"
+#~ msgstr "Menü İpuçları"
+
+#~ msgid "_Export"
+#~ msgstr "_Export"
+
+#~ msgid "state"
+#~ msgstr "durum"
+
+#~ msgid "Event Logs"
+#~ msgstr "Olay Günlükleri"
+
+#~ msgid "Register a Contract"
+#~ msgstr "Sözleşme Kaydet"
+
+#~ msgid "View Ordering"
+#~ msgstr "Görüntü Sıralaması"
+
+#~ msgid "Publisher Warranty"
+#~ msgstr "Yayıncı Garantisi"
+
+#~ msgid "Email & Signature"
+#~ msgstr "E-postala & İmzala"
+
+#~ msgid "Publisher Warranty Contract"
+#~ msgstr "Yayıncı Garanti Sözleşmesi"
+
+#~ msgid "IT sector"
+#~ msgstr "IT Sektörü"
+
+#~ msgid "Always"
+#~ msgstr "Her zaman"
+
+#~ msgid "Plugins"
+#~ msgstr "Eklentiler"
+
+#~ msgid "_Ok"
+#~ msgstr "_Tamam"
+
+#, python-format
+#~ msgid "Not Implemented"
+#~ msgstr "Uygulanmamış"
+
+#~ msgid "Interface"
+#~ msgstr "Arayüz"
+
+#~ msgid "Cancelled"
+#~ msgstr "İptal Edildi"
+
+#~ msgid "Add"
+#~ msgstr "Ekle"
+
+#~ msgid "Read"
+#~ msgstr "Oku"
+
+#~ msgid "Waiting"
+#~ msgstr "Bekliyor"
+
+#~ msgid "Creation Date"
+#~ msgstr "Oluşturulma Tarihi"
+
+#~ msgid "Ignore"
+#~ msgstr "Yoksay"
+
+#~ msgid "Current"
+#~ msgstr "Güncel"
+
+#~ msgid "Finished"
+#~ msgstr "Tamamlandı"
+
+#~ msgid "User Name"
+#~ msgstr "Kullanıcı Adı"
+
+#~ msgid "Error ! You can not create recursive associated members."
+#~ msgstr "Hata ! Kendine referanslı ilişkili taraf ekleyemezsiniz."
+
+#~ msgid "Ms."
+#~ msgstr "Bayan"
+
+#~ msgid "Created"
+#~ msgstr "Oluşturulma"
+
+#~ msgid "Register"
+#~ msgstr "Kayıt ol"
+
+#~ msgid "System Logs"
+#~ msgstr "Sistem Kayıtları"
+
+#~ msgid "Never"
+#~ msgstr "Asla"
+
+#~ msgid "SMS - Gateway: clickatell"
+#~ msgstr "SMS - Geçidi: Clickatell Hizmeti"
+
+#~ msgid "Clear Ids"
+#~ msgstr "ID leri sil"
+
+#~ msgid "Publisher Warranty Contracts"
+#~ msgstr "Yayıncı Garanti Sözleşmesi"
+
+#~ msgid "Has a web component"
+#~ msgstr "Web bileşeni var"
+
+#, python-format
+#~ msgid "The exists method is not implemented on this object !"
+#~ msgstr "Exists metodu bu nesne üzerinde uygulanmamış !"
+
+#~ msgid ""
+#~ "Customers (also called Partners in other areas of the system) helps you "
+#~ "manage your address book of companies whether they are prospects, customers "
+#~ "and/or suppliers. The partner form allows you to track and record all the "
+#~ "necessary information to interact with your partners from the company "
+#~ "address to their contacts as well as pricelists, and much more. If you "
+#~ "installed the CRM, with the history tab, you can track all the interactions "
+#~ "with a partner such as opportunities, emails, or sales orders issued."
+#~ msgstr ""
+#~ "Müşteriler bölümü ( sistemin diğer yerlerinde İş Ortağı olarak anılacak)  "
+#~ "Birlikte iş yaptığınız (müşterileriniz, tedarikçileriniz, çalışanlarınız)  "
+#~ "şirketlerin adreslerini tutmanıza yarar. İş ortağı formu iş ortaklarınızla "
+#~ "ilişkilerinizdeki  gerekli bütün bilgileri, şirket adreslerini, kişileri, ve "
+#~ "hatta fiyat listelerini takip etmenizi sağlar. Eğer CRM modülü kurduysanız "
+#~ "Geçmiş sekmesiyle İş ortağınız ile olan bütün iletişiminizi, sipariş "
+#~ "emirlerini, e-posta mesajlarını vs görebilirsiniz."
+
+#, python-format
+#~ msgid "The copy method is not implemented on this object !"
+#~ msgstr "Copy metodu bu nesne için uygulanmamış"
+
+#, python-format
+#~ msgid "Not implemented get_memory method !"
+#~ msgstr "Uygulanmamış get_memory metodu!"
+
+#, python-format
+#~ msgid "Please specify server option --email-from !"
+#~ msgstr "Sunucu seçeneğini tanımlayın --email-from ! (e-posta gönderen)"
+
+#~ msgid "Apply For Read"
+#~ msgstr "Okuma için başvur"
+
+#~ msgid ""
+#~ "Please be patient, this operation may take a few minutes (depending on the "
+#~ "number of modules currently installed)..."
+#~ msgstr ""
+#~ "Lütfen sabırlı olun, bu işlem birkaç dakika sürebilir (şu and kurulmaya "
+#~ "çalışılan modül sayısına göre değişir)..."
+
+#~ msgid "Module update result"
+#~ msgstr "Modül güncelleştirme sonucu"
+
+#, python-format
+#~ msgid ""
+#~ "You can not read this document (%s) ! Be sure your user belongs to one of "
+#~ "these groups: %s."
+#~ msgstr ""
+#~ "Dökümanı okuma hakkınız yok (%s) ! Kullanıcınızın şu guruplardan birine üye "
+#~ "olması gerekir: %s."
+
+#~ msgid "The new user's real name, used for searching and most listings"
+#~ msgstr ""
+#~ "Yeni kullanıcının gerçek adı, aramalarda ve listelemelerde kullanılır"
+
+#~ msgid "Terminated"
+#~ msgstr "Sonlandırıldı"
+
+#, python-format
+#~ msgid "Database ID doesn't exist: %s : %s"
+#~ msgstr "Veritabanı ID si yok: %s : %s"
+
+#~ msgid "Miscelleanous"
+#~ msgstr "Çeşitli"
+
+#~ msgid "Report file"
+#~ msgstr "Rapor Dosyası"
+
+#~ msgid "Add a widget for User"
+#~ msgstr "Kullanıcı için araç ekle"
+
+#~ msgid ""
+#~ "You can install new modules in order to activate new features, menu, reports "
+#~ "or data in your OpenERP instance. To install some modules, click on the "
+#~ "button \"Schedule for Installation\" from the form view, then click on "
+#~ "\"Apply Scheduled Upgrades\" to migrate your system."
+#~ msgstr ""
+#~ "Yeni özellikler, menüler, raporlar veya veriler için OpenERP içine yeni "
+#~ "modüller kurabilirsiniz. Modülleri kurmak için, ekrandan \"Kurulmak üzere "
+#~ "sıraya koy\" düğmesine basıp sonra da \"planlanmış güncellemeleri uygula\" "
+#~ "yı çalıştırın."
+
+#, python-format
+#~ msgid "The write method is not implemented on this object !"
+#~ msgstr "Write metodu bu nesnee üzerinde uygulanmamış !"
+
+#~ msgid ""
+#~ "This wizard helps you register a publisher warranty contract in your OpenERP "
+#~ "system. After the contract has been registered, you will be able to send "
+#~ "issues directly to OpenERP."
+#~ msgstr ""
+#~ "Bu sihirbaz OpenERP sisteminize yayıncı garanti sözleşmesine kaydetmenize "
+#~ "yardımcı olur. Sözleşme kaydınız yapıldığında, soru(n)larınızı doğrudan "
+#~ "OpenERP ye gönderebilirsiniz."
+
+#~ msgid "Please enter the serial key provided in your contract document:"
+#~ msgstr "Sözlemenizde yeralan seri numaranızı girin:"
+
+#~ msgid "Refresh Validation Dates"
+#~ msgstr "Onaylama tarihlerini yenile"
+
+#~ msgid "Want to Clear Ids ? "
+#~ msgstr "ID leri temizlemek istiyor musunuz ? "
+
+#~ msgid "In-memory model"
+#~ msgstr "Hafıza içi modeli"
+
+#~ msgid ""
+#~ "If this log item has been read, get() should not send it to the client"
+#~ msgstr "Eğer bu günlük maddesi okunduysa get() bunu istemciye göndermez"
+
+#~ msgid ""
+#~ "If an email is provided, the user will be sent a message welcoming him.\n"
+#~ "\n"
+#~ "Warning: if \"email_from\" and \"smtp_server\" aren't configured, it won't "
+#~ "be possible to email new users."
+#~ msgstr ""
+#~ "Eğer e-posta sağlanmışsa kullanıcıya bir hoşgeldin mesajı gönderilir.\n"
+#~ "\n"
+#~ "Uyarı:eğer \"email_from\" ve \"smtp_server\" ayarlanmamışsa e-posta "
+#~ "gönderilemeyecektir."
+
+#~ msgid ""
+#~ "Check out this box if you want to always display tips on each menu action"
+#~ msgstr ""
+#~ "Eğer her menü eyleminde ipuçlarını göstermek istiyorsanız bu kutucuğu "
+#~ "işaretleyin."
+
+#~ msgid ""
+#~ "View type: set to 'tree' for a hierarchical tree view, or 'form' for other "
+#~ "views"
+#~ msgstr ""
+#~ "Ekran tipi: Hiyerarşik ağaç görünümü için 'ağaç' olarak ayarlayın ya da "
+#~ "diğer ekranlar için 'form' seçin"
+
+#~ msgid "The logging message."
+#~ msgstr "Günlük kayıt mesajları"
+
+#~ msgid "Object Identifiers"
+#~ msgstr "Nesne tanımlayıcıları"
+
+#~ msgid "To browse official translations, you can start with these links:"
+#~ msgstr "Resmi çevirilere gözatmak için bağlantıları kullanabilirsiniz:"
+
+#, python-format
+#~ msgid ""
+#~ "Group(s) cannot be deleted, because some user(s) still belong to them: %s !"
+#~ msgstr "Grup silinemiyor. Halen içinde bazı kullanıcılar var: %s !"
+
+#, python-format
+#~ msgid "The read_group method is not implemented on this object !"
+#~ msgstr "read_group yöntemi bu nesne üzerinde uygulanmamış !"
+
+#, python-format
+#~ msgid "Contract validation error"
+#~ msgstr "Sözleşme doğrulama hatası"
+
+#, python-format
+#~ msgid "key '%s' not found in selection field '%s'"
+#~ msgstr "'%s' anahtarı seçim alanı '%s' de bulunamadı"
+
+#~ msgid "Binary File or external URL"
+#~ msgstr "Çalıştırılabilir dosya ya da dış URL"
+
+#~ msgid "- type,name,res_id,src,value"
+#~ msgstr "- type,name,res_id,src,value"
+
+#~ msgid ""
+#~ "Number of time the function is called,\n"
+#~ "a negative number indicates no limit"
+#~ msgstr ""
+#~ "Fonksiyonun kaç kere çağırılacağı,\n"
+#~ "negatif değer limit yok anlamındadır"
+
+#~ msgid "publisher_warranty.contract.wizard"
+#~ msgstr "publisher_warranty.contract.wizard"
+
+#~ msgid ""
+#~ "This wizard helps you add a new language to you OpenERP system. After "
+#~ "loading a new language it becomes available as default interface language "
+#~ "for users and partners."
+#~ msgstr ""
+#~ "Bu sihirbaz OpenERP sistemine yeni diller eklemenize yardımcı olur. Yeni dil "
+#~ "kurulduktan sonra kullanıcılar ve iş ortakları için varsayılan dil olur."
+
+#~ msgid "Publisher warranty contract successfully registered!"
+#~ msgstr "Yayıncı garanti sözleşmeniz başarıyla kaydedildi !"
+
+#~ msgid "User Widgets"
+#~ msgstr "Kullanıcı Araçları"
+
+#~ msgid "Rules are not supported for osv_memory objects !"
+#~ msgstr "osv_memory nesnesi için kurallar desteklenmiyor !"
+
+#~ msgid "Apply For Create"
+#~ msgstr "Oluşturmak için başvur"
+
+#, python-format
+#~ msgid "Please check your publisher warranty contract name and validity."
+#~ msgstr "Lütfen yayıncı garanti sözleşme adını ve geçerliliğini kontrol edin."
+
+#, python-format
+#~ msgid ""
+#~ "You can not delete this document (%s) ! Be sure your user belongs to one of "
+#~ "these groups: %s."
+#~ msgstr ""
+#~ "Bu dökümanı (%s) silemezsiniz ! Kullanıcınızın şu gruplardan birine üye "
+#~ "olduğundan emin olun: %s"
+
+#, python-format
+#~ msgid "You cannot remove the field '%s' !"
+#~ msgstr "'%s' alanını çıkaramazsınız !"
+
+#~ msgid ""
+#~ "Supported file formats: *.csv (Comma-separated values) or *.po (GetText "
+#~ "Portable Objects)"
+#~ msgstr ""
+#~ "Desteklenen dosya formatları: *.csv (virgülle-ayrılmış değerler) ya da *.po "
+#~ "(gettext taşınabilir nesneler)"
+
+#~ msgid ""
+#~ "If you use OpenERP for the first time we strongly advise you to select the "
+#~ "simplified interface, which has less features but is easier. You can always "
+#~ "switch later from the user preferences."
+#~ msgstr ""
+#~ "Eğer OpenERP yi ilk defa kullanıyorsanız size şiddetle basitleştirilmiş "
+#~ "görünümü kullanmanızı öneririz. İçinde daha az özellik vardır ama daha "
+#~ "kolaydır. Dilediğiniz her zaman kullanıcı seçeneklerinden gelişmiş görünüme "
+#~ "geçebilirsiniz."
+
+#~ msgid ""
+#~ "Only specify a value if you want to change the user password. This user will "
+#~ "have to logout and login again!"
+#~ msgstr ""
+#~ "Sadece şifreyi değiştirmek istiyorsanız bir şifre girin. İşlemden sonra "
+#~ "kullanıcı sistemden çıkıp tekrar giriş yapmalıdır!"
+
+#~ msgid ""
+#~ "Enable this if you want to execute missed occurences as soon as the server "
+#~ "restarts."
+#~ msgstr ""
+#~ "Eğer kaçırılan işlerin sunucu tekrar başladığında çalıştırılmasını "
+#~ "istiyorsanız onaylayın."
+
+#~ msgid ""
+#~ "Please note that the following payments are now due. If your payment         "
+#~ "                has been sent, kindly forward your payment details. If "
+#~ "payment will be                         delayed further, please contact us "
+#~ "to discuss.                         \n"
+#~ "Would your payment have been carried out after this mail was sent, please "
+#~ "consider the present one as void."
+#~ msgstr ""
+#~ "Lütfen aşağıdaki vadesi gelen ödemelerinize göz atın. Eğer ödemenizi zaten "
+#~ "yaptıysanız kayıtlarımıza girebilmemiz için lütfen ödeme detaylarınızı bize "
+#~ "gönderin. Eğer ödeme vadenizi geciktirecekseniz lütfen konuyu görüşmek için "
+#~ "bizi arayın.                         \n"
+#~ "Eğer ödemenizi bu mesajı aldıktan sonra gerçekleştirdiyseniz, lütfen bu "
+#~ "uyarıyı dikkate almayın."
+
+#~ msgid "Homepage Widgets Management"
+#~ msgstr "Anasayfa Araçları Yönetimi"
+
+#~ msgid "Search Widget"
+#~ msgstr "Arama Aracı"
+
+#~ msgid "False means for every user"
+#~ msgstr "Hata her kullanıcı içindir."
+
+#, python-format
+#~ msgid "The value \"%s\" for the field \"%s\" is not in the selection"
+#~ msgstr "\"%s\" Alanı değeri \"%s\" seçim kapsamında değildir"
+
+#~ msgid "Widgets per User"
+#~ msgstr "Her Kullanıcı için Parçacık"
+
+#~ msgid "On Skip"
+#~ msgstr "Atlanıldığında"
+
+#~ msgid "Tasks-Mail Integration"
+#~ msgstr "Görev-E-posta Entegrasyonu"
+
+#~ msgid "MRP Subproducts"
+#~ msgstr "MRP Alt Ürünleri"
+
+#~ msgid "On multiple doc."
+#~ msgstr "Çoklu döküman üzerinde"
+
+#~ msgid "E-Mail"
+#~ msgstr "E-posta"
+
+#~ msgid "Action Binding"
+#~ msgstr "Eylem Bağlantısı"
+
+#~ msgid ""
+#~ "The module adds google contact in partner address and add google calendar "
+#~ "events details in Meeting"
+#~ msgstr ""
+#~ "Modül google kişilerini cari adreslerine, google takvim kayıtlarını "
+#~ "toplantılara ekler"
+
+#~ msgid "SugarCRM Import"
+#~ msgstr "SugarCRM'den veri al"
+
+#~ msgid ""
+#~ "\n"
+#~ "        OpenERP Web gantt chart view.\n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "        OpenERP Web gantt şeması görünümü.\n"
+#~ "        "
+
+#~ msgid ""
+#~ "\n"
+#~ "    The base module to manage lunch\n"
+#~ "\n"
+#~ "    keep track for the Lunch Order ,Cash Moves ,CashBox ,Product.\n"
+#~ "    Apply Different Category for the product.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "    Öğle yemeklerini yönetmek için Temel Modül\n"
+#~ "\n"
+#~ "    Yemek siparişlerini, Nakit akışını, Kasa, ürün\n"
+#~ "    "
+
+#~ msgid "Html View"
+#~ msgstr "Html Görünümü"
+
+#, python-format
+#~ msgid "Website: "
+#~ msgstr "Web Sitesi: "
+
+#~ msgid "Report Header / Company Slogan"
+#~ msgstr "Rapor Başlığı / Şirket Sloganı"
+
+#~ msgid "Calendar Layer"
+#~ msgstr "Takvim Katmanı"
+
+#~ msgid "Tools / Customization"
+#~ msgstr "Araçlar / Özelleştirme"
+
+#, python-format
+#~ msgid "Fax: "
+#~ msgstr "Faks: "
+
+#~ msgid "Master Procurement Schedule"
+#~ msgstr "Ana Satınalma Planı"
+
+#~ msgid "Project Retro-planning"
+#~ msgstr "Proje Retro-planlama"
+
+#~ msgid "Wiki: Quality Manual"
+#~ msgstr "Wiki: Kalite El Kitabı"
+
+#~ msgid "Administration Dashboard"
+#~ msgstr "Yönetim Paneli"
+
+#~ msgid "HR Officer"
+#~ msgstr "İK Çalışanı"
+
+#~ msgid "Openerp web Diagram view"
+#~ msgstr "Openerp web şema görünümü"
+
+#~ msgid "web Dashboard"
+#~ msgstr "Web yönetim paneli"
+
+#~ msgid "eMail Gateway for Leads"
+#~ msgstr "Fırsatlar için e-posta kapısı"
+
+#~ msgid "Webkit Report Samples"
+#~ msgstr "Webkit Rapor Örnekleri"
+
+#~ msgid "Set password"
+#~ msgstr "Şifre Belirle"
+
+#~ msgid ""
+#~ "\n"
+#~ "        OpenERP Web mobile.\n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "        OpenERP Mobil Web\n"
+#~ "        "
+
+#~ msgid ""
+#~ "Agrega una nomenclatura contable para Honduras. También incluye impuestos y "
+#~ "la moneda Lempira. -- Adds accounting chart for Honduras.  It also includes "
+#~ "taxes and the Lempira currency"
+#~ msgstr ""
+#~ "Agrega una nomenclatura contable para Honduras. También incluye impuestos y "
+#~ "la moneda Lempira. -- Honduras için Hesap planı, lempira para birimi  vergi "
+#~ "tipleri."
+
+#~ msgid "iCal Support"
+#~ msgstr "iCal Desteği"
+
+#~ msgid "Point Of Sale"
+#~ msgstr "Satış Noktası"
+
+#~ msgid "OpenERP Web mobile"
+#~ msgstr "OpenERP Web mobil"
+
+#~ msgid "Openerp web web"
+#~ msgstr "Openerp web web"
+
+#~ msgid "Partner Manager"
+#~ msgstr "Cari Yöneticisi"
+
+#~ msgid "Billing Rates on Contracts"
+#~ msgstr "Sözleşmelerdeki Faturalama oranları"
+
+#~ msgid "Sales Orders Print Layout"
+#~ msgstr "Satış Siparişi baskı düzeni"
+
+#~ msgid "Website of Partner."
+#~ msgstr "Carinin Websitesi."
+
+#~ msgid "Openerp web graph view"
+#~ msgstr "Openerp web grafik ekran"
+
+#~ msgid ""
+#~ "\n"
+#~ "Organization and management of events.\n"
+#~ "======================================\n"
+#~ "\n"
+#~ "This module allows you to create retro planning for managing your events.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Etkinliklerin organizasyonu ve yönetimi.\n"
+#~ "======================================\n"
+#~ "\n"
+#~ "Bu modül etkinliklerinizi yönetmek için retro planlama yapmanıza yardım "
+#~ "eder.\n"
+
+#~ msgid "Symbol position"
+#~ msgstr "Sembol pozisyonu"
+
+#~ msgid "Multi-Currency in Analytic"
+#~ msgstr "Analitik hesaplarda Çoklu döviz"
+
+#~ msgid "General Information Footer"
+#~ msgstr "Genel bilgilendirici altbilgi"
+
+#~ msgid ""
+#~ "\n"
+#~ "Synchronization with all objects.\n"
+#~ "=================================\n"
+#~ "\n"
+#~ "Configure servers and trigger synchronization with its database objects.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Tüm nesneler ile senkronizasyon.\n"
+#~ "=================================\n"
+#~ "\n"
+#~ "Veritabanı nesneleri ile sunucuları ve tetikleme senkronizasyonu "
+#~ "yapılandırın.\n"
+
+#~ msgid ""
+#~ "You can install new modules in order to activate new features, menu, reports "
+#~ "or data in your OpenERP instance. To install some modules, click on the "
+#~ "button \"Install\" from the form view and then click on \"Start Upgrade\"."
+#~ msgstr ""
+#~ "OpenERP kurulumunuza yeni özellikler, raporlar ya da veriler eklemek için "
+#~ "yeni modüller kurabilirsiniz. Yeni modülleri kurmak için ekrandaki kur "
+#~ "butonuna basın sonra da \"Güncellemeye Başla\"yı tıklayın."
+
+#~ msgid "Error ! You cannot create recursive associated members."
+#~ msgstr "Hata ! kendini çağıran ilişkili üyeler oluşturamazsınız."
+
+#~ msgid ""
+#~ "\n"
+#~ "        OpenERP Web chat module.\n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "        OpenERP Web sohbet modülü.\n"
+#~ "        "
+
+#~ msgid ""
+#~ "Your OpenERP Publisher's Warranty Contract unique key, also called serial "
+#~ "number."
+#~ msgstr ""
+#~ "Seri numarası olarak da adlandırılan OpenERP Yayıncı Garanti Sözleşme "
+#~ "anahtarı."
+
+#~ msgid "Expenses Management"
+#~ msgstr "Harcama Yönetimi"
+
+#~ msgid "web Graph"
+#~ msgstr "web Grafik"
+
+#~ msgid "web Gantt"
+#~ msgstr "web Gant"
+
+#~ msgid "Receive User Feedback"
+#~ msgstr "Kullanıcı geridönüşü al"
+
+#~ msgid "Web Chat"
+#~ msgstr "Web Sohbeti"
+
+#~ msgid "Bank Accounts Footer"
+#~ msgstr "Banka Hesapları Altbilgisi"
+
+#~ msgid "Test"
+#~ msgstr "Test"
+
+#~ msgid "Analyse Module Quality"
+#~ msgstr "Modül Kalitesini incele"
+
+#~ msgid "Query Builder"
+#~ msgstr "Sorgu Oluşturucu"
+
+#~ msgid "OpenERP Tweets"
+#~ msgstr "OpenERP Tweetleri"
+
+#~ msgid "OPW"
+#~ msgstr "OPW"
+
+#~ msgid "Hidden"
+#~ msgstr "Gizli"
+
+#~ msgid "Issues Tracker"
+#~ msgstr "Sorun Takipçisi"
+
+#~ msgid "Header/Footer of Reports"
+#~ msgstr "Raporların Alt/Üst bilgileri"
+
+#~ msgid "function"
+#~ msgstr "fonksiyon"
+
+#, python-format
+#~ msgid "Applications"
+#~ msgstr "Uygulamalar"
+
+#~ msgid "Timesheets Validation"
+#~ msgstr "Giriş Çıkışların Doğrulanması"
+
+#~ msgid "Meetings Synchronization"
+#~ msgstr "Toplantıların Senkronizasyonu"
+
+#~ msgid "Contacts Management"
+#~ msgstr "Kişilerin Yönetimi"
+
+#~ msgid "Edit"
+#~ msgstr "Düzenle"
+
+#~ msgid "Partner Firm"
+#~ msgstr "İş ortağı Şirket"
+
+#, python-format
+#~ msgid "Reg: "
+#~ msgstr "VD: "
+
+#~ msgid ""
+#~ "OpenERP offers a simplified and an extended user interface. If you use "
+#~ "OpenERP for the first time we strongly advise you to select the simplified "
+#~ "interface, which has less features but is easier to use. You can switch to "
+#~ "the other interface from the User/Preferences menu at any time."
+#~ msgstr ""
+#~ "OpenERP basitleştirilmiş ve uzatılmış kullanıcı arayüzleri sunar. Eğer "
+#~ "OpenERP yi ilk kullanışınız ise basitleştirilmiş arayüzü kullanmanızı "
+#~ "tavsiye ederiz. (Daha az özelliği vardır ama kullanımı daha kolaydır). "
+#~ "Kullanıcı arayüzünü kullanıcı seçeneklerinden her zaman değiştirebilirsiniz."
+
+#~ msgid "Knowledge Management"
+#~ msgstr "Bilgi Yönetimi"
+
+#~ msgid "Fundraising"
+#~ msgstr "Kaynak Geliştirme"
+
+#~ msgid "Easy"
+#~ msgstr "Kolay"
+
+#~ msgid "Record and Create Modules"
+#~ msgstr "Modülleri Oluştur ve Kaydet"
+
+#~ msgid "Extended View"
+#~ msgstr "Genişletilmiş Ekran"
+
+#~ msgid "Invoice Layouts"
+#~ msgstr "Fatura Şablonları"
+
+#~ msgid "E-Mail Templates"
+#~ msgstr "E-Posta Şablonları"
+
+#~ msgid "Hide technical modules"
+#~ msgstr "Teknik Modülleri Gizle"
+
+#~ msgid "Wiki"
+#~ msgstr "Wiki"
+
+#~ msgid "Inline"
+#~ msgstr "Satır içi"
+
+#~ msgid "Latest Connection"
+#~ msgstr "Son Bağlantıları"
+
+#~ msgid "Resources Planing"
+#~ msgstr "Kaynakların Planlaması"
+
+#~ msgid "Complexity"
+#~ msgstr "Karmaşıklık"
+
+#~ msgid "Default Value Scope"
+#~ msgstr "Öntanımlı değer kapsamı"
+
+#~ msgid ""
+#~ "\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "    "
+
+#~ msgid "The module adds google user in res user"
+#~ msgstr "Bu modül res user a google kullanıcısı ekler"
+
+#~ msgid "Keywords"
+#~ msgstr "Anahtar Kelimeler"
+
+#~ msgid "Preview Header"
+#~ msgstr "Başlığı Önizle"
+
+#~ msgid ""
+#~ "\n"
+#~ "        OpenERP Web example module.\n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "        Örnek OpenERP Web modülü.\n"
+#~ "        "
+
+#~ msgid "Multi-DB Synchronization"
+#~ msgstr "Çoklu-Veritabanı Senkronizasyonu"
+
+#~ msgid "Expert"
+#~ msgstr "Uzman"
+
+#~ msgid ""
+#~ "\n"
+#~ "Todo list for CRM leads and opportunities.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "CRM fırsatları için yapılacaklar listesi.\n"
+#~ "    "
+
+#~ msgid "Leaves Management"
+#~ msgstr "İzinlerin Yönetimi"
+
+#~ msgid "Wiki: Sale FAQ"
+#~ msgstr "wiki:Satış SSS"
+
+#~ msgid "Please be patient, this operation may take a few minutes..."
+#~ msgstr "Lütfen sabırlı olun, Bu işlem birkaç dakika alabilir..."
+
+#, python-format
+#~ msgid "VAT: "
+#~ msgstr "VNO: "
+
+#~ msgid "Google Maps on Customers"
+#~ msgstr "Cariler için Google Haritaları"
+
+#~ msgid "Framework for complex import"
+#~ msgstr "Kompleks içeri aktarımlar için çerçeve"
+
+#~ msgid "Wizard Category"
+#~ msgstr "Sihirbaz Kategorisi"
+
+#~ msgid "eMail Gateway for Applicants"
+#~ msgstr "Uygulamalar için e-posta köprüsü"
+
+#~ msgid "Google Import"
+#~ msgstr "Google'dan al"
+
+#~ msgid ""
+#~ "\n"
+#~ "The module adds Google Map field in partner address.\n"
+#~ "====================================================\n"
+#~ "\n"
+#~ "Using this you can directly open Google Map from the URL widget."
+#~ msgstr ""
+#~ "\n"
+#~ "Bu modül cari adresine Google Map alanı ekler"
+
+#~ msgid "Point of Sales"
+#~ msgstr "Satış Noktası"
+
+#~ msgid "Configuration Wizard Category"
+#~ msgstr "Yapılandırma Sihirbazı Kategorisi"
+
+#~ msgid "HR Manager"
+#~ msgstr "İK Müdürü"
+
+#~ msgid "Wiki: Internal FAQ"
+#~ msgstr "Wiki: İç SSS"
+
+#~ msgid "Draft and Active"
+#~ msgstr "Taslak ve Aktif yap"
+
+#~ msgid "Emails Management"
+#~ msgstr "E-postaların Yönetimi"
+
+#~ msgid "Support Level 1"
+#~ msgstr "Seviye 1 Destek"
+
+#~ msgid "Base Tools"
+#~ msgstr "Temel Araçlar"
+
+#~ msgid "India - Accounting"
+#~ msgstr "Hindistan - Muhasebe"
+
+#~ msgid "Generate Docs of Modules"
+#~ msgstr "Modül dökümanları oluştur"
+
+#~ msgid ""
+#~ "\n"
+#~ "This is a full-featured calendar system.\n"
+#~ "========================================\n"
+#~ "\n"
+#~ "It supports:\n"
+#~ "    - Calendar of events\n"
+#~ "    - Alerts (create requests)\n"
+#~ "    - Recurring events\n"
+#~ "    - Invitations to people\n"
+#~ "\n"
+#~ "If you need to manage your meetings, you should install the CRM module.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "Tam fonksiyonlu bir takvim uygulamasıdır.\n"
+#~ "========================================\n"
+#~ "\n"
+#~ "Özellikleri:\n"
+#~ "    - Etkinlik Takvimi\n"
+#~ "    - Uyarılar\n"
+#~ "    - Tekrar eden girişler\n"
+#~ "    - Kişilere davetiye gönderme\n"
+#~ "    "
+
+#~ msgid "Rule definition (domain filter)"
+#~ msgstr "Kural Tanımı (alan filtresi)"
+
+#~ msgid ""
+#~ "\n"
+#~ "        OpenERP Web kanban view.\n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "        OpenERP Web kanban ekranı.\n"
+#~ "        "
+
+#~ msgid "Time Tracking"
+#~ msgstr "Zaman İzleme"
+
+#~ msgid "User - All Leads"
+#~ msgstr "Kullanıcı - Tüm Talepler"
+
+#~ msgid "Current User"
+#~ msgstr "Geçerli Kullanıcı"
+
+#~ msgid "Set Bank Accounts"
+#~ msgstr "Banka hesabını ayarla"
+
+#, python-format
+#~ msgid "Phone: "
+#~ msgstr "Telefon: "
+
+#~ msgid "web calendar"
+#~ msgstr "web takvimi"
+
+#~ msgid "DB Password Encryption"
+#~ msgstr "Veritabanı Şifre Kriptolama"
+
+#~ msgid "Address Information"
+#~ msgstr "Adres Bilgisi"
+
+#~ msgid "Live Chat Support"
+#~ msgstr "Canlı Sohbet Desteği"
+
+#~ msgid ""
+#~ "\n"
+#~ "        OpenERP Web dashboard view.\n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "        OpenERP Web Kontrol paneli ekranı.\n"
+#~ "        "
+
+#~ msgid "Allow users to login through OpenID."
+#~ msgstr "Kullanıcıların OpenID ile giriş yapmasına olanak verir."
+
+#~ msgid "Report Designer"
+#~ msgstr "Rapor Tasarımcısı"
+
+#~ msgid "Miscellaneous Tools"
+#~ msgstr "Çeşitli Araçlar"
+
+#~ msgid ""
+#~ "\n"
+#~ "        OpenERP Web calendar view.\n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "        OpenERP Web takvim ekranı.\n"
+#~ "        "
+
+#~ msgid "Auction Houses"
+#~ msgstr "Müzayede Salonları"
+
+#~ msgid ""
+#~ "\n"
+#~ "        OpenERP Web core module.\n"
+#~ "        This module provides the core of the OpenERP web client.\n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "        OpenERP Web çekirdek modülü.\n"
+#~ "        Bu modül OpenERP web istemcisi için çekirdek fonksiyonları sağlar.\n"
+#~ "        "
+
+#~ msgid "web"
+#~ msgstr "web"
+
+#~ msgid "Share Calendar using CalDAV"
+#~ msgstr "Takvimi CalDAV ile paylaş"
+
+#~ msgid "In-Project Messaging System"
+#~ msgstr "Proje içi mesajlaşma sistemi"
+
+#~ msgid "Change Color"
+#~ msgstr "Renk Değiştir"
+
+#~ msgid "Send an SMS"
+#~ msgstr "SMS Gönder"
+
+#~ msgid "Specifications on PADs"
+#~ msgstr "Bloknotların özellikleri"
+
+#~ msgid "Process"
+#~ msgstr "İşlem"
+
+#~ msgid "OpenERP Web web"
+#~ msgstr "OpenERP Web web"
+
+#~ msgid ""
+#~ "\n"
+#~ "Please define BIC/Swift code on bank for bank type IBAN Account to make "
+#~ "valid payments"
+#~ msgstr ""
+#~ "\n"
+#~ "Banka tipi IBAN hesaplarına geçerli ödeme yapabilmek için lütfen bankanın "
+#~ "BIC/SWIFT kodunu tanımlayın"

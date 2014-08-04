@@ -250,24 +250,20 @@ class test_base(common.TransactionCase):
                                                                        'parent_id': p1.id}))
         p2 = self.res_partner.browse(cr, uid, self.res_partner.search(cr, uid,
                                                                       [('email', '=', 'agr@sunhelm.com')])[0])
-        self.res_partner.write(cr, uid, sunhelm.id, {'child_ids': [(0, 0, {'name': 'Ulrik Greenthorn',
-                                                                           'email': 'ugr@sunhelm.com'})]})
-        p3 = self.res_partner.browse(cr, uid, self.res_partner.search(cr, uid,
-                                                                      [('email', '=', 'ugr@sunhelm.com')])[0])
 
-        for p in (p0, p1, p11, p2, p3):
+        for p in (p0, p1, p11, p2):
             p.refresh()
             self.assertEquals(p.commercial_partner_id, sunhelm, 'Incorrect commercial entity resolution')
             self.assertEquals(p.vat, sunhelm.vat, 'Commercial fields must be automatically synced')
         sunhelmvat = 'BE0123456789'
         sunhelm.write({'vat': sunhelmvat})
-        for p in (p0, p1, p11, p2, p3):
+        for p in (p0, p1, p11, p2):
             p.refresh()
             self.assertEquals(p.vat, sunhelmvat, 'Commercial fields must be automatically and recursively synced')
 
         p1vat = 'BE0987654321'
         p1.write({'vat': p1vat})
-        for p in (sunhelm, p0, p11, p2, p3):
+        for p in (sunhelm, p0, p11, p2):
             p.refresh()
             self.assertEquals(p.vat, sunhelmvat, 'Sync to children should only work downstream and on commercial entities')
 
@@ -427,7 +423,7 @@ class test_translation(common.TransactionCase):
         self.res_category = self.registry('res.partner.category')
         self.ir_translation = self.registry('ir.translation')
         cr, uid = self.cr, self.uid
-        self.registry('ir.translation').load(cr, ['base'], ['fr_FR'])
+        self.registry('ir.translation').load_module_terms(cr, ['base'], ['fr_FR'])
         self.cat_id = self.res_category.create(cr, uid, {'name': 'Customers'})
         self.ir_translation.create(cr, uid, {'name': 'res.partner.category,name', 'module':'base', 
             'value': 'Clients', 'res_id': self.cat_id, 'lang':'fr_FR', 'state':'translated', 'type': 'model'})
@@ -461,6 +457,59 @@ class test_translation(common.TransactionCase):
         fr_context_cat = self.res_category.browse(cr, uid, self.new_fr_cat_id, context={'lang':'fr_FR'})
         self.assertEqual(fr_context_cat.name, 'Clients (copie)', "Did not used default value for translated value")
 
+test_state = None
+#: Stores state information across multiple test classes
+def setUpModule():
+    global test_state
+    test_state = {}
+def tearDownModule():
+    global test_state
+    test_state = None
+
+class TestPhaseInstall00(unittest2.TestCase):
+    """
+    WARNING: Relies on tests being run in alphabetical order
+    """
+    @classmethod
+    def setUpClass(cls):
+        cls.state = None
+
+    def test_00_setup(self):
+        type(self).state = 'init'
+
+    @common.at_install(False)
+    def test_01_no_install(self):
+        type(self).state = 'error'
+
+    def test_02_check(self):
+        self.assertEqual(
+            self.state, 'init',
+            "Testcase state should not have been transitioned from 00")
+
+class TestPhaseInstall01(unittest2.TestCase):
+    at_install = False
+
+    def test_default_norun(self):
+        self.fail("An unmarket test in a non-at-install case should not run")
+
+    @common.at_install(True)
+    def test_set_run(self):
+        test_state['set_at_install'] = True
+
+class TestPhaseInstall02(unittest2.TestCase):
+    """
+    Can't put the check for test_set_run in the same class: if
+    @common.at_install does not work for test_set_run, it won't work for
+    the other one either. Thus move checking of whether test_set_run has
+    correctly run indeed to a separate class.
+
+    Warning: relies on *classes* being run in alphabetical order in test
+    modules
+    """
+    def test_check_state(self):
+        self.assertTrue(
+            test_state.get('set_at_install'),
+            "The flag should be set if local overriding of runstate")
 
 if __name__ == '__main__':
     unittest2.main()

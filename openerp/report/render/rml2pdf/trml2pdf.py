@@ -56,8 +56,11 @@ def select_fontname(fontname, default_fontname):
         try:
             pdfmetrics.getFont(fontname)
         except Exception:
-            _logger.warning('Could not locate font %s, substituting default: %s',
-                fontname, default_fontname)
+            addition = ""
+            if " " in fontname:
+                addition = ". Your font contains spaces which is not valid in RML."
+            _logger.warning('Could not locate font %s, substituting default: %s%s',
+                fontname, default_fontname, addition)
             fontname = default_fontname
     return fontname
 
@@ -85,30 +88,50 @@ def _open_image(filename, path=None):
 class NumberedCanvas(canvas.Canvas):
     def __init__(self, *args, **kwargs):
         canvas.Canvas.__init__(self, *args, **kwargs)
-        self._saved_page_states = []
+        self._codes = []
+        self._flag=False
+        self._pageCount=0
+        self._currentPage =0
+        self._pageCounter=0
+        self.pages={}
 
     def showPage(self):
-        self._saved_page_states.append(dict(self.__dict__))
+        self._currentPage +=1
+        if not self._flag:
+            self._pageCount += 1
+        else:
+            self.pages.update({self._currentPage:self._pageCount})
+        self._codes.append({'code': self._code, 'stack': self._codeStack})
         self._startPage()
+        self._flag=False
 
-    def save(self):
-        """add page info to each page (page x of y)"""
-        for state in self._saved_page_states:
-            self.__dict__.update(state)
-            self.draw_page_number()
-            canvas.Canvas.showPage(self)
-        canvas.Canvas.save(self)
-
-    def draw_page_number(self):
-        page_count = len(self._saved_page_states)
+    def pageCount(self):
+        if self.pages.get(self._pageCounter,False):
+            self._pageNumber=0
+        self._pageCounter +=1
+        key=self._pageCounter
+        if not self.pages.get(key,False):
+            while not self.pages.get(key,False):
+                key += 1
         self.setFont("Helvetica", 8)
         self.drawRightString((self._pagesize[0]-30), (self._pagesize[1]-40),
             " %(this)i / %(total)i" % {
-               'this': self._pageNumber,
-               'total': page_count,
+               'this': self._pageNumber+1,
+               'total': self.pages.get(key,False),
             }
         )
 
+    def save(self):
+        """add page info to each page (page x of y)"""
+        # reset page counter
+        self._pageNumber = 0
+        for code in self._codes:
+            self._code = code['code']
+            self._codeStack = code['stack']
+            self.pageCount()
+            canvas.Canvas.showPage(self)
+#        self.restoreState()
+        self._doc.SaveToFile(self._filename, self)
 
 class PageCount(platypus.Flowable):
     def __init__(self, story_count=0):
@@ -287,7 +310,7 @@ class _rml_doc(object):
             addMapping(face, 0, 1, fontname)    #italic
             addMapping(face, 1, 0, fontname)    #bold
             addMapping(face, 1, 1, fontname)    #italic and bold
-        elif (mode== 'normal') or (mode == 'regular'):
+        elif (mode== 'normal') or (mode == 'regular') or (mode == 'book'):
             addMapping(face, 0, 0, fontname)    #normal
         elif mode == 'italic':
             addMapping(face, 0, 1, fontname)    #italic
@@ -373,11 +396,7 @@ class _rml_canvas(object):
         v = utils.attr_get(node, ['x','y'])
         text=self._textual(node, **v)
         text = utils.xml2str(text)
-        try:
-            self.canvas.drawString(text=text, **v)
-        except TypeError as e:
-            _logger.error("Bad RML: <drawString> tag requires attributes 'x' and 'y'!")
-            raise e
+        self.canvas.drawString(text=text, **v)
 
     def _drawCenteredString(self, node):
         v = utils.attr_get(node, ['x','y'])
@@ -963,7 +982,7 @@ class _rml_template(object):
                     }
         pageSize = A4
         if self.localcontext.get('company'):
-            pageSize = pagesize_map.get(self.localcontext.get('company').paper_format, A4)
+            pageSize = pagesize_map.get(self.localcontext.get('company').rml_paper_format, A4)
         if node.get('pageSize'):
             ps = map(lambda x:x.strip(), node.get('pageSize').replace(')', '').replace('(', '').split(','))
             pageSize = ( utils.unit_get(ps[0]),utils.unit_get(ps[1]) )
@@ -1003,10 +1022,10 @@ class _rml_template(object):
         story_cnt = 0
         for node_story in node_stories:
             if story_cnt > 0:
-                # Reset Page Number with new story tag
-                fis.append(PageReset())
                 fis.append(platypus.PageBreak())
             fis += r.render(node_story)
+            # Reset Page Number with new story tag
+            fis.append(PageReset())
             story_cnt += 1
         try:
             if self.localcontext and self.localcontext.get('internal_header',False):

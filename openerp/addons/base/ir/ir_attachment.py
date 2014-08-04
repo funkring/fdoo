@@ -45,13 +45,14 @@ class ir_attachment(osv.osv):
     The default implementation is the file:dirname location that stores files
     on the local filesystem using name based on their sha1 hash
     """
+    _order = 'id desc'
     def _name_get_resname(self, cr, uid, ids, object, method, context):
         data = {}
         for attachment in self.browse(cr, uid, ids, context=context):
             model_object = attachment.res_model
             res_id = attachment.res_id
             if model_object and res_id:
-                model_pool = self.pool.get(model_object)
+                model_pool = self.pool[model_object]
                 res = model_pool.name_get(cr,uid,[res_id],context)
                 res_name = res and res[0][1] or False
                 if res_name:
@@ -63,19 +64,37 @@ class ir_attachment(osv.osv):
                 data[attachment.id] = False
         return data
 
+    def _storage(self, cr, uid, context=None):
+        return self.pool['ir.config_parameter'].get_param(cr, SUPERUSER_ID, 'ir_attachment.location', 'file')
+
+    @tools.ormcache()
+    def _filestore(self, cr, uid, context=None):
+        return tools.config.filestore(cr.dbname)
+
     # 'data' field implementation
     def _full_path(self, cr, uid, location, path):
-        # location = 'file:filestore'
-        assert location.startswith('file:'), "Unhandled filestore location %s" % location
-        location = location[5:]
-
-        # sanitize location name and path
-        location = re.sub('[.]','',location)
-        location = location.strip('/\\')
-
-        path = re.sub('[.]','',path)
+        # sanitize ath
+        path = re.sub('[.]', '', path)
         path = path.strip('/\\')
-        return os.path.join(tools.config['root_path'], location, cr.dbname, path)
+        return os.path.join(self._filestore(cr, uid), path)
+
+    def _get_path(self, cr, uid, location, bin_data):
+        sha = hashlib.sha1(bin_data).hexdigest()
+
+        # retro compatibility
+        fname = sha[:3] + '/' + sha
+        full_path = self._full_path(cr, uid, location, fname)
+        if os.path.isfile(full_path):
+            return fname, full_path        # keep existing path
+
+        # scatter files across 256 dirs
+        # we use '/' in the db (even on windows)
+        fname = sha[:2] + '/' + sha
+        full_path = self._full_path(cr, uid, location, fname)
+        dirname = os.path.dirname(full_path)
+        if not os.path.isdir(dirname):
+            os.makedirs(dirname)
+        return fname, full_path
 
     def _file_read(self, cr, uid, location, fname, bin_size=False):
         full_path = self._full_path(cr, uid, location, fname)
@@ -91,18 +110,13 @@ class ir_attachment(osv.osv):
 
     def _file_write(self, cr, uid, location, value):
         bin_value = value.decode('base64')
-        fname = hashlib.sha1(bin_value).hexdigest()
-        # scatter files across 1024 dirs
-        # we use '/' in the db (even on windows)
-        fname = fname[:3] + '/' + fname
-        full_path = self._full_path(cr, uid, location, fname)
-        try:
-            dirname = os.path.dirname(full_path)
-            if not os.path.isdir(dirname):
-                os.makedirs(dirname)
-            open(full_path,'wb').write(bin_value)
-        except IOError:
-            _logger.error("_file_write writing %s",full_path)
+        fname, full_path = self._get_path(cr, uid, location, bin_value)
+        if not os.path.exists(full_path):
+            try:
+                with open(full_path, 'wb') as fp:
+                    fp.write(bin_value)
+            except IOError:
+                _logger.error("_file_write writing %s", full_path)
         return fname
 
     def _file_delete(self, cr, uid, location, fname):
@@ -121,10 +135,10 @@ class ir_attachment(osv.osv):
         if context is None:
             context = {}
         result = {}
-        location = self.pool.get('ir.config_parameter').get_param(cr, uid, 'ir_attachment.location')
+        location = self._storage(cr, uid, context)
         bin_size = context.get('bin_size')
         for attach in self.browse(cr, uid, ids, context=context):
-            if location and attach.store_fname:
+            if location != 'db' and attach.store_fname:
                 result[attach.id] = self._file_read(cr, uid, location, attach.store_fname, bin_size)
             else:
                 result[attach.id] = attach.db_datas
@@ -136,9 +150,9 @@ class ir_attachment(osv.osv):
             return True
         if context is None:
             context = {}
-        location = self.pool.get('ir.config_parameter').get_param(cr, uid, 'ir_attachment.location')
+        location = self._storage(cr, uid, context)
         file_size = len(value.decode('base64'))
-        if location:
+        if location != 'db':
             attach = self.browse(cr, uid, id, context=context)
             if attach.store_fname:
                 self._file_delete(cr, uid, location, attach.store_fname)
@@ -205,9 +219,9 @@ class ir_attachment(osv.osv):
         for model, mids in res_ids.items():
             # ignore attachments that are not attached to a resource anymore when checking access rights
             # (resource was deleted but attachment was not)
-            mids = self.pool.get(model).exists(cr, uid, mids)
+            mids = self.pool[model].exists(cr, uid, mids)
             ima.check(cr, uid, model, mode)
-            self.pool.get(model).check_access_rule(cr, uid, mids, mode, context=context)
+            self.pool[model].check_access_rule(cr, uid, mids, mode, context=context)
 
     def _search(self, cr, uid, args, offset=0, limit=None, order=None, context=None, count=False, access_rights_uid=None):
         ids = super(ir_attachment, self)._search(cr, uid, args, offset=offset,
@@ -233,10 +247,10 @@ class ir_attachment(osv.osv):
         targets = cr.dictfetchall()
         model_attachments = {}
         for target_dict in targets:
-            if not (target_dict['res_id'] and target_dict['res_model']):
+            if not target_dict['res_model']:
                 continue
             # model_attachments = { 'model': { 'res_id': [id1,id2] } }
-            model_attachments.setdefault(target_dict['res_model'],{}).setdefault(target_dict['res_id'],set()).add(target_dict['id'])
+            model_attachments.setdefault(target_dict['res_model'],{}).setdefault(target_dict['res_id'] or 0, set()).add(target_dict['id'])
 
         # To avoid multiple queries for each attachment found, checks are
         # performed in batch as much as possible.
@@ -252,7 +266,7 @@ class ir_attachment(osv.osv):
 
             # filter ids according to what access rules permit
             target_ids = targets.keys()
-            allowed_ids = self.pool.get(model).search(cr, uid, [('id', 'in', target_ids)], context=context)
+            allowed_ids = [0] + self.pool[model].search(cr, uid, [('id', 'in', target_ids)], context=context)
             disallowed_ids = set(target_ids).difference(allowed_ids)
             for res_id in disallowed_ids:
                 for attach_id in targets[res_id]:
@@ -284,8 +298,8 @@ class ir_attachment(osv.osv):
         if isinstance(ids, (int, long)):
             ids = [ids]
         self.check(cr, uid, ids, 'unlink', context=context)
-        location = self.pool.get('ir.config_parameter').get_param(cr, uid, 'ir_attachment.location')
-        if location:
+        location = self._storage(cr, uid, context)
+        if location != 'db':
             for attach in self.browse(cr, uid, ids, context=context):
                 if attach.store_fname:
                     self._file_delete(cr, uid, location, attach.store_fname)
@@ -302,4 +316,3 @@ class ir_attachment(osv.osv):
             cr, uid, 'base', 'action_attachment', context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
-

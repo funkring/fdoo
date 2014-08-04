@@ -42,6 +42,8 @@ import openerp.tools as tools
 from openerp.loglevels import ustr
 
 _logger = logging.getLogger(__name__)
+_test_logger = logging.getLogger('openerp.tests')
+
 
 class MailDeliveryException(osv.except_osv):
     """Specific exception subclass for mail delivery errors"""
@@ -409,12 +411,13 @@ class ir_mail_server(osv.osv):
         email_to = message['To']
         email_cc = message['Cc']
         email_bcc = message['Bcc']
+        
         smtp_to_list = filter(None, tools.flatten(map(extract_rfc2822_addresses,[email_to, email_cc, email_bcc])))
         assert smtp_to_list, "At least one valid recipient address should be specified for outgoing emails (To/Cc/Bcc)"
 
         # Do not actually send emails in testing mode!
         if getattr(threading.currentThread(), 'testing', False):
-            _logger.log(logging.TEST, "skip sending email in test mode")
+            _test_logger.info("skip sending email in test mode")
             return message['Message-Id']
 
         # Get SMTP Server Details from Mail Server
@@ -473,7 +476,7 @@ class ir_mail_server(osv.osv):
                                                                              e.__class__.__name__,
                                                                              tools.ustr(e))
             _logger.exception(msg)
-            raise MailDeliveryException(_("Mail delivery failed"), msg)
+            raise MailDeliveryException(_("Mail Delivery Failed"), msg)
         return message_id
 
     def on_change_encryption(self, cr, uid, ids, smtp_encryption):

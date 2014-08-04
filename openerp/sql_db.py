@@ -3,7 +3,7 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2013 OpenERP s.a. (<http://openerp.com>).
+#    Copyright (C) 2010-2014 OpenERP s.a. (<http://openerp.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -20,24 +20,21 @@
 #
 ##############################################################################
 
-#.apidoc title: PostgreSQL interface
 
 """
 The PostgreSQL connector is a connectivity layer between the OpenERP code and
 the database, *not* a database abstraction toolkit. Database abstraction is what
 the ORM does, in fact.
-
-See also: the `pooler` module
 """
 
-#.apidoc add-functions: print_stats
-#.apidoc add-classes: Cursor Connection ConnectionPool
-
-__all__ = ['db_connect', 'close_db']
-
+from contextlib import contextmanager
 from functools import wraps
+import select
 import logging
+import time
+import uuid
 import psycopg2.extensions
+import simplejson
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT, ISOLATION_LEVEL_READ_COMMITTED, ISOLATION_LEVEL_REPEATABLE_READ
 from psycopg2.pool import PoolError
 from psycopg2.psycopg1 import cursor as psycopg1cursor
@@ -153,7 +150,7 @@ class Cursor(object):
     def check(f):
         @wraps(f)
         def wrapper(self, *args, **kwargs):
-            if self.__closed:
+            if self._closed:
                 msg = 'Unable to use a closed cursor.'
                 if self.__closer:
                     msg += ' It was closed at %s, line %s' % self.__closer
@@ -170,9 +167,9 @@ class Cursor(object):
         self.sql_log = _logger.isEnabledFor(logging.DEBUG)
 
         self.sql_log_count = 0
-        self.__closed = True    # avoid the call of close() (by __del__) if an exception
+        self._closed = True    # avoid the call of close() (by __del__) if an exception
                                 # is raised by any of the following initialisations
-        self.__pool = pool
+        self._pool = pool
         self.dbname = dbname
 
         # Whether to enable snapshot isolation level for this cursor.
@@ -185,16 +182,17 @@ class Cursor(object):
             self.__caller = frame_codeinfo(currentframe(),2)
         else:
             self.__caller = False
-        self.__closed = False   # real initialisation value
+        self._closed = False   # real initialisation value
         self.autocommit(False)
         self.__closer = False
 
         self._default_log_exceptions = True
 
         self.cache = {}
+        self.event_listener = {}
 
     def __del__(self):
-        if not self.__closed and not self._cnx.closed:
+        if not self._closed and not self._cnx.closed:
             # Oops. 'self' has not been closed explicitly.
             # The cursor will be deleted by the garbage collector,
             # but the database connection is not put back into the connection
@@ -294,6 +292,12 @@ class Cursor(object):
             return
 
         del self.cache
+        
+        # funkring.net - remove all listeners
+        if self.event_listener:
+            self.execute("UNLISTEN *")
+
+        del self.event_listener
 
         if self.sql_log:
             self.__closer = frame_codeinfo(currentframe(),3)
@@ -307,7 +311,7 @@ class Cursor(object):
         # collected as fast as they should). The problem is probably due in
         # part because browse records keep a reference to the cursor.
         del self._obj
-        self.__closed = True
+        self._closed = True
 
         # Clean the underlying connection.
         self._cnx.rollback()
@@ -318,7 +322,7 @@ class Cursor(object):
             chosen_template = tools.config['db_template']
             templates_list = tuple(set(['template0', 'template1', 'postgres', chosen_template]))
             keep_in_pool = self.dbname not in templates_list
-            self.__pool.give_back(self._cnx, keep_in_pool=keep_in_pool)
+            self._pool.give_back(self._cnx, keep_in_pool=keep_in_pool)
 
     @check
     def autocommit(self, on):
@@ -339,6 +343,48 @@ class Cursor(object):
                                   if self._serialized \
                                   else ISOLATION_LEVEL_READ_COMMITTED
         self._cnx.set_isolation_level(isolation_level)
+    
+    @check
+    def event_listen(self, event):
+        self.event_listener[event]=count=self.event_listener.get(event,0)+1
+        if count == 1:
+            self.execute("LISTEN " + event)
+        return True
+    
+    @check 
+    def event_unlisten(self, event):
+        count = self.event_listener.get(event,0)-1
+        if count == 0:
+            self.execute("UNLISTEN " + event)
+        if count >= 0:
+            self.event_listener[event]=count
+            return True
+        return False
+    
+    @check
+    def event_wait(self,timeout=30):
+        events = {}
+        if not (select.select([self._cnx],[],[],timeout) == ([],[],[])):
+            self._cnx.poll()
+            while self._cnx.notifies:
+                notify = self._cnx.notifies.pop()
+                # check payload
+                payload = notify.payload
+                if payload:
+                    try:
+                        payload=simplejson.loads(payload)
+                    except:
+                        payload=None
+                # set payload
+                events[notify.channel]=payload
+        return events
+        
+    @check
+    def event_notify(self, event, param=None):
+        if param:
+            self.execute("NOTIFY %s, '%s'" % (event, simplejson.dumps(param)))
+        else:
+            self.execute("NOTIFY " + event)
 
     @check
     def commit(self):
@@ -351,6 +397,19 @@ class Cursor(object):
         """ Perform an SQL `ROLLBACK`
         """
         return self._cnx.rollback()
+
+    @contextmanager
+    @check
+    def savepoint(self):
+        """context manager entering in a new savepoint"""
+        name = uuid.uuid1().hex
+        self.execute('SAVEPOINT "%s"' % name)
+        try:
+            yield
+            self.execute('RELEASE SAVEPOINT "%s"' % name)
+        except:
+            self.execute('ROLLBACK TO SAVEPOINT "%s"' % name)
+            raise
 
     @check
     def __getattr__(self, name):
@@ -462,10 +521,10 @@ class ConnectionPool(object):
             raise PoolError('This connection does not below to the pool')
 
     @locked
-    def close_all(self, dsn):
+    def close_all(self, dsn=None):
         _logger.info('%r: Close all connections to %r', self, dsn)
         for i, (cnx, used) in tools.reverse_enumerate(self._connections):
-            if dsn_are_equals(cnx.dsn, dsn):
+            if dsn is None or dsn_are_equals(cnx.dsn, dsn):
                 cnx.close()
                 self._connections.pop(i)
 
@@ -476,12 +535,12 @@ class Connection(object):
 
     def __init__(self, pool, dbname):
         self.dbname = dbname
-        self.__pool = pool
+        self._pool = pool
 
     def cursor(self, serialized=True):
         cursor_type = serialized and 'serialized ' or ''
         _logger.debug('create %scursor to %r', cursor_type, self.dbname)
-        return Cursor(self.__pool, self.dbname, serialized=serialized)
+        return Cursor(self._pool, self.dbname, serialized=serialized)
 
     # serialized_cursor is deprecated - cursors are serialized by default
     serialized_cursor = cursor
@@ -526,6 +585,11 @@ def close_db(db_name):
     global _Pool
     if _Pool:
         _Pool.close_all(dsn(db_name))
+
+def close_all():
+    global _Pool
+    if _Pool:
+        _Pool.close_all()
 
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

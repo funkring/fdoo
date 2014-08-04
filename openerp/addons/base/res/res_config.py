@@ -20,13 +20,14 @@
 ##############################################################################
 import logging
 from operator import attrgetter
+import re
 
 import openerp
 from openerp import SUPERUSER_ID
 from openerp.osv import osv, fields
 from openerp.tools import ustr
 from openerp.tools.translate import _
-from lxml import etree
+from openerp import exceptions
 
 _logger = logging.getLogger(__name__)
 
@@ -127,6 +128,7 @@ class res_config_configurable(osv.osv_memory):
         """
         raise NotImplementedError(
             'Configuration items need to implement execute')
+
     def cancel(self, cr, uid, ids, context=None):
         """ Method called when the user click on the ``Skip`` button.
 
@@ -179,8 +181,6 @@ class res_config_configurable(osv.osv_memory):
         next = self.cancel(cr, uid, ids, context=context)
         if next: return next
         return self.next(cr, uid, ids, context=context)
-
-res_config_configurable()
 
 class res_config_installer(osv.osv_memory, res_config_module_installation_mixin):
     """ New-style configuration base specialized for addons selection
@@ -298,7 +298,7 @@ class res_config_installer(osv.osv_memory, res_config_module_installation_mixin)
         :returns: a list of all installed modules in this installer
         :rtype: [browse_record]
         """
-        modules = self.pool.get('ir.module.module')
+        modules = self.pool['ir.module.module']
 
         selectable = [field for field in self._columns
                       if type(self._columns[field]) is fields.boolean]
@@ -309,7 +309,6 @@ class res_config_installer(osv.osv_memory, res_config_module_installation_mixin)
                             ('state','in',['to install', 'installed', 'to upgrade'])],
                            context=context),
             context=context)
-
 
     def modules_to_install(self, cr, uid, ids, context=None):
         """ selects all modules to install:
@@ -393,45 +392,6 @@ class res_config_installer(osv.osv_memory, res_config_module_installation_mixin)
 
         return self._install_modules(cr, uid, modules, context=context)
 
-res_config_installer()
-
-DEPRECATION_MESSAGE = 'You are using an addon using old-style configuration '\
-    'wizards (ir.actions.configuration.wizard). Old-style configuration '\
-    'wizards have been deprecated.\n'\
-    'The addon should be migrated to res.config objects.'
-class ir_actions_configuration_wizard(osv.osv_memory):
-    ''' Compatibility configuration wizard
-
-    The old configuration wizard has been replaced by res.config, but in order
-    not to break existing but not-yet-migrated addons, the old wizard was
-    reintegrated and gutted.
-    '''
-    _name='ir.actions.configuration.wizard'
-    _inherit = 'res.config'
-
-    def _next_action_note(self, cr, uid, ids, context=None):
-        next = self._next_action(cr, uid)
-        if next:
-            # if the next one is also an old-style extension, you never know...
-            if next.note:
-                return next.note
-            return _("Click 'Continue' to configure the next addon...")
-        return _("Your database is now fully configured.\n\n"\
-            "Click 'Continue' and enjoy your OpenERP experience...")
-
-    _columns = {
-        'note': fields.text('Next Wizard', readonly=True),
-        }
-    _defaults = {
-        'note': _next_action_note,
-        }
-
-    def execute(self, cr, uid, ids, context=None):
-        _logger.warning(DEPRECATION_MESSAGE)
-
-ir_actions_configuration_wizard()
-
-
 class res_config_settings(osv.osv_memory, res_config_module_installation_mixin):
     """ Base configuration wizard for application settings.  It provides support for setting
         default values, assigning groups to employee users, and installing modules.
@@ -455,6 +415,7 @@ class res_config_settings(osv.osv_memory, res_config_module_installation_mixin):
         *   For a boolean field like 'group_XXX', ``execute`` adds/removes 'implied_group'
             to/from the implied groups of 'group', depending on the field's value.
             By default 'group' is the group Employee.  Groups are given by their xml id.
+            The attribute 'group' may contain several xml ids, separated by commas.
 
         *   For a boolean field like 'module_XXX', ``execute`` triggers the immediate
             installation of the module named 'XXX' if the field has value ``True``.
@@ -473,65 +434,28 @@ class res_config_settings(osv.osv_memory, res_config_module_installation_mixin):
     def copy(self, cr, uid, id, values, context=None):
         raise osv.except_osv(_("Cannot duplicate configuration!"), "")
 
-    def fields_view_get(self, cr, user, view_id=None, view_type='form',
-                        context=None, toolbar=False, submenu=False):
-        ret_val = super(res_config_settings, self).fields_view_get(
-            cr, user, view_id=view_id, view_type=view_type, context=context,
-            toolbar=toolbar, submenu=submenu)
-
-        doc = etree.XML(ret_val['arch'])
-
-        for field in ret_val['fields']:
-            if not field.startswith("module_"):
-                continue
-            for node in doc.xpath("//field[@name='%s']" % field):
-                if 'on_change' not in node.attrib:
-                    node.set("on_change",
-                    "onchange_module(%s, '%s')" % (field, field))
-
-        ret_val['arch'] = etree.tostring(doc)
-        return ret_val
-
-    def onchange_module(self, cr, uid, ids, field_value, module_name, context={}):
-        module_pool = self.pool.get('ir.module.module')
-        module_ids = module_pool.search(
-            cr, uid, [('name', '=', module_name.replace("module_", '')),
-            ('state','in', ['to install', 'installed', 'to upgrade'])],
-            context=context)
-
-        if module_ids and not field_value:
-            dep_ids = module_pool.downstream_dependencies(cr, uid, module_ids, context=context)
-            dep_name = [x.shortdesc for x  in module_pool.browse(
-                cr, uid, dep_ids + module_ids, context=context)]
-            message = '\n'.join(dep_name)
-            return {'warning': {'title': _('Warning!'),
-                    'message':
-                    _('Disabling this option will also uninstall the following modules \n%s' % message)
-                   }}
-        return {}
-
     def _get_classified_fields(self, cr, uid, context=None):
         """ return a dictionary with the fields classified by category::
 
                 {   'default': [('default_foo', 'model', 'foo'), ...],
-                    'group':   [('group_bar', browse_group, browse_implied_group), ...],
+                    'group':   [('group_bar', [browse_group], browse_implied_group), ...],
                     'module':  [('module_baz', browse_module), ...],
                     'other':   ['other_field', ...],
                 }
         """
-        ir_model_data = self.pool.get('ir.model.data')
-        ir_module = self.pool.get('ir.module.module')
+        ir_model_data = self.pool['ir.model.data']
+        ir_module = self.pool['ir.module.module']
         def ref(xml_id):
             mod, xml = xml_id.split('.', 1)
-            return ir_model_data.get_object(cr, uid, mod, xml, context)
+            return ir_model_data.get_object(cr, uid, mod, xml, context=context)
 
         defaults, groups, modules, others = [], [], [], []
         for name, field in self._columns.items():
             if name.startswith('default_') and hasattr(field, 'default_model'):
                 defaults.append((name, field.default_model, name[8:]))
             elif name.startswith('group_') and isinstance(field, fields.boolean) and hasattr(field, 'implied_group'):
-                field_group = getattr(field, 'group', 'base.group_user')
-                groups.append((name, ref(field_group), ref(field.implied_group)))
+                field_groups = getattr(field, 'group', 'base.group_user').split(',')
+                groups.append((name, map(ref, field_groups), ref(field.implied_group)))
             elif name.startswith('module_') and isinstance(field, fields.boolean):
                 mod_ids = ir_module.search(cr, uid, [('name', '=', name[7:])])
                 record = ir_module.browse(cr, uid, mod_ids[0], context) if mod_ids else None
@@ -542,7 +466,7 @@ class res_config_settings(osv.osv_memory, res_config_module_installation_mixin):
         return {'default': defaults, 'group': groups, 'module': modules, 'other': others}
 
     def default_get(self, cr, uid, fields, context=None):
-        ir_values = self.pool.get('ir.values')
+        ir_values = self.pool['ir.values']
         classified = self._get_classified_fields(cr, uid, context)
 
         res = super(res_config_settings, self).default_get(cr, uid, fields, context)
@@ -554,8 +478,8 @@ class res_config_settings(osv.osv_memory, res_config_module_installation_mixin):
                 res[name] = value
 
         # groups: which groups are implied by the group Employee
-        for name, group, implied_group in classified['group']:
-            res[name] = implied_group in group.implied_ids
+        for name, groups, implied_group in classified['group']:
+            res[name] = all(implied_group in group.implied_ids for group in groups)
 
         # modules: which modules are installed/to install
         for name, module in classified['module']:
@@ -569,12 +493,18 @@ class res_config_settings(osv.osv_memory, res_config_module_installation_mixin):
         return res
 
     def execute(self, cr, uid, ids, context=None):
+        if context is None:
+            context = {}
+
+        context = dict(context, active_test=False)
         if uid != SUPERUSER_ID and not self.pool['res.users'].has_group(cr, uid, 'base.group_erp_manager'):
             raise openerp.exceptions.AccessError(_("Only administrators can change the settings"))
 
-        ir_values = self.pool.get('ir.values')
-        ir_module = self.pool.get('ir.module.module')
-        classified = self._get_classified_fields(cr, uid, context)
+        ir_values = self.pool['ir.values']
+        ir_module = self.pool['ir.module.module']
+        res_groups = self.pool['res.groups']
+
+        classified = self._get_classified_fields(cr, uid, context=context)
 
         config = self.browse(cr, uid, ids[0], context)
 
@@ -583,12 +513,16 @@ class res_config_settings(osv.osv_memory, res_config_module_installation_mixin):
             ir_values.set_default(cr, SUPERUSER_ID, model, field, config[name])
 
         # group fields: modify group / implied groups
-        for name, group, implied_group in classified['group']:
+        for name, groups, implied_group in classified['group']:
+            gids = map(int, groups)
             if config[name]:
-                group.write({'implied_ids': [(4, implied_group.id)]})
+                res_groups.write(cr, uid, gids, {'implied_ids': [(4, implied_group.id)]}, context=context)
             else:
-                group.write({'implied_ids': [(3, implied_group.id)]})
-                implied_group.write({'users': [(3, u.id) for u in group.users]})
+                res_groups.write(cr, uid, gids, {'implied_ids': [(3, implied_group.id)]}, context=context)
+                uids = set()
+                for group in groups:
+                    uids.update(map(int, group.users))
+                implied_group.write({'users': [(3, u) for u in uids]})
 
         # other fields: execute all methods that start with 'set_'
         for method in dir(self):
@@ -628,7 +562,7 @@ class res_config_settings(osv.osv_memory, res_config_module_installation_mixin):
 
     def cancel(self, cr, uid, ids, context=None):
         # ignore the current record, and send the action to reopen the view
-        act_window = self.pool.get('ir.actions.act_window')
+        act_window = self.pool['ir.actions.act_window']
         action_ids = act_window.search(cr, uid, [('res_model', '=', self._name)])
         if action_ids:
             return act_window.read(cr, uid, action_ids[0], [], context=context)
@@ -644,11 +578,91 @@ class res_config_settings(osv.osv_memory, res_config_module_installation_mixin):
         if isinstance(ids, (int, long)):
             ids = [ids]
 
-        act_window = self.pool.get('ir.actions.act_window')
+        act_window = self.pool['ir.actions.act_window']
         action_ids = act_window.search(cr, uid, [('res_model', '=', self._name)], context=context)
         name = self._name
         if action_ids:
             name = act_window.read(cr, uid, action_ids[0], ['name'], context=context)['name']
         return [(record.id, name) for record in self.browse(cr, uid , ids, context=context)]
+
+    def get_option_path(self, cr, uid, menu_xml_id, context=None):
+        """
+        Fetch the path to a specified configuration view and the action id to access it.
+
+        :param string menu_xml_id: the xml id of the menuitem where the view is located,
+            structured as follows: module_name.menuitem_xml_id (e.g.: "base.menu_sale_config")
+        :return tuple:
+            - t[0]: string: full path to the menuitem (e.g.: "Settings/Configuration/Sales")
+            - t[1]: int or long: id of the menuitem's action
+        """
+        module_name, menu_xml_id = menu_xml_id.split('.')
+        dummy, menu_id = self.pool['ir.model.data'].get_object_reference(cr, uid, module_name, menu_xml_id)
+        ir_ui_menu = self.pool['ir.ui.menu'].browse(cr, uid, menu_id, context=context)
+
+        return (ir_ui_menu.complete_name, ir_ui_menu.action.id)
+
+    def get_option_name(self, cr, uid, full_field_name, context=None):
+        """
+        Fetch the human readable name of a specified configuration option.
+
+        :param string full_field_name: the full name of the field, structured as follows:
+            model_name.field_name (e.g.: "sale.config.settings.fetchmail_lead")
+        :return string: human readable name of the field (e.g.: "Create leads from incoming mails")
+        """
+        model_name, field_name = full_field_name.rsplit('.', 1)
+
+        return self.pool[model_name].fields_get(cr, uid, allfields=[field_name], context=context)[field_name]['string']
+
+    def get_config_warning(self, cr, msg, context=None):
+        """
+        Helper: return a Warning exception with the given message where the %(field:xxx)s
+        and/or %(menu:yyy)s are replaced by the human readable field's name and/or menuitem's
+        full path.
+
+        Usage:
+        ------
+        Just include in your error message %(field:model_name.field_name)s to obtain the human
+        readable field's name, and/or %(menu:module_name.menuitem_xml_id)s to obtain the menuitem's
+        full path.
+
+        Example of use:
+        ---------------
+        from openerp.addons.base.res.res_config import get_warning_config
+        raise get_warning_config(cr, _("Error: this action is prohibited. You should check the field %(field:sale.config.settings.fetchmail_lead)s in %(menu:base.menu_sale_config)s."), context=context)
+
+        This will return an exception containing the following message:
+            Error: this action is prohibited. You should check the field Create leads from incoming mails in Settings/Configuration/Sales.
+
+        What if there is another substitution in the message already?
+        -------------------------------------------------------------
+        You could have a situation where the error message you want to upgrade already contains a substitution. Example:
+            Cannot find any account journal of %s type for this company.\n\nYou can create one in the menu: \nConfiguration\Journals\Journals.
+        What you want to do here is simply to replace the path by %menu:account.menu_account_config)s, and leave the rest alone.
+        In order to do that, you can use the double percent (%%) to escape your new substitution, like so:
+            Cannot find any account journal of %s type for this company.\n\nYou can create one in the %%(menu:account.menu_account_config)s.
+        """
+
+        res_config_obj = openerp.registry(cr.dbname)['res.config.settings']
+        regex_path = r'%\(((?:menu|field):[a-z_\.]*)\)s'
+
+        # Process the message
+        # 1/ find the menu and/or field references, put them in a list
+        references = re.findall(regex_path, msg, flags=re.I)
+
+        # 2/ fetch the menu and/or field replacement values (full path and
+        #    human readable field's name) and the action_id if any
+        values = {}
+        action_id = None
+        for item in references:
+            ref_type, ref = item.split(':')
+            if ref_type == 'menu':
+                values[item], action_id = res_config_obj.get_option_path(cr, SUPERUSER_ID, ref, context=context)
+            elif ref_type == 'field':
+                values[item] = res_config_obj.get_option_name(cr, SUPERUSER_ID, ref, context=context)
+
+        # 3/ substitute and return the result
+        if (action_id):
+            return exceptions.RedirectWarning(msg % values, action_id, _('Go to the configuration panel'))
+        return exceptions.Warning(msg % values)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

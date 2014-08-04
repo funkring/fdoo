@@ -9,9 +9,10 @@ import os
 
 from mako.template import Template
 from openerp.modules import module
+from openerp import http
+from openerp.http import request
 
 from .main import module_topological_sort
-from .. import http
 
 NOMODULE_TEMPLATE = Template(u"""<!DOCTYPE html>
 <html>
@@ -51,7 +52,6 @@ TESTING = Template(u"""<!DOCTYPE html>
     <script src="/web/static/lib/qunit/qunit.js"></script>
 
     <script type="text/javascript">
-        var oe_db_info = ${db_info | n};
         // List of modules, each module is preceded by its dependencies
         var oe_all_dependencies = ${dependencies | n};
         QUnit.config.testTimeout = 5 * 60 * 1000;
@@ -86,10 +86,9 @@ TESTING = Template(u"""<!DOCTYPE html>
 """, default_filters=['h'])
 
 class TestRunnerController(http.Controller):
-    _cp_path = '/web/tests'
 
-    @http.httprequest
-    def index(self, req, mod=None, **kwargs):
+    @http.route('/web/tests', type='http', auth="none")
+    def index(self, mod=None, **kwargs):
         ms = module.get_modules()
         manifests = dict(
             (name, desc)
@@ -114,7 +113,7 @@ class TestRunnerController(http.Controller):
         to_test = sorted_mods
         if mod != '*':
             if mod not in manifests:
-                return req.not_found(NOTFOUND.render(module=mod))
+                return request.not_found(NOTFOUND.render(module=mod))
             idx = sorted_mods.index(mod)
             to_test = [None] * len(sorted_mods)
             to_test[idx] = mod
@@ -134,16 +133,10 @@ class TestRunnerController(http.Controller):
             for mod, tests in itertools.izip(sorted_mods, tests)
         ]
 
-        # if all three db_info parameters are present, send them to the page
-        db_info = dict((k, v) for k, v in kwargs.iteritems()
-                       if k in ['source', 'supadmin', 'password'])
-        if len(db_info) != 3:
-            db_info = None
-
         return TESTING.render(files=files, dependencies=json.dumps(
             [name for name in sorted_mods
              if module.get_module_resource(name, 'static')
-             if manifests[name]['js']]), db_info=json.dumps(db_info))
+             if manifests[name]['js']]))
 
     def load_manifest(self, name):
         manifest = module.load_information_from_description_file(name)
@@ -163,3 +156,4 @@ class TestRunnerController(http.Controller):
             for path in glob.glob(normalized_pattern):
                 # replace OS path separators (from join & normpath) by URI ones
                 yield path[len(root):].replace(os.path.sep, '/')
+

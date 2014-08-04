@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
-#    Copyright (C) 2004-2012 OpenERP s.a. (<http://www.openerp.com>).
+#    Copyright (C) 2004-2014 OpenERP s.a. (<http://www.openerp.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -31,9 +31,19 @@ condition/math builtins.
 #  - safe_eval in lp:~xrg/openobject-server/optimize-5.0
 #  - safe_eval in tryton http://hg.tryton.org/hgwebdir.cgi/trytond/rev/bbb5f73319ad
 
+#funkring.net begin // added now
+from dateutil.relativedelta import relativedelta
+from datetime import datetime
+from datetime import date
+#funkring.net end
+
 from opcode import HAVE_ARGUMENT, opmap, opname
 from types import CodeType
 import logging
+
+from .misc import ustr
+
+import openerp
 
 __all__ = ['test_expr', 'safe_eval', 'const_eval']
 
@@ -63,12 +73,11 @@ _SAFE_OPCODES = _EXPR_OPCODES.union(set(opmap[x] for x in [
     'LOAD_NAME', 'CALL_FUNCTION', 'COMPARE_OP', 'LOAD_ATTR',
     'STORE_NAME', 'GET_ITER', 'FOR_ITER', 'LIST_APPEND', 'DELETE_NAME',
     'JUMP_FORWARD', 'JUMP_IF_TRUE', 'JUMP_IF_FALSE', 'JUMP_ABSOLUTE',
-    'MAKE_FUNCTION', 'SLICE+0', 'SLICE+1', 'SLICE+2', 'SLICE+3',
+    'MAKE_FUNCTION', 'SLICE+0', 'SLICE+1', 'SLICE+2', 'SLICE+3', 'BREAK_LOOP',
+    'CONTINUE_LOOP', 'RAISE_VARARGS',
     # New in Python 2.7 - http://bugs.python.org/issue4715 :
     'JUMP_IF_FALSE_OR_POP', 'JUMP_IF_TRUE_OR_POP', 'POP_JUMP_IF_FALSE',
-    'POP_JUMP_IF_TRUE', 'SETUP_EXCEPT', 'END_FINALLY',
-    'LOAD_FAST', 'STORE_FAST', 'DELETE_FAST', 'UNPACK_SEQUENCE',
-    'LOAD_GLOBAL', # Only allows access to restricted globals
+    'POP_JUMP_IF_TRUE', 'SETUP_EXCEPT', 'END_FINALLY'
     ] if x in opmap))
 
 _logger = logging.getLogger(__name__)
@@ -83,65 +92,16 @@ def _get_opcodes(codeobj):
     [100, 100, 23, 100, 100, 102, 103, 83]
     """
     i = 0
+    opcodes = []
     byte_codes = codeobj.co_code
     while i < len(byte_codes):
         code = ord(byte_codes[i])
-        yield code
-
+        opcodes.append(code)
         if code >= HAVE_ARGUMENT:
             i += 3
         else:
             i += 1
-
-def assert_no_dunder_name(code_obj, expr):
-    """ assert_no_dunder_name(code_obj, expr) -> None
-
-    Asserts that the code object does not refer to any "dunder name"
-    (__$name__), so that safe_eval prevents access to any internal-ish Python
-    attribute or method (both are loaded via LOAD_ATTR which uses a name, not a
-    const or a var).
-
-    Checks that no such name exists in the provided code object (co_names).
-
-    :param code_obj: code object to name-validate
-    :type code_obj: CodeType
-    :param str expr: expression corresponding to the code object, for debugging
-                     purposes
-    :raises NameError: in case a forbidden name (containing two underscores)
-                       is found in ``code_obj``
-
-    .. note:: actually forbids every name containing 2 underscores
-    """
-    for name in code_obj.co_names:
-        if "__" in name:
-            raise NameError('Access to forbidden name %r (%r)' % (name, expr))
-
-def assert_valid_codeobj(allowed_codes, code_obj, expr):
-    """ Asserts that the provided code object validates against the bytecode
-    and name constraints.
-
-    Recursively validates the code objects stored in its co_consts in case
-    lambdas are being created/used (lambdas generate their own separated code
-    objects and don't live in the root one)
-
-    :param allowed_codes: list of permissible bytecode instructions
-    :type allowed_codes: set(int)
-    :param code_obj: code object to name-validate
-    :type code_obj: CodeType
-    :param str expr: expression corresponding to the code object, for debugging
-                     purposes
-    :raises ValueError: in case of forbidden bytecode in ``code_obj``
-    :raises NameError: in case a forbidden name (containing two underscores)
-                       is found in ``code_obj``
-    """
-    assert_no_dunder_name(code_obj, expr)
-    for opcode in _get_opcodes(code_obj):
-        if opcode not in allowed_codes:
-            raise ValueError(
-                "opcode %s not allowed (%r)" % (opname[opcode], expr))
-    for const in code_obj.co_consts:
-        if isinstance(const, CodeType):
-            assert_valid_codeobj(allowed_codes, const, 'lambda')
+    return opcodes
 
 def test_expr(expr, allowed_codes, mode="eval"):
     """test_expr(expression, allowed_codes[, mode]) -> code_object
@@ -156,14 +116,15 @@ def test_expr(expr, allowed_codes, mode="eval"):
             # eval() does not like leading/trailing whitespace
             expr = expr.strip()
         code_obj = compile(expr, "", mode)
-    except (SyntaxError, TypeError, ValueError):
-        _logger.debug('Invalid eval expression', exc_info=True)
+    except (SyntaxError, TypeError):
         raise
-    except Exception:
-        _logger.debug('Disallowed or invalid eval expression', exc_info=True)
-        raise ValueError("%s is not a valid expression" % expr)
-
-    assert_valid_codeobj(allowed_codes, code_obj, expr)
+    except Exception, e:
+        import sys
+        exc_info = sys.exc_info()
+        raise ValueError, '"%s" while compiling\n%r' % (ustr(e), expr), exc_info[2]
+    for code in _get_opcodes(code_obj):
+        if code not in allowed_codes:
+            raise ValueError("opcode %s not allowed (%r)" % (opname[code], expr))
     return code_obj
 
 
@@ -220,7 +181,14 @@ def _import(name, globals=None, locals=None, fromlist=None, level=-1):
         return __import__(name, globals, locals, level)
     raise ImportError(name)
 
-def safe_eval(expr, globals_dict=None, locals_dict=None, mode="eval", nocopy=False):
+def _now(days=None,months=None):
+    if months:
+        return (date.today()+relativedelta(months=months)).strftime('%Y-%m-%d')
+    if days:
+        return (date.today()+relativedelta(days=days)).strftime('%Y-%m-%d')
+    return date.today().strftime('%Y-%m-%d')
+
+def safe_eval(expr, globals_dict=None, locals_dict=None, mode="eval", nocopy=False, locals_builtins=False):
     """safe_eval(expression[, globals[, locals[, mode[, nocopy]]]]) -> result
 
     System-restricted Python expression evaluation
@@ -232,13 +200,19 @@ def safe_eval(expr, globals_dict=None, locals_dict=None, mode="eval", nocopy=Fal
     This can be used to e.g. evaluate
     an OpenERP domain expression from an untrusted source.
 
-    :throws TypeError: If the expression provided is a code object
-    :throws SyntaxError: If the expression provided is not valid Python
-    :throws NameError: If the expression provided accesses forbidden names
-    :throws ValueError: If the expression provided uses forbidden bytecode
+    Throws TypeError, SyntaxError or ValueError (not allowed) accordingly.
+
+    >>> safe_eval("__import__('sys').modules")
+    Traceback (most recent call last):
+    ...
+    ValueError: opcode LOAD_NAME not allowed
+
     """
     if isinstance(expr, CodeType):
-        raise TypeError("safe_eval does not allow direct evaluation of code objects.")
+        raise ValueError("safe_eval does not allow direct evaluation of code objects.")
+
+    if '__subclasses__' in expr:
+        raise ValueError('expression not allowed (__subclasses__)')
 
     if globals_dict is None:
         globals_dict = {}
@@ -258,34 +232,67 @@ def safe_eval(expr, globals_dict=None, locals_dict=None, mode="eval", nocopy=Fal
             locals_dict = dict(locals_dict)
 
     globals_dict.update(
-            __builtins__ = {
-                '__import__': _import,
-                'True': True,
-                'False': False,
-                'None': None,
-                'str': str,
-                'globals': locals,
-                'locals': locals,
-                'bool': bool,
-                'dict': dict,
-                'list': list,
-                'tuple': tuple,
-                'map': map,
-                'abs': abs,
-                'min': min,
-                'max': max,
-                'reduce': reduce,
-                'filter': filter,
-                'round': round,
-                'len': len,
-                'set' : set,
-                'Exception': Exception,
-            }
+        __builtins__={
+            '__import__': _import,
+            'True': True,
+            'False': False,
+            'None': None,
+            'str': str,
+            'unicode': unicode,
+            'globals': locals,
+            'locals': locals,
+            'bool': bool,
+            'int': int,
+            'float': float,
+            'long': long,
+            'enumerate': enumerate,
+            'dict': dict,
+            'list': list,
+            'tuple': tuple,
+            'map': map,
+            'abs': abs,
+            'min': min,
+            'max': max,
+            'sum': sum,
+            'reduce': reduce,
+            'filter': filter,
+            'round': round,
+            'len': len,
+            'repr': repr,
+            'set': set,
+            'now' : _now,
+            'all': all,
+            'any': any,
+            'ord': ord,
+            'chr': chr,
+            'cmp': cmp,
+            'divmod': divmod,
+            'isinstance': isinstance,
+            'range': range,
+            'xrange': xrange,
+            'zip': zip,
+        }
     )
+    if locals_builtins:
+        if locals_dict is None:
+            locals_dict = {}
+        locals_dict.update(globals_dict.get('__builtins__'))
+    c = test_expr(expr, _SAFE_OPCODES, mode=mode)
     try:
-        return eval(test_expr(expr, _SAFE_OPCODES, mode=mode), globals_dict, locals_dict)
-    except Exception:
-        _logger.exception('Cannot eval %r', expr)
+        return eval(c, globals_dict, locals_dict)
+    except openerp.osv.orm.except_orm:
         raise
+    except openerp.exceptions.Warning:
+        raise
+    except openerp.exceptions.RedirectWarning:
+        raise
+    except openerp.exceptions.AccessDenied:
+        raise
+    except openerp.exceptions.AccessError:
+        raise
+    except Exception, e:
+        import sys
+        exc_info = sys.exc_info()
+        raise ValueError, '"%s" while evaluating\n%r' % (ustr(e), expr), exc_info[2]
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

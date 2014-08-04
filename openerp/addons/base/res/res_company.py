@@ -20,14 +20,14 @@
 ##############################################################################
 
 import os
-
+import re
 import openerp
 from openerp import SUPERUSER_ID, tools
 from openerp.osv import fields, osv
 from openerp.tools.translate import _
 from openerp.tools.safe_eval import safe_eval as eval
 from openerp.tools import image_resize_image
-
+  
 class multi_company_default(osv.osv):
     """
     Manage multi company default value
@@ -74,7 +74,7 @@ class res_company(osv.osv):
     _name = "res.company"
     _description = 'Companies'
     _order = 'name'
-
+    
     def _get_address_data(self, cr, uid, ids, field_names, arg, context=None):
         """ Read the 'address' functional fields. """
         result = {}
@@ -108,7 +108,7 @@ class res_company(osv.osv):
             size = (180, None)
             result[record.id] = image_resize_image(record.partner_id.image, size)
         return result
-
+        
     def _get_companies_from_partner(self, cr, uid, ids, context=None):
         return self.pool['res.company'].search(cr, uid, [('partner_id', 'in', ids)], context=context)
 
@@ -124,6 +124,8 @@ class res_company(osv.osv):
         'rml_footer': fields.text('Report Footer', help="Footer text displayed at the bottom of all reports."),
         'rml_footer_readonly': fields.related('rml_footer', type='text', string='Report Footer', readonly=True),
         'custom_footer': fields.boolean('Custom Footer', help="Check this to define the report footer manually.  Otherwise it will be filled in automatically."),
+        'font': fields.many2one('res.font', string="Font", domain=[('mode', 'in', ('Normal', 'Regular', 'all', 'Book'))],
+            help="Set the font into the report header, it will be used as default font in the RML reports of the user company"),
         'logo': fields.related('partner_id', 'image', string="Logo", type="binary"),
         'logo_web': fields.function(_get_logo_web, string="Logo Web", type="binary", store={
             'res.company': (lambda s, c, u, i, x: i, ['partner_id'], 10),
@@ -137,16 +139,16 @@ class res_company(osv.osv):
         'street2': fields.function(_get_address_data, fnct_inv=_set_address_data, size=128, type='char', string="Street2", multi='address'),
         'zip': fields.function(_get_address_data, fnct_inv=_set_address_data, size=24, type='char', string="Zip", multi='address'),
         'city': fields.function(_get_address_data, fnct_inv=_set_address_data, size=24, type='char', string="City", multi='address'),
-        'state_id': fields.function(_get_address_data, fnct_inv=_set_address_data, type='many2one', domain="[('country_id', '=', country_id)]", relation='res.country.state', string="Fed. State", multi='address'),
+        'state_id': fields.function(_get_address_data, fnct_inv=_set_address_data, type='many2one', relation='res.country.state', string="Fed. State", multi='address'),
         'bank_ids': fields.one2many('res.partner.bank','company_id', 'Bank Accounts', help='Bank accounts related to this company'),
         'country_id': fields.function(_get_address_data, fnct_inv=_set_address_data, type='many2one', relation='res.country', string="Country", multi='address'),
-        'email': fields.function(_get_address_data, fnct_inv=_set_address_data, size=64, type='char', string="Email", multi='address'),
-        'phone': fields.function(_get_address_data, fnct_inv=_set_address_data, size=64, type='char', string="Phone", multi='address'),
+        'email': fields.related('partner_id', 'email', size=64, type='char', string="Email", store=True),
+        'phone': fields.related('partner_id', 'phone', size=64, type='char', string="Phone", store=True),
         'fax': fields.function(_get_address_data, fnct_inv=_set_address_data, size=64, type='char', string="Fax", multi='address'),
         'website': fields.related('partner_id', 'website', string="Website", type="char", size=64),
         'vat': fields.related('partner_id', 'vat', string="Tax ID", type="char", size=32),
         'company_registry': fields.char('Company Registry', size=64),
-        'paper_format': fields.selection([('a4', 'A4'), ('us_letter', 'US Letter')], "Paper Format", required=True),
+        'rml_paper_format': fields.selection([('a4', 'A4'), ('us_letter', 'US Letter')], "Paper Format", required=True, oldname='paper_format'),
     }
     _sql_constraints = [
         ('name_uniq', 'unique (name)', 'The company name must be unique !')
@@ -174,27 +176,51 @@ class res_company(osv.osv):
             res += '\n%s: %s' % (title, ', '.join(name for id, name in account_names))
 
         return {'value': {'rml_footer': res, 'rml_footer_readonly': res}}
+    def onchange_state(self, cr, uid, ids, state_id, context=None):
+        if state_id:
+            return {'value':{'country_id': self.pool.get('res.country.state').browse(cr, uid, state_id, context).country_id.id }}
+        return {}
+        
+    def onchange_font_name(self, cr, uid, ids, font, rml_header, rml_header2, rml_header3, context=None):
+        """ To change default header style of all <para> and drawstring. """
+
+        def _change_header(header,font):
+            """ Replace default fontname use in header and setfont tag """
+            
+            default_para = re.sub('fontName.?=.?".*"', 'fontName="%s"'% font, header)
+            return re.sub('(<setFont.?name.?=.?)(".*?")(.)', '\g<1>"%s"\g<3>'% font, default_para)
+        
+        if not font:
+            return True
+        fontname = self.pool.get('res.font').browse(cr, uid, font, context=context).name
+        return {'value':{
+                        'rml_header': _change_header(rml_header, fontname),
+                        'rml_header2':_change_header(rml_header2, fontname),
+                        'rml_header3':_change_header(rml_header3, fontname)
+                        }}
 
     def on_change_country(self, cr, uid, ids, country_id, context=None):
+        res = {'domain': {'state_id': []}}
         currency_id = self._get_euro(cr, uid, context=context)
         if country_id:
             currency_id = self.pool.get('res.country').browse(cr, uid, country_id, context=context).currency_id.id
-        return {'value': {'currency_id': currency_id}}
+            res['domain'] = {'state_id': [('country_id','=',country_id)]}
+        res['value'] = {'currency_id': currency_id}
+        return res
 
-    def _search(self, cr, uid, args, offset=0, limit=None, order=None,
-            context=None, count=False, access_rights_uid=None):
+    def name_search(self, cr, uid, name='', args=None, operator='ilike', context=None, limit=100):
         if context is None:
             context = {}
-        if context.get('user_preference'):
+        if context.pop('user_preference', None):
             # We browse as superuser. Otherwise, the user would be able to
             # select only the currently visible companies (according to rules,
             # which are probably to allow to see the child companies) even if
             # she belongs to some other companies.
             user = self.pool.get('res.users').browse(cr, SUPERUSER_ID, uid, context=context)
             cmp_ids = list(set([user.company_id.id] + [cmp.id for cmp in user.company_ids]))
-            return cmp_ids
-        return super(res_company, self)._search(cr, uid, args, offset=offset, limit=limit, order=order,
-            context=context, count=count, access_rights_uid=access_rights_uid)
+            uid = SUPERUSER_ID
+            args = (args or []) + [('id', 'in', cmp_ids)]
+        return super(res_company, self).name_search(cr, uid, name=name, args=args, operator=operator, context=context, limit=limit)
 
     def _company_default_get(self, cr, uid, object=False, field=False, context=None):
         """
@@ -268,26 +294,31 @@ class res_company(osv.osv):
     def _get_logo(self, cr, uid, ids):
         return open(os.path.join( tools.config['root_path'], 'addons', 'base', 'res', 'res_company_logo.png'), 'rb') .read().encode('base64')
 
+    def _get_font(self, cr, uid, ids):
+        font_obj = self.pool.get('res.font')
+        res = font_obj.search(cr, uid, [('family', '=', 'Helvetica'), ('mode', '=', 'all')], limit=1)
+        return res and res[0] or False       
+
     _header = """
 <header>
 <pageTemplate>
     <frame id="first" x1="28.0" y1="28.0" width="%s" height="%s"/>
     <stylesheet>
        <!-- Set here the default font to use for all <para> tags -->
-       <paraStyle name='Normal' fontName="DejaVu Sans"/>
+       <paraStyle name='Normal' fontName="DejaVuSans"/>
     </stylesheet>
     <pageGraphics>
         <fill color="black"/>
         <stroke color="black"/>
-        <setFont name="DejaVu Sans" size="8"/>
+        <setFont name="DejaVuSans" size="8"/>
         <drawString x="%s" y="%s"> [[ formatLang(time.strftime("%%Y-%%m-%%d"), date=True) ]]  [[ time.strftime("%%H:%%M") ]]</drawString>
-        <setFont name="DejaVu Sans Bold" size="10"/>
+        <setFont name="DejaVuSans-Bold" size="10"/>
         <drawCentredString x="%s" y="%s">[[ company.partner_id.name ]]</drawCentredString>
         <stroke color="#000000"/>
         <lines>%s</lines>
         <!-- Set here the default font to use for all <drawString> tags -->
         <!-- don't forget to change the 2 other occurence of <setFont> above if needed --> 
-        <setFont name="DejaVu Sans" size="8"/>
+        <setFont name="DejaVuSans" size="8"/>
     </pageGraphics>
 </pageTemplate>
 </header>"""
@@ -312,13 +343,13 @@ class res_company(osv.osv):
         <frame id="first" x1="1.3cm" y1="3.0cm" height="%s" width="19.0cm"/>
          <stylesheet>
             <!-- Set here the default font to use for all <para> tags -->
-            <paraStyle name='Normal' fontName="DejaVu Sans"/>
+            <paraStyle name='Normal' fontName="DejaVuSans"/>
             <paraStyle name="main_footer" fontSize="8.0" alignment="CENTER"/>
             <paraStyle name="main_header" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
          </stylesheet>
         <pageGraphics>
             <!-- Set here the default font to use for all <drawString> tags -->
-            <setFont name="DejaVu Sans" size="8"/>
+            <setFont name="DejaVuSans" size="8"/>
             <!-- You Logo - Change X,Y,Width and Height -->
             <image x="1.3cm" y="%s" height="40.0" >[[ company.logo or removeParentNode('image') ]]</image>
             <fill color="black"/>
@@ -357,23 +388,26 @@ class res_company(osv.osv):
     _header_a4 = _header_main % ('21.7cm', '27.7cm', '27.7cm', '27.7cm', '27.8cm', '27.3cm', '25.3cm', '25.0cm', '25.0cm', '24.6cm', '24.6cm', '24.5cm', '24.5cm')
     _header_letter = _header_main % ('20cm', '26.0cm', '26.0cm', '26.0cm', '26.1cm', '25.6cm', '23.6cm', '23.3cm', '23.3cm', '22.9cm', '22.9cm', '22.8cm', '22.8cm')
 
-    def onchange_paper_format(self, cr, uid, ids, paper_format, context=None):
-        if paper_format == 'us_letter':
+    def onchange_rml_paper_format(self, cr, uid, ids, rml_paper_format, context=None):
+        if rml_paper_format == 'us_letter':
             return {'value': {'rml_header': self._header_letter}}
         return {'value': {'rml_header': self._header_a4}}
 
+    def act_discover_fonts(self, cr, uid, ids, context=None):
+        return self.pool.get("res.font").font_scan(cr, uid, context=context)
+
     _defaults = {
         'currency_id': _get_euro,
-        'paper_format': 'a4',
+        'rml_paper_format': 'a4',
         'rml_header':_get_header,
         'rml_header2': _header2,
         'rml_header3': _header3,
-        'logo':_get_logo
+        'logo':_get_logo,
+        'font':_get_font,
     }
 
     _constraints = [
         (osv.osv._check_recursion, 'Error! You can not create recursive companies.', ['parent_id'])
     ]
-
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

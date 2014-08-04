@@ -24,7 +24,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 ###############################################################################
 
-#.apidoc title: HTTP Layer library (websrv_lib)
 
 """ Framework for generic http servers
 

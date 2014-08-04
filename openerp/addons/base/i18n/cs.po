@@ -1,23 +1,21 @@
-# Czech translation for openobject-server
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
-# This file is distributed under the same license as the openobject-server package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# * base
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: openobject-server\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-07 19:35+0000\n"
-"PO-Revision-Date: 2014-03-07 20:45+0000\n"
-"Last-Translator: Marek Stopka <marek.stopka@perlur.cz>\n"
-"Language-Team: Czech <cs@li.org>\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-12-21 17:04+0000\n"
+"PO-Revision-Date: 2014-01-05 20:16+0000\n"
+"Last-Translator: Maros Tarbajovsky <openerp.cz@gmail.com>\n"
+"Language-Team: openerp-i18n-czech <openerp-i18n-czech@lists.launchpad.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-04-30 06:46+0000\n"
-"X-Generator: Launchpad (build 16985)\n"
-"X-Language: cs_CZ\n"
-"X-Source-Language: en\n"
+"X-Launchpad-Export-Date: 2014-03-28 05:28+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
+"X-Poedit-Language: Czech\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_account_check_writing
@@ -31,11 +29,6 @@ msgstr ""
 "Modul pro vypisování a tisk šeků.\n"
 "================================================\n"
 "    "
-
-#. module: base
-#: view:res.partner.bank:0
-msgid "e.g. GEBABEBB"
-msgstr "např. KOMBCZPP"
 
 #. module: base
 #: model:res.country,name:base.sh
@@ -298,43 +291,6 @@ msgid "Inuktitut / ᐃᓄᒃᑎᑐᑦ"
 msgstr "Inuktitut / ᐃᓄᒃᑎᑐᑦ"
 
 #. module: base
-#: model:ir.module.module,description:base.module_l10n_ch
-msgid ""
-"\n"
-" Swiss localization :\n"
-" ====================\n"
-" **Multilang swiss STERCHI account chart and taxes**\n"
-"  **Author:** Camptocamp SA\n"
-"\n"
-"  **Financial contributors:** Prisme Solutions Informatique SA, Quod SA\n"
-"\n"
-"  **Translation contributors:** brain-tec AG, Agile Business Group\n"
-"\n"
-" **This release will introduce major changes to l10n_ch.**\n"
-"\n"
-" Due to important refactoring needs and the Switzerland adoption of new "
-"international payment standard during 2013-2014. We have reorganised the "
-"swiss localization addons this way:\n"
-"\n"
-" - **l10n_ch**: Multilang swiss STERCHI account chart and taxes (official "
-"addon)\n"
-" - **l10n_ch_base_bank**: Technical module that introduces a new and "
-"simplified version of bank type management\n"
-" - **l10n_ch_bank**: List of swiss banks\n"
-" - **l10n_ch_zip**: List of swiss postal zip\n"
-" - **l10n_ch_dta**: Support of dta payment protocol (will be deprecated end "
-"2014)\n"
-" - **l10n_ch_payment_slip**: Support of ESR/BVR payment slip report and "
-"reconciliation. Report refactored with easy element positioning.\n"
-" - **l10n_ch_sepa**: Alpha implementation of PostFinance SEPA/PAIN support "
-"will be completed during 2013/2014\n"
-"\n"
-" The modules will be soon available on OpenERP swiss localization on "
-"launchpad:\n"
-" https://launchpad.net/openerp-swiss-localization\n"
-msgstr ""
-
-#. module: base
 #: model:res.groups,name:base.group_multi_currency
 msgid "Multi Currencies"
 msgstr "Více měn"
@@ -494,11 +450,6 @@ msgstr "Podřízené aplikace"
 #: field:res.partner,credit_limit:0
 msgid "Credit Limit"
 msgstr "Limit kreditu"
-
-#. module: base
-#: model:ir.module.module,shortdesc:base.module_portal_project_long_term
-msgid "Portal Project Long Term"
-msgstr ""
 
 #. module: base
 #: field:ir.model.constraint,date_update:0
@@ -710,9 +661,41 @@ msgstr ""
 "stejným názvem přílohy."
 
 #. module: base
-#: model:res.country,name:base.ao
-msgid "Angola"
-msgstr "Angola"
+#: model:ir.module.module,description:base.module_mrp_byproduct
+msgid ""
+"\n"
+"This module allows you to produce several products from one production "
+"order.\n"
+"============================================================================="
+"\n"
+"\n"
+"You can configure by-products in the bill of material.\n"
+"\n"
+"Without this module:\n"
+"--------------------\n"
+"    A + B + C -> D\n"
+"\n"
+"With this module:\n"
+"-----------------\n"
+"    A + B + C -> D + E\n"
+"    "
+msgstr ""
+"\n"
+"Tento modul vám umožňuje vyrobit několik výrobků z jednoho výrobního "
+"postupu.\n"
+"============================================================================="
+"\n"
+"\n"
+"Polotovary můžete nastavit v kusovníku.\n"
+"\n"
+"Bez tohoto modulu:\n"
+"--------------------\n"
+"    A + B + C -> D\n"
+"\n"
+"S tímto modulem:\n"
+"-----------------\n"
+"    A + B + C -> D + E\n"
+"    "
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -768,11 +751,6 @@ msgstr "Palau"
 #: view:res.partner:0
 msgid "Sales & Purchases"
 msgstr "Prodej & Nákup"
-
-#. module: base
-#: view:res.partner:0
-msgid "Put an internal note..."
-msgstr "Zadejte interní poznámku..."
 
 #. module: base
 #: view:ir.translation:0
@@ -1042,12 +1020,6 @@ msgid "Overwrite Existing Terms"
 msgstr "Přepsat existující výrazy"
 
 #. module: base
-#: code:addons/base/res/res_currency.py:52
-#, python-format
-msgid "No currency rate associated for currency %d for the given period"
-msgstr "Pro dané období neexistuje směnný kurz pro měnu %d"
-
-#. module: base
 #: model:ir.module.module,description:base.module_hr_holidays
 msgid ""
 "\n"
@@ -1178,15 +1150,6 @@ msgstr "Volitelné filtrování domény cílových dat - jako výraz Pythonu"
 #: model:ir.model,name:base.model_base_module_upgrade
 msgid "Module Upgrade"
 msgstr "Povýšení modulu"
-
-#. module: base
-#: view:res.bank:0
-#: view:res.company:0
-#: view:res.partner:0
-#: view:res.partner.bank:0
-#: view:res.users:0
-msgid "ZIP"
-msgstr "PSČ"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -1492,9 +1455,10 @@ msgid "Delete Access Right"
 msgstr "Smazat přístupové právo"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_l10n_be_hr_payroll_account
-msgid "Belgium - Payroll with Accounting"
-msgstr "Belgie - výplatní páska a účetnictví"
+#: code:addons/base/ir/ir_mail_server.py:214
+#, python-format
+msgid "Connection test failed!"
+msgstr "Test spojení selhal!"
 
 #. module: base
 #: selection:ir.actions.server,state:0
@@ -1853,6 +1817,19 @@ msgstr ""
 "    "
 
 #. module: base
+#: model:ir.actions.act_window,help:base.action_res_partner_bank_account_form
+msgid ""
+"Configure your company's bank accounts and select those that must appear on "
+"the report footer. You can reorder bank accounts from the list view. If you "
+"use the accounting application of OpenERP, journals and accounts will be "
+"created automatically based on these data."
+msgstr ""
+"Nastavte bankovní účty vaší firmy a vyberty ty, které se musí zobrazit v "
+"zápatí zprávy. V seznamu můžete změnit pořadí účtů. Pokud používáte účetní "
+"aplikaci OpenERP, deníky a účty budou na základě těchto dat vytvořeny "
+"automaticky."
+
+#. module: base
 #: report:ir.module.reference:0
 msgid "Version"
 msgstr "Verze"
@@ -2012,35 +1989,6 @@ msgstr ""
 "oficiálními."
 
 #. module: base
-#: model:ir.actions.act_window,help:base.action_res_partner_bank_account_form
-msgid ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"                Click to create a bank account.\n"
-"              </p><p>\n"
-"                Configure your company's bank accounts and select those that "
-"must appear on the report footer.\n"
-"                You can reorder bank accounts from the list view.\n"
-"              </p>\n"
-"              <p>\n"
-"                If you use the accounting application of OpenERP, journals "
-"and accounts will be created automatically based on these data.\n"
-"              </p>  \n"
-"            "
-msgstr ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"                Klikněte pro vytvoření bankovního účtu.\n"
-"              </p><p>\n"
-"                Zadejte bankovní účty vaší firmy a vyberte ty, které se mají "
-"objevovat v zápatí sestav.\n"
-"                V seznamu můžete změnit pořadí účtů.\n"
-"              </p>\n"
-"              <p>\n"
-"                Pokud používáte účetní modul OpenERP, automaticky se vytvoří "
-"příslušné účty a knihy výpisů.\n"
-"              </p>  \n"
-"            "
-
-#. module: base
 #: model:ir.actions.act_window,name:base.ir_action_report_xml
 #: field:ir.module.module,reports_by_module:0
 #: model:ir.ui.menu,name:base.menu_ir_action_report_xml
@@ -2071,12 +2019,6 @@ msgid ""
 msgstr ""
 "'%s' obsahuje příliš mnoho teček. Id XML by nemělo obsahovat tečky ! Tyto "
 "jsou použity pro odkazování na data jiných modulů, jako module.reference_id"
-
-#. module: base
-#: code:addons/base/ir/ir_model.py:85
-#, python-format
-msgid "Invalid Search Criteria"
-msgstr "Neplatné parametry hledání"
 
 #. module: base
 #: field:res.users,login:0
@@ -2162,11 +2104,6 @@ msgstr "Lucembursko - Účetnictví"
 #: model:res.country,name:base.tp
 msgid "East Timor"
 msgstr "Východní Timor"
-
-#. module: base
-#: field:workflow.transition,act_to:0
-msgid "Destination Activity"
-msgstr "Cílové činnosti"
 
 #. module: base
 #: code:addons/base/module/module.py:414
@@ -2469,9 +2406,47 @@ msgid "Address Type"
 msgstr "Typ adresy"
 
 #. module: base
-#: model:res.country,name:base.dj
-msgid "Djibouti"
-msgstr "Džibutsko"
+#: model:ir.module.module,description:base.module_sale_stock
+msgid ""
+"\n"
+"Manage sales quotations and orders\n"
+"==================================\n"
+"\n"
+"This module makes the link between the sales and warehouses management "
+"applications.\n"
+"\n"
+"Preferences\n"
+"-----------\n"
+"* Shipping: Choice of delivery at once or partial delivery\n"
+"* Invoicing: choose how invoices will be paid\n"
+"* Incoterms: International Commercial terms\n"
+"\n"
+"You can choose flexible invoicing methods:\n"
+"\n"
+"* *On Demand*: Invoices are created manually from Sales Orders when needed\n"
+"* *On Delivery Order*: Invoices are generated from picking (delivery)\n"
+"* *Before Delivery*: A Draft invoice is created and must be paid before "
+"delivery\n"
+msgstr ""
+"\n"
+"Spravujte poptávky a objednávky\n"
+"==================================\n"
+"\n"
+"Tento modul vytváří propojení mezi aplikacemi prodejů a skladového "
+"hospodářství.\n"
+"\n"
+"Předvolby\n"
+"-----------\n"
+"* Dodávky: Výběr z dodávek najednou nebo částečných dodávek\n"
+"* Fakturace: Výběr způsobu platby faktur\n"
+"* Incoterms: Mezinárodní obchodní podmínky\n"
+"\n"
+"Můžete si zvolit flexibilní fakturační metody:\n"
+"\n"
+"* *Na vyžádání*: Faktury jsou vytvářeny manuálně ze zakázek podle potřeby\n"
+"* *Při dodání*: Faktury jsou vytvářeny při vyzvednutí (dodání)\n"
+"* *Před dodáním*: Je vytvořena proforma faktura, která musí být uhrazena "
+"před dodáním\n"
 
 #. module: base
 #: field:ir.ui.menu,complete_name:0
@@ -2546,11 +2521,6 @@ msgstr "Španělština / Español"
 #: selection:base.language.install,lang:0
 msgid "Korean (KP) / 한국어 (KP)"
 msgstr "Korejština (KP) / 한국어 (KP)"
-
-#. module: base
-#: model:ir.module.module,shortdesc:base.module_l10n_vn
-msgid "Vietnam Chart of Accounts"
-msgstr "Vietnamská účtová osnova"
 
 #. module: base
 #: model:res.country,name:base.ax
@@ -3015,41 +2985,6 @@ msgid "Action Target"
 msgstr "Cíl akce"
 
 #. module: base
-#: model:ir.module.module,description:base.module_account_report_company
-msgid ""
-"\n"
-"Add an extra Company dimension on Invoices for consolidated Invoice "
-"Analysis\n"
-"============================================================================"
-"\n"
-"\n"
-"By default Customer and Supplier invoices can be linked to a contact within\n"
-"a company, but the company is not a direct reference in the database "
-"structure for\n"
-"invoices. Journal Entries are however always linked to the company and not "
-"to\n"
-"contacts, so that Accounts Payable and Receivable are always correct and "
-"consolidated\n"
-"at company level.\n"
-"\n"
-"When many different contacts/departments need to be invoiced within the same "
-"parent company,\n"
-"this can make reporting by Company more difficult: reports are directly "
-"based on the\n"
-"database structure and would not provide an aggregated company dimension.\n"
-"\n"
-"This modules solves the problem by adding an explicit company reference on "
-"invoices,\n"
-"automatically computed from the invoice contact, and use this new dimension\n"
-"when grouping the list of Invoices or the Invoice Analysis report by "
-"Partner. \n"
-"\n"
-"Note: this module will likely be removed for the next major OpenERP version "
-"and\n"
-"directly integrated in the core accounting. \n"
-msgstr ""
-
-#. module: base
 #: model:res.country,name:base.ai
 msgid "Anguilla"
 msgstr "Anguilla"
@@ -3190,6 +3125,11 @@ msgstr ""
 #: field:ir.values,res_id:0
 msgid "Record ID"
 msgstr "ID záznamu"
+
+#. module: base
+#: view:ir.filters:0
+msgid "My Filters"
+msgstr "Moje filtry"
 
 #. module: base
 #: field:ir.actions.server,email:0
@@ -3628,11 +3568,6 @@ msgid ""
 msgstr ""
 
 #. module: base
-#: view:res.company:0
-msgid "e.g. Global Business Solutions"
-msgstr ""
-
-#. module: base
 #: field:res.company,rml_header1:0
 msgid "Company Tagline"
 msgstr "Firemní slogan"
@@ -3683,12 +3618,6 @@ msgstr ""
 "zakładając,\n"
 "że wszystkie towary są w obrocie hurtowym.\n"
 "    "
-
-#. module: base
-#: code:addons/base/ir/ir_mail_server.py:222
-#, python-format
-msgid "Connection Test Succeeded!"
-msgstr "Test připojení byl úspěšný!"
 
 #. module: base
 #: field:ir.actions.client,params_store:0
@@ -4068,12 +3997,6 @@ msgid "Fields Mapping"
 msgstr "Mapování polí"
 
 #. module: base
-#: code:addons/base/module/wizard/base_module_upgrade.py:84
-#, python-format
-msgid "Unmet Dependency!"
-msgstr "Nesplněná závislost!"
-
-#. module: base
 #: model:res.partner.title,name:base.res_partner_title_sir
 #: model:res.partner.title,shortcut:base.res_partner_title_sir
 msgid "Sir"
@@ -4096,6 +4019,11 @@ msgstr ""
 #: view:base.module.import:0
 msgid "Select module package to import (.zip file):"
 msgstr "Vyberte balíček modulu k importu (.zip soubor):"
+
+#. module: base
+#: view:ir.filters:0
+msgid "Personal"
+msgstr "Osobní"
 
 #. module: base
 #: field:base.language.export,modules:0
@@ -4285,10 +4213,13 @@ msgid "Tasks on CRM"
 msgstr "Úkoly CRM"
 
 #. module: base
-#: model:ir.module.category,name:base.module_category_generic_modules_accounting
-#: view:res.company:0
-msgid "Accounting"
-msgstr "Účetnictví"
+#: help:ir.model.fields,relation_field:0
+msgid ""
+"For one2many fields, the field on the target model that implement the "
+"opposite many2one relationship"
+msgstr ""
+"Pro pole one2many, pole na cílovém modelu, které realizují opačný vztah "
+"many2one"
 
 #. module: base
 #: view:ir.rule:0
@@ -4318,12 +4249,6 @@ msgstr "Svatý Martin (nizozemská část)"
 #: model:ir.model,name:base.model_ir_filters
 msgid "Filters"
 msgstr "Filtry"
-
-#. module: base
-#: code:addons/base/module/wizard/base_module_import.py:67
-#, python-format
-msgid "Can not create the module file: %s!"
-msgstr "Nelze vytvořit soubor modulu: %s!"
 
 #. module: base
 #: model:ir.actions.act_window,name:base.ir_cron_act
@@ -4360,13 +4285,6 @@ msgstr "Zjištěna rekurze."
 #: model:ir.module.module,shortdesc:base.module_l10n_et
 msgid "Ethiopia - Accounting"
 msgstr "Ethiopie - účetnictví"
-
-#. module: base
-#: model:ir.actions.act_window,name:base.ir_config_list_action
-#: view:ir.config_parameter:0
-#: model:ir.ui.menu,name:base.ir_config_menu
-msgid "System Parameters"
-msgstr "Parametry systému"
 
 #. module: base
 #: code:addons/base/module/module.py:366
@@ -5089,12 +5007,6 @@ msgid "`code` must be unique."
 msgstr "`code` musí být unikátní."
 
 #. module: base
-#: code:addons/base/ir/workflow/workflow.py:99
-#, python-format
-msgid "Operation Forbidden"
-msgstr "Nepovolená operace"
-
-#. module: base
 #: model:ir.module.module,shortdesc:base.module_knowledge
 msgid "Knowledge Management System"
 msgstr "Systém správy znalostí"
@@ -5452,15 +5364,6 @@ msgstr ""
 "Klepněte na 'Pokračovat' a užívejte si OpenERP…"
 
 #. module: base
-#: help:ir.sequence,number_next_actual:0
-msgid ""
-"Next number that will be used. This number can be incremented frequently so "
-"the displayed value might already be obsolete"
-msgstr ""
-"Další číslo, které bude použito. Toto číslo může být často navýšeno, tudíž  "
-"zobrazená hodnota může být již neaktuální."
-
-#. module: base
 #: model:ir.module.category,description:base.module_category_marketing
 msgid "Helps you manage your marketing campaigns step by step."
 msgstr "Pomůže vám krok za krokem spravovat vaše marketingové kampaně."
@@ -5484,12 +5387,6 @@ msgstr "Ghana"
 #: field:res.lang,direction:0
 msgid "Direction"
 msgstr "Směr"
-
-#. module: base
-#: code:addons/orm.py:4815
-#, python-format
-msgid "Sorting field %s not found on model %s"
-msgstr "Pole řazení %s nebylo v modelu %s nalezeno"
 
 #. module: base
 #: view:ir.actions.act_window:0
@@ -6448,13 +6345,10 @@ msgstr ""
 "jestli máme zahájit činnosti ACT_TO."
 
 #. module: base
-#: help:ir.model.fields,relation_field:0
-msgid ""
-"For one2many fields, the field on the target model that implement the "
-"opposite many2one relationship"
-msgstr ""
-"Pro pole one2many, pole na cílovém modelu, které realizují opačný vztah "
-"many2one"
+#: model:ir.module.category,name:base.module_category_generic_modules_accounting
+#: view:res.company:0
+msgid "Accounting"
+msgstr "Účetnictví"
 
 #. module: base
 #: model:ir.module.module,description:base.module_base_vat
@@ -6597,9 +6491,9 @@ msgid "Authentication"
 msgstr "Autentizace"
 
 #. module: base
-#: model:res.country,name:base.gd
-msgid "Grenada"
-msgstr "Grenada"
+#: model:res.country,name:base.sj
+msgid "Svalbard and Jan Mayen Islands"
+msgstr "Ostrovy Svalbard a Jan Mayen"
 
 #. module: base
 #: model:ir.model,name:base.model_ir_actions_wizard
@@ -6752,6 +6646,12 @@ msgid ""
 msgstr ""
 
 #. module: base
+#: code:addons/base/ir/workflow/workflow.py:99
+#, python-format
+msgid "Operation forbidden"
+msgstr "Operace zakázána"
+
+#. module: base
 #: view:ir.actions.server:0
 msgid "SMS Configuration"
 msgstr "Nastavení SMS"
@@ -6799,11 +6699,6 @@ msgstr "Seznam řízení přístupu (ACL)"
 #: model:res.country,name:base.um
 msgid "USA Minor Outlying Islands"
 msgstr "Menší odlehlé ostrovy USA"
-
-#. module: base
-#: view:base.language.import:0
-msgid "e.g. English"
-msgstr "např. angličtina"
 
 #. module: base
 #: help:ir.cron,numbercall:0
@@ -6890,13 +6785,6 @@ msgstr "Telefon:"
 #: field:res.partner,is_company:0
 msgid "Is a Company"
 msgstr "Firma"
-
-#. module: base
-#: view:res.company:0
-#: view:res.partner:0
-#: view:res.users:0
-msgid "e.g. www.openerp.com"
-msgstr "např. www.openerp.com"
 
 #. module: base
 #: selection:ir.cron,interval_type:0
@@ -6996,19 +6884,6 @@ msgstr "Název menu"
 #: field:ir.values,key2:0
 msgid "Qualifier"
 msgstr "Kvalifikátor"
-
-#. module: base
-#: model:ir.module.module,description:base.module_l10n_vn
-msgid ""
-"\n"
-"This is the module to manage the accounting chart for Vietnam in OpenERP.\n"
-"========================================================================\n"
-"\n"
-"This module applies to companies based in Vietnamese Accounting Standard "
-"(VAS).\n"
-"\n"
-"**Credits:** General Solutions.\n"
-msgstr ""
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_be_coda
@@ -7302,11 +7177,6 @@ msgid "Database Anonymization"
 msgstr "Anonymizace databáze"
 
 #. module: base
-#: field:res.partner,commercial_partner_id:0
-msgid "Commercial Entity"
-msgstr "Podnikatelský subjekt"
-
-#. module: base
 #: selection:ir.mail_server,smtp_encryption:0
 msgid "SSL/TLS"
 msgstr "SSL/TLS"
@@ -7393,11 +7263,6 @@ msgid "ir.cron"
 msgstr "ir.cron"
 
 #. module: base
-#: model:ir.ui.menu,name:base.menu_sales_followup
-msgid "Payment Follow-up"
-msgstr ""
-
-#. module: base
 #: model:res.country,name:base.cw
 msgid "Curaçao"
 msgstr "Curaçao"
@@ -7408,9 +7273,11 @@ msgid "Current Year without Century: %(y)s"
 msgstr "Aktuální rok bez století: %(y)s"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_l10n_es
-msgid "Spanish Charts of Accounts (PGCE 2008)"
-msgstr "Španělská účtová osnova (PGCE 2008)"
+#: model:ir.actions.act_window,name:base.ir_config_list_action
+#: view:ir.config_parameter:0
+#: model:ir.ui.menu,name:base.ir_config_menu
+msgid "System Parameters"
+msgstr "Parametry systému"
 
 #. module: base
 #: help:ir.actions.client,tag:0
@@ -7474,16 +7341,6 @@ msgstr "Súdán"
 #: view:res.currency.rate.type:0
 msgid "Currency Rate Type"
 msgstr "Typ násobku měny"
-
-#. module: base
-#: code:addons/base/res/res_lang.py:189
-#, python-format
-msgid ""
-"You cannot delete the language which is Active!\n"
-"Please de-activate the language first."
-msgstr ""
-"Nemůžete smazat jazyk pokud je Aktivní!  \n"
-"Nejdřív jej prosím deaktivujte."
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_fr
@@ -7666,9 +7523,10 @@ msgid "Repeat Missed"
 msgstr "Opakovat chybějící"
 
 #. module: base
-#: help:ir.actions.server,state:0
-msgid "Type of the Action that is to be executed"
-msgstr "Typ akce, která bude spuštěna"
+#: code:addons/base/module/wizard/base_module_import.py:67
+#, python-format
+msgid "Can not create the module file: %s !"
+msgstr "Nelze vytvořit soubor modulu: %s !"
 
 #. module: base
 #: field:ir.server.object.lines,server_id:0
@@ -7900,6 +7758,21 @@ msgstr "Časové rozvrhy"
 #: help:ir.values,company_id:0
 msgid "If set, action binding only applies for this company"
 msgstr "Je-li nastaveno, vazby akcí budou platit pouze pro tuto firmu"
+
+#. module: base
+#: model:ir.module.module,description:base.module_l10n_cn
+msgid ""
+"\n"
+"添加中文省份数据\n"
+"科目类型\\会计科目表模板\\增值税\\辅助核算类别\\管理会计凭证簿\\财务会计凭证簿\n"
+"============================================================\n"
+"    "
+msgstr ""
+"\n"
+"添加中文省份数据\n"
+"科目类型\\会计科目表模板\\增值税\\辅助核算类别\\管理会计凭证簿\\财务会计凭证簿\n"
+"============================================================\n"
+"    "
 
 #. module: base
 #: model:res.country,name:base.lc
@@ -8187,6 +8060,12 @@ msgid "Connection Security"
 msgstr "Zabezpečení spojení"
 
 #. module: base
+#: code:addons/base/ir/ir_actions.py:606
+#, python-format
+msgid "Please specify an action to launch !"
+msgstr "Prosíme určete akci k vykonání !"
+
+#. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_ec
 msgid "Ecuador - Accounting"
 msgstr "Ekvádor - Účetnictví"
@@ -8205,11 +8084,6 @@ msgstr "Severní Mariany"
 #: field:change.password.user,user_login:0
 msgid "User Login"
 msgstr "Přihlášení uživatele"
-
-#. module: base
-#: view:ir.filters:0
-msgid "Filters created by myself"
-msgstr "Moje filtry"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_hn
@@ -8363,12 +8237,6 @@ msgid "Error"
 msgstr "Chyba"
 
 #. module: base
-#: code:addons/base/res/res_partner.py:566
-#, python-format
-msgid "Couldn't create contact without email address!"
-msgstr "Nebylo možné vytvořit kontakt bez zadání emailové adresy!"
-
-#. module: base
 #: help:res.partner,tz:0
 msgid ""
 "The partner's timezone, used to output proper date and time values inside "
@@ -8442,12 +8310,6 @@ msgstr "Další číslo této řady"
 
 #. module: base
 #: view:res.partner:0
-#: view:res.users:0
-msgid "Tags..."
-msgstr "Štítky..."
-
-#. module: base
-#: view:res.partner:0
 msgid "at"
 msgstr "v"
 
@@ -8470,11 +8332,6 @@ msgstr "Anonymní portál"
 #: field:base.language.export,format:0
 msgid "File Format"
 msgstr "Formát souboru"
-
-#. module: base
-#: view:ir.filters:0
-msgid "My filters"
-msgstr "Moje filtry"
 
 #. module: base
 #: field:res.lang,iso_code:0
@@ -8816,12 +8673,6 @@ msgid "Rules can not be applied on Transient models."
 msgstr "Pravidla nelze aplikovat na modely přechodů."
 
 #. module: base
-#: code:addons/base/ir/ir_mail_server.py:215
-#, python-format
-msgid "Connection Test Failed!"
-msgstr "Selhal test připojení!"
-
-#. module: base
 #: selection:base.language.install,lang:0
 msgid "Dutch / Nederlands"
 msgstr "Němčina / Nederlands"
@@ -9093,15 +8944,9 @@ msgstr ""
 "Ale zmíněné moduly nejsou dostupné ve vašem systému."
 
 #. module: base
-#: model:ir.module.module,description:base.module_portal_project_long_term
-msgid ""
-"\n"
-"This module adds necessary security rules and access rights for project long "
-"term and portal.\n"
-"============================================================================="
-"================\n"
-"    "
-msgstr ""
+#: field:workflow.transition,act_to:0
+msgid "Destination Activity"
+msgstr "Cílové činnosti"
 
 #. module: base
 #: help:res.currency,position:0
@@ -9228,12 +9073,6 @@ msgstr "Kuvajt"
 #: model:ir.module.module,shortdesc:base.module_account_followup
 msgid "Payment Follow-up Management"
 msgstr "Řízení sledování plateb"
-
-#. module: base
-#: code:addons/orm.py:5334
-#, python-format
-msgid "The value for the field '%s' already exists."
-msgstr ""
 
 #. module: base
 #: field:workflow.workitem,inst_id:0
@@ -9481,11 +9320,6 @@ msgstr "Pokročilé trasy"
 #: model:ir.module.module,shortdesc:base.module_pad
 msgid "Collaborative Pads"
 msgstr "Collaborative Pads"
-
-#. module: base
-#: model:ir.module.module,shortdesc:base.module_account_anglo_saxon
-msgid "Anglo-Saxon Accounting"
-msgstr "Anglosaské účetnictví"
 
 #. module: base
 #: model:res.country,name:base.np
@@ -10503,6 +10337,11 @@ msgid "Python Code"
 msgstr "Kód Pythonu"
 
 #. module: base
+#: help:ir.actions.server,state:0
+msgid "Type of the Action that is to be executed"
+msgstr "Typ akce, která bude spuštěna"
+
+#. module: base
 #: model:ir.module.module,description:base.module_portal_crm
 msgid ""
 "\n"
@@ -10557,6 +10396,43 @@ msgstr ""
 "Zobrazení Openerp Web Diagramu.\n"
 "=========================\n"
 "\n"
+
+#. module: base
+#: model:ir.module.module,description:base.module_l10n_ch
+msgid ""
+"\n"
+"Swiss localization :\n"
+"====================\n"
+"**Multilang swiss STERCHI account chart and taxes**\n"
+" **Author:** Camptocamp SA\n"
+"\n"
+" **Donors:** Hasa Sàrl, Open Net Sàrl and Prisme Solutions Informatique SA\n"
+"\n"
+" **Translators:** brain-tec AG, Agile Business Group\n"
+"\n"
+"**This release will introduce major changes to l10n_ch.**\n"
+"\n"
+"Due to important refactoring needs and the Switzerland adoption of new "
+"international payment standard during 2013-2014. We have reorganised the "
+"swiss localization addons this way:\n"
+"\n"
+"- **l10n_ch**: Multilang swiss STERCHI account chart and taxes (official "
+"addon)\n"
+"- **l10n_ch_base_bank**: Technical module that introduces a new and "
+"simplified version of bank type management\n"
+"- **l10n_ch_bank**: List of swiss banks\n"
+"- **l10n_ch_zip**: List of swiss postal zip\n"
+"- **l10n_ch_dta**: Support of dta payment protocol (will be deprecated end "
+"2014)\n"
+"- **l10n_ch_payment_slip**: Support of ESR/BVR payment slip report and "
+"reconciliation. Report refactored with easy element positioning.\n"
+"- **l10n_ch_sepa**: Alpha implementation of PostFinance SEPA/PAIN support "
+"will be completed during 2013/2014\n"
+"\n"
+"The modules will be soon available on OpenERP swiss localization on "
+"launchpad:\n"
+"https://launchpad.net/openerp-swiss-localization\n"
+msgstr ""
 
 #. module: base
 #: model:res.country,name:base.nt
@@ -10703,11 +10579,6 @@ msgid "New Language (Empty translation template)"
 msgstr "Nový jazyk (prázdná šablona překladu)"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_account_report_company
-msgid "Invoice Analysis per Company"
-msgstr "Analýza faktur společnosti"
-
-#. module: base
 #: help:ir.actions.server,email:0
 msgid ""
 "Expression that returns the email address to send to. Can be based on the "
@@ -10776,102 +10647,9 @@ msgstr ""
 "Vyberte objekt, nad kterým bude provedena akce (čtení, zápis, vytvoření)."
 
 #. module: base
-#: model:ir.module.module,description:base.module_stock_location
-msgid ""
-"\n"
-"This module supplements the Warehouse application by effectively "
-"implementing Push and Pull inventory flows.\n"
-"============================================================================="
-"===============================\n"
-"\n"
-"Typically this could be used to:\n"
-"--------------------------------\n"
-"    * Manage product manufacturing chains\n"
-"    * Manage default locations per product\n"
-"    * Define routes within your warehouse according to business needs, such "
-"as:\n"
-"        - Quality Control\n"
-"        - After Sales Services\n"
-"        - Supplier Returns\n"
-"\n"
-"    * Help rental management, by generating automated return moves for "
-"rented products\n"
-"\n"
-"Once this module is installed, an additional tab appear on the product "
-"form,\n"
-"where you can add Push and Pull flow specifications. The demo data of CPU1\n"
-"product for that push/pull :\n"
-"\n"
-"Push flows:\n"
-"-----------\n"
-"Push flows are useful when the arrival of certain products in a given "
-"location\n"
-"should always be followed by a corresponding move to another location, "
-"optionally\n"
-"after a certain delay. The original Warehouse application already supports "
-"such\n"
-"Push flow specifications on the Locations themselves, but these cannot be\n"
-"refined per-product.\n"
-"\n"
-"A push flow specification indicates which location is chained with which "
-"location,\n"
-"and with what parameters. As soon as a given quantity of products is moved "
-"in the\n"
-"source location, a chained move is automatically foreseen according to the\n"
-"parameters set on the flow specification (destination location, delay, type "
-"of\n"
-"move, journal). The new move can be automatically processed, or require a "
-"manual\n"
-"confirmation, depending on the parameters.\n"
-"\n"
-"Pull flows:\n"
-"-----------\n"
-"Pull flows are a bit different from Push flows, in the sense that they are "
-"not\n"
-"related to the processing of product moves, but rather to the processing of\n"
-"procurement orders. What is being pulled is a need, not directly products. "
-"A\n"
-"classical example of Pull flow is when you have an Outlet company, with a "
-"parent\n"
-"Company that is responsible for the supplies of the Outlet.\n"
-"\n"
-"  [ Customer ] <- A - [ Outlet ]  <- B -  [ Holding ] <~ C ~ [ Supplier ]\n"
-"\n"
-"When a new procurement order (A, coming from the confirmation of a Sale "
-"Order\n"
-"for example) arrives in the Outlet, it is converted into another "
-"procurement\n"
-"(B, via a Pull flow of type 'move') requested from the Holding. When "
-"procurement\n"
-"order B is processed by the Holding company, and if the product is out of "
-"stock,\n"
-"it can be converted into a Purchase Order (C) from the Supplier (Pull flow "
-"of\n"
-"type Purchase). The result is that the procurement order, the need, is "
-"pushed\n"
-"all the way between the Customer and Supplier.\n"
-"\n"
-"Technically, Pull flows allow to process procurement orders differently, "
-"not\n"
-"only depending on the product being considered, but also depending on which\n"
-"location holds the 'need' for that product (i.e. the destination location "
-"of\n"
-"that procurement order).\n"
-"\n"
-"Use-Case:\n"
-"---------\n"
-"\n"
-"You can use the demo data as follow:\n"
-"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-"  **CPU1:** Sell some CPU1 from Chicago Shop and run the scheduler\n"
-"     - Warehouse: delivery order, Chicago Shop: reception\n"
-"  **CPU3:**\n"
-"     - When receiving the product, it goes to Quality Control location then\n"
-"       stored to shelf 2.\n"
-"     - When delivering the customer: Pick List -> Packing -> Delivery Order "
-"from Gate A\n"
-"    "
-msgstr ""
+#: field:base.language.import,name:0
+msgid "Language Name"
+msgstr "Název jazyka"
 
 #. module: base
 #: selection:ir.property,type:0
@@ -10903,14 +10681,6 @@ msgstr "Popis polí"
 #: model:ir.module.module,shortdesc:base.module_analytic_contract_hr_expense
 msgid "Contracts Management: hr_expense link"
 msgstr "Správa smluv: propojení s hr_expense"
-
-#. module: base
-#: code:addons/base/module/module.py:670
-#, python-format
-msgid ""
-"The `%s` module appears to be unavailable at the moment, please try again "
-"later."
-msgstr ""
 
 #. module: base
 #: view:ir.attachment:0
@@ -11154,6 +10924,13 @@ msgid "Afghanistan, Islamic State of"
 msgstr "Islamský stát Afgánistán"
 
 #. module: base
+#: code:addons/base/module/wizard/base_module_import.py:58
+#: code:addons/base/module/wizard/base_module_import.py:66
+#, python-format
+msgid "Error !"
+msgstr "Chyba!"
+
+#. module: base
 #: model:ir.module.module,shortdesc:base.module_marketing_campaign_crm_demo
 msgid "Marketing Campaign - Demo"
 msgstr "Marketingové kampaně - ukázka"
@@ -11276,22 +11053,6 @@ msgid "Todo"
 msgstr "Úkoly"
 
 #. module: base
-#: model:ir.module.module,description:base.module_l10n_es
-msgid ""
-"\n"
-"Spanish Charts of Accounts (PGCE 2008).\n"
-"=======================================\n"
-"\n"
-"    * Defines the following chart of account templates:\n"
-"        * Spanish General Chart of Accounts 2008\n"
-"        * Spanish General Chart of Accounts 2008 for small and medium "
-"companies\n"
-"        * Spanish General Chart of Accounts 2008 for associations\n"
-"    * Defines templates for sale and purchase VAT\n"
-"    * Defines tax code templates\n"
-msgstr ""
-
-#. module: base
 #: model:ir.module.module,shortdesc:base.module_product_visible_discount
 msgid "Prices Visible Discounts"
 msgstr "Zobrazení slevy u ceny"
@@ -11319,14 +11080,6 @@ msgid ""
 "The group that a user must have to be authorized to validate this transition."
 msgstr ""
 "Skupina, pro kterou musí být uživatel autorizován k ověření této změny."
-
-#. module: base
-#: view:res.bank:0
-#: view:res.company:0
-#: view:res.partner:0
-#: view:res.users:0
-msgid "Street..."
-msgstr "Ulice..."
 
 #. module: base
 #: constraint:res.users:0
@@ -12002,6 +11755,16 @@ msgid "Samoa"
 msgstr "Samoa"
 
 #. module: base
+#: code:addons/base/res/res_lang.py:189
+#, python-format
+msgid ""
+"You cannot delete the language which is Active !\n"
+"Please de-activate the language first."
+msgstr ""
+"Nemůžete smazat aktivní jazyk !\n"
+"Prosíme nejdříve jazyk deaktivujte,"
+
+#. module: base
 #: code:addons/base/ir/ir_model.py:509
 #: code:addons/base/ir/ir_model.py:570
 #: code:addons/base/ir/ir_model.py:1031
@@ -12033,6 +11796,11 @@ msgstr "ValidateError"
 #: view:base.module.update:0
 msgid "Open Modules"
 msgstr "Otevřít moduly"
+
+#. module: base
+#: model:ir.actions.act_window,help:base.action_res_bank_form
+msgid "Manage bank records you want to be used in the system."
+msgstr "Spravovat záznamy bank, které chcete používat v systému."
 
 #. module: base
 #: view:base.module.import:0
@@ -12159,6 +11927,12 @@ msgstr "Přístupové právo ke čtení"
 #: model:ir.module.module,shortdesc:base.module_analytic_user_function
 msgid "Jobs on Contracts"
 msgstr "?!?Smluvní zaměstnání"
+
+#. module: base
+#: code:addons/base/res/res_lang.py:187
+#, python-format
+msgid "You cannot delete the language which is User's Preferred Language !"
+msgstr "Nemůžete smazat jazyk, který mají uživatelé jako preferovaný!"
 
 #. module: base
 #: view:ir.model.data:0
@@ -12291,11 +12065,6 @@ msgstr ""
 "Toto pole je použito k nastavení/získání národního nastavení pro uživatele"
 
 #. module: base
-#: model:res.country,name:base.sj
-msgid "Svalbard and Jan Mayen Islands"
-msgstr "Ostrovy Svalbard a Jan Mayen"
-
-#. module: base
 #: view:ir.filters:0
 msgid "Shared"
 msgstr "Sdílený"
@@ -12415,21 +12184,6 @@ msgid "Auto Search"
 msgstr "Automaticky hledat"
 
 #. module: base
-#: model:ir.actions.act_window,help:base.action_partner_category_form
-msgid ""
-"<p class=\"oe_view_nocontent_create\">\n"
-"                Click to create a new partner category.\n"
-"              </p><p>\n"
-"                Manage the partner categories in order to better classify "
-"them for tracking and analysis purposes.\n"
-"                A partner may belong to several categories and categories "
-"have a hierarchy structure: a partner belonging to a category also belong to "
-"his parent category.\n"
-"              </p>\n"
-"            "
-msgstr ""
-
-#. module: base
 #: field:ir.actions.act_window,filter:0
 msgid "Filter"
 msgstr "Filtr"
@@ -12440,14 +12194,9 @@ msgid "Switzerland"
 msgstr "Švýcarsko"
 
 #. module: base
-#: code:addons/base/res/res_partner.py:361
-#, python-format
-msgid ""
-"Changing the company of a contact should only be done if it was never "
-"correctly set. If an existing contact starts working for a new company then "
-"a new contact should be created under that new company. You can use the "
-"\"Discard\" button to abandon this change."
-msgstr ""
+#: model:res.country,name:base.gd
+msgid "Grenada"
+msgstr "Grenada"
 
 #. module: base
 #: help:res.partner,customer:0
@@ -12504,9 +12253,10 @@ msgid ""
 msgstr ""
 
 #. module: base
-#: model:ir.model,name:base.model_res_request_history
-msgid "res.request.history"
-msgstr "res.request.history"
+#: code:addons/base/ir/ir_model.py:296
+#, python-format
+msgid "Size of the field can never be less than 1 !"
+msgstr "Velikost pole nikdy nemůže být menší než 1 !"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_mrp_operations
@@ -12556,9 +12306,102 @@ msgid "GPL Version 3"
 msgstr "GPL verze 3"
 
 #. module: base
-#: field:base.language.import,name:0
-msgid "Language Name"
-msgstr "Název jazyka"
+#: model:ir.module.module,description:base.module_stock_location
+msgid ""
+"\n"
+"This module supplements the Warehouse application by effectively "
+"implementing Push and Pull inventory flows.\n"
+"============================================================================="
+"===============================\n"
+"\n"
+"Typically this could be used to:\n"
+"--------------------------------\n"
+"    * Manage product manufacturing chains\n"
+"    * Manage default locations per product\n"
+"    * Define routes within your warehouse according to business needs, such "
+"as:\n"
+"        - Quality Control\n"
+"        - After Sales Services\n"
+"        - Supplier Returns\n"
+"\n"
+"    * Help rental management, by generating automated return moves for "
+"rented products\n"
+"\n"
+"Once this module is installed, an additional tab appear on the product "
+"form,\n"
+"where you can add Push and Pull flow specifications. The demo data of CPU1\n"
+"product for that push/pull :\n"
+"\n"
+"Push flows:\n"
+"-----------\n"
+"Push flows are useful when the arrival of certain products in a given "
+"location\n"
+"should always be followed by a corresponding move to another location, "
+"optionally\n"
+"after a certain delay. The original Warehouse application already supports "
+"such\n"
+"Push flow specifications on the Locations themselves, but these cannot be\n"
+"refined per-product.\n"
+"\n"
+"A push flow specification indicates which location is chained with which "
+"location,\n"
+"and with what parameters. As soon as a given quantity of products is moved "
+"in the\n"
+"source location, a chained move is automatically foreseen according to the\n"
+"parameters set on the flow specification (destination location, delay, type "
+"of\n"
+"move, journal). The new move can be automatically processed, or require a "
+"manual\n"
+"confirmation, depending on the parameters.\n"
+"\n"
+"Pull flows:\n"
+"-----------\n"
+"Pull flows are a bit different from Push flows, in the sense that they are "
+"not\n"
+"related to the processing of product moves, but rather to the processing of\n"
+"procurement orders. What is being pulled is a need, not directly products. "
+"A\n"
+"classical example of Pull flow is when you have an Outlet company, with a "
+"parent\n"
+"Company that is responsible for the supplies of the Outlet.\n"
+"\n"
+"  [ Customer ] <- A - [ Outlet ]  <- B -  [ Holding ] <~ C ~ [ Supplier ]\n"
+"\n"
+"When a new procurement order (A, coming from the confirmation of a Sale "
+"Order\n"
+"for example) arrives in the Outlet, it is converted into another "
+"procurement\n"
+"(B, via a Pull flow of type 'move') requested from the Holding. When "
+"procurement\n"
+"order B is processed by the Holding company, and if the product is out of "
+"stock,\n"
+"it can be converted into a Purchase Order (C) from the Supplier (Pull flow "
+"of\n"
+"type Purchase). The result is that the procurement order, the need, is "
+"pushed\n"
+"all the way between the Customer and Supplier.\n"
+"\n"
+"Technically, Pull flows allow to process procurement orders differently, "
+"not\n"
+"only depending on the product being considered, but also depending on which\n"
+"location holds the 'need' for that product (i.e. the destination location "
+"of\n"
+"that procurement order).\n"
+"\n"
+"Use-Case:\n"
+"---------\n"
+"\n"
+"You can use the demo data as follow:\n"
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+"  **CPU1:** Sell some CPU1 from Chicago Shop and run the scheduler\n"
+"     - Warehouse: delivery order, Chicago Shop: reception\n"
+"  **CPU3:**\n"
+"     - When receiving the product, it goes to Quality Control location then\n"
+"       stored to shelf 2.\n"
+"     - When delivering the customer: Pick List -> Packing -> Delivery Order "
+"from Gate A\n"
+"    "
+msgstr ""
 
 #. module: base
 #: model:ir.module.module,description:base.module_decimal_precision
@@ -12586,12 +12429,6 @@ msgstr "Instalátor konfigurace"
 #: field:res.partner,customer:0
 msgid "Customer"
 msgstr "Zákazník"
-
-#. module: base
-#: view:res.partner:0
-#: view:res.users:0
-msgid "e.g. +32.81.81.37.00"
-msgstr ""
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -12644,12 +12481,6 @@ msgid "Month: %(month)s"
 msgstr "Měsíc: %(měsíc/e)"
 
 #. module: base
-#: model:ir.actions.client,name:base.modules_updates_act_cl
-#: model:ir.ui.menu,name:base.menu_module_updates
-msgid "Updates"
-msgstr "Aktualizace"
-
-#. module: base
 #: field:ir.actions.act_window.view,sequence:0
 #: field:ir.actions.server,sequence:0
 #: field:ir.actions.todo,sequence:0
@@ -12685,6 +12516,19 @@ msgstr ""
 #: model:ir.model,name:base.model_ir_fields_converter
 msgid "ir.fields.converter"
 msgstr "ir.fields.converter"
+
+#. module: base
+#: code:addons/base/res/res_partner.py:439
+#, python-format
+msgid "Couldn't create contact without email address !"
+msgstr "Nemůžete vytvořit kontakt bez e-mailové adresy!"
+
+#. module: base
+#: model:ir.module.category,name:base.module_category_manufacturing
+#: model:ir.ui.menu,name:base.menu_mrp_config
+#: model:ir.ui.menu,name:base.menu_mrp_root
+msgid "Manufacturing"
+msgstr "Výroba"
 
 #. module: base
 #: model:res.country,name:base.km
@@ -13028,12 +12872,6 @@ msgid "Falkland Islands"
 msgstr "Falklandy"
 
 #. module: base
-#: code:addons/base/ir/ir_actions.py:606
-#, python-format
-msgid "Please specify an action to launch!"
-msgstr ""
-
-#. module: base
 #: model:res.country,name:base.lb
 msgid "Lebanon"
 msgstr "Libanon"
@@ -13096,6 +12934,12 @@ msgid "XSL"
 msgstr "XSL"
 
 #. module: base
+#: code:addons/base/ir/ir_model.py:85
+#, python-format
+msgid "Invalid search criterions"
+msgstr "Neplatné podmínky hledání"
+
+#. module: base
 #: view:ir.mail_server:0
 msgid "Connection Information"
 msgstr "Informace spojení"
@@ -13149,6 +12993,25 @@ msgstr "Výběr"
 #: view:res.users:0
 msgid "Change Password"
 msgstr "Změnit heslo"
+
+#. module: base
+#: model:ir.module.module,description:base.module_l10n_es
+msgid ""
+"\n"
+"Spanish Charts of Accounts (PGCE 2008).\n"
+"=======================================\n"
+"\n"
+"    * Defines the following chart of account templates:\n"
+"        * Spanish General Chart of Accounts 2008\n"
+"        * Spanish General Chart of Accounts 2008 for small and medium "
+"companies\n"
+"    * Defines templates for sale and purchase VAT\n"
+"    * Defines tax code templates\n"
+"\n"
+"**Note:** You should install the l10n_ES_account_balance_report module for "
+"yearly\n"
+"      account reporting (balance, profit & losses).\n"
+msgstr ""
 
 #. module: base
 #: field:ir.actions.act_url,type:0
@@ -13439,11 +13302,6 @@ msgid "Address Format"
 msgstr "Formát adresy"
 
 #. module: base
-#: constraint:res.partner:0
-msgid "You cannot create recursive Partner hierarchies."
-msgstr ""
-
-#. module: base
 #: model:ir.model,name:base.model_change_password_user
 msgid "Change Password Wizard User"
 msgstr "Uživatel průvodce změnou hesla"
@@ -13509,13 +13367,6 @@ msgstr ""
 #: model:ir.ui.menu,name:base.ir_model_data_menu
 msgid "External Identifiers"
 msgstr "Externí identifikátory"
-
-#. module: base
-#. openerp-web
-#: code:addons/base/static/src/js/apps.js:104
-#, python-format
-msgid "Showing locally available modules"
-msgstr ""
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -13613,12 +13464,6 @@ msgid ""
 msgstr ""
 
 #. module: base
-#: code:addons/base/ir/ir_model.py:295
-#, python-format
-msgid "Size of the field can never be less than 0 !"
-msgstr ""
-
-#. module: base
 #: help:ir.actions.server,sequence:0
 msgid ""
 "Important when you deal with multiple actions, the execution order will be "
@@ -13712,6 +13557,12 @@ msgstr "Přeložit"
 #: field:res.request.history,body:0
 msgid "Body"
 msgstr "Tělo"
+
+#. module: base
+#: code:addons/base/ir/ir_mail_server.py:221
+#, python-format
+msgid "Connection test succeeded!"
+msgstr "Test spojení uspěl!"
 
 #. module: base
 #: model:ir.module.module,description:base.module_project_gtd
@@ -14091,41 +13942,9 @@ msgid "Bulgaria"
 msgstr "Bulharsko"
 
 #. module: base
-#: model:ir.module.module,description:base.module_mrp_byproduct
-msgid ""
-"\n"
-"This module allows you to produce several products from one production "
-"order.\n"
-"============================================================================="
-"\n"
-"\n"
-"You can configure by-products in the bill of material.\n"
-"\n"
-"Without this module:\n"
-"--------------------\n"
-"    A + B + C -> D\n"
-"\n"
-"With this module:\n"
-"-----------------\n"
-"    A + B + C -> D + E\n"
-"    "
-msgstr ""
-"\n"
-"Tento modul vám umožňuje vyrobit několik výrobků z jednoho výrobního "
-"postupu.\n"
-"============================================================================="
-"\n"
-"\n"
-"Polotovary můžete nastavit v kusovníku.\n"
-"\n"
-"Bez tohoto modulu:\n"
-"--------------------\n"
-"    A + B + C -> D\n"
-"\n"
-"S tímto modulem:\n"
-"-----------------\n"
-"    A + B + C -> D + E\n"
-"    "
+#: model:res.country,name:base.ao
+msgid "Angola"
+msgstr "Angola"
 
 #. module: base
 #: model:res.country,name:base.tf
@@ -14281,6 +14100,11 @@ msgid "ir.sequence.type"
 msgstr "ir.sequence.type"
 
 #. module: base
+#: model:ir.module.module,shortdesc:base.module_l10n_be_hr_payroll_account
+msgid "Belgium - Payroll with Accounting"
+msgstr "Belgie - výplatní páska a účetnictví"
+
+#. module: base
 #: selection:base.language.export,format:0
 msgid "CSV File"
 msgstr "Soubor CSV"
@@ -14289,6 +14113,12 @@ msgstr "Soubor CSV"
 #: field:res.company,account_no:0
 msgid "Account No."
 msgstr "Číslo účtu"
+
+#. module: base
+#: code:addons/base/res/res_lang.py:185
+#, python-format
+msgid "Base Language 'en_US' can not be deleted !"
+msgstr "Nelze odstranit základní jazyk 'en_US' !"
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_uk
@@ -14338,47 +14168,9 @@ msgid "Field Label"
 msgstr "Označení pole"
 
 #. module: base
-#: model:ir.module.module,description:base.module_sale_stock
-msgid ""
-"\n"
-"Manage sales quotations and orders\n"
-"==================================\n"
-"\n"
-"This module makes the link between the sales and warehouses management "
-"applications.\n"
-"\n"
-"Preferences\n"
-"-----------\n"
-"* Shipping: Choice of delivery at once or partial delivery\n"
-"* Invoicing: choose how invoices will be paid\n"
-"* Incoterms: International Commercial terms\n"
-"\n"
-"You can choose flexible invoicing methods:\n"
-"\n"
-"* *On Demand*: Invoices are created manually from Sales Orders when needed\n"
-"* *On Delivery Order*: Invoices are generated from picking (delivery)\n"
-"* *Before Delivery*: A Draft invoice is created and must be paid before "
-"delivery\n"
-msgstr ""
-"\n"
-"Spravujte poptávky a objednávky\n"
-"==================================\n"
-"\n"
-"Tento modul vytváří propojení mezi aplikacemi prodejů a skladového "
-"hospodářství.\n"
-"\n"
-"Předvolby\n"
-"-----------\n"
-"* Dodávky: Výběr z dodávek najednou nebo částečných dodávek\n"
-"* Fakturace: Výběr způsobu platby faktur\n"
-"* Incoterms: Mezinárodní obchodní podmínky\n"
-"\n"
-"Můžete si zvolit flexibilní fakturační metody:\n"
-"\n"
-"* *Na vyžádání*: Faktury jsou vytvářeny manuálně ze zakázek podle potřeby\n"
-"* *Při dodání*: Faktury jsou vytvářeny při vyzvednutí (dodání)\n"
-"* *Před dodáním*: Je vytvořena proforma faktura, která musí být uhrazena "
-"před dodáním\n"
+#: model:res.country,name:base.dj
+msgid "Djibouti"
+msgstr "Džibutsko"
 
 #. module: base
 #: field:ir.translation,value:0
@@ -14549,6 +14341,11 @@ msgid "Diagram"
 msgstr "Diagram"
 
 #. module: base
+#: model:ir.module.module,shortdesc:base.module_l10n_es
+msgid "Spanish - Accounting (PGCE 2008)"
+msgstr "Španělsko - Účetnictví (PGCE 2008)"
+
+#. module: base
 #: model:ir.module.module,shortdesc:base.module_stock_no_autopicking
 msgid "Picking Before Manufacturing"
 msgstr "?!?Vyzvednutí před vyrobením"
@@ -14602,12 +14399,6 @@ msgid ""
 "\n"
 "You can assign several contracts per employee.\n"
 "    "
-msgstr ""
-
-#. module: base
-#: code:addons/base/res/res_lang.py:187
-#, python-format
-msgid "You cannot delete the language which is User's Preferred Language!"
 msgstr ""
 
 #. module: base
@@ -14835,6 +14626,11 @@ msgstr "Partneři zákazníka"
 #: sql_constraint:res.users:0
 msgid "You can not have two users with the same login !"
 msgstr "Nemůžete mít dva uživatele se stejným přihlašovacím jménem !"
+
+#. module: base
+#: model:ir.model,name:base.model_res_request_history
+msgid "res.request.history"
+msgstr "res.request.history"
 
 #. module: base
 #: model:ir.model,name:base.model_multi_company_default
@@ -15070,11 +14866,6 @@ msgstr "OpenERP Web Diagram"
 #: model:res.country,name:base.lu
 msgid "Luxembourg"
 msgstr "Lucembursko"
-
-#. module: base
-#: view:res.partner:0
-msgid "(edit company address)"
-msgstr ""
 
 #. module: base
 #: model:ir.module.module,summary:base.module_base_calendar
@@ -15315,13 +15106,6 @@ msgid "Currency Rate"
 msgstr "Kurz měny"
 
 #. module: base
-#. openerp-web
-#: code:addons/base/static/src/js/apps.js:104
-#, python-format
-msgid "OpenERP Apps Unreachable"
-msgstr ""
-
-#. module: base
 #: view:base.module.upgrade:0
 #: field:base.module.upgrade,module_info:0
 msgid "Modules to Update"
@@ -15447,11 +15231,6 @@ msgid "View Auto-Load"
 msgstr "Automatické načtení zobrazení"
 
 #. module: base
-#: view:res.country:0
-msgid "Address format..."
-msgstr ""
-
-#. module: base
 #: model:ir.module.module,description:base.module_l10n_et
 msgid ""
 "\n"
@@ -15524,6 +15303,12 @@ msgstr "Zdrojový model"
 #: view:ir.sequence:0
 msgid "Day of the Week (0:Monday): %(weekday)s"
 msgstr "Den v týdnu (0: pondělí): %(weekday)s"
+
+#. module: base
+#: code:addons/base/module/wizard/base_module_upgrade.py:84
+#, python-format
+msgid "Unmet dependency !"
+msgstr "Nevyřešená závislost !"
 
 #. module: base
 #: code:addons/base/ir/ir_model.py:509
@@ -15827,11 +15612,17 @@ msgid "Color Index"
 msgstr "Index barvy"
 
 #. module: base
-#: model:ir.module.category,name:base.module_category_manufacturing
-#: model:ir.ui.menu,name:base.menu_mrp_config
-#: model:ir.ui.menu,name:base.menu_mrp_root
-msgid "Manufacturing"
-msgstr "Výroba"
+#: model:ir.actions.act_window,help:base.action_partner_category_form
+msgid ""
+"Manage the partner categories in order to better classify them for tracking "
+"and analysis purposes. A partner may belong to several categories and "
+"categories have a hierarchy structure: a partner belonging to a category "
+"also belong to his parent category."
+msgstr ""
+"Spravuje kategorie kontaktů pro jejich lepší třídění z hlediska sledování a "
+"analýzy. Kontakt může patřit do několika kategorií. Kategorie mají "
+"hierarchickou strukturu, což znamená, že kontakt patřící do kategorie patří "
+"také do kategorie nadřazené."
 
 #. module: base
 #: model:ir.module.module,description:base.module_survey
@@ -15878,19 +15669,9 @@ msgid "Electronic Data Interchange (EDI)"
 msgstr "Elektronická výměna dat (EDI)"
 
 #. module: base
-#: model:ir.module.module,description:base.module_l10n_cn
-msgid ""
-"\n"
-"添加中文省份数据\n"
-"科目类型\\会计科目表模板\\增值税\\辅助核算类别\\管理会计凭证簿\\财务会计凭证簿\n"
-"============================================================\n"
-"    "
-msgstr ""
-"\n"
-"添加中文省份数据\n"
-"科目类型\\会计科目表模板\\增值税\\辅助核算类别\\管理会计凭证簿\\财务会计凭证簿\n"
-"============================================================\n"
-"    "
+#: model:ir.module.module,shortdesc:base.module_account_anglo_saxon
+msgid "Anglo-Saxon Accounting"
+msgstr "Anglosaské účetnictví"
 
 #. module: base
 #: model:res.country,name:base.vg
@@ -15902,11 +15683,6 @@ msgstr "Panenské ostrovy"
 #: model:ir.ui.menu,name:base.menu_ir_property
 msgid "Parameters"
 msgstr "Parametry"
-
-#. module: base
-#: view:res.partner:0
-msgid "e.g. Sales Director"
-msgstr ""
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -16095,11 +15871,6 @@ msgid "Automatic Installation"
 msgstr "Automatická instalace"
 
 #. module: base
-#: view:base.language.import:0
-msgid "e.g. en_US"
-msgstr "např. en_US"
-
-#. module: base
 #: model:ir.module.module,description:base.module_l10n_hn
 msgid ""
 "\n"
@@ -16277,10 +16048,10 @@ msgid "Condition"
 msgstr "Podmínka"
 
 #. module: base
-#: code:addons/base/module/module.py:669
-#, python-format
-msgid "Module not found"
-msgstr ""
+#: model:ir.actions.client,name:base.modules_updates_act_cl
+#: model:ir.ui.menu,name:base.menu_module_updates
+msgid "Updates"
+msgstr "Aktualizace"
 
 #. module: base
 #: help:res.currency,rate:0
@@ -16400,12 +16171,6 @@ msgstr "Zlatý"
 #, python-format
 msgid "Bank Accounts"
 msgstr "Bankovní účty"
-
-#. module: base
-#: code:addons/base/res/res_lang.py:185
-#, python-format
-msgid "Base Language 'en_US' can not be deleted!"
-msgstr ""
 
 #. module: base
 #: model:res.country,name:base.sl
@@ -16701,12 +16466,6 @@ msgid "Export Name"
 msgstr "Název exportu"
 
 #. module: base
-#: code:addons/base/ir/ir_sequence.py:259
-#, python-format
-msgid "Invalid prefix or suffix for sequence '%s'"
-msgstr "Neplatná předpona nebo přípona pro sekvenci '% s'"
-
-#. module: base
 #: help:res.partner,type:0
 msgid ""
 "Used to select automatically the right address according to the context in "
@@ -16748,92 +16507,2049 @@ msgstr "Ruština / русский язык"
 msgid "Signup"
 msgstr "Registrace"
 
-#, python-format
-#~ msgid "Please specify an action to launch !"
-#~ msgstr "Prosíme určete akci k vykonání !"
+#~ msgid "On multiple doc."
+#~ msgstr "Více dokumentů"
+
+#~ msgid "Property"
+#~ msgstr "Vlastnost"
+
+#~ msgid "Report Footer 1"
+#~ msgstr "Patička výpisu 1"
+
+#~ msgid "Report Footer 2"
+#~ msgstr "Patička výpisu 1"
+
+#~ msgid "Categories"
+#~ msgstr "Kategorie"
+
+#~ msgid "res.groups"
+#~ msgstr "res.groups"
+
+#~ msgid "res.users"
+#~ msgstr "res.users"
+
+#~ msgid "General Description"
+#~ msgstr "Obecný popis"
+
+#~ msgid "Sender's email"
+#~ msgstr "email odesílatele"
+
+#~ msgid "res.partner.event"
+#~ msgstr "res.partner.event"
+
+#~ msgid "Send SMS"
+#~ msgstr "Zaslat SMS"
+
+#~ msgid "XSL path"
+#~ msgstr "Cesta k XSL"
+
+#~ msgid "Rounding factor"
+#~ msgstr "Faktor zaokrouhlení"
+
+#~ msgid "Delivery"
+#~ msgstr "Dodací"
+
+#~ msgid "Report Header"
+#~ msgstr "Záhlaví výpisu"
+
+#~ msgid "Send Email"
+#~ msgstr "Poslat e-mail"
+
+#~ msgid "Send"
+#~ msgstr "Odeslat"
+
+#~ msgid "Localisation"
+#~ msgstr "Lokalizace"
+
+#~ msgid "Metadata"
+#~ msgstr "Metadata"
 
 #, python-format
-#~ msgid "Can not create the module file: %s !"
-#~ msgstr "Nelze vytvořit soubor modulu: %s !"
+#~ msgid "new"
+#~ msgstr "nový"
+
+#~ msgid ""
+#~ "0=Very Urgent\n"
+#~ "10=Not urgent"
+#~ msgstr ""
+#~ "0=Velmi důležité\n"
+#~ "10=Méně důležité"
+
+#~ msgid "Code (eg:en__US)"
+#~ msgstr "Kód (např. en_US)"
+
+#~ msgid "SMS - Gateway: clickatell"
+#~ msgstr "SMS brána Clickatell"
+
+#~ msgid "Workflow On"
+#~ msgstr "Aktivovat pracovní postup"
+
+#~ msgid "Display Menu Tips"
+#~ msgstr "Zobrazit tipy nabídky"
+
+#~ msgid "Wood Suppliers"
+#~ msgstr "Dodavatelé dřeva"
 
 #, python-format
 #~ msgid ""
-#~ "You cannot delete the language which is Active !\n"
-#~ "Please de-activate the language first."
+#~ "Some installed modules depend on the module you plan to Uninstall :\n"
+#~ " %s"
 #~ msgstr ""
-#~ "Nemůžete smazat aktivní jazyk !\n"
-#~ "Prosíme nejdříve jazyk deaktivujte,"
-
-#~ msgid "Manage bank records you want to be used in the system."
-#~ msgstr "Spravovat záznamy bank, které chcete používat v systému."
+#~ "Některé instalované moduly závisí na modulech, které plánujete odinstalovat "
+#~ ":\n"
+#~ " %s"
 
 #, python-format
-#~ msgid "Size of the field can never be less than 1 !"
-#~ msgstr "Velikost pole nikdy nemůže být menší než 1 !"
+#~ msgid "\"smtp_server\" needs to be set to send mails to users"
+#~ msgstr ""
+#~ "\"smtp_server\" musí být nastavení, aby bylo možné posílat poštu uživatelům"
 
 #, python-format
-#~ msgid "Invalid search criterions"
-#~ msgstr "Neplatné podmínky hledání"
+#~ msgid ""
+#~ "Save this document to a %s file and edit it with a specific software or a "
+#~ "text editor. The file encoding is UTF-8."
+#~ msgstr ""
+#~ "Uložit tento dokument do soubour %s a upravit jej pomocí zadaného software "
+#~ "nebo textového editoru. Kódování souboru je UTF-8."
+
+#~ msgid "Widget"
+#~ msgstr "Pomůcka"
+
+#~ msgid "Select Action Type"
+#~ msgstr "Vyberte typ akce"
+
+#~ msgid "E-Mail"
+#~ msgstr "E-mail"
 
 #, python-format
-#~ msgid "Base Language 'en_US' can not be deleted !"
-#~ msgstr "Nelze odstranit základní jazyk 'en_US' !"
+#~ msgid "The read method is not implemented on this object !"
+#~ msgstr "U tohoto objektu není vytvořena čtecí metoda."
+
+#~ msgid "Schedule Upgrade"
+#~ msgstr "Naplánovat povýšení"
 
 #, python-format
-#~ msgid "Unmet dependency !"
-#~ msgstr "Nevyřešená závislost !"
+#~ msgid "Key/value '%s' not found in selection field '%s'"
+#~ msgstr "Nenalezen klíč/hodnota '%s' ve vybraném poli '%s'"
 
-#, python-format
-#~ msgid "Connection test failed!"
-#~ msgstr "Test spojení selhal!"
+#~ msgid "Miscellaneous Suppliers"
+#~ msgstr "Různí dodavatelé"
 
-#, python-format
-#~ msgid "Connection test succeeded!"
-#~ msgstr "Test spojení uspěl!"
+#~ msgid "New User"
+#~ msgstr "Nový uživatel"
 
-#~ msgid "Spanish - Accounting (PGCE 2008)"
-#~ msgstr "Španělsko - Účetnictví (PGCE 2008)"
+#~ msgid "Export done"
+#~ msgstr "Export dokončen"
 
-#~ msgid "My Filters"
-#~ msgstr "Moje filtry"
+#~ msgid "Certified"
+#~ msgstr "Certifikovaný"
 
-#~ msgid "Personal"
-#~ msgstr "Osobní"
+#~ msgid "description"
+#~ msgstr "popis"
 
-#, python-format
-#~ msgid "Error !"
-#~ msgstr "Chyba!"
+#~ msgid "Want to check Ean ? "
+#~ msgstr "Chcete zkontrolovat Ean? "
+
+#~ msgid "Event Type"
+#~ msgstr "Typ události"
 
 #~ msgid ""
-#~ "Configure your company's bank accounts and select those that must appear on "
-#~ "the report footer. You can reorder bank accounts from the list view. If you "
-#~ "use the accounting application of OpenERP, journals and accounts will be "
-#~ "created automatically based on these data."
+#~ "OpenERP translations (core, modules, clients) are managed through "
+#~ "Launchpad.net, our open source project management facility. We use their "
+#~ "online interface to synchronize all translations efforts."
 #~ msgstr ""
-#~ "Nastavte bankovní účty vaší firmy a vyberty ty, které se musí zobrazit v "
-#~ "zápatí zprávy. V seznamu můžete změnit pořadí účtů. Pokud používáte účetní "
-#~ "aplikaci OpenERP, deníky a účty budou na základě těchto dat vytvořeny "
-#~ "automaticky."
+#~ "Překlad OpenERP (jádro, moduly, klienti) je spravován přes Launchpad.net, "
+#~ "vybavení pro správu našeho otevřeného projektu. Používáme jejich online "
+#~ "rozhraní k synchronizaci všech překladatelských prací."
+
+#~ msgid "Partner Form"
+#~ msgstr "Formulář společníka"
+
+#~ msgid "res.config.users"
+#~ msgstr "res.config.users"
+
+#~ msgid ","
+#~ msgstr ","
+
+#~ msgid "Payment term"
+#~ msgstr "Platební období"
 
 #, python-format
-#~ msgid "Operation forbidden"
-#~ msgstr "Operace zakázána"
+#~ msgid "The unlink method is not implemented on this object !"
+#~ msgstr "Metoda unline není pro tento objekt implementována !"
 
-#, python-format
-#~ msgid "You cannot delete the language which is User's Preferred Language !"
-#~ msgstr "Nemůžete smazat jazyk, který mají uživatelé jako preferovaný!"
+#~ msgid "client_action_multi, client_action_relate"
+#~ msgstr "client_action_multi, client_action_relate"
 
-#, python-format
-#~ msgid "Couldn't create contact without email address !"
-#~ msgstr "Nemůžete vytvořit kontakt bez e-mailové adresy!"
+#~ msgid "Human Resources Dashboard"
+#~ msgstr "Nástěnka lidských zdrojů"
 
 #~ msgid ""
-#~ "Manage the partner categories in order to better classify them for tracking "
-#~ "and analysis purposes. A partner may belong to several categories and "
-#~ "categories have a hierarchy structure: a partner belonging to a category "
-#~ "also belong to his parent category."
+#~ "To improve or expand the official translations, you should use directly "
+#~ "Lauchpad's web interface (Rosetta). If you need to perform mass translation, "
+#~ "Launchpad also allows uploading full .po files at once"
 #~ msgstr ""
-#~ "Spravuje kategorie kontaktů pro jejich lepší třídění z hlediska sledování a "
-#~ "analýzy. Kontakt může patřit do několika kategorií. Kategorie mají "
-#~ "hierarchickou strukturu, což znamená, že kontakt patřící do kategorie patří "
-#~ "také do kategorie nadřazené."
+#~ "K vylepšení a rozšíření oficiálních překladů byste měli využít přímo webové "
+#~ "rozhraní Launchpadu (Rosetta). Pokud potřebujete provést hromadný překlad, "
+#~ "Launchpad také umožňuje načtení celých .po souborů najednou."
+
+#~ msgid "To export a new language, do not select a language."
+#~ msgstr "K exportu nového jazyka nevybírejte žádný jazyk."
+
+#~ msgid "Request Date"
+#~ msgstr "Datum požadavku"
+
+#~ msgid "Dashboard"
+#~ msgstr "Nástěnka"
+
+#, python-format
+#~ msgid "Error during communication with the publisher warranty server."
+#~ msgstr "Chyba během komunikace se serverem záruky vydavatele."
+
+#~ msgid "-"
+#~ msgstr "-"
+
+#~ msgid "Main report file path"
+#~ msgstr "Cesta hlavního souboru výkazu"
+
+#~ msgid "wizard.ir.model.menu.create.line"
+#~ msgstr "wizard.ir.model.menu.create.line"
+
+#~ msgid "Attached ID"
+#~ msgstr "Přiložené ID"
+
+#~ msgid "Homepage Widgets"
+#~ msgstr "Pomůcky domovské stránky"
+
+#~ msgid ""
+#~ "Specify the message. You can use the fields from the object. e.g. `Dear [[ "
+#~ "object.partner_id.name ]]`"
+#~ msgstr ""
+#~ "Zadejte zprávu. Můžete použít pole z objektu. např. `Vážený [[ "
+#~ "object.partner_id.name ]]`"
+
+#~ msgid "Attached Model"
+#~ msgstr "Přiložený model"
+
+#~ msgid "Domain Setup"
+#~ msgstr "Nastavení domény"
+
+#~ msgid "Trigger Name"
+#~ msgstr "Jméno spouštěče"
+
+#~ msgid "References"
+#~ msgstr "Odkazy"
+
+#~ msgid "Advanced"
+#~ msgstr "Pokročilé"
+
+#~ msgid ""
+#~ "Keep empty if you don't want the user to be able to connect on the system."
+#~ msgstr ""
+#~ "Ponechejte prázdné pokud nechcete, aby se uživatel mohl připojit k systému."
+
+#~ msgid "https://help.launchpad.net/Translations"
+#~ msgstr "https://help.launchpad.net/Translations"
+
+#, python-format
+#~ msgid "Not implemented search_memory method !"
+#~ msgstr "Nerealizovaná metoda search_memory !"
+
+#~ msgid "Logs"
+#~ msgstr "Záznamy"
+
+#~ msgid "Search Contact"
+#~ msgstr "Hledat kontakt"
+
+#~ msgid "Uninstall (beta)"
+#~ msgstr "Odinstalace (beta)"
+
+#, python-format
+#~ msgid "Not implemented set_memory method !"
+#~ msgstr "Nerealizována metoda set_memory !"
+
+#~ msgid "Simplified"
+#~ msgstr "Zjednodušené"
+
+#~ msgid "Portugese (BR) / Português (BR)"
+#~ msgstr "Portugalština (BR) / Português (BR)"
+
+#~ msgid "Action To Launch"
+#~ msgstr "Akce k provedení"
+
+#~ msgid "Please be patient, as this operation may take a few seconds..."
+#~ msgstr ""
+#~ "Prosíme buďte trpěliví, protože tato operace může trvat několik sekund..."
+
+#~ msgid "This field is not used, it only helps you to select the right action."
+#~ msgstr "Toto pole není použito, pouze vám pomáhá vybrat správnou akci."
+
+#~ msgid "Values"
+#~ msgstr "Hodnoty"
+
+#~ msgid "Customization"
+#~ msgstr "Přizpůsobení"
+
+#~ msgid "Clear IDs"
+#~ msgstr "Smazat ID"
+
+#~ msgid ""
+#~ "Name of object whose function will be called when this scheduler will run. "
+#~ "e.g. 'res.partener'"
+#~ msgstr ""
+#~ "Jméno objektu jehož funkce bude volána, když bude spuštěn tento plánovač . "
+#~ "např. 'res.partner'"
+
+#, python-format
+#~ msgid "The perm_read method is not implemented on this object !"
+#~ msgstr "Metoda perm_read není pro tento objekt realizována !"
+
+#~ msgid "Messages"
+#~ msgstr "Zprávy"
+
+#~ msgid "Ending Date"
+#~ msgstr "Konečný datum"
+
+#~ msgid "Openstuff.net"
+#~ msgstr "Openstuff.net"
+
+#~ msgid "Valid"
+#~ msgstr "Platný"
+
+#~ msgid "Facebook"
+#~ msgstr "Facebook"
+
+#~ msgid "Iteration Action Configuration"
+#~ msgstr "Konfigurace akcí přírůstku"
+
+#~ msgid "Canceled"
+#~ msgstr "Zrušeno"
+
+#~ msgid "HR sector"
+#~ msgstr "Odvětví HR"
+
+#~ msgid "Draft"
+#~ msgstr "Koncept"
+
+#~ msgid "Apply For Write"
+#~ msgstr "Použít pro zápis"
+
+#~ msgid "Select the Signal name that is to be used as the trigger."
+#~ msgstr "Vyberte jméno signálu, který bude použit jako spouštěč."
+
+#~ msgid "Portugese / Português"
+#~ msgstr "Portugalština / Português"
+
+#~ msgid "Start Configuration"
+#~ msgstr "Start nastavení"
+
+#~ msgid "Custom python parser"
+#~ msgstr "Vlastní parser pythonu"
+
+#~ msgid "Channel"
+#~ msgstr "Kanál"
+
+#~ msgid "Unvalidated"
+#~ msgstr "Neověřené"
+
+#~ msgid "Payment Term"
+#~ msgstr "Platební období"
+
+#, python-format
+#~ msgid "Please check that all your lines have %d columns."
+#~ msgstr "Prosíme zkontrolujte, že všechny vaše řádky mají %d sloupců."
+
+#~ msgid "maintenance.contract"
+#~ msgstr "maintenance.contract"
+
+#~ msgid "Field Information"
+#~ msgstr "Informace pole"
+
+#~ msgid "Ean check"
+#~ msgstr "Kontrola Ean"
+
+#~ msgid "M."
+#~ msgstr "M."
+
+#, python-format
+#~ msgid "The certificate ID of the module must be unique !"
+#~ msgstr "ID certifikátu modulu musí být jedinečné !"
+
+#~ msgid ""
+#~ "If you need another language than the official ones available, you can "
+#~ "import a language pack from here. Other OpenERP languages than the official "
+#~ "ones can be found on launchpad."
+#~ msgstr ""
+#~ "Pokud potřebujete jiný jazyk než oficiálně dostupné, můžete zde importovat "
+#~ "jazykový balíček. Jazyky OpenERP jiné než oficiální lze nalézt na launchpadu."
+
+#~ msgid ""
+#~ "You cannot have multiple records with the same id for the same module !"
+#~ msgstr "Nemůžete mít více záznamů se stejným id ve stejném modulu !"
+
+#~ msgid "Quality Certificate"
+#~ msgstr "Certifikát kvality"
+
+#~ msgid "Last Connection"
+#~ msgstr "Poslední spojení"
+
+#, python-format
+#~ msgid ""
+#~ "Save this document to a .CSV file and open it with your favourite "
+#~ "spreadsheet software. The file encoding is UTF-8. You have to translate the "
+#~ "latest column before reimporting it."
+#~ msgstr ""
+#~ "Uložit tento dokument do .CSV souboru a otevřít jej s vaším oblíbeným "
+#~ "tabulkovým procesorem. Kódování souboru je UTF-8. Můžete přeložit nejnovější "
+#~ "sloupec před jeho znovuimportováním."
+
+#~ msgid ""
+#~ "If the selected language is loaded in the system, all documents related to "
+#~ "this partner will be printed in this language. If not, it will be english."
+#~ msgstr ""
+#~ "Pokud je vybraný jazyk načten do systému, všechny dokumenty vztažené k "
+#~ "tomuto partnerovi budou vytištěny v tomto jazyce. Pokud ne, budou v "
+#~ "angličtině."
+
+#~ msgid "Validate"
+#~ msgstr "Ověřit"
+
+#~ msgid "Restart"
+#~ msgstr "Restartovat"
+
+#~ msgid "SXW content"
+#~ msgstr "Obsah SXW"
+
+#~ msgid "Default Filters"
+#~ msgstr "Výchozí filtry"
+
+#~ msgid ""
+#~ "Specify the subject. You can use fields from the object, e.g. `Hello [[ "
+#~ "object.partner_id.name ]]`"
+#~ msgstr ""
+#~ "Zadejte předmět. Můžete použít pole objektu, např. `Ahoj [[ "
+#~ "object.partner_id.name ]]`"
+
+#~ msgid "XML ID"
+#~ msgstr "XML ID"
+
+#~ msgid "Current Activity"
+#~ msgstr "Aktuální aktivita"
+
+#~ msgid "Customized Architecture"
+#~ msgstr "Přizpůsobená architektura"
+
+#~ msgid "Always"
+#~ msgstr "Vždy"
+
+#~ msgid "FYROM"
+#~ msgstr "FYROM"
+
+#~ msgid "XML Id"
+#~ msgstr "XML Id"
+
+#~ msgid "Create Users"
+#~ msgstr "Vytvoření uživatelů"
+
+#~ msgid "tree_but_action, client_print_multi"
+#~ msgstr "tree_but_action, client_print_multi"
+
+#~ msgid "Retailers"
+#~ msgstr "Maloobchodníci"
+
+#, python-format
+#~ msgid "You can not remove the model '%s' !"
+#~ msgstr "Nemůžete odebrat model '%s' !"
+
+#~ msgid "Event"
+#~ msgstr "Událost"
+
+#~ msgid "Custom Reports"
+#~ msgstr "Vlastní výkazy"
+
+#, python-format
+#~ msgid "That contract is already registered in the system."
+#~ msgstr "Tato smlouva je již v systému registrována."
+
+#~ msgid "API ID"
+#~ msgstr "API ID"
+
+#, python-format
+#~ msgid ""
+#~ "You can not create this document (%s) ! Be sure your user belongs to one of "
+#~ "these groups: %s."
+#~ msgstr ""
+#~ "Nemůžete vytvořit dokument (%s) ! Ujistěte se, že váš uživatel patří do "
+#~ "jedné z těchto skupin: %s."
+
+#~ msgid "OpenERP Favorites"
+#~ msgstr "OpenERP Oblíbené"
+
+#~ msgid "Translation Terms"
+#~ msgstr "Termíny překladu"
+
+#~ msgid "System update completed"
+#~ msgstr "Aktualizace systému dokončena"
+
+#~ msgid "SXW path"
+#~ msgstr "Cesta SXW"
+
+#~ msgid "Apply For Delete"
+#~ msgstr "Použít pro smazání"
+
+#~ msgid "Creator"
+#~ msgstr "Tvůrce"
+
+#~ msgid "Plugins"
+#~ msgstr "Doplňky"
+
+#, python-format
+#~ msgid "The write method is not implemented on this object !"
+#~ msgstr "Metoda write není realizována pro tento objekt !"
+
+#~ msgid "Configure Your Interface"
+#~ msgstr "Nastavit vaše rozhraní"
+
+#~ msgid "Meta Datas"
+#~ msgstr "Meta informace"
+
+#~ msgid ""
+#~ "The user's timezone, used to perform timezone conversions between the server "
+#~ "and the client."
+#~ msgstr ""
+#~ "Uživatelská časová zóna použita pro vykonání převodů mezi časovou zónou "
+#~ "serveru a klienta."
+
+#~ msgid "Demo data"
+#~ msgstr "Ukázková data"
+
+#~ msgid "publisher_warranty.contract"
+#~ msgstr "publisher_warranty.contract"
+
+#~ msgid "The state code in three chars.\n"
+#~ msgstr "Kód státu ve třech znacích.\n"
+
+#, python-format
+#~ msgid "module base cannot be loaded! (hint: verify addons-path)"
+#~ msgstr "modul base nelze načíst! (pokyn: zkontrolujte addons-path)"
+
+#~ msgid "Author Website"
+#~ msgstr "Stránky autora"
+
+#~ msgid "Load Official Translation"
+#~ msgstr "Načíst oficiální překlad"
+
+#~ msgid "Client Action Configuration"
+#~ msgstr "Nastavení akcí klienta"
+
+#~ msgid "Events"
+#~ msgstr "Události"
+
+#~ msgid "ir.actions.url"
+#~ msgstr "ir.actions.url"
+
+#~ msgid "Currency Converter"
+#~ msgstr "Převodník měn"
+
+#, python-format
+#~ msgid "Wrong ID for the browse record, got %r, expected an integer."
+#~ msgstr "Neplatné ID pro záznam procházení, máme %r, očekáván integer."
+
+#~ msgid "vsep"
+#~ msgstr "vsep"
+
+#, python-format
+#~ msgid "The create method is not implemented on this object !"
+#~ msgstr "Vytvářecí metoda není realizována pro tento objekt !"
+
+#~ msgid "Combination of rules"
+#~ msgstr "Kombinace pravidel"
+
+#~ msgid "Trigger On"
+#~ msgstr "Zapnout spouštěč"
+
+#~ msgid "Request History"
+#~ msgstr "Historie požadavku"
+
+#~ msgid "Create Action"
+#~ msgstr "Vytvořit akci"
+
+#~ msgid "Objects"
+#~ msgstr "Objekty"
+
+#~ msgid "Signal (button Name)"
+#~ msgstr "Signál(název tlačítka)"
+
+#~ msgid "Unread"
+#~ msgstr "Nepřečtené"
+
+#~ msgid "RML content"
+#~ msgstr "Obsah RML"
+
+#~ msgid "Advice"
+#~ msgstr "Rada"
+
+#~ msgid "- module,type,name,res_id,src,value"
+#~ msgstr "- module,type,name,res_id,src,value"
+
+#~ msgid "Cancelled"
+#~ msgstr "Zrušeno"
+
+#~ msgid "Create User"
+#~ msgstr "Vytvořit uživatele"
+
+#~ msgid "Want to Clear Ids ? "
+#~ msgstr "Chcete vyčistit Id? "
+
+#~ msgid "Serial Key"
+#~ msgstr "Sériový klíč"
+
+#~ msgid "Audit"
+#~ msgstr "Kontrola"
+
+#~ msgid "Maintenance Contract"
+#~ msgstr "Smlouva údržby"
+
+#~ msgid "In-memory model"
+#~ msgstr "Model v-paměti"
+
+#~ msgid "Clear Ids"
+#~ msgstr "Vyčistit Id"
+
+#~ msgid "Interface"
+#~ msgstr "Rozhraní"
+
+#~ msgid "On delete"
+#~ msgstr "Při mazání"
+
+#, python-format
+#~ msgid "Not Implemented"
+#~ msgstr "Nerealizováno"
+
+#~ msgid "res.widget.user"
+#~ msgstr "res.widget.user"
+
+#~ msgid "_Ok"
+#~ msgstr "_Ok"
+
+#~ msgid "False means for every user"
+#~ msgstr "Nepravda znamená pro všechny uživatele"
+
+#~ msgid "Salesman"
+#~ msgstr "Obchodník"
+
+#~ msgid "Add"
+#~ msgstr "Přidat"
+
+#~ msgid "Widgets"
+#~ msgstr "Pomůcky"
+
+#~ msgid "Widget Wizard"
+#~ msgstr "Průvodce pomůcky"
+
+#~ msgid "My Logs"
+#~ msgstr "Moje záznamy"
+
+#~ msgid "Textile Suppliers"
+#~ msgstr "Dodavatele textilu"
+
+#~ msgid "Publisher Warranty Contracts"
+#~ msgstr "Smlouvy záruky vydavatele"
+
+#~ msgid "The logging message."
+#~ msgstr "Zpráva záznamu."
+
+#~ msgid "res.config.view"
+#~ msgstr "res.config.view"
+
+#~ msgid "Read"
+#~ msgstr "Čtení"
+
+#~ msgid "Latest version"
+#~ msgstr "Poslední verze"
+
+#~ msgid "acc_number"
+#~ msgstr "acc_number"
+
+#~ msgid "Addresses"
+#~ msgstr "Adresy"
+
+#~ msgid "XML Identifier"
+#~ msgstr "XML identifikátor"
+
+#~ msgid "SMS Message"
+#~ msgstr "SMS zpráva"
+
+#~ msgid "Skipped"
+#~ msgstr "Přeskočeno"
+
+#~ msgid "Has a web component"
+#~ msgstr "Má webovou součást"
+
+#~ msgid "Select Report"
+#~ msgstr "Vybrat výkaz"
+
+#, python-format
+#~ msgid "The exists method is not implemented on this object !"
+#~ msgstr "Metoda exists není realizována pro tento objekt !"
+
+#~ msgid "Connect Events to Actions"
+#~ msgstr "Připojit události k akcím"
+
+#~ msgid "Integer Big"
+#~ msgstr "Integer Big"
+
+#, python-format
+#~ msgid "Module %s: Invalid Quality Certificate"
+#~ msgstr "Modul %s: Neplatný certifikát kvality"
+
+#~ msgid "SMS Send"
+#~ msgstr "Poslat SMS"
+
+#~ msgid "Values for Event Type"
+#~ msgstr "Hodnoty pro typ události"
+
+#~ msgid "Content"
+#~ msgstr "Obsah"
+
+#~ msgid ""
+#~ "Your publisher warranty contract is already subscribed in the system !"
+#~ msgstr "Vaše smlouva o záruce vydavatele je již podepsána v systému !"
+
+#~ msgid "Next planned execution date for this scheduler"
+#~ msgstr "Další plánovaný datum spuštění pro tento plánovač"
+
+#~ msgid "Choose between the simplified interface and the extended one"
+#~ msgstr "Vyberte mezi zjednodušeným rozhraním a rozšířenou variantou"
+
+#~ msgid "Arguments to be passed to the method. e.g. (uid,)"
+#~ msgstr "Parametry, které budou předány metodě. např. (uid,)"
+
+#~ msgid "Seconde: %(sec)s"
+#~ msgstr "Sekundy: %s(sec)s"
+
+#, python-format
+#~ msgid "Object %s does not exists"
+#~ msgstr "Objekt %s neexistuje"
+
+#~ msgid "Add User"
+#~ msgstr "Přidat uživatele"
+
+#~ msgid "_Close"
+#~ msgstr "_Zavřít"
+
+#~ msgid "Secondary Log"
+#~ msgstr "Vedlejší záznam"
+
+#~ msgid "Waiting"
+#~ msgstr "Čekající"
+
+#, python-format
+#~ msgid "Could not load base module"
+#~ msgstr "Nelze načíst základní modul"
+
+#, python-format
+#~ msgid "The copy method is not implemented on this object !"
+#~ msgstr "Kopírovací metoda není u tohoto objektu realizována !"
+
+#~ msgid "Creation Date"
+#~ msgstr "Datum vytvoření"
+
+#~ msgid "Number padding"
+#~ msgstr "Zarovnání čísla"
+
+#~ msgid "Ignore"
+#~ msgstr "Ignorovat"
+
+#~ msgid "ir.actions.todo"
+#~ msgstr "ir.actions.todo"
+
+#, python-format
+#~ msgid "Couldn't find previous ir.actions.todo"
+#~ msgstr "Nelze najít předchozí ir.actions.todo"
+
+#~ msgid "res.widget"
+#~ msgstr "res.widget"
+
+#, python-format
+#~ msgid "Not implemented get_memory method !"
+#~ msgstr "Metoda get_memory nerealizována !"
+
+#~ msgid "The kernel of OpenERP, needed for all installation."
+#~ msgstr "Jádro OpenERP potřebné pro všechny instalace."
+
+#~ msgid "Current"
+#~ msgstr "Aktuální"
+
+#~ msgid "Components Supplier"
+#~ msgstr "Dodavatelé součástí"
+
+#~ msgid "Finished"
+#~ msgstr "Dokončeno"
+
+#~ msgid "Week of the year: %(woy)s"
+#~ msgstr "Týden v roce: %(woy)s"
+
+#~ msgid "Bad customers"
+#~ msgstr "Špatný zákazník"
+
+#~ msgid ""
+#~ "View type: set to 'tree' for a hierarchical tree view, or 'form' for other "
+#~ "views"
+#~ msgstr ""
+#~ "Typ pohledu: nastavte 'strom' pro hiearchický stromový pohled nebo 'form' "
+#~ "pro ostatní pohledy"
+
+#~ msgid ""
+#~ "Check out this box if you want to always display tips on each menu action"
+#~ msgstr ""
+#~ "Zaškrtněte toto pole pokud chcete vždy zobrazovat tipy u každé akce nabídky"
+
+#~ msgid "Apply For Read"
+#~ msgstr "Použít pro čtení"
+
+#, python-format
+#~ msgid "Please specify server option --email-from !"
+#~ msgstr "Prosíme zadejte volbu serveru --email-from !"
+
+#~ msgid ""
+#~ "It gives the status if the tip has to be displayed or not when a user "
+#~ "executes an action"
+#~ msgstr ""
+#~ "Dává stav poku má být zobrazen tip  nebo nic pokud uživatel spouští akci"
+
+#~ msgid "Fund Raising"
+#~ msgstr "Získávání prostředků"
+
+#~ msgid "Create"
+#~ msgstr "Vytvořit"
+
+#~ msgid "res.log"
+#~ msgstr "res.log"
+
+#~ msgid "country_id"
+#~ msgstr "country_id"
+
+#~ msgid "User Name"
+#~ msgstr "Uživatelské jméno"
+
+#~ msgid "Day of the year: %(doy)s"
+#~ msgstr "Den v roce: %(doy)s"
+
+#~ msgid "E-mail"
+#~ msgstr "E-mail"
+
+#~ msgid "Object Identifiers"
+#~ msgstr "Identifikátory objektu"
+
+#~ msgid "To browse official translations, you can start with these links:"
+#~ msgstr "K procházení oficiálních překladů můžete začít s těmito odkazy:"
+
+#, python-format
+#~ msgid ""
+#~ "You can not read this document (%s) ! Be sure your user belongs to one of "
+#~ "these groups: %s."
+#~ msgstr ""
+#~ "Nemůžete číst tento dokument (%s) ! Ujistěte se, že váš uživatel patří do "
+#~ "jedné z těchto skupin: %s."
+
+#~ msgid "Installed version"
+#~ msgstr "Instalovaná verze"
+
+#~ msgid "Module update result"
+#~ msgstr "Výsledek aktualizace modulu"
+
+#~ msgid "Postal Address"
+#~ msgstr "Poštovní adresa"
+
+#~ msgid "Requests"
+#~ msgstr "Požadavky"
+
+#~ msgid "Client Logs"
+#~ msgstr "Záznamy klienta"
+
+#~ msgid ""
+#~ "Please be patient, this operation may take a few minutes (depending on the "
+#~ "number of modules currently installed)..."
+#~ msgstr ""
+#~ "Prosíme buďte trpěliví, tato operace může trvat několik minut (v závislosti "
+#~ "na počtu instalovaných modulů)..."
+
+#, python-format
+#~ msgid "The read_group method is not implemented on this object !"
+#~ msgstr "Metoda read_group není pro objekt realizována !"
+
+#~ msgid ""
+#~ "Enable this if you want to execute missed occurences as soon as the server "
+#~ "restarts."
+#~ msgstr ""
+#~ "Povolte toto pokud chcete vykona chybějící výskyty jakmile se server "
+#~ "vyrestartuje."
+
+#~ msgid "Start update"
+#~ msgstr "Odstartovat aktualizaci"
+
+#, python-format
+#~ msgid "Contract validation error"
+#~ msgstr "Chyba ověření smlouvy"
+
+#~ msgid "Error ! You can not create recursive associated members."
+#~ msgstr "Chyba ! Nemůžete vytvořit rekurzivní přiřazené členy."
+
+#~ msgid "HR Manager Dashboard"
+#~ msgstr "Nástěnka správy HR"
+
+#~ msgid "Ms."
+#~ msgstr "Pan"
+
+#~ msgid "Open Report"
+#~ msgstr "Otevřít výkaz"
+
+#~ msgid "ir.wizard.screen"
+#~ msgstr "ir.wizard.screen"
+
+#~ msgid "Terminated"
+#~ msgstr "Ukončeno"
+
+#~ msgid "Important customers"
+#~ msgstr "Důležití zákazníci"
+
+#, python-format
+#~ msgid "Database ID doesn't exist: %s : %s"
+#~ msgstr "ID databáze neexistuje: %s : %s"
+
+#, python-format
+#~ msgid "key '%s' not found in selection field '%s'"
+#~ msgstr "klíč '%s' nenalezen ve výběru pole '%s'"
+
+#~ msgid "Correct EAN13"
+#~ msgstr "Opravit EAN13"
+
+#, python-format
+#~ msgid "The value \"%s\" for the field \"%s\" is not in the selection"
+#~ msgstr "Hodnota \"%s\" pro pole \"%s\" není ve výběru"
+
+#~ msgid "Short Description"
+#~ msgstr "Krátký popis"
+
+#, python-format
+#~ msgid ""
+#~ "Group(s) cannot be deleted, because some user(s) still belong to them: %s !"
+#~ msgstr ""
+#~ "Skupiny nemohou být smazány, protože někteří uživatelé k nim stále patří: %s "
+#~ "!"
+
+#~ msgid "Synchronize Translations"
+#~ msgstr "Synchronizovat překlady"
+
+#, python-format
+#~ msgid "Warning !"
+#~ msgstr "Varování !"
+
+#~ msgid "Google Maps"
+#~ msgstr "Google mapy"
+
+#~ msgid "publisher_warranty.contract.wizard"
+#~ msgstr "publisher_warranty.contract.wizard"
+
+#~ msgid "Starting Date"
+#~ msgstr "Počáteční datum"
+
+#~ msgid "Website of Partner"
+#~ msgstr "Stránky společníka"
+
+#~ msgid "Load an Official Translation"
+#~ msgstr "Načíst oficiální překlad"
+
+#~ msgid "Miscelleanous"
+#~ msgstr "Různé"
+
+#~ msgid "Report file"
+#~ msgstr "Soubor výkazu"
+
+#~ msgid "Created"
+#~ msgstr "Vytvořeno"
+
+#~ msgid "- type,name,res_id,src,value"
+#~ msgstr "- type,name,res_id,src,value"
+
+#~ msgid "Type fields"
+#~ msgstr "Typ polí"
+
+#~ msgid "Uncheck the active field to hide the contact."
+#~ msgstr "Odškrtněte aktivní pole ke skrytí kontaktu."
+
+#~ msgid "Add a widget for User"
+#~ msgstr "Přidat pomůcku pro uživatele"
+
+#~ msgid ""
+#~ "Only specify a value if you want to change the user password. This user will "
+#~ "have to logout and login again!"
+#~ msgstr ""
+#~ "Zadejte pouze hodnotu pokud chcete změnit uživatelské heslo. Tento uživatel "
+#~ "bude opět odhlášen a přihlášen!"
+
+#~ msgid "Binary File or external URL"
+#~ msgstr "Binární soubor nebo vnější URL"
+
+#~ msgid "Your Logo - Use a size of about 450x150 pixels."
+#~ msgstr "Vaše logo - Použijte velikost okolo 450x150 bodů."
+
+#~ msgid ""
+#~ "You can install new modules in order to activate new features, menu, reports "
+#~ "or data in your OpenERP instance. To install some modules, click on the "
+#~ "button \"Schedule for Installation\" from the form view, then click on "
+#~ "\"Apply Scheduled Upgrades\" to migrate your system."
+#~ msgstr ""
+#~ "Můžete instalovat nové moduly k aktivování nových funkcí, nabídek, výkazů "
+#~ "nebo dat ve vaší insanci OpenERP. K instalování nějakých modulů klikněte na "
+#~ "tlačítko \"Naplánovat k instalaci\" z formuláře pohledu. Pak klikněte na "
+#~ "\"Použít pro plánované povýšení\" k převedení vašeho systému."
+
+#~ msgid "Emails"
+#~ msgstr "Emaily"
+
+#~ msgid "Congo, The Democratic Republic of the"
+#~ msgstr "Demokratická republika Kongo"
+
+#~ msgid "Modules to update"
+#~ msgstr "Moduly k aktualizaci"
+
+#~ msgid "Add RML header"
+#~ msgstr "Přidat hlavičku RML"
+
+#~ msgid "Python code to be executed"
+#~ msgstr "Kód Pythonu k vykonání"
+
+#~ msgid "Register"
+#~ msgstr "Registrace"
+
+#~ msgid "Consumers"
+#~ msgstr "Spotřebitelé"
+
+#~ msgid "Next"
+#~ msgstr "Další"
+
+#~ msgid ""
+#~ "Name of the method to be called on the object when this scheduler is "
+#~ "executed."
+#~ msgstr ""
+#~ "Jméno metody, která bude volána nad objektem, když bude spuštěn tento "
+#~ "plánovač."
+
+#, python-format
+#~ msgid ""
+#~ "--\n"
+#~ "%(name)s %(email)s\n"
+#~ msgstr ""
+#~ "--\n"
+#~ "%(name)s %(email)s\n"
+
+#~ msgid "Publisher warranty contract successfully registered!"
+#~ msgstr "Smlouva vydavatele úspěšně registrována!"
+
+#~ msgid "Channel Name"
+#~ msgstr "Název kanálu"
+
+#~ msgid "Object ID"
+#~ msgstr "ID objektu"
+
+#~ msgid "Landscape"
+#~ msgstr "Naležato"
+
+#~ msgid "Widgets per User"
+#~ msgstr "Pomůcka dle uživatele"
+
+#~ msgid "User Widgets"
+#~ msgstr "Uživatelské pomůcky"
+
+#~ msgid "Reply"
+#~ msgstr "Odpovědět"
+
+#~ msgid "Rules are not supported for osv_memory objects !"
+#~ msgstr "Pravidla nejsou podporována pro osv_memory objects !"
+
+#~ msgid "Other Actions Configuration"
+#~ msgstr "Konfigurace dalších akcí"
+
+#~ msgid "Channels"
+#~ msgstr "Kanály"
+
+#~ msgid "Extra Info"
+#~ msgstr "Speciální info."
+
+#~ msgid "Client Events"
+#~ msgstr "Události klienta"
+
+#~ msgid "Schedule for Installation"
+#~ msgstr "Naplánovat k instalaci"
+
+#~ msgid "Ean Check"
+#~ msgstr "Kontrola Ean"
+
+#~ msgid "Menu Tips"
+#~ msgstr "Tipy nabídky"
+
+#~ msgid "Internal Header/Footer"
+#~ msgstr "Vnitřní záhlaví/zápatí"
+
+#~ msgid "_Export"
+#~ msgstr "_Export"
+
+#~ msgid "state"
+#~ msgstr "stav"
+
+#~ msgid "Event Logs"
+#~ msgstr "Záznamy událostí"
+
+#~ msgid "https://translations.launchpad.net/openobject"
+#~ msgstr "https://translations.launchpad.net/openobject"
+
+#~ msgid "XML path"
+#~ msgstr "Cesta k XML"
+
+#~ msgid "On Skip"
+#~ msgstr "Při přeskočení"
+
+#~ msgid ""
+#~ "The kind of action or button in the client side that will trigger the action."
+#~ msgstr "Typ akce nebo tlačítka na straně klienta, která vyvolá akci."
+
+#~ msgid "Register a Contract"
+#~ msgstr "Registrovat smlouvu"
+
+#, python-format
+#~ msgid "Please check your publisher warranty contract name and validity."
+#~ msgstr ""
+#~ "Prosíme zkontrolujte jména platnost vaší smlouvy o zárukách vydavatele."
+
+#~ msgid "System Logs"
+#~ msgstr "Systémové záznamy"
+
+#~ msgid "Apply For Create"
+#~ msgstr "Použít pro vytvoření"
+
+#, python-format
+#~ msgid "You cannot remove the field '%s' !"
+#~ msgstr "Nemůžete odebrat pole '%s' !"
+
+#~ msgid "View Ordering"
+#~ msgstr "Zobrazit objednávky"
+
+#~ msgid ""
+#~ "Supported file formats: *.csv (Comma-separated values) or *.po (GetText "
+#~ "Portable Objects)"
+#~ msgstr ""
+#~ "Podporované formáty souborů: *.csv (Comma-separated values) nebo *.po "
+#~ "(GetText Portable Objects)"
+
+#, python-format
+#~ msgid ""
+#~ "You can not delete this document (%s) ! Be sure your user belongs to one of "
+#~ "these groups: %s."
+#~ msgstr ""
+#~ "Nemůžete smazat tento dokument (%s) ! Ujistěte se, že váš uživatel patří do "
+#~ "jedné z těchto skupin: %s."
+
+#~ msgid "Slovak Republic"
+#~ msgstr "Slovenská republika"
+
+#~ msgid "Publisher Warranty"
+#~ msgstr "Záruka vydavatele"
+
+#~ msgid "Segmentation"
+#~ msgstr "Členění"
+
+#~ msgid "Email & Signature"
+#~ msgstr "Email & podpis"
+
+#~ msgid "Publisher Warranty Contract"
+#~ msgstr "Smlouva záruky vydavatele"
+
+#~ msgid "Workflow to be executed on this model."
+#~ msgstr "Pracovní postup, který má být spuštěn pro tento model."
+
+#~ msgid "Day of the week (0:Monday): %(weekday)s"
+#~ msgstr "Den v týdnu (0:Monday): %(weekday)s"
+
+#~ msgid "Action Source"
+#~ msgstr "Zdroj akce"
+
+#~ msgid "Is Object"
+#~ msgstr "Je objekt"
+
+#~ msgid "IT sector"
+#~ msgstr "Odvětví IT"
+
+#~ msgid "Select Groups"
+#~ msgstr "Vyberte skupiny"
+
+#~ msgid "Portrait"
+#~ msgstr "Na výšku"
+
+#~ msgid "Configuration Progress"
+#~ msgstr "Průběh nastavení"
+
+#~ msgid "This field is not used, it only helps you to select a good model."
+#~ msgstr "Toto pole není použito, pomůže vám pouze vybrat dobrý model."
+
+#~ msgid "Save As Attachment Prefix"
+#~ msgstr "Uložit jako předponu přílohy"
+
+#~ msgid "Homepage Widgets Management"
+#~ msgstr "Správa pomůcek domovské stránky"
+
+#~ msgid "Search Widget"
+#~ msgstr "Hledat pomůcku"
+
+#~ msgid "Never"
+#~ msgstr "Nikdy"
+
+#~ msgid "BIC/Swift code"
+#~ msgstr "Kód BIC/Swift"
+
+#~ msgid ""
+#~ "Do not display this log if it belongs to the same object the user is working "
+#~ "on"
+#~ msgstr ""
+#~ "Nezobrazovat tento záznam, pokud patří ke stejnému objektu, se kterým "
+#~ "pracuje uživatel"
+
+#~ msgid "Keep 0 if the action must appear on all resources."
+#~ msgstr "Nechejte 0 pokud se musí akce objevit u všech zdrojů."
+
+#~ msgid "Extended"
+#~ msgstr "Rozšířené"
+
+#~ msgid "VAT"
+#~ msgstr "DIČ"
+
+#~ msgid "Client Actions Connections"
+#~ msgstr "Nastavení akcí klienta"
+
+#~ msgid "Contracts"
+#~ msgstr "Smlouvy"
+
+#~ msgid "Partner Contacts"
+#~ msgstr "Kontakty partnera"
+
+#~ msgid "Please enter the serial key provided in your contract document:"
+#~ msgstr "Prosíme zadejte sériové číslo poskytnuté v dokumentu vaší smlouvy:"
+
+#, python-format
+#~ msgid ""
+#~ "You can not write in this document (%s) ! Be sure your user belongs to one "
+#~ "of these groups: %s."
+#~ msgstr ""
+#~ "Nemůžete zapisat dokument (%s) ! Ujistěte se, že váš uživatel patří do jedné "
+#~ "ze skupin: %s."
+
+#~ msgid "Basic Partner"
+#~ msgstr "Základní partner"
+
+#~ msgid ""
+#~ "Groups are used to define access rights on objects and the visibility of "
+#~ "screens and menus"
+#~ msgstr ""
+#~ "Skupiny jsou použity pro určení přístupových práv nad objekty a viditelnost "
+#~ "obrazovek a nabídek"
+
+#~ msgid ""
+#~ "Sets the language for the user's user interface, when UI translations are "
+#~ "available"
+#~ msgstr ""
+#~ "Pokud jsou dostupné překlady rozhraní, nastaví jazyk pro uživatelské "
+#~ "rozhraní uživatele."
+
+#~ msgid "S. Georgia & S. Sandwich Isls."
+#~ msgstr "Ostrovy S. Georgia a S. Sandwich"
+
+#~ msgid ""
+#~ "2. Group-specific rules are combined together with a logical AND operator"
+#~ msgstr ""
+#~ "2. Pravidla určitá pro skupinu jsou kombinována společně s logickým "
+#~ "operátorem AND"
+
+#~ msgid ""
+#~ "Provides the fields that will be used to fetch the email address, e.g. when "
+#~ "you select the invoice, then `object.invoice_address_id.email` is the field "
+#~ "which gives the correct address"
+#~ msgstr ""
+#~ "Poskytuje pole, která budou použita pro získání emailové adresy, např. když "
+#~ "vyberete fakturu, pak `object.invoice_address_id.email` je pole, které dává "
+#~ "platnou adresu"
+
+#~ msgid ""
+#~ "This wizard helps you register a publisher warranty contract in your OpenERP "
+#~ "system. After the contract has been registered, you will be able to send "
+#~ "issues directly to OpenERP."
+#~ msgstr ""
+#~ "Tento průvodce vám pomůže registrovat záruční smlouvu vydavatele ve vašem "
+#~ "systému OpenERP. Poté co bude smlouva registrována, budete moci odeslílat "
+#~ "dotazy přímo do OpenERP."
+
+#, python-format
+#~ msgid "The search method is not implemented on this object !"
+#~ msgstr "Metoda hledání není u tohoto objektu realizována !"
+
+#~ msgid ""
+#~ "Date : %(date)s\n"
+#~ "\n"
+#~ "Dear %(partner_name)s,\n"
+#~ "\n"
+#~ "Please find in attachment a reminder of all your unpaid invoices, for a "
+#~ "total amount due of:\n"
+#~ "\n"
+#~ "%(followup_amount).2f %(company_currency)s\n"
+#~ "\n"
+#~ "Thanks,\n"
+#~ "--\n"
+#~ "%(user_signature)s\n"
+#~ "%(company_name)s"
+#~ msgstr ""
+#~ "Datum : %(date)s\n"
+#~ "\n"
+#~ "Vážený %(partner_name)s,\n"
+#~ "\n"
+#~ "V příloze najdete upomínku vašich nezaplacených faktur s celkovou splatnou "
+#~ "částkou:\n"
+#~ "\n"
+#~ "%(followup_amount).2f %(company_currency)s\n"
+#~ "\n"
+#~ "Děkujeme,\n"
+#~ "--\n"
+#~ "%(user_signature)s\n"
+#~ "%(company_name)s"
+
+#~ msgid ""
+#~ "Condition that is to be tested before action is executed, e.g. "
+#~ "object.list_price > object.cost_price"
+#~ msgstr ""
+#~ "Podmínka, která musí být otestována před vykonáním akce, např. "
+#~ "object.list_price > object.cost_price"
+
+#~ msgid ""
+#~ "When using CSV format, please also check that the first line of your file is "
+#~ "one of the following:"
+#~ msgstr ""
+#~ "Prosíme zkontrolujte také, že první řádek vašeho souboru je následující, "
+#~ "pokud je použit formát CSV."
+
+#~ msgid ""
+#~ "This wizard will scan all module repositories on the server side to detect "
+#~ "newly added modules as well as any change to existing modules."
+#~ msgstr ""
+#~ "Průvodce prozkoumá všechny repozitáře modulů na straně serveru pro zjištění "
+#~ "nově přidaných modulů stejně jako změn existujících modulů."
+
+#, python-format
+#~ msgid ""
+#~ "Couldn't generate the next id because some partners have an alphabetic id !"
+#~ msgstr ""
+#~ "Nemůžu generovat další id, protože někteří partneři mají abecední id !"
+
+#~ msgid ""
+#~ "Example: GLOBAL_RULE_1 AND GLOBAL_RULE_2 AND ( (GROUP_A_RULE_1 AND "
+#~ "GROUP_A_RULE_2) OR (GROUP_B_RULE_1 AND GROUP_B_RULE_2) )"
+#~ msgstr ""
+#~ "Příklad: GLOBAL_RULE_1 AND GLOBAL_RULE_2 AND ( (GROUP_A_RULE_1 AND "
+#~ "GROUP_A_RULE_2) OR (GROUP_B_RULE_1 AND GROUP_B_RULE_2) )"
+
+#~ msgid ""
+#~ "Create additional users and assign them groups that will allow them to have "
+#~ "access to selected functionalities within the system. Click on 'Done' if you "
+#~ "do not wish to add more users at this stage, you can always do this later."
+#~ msgstr ""
+#~ "Vytvoří dodatečné uživatele a přiřadí je do skupin, které vám umožní, aby "
+#~ "měly přístup k vybraným funkcím v systému. Klikněte na 'Dokončeno', pokud "
+#~ "již nechcete přidávat v této fázi další uživatele. Toto můžete vždy provést "
+#~ "později."
+
+#~ msgid ""
+#~ "Please double-check that the file encoding is set to UTF-8 (sometimes called "
+#~ "Unicode) when the translator exports it."
+#~ msgstr ""
+#~ "Prosíme dvakrát zkontrolujte, že kódování souboru je nastaveno na UTF-8 "
+#~ "(někdy nazývané Unicode), když je překladatel exportoval."
+
+#~ msgid ""
+#~ "This wizard helps you add a new language to your OpenERP system. After "
+#~ "loading a new language it becomes available as default interface language "
+#~ "for users and partners."
+#~ msgstr ""
+#~ "Tento průvodce vám pomůže přidat nový jazyk do vašeho systému OpenERP. Po "
+#~ "načtení nového jazyka bude dostupný jako výchozí jazyk rozhraní pro "
+#~ "uživatele a partnery."
+
+#~ msgid ""
+#~ "Value Added Tax number. Check the box if the partner is subjected to the "
+#~ "VAT. Used by the VAT legal statement."
+#~ msgstr ""
+#~ "Číslo daně s přidané hodnoty. Zaškrtněte políčko, pokud partner podléha DPH. "
+#~ "Použito pro daňové přiznání DPH."
+
+#, python-format
+#~ msgid ""
+#~ "Operation prohibited by access rules, or performed on an already deleted "
+#~ "document (Operation: read, Document type: %s)."
+#~ msgstr ""
+#~ "Operace zakázána díky přístupovým právům, nebo vykonáno nad již smazaným "
+#~ "dokumentem (Operace: read, Typ dokumentu: %s)."
+
+#, python-format
+#~ msgid "\"email_from\" needs to be set to send welcome mails to users"
+#~ msgstr ""
+#~ "\"email_from\" potřebuje být nastaveno pro odeslání uvítacích dopisů "
+#~ "uživatelům"
+
+#~ msgid ""
+#~ "The internal user that is in charge of communicating with this partner if "
+#~ "any."
+#~ msgstr ""
+#~ "Vnitřní uživatel, který má pověření komunikovat s tímto partnerem, pokud "
+#~ "nějaký je."
+
+#~ msgid "Parent Partner"
+#~ msgstr "Nadřazený partner"
+
+#~ msgid "Starter Partner"
+#~ msgstr "Počáteční partner"
+
+#~ msgid "Partner Addresses"
+#~ msgstr "Adresy partnerů"
+
+#~ msgid "Select the object from the model on which the workflow will executed."
+#~ msgstr "Vyberte objekty z modelu, u kterého bude vykonán pracovní tok."
+
+#~ msgid "Refresh Validation Dates"
+#~ msgstr "Obnovit data platnosti"
+
+#~ msgid ""
+#~ "If this log item has been read, get() should not send it to the client"
+#~ msgstr ""
+#~ "Pokud byla tato položka záznamu přečtena, get() by ji neměl odeslat klientovi"
+
+#~ msgid "Easy to Refer action by name e.g. One Sales Order -> Many Invoices"
+#~ msgstr ""
+#~ "Jednoduše odkazovaná jméno akce např. Jedena prodejní objednávka -> Mnoho "
+#~ "faktur"
+
+#, python-format
+#~ msgid ""
+#~ "Invalid value for reference field \"%s\" (last part must be a non-zero "
+#~ "integer): \"%s\""
+#~ msgstr ""
+#~ "Neplatná hodnota pole odkazu \"%s\" (poslední část musí být nenulové číslo): "
+#~ "\"%s\""
+
+#~ msgid ""
+#~ "If an email is provided, the user will be sent a message welcoming him.\n"
+#~ "\n"
+#~ "Warning: if \"email_from\" and \"smtp_server\" aren't configured, it won't "
+#~ "be possible to email new users."
+#~ msgstr ""
+#~ "Pokud je zadán email, uživateli bude zaslán uvítací email.\n"
+#~ "\n"
+#~ "Varování: pokud \"email_from\" a \"smtp_server\" nejsou nastaveny, nebude "
+#~ "možné odeslat email novým uživatelům."
+
+#~ msgid "Maps to the ir_model_data for which this translation is provided."
+#~ msgstr "Mapy k ir_model_data, pro který je poskytnut tento překlad."
+
+#~ msgid "Mss"
+#~ msgstr "Paní"
+
+#~ msgid "OpenERP Partners"
+#~ msgstr "Partneři OpenERP"
+
+#~ msgid ""
+#~ "Number of time the function is called,\n"
+#~ "a negative number indicates no limit"
+#~ msgstr ""
+#~ "Počet kolikrát je volána funkce,\n"
+#~ "záporné číslo vyjadřuje bez limitu"
+
+#~ msgid "Gold Partner"
+#~ msgstr "Zlatý partner"
+
+#~ msgid "Open Source Service Company"
+#~ msgstr "Open Source servisní společnost"
+
+#~ msgid ""
+#~ "Indicates whether this object model lives in memory only, i.e. is not "
+#~ "persisted (osv.osv_memory)"
+#~ msgstr ""
+#~ "Indikuje, zda je tento model objektu je udržován pouze v paměti, např. není "
+#~ "trvalý (osv.osv_memory)"
+
+#~ msgid ""
+#~ "This wizard helps you add a new language to you OpenERP system. After "
+#~ "loading a new language it becomes available as default interface language "
+#~ "for users and partners."
+#~ msgstr ""
+#~ "Tento průvodce vám pomůže přidat nový jazyk do vašeho systému OpenERP. Po "
+#~ "načtení se nový jazyk stane dostupným jako výchozí jazyk rozhraní pro "
+#~ "uživatele a partnery."
+
+#~ msgid ""
+#~ "This wizard will detect new terms to translate in the application, so that "
+#~ "you can then add translations manually or perform a complete export (as a "
+#~ "template for a new language example)."
+#~ msgstr ""
+#~ "Tento průvodce zjistí nové termíny k překladu v aplikaci, takže pak budete "
+#~ "moci ručně přidávat překlady nebo vykonávat celkové exporty (jako šablonu "
+#~ "pro příklad nového jazyka)"
+
+#, python-format
+#~ msgid ""
+#~ "Operation prohibited by access rules, or performed on an already deleted "
+#~ "document (Operation: %s, Document type: %s)."
+#~ msgstr ""
+#~ "Operace zakázána díky přístupovým právům nebo prováděna na již smazaném "
+#~ "dokumentu (Operace: %s, Typ dokumentu: %s)."
+
+#~ msgid "Add or not the coporate RML header"
+#~ msgstr "Přidat nebo nepřidat RML hlavičku společnosti"
+
+#, python-format
+#~ msgid ""
+#~ "Save this document to a .tgz file. This archive containt UTF-8 %s files and "
+#~ "may be uploaded to launchpad."
+#~ msgstr ""
+#~ "Uložit tento dokument do souboru .tgz. Tento archív obsahuje souboru UTF-8 "
+#~ "%s a může být nahrán do launchpadu."
+
+#~ msgid ""
+#~ "Check this box if the partner is a supplier. If it's not checked, purchase "
+#~ "people will not see it when encoding a purchase order."
+#~ msgstr ""
+#~ "Zaškrtněte toto políčko, pokud je partner dodavatel. Pokud není zaškrtnuto, "
+#~ "nakupující osoby ho neuvidí, když zadávají nákupní objednávku."
+
+#~ msgid ""
+#~ "You can access all information regarding your suppliers from the supplier "
+#~ "form: accounting data, history of emails, meetings, purchases, etc. You can "
+#~ "uncheck the 'Suppliers' filter button in order to search in all your "
+#~ "partners, including customers and prospects."
+#~ msgstr ""
+#~ "Můžete přistupovat ke všem informacím ohledně vašich dodavatelů z formuláče "
+#~ "dodavatele: účetní data, historie emailů, setkání, nákupy, aj. Můžete "
+#~ "odškrtnout filtrovací tlačítko 'Dodavatelé' za účelem hledání ve všech "
+#~ "vašich partnerech, včetně zákazníků a vyhlídek."
+
+#~ msgid ""
+#~ "If you use OpenERP for the first time we strongly advise you to select the "
+#~ "simplified interface, which has less features but is easier. You can always "
+#~ "switch later from the user preferences."
+#~ msgstr ""
+#~ "Pokud používáte OpenERP poprvé, silně vám doporučujeme vybrat si "
+#~ "zjednodušené rozhraní, které má méně funkcí a je snadnější. Vždycky můžete "
+#~ "později přepnout z uživatelských předvoleb."
+
+#~ msgid "Process"
+#~ msgstr "Proces"
+
+#~ msgid "Partner Manager"
+#~ msgstr "Správa partnerů"
+
+#~ msgid "Openerp web graph view"
+#~ msgstr "Pohled webový graf OpenERP"
+
+#~ msgid "Website of Partner."
+#~ msgstr "Webové stránky partnera."
+
+#~ msgid "Action Binding"
+#~ msgstr "Poutání akcí"
+
+#~ msgid "Sales Orders Print Layout"
+#~ msgstr "Tiskové rozvržení prodejních objednávek"
+
+#~ msgid "SugarCRM Import"
+#~ msgstr "Import SugarCRM"
+
+#~ msgid ""
+#~ "\n"
+#~ "        OpenERP Web gantt chart view.\n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "        Webový ganttův grafový pohled OpenERP.\n"
+#~ "        "
+
+#~ msgid ""
+#~ "\n"
+#~ "    The base module to manage lunch\n"
+#~ "\n"
+#~ "    keep track for the Lunch Order ,Cash Moves ,CashBox ,Product.\n"
+#~ "    Apply Different Category for the product.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "    Základní modul pro správu obědů\n"
+#~ "\n"
+#~ "   udržuje přehled o Obědnávkách obědů, Pohybech hotovosti, Pokladně, "
+#~ "Výrobcích.\n"
+#~ "    Používá různé kategorie pro výrobky.\n"
+#~ "    "
+
+#~ msgid "OpenERP Web web"
+#~ msgstr "Web OpenERP"
+
+#~ msgid "Html View"
+#~ msgstr "HTML pohled"
+
+#~ msgid "Symbol position"
+#~ msgstr "Pozice symbolu"
+
+#~ msgid "General Information Footer"
+#~ msgstr "Záhlaví obecné informace"
+
+#, python-format
+#~ msgid "Website: "
+#~ msgstr "Webová stránka: "
+
+#~ msgid "Multi-Currency in Analytic"
+#~ msgstr "Více měn v analytickém"
+
+#, python-format
+#~ msgid "Fax: "
+#~ msgstr "Fax: "
+
+#~ msgid "Administration Dashboard"
+#~ msgstr "Správa nástěnky"
+
+#~ msgid ""
+#~ "\n"
+#~ "This module defines 'portals' to customize the access to your OpenERP "
+#~ "database\n"
+#~ "for external users.\n"
+#~ "\n"
+#~ "A portal defines customized user menu and access rights for a group of "
+#~ "users\n"
+#~ "(the ones associated to that portal).  It also associates user groups to "
+#~ "the\n"
+#~ "portal users (adding a group in the portal automatically adds it to the "
+#~ "portal\n"
+#~ "users, etc).  That feature is very handy when used in combination with the\n"
+#~ "module 'share'.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "Tento modul určuje 'portály' k přizpůsobení přístupu k vaší databázi "
+#~ "OpenERP\n"
+#~ "pro vnější uživatele.\n"
+#~ "\n"
+#~ "Portál určuje přizpůsobení nabídky uživatele a jeho přístupových práv pro "
+#~ "skupinu uživatelů\n"
+#~ "(těch přiřazených k portálu).  Také přidružuje uživatelské skupiny k\n"
+#~ "uživatelům portálu (přidáním skupiny v portálu automaticky je přidáte k "
+#~ "uživatelům\n"
+#~ "portálu, atd.).  Tato funkce je velmi užitečný v kombinaci s\n"
+#~ "modulem 'sdílení'.\n"
+#~ "    "
+
+#~ msgid "Error ! You cannot create recursive associated members."
+#~ msgstr "Chyba ! Nemůžete vytvořit rekurzivní přidružené členy."
+
+#~ msgid "Set password"
+#~ msgstr "Nastavit heslo"
+
+#~ msgid "Openerp web web"
+#~ msgstr "Web OpenERP"
+
+#~ msgid "Web Chat"
+#~ msgstr "Webový chat"
+
+#~ msgid "Bank Accounts Footer"
+#~ msgstr "Záhlaví bankovních účtů"
+
+#~ msgid "Issues Tracker"
+#~ msgstr "Sledovač problémů"
+
+#~ msgid "function"
+#~ msgstr "funkce"
+
+#~ msgid "Edit"
+#~ msgstr "Upravit"
+
+#~ msgid "Knowledge Management"
+#~ msgstr "Správa znalostí"
+
+#~ msgid "Wiki"
+#~ msgstr "Wiki"
+
+#~ msgid "Leaves Management"
+#~ msgstr "Správa uvolnění"
+
+#, python-format
+#~ msgid "VAT: "
+#~ msgstr "DPH: "
+
+#~ msgid "Keywords"
+#~ msgstr "Klíčová slova"
+
+#~ msgid "Point of Sales"
+#~ msgstr "Prodejní místo"
+
+#~ msgid "HR Manager"
+#~ msgstr "Správce HR"
+
+#~ msgid "Support Level 1"
+#~ msgstr "Úroveň podpory 1"
+
+#~ msgid "Emails Management"
+#~ msgstr "Správa pošty"
+
+#~ msgid "Base Tools"
+#~ msgstr "Základní nástroje"
+
+#~ msgid "India - Accounting"
+#~ msgstr "Indie - Účetnictví"
+
+#~ msgid "Generate Docs of Modules"
+#~ msgstr "Generovat dokumentaci modulů"
+
+#~ msgid "Time Tracking"
+#~ msgstr "Časové sledování"
+
+#~ msgid "Set Bank Accounts"
+#~ msgstr "Nastavit bankovní účet"
+
+#~ msgid "Current User"
+#~ msgstr "Aktuální uživatel"
+
+#~ msgid "web calendar"
+#~ msgstr "webový kalendář"
+
+#~ msgid "DB Password Encryption"
+#~ msgstr "Šifrování hesla databáze"
+
+#~ msgid "Address Information"
+#~ msgstr "Informace adresy"
+
+#~ msgid "Live Chat Support"
+#~ msgstr "Živá textová podpora"
+
+#~ msgid "Report Designer"
+#~ msgstr "Návrhář výkazů"
+
+#~ msgid "Miscellaneous Tools"
+#~ msgstr "Různé nástroje"
+
+#~ msgid "Auction Houses"
+#~ msgstr "Aukční domy"
+
+#~ msgid "web"
+#~ msgstr "web"
+
+#~ msgid "Share Calendar using CalDAV"
+#~ msgstr "Sdílený kalendář použitím CalDAV"
+
+#~ msgid "In-Project Messaging System"
+#~ msgstr "Systém zpráv v projektech"
+
+#~ msgid ""
+#~ "\n"
+#~ "        OpenERP Web test suite.\n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "        Webová testovací sada OpenERP.\n"
+#~ "        "
+
+#~ msgid "Change Color"
+#~ msgstr "Změnit barvu"
+
+#~ msgid "In modules"
+#~ msgstr "V modulech"
+
+#~ msgid "Send an SMS"
+#~ msgstr "Zaslat SMS"
+
+#~ msgid ""
+#~ "\n"
+#~ "This module allows you to create a new module without any development.\n"
+#~ "======================================================================\n"
+#~ "\n"
+#~ "It records all operations on objects during the recording session and\n"
+#~ "produce a .ZIP module. So you can create your own module directly from\n"
+#~ "the OpenERP client.\n"
+#~ "\n"
+#~ "This version works for creating and updating existing records. It "
+#~ "recomputes\n"
+#~ "dependencies and links for all types of widgets (many2one, many2many, ...).\n"
+#~ "It also support workflows and demo/update data.\n"
+#~ "\n"
+#~ "This should help you to easily create reusable and publishable modules\n"
+#~ "for custom configurations and demo/testing data.\n"
+#~ "\n"
+#~ "How to use it:\n"
+#~ "Run Administration/Customization/Module Creation/Export Customizations As a "
+#~ "Module wizard.\n"
+#~ "Select datetime criteria of recording and objects to be recorded and Record "
+#~ "module.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "Tento modul vám umožňuje vytvořit nový modul bez jakéhokoliv vývoje.\n"
+#~ "======================================================================\n"
+#~ "\n"
+#~ "Zaznamenává všechny operace nad objekty během relace zaznamenávání a\n"
+#~ "vytváří .ZIP modul. Díky tomu můžete vytvořit váš vlastní modul přímo z\n"
+#~ "klienta OpenERP.\n"
+#~ "\n"
+#~ "Tato verze pracuje pro vytváření a aktualizaci stávajících záznamů. "
+#~ "Přepočítává\n"
+#~ "závislosti a propojuje všechny datové typy pomůcek (many2one, many2many, "
+#~ "...).\n"
+#~ "Podporuje také pracovní toky a demonstrační/aktualziační data.\n"
+#~ "\n"
+#~ "Měl by vám pomoci jednoduše vytvářet znovu použitelné a zveřejnitelné "
+#~ "moduly\n"
+#~ "pro vlastní nastavení a demonstrační/testovací data.\n"
+#~ "\n"
+#~ "Jak jej použít:\n"
+#~ "Spusťte průvodce Správa/Přizpůsobení/Vytváření modulů/Exportovat vlastní "
+#~ "úpravy jako modul.\n"
+#~ "Vyberte častoé kritéria pro záznam a objekty, které mají být zaznamenány a "
+#~ "modul záznamu.\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "        添加中文省份数据\n"
+#~ "        科目类型\\会计科目表模板\\增值税\\辅助核算类别\\管理会计凭证簿\\财务会计凭证簿\n"
+#~ "        ============================================================\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "        添加中文省份数据\n"
+#~ "        科目类型\\会计科目表模板\\增值税\\辅助核算类别\\管理会计凭证簿\\财务会计凭证簿\n"
+#~ "        ============================================================\n"
+#~ "    "
+
+#~ msgid "Report Header / Company Slogan"
+#~ msgstr "Hlavička výkazu / slogan firmy"
+
+#~ msgid "Point Of Sale"
+#~ msgstr "Obchodní místa"
+
+#~ msgid "iCal Support"
+#~ msgstr "Podpora iCal"
+
+#~ msgid "Check this box if the partner is a customer."
+#~ msgstr "Zaškrtněte toto pole pokud je partner zákazníkem."
+
+#~ msgid "OPW"
+#~ msgstr "OPW"
+
+#~ msgid "Hidden"
+#~ msgstr "Skryté"
+
+#~ msgid "Check this box if the partner is an Employee."
+#~ msgstr "Zaškrtněte toto políčko pokud je partner zaměstnanec."
+
+#~ msgid "Header/Footer of Reports"
+#~ msgstr "Záhlaví/zápatí výkazu"
+
+#, python-format
+#~ msgid "Applications"
+#~ msgstr "Aplikace"
+
+#~ msgid "Timesheets Validation"
+#~ msgstr "Ověření časového rozvrhu"
+
+#~ msgid "Meetings Synchronization"
+#~ msgstr "Synchronizace setkání"
+
+#~ msgid "Contacts Management"
+#~ msgstr "Správa kontaktů"
+
+#~ msgid ""
+#~ "\n"
+#~ "        United States - Chart of accounts\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "        Spojené státy - Účtová osnova\n"
+#~ "    "
+
+#, python-format
+#~ msgid "Please verify your publisher warranty serial number and validity."
+#~ msgstr "Prosíme ověřte vaše sériové číslo a platnost záruky vydavatele."
+
+#~ msgid "Partner Firm"
+#~ msgstr "Firma partnera"
+
+#~ msgid "Easy"
+#~ msgstr "Snadný"
+
+#~ msgid "Extended View"
+#~ msgstr "Rozšířený pohled"
+
+#~ msgid "Record and Create Modules"
+#~ msgstr "Zaznamenává a vytváří moduly"
+
+#~ msgid "Invoice Layouts"
+#~ msgstr "Rozvržení faktury"
+
+#~ msgid "Hide technical modules"
+#~ msgstr "Skrýt technické moduly"
+
+#~ msgid "E-Mail Templates"
+#~ msgstr "Šablony e-mailů"
+
+#~ msgid "Latest Connection"
+#~ msgstr "Poslední spojení"
+
+#~ msgid "Resources Planing"
+#~ msgstr "Plánování zdrojů"
+
+#~ msgid "Complexity"
+#~ msgstr "Složitost"
+
+#~ msgid "Inline"
+#~ msgstr "Vkládaný"
+
+#~ msgid "Default Value Scope"
+#~ msgstr "Výchozí rozsah hodnoty"
+
+#~ msgid ""
+#~ "\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "    "
+
+#~ msgid "The module adds google user in res user"
+#~ msgstr "Modul přidává uživatele google v res user"
+
+#~ msgid "Preview Header"
+#~ msgstr "Náhled hlavičky"
+
+#~ msgid ""
+#~ "\n"
+#~ "        OpenERP Web example module.\n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "        Příklad webového modulu OpenERP.\n"
+#~ "        "
+
+#~ msgid "Multi-DB Synchronization"
+#~ msgstr "Více-DB synchronizace"
+
+#~ msgid "Expert"
+#~ msgstr "Odborník"
+
+#~ msgid ""
+#~ "\n"
+#~ "Todo list for CRM leads and opportunities.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "Seznam úkolů pro obchodní případy CRM a příležitosti.\n"
+#~ "    "
+
+#~ msgid "Wiki: Sale FAQ"
+#~ msgstr "Wiki: Prodejní FAQ"
+
+#~ msgid "Please be patient, this operation may take a few minutes..."
+#~ msgstr "Prosíme buďte trpěliví, tato operace může trvat několik minut..."
+
+#~ msgid "Google Maps on Customers"
+#~ msgstr "Google mapy nad zákazníky"
+
+#~ msgid "eMail Gateway for Applicants"
+#~ msgstr "eMailová brána pro žadatele"
+
+#~ msgid "Belgium - Import bank CODA statements"
+#~ msgstr "Belgie - Import bankovního výpisu CODA"
+
+#~ msgid "Google Import"
+#~ msgstr "Import Google"
+
+#~ msgid "Framework for complex import"
+#~ msgstr "Systém pro složitý import"
+
+#~ msgid "Wizard Category"
+#~ msgstr "Kategorie průvodců"
+
+#~ msgid ""
+#~ "\n"
+#~ "General Chart of Accounts\n"
+#~ "=========================\n"
+#~ "\n"
+#~ "Provide Templates for Chart of Accounts, Taxes for Uruguay\n"
+#~ "\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Obecná účtová osnova\n"
+#~ "=========================\n"
+#~ "\n"
+#~ "Poskytuje šablonu pro účtovou osnovu, daně pro Uruguay\n"
+#~ "\n"
+
+#~ msgid "Keep empty for a private address, not related to partner."
+#~ msgstr "Ponechejte prázdné pro soukromou adresu nesouvisející se partnerem."
+
+#~ msgid "Tasks-Mail Integration"
+#~ msgstr "Integrace úkolů a e-mailů"
+
+#~ msgid "Contact Name"
+#~ msgstr "Název kontaktu"
+
+#~ msgid "Billing Rates on Contracts"
+#~ msgstr "Fakturační sazby na smlouvách"
+
+#~ msgid "MRP Subproducts"
+#~ msgstr "MRP polotovary"
+
+#~ msgid "Payment Term (short name)"
+#~ msgstr "Platební období (zkratka)"
+
+#~ msgid "Partner Name"
+#~ msgstr "Název partnera"
+
+#~ msgid "eMail Gateway for Leads"
+#~ msgstr "E-mailová brána pro zájemce"
+
+#~ msgid "The new user's real name, used for searching and most listings"
+#~ msgstr "Skutečné jméno nového uživatele, použivá se pro hledání a procházení"
+
+#~ msgid ""
+#~ "OpenERP offers a simplified and an extended user interface. If you use "
+#~ "OpenERP for the first time we strongly advise you to select the simplified "
+#~ "interface, which has less features but is easier to use. You can switch to "
+#~ "the other interface from the User/Preferences menu at any time."
+#~ msgstr ""
+#~ "OpenERP nabízí zjednodušené a rozšířené uživatelské rozhraní. Pokud "
+#~ "používáte OpenERP poprvé, rozhodně doporučujeme zvolit zjednodušené "
+#~ "rozhraní, které má sice méně funkcí, ale je snadnější k používání. Mezi "
+#~ "oběma rozhraními můžete kdykoliv přepínat v nabídce uživatelských nastavení."
+
+#~ msgid "Bulk SMS send"
+#~ msgstr "Zaslat hromadnou SMS"
+
+#~ msgid ""
+#~ "The user's timezone, used to output proper date and time values inside "
+#~ "printed reports. It is important to set a value for this field. You should "
+#~ "use the same timezone that is otherwise used to pick and render date and "
+#~ "time values: your computer's timezone."
+#~ msgstr ""
+#~ "Časová zóna uživatele sepoužívá pro určení správných hodnot data a času v "
+#~ "tištěných reportech. Nastavení hodnoty tohoto pole je důležití. Můžete "
+#~ "použít stejnou hodnotu časové zóny, jakou má nastavenu váš počítač."
+
+#~ msgid "User - Own Leads Only"
+#~ msgstr "Uživatel - pouze vlastní zájemci"
+
+#~ msgid "User - All Leads"
+#~ msgstr "Uživatel - všichni zájemci"
+
+#, python-format
+#~ msgid "Phone: "
+#~ msgstr "Telefon: "
+
+#~ msgid "Filename"
+#~ msgstr "Název souboru"

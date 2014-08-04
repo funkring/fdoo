@@ -40,7 +40,7 @@
         <td>
             <p>
                 <t t-js="d">
-                    var message = d.message ? d.message : d.error.data.fault_code;
+                    var message = d.message ? d.message : d.error.data.message;
                     d.html_error = context.engine.tools.html_escape(message)
                         .replace(/\n/g, '<br/>');
                 </t>
@@ -56,46 +56,6 @@
         <hr/>
         <pre><t t-esc="error.data.debug"/></pre>
     </div>
-</t>
-
-<t t-name="Login">
-    <div class="oe_login">
-        <div class="oe_login_bottom"> </div>
-        <div class="oe_login_error_message"/>
-        <div class="oe_login_pane">
-            <div class="oe_login_logo"><img src='/web/static/src/img/logo2.png'/></div>
-            <form action="" method="post">
-                <div class="oe_login_dbpane" >
-                    Database:
-                    <input name="db" t-att-value="widget.selected_db || ''"/>
-                </div>
-                <ul>
-                    <li>Username</li>
-                    <li><input name="login" type="text" value="" autofocus="autofocus"/></li>
-                    <li>Password</li>
-                    <li><input name="password" type="password" value=""/></li>
-                    <li><button name="submit">Log in</button></li>
-                </ul>
-            </form>
-            <div class="oe_login_footer">
-                <a href="#" class="oe_login_manage_db">Manage Databases</a> |
-                <a href="http://www.openerp.com" target="_blank">Powered by <span>OpenERP</span></a>
-            </div>
-        </div>
-    </div>
-</t>
-<t t-name="Login.dblist">
-    <select name="db">
-        <t t-foreach="db_list" t-as="db">
-            <t t-if="selected_db === db">
-                <option t-att-value="db" selected="true">
-                    <t t-esc="db"/></option>
-            </t>
-            <t t-if="selected_db !== db">
-                <option t-att-value="db"><t t-esc="db"/></option>
-            </t>
-        </t>
-    </select>
 </t>
 
 <t t-name="DatabaseManager">
@@ -271,16 +231,23 @@
                 </div>
                 <table align="center" class="db_option_table">
                     <tr>
-                        <td><label for="restore_db">File:</label></td>
-                        <td><input type="file" name="db_file" class="required" autofocus="autofocus"/></td>
+                        <td><label for="restore_pwd">Master Password:</label></td>
+                        <td><input type="password" name="restore_pwd" class="required" autofocus="autofocus"/></td>
                     </tr>
                     <tr>
-                        <td><label for="restore_pwd">Master Password:</label></td>
-                        <td><input type="password" name="restore_pwd" class="required"/></td>
+                        <td><label for="restore_db">File:</label></td>
+                        <td><input type="file" name="db_file" class="required"/></td>
                     </tr>
                     <tr>
                         <td><label for="new_db">New database name:</label></td>
                         <td><input type="text" name="new_db" class="required"/></td>
+                    </tr>
+                    <tr>
+                        <td><label for="mode">Mode:</label></td>
+                        <td><select name="mode" class="required">
+                            <option value="restore">Backup Restore</option>
+                            <option value="copy">Copy of an existing database</option>
+                        </select></td>
                     </tr>
                 </table>
             </form>
@@ -320,7 +287,7 @@
 </t>
 <t t-name="DatabaseManager.menu">
     <div class="oe_secondary_menu_section">Database Management</div>
-    <ul class="oe_secondary_submenu">
+    <ul class="oe_secondary_submenu nav nav-pills nav-stacked">
         <li><a href="#db_create">Create</a></li>
         <li><a href="#db_duplicate">Duplicate</a></li>
         <li><a href="#db_drop">Drop</a></li>
@@ -362,15 +329,13 @@
 </t>
 
 <t t-name="Menu">
-    <ul class="oe_menu" t-if="widget.data">
+    <ul class="nav navbar-nav navbar-left" t-if="widget.data">
         <li t-foreach="widget.data.data.children" t-as="menu">
             <t t-call="Menu.link"/>
         </li>
-        <li class="oe_menu_more_container" style="display: none;">
-            <span class="oe_topbar_item oe_menu_more_link oe_dropdown_toggle oe_dropdown_arrow">
-                More
-                <ul class="oe_menu_more oe_dropdown_menu"/>
-            </span>
+        <li id="menu_more_container" class="dropdown" style="display: none;">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">More <b class="caret"></b></a>
+            <ul id="menu_more" class="dropdown-menu"></ul>
         </li>
     </ul>
 </t>
@@ -389,7 +354,7 @@
     </div>
 </t>
 <t t-name="Menu.secondary.submenu">
-    <ul t-if="menu.children.length" class="oe_secondary_submenu">
+    <ul t-if="menu.children.length" class="oe_secondary_submenu nav nav-pills nav-stacked">
         <li t-foreach="menu.children" t-as="menu">
             <t t-call="Menu.link"/>
             <!--<span class="oe_menu_label">8</span>-->
@@ -410,24 +375,28 @@
 </t>
 
 <t t-name="Menu.needaction_counter">
-    <div class="oe_tag oe_tag_dark oe_menu_counter">
+    <div id="menu_counter" class="badge pull-right">
         <t t-if="widget.needaction_counter &gt; 99"> 99+ </t>
         <t t-if="widget.needaction_counter &lt;= 99"> <t t-esc="widget.needaction_counter"/> </t>
     </div>
 </t>
 
 <t t-name="UserMenu">
-    <span class="oe_user_menu oe_topbar_item oe_dropdown_toggle oe_dropdown_arrow">
-        <img class="oe_topbar_avatar" t-att-data-default-src="_s + '/web/static/src/img/user_menu_avatar.png'"/>
-        <span class="oe_topbar_name"/>
-        <ul class="oe_dropdown_menu">
-            <li><a href="#" data-menu="settings">Preferences</a></li>
-            <li><a href="#" data-menu="account">My OpenERP.com account</a></li>
-            <li><a href="#" data-menu="about">About OpenERP</a></li>
-            <li><a href="#" data-menu="help">Help</a></li>
-            <li><a href="#" data-menu="logout">Log out</a></li>
-        </ul>
-    </span>
+    <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <img class="oe_topbar_avatar" t-att-data-default-src="_s + '/web/static/src/img/user_menu_avatar.png'"/>
+                <span class="oe_topbar_name"/> <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="#" data-menu="settings">Preferences</a></li>
+                <li><a href="#" data-menu="account">My OpenERP.com account</a></li>
+                <li><a href="#" data-menu="about">About OpenERP</a></li>
+                <li><a href="#" data-menu="help">Help</a></li>
+                <li><a href="#" data-menu="logout">Log out</a></li>
+            </ul>
+        </li>
+    </ul>
 </t>
 <t t-name="UserMenu.about">
 
@@ -450,7 +419,7 @@
     <div class="openerp openerp_webclient_container">
     <table class="oe_webclient">
         <tr>
-            <td colspan="2" class="oe_topbar">
+            <td colspan="2" class="navbar navbar-default navbar-static-top oe_navbar" role="navigation">
                 <div class="oe_menu_placeholder"/>
                 <div class="oe_user_menu_placeholder"/>
                 <div class="oe_systray"/>
@@ -459,7 +428,7 @@
         <tr>
             <td class="oe_leftbar" valign="top">
                 <t t-set="debug" t-value="__debug__ ? '&amp;debug' : ''"/>
-                <a class="oe_logo" t-attf-href="/?ts=#{Date.now()}#{debug}">
+                <a class="oe_logo" t-attf-href="/web?#{debug}">
                     <span class="oe_logo_edit">Edit Company data</span>
                     <img t-att-src='widget.session.url("/web/binary/company_logo")'/>
                 </a>
@@ -574,23 +543,32 @@
 </t>
 <t t-name="ViewManagerDebugViewLog">
     <div class="oe_debug_view_log">
-        <label>ID:</label>
-        <span><t t-esc="perm.id"/></span>
-
-        <label>XML ID:</label>
-        <span><t t-esc="perm.xmlid"/></span>
-
-        <label>Creation User:</label>
-        <span><t t-esc="format(perm.create_uid, { 'type' : 'many2one' }, '/')"/></span>
-
-        <label>Creation Date:</label>
-        <span><t t-esc="format(perm.create_date, { 'type' : 'datetime' }, '/')"/></span>
-
-        <label>Latest Modification by:</label>
-        <span><t t-esc="format(perm.write_uid, { 'type' : 'many2one' }, '/')"/></span>
-
-        <label>Latest Modification Date:</label>
-        <span><t t-esc="format(perm.write_date, { 'type' : 'datetime' }, '/')"/></span>
+        <table class="table table-condensed table-striped">
+            <tr>
+                <th>ID:</th>
+                <td><t t-esc="perm.id"/></td>
+            </tr>
+            <tr>
+                <th>XML ID:</th>
+                <td><t t-esc="perm.xmlid or '/'"/></td>
+            </tr>
+            <tr>
+                <th>Creation User:</th>
+                <td><t t-esc="format(perm.create_uid, { 'type' : 'many2one' }, '/')"/></td>
+            </tr>
+            <tr>
+                <th>Creation Date:</th>
+                <td><t t-esc="format(perm.create_date, { 'type' : 'datetime' }, '/')"/></td>
+            </tr>
+            <tr>
+                <th>Latest Modification by:</th>
+                <td><t t-esc="format(perm.write_uid, { 'type' : 'many2one' }, '/')"/></td>
+            </tr>
+            <tr>
+                <th>Latest Modification Date:</th>
+                <td><t t-esc="format(perm.write_date, { 'type' : 'datetime' }, '/')"/></td>
+            </tr>
+        </table>
     </div>
 </t>
 <t t-name="ViewPager">
@@ -654,7 +632,7 @@
                             <t t-set="fileupload_action" t-translation="off">/web/binary/upload_attachment</t>
                             <input type="hidden" name="model" t-att-value="widget.dataset and widget.dataset.model"/>
                             <input type="hidden" name="id" t-att-value="widget.model_id"/>
-                            <input type="hidden" name="session_id" t-att-value="widget.session.session_id"/>
+                            <input type="hidden" name="session_id" t-att-value="widget.session.session_id" t-if="widget.session.override_session"/>
                             <span>Add...</span>
                         </t>
                     </li>
@@ -1099,18 +1077,47 @@
 </t>
 <t t-name="FieldSelection">
     <span class="oe_form_field oe_form_field_selection" t-att-style="widget.node.attrs.style">
-        <select t-if="!widget.get('effective_readonly')"
-            t-att-name="widget.name"
-            t-att-tabindex="widget.node.attrs.tabindex"
-            t-att-autofocus="widget.node.attrs.autofocus"
-            t-att-id="widget.id_for_label">
-                <t t-foreach="widget.values" t-as="option">
-                    <option>
-                        <t t-esc="widget.node.attrs.placeholder" t-if="option[0] === false and widget.node.attrs.placeholder"/>
-                        <t t-esc="option[1]" t-if="option[0] !== false"/>
-                    </option>
+    </span>
+</t>
+<t t-name="FieldSelectionSelect">
+    <select t-if="!widget.get('effective_readonly')"
+        t-att-name="widget.name"
+        t-att-tabindex="widget.node.attrs.tabindex"
+        t-att-autofocus="widget.node.attrs.autofocus"
+        t-att-id="widget.id_for_label">
+            <t t-foreach="values" t-as="option">
+                <option t-att-value="JSON.stringify(option[0])">
+                    <t t-esc="option[1]"/>
+                </option>
+            </t>
+    </select>
+</t>
+<t t-name="FieldRadio">
+    <span t-attf-class="oe_form_field oe_form_field_radio #{widget.options.horizontal ? 'oe_horizontal' : 'oe_vertical'}" t-att-style="widget.node.attrs.style">
+        <span t-if="!widget.get('effective_readonly')">
+            <t t-if="widget.options.horizontal">
+                <t t-set="width" t-value="Math.floor(100 / widget.selection.length)"/>
+                <t t-if="!widget.options.no_radiolabel">
+                    <t t-foreach="widget.selection" t-as="selection">
+                        <label t-att-for="widget.uniqueId + '_' + selection[0]" t-att-style="'width: ' + width + '%;'"><t t-esc="selection[1]"/></label>
+                    </t>
+                    <br/>
                 </t>
-        </select>
+                <t t-foreach="widget.selection" t-as="selection">
+                    <div t-att-style="'width: ' + width + '%;'">
+                        <span class="oe_radio_input"><input type="radio" t-att-name="widget.uniqueId" t-att-id="widget.uniqueId + '_' + selection[0]" t-att-value="selection[0]"/></span>
+                    </div>
+                </t>
+            </t>
+            <t t-if="!widget.options.horizontal">
+                <t t-foreach="widget.selection" t-as="selection">
+                    <div>
+                        <span class="oe_radio_input"><input type="radio" t-att-id="widget.uniqueId + '_' + selection[0]" t-att-name="widget.uniqueId" t-att-value="selection[0]"/></span><label t-if="!widget.options.no_radiolabel" t-att-for="widget.uniqueId + '_' + selection[0]"><t t-esc="selection[1]"/></label>
+                    </div>
+                </t>
+            </t>
+        </span>
+        <span t-if="widget.get('effective_readonly')" class="oe_radio_readonly"><t t-esc="widget.get('value')[1]"/></span>
     </span>
 </t>
 <t t-name="FieldMany2One">
@@ -1188,15 +1195,32 @@
         <span></span>
     </span>
 </t>
+<t t-name="FieldPercentPie">
+    <span class="oe_form_field oe_form_field_percent_pie" t-att-style="widget.node.attrs.style">
+        <svg></svg>
+    </span>
+</t>
 <t t-name="FieldStatus">
     <ul t-att-class="'oe_form_field_status ' + (widget.options.clickable ? 'oe_form_status_clickable' : 'oe_form_status')" t-att-style="widget.node.attrs.style"/>
 </t>
 <t t-name="FieldStatus.content">
-    <t t-foreach="widget.selection" t-as="i">
+    <t t-foreach="widget.selection.unfolded" t-as="i">
         <li t-att-class="i[0] === widget.get('value') ? 'oe_active' : ''" t-att-data-id="i[0]">
             <span class="label"><t t-esc="i[1]"/></span>
             <!-- are you mit ? -->
             <span class="arrow"><span></span></span>
+        </li>
+    </t>
+    <t t-if="widget.selection.folded.length">
+        <li>
+            <span class="label oe_dropdown_toggle oe_dropdown_arrow">More</span>
+            <ul class="oe_dropdown_menu">
+                <t t-foreach="widget.selection.folded" t-as="i">
+                    <li t-att-class="i[0] === widget.get('value') ? 'oe_active' : ''" t-att-data-id="i[0]">
+                        <span class="label"><t t-esc="i[1]"/></span>
+                    </li>
+                </t>
+            </ul>
         </li>
     </t>
 </t>
@@ -1240,7 +1264,7 @@
                     <td>
                         <t t-call="HiddenInputFile">
                             <t t-set="fileupload_id" t-value="widget.fileupload_id"/>
-                            <t t-set="fileupload_style" t-translation="off">overflow-x: hidden</t>
+                            <t t-set="fileupload_style" t-translation="off">width: 83px;</t>
                             <button class="oe_button oe_field_button" type="button">
                                 <img t-att-src='_s + "/web/static/src/img/icons/STOCK_DIRECTORY.png"'/>
                                 <span>Select</span>
@@ -1281,7 +1305,7 @@
     <div t-attf-class="oe_hidden_input_file #{fileupload_class or ''}" t-att-style="fileupload_style">
         <form class="oe_form_binary_form" t-att-target="fileupload_id"
             method="post" enctype="multipart/form-data" t-att-action="fileupload_action || '/web/binary/upload'">
-            <input type="hidden" name="session_id" value=""/>
+            <input type="hidden" name="session_id" value="" t-if="widget.session.override_session"/>
             <input type="hidden" name="callback" t-att-value="fileupload_id"/>
             <t t-raw="__content__"/>
             <input type="file" class="oe_form_binary_file" name="ufile" t-if="widget.widget!='image'"/>
@@ -1292,8 +1316,9 @@
 </t>
 <t t-name="FieldBinaryFileUploader.files">
     <div class="oe_attachments">
-        <t t-if="widget.get('value')">
-            <t t-if="!widget.get('effective_readonly')" t-foreach="widget.get('value')" t-as="file">
+        <t t-if="!widget.get('effective_readonly')">
+            <t t-foreach="values" t-as="id">
+                <t t-set="file" t-value="widget.data[id]"/>
                 <div class="oe_attachment">
                     <span t-if="(file.upload or file.percent_loaded&lt;100)" t-attf-title="{(file.name || file.filename) + (file.date?' \n('+file.date+')':'' )}" t-attf-name="{file.name || file.filename}">
                         <span class="oe_fileuploader_in_process">...Upload in progress...</span>
@@ -1307,7 +1332,10 @@
                     </t>
                 </div>
             </t>
-            <t t-if="widget.get('effective_readonly')" t-foreach="widget.get('value')" t-as="file">
+        </t>
+        <t t-if="widget.get('effective_readonly')">
+            <t t-foreach="widget.get('value')" t-as="id">
+                <t t-set="file" t-value="widget.data[id]"/>
                 <div>
                     <a t-att-href="file.url" t-attf-title="{(file.name || file.filename) + (file.date?' \n('+file.date+')':'' )}">
                         <t t-raw="file.name || file.filename"/>
@@ -1329,19 +1357,21 @@
                 <t t-set="fileupload_action" t-translation="off">/web/binary/upload_attachment</t>
                 <input type="hidden" name="model" t-att-value="widget.view.model"/>
                 <input type="hidden" name="id" value="0"/>
-                <input type="hidden" name="session_id" t-att-value="widget.session.session_id"/>
+                <input type="hidden" name="session_id" t-att-value="widget.session.session_id" t-if="widget.session.override_session"/>
             </t>
         </div>
     </div>
 </t>
 <t t-name="WidgetButton">
-    <button type="button" class="oe_button oe_form_button"
+    <button type="button" t-att-class="widget.is_stat_button ? 'oe_stat_button btn btn-default' : 'oe_button oe_form_button'"
         t-att-style="widget.node.attrs.style"
         t-att-tabindex="widget.node.attrs.tabindex"
         t-att-autofocus="widget.node.attrs.autofocus"
         t-att-accesskey="widget.node.attrs.accesskey">
-        <img t-if="widget.node.attrs.icon" t-att-src="_s + widget.node.attrs.icon" width="16" height="16"/>
-        <span t-if="widget.string"><t t-esc="widget.string"/></span>
+        <img t-if="!widget.is_stat_button and widget.node.attrs.icon " t-att-src="_s + widget.node.attrs.icon" width="16" height="16"/>
+        <div t-if="widget.is_stat_button" class="stat_button_icon"><t t-if="widget.icon" t-raw="widget.icon"/></div>
+        <span t-if="widget.string and !widget.is_stat_button"><t t-esc="widget.string"/></span>
+        <div t-if="widget.string and widget.is_stat_button"><t t-esc="widget.string"/></div>
     </button>
 </t>
 <t t-name="WidgetButton.tooltip" t-extend="WidgetLabel.tooltip">
@@ -1402,9 +1432,8 @@
     <t t-if="! widget.options.disable_multiple_selection">
         <button type="button" class="oe_button oe_selectcreatepopup-search-select oe_highlight" disabled="disabled">Select</button>
     </t>
-    <t t-if="!widget.options.no_create">
     <button type="button" class="oe_button oe_selectcreatepopup-search-create">Create</button>
-    or </t><a class="oe_button oe_selectcreatepopup-search-close oe_bold oe_form_button_cancel" href="javascript:void(0)">Cancel</a>
+    or <a class="oe_selectcreatepopup-search-close oe_bold oe_form_button_cancel" href="javascript:void(0)">Cancel</a>
 </t>
 <t t-name="AbstractFormPopup.buttons">
     <t t-if="! readonly">
@@ -1417,7 +1446,7 @@
         </t>
         or
     </t>
-    <a class="oe_button oe_abstractformpopup-form-close oe_bold oe_form_button_cancel" href="javascript:void(0)">
+    <a class="oe_abstractformpopup-form-close oe_bold oe_form_button_cancel" href="javascript:void(0)">
         <t t-if="! readonly">
             Discard
         </t>
@@ -1702,9 +1731,6 @@
 
             <label for="export_format">Export Formats</label>
             <select id="export_format" name="export_format"></select>
-
-            <label for="export_selection_only">Only export selection:</label>
-            <input type="checkbox" id="export_selection_only"/>
         </td>
     </tr>
 
@@ -1735,6 +1761,14 @@
         </td>
     </tr>
 </table>
+<t t-name="ExportTreeView-Domain">
+    <t t-if="! record.ids_to_export">
+        <p><strong>Please pay attention that all records matching your search filter will be exported. Not only the selected ids.</strong></p>
+    </t>
+    <t t-if="record.ids_to_export">
+        <p><strong>Please note that only the selected ids will be exported.</strong></p>
+    </t>
+</t>
 <table t-name="ExportTreeView-Secondary"
        id="field-tree-structure" class="oe_export_fields_selector_export"
        cellspacing="0" cellpadding="0">
@@ -1793,7 +1827,7 @@
 <t t-name="ImportDataView">
 <form name="import_data" id="import_data" action="" method="post" enctype="multipart/form-data"
         class="oe_import oe_import_no_result">
-    <input type="hidden" name="session_id" t-att-value="widget.session.session_id"/>
+    <input type="hidden" name="session_id" t-att-value="widget.session.session_id" t-if="widget.session.override_session"/>
     <h2 class="separator horizontal">1. Import a .CSV file</h2>
     <p>Select a .CSV file to import. If you need a sample of file to import,
        you should use the export tool with the "Import Compatible" option.
@@ -1894,4 +1928,22 @@
         </t>
     </t>
 </t>
+<t t-name="FieldMany2ManyCheckBoxes">
+    <t t-foreach="widget.get('records')" t-as="record">
+        <div>
+            <t t-if="selected[record[0]]">
+                <input type="checkbox" t-att-data-record-id="JSON.stringify(record[0])" checked="true"/>
+            </t>
+            <t t-if="! selected[record[0]]">
+                <input type="checkbox" t-att-data-record-id="JSON.stringify(record[0])"/>
+            </t>
+            <t t-esc="record[1]"/>
+        </div>
+    </t>
+</t>
+<t t-name="X2ManyCounter">
+    <a href="javascript:void(0)"><t t-esc="text"/></a>
+</t>
+<t t-name="StatInfo">
+    <strong><t t-esc="value"/></strong><br/><t t-esc="text"/></t>
 </templates>
