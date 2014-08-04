@@ -1,0 +1,69 @@
+<openerp>
+	<data>		
+		
+		<record id="form_product_code_profile" model="ir.ui.view">
+            <field name="name">product.form_product_code_profile</field>
+            <field name="model">product.code.profile</field>
+            <field name="arch" type="xml">
+                <form string="Product code profile" version="7.0">
+                	<sheet>
+	                	<group>
+	                		<group>
+		                		<field name="name" />
+		                	</group>
+		                	<group>
+		                		<field name="length" />
+		                	</group>
+		                	<newline></newline>
+		                	<group>
+		        				<separator string="Code"/>
+		        				<newline></newline>
+			                	<field name="code_pos" string="Position"/>
+			                	<field name="code_length" string="Length"/>
+		                	</group>
+		                	<group >
+		                		<separator string="Price"/>
+		                		<newline></newline>
+			                	<field name="price_pos" string="Position"/>
+			                	<field name="price_length" string="Length" />
+			                	<field name="price_post_decimal_pos" string="Post Decimal Position"/>
+			                	<field name="price_post_decimal_length" string="Post Decimal Length"/>
+			                </group>
+			                <group >
+			                	<separator string="Amount"/>
+			                	<newline></newline>
+			                	<field name="amount_pos" string="Position"/>
+			                	<field name="amount_length" string="Length"/>
+			                	<field name="amount_post_decimal_pos" string="Post Decimal Position"/>
+			                	<field name="amount_post_decimal_length" string="Post Decimal Length"/>
+		                	</group>
+		                </group>
+	                </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="tree_product_code_profile" model="ir.ui.view">
+            <field name="name">product.tree_product_code_profile</field>
+            <field name="model">product.code.profile</field>
+            <field name="arch" type="xml">
+                <tree string="Product code profile">
+                	<field name="name" />
+                	<field name="length" />
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_product_code_profile" model="ir.actions.act_window">
+            <field name="name">Product code profile</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.code.profile</field>      
+                  
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+				
+        <menuitem id="menu_product_code_profile" name="Product code profile" parent="product.prod_config_main" sequence="4"
+        		  action="action_product_code_profile"/>		
+	</data>
+</openerp>

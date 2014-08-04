@@ -1,0 +1,108 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* l10n_chart_at_2010
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 8.0alpha1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-08-17 17:59+0000\n"
+"PO-Revision-Date: 2013-08-17 19:59+0100\n"
+"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: l10n_chart_at_2010
+#: field:l10n_chart_at_2010.austrian_erp_wizard,update_seq:0
+msgid "Update Sequences"
+msgstr "Folgen/Sequenz Prefixe aktualisieren"
+
+#. module: l10n_chart_at_2010
+#: model:ir.actions.act_window,name:l10n_chart_at_2010.action_austrian_erp
+msgid "Generate Austrian OpenERP Adaptation"
+msgstr "Adaptiere OpenERP auf Österreich"
+
+#. module: l10n_chart_at_2010
+#: code:addons/l10n_chart_at_2010/chart_wizard.py:63
+#, python-format
+msgid "Account %s does not exist"
+msgstr "Konto %s existiert nicht"
+
+#. module: l10n_chart_at_2010
+#: model:ir.actions.todo,note:l10n_chart_at_2010.config_austrian_erp
+msgid "Do an Austrian Adaptation of Sequences, Sequence Types, Journals, Accounts"
+msgstr "Adaptierung von Sequenzen, Sequenz Typen, Journale, Konten auf Österreich"
+
+#. module: l10n_chart_at_2010
+#: view:l10n_chart_at_2010.austrian_erp_wizard:0
+msgid "title"
+msgstr "Bezeichnung"
+
+#. module: l10n_chart_at_2010
+#: view:l10n_chart_at_2010.austrian_erp_wizard:0
+msgid "Austrian OpenERP Adaptation"
+msgstr "Österreichische OpenERP Adaption"
+
+#. module: l10n_chart_at_2010
+#: field:l10n_chart_at_2010.austrian_erp_wizard,delete_unassigned:0
+msgid "Delete Unassigned Sequences"
+msgstr "Lösche Folgen/Sequenzen die keinem Journal zugeordnet sind"
+
+#. module: l10n_chart_at_2010
+#: code:addons/l10n_chart_at_2010/chart_wizard.py:54
+#, python-format
+msgid "You have to set a code for the bank account defined on the selected chart of accounts."
+msgstr "Es muss eine Kontonummer angegeben werden"
+
+#. module: l10n_chart_at_2010
+#: model:ir.actions.todo,note:l10n_chart_at_2010.config_call_account_template_at
+msgid ""
+"Generate Chart of Accounts from a Chart Template. You will be asked to pass the name of the company, the chart template to follow, the no. of digits to generate the code for your accounts and Bank account, currency to create Journals. Thus,the pure copy of chart Template is generated.\n"
+"	This is the same wizard that runs from Financial Management/Configuration/Financial Accounting/Financial Accounts/Generate Chart of Accounts from a Chart Template."
+msgstr "Erstelle Konten von einem Kontenplan. "
+
+#. module: l10n_chart_at_2010
+#: model:ir.model,name:l10n_chart_at_2010.model_l10n_chart_at_2010_austrian_erp_wizard
+msgid "Austrian ERP Adaptation Wizard"
+msgstr "Assistent für die Adaptierung auf Österreich"
+
+#. module: l10n_chart_at_2010
+#: view:l10n_chart_at_2010.austrian_erp_wizard:0
+msgid "Continue"
+msgstr "Weiter"
+
+#. module: l10n_chart_at_2010
+#: code:addons/l10n_chart_at_2010/chart_wizard.py:54
+#: code:addons/l10n_chart_at_2010/chart_wizard.py:63
+#, python-format
+msgid "Configuration Error!"
+msgstr "Konfiguration Fehler!"
+
+#. module: l10n_chart_at_2010
+#: view:l10n_chart_at_2010.austrian_erp_wizard:0
+msgid "Do an Austrian adaptation of sequences, sequence types, journals, accounts"
+msgstr "Adaptierung von Sequenzen, Sequenz Typen, Journale, Konten auf Österreich"
+
+#. module: l10n_chart_at_2010
+#: view:l10n_chart_at_2010.austrian_erp_wizard:0
+msgid "Close"
+msgstr "Schließen"
+
+#. module: l10n_chart_at_2010
+#: view:l10n_chart_at_2010.austrian_erp_wizard:0
+msgid "Apply"
+msgstr "Anwenden"
+
+#. module: l10n_chart_at_2010
+#: view:l10n_chart_at_2010.austrian_erp_wizard:0
+msgid "or"
+msgstr "oder"
+
+#. module: l10n_chart_at_2010
+#: model:ir.model,name:l10n_chart_at_2010.model_wizard_multi_charts_accounts
+msgid "wizard.multi.charts.accounts"
+msgstr ""
+

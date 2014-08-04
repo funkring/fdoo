@@ -324,6 +324,10 @@ class BaseModel(object):
     _all_columns = {}
 
     _table = None
+    #funkring.net begin
+    _event = None
+    _chgnotify_enabled = False
+    #funkring.net end
     _log_create = False
     _sql_constraints = []
 
@@ -750,6 +754,13 @@ class BaseModel(object):
                     _logger.warning("@onchange%r parameters must be field names", func._onchange)
                 for name in func._onchange:
                     cls._onchange_methods[name].append(func)
+                    
+    @classmethod
+    def _init_event(cls):
+        #funkring.net begin
+        if not cls._event:
+            cls._event = cls._table
+        #funkring.net end
 
     def __new__(cls):
         # In the past, this method was registering the model class in the server.
@@ -816,6 +827,11 @@ class BaseModel(object):
 
         # register constraints and onchange methods
         cls._init_constraints_onchanges()
+        
+        # funkring.net begin
+        # init event
+        cls._init_event()
+        # funkring.net end
 
         # check defaults
         for k in cls._defaults:
@@ -1651,6 +1667,14 @@ class BaseModel(object):
 
         """
         return self._search(cr, user, args, offset=offset, limit=limit, order=order, context=context, count=count)
+    
+    
+    # funkring.net begin // simple search one helper
+    def search_id(self, cr, user, args, offset=0, order=None, context=None):
+        res_ids = self.search(cr, user, args, offset=offset, limit=1, order=order, context=context)
+        return res_ids and res_ids[0] or None
+    # funkring.net end
+
 
     #
     # display_name, name_get, name_create, name_search
@@ -2028,7 +2052,7 @@ class BaseModel(object):
         for k,v in data.iteritems():
             gb = groupby_dict.get(k)
             if gb and gb['type'] in ('date', 'datetime') and v:
-                data[k] = babel.dates.format_date(v, format=gb['display_format'], locale=context.get('lang', 'en_US'))
+                data[k] = babel.dates.format_date(v, format=gb['display_format'], locale=context.get('lang', tools.config.defaultLang))
 
         data['__domain'] = domain_group + domain 
         if len(groupby) - len(annotated_groupbys) >= 1:
@@ -2159,8 +2183,9 @@ class BaseModel(object):
                                                        aggregated_fields, result, read_group_order=order,
                                                        context=context)
         return result
-
-    def _inherits_join_add(self, current_model, parent_model_name, query):
+    
+    # funkring.net begin
+    def _inherits_join_add(self, current_model, parent_model_name, query, current_alias=None):
         """
         Add missing table SELECT and JOIN clause to ``query`` for reaching the parent table (no duplicates)
         :param current_model: current model object
@@ -2169,9 +2194,9 @@ class BaseModel(object):
         """
         inherits_field = current_model._inherits[parent_model_name]
         parent_model = self.pool[parent_model_name]
-        parent_alias, parent_alias_statement = query.add_join((current_model._table, parent_model._table, inherits_field, 'id', inherits_field), implicit=True)
+        parent_alias, parent_alias_statement = query.add_join((current_alias or current_model._table, parent_model._table, inherits_field, 'id', inherits_field), implicit=True)
         return parent_alias
-
+    
     def _inherits_join_calc(self, field, query):
         """
         Adds missing table select and join clause(s) to ``query`` for reaching
@@ -2182,13 +2207,16 @@ class BaseModel(object):
         :return: qualified name of field, to be used in SELECT clause
         """
         current_table = self
+        current_alias = None
         parent_alias = '"%s"' % current_table._table
         while field in current_table._inherit_fields and not field in current_table._columns:
             parent_model_name = current_table._inherit_fields[field][0]
             parent_table = self.pool[parent_model_name]
-            parent_alias = self._inherits_join_add(current_table, parent_model_name, query)
+            parent_alias = self._inherits_join_add(current_table, parent_model_name, query, current_alias=current_alias)
             current_table = parent_table
+            current_alias = parent_alias
         return '%s."%s"' % (parent_alias, field)
+    # funkring.net end
 
     def _parent_store_compute(self, cr):
         if not self._parent_store:
@@ -3540,7 +3568,9 @@ class BaseModel(object):
 
         # recompute new-style fields
         recs.recompute()
-
+        #funkring.net begin
+        self._chgnotify(cr, uid, context)
+        #funkring.net end
         return True
 
     #
@@ -3689,7 +3719,7 @@ class BaseModel(object):
         upd_todo = []
         updend = []
         direct = []
-        totranslate = context.get('lang', False) and (context['lang'] != 'en_US')
+        totranslate = context.get('lang', False) and (context['lang'] != tools.config.defaultLang)
         for field in vals:
             field_column = self._all_columns.get(field) and self._all_columns.get(field).column
             if field_column and field_column.deprecated:
@@ -3726,12 +3756,16 @@ class BaseModel(object):
                 # TODO: optimize
                 for f in direct:
                     if self._columns[f].translate:
-                        src_trans = self.pool[self._name].read(cr, user, ids, [f])[0][f]
-                        if not src_trans:
-                            src_trans = vals[f]
+                        # funkring.net begin // handle setting default lang
+                        baselang_ctx = {"lang" : tools.config.baseLang }
+                        # src translation os resolved with base language not default language !!!
+                        src_trans = self.pool.get(self._name).read(cr, user, ids, [f],baselang_ctx)[0][f] or None
+                        cur_trans = vals[f] or None
+                        if not src_trans: # or cur_lang == default_lang : #if it is the default lang than override the source
+                            src_trans = cur_trans
                             # Inserting value to DB
-                            context_wo_lang = dict(context, lang=None)
-                            self.write(cr, user, ids, {f: vals[f]}, context=context_wo_lang)
+                            self.write(cr, user, ids, {f: cur_trans},baselang_ctx)
+                        # funkring.net end
                         self.pool.get('ir.translation')._set_ids(cr, user, self._name+','+f, 'model', context['lang'], ids, vals[f], src_trans)
 
         # call the 'set' method of fields which are not classic_write
@@ -3850,6 +3884,9 @@ class BaseModel(object):
             recs.recompute()
 
         self.step_workflow(cr, user, ids, context=context)
+        #funkring.net begin
+        self._chgnotify(cr, user, ids, context)
+        #funkring.net end
         return True
 
     #
@@ -4112,6 +4149,9 @@ class BaseModel(object):
 
         self.check_access_rule(cr, user, [id_new], 'create', context=context)
         self.create_workflow(cr, user, [id_new], context=context)
+        #funkring.net begin
+        self._chgnotify(cr, user, [id_new], context)
+        #funkring.net end
         return id_new
 
     def _store_get_values(self, cr, uid, ids, fields, context):
@@ -4378,6 +4418,11 @@ class BaseModel(object):
                 m2o_order_list.append(order_part.strip().split(" ", 1)[0].strip())
             m2o_order = m2o_order_list
 
+        # funkring.net begin
+        #TODO handle inherited fields
+        # figure out if m2o_order has inherited fields
+        # funkring.net end
+        
         # Join the dest m2o table if it's not joined yet. We use [LEFT] OUTER join here
         # as we don't want to exclude results that have NULL values for the m2o
         src_table, src_field = qualified_field.replace('"', '').split('.', 1)
@@ -4591,6 +4636,11 @@ class BaseModel(object):
         fields = self.fields_get(cr, uid, context=context)
 
         for field_name, field_def in fields.items():
+            # funkring.net begin // don't handle function fields
+            # TODO only continue if readonly=True
+            if 'function' in field_def:
+                continue
+            # funkring.net end
             # removing the lang to compare untranslated values
             context_wo_lang = dict(context, lang=None)
             old_record, new_record = self.browse(cr, uid, [old_id, new_id], context=context_wo_lang)
@@ -4968,6 +5018,14 @@ class BaseModel(object):
     def _register_hook(self, cr):
         """ stuff to do right after the registry is built """
         pass
+    
+    def _chgnotify(self, cr, uid, ids, context=None):
+        if self._chgnotify_enabled and (not context or not context.get("chgnotify_disabled")):
+            sender = context.get("chgnotify_sender")
+            if sender:
+                cr.event_notify(self._event,param={"sender" : sender})
+            else:
+                cr.event_notify(self._event)
 
     def _patch_method(self, name, method):
         """ Monkey-patch a method for all instances of this model. This replaces

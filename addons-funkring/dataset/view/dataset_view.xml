@@ -1,0 +1,84 @@
+<openerp>
+	<data>		
+				<record id="form_dataset_view" model="ir.ui.view">
+            <field name="name">dataset.form_dataset_view</field>
+            <field name="model">dataset.view</field>
+            <field name="arch" type="xml">
+                <form string="View" version="7.0">
+                		<group>
+                				<group>
+                     			<field name="name"/>    
+                     			<field name="ltype"/>              
+                     		</group>
+                     		<group>
+                     			<field name="model_id" on_change="on_change_model(model_id)"/>
+                     			<field name="model_field_ids" invisible="1"/>                     			
+                     		</group>
+                     </group>                
+                     <div>
+                     		<field name="rule_ids">
+                     				<form string="Rule" version="7.0">
+                     					<group>
+	                     					<field name="name"/>
+	                     					<field name="field_id" domain="[('id','in',parent.model_field_ids[0][2])]" on_change="on_change_field(field_id)"/>
+                     					</group>
+                     					<group>
+                     						<field name="field_view_id" domain="[('model_id.model','=',field_relation)]"/>
+                     						<field name="ltype" attrs="{'readonly': [('field_relation','=',False)] }"/>
+                     						<field name="option"/>                     						
+                     					</group>
+                     				</form>
+                     				<tree string="Rules" editable="bottom">
+                     						<field name="name"/>                     						
+                     						<field name="field_id" domain="[('id','in',parent.model_field_ids[0][2])]" on_change="on_change_field(field_id)"/>
+                     						<field name="field_relation" invisible="1"/>
+                     						<field name="field_view_id"  domain="[('model_id.model','=',field_relation)]"/>
+                     						<field name="ltype" attrs="{'readonly': [('field_relation','=',False)] }"/>
+                     						<field name="option"/>                     						
+                     				</tree>
+                     		</field>
+                     </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="tree_dataset_view" model="ir.ui.view">
+            <field name="name">dataset.tree_dataset_view</field>
+            <field name="model">dataset.view</field>
+            <field name="arch" type="xml">
+                <tree string="Views">
+                			<field name="name"/>
+                     	<field name="model_id"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="search_dataset_view" model="ir.ui.view">
+            <field name="name">dataset.search_dataset_view</field>
+            <field name="model">dataset.view</field>
+            <field name="arch" type="xml">
+                <search string="Search View">
+                    <field name="name" filter_domain="['|', ('name','ilike',self), ('model_id','ilike',self)]" string="View"/>                    
+                </search>
+            </field>
+        </record>
+        
+        <record id="action_dataset_view" model="ir.actions.act_window">
+            <field name="name">View</field>
+            <field name="res_model">dataset.view</field>            
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>            
+            <field name="help" type="html">
+            	 <p class="oe_view_nocontent_create">
+                Add to create a Dataset View 
+              </p><p>
+                A Dataset view as a view of Data defined by User. This view could be used
+                for exporting, importing, synchronizing data.
+              </p>
+            </field>
+        </record>
+				
+        <menuitem id="menu_dataset_view" name="Dataset Views" parent="base.next_id_9" sequence="91"
+        		  action="action_dataset_view"/>		
+	</data>
+</openerp>

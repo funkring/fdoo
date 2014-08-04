@@ -1,0 +1,47 @@
+<openerp>
+	<data>		
+				<record id="form_task_division" model="ir.ui.view">
+            <field name="name">at_project.form_task_division</field>
+            <field name="model">project.task.division</field>
+            <field name="arch" type="xml">
+                <form string="Task Division" version="7.0">
+                		<group>
+                				<field name="name"/>
+                		</group>
+                    <group>
+                    		<field name="fold"/>
+                    </group>             
+                </form>
+            </field>
+        </record>
+
+        <record id="tree_task_division" model="ir.ui.view">
+            <field name="name">at_project.tree_task_division</field>
+            <field name="model">project.task.division</field>
+            <field name="arch" type="xml">
+                <tree string="Task Divisions">
+                	 <field name="name"/>
+                	 <field name="sequence" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_task_division" model="ir.actions.act_window">
+            <field name="name">Task Division</field>
+            <field name="res_model">project.task.division</field>            
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+            	 <p class="oe_view_nocontent_create">
+               Click to add a new task division
+              </p><p>
+               Create your own time divisions for planning tasks. 
+               For example you could create Monday, Tuesday, ...
+              </p>
+            </field>
+        </record>
+				
+        <menuitem id="menu_task_division" name="Task Division" parent="base.menu_definitions" groups="base.group_no_one" 
+        		  action="action_task_division"/>		
+	</data>
+</openerp>

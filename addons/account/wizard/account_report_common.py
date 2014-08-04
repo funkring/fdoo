@@ -25,6 +25,7 @@ from lxml import etree
 from openerp.osv import fields, osv
 from openerp.osv.orm import setup_modifiers
 from openerp.tools.translate import _
+from openerp import tools
 
 class account_common_report(osv.osv_memory):
     _name = "account.common.report"
@@ -180,7 +181,7 @@ class account_common_report(osv.osv_memory):
                 data['form'][field] = data['form'][field][0]
         used_context = self._build_contexts(cr, uid, ids, data, context=context)
         data['form']['periods'] = used_context.get('periods', False) and used_context['periods'] or []
-        data['form']['used_context'] = dict(used_context, lang=context.get('lang', 'en_US'))
+        data['form']['used_context'] = dict(used_context, lang=context.get('lang', tools.config.defaultLang))
         return self._print_report(cr, uid, ids, data, context=context)
 
 

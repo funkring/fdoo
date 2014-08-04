@@ -1079,7 +1079,9 @@ class expression(object):
 
                     params = (
                         model._name + ',' + left,
-                        context.get('lang') or 'en_US',
+                        #funkring.net begin
+                        context.get('lang') or tools.config.defaultLang,
+                        #funkring.net end
                         'model',
                         right,
                     )

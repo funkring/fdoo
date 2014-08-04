@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+	
+	<!-- log alert -> priority alert -->
+		<record id="kernel_messages" model="posix.log.facility">
+			<field name="code">0</field>
+			<field name="priority"></field>
+			<field name="name">Kernel messages</field>
+			<field name="description"></field>
+		</record>
+		
+		<record id="user_level_messages" model="posix.log.facility">
+			<field name="code">1</field>
+			<field name="priority"></field>
+			<field name="name">User-level messages</field>
+			<field name="description"></field>
+		</record>
+		
+		<record id="mail_systems" model="posix.log.facility">
+			<field name="code">2</field>
+			<field name="priority"></field>
+			<field name="name">Mail system</field>
+			<field name="description"></field>
+		</record>
+		
+		<record id="system_daemons" model="posix.log.facility">
+			<field name="code">3</field>
+			<field name="priority"></field>
+			<field name="name">System daemons</field>
+			<field name="description"></field>
+		</record>
+		
+		<record id="security_messages" model="posix.log.facility">
+			<field name="code">4</field>
+			<field name="priority"></field>
+			<field name="name">Security/Authorization messages</field>
+			<field name="description"></field>
+		</record>
+		
+		<record id="messages_generated" model="posix.log.facility">
+			<field name="code">5</field>
+			<field name="priority"></field>
+			<field name="name">Messages generated internally by Syslog</field>
+			<field name="description"></field>
+		</record>
+		
+		<record id="line_printer" model="posix.log.facility">
+			<field name="code">6</field>
+			<field name="priority"></field>
+			<field name="name">Line printer subsystem</field>
+			<field name="description"></field>
+		</record>
+		
+		<record id="network_news" model="posix.log.facility">
+			<field name="code">7</field>
+			<field name="priority"></field>
+			<field name="name">Network news subsystem</field>
+			<field name="description"></field>
+		</record>
+		
+		<record id="uucp_subsystem" model="posix.log.facility">
+			<field name="code">8</field>
+			<field name="priority"></field>
+			<field name="name">UUCP subsystem</field>
+			<field name="description"></field>
+		</record>
+		
+		<record id="clock_daemon" model="posix.log.facility">
+			<field name="code">9</field>
+			<field name="priority"></field>
+			<field name="name">Clock daemon</field>
+			<field name="description"></field>
+		</record>
+		
+		<record id="security_messages_2" model="posix.log.facility">
+			<field name="code">10</field>
+			<field name="priority"></field>
+			<field name="name">Security/Authorization messages</field>
+			<field name="description"></field>
+		</record>
+		
+		<record id="ftp_daemon" model="posix.log.facility">
+			<field name="code">11</field>
+			<field name="priority"></field>
+			<field name="name">FTP daemon</field>
+			<field name="description"></field>
+		</record>
+		
+		<record id="ntp_subsystem" model="posix.log.facility">
+			<field name="code">12</field>
+			<field name="priority"></field>
+			<field name="name">NTP subsystem</field>
+			<field name="description"></field>
+		</record>
+		
+		<record id="log_audit" model="posix.log.facility">
+			<field name="code">13</field>
+			<field name="priority"></field>
+			<field name="name">Log audit</field>
+			<field name="description"></field>
+		</record>
+		
+		<record id="log_alert" model="posix.log.facility">
+			<field name="code">14</field>
+			<field name="priority">1</field>
+			<field name="name">Log alert</field>
+			<field name="description"></field>
+		</record>
+		
+		<record id="clock_daemon" model="posix.log.facility">
+			<field name="code">15</field>
+			<field name="priority"></field>
+			<field name="name">Clock daemon</field>
+			<field name="description"></field>
+		</record>
+		
+		<record id="local0" model="posix.log.facility">
+			<field name="code">16</field>
+			<field name="priority"></field>
+			<field name="name">Local0</field>
+			<field name="description"></field>
+		</record>
+		
+		<record id="local1" model="posix.log.facility">
+			<field name="code">17</field>
+			<field name="priority"></field>
+			<field name="name">Local1</field>
+			<field name="description"></field>
+		</record>
+		
+		<record id="local2" model="posix.log.facility">
+			<field name="code">18</field>
+			<field name="priority"></field>
+			<field name="name">Local2</field>
+			<field name="description"></field>
+		</record>
+		
+		<record id="local3" model="posix.log.facility">
+			<field name="code">19</field>
+			<field name="priority"></field>
+			<field name="name">Local3</field>
+			<field name="description"></field>
+		</record>
+		
+		<record id="local4" model="posix.log.facility">
+			<field name="code">20</field>
+			<field name="priority"></field>
+			<field name="name">Local4</field>
+			<field name="description"></field>
+		</record>
+		
+		<record id="local5" model="posix.log.facility">
+			<field name="code">21</field>
+			<field name="priority"></field>
+			<field name="name">Local5</field>
+			<field name="description"></field>
+		</record>
+		
+		<record id="local6" model="posix.log.facility">
+			<field name="code">22</field>
+			<field name="priority"></field>
+			<field name="name">Local6</field>
+			<field name="description"></field>
+		</record>
+		
+		<record id="local7" model="posix.log.facility">
+			<field name="code">23</field>
+			<field name="priority"></field>
+			<field name="name">Local7</field>
+			<field name="description"></field>
+		</record>
+		
+	</data>
+</openerp>

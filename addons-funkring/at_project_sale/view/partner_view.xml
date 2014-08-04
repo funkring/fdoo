@@ -1,0 +1,15 @@
+<openerp>
+	<data>		
+		<record id="form_partner" model="ir.ui.view">
+            <field name="name">at_project_sale.form_partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+           		<field name="company_id" position="after">
+           		    <field name="property_partner_analytic_account" groups="analytic.group_analytic_accounting"/>
+           		</field>         
+            </field>
+        </record>
+	</data>
+</openerp>

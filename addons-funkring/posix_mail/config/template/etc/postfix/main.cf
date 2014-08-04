@@ -1,0 +1,14 @@
+transport_maps = pgsql:/etc/postfix/transport.cf
+virtual_uid_maps = pgsql:/etc/postfix/uids.cf
+virtual_gid_maps = pgsql:/etc/postfix/gids.cf
+virtual_mailbox_base = /home/mail
+virtual_mailbox_maps = pgsql:/etc/postfix/mailbox.cf
+virtual_maps = pgsql:/etc/postfix/virtual.cf
+virtual_alias_maps = pgsql:/etc/postfix/alias_user.cf, pgsql:/etc/postfix/alias_group.cf
+mydestination = $mydomain, $myhostname
+
+smtpd_recipient_restrictions = permit_sasl_authenticated, permit_mynetworks, reject_unauth_destination
+smtpd_sasl_auth_enable = yes
+smtpd_sasl_security_options = noanonymous
+smtpd_sasl_local_domain = @DOMAIN@
+smtp_sasl_auth_enable = no

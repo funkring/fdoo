@@ -1,0 +1,13 @@
+<openerp>
+	<data>
+		<record id="access_category_view_user" model="ir.model.access">
+			<field name="name">category_view/user</field>
+			<field name="model_id" ref="model_at_product_category_view"/>
+			<field name="group_id" ref="base.group_user"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="False"/>
+			<field name="perm_write" eval="False"/>
+		</record>
+	</data>
+</openerp>

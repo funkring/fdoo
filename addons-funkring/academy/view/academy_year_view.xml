@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record id="form_academy_year" model="ir.ui.view">
+      <field name="name">academy.form_academy_year</field>
+      <field name="model">academy.year</field>
+      <field name="arch" type="xml">
+        <form string="Year" version="7.0">
+            <sheet>
+                <div class="oe_title">
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                    <div groups="base.group_multi_company">
+                        <label for="code" class="oe_edit_only"/>
+                        <h2>
+                            <field name="company_id" class="oe_inline"/>
+                        </h2>
+                    </div>
+                </div>
+                <group>
+                    <group>
+                        <field name="date_start"/>
+                    </group>>
+                    <group>
+                        <field name="date_end"/>
+                    </group>>
+                </group>
+                <notebook>
+                    <page string="Semester">
+                        <field name="semester_ids">
+                            <tree string="Semester" editable="buttom">
+                                <field name="name"/>
+                                <field name="date_start"/>
+                                <field name="date_end"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="tree_academy_year" model="ir.ui.view">
+      <field name="name">academy.tree_academy_year</field>
+      <field name="model">academy.year</field>
+      <field name="arch" type="xml">
+        <tree string="Years">
+            <field name="company_id" groups="base.group_multi_company"/>
+            <field name="name"/>
+            <field name="date_start"/>
+            <field name="date_end"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="search_academy_year" model="ir.ui.view">
+      <field name="name">academy.search_academy_year</field>
+      <field name="model">academy.year</field>
+      <field name="arch" type="xml">
+        <search string="Search Year">
+            <field name="name"/>
+        </search>
+      </field>
+    </record>
+
+    <record id="action_academy_year" model="ir.actions.act_window">
+      <field name="name">Year</field>
+      <field name="res_model">academy.year</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Click here to create a new academy year and its semester
+        </p><p>
+          An academy year is the period for one school year
+        </p>
+      </field>
+    </record>
+
+    <menuitem id="menu_academy_year" name="Year" parent="menu_academy_config_misc"
+      sequence="2"
+      action="action_academy_year"/>
+  </data>
+</openerp>

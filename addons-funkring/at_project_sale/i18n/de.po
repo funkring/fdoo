@@ -1,0 +1,137 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* at_project_sale
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 8.0alpha1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-09-02 14:33+0000\n"
+"PO-Revision-Date: 2013-12-30 17:15+0100\n"
+"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: at_project_sale
+#: field:at_project_sale.correct_time_wizard,task_hours:0
+msgid "Task Hours Correction"
+msgstr "Stunden Korrektur"
+
+#. module: at_project_sale
+#: field:sale.order,pre_calc:0
+msgid "Pre Calculation (Netto)"
+msgstr "Vorkalkulation"
+
+#. module: at_project_sale
+#: model:ir.model,name:at_project_sale.model_sale_shop
+msgid "sale.shop"
+msgstr "Shop"
+
+#. module: at_project_sale
+#: field:sale.shop,autocreate_order_parent_id:0
+msgid "Analytic account default parent"
+msgstr "Übergeordnete Kostenstelle"
+
+#. module: at_project_sale
+#: view:at_project_sale.correct_time_wizard:0
+msgid "Correct"
+msgstr "Korrigieren"
+
+#. module: at_project_sale
+#: field:sale.order,timesheet_lines:0
+#: field:sale.order,timesheet_lines_amount:0
+msgid "Timesheet Lines"
+msgstr "Zeiterfassungszeilen"
+
+#. module: at_project_sale
+#: field:sale.order,margin_contrib_percent:0
+msgid "Contribution Margin %"
+msgstr "Deckungsbeitrag %"
+
+#. module: at_project_sale
+#: field:at_project_sale.correct_time_wizard,offered_hours:0
+msgid "Offered Hours"
+msgstr "Angebotene Stunden"
+
+#. module: at_project_sale
+#: field:sale.shop,autocreate_order_analytic_account:0
+msgid "Analytic Account per Order"
+msgstr "Analytisches Konto pro Auftrag anlegen"
+
+#. module: at_project_sale
+#: view:project.task:0
+#: field:project.task,invoice_hours:0
+msgid "Hours to Invoice"
+msgstr "Zu verrechnende Stunden"
+
+#. module: at_project_sale
+#: field:at_project_sale.correct_time_wizard,task_id:0
+#: model:ir.model,name:at_project_sale.model_project_task
+msgid "Task"
+msgstr "Aufgabe"
+
+#. module: at_project_sale
+#: model:ir.model,name:at_project_sale.model_at_project_sale_correct_time_wizard
+msgid "at_project_sale.correct_time_wizard"
+msgstr "Zeiten Korrektur Wizard"
+
+#. module: at_project_sale
+#: field:project.task,order_based_invoice:0
+msgid "Invoice based on Order"
+msgstr "Rechnung basierend auf Verkaufsauftrag"
+
+#. module: at_project_sale
+#: field:at_project_sale.correct_time_wizard,correct_offered_hours:0
+msgid "Correct offered Hours"
+msgstr "Korrigiere Stunden im Angebot"
+
+#. module: at_project_sale
+#: model:ir.actions.act_window,name:at_project_sale.act_analytic_account_to_order
+msgid "Order(s)"
+msgstr "Aufträge"
+
+#. module: at_project_sale
+#: field:sale.order,post_calc:0
+msgid "Post Calculation (Netto)"
+msgstr "Nachkalkulation"
+
+#. module: at_project_sale
+#: field:account.analytic.account,order_id:0
+msgid "Order"
+msgstr "Auftrag"
+
+#. module: at_project_sale
+#: model:ir.model,name:at_project_sale.model_account_analytic_account
+#: field:res.partner,property_partner_analytic_account:0
+msgid "Analytic Account"
+msgstr "Kostenstelle"
+
+#. module: at_project_sale
+#: view:at_project_sale.correct_time_wizard:0
+#: model:ir.actions.act_window,name:at_project_sale.action_correct_time
+msgid "Correct Time"
+msgstr "Zeit korrigieren"
+
+#. module: at_project_sale
+#: view:at_project_sale.correct_time_wizard:0
+msgid "Cancel"
+msgstr "Abrechen"
+
+#. module: at_project_sale
+#: model:ir.model,name:at_project_sale.model_res_partner
+msgid "Partner"
+msgstr "Partner"
+
+#. module: at_project_sale
+#: model:ir.model,name:at_project_sale.model_sale_order
+msgid "Sales Order"
+msgstr "Verkaufsauftrag"
+
+#. module: at_project_sale
+#: field:at_project_sale.correct_time_wizard,planned_hours:0
+msgid "Planned Hours"
+msgstr "Geplante Stunden"
+

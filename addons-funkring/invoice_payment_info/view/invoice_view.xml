@@ -1,0 +1,17 @@
+<openerp>
+	<data>
+		<record id="tree_account_invoice" model="ir.ui.view">
+			<field name="name">Invoice</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_tree" />
+			<field name="arch" type="xml">
+				<data>
+					<field name="state" position="after">
+						<field name="last_payment_date" />
+						<field name="payment_journal_names" />
+					</field>
+				</data>
+			</field>
+		</record>
+	</data>
+</openerp>

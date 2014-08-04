@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="true" context="xml_all" deleted="false" description="Action for Tree" enabled="true" name="o_action_tree">     &lt;record id="action_${name}_tree" model="ir.actions.act_window"&gt;
+            &lt;field name="name"&gt;${title}&lt;/field&gt;
+            &lt;field name="res_model"&gt;${model}&lt;/field&gt;
+            &lt;field name="view_type"&gt;form&lt;/field&gt;
+            &lt;field name="view_mode"&gt;tree,form&lt;/field&gt;
+            &lt;field name="view_id" ref="${view_id}"/&gt;
+            &lt;field name="context"&gt;${context}&lt;/field&gt;
+            &lt;field name="search_view_id" ref="${search_view_id}"/&gt;
+      &lt;/record&gt;</template><template autoinsert="true" context="xml_all" deleted="false" description="Action for Wizard" enabled="true" name="o_action_wizard">&lt;record id="action_${name}" model="ir.actions.act_window"&gt;
+	&lt;field name="name"&gt;${title}&lt;/field&gt;
+	&lt;field name="type"&gt;ir.actions.act_window&lt;/field&gt;
+	&lt;field name="res_model"&gt;${model}&lt;/field&gt;   
+	&lt;field name="view_type"&gt;form&lt;/field&gt;         
+	&lt;field name="view_mode"&gt;form&lt;/field&gt;                                  
+	&lt;field name="view_id" ref="${view_id}"/&gt;
+	&lt;field name="multi"&gt;True&lt;/field&gt;
+	&lt;field name="target"&gt;new&lt;/field&gt;
+&lt;/record&gt;	</template><template autoinsert="true" context="xml_all" deleted="false" description="Action for Wizard" enabled="true" name="o_action_wizard_irconfig">&lt;record id="irconfig_${name}" model="ir.values"&gt;
+    &lt;field name="model_id" ref="${model_id}" /&gt;
+    &lt;field name="model"&gt;${model}&lt;/field&gt;
+    &lt;field name="object" eval="1" /&gt;
+    &lt;field name="name"&gt;${title}&lt;/field&gt;
+    &lt;field name="key2"&gt;client_action_multi&lt;/field&gt;
+    &lt;field name="value" eval="'ir.actions.act_window,' + str(ref('${action_id}'))" /&gt;
+    &lt;field name="key"&gt;action&lt;/field&gt;
+&lt;/record&gt;</template><template autoinsert="true" context="xml_all" deleted="false" description="OpenERP: Wizard Action Multiline" enabled="true" name="o_action_wizard_multi">&lt;act_window id="action_${name}" 
+  		multi="True" 
+  		key2="client_action_multi"
+  		name="${title}"
+  		res_model="${wizard_model}"
+  		src_model="${model}"
+  		view_mode="form"
+  		target="new"
+  		view_type="form"
+  		view_id="wizard_${name}"/&gt;
+</template><template autoinsert="true" context="xml_all" deleted="false" description="OpenERP: Category" enabled="true" name="o_category">&lt;record model="ir.module.category" id="module_category_${category}"&gt;
+	&lt;field name="name"&gt;${name}&lt;/field&gt;
+	&lt;field name="visible" eval="0" /&gt;
+&lt;/record&gt;</template><template autoinsert="true" context="xml_all" deleted="false" description="OpenERP: Data" enabled="true" name="o_data">&lt;openerp&gt;
+	&lt;data&gt;
+		${cursor}
+	&lt;/data&gt;
+&lt;/openerp&gt;</template><template autoinsert="true" context="xml_all" deleted="false" description="OpenERP: Group" enabled="true" name="o_group">&lt;record id="group_${group}" model="res.groups"&gt;
+	&lt;field name="name"&gt;${name}&lt;/field&gt;
+  &lt;field name="category_id" ref="${category_id}"/&gt;
+  &lt;field name="implied_ids" eval="[(4, ref('base.group_user'))]"/&gt;  
+&lt;/record&gt;</template><template autoinsert="true" context="xml_all" deleted="false" description="OpenERP: Inherit View" enabled="true" name="o_inherit">		&lt;record id="${type}_${name}" model="ir.ui.view"&gt;
+            &lt;field name="name"&gt;${modul}.${type}_${name}&lt;/field&gt;
+            &lt;field name="model"&gt;${model}&lt;/field&gt;
+            &lt;field name="inherit_id" ref="${modul}.${super_form_id}"/&gt;
+            &lt;field name="type"&gt;form&lt;/field&gt;
+            &lt;field name="arch" type="xml"&gt;
+               ${cursor}               
+            &lt;/field&gt;
+        &lt;/record&gt;</template><template autoinsert="true" context="xml_all" deleted="false" description="OpenERP: Inherit Form" enabled="true" name="o_inherit_board">&lt;openerp&gt;
+	&lt;data&gt;		
+		&lt;record id="board_${name}" model="ir.ui.view"&gt;
+            &lt;field name="name"&gt;${modul}.board_${name}&lt;/field&gt;
+            &lt;field name="model"&gt;board.board&lt;/field&gt;
+            &lt;field name="inherit_id" ref="${modul}.${super_form_id}"/&gt;
+            &lt;field name="type"&gt;form&lt;/field&gt;
+            &lt;field name="arch" type="xml"&gt;
+               ${cursor}               
+            &lt;/field&gt;
+        &lt;/record&gt;
+	&lt;/data&gt;
+&lt;/openerp&gt;</template><template autoinsert="true" context="xml_all" deleted="false" description="OpenERP: Inherit Form" enabled="true" name="o_inherit_form">&lt;openerp&gt;
+	&lt;data&gt;		
+		&lt;record id="form_${name}" model="ir.ui.view"&gt;
+            &lt;field name="name"&gt;${modul}.form_${name}&lt;/field&gt;
+            &lt;field name="model"&gt;${model}&lt;/field&gt;
+            &lt;field name="inherit_id" ref="${base_modul}.${super_form_id}"/&gt;
+            &lt;field name="arch" type="xml"&gt;            	
+               ${cursor}               
+            &lt;/field&gt;
+        &lt;/record&gt;
+	&lt;/data&gt;
+&lt;/openerp&gt;</template><template autoinsert="true" context="xml_all" deleted="false" description="OpenERP: Inherit Tree" enabled="true" name="o_inherit_tree">&lt;openerp&gt;
+	&lt;data&gt;		
+		&lt;record id="tree_${name}" model="ir.ui.view"&gt;
+            &lt;field name="name"&gt;${modul}.tree_${name}&lt;/field&gt;
+            &lt;field name="model"&gt;${model}&lt;/field&gt;
+            &lt;field name="inherit_id" ref="${modul}.${super_form_id}"/&gt;
+            &lt;field name="arch" type="xml"&gt;
+               ${cursor}               
+            &lt;/field&gt;
+        &lt;/record&gt;
+	&lt;/data&gt;
+&lt;/openerp&gt;</template><template autoinsert="true" context="xml_all" deleted="false" description="Big Name" enabled="true" name="o_name">&lt;div class="oe_title"&gt;
+	&lt;div class="oe_edit_only"&gt;
+  	&lt;label for="name" name="label_name" string="Name"/&gt;
+   &lt;/div&gt;
+   &lt;h1&gt;
+   	&lt;field name="name" class="oe_inline"/&gt;
+   &lt;/h1&gt;
+&lt;/div&gt;</template><template autoinsert="true" context="xml_all" deleted="false" description="OpenERP: Property" enabled="true" name="o_property">&lt;record id="${name}" model="ir.property"&gt;
+	&lt;field name="name"&gt;${name}&lt;/field&gt;
+	&lt;field name="fields_id" search="[('model','=','${owner_model}'),('name','=','${name}')]"/&gt;
+	&lt;field name="value" eval="'${value_model},'+str(list0)"/&gt;
+&lt;/record&gt;</template><template autoinsert="true" context="xml_all" deleted="false" description="OpenERP: Record" enabled="true" name="o_record">&lt;record id="${name}" model="${model}"&gt;
+	&lt;field name="name"&gt;${description}&lt;/field&gt;
+	${cursor}
+&lt;/record&gt;</template><template autoinsert="true" context="xml_all" deleted="false" description="OpenERP: Report" enabled="true" name="o_report">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;openerp&gt;
+    &lt;data&gt;
+        &lt;report id="report_${name}_pdf"
+        	   override_id="sale.report_${name}"
+               string="${title}"
+               name="${name}"
+               auto="False"
+               report_type="aeroo"
+               model="${model}"
+               in_format="oo-odt"
+               out_format="oo-pdf"
+               parser="${addon}/${parser}.py"
+               rml="${addon}/${template}.odt"/&gt;
+    &lt;/data&gt;
+&lt;/openerp&gt;</template><template autoinsert="true" context="xml_all" deleted="false" description="OpenERP: Access Right" enabled="true" name="o_right_all">&lt;record id="access_${model}_all" model="ir.model.access"&gt;
+	&lt;field name="name"&gt;${model}/all&lt;/field&gt;
+	&lt;field name="model_id" ref="model_${model}"/&gt;
+	&lt;field name="perm_read" eval="${read}"/&gt;			
+	&lt;field name="perm_unlink" eval="${delete}"/&gt;
+	&lt;field name="perm_create" eval="${create}"/&gt;
+	&lt;field name="perm_write" eval="${write}"/&gt;
+&lt;/record&gt;</template><template autoinsert="true" context="xml_all" deleted="false" description="OpenERP: Access Right" enabled="true" name="o_right_other_modul">&lt;record id="access_${model}_${group}" model="ir.model.access"&gt;
+	&lt;field name="name"&gt;${model}/${group}&lt;/field&gt;
+	&lt;field name="model_id" ref="${modul}.model_${model}"/&gt;
+	&lt;field name="group_id" ref="${modul}.group_${group}"/&gt;
+	&lt;field name="perm_read" eval="${read}"/&gt;			
+	&lt;field name="perm_unlink" eval="${delete}"/&gt;
+	&lt;field name="perm_create" eval="${create}"/&gt;
+	&lt;field name="perm_write" eval="${write}"/&gt;
+&lt;/record&gt;</template><template autoinsert="true" context="xml_all" deleted="false" description="OpenERP: Access Right" enabled="true" name="o_right_same_modul">&lt;record id="access_${model}_${group}" model="ir.model.access"&gt;
+	&lt;field name="name"&gt;${model}/${group}&lt;/field&gt;
+	&lt;field name="model_id" ref="model_${model}"/&gt;
+	&lt;field name="group_id" ref="group_${group}"/&gt;
+	&lt;field name="perm_read" eval="${read}"/&gt;			
+	&lt;field name="perm_unlink" eval="${delete}"/&gt;
+	&lt;field name="perm_create" eval="${create}"/&gt;
+	&lt;field name="perm_write" eval="${write}"/&gt;
+&lt;/record&gt;</template><template autoinsert="true" context="xml_all" deleted="false" description="OpenERP: Access Right" enabled="true" name="o_right_user_other_modul">&lt;record id="access_${model}_${group}" model="ir.model.access"&gt;
+	&lt;field name="name"&gt;${model}/${group}&lt;/field&gt;
+	&lt;field name="model_id" ref="model_${model}"/&gt;
+	&lt;field name="group_id" ref="${modul}.group_${group}"/&gt;
+	&lt;field name="perm_read" eval="${read}"/&gt;			
+	&lt;field name="perm_unlink" eval="${delete}"/&gt;
+	&lt;field name="perm_create" eval="${create}"/&gt;
+	&lt;field name="perm_write" eval="${write}"/&gt;
+&lt;/record&gt;</template><template autoinsert="true" context="xml_all" deleted="false" description="OpenERP: Access Rule" enabled="true" name="o_rule">&lt;record id="rule_${model}_${name}" model="ir.rule"&gt;
+  	&lt;field name="name"&gt;${model}/${name}&lt;/field&gt;
+   	&lt;field name="model_id" ref="model_${model}"/&gt;
+   	&lt;field name="domain_force"&gt;${domain}&lt;/field&gt;
+   	&lt;field name="groups" eval="[(4,ref('${group}'))]"/&gt;
+   	&lt;field name="perm_read" eval="${read}"/&gt;	    	
+   	&lt;field name="perm_write" eval="${write}"/&gt;	    	
+   	&lt;field name="perm_create" eval="${create}"/&gt;
+   	&lt;field name="perm_unlink" eval="${unlink}"/&gt;
+&lt;/record&gt;</template><template autoinsert="true" context="xml_all" deleted="false" description="OpenERP: Search" enabled="true" name="o_search">	&lt;record id="search_${name}" model="ir.ui.view"&gt;
+           &lt;record id="search_${name}" model="ir.ui.view"&gt;
+            &lt;field name="name"&gt;${modul}.search_${name}&lt;/field&gt;
+            &lt;field name="model"&gt;${model}&lt;/field&gt;
+            &lt;field name="arch" type="xml"&gt;
+                &lt;search string="Search ${one}"&gt;
+                    &lt;!--field name="name" filter_domain="['|', ('name','ilike',self), ('otherfield','ilike',self)]" string="${one}"/ --&gt;
+                    &lt;!--filter string="Some State" domain="[('state','=','draft')]" icon="terp-camera_test"/ --&gt;
+                    &lt;!--field name="state"/ --&gt;
+                    &lt;!--
+                    &lt;group expand="0" string="Group By..."&gt;
+                        &lt;filter string="Status" context="{'group_by': 'state'}" icon="terp-stock_effects-object-colorize"/&gt;
+                    &lt;/group&gt;
+                    --&gt;
+                &lt;/search&gt;
+            &lt;/field&gt;
+        &lt;/record&gt;
+	&lt;/record&gt;</template><template autoinsert="true" context="xml_all" deleted="false" description="OpenERP: View" enabled="true" name="o_view">				&lt;record id="form_${name}" model="ir.ui.view"&gt;
+            &lt;field name="name"&gt;${modul}.form_${name}&lt;/field&gt;
+            &lt;field name="model"&gt;${model}&lt;/field&gt;
+            &lt;field name="arch" type="xml"&gt;
+                &lt;form string="${one}" version="7.0"&gt;
+                    ${cursor}
+                &lt;/form&gt;
+            &lt;/field&gt;
+      	&lt;/record&gt;</template><template autoinsert="true" context="xml_all" deleted="false" description="OpenERP: Simple Form and Tree Definition" enabled="true" name="o_viewtree_simple">&lt;openerp&gt;
+	&lt;data&gt;		
+				&lt;record id="form_${name}" model="ir.ui.view"&gt;
+            &lt;field name="name"&gt;${modul}.form_${name}&lt;/field&gt;
+            &lt;field name="model"&gt;${model}&lt;/field&gt;
+            &lt;field name="arch" type="xml"&gt;
+                &lt;form string="${one}" version="7.0"&gt;
+                    ${cursor}
+                &lt;/form&gt;
+            &lt;/field&gt;
+        &lt;/record&gt;
+
+        &lt;record id="tree_${name}" model="ir.ui.view"&gt;
+            &lt;field name="name"&gt;${modul}.tree_${name}&lt;/field&gt;
+            &lt;field name="model"&gt;${model}&lt;/field&gt;
+            &lt;field name="arch" type="xml"&gt;
+                &lt;tree string="${more}"&gt;
+                
+                &lt;/tree&gt;
+            &lt;/field&gt;
+        &lt;/record&gt;
+        
+        &lt;record id="search_${name}" model="ir.ui.view"&gt;
+            &lt;field name="name"&gt;${modul}.search_${name}&lt;/field&gt;
+            &lt;field name="model"&gt;${model}&lt;/field&gt;
+            &lt;field name="arch" type="xml"&gt;
+                &lt;search string="Search ${one}"&gt;
+                    &lt;!--field name="name" filter_domain="['|', ('name','ilike',self), ('otherfield','ilike',self)]" string="${one}"/ --&gt;
+                    &lt;!--filter string="Some State" domain="[('state','=','draft')]" icon="terp-camera_test"/ --&gt;
+                    &lt;!--field name="state"/ --&gt;
+                    &lt;!--
+                    &lt;group expand="0" string="Group By..."&gt;
+                        &lt;filter string="Status" context="{'group_by': 'state'}" icon="terp-stock_effects-object-colorize"/&gt;
+                    &lt;/group&gt;
+                    --&gt;
+                &lt;/search&gt;
+            &lt;/field&gt;
+        &lt;/record&gt;
+        
+        &lt;record id="action_${name}" model="ir.actions.act_window"&gt;
+            &lt;field name="name"&gt;${one}&lt;/field&gt;
+            &lt;field name="res_model"&gt;${model}&lt;/field&gt;            
+            &lt;field name="view_type"&gt;form&lt;/field&gt;
+            &lt;field name="view_mode"&gt;tree,form&lt;/field&gt;
+            &lt;!--
+            &lt;field name="help" type="html"&gt;
+            	 &lt;p class="oe_view_nocontent_create"&gt;
+                Header Description
+              &lt;/p&gt;&lt;p&gt;
+                Detail Description
+              &lt;/p&gt;
+            &lt;/field&gt;
+            --&gt;
+        &lt;/record&gt;
+				
+        &lt;menuitem id="menu_${name}" name="${one}" parent="${parent}" sequence="${sequence}"
+        		  action="action_${name}"/&gt;		
+	&lt;/data&gt;
+&lt;/openerp&gt;</template><template autoinsert="true" context="xml_all" deleted="false" description="OpenERP: Wizard" enabled="true" name="o_wizard">&lt;openerp&gt;
+	&lt;data&gt;	
+	
+			&lt;record id="wizard_${name}" model="ir.ui.view"&gt;
+			&lt;field name="name"&gt;${modul}.wizard_${name}&lt;/field&gt;
+			&lt;field name="model"&gt;${model}&lt;/field&gt;
+			&lt;field name="arch" type="xml"&gt;
+				&lt;form string="Transport Wizard" version="7.0"&gt;
+					&lt;group&gt;
+						&lt;group&gt;
+							&lt;field name="${cursor}"/&gt;							
+						&lt;/group&gt;					
+					&lt;/group&gt;
+					&lt;footer&gt;
+						&lt;button icon="gtk-go-forward" name="do_${method}" string="${string}"	type="object" class="oe_highlight" /&gt;
+						or
+						&lt;button special="cancel" string="Close" class="oe_link" /&gt;
+					&lt;/footer&gt;
+				&lt;/form&gt;
+			&lt;/field&gt;
+		&lt;/record&gt;
+		
+	&lt;/data&gt;
+&lt;/openerp&gt;</template><template autoinsert="true" context="xml_all" deleted="false" description="OpenERP: xpath" enabled="true" name="o_xpath">&lt;data&gt;
+	&lt;xpath expr="/${treeform}/${element}[@${field}='${value}']" position="${position}"&gt;
+		${cursor}
+	&lt;/xpath&gt;
+&lt;/data&gt;</template></templates>

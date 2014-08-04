@@ -172,7 +172,7 @@ class ir_translation(osv.osv):
                     # Pass context without lang, need to read real stored field, not translation
                     context_no_lang = dict(context, lang=None)
                     result = model.read(cr, uid, [record.res_id], [field], context=context_no_lang)
-                    res[record.id] = result[0][field] if result else False
+                    res[record.id] = result[0].get(field,False) if result else False
         return res
 
     def _set_src(self, cr, uid, id, name, value, args, context=None):
@@ -344,6 +344,50 @@ class ir_translation(osv.osv):
         if source and not trad:
             return tools.ustr(source)
         return trad
+        
+    #funkring.net begin
+    def _get_translation(self, cr, uid, name, types, lang, source=None):
+        """
+        Returns the translation for the given combination of name, type, language
+        and source. All values passed to this method should be unicode (not byte strings),
+        especially ``source``.
+
+        :param name: identification of the term to translate, such as field name (optional if source is passed)
+        :param types: single string defining type of term to translate (see ``type`` field on ir.translation), or sequence of allowed types (strings)
+        :param lang: language code of the desired translation
+        :param source: optional source term to translate (should be unicode)
+        :rtype: unicode
+        :return: the request translation, or an empty unicode string if no translation was
+                 found
+        """
+        # FIXME: should assert that `source` is unicode and fix all callers to always pass unicode
+        # so we can remove the string encoding/decoding.
+        if not lang:
+            return u''
+        if isinstance(types, basestring):
+            types = (types,)
+        if source:
+            query = """SELECT value 
+                       FROM ir_translation 
+                       WHERE lang=%s 
+                        AND type in %s 
+                        AND src=%s"""
+            params = (lang or '', types, tools.ustr(source))
+            if name:
+                query += " AND name=%s"
+                params += (tools.ustr(name),)
+            cr.execute(query, params)
+        else:
+            cr.execute("""SELECT value
+                          FROM ir_translation
+                          WHERE lang=%s
+                           AND type in %s
+                           AND name=%s""",
+                    (lang or '', types, tools.ustr(name)))
+        res = cr.fetchone()
+        trad = res and res[0] or u''        
+        return trad
+    #funkring.net end
 
     def create(self, cr, uid, vals, context=None):
         if context is None:
@@ -383,11 +427,11 @@ class ir_translation(osv.osv):
     def translate_fields(self, cr, uid, model, id, field=None, context=None):
         trans_model = self.pool[model]
         domain = ['&', ('res_id', '=', id), ('name', '=like', model + ',%')]
-        langs_ids = self.pool.get('res.lang').search(cr, uid, [('code', '!=', 'en_US')], context=context)
+        langs_ids = self.pool.get('res.lang').search(cr, uid, [('code', '!=', tools.config.baseLang)], context=context)
         if not langs_ids:
             raise osv.except_osv(_('Error'), _("Translation features are unavailable until you install an extra OpenERP translation."))
         langs = [lg.code for lg in self.pool.get('res.lang').browse(cr, uid, langs_ids, context=context)]
-        main_lang = 'en_US'
+        main_lang = tools.config.baseLang
         translatable_fields = []
         for f, info in trans_model._all_columns.items():
             if info.column.translate:
@@ -465,7 +509,7 @@ class ir_translation(osv.osv):
                 if trans_file:
                     _logger.info('module %s: loading translation file (%s) for language %s', module_name, lang_code, lang)
                     tools.trans_load(cr, trans_file, lang, verbose=False, module_name=module_name, context=context)
-                elif lang_code != 'en_US':
+                elif lang_code != openerp.tools.config.baseLang:
                     _logger.warning('module %s: no translation for language %s', module_name, lang_code)
 
                 trans_extra_file = openerp.modules.get_module_resource(module_name, 'i18n_extra', lang_code + '.po')

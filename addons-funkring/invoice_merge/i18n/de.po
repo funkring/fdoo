@@ -1,0 +1,200 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* invoice_merge
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 8.0alpha1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-09-11 08:05+0000\n"
+"PO-Revision-Date: 2013-09-11 10:05+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: invoice_merge
+#: selection:invoice_merge.merge,type:0
+msgid "Customer Refund"
+msgstr "Kundengutschrift"
+
+#. module: invoice_merge
+#: code:addons/invoice_merge/wizard/invoice_merge_wizard.py:42
+#, python-format
+msgid "Collective Invoice"
+msgstr "Sammelrechnung"
+
+#. module: invoice_merge
+#: selection:invoice_merge.merge,type:0
+msgid "Customer Invoice"
+msgstr "Kundenrechnung"
+
+#. module: invoice_merge
+#: field:invoice_merge.merge,wizard_id:0
+msgid "Wizard"
+msgstr "Assistent"
+
+#. module: invoice_merge
+#: selection:invoice_merge.merge,type:0
+msgid "Supplier Invoice"
+msgstr "Eingangsrechnung"
+
+#. module: invoice_merge
+#: field:invoice_merge.merge,state:0
+msgid "State"
+msgstr "Status"
+
+#. module: invoice_merge
+#: field:invoice_merge.merge,from_date:0
+msgid "From Date"
+msgstr "Von"
+
+#. module: invoice_merge
+#: field:invoice_merge.merge,type:0
+msgid "Type"
+msgstr "Typ"
+
+#. module: invoice_merge
+#: field:invoice_merge.merge,name:0
+msgid "Description"
+msgstr "Beschreibung"
+
+#. module: invoice_merge
+#: field:invoice_merge.merge,company_id:0
+msgid "Company"
+msgstr "Unternehmen"
+
+#. module: invoice_merge
+#: code:addons/invoice_merge/wizard/invoice_merge_wizard.py:85
+#, python-format
+msgid "%s is no draft Invoice, Ignored!"
+msgstr "%s ist keine Entwurfsrechnung, wird ignoriert!"
+
+#. module: invoice_merge
+#: code:addons/invoice_merge/wizard/invoice_merge_wizard.py:115
+#, python-format
+msgid "Collective Invoice %s"
+msgstr "Sammelrechnung %s"
+
+#. module: invoice_merge
+#: field:invoice_merge.merge,date:0
+msgid "Date"
+msgstr "Datum"
+
+#. module: invoice_merge
+#: field:invoice_merge.merge,info:0
+#: view:invoice_merge.wizard:0
+msgid "Info"
+msgstr "Info"
+
+#. module: invoice_merge
+#: field:invoice_merge.merge,account_id:0
+msgid "Account"
+msgstr "Konto"
+
+#. module: invoice_merge
+#: selection:invoice_merge.merge,state:0
+msgid "Ok"
+msgstr "OK"
+
+#. module: invoice_merge
+#: view:invoice_merge.wizard:0
+#: model:ir.actions.act_window,name:invoice_merge.action_invoice_merge
+#: model:ir.model,name:invoice_merge.model_invoice_merge_merge
+msgid "Invoice Merge"
+msgstr "Sammelrechnung"
+
+#. module: invoice_merge
+#: view:invoice_merge.wizard:0
+msgid "Merge"
+msgstr "Gruppieren"
+
+#. module: invoice_merge
+#: field:invoice_merge.merge,amount:0
+msgid "Amount"
+msgstr "Betrag (Netto)"
+
+#. module: invoice_merge
+#: selection:invoice_merge.merge,type:0
+msgid "Supplier Refund"
+msgstr "Lieferantengutschrift"
+
+#. module: invoice_merge
+#: selection:invoice_merge.merge,state:0
+msgid "Error"
+msgstr "Fehler"
+
+#. module: invoice_merge
+#: field:invoice_merge.merge,comment:0
+msgid "Comment"
+msgstr "Kommentar"
+
+#. module: invoice_merge
+#: field:invoice_merge.merge,invoice_ids:0
+#: view:invoice_merge.wizard:0
+#: field:invoice_merge.wizard,merge_ids:0
+msgid "Invoices"
+msgstr "Rechnungen"
+
+#. module: invoice_merge
+#: field:invoice_merge.merge,num_of_invoices:0
+msgid "Num. of Invoices"
+msgstr "Rechnungen"
+
+#. module: invoice_merge
+#: field:invoice_merge.merge,payment_term:0
+msgid "Payment Term"
+msgstr "Zahlungsziel"
+
+#. module: invoice_merge
+#: field:invoice_merge.merge,to_date:0
+msgid "To Date"
+msgstr "Bis"
+
+#. module: invoice_merge
+#: model:ir.model,name:invoice_merge.model_invoice_merge_wizard
+msgid "Invoice Merge Wizard"
+msgstr "Sammelrechnung Assistent"
+
+#. module: invoice_merge
+#: view:invoice_merge.wizard:0
+msgid "or"
+msgstr "oder"
+
+#. module: invoice_merge
+#: field:invoice_merge.merge,currency_id:0
+msgid "Currency"
+msgstr "Währung"
+
+#. module: invoice_merge
+#: selection:invoice_merge.merge,state:0
+msgid "Warning"
+msgstr "Warnung"
+
+#. module: invoice_merge
+#: field:invoice_merge.merge,fiscal_position:0
+msgid "Fiscal Position"
+msgstr "Steuerposition"
+
+#. module: invoice_merge
+#: view:invoice_merge.wizard:0
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#. module: invoice_merge
+#: field:invoice_merge.merge,partner_id:0
+msgid "Partner"
+msgstr "Partner"
+
+#. module: invoice_merge
+#: field:invoice_merge.merge,user_id:0
+msgid "Salesman"
+msgstr "Verkäufer"
+
+#. module: invoice_merge
+#: field:invoice_merge.merge,journal_id:0
+msgid "Journal"
+msgstr "Journal"
+

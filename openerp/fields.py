@@ -960,6 +960,13 @@ class Text(_String):
     def convert_to_cache(self, value, env, validate=True):
         return bool(value) and ustr(value)
 
+class Json(_String):
+    """ Json field. Is for json documents """
+    type = "json"
+    
+    def convert_to_cache(self, value, env):
+        return bool(value) and ustr(value)
+    
 
 class Html(_String):
     """ Html field. """
@@ -1096,7 +1103,10 @@ class Binary(Field):
     """ Binary field. """
     type = 'binary'
 
-
+class Serialized(Field):
+    """ Serialized field. """
+    type = 'serialized'
+    
 class Selection(Field):
     """ Selection field.
 

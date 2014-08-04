@@ -1,0 +1,8 @@
+<openerp>
+    <data>
+        <record id="property_partner_analytic_account" model="ir.property">
+            <field name="name">property_partner_analytic_account</field>
+            <field name="fields_id" search="[('model','=','res.partner'),('name','=','property_partner_analytic_account')]"/>           
+        </record>        
+    </data>    
+</openerp>

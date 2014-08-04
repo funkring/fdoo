@@ -1,0 +1,119 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* at_purchase_sale
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 8.0alpha1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-09-04 11:02+0000\n"
+"PO-Revision-Date: 2013-09-04 13:03+0100\n"
+"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: at_purchase_sale
+#: field:purchase.order.line,shop_id:0
+msgid "Shop"
+msgstr "Shop"
+
+#. module: at_purchase_sale
+#: model:ir.model,name:at_purchase_sale.model_product_product
+msgid "Product"
+msgstr "Produkt"
+
+#. module: at_purchase_sale
+#: field:purchase.order.line,dest_address_id:0
+msgid "Destination Address"
+msgstr "Zieladresse"
+
+#. module: at_purchase_sale
+#: field:sale.shop,sender_address_id:0
+#: field:stock.picking,sender_address_id:0
+msgid "Sender Address"
+msgstr "Absenderadresse"
+
+#. module: at_purchase_sale
+#: model:ir.model,name:at_purchase_sale.model_sale_order
+msgid "Sales Order"
+msgstr "Verkaufsauftrag"
+
+#. module: at_purchase_sale
+#: field:procurement.order,supplier_ships:0
+#: field:product.product,supplier_ships:0
+#: field:purchase.order,supplier_ships:0
+#: field:purchase.order.line,supplier_ships:0
+#: field:sale.order,supplier_ships:0
+#: field:sale.order.line,supplier_ships:0
+#: field:sale.shop,supplier_ships_default:0
+msgid "Supplier Ships"
+msgstr "Versand durch Lieferant"
+
+#. module: at_purchase_sale
+#: model:ir.model,name:at_purchase_sale.model_sale_shop
+msgid "sale.shop"
+msgstr "Shop"
+
+#. module: at_purchase_sale
+#: field:purchase.order.line,sale_order_id:0
+msgid "Sale Order"
+msgstr "Verkaufsauftrag"
+
+#. module: at_purchase_sale
+#: model:ir.model,name:at_purchase_sale.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "Bestellpositionen"
+
+#. module: at_purchase_sale
+#: field:sale.shop,neutral_delivery:0
+msgid "Neutral Delivery"
+msgstr "Neutraler Versand"
+
+#. module: at_purchase_sale
+#: model:ir.model,name:at_purchase_sale.model_procurement_order
+msgid "Procurement"
+msgstr "Beschaffung"
+
+#. module: at_purchase_sale
+#: field:purchase.order.line,client_order_ref:0
+msgid "Customer Reference"
+msgstr "Kundenreferenz"
+
+#. module: at_purchase_sale
+#: view:sale.shop:0
+msgid "Logistic"
+msgstr "Logistik"
+
+#. module: at_purchase_sale
+#: model:ir.model,name:at_purchase_sale.model_stock_picking
+msgid "Picking List"
+msgstr "Lieferschein"
+
+#. module: at_purchase_sale
+#: field:purchase.order.line,delivery_address_id:0
+msgid "Delivery Address"
+msgstr "Absender"
+
+#. module: at_purchase_sale
+#: model:ir.model,name:at_purchase_sale.model_stock_partial_picking
+msgid "Partial Picking Processing Wizard"
+msgstr "Assistent für Teillieferungen"
+
+#. module: at_purchase_sale
+#: model:ir.model,name:at_purchase_sale.model_purchase_order
+msgid "Purchase Order"
+msgstr "Bestellung"
+
+#. module: at_purchase_sale
+#: model:ir.model,name:at_purchase_sale.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Auftragsposition"
+
+#. module: at_purchase_sale
+#: field:purchase.order.line,sale_order_line_id:0
+msgid "Sale Order Line"
+msgstr "Bestellzeile"
+

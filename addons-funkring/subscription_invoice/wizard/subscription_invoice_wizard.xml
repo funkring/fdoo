@@ -1,0 +1,162 @@
+<openerp>
+	<data>
+		<record id="wizard_subscription_invoice" model="ir.ui.view">
+			<field name="name">subscription.wizard_subscription_invoice1</field>
+			<field name="model">subscription.invoice_wizard</field>
+			<field name="arch" type="xml">
+				<form string="Subscription Invoice Wizard" version="7.0">
+					<separator string="Do you want to create a new subscription, or edit them?"></separator>
+					<label string="Note: You can only edit a subscription, if there exists at least one." colspan="6" />
+					<footer>
+						<button name="edit_existing" string="Edit existing" type="object" icon="gtk-execute" class="oe_highlight"/>
+						<button name="create_new" string="Create new" type="object" icon="gtk-go-forward" class="oe_highlight"/>
+						or
+						<button special="cancel" string="Cancel" class="oe_link" />
+					</footer>
+						
+				</form>
+			</field>
+		</record>
+
+		<record id="action_subscription_invoice" model="ir.actions.act_window">
+			<field name="name">Subscription Invoice</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">subscription.invoice_wizard</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="wizard_subscription_invoice" />
+			<field name="multi">True</field>
+			<field name="target">new</field>
+		</record>
+
+		<record id="irconfig_subscription_invoice" model="ir.values">
+			<field name="model_id" ref="account.model_account_invoice" />
+			<field name="model">account.invoice</field>
+			<field name="name">Subscription Invoice</field>
+			<field name="key2">client_action_multi</field>
+			<field name="value" eval="'ir.actions.act_window,' + str(ref('action_subscription_invoice'))" />
+			<field name="key">action</field>
+		</record>
+
+
+
+		<record id="wizard_subscription_invoice2" model="ir.ui.view">
+			<field name="name">subscription.wizard_subscription_invoice2</field>
+			<field name="model">subscription.invoice_wizard</field>
+			<field name="arch" type="xml">
+				<form string="Subscription Invoice Wizard" version="7.0">
+					<newline></newline>
+					<label for="name" string="Description"/>
+					<field name="name" required="1" />
+					<group>
+						<separator string="Subscribed Datas"/>
+						<newline></newline>
+						<group>
+							<field name="interval_number" />
+							<field name="interval_type" />
+							<field name="exec_init" />
+						</group>
+						<group>
+							<field name="date_init" />
+							<field name="doc_source" invisible="1" />
+							<field name="doc_source_model" invisible="1" />
+							<field name="doc_id" required="1" domain="[('model.model','=',doc_source_model)]" />
+						</group>
+					</group>
+					<footer>
+						<button name="create_subscription" string="Create" type="object" icon="gtk-apply" class="oe_highlight" />
+						<button name="create_process" string="Create and Process" type="object" icon="gtk-go-forward" class="oe_highlight" />
+						or
+						<button special="cancel" string="Cancel" class="oe_link"/>
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<record id="action_subscription_invoice2" model="ir.actions.act_window">
+			<field name="name">Subscription Invoice</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">subscription.invoice_wizard</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="wizard_subscription_invoice2" />
+			<field name="multi">True</field>
+			<field name="target">new</field>
+		</record>
+
+		<record id="wizard_subscription_invoice3" model="ir.ui.view">
+			<field name="name">subscription.wizard_subscription_invoice3</field>
+			<field name="model">subscription.invoice_wizard</field>
+			<field name="arch" type="xml">
+				<form string="Subscription Invoice Wizard" version="7.0">
+
+					<separator string="Which subscription do you want to edit?" />
+					<field name="subscription_id" required="1" />
+					<footer>
+						<button name="do_next" string="Next" type="object" icon="gtk-go-forward" class="oe_highlight"/>
+						or
+						<button special="cancel" string="Cancel" class="oe_link" />					
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<record id="action_subscription_invoice3" model="ir.actions.act_window">
+			<field name="name">Subscription Invoice</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">subscription.invoice_wizard</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="wizard_subscription_invoice3" />
+			<field name="multi">True</field>
+			<field name="target">new</field>
+		</record>
+
+		<record id="wizard_subscription_invoice4" model="ir.ui.view">
+			<field name="name">subscription.wizard_subscription_invoice4</field>
+			<field name="model">subscription.invoice_wizard</field>
+			<field name="arch" type="xml">
+				<form string="Subscription Invoice Wizard" version="7.0">
+					<group>
+						<field name="name" required="1" attrs="{'readonly' : [('state','!=','draft')]}" />
+						<group col="4" colspan="4">
+							<separator string="Subscribed Datas" colspan="4" />
+							<newline></newline>
+							<group>
+								<field name="interval_number" attrs="{'readonly' : [('state','!=','draft')]}" />
+								<field name="interval_type" attrs="{'readonly' : [('state','!=','draft')]}" />
+								<field name="exec_init" attrs="{'readonly' : [('state','!=','draft')]}" />
+							</group>
+							<group>
+								<field name="date_init" attrs="{'readonly' : [('state','!=','draft')]}" />
+								<field name="doc_source" invisible="1" />
+								<field name="doc_id" required="1" domain="[('model.model','=',doc_source and doc_source.split(',')[0] or None)]" attrs="{'readonly' : [('state','!=','draft')]}" />
+							</group>
+							<field name="state" invisible="1" />
+						</group>
+					</group>
+					<footer>
+						<button name="set_process" states="draft" string="Process" type="object" icon="gtk-go-forward" class="oe_highlight" />
+						<button name="set_done" states="running" string="Stop" type="object" icon="gtk-stop" class="oe_highlight"/>
+						<button name="set_draft" states="done" string="Set to Draft" type="object" icon="gtk-convert" class="oe_highlight"/>
+						<button name="apply" string="Apply" type="object" icon="gtk-apply" class="oe_highlight"/>
+						or
+						<button special="cancel" string="Cancel"  class="oe_link" />
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<record id="action_subscription_invoice4" model="ir.actions.act_window">
+			<field name="name">Subscription Invoice</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">subscription.invoice_wizard</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="wizard_subscription_invoice4" />
+			<field name="multi">True</field>
+			<field name="target">new</field>
+		</record>
+
+	</data>
+</openerp>

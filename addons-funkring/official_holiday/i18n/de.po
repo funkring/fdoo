@@ -1,0 +1,187 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* official_holiday
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1-dev\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2013-03-13 16:15+0000\n"
+"PO-Revision-Date: 2013-04-05 09:48+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: official_holiday
+#: model:official.holiday,name:official_holiday.at_boxingday
+msgid "Boxing Day"
+msgstr "Stefanitag"
+
+#. module: official_holiday
+#: model:ir.model,name:official_holiday.model_official_holiday_template_wizard
+msgid "Official holiday template wizard"
+msgstr "Offizieller Feiertagsvorlagen"
+
+#. module: official_holiday
+#: selection:official.holiday,calc_type:0
+msgid "None"
+msgstr "Keine"
+
+#. module: official_holiday
+#: model:official.holiday,name:official_holiday.at_easter_sunday
+msgid "Easter Sunday"
+msgstr "Ostersonntag"
+
+#. module: official_holiday
+#: model:official.holiday,name:official_holiday.at_assumption
+msgid "Assumption"
+msgstr "Maria Himmelfahrt"
+
+#. module: official_holiday
+#: field:official.holiday,template_id:0
+msgid "Template"
+msgstr "Vorlage"
+
+#. module: official_holiday
+#: field:official.holiday,resource_leaves:0
+msgid "Resource Leaves"
+msgstr "Verknüpfte Abwesenheiten"
+
+#. module: official_holiday
+#: selection:official.holiday,calc_type:0
+msgid "Easter"
+msgstr "Ostern"
+
+#. module: official_holiday
+#: model:official.holiday,name:official_holiday.at_immaculate_conception
+msgid "Immaculate Conception"
+msgstr "Maria Empfängnis"
+
+#. module: official_holiday
+#: model:official.holiday,name:official_holiday.at_whit_monday
+msgid "Whit Monday"
+msgstr "Pfingstmontag"
+
+#. module: official_holiday
+#: model:official.holiday,name:official_holiday.at_ascension_of_christ
+msgid "Ascension of Christ"
+msgstr "Christi Himmelfahrt"
+
+#. module: official_holiday
+#: model:official.holiday,name:official_holiday.at_new_year
+msgid "New Year"
+msgstr "Neujahr"
+
+#. module: official_holiday
+#: model:official.holiday,name:official_holiday.at_national_holiday_may
+msgid "National Holiday (May)"
+msgstr "Staatsfeiertag"
+
+#. module: official_holiday
+#: view:official.holiday.template:0
+#: field:official.holiday.template,holiday_ids:0
+msgid "Holidays"
+msgstr "Feiertage"
+
+#. module: official_holiday
+#: model:official.holiday,name:official_holiday.at_magi
+msgid "Magi"
+msgstr "Heilige drei Könige"
+
+#. module: official_holiday
+#: model:ir.model,name:official_holiday.model_official_holiday
+msgid "official.holiday"
+msgstr "Offizielle Feiertage"
+
+#. module: official_holiday
+#: field:official.holiday,date:0
+msgid "Date"
+msgstr "Datum"
+
+#. module: official_holiday
+#: view:official.holiday.template.wizard:0
+msgid "Do you want to enter the holidays in the calendar?"
+msgstr "Wollen Sie die Feiertage im Kalender eintragen?"
+
+#. module: official_holiday
+#: model:ir.actions.act_window,name:official_holiday.action_official_holiday_template
+#: model:ir.ui.menu,name:official_holiday.menu_official_holiday_template
+#: view:official.holiday.template:0
+msgid "Official Holidays"
+msgstr "Offizielle Feiertage"
+
+#. module: official_holiday
+#: field:official.holiday,name:0
+#: field:official.holiday.template,name:0
+msgid "Name"
+msgstr "Name"
+
+#. module: official_holiday
+#: model:ir.model,name:official_holiday.model_official_holiday_template
+msgid "official.holiday.template"
+msgstr "Offizielle Feiertagsvorlage"
+
+#. module: official_holiday
+#: model:official.holiday,name:official_holiday.at_christmasday
+msgid "Christmas Day"
+msgstr "Christtag"
+
+#. module: official_holiday
+#: model:official.holiday,name:official_holiday.at_national_holiday_oct
+msgid "National Holiday Oct"
+msgstr "Nationalfeiertag"
+
+#. module: official_holiday
+#: model:ir.actions.act_window,name:official_holiday.action_official_holiday_template_wizard
+#: view:official.holiday.template.wizard:0
+msgid "Create Holidays"
+msgstr "Erstelle Feiertage"
+
+#. module: official_holiday
+#: field:official.holiday.template.wizard,fiscalyear_id:0
+msgid "Fiscal Year"
+msgstr "Geschäftsjahr"
+
+#. module: official_holiday
+#: model:official.holiday,name:official_holiday.at_saint_nicholas
+msgid "Saint Nicholas"
+msgstr "Nikolaus"
+
+#. module: official_holiday
+#: view:official.holiday.template.wizard:0
+msgid "OK"
+msgstr "OK"
+
+#. module: official_holiday
+#: model:official.holiday,name:official_holiday.at_all_saints
+msgid "All Saints"
+msgstr "Allerheiligen"
+
+#. module: official_holiday
+#: field:official.holiday,calc_type:0
+msgid "Calculation type"
+msgstr "Berechnungstyp"
+
+#. module: official_holiday
+#: model:official.holiday,name:official_holiday.at_easter_monday
+msgid "Easter Monday"
+msgstr "Ostermontag"
+
+#. module: official_holiday
+#: model:official.holiday,name:official_holiday.at_first_advent
+msgid "First Advent"
+msgstr "Erster Advent"
+
+#. module: official_holiday
+#: view:official.holiday.template.wizard:0
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#. module: official_holiday
+#: model:official.holiday,name:official_holiday.at_corpus_christi
+msgid "Corpus Christi"
+msgstr "Fronleichnam"
+

@@ -333,7 +333,9 @@ class res_partner(osv.Model, format_address):
 
     _defaults = {
         'active': True,
-        'lang': api.model(lambda self: self.env.lang),
+        #funkring.net begin
+        'lang': api.model(lambda self: self.env.lang or tools.config.defaultLang),
+        #funkring.net end
         'tz': api.model(lambda self: self.env.context.get('tz', False)),
         'customer': True,
         'category_id': _default_category,

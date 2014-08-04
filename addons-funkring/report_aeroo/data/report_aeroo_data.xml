@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<openerp>
+    <data noupdate="0">
+
+	    <record model="report.mimetypes" id="report_mimetypes_odt_odt" >
+		    <field name="name">ODF Text Document (.odt)</field>
+		    <field name="code">oo-odt</field>
+		    <field name="compatible_types">oo-odt</field>
+		    <field name="extension">odt</field>
+		    <field name="mimetype">application/vnd.oasis.opendocument.text</field>
+	    </record>
+	    
+	    <record model="report.mimetypes" id="report_mimetypes_odt_doc" >
+		    <field name="name">Word Text Document (.doc)</field>
+		    <field name="code">oo-doc</field>
+		    <field name="compatible_types">oo-doc</field>
+		    <field name="filter_name">MS Word 97</field>
+		    <field name="extension">doc</field>
+		    <field name="mimetype">application/msword</field>
+	    </record>
+
+	    <record model="report.mimetypes" id="report_mimetypes_ods_ods" >
+		    <field name="name">ODF Spreadsheet (.ods)</field>
+		    <field name="code">oo-ods</field>
+		    <field name="compatible_types">oo-ods</field>
+		    <field name="extension">ods</field>		    
+		    <field name="mimetype">application/vnd.oasis.opendocument.spreadsheet</field>
+	    </record>
+
+ 			<record model="report.mimetypes" id="report_mimetypes_ods_xls" >
+		    <field name="name">Excel Spreadsheet (.xls)</field>
+		    <field name="code">oo-xls</field>
+		    <field name="compatible_types">oo-xls</field>
+		    <field name="filter_name">MS Excel 97</field>
+		    <field name="extension">xls</field>
+		    <field name="mimetype">application/vnd.ms-excel</field>
+	    </record>
+
+	    <record model="report.mimetypes" id="report_mimetypes_raw" >
+		    <field name="name">Generic</field>
+		    <field name="code">genshi-raw</field>
+		    <field name="compatible_types">genshi-raw</field>
+	    </record>
+
+    </data>
+</openerp>
+

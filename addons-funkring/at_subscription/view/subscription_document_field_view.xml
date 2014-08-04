@@ -1,0 +1,29 @@
+<openerp>
+	<data>		
+		<record id="form_document_fields" model="ir.ui.view">
+            <field name="name">at_subscription.form_document_fields</field>
+            <field name="model">subscription.document.fields</field>
+            <field name="inherit_id" ref="subscription.document_fields_form"/>
+            <field name="arch" type="xml">
+            	<form string="Subscription Document Fields" position="inside">
+            		<label for="value_text" string="Values"/>
+            		<field name="value_text"  />
+            	</form>
+            </field>
+        </record>
+        	
+        <record id="form_subscription" model="ir.ui.view">
+			<field name="name">subscription.form_subscription</field>
+			<field name="model">subscription.subscription</field>
+			<field name="inherit_id" ref="subscription.view_subscription_form" />
+			<field name="arch" type="xml">
+			<field name="doc_source" position="replace">
+				<field name="doc_source" />
+				<field name="doc_source_model" invisible="1" />
+				<field name="doc_id" domain="[('model.model','=',doc_source_model)]"/>
+			</field>
+			</field>
+		</record>
+		
+	</data>
+</openerp>

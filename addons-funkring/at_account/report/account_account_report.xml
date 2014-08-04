@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <report id="report_account_account_pdf"
+               string="Balance Report"
+               name="account.balance.list"
+               auto="False"
+               report_type="aeroo"               
+               model="account.account"
+               stylesheet="intern_landscape"
+               in_format="oo-odt"
+               out_format="oo-pdf"
+               parser="at_account/report/account_account_report.py"
+               rml="at_account/report/account_account_report.odt"/>
+    </data>
+</openerp>
