@@ -883,9 +883,9 @@ class dataset_view(osv.Model):
         schema = self._schema_get(cr, uid, schema, context)        
         return self._data_def(cr, uid, model_obj, view=schema, context=context)
     
-    def _chgnotify(self, cr, uid, context=None):
+    def _chgnotify(self, cr, uid, ids, delete=False, context=None):
         self.clear_caches()
-        super(dataset_view,self)._chgnotify(cr, uid, context=context)
+        super(dataset_view,self)._chgnotify(cr, uid, ids, delete=delete, context=context)
         
     def on_change_model(self, cr, uid, ids, model_id, context=None):
         res = { "value" : { "model_field_ids" : [] }}

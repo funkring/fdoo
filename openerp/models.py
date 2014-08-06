@@ -165,6 +165,7 @@ FIELDS_TO_PGTYPES = {
     fields.binary: 'bytea',
     fields.many2one: 'int4',
     fields.serialized: 'text',
+    fields.json : 'json'
 }
 
 def get_pg_type(f, type_override=None):
@@ -3569,7 +3570,7 @@ class BaseModel(object):
         # recompute new-style fields
         recs.recompute()
         #funkring.net begin
-        self._chgnotify(cr, uid, context)
+        self._chgnotify(cr, uid, ids, delete=True, context=context)
         #funkring.net end
         return True
 
@@ -3885,7 +3886,7 @@ class BaseModel(object):
 
         self.step_workflow(cr, user, ids, context=context)
         #funkring.net begin
-        self._chgnotify(cr, user, ids, context)
+        self._chgnotify(cr, user, ids, context=context)
         #funkring.net end
         return True
 
@@ -4150,7 +4151,7 @@ class BaseModel(object):
         self.check_access_rule(cr, user, [id_new], 'create', context=context)
         self.create_workflow(cr, user, [id_new], context=context)
         #funkring.net begin
-        self._chgnotify(cr, user, [id_new], context)
+        self._chgnotify(cr, user, [id_new], context=context)
         #funkring.net end
         return id_new
 
@@ -5019,7 +5020,7 @@ class BaseModel(object):
         """ stuff to do right after the registry is built """
         pass
     
-    def _chgnotify(self, cr, uid, ids, context=None):
+    def _chgnotify(self, cr, uid, ids, delete=False, context=None):
         if self._chgnotify_enabled and (not context or not context.get("chgnotify_disabled")):
             sender = context.get("chgnotify_sender")
             if sender:
