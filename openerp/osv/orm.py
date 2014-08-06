@@ -584,6 +584,7 @@ FIELDS_TO_PGTYPES = {
     fields.binary: 'bytea',
     fields.many2one: 'int4',
     fields.serialized: 'text',
+    fields.json : 'json'
 }
 
 def get_pg_type(f, type_override=None):
@@ -3758,7 +3759,9 @@ class BaseModel(object):
                 rids = map(lambda x: x[0], cr.fetchall())
                 if rids:
                     obj._store_set_values(cr, uid, rids, fields, context)
-        self._chgnotify(cr, uid, context)
+        #funkring.net begin
+        self._chgnotify(cr, uid, ids, delete=True, context=context)
+        #funkring.net end
         return True
 
     #
@@ -4037,7 +4040,9 @@ class BaseModel(object):
             self.pool[model_name]._store_set_values(cr, user, todo, fields_to_recompute, context)
 
         self.step_workflow(cr, user, ids, context=context)
-        self._chgnotify(cr, user, context)
+        #funkring.net begin
+        self._chgnotify(cr, user, ids, context=context)
+        #funkring.net end
         return True
 
     #
@@ -4275,7 +4280,9 @@ class BaseModel(object):
             self.log(cr, user, id_new, message, True, context=context)
         self.check_access_rule(cr, user, [id_new], 'create', context=context)
         self.create_workflow(cr, user, [id_new], context=context)
-        self._chgnotify(cr, user, context)
+        #funkring.net begin
+        self._chgnotify(cr, user, [id_new], context=context)
+        #funkring.net end
         return id_new
 
     def browse(self, cr, uid, select, context=None, list_class=None, fields_process=None, prefetch=None):
@@ -5159,7 +5166,7 @@ class BaseModel(object):
         """ stuff to do right after the registry is built """
         pass
     
-    def _chgnotify(self,cr,uid,context=None):
+    def _chgnotify(self, cr, uid, ids, delete=False, context=None):
         if self._chgnotify_enabled and (not context or not context.get("chgnotify_disabled")):
             sender = context.get("chgnotify_sender")
             if sender:

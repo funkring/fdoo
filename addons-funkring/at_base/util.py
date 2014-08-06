@@ -486,7 +486,37 @@ def sumUp(dictBase,dictOther):
             else:
                 dictBase[key]=value+otherValue
     return dictBase
-            
+
+def deepCompare(dict1, dict2):
+    """
+    Compare dict1 with dict2
+    :return: True if equal
+    """            
+    for key2, value2 in dict2.iteritems():
+        value1 = dict1.get(key2)
+        if value1 != value2:
+            if value1 and value2 and isinstance(value1, dict) and isinstance(value2, dict):
+                if not deepCompare(value1, value2):
+                    return False
+            else:
+                return False
+    return True
+
+def mergeDict(dict1, dict2):
+    """
+    Merge dict1 with dict2 without copy
+    :return: True if changed something
+    """
+    changed = False
+    for key2, value2 in dict2.iteritems():
+        value1 = dict1.get(key2)
+        if value1 and value2 and isinstance(value1, dict) and isinstance(value2, dict):
+            if mergeDict(value1, value2):
+                changed = True
+        elif value1 != value2:
+            dict1[key2] = value2
+            changed = True
+    return changed
 
 if __name__ == '__main__':
     print dateEasterSunday(2013)-dateEasterSunday(2012)    

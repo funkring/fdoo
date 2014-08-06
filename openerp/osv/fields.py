@@ -237,6 +237,10 @@ class text(_column):
     _type = 'text'
 
 
+class json(_column):
+    _type = 'json'
+
+
 class html(text):
     _type = 'html'
     _symbol_c = '%s'
