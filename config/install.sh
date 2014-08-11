@@ -38,11 +38,11 @@ apt-get -y install python-genshi
 apt-get -y install python-cairo
 apt-get -y install python-pycha
 
-apt-get -y install libreoffic-base
-apt-get -y install libreoffice-calc
-apt-get -y install libreoffice-draw
-apt-get -y install libreoffice-impress
-apt-get -y install libreoffice-writer
+#apt-get -y install libreoffic-base
+#apt-get -y install libreoffice-calc
+#apt-get -y install libreoffice-draw
+#apt-get -y install libreoffice-impress
+#apt-get -y install libreoffice-writer
 
 #web
 apt-get -y install python-cherrypy3
@@ -59,10 +59,10 @@ python -m easy_install py4j
 
 #for pygal
 apt-get -y install libffi-dev
+apt-get -y install python-cairosvg
+apt-get -y install python-cssselect
+#python -m easy_install pygal
 python -m easy_install tinycss
-python -m easy_install cssselect
-python -m easy_install cairosvg
-python -m easy_install pygal
 
 #for pdf printing
 apt-get -y install wkhtmltopdf 

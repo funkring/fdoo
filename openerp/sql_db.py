@@ -645,7 +645,7 @@ def dsn(db_name):
     for p in ('host', 'port', 'user', 'password'):
         cfg = tools.config['db_' + p]
         if cfg:
-            _dsn += '%s=%s ' % (p, cfg)
+            _dsn += '%s=%s ' % (p, cfg.replace("\\","\\\\"))
 
     return '%sdbname=%s' % (_dsn, db_name)
 
