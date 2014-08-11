@@ -20,54 +20,56 @@ from os.path import splitext
 import sys
 from StringIO import StringIO
 from openerp import tools
-
-import uno
-import unohelper
-from com.sun.star.beans import PropertyValue
-from com.sun.star.uno import Exception as UnoException
-from com.sun.star.connection import NoConnectException, ConnectionSetupException
-from com.sun.star.beans import UnknownPropertyException
-from com.sun.star.lang import IllegalArgumentException
-from com.sun.star.io import XOutputStream
-from com.sun.star.io import IOException
 from openerp.tools.translate import _
 
-class DocumentConversionException(Exception):
 
+# import uno
+# import unohelper
+# from com.sun.star.beans import PropertyValue
+# from com.sun.star.uno import Exception as UnoException
+# from com.sun.star.connection import NoConnectException, ConnectionSetupException
+# from com.sun.star.beans import UnknownPropertyException
+# from com.sun.star.lang import IllegalArgumentException
+# from com.sun.star.io import XOutputStream
+# from com.sun.star.io import IOException
+# 
+# 
+# class OutputStreamWrapper(unohelper.Base, XOutputStream):
+#     """ Minimal Implementation of XOutputStream """
+#     def __init__(self, debug=True):
+#         self.debug = debug
+#         self.data = StringIO()
+#         self.position = 0
+#         if self.debug:
+#             sys.stderr.write("__init__ OutputStreamWrapper.\n")
+# 
+#     def writeBytes(self, bytes):
+#         if self.debug:
+#             sys.stderr.write("writeBytes %i bytes.\n" % len(bytes.value))
+#         self.data.write(bytes.value)
+#         self.position += len(bytes.value)
+# 
+#     def close(self):
+#         if self.debug:
+#             sys.stderr.write("Closing output. %i bytes written.\n" % self.position)
+#         self.data.close()
+# 
+#     def flush(self):
+#         if self.debug:
+#             sys.stderr.write("Flushing output.\n")
+#         pass
+#     def closeOutput(self):
+#         if self.debug:
+#             sys.stderr.write("Closing output.\n")
+#         pass
+
+class DocumentConversionException(Exception):
+ 
     def __init__(self, message):
         self.message = message
-
+ 
     def __str__(self):
         return self.message
-
-class OutputStreamWrapper(unohelper.Base, XOutputStream):
-    """ Minimal Implementation of XOutputStream """
-    def __init__(self, debug=True):
-        self.debug = debug
-        self.data = StringIO()
-        self.position = 0
-        if self.debug:
-            sys.stderr.write("__init__ OutputStreamWrapper.\n")
-
-    def writeBytes(self, bytes):
-        if self.debug:
-            sys.stderr.write("writeBytes %i bytes.\n" % len(bytes.value))
-        self.data.write(bytes.value)
-        self.position += len(bytes.value)
-
-    def close(self):
-        if self.debug:
-            sys.stderr.write("Closing output. %i bytes written.\n" % self.position)
-        self.data.close()
-
-    def flush(self):
-        if self.debug:
-            sys.stderr.write("Flushing output.\n")
-        pass
-    def closeOutput(self):
-        if self.debug:
-            sys.stderr.write("Closing output.\n")
-        pass
 
 class DocumentConverter:
    

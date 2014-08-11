@@ -32,4 +32,4 @@ import installer
 try:
     import DocumentConverter
 except ImportError, e:
-    print e
+   print e
