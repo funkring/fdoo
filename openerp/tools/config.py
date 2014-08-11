@@ -510,7 +510,7 @@ class configmanager(object):
         if not self.options['db_user']:
             try:
                 import getpass
-                self.options['db_user'] = getpass.getuser().replace("\\","\\\\")
+                self.options['db_user'] = getpass.getuser()
             except:
                 self.options['db_user'] = None
 

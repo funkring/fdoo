@@ -22,6 +22,7 @@ from StringIO import StringIO
 from openerp import tools
 from openerp.tools.translate import _
 
+import simplejson
 
 # import uno
 # import unohelper
@@ -70,6 +71,7 @@ class DocumentConversionException(Exception):
  
     def __str__(self):
         return self.message
+
 
 class DocumentConverter:
    
