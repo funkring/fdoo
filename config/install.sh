@@ -31,6 +31,7 @@ apt-get -y install python-jinja2
 apt-get -y install python-vatnumber
 apt-get -y install python-xlwt
 apt-get -y install python-geoip
+apt-get -y install python-vatnumber
 
 #aeroolib
 apt-get -y install python-relatorio
