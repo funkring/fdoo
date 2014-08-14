@@ -155,6 +155,10 @@ class Aeroo_report(report_sxw):
             if template_io:
                 self.serializer = OOSerializer(template_io, oo_styles=style_io)
 
+    def __del__(self):
+        logger.info("aeroo report cleanup")
+        self._cleanup()
+        
     def getObjects_mod(self, cr, uid, ids, rep_type, context):
         table_obj = RegistryManager.get(cr.dbname).get(self.table)
         if rep_type=='aeroo':
@@ -289,7 +293,15 @@ class Aeroo_report(report_sxw):
             return odt_subreport
         elif output=='raw':
             return raw_subreport
-
+        
+    def _cleanup(self):
+        while self.oo_subreports:
+            sub_report = oo_subreports.pop()
+            try:
+                os.unlink(sub_report)
+            except:
+                logger.warn("Unable to cleanup %s" % sub_report)
+                
     def set_xml_data_fields(self, objects, parser):
         xml_data_fields = parser.localcontext.get('xml_data_fields', False)
         if xml_data_fields:
@@ -482,33 +494,26 @@ class Aeroo_report(report_sxw):
         except Exception, e:
             tb_s = reduce(lambda x, y: x+y, traceback.format_exception(sys.exc_type, sys.exc_value, sys.exc_traceback))
             logger.error(tb_s)
-            for sub_report in self.oo_subreports:
-                os.unlink(sub_report)
+            self._cleanup()
             raise Exception(_("Aeroo Reports: Error while generating the report."), e, str(e), _("For more reference inspect error logs."))
 
-        ######### OpenOffice extras #########             
-        DC = RegistryManager.get(cr.dbname).get("oo.config")._lookup_service(cr,uid,context=context)
-        try:   
-            if (output!=report_xml.in_format[3:] or self.oo_subreports):
-                if aeroo_ooo and DC:
+        ######### OpenOffice extras #########
+        if (output!=report_xml.in_format[3:] or self.oo_subreports):
+            if aeroo_ooo:
+                with RegistryManager.get(cr.dbname).get("oo.config")._lookup_service(cr,uid,context=context) as DC:
                     try:
                         DC.putDocument(data)
                         if self.oo_subreports:
                             DC.insertSubreports(self.oo_subreports)
-                            self.oo_subreports = []
-                        data = DC.saveByStream(report_xml.out_format.filter_name)
-                        DC.closeDocument()
-                        #del DC
+                        data = DC.getDocument(report_xml.out_format.filter_name)
                     except Exception, e:
                         logger.error(str(e))
+                        self._cleanup()
                         output=report_xml.in_format[3:]
-                        self.oo_subreports = []
-                else:
-                    output=report_xml.in_format[3:]
-            elif output in ('pdf', 'doc', 'xls'):
+            else:
                 output=report_xml.in_format[3:]
-        finally:
-            del DC            
+        elif output in ('pdf', 'doc', 'xls'):
+            output=report_xml.in_format[3:]
         #####################################
 
         if report_xml.content_fname:
@@ -672,8 +677,7 @@ class Aeroo_report(report_sxw):
                     logger.error(str(e))
                 results.append(result)
 
-        DC = RegistryManager.get(cr.dbname).get("oo.config")._lookup_service(cr,uid,context=context)
-        try:
+        with RegistryManager.get(cr.dbname).get("oo.config")._lookup_service(cr,uid,context=context) as DC:
             if results and len(results)==1:
                 return results[0]
             elif results and DC:
@@ -681,13 +685,10 @@ class Aeroo_report(report_sxw):
                 data = results.pop()
                 DC.putDocument(data[0])
                 DC.joinDocuments([r[0] for r in results])
-                result = DC.saveByStream()
-                DC.closeDocument()
+                result = DC.getDocument()
                 return (result, data[1])
             else:
                 return self.create_single_pdf(cr, uid, ids, data, report_xml, context)
-        finally:
-            del DC
 
     # override needed to intercept the call to the proper 'create' method
     def create(self, cr, uid, ids, data, context=None):

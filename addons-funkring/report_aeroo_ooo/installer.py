@@ -43,7 +43,7 @@ except ImportError:
 from openerp.tools.translate import _
 
 from DocumentConverter import DocumentConversionException
-from report import OpenOffice_service
+from report import oo_service
 
 _url = 'http://www.alistek.com/aeroo_banner/v7_0_report_aeroo_ooo.png'
 
@@ -114,16 +114,12 @@ class aeroo_config_installer(osv.osv_memory):
             config_id = config_obj.create(cr, 1, data, context=context)
 
         try:
-            fp = tools.file_open('report_aeroo_ooo/test_temp.odt', mode='rb')
-            file_data = fp.read()
-            DC = OpenOffice_service(cr, data['host'], data['port'])
-            try:                        
-                DC.putDocument(file_data)
-                DC.saveByStream()
-                fp.close()
-                DC.closeDocument()
-            finally:
-                del DC
+            with tools.file_open('report_aeroo_ooo/test_temp.odt', mode='rb') as fp:
+                file_data = fp.read()
+                with oo_service(cr, data['host'], data['port']) as DC:
+                    DC.putDocument(file_data)
+                    DC.getDocument()
+
         except DocumentConversionException, e:
             error_details = str(e)
             state = 'error'
