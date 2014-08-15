@@ -1,21 +1,58 @@
-<VirtualHost *:80>
-    ServerName  demo.funkring.net
+<VirtualHost *:443>
+    ServerName  oerp.funkring.net
     ServerAdmin admin@funkring.net
 
+    GnuTLSEnable on
+    GnuTLSExportCertificates on
+    GnuTLSCertificateFile /etc/ssl/certs/oerp.funkring.net-cert.pem
+    GnuTLSKeyFile         /etc/ssl/private/oerp.funkring.net-key.pem
+    GnuTLSPriorities NORMAL
+
     ProxyRequests Off
-    ProxyPass / http://127.0.0.1:8080/
-    ProxyPassReverse / http://127.0.0.1:8080/
+    ProxyPass /longpolling/ http://127.0.0.1:10872/
+    ProxyPassReverse /longpolling/ http://127.0.0.1:10872/
+    ProxyPass / http://127.0.0.1:10869/
+    ProxyPassReverse / http://127.0.0.1:10869/
 
     <Proxy *>
       Order allow,deny
       Allow from all
     </Proxy>
 
-    ErrorLog /var/log/apache2/openerp_error.log
+    ErrorLog /var/log/apache2/openerp7_ssl_error.log
     LogLevel warn
-    CustomLog /var/log/apache2/openerp_access.log combined
+    CustomLog /var/log/apache2/openerp7_ssl_access.log combined
 
-    RequestHeader set "X-Forwarded-Proto" "http"    
+    RequestHeader Set "X-Forwarded-Proto" "https"
+    SetEnv proxy-nokeepalive 1
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName  oerp.funkring.net
+    ServerAdmin admin@funkring.net
+
+    ProxyRequests Off
+    ProxyPass /longpolling/ http://127.0.0.1:10872/
+    ProxyPassReverse /longpolling/ http://127.0.0.1:10872/
+    ProxyPass / http://127.0.0.1:10869/
+    ProxyPassReverse / http://127.0.0.1:10869/
+
+    <Proxy *>
+      Order allow,deny
+      Allow from all
+    </Proxy>
+
+    ErrorLog /var/log/apache2/openerp7_error.log
+    LogLevel warn
+    CustomLog /var/log/apache2/openerp7_access.log combined
+
+    # RequestHeader set "X-Forwarded-Proto" "http"
     # Fix IE problem (http error 408/409)
     SetEnv proxy-nokeepalive 1
-</VirtualHost>    
+
+    # SSL Rewrite
+    RewriteEngine On
+    RewriteCond %{HTTPS} off
+    RewriteCond %{REMOTE_ADDR} !^10.*$
+    RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+</VirtualHost>
