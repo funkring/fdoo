@@ -29,7 +29,7 @@
 from openerp.osv import osv,fields
 from DocumentConverter import DocumentConverter
 
-class OpenOffice_service (DocumentConverter):
+class oo_service(DocumentConverter):
     def __init__(self, cr, host=None, port=None):
         if host is None and port is None:
             cr.execute("SELECT host, port FROM oo_config")
@@ -49,9 +49,8 @@ class oo_config(osv.osv):
     }
     
     def _lookup_service(self, cr, uid, context=None):
-        return OpenOffice_service(cr)
+        return oo_service(cr)
 
-oo_config()
 
 class report_xml(osv.osv):
     _name = 'ir.actions.report.xml'
@@ -59,8 +58,4 @@ class report_xml(osv.osv):
 
     _columns = {
         'process_sep':fields.boolean('Process separately'),
-        
     }
-
-report_xml()
-
