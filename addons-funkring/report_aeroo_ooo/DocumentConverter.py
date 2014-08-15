@@ -13,6 +13,7 @@
 #
 
 DEFAULT_OPENOFFICE_PORT = 8100
+DEFAULT_BUFSIZE = 4096
 
 import socket
 
@@ -42,9 +43,12 @@ class DocumentConverter:
     def __init__(self, host='localhost', port=DEFAULT_OPENOFFICE_PORT):
         self._open = True
         self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self._socket.setblocking(1)
+        self._socket.settimeout(30)
         self._socket.connect((host,port))
+        self._fd = self._socket.makefile("rw",DEFAULT_BUFSIZE)
         # Initialize
-        self._call() 
+        self._call()
         
     def __enter__(self):
         return self
@@ -64,27 +68,32 @@ class DocumentConverter:
             param["length"]=len(data) 
         
         header = "%s\n" % simplejson.dumps(param)
-        self._socket.sendall(header.encode("utf-8"))
+        self._fd.write(header.encode("utf-8"))
         if data:
-            self._socket.sendall(data)
-   
+            self._fd.write(data)
+        self._fd.flush()
+        
     def _read(self):
-        header = self._socket.recv(4096)
-        header = header.decode("utf-8")
+        res = self._fd.readline()
+        if not res:
+            raise DocumentConversionException("Connection closed")
+                
+        header = res.decode("utf-8")
         header = simplejson.loads(header)
         data = None
         length = header.get("length")
         if length:
-            data = self._socket.recv(length)
-        
+            data = self._fd.read(length)
+            if not data:
+                raise DocumentConversionException("Connection closed")
+            
         error = header.get("error")
         if error:
             raise DocumentConversionException(header.get("message"))
-        
         return data
     
     def _call(self, fnct=None, data=None, param=None):
-        self._send(fnct=fnct, data=data, param=param)
+        self._send(fnct=fnct, data=data, param=param)        
         return self._read()
     
     def close(self):
@@ -108,6 +117,18 @@ class DocumentConverter:
     # replace of saveByStream
     def getDocument(self, filter_name=None):
         return self._call("getDocument",param={"filter":filter_name})
+    
+    def readDocumentFromStreamAndClose(self, filter_name=None):
+        self._send("streamDocument",param={"filter":filter_name})
+        """ read current document from stream and close """
+        try:            
+            return self._fd.read()
+        finally:
+            self._open = False
+            try:
+                self._socket.close()
+            except:
+                pass
 
     def insertSubreports(self, oo_subreports):
         """

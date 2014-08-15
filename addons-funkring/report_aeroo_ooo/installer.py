@@ -118,7 +118,7 @@ class aeroo_config_installer(osv.osv_memory):
                 file_data = fp.read()
                 with oo_service(cr, data['host'], data['port']) as DC:
                     DC.putDocument(file_data)
-                    DC.getDocument()
+                    DC.readDocumentFromStreamAndClose()
 
         except DocumentConversionException, e:
             error_details = str(e)

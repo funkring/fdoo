@@ -505,7 +505,7 @@ class Aeroo_report(report_sxw):
                         DC.putDocument(data)
                         if self.oo_subreports:
                             DC.insertSubreports(self.oo_subreports)
-                        data = DC.getDocument(report_xml.out_format.filter_name)
+                        data = DC.readDocumentFromStreamAndClose(report_xml.out_format.filter_name)
                     except Exception, e:
                         logger.error(str(e))
                         self._cleanup()
@@ -685,7 +685,7 @@ class Aeroo_report(report_sxw):
                 data = results.pop()
                 DC.putDocument(data[0])
                 DC.joinDocuments([r[0] for r in results])
-                result = DC.getDocument()
+                result = DC.readDocumentFromStreamAndClose()
                 return (result, data[1])
             else:
                 return self.create_single_pdf(cr, uid, ids, data, report_xml, context)
