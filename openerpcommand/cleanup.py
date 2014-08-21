@@ -114,6 +114,10 @@ def run(args):
                 cr.execute("DELETE FROM %s WHERE id=%s" % (table, oid))
 
         for oid, module_name, model, res_id in cr.fetchall():
+            # to not delete system specific
+            if module_name.startswith("_"):
+                continue
+            
             table = model2table.get(model)
             if not table:
                 table = model.replace(".","_")
