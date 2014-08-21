@@ -127,6 +127,9 @@ def run(args):
         def delete_model_data(oid, module_name, model, res_id):
             if not args.fix:
                 return
+            # to not delete from specific module names
+            if module_name.startswith("_"):
+                return
 
             table = model2table.get(model)
             if not table:
