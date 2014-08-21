@@ -157,6 +157,11 @@ def run(args):
         xmlid_exclude = re.compile("trans_.*|chart[0-9]+.*|module_install_notification",re.IGNORECASE)
         cr.execute("SELECT id, module, model, res_id, name, noupdate FROM ir_model_data")
         for oid, module, model, res_id, xmlid, noupdate in cr.fetchall():
+            
+            # ignore specific system models
+            if model in ("ir.model.access","ir.module.category","ir.module.module"):
+                continue
+            
             xmlid_key = (module,xmlid)
             if not noupdate:
                 if not xmlid_key in xmlid_set and model in ('ir.ui.view','ir.actions.act_window'):
@@ -171,7 +176,7 @@ def run(args):
                             logger.warning("[IGNORED] XML record [%s] ignored!" % (xmlid,))
                     elif len(xmlid_modules) == 1:
                         moved_to_module = xmlid_modules[0]
-                        logger.info("[FIXABLE] XML record [%s] moved from module [%s] to module [%s]" % (xmlid, module, moved_to_module))
+                        logger.info("[FIXABLE] XML record [%s] from model [%s] moved from module [%s] to module [%s]" % (xmlid,  model, module, moved_to_module))
                         if args.fix:
                             cr.execute("SELECT id FROM ir_model_data WHERE module=%s AND name=%s", (moved_to_module, xmlid))
                             rows = cr.fetchall()
