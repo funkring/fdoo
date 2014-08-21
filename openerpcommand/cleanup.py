@@ -38,6 +38,7 @@ def run(args):
     config = openerp.tools.config
     modules = set()
     xmlid_dict = dict()
+    xmlid_set = set()
 
     # get modules
     for path in config['addons_path'].split(","):
@@ -60,25 +61,29 @@ def run(args):
                         if data_file.lower().endswith(".xml"):
                             try:
                                 doc = etree.parse(data_file_path).getroot()
-                                data_doc = doc.find("data")
-                                if len(data_doc) and data_doc.get("noupdate") == "1":
-                                    for element in data_doc:
-                                        element_id = element.attrib.get("id")
-                                        if element_id:
-                                            element_module = name
+                                for data_doc in doc.findall("data"):
+                                    if len(data_doc):
+                                        #noupdate =  data_doc.get("noupdate") == "1"
+                                        for element in data_doc:
+                                            element_id = element.attrib.get("id")
+                                            if element_id:
+                                                element_module = name
 
-                                            # check if module is passed
-                                            tk =  element_id.split(".")
-                                            if len(tk) == 2:
-                                                element_module=tk[0]
-                                                element_id=tk[1]
+                                                # check if module is passed
+                                                tk =  element_id.split(".")
+                                                if len(tk) == 2:
+                                                    element_module=tk[0]
+                                                    element_id=tk[1]
 
-                                            xmlid_modules = xmlid_dict.get(element_id)
-                                            if not xmlid_modules:
-                                                xmlid_modules=[]
-                                                xmlid_dict[element_id]=xmlid_modules
-                                            if element_module not in xmlid_modules:
-                                                xmlid_modules.append(element_module)
+                                                xmlid_modules = xmlid_dict.get(element_id)
+                                                if not xmlid_modules:
+                                                    xmlid_modules=[]
+                                                    xmlid_dict[element_id]=xmlid_modules
+                                                if element_module not in xmlid_modules:
+                                                    xmlid_modules.append(element_module)
+
+                                                xmlid_key = (element_module,element_id)
+                                                xmlid_set.add(xmlid_key)
                             except Exception,e:
                                 logger.error("Unable to parse file %s" % data_file_path)
                                 raise e
@@ -88,14 +93,20 @@ def run(args):
     db = openerp.sql_db.db_connect(args.database)
     cr = db.cursor()
     try:
+        # cleanup invalid resource data
+        cr.execute("SELECT id, module, model, res_id FROM ir_model_data WHERE res_id=0")
+        for oid, module_name, model, res_id in cr.fetchall():
+            logger.info("Delete model data [%s] %s/%s/%s" % (oid, module_name, model, res_id))
+            cr.execute("DELETE FROM ir_model_data WHERE id = %s" % oid)
+
         # delete unused
-        cr.execute("SELECT id, module, model, res_id FROM ir_model_data WHERE module NOT IN %s" % (tuple(modules),))
         model2table = {
            "ir.actions.act_window" : "ir_act_window",
            "ir.actions.act_window.view" : "ir_act_window_view" ,
            "workflow" : "wkf",
            "workflow.transition" : "wkf_transition",
-           "workflow.activity" : "wkf_activity"
+           "workflow.activity" : "wkf_activity",
+           "ir.actions.report.xml" : "ir_act_report_xml"
         }
 
         def get_childs(table, parent_id, ids=[]):
@@ -113,18 +124,20 @@ def run(args):
             for oid in ids:
                 cr.execute("DELETE FROM %s WHERE id=%s" % (table, oid))
 
-        for oid, module_name, model, res_id in cr.fetchall():
-            # to not delete system specific
+        def delete_model_data(oid, module_name, model, res_id):
+            if not args.fix:
+                return
+            # to not delete from specific module names
             if module_name.startswith("_"):
-                continue
-            
+                return
+
             table = model2table.get(model)
             if not table:
                 table = model.replace(".","_")
 
             # special handling for models
             if model == "ir.model":
-                continue
+                return
 #                 cr.execute("DELETE FROM ir_rule WHERE model_id = %s",(res_id,))
 #                 cr.execute("DELETE FROM ir_model_constraint WHERE model = %s",(res_id,))
 #                 cr.execute("DELETE FROM ir_model_relation WHERE model = %s",(res_id,))
@@ -139,11 +152,17 @@ def run(args):
             # delete data
             cr.execute("DELETE FROM ir_model_data WHERE id = %s", (oid,) )
 
-        xmlid_exclude = re.compile("trans_.*|chart[0-9]+.*|module_install_notification",re.IGNORECASE)
 
         # correct xmlids
-        cr.execute("SELECT id, module, model, res_id, name FROM ir_model_data")
-        for oid, module, model, res_id, xmlid in cr.fetchall():
+        xmlid_exclude = re.compile("trans_.*|chart[0-9]+.*|module_install_notification",re.IGNORECASE)
+        cr.execute("SELECT id, module, model, res_id, name, noupdate FROM ir_model_data")
+        for oid, module, model, res_id, xmlid, noupdate in cr.fetchall():
+            xmlid_key = (module,xmlid)
+            if not noupdate:
+                if not xmlid_key in xmlid_set and model in ('ir.ui.view','ir.actions.act_window'):
+                    logger.info("[FIXABLE] XML record [%s] could be deleted" % (xmlid,))
+                    delete_model_data(oid, module, model, res_id)
+
             xmlid_modules = xmlid_dict.get(xmlid)
             if xmlid_modules:
                 if not module in xmlid_modules:
@@ -169,8 +188,22 @@ def run(args):
                     elif len(xmlid_modules) > 1:
                         logger.warning("[UNFIXABLE] XML record [%s] has moved from [%s] in one of this modules [%s], or something else!" % (xmlid, module, ",".join(xmlid_modules)))
 
+        # delete all from removed modules
+        cr.execute("SELECT id, module, model, res_id FROM ir_model_data WHERE module NOT IN %s" % (tuple(modules),))
+        for oid, module_name, model, res_id in cr.fetchall():
+            delete_model_data(oid, module_name, model, res_id)
+
+#         # cleanup window actions left behind
+#         cr.execute("SELECT w.id, w.name, md.id, md.module, md.name FROM ir_act_window w "
+#                    " INNER JOIN ir_model_data md on md.model = 'ir.actions.act_window' AND md.res_id = w.id AND md.noupdate = false "
+#                    " WHERE w.res_id IS NULL")
+#
+#         for act_id, act_name, oid, module, name in cr.fetchall():
+#             logger.info("[FIXABLE] Windows Action: [%s] '%s' with resource [%s] in module [%s] and name [%s] could be deleted" % (act_id, act_name, oid, module, name))
+#             delete_model_data(oid, module, 'ir.actions.act_window', act_id)
+
         cr.commit()
-    except Exception,e:
+    except Exception, e:
         logger.error(e)
         return
     finally:
@@ -239,7 +272,7 @@ def run(args):
     #                     view.unlink()
 
             cr.commit()
-        except Exception,e:
+        except Exception, e:
             logger.error(e)
             return
         finally:
