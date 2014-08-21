@@ -21,53 +21,54 @@
 ##############################################################################
 
 from openerp.osv import osv,fields
+from openerp.addons.at_base import util
 
+class account_analytic_account(osv.osv):
 
-class account_analytic_account(osv.osv):    
-    
     def name_get(self, cr, uid, ids, context=None):
-        res = super(account_analytic_account,self).name_get(cr,uid,ids,context=context)        
+        res = super(account_analytic_account,self).name_get(cr,uid,ids,context=context)
+        ids = util.idList(ids)
         if ids:
             cr.execute("SELECT a.id, p.name FROM account_analytic_account AS a "
                        " INNER JOIN res_partner AS p ON p.id = a.partner_id "
                        " WHERE a.id IN %s",
                        (tuple(ids),))
-            
-            partner_names = {}            
+
+            partner_names = {}
             for row in cr.fetchall():
-                partner_names[row[0]] = row[1]            
-                
+                partner_names[row[0]] = row[1]
+
             new_res = []
             for value in res:
                 cur_id = value[0]
-                cur_name = value[1]                
-                name = partner_names.get(cur_id)                
+                cur_name = value[1]
+                name = partner_names.get(cur_id)
                 if name:
-                    new_res.append((cur_id,cur_name + " [" + name + "]"))                    
+                    new_res.append((cur_id,cur_name + " [" + name + "]"))
                 else:
                     new_res.append(value)
-                       
-            return new_res                 
+
+            return new_res
         return res
-      
-    def name_search(self, cr, uid, name, args=None, operator='ilike', context=None, limit=100):        
-        res = super(account_analytic_account,self).name_search(cr,uid,name,args=args,operator=operator,context=context,limit=limit)   
+
+    def name_search(self, cr, uid, name, args=None, operator='ilike', context=None, limit=100):
+        res = super(account_analytic_account,self).name_search(cr,uid,name,args=args,operator=operator,context=context,limit=limit)
         if not res:
             order_res = self.pool.get("sale.order").name_search(cr,uid,name,args=None,operator=operator,context=context,limit=limit)
             res = []
             if order_res:
                 ids = [x[0] for x in order_res]
                 analytic_id_for_order = {}
-                cr.execute("SELECT id,project_id FROM sale_order WHERE id IN %s AND project_id IS NOT NULL",(tuple(ids),))                
+                cr.execute("SELECT id,project_id FROM sale_order WHERE id IN %s AND project_id IS NOT NULL",(tuple(ids),))
                 for row in cr.fetchall():
-                    analytic_id_for_order[row[0]]=row[1]                    
+                    analytic_id_for_order[row[0]]=row[1]
                 for tup in order_res:
                     analytic_id = analytic_id_for_order.get(tup[0])
                     if analytic_id:
                         res.append((analytic_id,tup[1]))
         return res
-    
-    _inherit = "account.analytic.account"    
+
+    _inherit = "account.analytic.account"
     _columns = {
-        "order_id" : fields.many2one("sale.order","Order",ondelete="cascade"),        
+        "order_id" : fields.many2one("sale.order","Order",ondelete="cascade"),
     }
