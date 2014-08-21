@@ -28,7 +28,7 @@
 '''
 
 
-import Image
+from PIL import Image
 import time
 import codecs
 
