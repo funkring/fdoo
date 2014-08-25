@@ -13,199 +13,135 @@
 #
 
 DEFAULT_OPENOFFICE_PORT = 8100
+DEFAULT_BUFSIZE = 4096
+
+import socket
+
+try:
+    from cStringIO import StringIO
+except:    
+    from StringIO import StringIO
 
 from os.path import abspath
 from os.path import isfile
 from os.path import splitext
 import sys
-from StringIO import StringIO
 from openerp import tools
-
-import uno
-import unohelper
-from com.sun.star.beans import PropertyValue
-from com.sun.star.uno import Exception as UnoException
-from com.sun.star.connection import NoConnectException, ConnectionSetupException
-from com.sun.star.beans import UnknownPropertyException
-from com.sun.star.lang import IllegalArgumentException
-from com.sun.star.io import XOutputStream
-from com.sun.star.io import IOException
 from openerp.tools.translate import _
 
-class DocumentConversionException(Exception):
+import simplejson
 
+class DocumentConversionException(Exception):
     def __init__(self, message):
         self.message = message
-
     def __str__(self):
         return self.message
 
-class OutputStreamWrapper(unohelper.Base, XOutputStream):
-    """ Minimal Implementation of XOutputStream """
-    def __init__(self, debug=True):
-        self.debug = debug
-        self.data = StringIO()
-        self.position = 0
-        if self.debug:
-            sys.stderr.write("__init__ OutputStreamWrapper.\n")
-
-    def writeBytes(self, bytes):
-        if self.debug:
-            sys.stderr.write("writeBytes %i bytes.\n" % len(bytes.value))
-        self.data.write(bytes.value)
-        self.position += len(bytes.value)
-
-    def close(self):
-        if self.debug:
-            sys.stderr.write("Closing output. %i bytes written.\n" % self.position)
-        self.data.close()
-
-    def flush(self):
-        if self.debug:
-            sys.stderr.write("Flushing output.\n")
-        pass
-    def closeOutput(self):
-        if self.debug:
-            sys.stderr.write("Closing output.\n")
-        pass
 
 class DocumentConverter:
-   
+    
     def __init__(self, host='localhost', port=DEFAULT_OPENOFFICE_PORT):
-        self._host = host
-        self._port = port
-        self._localContext= uno.getComponentContext()
-        self._localServiceManager = self._localContext.ServiceManager
-        self._localResolver = self._localServiceManager.createInstanceWithContext("com.sun.star.bridge.UnoUrlResolver", self._localContext)
-        self._desktop = None
-        try:
-            self._context = self._localResolver.resolve("uno:socket,host=%s,port=%s;urp;StarOffice.ComponentContext" % (host, port))
-            self._desktop = self._context.ServiceManager.createInstanceWithContext("com.sun.star.frame.Desktop", self._context)
-        except IllegalArgumentException, exception:
-            raise DocumentConversionException("The url is invalid (%s)" % exception)
-        except NoConnectException, exception:
-            raise DocumentConversionException("Failed to connect to OpenOffice.org on host %s, port %s. %s" % (host, port, exception))
-        except ConnectionSetupException, exception:
-            raise DocumentConversionException("Not possible to accept on a local resource (%s)" % exception)
-       
-    #def __del__(self):
-        #if self._desktop:
-        #    self._desktop.terminate()
+        self._open = True
+        self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self._socket.setblocking(1)
+        self._socket.settimeout(30)
+        self._socket.connect((host,port))
+        self._fd = self._socket.makefile("rw",DEFAULT_BUFSIZE)
+        # Initialize
+        self._call()
+        
+    def __enter__(self):
+        return self
+    
+    def __exit__(self, type, value, traceback):
+        self.close()
+        
+    def __del__(self):
+        self.close()
+            
+    def _send(self, fnct=None, data=None, param=None):
+        if not param:
+            param = {}
+        if fnct:
+            param["fnct"]=fnct
+        if data:
+            param["length"]=len(data) 
+        
+        header = "%s\n" % simplejson.dumps(param)
+        self._fd.write(header.encode("utf-8"))
+        if data:
+            self._fd.write(data)
+        self._fd.flush()
+        
+    def _read(self):
+        res = self._fd.readline()
+        if not res:
+            raise DocumentConversionException("Connection closed")
+                
+        header = res.decode("utf-8")
+        header = simplejson.loads(header)
+        data = None
+        length = header.get("length")
+        if length:
+            data = self._fd.read(length)
+            if not data:
+                raise DocumentConversionException("Connection closed")
+            
+        error = header.get("error")
+        if error:
+            raise DocumentConversionException(header.get("message"))
+        return data
+    
+    def _call(self, fnct=None, data=None, param=None):
+        self._send(fnct=fnct, data=data, param=param)        
+        return self._read()
+    
+    def close(self):
+        if self._open:
+            self._open=False            
+            try:
+                self._call("close")
+                self._socket.close()
+            except:
+                pass
 
     def putDocument(self, data):
-        inputStream = self._context.ServiceManager.createInstanceWithContext("com.sun.star.io.SequenceInputStream", self._context)
-        inputStream.initialize((uno.ByteSequence(data),))
-        self.document = self._desktop.loadComponentFromURL('private:stream', "_blank", 0, self._toProperties(InputStream = inputStream))
-        inputStream.closeInput()
-        
+        self._call("putDocument",data)
+
     def closeDocument(self):
-        self.document.close(True)
+        self._call("closeDocument")
 
-    def printDocument(self,printer=None):          
-       if printer:
-           p = PropertyValue()
-           p.Name=u"Name"           
-           p.Value = tools.ustr(printer)
-           uno.invoke(self.document,"setPrinter",((p,),))
-                         
-       p = PropertyValue()
-       p.Name = u"Wait"
-       p.Value = True              
-       uno.invoke(self.document, "print", ((p,),))        
-       
-       
-    def refresh(self, document):
-        # At first update Table-of-Contents.
-        # ToC grows, so page numbers grows too.
-        # On second turn update page numbers in ToC
-        try:
-            document.refresh()
-            indexes = document.getDocumentIndexes()
-            for i in range(0, indexes.getCount()):
-                indexes.getByIndex(i).update()
-        except AttributeError, e: # ods document does not support refresh
-            # the document doesn't implement the XRefreshable and/or
-            # XDocumentIndexesSupplier interfaces
-            pass
-       
-    def saveByStream(self, filter_name=None):
-        # refresh document before saving
-        self.refresh(self.document)
-        outputStream = OutputStreamWrapper(False)
-        try:
-            self.document.storeToURL('private:stream', self._toProperties(OutputStream = outputStream, FilterName = filter_name))
-            #if output=='pdf':
-            #    self.document.storeToURL('private:stream', self._toProperties(OutputStream = outputStream, FilterName = "writer_pdf_Export"))
-            #elif output=='doc':
-            #    self.document.storeToURL('private:stream', self._toProperties(OutputStream = outputStream, FilterName = "MS Word 97"))
-            #elif output=='xls':
-            #    self.document.storeToURL('private:stream', self._toProperties(OutputStream = outputStream, FilterName = "MS Excel 97"))
-            #else:
-            #    self.document.storeToURL('private:stream', self._toProperties(OutputStream = outputStream))
-        except IOException, e:
-            print ("IOException during conversion: %s - %s" % (e.ErrCode, e.Message))
-            outputStream.close()
-
-        openDocumentBytes = outputStream.data.getvalue()
-        outputStream.close()
-        return openDocumentBytes
+    def printDocument(self,printer=None):
+        self._call("printDocument",param={"printer":printer})          
         
+    # replace of saveByStream
+    def getDocument(self, filter_name=None):
+        return self._call("getDocument",param={"filter":filter_name})
+    
+    def readDocumentFromStreamAndClose(self, filter_name=None):
+        self._send("streamDocument",param={"filter":filter_name})
+        """ read current document from stream and close """
+        try:            
+            return self._fd.read()
+        finally:
+            self._open = False
+            try:
+                self._socket.close()
+            except:
+                pass
 
     def insertSubreports(self, oo_subreports):
         """
         Inserts the given file into the current document.
         The file contents will replace the placeholder text.
         """
-        import os
-
-        for subreport in oo_subreports:
+        for subreport in oo_subreports:            
             fd = file(subreport, 'rb')
-            placeholder_text = "<insert_doc('%s')>" % subreport
-            subdata = fd.read()
-            subStream = self._context.ServiceManager.createInstanceWithContext("com.sun.star.io.SequenceInputStream", self._localContext)
-            subStream.initialize((uno.ByteSequence(subdata),))
-
-            search = self.document.createSearchDescriptor()
-            search.SearchString = placeholder_text
-            found = self.document.findFirst( search )
-            while found:
-                try:
-                    found.insertDocumentFromURL('private:stream', self._toProperties(InputStream = subStream, FilterName = "writer8"))
-                except Exception, ex:
-                    print (_("Error inserting file %s on the OpenOffice document: %s") % (subreport, ex))
-                found = self.document.findNext(found, search)
-
-            os.unlink(subreport)
+            with fd:
+                subdata = fd.read()
+                self._call("insertDocument",subdata, param={"name":subreport})
 
     def joinDocuments(self, docs):
         while(docs):
-            subStream = self._context.ServiceManager.createInstanceWithContext("com.sun.star.io.SequenceInputStream", self._localContext)
-            subStream.initialize((uno.ByteSequence(docs.pop()),))
-            try:
-                self.document.Text.getEnd().insertDocumentFromURL('private:stream', self._toProperties(InputStream = subStream, FilterName = "writer8"))
-            except Exception, ex:
-                print (_("Error inserting file %s on the OpenOffice document: %s") % (docs, ex))
-
-    def convertByPath(self, inputFile, outputFile):
-        inputUrl = self._toFileUrl(inputFile)
-        outputUrl = self._toFileUrl(outputFile)
-        document = self._desktop.loadComponentFromURL(inputUrl, "_blank", 8, self._toProperties(Hidden=True))
-        # refresh document
-        self.refresh(document)
-        try:
-            document.storeToURL(outputUrl, self._toProperties(FilterName="writer_pdf_Export"))
-        finally:
-            document.close(True)
-
-    def _toFileUrl(self, path):
-        return uno.systemPathToFileUrl(abspath(path))
-
-    def _toProperties(self, **args):
-        props = []
-        for key in args:
-            prop = PropertyValue()
-            prop.Name = key
-            prop.Value = args[key]
-            props.append(prop)
-        return tuple(props)
+            self._call("adddDocument",docs.pop())
 

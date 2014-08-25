@@ -1,12 +1,14 @@
 [options]
-addons_path = /opt/openerp7/config/enabled-addons/openerp/addons
+addons_path = /home/odoo/odoo/config/enabled-addons/openerp/addons
 admin_passwd = admin
 db_name = openerp7_funkring
 email_from = "oerp@funkring.net"
 list_db = False
 log_handler = [':INFO']
 log_level = info
-syslog = True 
+logfile = /home/odoo/log/openerp.log
+logrotate = True
+syslog = False
 longpolling_port = 8072
 max_cron_threads = 2
 proxy_mode = True
@@ -16,4 +18,4 @@ workers = 16
 xmlrpc = True 
 xmlrpc_port = 8069
 xmlrpcs = False
-data_dir = /opt/openerp7/openerp
+data_dir = /home/odoo
