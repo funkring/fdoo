@@ -155,7 +155,7 @@ class academy_course_product(osv.Model):
         "type" : "service",
         "sequence" : 10
     }
-    _order = "sequence, name"
+    _order = "sequence"
 
 
 class academy_registration(osv.Model):
