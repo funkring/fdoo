@@ -23,6 +23,7 @@ from . import common2
 
 
 def run(args):
+    from openerp import api
     import openerp.tools.config
     from openerp.modules import module
     import os
@@ -221,62 +222,63 @@ def run(args):
         # load and update registry
         registry = openerp.modules.registry.RegistryManager.get(
             args.database, update_module=True)
-        cr = registry.db.cursor() # TODO context manager
+        cr = registry.cursor() # TODO context manager
 
         # process further cleanup
         try:
-            module_obj = registry.get('ir.module.module')
-            model_obj = registry.get('ir.model')
-
-            modules_to_delete = {}
-            for module in module_obj.browse(cr,1,module_obj.search(cr, 1,[])):
-                info = openerp.modules.module.load_information_from_description_file(module.name)
-                if not info:
-                    modules_to_delete[module.id]=module.name
-
-            for oid,name in modules_to_delete.items():
-                logger.info("Delete module [%s] %s" % (oid,name))
-
-            if modules_to_delete:
-                cr.execute("UPDATE ir_module_module SET state='uninstalled' WHERE id IN %s",(tuple(modules_to_delete.keys()),))
-                cr.execute("DELETE FROM ir_model_constraint WHERE module in %s",(tuple(modules_to_delete.keys()),))
-                cr.execute("DELETE FROM ir_model_relation WHERE module in %s",(tuple(modules_to_delete.keys()),))
-                module_obj.unlink(cr,1,modules_to_delete.keys())
-
-            models_to_delete = {}
-            for model in model_obj.browse(cr,1,model_obj.search(cr,1,[])):
-                if not registry.get(model.model):
-                    models_to_delete[model.id]=model.model
-            #
-            for oid,name in models_to_delete.items():
-                logger.info("Delete model [%s] %s" % (oid,name))
-
-            if models_to_delete:
-                cr.execute("DELETE FROM ir_rule WHERE model_id in %s",(tuple(models_to_delete.keys()),))
-                cr.execute("DELETE FROM ir_model_constraint WHERE model in %s",(tuple(models_to_delete.keys()),))
-                cr.execute("DELETE FROM ir_model_relation WHERE model in %s",(tuple(models_to_delete.keys()),))
-                cr.execute("DELETE FROM ir_model WHERE id in %s",(tuple(models_to_delete.keys()),))
-
-    #         model_data_obj = registry.get('ir.model.data')
-    #         view_obj = registry.get('ir.ui.view')
-    #         for model_data in model_data_obj.browse(cr,1,model_data_obj.search(cr,1,[])):
-    #             obj = registry.get(model_data.model)
-    #             if not obj:
-    #                 logger.info("Delete ir_model_data [%s] %s " % (model_data.id,model_data.model))
-    #                 model_data_obj.unlink(cr,1,[model_data.id])
-    #             elif not obj.exists(cr, 1, model_data.res_id):
-    #                 logger.info("Delete ir_model_data [%s] %s " % (model_data.id,model_data.model))
-    #                 model_data_obj.unlink(cr,1,[model_data.id])
-    #
-    #         for view in view_obj.browse(cr,1,view_obj.search(cr,1,[])):
-    #             xml_id = view.xml_id
-    #             if xml_id:
-    #                 view_modul = xml_id.split(".")[0]
-    #                 if view_modul not in module_set and view_modul not in ("ir","res"):
-    #                     logger.info("Delete ir_ui_view [%s] %s" % (view.id, xml_id))
-    #                     view.unlink()
-
-            cr.commit()
+            with api.Environment.manage():
+                module_obj = registry.get('ir.module.module')
+                model_obj = registry.get('ir.model')
+    
+                modules_to_delete = {}
+                for module in module_obj.browse(cr,1,module_obj.search(cr, 1,[])):
+                    info = openerp.modules.module.load_information_from_description_file(module.name)
+                    if not info:
+                        modules_to_delete[module.id]=module.name
+    
+                for oid,name in modules_to_delete.items():
+                    logger.info("Delete module [%s] %s" % (oid,name))
+    
+                if modules_to_delete:
+                    cr.execute("UPDATE ir_module_module SET state='uninstalled' WHERE id IN %s",(tuple(modules_to_delete.keys()),))
+                    cr.execute("DELETE FROM ir_model_constraint WHERE module in %s",(tuple(modules_to_delete.keys()),))
+                    cr.execute("DELETE FROM ir_model_relation WHERE module in %s",(tuple(modules_to_delete.keys()),))
+                    module_obj.unlink(cr,1,modules_to_delete.keys())
+    
+                models_to_delete = {}
+                for model in model_obj.browse(cr,1,model_obj.search(cr,1,[])):
+                    if not registry.get(model.model):
+                        models_to_delete[model.id]=model.model
+                #
+                for oid,name in models_to_delete.items():
+                    logger.info("Delete model [%s] %s" % (oid,name))
+    
+                if models_to_delete:
+                    cr.execute("DELETE FROM ir_rule WHERE model_id in %s",(tuple(models_to_delete.keys()),))
+                    cr.execute("DELETE FROM ir_model_constraint WHERE model in %s",(tuple(models_to_delete.keys()),))
+                    cr.execute("DELETE FROM ir_model_relation WHERE model in %s",(tuple(models_to_delete.keys()),))
+                    cr.execute("DELETE FROM ir_model WHERE id in %s",(tuple(models_to_delete.keys()),))
+    
+        #         model_data_obj = registry.get('ir.model.data')
+        #         view_obj = registry.get('ir.ui.view')
+        #         for model_data in model_data_obj.browse(cr,1,model_data_obj.search(cr,1,[])):
+        #             obj = registry.get(model_data.model)
+        #             if not obj:
+        #                 logger.info("Delete ir_model_data [%s] %s " % (model_data.id,model_data.model))
+        #                 model_data_obj.unlink(cr,1,[model_data.id])
+        #             elif not obj.exists(cr, 1, model_data.res_id):
+        #                 logger.info("Delete ir_model_data [%s] %s " % (model_data.id,model_data.model))
+        #                 model_data_obj.unlink(cr,1,[model_data.id])
+        #
+        #         for view in view_obj.browse(cr,1,view_obj.search(cr,1,[])):
+        #             xml_id = view.xml_id
+        #             if xml_id:
+        #                 view_modul = xml_id.split(".")[0]
+        #                 if view_modul not in module_set and view_modul not in ("ir","res"):
+        #                     logger.info("Delete ir_ui_view [%s] %s" % (view.id, xml_id))
+        #                     view.unlink()
+    
+                cr.commit()
         except Exception, e:
             logger.error(e)
             return
