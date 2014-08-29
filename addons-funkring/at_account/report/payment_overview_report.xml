@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+       <report id="report_payment_overview_pdf"
+               string="Payment Overview"
+               name="account.payment.overview"
+               auto="False"
+               report_type="aeroo"
+               process_sep="True"
+               model="account.invoice"
+               in_format="oo-odt"
+               out_format="oo-pdf"
+               parser="at_account/report/payment_overview_report.py"
+               rml="at_account/report/payment_overview_report.odt"/>
+    </data>
+</openerp>

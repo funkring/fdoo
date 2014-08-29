@@ -7,7 +7,7 @@
 #
 # Copyright (C) 2008 Mirko Nasato <mirko@artofsolving.com>
 #                    Matthew Holloway <matthew@holloway.co.nz>
-#                    KN dati Ltd (www.kndati.lv) 
+#                    KN dati Ltd (www.kndati.lv)
 # Licensed under the GNU LGPL v2.1 - http://www.gnu.org/licenses/lgpl-2.1.html
 # - or any later version.
 #
@@ -19,7 +19,7 @@ import socket
 
 try:
     from cStringIO import StringIO
-except:    
+except:
     from StringIO import StringIO
 
 from os.path import abspath
@@ -39,7 +39,7 @@ class DocumentConversionException(Exception):
 
 
 class DocumentConverter:
-    
+
     def __init__(self, host='localhost', port=DEFAULT_OPENOFFICE_PORT):
         self._open = True
         self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -49,35 +49,35 @@ class DocumentConverter:
         self._fd = self._socket.makefile("rw",DEFAULT_BUFSIZE)
         # Initialize
         self._call()
-        
+
     def __enter__(self):
         return self
-    
+
     def __exit__(self, type, value, traceback):
         self.close()
-        
+
     def __del__(self):
         self.close()
-            
+
     def _send(self, fnct=None, data=None, param=None):
         if not param:
             param = {}
         if fnct:
             param["fnct"]=fnct
         if data:
-            param["length"]=len(data) 
-        
+            param["length"]=len(data)
+
         header = "%s\n" % simplejson.dumps(param)
         self._fd.write(header.encode("utf-8"))
         if data:
             self._fd.write(data)
         self._fd.flush()
-        
+
     def _read(self):
         res = self._fd.readline()
         if not res:
             raise DocumentConversionException("Connection closed")
-                
+
         header = res.decode("utf-8")
         header = simplejson.loads(header)
         data = None
@@ -86,19 +86,19 @@ class DocumentConverter:
             data = self._fd.read(length)
             if not data:
                 raise DocumentConversionException("Connection closed")
-            
+
         error = header.get("error")
         if error:
             raise DocumentConversionException(header.get("message"))
         return data
-    
+
     def _call(self, fnct=None, data=None, param=None):
-        self._send(fnct=fnct, data=data, param=param)        
+        self._send(fnct=fnct, data=data, param=param)
         return self._read()
-    
+
     def close(self):
         if self._open:
-            self._open=False            
+            self._open=False
             try:
                 self._call("close")
                 self._socket.close()
@@ -112,16 +112,16 @@ class DocumentConverter:
         self._call("closeDocument")
 
     def printDocument(self,printer=None):
-        self._call("printDocument",param={"printer":printer})          
-        
+        self._call("printDocument",param={"printer":printer})
+
     # replace of saveByStream
     def getDocument(self, filter_name=None):
         return self._call("getDocument",param={"filter":filter_name})
-    
+
     def readDocumentFromStreamAndClose(self, filter_name=None):
         self._send("streamDocument",param={"filter":filter_name})
         """ read current document from stream and close """
-        try:            
+        try:
             return self._fd.read()
         finally:
             self._open = False
@@ -135,7 +135,7 @@ class DocumentConverter:
         Inserts the given file into the current document.
         The file contents will replace the placeholder text.
         """
-        for subreport in oo_subreports:            
+        for subreport in oo_subreports:
             fd = file(subreport, 'rb')
             with fd:
                 subdata = fd.read()

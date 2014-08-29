@@ -267,7 +267,7 @@
                                 <div class="oe_kanban_details">
                                     <h4>
                                         <a type="open">
-                                             <field name="name"/> 
+                                             <field name="name"/>
                                         </a>
                                     </h4>
                                     <a name="%(product.product_variant_action)d" type="action">
@@ -683,9 +683,9 @@
               <p class="oe_view_nocontent_create">
                 Click to add a new Logistic Unit
               </p><p>
-                The logistic unit defines the container used for the package.  
-                It has a type (e.g. pallet, box, ...) and you can specify its 
-                size. 
+                The logistic unit defines the container used for the package.
+                It has a type (e.g. pallet, box, ...) and you can specify its
+                size.
               </p>
             </field>
         </record>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <report id="report_transfer_form_pdf"
+               string="Transfer Form"
+               name="account.transfer.form"
+               report_type="aeroo"
+               model="account.invoice"
+               process_sep="True"
+               in_format="oo-odt"
+               out_format="oo-pdf"
+               parser="at_account/report/transfer_form_report.py"
+               rml="at_account/report/transfer_form_report.odt"/>
+    </data>
+</openerp>

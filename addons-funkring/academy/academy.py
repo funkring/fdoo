@@ -88,7 +88,7 @@ class academy_student(osv.Model):
         res = super(academy_student,self).unlink(cr, uid, ids, context)
         self.pool["res.partner"].unlink(cr, uid, partner_ids, context)
         return res
-    
+
     def _default_country_id(self, cr, uid, context=None):
         company_obj = self.pool['res.company']
         company_id = company_obj._company_default_get(cr, uid, 'res.partner', context=context)
@@ -97,7 +97,7 @@ class academy_student(osv.Model):
             country = company.country_id
             return country and country.id or None
         return None
-    
+
     _name = "academy.student"
     _inherits = {"res.partner":"partner_id"}
     _columns = {
@@ -131,7 +131,7 @@ class academy_course_product(osv.Model):
         for obj in self.browse(cr, uid, ids, context):
             res[obj.id]=obj.uom_id.category_id.id
         return res
-    
+
     def unlink(self, cr, uid, ids, context=None):
         """ Also delete Product """
         product_ids = []
@@ -178,7 +178,7 @@ class academy_registration(osv.Model):
 
     def _next_sequence(self, cr, uid, context=None):
         return self.pool.get("ir.sequence").get(cr, uid, "academy.registration")
-    
+
     def _get_semester_id(self, cr, uid, context=None):
         semester_obj = self.pool["academy.semester"]
         #search next semester
@@ -187,7 +187,7 @@ class academy_registration(osv.Model):
             # get current semester
             return semester_obj.search_id(cr, uid, [], order="date_end desc")
         return semester_ids and semester_ids[0] or None
-    
+
     def _calc_hours(self, cr, uid, uom, amount, context=None):
         if uom and amount:
             uom_obj = self.pool["product.uom"]
@@ -197,13 +197,13 @@ class academy_registration(osv.Model):
                 base_uom_id=uom_obj.search_id(cr, uid, [("category_id","=",uom.category_id.id),("factor","=",1.0)])
                 return uom_obj._compute_qty(cr, uid, uom.id, amount, base_uom_id, round=False)
         return 0.0
-    
+
     def _hours(self, cr, uid, ids, field_name, arg, context=None):
         res = dict.fromkeys(ids,0.0)
         for obj in self.browse(cr, uid, ids, context):
             res[obj.id]=self._calc_hours(cr, uid, obj.uom_id, obj.amount, context)
         return res
-    
+
     def message_get_default_recipients(self, cr, uid, ids, context=None):
         res = super(academy_registration,self).message_get_default_recipients(cr, uid, ids, context=context)
         for reg in self.browse(cr, uid, ids, context=context):
@@ -221,7 +221,7 @@ class academy_registration(osv.Model):
             self.write(cr, uid, ids, {"state" : "registered"}, context=context)
         self._send_mails(cr, uid, "academy.email_template_registration", ids, context=context)
         return True
-    
+
     def do_check(self, cr, uid, ids, context=None):
         ids = self.search(cr, uid, [("id","in",ids),("state","=","check")])
         self.write(cr, uid, ids, {"state" : "registered"}, context=context)
@@ -255,7 +255,7 @@ class academy_registration(osv.Model):
                 if uom_id and not uom_id in uom_ids:
                     val["uom_id"]=None
         return res
-    
+
     def onchange_uom(self, cr, uid, ids, uom_id, amount, context=None):
         hours = 0.0
         if uom_id and amount:
@@ -275,6 +275,13 @@ class academy_registration(osv.Model):
 
         return res
 
+    def unlink(self, cr, uid, ids, context=None):
+        unlink_ids = []
+        for reg in self.browse(cr, uid, ids, context):
+            if reg.state in ("draft", "cancel"):
+                unlink_ids.append(reg.id)
+
+        return super(academy_registration, self).unlink(cr, uid, unlink_ids, context)
     _inherit = ["mail.thread"]
     _name = "academy.registration"
     _description = "Academy Registration"
@@ -330,6 +337,8 @@ class academy_trainer(osv.Model):
     def onchange_state(self, cr, uid, ids, state_id, context=None):
         return self.pool.get("res.partner").onchange_state(cr, uid, ids, state_id, context=None)
 
+    def on_change_zip(self, cr, uid, ids, zip_code, city):
+        return self.pool.get("res.partner").on_change_zip(cr, uid, ids, zip_code, city)
     _name = "academy.trainer"
     _description = "Academy Trainer"
     _inherits = {"res.partner":"partner_id"}
