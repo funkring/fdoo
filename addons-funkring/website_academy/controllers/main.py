@@ -178,8 +178,8 @@ class website_academy(http.Controller):
         return request.website.render("website_academy.index", values, context=context)
     
     @http.route(["/academy/registration","/academy/registration/<int:stage>"], type="http", auth="public", website=True, methods=['GET'])
-    def registration_get(self, state=None, location_id=None, **kwargs):
-        return self.begin_registration(state_id, location_id)
+    def registration_get(self, state_id=None, location_id=None, zip_code=None, **kwargs):
+        return self.begin_registration(state_id=state_id, location_id=location_id, zip_code=zip_code)
     
     @http.route(["/academy/registration","/academy/registration/<int:stage>"], type="http", auth="public", website=True, methods=['POST'])
     def registration_post(self, stage=1, **kwargs):
@@ -233,189 +233,201 @@ class website_academy(http.Controller):
                     location_lines.append("%s %s" % (address.zip, address.city))
                 else:
                     location_lines.append(address.zip)
-        
+                        
         # registration 
         registration = kwargs.get("registration")
-        if registration:
-            reg_id = reg_obj.search_id(cr, hidden_uid, [("name","=",registration)], context=context)
-            if reg_id:
-                values = {
-                    "message_title" : _("Registration already finished!"),
-                    "message_text" :  _("<p>Registration %s was done</p>") % registration                                  
-                }
-                return request.website.render("website_academy.message", values, context=context)        
-       
-        # handle stage
-        if stage==2:
-            # finish registration
-            warnings = []
-            messages = []
-            #
-            def create_address(obj, fields, data, name):
-                """ get address or create new 
-                    :return (id,Name)
-                """
-                # search address
-                address_id = obj.search_id(cr, hidden_uid, [("name","=",data.get("name")),("email","=",data.get("email"))])
-                if address_id:
-                    cur_data = obj.read(cr, hidden_uid, address_id, fields, context=context)
-                    changes=[]
-                    fields = obj.fields_get(cr, hidden_uid, allfields=fields, context=context)
-                    for key, value in cur_data.items():
-                        if key == "id":
-                            continue                        
-                        value1 = value or ""
-                        value2 = data.get(key) or ""
+        lock_hash = None
+        try:
+            if registration:
+                # lock
+                lock_hash = hash("academy_registration_%s" % registration)
+                cr.execute("SELECT pg_advisory_lock(%s)" % lock_hash)
+                cr.commit()
+                # search registration
+                reg_id = reg_obj.search_id(cr, hidden_uid, [("name","=",registration)], context=context)
+                if reg_id:
+                    values = {
+                        "message_title" : _("Registration already finished!"),
+                        "message_text" :  _("<p>Registration %s was done</p>") % registration                                  
+                    }
+                    return request.website.render("website_academy.message", values, context=context)        
+           
+            # handle stage
+            if stage==2:
+                # finish registration
+                warnings = []
+                messages = []
+                #
+                def create_address(obj, fields, data, name):
+                    """ get address or create new 
+                        :return (id,Name)
+                    """
+                    # search address
+                    address_id = obj.search_id(cr, hidden_uid, [("name","=",data.get("name")),("email","=",data.get("email"))])
+                    if address_id:
+                        cur_data = obj.read(cr, hidden_uid, address_id, fields, context=context)
+                        changes=[]
+                        fields = obj.fields_get(cr, hidden_uid, allfields=fields, context=context)
+                        for key, value in cur_data.items():
+                            if key == "id":
+                                continue                        
+                            value1 = value or ""
+                            value2 = data.get(key) or ""
+                            
+                            # get name if it is a many2one field
+                            if isinstance(value1,tuple):
+                                value1=value1[1]                            
+                            if isinstance(value2,tuple):
+                                value2=value2[1]                        
+                            if value1 != value2:
+                                changes.append(_("Value of field '%s' is '%s' but customer typed '%s'") % (fields[key]["string"],value1,value2))
+                        if changes:
+                            warnings.append("<p><b>%s</b></p>" % name)
+                            for change in changes:
+                                warnings.append("<p>%s</p>" % change)
+                            warnings.append("<p></p>")                                                
+                    else:
+                        # convert tuple to id
+                        for key, value in data.items():
+                            if isinstance(value,tuple):
+                                data[key]=value[0]
+    
+                        # create new address
+                        address_id = obj.create(cr, hidden_uid, data, context=context)
                         
-                        # get name if it is a many2one field
-                        if isinstance(value1,tuple):
-                            value1=value1[1]                            
-                        if isinstance(value2,tuple):
-                            value2=value2[1]                        
-                        if value1 != value2:
-                            changes.append(_("Value of field '%s' is '%s' but customer typed '%s'") % (fields[key]["string"],value1,value2))
-                    if changes:
-                        warnings.append("<p><b>%s</b></p>" % name)
-                        for change in changes:
-                            warnings.append("<p>%s</p>" % change)
-                        warnings.append("<p></p>")                                                
-                else:
-                    # convert tuple to id
-                    for key, value in data.items():
-                        if isinstance(value,tuple):
-                            data[key]=value[0]
-
-                    # create new address
-                    address_id = obj.create(cr, hidden_uid, data, context=context)
-                    
-                if address_id:
-                    return obj.name_get(cr, hidden_uid, [address_id], context=context)[0]                    
-                return None
-            
-            def get_address(prefix):
-                """ parse address data """
-                # simple get
-                def get(name):
-                    arg =  kwargs.get("%s_%s" % (prefix,name))
-                    return arg and arg.strip() or ""
-                
-                firstname = get("firstname")
-                lastname = get("lastname")
-                email = get("email")
-                
-                if not firstname or not lastname or not email:
+                    if address_id:
+                        return obj.name_get(cr, hidden_uid, [address_id], context=context)[0]                    
                     return None
                 
-                name =  "%s %s" % (lastname, firstname)
-                city = get("city")
-                zip = get("zip")
-                res = {
-                    "name" : name,
-                    "email": email,
-                    "street" : get("street"),
-                    "zip" : zip,
-                    "city" : city
-                }  
-
-                nationality = get("nationality")
-                if nationality:
-                    res["nationality"]=nationality
-
-                birthday_dt, birthday = util.tryParseDate(get("birthday"))
-                if birthday_dt:
-                    res["birthday"] = util.dateToStr(birthday_dt)
+                def get_address(prefix):
+                    """ parse address data """
+                    # simple get
+                    def get(name):
+                        arg =  kwargs.get("%s_%s" % (prefix,name))
+                        return arg and arg.strip() or ""
                     
-                phone = get("phone")
-                if phone:
-                    res["phone"] = phone
-                
-                city_values = city_obj.search_read(cr, hidden_uid, [("code","=",zip)], ["name","state_id"], context=context)                
-                for city_val in city_values:
-                    if re.sub("[^A-Za-z]", "", city) == re.sub("[^A-Za-z]", "", city_val["name"]):
-                        res["state_id"] = city_val["state_id"]
-                        res["city"] = city_val["name"]
-                        break
+                    firstname = get("firstname")
+                    lastname = get("lastname")
+                    email = get("email")
                     
-                return res              
-               
-               
-            if not courses:
-                raise osv.except_osv(_("Error"), _("No courses selected"))
-               
-            student_values = get_address("student")
-            if not student_values:
-                raise osv.except_osv(_("Error"), _("No student address passed"))
+                    if not firstname or not lastname or not email:
+                        return None
+                    
+                    name =  "%s %s" % (lastname, firstname)
+                    city = get("city")
+                    zip = get("zip")
+                    res = {
+                        "name" : name,
+                        "email": email,
+                        "street" : get("street"),
+                        "zip" : zip,
+                        "city" : city
+                    }  
+    
+                    nationality = get("nationality")
+                    if nationality:
+                        res["nationality"]=nationality
+    
+                    birthday_dt, birthday = util.tryParseDate(get("birthday"))
+                    if birthday_dt:
+                        res["birthday"] = util.dateToStr(birthday_dt)
                         
-            if parent_address:
-                parent_values = get_address("parent")
-                if not parent_values:
-                    raise osv.except_osv(_("Error"), _("No parent address passed"))
-                student_values["parent_id"]=create_address(partner_obj, ["name","email","street","zip","city","phone","birthday"], 
-                                                           parent_values, _("Parent"))
-            invoice_address_id = None
-            if invoice_address:
-                invoice_values = get_address("invoice")
-                if not invoice_values:
-                    raise osv.except_osv(_("Error"), _("No invoice address passed"))
-                invoice_address_id=create_address(partner_obj, ["name","email","street","zip","city","phone"], 
-                                                                    invoice_values, _("Invoice Address"))[0]
-            
-
-            # create student address            
-            student = create_address(student_obj,
-                                     ["name","email","street","zip","city","phone","nationality","birthday","parent_id"],
-                                     student_values, _("Student"))
-            
-            # create courses                               
-            for course in courses:
-
+                    phone = get("phone")
+                    if phone:
+                        res["phone"] = phone
+                    
+                    city_values = city_obj.search_read(cr, hidden_uid, [("code","=",zip)], ["name","state_id"], context=context)                
+                    for city_val in city_values:
+                        if re.sub("[^A-Za-z]", "", city) == re.sub("[^A-Za-z]", "", city_val["name"]):
+                            res["state_id"] = city_val["state_id"]
+                            res["city"] = city_val["name"]
+                            break
+                        
+                    return res              
+                   
+                   
+                if not courses:
+                    raise osv.except_osv(_("Error"), _("No courses selected"))
+                   
+                student_values = get_address("student")
+                if not student_values:
+                    raise osv.except_osv(_("Error"), _("No student address passed"))
+                            
+                if parent_address:
+                    parent_values = get_address("parent")
+                    if not parent_values:
+                        raise osv.except_osv(_("Error"), _("No parent address passed"))
+                    student_values["parent_id"]=create_address(partner_obj, ["name","email","street","zip","city","phone","birthday"], 
+                                                               parent_values, _("Parent"))
+                invoice_address_id = None
+                if invoice_address:
+                    invoice_values = get_address("invoice")
+                    if not invoice_values:
+                        raise osv.except_osv(_("Error"), _("No invoice address passed"))
+                    invoice_address_id=create_address(partner_obj, ["name","email","street","zip","city","phone"], 
+                                                                        invoice_values, _("Invoice Address"))[0]
+                
+    
+                # create student address            
+                student = create_address(student_obj,
+                                         ["name","email","street","zip","city","phone","nationality","birthday","parent_id"],
+                                         student_values, _("Student"))
+                
+                # create courses                               
+                for course in courses:
+    
+                    values = {
+                        "course_prod_id" : course[0].id,
+                        "uom_id" : course[1].id,
+                        "student_id" : student[0],
+                        "location_id" : location_id,
+                        "student_of_loc" : is_student_of_loc
+                    }
+                    
+                    # set invoice address id
+                    if invoice_address_id:
+                        values["invoice_address_id"]=invoice_address_id
+                    
+                    # set registration number
+                    if registration:
+                        values["name"]=registration
+                        registration=None
+                    
+                    # create, register and commit
+                    reg_id = reg_obj.create(cr, hidden_uid, values, context=context)
+                    reg_name = reg_obj.read(cr, hidden_uid, reg_id, ["name"], context=context)["name"]                         
+                    reg_obj.do_register(cr, hidden_uid, [reg_id], check=True, context=context)
+                    cr.commit()       
+                    
+                    # create status message
+                    messages.append(_("<p>Registration %s was created.</p>") % reg_name)
+                    
+                    # add info if something is to add
+                    if warnings:
+                        warnings = "\n".join(warnings)
+                        reg_obj.message_post(cr, hidden_uid, reg_id, body=warnings, context=context)
+                
                 values = {
-                    "course_prod_id" : course[0].id,
-                    "uom_id" : course[1].id,
-                    "student_id" : student[0],
-                    "location_id" : location_id,
-                    "student_of_loc" : is_student_of_loc
+                    "message_title" : _("Registration finished!"),
+                    "message_text" : "\n".join(messages)                                   
                 }
+                return request.website.render("website_academy.message", values, context=context)        
+            else:
+                # begin registration
+                values = {
+                    "courses" : courses,
+                    "location" : location,
+                    "location_lines" : location_lines,
+                    "is_student_of_loc" : is_student_of_loc,
+                    "location_id" : location_id,
+                    "registration" : reg_obj._next_sequence(cr, hidden_uid, context) 
+                }
+                return request.website.render("website_academy.registration", values)
+        finally:
+            # unlock
+            if lock_hash:
+                cr.execute("SELECT pg_advisory_unlock(%s)" % lock_hash)
                 
-                # set invoice address id
-                if invoice_address_id:
-                    values["invoice_address_id"]=invoice_address_id
-                
-                # set registration number
-                if registration:
-                    values["name"]=registration
-                    registration=None
-                
-                # create, register and commit
-                reg_id = reg_obj.create(cr, hidden_uid, values, context=context)
-                reg_name = reg_obj.read(cr, hidden_uid, reg_id, ["name"], context=context)["name"]                         
-                reg_obj.do_register(cr, hidden_uid, [reg_id], check=True, context=context)
-                cr.commit()       
-                
-                # create status message
-                messages.append(_("<p>Registration %s was created.</p>") % reg_name)
-                
-                # add info if something is to add
-                if warnings:
-                    warnings = "\n".join(warnings)
-                    reg_obj.message_post(cr, hidden_uid, reg_id, body=warnings, context=context)
-            
-            values = {
-                "message_title" : _("Registration finished!"),
-                "message_text" : "\n".join(messages)                                   
-            }
-            return request.website.render("website_academy.message", values, context=context)        
-        else:
-            # begin registration
-            values = {
-                "courses" : courses,
-                "location" : location,
-                "location_lines" : location_lines,
-                "is_student_of_loc" : is_student_of_loc,
-                "location_id" : location_id,
-                "registration" : reg_obj._next_sequence(cr, hidden_uid, context) 
-            }
-            return request.website.render("website_academy.registration", values)
     
     
     

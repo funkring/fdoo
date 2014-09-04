@@ -50,7 +50,7 @@ $(document).ready(function () {
         });
         
         //validate
-        if (form_data.location_id === null || !has_data) {
+        if (form_data.location_id === "" || !has_data) {
             is_valid = false;
         }        
         var $wrongdata_error = $("#wrongdata_error");
