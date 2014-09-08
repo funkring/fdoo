@@ -118,6 +118,7 @@ class academy_location(osv.Model):
     _columns = {
         "resource_id" : fields.many2one("resource.resource", "Resource", ondelete="restrict", required=True, select=True),
         "address_id" : fields.many2one("res.partner", "Address", ondelete="cascade"),
+        "rent_product_id" : fields.many2one("product.product", "Renting Impact")
     }
 
 
@@ -275,13 +276,30 @@ class academy_registration(osv.Model):
 
         return res
 
+    def _use_invoice_address_id(self, cr, uid, ids, field_name, args, context=None):
+        res = dict.fromkeys(ids)
+
+        for obj in self.browse(cr, uid, ids):
+            if obj.invoice_address_id:
+                res[obj.id] = obj.invoice_address_id.id
+            elif obj.student_parent_id:
+                res[obj.id] = obj.student_parent_id.id
+            else:
+                res[obj.id] = obj.student_id.id
+
+        return res
+
     def unlink(self, cr, uid, ids, context=None):
         unlink_ids = []
         for reg in self.browse(cr, uid, ids, context):
             if reg.state in ("draft", "cancel"):
                 unlink_ids.append(reg.id)
+            else:
+                raise osv.except_osv(_("Error!"), _("Can not delete registrations, which are not in state 'Draft' or 'Cancelled'"))
 
         return super(academy_registration, self).unlink(cr, uid, unlink_ids, context)
+
+
     _inherit = ["mail.thread"]
     _name = "academy.registration"
     _description = "Academy Registration"
@@ -304,6 +322,7 @@ class academy_registration(osv.Model):
         "hours" : fields.function(_hours, type="float", store=True, readonly=True, string="Hours"),
         "uom_id" : fields.many2one("product.uom", "Unit", select=True, ondelete="restrict"),
         "invoice_address_id" : fields.many2one("res.partner","Invoice Address"),
+        "use_invoice_address_id" : fields.function(_use_invoice_address_id, type="many2one", obj="res.partner", string="Determined invoice address"),
         "course_uom_ids" : fields.related("course_prod_id", "course_uom_ids", type="many2many", relation="product.uom", string="Course Units"),
         "state" : fields.selection([("draft","Draft"),
                                     ("cancel","Cancel"),
@@ -339,6 +358,7 @@ class academy_trainer(osv.Model):
 
     def on_change_zip(self, cr, uid, ids, zip_code, city):
         return self.pool.get("res.partner").on_change_zip(cr, uid, ids, zip_code, city)
+
     _name = "academy.trainer"
     _description = "Academy Trainer"
     _inherits = {"res.partner":"partner_id"}
@@ -435,3 +455,22 @@ class academy_journal_absence(osv.Model):
         "partner_id" : fields.many2one("res.partner", "Partner"),
         "journal_id" : fields.many2one("academy.journal", "Journal"),
     }
+
+
+class academy_registration_invoice(osv.Model):
+    _name = "academy.registration.invoice"
+    _description = "Academy registration invoice"
+
+    _columns = {
+        "registration_id" : fields.many2one("academy.registration", "Registration"),
+        "semester_id" : fields.many2one("academy.semester", "Semester"),
+        "invoice_id" : fields.many2one("account.invoice", "Invoice"),
+    }
+
+
+
+
+
+
+
+

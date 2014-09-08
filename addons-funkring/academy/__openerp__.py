@@ -30,7 +30,7 @@ oerp.at Academy
     "version" : "1.1",
     "author" :  "funkring.net",
     "category" : "Academy",
-    "depends" : ["at_base", "at_product", "at_resource"],
+    "depends" : ["at_base", "at_product", "at_resource", "at_account"],
     "data" : ["security.xml",
               "menu.xml",
               "view/academy_trainer_view.xml",
@@ -44,6 +44,7 @@ oerp.at Academy
               "view/academy_student_view.xml",
               "view/academy_registration_view.xml",
               "view/res_config_view.xml",
+              "wizard/invoice_assistant.xml",
               "data/registration_sequence.xml",
               "data/registration_email_template.xml",
               "data/registration_cancel_email_template.xml"
