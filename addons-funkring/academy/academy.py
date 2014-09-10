@@ -196,7 +196,6 @@ class academy_registration(osv.Model):
             return semester.id
         
         # search semester based on date if current semester is not set
-        user.company_id.write({"academy_semester_id" : config.semester_id.id })
         semester_obj = self.pool["academy.semester"]
         #search next semester
         semester_ids = semester_obj.search(cr, uid, [("date_start", ">", util.currentDate())], order="date_start asc")
