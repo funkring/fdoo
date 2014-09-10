@@ -9,7 +9,7 @@
 				<data>
 					<xpath
 						expr="//page[@name='statement_line_ids']/field[@name='line_ids']/tree/field[@name='amount']"
-						position="attributes">
+						position="replace">
 						<attribute name="on_change">onchange_invoice(date,name,ref,parent.journal_id,invoice_id,compensation_id,amount,voucher_id,context)</attribute>
 					</xpath>
 					<xpath

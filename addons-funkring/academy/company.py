@@ -23,5 +23,6 @@ from openerp.osv import fields, osv
 class res_company(osv.Model):
     _inherit = "res.company"
     _columns = {
-        "academy_webuser_id" : fields.many2one("res.users","Academy Web User")
+        "academy_webuser_id" : fields.many2one("res.users","Academy Web User"),
+        "academy_semester_id" : fields.many2one("academy.semester", "Semester")
     }

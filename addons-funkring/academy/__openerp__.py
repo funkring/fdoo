@@ -45,6 +45,7 @@ oerp.at Academy
               "view/academy_registration_view.xml",
               "view/res_config_view.xml",
               "wizard/invoice_assistant.xml",
+              "wizard/semester_assistant.xml",
               "data/registration_sequence.xml",
               "data/registration_email_template.xml",
               "data/registration_cancel_email_template.xml"

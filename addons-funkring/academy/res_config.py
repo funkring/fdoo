@@ -21,11 +21,6 @@
 from openerp.osv import fields, osv
 
 class academy_config_settings(osv.TransientModel):
-    _name = "academy.config.settings"
-    _inherit = "res.config.settings"
-    _columns = {
-        "webuser_id" : fields.many2one("res.users","Academy Web User", required=True)
-    }
     
     def get_default_webuser_id(self, cr, uid, fields, context=None):
         user = self.pool["res.users"].browse(cr, uid, uid, context=context)
@@ -35,5 +30,23 @@ class academy_config_settings(osv.TransientModel):
         config = self.browse(cr, uid, ids[0], context)
         user = self.pool["res.users"].browse(cr, uid, uid, context)
         user.company_id.write({"academy_webuser_id" : config.webuser_id.id })
+        
+    def get_default_semester_id(self, cr, uid, fields, context=None):
+        user = self.pool["res.users"].browse(cr, uid, uid, context=context)
+        return { "semester_id" : user.company_id.academy_semester_id.id }
+    
+    def set_semester_id(self, cr, uid, ids, context=None):
+        config = self.browse(cr, uid, ids[0], context)
+        user = self.pool["res.users"].browse(cr, uid, uid, context)
+        user.company_id.write({"academy_semester_id" : config.semester_id.id })
+    
+    _name = "academy.config.settings"
+    _inherit = "res.config.settings"
+    _columns = {
+        "webuser_id" : fields.many2one("res.users","Academy Web User", required=True),
+        "semester_id" : fields.many2one("academy.semester", "Semester")
+    }
+    
+    
         
                              

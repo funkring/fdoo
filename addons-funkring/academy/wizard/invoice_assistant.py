@@ -19,87 +19,140 @@
 ##############################################################################
 
 from openerp.osv import fields, osv
+from openerp.addons.at_base import util
 
 class academy_invoice_assistant(osv.osv_memory):
-
-    _name = "academy.invoice.assistant"
-
-    def action_offset(self, cr, uid, ids, context=None):
+    
+    def onchange_semester(self, cr, uid, ids, semester_id, context=None):
+        values = {}
+        res = { "value" : values }
+        
+        if semester_id:
+            values["customer_ref"] = self.pool["academy.semester"].name_get(cr, uid, [semester_id], context=context)[0][1]
+            
+        return res
+        
+    def action_invoice(self, cr, uid, ids, context=None):
         invoice_obj = self.pool["account.invoice"]
         invoice_line_obj = self.pool["account.invoice.line"]
-        registration_obj = self.pool["academy.registration"]
+        reg_obj = self.pool["academy.registration"]
         reg_inv_obj = self.pool["academy.registration.invoice"]
 
-        for wizard in self.browse(cr, uid, ids, context=context):
-            value = {}
-            semester = wizard.semester_id
+        wizard = self.browse(cr, uid, ids[0], context=context)
+        semester = wizard.semester_id
+        
+        # registration query filter
+        reg_query = []
+        sel_reg_ids = util.active_ids(context,"academy.registration")
+        if sel_reg_ids:
+            reg_query.append(("id","in",sel_reg_ids))
+            
+        # state filter
+        reg_query.append("!")
+        reg_query.append(("state","in",["draft","cancel","check"]))
+        
+        # search valid registration ids
+        reg_ids = reg_obj.search(cr, uid, reg_query)
+        
+        # group registrations
+        invoices = {}        
+        for reg in reg_obj.browse(cr, uid, reg_ids, context=context):
+            student = reg.student_id            
+            parent = student.parent_id
+            
+            
+            # check if invoice for registration exist
+            reg_inv_id = reg_inv_obj.search_id(cr, uid, [("registration_id","=",reg.id),("semester_id","=",semester.id)], context=context)
+            if reg_inv_id:
+                continue
+            
+            invoice_address = reg.use_invoice_address_id
+            invoice = invoices.get(invoice_address.id)
+            if not invoice:
+                invoice = ( invoice_address, [] )
+                invoices[invoice_address.id] = invoice
 
-            for registration in wizard.registration_ids:
-                registrations = {}
-                if registration.semester_id.id == semester.id:
-                    address_id = registration.use_invoice_address_id.id
-                    registrations["product"] = registration.course_prod_id.product_id
-                    registrations["rent_product_id"] = registration.location_id.rent_product_id.id
-                    registrations["amount"] = registration.amount
-                    registrations["id"] = registration.id
-                    registrations["account_id"] = registration.use_invoice_address_id.property_account_receivable.id
-                    if value.get(address_id):
-                        value[address_id].append(registrations)
-                    else:
-                        value[address_id] = [registrations]
+            invoice[1].append(reg)
+            
+        # create invoices
+        for partner, registrations in invoices.itervalues():
+            # invoice context
+            inv_context = context and dict(context) or {}
+            inv_context["type"] = "out_invoice"
 
-        for address_id, registrations in value.iteritems():
-            used_rent_product_ids = []
-            invoice_id = None
+            # invoice values            
+            inv_values = {
+                "partner_id" : partner.id,
+                "name" : wizard.customer_ref
+            }            
+            inv_values.update(invoice_obj.onchange_partner_id(cr, uid, [], "out_invoice", partner.id, context=context)["value"])
+            invoice_id = invoice_obj.create(cr, uid, inv_values, context=context)
+            invoice = invoice_obj.browse(cr, uid, invoice_id, context=context)
+                        
+            def addProduct(product, uos_id=None, discount=0.0):
+                line = { "invoice_id" : invoice_id,
+                          "product_id" : product.id,
+                          "quantity" : 1.0,
+                          "uos_id" : uos_id or product.uos_id.id
+                        }
+                line.update(invoice_line_obj.product_id_change(cr, uid, [],
+                                line["product_id"], line["uos_id"], qty=line["quantity"],
+                                type=invoice.type, 
+                                partner_id=invoice.partner_id.id, 
+                                fposition_id=invoice.fiscal_position.id, 
+                                company_id=invoice.company_id.id, 
+                                currency_id=invoice.currency_id.id,
+                                context=inv_context)["value"])
+                
+                return invoice_line_obj.create(cr, uid, line, context=context)
+                
+            
+            # create lines
+            for reg in registrations:
+                # create line
+                addProduct(reg.course_prod_id.product_id, reg.uom_id.id)
+                
+                # create invoice link
+                reg_inv_obj.create(cr, uid, { "registration_id" : reg.id,
+                                              "semester_id" : semester.id,
+                                              "invoice_id" : invoice_id})
+                
+                rent_product = reg.location_id.rent_product_id
+                if rent_product:
+                    cr.execute(" SELECT COUNT(l.id) FROM account_invoice_line l "
+                               " INNER JOIN account_invoice inv ON inv.id = l.invoice_id "
+                               " INNER JOIN academy_registration_invoice rinv ON rinv.invoice_id = inv.id AND rinv.semester_id = %s "
+                               " INNER JOIN academy_registration r ON r.id = rinv.id "
+                               " INNER JOIN academy_student s ON s.id = r.student_id "
+                               " INNER JOIN res_partner p ON p.id = s.partner_id "
+                               " WHERE l.product_id = %s AND p.parent_id = %s AND l.amount > 0 AND l.discount < 100",
+                                (semester.id, rent_product.id, parent.id) )
+                    
+                    rows = cr.fetchone()       
+                    rent_invoiced = rows and rows[0]
+                    
+                    # add discount if rent was already invoiced
+                    discount = 0.0
+                    if rent_invoiced:
+                       discount = 100.0
+                       
+                    addProduct(rent_product, discount=discount)
+                    
+            
+            # validate invoice
+            invoice_obj.button_compute(cr, uid, [invoice_id], context=context)
+        
+        return { "type" : "ir.actions.act_window_close" }
+    
+    def _default_semester_id(self, cr, uid, fields, context=None):
+        user = self.pool["res.users"].browse(cr, uid, uid, context=context)
+        return user.company_id.academy_semester_id.id
 
-            for registration in registrations:
-                reg_inv_ids = reg_inv_obj.search(cr, uid, [("registration_id", "=", registration["id"]), ("semester_id", "=", semester.id)], context=context)
-                if not reg_inv_ids:
-                    if not invoice_id:
-                        invoice_id = invoice_obj.create(cr, uid, {"partner_id" : address_id,
-                                                                  "account_id" : registration["account_id"],
-                                                                  "type" : "out_invoice"})
-                    rent_product_id = registration["rent_product_id"]
-                    if rent_product_id and rent_product_id not in used_rent_product_ids:
-                        invoice_line_obj.create(cr, uid, {"product_id" : rent_product_id,
-                                                          "invoice_id" : invoice_id})
-                        used_rent_product_ids.append(rent_product_id)
-                    invoice_line_obj.create(cr, uid, {"product_id" : registration["product"].id,
-                                                      "name" : registration["product"].name,
-                                                      "amount" : registration["amount"],
-                                                      "invoice_id" : invoice_id})
-                    reg_inv_obj.create(cr, uid, {"registration_id" : registration["id"],
-                                                 "semester_id" : semester.id,
-                                                 "invoice_id" : invoice_id})
-
-            invoice_obj.button_compute(cr, uid, [invoice_id])
-
-    def _get_registration_ids(self, cr, uid, context=None):
-        return context.get("active_ids")
-
+    _name = "academy.invoice.assistant"
     _columns = {
         "semester_id" : fields.many2one("academy.semester", "Semester", required=True),
-        "registration_ids" : fields.many2many("academy.registration", "academy_registration_wizard_rel", "registration_id", "wizard_id", "Registrations to offset"),
         "customer_ref" : fields.char("Reference")
     }
-
     _defaults = {
-        "registration_ids" : _get_registration_ids
+        "semester_id" : _default_semester_id
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

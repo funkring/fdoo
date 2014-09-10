@@ -21,6 +21,14 @@
                             </div>
                         </div>
                     </div>
+                    <label for="semester_id"/>
+                    <div name="semester_id">
+                        <div>
+                            <div name="semester_id" class="oe_inline">
+                                <field name="semester_id"/>
+                            </div>
+                        </div>
+                    </div>
                 </group>
             </div>
         </form>

@@ -29,6 +29,7 @@ def get_lang_file(args):
     return (lang,lang_msg,lang_filename)
 
 def run_import(args):
+    from openerp import api
     import openerp
     import logging
     
@@ -49,22 +50,25 @@ def run_import(args):
     context = {'overwrite': args.overwrite }
     
     try:
-        lang,lang_msg,lang_filename = get_lang_file(args)   
-        module_paths = common2.get_module_paths(args)
-            
-        for m,module_path in module_paths.items():
-            lang_dir = os.path.join(module_path,"i18n")        
-            if os.path.exists(lang_dir):
-                if module_obj.search(cr, 1, [("state", "=", "installed"),("name","=",m)]):
-                    logger.info('Read translation file for %s to %s', lang_msg, lang_filename)
-                    lang_file_path = os.path.join(lang_dir,lang_filename)
-                    openerp.tools.trans_load(cr,lang_file_path,lang,context=context)      
+        with api.Environment.manage():
+            lang,lang_msg,lang_filename = get_lang_file(args)   
+            module_paths = common2.get_module_paths(args)
                 
+            for m,module_path in module_paths.items():
+                lang_dir = os.path.join(module_path,"i18n")        
+                if os.path.exists(lang_dir):
+                    if module_obj.search(cr, 1, [("state", "=", "installed"),("name","=",m)]):
+                        logger.info('Read translation file for %s to %s', lang_msg, lang_filename)
+                        lang_file_path = os.path.join(lang_dir,lang_filename)
+                        openerp.tools.trans_load(cr,lang_file_path,lang,context=context)
+                        
+        cr.commit()
     finally:
         cr.close()
 
 
 def run_export(args):
+    from openerp import api
     import openerp
     import logging
     
@@ -82,19 +86,20 @@ def run_export(args):
     cr = registry.cursor() # TODO context manager
     
     try:
-        lang,lang_msg,lang_filename = get_lang_file(args)   
-        module_paths = common2.get_module_paths(args)
-            
-        for m,module_path in module_paths.items():
-            lang_dir = os.path.join(module_path,"i18n")        
-            if not os.path.exists(lang_dir):
-                os.mkdir(lang_dir)
-            if module_obj.search(cr, 1, [("state", "=", "installed"),("name","=",m)]):
-                lang_file = os.path.join(lang_dir,lang_filename)
-                logger.info('Writing translation file for %s to %s', lang_msg, lang_file)
-                buf = file(lang_file, "w")
-                openerp.tools.trans_export(lang, [m], buf, "po", cr)
-                buf.close()
+        with api.Environment.manage():
+            lang,lang_msg,lang_filename = get_lang_file(args)   
+            module_paths = common2.get_module_paths(args)
+                
+            for m,module_path in module_paths.items():
+                lang_dir = os.path.join(module_path,"i18n")        
+                if not os.path.exists(lang_dir):
+                    os.mkdir(lang_dir)
+                if module_obj.search(cr, 1, [("state", "=", "installed"),("name","=",m)]):
+                    lang_file = os.path.join(lang_dir,lang_filename)
+                    logger.info('Writing translation file for %s to %s', lang_msg, lang_file)
+                    buf = file(lang_file, "w")
+                    openerp.tools.trans_export(lang, [m], buf, "po", cr)
+                    buf.close()
                   
         cr.commit()
     finally:

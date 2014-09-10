@@ -161,9 +161,7 @@ class Aeroo_report(report_sxw):
         
     def getObjects_mod(self, cr, uid, ids, rep_type, context):
         table_obj = RegistryManager.get(cr.dbname).get(self.table)
-        if rep_type=='aeroo':
-            return table_obj.browse(cr, uid, ids, list_class=browse_record_list, context=context)
-        return table_obj.browse(cr, uid, ids, list_class=browse_record_list, context=context, fields_process=_fields_process)
+        return table_obj.browse(cr, uid, ids, context=context)
 
     ##### Counter functions #####
     def _def_inc(self, name, start=0, interval=1):
@@ -697,12 +695,7 @@ class Aeroo_report(report_sxw):
         report_xml_ids = ir_obj.search(cr, uid,
                 [('report_name', '=', self.name[7:])], context=context)
         if report_xml_ids:
-            report_xml = ir_obj.browse(cr, uid, report_xml_ids[0], context=context)
-            report_xml.report_rml = None
-            report_xml.report_rml_content = None
-            report_xml.report_sxw_content_data = None
-            report_rml.report_sxw_content = None
-            report_rml.report_sxw = None
+            report_xml = ir_obj.browse(cr, uid, report_xml_ids[0], context=context)            
         else:
             title = ''
             rml = tools.file_open(self.tmpl, subdir=None).read()

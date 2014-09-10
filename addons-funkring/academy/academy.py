@@ -118,7 +118,7 @@ class academy_location(osv.Model):
     _columns = {
         "resource_id" : fields.many2one("resource.resource", "Resource", ondelete="restrict", required=True, select=True),
         "address_id" : fields.many2one("res.partner", "Address", ondelete="cascade"),
-        "rent_product_id" : fields.many2one("product.product", "Renting Impact")
+        "rent_product_id" : fields.many2one("product.product", "Royalty")
     }
 
 
@@ -181,6 +181,15 @@ class academy_registration(osv.Model):
         return self.pool.get("ir.sequence").get(cr, uid, "academy.registration")
 
     def _get_semester_id(self, cr, uid, context=None):
+        
+        # get current semester        
+        user = self.pool["res.users"].browse(cr, uid, uid, context)
+        semester = user.company_id.academy_semester_id
+        if semester:
+            return semester.id
+        
+        # search semester based on date if current semester is not set
+        user.company_id.write({"academy_semester_id" : config.semester_id.id })
         semester_obj = self.pool["academy.semester"]
         #search next semester
         semester_ids = semester_obj.search(cr, uid, [("date_start", ">", util.currentDate())], order="date_start asc")
@@ -290,14 +299,10 @@ class academy_registration(osv.Model):
         return res
 
     def unlink(self, cr, uid, ids, context=None):
-        unlink_ids = []
         for reg in self.browse(cr, uid, ids, context):
-            if reg.state in ("draft", "cancel"):
-                unlink_ids.append(reg.id)
-            else:
+            if not reg.state in ("draft", "cancel", "check"):
                 raise osv.except_osv(_("Error!"), _("Can not delete registrations, which are not in state 'Draft' or 'Cancelled'"))
-
-        return super(academy_registration, self).unlink(cr, uid, unlink_ids, context)
+        return super(academy_registration, self).unlink(cr, uid, ids, context)
 
 
     _inherit = ["mail.thread"]
@@ -328,9 +333,7 @@ class academy_registration(osv.Model):
                                     ("cancel","Cancel"),
                                     ("check","Check"),
                                     ("registered","Registered"),
-                                    ("assigned","Assigned"),
-                                    ("open","Open"),
-                                    ("paid","Paid")],
+                                    ("assigned","Assigned")],
                                     "State", readonly=True, select=True),
         "note" : fields.text("Note", select=True),
 
@@ -462,9 +465,9 @@ class academy_registration_invoice(osv.Model):
     _description = "Academy registration invoice"
 
     _columns = {
-        "registration_id" : fields.many2one("academy.registration", "Registration"),
-        "semester_id" : fields.many2one("academy.semester", "Semester"),
-        "invoice_id" : fields.many2one("account.invoice", "Invoice"),
+        "registration_id" : fields.many2one("academy.registration", "Registration", select=True, ondelete="restrict"),
+        "semester_id" : fields.many2one("academy.semester", "Semester", select=True, ondelete="restrict"),
+        "invoice_id" : fields.many2one("account.invoice", "Invoice", select=True, ondelete="cascade")
     }
 
 

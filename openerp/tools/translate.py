@@ -545,13 +545,15 @@ def trans_parse_rml(de):
 
 def trans_parse_view(de):
     res = []
-    if not isinstance(de, SKIPPED_ELEMENT_TYPES) and de.text and de.text.strip():
-        res.append(de.text.strip().encode("utf8"))
     if de.tail and de.tail.strip():
         res.append(de.tail.strip().encode("utf8"))
-    if de.tag == 'attribute' and de.get("name") == 'string':
-        if de.text:
+    
+    if de.tag == 'attribute':
+        if de.text and de.get("name") in ('string','name'):
             res.append(de.text.encode("utf8"))
+    elif not isinstance(de, SKIPPED_ELEMENT_TYPES) and de.text and de.text.strip():
+        res.append(de.text.strip().encode("utf8"))            
+        
     if de.get("string"):
         res.append(de.get('string').encode("utf8"))
     if de.get("help"):

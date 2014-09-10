@@ -37,7 +37,10 @@ from openerp.tools.translate import _
 import imp, sys, os
 import time
 import zipimport
+import logging
 from openerp.tools.config import config
+
+_logger = logging.getLogger(__name__)
 
 class report_stylesheets(osv.osv):
     '''
@@ -143,14 +146,16 @@ class report_xml(osv.osv):
         
     def _report_content(self, cursor, user, ids, name, arg, context=None):
         res = {}
-        for report in self.browse(cursor, user, ids, context=context):
-            data = report[name + '_data']
-            if report.report_type=='aeroo' and report.tml_source=='file' or not data and report[name[:-8]]:
+        for report in self.browse(cursor, user, ids, context=context):   
+            data = report.report_sxw_content_data
+            report_file = report.report_rml
+            if report.report_type=='aeroo' and report.tml_source=='file' or not data and report_file:
                 fp = None
                 try:
-                    fp = tools.file_open(report[name[:-8]], mode='rb')
+                    fp = tools.file_open(report_file, mode='rb')
                     data = base64.encodestring(fp.read())
-                except:
+                except Exception as e:
+                    _logger.exception(e)
                     data = False
                 finally:
                     if fp:
@@ -165,7 +170,7 @@ class report_xml(osv.osv):
 
     def _report_content_inv(self, cursor, user, id, name, value, arg, context=None):
         if value:
-            self.write(cursor, user, id, {name+'_data': value}, context=context)
+            self.write(cursor, user, id, { "report_sxw_content_data" : value}, context=context)
 
     def change_input_format(self, cr, uid, ids, in_format):
         out_format = self.pool.get('report.mimetypes').search(cr, uid, [('code','=',in_format)])
@@ -277,7 +282,7 @@ class report_xml(osv.osv):
         'out_format':fields.many2one('report.mimetypes', 'Output Mime-type'),
         'report_sxw_content': fields.function(_report_content,
             fnct_inv=_report_content_inv, method=True,
-            type='binary', string='SXW content',),
+            type='binary', string='SXW content', store=False),
         'active':fields.boolean('Active'),
         'user_defined' : fields.boolean('User Defined')
     }

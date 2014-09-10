@@ -80,8 +80,8 @@
       </field>
     </record>
 
-    <menuitem id="menu_academy_year" name="Year" parent="menu_academy_config_misc"
-      sequence="2"
+    <menuitem id="menu_academy_year" name="Years" parent="menu_academy_config_misc"
+      sequence="20"
       action="action_academy_year"/>
   </data>
 </openerp>
