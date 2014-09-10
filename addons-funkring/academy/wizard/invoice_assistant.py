@@ -104,6 +104,9 @@ class academy_invoice_assistant(osv.osv_memory):
                                 currency_id=invoice.currency_id.id,
                                 context=inv_context)["value"])
                 
+                tax_ids = line.get("invoice_line_tax_id")
+                if tax_ids:
+                    line["invoice_line_tax_id"]=[(6,0,tax_ids)]
                 return invoice_line_obj.create(cr, uid, line, context=context)
                 
             

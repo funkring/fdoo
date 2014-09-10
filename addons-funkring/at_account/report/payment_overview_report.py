@@ -33,15 +33,13 @@ class Parser(account_invoice_report.Parser):
         res = []
         move_line_obj = self.pool["account.move.line"]
 
-        for payment in move_line_obj.browse(cr, uid, invoice.payment_ids):
-            line = {}
+        for payment in move_line_obj.browse(self.cr, self.uid, invoice.payment_ids):
+            line = {"date" :  payment.date }
 
             if invoice.state in ("out_invoice", "in_refund"):
                 line["amount"] = payment.credit
             else:
                 line["amount"] = payment.debit
-            line["date"] = payment.date
-
             res.append(line)
 
         return res
