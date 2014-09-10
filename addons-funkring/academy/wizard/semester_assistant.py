@@ -42,6 +42,7 @@ class semester_assistant(osv.TransientModel):
         
     _name = "academy.semester.assistant"
     _description = "Semester Configuration"
+    _rec_name = "semester_id"
     _columns = {
         "semester_id" : fields.many2one("academy.semester", "Current Semester", required=True, 
                                     help="Switch to the current semester")

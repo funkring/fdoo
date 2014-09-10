@@ -181,6 +181,7 @@ class academy_invoice_assistant(osv.osv_memory):
         return user.company_id.academy_semester_id.id
 
     _name = "academy.invoice.assistant"
+    _rec_name = "semester_id"
     _columns = {
         "semester_id" : fields.many2one("academy.semester", "Semester", required=True),
         "customer_ref" : fields.char("Reference")
