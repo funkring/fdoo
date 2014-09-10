@@ -20,6 +20,7 @@
 
 from openerp.osv import fields, osv
 from openerp.addons.at_base import util
+from openerp.tools.translate import _
 
 class academy_invoice_assistant(osv.osv_memory):
     
@@ -37,6 +38,7 @@ class academy_invoice_assistant(osv.osv_memory):
         invoice_line_obj = self.pool["account.invoice.line"]
         reg_obj = self.pool["academy.registration"]
         reg_inv_obj = self.pool["academy.registration.invoice"]
+        fee_obj = self.pool["academy.fee"]
 
         wizard = self.browse(cr, uid, ids[0], context=context)
         semester = wizard.semester_id
@@ -88,30 +90,37 @@ class academy_invoice_assistant(osv.osv_memory):
             inv_values.update(invoice_obj.onchange_partner_id(cr, uid, [], "out_invoice", partner.id, context=context)["value"])
             invoice_id = invoice_obj.create(cr, uid, inv_values, context=context)
             invoice = invoice_obj.browse(cr, uid, invoice_id, context=context)
-                        
-            def addProduct(product, uos_id=None, discount=0.0):
-                line = { "invoice_id" : invoice_id,
-                          "product_id" : product.id,
-                          "quantity" : 1.0,
-                          "uos_id" : uos_id or product.uos_id.id
-                        }
-                line.update(invoice_line_obj.product_id_change(cr, uid, [],
-                                line["product_id"], line["uos_id"], qty=line["quantity"],
-                                type=invoice.type, 
-                                partner_id=invoice.partner_id.id, 
-                                fposition_id=invoice.fiscal_position.id, 
-                                company_id=invoice.company_id.id, 
-                                currency_id=invoice.currency_id.id,
-                                context=inv_context)["value"])
-                
-                tax_ids = line.get("invoice_line_tax_id")
-                if tax_ids:
-                    line["invoice_line_tax_id"]=[(6,0,tax_ids)]
-                return invoice_line_obj.create(cr, uid, line, context=context)
-                
+            
+            # get fees
+            fees = fee_obj.browse(cr, uid, fee_obj.search(cr, uid, []), context=context)
             
             # create lines
             for reg in registrations:
+                
+                # add product function
+                def addProduct(product, uos_id=None, discount=0.0):
+                    line = { "invoice_id" : invoice_id,
+                             "product_id" : product.id,
+                             "quantity" : 1.0,
+                             "uos_id" : uos_id or product.uos_id.id
+                            }
+                                        
+                    line.update(invoice_line_obj.product_id_change(cr, uid, [],
+                                    line["product_id"], line["uos_id"], qty=line["quantity"],
+                                    type=invoice.type, 
+                                    partner_id=invoice.partner_id.id, 
+                                    fposition_id=invoice.fiscal_position.id, 
+                                    company_id=invoice.company_id.id, 
+                                    currency_id=invoice.currency_id.id,
+                                    context=inv_context)["value"])
+                    
+                    tax_ids = line.get("invoice_line_tax_id")
+                    if tax_ids:
+                        line["invoice_line_tax_id"]=[(6,0,tax_ids)]
+                    
+                    line["name"] = _("%s - %s\n%s") % (reg.name, line["name"], reg.student_id.name)
+                    return invoice_line_obj.create(cr, uid, line, context=context)
+                
                 # create line
                 addProduct(reg.course_prod_id.product_id, reg.uom_id.id)
                 
@@ -120,26 +129,46 @@ class academy_invoice_assistant(osv.osv_memory):
                                               "semester_id" : semester.id,
                                               "invoice_id" : invoice_id})
                 
-                rent_product = reg.location_id.rent_product_id
-                if rent_product:
-                    cr.execute(" SELECT COUNT(l.id) FROM account_invoice_line l "
-                               " INNER JOIN account_invoice inv ON inv.id = l.invoice_id "
-                               " INNER JOIN academy_registration_invoice rinv ON rinv.invoice_id = inv.id AND rinv.semester_id = %s "
-                               " INNER JOIN academy_registration r ON r.id = rinv.id "
-                               " INNER JOIN academy_student s ON s.id = r.student_id "
-                               " INNER JOIN res_partner p ON p.id = s.partner_id "
-                               " WHERE l.product_id = %s AND p.parent_id = %s AND l.amount > 0 AND l.discount < 100",
-                                (semester.id, rent_product.id, parent.id) )
+                # add fees
+                location = reg.location_id
+                category_set = set([c.id for c in reg.location_id.category_id])
+                
+                for fee in fees:
+                    # check if uom is used and match
+                    if fee.apply_uom_id and fee.uom_id.id != reg.uom_id.id:
+                        continue
                     
-                    rows = cr.fetchone()       
-                    rent_invoiced = rows and rows[0]
-                    
-                    # add discount if rent was already invoiced
+                    # check if categories match
+                    if fee.location_category_ids:
+                        has_category = False
+                        for category in fee.location_category_ids:
+                            if category.id in category_set:
+                                has_category = True
+                                break
+                        if not has_category:
+                            continue
+                                                                
+                    # check for discount
                     discount = 0.0
-                    if rent_invoiced:
-                       discount = 100.0
-                       
-                    addProduct(rent_product, discount=discount)
+                    if fee.sibling_discount:
+                        
+                        cr.execute(" SELECT COUNT(l.id) FROM account_invoice_line l "
+                                   " INNER JOIN account_invoice inv ON inv.id = l.invoice_id "
+                                   " INNER JOIN academy_registration_invoice rinv ON rinv.invoice_id = inv.id AND rinv.semester_id = %s "
+                                   " INNER JOIN academy_registration r ON r.id = rinv.id "
+                                   " INNER JOIN academy_student s ON s.id = r.student_id "
+                                   " INNER JOIN res_partner p ON p.id = s.partner_id "
+                                   " WHERE l.product_id = %s AND p.parent_id = %s AND l.quantity > 0 AND l.discount < 100",
+                                    (semester.id, fee.product_id.id, parent.id) )
+                        
+                        rows = cr.fetchone()       
+                        
+                        # already invoiced ?
+                        if rows and rows[0]:
+                            discount = fee.sibling_discount
+                           
+                    # add fee
+                    addProduct(fee.product_id, discount=discount)
                     
             
             # validate invoice

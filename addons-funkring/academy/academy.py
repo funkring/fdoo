@@ -113,14 +113,21 @@ class academy_student(osv.Model):
 
 
 class academy_location(osv.Model):
-    _name = "academy.location"
-    _inherits = {"resource.resource":"resource_id"}
-    _columns = {
-        "resource_id" : fields.many2one("resource.resource", "Resource", ondelete="restrict", required=True, select=True),
-        "address_id" : fields.many2one("res.partner", "Address", ondelete="cascade"),
-        "rent_product_id" : fields.many2one("product.product", "Royalty")
-    }
 
+    def onchange_address(self, cr, uid, ids, use_parent_address, parent_id, context=None):
+        return self.pool.get("res.partner").onchange_address(cr, uid, ids, use_parent_address, parent_id, context=context)
+
+    def onchange_state(self, cr, uid, ids, state_id, context=None):
+        return self.pool.get("res.partner").onchange_state(cr, uid, ids, state_id, context=context)
+
+    def on_change_zip(self, cr, uid, ids, zip_code, city):
+        return self.pool.get("res.partner").on_change_zip(cr, uid, ids, zip_code, city)
+    
+    _name = "academy.location"
+    _inherits = { "res.partner" : "address_id" }
+    _columns = {
+        "address_id" : fields.many2one("res.partner", "Address", ondelete="restrict",  required=True, select=True)
+    }
 
 class academy_course_product(osv.Model):
 
@@ -463,7 +470,7 @@ class academy_journal_absence(osv.Model):
 class academy_registration_invoice(osv.Model):
     _name = "academy.registration.invoice"
     _description = "Academy registration invoice"
-
+    
     _columns = {
         "registration_id" : fields.many2one("academy.registration", "Registration", select=True, ondelete="restrict"),
         "semester_id" : fields.many2one("academy.semester", "Semester", select=True, ondelete="restrict"),
@@ -471,7 +478,36 @@ class academy_registration_invoice(osv.Model):
     }
 
 
-
+class academy_fee(osv.Model):
+    
+    def onchange_uom(self, cursor, user, ids, uom_id, uom_po_id):
+         return self.pool["product.product"].onchange_uom(cursor, user, ids, uom_id, uom_po_id)
+    
+    def unlink(self, cr, uid, ids, context=None):
+        """ Also delete Product """
+        product_ids = []
+        for obj in self.browse(cr, uid, ids, context):
+            if obj.product_id:
+                product_ids.append(obj.product_id.id)
+        res = super(academy_fee,self).unlink(cr, uid, ids, context)
+        self.pool["product.product"].unlink(cr, uid, product_ids, context)
+        return res
+    
+    _name = "academy.fee"
+    _description = "Academy Fee"
+    _inherits = { "product.product" : "product_id" }
+    
+    _columns = {
+        "location_category_ids" : fields.many2many("res.partner.category", "academy_fee_id", "category_id", string="Locations"),
+        "apply_uom_id" : fields.boolean("Apply on all with same unit"),
+        "product_id" : fields.many2one("product.product", "Product", select=True, ondelete="restrict"),
+        "sibling_discount" : fields.float("Sibling Discount"),    
+        "sequence" : fields.integer("Sequence")
+    }
+    _defaults = {
+        "sequence" : 10   
+    }
+    _order = "sequence asc"
 
 
 
