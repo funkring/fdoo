@@ -294,15 +294,13 @@ class academy_registration(osv.Model):
 
     def _use_invoice_address_id(self, cr, uid, ids, field_name, args, context=None):
         res = dict.fromkeys(ids)
-
         for obj in self.browse(cr, uid, ids):
             if obj.invoice_address_id:
                 res[obj.id] = obj.invoice_address_id.id
-            elif obj.student_parent_id:
-                res[obj.id] = obj.student_parent_id.id
+            elif obj.student_id.parent_id:
+                res[obj.id] = obj.student_id.parent_id.id
             else:
-                res[obj.id] = obj.student_id.id
-
+                res[obj.id] = obj.student_id.partner_id.id
         return res
 
     def unlink(self, cr, uid, ids, context=None):

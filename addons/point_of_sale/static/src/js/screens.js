@@ -73,8 +73,9 @@ function openerp_pos_screens(instance, module){ //module is instance.point_of_sa
         load_saved_screen:  function(){
             this.close_popup();
             var selectedOrder = this.pos.get('selectedOrder');
-            // this.set_current_screen(selectedOrder.get_screen_data('screen') || this.default_screen,null,'refresh');
-            this.set_current_screen(this.default_screen,null,'refresh');
+            // FIXME : this changing screen behaviour is sometimes confusing ... 
+            this.set_current_screen(selectedOrder.get_screen_data('screen') || this.default_screen,null,'refresh');
+            //this.set_current_screen(this.default_screen,null,'refresh');
             
         },
         set_user_mode: function(user_mode){
@@ -313,50 +314,28 @@ function openerp_pos_screens(instance, module){ //module is instance.point_of_sa
         },
     });
 
-
-    module.ChooseReceiptPopupWidget = module.PopUpWidget.extend({
-        template:'ChooseReceiptPopupWidget',
-        show: function(){
-            this._super();
-            this.renderElement();
-            var self = this;
-            var currentOrder = self.pos.get('selectedOrder');
-            
-            this.$('.button.receipt').off('click').click(function(){
-                currentOrder.set_receipt_type('receipt');
-                self.pos_widget.screen_selector.set_current_screen('products');
-            });
-
-            this.$('.button.invoice').off('click').click(function(){
-                currentOrder.set_receipt_type('invoice');
-                self.pos_widget.screen_selector.set_current_screen('products');
-            });
-        },
-        get_client_name: function(){
-            var client = this.pos.get('selectedOrder').get_client();
-            if( client ){
-                return client.name;
-            }else{
-                return '';
-            }
-        },
-    });
-
     module.ErrorPopupWidget = module.PopUpWidget.extend({
         template:'ErrorPopupWidget',
-        show: function(text){
+        show: function(options){
+            options = options || {};
             var self = this;
             this._super();
 
-            if( text && (text.message || text.comment) ){
-                this.$('.message').text(text.message);
-                this.$('.comment').text(text.comment);
-            }
+            $('body').append('<audio src="/point_of_sale/static/src/sounds/error.wav" autoplay="true"></audio>');
+
+            this.message = options.message || _t('Error');
+            this.comment = options.comment || '';
+
+            this.renderElement();
 
             this.pos.barcode_reader.save_callbacks();
             this.pos.barcode_reader.reset_action_callbacks();
-            this.$('.footer .button').off('click').click(function(){
+
+            this.$('.footer .button').click(function(){
                 self.pos_widget.screen_selector.close_popup();
+                if ( options.confirm ) {
+                    options.confirm.call(self);
+                }
             });
         },
         close:function(){
@@ -365,16 +344,15 @@ function openerp_pos_screens(instance, module){ //module is instance.point_of_sa
         },
     });
 
-
-    module.ErrorSessionPopupWidget = module.ErrorPopupWidget.extend({
-        template:'ErrorSessionPopupWidget',
+    module.ErrorTracebackPopupWidget = module.ErrorPopupWidget.extend({
+        template:'ErrorTracebackPopupWidget',
     });
 
     module.ErrorBarcodePopupWidget = module.ErrorPopupWidget.extend({
         template:'ErrorBarcodePopupWidget',
         show: function(barcode){
+            this.barcode = barcode;
             this._super();
-            this.$('.barcode').text(barcode);
         },
     });
 
@@ -410,6 +388,18 @@ function openerp_pos_screens(instance, module){ //module is instance.point_of_sa
 
     module.ErrorInvoiceTransferPopupWidget = module.ErrorPopupWidget.extend({
         template: 'ErrorInvoiceTransferPopupWidget',
+    });
+
+    module.UnsentOrdersPopupWidget = module.PopUpWidget.extend({
+        template: 'UnsentOrdersPopupWidget',
+        show: function(options){
+            var self = this;
+            this._super(options);
+            this.renderElement();
+            this.$('.button.confirm').click(function(){
+                self.pos_widget.screen_selector.close_popup();
+            });
+        },
     });
 
     module.ScaleScreenWidget = module.ScreenWidget.extend({
@@ -468,7 +458,7 @@ function openerp_pos_screens(instance, module){ //module is instance.point_of_sa
         },
         get_product_name: function(){
             var product = this.get_product();
-            return (product ? product.name : undefined) || 'Unnamed Product';
+            return (product ? product.display_name : undefined) || 'Unnamed Product';
         },
         get_product_price: function(){
             var product = this.get_product();
@@ -557,6 +547,10 @@ function openerp_pos_screens(instance, module){ //module is instance.point_of_sa
     module.ClientListScreenWidget = module.ScreenWidget.extend({
         template: 'ClientListScreenWidget',
 
+        init: function(parent, options){
+            this._super(parent, options);
+        },
+
         show_leftpane: false,
 
         auto_back: true,
@@ -579,19 +573,28 @@ function openerp_pos_screens(instance, module){ //module is instance.point_of_sa
                 self.pos_widget.screen_selector.back();
             });
 
-            var partners = this.pos.db.get_partners_sorted();
+            var partners = this.pos.db.get_partners_sorted(1000);
             this.render_list(partners);
+            
+            this.pos.load_new_partners().then(function(){ 
+                // will only get called if new partners were reloaded.
+                self.render_list(self.pos.db.get_partners_sorted(1000));
+            });
 
             if( this.old_client ){
                 this.display_client_details('show',this.old_client,0);
             }
 
             this.$('.client-list-contents').delegate('.client-line','click',function(event){
-                console.log('uh');
                 self.line_select(event,$(this),parseInt($(this).data('id')));
             });
 
             var search_timeout = null;
+
+            if(this.pos.config.iface_vkeyboard && this.pos_widget.onscreen_keyboard){
+                this.pos_widget.onscreen_keyboard.connect(this.$('.searchbox input'));
+            }
+
             this.$('.searchbox input').on('keyup',function(event){
                 clearTimeout(search_timeout);
 
@@ -622,20 +625,28 @@ function openerp_pos_screens(instance, module){ //module is instance.point_of_sa
             }
         },
         clear_search: function(){
-            var customers = this.pos.db.get_partners_sorted();
+            var customers = this.pos.db.get_partners_sorted(1000);
             this.render_list(customers);
             this.$('.searchbox input')[0].value = '';
             this.$('.searchbox input').focus();
         },
         render_list: function(partners){
-            var contents = this.$('.client-list-contents');
-            contents.empty();
-            for(var i = 0, len = partners.length; i < len; i++){
-                var clientline = $(QWeb.render('ClientLine',{partner:partners[i]}));
-                if( partners[i] === this.new_client ){
-                    clientline.addClass('highlight');
+            var contents = this.$el[0].querySelector('.client-list-contents');
+            contents.innerHTML = "";
+            for(var i = 0, len = Math.min(partners.length,1000); i < len; i++){
+                var partner    = partners[i];
+                var clientline_html = QWeb.render('ClientLine',{widget: this, partner:partners[i]});
+                var clientline = document.createElement('tbody');
+                clientline.innerHTML = clientline_html;
+                clientline = clientline.childNodes[1];
+
+                if( partners === this.new_client ){
+                    clientline.classList.add('highlight');
+                }else{
+                    clientline.classList.remove('highlight');
                 }
-                contents.append(clientline);
+
+                contents.appendChild(clientline);
             }
         },
         save_changes: function(){
@@ -1061,6 +1072,21 @@ function openerp_pos_screens(instance, module){ //module is instance.point_of_sa
                 return;
             }
 
+            // The exact amount must be paid if there is no cash payment method defined.
+            if (Math.abs(currentOrder.getTotalTaxIncluded() - currentOrder.getPaidTotal()) > 0.00001) {
+                var cash = false;
+                for (var i = 0; i < this.pos.cashregisters.length; i++) {
+                    cash = cash || (this.pos.cashregisters[i].journal.type === 'cash');
+                }
+                if (!cash) {
+                    this.pos_widget.screen_selector.show_popup('error',{
+                        message: _t('Cannot return change without a cash payment method'),
+                        comment: _t('There is no cash payment method available in this point of sale to handle the change.\n\n Please pay the exact amount or add a cash payment method in the point of sale configuration'),
+                    });
+                    return;
+                }
+            }
+
             if(    this.pos.config.iface_cashdrawer 
                 && this.pos.get('selectedOrder').get('paymentLines').find( function(pl){ 
                            return pl.cashregister.journal.type === 'cash'; 
@@ -1077,9 +1103,15 @@ function openerp_pos_screens(instance, module){ //module is instance.point_of_sa
 
                 invoiced.fail(function(error){
                     if(error === 'error-no-client'){
-                        self.pos_widget.screen_selector.show_popup('error-no-client');
+                        self.pos_widget.screen_selector.show_popup('error',{
+                            message: _t('An anonymous order cannot be invoiced'),
+                            comment: _t('Please select a client for this order. This can be done by clicking the order tab'),
+                        });
                     }else{
-                        self.pos_widget.screen_selector.show_popup('error-invoice-transfer');
+                        self.pos_widget.screen_selector.show_popup('error',{
+                            message: _t('The order could not be sent'),
+                            comment: _t('Check your internet connection and try again.'),
+                        });
                     }
                     self.pos_widget.action_bar.set_button_disabled('validation',false);
                     self.pos_widget.action_bar.set_button_disabled('invoice',false);

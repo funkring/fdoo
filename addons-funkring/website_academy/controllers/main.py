@@ -350,19 +350,19 @@ class website_academy(http.Controller):
                 if not courses:
                     raise osv.except_osv(_("Error"), _("No courses selected"))
                    
-                student_values = get_address("student")
+                student_values = get_address("form_student")
                 if not student_values:
                     raise osv.except_osv(_("Error"), _("No student address passed"))
                             
                 if parent_address:
-                    parent_values = get_address("parent")
+                    parent_values = get_address("form_parent")
                     if not parent_values:
                         raise osv.except_osv(_("Error"), _("No parent address passed"))
                     student_values["parent_id"]=create_address(partner_obj, ["name","email","street","zip","city","phone","birthday"], 
                                                                parent_values, _("Parent"))
                 invoice_address_id = None
                 if invoice_address:
-                    invoice_values = get_address("invoice")
+                    invoice_values = get_address("form_invoice")
                     if not invoice_values:
                         raise osv.except_osv(_("Error"), _("No invoice address passed"))
                     invoice_address_id=create_address(partner_obj, ["name","email","street","zip","city","phone"], 

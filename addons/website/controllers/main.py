@@ -3,12 +3,15 @@ import cStringIO
 import datetime
 from itertools import islice
 import json
+import xml.etree.ElementTree as ET
+
 import logging
 import re
 
 from sys import maxint
 
 import werkzeug.utils
+import urllib2
 import werkzeug.wrappers
 from PIL import Image
 
@@ -53,8 +56,10 @@ class Website(openerp.addons.web.controllers.main.Home):
         values = {
             'path': page,
         }
-        # allow shortcut for /page/<website_xml_id>
-        if '.' not in page:
+        # /page/website.XXX --> /page/XXX
+        if page.startswith('website.'):
+            return request.redirect('/page/' + page[8:], code=301)
+        elif '.' not in page:
             page = 'website.%s' % page
 
         try:
@@ -136,6 +141,22 @@ class Website(openerp.addons.web.controllers.main.Home):
 
         return request.make_response(content, [('Content-Type', mimetype)])
 
+    @http.route('/website/info', type='http', auth="public", website=True)
+    def website_info(self):
+        try:
+            request.website.get_template('website.info').name
+        except Exception, e:
+            return request.registry['ir.http']._handle_exception(e, 404)
+        irm = request.env()['ir.module.module'].sudo()
+        apps = irm.search([('state','=','installed'),('application','=',True)])
+        modules = irm.search([('state','=','installed'),('application','=',False)])
+        values = {
+            'apps': apps,
+            'modules': modules,
+            'version': openerp.service.common.exp_version()
+        }
+        return request.render('website.info', values)
+
     #------------------------------------------------------
     # Edit
     #------------------------------------------------------
@@ -165,19 +186,18 @@ class Website(openerp.addons.web.controllers.main.Home):
             request.cr, request.uid, 'website', 'theme')
         views = Views.search(request.cr, request.uid, [
             ('inherit_id', '=', theme_template_id),
-            ('application', '=', 'enabled'),
         ], context=request.context)
         Views.write(request.cr, request.uid, views, {
-            'application': 'disabled',
-        }, context=request.context)
+            'active': False,
+        }, context=dict(request.context or {}, active_test=True))
 
         if theme_id:
             module, xml_id = theme_id.split('.')
             _, view_id = imd.get_object_reference(
                 request.cr, request.uid, module, xml_id)
             Views.write(request.cr, request.uid, [view_id], {
-                'application': 'enabled'
-            }, context=request.context)
+                'active': True
+            }, context=dict(request.context or {}, active_test=True))
 
         return request.render('website.themes', {'theme_changed': True})
 
@@ -222,13 +242,13 @@ class Website(openerp.addons.web.controllers.main.Home):
         user_groups = set(user.groups_id)
 
         views = request.registry["ir.ui.view"]\
-            ._views_get(request.cr, request.uid, xml_id, bundles=bundles, context=request.context)
+            ._views_get(request.cr, request.uid, xml_id, context=dict(request.context or {}, active_test=False))
         done = set()
         result = []
         for v in views:
             if not user_groups.issuperset(v.groups_id):
                 continue
-            if full or (v.application != 'always' and v.inherit_id.id != view_theme_id):
+            if full or (v.customize_show and v.inherit_id.id != view_theme_id):
                 if v.inherit_id not in done:
                     result.append({
                         'name': v.inherit_id.name,
@@ -245,7 +265,7 @@ class Website(openerp.addons.web.controllers.main.Home):
                     'xml_id': v.xml_id,
                     'inherit_id': v.inherit_id.id,
                     'header': False,
-                    'active': v.application in ('always', 'enabled'),
+                    'active': v.active,
                 })
         return result
 
@@ -354,6 +374,18 @@ class Website(openerp.addons.web.controllers.main.Home):
         obj = _object.browse(request.cr, request.uid, _id)
         return bool(obj.website_published)
 
+    @http.route(['/website/seo_suggest/<keywords>'], type='http', auth="public", website=True)
+    def seo_suggest(self, keywords):
+        url = "http://google.com/complete/search"
+        try:
+            req = urllib2.Request("%s?%s" % (url, werkzeug.url_encode({
+                'ie': 'utf8', 'oe': 'utf8', 'output': 'toolbar', 'q': keywords})))
+            request = urllib2.urlopen(req)
+        except (urllib2.HTTPError, urllib2.URLError):
+            return []
+        xmlroot = ET.fromstring(request.read())
+        return json.dumps([sugg[0].attrib['data'] for sugg in xmlroot if len(sugg) and sugg[0].attrib['data']])
+
     #------------------------------------------------------
     # Helpers
     #------------------------------------------------------
@@ -366,7 +398,8 @@ class Website(openerp.addons.web.controllers.main.Home):
 
     @http.route([
         '/website/image',
-        '/website/image/<model>/<id>/<field>'
+        '/website/image/<model>/<id>/<field>',
+        '/website/image/<model>/<id>/<field>/<int:max_width>x<int:max_height>'
         ], auth="public", website=True)
     def website_image(self, model, id, field, max_width=None, max_height=None):
         """ Fetches the requested field and ensures it does not go above
@@ -383,10 +416,15 @@ class Website(openerp.addons.web.controllers.main.Home):
         The requested field is assumed to be base64-encoded image data in
         all cases.
         """
-        response = werkzeug.wrappers.Response()
-        return request.registry['website']._image(
-                    request.cr, request.uid, model, id, field, response, max_width, max_height)
-
+        try:
+            response = werkzeug.wrappers.Response()
+            return request.registry['website']._image(
+                request.cr, request.uid, model, id, field, response, max_width, max_height)
+        except Exception:
+            logger.exception("Cannot render image field %r of record %s[%s] at size(%s,%s)",
+                             field, model, id, max_width, max_height)
+            response = werkzeug.wrappers.Response()
+            return self.placeholder(response)
 
     #------------------------------------------------------
     # Server actions

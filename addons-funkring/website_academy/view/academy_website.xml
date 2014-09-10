@@ -230,7 +230,7 @@
                                 <span class="help-block with-errors"></span>
                             </div>         
                             <div class="col-md-8">
-                                <t t-set="address_prefix">student</t>
+                                <t t-set="address_prefix">form_student</t>
                                 <t t-set="address_birthday_enabled" t-value="True"/>
                                 <t t-set="address_nationality_enabled" t-value="True"/>
                                 <t t-call="website_academy.address"/>                                        
@@ -242,7 +242,7 @@
                                 <span class="help-block with-errors"></span>
                             </div>                            
                             <div class="col-md-8">
-                                <t t-set="address_prefix">parent</t>
+                                <t t-set="address_prefix">form_parent</t>
                                 <t t-set="address_birthday_enabled" t-value="True"/>
                                 <t t-set="address_nationality_enabled" t-value="False"/>
                                 <t t-call="website_academy.address"/>
@@ -254,7 +254,7 @@
                                 <span class="help-block with-errors"></span>
                             </div>    
                             <div class="col-md-8">
-                                <t t-set="address_prefix">invoice</t>
+                                <t t-set="address_prefix">form_invoice</t>
                                 <t t-set="address_birthday_enabled" t-value="False"/>
                                 <t t-set="address_nationality_enabled" t-value="False"/>
                                 <t t-call="website_academy.address"/>

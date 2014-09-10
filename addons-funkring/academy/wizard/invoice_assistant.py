@@ -155,7 +155,7 @@ class academy_invoice_assistant(osv.osv_memory):
                         cr.execute(" SELECT COUNT(l.id) FROM account_invoice_line l "
                                    " INNER JOIN account_invoice inv ON inv.id = l.invoice_id "
                                    " INNER JOIN academy_registration_invoice rinv ON rinv.invoice_id = inv.id AND rinv.semester_id = %s "
-                                   " INNER JOIN academy_registration r ON r.id = rinv.id "
+                                   " INNER JOIN academy_registration r ON r.id = rinv.registration_id "
                                    " INNER JOIN academy_student s ON s.id = r.student_id "
                                    " INNER JOIN res_partner p ON p.id = s.partner_id "
                                    " WHERE l.product_id = %s AND p.parent_id = %s AND l.quantity > 0 AND l.discount < 100",

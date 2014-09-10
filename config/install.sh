@@ -69,3 +69,5 @@ python -m easy_install tinycss
 apt-get -y install wkhtmltopdf 
 python -m easy_install wkhtmltopdf
 
+#saas
+gem install sass compass bootstrap-sass
