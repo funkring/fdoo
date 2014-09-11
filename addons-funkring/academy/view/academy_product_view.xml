@@ -52,6 +52,8 @@
         <tree string="Courses">
             <field name="sequence" widget="handle"/>
             <field name="name"/>
+            <field name="uom_id"/>
+            <field name="list_price"/>
         </tree>
       </field>
     </record>

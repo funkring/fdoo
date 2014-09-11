@@ -43,6 +43,7 @@ oerp.at Academy
               "view/academy_product_view.xml",
               "view/academy_student_view.xml",
               "view/academy_registration_view.xml",
+              "view/uom_category_view.xml",
               "view/res_config_view.xml",
               "view/academy_fee.xml",
               "wizard/invoice_assistant.xml",
