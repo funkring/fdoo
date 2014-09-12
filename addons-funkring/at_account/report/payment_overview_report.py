@@ -26,25 +26,19 @@ class Parser(account_invoice_report.Parser):
     def __init__(self, cr, uid, name, context=None):
         super(Parser, self).__init__(cr, uid, name, context=context)
         self.localcontext.update({
-            "payment_lines" : self._payment_lines,
+            "payment" : self._payment,
         })
 
-    def _payment_lines(self, invoice):
-        res = []
-        move_line_obj = self.pool["account.move.line"]
-
-        for payment in move_line_obj.browse(self.cr, self.uid, invoice.payment_ids):
+    def _payment(self, invoice):
+        lines = []
+        for payment in invoice.payment_ids:
             line = {"date" :  payment.date }
-
             if invoice.state in ("out_invoice", "in_refund"):
-                line["amount"] = payment.credit
-            else:
                 line["amount"] = payment.debit
-            res.append(line)
-
-        return res
-
-
+            else:
+                line["amount"] = payment.credit
+            lines.append(line)
+        return lines and [lines] or []
 
 
 
