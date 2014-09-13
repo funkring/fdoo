@@ -298,8 +298,8 @@ class academy_registration(osv.Model):
             student = obj.student_id
             if obj.invoice_address_id:
                 res[obj.id] = obj.invoice_address_id.id
-            elif obj.student_id.parent_id:
-                res[obj.id] = obj.student_id.parent_id.id
+            elif obj.student_id.partner_id.parent_id:
+                res[obj.id] = obj.student_id.partner_id.parent_id.id
             else:
                 res[obj.id] = obj.student_id.partner_id.id
         return res
@@ -310,6 +310,12 @@ class academy_registration(osv.Model):
                 raise osv.except_osv(_("Error!"), _("Can not delete registrations, which are not in state 'Draft' or 'Cancelled'"))
         return super(academy_registration, self).unlink(cr, uid, ids, context)
 
+    def _relids_academy_student(self, cr, uid, ids, context=None):
+        return self.pool["academy.registration"].search(cr, uid, [("student_id","in",ids)])
+        
+    def _relids_partner(self, cr, uid, ids, context=None):
+        return self.pool["academy.registration"].search(cr, uid, [("student_id.partner_id","in",ids)])
+            
 
     _inherit = ["mail.thread"]
     _name = "academy.registration"
@@ -323,7 +329,11 @@ class academy_registration(osv.Model):
                                               help="The start date from the ending semester must be smaller or equal than the start datum from the beginning semester"),
         "intership_date" : fields.date("Intership Date", help="This Date must be set, if there was an intership during the semester."),
         "student_id" : fields.many2one("academy.student", "Student", select=True, required=True, ondelete="restrict"),
-        "student_parent_id" : fields.related("student_id", "parent_id", type="many2one", relation="res.partner", string="Parent", store=True, readonly=True),
+        "student_parent_id" : fields.related("student_id", "parent_id", type="many2one", relation="res.partner", string="Parent", readonly=True, store={
+            "res.partner" :  (_relids_partner,["parent_id"], 10),                                                                                                
+            "academy.student" : (_relids_academy_student,["parent_id"], 10),
+            "acadmey.registration": (lambda self, cr, uid, ids, context=None: ids, ["student_id"], 10)
+        }),
         "location_id" : fields.many2one("academy.location", "Location", select=True, ondelete="restrict"),
         "student_of_loc" : fields.boolean("Is student of location?"),
         "course_prod_id" : fields.many2one("academy.course.product", "Product", select=True, required=True, ondelete="restrict"),

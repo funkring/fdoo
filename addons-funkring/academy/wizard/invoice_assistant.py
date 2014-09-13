@@ -60,9 +60,7 @@ class academy_invoice_assistant(osv.osv_memory):
         invoices = {}        
         for reg in reg_obj.browse(cr, uid, reg_ids, context=context):
             student = reg.student_id            
-            parent = student.parent_id
-            
-            
+                       
             # check if invoice for registration exist
             reg_inv_id = reg_inv_obj.search_id(cr, uid, [("registration_id","=",reg.id),("semester_id","=",semester.id)], context=context)
             if reg_inv_id:
@@ -106,6 +104,9 @@ class academy_invoice_assistant(osv.osv_memory):
                              "quantity" : 1.0,
                              "uos_id" : uos_id or product.uos_id.id
                             }
+                    
+                    if discount:
+                        line["discount"]=discount
                                         
                     line.update(invoice_line_obj.product_id_change(cr, uid, [],
                                     line["product_id"], line["uos_id"], qty=line["quantity"],
@@ -153,18 +154,20 @@ class academy_invoice_assistant(osv.osv_memory):
                     # check for discount
                     discount = 0.0
                     if fee.sibling_discount:
-                        
-                        cr.execute(" SELECT COUNT(l.id) FROM account_invoice_line l "
-                                   " INNER JOIN account_invoice inv ON inv.id = l.invoice_id "
-                                   " INNER JOIN academy_registration_invoice rinv ON rinv.invoice_id = inv.id AND rinv.semester_id = %s "
-                                   " INNER JOIN academy_registration r ON r.id = rinv.registration_id "
-                                   " INNER JOIN academy_student s ON s.id = r.student_id "
-                                   " INNER JOIN res_partner p ON p.id = s.partner_id "
-                                   " WHERE l.product_id = %s AND p.parent_id = %s AND l.quantity > 0 AND l.discount < 100",
-                                    (semester.id, fee.product_id.id, parent.id or partner.id) )
-                        
+                        parent = student.partner_id.parent_id
+                            
+                        fee_query = (" SELECT COUNT(l.id) FROM account_invoice_line l "
+                                    " INNER JOIN account_invoice inv ON inv.id = l.invoice_id "
+                                    " INNER JOIN academy_registration_invoice rinv ON rinv.invoice_id = inv.id AND rinv.semester_id = %s "
+                                    " INNER JOIN academy_registration r ON r.id = rinv.registration_id "
+                                    " INNER JOIN academy_student s ON s.id = r.student_id "
+                                    " INNER JOIN res_partner p ON p.id = s.partner_id "
+                                    " WHERE l.product_id = %s "
+                                    "   AND l.quantity > 0 AND l.discount < 100 "
+                                    "   AND %s " % (semester.id, fee.product_id.id, 
+                                                    parent and "(p.parent_id = %s OR p.id = %s) " % (parent.id,student.partner_id.id ) or "p.id = %s " % student.partner_id.id ))
+                        cr.execute(fee_query)
                         rows = cr.fetchone()       
-                        
                         # already invoiced ?
                         if rows and rows[0]:
                             discount = fee.sibling_discount
