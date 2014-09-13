@@ -27,6 +27,150 @@ import openerp.addons.decimal_precision as dp
 
 class account_invoice(osv.osv):
 
+
+    def _create_payment(self, cr, uid, invoice_id, journal_id, 
+                        compensation_id=None, 
+                        amount=0.0, 
+                        date=None, 
+                        voucher_id=None, 
+                        post=False, 
+                        currency_id=None,
+                        period_id=None,
+                        context=None):
+        
+        res_value = {}
+        if not invoice_id or not journal_id:
+            return res_value
+        
+        voucher_obj = self.pool.get("account.voucher")
+        voucher_line_obj = self.pool.get("account.voucher.line")
+        compensation_obj = self.pool.get("account.bank.statement.compensation")
+        partner_obj = self.pool.get("res.partner")
+        move_line_obj = self.pool.get("account.move.line")
+        period_obj = self.pool.get("account.period")
+        
+        invoice = self.browse(cr, uid, invoice_id, context=context)        
+        currency = invoice.currency_id
+        invoice_journal = invoice.journal_id
+        company = invoice.company_id
+        residual_amount = invoice.type in ("out_refund", "in_refund") and -invoice.residual or invoice.residual
+        payment_rate = 1.0
+        payment_rate_currency = currency_id and self.pool["res.currency"].browse(cr, uid, currency_id, context=context) or currency
+        voucher_type = invoice.type in ("out_invoice","out_refund") and "receipt" or "payment"
+        account_type = voucher_type == "payment" and "payable" or "receivable"
+        partner = partner_obj._find_accounting_partner(invoice.partner_id)
+
+        if not amount:
+            amount = residual_amount
+            
+        if not period_id:
+            period_ids = period_obj.find(cr, uid, dt=(date or util.currentDate()), context=context)
+            if period_ids:
+                period_id = period_ids[0]
+
+        voucher_context = dict(context) or {}
+        voucher_context["payment_expected_currency"]=invoice.currency_id.id
+        voucher_context["default_partner_id"]=partner.id
+        voucher_context["default_amount"]= amount
+        voucher_context["default_is_multi_currency"]=False
+        voucher_context["default_type"]=voucher_type
+        voucher_context["search_disable_custom_filters"]=True
+        voucher_context["type"]= voucher_type
+        voucher_context["invoice_id"]=invoice.id
+        voucher_context["journal_id"]=journal_id
+        voucher_context["period_id"]=period_id
+
+        #get move_lines from invoice
+        #move_lines_ids = move_line_obj.search(cr, uid, [("move_id","=",invoice.move_id.id),("state","=","valid"), ("account_id.type", "=", account_type), ("reconcile_id", "=", False), ("partner_id", "=", partner.id)], context=context)
+        #voucher_context["move_line_ids"]=move_lines_ids
+
+        #test if voucher is valid for invoice
+        if voucher_id:
+            voucher = voucher_obj.browse(cr,uid,voucher_id,context=context)
+            voucher_line_obj.unlink(cr,uid,[l.id for l in voucher.line_ids])
+            invoice_valid = False
+            for voucher_invoice in voucher.invoice_ids:
+                if voucher_invoice.id == invoice_id:
+                    invoice_valid = True
+                    break
+
+            if not invoice_valid:
+                voucher_obj.unlink(cr, uid, [voucher_id], context=context)
+                voucher_id = None
+
+        data = { "payment_option" : "without_writeoff",
+                 "comment" : _("Write-Off"),
+                 "journal_id" : journal_id }
+
+        if date:
+            data["date"]=date
+
+        data.update(voucher_obj.onchange_amount(cr, uid, [], amount, payment_rate,
+                                   partner.id, None, currency.id, voucher_type, date,
+                                   payment_rate_currency.id, company.id, context=voucher_context)["value"])
+
+        data.update(voucher_obj.onchange_journal(cr, uid, [], journal_id, [],
+                                  False, invoice.partner_id.id, date, residual_amount, voucher_type, company.id, context=voucher_context)["value"])
+
+        if voucher_type == "receipt":
+            line_datas_field = "line_cr_ids"
+            line_datas = data.get("line_cr_ids",[])
+            data.pop("line_dr_ids",None)
+            sign=1.0
+        else:
+            line_datas_field = "line_dr_ids"
+            line_datas = data.get("line_dr_ids",[])
+            data.pop("line_cr_ids",None)
+            sign=-1.0
+
+        if len(line_datas) == 1:
+             line_datas[0]["amount"]=amount
+             # compensation
+             if compensation_id:
+                 compensation = compensation_obj.browse(cr,uid,compensation_id,context=context)
+                 data["payment_option"]="with_writeoff"
+                 data["writeoff_acc_id"]=compensation.account_id.id
+                 data["comment"]=compensation.name
+           
+
+        if line_datas:
+            data[line_datas_field] = [(0,0,l) for l in line_datas]
+
+        #if no voucher id exist create one
+        if not voucher_id:
+            voucher_id = voucher_obj.create(cr,uid,data,voucher_context)
+        else:
+            voucher_obj.write(cr,uid,voucher_id,data,voucher_context)
+
+        # result
+        voucher = voucher_obj.browse(cr,uid,voucher_id,context=context)
+        res_value["voucher_id"]=voucher_id
+        res_value["invoice_id"]=invoice_id
+        res_value["account_id"]=invoice.account_id.id
+        res_value["partner_id"]=invoice.partner_id.id
+        res_value["amount"]=amount*sign
+        res_value["residual_amount"]=voucher.writeoff_amount
+
+        #if not name:
+        res_value["name"]=invoice.move_id.name
+        #if not ref:
+        res_value["ref"]=invoice.reference
+
+        #type
+        if invoice_journal.type == "sale":
+            res_value["type"] = "customer"
+        elif invoice_journal.type == "purchase":
+            res_value["type"] = "supplier"
+        else:
+            res_value["type"] = "general"
+            
+        # post voucher
+        if post:
+            voucher_obj.proforma_voucher(cr, uid, voucher_id, context=voucher_context)
+
+        return res_value
+        
+
     def invoice_validate(self, cr, uid, ids, context=None):
         self.write(cr, uid, ids, {'state':'open'}, context=context)
 

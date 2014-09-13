@@ -95,8 +95,10 @@ class academy_invoice_assistant(osv.osv_memory):
             fees = fee_obj.browse(cr, uid, fee_obj.search(cr, uid, []), context=context)
             
             # create lines
+            origin = []
             for reg in registrations:
-                
+                origin.append(reg.name)
+                              
                 # add product function
                 def addProduct(product, uos_id=None, discount=0.0):
                     line = { "invoice_id" : invoice_id,
@@ -159,7 +161,7 @@ class academy_invoice_assistant(osv.osv_memory):
                                    " INNER JOIN academy_student s ON s.id = r.student_id "
                                    " INNER JOIN res_partner p ON p.id = s.partner_id "
                                    " WHERE l.product_id = %s AND p.parent_id = %s AND l.quantity > 0 AND l.discount < 100",
-                                    (semester.id, fee.product_id.id, parent.id) )
+                                    (semester.id, fee.product_id.id, parent.id or partner.id) )
                         
                         rows = cr.fetchone()       
                         
@@ -171,6 +173,10 @@ class academy_invoice_assistant(osv.osv_memory):
                     addProduct(fee.product_id, discount=discount)
                     
             
+            # add origin to invoice
+            if origin:
+                origin = ":".join(origin)
+                invoice_obj.write(cr, uid, invoice_id, { "origin" : origin}, context=context)
             # validate invoice
             invoice_obj.button_compute(cr, uid, [invoice_id], context=context)
         

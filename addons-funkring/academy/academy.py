@@ -24,6 +24,7 @@ from openerp.addons.at_base import extfields
 from openerp.addons.at_base import helper
 from openerp.tools.translate import _
 from openerp import tools
+import openerp.addons.decimal_precision as dp
 
 import re
 
@@ -294,6 +295,7 @@ class academy_registration(osv.Model):
     def _use_invoice_address_id(self, cr, uid, ids, field_name, args, context=None):
         res = dict.fromkeys(ids)
         for obj in self.browse(cr, uid, ids):
+            student = obj.student_id
             if obj.invoice_address_id:
                 res[obj.id] = obj.invoice_address_id.id
             elif obj.student_id.parent_id:
@@ -507,6 +509,38 @@ class academy_fee(osv.Model):
     _order = "sequence asc"
 
 
-
-
+class academy_advance_payment(osv.Model):
+    
+    def _default_semester_id(self, cr, uid, context=None):
+        # get current semester        
+        user = self.pool["res.users"].browse(cr, uid, uid, context)
+        semester = user.company_id.academy_semester_id
+        if semester:
+            return semester.id
+        return None
+    
+    def unlink(self, cr, uid, ids, context=None):
+        ids = util.idList(ids)
+        for payment in self.browse(cr, uid, ids, context):
+            if payment.invoice_id:
+                raise osv.except_osv(_("Error"), _("Payment which is posted could not deleted"))
+        super(academy_advance_payment,self).unlink(cr, uid, ids, context=context)
+        
+    _name = "academy.payment"
+    _description = "Advance Payment"
+    _rec_name = "reg_id"
+    _columns= {
+        "date" : fields.date("Date", required=True),
+        "reg_id" : fields.many2one("academy.registration","Registration", select=True, required=True),
+        "semester_id" : fields.many2one("academy.semester","Semester", select=True, required=True),
+        "amount" : fields.float("Amount",digits_compute=dp.get_precision('Account'), required=True),
+        "ref" : fields.char("Reference", select=True),
+        "invoice_id" : fields.many2one("account.invoice","Invoice", select=True, readonly=True),
+        "voucher_id" : fields.many2one("account.voucher","Voucher", select=True, readonly=True)
+    }
+       
+    _defaults = {
+        "date" : util.currentDate(),
+        "semester_id" : _default_semester_id
+    }
 

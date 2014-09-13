@@ -173,6 +173,17 @@
           <field name="perm_create" eval="False"/>
           <field name="perm_write" eval="False"/>
         </record>
+        
+        <record id="access_academy_payment_user" model="ir.model.access">
+          <field name="name">academy_payment/user</field>
+          <field name="model_id" ref="model_academy_payment"/>
+          <field name="group_id" ref="base.group_user"/>
+          <field name="perm_read" eval="True"/>
+          <field name="perm_unlink" eval="False"/>
+          <field name="perm_create" eval="False"/>
+          <field name="perm_write" eval="False"/>
+        </record>
+
 
         <!-- management -->
 
@@ -329,6 +340,16 @@
         <record id="access_academy_fee_management" model="ir.model.access">
           <field name="name">academy_fee/management</field>
           <field name="model_id" ref="model_academy_fee"/>
+          <field name="group_id" ref="group_management"/>
+          <field name="perm_read" eval="True"/>
+          <field name="perm_unlink" eval="True"/>
+          <field name="perm_create" eval="True"/>
+          <field name="perm_write" eval="True"/>
+        </record>
+        
+        <record id="access_academy_payment_management" model="ir.model.access">
+          <field name="name">academy_payment/management</field>
+          <field name="model_id" ref="model_academy_payment"/>
           <field name="group_id" ref="group_management"/>
           <field name="perm_read" eval="True"/>
           <field name="perm_unlink" eval="True"/>
