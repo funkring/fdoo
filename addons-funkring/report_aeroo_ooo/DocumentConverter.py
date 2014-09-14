@@ -14,6 +14,7 @@
 
 DEFAULT_OPENOFFICE_PORT = 8100
 DEFAULT_BUFSIZE = 4096
+DEFAULT_TIMEOUT = 600
 
 import socket
 
@@ -44,7 +45,7 @@ class DocumentConverter:
         self._open = True
         self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self._socket.setblocking(1)
-        self._socket.settimeout(30)
+        self._socket.settimeout(DEFAULT_TIMEOUT)
         self._socket.connect((host,port))
         self._fd = self._socket.makefile("rw",DEFAULT_BUFSIZE)
         # Initialize
