@@ -59,127 +59,125 @@ class academy_invoice_assistant(osv.osv_memory):
         # group registrations
         invoices = {}        
         for reg in reg_obj.browse(cr, uid, reg_ids, context=context):
-            student = reg.student_id            
-                       
             # check if invoice for registration exist
             reg_inv_id = reg_inv_obj.search_id(cr, uid, [("registration_id","=",reg.id),("semester_id","=",semester.id)], context=context)
             if reg_inv_id:
                 continue
             
-            invoice_address = reg.use_invoice_address_id
-            invoice = invoices.get(invoice_address.id)
-            if not invoice:
-                invoice = ( invoice_address, [] )
-                invoices[invoice_address.id] = invoice
-
-            invoice[1].append(reg)
+            # get invoice address
+            student = reg.student_id        
+            partner = reg.use_invoice_address_id
             
-        # create invoices
-        for partner, registrations in invoices.itervalues():
             # invoice context
             inv_context = context and dict(context) or {}
             inv_context["type"] = "out_invoice"
-
-            # invoice values            
-            inv_values = {
-                "partner_id" : partner.id,
-                "name" : wizard.customer_ref
-            }            
-            inv_values.update(invoice_obj.onchange_partner_id(cr, uid, [], "out_invoice", partner.id, context=context)["value"])
-            invoice_id = invoice_obj.create(cr, uid, inv_values, context=context)
+                
+            # get invoice or create new
+            invoice_id = invoice_obj.search_id(cr, uid, [("state","=","draft"),("partner_id","=",partner.id)])
+            if not invoice_id:
+                # invoice values            
+                inv_values = {
+                    "partner_id" : partner.id,
+                    "name" : wizard.customer_ref
+                }            
+                            
+                inv_values.update(invoice_obj.onchange_partner_id(cr, uid, [], "out_invoice", partner.id, context=context)["value"])
+                invoice_id = invoice_obj.create(cr, uid, inv_values, context=context)
+                
+            # get new invoice
             invoice = invoice_obj.browse(cr, uid, invoice_id, context=context)
-            
             # get fees
             fees = fee_obj.browse(cr, uid, fee_obj.search(cr, uid, []), context=context)
             
-            # create lines
-            origin = []
-            for reg in registrations:
-                origin.append(reg.name)
-                              
-                # add product function
-                def addProduct(product, uos_id=None, discount=0.0):
-                    line = { "invoice_id" : invoice_id,
-                             "product_id" : product.id,
-                             "quantity" : 1.0,
-                             "uos_id" : uos_id or product.uos_id.id
-                            }
-                    
-                    if discount:
-                        line["discount"]=discount
-                                        
-                    line.update(invoice_line_obj.product_id_change(cr, uid, [],
-                                    line["product_id"], line["uos_id"], qty=line["quantity"],
-                                    type=invoice.type, 
-                                    partner_id=invoice.partner_id.id, 
-                                    fposition_id=invoice.fiscal_position.id, 
-                                    company_id=invoice.company_id.id, 
-                                    currency_id=invoice.currency_id.id,
-                                    context=inv_context)["value"])
-                    
-                    tax_ids = line.get("invoice_line_tax_id")
-                    if tax_ids:
-                        line["invoice_line_tax_id"]=[(6,0,tax_ids)]
-                    
-                    line["name"] = _("%s - %s\n%s") % (reg.name, line["name"], reg.student_id.name)
-                    return invoice_line_obj.create(cr, uid, line, context=context)
-                
-                # create line
-                addProduct(reg.course_prod_id.product_id, reg.uom_id.id)
-                
-                # create invoice link
-                reg_inv_obj.create(cr, uid, { "registration_id" : reg.id,
-                                              "semester_id" : semester.id,
-                                              "invoice_id" : invoice_id})
-                
-                # add fees
-                location = reg.location_id
-                category_set = set([c.id for c in reg.location_id.category_id])
-                
-                for fee in fees:
-                    # check if uom is used and match
-                    if fee.apply_uom_id and fee.uom_id.id != reg.uom_id.id:
-                        continue
-                    
-                    # check if categories match
-                    if fee.location_category_ids:
-                        has_category = False
-                        for category in fee.location_category_ids:
-                            if category.id in category_set:
-                                has_category = True
-                                break
-                        if not has_category:
-                            continue
-                                                                
-                    # check for discount
-                    discount = 0.0
-                    if fee.sibling_discount:
-                        parent = student.partner_id.parent_id
-                            
-                        fee_query = (" SELECT COUNT(l.id) FROM account_invoice_line l "
-                                    " INNER JOIN account_invoice inv ON inv.id = l.invoice_id "
-                                    " INNER JOIN academy_registration_invoice rinv ON rinv.invoice_id = inv.id AND rinv.semester_id = %s "
-                                    " INNER JOIN academy_registration r ON r.id = rinv.registration_id "
-                                    " INNER JOIN academy_student s ON s.id = r.student_id "
-                                    " INNER JOIN res_partner p ON p.id = s.partner_id "
-                                    " WHERE l.product_id = %s "
-                                    "   AND l.quantity > 0 AND l.discount < 100 "
-                                    "   AND %s " % (semester.id, fee.product_id.id, 
-                                                    parent and "(p.parent_id = %s OR p.id = %s) " % (parent.id,student.partner_id.id ) or "p.id = %s " % student.partner_id.id ))
-                        cr.execute(fee_query)
-                        rows = cr.fetchone()       
-                        # already invoiced ?
-                        if rows and rows[0]:
-                            discount = fee.sibling_discount
-                           
-                    # add fee
-                    addProduct(fee.product_id, discount=discount)
-                    
             
-            # add origin to invoice
-            if origin:
-                origin = ":".join(origin)
-                invoice_obj.write(cr, uid, invoice_id, { "origin" : origin}, context=context)
+            # create line
+                        
+            # add product function
+            def addProduct(product, uos_id=None, discount=0.0):
+                line = { "invoice_id" : invoice_id,
+                         "product_id" : product.id,
+                         "quantity" : 1.0,
+                         "uos_id" : uos_id or product.uos_id.id
+                        }
+                
+                if discount:
+                    line["discount"]=discount
+                                    
+                line.update(invoice_line_obj.product_id_change(cr, uid, [],
+                                line["product_id"], line["uos_id"], qty=line["quantity"],
+                                type=invoice.type, 
+                                partner_id=invoice.partner_id.id, 
+                                fposition_id=invoice.fiscal_position.id, 
+                                company_id=invoice.company_id.id, 
+                                currency_id=invoice.currency_id.id,
+                                context=inv_context)["value"])
+                
+                tax_ids = line.get("invoice_line_tax_id")
+                if tax_ids:
+                    line["invoice_line_tax_id"]=[(6,0,tax_ids)]
+                
+                line["name"] = _("%s - %s\n%s") % (reg.name, line["name"], reg.student_id.name)
+                return invoice_line_obj.create(cr, uid, line, context=context)
+            
+            
+            # create line
+            addProduct(reg.course_prod_id.product_id, reg.uom_id.id)
+                          
+            # add fees
+            location = reg.location_id
+            category_set = set([c.id for c in reg.location_id.category_id])
+            
+            for fee in fees:
+                # check if uom is used and match
+                if fee.apply_uom_id and fee.uom_id.id != reg.uom_id.id:
+                    continue
+                
+                # check if categories match
+                if fee.location_category_ids:
+                    has_category = False
+                    for category in fee.location_category_ids:
+                        if category.id in category_set:
+                            has_category = True
+                            break
+                    if not has_category:
+                        continue
+                                                            
+                # check for discount
+                discount = 0.0
+                if fee.sibling_discount:
+                    parent = student.partner_id.parent_id
+                        
+                    fee_query = (" SELECT COUNT(l.id) FROM account_invoice_line l "
+                                " INNER JOIN account_invoice inv ON inv.id = l.invoice_id "
+                                " INNER JOIN academy_registration_invoice rinv ON rinv.invoice_id = inv.id AND rinv.semester_id = %s "
+                                " INNER JOIN academy_registration r ON r.id = rinv.registration_id "
+                                " INNER JOIN academy_student s ON s.id = r.student_id "
+                                " INNER JOIN res_partner p ON p.id = s.partner_id "
+                                " WHERE l.product_id = %s "
+                                "   AND l.quantity > 0 AND l.discount < 100 "
+                                "   AND %s " % (semester.id, fee.product_id.id, 
+                                                parent and ("(p.parent_id = %s OR p.id = %s) " % (parent.id,student.partner_id.id )) or ("p.id = %s " % student.partner_id.id) ))
+                    cr.execute(fee_query)
+                    rows = cr.fetchone()       
+                    # already invoiced ?
+                    if rows and rows[0]:
+                        discount = fee.sibling_discount
+                       
+                # add fee
+                addProduct(fee.product_id, discount=discount)
+              
+                
+            # create invoice link
+            reg_inv_obj.create(cr, uid, { "registration_id" : reg.id,
+                                          "semester_id" : semester.id,
+                                          "invoice_id" : invoice_id})      
+            
+            # write origin
+            origin = invoice.origin
+            if invoice.origin and origin:
+                origin = "%s:%s" % (invoice.origin,reg.name)
+            invoice_obj.write(cr, uid, invoice_id, { "origin" : origin}, context=context)
+            
             # validate invoice
             invoice_obj.button_compute(cr, uid, [invoice_id], context=context)
         
