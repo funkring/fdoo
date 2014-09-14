@@ -173,9 +173,9 @@ class academy_invoice_assistant(osv.osv_memory):
                                           "invoice_id" : invoice_id})      
             
             # write origin
-            origin = invoice.origin
+            origin = reg.name
             if invoice.origin and origin:
-                origin = "%s:%s" % (invoice.origin,reg.name)
+                origin = "%s:%s" % (invoice.origin,origin)
             invoice_obj.write(cr, uid, invoice_id, { "origin" : origin}, context=context)
             
             # validate invoice
