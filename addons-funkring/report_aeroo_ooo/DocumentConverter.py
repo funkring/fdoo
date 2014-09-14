@@ -13,8 +13,8 @@
 #
 
 DEFAULT_OPENOFFICE_PORT = 8100
-DEFAULT_BUFSIZE = 4096
-DEFAULT_TIMEOUT = 600
+DEFAULT_BUFSIZE = 32768
+DEFAULT_TIMEOUT = 30
 
 import socket
 
@@ -27,10 +27,13 @@ from os.path import abspath
 from os.path import isfile
 from os.path import splitext
 import sys
+import logging
 from openerp import tools
 from openerp.tools.translate import _
 
 import simplejson
+
+_logger = logging.getLogger(__name__)
 
 class DocumentConversionException(Exception):
     def __init__(self, message):
@@ -128,8 +131,8 @@ class DocumentConverter:
             self._open = False
             try:
                 self._socket.close()
-            except:
-                pass
+            except Exception as e:
+                _logger.exception(e)
 
     def insertSubreports(self, oo_subreports):
         """
@@ -144,5 +147,5 @@ class DocumentConverter:
 
     def joinDocuments(self, docs):
         while(docs):
-            self._call("adddDocument",docs.pop())
+            self._call("addDocument",docs.pop())
 
