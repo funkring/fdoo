@@ -81,8 +81,8 @@ class account_invoice(osv.osv):
         voucher_context["period_id"]=period_id
 
         #get move_lines from invoice
-        #move_lines_ids = move_line_obj.search(cr, uid, [("move_id","=",invoice.move_id.id),("state","=","valid"), ("account_id.type", "=", account_type), ("reconcile_id", "=", False), ("partner_id", "=", partner.id)], context=context)
-        #voucher_context["move_line_ids"]=move_lines_ids
+        move_lines_ids = move_line_obj.search(cr, uid, [("move_id","=",invoice.move_id.id),("state","=","valid"), ("account_id.type", "=", account_type), ("reconcile_id", "=", False), ("partner_id", "=", partner.id)], context=context)
+        voucher_context["move_line_ids"]=move_lines_ids
 
         #test if voucher is valid for invoice
         if voucher_id:
