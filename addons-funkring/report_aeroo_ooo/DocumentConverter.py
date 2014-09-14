@@ -52,9 +52,9 @@ class DocumentConverter:
         self._socket.connect((host,port))
         self._fd = self._socket.makefile("rw",DEFAULT_BUFSIZE)
         # Initialize
-        _logger.info("DocumentConverter->Initialize")
+        _logger.debug("DocumentConverter->Initialize")
         self._call()
-        _logger.info("DocumentConverter->Initialized")
+        _logger.debug("DocumentConverter->Initialized")
 
     def __enter__(self):
         return self
@@ -89,6 +89,7 @@ class DocumentConverter:
         data = None
         length = header.get("length")
         if length:
+            _logger.info("Read document with length=%s" % length)
             data = self._fd.read(length)
             if not data:
                 raise DocumentConversionException("Connection closed")
@@ -105,7 +106,7 @@ class DocumentConverter:
     def close(self):
         if self._open:
             self._open=False
-            _logger.info("Close DocumentConverter")
+            _logger.debug("Close DocumentConverter")
             try:
                 self._call("close")
                 self._socket.close()
@@ -113,11 +114,11 @@ class DocumentConverter:
                 _logger.exception(e)
 
     def putDocument(self, data):
-        _logger.info("DocumentConverter->putDocument")
+        _logger.debug("DocumentConverter->putDocument")
         self._call("putDocument",data)
 
     def closeDocument(self):
-        _logger.info("DocumentConverter->closeDocument")
+        _logger.debug("DocumentConverter->closeDocument")
         self._call("closeDocument")
 
     def printDocument(self,printer=None):
@@ -125,22 +126,30 @@ class DocumentConverter:
 
     # replace of saveByStream
     def getDocument(self, filter_name=None):
+        _logger.debug("DocumentConverter->getDocument")
         return self._call("getDocument",param={"filter":filter_name})
 
     def readDocumentFromStreamAndClose(self, filter_name=None):
-        _logger.info("DocumentConverter->getDocument")
-        self._send("streamDocument",param={"filter":filter_name})
-        """ read current document from stream and close """
+        _logger.debug("DocumentConverter->readDocumentFromStreamAndClose")
         try:
-            return self._fd.read()
+            doc = self.getDocument(filter_name)
+            return doc
         finally:
-            self._open = False
-            try:
-                self._socket.close()
-            except Exception as e:
-                _logger.exception(e)
+            self.close()
+        
+#         self._send("streamDocument",param={"filter":filter_name})
+#         """ read current document from stream and close """
+#         try:
+#             return self._fd.read()
+#         finally:
+#             self._open = False
+#             try:
+#                 self._socket.close()
+#             except Exception as e:
+#                 _logger.exception(e)
 
     def insertSubreports(self, oo_subreports):
+        _logger.debug("DocumentConverter->insertSubreports")
         """
         Inserts the given file into the current document.
         The file contents will replace the placeholder text.
@@ -152,7 +161,7 @@ class DocumentConverter:
                 self._call("insertDocument",subdata, param={"name":subreport})
 
     def joinDocuments(self, docs):
-        _logger.info("DocumentConverter->joinDocument")
+        _logger.debug("DocumentConverter->joinDocument")
         while docs:
             self._call("addDocument",docs.pop())
 
