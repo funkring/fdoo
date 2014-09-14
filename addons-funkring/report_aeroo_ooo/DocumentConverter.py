@@ -13,7 +13,7 @@
 #
 
 DEFAULT_OPENOFFICE_PORT = 8100
-DEFAULT_BUFSIZE = 32768
+DEFAULT_BUFSIZE = 4096
 DEFAULT_TIMEOUT = 30
 
 import socket
@@ -52,7 +52,9 @@ class DocumentConverter:
         self._socket.connect((host,port))
         self._fd = self._socket.makefile("rw",DEFAULT_BUFSIZE)
         # Initialize
+        _logger.info("DocumentConverter->Initialize")
         self._call()
+        _logger.info("DocumentConverter->Initialized")
 
     def __enter__(self):
         return self
@@ -103,16 +105,19 @@ class DocumentConverter:
     def close(self):
         if self._open:
             self._open=False
+            _logger.info("Close DocumentConverter")
             try:
                 self._call("close")
                 self._socket.close()
-            except:
-                pass
+            except Exeption as e:
+                _logger.exception(e)
 
     def putDocument(self, data):
+        _logger.info("DocumentConverter->putDocument")
         self._call("putDocument",data)
 
     def closeDocument(self):
+        _logger.info("DocumentConverter->closeDocument")
         self._call("closeDocument")
 
     def printDocument(self,printer=None):
@@ -123,6 +128,7 @@ class DocumentConverter:
         return self._call("getDocument",param={"filter":filter_name})
 
     def readDocumentFromStreamAndClose(self, filter_name=None):
+        _logger.info("DocumentConverter->getDocument")
         self._send("streamDocument",param={"filter":filter_name})
         """ read current document from stream and close """
         try:
@@ -146,6 +152,7 @@ class DocumentConverter:
                 self._call("insertDocument",subdata, param={"name":subreport})
 
     def joinDocuments(self, docs):
-        while(docs):
+        _logger.info("DocumentConverter->joinDocument")
+        while docs:
             self._call("addDocument",docs.pop())
 
