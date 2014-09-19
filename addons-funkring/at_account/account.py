@@ -45,7 +45,6 @@ class account_fiscal_position(osv.osv):
         return result
     
     _inherit = 'account.fiscal.position'
-account_fiscal_position()
 
 
 class account_account(osv.osv):
@@ -91,3 +90,36 @@ class account_journal(osv.osv):
         "ignore_payment_term" : fields.boolean("Ignore Payment Term",
                                                 help="If you have made two lines for the payment term, then the system will not create two account move lines for each payment term line.")
     }
+    
+    
+class account_invoice(osv.osv):
+    
+    def _cancel_invoice_all(self, cr, uid, invoice, context=None):
+        if invoice.state in ("cancel","draft"):
+            return False
+        
+        voucher_obj = self.pool["account.voucher"]
+        move_obj = self.pool["account.move"]
+        invoice_obj = self.pool["account.invoice"]
+        
+        move_ids = set()
+        voucher_ids = []
+        
+        for move_line in invoice.payment_ids:
+            move_ids.add(move_line.move_id.id)
+        
+        # cancel moves and get vouchers
+        move_ids = list(move_ids)
+        for move_id in move_ids:
+            voucher_ids.extend(voucher_obj.search(cr, uid, [("move_id","=",move_id)]))
+        move_obj.button_cancel(cr, uid, move_ids, context=context)
+            
+        # cancel and delete voucher
+        voucher_obj.cancel_voucher(cr, uid, voucher_ids, context=context)
+        voucher_obj.unlink(cr, uid, voucher_ids, context=context)         
+        # cancel invoice
+        invoice_obj.action_cancel(cr, uid, [invoice.id], context=context)
+        return True
+    
+    _inherit = "account.invoice"
+    

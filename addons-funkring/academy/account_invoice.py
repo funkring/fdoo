@@ -21,9 +21,28 @@
 from openerp.osv import fields, osv
 from openerp import api
 
-class account_invoice_line(osv.Model):
-    _inherit = "account.invoice.line"
+class account_invoice(osv.Model):
+    
+    def _cancel_invoice_all(self, cr, uid, invoice, context=None):
+        res = super(account_invoice, self)._cancel_invoice_all(cr, uid, invoice, context=context)
+        payment_obj = self.pool["academy.payment"]
+        reg_inv_obj = self.pool["academy.registration.invoice"]
+        if res:
+            # reset payment
+            payment_ids = payment_obj.search(cr, uid, [("invoice_id","=",invoice.id)])
+            payment_obj.write(cr, uid, payment_ids, {"invoice_id" : None}, context=context)
+            
+            # delete invoice links
+            reg_inv_ids = reg_inv_obj.search(cr, uid, [("invoice_id","=",invoice.id)])            
+            reg_inv_obj.unlink(cr, uid, reg_inv_ids, context=context)
+            
+        return res
+        
+    _inherit = "account.invoice"
+        
 
+class account_invoice_line(osv.Model):
+    
     @api.multi
     def product_id_change(self, product_id, uom_id, qty=0, name='', type='out_invoice',
             partner_id=False, fposition_id=False, price_unit=False, currency_id=False,
@@ -50,5 +69,7 @@ class account_invoice_line(osv.Model):
                     values["price_unit"] = uom.list_price
         
         return res
+    
+    _inherit = "account.invoice.line"
                     
         

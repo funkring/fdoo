@@ -48,6 +48,7 @@ oerp.at Accounting and Finance Extensions
                     "view/account_bank_statement_view.xml",
                     "view/company_view.xml",
                     "wizard/invoice_attachment_wizard.xml",
+                    "wizard/invoice_cancel_wizard.xml",
                     "view/invoice_view.xml",
                     "menu.xml",
                     "security.xml"],

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0alpha1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-10 04:17+0000\n"
-"PO-Revision-Date: 2014-09-10 06:18+0100\n"
+"POT-Creation-Date: 2014-09-19 15:15+0000\n"
+"PO-Revision-Date: 2014-09-19 17:16+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -40,7 +40,7 @@ msgid "Accounting Voucher"
 msgstr "Buchung Zahlungsbelege"
 
 #. module: at_account
-#: view:account.invoice.attachment.wizard:0
+#: view:account.invoice.attachment.wizard:at_account.wizard_account_invoice_attachment
 msgid "Add"
 msgstr "Hinzufügen"
 
@@ -113,12 +113,27 @@ msgid "Bank statement Report"
 msgstr "Bankauszugs Bericht"
 
 #. module: at_account
-#: view:account.invoice.attachment.wizard:0
+#: view:account.invoice.attachment.wizard:at_account.wizard_account_invoice_attachment
 msgid "Cancel"
 msgstr "Abbrechen"
 
 #. module: at_account
-#: code:addons/at_account/invoice.py:132
+#: model:ir.actions.act_window,name:at_account.action_invoice_cancel_wizard
+msgid "Cancel Invoice and Payments"
+msgstr "Rechnung und Zahlung abbrechen"
+
+#. module: at_account
+#: view:invoice.cancel.wizard:at_account.wizard_invoice_cancel
+msgid "Cancel Invoices"
+msgstr "Rechnung abbrechen"
+
+#. module: at_account
+#: view:invoice.cancel.wizard:at_account.wizard_invoice_cancel
+msgid "Cancel the invoice"
+msgstr "Rechnung abbrechen"
+
+#. module: at_account
+#: code:addons/at_account/invoice.py:276
 #, python-format
 msgid "Cancellation"
 msgstr "Storno"
@@ -140,6 +155,11 @@ msgstr ""
 "Steuersätze passen würden"
 
 #. module: at_account
+#: view:invoice.cancel.wizard:at_account.wizard_invoice_cancel
+msgid "Close"
+msgstr "Schließen"
+
+#. module: at_account
 #: code:addons/at_account/report/account_account_report.py:78
 #, python-format
 msgid "Code"
@@ -156,12 +176,12 @@ msgid "Compensation"
 msgstr "Skonto/Ausgleich"
 
 #. module: at_account
-#: view:account.journal:0
+#: view:account.journal:at_account.form_account_journal
 msgid "Compensation Type"
 msgstr "Skonto/Abschreibungs Typ"
 
 #. module: at_account
-#: view:account.journal:0
+#: view:account.journal:at_account.form_account_journal
 msgid "Compensation Types"
 msgstr "Skonto/Ausgleich Typen"
 
@@ -173,12 +193,14 @@ msgstr "Skonto/Ausgleich"
 #. module: at_account
 #: field:account.bank.statement.compensation,create_uid:0
 #: field:account.invoice.attachment.wizard,create_uid:0
+#: field:invoice.cancel.wizard,create_uid:0
 msgid "Created by"
 msgstr "Erstellt von"
 
 #. module: at_account
 #: field:account.bank.statement.compensation,create_date:0
 #: field:account.invoice.attachment.wizard,create_date:0
+#: field:invoice.cancel.wizard,create_date:0
 msgid "Created on"
 msgstr "Erstellt am"
 
@@ -189,7 +211,7 @@ msgid "Credit"
 msgstr "Haben"
 
 #. module: at_account
-#: view:res.company:0 field:res.company,refund_text:0
+#: view:res.company:at_account.form_company field:res.company,refund_text:0
 msgid "Customer Refund Text"
 msgstr "Kundengutschriftstext"
 
@@ -225,7 +247,7 @@ msgid "Discount Amount"
 msgstr "Rabattmenge"
 
 #. module: at_account
-#: view:account.invoice.attachment.wizard:0
+#: view:account.invoice.attachment.wizard:at_account.wizard_account_invoice_attachment
 #: field:account.invoice.attachment.wizard,document:0
 msgid "Document"
 msgstr "Beleg"
@@ -263,6 +285,7 @@ msgstr "Steuerzuordnung"
 #. module: at_account
 #: field:account.bank.statement.compensation,id:0
 #: field:account.invoice.attachment.wizard,id:0
+#: field:invoice.cancel.wizard,id:0
 msgid "ID"
 msgstr ""
 
@@ -282,13 +305,14 @@ msgid "Ignore Payment Term"
 msgstr "Ignoriere Zahlungsbedingung"
 
 #. module: at_account
-#: view:account.invoice:0
+#: view:account.invoice:at_account.form_invoice
+#: view:account.invoice:at_account.form_invoice_supplier_form
 msgid "Import Document"
 msgstr "Beleg Import"
 
 #. module: at_account
 #: field:account.bank.statement.line,invoice_id:0
-#: field:account.voucher,invoice_id:0 code:addons/at_account/invoice.py:126
+#: field:account.voucher,invoice_id:0 code:addons/at_account/invoice.py:270
 #: model:ir.model,name:at_account.model_account_invoice
 #, python-format
 msgid "Invoice"
@@ -298,6 +322,12 @@ msgstr "Rechnung"
 #: model:ir.model,name:at_account.model_account_invoice_attachment_wizard
 msgid "Invoice Attachment Wizard"
 msgstr "Beleg Import Assistent"
+
+#. module: at_account
+#: view:invoice.cancel.wizard:at_account.wizard_invoice_cancel
+#: model:ir.model,name:at_account.model_invoice_cancel_wizard
+msgid "Invoice Cancel Wizard"
+msgstr ""
 
 #. module: at_account
 #: code:addons/at_account/report/account_bank_statement_report.py:108
@@ -338,7 +368,7 @@ msgid "Invoice overview"
 msgstr "Rechnungsübersicht"
 
 #. module: at_account
-#: view:res.company:0
+#: view:res.company:at_account.form_company
 msgid "Invoice/Refund Text"
 msgstr "Rechnung / Gutschrift Text"
 
@@ -360,12 +390,14 @@ msgstr ""
 #. module: at_account
 #: field:account.bank.statement.compensation,write_uid:0
 #: field:account.invoice.attachment.wizard,write_uid:0
+#: field:invoice.cancel.wizard,write_uid:0
 msgid "Last Updated by"
 msgstr "Aktualisiert von"
 
 #. module: at_account
 #: field:account.bank.statement.compensation,write_date:0
 #: field:account.invoice.attachment.wizard,write_date:0
+#: field:invoice.cancel.wizard,write_date:0
 msgid "Last Updated on"
 msgstr "Aktualisiert am"
 
@@ -414,7 +446,7 @@ msgid "Partner"
 msgstr ""
 
 #. module: at_account
-#: view:account.bank.statement:0
+#: view:account.bank.statement:at_account.form_account_bank_statement
 #: code:addons/at_account/account_bank_statement.py:61
 #: code:addons/at_account/report/account_invoice_list_report.py:44
 #, python-format
@@ -432,7 +464,7 @@ msgid "Price Unit (Netto)"
 msgstr "Preis/Einheit (Netto)"
 
 #. module: at_account
-#: code:addons/at_account/invoice.py:128
+#: code:addons/at_account/invoice.py:272
 #, python-format
 msgid "Pro-forma"
 msgstr "Proforma"
@@ -443,13 +475,14 @@ msgid "Product Taxes"
 msgstr "Produkt Steuern"
 
 #. module: at_account
-#: code:addons/at_account/invoice.py:130
+#: code:addons/at_account/invoice.py:274
 #, python-format
 msgid "Proposal"
 msgstr "Vorschlag"
 
 #. module: at_account
-#: view:res.company:0 field:res.company,invoice_in_text:0
+#: view:res.company:at_account.form_company
+#: field:res.company,invoice_in_text:0
 msgid "Purchase Invoice Text"
 msgstr "Eingangsrechnungstext"
 
@@ -461,7 +494,7 @@ msgid "Reference"
 msgstr "Referenz"
 
 #. module: at_account
-#: code:addons/at_account/invoice.py:134
+#: code:addons/at_account/invoice.py:278
 #, python-format
 msgid "Refund"
 msgstr "Gutschrift"
@@ -479,13 +512,13 @@ msgid "Residual"
 msgstr "Restwert"
 
 #. module: at_account
-#: view:account.bank.statement:0
+#: view:account.bank.statement:at_account.form_account_bank_statement
 #: field:account.bank.statement.line,residual_amount:0
 msgid "Rest"
 msgstr ""
 
 #. module: at_account
-#: view:res.company:0 field:res.company,invoice_text:0
+#: view:res.company:at_account.form_company field:res.company,invoice_text:0
 msgid "Sale Invoice Text"
 msgstr "Ausgangsrechnungstext"
 
@@ -496,7 +529,7 @@ msgstr "Sequenz"
 
 #. module: at_account
 #: code:addons/at_account/report/account_invoice_list_report.py:42
-#: view:res.company:0
+#: view:res.company:at_account.form_company
 #, python-format
 msgid "State"
 msgstr "Status"
@@ -512,19 +545,19 @@ msgid "Subtotal (Brutto)"
 msgstr "Zwischenergebnis (Brutto)"
 
 #. module: at_account
-#: code:addons/at_account/invoice.py:138
+#: code:addons/at_account/invoice.py:282
 #, python-format
 msgid "Supplier Invoice"
 msgstr "Eingangsrechnung"
 
 #. module: at_account
-#: code:addons/at_account/invoice.py:136
+#: code:addons/at_account/invoice.py:280
 #, python-format
 msgid "Supplier Refund"
 msgstr "Gutschrift Lieferant"
 
 #. module: at_account
-#: view:res.company:0 field:res.company,refund_in_text:0
+#: view:res.company:at_account.form_company field:res.company,refund_in_text:0
 msgid "Supplier Refund Text"
 msgstr "Lieferantengutschriftstext"
 
@@ -558,16 +591,17 @@ msgstr "Zahlungsübersicht"
 
 #. module: at_account
 #: code:addons/at_account/account_bank_statement.py:171
+#: code:addons/at_account/invoice.py:102
 #, python-format
 msgid "Write-Off"
 msgstr "Abschreiben"
 
 #. module: at_account
-#: view:res.company:0
+#: view:res.company:at_account.form_company
 msgid "ZIP"
 msgstr "PLZ"
 
 #. module: at_account
-#: view:account.invoice.attachment.wizard:0
-msgid "or"
-msgstr "oder"
+#: view:invoice.cancel.wizard:at_account.wizard_invoice_cancel
+msgid "and it's payments"
+msgstr ""
