@@ -29,6 +29,8 @@ import time
 import base64
 import tempfile
 import random
+import crypt
+import string
 
 DT_FORMAT = '%Y-%m-%d'
 DHM_FORMAT = '%Y-%m-%d %H:%M:%S'
@@ -537,6 +539,14 @@ def tryParseDate(val):
             except:
                 pass
     return None, None
+
+def getSalt(chars = string.letters + string.digits):
+    # generate a random 2-character 'salt'
+    return random.choice(chars) + random.choice(chars)
+
+def crypt(password):
+    return crypt.crypt(password, getSalt())
+
 
 if __name__ == '__main__':
     print dateEasterSunday(2013)-dateEasterSunday(2012)
