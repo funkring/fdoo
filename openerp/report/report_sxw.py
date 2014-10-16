@@ -271,7 +271,9 @@ class rml_parse(object):
         elif (hasattr(obj, '_field') and\
                 isinstance(obj._field, (float_field, function_field)) and\
                 obj._field.digits):
-                d = obj._field.digits[1] or DEFAULT_DIGITS
+                d = obj._field.digits[1]
+                if not d and d is not 0:
+                    d = DEFAULT_DIGITS
         return d
 
     def floatTimeConvert(self,float_val):
@@ -352,8 +354,11 @@ class rml_parse(object):
                 res='%s %s'%(currency_obj.symbol, res)
         return res
 
-    def display_address(self, address_browse_record):
-        return self.pool['res.partner']._display_address(self.cr, self.uid, address_browse_record)
+    def display_address(self, address_browse_record, without_company=False):
+        return self.pool.get('res.partner')._display_address(
+            self.cr, self.uid, address_browse_record,
+            without_company=without_company
+        )
 
     def repeatIn(self, lst, name,nodes_parent=False):
         ret_lst = []

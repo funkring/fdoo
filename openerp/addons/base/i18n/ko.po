@@ -1,21 +1,21 @@
-# Korean translation for openobject-addons
-# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
-# This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+# Korean translation for openobject-server
+# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# This file is distributed under the same license as the openobject-server package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openobject-addons\n"
+"Project-Id-Version: openobject-server\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2012-12-21 17:04+0000\n"
-"PO-Revision-Date: 2012-08-20 15:29+0000\n"
-"Last-Translator: ekodaq <ceo@ekosdaq.com>\n"
+"POT-Creation-Date: 2013-06-07 19:35+0000\n"
+"PO-Revision-Date: 2014-07-15 09:43+0000\n"
+"Last-Translator: eric hyung <kathar0s.dev@gmail.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-03-28 05:33+0000\n"
-"X-Generator: Launchpad (build 16967)\n"
+"X-Launchpad-Export-Date: 2014-07-16 07:24+0000\n"
+"X-Generator: Launchpad (build 17112)\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_account_check_writing
@@ -31,6 +31,11 @@ msgstr ""
 "    "
 
 #. module: base
+#: view:res.partner.bank:0
+msgid "e.g. GEBABEBB"
+msgstr "e.g. GEBABEBB"
+
+#. module: base
 #: model:res.country,name:base.sh
 msgid "Saint Helena"
 msgstr "세인트 헬레나"
@@ -43,7 +48,7 @@ msgstr "기타 구성"
 #. module: base
 #: selection:ir.property,type:0
 msgid "DateTime"
-msgstr "DateTime"
+msgstr "날짜와 시간"
 
 #. module: base
 #: code:addons/fields.py:652
@@ -273,6 +278,43 @@ msgid "Inuktitut / ᐃᓄᒃᑎᑐᑦ"
 msgstr "이뉴잇어 / ᐃᓄᒃᑎᑐᑦ"
 
 #. module: base
+#: model:ir.module.module,description:base.module_l10n_ch
+msgid ""
+"\n"
+" Swiss localization :\n"
+" ====================\n"
+" **Multilang swiss STERCHI account chart and taxes**\n"
+"  **Author:** Camptocamp SA\n"
+"\n"
+"  **Financial contributors:** Prisme Solutions Informatique SA, Quod SA\n"
+"\n"
+"  **Translation contributors:** brain-tec AG, Agile Business Group\n"
+"\n"
+" **This release will introduce major changes to l10n_ch.**\n"
+"\n"
+" Due to important refactoring needs and the Switzerland adoption of new "
+"international payment standard during 2013-2014. We have reorganised the "
+"swiss localization addons this way:\n"
+"\n"
+" - **l10n_ch**: Multilang swiss STERCHI account chart and taxes (official "
+"addon)\n"
+" - **l10n_ch_base_bank**: Technical module that introduces a new and "
+"simplified version of bank type management\n"
+" - **l10n_ch_bank**: List of swiss banks\n"
+" - **l10n_ch_zip**: List of swiss postal zip\n"
+" - **l10n_ch_dta**: Support of dta payment protocol (will be deprecated end "
+"2014)\n"
+" - **l10n_ch_payment_slip**: Support of ESR/BVR payment slip report and "
+"reconciliation. Report refactored with easy element positioning.\n"
+" - **l10n_ch_sepa**: Alpha implementation of PostFinance SEPA/PAIN support "
+"will be completed during 2013/2014\n"
+"\n"
+" The modules will be soon available on OpenERP swiss localization on "
+"launchpad:\n"
+" https://launchpad.net/openerp-swiss-localization\n"
+msgstr ""
+
+#. module: base
 #: model:res.groups,name:base.group_multi_currency
 msgid "Multi Currencies"
 msgstr "다중 화폐"
@@ -407,6 +449,11 @@ msgstr "하위 응용 프로그램"
 #: field:res.partner,credit_limit:0
 msgid "Credit Limit"
 msgstr "신용 한도"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_portal_project_long_term
+msgid "Portal Project Long Term"
+msgstr ""
 
 #. module: base
 #: field:ir.model.constraint,date_update:0
@@ -611,25 +658,9 @@ msgid ""
 msgstr "여기를 체크할 경우, 사용자가 동일한 첨부 파일명으로 두 번째로 인쇄할 때 이전 보고서를 돌려줍니다."
 
 #. module: base
-#: model:ir.module.module,description:base.module_mrp_byproduct
-msgid ""
-"\n"
-"This module allows you to produce several products from one production "
-"order.\n"
-"============================================================================="
-"\n"
-"\n"
-"You can configure by-products in the bill of material.\n"
-"\n"
-"Without this module:\n"
-"--------------------\n"
-"    A + B + C -> D\n"
-"\n"
-"With this module:\n"
-"-----------------\n"
-"    A + B + C -> D + E\n"
-"    "
-msgstr ""
+#: model:res.country,name:base.ao
+msgid "Angola"
+msgstr "앙골라"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -685,6 +716,11 @@ msgstr "팔라우"
 #: view:res.partner:0
 msgid "Sales & Purchases"
 msgstr "판매 & 구매"
+
+#. module: base
+#: view:res.partner:0
+msgid "Put an internal note..."
+msgstr "내부 메모 넣기..."
 
 #. module: base
 #: view:ir.translation:0
@@ -923,6 +959,12 @@ msgid "Overwrite Existing Terms"
 msgstr "기존 용어 덮어쓰기"
 
 #. module: base
+#: code:addons/base/res/res_currency.py:52
+#, python-format
+msgid "No currency rate associated for currency %d for the given period"
+msgstr ""
+
+#. module: base
 #: model:ir.module.module,description:base.module_hr_holidays
 msgid ""
 "\n"
@@ -1028,6 +1070,15 @@ msgstr "대상 데이터의 선택적 도메인 필터링, 파이썬 표현식"
 #: model:ir.model,name:base.model_base_module_upgrade
 msgid "Module Upgrade"
 msgstr "모듈 업그레이드"
+
+#. module: base
+#: view:res.bank:0
+#: view:res.company:0
+#: view:res.partner:0
+#: view:res.partner.bank:0
+#: view:res.users:0
+msgid "ZIP"
+msgstr "우편번호"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -1300,10 +1351,9 @@ msgid "Delete Access Right"
 msgstr "접근 권한 삭제"
 
 #. module: base
-#: code:addons/base/ir/ir_mail_server.py:214
-#, python-format
-msgid "Connection test failed!"
-msgstr "연결 시험에 실패함!"
+#: model:ir.module.module,shortdesc:base.module_l10n_be_hr_payroll_account
+msgid "Belgium - Payroll with Accounting"
+msgstr ""
 
 #. module: base
 #: selection:ir.actions.server,state:0
@@ -1618,17 +1668,6 @@ msgid ""
 msgstr ""
 
 #. module: base
-#: model:ir.actions.act_window,help:base.action_res_partner_bank_account_form
-msgid ""
-"Configure your company's bank accounts and select those that must appear on "
-"the report footer. You can reorder bank accounts from the list view. If you "
-"use the accounting application of OpenERP, journals and accounts will be "
-"created automatically based on these data."
-msgstr ""
-"회사 은행 계정을 구성하고 보고서 바닥글에 표시할 계좌를 선택하세요. 은행 계좌는 목록 화면에서 순서를 변경할 수 있습니다. "
-"OpenERP의 회계 모듈을 사용할 경우, 해당 자료를 기준으로 장부 및 계정이 자동으로 생성됩니다."
-
-#. module: base
 #: report:ir.module.reference:0
 msgid "Version"
 msgstr "버전"
@@ -1760,6 +1799,23 @@ msgid ""
 msgstr "이 상자를 체크하면, 귀하의 사용자 지정 번역이 공식 번역으로 덮어 씌워지고 대체될 것입니다."
 
 #. module: base
+#: model:ir.actions.act_window,help:base.action_res_partner_bank_account_form
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                Click to create a bank account.\n"
+"              </p><p>\n"
+"                Configure your company's bank accounts and select those that "
+"must appear on the report footer.\n"
+"                You can reorder bank accounts from the list view.\n"
+"              </p>\n"
+"              <p>\n"
+"                If you use the accounting application of OpenERP, journals "
+"and accounts will be created automatically based on these data.\n"
+"              </p>  \n"
+"            "
+msgstr ""
+
+#. module: base
 #: model:ir.actions.act_window,name:base.ir_action_report_xml
 #: field:ir.module.module,reports_by_module:0
 #: model:ir.ui.menu,name:base.menu_ir_action_report_xml
@@ -1788,6 +1844,12 @@ msgid ""
 msgstr ""
 "'%s'는 너무 많은 점을 포함하고 있습니다. XML id에는 점이 포함되서는 안됩니다 ! 해당 부호는 "
 "module.reference_id와 같이 다른 모듈 데이터를 참조하기 위해 사용됩니다."
+
+#. module: base
+#: code:addons/base/ir/ir_model.py:85
+#, python-format
+msgid "Invalid Search Criteria"
+msgstr ""
 
 #. module: base
 #: field:res.users,login:0
@@ -1870,6 +1932,11 @@ msgstr "룩셈부르크 - 회계"
 #: model:res.country,name:base.tp
 msgid "East Timor"
 msgstr "동티모르"
+
+#. module: base
+#: field:workflow.transition,act_to:0
+msgid "Destination Activity"
+msgstr "목적지 활동"
 
 #. module: base
 #: code:addons/base/module/module.py:414
@@ -2168,45 +2235,9 @@ msgid "Address Type"
 msgstr "주소 유형"
 
 #. module: base
-#: model:ir.module.module,description:base.module_sale_stock
-msgid ""
-"\n"
-"Manage sales quotations and orders\n"
-"==================================\n"
-"\n"
-"This module makes the link between the sales and warehouses management "
-"applications.\n"
-"\n"
-"Preferences\n"
-"-----------\n"
-"* Shipping: Choice of delivery at once or partial delivery\n"
-"* Invoicing: choose how invoices will be paid\n"
-"* Incoterms: International Commercial terms\n"
-"\n"
-"You can choose flexible invoicing methods:\n"
-"\n"
-"* *On Demand*: Invoices are created manually from Sales Orders when needed\n"
-"* *On Delivery Order*: Invoices are generated from picking (delivery)\n"
-"* *Before Delivery*: A Draft invoice is created and must be paid before "
-"delivery\n"
-msgstr ""
-"\n"
-"매출 견적 및 주문 관리\n"
-"==================================\n"
-"\n"
-"이 모듈은 매출과 창고 관리 어플리케이션과 연계됩니다.\n"
-"\n"
-"설정\n"
-"-----------\n"
-"* 선적: 일괄 배송, 분할 배송 선택\n"
-"* 송장청구: 송장금액 결제 방법 선택\n"
-"* 무역조건: 국제 무역조건\n"
-"\n"
-"다양한 송장청구 방법 선택 가능:\n"
-"\n"
-"* *요구 시*: 매출 주문 후 필요 시 송장 발행\n"
-"* *배송 주문 시*: 화물 수령(배송)시 송장 발행\n"
-"* *배송 전*: 송장 초안이 작성되어 배송 전 결제\n"
+#: model:res.country,name:base.dj
+msgid "Djibouti"
+msgstr "지부티"
 
 #. module: base
 #: field:ir.ui.menu,complete_name:0
@@ -2278,6 +2309,11 @@ msgstr "스페인어 / Español"
 #: selection:base.language.install,lang:0
 msgid "Korean (KP) / 한국어 (KP)"
 msgstr "Korean (KP) / 한국어 (KP)"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_l10n_vn
+msgid "Vietnam Chart of Accounts"
+msgstr ""
 
 #. module: base
 #: model:res.country,name:base.ax
@@ -2734,6 +2770,41 @@ msgid "Action Target"
 msgstr "액션 대상"
 
 #. module: base
+#: model:ir.module.module,description:base.module_account_report_company
+msgid ""
+"\n"
+"Add an extra Company dimension on Invoices for consolidated Invoice "
+"Analysis\n"
+"============================================================================"
+"\n"
+"\n"
+"By default Customer and Supplier invoices can be linked to a contact within\n"
+"a company, but the company is not a direct reference in the database "
+"structure for\n"
+"invoices. Journal Entries are however always linked to the company and not "
+"to\n"
+"contacts, so that Accounts Payable and Receivable are always correct and "
+"consolidated\n"
+"at company level.\n"
+"\n"
+"When many different contacts/departments need to be invoiced within the same "
+"parent company,\n"
+"this can make reporting by Company more difficult: reports are directly "
+"based on the\n"
+"database structure and would not provide an aggregated company dimension.\n"
+"\n"
+"This modules solves the problem by adding an explicit company reference on "
+"invoices,\n"
+"automatically computed from the invoice contact, and use this new dimension\n"
+"when grouping the list of Invoices or the Invoice Analysis report by "
+"Partner. \n"
+"\n"
+"Note: this module will likely be removed for the next major OpenERP version "
+"and\n"
+"directly integrated in the core accounting. \n"
+msgstr ""
+
+#. module: base
 #: model:res.country,name:base.ai
 msgid "Anguilla"
 msgstr "앙골라"
@@ -2840,11 +2911,6 @@ msgstr ""
 #: field:ir.values,res_id:0
 msgid "Record ID"
 msgstr "레코드 ID"
-
-#. module: base
-#: view:ir.filters:0
-msgid "My Filters"
-msgstr ""
 
 #. module: base
 #: field:ir.actions.server,email:0
@@ -3244,6 +3310,11 @@ msgid ""
 msgstr ""
 
 #. module: base
+#: view:res.company:0
+msgid "e.g. Global Business Solutions"
+msgstr "예: 전세계 비지니스 솔루션"
+
+#. module: base
 #: field:res.company,rml_header1:0
 msgid "Company Tagline"
 msgstr "업체 태그라인"
@@ -3292,6 +3363,12 @@ msgstr ""
 "zakładając,\n"
 "że wszystkie towary są w obrocie hurtowym.\n"
 "    "
+
+#. module: base
+#: code:addons/base/ir/ir_mail_server.py:222
+#, python-format
+msgid "Connection Test Succeeded!"
+msgstr ""
 
 #. module: base
 #: field:ir.actions.client,params_store:0
@@ -3637,6 +3714,12 @@ msgid "Fields Mapping"
 msgstr "필드 매핑"
 
 #. module: base
+#: code:addons/base/module/wizard/base_module_upgrade.py:84
+#, python-format
+msgid "Unmet Dependency!"
+msgstr ""
+
+#. module: base
 #: model:res.partner.title,name:base.res_partner_title_sir
 #: model:res.partner.title,shortcut:base.res_partner_title_sir
 msgid "Sir"
@@ -3666,11 +3749,6 @@ msgstr ""
 #: view:base.module.import:0
 msgid "Select module package to import (.zip file):"
 msgstr "가져올 모듈 패키지를 선택하세요 (.zip 파일):"
-
-#. module: base
-#: view:ir.filters:0
-msgid "Personal"
-msgstr ""
 
 #. module: base
 #: field:base.language.export,modules:0
@@ -3821,11 +3899,10 @@ msgid "Tasks on CRM"
 msgstr "CRM 상의 과제"
 
 #. module: base
-#: help:ir.model.fields,relation_field:0
-msgid ""
-"For one2many fields, the field on the target model that implement the "
-"opposite many2one relationship"
-msgstr "For one2many 필드용, 대상 many2one 관계를 수행하는 대상 모델의 필드"
+#: model:ir.module.category,name:base.module_category_generic_modules_accounting
+#: view:res.company:0
+msgid "Accounting"
+msgstr "회계"
 
 #. module: base
 #: view:ir.rule:0
@@ -3855,6 +3932,12 @@ msgstr "상마르탱 (네덜란드령)"
 #: model:ir.model,name:base.model_ir_filters
 msgid "Filters"
 msgstr "필터"
+
+#. module: base
+#: code:addons/base/module/wizard/base_module_import.py:67
+#, python-format
+msgid "Can not create the module file: %s!"
+msgstr ""
 
 #. module: base
 #: model:ir.actions.act_window,name:base.ir_cron_act
@@ -3891,6 +3974,13 @@ msgstr "재귀성이 탐지됨."
 #: model:ir.module.module,shortdesc:base.module_l10n_et
 msgid "Ethiopia - Accounting"
 msgstr "에티오피아 - 회계"
+
+#. module: base
+#: model:ir.actions.act_window,name:base.ir_config_list_action
+#: view:ir.config_parameter:0
+#: model:ir.ui.menu,name:base.ir_config_menu
+msgid "System Parameters"
+msgstr ""
 
 #. module: base
 #: code:addons/base/module/module.py:366
@@ -4579,6 +4669,12 @@ msgid "`code` must be unique."
 msgstr "`code`는 유일해야 합니다."
 
 #. module: base
+#: code:addons/base/ir/workflow/workflow.py:99
+#, python-format
+msgid "Operation Forbidden"
+msgstr ""
+
+#. module: base
 #: model:ir.module.module,shortdesc:base.module_knowledge
 msgid "Knowledge Management System"
 msgstr "지식 관리 시스템"
@@ -4922,6 +5018,13 @@ msgid ""
 msgstr "데이터베이스가 완전히 구성되었습니다."
 
 #. module: base
+#: help:ir.sequence,number_next_actual:0
+msgid ""
+"Next number that will be used. This number can be incremented frequently so "
+"the displayed value might already be obsolete"
+msgstr ""
+
+#. module: base
 #: model:ir.module.category,description:base.module_category_marketing
 msgid "Helps you manage your marketing campaigns step by step."
 msgstr "마케팅 캠페인을 단계 별로 관리할 수 있도록 도와줌."
@@ -4945,6 +5048,12 @@ msgstr "가나"
 #: field:res.lang,direction:0
 msgid "Direction"
 msgstr "방향"
+
+#. module: base
+#: code:addons/orm.py:4815
+#, python-format
+msgid "Sorting field %s not found on model %s"
+msgstr ""
 
 #. module: base
 #: view:ir.actions.act_window:0
@@ -5876,10 +5985,11 @@ msgid ""
 msgstr "소스 활동. 해당 활동이 끝나면, ACT_TO 활동 시작 여부를 확인하기 위한 조건을 시험합니다."
 
 #. module: base
-#: model:ir.module.category,name:base.module_category_generic_modules_accounting
-#: view:res.company:0
-msgid "Accounting"
-msgstr "회계"
+#: help:ir.model.fields,relation_field:0
+msgid ""
+"For one2many fields, the field on the target model that implement the "
+"opposite many2one relationship"
+msgstr "For one2many 필드용, 대상 many2one 관계를 수행하는 대상 모델의 필드"
 
 #. module: base
 #: model:ir.module.module,description:base.module_base_vat
@@ -5989,9 +6099,9 @@ msgid "Authentication"
 msgstr "인증"
 
 #. module: base
-#: model:res.country,name:base.sj
-msgid "Svalbard and Jan Mayen Islands"
-msgstr "스발바르드 얀마이엔 제도"
+#: model:res.country,name:base.gd
+msgid "Grenada"
+msgstr "그레나다"
 
 #. module: base
 #: model:ir.model,name:base.model_ir_actions_wizard
@@ -6140,12 +6250,6 @@ msgid ""
 msgstr ""
 
 #. module: base
-#: code:addons/base/ir/workflow/workflow.py:99
-#, python-format
-msgid "Operation forbidden"
-msgstr "작업이 금지됨"
-
-#. module: base
 #: view:ir.actions.server:0
 msgid "SMS Configuration"
 msgstr "SMS 구성"
@@ -6186,6 +6290,11 @@ msgstr "접근 제어 목록"
 #: model:res.country,name:base.um
 msgid "USA Minor Outlying Islands"
 msgstr "미국령 소군도"
+
+#. module: base
+#: view:base.language.import:0
+msgid "e.g. English"
+msgstr "예: 영어"
 
 #. module: base
 #: help:ir.cron,numbercall:0
@@ -6271,6 +6380,13 @@ msgstr "전화:"
 #: field:res.partner,is_company:0
 msgid "Is a Company"
 msgstr "은(는) 업체임"
+
+#. module: base
+#: view:res.company:0
+#: view:res.partner:0
+#: view:res.users:0
+msgid "e.g. www.openerp.com"
+msgstr "예: www.openerp.com"
 
 #. module: base
 #: selection:ir.cron,interval_type:0
@@ -6369,6 +6485,19 @@ msgstr "메뉴명"
 #: field:ir.values,key2:0
 msgid "Qualifier"
 msgstr "검증자"
+
+#. module: base
+#: model:ir.module.module,description:base.module_l10n_vn
+msgid ""
+"\n"
+"This is the module to manage the accounting chart for Vietnam in OpenERP.\n"
+"========================================================================\n"
+"\n"
+"This module applies to companies based in Vietnamese Accounting Standard "
+"(VAS).\n"
+"\n"
+"**Credits:** General Solutions.\n"
+msgstr ""
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_be_coda
@@ -6650,6 +6779,11 @@ msgid "Database Anonymization"
 msgstr "데이터베이스 익명화"
 
 #. module: base
+#: field:res.partner,commercial_partner_id:0
+msgid "Commercial Entity"
+msgstr ""
+
+#. module: base
 #: selection:ir.mail_server,smtp_encryption:0
 msgid "SSL/TLS"
 msgstr "SSL/TLS"
@@ -6708,6 +6842,11 @@ msgid "ir.cron"
 msgstr "ir.cron"
 
 #. module: base
+#: model:ir.ui.menu,name:base.menu_sales_followup
+msgid "Payment Follow-up"
+msgstr "지불 추적"
+
+#. module: base
 #: model:res.country,name:base.cw
 msgid "Curaçao"
 msgstr "쿠라사우 섬"
@@ -6718,10 +6857,8 @@ msgid "Current Year without Century: %(y)s"
 msgstr "2자리수 연도: %(y)s"
 
 #. module: base
-#: model:ir.actions.act_window,name:base.ir_config_list_action
-#: view:ir.config_parameter:0
-#: model:ir.ui.menu,name:base.ir_config_menu
-msgid "System Parameters"
+#: model:ir.module.module,shortdesc:base.module_l10n_es
+msgid "Spanish Charts of Accounts (PGCE 2008)"
 msgstr ""
 
 #. module: base
@@ -6783,6 +6920,14 @@ msgstr "수단"
 #: view:res.currency.rate.type:0
 msgid "Currency Rate Type"
 msgstr "환율 유형"
+
+#. module: base
+#: code:addons/base/res/res_lang.py:189
+#, python-format
+msgid ""
+"You cannot delete the language which is Active!\n"
+"Please de-activate the language first."
+msgstr ""
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_fr
@@ -6965,10 +7110,9 @@ msgid "Repeat Missed"
 msgstr "부재 중 통화 반복"
 
 #. module: base
-#: code:addons/base/module/wizard/base_module_import.py:67
-#, python-format
-msgid "Can not create the module file: %s !"
-msgstr "모듈 파일을 생성하지 못함: %s !"
+#: help:ir.actions.server,state:0
+msgid "Type of the Action that is to be executed"
+msgstr "실행될 액션의 유형"
 
 #. module: base
 #: field:ir.server.object.lines,server_id:0
@@ -7195,21 +7339,6 @@ msgstr "시간 기록표"
 #: help:ir.values,company_id:0
 msgid "If set, action binding only applies for this company"
 msgstr "설정되었을 경우, 해당 업체에 한해 액션 결합이 적용됨"
-
-#. module: base
-#: model:ir.module.module,description:base.module_l10n_cn
-msgid ""
-"\n"
-"添加中文省份数据\n"
-"科目类型\\会计科目表模板\\增值税\\辅助核算类别\\管理会计凭证簿\\财务会计凭证簿\n"
-"============================================================\n"
-"    "
-msgstr ""
-"\n"
-"添加中文省份数据\n"
-"科目类型\\会计科目表模板\\增值税\\辅助核算类别\\管理会计凭证簿\\财务会计凭证簿\n"
-"============================================================\n"
-"    "
 
 #. module: base
 #: model:res.country,name:base.lc
@@ -7485,12 +7614,6 @@ msgid "Connection Security"
 msgstr "연결 보안"
 
 #. module: base
-#: code:addons/base/ir/ir_actions.py:606
-#, python-format
-msgid "Please specify an action to launch !"
-msgstr "시작할 액션을 지정하세요 !"
-
-#. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_ec
 msgid "Ecuador - Accounting"
 msgstr "에콰도르 - 회계"
@@ -7509,6 +7632,11 @@ msgstr "북마리아나제도"
 #: field:change.password.user,user_login:0
 msgid "User Login"
 msgstr "사용자 로그인"
+
+#. module: base
+#: view:ir.filters:0
+msgid "Filters created by myself"
+msgstr "내가 생성한 필터"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_hn
@@ -7658,6 +7786,12 @@ msgid "Error"
 msgstr "오류"
 
 #. module: base
+#: code:addons/base/res/res_partner.py:566
+#, python-format
+msgid "Couldn't create contact without email address!"
+msgstr ""
+
+#. module: base
 #: help:res.partner,tz:0
 msgid ""
 "The partner's timezone, used to output proper date and time values inside "
@@ -7727,6 +7861,12 @@ msgstr "해당 순서의 다음 숫자"
 
 #. module: base
 #: view:res.partner:0
+#: view:res.users:0
+msgid "Tags..."
+msgstr "태그..."
+
+#. module: base
+#: view:res.partner:0
 msgid "at"
 msgstr ""
 
@@ -7749,6 +7889,11 @@ msgstr "익명 포탈"
 #: field:base.language.export,format:0
 msgid "File Format"
 msgstr "파일 형식"
+
+#. module: base
+#: view:ir.filters:0
+msgid "My filters"
+msgstr "내 필터"
 
 #. module: base
 #: field:res.lang,iso_code:0
@@ -8082,6 +8227,12 @@ msgid "Rules can not be applied on Transient models."
 msgstr "일시적인 모델에는 규칙을 적용할 수 없습니다."
 
 #. module: base
+#: code:addons/base/ir/ir_mail_server.py:215
+#, python-format
+msgid "Connection Test Failed!"
+msgstr ""
+
+#. module: base
 #: selection:base.language.install,lang:0
 msgid "Dutch / Nederlands"
 msgstr "독일어 / 네덜란드"
@@ -8341,9 +8492,15 @@ msgstr ""
 "허나 해당 모듈은 본 시스템에서 사용할 수 없습니다."
 
 #. module: base
-#: field:workflow.transition,act_to:0
-msgid "Destination Activity"
-msgstr "목적지 활동"
+#: model:ir.module.module,description:base.module_portal_project_long_term
+msgid ""
+"\n"
+"This module adds necessary security rules and access rights for project long "
+"term and portal.\n"
+"============================================================================="
+"================\n"
+"    "
+msgstr ""
 
 #. module: base
 #: help:res.currency,position:0
@@ -8470,6 +8627,12 @@ msgstr "쿠웨이트"
 #: model:ir.module.module,shortdesc:base.module_account_followup
 msgid "Payment Follow-up Management"
 msgstr "지불 추적 관리"
+
+#. module: base
+#: code:addons/orm.py:5334
+#, python-format
+msgid "The value for the field '%s' already exists."
+msgstr "'%s' 필드의 값이 이미 존재합니다.."
 
 #. module: base
 #: field:workflow.workitem,inst_id:0
@@ -8711,6 +8874,11 @@ msgstr "고급 경로"
 #: model:ir.module.module,shortdesc:base.module_pad
 msgid "Collaborative Pads"
 msgstr "협업 패드"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_account_anglo_saxon
+msgid "Anglo-Saxon Accounting"
+msgstr "앵글로색슨 회계"
 
 #. module: base
 #: model:res.country,name:base.np
@@ -9679,11 +9847,6 @@ msgid "Python Code"
 msgstr "파이썬 코드"
 
 #. module: base
-#: help:ir.actions.server,state:0
-msgid "Type of the Action that is to be executed"
-msgstr "실행될 액션의 유형"
-
-#. module: base
 #: model:ir.module.module,description:base.module_portal_crm
 msgid ""
 "\n"
@@ -9738,43 +9901,6 @@ msgstr ""
 "Openerp Web 도표 화면.\n"
 "=========================\n"
 "\n"
-
-#. module: base
-#: model:ir.module.module,description:base.module_l10n_ch
-msgid ""
-"\n"
-"Swiss localization :\n"
-"====================\n"
-"**Multilang swiss STERCHI account chart and taxes**\n"
-" **Author:** Camptocamp SA\n"
-"\n"
-" **Donors:** Hasa Sàrl, Open Net Sàrl and Prisme Solutions Informatique SA\n"
-"\n"
-" **Translators:** brain-tec AG, Agile Business Group\n"
-"\n"
-"**This release will introduce major changes to l10n_ch.**\n"
-"\n"
-"Due to important refactoring needs and the Switzerland adoption of new "
-"international payment standard during 2013-2014. We have reorganised the "
-"swiss localization addons this way:\n"
-"\n"
-"- **l10n_ch**: Multilang swiss STERCHI account chart and taxes (official "
-"addon)\n"
-"- **l10n_ch_base_bank**: Technical module that introduces a new and "
-"simplified version of bank type management\n"
-"- **l10n_ch_bank**: List of swiss banks\n"
-"- **l10n_ch_zip**: List of swiss postal zip\n"
-"- **l10n_ch_dta**: Support of dta payment protocol (will be deprecated end "
-"2014)\n"
-"- **l10n_ch_payment_slip**: Support of ESR/BVR payment slip report and "
-"reconciliation. Report refactored with easy element positioning.\n"
-"- **l10n_ch_sepa**: Alpha implementation of PostFinance SEPA/PAIN support "
-"will be completed during 2013/2014\n"
-"\n"
-"The modules will be soon available on OpenERP swiss localization on "
-"launchpad:\n"
-"https://launchpad.net/openerp-swiss-localization\n"
-msgstr ""
 
 #. module: base
 #: model:res.country,name:base.nt
@@ -9916,6 +10042,11 @@ msgid "New Language (Empty translation template)"
 msgstr "신규 언어 (비어 있는 번역 양식)"
 
 #. module: base
+#: model:ir.module.module,shortdesc:base.module_account_report_company
+msgid "Invoice Analysis per Company"
+msgstr ""
+
+#. module: base
 #: help:ir.actions.server,email:0
 msgid ""
 "Expression that returns the email address to send to. Can be based on the "
@@ -9982,9 +10113,102 @@ msgid ""
 msgstr "액션이 동작(읽기, 쓰기, 생성)할 개체를 선택하세요."
 
 #. module: base
-#: field:base.language.import,name:0
-msgid "Language Name"
-msgstr "언어명"
+#: model:ir.module.module,description:base.module_stock_location
+msgid ""
+"\n"
+"This module supplements the Warehouse application by effectively "
+"implementing Push and Pull inventory flows.\n"
+"============================================================================="
+"===============================\n"
+"\n"
+"Typically this could be used to:\n"
+"--------------------------------\n"
+"    * Manage product manufacturing chains\n"
+"    * Manage default locations per product\n"
+"    * Define routes within your warehouse according to business needs, such "
+"as:\n"
+"        - Quality Control\n"
+"        - After Sales Services\n"
+"        - Supplier Returns\n"
+"\n"
+"    * Help rental management, by generating automated return moves for "
+"rented products\n"
+"\n"
+"Once this module is installed, an additional tab appear on the product "
+"form,\n"
+"where you can add Push and Pull flow specifications. The demo data of CPU1\n"
+"product for that push/pull :\n"
+"\n"
+"Push flows:\n"
+"-----------\n"
+"Push flows are useful when the arrival of certain products in a given "
+"location\n"
+"should always be followed by a corresponding move to another location, "
+"optionally\n"
+"after a certain delay. The original Warehouse application already supports "
+"such\n"
+"Push flow specifications on the Locations themselves, but these cannot be\n"
+"refined per-product.\n"
+"\n"
+"A push flow specification indicates which location is chained with which "
+"location,\n"
+"and with what parameters. As soon as a given quantity of products is moved "
+"in the\n"
+"source location, a chained move is automatically foreseen according to the\n"
+"parameters set on the flow specification (destination location, delay, type "
+"of\n"
+"move, journal). The new move can be automatically processed, or require a "
+"manual\n"
+"confirmation, depending on the parameters.\n"
+"\n"
+"Pull flows:\n"
+"-----------\n"
+"Pull flows are a bit different from Push flows, in the sense that they are "
+"not\n"
+"related to the processing of product moves, but rather to the processing of\n"
+"procurement orders. What is being pulled is a need, not directly products. "
+"A\n"
+"classical example of Pull flow is when you have an Outlet company, with a "
+"parent\n"
+"Company that is responsible for the supplies of the Outlet.\n"
+"\n"
+"  [ Customer ] <- A - [ Outlet ]  <- B -  [ Holding ] <~ C ~ [ Supplier ]\n"
+"\n"
+"When a new procurement order (A, coming from the confirmation of a Sale "
+"Order\n"
+"for example) arrives in the Outlet, it is converted into another "
+"procurement\n"
+"(B, via a Pull flow of type 'move') requested from the Holding. When "
+"procurement\n"
+"order B is processed by the Holding company, and if the product is out of "
+"stock,\n"
+"it can be converted into a Purchase Order (C) from the Supplier (Pull flow "
+"of\n"
+"type Purchase). The result is that the procurement order, the need, is "
+"pushed\n"
+"all the way between the Customer and Supplier.\n"
+"\n"
+"Technically, Pull flows allow to process procurement orders differently, "
+"not\n"
+"only depending on the product being considered, but also depending on which\n"
+"location holds the 'need' for that product (i.e. the destination location "
+"of\n"
+"that procurement order).\n"
+"\n"
+"Use-Case:\n"
+"---------\n"
+"\n"
+"You can use the demo data as follow:\n"
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+"  **CPU1:** Sell some CPU1 from Chicago Shop and run the scheduler\n"
+"     - Warehouse: delivery order, Chicago Shop: reception\n"
+"  **CPU3:**\n"
+"     - When receiving the product, it goes to Quality Control location then\n"
+"       stored to shelf 2.\n"
+"     - When delivering the customer: Pick List -> Packing -> Delivery Order "
+"from Gate A\n"
+"    "
+msgstr ""
 
 #. module: base
 #: selection:ir.property,type:0
@@ -10011,6 +10235,14 @@ msgstr "필드 설명"
 #: model:ir.module.module,shortdesc:base.module_analytic_contract_hr_expense
 msgid "Contracts Management: hr_expense link"
 msgstr "계약 관리: hr_expense link"
+
+#. module: base
+#: code:addons/base/module/module.py:670
+#, python-format
+msgid ""
+"The `%s` module appears to be unavailable at the moment, please try again "
+"later."
+msgstr "`%s` 모듈이 현재 사용할 수 없는 것 같으니, 나중에 다시 한 번 시도해주세요."
 
 #. module: base
 #: view:ir.attachment:0
@@ -10247,13 +10479,6 @@ msgid "Afghanistan, Islamic State of"
 msgstr "아프가니스탄"
 
 #. module: base
-#: code:addons/base/module/wizard/base_module_import.py:58
-#: code:addons/base/module/wizard/base_module_import.py:66
-#, python-format
-msgid "Error !"
-msgstr "오류 !"
-
-#. module: base
 #: model:ir.module.module,shortdesc:base.module_marketing_campaign_crm_demo
 msgid "Marketing Campaign - Demo"
 msgstr "마케팅 캠페인 - 시연"
@@ -10367,6 +10592,22 @@ msgid "Todo"
 msgstr "과제"
 
 #. module: base
+#: model:ir.module.module,description:base.module_l10n_es
+msgid ""
+"\n"
+"Spanish Charts of Accounts (PGCE 2008).\n"
+"=======================================\n"
+"\n"
+"    * Defines the following chart of account templates:\n"
+"        * Spanish General Chart of Accounts 2008\n"
+"        * Spanish General Chart of Accounts 2008 for small and medium "
+"companies\n"
+"        * Spanish General Chart of Accounts 2008 for associations\n"
+"    * Defines templates for sale and purchase VAT\n"
+"    * Defines tax code templates\n"
+msgstr ""
+
+#. module: base
 #: model:ir.module.module,shortdesc:base.module_product_visible_discount
 msgid "Prices Visible Discounts"
 msgstr "원가 가시 할인율"
@@ -10393,6 +10634,14 @@ msgstr "파나마"
 msgid ""
 "The group that a user must have to be authorized to validate this transition."
 msgstr "해당 전환을 검증하기 위해 승인되어야 할 사용자가 보유해야 할 그룹"
+
+#. module: base
+#: view:res.bank:0
+#: view:res.company:0
+#: view:res.partner:0
+#: view:res.users:0
+msgid "Street..."
+msgstr ""
 
 #. module: base
 #: constraint:res.users:0
@@ -11036,16 +11285,6 @@ msgid "Samoa"
 msgstr "사모아"
 
 #. module: base
-#: code:addons/base/res/res_lang.py:189
-#, python-format
-msgid ""
-"You cannot delete the language which is Active !\n"
-"Please de-activate the language first."
-msgstr ""
-"활성 중인 언어를 삭제할 수 없습니다 !\n"
-"먼저 언어를 비활성화해주세요."
-
-#. module: base
 #: code:addons/base/ir/ir_model.py:509
 #: code:addons/base/ir/ir_model.py:570
 #: code:addons/base/ir/ir_model.py:1031
@@ -11077,11 +11316,6 @@ msgstr "ValidateError"
 #: view:base.module.update:0
 msgid "Open Modules"
 msgstr "모듈 열기"
-
-#. module: base
-#: model:ir.actions.act_window,help:base.action_res_bank_form
-msgid "Manage bank records you want to be used in the system."
-msgstr "시스템 내에서 사용되기 원하는 은행 기록을 관리함."
 
 #. module: base
 #: view:base.module.import:0
@@ -11191,12 +11425,6 @@ msgstr "접근 권한 읽기"
 #: model:ir.module.module,shortdesc:base.module_analytic_user_function
 msgid "Jobs on Contracts"
 msgstr "계약 상의 업무"
-
-#. module: base
-#: code:addons/base/res/res_lang.py:187
-#, python-format
-msgid "You cannot delete the language which is User's Preferred Language !"
-msgstr "사용자가 설정한 언어는 삭제할 수 없습니다."
 
 #. module: base
 #: view:ir.model.data:0
@@ -11326,6 +11554,11 @@ msgid "This field is used to set/get locales for user"
 msgstr "해당 필드는 사용자의 로케일을 설정/얻기 하기 위해 사용됩니다."
 
 #. module: base
+#: model:res.country,name:base.sj
+msgid "Svalbard and Jan Mayen Islands"
+msgstr "스발바르드 얀마이엔 제도"
+
+#. module: base
 #: view:ir.filters:0
 msgid "Shared"
 msgstr "공유됨"
@@ -11442,6 +11675,21 @@ msgid "Auto Search"
 msgstr "자동 검색"
 
 #. module: base
+#: model:ir.actions.act_window,help:base.action_partner_category_form
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                Click to create a new partner category.\n"
+"              </p><p>\n"
+"                Manage the partner categories in order to better classify "
+"them for tracking and analysis purposes.\n"
+"                A partner may belong to several categories and categories "
+"have a hierarchy structure: a partner belonging to a category also belong to "
+"his parent category.\n"
+"              </p>\n"
+"            "
+msgstr ""
+
+#. module: base
 #: field:ir.actions.act_window,filter:0
 msgid "Filter"
 msgstr "필터"
@@ -11452,9 +11700,14 @@ msgid "Switzerland"
 msgstr "스위스"
 
 #. module: base
-#: model:res.country,name:base.gd
-msgid "Grenada"
-msgstr "그레나다"
+#: code:addons/base/res/res_partner.py:361
+#, python-format
+msgid ""
+"Changing the company of a contact should only be done if it was never "
+"correctly set. If an existing contact starts working for a new company then "
+"a new contact should be created under that new company. You can use the "
+"\"Discard\" button to abandon this change."
+msgstr ""
 
 #. module: base
 #: help:res.partner,customer:0
@@ -11511,10 +11764,9 @@ msgid ""
 msgstr ""
 
 #. module: base
-#: code:addons/base/ir/ir_model.py:296
-#, python-format
-msgid "Size of the field can never be less than 1 !"
-msgstr "필드의 크기는 1보다 작을 수 없습니다 !"
+#: model:ir.model,name:base.model_res_request_history
+msgid "res.request.history"
+msgstr "res.request.history"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_mrp_operations
@@ -11564,102 +11816,9 @@ msgid "GPL Version 3"
 msgstr "GPL 버전 3"
 
 #. module: base
-#: model:ir.module.module,description:base.module_stock_location
-msgid ""
-"\n"
-"This module supplements the Warehouse application by effectively "
-"implementing Push and Pull inventory flows.\n"
-"============================================================================="
-"===============================\n"
-"\n"
-"Typically this could be used to:\n"
-"--------------------------------\n"
-"    * Manage product manufacturing chains\n"
-"    * Manage default locations per product\n"
-"    * Define routes within your warehouse according to business needs, such "
-"as:\n"
-"        - Quality Control\n"
-"        - After Sales Services\n"
-"        - Supplier Returns\n"
-"\n"
-"    * Help rental management, by generating automated return moves for "
-"rented products\n"
-"\n"
-"Once this module is installed, an additional tab appear on the product "
-"form,\n"
-"where you can add Push and Pull flow specifications. The demo data of CPU1\n"
-"product for that push/pull :\n"
-"\n"
-"Push flows:\n"
-"-----------\n"
-"Push flows are useful when the arrival of certain products in a given "
-"location\n"
-"should always be followed by a corresponding move to another location, "
-"optionally\n"
-"after a certain delay. The original Warehouse application already supports "
-"such\n"
-"Push flow specifications on the Locations themselves, but these cannot be\n"
-"refined per-product.\n"
-"\n"
-"A push flow specification indicates which location is chained with which "
-"location,\n"
-"and with what parameters. As soon as a given quantity of products is moved "
-"in the\n"
-"source location, a chained move is automatically foreseen according to the\n"
-"parameters set on the flow specification (destination location, delay, type "
-"of\n"
-"move, journal). The new move can be automatically processed, or require a "
-"manual\n"
-"confirmation, depending on the parameters.\n"
-"\n"
-"Pull flows:\n"
-"-----------\n"
-"Pull flows are a bit different from Push flows, in the sense that they are "
-"not\n"
-"related to the processing of product moves, but rather to the processing of\n"
-"procurement orders. What is being pulled is a need, not directly products. "
-"A\n"
-"classical example of Pull flow is when you have an Outlet company, with a "
-"parent\n"
-"Company that is responsible for the supplies of the Outlet.\n"
-"\n"
-"  [ Customer ] <- A - [ Outlet ]  <- B -  [ Holding ] <~ C ~ [ Supplier ]\n"
-"\n"
-"When a new procurement order (A, coming from the confirmation of a Sale "
-"Order\n"
-"for example) arrives in the Outlet, it is converted into another "
-"procurement\n"
-"(B, via a Pull flow of type 'move') requested from the Holding. When "
-"procurement\n"
-"order B is processed by the Holding company, and if the product is out of "
-"stock,\n"
-"it can be converted into a Purchase Order (C) from the Supplier (Pull flow "
-"of\n"
-"type Purchase). The result is that the procurement order, the need, is "
-"pushed\n"
-"all the way between the Customer and Supplier.\n"
-"\n"
-"Technically, Pull flows allow to process procurement orders differently, "
-"not\n"
-"only depending on the product being considered, but also depending on which\n"
-"location holds the 'need' for that product (i.e. the destination location "
-"of\n"
-"that procurement order).\n"
-"\n"
-"Use-Case:\n"
-"---------\n"
-"\n"
-"You can use the demo data as follow:\n"
-"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-"  **CPU1:** Sell some CPU1 from Chicago Shop and run the scheduler\n"
-"     - Warehouse: delivery order, Chicago Shop: reception\n"
-"  **CPU3:**\n"
-"     - When receiving the product, it goes to Quality Control location then\n"
-"       stored to shelf 2.\n"
-"     - When delivering the customer: Pick List -> Packing -> Delivery Order "
-"from Gate A\n"
-"    "
-msgstr ""
+#: field:base.language.import,name:0
+msgid "Language Name"
+msgstr "언어명"
 
 #. module: base
 #: model:ir.module.module,description:base.module_decimal_precision
@@ -11687,6 +11846,12 @@ msgstr "구성 인스톨러"
 #: field:res.partner,customer:0
 msgid "Customer"
 msgstr "고객"
+
+#. module: base
+#: view:res.partner:0
+#: view:res.users:0
+msgid "e.g. +32.81.81.37.00"
+msgstr "예: +32.81.81.37.00"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -11739,6 +11904,12 @@ msgid "Month: %(month)s"
 msgstr "월: %(month)s"
 
 #. module: base
+#: model:ir.actions.client,name:base.modules_updates_act_cl
+#: model:ir.ui.menu,name:base.menu_module_updates
+msgid "Updates"
+msgstr "업데이트"
+
+#. module: base
 #: field:ir.actions.act_window.view,sequence:0
 #: field:ir.actions.server,sequence:0
 #: field:ir.actions.todo,sequence:0
@@ -11772,19 +11943,6 @@ msgstr ""
 #: model:ir.model,name:base.model_ir_fields_converter
 msgid "ir.fields.converter"
 msgstr "ir.fields.converter"
-
-#. module: base
-#: code:addons/base/res/res_partner.py:439
-#, python-format
-msgid "Couldn't create contact without email address !"
-msgstr "이메일 주소 없이 연락처를 생성할 수 없었음 !"
-
-#. module: base
-#: model:ir.module.category,name:base.module_category_manufacturing
-#: model:ir.ui.menu,name:base.menu_mrp_config
-#: model:ir.ui.menu,name:base.menu_mrp_root
-msgid "Manufacturing"
-msgstr "제조"
 
 #. module: base
 #: model:res.country,name:base.km
@@ -12122,6 +12280,12 @@ msgid "Falkland Islands"
 msgstr "포클랜드 제도"
 
 #. module: base
+#: code:addons/base/ir/ir_actions.py:606
+#, python-format
+msgid "Please specify an action to launch!"
+msgstr ""
+
+#. module: base
 #: model:res.country,name:base.lb
 msgid "Lebanon"
 msgstr "레바논"
@@ -12184,12 +12348,6 @@ msgid "XSL"
 msgstr "XSL"
 
 #. module: base
-#: code:addons/base/ir/ir_model.py:85
-#, python-format
-msgid "Invalid search criterions"
-msgstr "유효하지 않은 검색 조건"
-
-#. module: base
 #: view:ir.mail_server:0
 msgid "Connection Information"
 msgstr "연결 정보"
@@ -12242,25 +12400,6 @@ msgstr "선택"
 #: view:res.users:0
 msgid "Change Password"
 msgstr "암호 변경"
-
-#. module: base
-#: model:ir.module.module,description:base.module_l10n_es
-msgid ""
-"\n"
-"Spanish Charts of Accounts (PGCE 2008).\n"
-"=======================================\n"
-"\n"
-"    * Defines the following chart of account templates:\n"
-"        * Spanish General Chart of Accounts 2008\n"
-"        * Spanish General Chart of Accounts 2008 for small and medium "
-"companies\n"
-"    * Defines templates for sale and purchase VAT\n"
-"    * Defines tax code templates\n"
-"\n"
-"**Note:** You should install the l10n_ES_account_balance_report module for "
-"yearly\n"
-"      account reporting (balance, profit & losses).\n"
-msgstr ""
 
 #. module: base
 #: field:ir.actions.act_url,type:0
@@ -12551,6 +12690,11 @@ msgid "Address Format"
 msgstr "주소 형식"
 
 #. module: base
+#: constraint:res.partner:0
+msgid "You cannot create recursive Partner hierarchies."
+msgstr ""
+
+#. module: base
 #: model:ir.model,name:base.model_change_password_user
 msgid "Change Password Wizard User"
 msgstr "암호 변경 마법사 사용자"
@@ -12616,6 +12760,13 @@ msgstr ""
 #: model:ir.ui.menu,name:base.ir_model_data_menu
 msgid "External Identifiers"
 msgstr "외부 식별자"
+
+#. module: base
+#. openerp-web
+#: code:addons/base/static/src/js/apps.js:104
+#, python-format
+msgid "Showing locally available modules"
+msgstr "국부적으로 사용 가능한 모듈"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -12709,6 +12860,12 @@ msgid ""
 "*placeholder expressions* that will be replaced with dynamic data when each "
 "email is actually sent.\n"
 "    "
+msgstr ""
+
+#. module: base
+#: code:addons/base/ir/ir_model.py:295
+#, python-format
+msgid "Size of the field can never be less than 0 !"
 msgstr ""
 
 #. module: base
@@ -12807,12 +12964,6 @@ msgstr "번역"
 #: field:res.request.history,body:0
 msgid "Body"
 msgstr "본문"
-
-#. module: base
-#: code:addons/base/ir/ir_mail_server.py:221
-#, python-format
-msgid "Connection test succeeded!"
-msgstr "연결 시험을 성공함!"
 
 #. module: base
 #: model:ir.module.module,description:base.module_project_gtd
@@ -13187,9 +13338,25 @@ msgid "Bulgaria"
 msgstr "불가리아"
 
 #. module: base
-#: model:res.country,name:base.ao
-msgid "Angola"
-msgstr "앙골라"
+#: model:ir.module.module,description:base.module_mrp_byproduct
+msgid ""
+"\n"
+"This module allows you to produce several products from one production "
+"order.\n"
+"============================================================================="
+"\n"
+"\n"
+"You can configure by-products in the bill of material.\n"
+"\n"
+"Without this module:\n"
+"--------------------\n"
+"    A + B + C -> D\n"
+"\n"
+"With this module:\n"
+"-----------------\n"
+"    A + B + C -> D + E\n"
+"    "
+msgstr ""
 
 #. module: base
 #: model:res.country,name:base.tf
@@ -13345,11 +13512,6 @@ msgid "ir.sequence.type"
 msgstr "ir.sequence.type"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_l10n_be_hr_payroll_account
-msgid "Belgium - Payroll with Accounting"
-msgstr ""
-
-#. module: base
 #: selection:base.language.export,format:0
 msgid "CSV File"
 msgstr "CSV 파일"
@@ -13358,12 +13520,6 @@ msgstr "CSV 파일"
 #: field:res.company,account_no:0
 msgid "Account No."
 msgstr "계정 번호"
-
-#. module: base
-#: code:addons/base/res/res_lang.py:185
-#, python-format
-msgid "Base Language 'en_US' can not be deleted !"
-msgstr "'en_US' 기본 언어는 삭제될 수 없습니다 !"
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_uk
@@ -13413,9 +13569,45 @@ msgid "Field Label"
 msgstr "필드 라벨"
 
 #. module: base
-#: model:res.country,name:base.dj
-msgid "Djibouti"
-msgstr "지부티"
+#: model:ir.module.module,description:base.module_sale_stock
+msgid ""
+"\n"
+"Manage sales quotations and orders\n"
+"==================================\n"
+"\n"
+"This module makes the link between the sales and warehouses management "
+"applications.\n"
+"\n"
+"Preferences\n"
+"-----------\n"
+"* Shipping: Choice of delivery at once or partial delivery\n"
+"* Invoicing: choose how invoices will be paid\n"
+"* Incoterms: International Commercial terms\n"
+"\n"
+"You can choose flexible invoicing methods:\n"
+"\n"
+"* *On Demand*: Invoices are created manually from Sales Orders when needed\n"
+"* *On Delivery Order*: Invoices are generated from picking (delivery)\n"
+"* *Before Delivery*: A Draft invoice is created and must be paid before "
+"delivery\n"
+msgstr ""
+"\n"
+"매출 견적 및 주문 관리\n"
+"==================================\n"
+"\n"
+"이 모듈은 매출과 창고 관리 어플리케이션과 연계됩니다.\n"
+"\n"
+"설정\n"
+"-----------\n"
+"* 선적: 일괄 배송, 분할 배송 선택\n"
+"* 송장청구: 송장금액 결제 방법 선택\n"
+"* 무역조건: 국제 무역조건\n"
+"\n"
+"다양한 송장청구 방법 선택 가능:\n"
+"\n"
+"* *요구 시*: 매출 주문 후 필요 시 송장 발행\n"
+"* *배송 주문 시*: 화물 수령(배송)시 송장 발행\n"
+"* *배송 전*: 송장 초안이 작성되어 배송 전 결제\n"
 
 #. module: base
 #: field:ir.translation,value:0
@@ -13571,11 +13763,6 @@ msgid "Diagram"
 msgstr "도표"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_l10n_es
-msgid "Spanish - Accounting (PGCE 2008)"
-msgstr "스페인어 - 회계 (PGCE 2008)"
-
-#. module: base
 #: model:ir.module.module,shortdesc:base.module_stock_no_autopicking
 msgid "Picking Before Manufacturing"
 msgstr "제조 전 피킹"
@@ -13629,6 +13816,12 @@ msgid ""
 "\n"
 "You can assign several contracts per employee.\n"
 "    "
+msgstr ""
+
+#. module: base
+#: code:addons/base/res/res_lang.py:187
+#, python-format
+msgid "You cannot delete the language which is User's Preferred Language!"
 msgstr ""
 
 #. module: base
@@ -13848,11 +14041,6 @@ msgstr "고객 협력업체"
 #: sql_constraint:res.users:0
 msgid "You can not have two users with the same login !"
 msgstr "동일한 로그인에 두 명의 사용자가 존재할 수 없습니다 !"
-
-#. module: base
-#: model:ir.model,name:base.model_res_request_history
-msgid "res.request.history"
-msgstr "res.request.history"
 
 #. module: base
 #: model:ir.model,name:base.model_multi_company_default
@@ -14085,6 +14273,11 @@ msgid "Luxembourg"
 msgstr "룩셈부르크"
 
 #. module: base
+#: view:res.partner:0
+msgid "(edit company address)"
+msgstr ""
+
+#. module: base
 #: model:ir.module.module,summary:base.module_base_calendar
 msgid "Personal & Shared Calendar"
 msgstr "개인 & 공유 달력"
@@ -14310,6 +14503,13 @@ msgid "Currency Rate"
 msgstr "환율"
 
 #. module: base
+#. openerp-web
+#: code:addons/base/static/src/js/apps.js:104
+#, python-format
+msgid "OpenERP Apps Unreachable"
+msgstr "OpenERP Apps에 도달할 수 없음"
+
+#. module: base
 #: view:base.module.upgrade:0
 #: field:base.module.upgrade,module_info:0
 msgid "Modules to Update"
@@ -14436,6 +14636,11 @@ msgid "View Auto-Load"
 msgstr "화면 자동으로 불러오기"
 
 #. module: base
+#: view:res.country:0
+msgid "Address format..."
+msgstr ""
+
+#. module: base
 #: model:ir.module.module,description:base.module_l10n_et
 msgid ""
 "\n"
@@ -14506,12 +14711,6 @@ msgstr "소스 모델"
 #: view:ir.sequence:0
 msgid "Day of the Week (0:Monday): %(weekday)s"
 msgstr ""
-
-#. module: base
-#: code:addons/base/module/wizard/base_module_upgrade.py:84
-#, python-format
-msgid "Unmet dependency !"
-msgstr "일치하지 않은 의존성 !"
 
 #. module: base
 #: code:addons/base/ir/ir_model.py:509
@@ -14811,15 +15010,11 @@ msgid "Color Index"
 msgstr "컬러 색인"
 
 #. module: base
-#: model:ir.actions.act_window,help:base.action_partner_category_form
-msgid ""
-"Manage the partner categories in order to better classify them for tracking "
-"and analysis purposes. A partner may belong to several categories and "
-"categories have a hierarchy structure: a partner belonging to a category "
-"also belong to his parent category."
-msgstr ""
-"추적 및 분석 목적을 위한 구분을 개선하기 위해 협력업체 분류를 관리하세요. 협력업체는 여러 분류에 속해 있을 수 있으며 분류는 계층 "
-"구조로 되어있을 수도 있습니다: 분류에 속해 있는 협력업체는 모기업에도 속해 있습니다."
+#: model:ir.module.category,name:base.module_category_manufacturing
+#: model:ir.ui.menu,name:base.menu_mrp_config
+#: model:ir.ui.menu,name:base.menu_mrp_root
+msgid "Manufacturing"
+msgstr "제조"
 
 #. module: base
 #: model:ir.module.module,description:base.module_survey
@@ -14866,9 +15061,19 @@ msgid "Electronic Data Interchange (EDI)"
 msgstr "전자 데이터 교환 (EDI)"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_account_anglo_saxon
-msgid "Anglo-Saxon Accounting"
-msgstr "앵글로색슨 회계"
+#: model:ir.module.module,description:base.module_l10n_cn
+msgid ""
+"\n"
+"添加中文省份数据\n"
+"科目类型\\会计科目表模板\\增值税\\辅助核算类别\\管理会计凭证簿\\财务会计凭证簿\n"
+"============================================================\n"
+"    "
+msgstr ""
+"\n"
+"添加中文省份数据\n"
+"科目类型\\会计科目表模板\\增值税\\辅助核算类别\\管理会计凭证簿\\财务会计凭证簿\n"
+"============================================================\n"
+"    "
 
 #. module: base
 #: model:res.country,name:base.vg
@@ -14880,6 +15085,11 @@ msgstr "버진 제도 (영국령)"
 #: model:ir.ui.menu,name:base.menu_ir_property
 msgid "Parameters"
 msgstr "매개 변수"
+
+#. module: base
+#: view:res.partner:0
+msgid "e.g. Sales Director"
+msgstr ""
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -15058,6 +15268,11 @@ msgid "Automatic Installation"
 msgstr "자동 설치"
 
 #. module: base
+#: view:base.language.import:0
+msgid "e.g. en_US"
+msgstr ""
+
+#. module: base
 #: model:ir.module.module,description:base.module_l10n_hn
 msgid ""
 "\n"
@@ -15233,10 +15448,10 @@ msgid "Condition"
 msgstr "조건"
 
 #. module: base
-#: model:ir.actions.client,name:base.modules_updates_act_cl
-#: model:ir.ui.menu,name:base.menu_module_updates
-msgid "Updates"
-msgstr "업데이트"
+#: code:addons/base/module/module.py:669
+#, python-format
+msgid "Module not found"
+msgstr ""
 
 #. module: base
 #: help:res.currency,rate:0
@@ -15352,6 +15567,12 @@ msgstr ""
 #, python-format
 msgid "Bank Accounts"
 msgstr "은행 계정"
+
+#. module: base
+#: code:addons/base/res/res_lang.py:185
+#, python-format
+msgid "Base Language 'en_US' can not be deleted!"
+msgstr ""
 
 #. module: base
 #: model:res.country,name:base.sl
@@ -15615,6 +15836,12 @@ msgid "Export Name"
 msgstr "내보내기 파일명"
 
 #. module: base
+#: code:addons/base/ir/ir_sequence.py:259
+#, python-format
+msgid "Invalid prefix or suffix for sequence '%s'"
+msgstr ""
+
+#. module: base
 #: help:res.partner,type:0
 msgid ""
 "Used to select automatically the right address according to the context in "
@@ -15654,2541 +15881,82 @@ msgstr "러시아어 / русский язык"
 msgid "Signup"
 msgstr "가입"
 
-#~ msgid "Code (eg:en__US)"
-#~ msgstr "코드 (eg:en__US)"
-
-#~ msgid "E-Mail"
-#~ msgstr "이메일"
-
-#~ msgid "Payment term"
-#~ msgstr "결제 조건"
-
-#~ msgid "This field is not used, it only helps you to select the right action."
-#~ msgstr "이 필드는 사용되지 않으며, 귀하가 올바른 액션을 선택하도록 도와줄 뿐입니다."
-
-#~ msgid "Attached ID"
-#~ msgstr "첨부된 ID"
-
-#~ msgid "Attached Model"
-#~ msgstr "첨부된 모델"
-
-#~ msgid "Reply"
-#~ msgstr "답변"
-
-#~ msgid "References"
-#~ msgstr "참조"
-
-#~ msgid "Action To Launch"
-#~ msgstr "시작할 액션"
-
-#~ msgid "Values"
-#~ msgstr "값"
-
-#~ msgid "Valid"
-#~ msgstr "유효함"
-
-#~ msgid "Property"
-#~ msgstr "속성"
-
-#~ msgid "Draft"
-#~ msgstr "초안"
-
-#~ msgid "Payment Term"
-#~ msgstr "결제 조건"
-
-#~ msgid "SXW content"
-#~ msgstr "SXW 컨텐트"
-
-#~ msgid ""
-#~ "The kind of action or button in the client side that will trigger the action."
-#~ msgstr "액션을 트리거할 클라이언트 사이트의 액션이나 버튼 종류"
-
-#~ msgid "SXW path"
-#~ msgstr "SXW 경로"
-
-#~ msgid "Creator"
-#~ msgstr "생성자"
-
-#~ msgid "General Description"
-#~ msgstr "일반 설명"
-
-#~ msgid "Demo data"
-#~ msgstr "데모 데이터"
-
-#~ msgid "Client Actions Connections"
-#~ msgstr "클라이언트 액션 연결"
-
-#~ msgid "Client Action Configuration"
-#~ msgstr "클라이언트 액션 구성"
-
-#~ msgid "Events"
-#~ msgstr "이벤트"
-
-#~ msgid "Create Action"
-#~ msgstr "액션 생성"
-
-#~ msgid "Advice"
-#~ msgstr "자문"
-
-#~ msgid "Addresses"
-#~ msgstr "주소"
-
-#~ msgid "XML Identifier"
-#~ msgstr "XML 식별자"
-
-#~ msgid "SMS Message"
-#~ msgstr "SMS 메시지"
-
-#~ msgid "Skipped"
-#~ msgstr "건너 뜀"
-
-#~ msgid "Bulk SMS send"
-#~ msgstr "대량 SMS 전송"
-
-#~ msgid "Seconde: %(sec)s"
-#~ msgstr "초: %(sec)s"
-
-#~ msgid "Add User"
-#~ msgstr "사용자 추가"
-
 #, python-format
-#~ msgid "The copy method is not implemented on this object !"
-#~ msgstr "복사 메쏘드는 이 오브젝트에 적용되지 않습니다."
-
-#~ msgid "XSL path"
-#~ msgstr "XSL 경로"
-
-#, python-format
-#~ msgid "Not implemented get_memory method !"
-#~ msgstr "get_memory 메쏘드가 실행되지 않음!"
-
-#~ msgid "The kernel of OpenERP, needed for all installation."
-#~ msgstr "OpenERP 커널. 모든 설치에 요구됨."
-
-#~ msgid "Bad customers"
-#~ msgstr "불량 고객"
-
-#~ msgid "Create"
-#~ msgstr "만들기"
-
-#~ msgid "Installed version"
-#~ msgstr "설치된 버전"
-
-#~ msgid "Requests"
-#~ msgstr "요청"
-
-#~ msgid "Error ! You can not create recursive associated members."
-#~ msgstr "에러! 재귀적인 연관 멤버를 생성할 수는 없습니다."
-
-#~ msgid "Open Report"
-#~ msgstr "리포트 오픈"
-
-#~ msgid "Rounding factor"
-#~ msgstr "반올림 펙터"
-
-#~ msgid "Short Description"
-#~ msgstr "짧은 설명"
-
-#~ msgid "Delivery"
-#~ msgstr "배송"
-
-#~ msgid "Report Header"
-#~ msgstr "리포트 헤더"
-
-#~ msgid "Python code to be executed"
-#~ msgstr "실행할 파이썬 코드"
-
-#~ msgid "Send Email"
-#~ msgstr "메일 전송"
-
-#~ msgid "Next"
-#~ msgstr "다음"
-
-#~ msgid "RML content"
-#~ msgstr "RML 컨텐트"
-
-#~ msgid "Other Actions Configuration"
-#~ msgstr "다른 액션 구성"
-
-#~ msgid "Channels"
-#~ msgstr "채널"
-
-#~ msgid "Schedule for Installation"
-#~ msgstr "설치 스케줄"
-
-#~ msgid "Send"
-#~ msgstr "전송"
-
-#~ msgid "XML path"
-#~ msgstr "XML 경로"
-
-#~ msgid "Workflow to be executed on this model."
-#~ msgstr "이 모델에 실행될 워크플로우"
-
-#~ msgid "Day of the week (0:Monday): %(weekday)s"
-#~ msgstr "주중 요일 (0:월요일): %(weekday)s"
-
-#~ msgid "Action Source"
-#~ msgstr "액션 소스"
-
-#~ msgid "Your Logo - Use a size of about 450x150 pixels."
-#~ msgstr "귀하의 로고 - 450x150 pixels 크기"
-
-#~ msgid "Configuration Progress"
-#~ msgstr "구성 프로세스"
-
-#~ msgid "Localisation"
-#~ msgstr "지역화"
-
-#~ msgid "This field is not used, it only helps you to select a good model."
-#~ msgstr "이 파일은 사용되지 않고, 단지 좋은 모델을 선택하는 것을 돕습니다."
-
-#~ msgid "Save As Attachment Prefix"
-#~ msgstr "첨부 접두사로 저장"
-
-#~ msgid "Widget"
-#~ msgstr "위젯"
-
-#~ msgid "Certified"
-#~ msgstr "인증됨"
-
-#~ msgid "description"
-#~ msgstr "설명"
-
-#~ msgid "Human Resources Dashboard"
-#~ msgstr "인사관리 대시보드"
-
-#~ msgid ","
-#~ msgstr ","
-
-#~ msgid "-"
-#~ msgstr "-"
-
-#~ msgid "Homepage Widgets"
-#~ msgstr "홈페이지 위젯"
-
-#~ msgid "Domain Setup"
-#~ msgstr "도메인 설정"
-
-#~ msgid "Logs"
-#~ msgstr "로그"
-
-#~ msgid ""
-#~ "Example: GLOBAL_RULE_1 AND GLOBAL_RULE_2 AND ( (GROUP_A_RULE_1 AND "
-#~ "GROUP_A_RULE_2) OR (GROUP_B_RULE_1 AND GROUP_B_RULE_2) )"
-#~ msgstr ""
-#~ "예: GLOBAL_RULE_1 AND GLOBAL_RULE_2 AND ( (GROUP_A_RULE_1 AND GROUP_A_RULE_2) "
-#~ "OR (GROUP_B_RULE_1 AND GROUP_B_RULE_2) )"
-
-#~ msgid "Simplified"
-#~ msgstr "간체"
-
-#~ msgid "Facebook"
-#~ msgstr "페이스북"
-
-#~ msgid "Extended"
-#~ msgstr "확장됨"
-
-#~ msgid "Field Information"
-#~ msgstr "필드 정보"
-
-#~ msgid "Validate"
-#~ msgstr "검증"
-
-#~ msgid "Restart"
-#~ msgstr "재시작"
-
-#~ msgid "Always"
-#~ msgstr "항상"
-
-#~ msgid "Create Users"
-#~ msgstr "사용자 생성"
-
-#~ msgid "Event"
-#~ msgstr "이벤트"
-
-#~ msgid "OpenERP Favorites"
-#~ msgstr "OpenERP 즐겨찾기"
-
-#~ msgid "Plugins"
-#~ msgstr "플러그인"
-
-#~ msgid "Configure Your Interface"
-#~ msgstr "인터페이스 구성"
-
-#~ msgid "SMS - Gateway: clickatell"
-#~ msgstr "SMS - 게이트웨이: clickatell"
-
-#~ msgid "Metadata"
-#~ msgstr "메타 데이터"
-
-#~ msgid "Workflow On"
-#~ msgstr "업무 흐름 대상"
-
-#~ msgid "Display Menu Tips"
-#~ msgstr "메뉴 팁 보여주기"
+#~ msgid "Can not create the module file: %s !"
+#~ msgstr "모듈 파일을 생성하지 못함: %s !"
 
 #, python-format
 #~ msgid ""
-#~ "You can not write in this document (%s) ! Be sure your user belongs to one "
-#~ "of these groups: %s."
-#~ msgstr "이 문서(%s)에 쓰기 권한이 없습니다! 귀하의 계정이  %s 그룹에 속해 있는 구성원인지 확인하세요."
-
-#~ msgid "Wood Suppliers"
-#~ msgstr "목재 공급업체"
-
-#, python-format
-#~ msgid "new"
-#~ msgstr "신규"
+#~ "You cannot delete the language which is Active !\n"
+#~ "Please de-activate the language first."
+#~ msgstr ""
+#~ "활성 중인 언어를 삭제할 수 없습니다 !\n"
+#~ "먼저 언어를 비활성화해주세요."
 
 #, python-format
-#~ msgid "\"smtp_server\" needs to be set to send mails to users"
-#~ msgstr "사용자에게 메일을 보내기 위해 \"smtp_server\" 설정이 필요합니다"
-
-#~ msgid "Select Action Type"
-#~ msgstr "액션 유형 선택"
+#~ msgid "Size of the field can never be less than 1 !"
+#~ msgstr "필드의 크기는 1보다 작을 수 없습니다 !"
 
 #, python-format
-#~ msgid "The read method is not implemented on this object !"
-#~ msgstr "해당 읽기 방식은 이 오브젝트에 적용되지 않음!"
+#~ msgid "Invalid search criterions"
+#~ msgstr "유효하지 않은 검색 조건"
 
 #, python-format
-#~ msgid "Key/value '%s' not found in selection field '%s'"
-#~ msgstr "'%s' 키/값을 선택 필드 '%s' 에서 찾을 수 없습니다."
-
-#~ msgid "Schedule Upgrade"
-#~ msgstr "일정 업그레이드"
-
-#~ msgid "Miscellaneous Suppliers"
-#~ msgstr "기타 공급업체"
-
-#~ msgid "Export done"
-#~ msgstr "내보내기 완료"
-
-#~ msgid "New User"
-#~ msgstr "신규 사용자"
-
-#~ msgid "Want to check Ean ? "
-#~ msgstr "Ean을 확인하시겠습니까 ? "
-
-#~ msgid "Partner Form"
-#~ msgstr "협력업체 양식"
-
-#~ msgid ""
-#~ "OpenERP translations (core, modules, clients) are managed through "
-#~ "Launchpad.net, our open source project management facility. We use their "
-#~ "online interface to synchronize all translations efforts."
-#~ msgstr ""
-#~ "OpenERP 번역(코어, 모듈, 클라이언트)은 오픈소스 프로젝트 관리 기관인 Launchpad.net에 의해 관리됩니다. 저희는 해당 "
-#~ "기관의 온라인 인터페이스를 사용하여 모든 번역 결과를 동기화합니다."
-
-#~ msgid "Event Type"
-#~ msgstr "이벤트 유형"
-
-#~ msgid "Basic Partner"
-#~ msgstr "기본 협력업체"
-
-#~ msgid "res.config.users"
-#~ msgstr "res.config.users"
-
-#~ msgid ""
-#~ "Groups are used to define access rights on objects and the visibility of "
-#~ "screens and menus"
-#~ msgstr "그룹은 오브젝트의 접근 권한 및 화면과 메뉴 노출 여부 설정을 위해 사용됩니다"
-
-#~ msgid "client_action_multi, client_action_relate"
-#~ msgstr "client_action_multi, client_action_relate"
+#~ msgid "Base Language 'en_US' can not be deleted !"
+#~ msgstr "'en_US' 기본 언어는 삭제될 수 없습니다 !"
 
 #, python-format
-#~ msgid "The unlink method is not implemented on this object !"
-#~ msgstr "링크 해제 방식은 해당 오브젝트에 적용되지 않습니다 !"
+#~ msgid "Unmet dependency !"
+#~ msgstr "일치하지 않은 의존성 !"
 
-#~ msgid "S. Georgia & S. Sandwich Isls."
-#~ msgstr "세인트 조지아 & 세이트 샌드위치 섬"
-
-#~ msgid "To export a new language, do not select a language."
-#~ msgstr "새 언어를 내보내려면, 언어를 선택하지 마세요."
-
-#~ msgid "Request Date"
-#~ msgstr "요청일"
-
-#~ msgid "Dashboard"
-#~ msgstr "대시보드"
+#~ msgid ""
+#~ "Manage the partner categories in order to better classify them for tracking "
+#~ "and analysis purposes. A partner may belong to several categories and "
+#~ "categories have a hierarchy structure: a partner belonging to a category "
+#~ "also belong to his parent category."
+#~ msgstr ""
+#~ "추적 및 분석 목적을 위한 구분을 개선하기 위해 협력업체 분류를 관리하세요. 협력업체는 여러 분류에 속해 있을 수 있으며 분류는 계층 "
+#~ "구조로 되어있을 수도 있습니다: 분류에 속해 있는 협력업체는 모기업에도 속해 있습니다."
 
 #, python-format
-#~ msgid "Error during communication with the publisher warranty server."
-#~ msgstr "발행자 보증 서버와 통신 중 오류가 발생했습니다."
+#~ msgid "Connection test failed!"
+#~ msgstr "연결 시험에 실패함!"
+
+#~ msgid ""
+#~ "Configure your company's bank accounts and select those that must appear on "
+#~ "the report footer. You can reorder bank accounts from the list view. If you "
+#~ "use the accounting application of OpenERP, journals and accounts will be "
+#~ "created automatically based on these data."
+#~ msgstr ""
+#~ "회사 은행 계정을 구성하고 보고서 바닥글에 표시할 계좌를 선택하세요. 은행 계좌는 목록 화면에서 순서를 변경할 수 있습니다. "
+#~ "OpenERP의 회계 모듈을 사용할 경우, 해당 자료를 기준으로 장부 및 계정이 자동으로 생성됩니다."
 
 #, python-format
-#~ msgid "The search method is not implemented on this object !"
-#~ msgstr "이 검색 방식은 이 오브젝트에 적용되지 않음 !"
-
-#~ msgid "Payment Term (short name)"
-#~ msgstr "결제 조건 (약식 이름)"
-
-#~ msgid ""
-#~ "Provides the fields that will be used to fetch the email address, e.g. when "
-#~ "you select the invoice, then `object.invoice_address_id.email` is the field "
-#~ "which gives the correct address"
-#~ msgstr ""
-#~ "이메일 주소를 가져오기 위해 사용할 필드를 제공함, 예: 송장 선택 시 `object.invoice_address_id.email`은 "
-#~ "정확한 주소를 제공하는 필드입니다."
-
-#~ msgid "wizard.ir.model.menu.create.line"
-#~ msgstr "wizard.ir.model.menu.create.line"
-
-#~ msgid ""
-#~ "Date : %(date)s\n"
-#~ "\n"
-#~ "Dear %(partner_name)s,\n"
-#~ "\n"
-#~ "Please find in attachment a reminder of all your unpaid invoices, for a "
-#~ "total amount due of:\n"
-#~ "\n"
-#~ "%(followup_amount).2f %(company_currency)s\n"
-#~ "\n"
-#~ "Thanks,\n"
-#~ "--\n"
-#~ "%(user_signature)s\n"
-#~ "%(company_name)s"
-#~ msgstr ""
-#~ "날짜 : %(date)s\n"
-#~ "%(partner_name)s 귀하\n"
-#~ "\n"
-#~ "다음 총 지불액에 해당하는 귀하의 미납 송장을 첨부 파일에서 확인하시기 바랍니다:\n"
-#~ "\n"
-#~ "%(followup_amount).2f %(company_currency)s\n"
-#~ "\n"
-#~ "감사합니다.\n"
-#~ "\n"
-#~ "%(user_signature)s\n"
-#~ "%(company_name)s"
-
-#~ msgid ""
-#~ "Condition that is to be tested before action is executed, e.g. "
-#~ "object.list_price > object.cost_price"
-#~ msgstr "액션이 실행되기 전에 시험될조건. 예: object.list_price > object.cost_price"
-
-#~ msgid "Keep 0 if the action must appear on all resources."
-#~ msgstr "해당 액션이 모든 리소스에 나타나야 할 경우, 0을 유지하세요."
-
-#~ msgid ""
-#~ "Keep empty if you don't want the user to be able to connect on the system."
-#~ msgstr "해당 사용자가 시스템에 접속하지 못하길 원할 경우 비워두세요."
-
-#~ msgid "Advanced"
-#~ msgstr "고급"
-
-#~ msgid ""
-#~ "When using CSV format, please also check that the first line of your file is "
-#~ "one of the following:"
-#~ msgstr "CSV형식를 사용할 때, 해당 파일의 첫째 줄이 다음 중 하나인지 확인하세요:"
-
-#~ msgid "https://help.launchpad.net/Translations"
-#~ msgstr "https://help.launchpad.net/Translations"
-
-#~ msgid ""
-#~ "This wizard will scan all module repositories on the server side to detect "
-#~ "newly added modules as well as any change to existing modules."
-#~ msgstr ""
-#~ "이 마법사는 기존 모듈의 변경사항 뿐만 아니라 새로 추가된 모듈을 탐지하기 위해 서버 측의 모든 모듈 저장소를 검사할 것입니다."
+#~ msgid "Please specify an action to launch !"
+#~ msgstr "시작할 액션을 지정하세요 !"
 
 #, python-format
-#~ msgid "Not implemented search_memory method !"
-#~ msgstr "search_memory 방식이 구현되지 않음 !"
+#~ msgid "Error !"
+#~ msgstr "오류 !"
+
+#~ msgid "Manage bank records you want to be used in the system."
+#~ msgstr "시스템 내에서 사용되기 원하는 은행 기록을 관리함."
 
 #, python-format
-#~ msgid "Not implemented set_memory method !"
-#~ msgstr "set_memory 방식을 수행하지 못함 !"
-
-#~ msgid ""
-#~ "Create additional users and assign them groups that will allow them to have "
-#~ "access to selected functionalities within the system. Click on 'Done' if you "
-#~ "do not wish to add more users at this stage, you can always do this later."
-#~ msgstr ""
-#~ "추가 사용자를 생성하고, 시스템 내에서 선택한 기능에 접근을 허용할 수 있는 그룹에 할당하세요. 이 단계에서 더 이상의 사용자 생성을 "
-#~ "원하지 않으면 \"완료\"를 클릭하세요. 나중에 언제나 할 수 있습니다."
-
-#~ msgid "Portugese (BR) / Português (BR)"
-#~ msgstr "포루트칼어 (BR) / Português (BR)"
-
-#~ msgid "Please be patient, as this operation may take a few seconds..."
-#~ msgstr "작업이 끝날 때까지 조금만 기다려주세요..."
-
-#~ msgid "Customization"
-#~ msgstr "사용자 지정"
+#~ msgid "Connection test succeeded!"
+#~ msgstr "연결 시험을 성공함!"
 
 #, python-format
-#~ msgid "The perm_read method is not implemented on this object !"
-#~ msgstr "perm_read 방식은 이 객체에 적용되지 않습니다 !"
+#~ msgid "You cannot delete the language which is User's Preferred Language !"
+#~ msgstr "사용자가 설정한 언어는 삭제할 수 없습니다."
 
-#~ msgid "Clear IDs"
-#~ msgstr "ID 삭제"
-
-#~ msgid ""
-#~ "Name of object whose function will be called when this scheduler will run. "
-#~ "e.g. 'res.partener'"
-#~ msgstr "이 스케줄러가 수행될 때, 함수가 호출되는 객체의 이름. 예:  'res.partener'"
-
-#~ msgid "Messages"
-#~ msgstr "메시지"
-
-#~ msgid "Openstuff.net"
-#~ msgstr "Openstuff.net"
-
-#~ msgid "Ending Date"
-#~ msgstr "종료일"
-
-#~ msgid "res.partner.event"
-#~ msgstr "res.partner.event"
-
-#~ msgid "Iteration Action Configuration"
-#~ msgstr "반복 액션 구성"
-
-#~ msgid "Canceled"
-#~ msgstr "취소됨"
-
-#~ msgid "Report Footer 1"
-#~ msgstr "보고서 바닥글 1"
-
-#~ msgid "Report Footer 2"
-#~ msgstr "보고서 바닥글 2"
-
-#~ msgid "Portugese / Português"
-#~ msgstr "포르투갈어 / Português"
-
-#~ msgid "Start Configuration"
-#~ msgstr "구성 시작"
-
-#~ msgid "Custom python parser"
-#~ msgstr "사용자 지정 파이썬 파서"
-
-#~ msgid "Unvalidated"
-#~ msgstr "검증되지 않았음"
-
-#~ msgid "Channel"
-#~ msgstr "경로"
+#~ msgid "Spanish - Accounting (PGCE 2008)"
+#~ msgstr "스페인어 - 회계 (PGCE 2008)"
 
 #, python-format
-#~ msgid "Please check that all your lines have %d columns."
-#~ msgstr "모든 입력줄에 %d개의 행이 있는지 확인하세요."
-
-#~ msgid ""
-#~ "This wizard helps you add a new language to your OpenERP system. After "
-#~ "loading a new language it becomes available as default interface language "
-#~ "for users and partners."
-#~ msgstr ""
-#~ "해당 마법사는 OpenERP 시스템에 새로운 언어를 추가할 수 있도록 도와줍니다. 새로운 언어를 불러온 후, 사용자와 협력업체를 위한 "
-#~ "기본 언어로 사용 가능합니다."
-
-#~ msgid "maintenance.contract"
-#~ msgstr "maintenance.contract"
-
-#~ msgid ""
-#~ "Value Added Tax number. Check the box if the partner is subjected to the "
-#~ "VAT. Used by the VAT legal statement."
-#~ msgstr "VAT 번호. 협력업체가 VAT 부과 대상이면 이 상자를 체크하세요. VAT 법적 조항에 사용됨."
-
-#~ msgid "VAT"
-#~ msgstr "VAT"
-
-#~ msgid "Ean check"
-#~ msgstr "Ean 확인"
-
-#~ msgid "M."
-#~ msgstr "M."
-
-#~ msgid "Categories"
-#~ msgstr "분류"
+#~ msgid "Operation forbidden"
+#~ msgstr "작업이 금지됨"
 
 #, python-format
-#~ msgid "The certificate ID of the module must be unique !"
-#~ msgstr "모듈의 인증 ID는 유일해야 합니다 !"
-
-#, python-format
-#~ msgid ""
-#~ "Operation prohibited by access rules, or performed on an already deleted "
-#~ "document (Operation: read, Document type: %s)."
-#~ msgstr "접근 규칙에 의해 금지되었거나 이미 삭제된 문서에 수행된 작업 ( 작업: 읽기, 문서 유형: %s)."
-
-#~ msgid ""
-#~ "You cannot have multiple records with the same id for the same module !"
-#~ msgstr "동일한 모듈에 대하여 동일한 id를 가진 다수의 레코드가 있을 수 없습니다 !"
-
-#~ msgid "Send SMS"
-#~ msgstr "SMS 보내기"
-
-#~ msgid ""
-#~ "If you need another language than the official ones available, you can "
-#~ "import a language pack from here. Other OpenERP languages than the official "
-#~ "ones can be found on launchpad."
-#~ msgstr ""
-#~ "공식 언어 외 다른 언어가 필요할 경우, 여기에서 언어팩을 가져올 수 있습니다. 공식 언어 외 기타 OpenERP 언어는 "
-#~ "Lauchpad에서 찾을 수 있습니다."
-
-#, python-format
-#~ msgid ""
-#~ "Save this document to a .CSV file and open it with your favourite "
-#~ "spreadsheet software. The file encoding is UTF-8. You have to translate the "
-#~ "latest column before reimporting it."
-#~ msgstr ""
-#~ "해당 문서를 .CSV 파일로 저장하고, 선호하는 스프레드시트 소프트웨어로 여세요. 파일 인코딩은 UTF-8입니다. 다시 가져오기 전에 "
-#~ "최근 열을 번역해야 합니다."
-
-#~ msgid "Last Connection"
-#~ msgstr "최근 연결"
-
-#~ msgid "Quality Certificate"
-#~ msgstr "품질 보증서"
-
-#~ msgid "Check this box if the partner is a customer."
-#~ msgstr "협력업체가 고객일 경우, 이 상자를 체크하세요."
-
-#~ msgid ""
-#~ "If the selected language is loaded in the system, all documents related to "
-#~ "this partner will be printed in this language. If not, it will be english."
-#~ msgstr ""
-#~ "선택한 언어를 시스템으로 불러오면, 해당 협력업체와 관련된 모든 문서들이 해당 언어로 인쇄됩니다. 그렇지 않을 경우, 영어로 표시됩니다."
-
-#, python-format
-#~ msgid "\"email_from\" needs to be set to send welcome mails to users"
-#~ msgstr "\"email_from\"은 사용자들에게 환영 메일을 보내도록 설정될 필요가 있습니다."
-
-#~ msgid "Default Filters"
-#~ msgstr "기본 필터"
-
-#~ msgid "XML ID"
-#~ msgstr "XML ID"
-
-#~ msgid "Current Activity"
-#~ msgstr "현재 활동"
-
-#~ msgid "Customized Architecture"
-#~ msgstr "사용자 지정 구조"
-
-#~ msgid "FYROM"
-#~ msgstr "FYROM"
-
-#~ msgid "XML Id"
-#~ msgstr "XML Id"
-
-#, python-format
-#~ msgid "You can not remove the model '%s' !"
-#~ msgstr "'%s' 모델을 제거할 수 없습니다 !"
-
-#~ msgid ""
-#~ "0=Very Urgent\n"
-#~ "10=Not urgent"
-#~ msgstr ""
-#~ "0=매우 긴급함\n"
-#~ "10=급하지 않음"
-
-#~ msgid "Retailers"
-#~ msgstr "유통업체"
-
-#~ msgid "tree_but_action, client_print_multi"
-#~ msgstr "tree_but_action, client_print_multi"
-
-#~ msgid "API ID"
-#~ msgstr "API ID"
-
-#~ msgid "Translation Terms"
-#~ msgstr "번역 용어"
-
-#~ msgid "System update completed"
-#~ msgstr "시스템 업데이트 완료됨"
-
-#, python-format
-#~ msgid "The write method is not implemented on this object !"
-#~ msgstr "쓰기 방식은 해당 객체에 적용되지 않습니다 !"
-
-#~ msgid ""
-#~ "Please note that the following payments are now due. If your payment         "
-#~ "                has been sent, kindly forward your payment details. If "
-#~ "payment will be                         delayed further, please contact us "
-#~ "to discuss.                         \n"
-#~ "Would your payment have been carried out after this mail was sent, please "
-#~ "consider the present one as void."
-#~ msgstr ""
-#~ "다음과 같이 결제해주시기 바랍니다. 결제액을 송금하셨을 경우, 지불 내역서를 송부해주시기 바랍니다. 결제가 좀 더 지연될 경우, 상담을 "
-#~ "위해 연락 부탁드립니다.\n"
-#~ "\n"
-#~ "이 메일이 전송된 후 결제가 진행되었을 경우, 해당 건은 무효화됩니다."
-
-#~ msgid "Meta Datas"
-#~ msgstr "메타데이터"
-
-#~ msgid "res.users"
-#~ msgstr "res.users"
-
-#~ msgid "Parent Partner"
-#~ msgstr "모체 협력업체"
-
-#~ msgid ""
-#~ "The internal user that is in charge of communicating with this partner if "
-#~ "any."
-#~ msgstr "해당 협력업체의 의사 소통을 담당하는 내부 사용자"
-
-#~ msgid ""
-#~ "The user's timezone, used to perform timezone conversions between the server "
-#~ "and the client."
-#~ msgstr "서버와 클라이언트 간에 시간대 변환을 수행할 때 사용되는 사용자의 시간대"
-
-#~ msgid "publisher_warranty.contract"
-#~ msgstr "publisher_warranty.contract"
-
-#~ msgid "Starter Partner"
-#~ msgstr "창업 협력업체"
-
-#~ msgid "The state code in three chars.\n"
-#~ msgstr "3개의 문자로 구성된 상태 코드\n"
-
-#, python-format
-#~ msgid "module base cannot be loaded! (hint: verify addons-path)"
-#~ msgstr "모듈 베이스를 불러올 수 없습니다! (힌트: 애드온-경로를 검증하세요)"
-
-#~ msgid "Load Official Translation"
-#~ msgstr "공식 번역 불러오기"
-
-#~ msgid "Currency Converter"
-#~ msgstr "통화 변환기"
-
-#~ msgid "Partner Addresses"
-#~ msgstr "협력업체 주소"
-
-#~ msgid "ir.actions.url"
-#~ msgstr "ir.actions.url"
-
-#, python-format
-#~ msgid "The create method is not implemented on this object !"
-#~ msgstr "이 생성 방식은 해당 객체에 적용되지 않음 !"
-
-#~ msgid "vsep"
-#~ msgstr "vsep"
-
-#~ msgid "Trigger On"
-#~ msgstr "트리거 켜짐"
-
-#~ msgid "Combination of rules"
-#~ msgstr "규칙의 조합"
-
-#~ msgid "Request History"
-#~ msgstr "기록 요청"
-
-#~ msgid "Objects"
-#~ msgstr "객체"
-
-#~ msgid "Unread"
-#~ msgstr "읽지 않음"
-
-#~ msgid "- module,type,name,res_id,src,value"
-#~ msgstr "- module,type,name,res_id,src,value"
-
-#~ msgid "Serial Key"
-#~ msgstr "시리얼 키"
-
-#~ msgid "Create User"
-#~ msgstr "사용자 생성"
-
-#~ msgid "Maintenance Contract"
-#~ msgstr "유지 관리 계약"
-
-#~ msgid "Select the object from the model on which the workflow will executed."
-#~ msgstr "업무 흐름이 실행될 모델로부터 객체를 선택하세요."
-
-#~ msgid "Audit"
-#~ msgstr "감사"
-
-#~ msgid "Cancelled"
-#~ msgstr "취소됨"
-
-#~ msgid "Refresh Validation Dates"
-#~ msgstr "검증일 새로 고침"
-
-#~ msgid "Clear Ids"
-#~ msgstr "Id 삭제"
-
-#~ msgid "Interface"
-#~ msgstr "인터페이스"
-
-#~ msgid "In-memory model"
-#~ msgstr "메모리 내 모델"
-
-#~ msgid "res.widget.user"
-#~ msgstr "res.widget.user"
-
-#~ msgid "On delete"
-#~ msgstr "삭제 시"
-
-#, python-format
-#~ msgid "Not Implemented"
-#~ msgstr "수행되지 않음"
-
-#~ msgid "Salesman"
-#~ msgstr "영업 사원"
-
-#~ msgid "_Ok"
-#~ msgstr "_Ok"
-
-#~ msgid "False means for every user"
-#~ msgstr "각 사용자를 위한 거짓 수단"
-
-#~ msgid "Widgets"
-#~ msgstr "위젯"
-
-#~ msgid "Widget Wizard"
-#~ msgstr "위젯 마법사"
-
-#~ msgid "Textile Suppliers"
-#~ msgstr "섬유 공급업체"
-
-#~ msgid "Publisher Warranty Contracts"
-#~ msgstr "발행자 보증 계약"
-
-#~ msgid "My Logs"
-#~ msgstr "내 로그"
-
-#~ msgid "The logging message."
-#~ msgstr "로깅 메시지"
-
-#~ msgid "res.config.view"
-#~ msgstr "res.config.view"
-
-#~ msgid "Read"
-#~ msgstr "읽음"
-
-#~ msgid "Latest version"
-#~ msgstr "최근 버전"
-
-#~ msgid "acc_number"
-#~ msgstr "acc_number"
-
-#~ msgid "Select Report"
-#~ msgstr "보고서 선택"
-
-#~ msgid "Has a web component"
-#~ msgstr "웹 컨포넌트가 있음"
-
-#~ msgid "Sender's email"
-#~ msgstr "보내는 사람의 이메일"
-
-#, python-format
-#~ msgid "The exists method is not implemented on this object !"
-#~ msgstr "이미 존재하는 방식은 해당 객체에 수행되지 않았습니다 !"
-
-#~ msgid "Connect Events to Actions"
-#~ msgstr "이벤트를 액션에 연결"
-
-#, python-format
-#~ msgid "Module %s: Invalid Quality Certificate"
-#~ msgstr "%s 모듈: 유효하지 않은 품질 보증서"
-
-#~ msgid "SMS Send"
-#~ msgstr "SMS 보내기"
-
-#~ msgid "Values for Event Type"
-#~ msgstr "이벤트 유형의 값"
-
-#~ msgid "Content"
-#~ msgstr "컨텐트"
-
-#~ msgid "Next planned execution date for this scheduler"
-#~ msgstr "해당 스케줄러의 다음 예정 실행일"
-
-#~ msgid "Choose between the simplified interface and the extended one"
-#~ msgstr "단순 또는 확장 인터페이스 중에 선택하세요."
-
-#~ msgid ""
-#~ "Your publisher warranty contract is already subscribed in the system !"
-#~ msgstr "귀하의 발행자 보증 계약서는 이미 시스템 내에 가입되어 있습니다."
-
-#~ msgid "Arguments to be passed to the method. e.g. (uid,)"
-#~ msgstr "해다당 방식에 전달 예정인 인수. 예: (uid,)"
-
-#, python-format
-#~ msgid ""
-#~ "Invalid value for reference field \"%s\" (last part must be a non-zero "
-#~ "integer): \"%s\""
-#~ msgstr "\"%s\" 참조 필드의 유효하지 않은 값 (마지막 부분은 0을 제외한 정수여야 함): \"%s\""
-
-#, python-format
-#~ msgid "Object %s does not exists"
-#~ msgstr "%s 객체가 존재하지 않음"
-
-#~ msgid "_Close"
-#~ msgstr "_닫기"
-
-#~ msgid "Secondary Log"
-#~ msgstr "2차 로그"
-
-#~ msgid "res.groups"
-#~ msgstr "res.groups"
-
-#~ msgid "Add"
-#~ msgstr "추가"
-
-#~ msgid ""
-#~ "Track from where is coming your leads and opportunities by creating specific "
-#~ "channels that will be maintained at the creation of a document in the "
-#~ "system. Some examples of channels can be: Website, Phone Call, Reseller, etc."
-#~ msgstr ""
-#~ "시스템 내에서 생성된 문서에서 관리될 특정 의사 소통 수단을 생성하여 잠재 고객과 영업 기회의 근원을 추적함. 의사 소통 수단의 예: 웹 "
-#~ "사이트, 전화, 유통업체 등"
-
-#~ msgid ""
-#~ "If this log item has been read, get() should not send it to the client"
-#~ msgstr "해당 로그 항목을 읽은 경우, get()이(가) 이를 클라이언트에 전송하지 않아야 합니다"
-
-#~ msgid "Waiting"
-#~ msgstr "대기 중"
-
-#, python-format
-#~ msgid "Could not load base module"
-#~ msgstr "베이스 모듈을 불러올 수 없음"
-
-#~ msgid "Ignore"
-#~ msgstr "무시"
-
-#~ msgid "Creation Date"
-#~ msgstr "생성일"
-
-#~ msgid ""
-#~ "If an email is provided, the user will be sent a message welcoming him.\n"
-#~ "\n"
-#~ "Warning: if \"email_from\" and \"smtp_server\" aren't configured, it won't "
-#~ "be possible to email new users."
-#~ msgstr "이메일이 제공되었을 경우, 사용자를 환영하는 메시지가 전송됩니다."
-
-#~ msgid "ir.actions.todo"
-#~ msgstr "ir.actions.todo"
-
-#, python-format
-#~ msgid "Couldn't find previous ir.actions.todo"
-#~ msgstr "이전 ir.actions.todo를 찾을 수 없음"
-
-#~ msgid "res.widget"
-#~ msgstr "res.widget"
-
-#, python-format
-#~ msgid "Please specify server option --email-from !"
-#~ msgstr "서버 옵션을 지정하세요 --email-from !"
-
-#~ msgid "Finished"
-#~ msgstr "완료됨"
-
-#~ msgid ""
-#~ "Check out this box if you want to always display tips on each menu action"
-#~ msgstr "각 메뉴 액션마다 팁을 표시하려면 해당 상자를 체크하세요."
-
-#~ msgid ""
-#~ "View type: set to 'tree' for a hierarchical tree view, or 'form' for other "
-#~ "views"
-#~ msgstr "화면 유형: 계층적 트리 화면에서 '트리'로, 다른 화면에서는 '양식'으로 설정"
-
-#~ msgid "country_id"
-#~ msgstr "country_id"
-
-#~ msgid "res.log"
-#~ msgstr "res.log"
-
-#~ msgid "Maps to the ir_model_data for which this translation is provided."
-#~ msgstr "번역이 제공된 ir_model_data의 지도"
-
-#~ msgid "Fund Raising"
-#~ msgstr "자금 모금"
-
-#~ msgid "Object Identifiers"
-#~ msgstr "객체 식별자"
-
-#~ msgid "To browse official translations, you can start with these links:"
-#~ msgstr "공식 번역을 검색하시려면 다음 링크에서부터 시작할 수 있습니다:"
-
-#~ msgid "E-mail"
-#~ msgstr "이메일"
-
-#~ msgid "Postal Address"
-#~ msgstr "우편물 주소"
-
-#~ msgid "Module update result"
-#~ msgstr "모듈 업데이트 결과"
-
-#~ msgid ""
-#~ "Please be patient, this operation may take a few minutes (depending on the "
-#~ "number of modules currently installed)..."
-#~ msgstr "해당 작업은 (현재 설치된 모듈 갯수에 따라) 몇 분 소요될 수 있으므로 잠시만 기다려주세요..."
-
-#, python-format
-#~ msgid "The read_group method is not implemented on this object !"
-#~ msgstr "read_group 방식은 해당 객체에 수행되지 않았습니다 !"
-
-#, python-format
-#~ msgid "Contract validation error"
-#~ msgstr "계약 검증 오류"
-
-#~ msgid "Start update"
-#~ msgstr "갱신 시작"
-
-#~ msgid "Mss"
-#~ msgstr "Mss"
-
-#~ msgid "OpenERP Partners"
-#~ msgstr "OpenERP 협력업체"
-
-#~ msgid "HR Manager Dashboard"
-#~ msgstr "인사관리부장 대시보드"
-
-#~ msgid "ir.wizard.screen"
-#~ msgstr "ir.wizard.screen"
-
-#~ msgid "Ms."
-#~ msgstr "Ms."
-
-#~ msgid "Terminated"
-#~ msgstr "중단됨"
-
-#, python-format
-#~ msgid "key '%s' not found in selection field '%s'"
-#~ msgstr "'%s' 선택 필드에서  '%s' 키를 찾지 못했음."
-
-#, python-format
-#~ msgid "Database ID doesn't exist: %s : %s"
-#~ msgstr "데이터베이스 ID가 존재하지 않습니다: %s : %s"
-
-#~ msgid "Correct EAN13"
-#~ msgstr "올바른 EAN13"
-
-#, python-format
-#~ msgid "The value \"%s\" for the field \"%s\" is not in the selection"
-#~ msgstr "\"%s\" 필드의 \"%s\" 값은 선택 목록에 존재하지 않습니다"
-
-#, python-format
-#~ msgid "Warning !"
-#~ msgstr "경고 !"
-
-#~ msgid "Synchronize Translations"
-#~ msgstr "번역 동기화"
-
-#~ msgid ""
-#~ "Number of time the function is called,\n"
-#~ "a negative number indicates no limit"
-#~ msgstr ""
-#~ "해당 기능을 불러온 회수,\n"
-#~ "음수는 제한이 없음을 의미함"
-
-#~ msgid "Gold Partner"
-#~ msgstr "우수 협력업체"
-
-#~ msgid "publisher_warranty.contract.wizard"
-#~ msgstr "publisher_warranty.contract.wizard"
-
-#~ msgid "Website of Partner"
-#~ msgstr "협력업체의 웹 사이트"
-
-#~ msgid "Load an Official Translation"
-#~ msgstr "공식 번역 불러오기"
-
-#~ msgid "Report file"
-#~ msgstr "보고서 파일"
-
-#~ msgid "Miscelleanous"
-#~ msgstr "기타"
-
-#~ msgid "Created"
-#~ msgstr "생성됨"
-
-#~ msgid "- type,name,res_id,src,value"
-#~ msgstr "- type,name,res_id,src,value"
-
-#~ msgid ""
-#~ "Only specify a value if you want to change the user password. This user will "
-#~ "have to logout and login again!"
-#~ msgstr "사용자 암호를 변경하기 원할 때만 값을 지정하세요. 사용자가 로그아웃 후 재 로그인해야 합니다!"
-
-#~ msgid "Add a widget for User"
-#~ msgstr "사용자를 위한 위젯 추가"
-
-#~ msgid "Emails"
-#~ msgstr "이메일"
-
-#~ msgid ""
-#~ "You can install new modules in order to activate new features, menu, reports "
-#~ "or data in your OpenERP instance. To install some modules, click on the "
-#~ "button \"Schedule for Installation\" from the form view, then click on "
-#~ "\"Apply Scheduled Upgrades\" to migrate your system."
-#~ msgstr ""
-#~ "OpenERP 사례에 신규 특징, 메뉴, 보고서 또는 데이터를 활성화하기 위해 신규 모듈을 설치할 수 있습니다. 일부 모듈을 설치하려면 "
-#~ "\"설치 일정 생성\" 버튼을 클릭하고, 그 다음 \"예정된 업그레이드 적용\"을 클릭하여 시스템을 변경하세요."
-
-#~ msgid "Congo, The Democratic Republic of the"
-#~ msgstr "콩고, 민주 공화국"
-
-#~ msgid ""
-#~ "Indicates whether this object model lives in memory only, i.e. is not "
-#~ "persisted (osv.osv_memory)"
-#~ msgstr "해당 모델이 메모리 내에만 거주하는지 여부를 표시함. 예: 계속되지 않음 (osv.osv_memory)"
-
-#~ msgid "Register"
-#~ msgstr "등록"
-
-#~ msgid "Consumers"
-#~ msgstr "소비자"
-
-#~ msgid ""
-#~ "This wizard will detect new terms to translate in the application, so that "
-#~ "you can then add translations manually or perform a complete export (as a "
-#~ "template for a new language example)."
-#~ msgstr ""
-#~ "해당 마법사는 응용 프로그램의 신규 번역 대상 용어를 탐지하여, 번역을 수동으로 추가하거나 (신규 언어 예시의 양식 형태로) 통째로 "
-#~ "내보낼 수 있도록 합니다."
-
-#~ msgid "Widgets per User"
-#~ msgstr "사용자 당 위젯"
-
-#, python-format
-#~ msgid ""
-#~ "Operation prohibited by access rules, or performed on an already deleted "
-#~ "document (Operation: %s, Document type: %s)."
-#~ msgstr "접근 규칙으로 인해 작업이 거부되었거나 이미 삭제된 문서에 실행됨 (작업: %s, 문서 유형: %s)."
-
-#~ msgid "User Widgets"
-#~ msgstr "사용자 위젯"
-
-#~ msgid "Add or not the coporate RML header"
-#~ msgstr "회사 RML 머리글 추가 여부"
-
-#~ msgid "Rules are not supported for osv_memory objects !"
-#~ msgstr "osv_memory 객체에는 규칙이 지원되지 않습니다 !"
-
-#~ msgid "Menu Tips"
-#~ msgstr "메뉴 팁"
-
-#~ msgid "Extra Info"
-#~ msgstr "추가 정보"
-
-#~ msgid "Client Events"
-#~ msgstr "클라이언트 이벤트"
-
-#~ msgid "Ean Check"
-#~ msgstr "Ean 확인"
-
-#~ msgid "Event Logs"
-#~ msgstr "이벤트 로그"
-
-#~ msgid "state"
-#~ msgstr "상태"
-
-#~ msgid "_Export"
-#~ msgstr "_내보내기"
-
-#~ msgid "Register a Contract"
-#~ msgstr "계약 등록"
-
-#~ msgid "https://translations.launchpad.net/openobject"
-#~ msgstr "https://translations.launchpad.net/openobject"
-
-#~ msgid "On Skip"
-#~ msgstr "건너뛰기 시"
-
-#~ msgid "System Logs"
-#~ msgstr "시스템 로그"
-
-#~ msgid ""
-#~ "Supported file formats: *.csv (Comma-separated values) or *.po (GetText "
-#~ "Portable Objects)"
-#~ msgstr "지원되는 파일 형식: *.csv (쉼표 분리 값) 또는 *.po (GetText 포터블 객체)"
-
-#, python-format
-#~ msgid "You cannot remove the field '%s' !"
-#~ msgstr "'%s' 필드를 제거할 수 없습니다 !"
-
-#~ msgid "View Ordering"
-#~ msgstr "주문 보기"
-
-#, python-format
-#~ msgid ""
-#~ "Save this document to a .tgz file. This archive containt UTF-8 %s files and "
-#~ "may be uploaded to launchpad."
-#~ msgstr ""
-#~ "해당 문서를 .tgz 파일로 저장. 아카이브가 UTF-8 %s 파일을 포함하고 있으며 launchpad로 업로드될 수 있습니다."
-
-#, python-format
-#~ msgid ""
-#~ "--\n"
-#~ "%(name)s %(email)s\n"
-#~ msgstr ""
-#~ "--\n"
-#~ "%(name)s %(email)s\n"
-
-#~ msgid "Publisher warranty contract successfully registered!"
-#~ msgstr "발행자 보증 계약이 성공적으로 등록됨!"
-
-#~ msgid "Email & Signature"
-#~ msgstr "이메일 & 서명"
-
-#~ msgid "Publisher Warranty"
-#~ msgstr "발행자 보증"
-
-#~ msgid "Publisher Warranty Contract"
-#~ msgstr "발행자 보증 계약"
-
-#~ msgid "Slovak Republic"
-#~ msgstr "슬로바키아 공화국"
-
-#~ msgid ""
-#~ "You can access all information regarding your suppliers from the supplier "
-#~ "form: accounting data, history of emails, meetings, purchases, etc. You can "
-#~ "uncheck the 'Suppliers' filter button in order to search in all your "
-#~ "partners, including customers and prospects."
-#~ msgstr ""
-#~ "공급업체 양식으로부터 공급업체에 대한 모든 정보에 접근할 수 있습니다: 회계 데이터, 이메일 기록, 미팅, 구매 등. 고객 및 후보를 "
-#~ "비롯한 모든 협력업체에서 검색할 수 있도록  '공급업체' 필터 버튼을 체크하지 않을 수 있습니다."
-
-#~ msgid ""
-#~ "If you use OpenERP for the first time we strongly advise you to select the "
-#~ "simplified interface, which has less features but is easier. You can always "
-#~ "switch later from the user preferences."
-#~ msgstr ""
-#~ "OpenERP를 처음으로 사용할 경우, 특징은 적으나 사용이 편리한 단순한 인터페이스를 선택할 것을 강력히 권합니다. 나중에 사용자 기본 "
-#~ "설정에서 전환할 수 있습니다."
-
-#~ msgid "Is Object"
-#~ msgstr "객체임"
-
-#~ msgid "Select Groups"
-#~ msgstr "그룹 선택"
-
-#~ msgid "Portrait"
-#~ msgstr "세로 방향"
-
-#~ msgid "Never"
-#~ msgstr "절대"
-
-#~ msgid "Homepage Widgets Management"
-#~ msgstr "홈페이지 위젯 관리"
-
-#~ msgid "Search Widget"
-#~ msgstr "위젯 검색"
-
-#~ msgid "Current"
-#~ msgstr "현재"
-
-#~ msgid "Number padding"
-#~ msgstr "숫자 패딩"
-
-#~ msgid "Client Logs"
-#~ msgstr "클라이언트 로그"
-
-#~ msgid ""
-#~ "Enable this if you want to execute missed occurences as soon as the server "
-#~ "restarts."
-#~ msgstr "서버가 재시작했을 때 잃어버린 발생을 실행할 경우 해당 기능을 활성화하세요."
-
-#~ msgid "BIC/Swift code"
-#~ msgstr "BIC/Swift 코드"
-
-#~ msgid ""
-#~ "Sets the language for the user's user interface, when UI translations are "
-#~ "available"
-#~ msgstr "UI 번역이 사용 가능할 때 사용자의 사용자 인터페이스의 언어를 설정함."
-
-#~ msgid ""
-#~ "2. Group-specific rules are combined together with a logical AND operator"
-#~ msgstr "2. 특정 그룹 규칙은 논리적 AND 연산자와 함께 결합되어 있습니다"
-
-#, python-format
-#~ msgid ""
-#~ "You can not delete this document (%s) ! Be sure your user belongs to one of "
-#~ "these groups: %s."
-#~ msgstr "해당 문서 (%s)를 삭제할 수 없습니다 ! 사용자가 다음 그룹 중 하나에 속해 있는지 확인하세요: %s."
-
-#, python-format
-#~ msgid ""
-#~ "You can not read this document (%s) ! Be sure your user belongs to one of "
-#~ "these groups: %s."
-#~ msgstr "(%s) 문서를 읽을 수 없습니다 ! 사용자가 다음 그룹 중 하나에 속해 있는지 확인하세요: %s."
-
-#~ msgid ""
-#~ "Specify the message. You can use the fields from the object. e.g. `Dear [[ "
-#~ "object.partner_id.name ]]`"
-#~ msgstr "메시지를 지정하세요. 객체 필드를 사용할 수 있습니다. 예: `[[ object.partner_id.name ]] 귀하`"
-
-#~ msgid ""
-#~ "Specify the subject. You can use fields from the object, e.g. `Hello [[ "
-#~ "object.partner_id.name ]]`"
-#~ msgstr ""
-#~ "제목을 지정하세요. 객체 필드를 사용할 수 있습니다. 예: `안녕하세요, [[ object.partner_id.name ]]님`"
-
-#~ msgid "Check this box if the partner is an Employee."
-#~ msgstr "협력업체가 직원일 경우 해당 상자를 체크하세요."
-
-#~ msgid ""
-#~ "This wizard helps you add a new language to you OpenERP system. After "
-#~ "loading a new language it becomes available as default interface language "
-#~ "for users and partners."
-#~ msgstr ""
-#~ "해당 마법사는 OpenERP 시스템에 신규 언어를 추가할 수 있도록 도와줍니다. 신규 언어를 불러온 후, 이 언어는 사용자 및 협력업체의 "
-#~ "기본 인터페이스 언어로 사용 가능합니다."
-
-#~ msgid "Keep empty for a private address, not related to partner."
-#~ msgstr "협력업체와 관련되지 않은 개인 주소를 위해 비워 두십시오."
-
-#~ msgid "Components Supplier"
-#~ msgstr "부품 공급업체"
-
-#~ msgid "Contact Name"
-#~ msgstr "담당자명"
-
-#~ msgid "Trigger Name"
-#~ msgstr "트리거명"
-
-#~ msgid "Partner Name"
-#~ msgstr "협력업체명"
-
-#~ msgid "Select the Signal name that is to be used as the trigger."
-#~ msgstr "트리거로 사용될 신호명을 선택하세요."
-
-#~ msgid "Signal (button Name)"
-#~ msgstr "신호 (버튼명)"
-
-#~ msgid "Easy to Refer action by name e.g. One Sales Order -> Many Invoices"
-#~ msgstr "명칭으로 액션을 참조하기 쉬움 예: 한 개의 판매 주문 -> 여러 개의 송장"
-
-#~ msgid "User Name"
-#~ msgstr "사용자명"
-
-#~ msgid "Channel Name"
-#~ msgstr "소통 수단"
-
-#~ msgid ""
-#~ "Name of the method to be called on the object when this scheduler is "
-#~ "executed."
-#~ msgstr "해당 스케줄러가 실행되었을 때 객체를 부를 방식의 명칭"
-
-#~ msgid "The new user's real name, used for searching and most listings"
-#~ msgstr "신규 사용자의 실제 성명, 검색 및 대부분의 목록 출력 시 사용됨"
-
-#~ msgid "Filename"
-#~ msgstr "파일명"
-
-#, python-format
-#~ msgid "Please check your publisher warranty contract name and validity."
-#~ msgstr "귀하의 발행자 보증 계약 성명 및 유효성을 확인하세요."
-
-#~ msgid "Open Source Service Company"
-#~ msgstr "오픈 소스 서비스업체"
-
-#~ msgid ""
-#~ "Customers (also called Partners in other areas of the system) helps you "
-#~ "manage your address book of companies whether they are prospects, customers "
-#~ "and/or suppliers. The partner form allows you to track and record all the "
-#~ "necessary information to interact with your partners from the company "
-#~ "address to their contacts as well as pricelists, and much more. If you "
-#~ "installed the CRM, with the history tab, you can track all the interactions "
-#~ "with a partner such as opportunities, emails, or sales orders issued."
-#~ msgstr ""
-#~ "고객(시스템의 다른 영역에서는 협력업체라고도 칭함)은 잠재 고객, 일반 고객 또는 공급업체 여부에 상관 없이 업체의 주소록을 관리할 수 "
-#~ "있도록 도와줍니다.  협력업체 양식은 업체 주소부터 담당자는 물론이고 가격표 외 많은 것들을 협력업체와 상호 작용하기 위해 필요한 정보를 "
-#~ "추적 및 기록할 수 있도록 합니다. CRM을 설치했을 경우, 기록 탭을 통해 매출기회, 이메일 또는 발행된 판매 주문과 같이 협력업체와의 "
-#~ "전체 상호 작용을 추적할 수 있습니다."
-
-#~ msgid "Partner Contacts"
-#~ msgstr "협력업체 담당자"
-
-#~ msgid "Search Contact"
-#~ msgstr "담당자 검색"
-
-#~ msgid "Process"
-#~ msgstr "프로세스"
-
-#, python-format
-#~ msgid ""
-#~ "Some installed modules depend on the module you plan to Uninstall :\n"
-#~ " %s"
-#~ msgstr ""
-#~ "일부 설치된 모듈이 제거 예정 모듈에 의존합니다 :\n"
-#~ " %s"
-
-#~ msgid "MRP Subproducts"
-#~ msgstr "MRP 부산물"
-
-#~ msgid "On multiple doc."
-#~ msgstr "여러 문서 상"
-
-#, python-format
-#~ msgid ""
-#~ "Save this document to a %s file and edit it with a specific software or a "
-#~ "text editor. The file encoding is UTF-8."
-#~ msgstr "해당 문서를 %s 파일로 저장하고, 특정 소프트웨어 또는 문서 편집기로 편집하세요. 파일 인코딩은 UTF-8입니다."
-
-#~ msgid "Partner Manager"
-#~ msgstr "협력업체 관리자"
-
-#~ msgid ""
-#~ "\n"
-#~ "        This module provide a class import_framework to help importing \n"
-#~ "        complex data from other software\n"
-#~ "    "
-#~ msgstr ""
-#~ "\n"
-#~ "        해당 모듈은 타 소프트웨어로부터 복잡한 데이터를 불러오는데 도움을 주는\n"
-#~ "        import_framework 등급을 제공합니다.\n"
-#~ "    "
-
-#~ msgid ""
-#~ "The user this filter is available to. When left empty the filter is usable "
-#~ "by the system only."
-#~ msgstr "해당 필터를 사용 가능한 사용자. 비어있을 경우 필터는 시스템만 사용할 수 있음."
-
-#~ msgid "Website of Partner."
-#~ msgstr "협력업체의 웹 사이트"
-
-#~ msgid ""
-#~ "The module adds google contact in partner address and add google calendar "
-#~ "events details in Meeting"
-#~ msgstr "모듈이 협력업체 주소에 구글 연락처를 추가하고, 미팅에 구글 캘린더 이벤트 상세 내용을 추가합니다."
-
-#~ msgid ""
-#~ "\n"
-#~ "This module lets administrator track every user operation on all the objects "
-#~ "of the system.\n"
-#~ "============================================================================="
-#~ "==============\n"
-#~ "\n"
-#~ "The administrator can subscribe to rules for read, write and\n"
-#~ "delete on objects and can check logs.\n"
-#~ "    "
-#~ msgstr ""
-#~ "\n"
-#~ "해당 모듈은 관리자가 시스템의 모든 객체에 대한 각 사용자의 작업을 추적할 수 있도록 합니다.\n"
-#~ "============================================================================="
-#~ "==============\n"
-#~ "\n"
-#~ "관리자는 객체에 대한 읽기, 쓰기 및 삭제를 구독하고,\n"
-#~ "로그를 확인할 수 있습니다.\n"
-#~ "    "
-
-#~ msgid ""
-#~ "To improve or expand the official translations, you should use directly "
-#~ "Lauchpad's web interface (Rosetta). If you need to perform mass translation, "
-#~ "Launchpad also allows uploading full .po files at once"
-#~ msgstr ""
-#~ "공식 번역을 개선하거나 확장하기 위해서는 Lauchpad의 웹인터페이스(로제타)를 사용하기 바랍니다. 대량 번역을 할 경우, "
-#~ "Lauchpad는 또한 한 번에 .po파일을 업로드하는 작업을 허용합니다."
-
-#~ msgid "SugarCRM Import"
-#~ msgstr "SugarCRM 가져오기"
-
-#~ msgid ""
-#~ "\n"
-#~ "Add additional date information to the sales order.\n"
-#~ "===================================================\n"
-#~ "\n"
-#~ "You can add the following additional dates to a sale order:\n"
-#~ "    * Requested Date\n"
-#~ "    * Commitment Date\n"
-#~ "    * Effective Date\n"
-#~ msgstr ""
-#~ "\n"
-#~ "판매 주문의 추가 날짜 정보를 추가.\n"
-#~ "===================================================\n"
-#~ "\n"
-#~ "다음 추가 날짜를 판매 주문에 추가할 수 있음:\n"
-#~ "    * 요청일\n"
-#~ "    * 확약일\n"
-#~ "    * 발효일\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "        OpenERP Web gantt chart view.\n"
-#~ "        "
-#~ msgstr ""
-#~ "\n"
-#~ "        OpenERP 웹 간트 도표 화면.\n"
-#~ "        "
-
-#~ msgid ""
-#~ "\n"
-#~ "This is a complete document management system.\n"
-#~ "==============================================\n"
-#~ "\n"
-#~ "    * User Authentication\n"
-#~ "    * Document Indexation :- .pptx and .docx files are not supported in "
-#~ "Windows platform.\n"
-#~ "    * Dashboard for Document that includes:\n"
-#~ "        * New Files (list)\n"
-#~ "        * Files by Resource Type (graph)\n"
-#~ "        * Files by Partner (graph)\n"
-#~ "        * Files Size by Month (graph)\n"
-#~ "\n"
-#~ "ATTENTION:\n"
-#~ "    - When you install this module in a running company that have already "
-#~ "PDF files stored into the database,\n"
-#~ "      you will lose them all.\n"
-#~ "    - After installing this module PDF's are no longer stored into the "
-#~ "database,\n"
-#~ "      but in the servers rootpad like /server/bin/filestore.\n"
-#~ msgstr ""
-#~ "\n"
-#~ "해당 제품은 완벽한 문서 관리 시스템입니다.\n"
-#~ "==============================================\n"
-#~ "\n"
-#~ "    * 사용자 인증\n"
-#~ "    * 문서 색인화 :- .pptx 및 .docx 파일은 윈도우 플랫폼에서는 지원되지 않습니다.\n"
-#~ "    * 다음을 포함한 문서용 대시보드:\n"
-#~ "        * 신규 파일 (목록)\n"
-#~ "        * 리소스 유형별 파일 (그래프)\n"
-#~ "        * 협력업체별 파일 (그래프)\n"
-#~ "        * 월별 파일 크기 (그래프)\n"
-#~ "\n"
-#~ "알려 드립니다:\n"
-#~ "    - 데이터베이스 내에 저장된 PDF 파일이 존재하는 실행 업체에 해당 모듈을 설치할 경우,\n"
-#~ "      모든 PDF가 모두 손실됩니다.\n"
-#~ "    - 해당 모듈을 설치한 후, PDF는 더 이상 데이터베이스에 저장되지 않고, \n"
-#~ "      /server/bin/filestore 와 같은 서버 루트패드에 저장됩니다.\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "This is the test module which shows HTML tag support in normal XML form "
-#~ "view.\n"
-#~ "============================================================================="
-#~ "\n"
-#~ "\n"
-#~ "Creates a sample form-view using HTML tags. It is visible only in OpenERP "
-#~ "Web.\n"
-#~ "    "
-#~ msgstr ""
-#~ "\n"
-#~ "일반 양식 화면에서 HTML 태그 지원을 표시하는 시험 모듈입니다.\n"
-#~ "============================================================================="
-#~ "\n"
-#~ "\n"
-#~ "HTML 태그를 사용하여 샘플 양식 화면을 생성함. OpenERP Web 에서만 표시됩니다.\n"
-#~ "    "
-
-#~ msgid ""
-#~ "This wizard helps you register a publisher warranty contract in your OpenERP "
-#~ "system. After the contract has been registered, you will be able to send "
-#~ "issues directly to OpenERP."
-#~ msgstr ""
-#~ "해당 마법사는 OpenERP 시스템에 발행자 보증 계약서를 등록할 수 있도록 도움을 줍니다. 계약서가 등록된 후에는, OpenERP에 "
-#~ "직접 문제점을 보낼 수 있습니다."
-
-#~ msgid "Main report file path"
-#~ msgstr "메인 보고서 파일 경로"
-
-#~ msgid ""
-#~ "\n"
-#~ "Organization and management of Events.\n"
-#~ "======================================\n"
-#~ "\n"
-#~ "This module allows you\n"
-#~ "    * to manage your events and their registrations\n"
-#~ "    * to use emails to automatically confirm and send acknowledgements for "
-#~ "any registration to an event\n"
-#~ "    * ...\n"
-#~ "\n"
-#~ "Note that:\n"
-#~ "    - You can define new types of events in\n"
-#~ "        Association / Configuration / Types of Events\n"
-#~ msgstr ""
-#~ "\n"
-#~ "이벤트의 주최 및 관리.\n"
-#~ "======================================\n"
-#~ "\n"
-#~ "해당 모듈의 기능:\n"
-#~ "    * 이벤트 및 등록 관리\n"
-#~ "    * 이메일을 이용하여 이벤트에 관한 모든 등록의 자동 확정 및 답신 전송\n"
-#~ "    * ...\n"
-#~ "\n"
-#~ "참고사항:\n"
-#~ "    - 이벤트의 연관성 / 구성 / 유형에서\n"
-#~ "        이벤트의 신규 유형을 정의할 수 있습니다.\n"
-
-#~ msgid ""
-#~ "Do not display this log if it belongs to the same object the user is working "
-#~ "on"
-#~ msgstr "로그가 사용자가 작업하고 있는 객체에 속해 있을 경우, 로그를 표시하지 마세요."
-
-#~ msgid ""
-#~ "\n"
-#~ "This module adds generic sharing tools to your current OpenERP database.\n"
-#~ "========================================================================\n"
-#~ "\n"
-#~ "It specifically adds a 'share' button that is available in the Web client "
-#~ "to\n"
-#~ "share any kind of OpenERP data with colleagues, customers, friends, etc.\n"
-#~ "\n"
-#~ "The system will work by creating new users and groups on the fly, and by\n"
-#~ "combining the appropriate access rights and ir.rules to ensure that the\n"
-#~ "shared users only have access to the data that has been shared with them.\n"
-#~ "\n"
-#~ "This is extremely useful for collaborative work, knowledge sharing,\n"
-#~ "synchronization with other companies, etc.\n"
-#~ "\n"
-#~ "    "
-#~ msgstr ""
-#~ "\n"
-#~ "해당 모듈은 OpenERP 데이터베이스에 일반 공유 도구를 추가합니다..\n"
-#~ "========================================================================\n"
-#~ "\n"
-#~ "동료, 고객, 친구 등과 모든 종류의 OpenERP 데이터를 공유할 수 있도록\n"
-#~ "웹 클라이언트에서 사용 가능한 '공유' 버튼을 별도로 추가합니다.\n"
-#~ "\n"
-#~ "시스템이  신규 사용자 및 그룹을 신속하게 생성하고, 적합한 접근 권한 및\n"
-#~ "ir.rules와의 결합을 통해 공유 사용자가 지정된 공유 데이터에만\n"
-#~ "접근할 수 있도록 작동합니다.\n"
-#~ "\n"
-#~ "해당 도구는 협업, 지식 공유, 기타 업체와의\n"
-#~ "동기화 등에 아주 유용합니다.\n"
-#~ "\n"
-#~ "    "
-
-#~ msgid "OpenERP Web web"
-#~ msgstr "OpenERP Web 웹"
-
-#~ msgid "Html View"
-#~ msgstr "Html 화면"
-
-#~ msgid "Symbol position"
-#~ msgstr "기호 위치"
-
-#~ msgid ""
-#~ "\n"
-#~ "        添加中文省份数据\n"
-#~ "        科目类型\\会计科目表模板\\增值税\\辅助核算类别\\管理会计凭证簿\\财务会计凭证簿\n"
-#~ "        ============================================================\n"
-#~ "    "
-#~ msgstr ""
-#~ "\n"
-#~ "        添加中文省份数据\n"
-#~ "        科目类型\\会计科目表模板\\增值税\\辅助核算类别\\管理会计凭证簿\\财务会计凭证簿\n"
-#~ "        ============================================================\n"
-#~ "    "
-
-#~ msgid "General Information Footer"
-#~ msgstr "일반 정보 바닥글"
-
-#, python-format
-#~ msgid "Website: "
-#~ msgstr "웹 사이트: "
-
-#~ msgid "Multi-Currency in Analytic"
-#~ msgstr "분석 내 다중 통화"
-
-#, python-format
-#~ msgid ""
-#~ "Couldn't generate the next id because some partners have an alphabetic id !"
-#~ msgstr "일부 협력업체들이 영문자 ID를 보유하고 있어 다음 ID를 생성하지 못했음 !"
-
-#~ msgid "Uninstall (beta)"
-#~ msgstr "제거 (베타)"
-
-#~ msgid "Report Header / Company Slogan"
-#~ msgstr "보고서 머리글 / 업체 구호"
-
-#~ msgid "Calendar Layer"
-#~ msgstr "달력 레이어"
-
-#~ msgid "Tools / Customization"
-#~ msgstr "도구 / 사용자 지정"
-
-#, python-format
-#~ msgid "Fax: "
-#~ msgstr "팩스: "
-
-#~ msgid "Master Procurement Schedule"
-#~ msgstr "마스터 조달 일정"
-
-#~ msgid "Project Retro-planning"
-#~ msgstr "프로젝트 역기획"
-
-#~ msgid "Wiki: Quality Manual"
-#~ msgstr "위키: 품질 매뉴얼"
-
-#~ msgid "Administration Dashboard"
-#~ msgstr "관리 대시보드"
-
-#~ msgid "HR sector"
-#~ msgstr "인사부"
-
-#~ msgid "HR Officer"
-#~ msgstr "인사부 담당자"
-
-#~ msgid "Openerp web Diagram view"
-#~ msgstr "Openerp 웹 도표 화면"
-
-#~ msgid ""
-#~ "Please double-check that the file encoding is set to UTF-8 (sometimes called "
-#~ "Unicode) when the translator exports it."
-#~ msgstr "번역기가 파일을 내보낼 때, 파일 인코딩이 UTF-8으로 설정되었는지 확인하기 위해 재확인하세요."
-
-#~ msgid "Apply For Write"
-#~ msgstr "쓰기에 적용"
-
-#~ msgid "web Dashboard"
-#~ msgstr "웹 대시보드"
-
-#~ msgid "The RIB and/or IBAN is not valid"
-#~ msgstr "RIB/IBAN이 유효하지 않음"
-
-#~ msgid "Error ! You cannot create recursive associated members."
-#~ msgstr "오류 ! 재귀적 관련 구성원을 생성할 수 없습니다."
-
-#~ msgid "Point Of Sale"
-#~ msgstr "판매시점"
-
-#~ msgid "Webkit Report Samples"
-#~ msgstr "웹킷 보고서 샘플"
-
-#~ msgid ""
-#~ "\n"
-#~ "        OpenERP Web chat module.\n"
-#~ "        "
-#~ msgstr ""
-#~ "\n"
-#~ "        OpenERP 웻 대화 모듈.\n"
-#~ "        "
-
-#~ msgid "Set password"
-#~ msgstr "암호 설정"
-
-#~ msgid "iCal Support"
-#~ msgstr "iCal 지원"
-
-#~ msgid ""
-#~ "Agrega una nomenclatura contable para Honduras. También incluye impuestos y "
-#~ "la moneda Lempira. -- Adds accounting chart for Honduras.  It also includes "
-#~ "taxes and the Lempira currency"
-#~ msgstr ""
-#~ "Agrega una nomenclatura contable para Honduras. También incluye impuestos y "
-#~ "la moneda Lempira. -- 온두라스의 회계 도표를 추가함. 세금 및 렘피라 통화 또한 포함되어 있음."
-
-#~ msgid "OpenERP Web mobile"
-#~ msgstr "OpenERP Web 모바일"
-
-#~ msgid "Openerp web web"
-#~ msgstr "Openerp web 웹"
-
-#~ msgid ""
-#~ "Your OpenERP Publisher's Warranty Contract unique key, also called serial "
-#~ "number."
-#~ msgstr "OpenERP 발행자 보증 계약서의 유일한 키, 일련번호라고도 불림."
-
-#~ msgid "Expenses Management"
-#~ msgstr "비용 관리"
-
-#~ msgid "web Gantt"
-#~ msgstr "웹 간트"
-
-#~ msgid "web Graph"
-#~ msgstr "웹 그래프"
-
-#~ msgid "Receive User Feedback"
-#~ msgstr "사용자로부터 의견 받기"
-
-#~ msgid "Custom Reports"
-#~ msgstr "사용자 지정 보고서"
-
-#, python-format
-#~ msgid "That contract is already registered in the system."
-#~ msgstr "해당 계약서가 시스템에 이미 등록되었습니다."
-
-#~ msgid "Web Chat"
-#~ msgstr "웹 대화"
-
-#~ msgid "Bank Accounts Footer"
-#~ msgstr "은행 계정 바닥글"
-
-#, python-format
-#~ msgid ""
-#~ "You can not create this document (%s) ! Be sure your user belongs to one of "
-#~ "these groups: %s."
-#~ msgstr "(%s) 문서을 생성할 수 없습니다 ! 계정이 다음 그룹 중 하나에 속해 있는지 확인하세요: %s"
-
-#~ msgid "Apply For Delete"
-#~ msgstr "삭제에 적용"
-
-#~ msgid ""
-#~ "A customer is an entity you do business with, like a company or an "
-#~ "organization. A customer can have several contacts or addresses which are "
-#~ "the people working for this company. You can use the history tab, to follow "
-#~ "all transactions related to a customer: sales order, emails, opportunities, "
-#~ "claims, etc. If you use the email gateway, the Outlook or the Thunderbird "
-#~ "plugin, don't forget to register emails to each contact so that the gateway "
-#~ "will automatically attach incoming emails to the right partner."
-#~ msgstr ""
-#~ "고객은 업체 또는 단체와 같이, 귀하와 거래하는 기관입니다.고객은 해당 업체에 근무하는 인원인 고객은 여러 명의 담당자 또는 주소를 "
-#~ "보유할 수 있습니다. 판매 주문, 이메일, 매출 기회, 청구 등 고객에게 관련된 모든 거래를 수행하기 위해 기록 탭을 사용할 수 "
-#~ "있습니다. 귀하가 이메일 게이트웨이, 아웃룩 또는 썬더버드 플러그인을 사용할 경우, 게이트웨이가 수신되는 이메일을 올바른 협력업체에 "
-#~ "자동으로 연결할 수 있도록 각 담당자의 이메일을 등록하는 것을 잊지 마세요.."
-
-#~ msgid "Test"
-#~ msgstr "시험"
-
-#~ msgid "Analyse Module Quality"
-#~ msgstr "모듈 품질 분석"
-
-#~ msgid "Please enter the serial key provided in your contract document:"
-#~ msgstr "계약서 상에 제공된 일련번호를 입력하세요:"
-
-#~ msgid "Methodology: SCRUM"
-#~ msgstr "방법론: SCRUM"
-
-#~ msgid "Author Website"
-#~ msgstr "저자 웹 사이트"
-
-#~ msgid "Query Builder"
-#~ msgstr "쿼리 빌더"
-
-#~ msgid "OPW"
-#~ msgstr "OPW"
-
-#~ msgid "OpenERP Tweets"
-#~ msgstr "OpenERP 트윗 메시지"
-
-#~ msgid "Hidden"
-#~ msgstr "숨겨짐"
-
-#~ msgid "Issues Tracker"
-#~ msgstr "사안 추적기"
-
-#~ msgid "Header/Footer of Reports"
-#~ msgstr "보고서의 머리글/바닥글"
-
-#, python-format
-#~ msgid ""
-#~ "Please check that all your lines have %d columns.Stopped around line %d "
-#~ "having %d columns."
-#~ msgstr "모든 입력줄에  %d개의 열이 있는지 확인하세요. %d개의 열이 있는 %d번 입력줄 주변에서 멈춤."
-
-#, python-format
-#~ msgid "Applications"
-#~ msgstr "응용 프로그램"
-
-#~ msgid "Timesheets Validation"
-#~ msgstr "시간 기록표 검증"
-
-#~ msgid "function"
-#~ msgstr "함수"
-
-#~ msgid "Edit"
-#~ msgstr "편집"
-
-#~ msgid "Meetings Synchronization"
-#~ msgstr "미팅 동기화"
-
-#~ msgid "Contacts Management"
-#~ msgstr "계약 관리"
-
-#, python-format
-#~ msgid "Please verify your publisher warranty serial number and validity."
-#~ msgstr "발행자 보증 일련번호 및 유효기간을 확인하세요."
-
-#~ msgid "Partner Firm"
-#~ msgstr "협력업체 기업"
-
-#, python-format
-#~ msgid "Reg: "
-#~ msgstr "등록: "
-
-#~ msgid "Knowledge Management"
-#~ msgstr "지식 관리"
-
-#~ msgid ""
-#~ "\n"
-#~ "    Module for the Check writing and check printing  \n"
-#~ "    "
-#~ msgstr ""
-#~ "\n"
-#~ "    쓰기 및 인쇄 확인용 모듈  \n"
-#~ "    "
-
-#~ msgid "Easy"
-#~ msgstr "쉬움"
-
-#~ msgid "Fundraising"
-#~ msgstr "모금"
-
-#~ msgid ""
-#~ "\n"
-#~ "Caldav features in Meeting.\n"
-#~ "===========================\n"
-#~ "\n"
-#~ "    *  Share meeting with other calendar clients like sunbird\n"
-#~ msgstr ""
-#~ "\n"
-#~ "미팅 내 Caldave 기능.\n"
-#~ "===========================\n"
-#~ "\n"
-#~ "    *  Sunbird 같은 타 달력 클라이언트와 미팅을 공유함\n"
-
-#~ msgid "Invoice Layouts"
-#~ msgstr "송장 레이아웃"
-
-#~ msgid "Record and Create Modules"
-#~ msgstr "모듈 기록 및 생성"
-
-#~ msgid "Extended View"
-#~ msgstr "확장된 화면"
-
-#~ msgid "Hide technical modules"
-#~ msgstr "기술적 모듈 숨기기"
-
-#~ msgid "E-Mail Templates"
-#~ msgstr "이메일 양식"
-
-#~ msgid "Latest Connection"
-#~ msgstr "최근 연결"
-
-#~ msgid "Resources Planing"
-#~ msgstr "리소스  기획"
-
-#~ msgid "Complexity"
-#~ msgstr "복잡성"
-
-#~ msgid "Default Value Scope"
-#~ msgstr "기본 값 범위"
-
-#~ msgid ""
-#~ "\n"
-#~ "    "
-#~ msgstr ""
-#~ "\n"
-#~ "    "
-
-#~ msgid "The module adds google user in res user"
-#~ msgstr "모듈이 res user에 구글 사용자를 추가합니다"
-
-#~ msgid "Preview Header"
-#~ msgstr "머리글 미리보기"
-
-#~ msgid "Bank Statement extensions to support e-banking"
-#~ msgstr "인터넷 뱅킹을 지원하는 입출금 내역서 확장자"
-
-#~ msgid ""
-#~ "\n"
-#~ "The common interface for pugin.\n"
-#~ "=====================================================\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "플러그인을 위한 공통 인터페이스.\n"
-#~ "=====================================================\n"
-#~ "\n"
-
-#~ msgid "Week of the year: %(woy)s"
-#~ msgstr "주 (week): %(woy)s"
-
-#~ msgid ""
-#~ "\n"
-#~ "        OpenERP Web example module.\n"
-#~ "        "
-#~ msgstr ""
-#~ "\n"
-#~ "        OpenERP Web 예시 모듈.\n"
-#~ "        "
-
-#~ msgid "Multi-DB Synchronization"
-#~ msgstr "다중 DB 동기화"
-
-#~ msgid "Apply For Read"
-#~ msgstr "쓰기에 적용"
-
-#~ msgid "Expert"
-#~ msgstr "전문가"
-
-#~ msgid ""
-#~ "\n"
-#~ "Todo list for CRM leads and opportunities.\n"
-#~ "    "
-#~ msgstr ""
-#~ "\n"
-#~ "CRM 잠재고객 및 판매기회용 과제목록\n"
-#~ "    "
-
-#~ msgid "Leaves Management"
-#~ msgstr "휴무 관리"
-
-#~ msgid ""
-#~ "It gives the status if the tip has to be displayed or not when a user "
-#~ "executes an action"
-#~ msgstr "사용자가 액션을 실행할 때 팁의 표시 여부 상태를 제공합니다."
-
-#~ msgid "Please be patient, this operation may take a few minutes..."
-#~ msgstr "해당 작업이 몇 분 소요될 수 있으므로, 잠시만 기다려주세요..."
-
-#~ msgid "Google Maps on Customers"
-#~ msgstr "고객의 구글맵"
-
-#, python-format
-#~ msgid "VAT: "
-#~ msgstr "VAT: "
-
-#~ msgid "Belgium - Import bank CODA statements"
-#~ msgstr "벨기에 - 은행 CODA 내역서 가져오기"
-
-#~ msgid "Segmentation"
-#~ msgstr "세분화"
-
-#~ msgid "eMail Gateway for Applicants"
-#~ msgstr "신청자용 이메일 게이트웨이"
-
-#~ msgid "Google Import"
-#~ msgstr "구글 가져오기"
-
-#~ msgid "Keywords"
-#~ msgstr "키워드"
-
-#~ msgid "Framework for complex import"
-#~ msgstr "복잡한 가져오기를 위한 프레임웍"
-
-#~ msgid "Wizard Category"
-#~ msgstr "마법사 분류"
-
-#~ msgid "Day of the year: %(doy)s"
-#~ msgstr "일: %(doy)s"
-
-#~ msgid ""
-#~ "\n"
-#~ "Please define BIC/Swift code on bank for bank type IBAN Account to make "
-#~ "valid payments"
-#~ msgstr ""
-#~ "\n"
-#~ "유효한 지급을 위해 은행 유형 IBAN 계정을 위한 은행의 BIC/Swift 코드를 정의하세요."
-
-#~ msgid "Configuration Wizard Category"
-#~ msgstr "구성 마법사 분류"
-
-#~ msgid "Point of Sales"
-#~ msgstr "판매 시점"
-
-#~ msgid ""
-#~ "Level of difficulty of module. Easy: intuitive and easy to use for everyone. "
-#~ "Normal: easy to use for business experts. Expert: requires technical skills."
-#~ msgstr ""
-#~ "모듈의 난이도. 쉬움: 직관적이며 모든 사람들이 사용하기 쉬움. 보통: 업계 전문가가 사용하기 쉬움. 전문가: 기술력이 요구됨."
-
-#~ msgid "Want to Clear Ids ? "
-#~ msgstr "Id를 삭제하시겠습니까? "
-
-#~ msgid "Retro-Planning on Events"
-#~ msgstr "이벤트에 대한 역기획"
-
-#~ msgid "HR Manager"
-#~ msgstr "인사 관리자"
-
-#~ msgid "Wiki: Internal FAQ"
-#~ msgstr "위키: 내부용 자주 묻는 질문"
-
-#~ msgid ""
-#~ "This wizard helps you to import a new module to your OpenERP system. After "
-#~ "importing a new module you can install it by clicking on the button "
-#~ "\"Install\" from the form view."
-#~ msgstr ""
-#~ "해당 마법사는 OpenERP 시스템에 신규 모듈을 가져올 수 있도록 도와줍니다. 신규 모듈을 가져온 후, 양식 화면에서 \"설치\" "
-#~ "버튼을 클릭하여 설치할 수 있습니다."
-
-#~ msgid "Important customers"
-#~ msgstr "중요 고객"
-
-#~ msgid "Support Level 1"
-#~ msgstr "지원 수준 1"
-
-#~ msgid "Draft and Active"
-#~ msgstr "초안 및 활성"
-
-#~ msgid "Emails Management"
-#~ msgstr "이메일 관리"
-
-#, python-format
-#~ msgid ""
-#~ "Group(s) cannot be deleted, because some user(s) still belong to them: %s !"
-#~ msgstr "일부 사용자가 아직 해당 그룹에 속해 있으므로, 그룹은 삭제될 수 없습니다: %s !"
-
-#~ msgid "Google Maps"
-#~ msgstr "구글 맵스"
-
-#~ msgid "Base Tools"
-#~ msgstr "기초 도구"
-
-#~ msgid "Starting Date"
-#~ msgstr "시작일"
-
-#~ msgid "India - Accounting"
-#~ msgstr "인도 - 회계"
-
-#~ msgid "Type fields"
-#~ msgstr "유형 필드"
-
-#~ msgid "Generate Docs of Modules"
-#~ msgstr "모듈의 문서 생성"
-
-#~ msgid "Uncheck the active field to hide the contact."
-#~ msgstr "담당자를 숨기려면 활성 필드를 체크하지 마세요."
-
-#~ msgid "Rule definition (domain filter)"
-#~ msgstr "규칙 정의 (도메인 필터)"
-
-#~ msgid "Binary File or external URL"
-#~ msgstr "이진수 파일 또는 외부 URL"
-
-#~ msgid "User - Own Leads Only"
-#~ msgstr "사용자 - 자신의 잠재고객만 표시"
-
-#~ msgid "Add RML header"
-#~ msgstr "RML 머리글 추가"
-
-#~ msgid "Modules to update"
-#~ msgstr "업데이트 할 모듈"
-
-#~ msgid ""
-#~ "\n"
-#~ "        OpenERP Web kanban view.\n"
-#~ "        "
-#~ msgstr ""
-#~ "\n"
-#~ "        OpenERP Web 간판 화면.\n"
-#~ "        "
-
-#~ msgid "Time Tracking"
-#~ msgstr "시간 추적"
-
-#~ msgid "User - All Leads"
-#~ msgstr "사용자 - 전체 잠재고객"
-
-#~ msgid "Set Bank Accounts"
-#~ msgstr "은행 계정 설정"
-
-#~ msgid "Current User"
-#~ msgstr "현재 사용자"
-
-#~ msgid "Landscape"
-#~ msgstr "가로 방향"
-
-#~ msgid "Object ID"
-#~ msgstr "객체 ID"
-
-#~ msgid "Contracts"
-#~ msgstr "계약"
-
-#, python-format
-#~ msgid "Phone: "
-#~ msgstr "전화: "
-
-#~ msgid "web calendar"
-#~ msgstr "웹 달력"
-
-#~ msgid ""
-#~ "\n"
-#~ "        OpenERP Web process view.\n"
-#~ "        "
-#~ msgstr ""
-#~ "\n"
-#~ "        OpenERP Web 프로세스 화면.\n"
-#~ "        "
-
-#~ msgid "Address Information"
-#~ msgstr "주소 정보"
-
-#~ msgid "Check writing"
-#~ msgstr "글 확인"
-
-#~ msgid "DB Password Encryption"
-#~ msgstr "DB 암호 암호화"
-
-#~ msgid "Live Chat Support"
-#~ msgstr "실시간 대화 지원"
-
-#~ msgid ""
-#~ "\n"
-#~ "        OpenERP Web dashboard view.\n"
-#~ "        "
-#~ msgstr ""
-#~ "\n"
-#~ "        OpenERP Web 대시보드 화면.\n"
-#~ "        "
-
-#~ msgid "Followup Management"
-#~ msgstr "후속 조치 관리"
-
-#~ msgid "Internal Header/Footer"
-#~ msgstr "내부 머리글/바닥글"
-
-#~ msgid "eMail Gateway for CRM Claim"
-#~ msgstr "CRM 소비자 불만 접수용 이메일 게이트웨이"
-
-#~ msgid "Appears by default on the top right corner of your printed documents."
-#~ msgstr "인쇄된 문서의 우측 모서리에 기본적으로 나타남."
-
-#~ msgid ""
-#~ "Check this box if the partner is a supplier. If it's not checked, purchase "
-#~ "people will not see it when encoding a purchase order."
-#~ msgstr ""
-#~ "협력업체가 공급업체일 경우 해당 상자를 체크하세요. 체크하지 않으면, 구매 담당자들이 구매 주문을 인코딩할 때 이를 볼 수 없습니다."
-
-#~ msgid "Allow users to login through OpenID."
-#~ msgstr "사용자가 OpenID를 통해 로그인 할 수 있게 함."
-
-#~ msgid ""
-#~ "\n"
-#~ "        OpenERP Web calendar view.\n"
-#~ "        "
-#~ msgstr ""
-#~ "\n"
-#~ "        OpenERP Web 달력 화면.\n"
-#~ "        "
-
-#~ msgid "Report Designer"
-#~ msgstr "보고서 디자이너"
-
-#~ msgid "Apply For Create"
-#~ msgstr "생성에 적용"
-
-#~ msgid "Miscellaneous Tools"
-#~ msgstr "기타 도구"
-
-#~ msgid "Auction Houses"
-#~ msgstr "경매장"
-
-#~ msgid "web"
-#~ msgstr "웹"
-
-#~ msgid "Share Calendar using CalDAV"
-#~ msgstr "CalDAV를 이용하여 달력 공유"
-
-#~ msgid "In-Project Messaging System"
-#~ msgstr "프로젝트 내 메시징 시스템"
-
-#~ msgid ""
-#~ "\n"
-#~ "        OpenERP Web test suite.\n"
-#~ "        "
-#~ msgstr ""
-#~ "\n"
-#~ "        OpenERP Web 시험 슈트.\n"
-#~ "        "
-
-#~ msgid "IT sector"
-#~ msgstr "IT 부서"
-
-#~ msgid "Change Color"
-#~ msgstr "색상 변경"
-
-#~ msgid "In modules"
-#~ msgstr "모듈 내에 존재함"
-
-#, python-format
-#~ msgid "Wrong ID for the browse record, got %r, expected an integer."
-#~ msgstr "검색 기록에 %r의 잘못된 ID를 얻음, 정수를 예상함."
-
-#~ msgid "eMail Gateway for Project Issues"
-#~ msgstr "프로젝트 사안용 이메일 게이트웨이"
-
-#~ msgid "Send an SMS"
-#~ msgstr "SMS 전송"
-
-#~ msgid "Tasks-Mail Integration"
-#~ msgstr "과제-메일 통합"
-
-#~ msgid ""
-#~ "Manual: Launched manually.\n"
-#~ "Automatic: Runs whenever the system is reconfigured.\n"
-#~ "Launch Manually Once: after hacing been launched manually, it sets "
-#~ "automatically to Done."
-#~ msgstr ""
-#~ "수동: 수동으로 시작됨\n"
-#~ "자동: 시스템이 재구성될 때마다 실행됨.\n"
-#~ "한 번만 수동으로 시작: 수동으로 시작된 후에 완료로 자동 설정됨."
-
-#~ msgid ""
-#~ "\n"
-#~ "Organization and management of events.\n"
-#~ "======================================\n"
-#~ "\n"
-#~ "This module allows you to create retro planning for managing your events.\n"
-#~ msgstr ""
-#~ "\n"
-#~ "이벤트의 준비 및 관리.\n"
-#~ "======================================\n"
-#~ "\n"
-#~ "해당 모듈은 이벤트 관리를 위한 역기획을 생성할 수 있도록 합니다.\n"
-
-#~ msgid "Billing Rates on Contracts"
-#~ msgstr "계약에 대한 어음 시세"
-
-#~ msgid ""
-#~ "\n"
-#~ "Configure the price accuracy you need for different kinds of usage: "
-#~ "accounting, sales, purchases, etc.\n"
-#~ "============================================================================="
-#~ "=========================\n"
-#~ "\n"
-#~ "The decimal precision is configured per company.\n"
-#~ msgstr ""
-#~ "\n"
-#~ "다른 종류의 용도를 위해 필요한 가격 정확성을 구성함: 회계, 판매, 구매 등.\n"
-#~ "============================================================================="
-#~ "=========================\n"
-#~ "\n"
-#~ "십진법 정확도는 업체 별로 구성됨.\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Synchronization with all objects.\n"
-#~ "=================================\n"
-#~ "\n"
-#~ "Configure servers and trigger synchronization with its database objects.\n"
-#~ msgstr ""
-#~ "\n"
-#~ "전체 객체와의 동기화.\n"
-#~ "=================================\n"
-#~ "\n"
-#~ "데이터베이스서버를 구성하고 데이터베이스 객체와의 동기화를 촉발함.\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "This module adds a PAD in all project kanban views\n"
-#~ "==================================================\n"
-#~ "    "
-#~ msgstr ""
-#~ "\n"
-#~ "해당 모듈은 전체 프로젝트 간판에 PAD를 추가합니다\n"
-#~ "==================================================\n"
-#~ "    "
-
-#~ msgid ""
-#~ "\n"
-#~ "    The base module to manage lunch\n"
-#~ "\n"
-#~ "    keep track for the Lunch Order ,Cash Moves ,CashBox ,Product.\n"
-#~ "    Apply Different Category for the product.\n"
-#~ "    "
-#~ msgstr ""
-#~ "\n"
-#~ "    점심 관리를 위한 기초 모듈\n"
-#~ "\n"
-#~ "    점심 주문, 현금 이동, 금고 및 상품을 기록함.\n"
-#~ "    상품에 다른 분류를 적용함.\n"
-#~ "    "
-
-#~ msgid ""
-#~ "\n"
-#~ "This module provides a Wiki FAQ Template.\n"
-#~ "=========================================\n"
-#~ "\n"
-#~ "It provides demo data, thereby creating a Wiki Group and a Wiki Page\n"
-#~ "for Wiki FAQ.\n"
-#~ "    "
-#~ msgstr ""
-#~ "\n"
-#~ "해당 모듈은 위키 자주 묻는 질문 양식을 제공합니다.\n"
-#~ "=========================================\n"
-#~ "\n"
-#~ "시연 데이터를 제공함으로서 위키 자주 묻는 질문의 위키 그룹 및\n"
-#~ "위키 페이지를 생성합니다.\n"
-#~ "    "
-
-#~ msgid "eMail Gateway for Leads"
-#~ msgstr "잠재고객용 이메일 게이트웨이"
-
-#~ msgid ""
-#~ "\n"
-#~ "        OpenERP Web mobile.\n"
-#~ "        "
-#~ msgstr ""
-#~ "\n"
-#~ "        OpenERP Web 모바일.\n"
-#~ "        "
-
-#~ msgid ""
-#~ "\n"
-#~ "Module to manage invoice payment.\n"
-#~ "=================================\n"
-#~ "\n"
-#~ "This module provides :\n"
-#~ "----------------------\n"
-#~ "* a more efficient way to manage invoice payment.\n"
-#~ "* a basic mechanism to easily plug various automated payment.\n"
-#~ "    "
-#~ msgstr ""
-#~ "\n"
-#~ "청구서 지급을 관리하는 모듈.\n"
-#~ "=================================\n"
-#~ "\n"
-#~ "해당 모듈은 다음을 제공합니다 :\n"
-#~ "----------------------\n"
-#~ "* 청구서 지급을 관리하는 효율적인 방법.\n"
-#~ "* 다양한 자동 이체를 손쉽게 차단하는 기본 방법.\n"
-#~ "    "
-
-#~ msgid ""
-#~ "Financial and accounting asset management.\n"
-#~ "    This Module manages the assets owned by a company or an individual. It "
-#~ "will keep track of depreciation's occurred on\n"
-#~ "    those assets. And it allows to create Move's of the depreciation lines.\n"
-#~ "    "
-#~ msgstr ""
-#~ "Financial and accounting asset management.\n"
-#~ "    해당 모듈은 업체 또는 개인이 소유한 자산을 관리합니다. 자산에 대한 감가상각이 발생한 이력을 추적합니다.\n"
-#~ "    그리고 감가상각선의 이동을 생성할 수 있도록 합니다.\n"
-#~ "    "
-
-#~ msgid ""
-#~ "\n"
-#~ "Lets the user create a custom dashboard.\n"
-#~ "========================================\n"
-#~ "\n"
-#~ "This module also creates the Administration Dashboard.\n"
-#~ "\n"
-#~ "The user can also publish notes.\n"
-#~ "    "
-#~ msgstr ""
-#~ "\n"
-#~ "사용자 지정 대시보드를 생성할 후 있도록 함.\n"
-#~ "========================================\n"
-#~ "\n"
-#~ "해당 모듈은 또한 관리 대시보드를 생성합니다.\n"
-#~ "\n"
-#~ "사용자가 또한 메모를 발행할 수 있습니다.\n"
-#~ "    "
-
-#~ msgid ""
-#~ "\n"
-#~ "Module for human resource management.\n"
-#~ "=====================================\n"
-#~ "\n"
-#~ "You can manage:\n"
-#~ "    * Employees and hierarchies : You can define your employee with User and "
-#~ "display hierarchies\n"
-#~ "    * HR Departments\n"
-#~ "    * HR Jobs\n"
-#~ "    "
-#~ msgstr ""
-#~ "\n"
-#~ "인사 관리용 모듈.\n"
-#~ "=====================================\n"
-#~ "\n"
-#~ "다음 내용을 관리할 수 있습니다:\n"
-#~ "    * 직원 및 계층: 직원을 사용자로 정의할 수 있고 계층을 표시할 수 있습니다.\n"
-#~ "    * 인사부서\n"
-#~ "    * 인사 업무\n"
-#~ "    "
-
-#~ msgid ""
-#~ "\n"
-#~ "        United States - Chart of accounts\n"
-#~ "    "
-#~ msgstr ""
-#~ "\n"
-#~ "        미국 - 작동 계통도\n"
-#~ "    "
-
-#~ msgid ""
-#~ "\n"
-#~ "Add all information on the employee form to manage contracts.\n"
-#~ "=============================================================\n"
-#~ "\n"
-#~ "    * Marital status,\n"
-#~ "    * Security number,\n"
-#~ "    * Place of birth, birth date, ...\n"
-#~ "\n"
-#~ "You can assign several contracts per employee.\n"
-#~ "    "
-#~ msgstr ""
-#~ "\n"
-#~ "계약 관리를 위해 직원 양식에 모든 정보를 추가함.\n"
-#~ "=============================================================\n"
-#~ "\n"
-#~ "    * 혼인여부\n"
-#~ "    * 주민등록번호\n"
-#~ "    * 출생지, 생년월일, ...\n"
-#~ "\n"
-#~ "직원 당 다수의 계약을 지정할 수 있음.\n"
-#~ "    "
-
-#~ msgid ""
-#~ "\n"
-#~ "Add Feedback button in header.\n"
-#~ "==============================\n"
-#~ "\n"
-#~ "Invite OpenERP user feedback, powered by uservoice.\n"
-#~ "    "
-#~ msgstr ""
-#~ "\n"
-#~ "머리글에 피드백 버튼을 추가함.\n"
-#~ "==============================\n"
-#~ "\n"
-#~ "uservoice에 OpenERP 사용자 피드백을 부탁함.\n"
-#~ "    "
-
-#~ msgid ""
-#~ "Keep track of your planning\n"
-#~ "This module helps you to manage your plannings.\n"
-#~ "===============================================\n"
-#~ "\n"
-#~ "This module is based on the analytic accounting and is totally integrated "
-#~ "with\n"
-#~ "* the timesheets encoding\n"
-#~ "* the holidays management\n"
-#~ "* the project management\n"
-#~ "\n"
-#~ "So that, each department manager can know if someone in his team has still "
-#~ "unallocated time for a given planning (taking in consideration the validated "
-#~ "leaves) or if he still needs to encode tasks.\n"
-#~ "\n"
-#~ "At the end of the month, the planning manager can also check if the encoded "
-#~ "timesheets are respecting the planned time on each analytic account.\n"
-#~ msgstr ""
-#~ "기획을 추적함\n"
-#~ "해당 모듈은 기획을 관리하는데 도움을 줍니다.\n"
-#~ "===============================================\n"
-#~ "\n"
-#~ "해당 모듈은 분석 계정을 기준으로 하고 있으며, 다음 기능과 완전히 통합되어 있습니다:\n"
-#~ "* 타임시트 암호화\n"
-#~ "* 휴무 관리\n"
-#~ "* 프로젝트 관리\n"
-#~ "\n"
-#~ "이로 인해 각 부서의 관리부장은 팀내 구성원이 (승인된 휴무를 고려하여) 해당 기획에 대해 할당된 시간이 아직 남아있는지, 그리고 계속 "
-#~ "과제를 암호화할 필요가 있는지를 알 수 있습니다.\n"
-#~ "\n"
-#~ "월말에, 기획 관리부장은 암호화된 타임시트가 각 분석 계정 상의 예정된 시간을 준수하는지를 확인할 수 있습니다.\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Project management module tracks multi-level projects, tasks, work done on "
-#~ "tasks, eso.\n"
-#~ "============================================================================="
-#~ "=========\n"
-#~ "\n"
-#~ "It is able to render planning, order tasks, eso.\n"
-#~ "\n"
-#~ "Dashboard for project members that includes:\n"
-#~ "--------------------------------------------\n"
-#~ "    * List of my open tasks\n"
-#~ "    * List of my delegated tasks\n"
-#~ "    * Graph of My Projects: Planned vs Total Hours\n"
-#~ "    * Graph of My Remaining Hours by Project\n"
-#~ "    "
-#~ msgstr ""
-#~ "\n"
-#~ "프로젝트 관리 모듈은 다중 수준의 프로젝트, 과제, 과제에 대한 업무 완료 등을 추적합니다. \n"
-#~ "============================================================================="
-#~ "=========\n"
-#~ "\n"
-#~ "기획, 주문 임무 등을 제시할 수 있습니다.\n"
-#~ "\n"
-#~ "다음을 포함한 프로젝트 구성원 전용 대시보드:\n"
-#~ "--------------------------------------------\n"
-#~ "    * 열린 과제의 목록\n"
-#~ "    * 내게 위임된 과제 목록\n"
-#~ "    * 내 프로젝트의 도표: 예상 대 총 소요 시간\n"
-#~ "    * 프로젝트별 내 잔여 시간의 도표\n"
-#~ "    "
-
-#~ msgid ""
-#~ "You can install new modules in order to activate new features, menu, reports "
-#~ "or data in your OpenERP instance. To install some modules, click on the "
-#~ "button \"Install\" from the form view and then click on \"Start Upgrade\"."
-#~ msgstr ""
-#~ "OpenERP 사례에 신규 기능, 메뉴, 보고서 또는 데이터를 활성화하기 위해 신규 모듈을 설치할 수 있습니다. 일부 모듈을 설치하려면, "
-#~ "양식 화면에서 \"설치\" 버튼을 클릭한 다음, \"업그레이드 시작\"을 클릭하세요."
+#~ msgid "Couldn't create contact without email address !"
+#~ msgstr "이메일 주소 없이 연락처를 생성할 수 없었음 !"

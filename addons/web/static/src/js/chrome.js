@@ -201,6 +201,8 @@ instance.web.Dialog = instance.web.Widget.extend({
         if (options.height === 'auto' && options.max_height) {
             this.$el.css({ 'max-height': options.max_height, 'overflow-y': 'auto' });
         }
+        var self = this;
+        this.$el.on('dialogclose', function() { self.close(); });
         this.dialog_inited = true;
         var res = this.start();
         return res;
@@ -208,9 +210,12 @@ instance.web.Dialog = instance.web.Widget.extend({
     /**
         Closes the popup, if destroy_on_close was passed to the constructor, it is also destroyed.
     */
-    close: function() {
-        if (this.dialog_inited && this.$el.is(":data(dialog)")) {
-            this.$el.dialog('close');
+    close: function(reason) {
+        if (this.dialog_inited) {
+            this.trigger("closing", reason);
+            if (this.$el.is(":data(dialog)")) {     // may have been destroyed by closing signal
+                this.$el.dialog('close');
+            }
         }
     },
     _closing: function() {
@@ -1013,7 +1018,7 @@ instance.web.UserMenu =  instance.web.Widget.extend({
         this.update_promise = this.update_promise.then(fct, fct);
     },
     on_menu_help: function() {
-        window.open('http://help.openerp.com', '_blank');
+        window.open('http://help.odoo.com', '_blank');
     },
     on_menu_logout: function() {
         this.trigger('user_logout');
@@ -1042,7 +1047,10 @@ instance.web.UserMenu =  instance.web.Widget.extend({
                     state: JSON.stringify(state),
                     scope: 'userinfo',
                 };
-                instance.web.redirect('https://accounts.openerp.com/oauth2/auth?'+$.param(params));
+                instance.web.redirect('https://accounts.odoo.com/oauth2/auth?'+$.param(params));
+            }).fail(function(result, ev){
+                ev.preventDefault();
+                instance.web.redirect('https://accounts.odoo.com/web');
             });
         }
     },

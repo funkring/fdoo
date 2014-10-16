@@ -20,6 +20,7 @@
 ##############################################################################
 
 from openerp.osv import osv, fields
+from openerp import SUPERUSER_ID
 
 
 class sale_order(osv.Model):

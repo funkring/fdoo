@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 7.0alpha\n"
+"Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-21 17:06+0000\n"
-"PO-Revision-Date: 2012-12-21 17:06+0000\n"
+"POT-Creation-Date: 2014-08-14 00:11+0000\n"
+"PO-Revision-Date: 2014-08-14 00:11+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -81,7 +81,9 @@ msgstr ""
 
 #. module: fleet
 #: view:fleet.vehicle.cost:0
+#: view:fleet.vehicle.log.fuel:0
 #: view:fleet.vehicle.model:0
+#: view:fleet.vehicle.odometer:0
 msgid "Group By..."
 msgstr ""
 
@@ -115,6 +117,11 @@ msgstr ""
 #: field:fleet.vehicle.log.fuel,vendor_id:0
 #: field:fleet.vehicle.log.services,vendor_id:0
 msgid "Supplier"
+msgstr ""
+
+#. module: fleet
+#: view:fleet.vehicle.log.fuel:0
+msgid "Write here any other information"
 msgstr ""
 
 #. module: fleet
@@ -168,7 +175,7 @@ msgid "Refueling Details"
 msgstr ""
 
 #. module: fleet
-#: code:addons/fleet/fleet.py:659
+#: code:addons/fleet/fleet.py:669
 #, python-format
 msgid "%s contract(s) need(s) to be renewed and/or closed!"
 msgstr ""
@@ -383,7 +390,7 @@ msgid "Transmission Used by the vehicle"
 msgstr ""
 
 #. module: fleet
-#: code:addons/fleet/fleet.py:730
+#: code:addons/fleet/fleet.py:740
 #: view:fleet.vehicle.log.contract:0
 #: model:ir.actions.act_window,name:fleet.act_renew_contract
 #, python-format
@@ -458,6 +465,7 @@ msgid "Vehicles Services Logs"
 msgstr ""
 
 #. module: fleet
+#: view:fleet.vehicle.log.fuel:0
 #: model:ir.actions.act_window,name:fleet.fleet_vehicle_log_fuel_act
 #: model:ir.ui.menu,name:fleet.fleet_vehicle_log_fuel_menu
 msgid "Vehicles Fuel Logs"
@@ -572,13 +580,18 @@ msgid "Driver of the vehicle"
 msgstr ""
 
 #. module: fleet
-#: view:fleet.vehicle:0
-msgid "other(s)"
+#: view:fleet.vehicle.odometer:0
+msgid "Vehicles odometers"
 msgstr ""
 
 #. module: fleet
 #: model:fleet.service.type,name:fleet.type_service_refueling
 msgid "Refueling"
+msgstr ""
+
+#. module: fleet
+#: model:fleet.service.type,name:fleet.type_service_45
+msgid "Tire Replacement"
 msgstr ""
 
 #. module: fleet
@@ -594,6 +607,11 @@ msgstr ""
 #. module: fleet
 #: model:ir.model,name:fleet.model_fleet_vehicle_log_fuel
 msgid "Fuel log for vehicles"
+msgstr ""
+
+#. module: fleet
+#: view:fleet.vehicle.log.services:0
+msgid "Write here any other information related to the service completed."
 msgstr ""
 
 #. module: fleet
@@ -755,8 +773,8 @@ msgid "Services for vehicles"
 msgstr ""
 
 #. module: fleet
-#: view:fleet.vehicle.log.contract:0
-msgid "Indicative Cost"
+#: model:fleet.service.type,name:fleet.type_service_service_16
+msgid "Options"
 msgstr ""
 
 #. module: fleet
@@ -1112,8 +1130,16 @@ msgid "Cost Type"
 msgstr ""
 
 #. module: fleet
-#: model:fleet.service.type,name:fleet.type_service_4
-msgid "A/C Evaporator Replacement"
+#: model:ir.actions.act_window,help:fleet.fleet_vehicle_odometer_act
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"                Click to create a new odometer log. \n"
+"              </p>\n"
+"              <p>\n"
+"                Here you can add various odometer entries for all vehicles.\n"
+"                You can also show odometer value for a particular vehicle using\n"
+"                the search field.\n"
+"              </p>\n"
+"            "
 msgstr ""
 
 #. module: fleet
@@ -1289,8 +1315,8 @@ msgid "Odometer"
 msgstr ""
 
 #. module: fleet
-#: model:fleet.service.type,name:fleet.type_service_45
-msgid "Tire Replacement"
+#: model:fleet.service.type,name:fleet.type_service_4
+msgid "A/C Evaporator Replacement"
 msgstr ""
 
 #. module: fleet
@@ -1388,13 +1414,13 @@ msgid "Purchased"
 msgstr ""
 
 #. module: fleet
-#: model:ir.actions.act_window,help:fleet.fleet_vehicle_odometer_act
-msgid "<p>\n"
-"                Here you can add various odometer entries for all vehicles.\n"
-"                You can also show odometer value for a particular vehicle using\n"
-"                the search field.\n"
-"              </p>\n"
-"            "
+#: view:fleet.vehicle.log.contract:0
+msgid "Write here all other information relative to this contract"
+msgstr ""
+
+#. module: fleet
+#: view:fleet.vehicle.log.contract:0
+msgid "Indicative Cost"
 msgstr ""
 
 #. module: fleet
@@ -1595,6 +1621,8 @@ msgstr ""
 #: view:fleet.vehicle:0
 #: view:fleet.vehicle.cost:0
 #: field:fleet.vehicle.cost,vehicle_id:0
+#: view:fleet.vehicle.log.fuel:0
+#: view:fleet.vehicle.odometer:0
 #: field:fleet.vehicle.odometer,vehicle_id:0
 msgid "Vehicle"
 msgstr ""
@@ -1638,11 +1666,6 @@ msgstr ""
 #. module: fleet
 #: model:fleet.service.type,name:fleet.type_service_29
 msgid "Ignition Coil Replacement"
-msgstr ""
-
-#. module: fleet
-#: model:fleet.service.type,name:fleet.type_service_service_16
-msgid "Options"
 msgstr ""
 
 #. module: fleet
@@ -1759,6 +1782,11 @@ msgstr ""
 #. module: fleet
 #: model:fleet.service.type,name:fleet.type_service_53
 msgid "Windshield Wiper(s) Replacement"
+msgstr ""
+
+#. module: fleet
+#: view:fleet.vehicle:0
+msgid "other(s)"
 msgstr ""
 
 #. module: fleet

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 7.0alpha\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-21 17:05+0000\n"
-"PO-Revision-Date: 2012-12-21 17:05+0000\n"
+"POT-Creation-Date: 2014-08-14 00:10+0000\n"
+"PO-Revision-Date: 2014-08-14 00:10+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -67,7 +67,7 @@ msgstr ""
 
 #. module: auth_signup
 #. openerp-web
-#: code:addons/auth_signup/static/src/js/auth_signup.js:125
+#: code:addons/auth_signup/static/src/js/auth_signup.js:121
 #, python-format
 msgid "Please enter a password and confirm it."
 msgstr ""
@@ -112,7 +112,7 @@ msgstr ""
 
 #. module: auth_signup
 #. openerp-web
-#: code:addons/auth_signup/static/src/js/auth_signup.js:119
+#: code:addons/auth_signup/static/src/js/auth_signup.js:115
 #, python-format
 msgid "Please enter a name."
 msgstr ""
@@ -129,7 +129,7 @@ msgstr ""
 
 #. module: auth_signup
 #. openerp-web
-#: code:addons/auth_signup/static/src/js/auth_signup.js:122
+#: code:addons/auth_signup/static/src/js/auth_signup.js:118
 #, python-format
 msgid "Please enter a username."
 msgstr ""
@@ -140,7 +140,8 @@ msgid "Active"
 msgstr ""
 
 #. module: auth_signup
-#: code:addons/auth_signup/res_users.py:256
+#. openerp-web
+#: code:addons/auth_signup/static/src/js/auth_signup.js:178
 #, python-format
 msgid "Cannot send email: no outgoing email server configured.\n"
 "You can configure it under Settings/General Settings."
@@ -162,7 +163,7 @@ msgstr ""
 
 #. module: auth_signup
 #. openerp-web
-#: code:addons/auth_signup/static/src/js/auth_signup.js:165
+#: code:addons/auth_signup/static/src/js/auth_signup.js:174
 #, python-format
 msgid "Please enter a username or email address."
 msgstr ""
@@ -203,35 +204,35 @@ msgstr ""
 
 #. module: auth_signup
 #. openerp-web
-#: code:addons/auth_signup/static/src/js/auth_signup.js:116
-#: code:addons/auth_signup/static/src/js/auth_signup.js:119
-#: code:addons/auth_signup/static/src/js/auth_signup.js:122
-#: code:addons/auth_signup/static/src/js/auth_signup.js:125
-#: code:addons/auth_signup/static/src/js/auth_signup.js:128
-#: code:addons/auth_signup/static/src/js/auth_signup.js:162
-#: code:addons/auth_signup/static/src/js/auth_signup.js:165
+#: code:addons/auth_signup/static/src/js/auth_signup.js:112
+#: code:addons/auth_signup/static/src/js/auth_signup.js:115
+#: code:addons/auth_signup/static/src/js/auth_signup.js:118
+#: code:addons/auth_signup/static/src/js/auth_signup.js:121
+#: code:addons/auth_signup/static/src/js/auth_signup.js:124
+#: code:addons/auth_signup/static/src/js/auth_signup.js:171
+#: code:addons/auth_signup/static/src/js/auth_signup.js:174
 #, python-format
 msgid "Login"
 msgstr ""
 
 #. module: auth_signup
 #. openerp-web
-#: code:addons/auth_signup/static/src/js/auth_signup.js:99
+#: code:addons/auth_signup/static/src/js/auth_signup.js:98
 #, python-format
 msgid "Invalid signup token"
 msgstr ""
 
 #. module: auth_signup
 #. openerp-web
-#: code:addons/auth_signup/static/src/js/auth_signup.js:128
+#: code:addons/auth_signup/static/src/js/auth_signup.js:124
 #, python-format
 msgid "Passwords do not match; please retype them."
 msgstr ""
 
 #. module: auth_signup
 #. openerp-web
-#: code:addons/auth_signup/static/src/js/auth_signup.js:116
-#: code:addons/auth_signup/static/src/js/auth_signup.js:162
+#: code:addons/auth_signup/static/src/js/auth_signup.js:112
+#: code:addons/auth_signup/static/src/js/auth_signup.js:171
 #, python-format
 msgid "No database selected !"
 msgstr ""

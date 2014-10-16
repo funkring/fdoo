@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 7.0alpha\n"
+"Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-21 17:06+0000\n"
-"PO-Revision-Date: 2012-12-21 17:06+0000\n"
+"POT-Creation-Date: 2014-08-14 00:11+0000\n"
+"PO-Revision-Date: 2014-08-14 00:11+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -48,6 +48,11 @@ msgstr ""
 #: view:purchase.requisition:0
 #: field:purchase.requisition,user_id:0
 msgid "Responsible"
+msgstr ""
+
+#. module: purchase_requisition
+#: view:purchase.requisition:0
+msgid "Cancel Requisition"
 msgstr ""
 
 #. module: purchase_requisition
@@ -171,6 +176,11 @@ msgid "Create Quotation"
 msgstr ""
 
 #. module: purchase_requisition
+#: view:purchase.requisition:0
+msgid "e.g. PO0025"
+msgstr ""
+
+#. module: purchase_requisition
 #: help:purchase.requisition,message_ids:0
 msgid "Messages and communication history"
 msgstr ""
@@ -232,7 +242,7 @@ msgid "Quotation Detail"
 msgstr ""
 
 #. module: purchase_requisition
-#: code:addons/purchase_requisition/purchase_requisition.py:134
+#: code:addons/purchase_requisition/purchase_requisition.py:138
 #, python-format
 msgid "You have already one %s purchase order for this partner, you must cancel this purchase order to create a new quotation."
 msgstr ""
@@ -410,7 +420,7 @@ msgid "Product UoM"
 msgstr ""
 
 #. module: purchase_requisition
-#: code:addons/purchase_requisition/purchase_requisition.py:134
+#: code:addons/purchase_requisition/purchase_requisition.py:138
 #, python-format
 msgid "Warning!"
 msgstr ""
@@ -421,7 +431,6 @@ msgid "Confirm Purchase Order"
 msgstr ""
 
 #. module: purchase_requisition
-#: view:purchase.requisition:0
 #: view:purchase.requisition.partner:0
 msgid "Cancel"
 msgstr ""

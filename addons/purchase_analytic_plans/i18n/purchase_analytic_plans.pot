@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 7.0alpha\n"
+"Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-21 17:06+0000\n"
-"PO-Revision-Date: 2012-12-21 17:06+0000\n"
+"POT-Creation-Date: 2014-08-14 00:10+0000\n"
+"PO-Revision-Date: 2014-08-14 00:10+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -28,5 +28,10 @@ msgstr ""
 #. module: purchase_analytic_plans
 #: model:ir.model,name:purchase_analytic_plans.model_purchase_order
 msgid "Purchase Order"
+msgstr ""
+
+#. module: purchase_analytic_plans
+#: model:ir.model,name:purchase_analytic_plans.model_stock_picking
+msgid "Picking List"
 msgstr ""
 

@@ -37,8 +37,8 @@ Allow users to login through OAuth2 Provider.
         'auth_oauth_data.xml',
         'auth_oauth_data.yml',
         'auth_oauth_view.xml',
-        'security/ir.model.access.csv',
-        'views/auth_oauth_login.xml',
+        'res_config.xml',
+        'security/ir.model.access.csv'
     ],
     'installable': True,
     'auto_install': False,

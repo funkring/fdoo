@@ -26,10 +26,11 @@ from _common import ceiling
 
 from openerp import SUPERUSER_ID
 from openerp import tools
-from openerp.osv import osv, orm, fields
+from openerp.osv import osv, orm, fields, expression
 from openerp.tools.translate import _
 
 import openerp.addons.decimal_precision as dp
+from openerp.tools.float_utils import float_round
 
 def ean_checksum(eancode):
     """returns the checksum of an ean string of length 13, returns -1 if the string has the wrong length"""
@@ -176,7 +177,10 @@ class product_uom(osv.osv):
                 raise osv.except_osv(_('Error!'), _('Conversion from Product UoM %s to Default UoM %s is not possible as they both belong to different Category!.') % (from_unit.name,to_unit.name,))
             else:
                 return qty
-        amount = qty / from_unit.factor
+        # First round to the precision of the original unit, so that
+        # float representation errors do not bias the following ceil()
+        # e.g. with 1 / (1/12) we could get 12.0000048, ceiling to 13! 
+        amount = float_round(qty/from_unit.factor, precision_rounding=from_unit.rounding)
         if to_unit:
             amount = ceiling(amount * to_unit.factor, to_unit.rounding)
         return amount
@@ -684,6 +688,9 @@ class product_product(osv.osv):
         unlink_ids = []
         unlink_product_tmpl_ids = []
         for product in self.browse(cr, uid, ids, context=context):
+            # Check if product still exists, in case it has been unlinked by unlinking its template
+            if not product.exists():
+                continue
             tmpl_id = product.product_tmpl_id.id
             # Check if the product is last product of this template
             other_product_ids = self.search(cr, uid, [('product_tmpl_id', '=', tmpl_id), ('id', '!=', product.id)], context=context)
@@ -732,6 +739,10 @@ class product_product(osv.osv):
             return (d['id'], name)
 
         partner_id = context.get('partner_id', False)
+        if partner_id:
+            partner_ids = [partner_id, self.pool['res.partner'].browse(cr, user, partner_id, context=context).commercial_partner_id.id]
+        else:
+            partner_ids = []
 
         # all user don't have access to seller and partner
         # check access and use superuser
@@ -764,10 +775,13 @@ class product_product(osv.osv):
         if not args:
             args = []
         if name:
-            ids = self.search(cr, user, [('default_code','=',name)]+ args, limit=limit, context=context)
-            if not ids:
-                ids = self.search(cr, user, [('ean13','=',name)]+ args, limit=limit, context=context)
-            if not ids:
+            positive_operators = ['=', 'ilike', '=ilike', 'like', '=like']
+            ids = []
+            if operator in positive_operators:
+                ids = self.search(cr, user, [('default_code','=',name)]+ args, limit=limit, context=context)
+                if not ids:
+                    ids = self.search(cr, user, [('ean13','=',name)]+ args, limit=limit, context=context)
+            if not ids and operator not in expression.NEGATIVE_TERM_OPERATORS:
                 # Do not merge the 2 next lines into one single search, SQL search performance would be abysmal
                 # on a database with thousands of matching products, due to the huge merge+unique needed for the
                 # OR operator (and given the fact that the 'name' lookup results come from the ir.translation table
@@ -778,7 +792,9 @@ class product_product(osv.osv):
                     limit2 = (limit - len(ids)) if limit else False
                     ids.update(self.search(cr, user, args + [('name', operator, name)], limit=limit2, context=context))
                 ids = list(ids)
-            if not ids:
+            elif not ids and operator in expression.NEGATIVE_TERM_OPERATORS:
+                ids = self.search(cr, user, args + ['&', ('default_code', operator, name), ('name', operator, name)], limit=limit, context=context)
+            if not ids and operator in positive_operators:
                 ptrn = re.compile('(\[(.*?)\])')
                 res = ptrn.search(name)
                 if res:

@@ -28,6 +28,8 @@ import re
 from openerp import tools
 from openerp.osv import fields,osv
 from openerp import SUPERUSER_ID
+from openerp.osv.orm import except_orm
+from openerp.tools.translate import _
 
 _logger = logging.getLogger(__name__)
 
@@ -203,12 +205,14 @@ class ir_attachment(osv.osv):
         more complex ones apply there.
         """
         res_ids = {}
+        require_employee = False
         if ids:
             if isinstance(ids, (int, long)):
                 ids = [ids]
             cr.execute('SELECT DISTINCT res_model, res_id FROM ir_attachment WHERE id = ANY (%s)', (ids,))
             for rmod, rid in cr.fetchall():
                 if not (rmod and rid):
+                    require_employee = True
                     continue
                 res_ids.setdefault(rmod,set()).add(rid)
         if values:

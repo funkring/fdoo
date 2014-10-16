@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 7.0alpha\n"
+"Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-21 17:05+0000\n"
-"PO-Revision-Date: 2012-12-21 17:05+0000\n"
+"POT-Creation-Date: 2014-08-14 00:10+0000\n"
+"PO-Revision-Date: 2014-08-14 00:10+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,21 +17,39 @@ msgstr ""
 
 #. module: pad
 #. openerp-web
-#: code:addons/pad/static/src/xml/pad.xml:27
+#: code:addons/pad/static/src/xml/pad.xml:18
 #, python-format
 msgid "&Ntilde;"
 msgstr ""
 
 #. module: pad
 #. openerp-web
-#: code:addons/pad/static/src/xml/pad.xml:10
+#: code:addons/pad/static/src/xml/pad.xml:9
 #, python-format
 msgid "You must configure the etherpad through the menu Settings > Companies > Companies, in the configuration tab of your company."
 msgstr ""
 
 #. module: pad
+#. openerp-web
+#: code:addons/pad/static/src/js/pad.js:47
+#, python-format
+msgid "This pad will be initialized on first edit"
+msgstr ""
+
+#. module: pad
 #: help:res.company,pad_key:0
 msgid "Etherpad lite api key."
+msgstr ""
+
+#. module: pad
+#: view:res.company:0
+msgid "e.g. beta.primarypad.com"
+msgstr ""
+
+#. module: pad
+#: code:addons/pad/pad.py:49
+#, python-format
+msgid "Pad creation fail,                 either there is a problem with your pad server URL or with your connection."
 msgstr ""
 
 #. module: pad
@@ -55,6 +73,12 @@ msgid "Pad Server"
 msgstr ""
 
 #. module: pad
+#: code:addons/pad/pad.py:49
+#, python-format
+msgid "Error"
+msgstr ""
+
+#. module: pad
 #: field:res.company,pad_key:0
 msgid "Pad Api Key"
 msgstr ""
@@ -62,5 +86,12 @@ msgstr ""
 #. module: pad
 #: help:res.company,pad_server:0
 msgid "Etherpad lite server. Example: beta.primarypad.com"
+msgstr ""
+
+#. module: pad
+#. openerp-web
+#: code:addons/pad/static/src/js/pad.js:44
+#, python-format
+msgid "Unable to load pad"
 msgstr ""
 

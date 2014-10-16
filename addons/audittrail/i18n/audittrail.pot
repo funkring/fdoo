@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 7.0alpha\n"
+"Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-21 17:05+0000\n"
-"PO-Revision-Date: 2012-12-21 17:05+0000\n"
+"POT-Creation-Date: 2014-08-14 00:10+0000\n"
+"PO-Revision-Date: 2014-08-14 00:10+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -39,8 +39,8 @@ msgstr ""
 
 #. module: audittrail
 #: code:addons/audittrail/audittrail.py:260
-#: code:addons/audittrail/audittrail.py:347
-#: code:addons/audittrail/audittrail.py:408
+#: code:addons/audittrail/audittrail.py:353
+#: code:addons/audittrail/audittrail.py:414
 #, python-format
 msgid "'%s' Model does not exist..."
 msgstr ""

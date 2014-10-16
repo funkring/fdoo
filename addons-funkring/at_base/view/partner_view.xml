@@ -77,10 +77,6 @@
                             options="{&quot;no_open&quot;: True}"
                             placeholder="State" style="width: 37%%"/>
                     </div>
-                    <field name="title" position="replace">
-                        <field domain="[('domain', '=', 'contact')]"
-                            name="title" options="{&quot;no_open&quot;: True}"/>
-                    </field>
                 </data>
             </field>
         </record>
