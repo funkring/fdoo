@@ -579,7 +579,7 @@ def append_content_to_html(html, content, plaintext=True, preserve=False, contai
     elif plaintext:
         content = '\n%s\n' % plaintext2html(content, container_tag)
     else:
-        content = re.sub(r'(?i)(</?html.*>|</?body.*>|<!\W*DOCTYPE.*>)', '', content)
+        content = re.sub(r'(?i)(</?(?:html|body|head|!\s*DOCTYPE)[^>]*>)', '', content)
         content = u'\n%s\n' % ustr(content)
     # Force all tags to lowercase
     html = re.sub(r'(</?)\W*(\w+)([ >])',
@@ -607,7 +607,7 @@ command_re = re.compile("^Set-([a-z]+) *: *(.+)$", re.I + re.UNICODE)
 # Updated in 7.0 to match the model name as well
 # Typical form of references is <timestamp-openerp-record_id-model_name@domain>
 # group(1) = the record ID ; group(2) = the model (if any) ; group(3) = the domain
-reference_re = re.compile("<.*-open(?:object|erp)-(\\d+)(?:-([\w.]+))?.*@(.*)>", re.UNICODE)
+reference_re = re.compile("<.*-open(?:object|erp)-(\\d+)(?:-([\w.]+))?[^>]*@([^>]*)>", re.UNICODE)
 
 
 def generate_tracking_message_id(res_id):

@@ -220,6 +220,36 @@ class academy_registration(osv.Model):
         for obj in self.browse(cr, uid, ids, context):
             res[obj.id]=self._calc_hours(cr, uid, obj.uom_id, obj.amount, context)
         return res
+    
+    
+    def _relids_academy_student(self, cr, uid, ids, context=None):
+        return self.pool["academy.registration"].search(cr, uid, [("student_id","in",ids)])
+        
+    def _relids_partner(self, cr, uid, ids, context=None):
+        return self.pool["academy.registration"].search(cr, uid, [("student_id.partner_id","in",ids)])
+            
+    def _relids_invoice(self, cr, uid, ids, context=None):
+        cr.execute("SELECT registration_id FROM academy.registration.invoice ri WHERE ri.id IN %s GROUP BY 1", (tuple(ids),))
+        return [r[0] for r in cr.fetchall()]
+    
+    def _compute_invoiced(self, cr, uid, ids, field_names, arg, context=None):
+        res = dict.fromkeys(ids)
+        for reg in self.browse(cr, uid, ids, context):
+            # calc values
+            residual = 0.0
+            is_invoiced = False
+            for reg_invoice in reg.invoice_ids:
+                invoice = reg_invoice.invoice_id
+                if invoice.state != "cancel":
+                    is_invoiced = True
+                    residual += invoice.residual         
+                       
+            res[reg.id]={
+                "invoice_residual" : residual,
+                "is_invoiced" : is_invoiced
+            }        
+            
+        return res
 
     def message_get_default_recipients(self, cr, uid, ids, context=None):
         res = super(academy_registration,self).message_get_default_recipients(cr, uid, ids, context=context)
@@ -310,13 +340,6 @@ class academy_registration(osv.Model):
                 raise osv.except_osv(_("Error!"), _("Can not delete registrations, which are not in state 'Draft' or 'Cancelled'"))
         return super(academy_registration, self).unlink(cr, uid, ids, context)
 
-    def _relids_academy_student(self, cr, uid, ids, context=None):
-        return self.pool["academy.registration"].search(cr, uid, [("student_id","in",ids)])
-        
-    def _relids_partner(self, cr, uid, ids, context=None):
-        return self.pool["academy.registration"].search(cr, uid, [("student_id.partner_id","in",ids)])
-            
-
     _inherit = ["mail.thread"]
     _name = "academy.registration"
     _description = "Academy Registration"
@@ -352,6 +375,15 @@ class academy_registration(osv.Model):
                                     ("assigned","Assigned")],
                                     "State", readonly=True, select=True),
         "note" : fields.text("Note", select=True),
+        "invoice_ids" : fields.one2many("academy.registration.invoice","registration_id","Invoices", readonly=True),
+        "is_invoiced" : fields.function(_compute_invoiced, string="Invoiced?", type="boolean", multi="_compute_invoiced", store={
+                                            "academy.registration": (lambda self, cr, uid, ids, context=None: ids, ["invoice_ids"], 10),
+                                            "account.invoice": (_relids_invoice, ["state","residual"], 10),                                                                 
+                                        }),
+        "invoice_residual" : fields.function(_compute_invoiced, string="Residual", type="float", multi="_compute_invoiced", store={
+                                            "academy.registration": (lambda self, cr, uid, ids, context=None: ids, ["invoice_ids"], 10),
+                                            "account.invoice": (_relids_invoice, ["state","residual"], 10),                                                                 
+                              }),
 
     }
     _sql_constraints = [

@@ -145,7 +145,7 @@ class email_template(osv.osv):
         # - img src -> check URL
         # - a href -> check URL
         for node in root.iter():
-            if node.tag == 'a':
+            if node.tag == 'a' and node.get('href'):
                 node.set('href', _process_link(node.get('href')))
             elif node.tag == 'img' and not node.get('src', 'data').startswith('data'):
                 node.set('src', _process_link(node.get('src')))
@@ -486,7 +486,8 @@ class email_template(osv.osv):
                 # body: add user signature, sanitize
                 if 'body_html' in fields and template.user_signature:
                     signature = self.pool.get('res.users').browse(cr, uid, uid, context).signature
-                    values['body_html'] = tools.append_content_to_html(values['body_html'], signature, plaintext=False)
+                    if signature:
+                        values['body_html'] = tools.append_content_to_html(values['body_html'], signature, plaintext=False)
                 if values.get('body_html'):
                     values['body'] = tools.html_sanitize(values['body_html'])
                 # technical settings

@@ -41,6 +41,8 @@
                         <field name="amount" invisible="1" on_change="onchange_uom(uom_id, amount, context)"/>
                         <field name="hours" widget="float_time" string="Minutes"/>
                         <field name="invoice_address_id"/>
+                        <field name="is_invoiced"/>
+                        <field name="invoice_residual"/>
                     </group>
                     <group string="Assignment">
                         <field name="trainer_id"/>
@@ -52,9 +54,31 @@
                     </group>
                     <group string="Deregistration">
                         <field name="unreg_semester_id" on_change="onchange_unreg_semester(semester_id, unreg_semester_id)"/>
-                    </group>                            
-                </group>
-                <field name="note" placeholder="Notes..."/>
+                    </group>  
+                    <notebook colspan="4">
+                        <page string="Note">
+                            <field name="note" placeholder="Notes..."/>
+                        </page>
+                        <page string="Invoices">
+                            <field name="invoice_ids">
+                                <form>
+                                    <group>
+                                        <group>                                    
+                                            <field name="semester_id"/>
+                                        </group>
+                                        <group>
+                                            <field name="invoice_id"/>
+                                        </group>
+                                    </group>
+                                </form>
+                                <tree>
+                                    <field name="semester_id"/>
+                                    <field name="invoice_id"/>
+                                </tree>
+                            </field>
+                        </page>                        
+                    </notebook>                      
+                </group>                
             </sheet>
             <div class="oe_chatter">
                 <field name="message_follower_ids" widget="mail_followers" />
@@ -74,7 +98,8 @@
             <field name="semester_id"/>
             <field name="student_id"/>
             <field name="student_parent_id"/>
-            <field name="invoice_address_id"/>
+            <field name="is_invoiced"/>
+            <field name="invoice_residual"/>
             <field name="location_id"/>
             <!--field name="course_id"/ -->
             <field name="trainer_id"/>
@@ -83,7 +108,7 @@
             <field name="hours" widget="float_time" sum="Hours" string="Min."/>                     
             <field name="create_date"/>
             <field name="state"/>
-            <field name="user_id"/>
+            <field name="user_id"/>            
             <field name="note"/>
         </tree>
       </field>
@@ -109,7 +134,9 @@
           <filter string="Complete Registrations" name="registered" domain="[('state','=','registered')]"/>
           <filter string="Incomplete Registrations" name="draft" domain="[('state','=','draft')]"/>
           <filter string="Registrations to check" name="check" domain="[('state','=','check')]"/>          
-          <filter string="Canceled Registrations" name="cancel" domain="[('state','=','cancel')]"/>          
+          <filter string="Canceled Registrations" name="cancel" domain="[('state','=','cancel')]"/>  
+          <filter string="Invoiced" name="invoiced" domain="[('is_invoiced','=',True)]"/>        
+          <filter string="Not Invoiced" name="not_invoiced" domain="[('is_invoiced','=',False)]"/>
           <separator/>
           <group expand="0" string="Group By...">
             <filter string="Location" context="{'group_by': 'location_id'}"/>

@@ -314,6 +314,8 @@ class configmanager(object):
         group.add_option("--disable-database-manager", dest="disable_database_manager", my_default=False, action="store_true",
                          help="Disable the database manager.")
         #funkrnig.net end
+        group.add_option("--geoip-db", dest="geoip_database", my_default='/usr/share/GeoIP/GeoLiteCity.dat',
+                         help="Absolute path to the GeoIP database file.")
         parser.add_option_group(group)
 
         if os.name == 'posix':
@@ -430,8 +432,9 @@ class configmanager(object):
                 #funkring.net begin // erlang specific
                 'erlnode', 'erlnode_name', 'erlnode_cookie',
                  #funkring.net end
-                'secure_cert_file', 'secure_pkey_file', 'dbfilter', 'log_handler', 'log_level', 'log_db'
-                ]
+                'secure_cert_file', 'secure_pkey_file', 'dbfilter', 'log_handler', 'log_level', 'log_db',
+                'geoip_database',
+        ]
 
         for arg in keys:
             # Copy the command-line argument (except the special case for log_handler, due to
