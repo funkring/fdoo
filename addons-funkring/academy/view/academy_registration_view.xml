@@ -41,7 +41,7 @@
                         <field name="amount" invisible="1" on_change="onchange_uom(uom_id, amount, context)"/>
                         <field name="hours" widget="float_time" string="Minutes"/>
                         <field name="invoice_address_id"/>
-                        <field name="is_invoiced"/>
+                        <field name="last_invoice_id"/>
                         <field name="invoice_residual"/>
                     </group>
                     <group string="Assignment">
@@ -68,12 +68,18 @@
                                         </group>
                                         <group>
                                             <field name="invoice_id"/>
+                                            <field name="date_invoice"/>
+                                            <field name="invoice_state"/>
+                                            <field name="residual"/>
                                         </group>
                                     </group>
                                 </form>
                                 <tree>
-                                    <field name="semester_id"/>
+                                    <field name="semester_id"/>                                    
                                     <field name="invoice_id"/>
+                                    <field name="date_invoice"/>
+                                    <field name="invoice_state"/>
+                                    <field name="residual"/>
                                 </tree>
                             </field>
                         </page>                        
@@ -98,7 +104,7 @@
             <field name="semester_id"/>
             <field name="student_id"/>
             <field name="student_parent_id"/>
-            <field name="is_invoiced"/>
+            <field name="last_invoice_id"/>
             <field name="invoice_residual"/>
             <field name="location_id"/>
             <!--field name="course_id"/ -->
@@ -130,13 +136,12 @@
           <field name="user_id"/>
           <field name="state"/>
           <field name="note"/>
+          <field name="last_invoice_id"/>
           <separator/>
           <filter string="Complete Registrations" name="registered" domain="[('state','=','registered')]"/>
           <filter string="Incomplete Registrations" name="draft" domain="[('state','=','draft')]"/>
           <filter string="Registrations to check" name="check" domain="[('state','=','check')]"/>          
-          <filter string="Canceled Registrations" name="cancel" domain="[('state','=','cancel')]"/>  
-          <filter string="Invoiced" name="invoiced" domain="[('is_invoiced','=',True)]"/>        
-          <filter string="Not Invoiced" name="not_invoiced" domain="[('is_invoiced','=',False)]"/>
+          <filter string="Canceled Registrations" name="cancel" domain="[('state','=','cancel')]"/>
           <separator/>
           <group expand="0" string="Group By...">
             <filter string="Location" context="{'group_by': 'location_id'}"/>

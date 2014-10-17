@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-17 08:55+0000\n"
-"PO-Revision-Date: 2014-10-17 10:55+0100\n"
+"POT-Creation-Date: 2014-10-17 15:22+0000\n"
+"PO-Revision-Date: 2014-10-17 17:22+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -53,10 +53,19 @@ msgstr ""
 "            "
 
 #. module: academy
-#: code:addons/academy/wizard/invoice_assistant.py:119
+#: code:addons/academy/wizard/invoice_assistant.py:136
 #, python-format
 msgid ""
 "%s - %s\n"
+"%s"
+msgstr ""
+
+#. module: academy
+#: code:addons/academy/wizard/invoice_assistant.py:131
+#, python-format
+msgid ""
+"%s - %s\n"
+"%s\n"
 "%s"
 msgstr ""
 
@@ -274,7 +283,7 @@ msgid "Begin"
 msgstr "Beginn"
 
 #. module: academy
-#: code:addons/academy/academy.py:340
+#: code:addons/academy/academy.py:341
 #, python-format
 msgid ""
 "Can not delete registrations, which are not in state 'Draft' or 'Cancelled'"
@@ -294,6 +303,11 @@ msgstr "Abgebrochen"
 #: view:academy.registration:academy.search_academy_registration
 msgid "Canceled Registrations"
 msgstr "Stornierte Anmeldungen"
+
+#. module: academy
+#: selection:academy.registration.invoice,invoice_state:0
+msgid "Cancelled"
+msgstr "Abgebrochen"
 
 #. module: academy
 #: view:academy.semester.assistant:academy.wizard_semester_assistant
@@ -506,6 +520,7 @@ msgstr "Ermittelte Rechnungsadresse "
 
 #. module: academy
 #: selection:academy.registration,state:0
+#: selection:academy.registration.invoice,invoice_state:0
 msgid "Draft"
 msgstr "Entwurf"
 
@@ -521,14 +536,14 @@ msgid "End"
 msgstr "Ende"
 
 #. module: academy
-#: code:addons/academy/academy.py:568
+#: code:addons/academy/academy.py:580
 #: code:addons/academy/wizard/semester_assistant.py:30
 #, python-format
 msgid "Error"
 msgstr "Fehler"
 
 #. module: academy
-#: code:addons/academy/academy.py:340
+#: code:addons/academy/academy.py:341
 #, python-format
 msgid "Error!"
 msgstr "Fehler!"
@@ -617,6 +632,12 @@ msgid "Intership Date"
 msgstr "Quereinstiegsdatum"
 
 #. module: academy
+#: code:addons/academy/wizard/invoice_assistant.py:154
+#, python-format
+msgid "Intership discount for %s missed weeks"
+msgstr "Quereinsteiger Rabatt für %s Woche(n)"
+
+#. module: academy
 #: view:academy.invoice.assistant:academy.wizard_academy_invoice_assistant
 #: field:academy.payment,invoice_id:0
 #: field:academy.registration.invoice,invoice_id:0
@@ -635,19 +656,19 @@ msgid "Invoice Assistent"
 msgstr "Rechnungsassistent"
 
 #. module: academy
+#: field:academy.registration.invoice,date_invoice:0
+msgid "Invoice Date"
+msgstr "Rechnungsdatum"
+
+#. module: academy
 #: model:ir.model,name:academy.model_account_invoice_line
 msgid "Invoice Line"
 msgstr "Rechungsposition"
 
 #. module: academy
-#: view:academy.registration:academy.search_academy_registration
-msgid "Invoiced"
-msgstr "Verrechnet"
-
-#. module: academy
-#: field:academy.registration,is_invoiced:0
-msgid "Invoiced?"
-msgstr "Verrechnet?"
+#: field:academy.registration.invoice,invoice_state:0
+msgid "Invoice State"
+msgstr "Status"
 
 #. module: academy
 #: view:academy.registration:academy.form_academy_registration
@@ -677,6 +698,11 @@ msgstr "Ist Schüler dieser Schule?"
 #: field:academy.post.payment.wizard,journal_id:0
 msgid "Journal"
 msgstr "Kursjournal"
+
+#. module: academy
+#: field:academy.registration,last_invoice_id:0
+msgid "Last Invoice"
+msgstr "Letzte Rechnung"
 
 #. module: academy
 #: field:academy.registration,message_last_post:0
@@ -783,11 +809,6 @@ msgid "Nationality"
 msgstr "Nationalität"
 
 #. module: academy
-#: view:academy.registration:academy.search_academy_registration
-msgid "Not Invoiced"
-msgstr "Nicht Verrechnet"
-
-#. module: academy
 #: view:academy.registration:academy.form_academy_registration
 #: field:academy.registration,note:0
 msgid "Note"
@@ -814,6 +835,16 @@ msgstr "Nummer"
 #, python-format
 msgid "Only academy manager could change semester!"
 msgstr "Nur ein Lehranstalt Manager darf das Semester ändern!"
+
+#. module: academy
+#: selection:academy.registration.invoice,invoice_state:0
+msgid "Open"
+msgstr "Offen"
+
+#. module: academy
+#: selection:academy.registration.invoice,invoice_state:0
+msgid "Paid"
+msgstr "Bezahlt"
 
 #. module: academy
 #: field:academy.registration,student_parent_id:0
@@ -844,7 +875,7 @@ msgid "Payment Method"
 msgstr "Zahlungsmethode"
 
 #. module: academy
-#: code:addons/academy/academy.py:568
+#: code:addons/academy/academy.py:580
 #, python-format
 msgid "Payment which is posted could not deleted"
 msgstr "Zahlung die gebucht wurde kann nicht gelöscht werden"
@@ -870,6 +901,11 @@ msgstr "Buchen"
 #: model:ir.model,name:academy.model_academy_post_payment_wizard
 msgid "Post Payment"
 msgstr "Zahlung buchen"
+
+#. module: academy
+#: selection:academy.registration.invoice,invoice_state:0
+msgid "Pro-forma"
+msgstr ""
 
 #. module: academy
 #: field:academy.course.product,product_id:0 field:academy.fee,product_id:0
@@ -970,6 +1006,11 @@ msgstr "Anmeldungen zur Überprüfung"
 #: field:academy.registration,invoice_residual:0
 msgid "Residual"
 msgstr "Offen"
+
+#. module: academy
+#: field:academy.registration.invoice,residual:0
+msgid "Residual Amount"
+msgstr "Offener Betrag"
 
 #. module: academy
 #: field:product.uom,list_price:0

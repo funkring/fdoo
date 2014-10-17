@@ -18,8 +18,10 @@
 #
 ##############################################################################
 
+from datetime import datetime
 from openerp.osv import fields, osv
 from openerp.addons.at_base import util
+from openerp.addons.at_base import format
 from openerp.tools.translate import _
 
 class academy_invoice_assistant(osv.osv_memory):
@@ -56,6 +58,14 @@ class academy_invoice_assistant(osv.osv_memory):
         # search valid registration ids
         reg_ids = reg_obj.search(cr, uid, reg_query)
         
+        # calc weeks left
+        sem_start_dt = util.strToDate(semester.date_start)
+        sem_end_dt = util.strToDate(semester.date_end)
+        sem_duration = sem_end_dt - sem_start_dt
+        sem_weeks = round(sem_duration.days/7.0)
+                
+        f = format.LangFormat(cr, uid, context=context)
+                
         # group registrations
         invoices = {}        
         for reg in reg_obj.browse(cr, uid, reg_ids, context=context):
@@ -63,7 +73,7 @@ class academy_invoice_assistant(osv.osv_memory):
             reg_inv_id = reg_inv_obj.search_id(cr, uid, [("registration_id","=",reg.id),("semester_id","=",semester.id)], context=context)
             if reg_inv_id:
                 continue
-            
+        
             # get invoice address
             student = reg.student_id        
             partner = reg.use_invoice_address_id
@@ -93,7 +103,7 @@ class academy_invoice_assistant(osv.osv_memory):
             # create line
                         
             # add product function
-            def addProduct(product, uos_id=None, discount=0.0):
+            def addProduct(product, uos_id=None, discount=0.0, discount_reason=None):
                 line = { "invoice_id" : invoice_id,
                          "product_id" : product.id,
                          "quantity" : 1.0,
@@ -116,14 +126,39 @@ class academy_invoice_assistant(osv.osv_memory):
                 if tax_ids:
                     line["invoice_line_tax_id"]=[(6,0,tax_ids)]
                 
-                line["name"] = _("%s - %s\n%s") % (reg.name, line["name"], reg.student_id.name)
+                # discount reason
+                if discount_reason:
+                    line["name"] = _("%s - %s\n%s\n%s") % (reg.name, line["name"], 
+                                                           reg.student_id.name, 
+                                                           discount_reason)
+                # or default
+                else:
+                    line["name"] = _("%s - %s\n%s") % (reg.name, line["name"], 
+                                                       reg.student_id.name)
+                    
                 return invoice_line_obj.create(cr, uid, line, context=context)
             
             
             # create line
-            addProduct(reg.course_prod_id.product_id, reg.uom_id.id)
+            
+            # calc discount
+            discount = 0.0
+            discount_reason = None            
+            if reg.intership_date:
+                intership_dt = util.strToDate(reg.intership_date)
+                if intership_dt > sem_start_dt and intership_dt < sem_end_dt:
+                    missed_duration = intership_dt - sem_start_dt
+                    missed_weeks = int(round(missed_duration.days/7.0))
+                    if missed_duration:
+                        discount = (100.0/sem_weeks) * missed_weeks
+                        discount_reason = _("Intership discount for %s missed weeks") % missed_weeks
+                                      
+     
+            addProduct(reg.course_prod_id.product_id, reg.uom_id.id, discount=discount, discount_reason=discount_reason)
+            
                           
             # add fees
+            
             location = reg.location_id
             category_set = set([c.id for c in reg.location_id.category_id])
             

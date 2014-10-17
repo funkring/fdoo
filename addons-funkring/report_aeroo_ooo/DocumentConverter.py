@@ -110,7 +110,7 @@ class DocumentConverter:
             try:
                 self._call("close")
                 self._socket.close()
-            except Exeption as e:
+            except Exception as e:
                 _logger.exception(e)
 
     def putDocument(self, data):

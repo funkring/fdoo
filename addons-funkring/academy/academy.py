@@ -229,24 +229,25 @@ class academy_registration(osv.Model):
         return self.pool["academy.registration"].search(cr, uid, [("student_id.partner_id","in",ids)])
             
     def _relids_invoice(self, cr, uid, ids, context=None):
-        cr.execute("SELECT registration_id FROM academy.registration.invoice ri WHERE ri.id IN %s GROUP BY 1", (tuple(ids),))
+        cr.execute("SELECT registration_id FROM academy_registration_invoice ri WHERE ri.invoice_id IN %s GROUP BY 1", (tuple(ids),))
         return [r[0] for r in cr.fetchall()]
     
     def _compute_invoiced(self, cr, uid, ids, field_names, arg, context=None):
         res = dict.fromkeys(ids)
+        semester_id = self._get_semester_id(cr, uid, context)        
         for reg in self.browse(cr, uid, ids, context):
             # calc values
             residual = 0.0
-            is_invoiced = False
+            last_invoice_id = None
             for reg_invoice in reg.invoice_ids:
                 invoice = reg_invoice.invoice_id
-                if invoice.state != "cancel":
-                    is_invoiced = True
+                if invoice.state not in ("cancel","draft"):
+                    last_invoice_id = invoice.id
                     residual += invoice.residual         
                        
             res[reg.id]={
                 "invoice_residual" : residual,
-                "is_invoiced" : is_invoiced
+                "last_invoice_id" : last_invoice_id
             }        
             
         return res
@@ -376,7 +377,7 @@ class academy_registration(osv.Model):
                                     "State", readonly=True, select=True),
         "note" : fields.text("Note", select=True),
         "invoice_ids" : fields.one2many("academy.registration.invoice","registration_id","Invoices", readonly=True),
-        "is_invoiced" : fields.function(_compute_invoiced, string="Invoiced?", type="boolean", multi="_compute_invoiced", store={
+        "last_invoice_id" : fields.function(_compute_invoiced, string="Last Invoice", type="many2one", obj="account.invoice", multi="_compute_invoiced", store={
                                             "academy.registration": (lambda self, cr, uid, ids, context=None: ids, ["invoice_ids"], 10),
                                             "account.invoice": (_relids_invoice, ["state","residual"], 10),                                                                 
                                         }),
@@ -515,7 +516,18 @@ class academy_registration_invoice(osv.Model):
     _columns = {
         "registration_id" : fields.many2one("academy.registration", "Registration", select=True, ondelete="restrict"),
         "semester_id" : fields.many2one("academy.semester", "Semester", select=True, ondelete="restrict"),
-        "invoice_id" : fields.many2one("account.invoice", "Invoice", select=True, ondelete="cascade")
+        "invoice_id" : fields.many2one("account.invoice", "Invoice", select=True, ondelete="cascade"),
+        "residual" : fields.related("invoice_id", "residual", type="float", relation="account.invoice", string="Residual Amount", readonly=True),
+        "date_invoice" : fields.related("invoice_id", "date_invoice", type="date", relation="account.invoice", string="Invoice Date", readonly=True),
+        "invoice_state" : fields.related("invoice_id", "state", type="selection", relation="account.invoice", string="Invoice State", readonly=True,
+                                         selection=[
+                                                    ('draft','Draft'),
+                                                    ('proforma','Pro-forma'),
+                                                    ('proforma2','Pro-forma'),
+                                                    ('open','Open'),
+                                                    ('paid','Paid'),
+                                                    ('cancel','Cancelled'),
+                                                ])
     }
 
 
