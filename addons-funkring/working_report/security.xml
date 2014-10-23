@@ -1,5 +1,26 @@
-<data>
+<openerp>
+    <data>
+    
+        <record id="access_working_report_account_manager" model="ir.model.access">
+          <field name="name">working_report/account_manager</field>
+          <field name="model_id" ref="model_working_report"/>
+          <field name="group_id" ref="account.group_account_manager"/>
+          <field name="perm_read" eval="True"/>
+          <field name="perm_unlink" eval="False"/>
+          <field name="perm_create" eval="False"/>
+          <field name="perm_write" eval="False"/>
+        </record>
 
-
-
-</data>
+        <record id="access_working_report_account_invoice" model="ir.model.access">
+          <field name="name">working_report/account_invoice</field>
+          <field name="model_id" ref="model_working_report"/>
+          <field name="group_id" ref="account.group_account_invoice"/>
+          <field name="perm_read" eval="True"/>
+          <field name="perm_unlink" eval="True"/>
+          <field name="perm_create" eval="True"/>
+          <field name="perm_write" eval="True"/>
+        </record>
+    
+    
+    </data>
+</openerp>

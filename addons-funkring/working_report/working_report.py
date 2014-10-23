@@ -31,3 +31,6 @@ class working_report(osv.Model):
                                                "report_id", 
                                                "line_id", string="Work")
     }
+    _defaults = {
+        "name" : lambda self, cr, uid, context: self.pool.get("ir.sequence").get(cr, uid, "working.report") or "/"
+    }

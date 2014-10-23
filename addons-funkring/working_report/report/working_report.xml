@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <report id="report_working_report"
+               string="Working Report"
+               name="working.report"
+               auto="False"
+               report_type="aeroo"
+               process_sep="True"
+               model="working.report"
+               in_format="oo-odt"
+               out_format="oo-pdf"
+               parser="at_base/extreport.py"
+               rml="working_report/report/working_report.odt"/>
+    </data>
+</openerp>

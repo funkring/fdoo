@@ -1,0 +1,17 @@
+<openerp>
+  <data noupdate="1">
+        
+    <record id="seq_type_working_report" model="ir.sequence.type">
+        <field name="name">Working Report</field>
+        <field name="code">working.report</field>
+    </record>
+    
+    <record id="seq_working_report" model="ir.sequence">
+        <field name="name">Working Report</field>
+        <field name="padding">4</field>
+        <field name="code">working.report</field>
+        <field name="prefix">A%(year)s</field>
+    </record>
+        
+  </data>
+</openerp>

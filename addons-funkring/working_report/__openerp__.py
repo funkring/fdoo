@@ -31,7 +31,11 @@ Working Report
     "author" :  "funkring.net",
     "category" : "Sales Management/Project Management",
     "depends" : ["at_project_sale"],
-    "data" : [],
+    "data" : ["security.xml",
+              "view/working_report_view.xml",
+              "data/working_report_sequence.xml",
+              "wizard/working_report_wizard.xml",
+              "report/working_report.xml"],
     "auto_install" : False,
     "installable": True
 }
