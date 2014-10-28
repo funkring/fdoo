@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+ <data>
+ 
+    <record id="form_account_analytic_account" model="ir.ui.view">
+      <field name="name">analytic_category.form_account_analytic_account</field>
+      <field name="model">account.analytic.account</field>
+      <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
+      <field name="arch" type="xml">
+            <field name="type" position="after">
+                <field name="category_id"/>
+            </field>
+      </field>
+    </record>
+    
+    <record id="tree_account_analytic_account" model="ir.ui.view">
+      <field name="name">account.tree_account_analytic_account</field>
+      <field name="model">account.analytic.account</field>
+      <field name="inherit_id" ref="account.view_account_analytic_account_tree"/>
+        <field name="arch" type="xml">
+            <field name="type" position="after">
+                <field name="category_id"/>
+            </field>
+        </field>
+    </record>
+
+    
+  </data>
+</openerp>

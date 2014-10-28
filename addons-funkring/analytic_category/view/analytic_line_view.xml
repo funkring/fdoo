@@ -1,0 +1,44 @@
+<openerp>
+  <data>
+  
+    <record id="form_account_analytic_line" model="ir.ui.view">
+      <field name="name">analytic_category.form_account_analytic_line</field>
+      <field name="model">account.analytic.line</field>
+      <field name="inherit_id" ref="account.view_account_analytic_line_form"/>
+      <field name="arch" type="xml">
+            <field name="account_id" position="after">
+                <field name="category_id"/>
+            </field>
+      </field>
+    </record>
+    
+    <record id="tree_account_analytic_line" model="ir.ui.view">
+      <field name="name">analytic_category.tree_account_analytic_line</field>
+      <field name="model">account.analytic.line</field>
+      <field name="inherit_id" ref="account.view_account_analytic_line_tree"/>
+        <field name="arch" type="xml">
+            <field name="account_id" position="after">
+                <field name="category_id"/>
+            </field>
+        </field>
+    </record>
+    
+    <record id="search_account_analytic_line" model="ir.ui.view">
+      <field name="name">analytic_category.search_account_analytic_line</field>
+      <field name="model">account.analytic.line</field>
+      <field name="inherit_id" ref="account.view_account_analytic_line_filter"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <data>
+             <field name="user_id" position="after">
+                <field name="category_id" string="Category"/>
+             </field>
+             <filter name="group_journal" position="after">
+                <filter string="Category" context="{'group_by':'category_id'}" name="group_category"/>
+             </filter>                      
+        </data>
+      </field>
+    </record>
+    
+  </data>
+</openerp>
