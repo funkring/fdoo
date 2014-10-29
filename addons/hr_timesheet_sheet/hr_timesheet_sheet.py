@@ -73,6 +73,7 @@ class hr_timesheet_sheet(osv.osv):
         return super(hr_timesheet_sheet, self).create(cr, uid, vals, *args, **argv)
 
     def write(self, cr, uid, ids, vals, *args, **argv):
+        context = argv.get("context")
         if 'employee_id' in vals:
             new_user_id = self.pool.get('hr.employee').browse(cr, uid, vals['employee_id']).user_id.id or False
             if not new_user_id:
