@@ -2,10 +2,7 @@
  * handles editability case for lists, because it depends on form and forms already depends on lists it had to be split out
  * @namespace
  */
-(function() {
-
-    var instance = openerp;
-    openerp.web.list_editable = {};
+openerp.web.list_editable = function (instance) {
     var _t = instance.web._t;
 
     // editability status of list rows
@@ -126,6 +123,7 @@
          * as an editable row at the top or bottom of the list)
          */
         do_add_record: function () {
+            var self = this;
             if (this.editable()) {
                 this.$el.find('table:first').show();
                 this.$el.find('.oe_view_nocontent').remove();
@@ -207,7 +205,7 @@
         make_empty_record: function (id) {
             var attrs = {id: id};
             _(this.columns).chain()
-                .filter(function (x) { return x.tag === 'field';})
+                .filter(function (x) { return x.tag === 'field'})
                 .pluck('name')
                 .each(function (field) { attrs[field] = false; });
             return new instance.web.list.Record(attrs);
@@ -234,6 +232,7 @@
             return this.ensure_saved().then(function () {
                 var $recordRow = self.groups.get_row_for(record);
                 var cells = self.get_cells_for($recordRow);
+                var fields = {};
                 self.fields_for_resize.splice(0, self.fields_for_resize.length);
                 return self.with_event('edit', {
                     record: record.attributes,
@@ -247,6 +246,7 @@
 
                         // FIXME: need better way to get the field back from bubbling (delegated) DOM events somehow
                         field.$el.attr('data-fieldname', field_name);
+                        fields[field_name] = field;
                         self.fields_for_resize.push({field: field, cell: cell});
                     }, options).then(function () {
                         $recordRow.addClass('oe_edition');
@@ -270,7 +270,7 @@
         get_cells_for: function ($row) {
             var cells = {};
             $row.children('td').each(function (index, el) {
-                cells[el.getAttribute('data-field')] = el;
+                cells[el.getAttribute('data-field')] = el
             });
             return cells;
         },
@@ -282,9 +282,7 @@
             if (!this.editor.is_editing()) { return; }
             for(var i=0, len=this.fields_for_resize.length; i<len; ++i) {
                 var item = this.fields_for_resize[i];
-                if (!item.field.get('effective_invisible')) {
-                    this.resize_field(item.field, item.cell);
-                }
+                this.resize_field(item.field, item.cell);
             }
         },
         /**
@@ -303,6 +301,11 @@
                 at: 'left top',
                 of: $cell
             });
+            if (field.get('effective_readonly')) {
+                field.$el.addClass('oe_readonly');
+            }
+            if(field.widget == "handle")
+                field.$el.addClass('oe_list_field_handle');
         },
         /**
          * @return {jQuery.Deferred}
@@ -356,7 +359,7 @@
                         var record = self.records.get(attrs.id);
                         if (!record) {
                             // Record removed by third party during edition
-                            return;
+                            return
                         }
                         return self.reload_record(record);
                     }
@@ -448,13 +451,7 @@
         setup_events: function () {
             var self = this;
             _.each(this.editor.form.fields, function(field, field_name) {
-                var set_invisible = function() {
-                    field.set({'force_invisible': field.get('effective_readonly')});
-                };
-                field.on("change:effective_readonly", self, set_invisible);
-                set_invisible();
-                field.on('change:effective_invisible', self, function () {
-                    if (field.get('effective_invisible')) { return; }
+                field.on("change:effective_readonly", self, function(){
                     var item = _(self.fields_for_resize).find(function (item) {
                         return item.field === field;
                     });
@@ -532,6 +529,10 @@
                 };
             } else if (document.body.createTextRange) {
                 throw new Error("Implement text range handling for MSIE");
+                var sel = document.body.createTextRange();
+                if (sel.parentElement() === el) {
+
+                }
             }
             // Element without selection ranges (select, div/@contenteditable)
             return null;
@@ -708,9 +709,9 @@
             var arch = edition_view.arch;
             if (!(arch && arch.children instanceof Array)) {
                 throw new Error("Editor delegate's #edition_view must have a" +
-                                " non-empty arch");
+                                " non-empty arch")
             }
-            if (arch.tag !== "form") {
+            if (!(arch.tag === "form")) {
                 throw new Error("Editor delegate's #edition_view must have a" +
                                 " 'form' root node");
             }
@@ -745,31 +746,6 @@
             throw new Error("is_editing's state filter must be either `new` or" +
                             " `edit` if provided");
         },
-        _focus_setup: function (focus_field) {
-            var form = this.form;
-
-            var field;
-            // If a field to focus was specified
-            if (focus_field
-                    // Is actually in the form
-                    && (field = form.fields[focus_field])
-                    // And is visible
-                    && field.$el.is(':visible')) {
-                // focus it
-                field.focus();
-                return;
-            }
-
-            _(form.fields_order).detect(function (name) {
-                // look for first visible field in fields_order, focus it
-                var field = form.fields[name];
-                if (!field.$el.is(':visible')) {
-                    return false;
-                }
-                // Stop as soon as a field got focused
-                return field.focus() !== false;
-            });
-        },
         edit: function (record, configureField, options) {
             // TODO: specify sequence of edit calls
             var self = this;
@@ -784,7 +760,6 @@
                 _(form.fields).each(function (field, name) {
                     configureField(name, field);
                 });
-                self._focus_setup(options && options.focus_field);
                 return form;
             });
         },
@@ -851,4 +826,4 @@
             return null;
         }
     });
-})();
+};
