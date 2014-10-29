@@ -58,7 +58,7 @@ def run(args):
 
                     for data_file in data_files:
                         data_file_path = os.path.join(module_path, data_file)
-                        if data_file.lower().endswith(".xml"):
+                        if data_file and data_file.lower().endswith(".xml"):
                             try:
                                 doc = etree.parse(data_file_path).getroot()
                                 for data_doc in doc.findall("data"):
@@ -230,7 +230,11 @@ def run(args):
 
             modules_to_delete = {}
             for module in module_obj.browse(cr,1,module_obj.search(cr, 1,[])):
-                info = openerp.modules.module.load_information_from_description_file(module.name)
+                info = None
+                try:
+                    info = openerp.modules.module.load_information_from_description_file(module.name)
+                except Exception as e:
+                    logger.error(e)                    
                 if not info:
                     modules_to_delete[module.id]=module.name
 
