@@ -66,8 +66,18 @@ def fixPdf(data,ret_reader=False):
     if data:
         try:        
             reader = PdfFileReader(StringIO(data))
+            
+            # return reader
             if ret_reader:
-                return reader
+                if reader.getIsEncrypted():
+                    if reader.decrypt(""):
+                        return reader
+                    else:
+                        return None                    
+                else:                    
+                    return reader
+                
+            # return data
             return data
         except Exception, e:
             error = hasattr(e, "message") and e.message or ""                            
