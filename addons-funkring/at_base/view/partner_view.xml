@@ -77,6 +77,18 @@
                             options="{&quot;no_open&quot;: True}"
                             placeholder="State" style="width: 37%%"/>
                     </div>
+                    <notebook position="inside">
+                        <page string="Position">
+                            <group>
+                                <group>
+                                    <field name="lat"/>
+                                </group>                            
+                                <group>
+                                    <field name="lon"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
                 </data>
             </field>
         </record>
