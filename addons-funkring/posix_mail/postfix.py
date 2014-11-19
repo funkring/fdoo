@@ -29,8 +29,8 @@ class postfix_transport(osv.Model):
     _description = "Postfix Transport Table"
     _auto = False
     _columns = {
-        "domain" : fields.char("Domain",size=64),
-        "transport" : fields.char("Transport",size=72)
+        "domain" : fields.char("Domain",size=256),
+        "transport" : fields.char("Transport",size=256)
     }
     
     def init(self,cr):

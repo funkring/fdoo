@@ -12,7 +12,7 @@
                     <filter name="openerp-web"
                         string="Web-only translations"
                         domain="[('comments', 'like', 'openerp-web')]"/>
-                    <field name="name" operator="="/>
+                    <field name="name"/>
                     <field name="lang"/>
                     <field name="src"/>
                     <field name="value"/>

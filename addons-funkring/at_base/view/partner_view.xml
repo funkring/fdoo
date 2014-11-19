@@ -81,9 +81,10 @@
                         <page string="Position">
                             <group>
                                 <group>
-                                    <field name="lat"/>
+                                    <field name="sea_level"/>
                                 </group>                            
                                 <group>
+                                    <field name="lat"/>
                                     <field name="lon"/>
                                 </group>
                             </group>

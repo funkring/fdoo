@@ -187,5 +187,6 @@ class res_partner(osv.osv):
         "mobile_n" : fields.function(_get_mobile, type="char", store=True, string="Mobile normalized"),
         "fax_n" : fields.function(_get_fax, type="char", store=True, string="Fax normalized"),
         "lon" : fields.float("Longitude"),
-        "lat" : fields.float("Latitude")
+        "lat" : fields.float("Latitude"),
+        "sea_level" : fields.float("Sea Level")
      }

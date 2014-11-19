@@ -138,9 +138,6 @@ def run(args):
             # special handling for models
             if model == "ir.model":
                 return
-#                 cr.execute("DELETE FROM ir_rule WHERE model_id = %s",(res_id,))
-#                 cr.execute("DELETE FROM ir_model_constraint WHERE model = %s",(res_id,))
-#                 cr.execute("DELETE FROM ir_model_relation WHERE model = %s",(res_id,))
             if model == "ir.ui.menu":
                 delete_all(table, res_id)
 
@@ -260,6 +257,8 @@ def run(args):
                 cr.execute("DELETE FROM ir_model_constraint WHERE model in %s",(tuple(models_to_delete.keys()),))
                 cr.execute("DELETE FROM ir_model_relation WHERE model in %s",(tuple(models_to_delete.keys()),))
                 cr.execute("DELETE FROM ir_model WHERE id in %s",(tuple(models_to_delete.keys()),))
+                cr.execute("DELETE FROM ir_model_fields WHERE model_id in %s",(tuple(models_to_delete.keys()),))
+                
 
     #         model_data_obj = registry.get('ir.model.data')
     #         view_obj = registry.get('ir.ui.view')
