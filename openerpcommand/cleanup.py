@@ -257,9 +257,23 @@ def run(args):
                 cr.execute("DELETE FROM ir_model_constraint WHERE model in %s",(tuple(models_to_delete.keys()),))
                 cr.execute("DELETE FROM ir_model_relation WHERE model in %s",(tuple(models_to_delete.keys()),))
                 cr.execute("DELETE FROM ir_model WHERE id in %s",(tuple(models_to_delete.keys()),))
-                cr.execute("DELETE FROM ir_model_fields WHERE model_id in %s",(tuple(models_to_delete.keys()),))
+                #cr.execute("DELETE FROM ir_model_fields WHERE model_id in %s",(tuple(models_to_delete.keys()),))
                 
 
+            query = "SELECT id, name, model, res_id, module FROM ir_model_data"
+            cr.execute(query)
+            for oid, name, model, res_id, module in cr.fetchall():
+                if model and res_id:
+                    model_obj = registry.get(model)
+                    if model_obj:
+                        query = "SELECT id FROM %s WHERE id=%%s" % model_obj._table
+                        cr.execute(query,(res_id,))
+                        if cr.fetchall():
+                            continue
+                    cr.execute("DELETE FROM ir_model_data WHERE id=%s",(oid,))
+                    logger.info("[WARNING] [%s] %s[%s] does not exist -> DELETED" % (module, model, res_id))
+                    
+             
     #         model_data_obj = registry.get('ir.model.data')
     #         view_obj = registry.get('ir.ui.view')
     #         for model_data in model_data_obj.browse(cr,1,model_data_obj.search(cr,1,[])):
