@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-17 15:22+0000\n"
-"PO-Revision-Date: 2014-10-17 17:22+0100\n"
+"POT-Creation-Date: 2014-11-24 14:44+0000\n"
+"PO-Revision-Date: 2014-11-24 15:45+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -53,7 +53,7 @@ msgstr ""
 "            "
 
 #. module: academy
-#: code:addons/academy/wizard/invoice_assistant.py:136
+#: code:addons/academy/wizard/invoice_assistant.py:131
 #, python-format
 msgid ""
 "%s - %s\n"
@@ -61,7 +61,7 @@ msgid ""
 msgstr ""
 
 #. module: academy
-#: code:addons/academy/wizard/invoice_assistant.py:131
+#: code:addons/academy/wizard/invoice_assistant.py:126
 #, python-format
 msgid ""
 "%s - %s\n"
@@ -283,7 +283,7 @@ msgid "Begin"
 msgstr "Beginn"
 
 #. module: academy
-#: code:addons/academy/academy.py:341
+#: code:addons/academy/academy.py:353
 #, python-format
 msgid ""
 "Can not delete registrations, which are not in state 'Draft' or 'Cancelled'"
@@ -536,14 +536,14 @@ msgid "End"
 msgstr "Ende"
 
 #. module: academy
-#: code:addons/academy/academy.py:580
+#: code:addons/academy/academy.py:592
 #: code:addons/academy/wizard/semester_assistant.py:30
 #, python-format
 msgid "Error"
 msgstr "Fehler"
 
 #. module: academy
-#: code:addons/academy/academy.py:341
+#: code:addons/academy/academy.py:353
 #, python-format
 msgid "Error!"
 msgstr "Fehler!"
@@ -593,6 +593,11 @@ msgstr ""
 "weiterzuarbeiten.\""
 
 #. module: academy
+#: field:academy.semester,holiday_weeks:0
+msgid "Holiday Weeks"
+msgstr "Ferien Wochen"
+
+#. module: academy
 #: view:academy.registration:academy.tree_academy_registration
 #: field:academy.registration,hours:0
 msgid "Hours"
@@ -632,7 +637,7 @@ msgid "Intership Date"
 msgstr "Quereinstiegsdatum"
 
 #. module: academy
-#: code:addons/academy/wizard/invoice_assistant.py:154
+#: code:addons/academy/wizard/invoice_assistant.py:149
 #, python-format
 msgid "Intership discount for %s missed weeks"
 msgstr "Quereinsteiger Rabatt für %s Woche(n)"
@@ -875,7 +880,7 @@ msgid "Payment Method"
 msgstr "Zahlungsmethode"
 
 #. module: academy
-#: code:addons/academy/academy.py:580
+#: code:addons/academy/academy.py:592
 #, python-format
 msgid "Payment which is posted could not deleted"
 msgstr "Zahlung die gebucht wurde kann nicht gelöscht werden"
@@ -1071,6 +1076,16 @@ msgstr ""
 #: model:ir.model,name:academy.model_academy_semester_assistant
 msgid "Semester Configuration"
 msgstr "Semester Konfiguration"
+
+#. module: academy
+#: field:academy.semester,semester_weeks:0
+msgid "Semester Weeks"
+msgstr "Semester Wochen"
+
+#. module: academy
+#: help:academy.semester,semester_weeks:0
+msgid "Semester Weeks minus Holiday Weeks"
+msgstr "Semester Woche minus der Ferien Wochen"
 
 #. module: academy
 #: field:academy.course.product,sequence:0 field:academy.fee,sequence:0

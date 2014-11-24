@@ -34,6 +34,8 @@
                                 <field name="name"/>
                                 <field name="date_start"/>
                                 <field name="date_end"/>
+                                <field name="semester_weeks" />
+                                <field name="holiday_weeks"/>                                
                             </tree>
                         </field>
                     </page>

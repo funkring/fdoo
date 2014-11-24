@@ -60,13 +60,25 @@ class academy_semester(osv.Model):
             res.append((record["id"], name))
         return res
 
+    def _semester_weeks(self, cr, uid, ids, field_name, arg, context=None):
+        res = dict.fromkeys(ids)
+        for semester in self.browse(cr, uid, ids, context=context):
+            sem_start_dt = util.strToDate(semester.date_start)
+            sem_end_dt = util.strToDate(semester.date_end)
+            sem_duration = sem_end_dt - sem_start_dt
+            sem_weeks = round(sem_duration.days/7.0)
+            res[semester.id]=sem_weeks-semester.holiday_weeks
+        return res
+
     _name = "academy.semester"
     _columns = {
         "year_id" : fields.many2one("academy.year", "Year", ondelete="cascade", select=True),
         "name" : fields.char("Name", required=True),
         "date_start" : fields.date("Start", required=True),
-        "date_end" : fields.date("End", required=True)
-    }
+        "date_end" : fields.date("End", required=True),
+        "semester_weeks" : fields.function(_semester_weeks, type="integer", string="Semester Weeks", help="Semester Weeks minus Holiday Weeks"),
+        "holiday_weeks" : fields.integer("Holiday Weeks")                
+    } 
     _order ="date_start desc"
 
 class academy_student(osv.Model):

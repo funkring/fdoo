@@ -57,15 +57,10 @@ class academy_invoice_assistant(osv.osv_memory):
         
         # search valid registration ids
         reg_ids = reg_obj.search(cr, uid, reg_query)
-        
-        # calc weeks left
-        sem_start_dt = util.strToDate(semester.date_start)
-        sem_end_dt = util.strToDate(semester.date_end)
-        sem_duration = sem_end_dt - sem_start_dt
-        sem_weeks = round(sem_duration.days/7.0)
-                
+
+        # get semester weeks        
+        sem_weeks = semester.semester_weeks
         f = format.LangFormat(cr, uid, context=context)
-                
         # group registrations
         invoices = {}        
         for reg in reg_obj.browse(cr, uid, reg_ids, context=context):
