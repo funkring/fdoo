@@ -108,10 +108,14 @@ class DocumentConverter:
             self._open=False
             _logger.debug("Close DocumentConverter")
             try:
-                self._call("close")
-                self._socket.close()
+                self._call("close")                
             except Exception as e:
-                _logger.exception(e)
+                _logger.error("Unable to close! %s" % str(e))
+            finally:
+                try:
+                    self._socket.close()
+                except Exception as e:
+                    _logger.error("Unable to close socket! %s" % str(e))
 
     def putDocument(self, data):
         _logger.debug("DocumentConverter->putDocument")

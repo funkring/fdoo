@@ -25,11 +25,10 @@ from dateutil.relativedelta import relativedelta
 
 class dunning_profile(osv.Model):
     _name = "account.dunning_profile"
-    _rec_name="name"
+    _rec_name ="company_id"
     _columns = {
         "line_ids" : fields.one2many("account.dunning_profile_line", "profile_id", "Profile lines"),
-        "company_id" : fields.many2one("res.company", "Company", required=True),
-        "name" : fields.related("company_id", "name", string="Name")
+        "company_id" : fields.many2one("res.company", "Company", required=True)
     }
     _defaults = {
         'company_id': lambda s, cr, uid, c: s.pool.get('res.company')._company_default_get(cr, uid, 'account.dunning_profile', context=c),
@@ -62,7 +61,7 @@ class dunning_profile_line(osv.Model):
     
     _name = "account.dunning_profile_line"
     _columns = {
-        "name" : fields.char("Name", size=64, required=True),
+        "name" : fields.char("Name", required=True),
         "sequence" : fields.integer("Sequence", help="It helps to order the profile lines"),
         "delay" : fields.integer("Days of delay"),
         "profile_id" : fields.many2one("account.dunning_profile", "Profile", required=True, ondelete="cascade"),

@@ -127,14 +127,13 @@ class account_dunning_wizard(osv.osv_memory):
         company_id = self.pool.get('res.users')._get_company(cr, uid, context=context)
         return self.pool.get("account.dunning_profile").search_id(cr, uid, [("company_id","=",company_id)], context=context)
         
-    
     _name="account.dunning_wizard"
     _columns = {
         "date": fields.date("Reminder date", required=True),
         "profile_id" : fields.many2one("account.dunning_profile", "Profile", required=True),
     }    
     _defaults = {
-        "date" : util.currentDate(),
+        "date" : lambda *a: util.currentDate(),
         "profile_id" : _default_profile_id     
     }
     

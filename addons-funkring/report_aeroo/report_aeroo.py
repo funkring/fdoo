@@ -61,6 +61,8 @@ logger = logging.getLogger(__name__)
 
 from ExtraFunctions import ExtraFunctions
 
+AEROO_TIMEOUT = 1
+AEROO_RETRIES = 3
 
 def fixPdf(data,ret_reader=False):
     if data:
@@ -498,16 +500,26 @@ class Aeroo_report(report_sxw):
         ######### OpenOffice extras #########
         if (output!=report_xml.in_format[3:] or self.oo_subreports):
             if aeroo_ooo:
-                with RegistryManager.get(cr.dbname).get("oo.config")._lookup_service(cr,uid,context=context) as DC:
-                    try:
-                        DC.putDocument(data)
-                        if self.oo_subreports:
-                            DC.insertSubreports(self.oo_subreports)
-                        data = DC.readDocumentFromStreamAndClose(report_xml.out_format.filter_name)
-                    except Exception, e:
-                        logger.error(str(e))
-                        self._cleanup()
-                        output=report_xml.in_format[3:]
+                # build sub report
+                def build_report(data,retry=AEROO_RETRIES):
+                    with RegistryManager.get(cr.dbname).get("oo.config")._lookup_service(cr,uid,context=context) as DC:
+                        try:
+                            DC.putDocument(data)
+                            if self.oo_subreports:
+                                DC.insertSubreports(self.oo_subreports)
+                            return DC.readDocumentFromStreamAndClose(report_xml.out_format.filter_name)
+                        except Exception as e:                            
+                            logger.error(str(e))
+                            if retry>0:    
+                                logger.error("Failed to build subreport, retry %s" % retry)
+                                time.sleep(AEROO_TIMEOUT)                        
+                                return build_report(data,retry-1)
+                            
+                            self._cleanup()
+                            output=report_xml.in_format[3:]
+                            raise e
+                
+                data = build_report(data)
             else:
                 output=report_xml.in_format[3:]
         elif output in ('pdf', 'doc', 'xls'):
@@ -674,19 +686,33 @@ class Aeroo_report(report_sxw):
                 except Exception,e:
                     logger.error(str(e))
                 results.append(result)
-
-        with RegistryManager.get(cr.dbname).get("oo.config")._lookup_service(cr,uid,context=context) as DC:
-            if results and len(results)==1:
-                return results[0]
-            elif results and DC:
-                results.reverse()
-                data = results.pop()
-                DC.putDocument(data[0])
-                DC.joinDocuments([r[0] for r in results])
-                result = DC.readDocumentFromStreamAndClose()
-                return (result, data[1])
-            else:
-                return self.create_single_pdf(cr, uid, ids, data, report_xml, context)
+        
+        # build report
+        if results and len(results)==1:
+            return results[0]
+        elif not results:
+            return self.create_single_pdf(cr, uid, ids, data, report_xml, context)
+        else:
+            def build_report(retry=AEROO_RETRIES):
+                try:
+                    with RegistryManager.get(cr.dbname).get("oo.config")._lookup_service(cr,uid,context=context) as DC:
+                        if DC:
+                            doc_list = list(reversed(results))
+                            doc_data = doc_list.pop()
+                            DC.putDocument(doc_data[0])
+                            DC.joinDocuments([d[0] for d in doc_list])
+                            doc = DC.readDocumentFromStreamAndClose()
+                            return (doc, doc_data[1])
+                        else:
+                            return self.create_single_pdf(cr, uid, ids, data, report_xml, context)
+                except Exception as e:
+                    if retry > 0:
+                        time.sleep(AEROO_TIMEOUT)
+                        logger.error("Failed to build report, retry %s" % retry)
+                        return build_report(data,retry-1)
+                    raise e    
+                    
+            return build_report(retry)
 
     # override needed to intercept the call to the proper 'create' method
     def create(self, cr, uid, ids, data, context=None):
