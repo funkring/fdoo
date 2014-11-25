@@ -67,6 +67,7 @@ class dunning_profile_line(osv.Model):
         "profile_id" : fields.many2one("account.dunning_profile", "Profile", required=True, ondelete="cascade"),
         "dunning_fee_percent" : fields.boolean("Dunning Fee %"),
         "dunning_fee" : fields.float("Dunning Fee", digits_compute=dp.get_precision("Account")),
+        "payment_no_dunning" : fields.boolean("No dunning on payment"),
         "description" : fields.text("Text before", translate=True),
         "description2" : fields.text("Text after", translate=True)
     }

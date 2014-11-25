@@ -70,6 +70,11 @@ class account_dunning_wizard(osv.osv_memory):
                                 
                                 elif inv.state == "open":
                                     profile_line = profile_line_obj.line_next(cr,uid,wizard.profile_id,inv.profile_line_id,wizard.date,inv.date_due)
+                                    
+                                    # check if no dunning option
+                                    if profile_line and profile_line.payment_no_dunning and inv.residual > 0 and inv.residual < inv.amount_total:
+                                        profile_line = None
+                                    
                                     invoice_obj.write(cr,uid,inv.id,{"profile_line_id" : profile_line and profile_line.id or None,
                                                                      "dunning_date" : wizard.date }, context)
                                     

@@ -22,6 +22,7 @@
         		                				<field name="name" />
         		                				<field name="sequence" />
         	                					<field name="delay" />
+        	                					<field name="payment_no_dunning"/>
         	                				</group>
         	                				<group>
                         						<label for="dunning_fee_percent" string="Dunning fee"/>
