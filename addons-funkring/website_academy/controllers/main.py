@@ -202,13 +202,20 @@ class website_academy(http.Controller):
         is_student_of_loc = False
         parent_address = True
         invoice_address = False
+        extra_info = None
+        read_school_rules = None
+        
         for key, value in kwargs.items():
             if key == "is_student_of_loc":
                 is_student_of_loc = True
             elif key == "has_legal_age":
                 parent_address = False
             elif key == "has_invoice_address":
-                invoice_address = True                
+                invoice_address = True
+            elif key == "textinput_extra_info":
+                extra_info = value        
+            elif key == "read_school_rules":
+                read_school_rules = True
             else:
                 m = PATTERN_PRODUCT.match(key)
                 if m:
@@ -382,7 +389,9 @@ class website_academy(http.Controller):
                         "uom_id" : course[1].id,
                         "student_id" : student[0],
                         "location_id" : location_id,
-                        "student_of_loc" : is_student_of_loc
+                        "student_of_loc" : is_student_of_loc,
+                        "note" : extra_info,
+                        "read_school_rules" : read_school_rules
                     }
                     
                     # set invoice address id
@@ -421,7 +430,7 @@ class website_academy(http.Controller):
                     "location_lines" : location_lines,
                     "is_student_of_loc" : is_student_of_loc,
                     "location_id" : location_id,
-                    "registration" : reg_obj._next_sequence(cr, hidden_uid, context) 
+                    "registration" : reg_obj._next_sequence(cr, hidden_uid, context)
                 }
                 return request.website.render("website_academy.registration", values)
         finally:

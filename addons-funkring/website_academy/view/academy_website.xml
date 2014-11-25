@@ -207,7 +207,7 @@
                                             <label for="student_of_loc">I am student of the selected school?</label>
                                         </input>        
                                     </div>
-                                </div>
+                                </div>                              
                                 <div class="row mt4 mb4">
                                     <div class="col-md-12">
                                         <input type="checkbox" id="parent_address" name="has_legal_age">                                    
@@ -260,6 +260,26 @@
                                 <t t-call="website_academy.address"/>
                             </div>
                         </div>
+                        <div id="extra_info_input" class="row mt8 mb8 form-group">
+                            <div class="col-md-4">
+                                <span class="control-label oe_label">Extra Info</span>
+                            </div>    
+                            <div class="col-md-8">
+                                <textarea rows="5" class="form-control" name="textinput_extra_info"></textarea>
+                            </div>
+                        </div>
+                        <div class="row mt4 mb4">
+                            <div class="col-md-12">
+                                <input type="checkbox" id="school_rules" name="read_school_rules">                                    
+                                    <label for="school_rules">I have read and accepted school rules?</label>
+                                </input>        
+                            </div>
+                        </div>
+                        <div id="notaccepted_error" class="row mt8 mb8 hidden">
+                            <div class="col-md-12">
+                                <p class="bg-danger">The school rules have to be accepted before you can finish the registration!</p>
+                             </div>
+                        </div>  
                         <div id="wrongdata_error" class="row mt8 mb8 hidden">
                             <div class="col-md-12">
                                 <p class="bg-danger">Some or all fields are not filled correctly!</p>

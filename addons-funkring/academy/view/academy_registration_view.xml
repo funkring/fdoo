@@ -29,6 +29,7 @@
                         <field name="student_parent_id"/>
                         <field name="location_id"/>
                         <field name="student_of_loc"/>
+                        <field name="read_school_rules"/>
                     </group>    
                     <group string="Registration">
                         <field name="semester_id"/>

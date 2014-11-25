@@ -60,6 +60,9 @@ class academy_invoice_assistant(osv.osv_memory):
 
         # get semester weeks        
         sem_weeks = semester.semester_weeks
+        sem_start_dt = util.strToDate(semester.date_start)
+        sem_end_dt = util.strToDate(semester.date_end)
+        
         f = format.LangFormat(cr, uid, context=context)
         # group registrations
         invoices = {}        

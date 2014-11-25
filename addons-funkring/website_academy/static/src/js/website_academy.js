@@ -61,6 +61,17 @@ $(document).ready(function () {
                 $wrongdata_error.removeClass("hidden");
             }
         }
+        
+        //validate not accepted error
+        var $notaccepted_error = $('#notaccepted_error');
+        if ($notaccepted_error.length) {
+            if ( form_data.read_school_rules ) {
+                $notaccepted_error.addClass("hidden");
+            } else {
+                $notaccepted_error.removeClass("hidden");                
+                is_valid = false;
+            }
+        }
                
         // submit on no error
         if (is_valid) {

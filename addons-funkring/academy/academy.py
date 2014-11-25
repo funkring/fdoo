@@ -397,6 +397,7 @@ class academy_registration(osv.Model):
                                             "academy.registration": (lambda self, cr, uid, ids, context=None: ids, ["invoice_ids"], 10),
                                             "account.invoice": (_relids_invoice, ["state","residual"], 10),                                                                 
                               }),
+        "read_school_rules" : fields.boolean("Read and accepted school rules")
 
     }
     _sql_constraints = [
