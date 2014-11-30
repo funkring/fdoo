@@ -149,7 +149,7 @@ class academy_invoice_assistant(osv.osv_memory):
                     missed_weeks = int(round(missed_duration.days/7.0))
                     if missed_duration:
                         discount = (100.0/sem_weeks) * missed_weeks
-                        discount_reason = _("Intership discount for %s missed weeks") % missed_weeks
+                        #discount_reason = _("Intership discount for %s missed weeks") % missed_weeks
                                       
      
             addProduct(reg.course_prod_id.product_id, reg.uom_id.id, discount=discount, discount_reason=discount_reason)
