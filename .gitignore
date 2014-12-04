@@ -18,6 +18,8 @@ status
 openerp/filestore
 # odoo sessions
 sessions
+# maintenance migration scripts
+openerp/addons/base/maintenance
 # generated for windows installer?
 install/win32/*.bat
 install/win32/meta.py

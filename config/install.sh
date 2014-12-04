@@ -32,6 +32,7 @@ apt-get -y install python-vatnumber
 apt-get -y install python-xlwt
 apt-get -y install python-geoip
 apt-get -y install python-vatnumber
+apt-get -y install python-passlib
 
 #aeroolib
 apt-get -y install python-relatorio
