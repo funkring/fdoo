@@ -24,5 +24,5 @@ class farm_house(osv.Model):
     _name = "farm.house"
     _description = "House"
     _columns = {
-        "name" : fields.char("Name")
+        "name" : fields.char("Name", required=True)
     }

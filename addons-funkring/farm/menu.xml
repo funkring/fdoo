@@ -9,9 +9,7 @@
               name="Configuration" parent="menu_farm" sequence="100"
               groups="group_manager"/>
               
-    <menuitem id="menu_farm_management"
-              name="Management" parent="menu_farm" sequence="1" 
-              groups="group_manager"/>
+  
               
   </data>
 </openerp>

@@ -30,7 +30,7 @@ is a base module for farming.
     "version" : "1.0",
     "author" :  "funkring.net",
     "category" : "Hidden/Dependency",
-    "depends" : ["at_base"],
+    "depends" : ["at_base","mail"],
     "data" : ["security.xml",
               "menu.xml",
               "view/house_view.xml"],

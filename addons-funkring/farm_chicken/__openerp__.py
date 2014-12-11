@@ -31,7 +31,10 @@ a chicken farming module for logging activities in chicken housings
     "author" :  "funkring.net",
     "category" : "Farming",
     "depends" : ["farm"],
-    "data" : [],
+    "data" : ["security.xml",
+              "menu.xml",
+              "view/chicken_log_view.xml",
+              "view/chicken_logbook_view.xml"],
     "auto_install" : False,
     "installable": True
 }
