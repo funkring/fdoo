@@ -40,7 +40,7 @@ class hr_timesheet_sheet_sheet_day(osv.osv):
             sheet = daily_sheet.sheet_id
             working_hours = sheet.employee_id.working_hours
             if working_hours:
-                date_from = util.strToDate(sheet.date_current)
+                date_from = util.strToDate(daily_sheet.name)
                 date_to = util.getLastTimeOfDay(date_from)
                 res[sheet.id] = working_hour_obj.interval_hours_without_leaves(cr,uid,working_hours.id,
                                                                         date_from,
