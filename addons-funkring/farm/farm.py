@@ -24,5 +24,7 @@ class farm_house(osv.Model):
     _name = "farm.house"
     _description = "House"
     _columns = {
-        "name" : fields.char("Name", required=True)
+        "name" : fields.char("Name", required=True),
+        "parent_id" : fields.many2one("farm.house","Parent House"),
+        "child_ids" : fields.one2many("farm.house","parent_id","Houses")
     }

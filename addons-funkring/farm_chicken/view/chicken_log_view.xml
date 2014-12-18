@@ -7,7 +7,9 @@
       <field name="arch" type="xml">
         <form string="Log" version="7.0">
             <header>
-                <field name="state" widget="statusbar" statusbar_visible="draft,valid,invalid"/>
+                <button name="action_validate" type="object" states="draft" string="Validate" class="oe_highlight"/>
+                <button name="action_draft" type="object" states="valid" string="To Draft" class="oe_highlight"/>                
+                <field name="state" widget="statusbar" statusbar_visible="draft,valid"/>
             </header>
             <sheet>
                <group>
@@ -18,8 +20,10 @@
                     <group string="Chicken">
                         <field name="weight"/>
                         <field name="loss"/>
+                        <field name="chicken_count"/>
                     </group>
                     <group string="Resources">
+                        <field name="feed_manual"/>                    
                         <field name="feed"/>
                         <field name="water"/>
                     </group>
@@ -28,13 +32,14 @@
                         <field name="temp"/>
                         <field name="humidity"/>
                     </group>
-                    <group string="Eggs">
+                    <group string="Eggs">                    
                         <field name="eggs_total"/>
                         <field name="eggs_nest"/>
                         <field name="eggs_top"/>
                         <field name="eggs_buttom"/>
                         <field name="eggs_dirty"/>
                         <field name="eggs_broken"/>
+                        <field name="eggs_count"/>
                     </group>
                     <group string="Egg Quality">
                         <field name="eggs_weight"/>
@@ -42,6 +47,31 @@
                         <field name="eggs_color_dote"/>
                         <field name="eggs_thickness"/>
                     </group>
+                    <group colspan="4" string="Delivery">
+                        <group>
+                            <field name="delivered"/>
+                            <field name="delivered_eggs_mixed" attrs="{'invisible':[('delivered','=',False)]}"/>
+                            <field name="delivered_eggs_industry" attrs="{'invisible':[('delivered','=',False)]}"/>
+                            <field name="delivered_eggs" attrs="{'invisible':[('delivered','=',False)]}"/>
+                        </group>
+                        <group attrs="{'invisible':[('delivered','=',False)] }">
+                            <group>                       
+                                <field name="inv_exists"/>         
+                                <field name="inv_eggs_xl"/>
+                                <field name="inv_eggs_l"/>
+                                <field name="inv_eggs_m"/>
+                                <field name="inv_eggs_s"/>
+                                <field name="inv_eggs_s45g"/>
+                                <field name="inv_eggs_industry"/>
+                                <field name="inv_eggs_presorted"/>
+                                <field name="inv_eggs"/>
+                            </group>
+                            <group>
+                                <field name="inv_diff_eggs"/>
+                                <field name="inv_diff_presorted"/>
+                            </group>
+                        </group>
+                    </group>    
                </group>
             </sheet>
             <div class="oe_chatter">
@@ -56,7 +86,7 @@
       <field name="name">farm_chicken.tree_chicken_log</field>
       <field name="model">farm.chicken.log</field>
       <field name="arch" type="xml">
-        <tree string="Logs">
+        <tree string="Logs" colors="blue:state == 'draft'">
                 <field name="day"/>
                 <field name="logbook_id"/>
                 <field name="weight"/>

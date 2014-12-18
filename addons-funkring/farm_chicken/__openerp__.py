@@ -33,6 +33,7 @@ a chicken farming module for logging activities in chicken housings
     "depends" : ["farm"],
     "data" : ["security.xml",
               "menu.xml",
+              "sequence.xml",
               "view/chicken_log_view.xml",
               "view/chicken_logbook_view.xml"],
     "auto_install" : False,

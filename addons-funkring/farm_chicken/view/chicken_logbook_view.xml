@@ -7,6 +7,9 @@
       <field name="arch" type="xml">
         <form string="Logbook" version="7.0">
           <header>
+            <button name="action_start" type="object" states="draft" string="Start" class="oe_highlight"/>            
+            <button name="action_done" type="object" states="active" string="Close" class="oe_highlight"/>
+            <button name="action_draft" type="object" states="active,done" string="To Draft"/>          
             <field name="state" widget="statusbar" statusbar_visible="draft,active"/>
           </header>
           <sheet string="Logbook">

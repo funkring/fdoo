@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-09 07:36+0000\n"
-"PO-Revision-Date: 2014-12-09 09:36+0100\n"
+"POT-Creation-Date: 2014-12-18 09:24+0000\n"
+"PO-Revision-Date: 2014-12-18 10:26+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -148,8 +148,8 @@ msgstr "Hühner"
 
 #. module: farm_chicken
 #: field:farm.chicken.logbook,chicken_age:0
-msgid "Chicken Age"
-msgstr "Hühneralter"
+msgid "Chicken Age [Weeks]"
+msgstr "Hühneralter [Wochen]"
 
 #. module: farm_chicken
 #: field:farm.chicken.logbook,chicken_count:0
@@ -165,6 +165,11 @@ msgstr "Hühnerei"
 #: help:farm.chicken.logbook,chicken_age:0
 msgid "Chicken age in days"
 msgstr "Hühneralter in Tagen"
+
+#. module: farm_chicken
+#: view:farm.chicken.logbook:farm_chicken.form_logbook
+msgid "Close"
+msgstr "Abschließen"
 
 #. module: farm_chicken
 #: field:farm.chicken.log,co2:0
@@ -205,12 +210,28 @@ msgid "Day"
 msgstr "Tag"
 
 #. module: farm_chicken
+#: field:farm.chicken.log,delivered_eggs_mixed:0
+msgid "Delivered Eggs"
+msgstr "Gelieferte Eier"
+
+#. module: farm_chicken
+#: field:farm.chicken.log,delivered_eggs_industry:0
+msgid "Delivered Eggs Industry"
+msgstr "Gelieferte Industrie Eier"
+
+#. module: farm_chicken
+#: view:farm.chicken.log:farm_chicken.form_chicken_log
+#: field:farm.chicken.log,delivered:0
+msgid "Delivery"
+msgstr "Lieferung"
+
+#. module: farm_chicken
 #: field:farm.chicken.log,eggs_dirty:0
 msgid "Dirty Eggs"
 msgstr "Schmutzeier"
 
 #. module: farm_chicken
-#: selection:farm.chicken.logbook,state:0
+#: selection:farm.chicken.log,state:0 selection:farm.chicken.logbook,state:0
 msgid "Done"
 msgstr "Abgeschlossen"
 
@@ -222,7 +243,7 @@ msgstr "Entwurf"
 #. module: farm_chicken
 #: view:farm.chicken.log:farm_chicken.form_chicken_log
 msgid "Egg Quality"
-msgstr "Eier Eigenschaften"
+msgstr "Eierqualität"
 
 #. module: farm_chicken
 #: view:farm.chicken.log:farm_chicken.form_chicken_log
@@ -240,9 +261,14 @@ msgid "Eggs Dote Color"
 msgstr "Farbe Eierdotter"
 
 #. module: farm_chicken
+#: field:farm.chicken.log,eggs_removed:0
+msgid "Eggs Removed"
+msgstr "Eier rausgenommen"
+
+#. module: farm_chicken
 #: field:farm.chicken.log,eggs_thickness:0
-msgid "Eggs Thickness"
-msgstr "Dicke Eierschale"
+msgid "Eggs Thickness [kg]"
+msgstr "Dicke Eierschale [kg]"
 
 #. module: farm_chicken
 #: field:farm.chicken.log,eggs_total:0
@@ -251,8 +277,8 @@ msgstr "Eier Gesamt"
 
 #. module: farm_chicken
 #: field:farm.chicken.log,eggs_weight:0
-msgid "Eggs Weight"
-msgstr "Eier Gewicht"
+msgid "Eggs Weight [kg]"
+msgstr "Eier Gewicht [kg]"
 
 #. module: farm_chicken
 #: field:farm.chicken.log,eggs_buttom:0
@@ -276,8 +302,8 @@ msgstr "Umgebung"
 
 #. module: farm_chicken
 #: field:farm.chicken.log,feed:0
-msgid "Feet"
-msgstr "Futter"
+msgid "Feet [kg]"
+msgstr "Futter [kg]"
 
 #. module: farm_chicken
 #: field:farm.chicken.log,message_follower_ids:0
@@ -312,8 +338,8 @@ msgstr "Stall"
 
 #. module: farm_chicken
 #: field:farm.chicken.log,humidity:0
-msgid "Humidity"
-msgstr "Raumfeuchte"
+msgid "Humidity [%]"
+msgstr "Luftfeuchtigkeit [%]"
 
 #. module: farm_chicken
 #: field:farm.chicken.log,id:0 field:farm.chicken.logbook,id:0
@@ -327,9 +353,44 @@ msgid "If checked new messages require your attention."
 msgstr "Wenn aktiv, dann sollte die Nachricht angechaut werden"
 
 #. module: farm_chicken
-#: selection:farm.chicken.log,state:0
-msgid "Invalid"
-msgstr "Ungültig"
+#: field:farm.chicken.log,inv_exists:0
+msgid "Invoice Exists"
+msgstr "Abrechnung vorhanden"
+
+#. module: farm_chicken
+#: field:farm.chicken.log,inv_eggs_s45g:0
+msgid "Invoiced Eggs < 45g"
+msgstr "Verrechnete Eier < 45g"
+
+#. module: farm_chicken
+#: field:farm.chicken.log,inv_eggs_industry:0
+msgid "Invoiced Eggs Industry"
+msgstr "Verrechnete Industrie Eier"
+
+#. module: farm_chicken
+#: field:farm.chicken.log,inv_eggs_presorted:0
+msgid "Invoiced Eggs Industry (presorted)"
+msgstr "Verrechnete Industrie Eier (vorsortiert)"
+
+#. module: farm_chicken
+#: field:farm.chicken.log,inv_eggs_l:0
+msgid "Invoiced Eggs L"
+msgstr "Verrechnete Eier L"
+
+#. module: farm_chicken
+#: field:farm.chicken.log,inv_eggs_m:0
+msgid "Invoiced Eggs M"
+msgstr "Verrechnete Eier M"
+
+#. module: farm_chicken
+#: field:farm.chicken.log,inv_eggs_s:0
+msgid "Invoiced Eggs S"
+msgstr "Verrechnete Eier S"
+
+#. module: farm_chicken
+#: field:farm.chicken.log,inv_eggs_xl:0
+msgid "Invoiced Eggs XL"
+msgstr "Verrechnete Eier XL"
 
 #. module: farm_chicken
 #: field:farm.chicken.log,message_is_follower:0
@@ -378,6 +439,7 @@ msgstr "Verläufe"
 
 #. module: farm_chicken
 #: view:farm.chicken.log:farm_chicken.tree_chicken_log
+#: field:farm.chicken.logbook,log_ids:0
 msgid "Logs"
 msgstr "Tagesverläufe"
 
@@ -385,6 +447,11 @@ msgstr "Tagesverläufe"
 #: field:farm.chicken.log,loss:0
 msgid "Loss"
 msgstr "Ausfall"
+
+#. module: farm_chicken
+#: field:farm.chicken.log,feed_manual:0
+msgid "Manual Feed Input"
+msgstr "Manuelle Futter Eingabe"
 
 #. module: farm_chicken
 #: field:farm.chicken.log,message_ids:0
@@ -408,6 +475,11 @@ msgid "Nest Eggs"
 msgstr "Nesteier"
 
 #. module: farm_chicken
+#: sql_constraint:farm.chicken.log:0
+msgid "Only one log entry per day allowed!"
+msgstr "Nur ein Tagesverlauf pro Tag und Verlauf möglich"
+
+#. module: farm_chicken
 #: view:farm.chicken.log:farm_chicken.form_chicken_log
 msgid "Resources"
 msgstr "Resourcen"
@@ -423,6 +495,12 @@ msgid "Search Logbook"
 msgstr "Suche Verlauf"
 
 #. module: farm_chicken
+#: help:farm.chicken.log,inv_exists:0
+msgid "Standalone invoice for the delivery exists"
+msgstr "Alleinstehende Eier Abrechnung für den Stall ist vorhanden"
+
+#. module: farm_chicken
+#: view:farm.chicken.logbook:farm_chicken.form_logbook
 #: field:farm.chicken.logbook,date_start:0
 msgid "Start"
 msgstr ""
@@ -446,8 +524,20 @@ msgstr "Zusammenfassung"
 
 #. module: farm_chicken
 #: field:farm.chicken.log,temp:0
-msgid "Temperature"
-msgstr "Raumtemperatur"
+msgid "Temperature [°C]"
+msgstr "Temperatur [°C]"
+
+#. module: farm_chicken
+#: code:addons/farm_chicken/farm_chicken.py:43
+#, python-format
+msgid "There are unvalided logbook entries"
+msgstr "Es sind nicht alle Tagesverläufe validiert"
+
+#. module: farm_chicken
+#: view:farm.chicken.log:farm_chicken.form_chicken_log
+#: view:farm.chicken.logbook:farm_chicken.form_logbook
+msgid "To Draft"
+msgstr "Zurücksetzen"
 
 #. module: farm_chicken
 #: field:farm.chicken.log,message_unread:0
@@ -461,11 +551,16 @@ msgid "Valid"
 msgstr "Gültig"
 
 #. module: farm_chicken
+#: view:farm.chicken.log:farm_chicken.form_chicken_log
+msgid "Validate"
+msgstr "Validieren"
+
+#. module: farm_chicken
 #: field:farm.chicken.log,water:0
-msgid "Water"
-msgstr "Wasser"
+msgid "Water [l]"
+msgstr "Wasser [l]"
 
 #. module: farm_chicken
 #: field:farm.chicken.log,weight:0
-msgid "Weight"
-msgstr "Gewicht"
+msgid "Weight [kg]"
+msgstr "Gewicht [kg]"
