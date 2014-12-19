@@ -1,1 +1,2 @@
 import farm_chicken
+import wizard

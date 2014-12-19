@@ -18,25 +18,19 @@
 #
 ##############################################################################
 
-{
-    "name" : "Chicken Farm",
-    "description":"""
-Chicken Farm
-============
+from openerp import models, fields, api, _
+from openerp.addons.at_base import util
 
-a chicken farming module for logging activities in chicken housings
-
-    """,
-    "version" : "1.0",
-    "author" :  "funkring.net",
-    "category" : "Farming",
-    "depends" : ["farm"],
-    "data" : ["security.xml",
-              "menu.xml",
-              "sequence.xml",
-              "view/chicken_log_view.xml",
-              "view/chicken_logbook_view.xml",
-              "wizard/validate_log_wizard.xml"],
-    "auto_install" : False,
-    "installable": True
-}
+class validate_log_wizard(models.TransientModel):
+    
+    @api.one
+    def action_validate(self):
+        log_obj = self.env["farm.chicken.log"]
+        log_ids = util.active_ids(self._context,log_obj)
+        logs = log_obj.search([("id","in",log_ids),("state","=","draft")])
+        if logs:
+            logs.action_validate()
+        return {'type': 'ir.actions.act_window_close'}
+    
+    _name = "farm.chicken.validate.log.wizard"
+    _description = "Validate Logs"

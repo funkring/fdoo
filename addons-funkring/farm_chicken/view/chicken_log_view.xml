@@ -98,6 +98,7 @@
                 <field name="humidity"/>
                 <field name="eggs_total"/>
                 <field name="state"/>
+                <field name="delivered"/>
         </tree>
       </field>
     </record>
@@ -131,7 +132,7 @@
       </field>
     </record>
 
-    <menuitem id="menu_chicken_log" name="Daily Logs" parent="menu_farm_chicken" 
+    <menuitem id="menu_chicken_log" name="Logs" parent="menu_farm_chicken" 
       sequence="1"  
       action="action_chicken_log" />
   </data>

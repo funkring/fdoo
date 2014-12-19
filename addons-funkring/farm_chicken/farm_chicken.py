@@ -24,8 +24,10 @@ from openerp.addons.at_base import util
 
 class chicken_logbook(models.Model):
     
-    @api.multi
+    @api.one
     def action_start(self):
+        if self._get_active(self.house_id.id):
+            raise Warning(_("Only one active logbook per house allowed!"))
         return self.write({"state":"active"})
     
     @api.multi
@@ -62,6 +64,33 @@ class chicken_logbook(models.Model):
     @api.model
     def _default_name(self):
         return self.env["ir.sequence"].get("farm.chicken.logbook") or "/"
+    
+    @api.model
+    def _get_active(self, house_id):
+        res = self.search([("house_id","=",house_id),("state","=","active")],limit=1)
+        return res and res[0] or None
+    
+    @api.model
+    def import_logs(self, house_id, data):
+        logbook = self._get_active(house_id)
+        if not logbook:
+            raise Warning(_("No active logbook for house %s") % house_id)
+        
+        log_obj = self.env["farm.chicken.log"]
+        for day, values in data.iteritems():
+            log = log_obj.search([("logbook_id","=",logbook.id),("day","=",day)],limit=1)
+            log = log and log[0] or None
+            
+            if not log:
+                values["day"]=day
+                values["logbook_id"]=logbook.id
+                log_obj.create(values)
+            elif log.state == "draft":
+                if log.feed_manual:
+                    values.pop("feed")
+                log_obj.write(values)
+        return True
+                             
     
     _name = "farm.chicken.logbook"
     _description = "Logbook"
@@ -129,7 +158,8 @@ class chicken_log(models.Model):
     def _compute_chicken_count(self):
         self._cr.execute("SELECT SUM(loss) FROM farm_chicken_log l "
                          " WHERE l.logbook_id = %s AND l.day <= %s ", (self.logbook_id.id, self.day) )
-        self.chicken_count = self.logbook_id.chicken_count-self._cr.fetchone()[0]
+        res = self._cr.fetchone()
+        self.chicken_count = self.logbook_id.chicken_count-(res and res[0] or 0)
         
     @api.one
     @api.depends("eggs_total","eggs_removed")
@@ -176,7 +206,7 @@ class chicken_log(models.Model):
     ]
     
     logbook_id = fields.Many2one("farm.chicken.logbook","Logbook",required=True, index=True, readonly=True, states={'draft': [('readonly', False)]},
-                                 default=_default_logbook_id)
+                                 default=_default_logbook_id, ondelete="restrict")
     
     day = fields.Date("Day", required=True, readonly=True, index=True, states={'draft': [('readonly', False)]},
                                  default=lambda self: util.currentDate())

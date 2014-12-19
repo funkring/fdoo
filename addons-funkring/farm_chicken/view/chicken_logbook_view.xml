@@ -5,14 +5,14 @@
       <field name="name">farm_chicken.form_logbook</field>
       <field name="model">farm.chicken.logbook</field>
       <field name="arch" type="xml">
-        <form string="Logbook" version="7.0">
+        <form string="Production" version="7.0">
           <header>
             <button name="action_start" type="object" states="draft" string="Start" class="oe_highlight"/>            
             <button name="action_done" type="object" states="active" string="Close" class="oe_highlight"/>
             <button name="action_draft" type="object" states="active,done" string="To Draft"/>          
             <field name="state" widget="statusbar" statusbar_visible="draft,active"/>
           </header>
-          <sheet string="Logbook">
+          <sheet string="Production">
             <div class="oe_title" >
                 <label for="name" class="oe_edit_only"/>
                 <h1>
@@ -46,7 +46,7 @@
       <field name="name">farm_chicken.tree_logbook</field>
       <field name="model">farm.chicken.logbook</field>
       <field name="arch" type="xml">
-        <tree string="Logbooks" colors="blue:state == 'draft'">
+        <tree string="Production" colors="blue:state == 'draft'">
             <field name="name"/>
             <field name="house_id"/>
             <field name="date_start"/>
@@ -60,7 +60,7 @@
       <field name="name">farm_chicken.search_logbook</field>
       <field name="model">farm.chicken.logbook</field>
       <field name="arch" type="xml">
-        <search string="Search Logbook">
+        <search string="Production">
             <field name="name"/>
             <field name="house_id"/>
             <field name="state"/>
@@ -73,7 +73,7 @@
     </record>
 
     <record id="action_logbook" model="ir.actions.act_window">
-      <field name="name">Logbook</field>
+      <field name="name">Production</field>
       <field name="res_model">farm.chicken.logbook</field>
       <field name="view_type">form</field>
       <field name="view_mode">tree,form</field>
@@ -84,7 +84,7 @@
       </field>
     </record>
 
-    <menuitem id="menu_logbook" name="Logbooks" parent="menu_farm_chicken" 
+    <menuitem id="menu_logbook" name="Production" parent="menu_farm_chicken" 
       sequence="10" 
       action="action_logbook" />
       
