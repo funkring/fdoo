@@ -20,7 +20,7 @@
                     <group string="Chicken">
                         <field name="weight"/>
                         <field name="loss"/>
-                        <field name="chicken_count"/>
+                        <field name="chicken_count" string="Chicken Count"/>
                     </group>
                     <group string="Resources">
                         <field name="feed_manual"/>                    
