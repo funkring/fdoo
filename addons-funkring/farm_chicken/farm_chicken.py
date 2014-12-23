@@ -212,7 +212,7 @@ class chicken_log(models.Model):
     @api.depends("eggs_total","chicken_count")    
     def _compute_eggs_performance(self):
         if self.chicken_count:
-            self.eggs_performance = self.eggs_total / self.chicken_count
+            self.eggs_performance = float(self.eggs_total) / float(self.chicken_count) * 100
         else:
             self.eggs_performance = 0.0
     
