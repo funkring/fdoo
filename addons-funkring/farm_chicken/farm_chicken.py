@@ -168,7 +168,7 @@ class chicken_log(models.Model):
     @api.one
     @api.depends("loss")
     def _compute_chicken_count(self):
-        self._cr.execute("SELECT SUM(loss) FROM farm_chicken_log l "
+        self._cr.execute("SELECT SUM(COALESCE(loss,0)) FROM farm_chicken_log l "
                          " WHERE l.logbook_id = %s AND l.day <= %s ", (self.logbook_id.id, self.day) )
         res = self._cr.fetchone()
         self.chicken_count = self.logbook_id.chicken_count-(res and res[0] or 0)
@@ -176,10 +176,11 @@ class chicken_log(models.Model):
     @api.one
     @api.depends("eggs_total","eggs_removed")
     def _compute_eggs_count(self):        
-        self._cr.execute("SELECT SUM(eggs_total)-SUM(eggs_removed)-(SUM(delivered_eggs_mixed)+SUM(delivered_eggs_industry)) FROM farm_chicken_log l "
+        self._cr.execute("SELECT SUM(COALESCE(eggs_total,0))-SUM(COALESCE(eggs_removed,0))-(SUM(COALESCE(delivered_eggs_mixed,0))+SUM(COALESCE(delivered_eggs_industry,0))) FROM farm_chicken_log l "
                          " WHERE l.logbook_id = %s AND l.day <= %s ",
                          (self.logbook_id.id, self.day) )
-        self.eggs_count = self._cr.fetchone()[0]
+        res = self._cr.fetchone()
+        self.eggs_count = res and res[0] or None
           
     @api.one
     @api.depends("delivered_eggs_mixed",
@@ -310,7 +311,7 @@ class chicken_log(models.Model):
     chicken_age_weeks = fields.Integer("Chicken Age [Weeks]", readonly=True, compute="_compute_chicken_age", store=True)
     chicken_count = fields.Integer("Chicken Count", readonly=True, compute="_compute_chicken_count")
     eggs_count = fields.Integer("Eggs Stock", readonly=True, compute="_compute_eggs_count")
-    eggs_performance = fields.Integer("Eggs Performance", readonly=True, compute="_compute_eggs_performance")
+    eggs_performance = fields.Float("Eggs Performance", readonly=True, compute="_compute_eggs_performance")
     
     delivered = fields.Boolean("Delivery", readonly=True, states={'draft': [('readonly', False)]})    
     delivered_eggs_mixed = fields.Integer("Delivered Eggs", readonly=True, states={'draft': [('readonly', False)]})
