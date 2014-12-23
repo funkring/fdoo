@@ -21,6 +21,9 @@
                         <field name="weight"/>
                         <field name="loss"/>
                         <field name="chicken_count" string="Chicken Count"/>
+                        <field name="chicken_age" string="Chicken Age [Days]"/>
+                        <field name="chicken_age_weeks" string="Chicken Age [Weeks]"/>
+                        <field name="eggs_performance" string="Eggs Performance"/>
                     </group>
                     <group string="Resources">
                         <field name="feed_manual"/>                    
@@ -39,7 +42,8 @@
                         <field name="eggs_buttom"/>
                         <field name="eggs_dirty"/>
                         <field name="eggs_broken"/>
-                        <field name="eggs_count"/>
+                        <field name="eggs_removed"/>
+                        <field name="eggs_count" string="Eggs Stock"/>
                     </group>
                     <group string="Egg Quality">
                         <field name="eggs_weight"/>

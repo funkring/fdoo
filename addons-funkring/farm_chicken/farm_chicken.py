@@ -21,6 +21,7 @@
 from openerp import models, fields, api, _
 from openerp.exceptions import Warning
 from openerp.addons.at_base import util
+from datetime import datetime
 
 class chicken_logbook(models.Model):
     
@@ -53,6 +54,10 @@ class chicken_logbook(models.Model):
         logs = log_obj.search([("logbook_id","in",self.ids),("state","=","valid")])
         logs.write({"state":"done"})
         return self.write({"state":"done"})
+    
+    @api.multi
+    def action_inactive(self):
+        return self.write({"state":"inactive"})
     
     @api.multi
     def name_get(self):
@@ -90,6 +95,11 @@ class chicken_logbook(models.Model):
                     values.pop("feed")
                 log_obj.write(values)
         return True
+    
+    @api.one
+    @api.depends("chicken_age")
+    def _compute_chicken_age_weeks(self):
+        self.chicken_age_weeks = self.chicken_age / 7.0 
                              
     
     _name = "farm.chicken.logbook"
@@ -101,11 +111,13 @@ class chicken_logbook(models.Model):
     date_start = fields.Date("Start", required=True, index=True, readonly=True, states={'draft': [('readonly', False)]})
     date_end = fields.Date("End", index=True, readonly=True)
     house_id = fields.Many2one("farm.house", string="House", index=True, required=True, readonly=True, states={'draft': [('readonly', False)]})
-    chicken_count = fields.Integer("Chicken Count")
-    chicken_age = fields.Integer("Chicken Age [Weeks]", help="Chicken age in days")
+    chicken_count = fields.Integer("Chicken Count", readonly=True, states={'draft': [('readonly', False)]})
+    chicken_age = fields.Integer("Chicken Age [Days]", help="Chicken age in days", readonly=True, states={'draft': [('readonly', False)]})
+    chicken_age_weeks = fields.Integer("Chicken Age [Weeks]", help="chicken age in weeks", readonly=True, compute="_compute_chicken_age_weeks")
     log_ids = fields.One2many("farm.chicken.log", "logbook_id", "Logs")
     state = fields.Selection([("draft","Draft"),
                               ("active","Active"),
+                              ("inactive","Inactive"),
                               ("done","Done")],string="State", index=True, default="draft")
         
                
@@ -173,6 +185,7 @@ class chicken_log(models.Model):
     @api.depends("delivered_eggs_mixed",
                  "delivered_eggs_industry",
                  "inv_eggs_xl",
+                 "inv_eggs_m",
                  "inv_eggs_l",
                  "inv_eggs_s",
                  "inv_eggs_s45g",
@@ -184,6 +197,24 @@ class chicken_log(models.Model):
         self.inv_diff_eggs = self.inv_eggs - self.delivered_eggs
         self.inv_diff_presorted = self.inv_eggs_presorted - self.delivered_eggs_industry
                 
+    @api.one
+    @api.depends("logbook_id.date_start","logbook_id.chicken_age")
+    def _compute_chicken_age(self):
+        logbook = self.logbook_id
+        dt_start = util.strToDate(logbook.date_start)
+        dt_cur = util.strToDate(self.day)
+        diff = dt_cur - dt_start
+        self.chicken_age = logbook.chicken_age + diff.days
+        self.chicken_age_weeks = self.chicken_age / 7.0 
+    
+    @api.one
+    @api.depends("eggs_total","chicken_count")    
+    def _compute_eggs_performance(self):
+        if self.chicken_count:
+            self.eggs_performance = self.eggs_total / self.chicken_count
+        else:
+            self.eggs_performance = 0.0
+    
     @api.model
     def _default_logbook_id(self):        
         logbooks = self.env["farm.chicken.logbook"].search([("state","=","active")])
@@ -275,13 +306,16 @@ class chicken_log(models.Model):
     
     eggs_removed = fields.Integer("Eggs Removed", readonly=True, states={'draft': [('readonly', False)]}) 
     
+    chicken_age = fields.Integer("Chicken Age [Days]", readonly=True, compute="_compute_chicken_age", store=True)
+    chicken_age_weeks = fields.Integer("Chicken Age [Weeks]", readonly=True, compute="_compute_chicken_age", store=True)
     chicken_count = fields.Integer("Chicken Count", readonly=True, compute="_compute_chicken_count")
     eggs_count = fields.Integer("Eggs Stock", readonly=True, compute="_compute_eggs_count")
+    eggs_performance = fields.Integer("Eggs Performance", readonly=True, compute="_compute_eggs_performance")
     
     delivered = fields.Boolean("Delivery", readonly=True, states={'draft': [('readonly', False)]})    
     delivered_eggs_mixed = fields.Integer("Delivered Eggs", readonly=True, states={'draft': [('readonly', False)]})
     delivered_eggs_industry = fields.Integer("Delivered Eggs Industry", readonly=True, states={'draft': [('readonly', False)]})
-    delivered_eggs = fields.Integer("Delivered Eggs Total", readonly=True, compute="_compute_delivery")
+    delivered_eggs = fields.Integer("Delivered Eggs Total", readonly=True, compute="_compute_delivery", store=True)
     
     inv_exists = fields.Boolean("Invoice Exists", help="Standalone invoice for the delivery exists", states={'draft': [('readonly', False)]})
     inv_eggs_xl = fields.Integer("Invoiced Eggs XL", readonly=True, states={'draft': [('readonly', False)]})
@@ -291,7 +325,7 @@ class chicken_log(models.Model):
     inv_eggs_s45g = fields.Integer("Invoiced Eggs < 45g", readonly=True, states={'draft': [('readonly', False)]})
     inv_eggs_industry = fields.Integer("Invoiced Eggs Industry", readonly=True, states={'draft': [('readonly', False)]})
     inv_eggs_presorted = fields.Integer("Invoiced Eggs Industry (presorted)", readonly=True, states={'draft': [('readonly', False)]})
-    inv_eggs = fields.Integer("Invoiced Eggs Total", readonly=True, compute="_compute_delivery")
+    inv_eggs = fields.Integer("Invoiced Eggs Total", readonly=True, compute="_compute_delivery", store=True)
     
-    inv_diff_eggs = fields.Integer("Eggs Difference", readonly=True, compute="_compute_delivery")
-    inv_diff_presorted = fields.Integer("Eggs Difference (presorted)", readonly=True, compute="_compute_delivery")
+    inv_diff_eggs = fields.Integer("Eggs Difference", readonly=True, compute="_compute_delivery", store=True)
+    inv_diff_presorted = fields.Integer("Eggs Difference (presorted)", readonly=True, compute="_compute_delivery", store=True)

@@ -8,8 +8,9 @@
         <form string="Production" version="7.0">
           <header>
             <button name="action_start" type="object" states="draft" string="Start" class="oe_highlight"/>            
-            <button name="action_done" type="object" states="active" string="Close" class="oe_highlight"/>
-            <button name="action_draft" type="object" states="active,done" string="To Draft"/>          
+            <button name="action_done" type="object" states="active,inactive" string="Close" class="oe_highlight"/>
+            <button name="action_draft" type="object" states="active,done,inactive" string="To Draft"/>
+            <button name="action_inactive" type="object" states="active" string="Inactive"/>          
             <field name="state" widget="statusbar" statusbar_visible="draft,active"/>
           </header>
           <sheet string="Production">
@@ -31,6 +32,7 @@
                 <group string="Chicken">
                     <field name="chicken_count"/>
                     <field name="chicken_age"/>
+                    <field name="chicken_age_weeks" string="Chicken Age [Weeks]"/>
                 </group>
             </group>
           </sheet>
