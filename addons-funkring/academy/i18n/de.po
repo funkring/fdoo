@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-25 15:48+0000\n"
-"PO-Revision-Date: 2014-11-25 16:50+0100\n"
+"POT-Creation-Date: 2014-12-27 11:01+0000\n"
+"PO-Revision-Date: 2014-12-27 12:02+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -229,6 +229,11 @@ msgid "Academy Trainer"
 msgstr "Trainer"
 
 #. module: academy
+#: model:ir.model,name:academy.model_academy_trainer_student
+msgid "Academy Trainer Student"
+msgstr "Schüler"
+
+#. module: academy
 #: model:ir.model,name:academy.model_academy_registration_invoice
 msgid "Academy registration invoice"
 msgstr "Semester Rechnung"
@@ -268,6 +273,18 @@ msgid "Apply on all with same unit"
 msgstr "Auf alle mit der selben Einheit anwenden"
 
 #. module: academy
+#: view:academy.registration:academy.form_academy_registration
+#: model:ir.model,name:academy.model_academy_assign_registration_wizard
+msgid "Assign"
+msgstr "Zuweisen"
+
+#. module: academy
+#: view:academy.assign.registration.wizard:academy.wizard_assign_registration
+#: model:ir.actions.act_window,name:academy.action_assign_registration
+msgid "Assign Registrations"
+msgstr "Anmeldungen zuweisen"
+
+#. module: academy
 #: selection:academy.registration,state:0
 msgid "Assigned"
 msgstr "Zugewiesen"
@@ -283,7 +300,7 @@ msgid "Begin"
 msgstr "Beginn"
 
 #. module: academy
-#: code:addons/academy/academy.py:353
+#: code:addons/academy/academy.py:386
 #, python-format
 msgid ""
 "Can not delete registrations, which are not in state 'Draft' or 'Cancelled'"
@@ -332,6 +349,15 @@ msgid "City"
 msgstr "Stadt"
 
 #. module: academy
+#: view:academy.assign.registration.wizard:academy.wizard_assign_registration
+msgid ""
+"Click to assign all registrations which are in state 'registered' to,\n"
+"            it's teachers"
+msgstr ""
+"Klicke, um alle Anmeldungen im Status 'Angemeldet', ihren Lehrern zuzuweisen"
+
+#. module: academy
+#: view:academy.assign.registration.wizard:academy.wizard_assign_registration
 #: view:academy.post.payment.wizard:academy.wizard_post_payment
 msgid "Close"
 msgstr "Schließen"
@@ -419,6 +445,7 @@ msgid "Create Date"
 msgstr "Erstellungsdatum"
 
 #. module: academy
+#: field:academy.assign.registration.wizard,create_uid:0
 #: field:academy.config.settings,create_uid:0
 #: field:academy.contract,create_uid:0 field:academy.course,create_uid:0
 #: field:academy.course.product,create_uid:0 field:academy.fee,create_uid:0
@@ -432,11 +459,13 @@ msgstr "Erstellungsdatum"
 #: field:academy.semester,create_uid:0
 #: field:academy.semester.assistant,create_uid:0
 #: field:academy.student,create_uid:0 field:academy.topic,create_uid:0
-#: field:academy.trainer,create_uid:0 field:academy.year,create_uid:0
+#: field:academy.trainer,create_uid:0
+#: field:academy.trainer.student,create_uid:0 field:academy.year,create_uid:0
 msgid "Created by"
 msgstr "Erstellt von"
 
 #. module: academy
+#: field:academy.assign.registration.wizard,create_date:0
 #: field:academy.config.settings,create_date:0
 #: field:academy.contract,create_date:0 field:academy.course,create_date:0
 #: field:academy.course.product,create_date:0 field:academy.fee,create_date:0
@@ -449,7 +478,9 @@ msgstr "Erstellt von"
 #: field:academy.semester,create_date:0
 #: field:academy.semester.assistant,create_date:0
 #: field:academy.student,create_date:0 field:academy.topic,create_date:0
-#: field:academy.trainer,create_date:0 field:academy.year,create_date:0
+#: field:academy.trainer,create_date:0
+#: field:academy.trainer.student,create_date:0
+#: field:academy.year,create_date:0
 msgid "Created on"
 msgstr "Erstellt am"
 
@@ -491,9 +522,9 @@ msgid "Date to"
 msgstr "Datum bis"
 
 #. module: academy
-#: view:academy.registration:academy.form_academy_registration
-msgid "DeRegister"
-msgstr "Abmelden"
+#: field:academy.trainer.student,day:0
+msgid "Day"
+msgstr "Tag"
 
 #. module: academy
 #: view:academy.registration:academy.form_academy_registration
@@ -536,14 +567,14 @@ msgid "End"
 msgstr "Ende"
 
 #. module: academy
-#: code:addons/academy/academy.py:593
+#: code:addons/academy/academy.py:647
 #: code:addons/academy/wizard/semester_assistant.py:30
 #, python-format
 msgid "Error"
 msgstr "Fehler"
 
 #. module: academy
-#: code:addons/academy/academy.py:353
+#: code:addons/academy/academy.py:386
 #, python-format
 msgid "Error!"
 msgstr "Fehler!"
@@ -567,6 +598,7 @@ msgstr "Beobachter"
 
 #. module: academy
 #: field:academy.journal.absence,time_from:0
+#: view:academy.registration:academy.form_academy_registration
 msgid "From"
 msgstr "Von"
 
@@ -604,6 +636,7 @@ msgid "Hours"
 msgstr "Stunden"
 
 #. module: academy
+#: field:academy.assign.registration.wizard,id:0
 #: field:academy.config.settings,id:0 field:academy.contract,id:0
 #: field:academy.course,id:0 field:academy.course.product,id:0
 #: field:academy.fee,id:0 field:academy.invoice.assistant,id:0
@@ -612,7 +645,8 @@ msgstr "Stunden"
 #: field:academy.post.payment.wizard,id:0 field:academy.registration,id:0
 #: field:academy.registration.invoice,id:0 field:academy.semester,id:0
 #: field:academy.semester.assistant,id:0 field:academy.student,id:0
-#: field:academy.topic,id:0 field:academy.trainer,id:0 field:academy.year,id:0
+#: field:academy.topic,id:0 field:academy.trainer,id:0
+#: field:academy.trainer.student,id:0 field:academy.year,id:0
 msgid "ID"
 msgstr ""
 
@@ -635,12 +669,6 @@ msgstr ""
 #: field:academy.registration,intership_date:0
 msgid "Intership Date"
 msgstr "Quereinstiegsdatum"
-
-#. module: academy
-#: code:addons/academy/wizard/invoice_assistant.py:152
-#, python-format
-msgid "Intership discount for %s missed weeks"
-msgstr "Quereinsteiger Rabatt für %s Woche(n)"
 
 #. module: academy
 #: view:academy.invoice.assistant:academy.wizard_academy_invoice_assistant
@@ -715,6 +743,7 @@ msgid "Last Message Date"
 msgstr "Datum der letzten Nachricht"
 
 #. module: academy
+#: field:academy.assign.registration.wizard,write_uid:0
 #: field:academy.config.settings,write_uid:0
 #: field:academy.contract,write_uid:0 field:academy.course,write_uid:0
 #: field:academy.course.product,write_uid:0 field:academy.fee,write_uid:0
@@ -727,11 +756,13 @@ msgstr "Datum der letzten Nachricht"
 #: field:academy.semester,write_uid:0
 #: field:academy.semester.assistant,write_uid:0
 #: field:academy.student,write_uid:0 field:academy.topic,write_uid:0
-#: field:academy.trainer,write_uid:0 field:academy.year,write_uid:0
+#: field:academy.trainer,write_uid:0 field:academy.trainer.student,write_uid:0
+#: field:academy.year,write_uid:0
 msgid "Last Updated by"
 msgstr "zuletzt aktualisiert von"
 
 #. module: academy
+#: field:academy.assign.registration.wizard,write_date:0
 #: field:academy.config.settings,write_date:0
 #: field:academy.contract,write_date:0 field:academy.course,write_date:0
 #: field:academy.course.product,write_date:0 field:academy.fee,write_date:0
@@ -745,7 +776,8 @@ msgstr "zuletzt aktualisiert von"
 #: field:academy.semester,write_date:0
 #: field:academy.semester.assistant,write_date:0
 #: field:academy.student,write_date:0 field:academy.topic,write_date:0
-#: field:academy.trainer,write_date:0 field:academy.year,write_date:0
+#: field:academy.trainer,write_date:0
+#: field:academy.trainer.student,write_date:0 field:academy.year,write_date:0
 msgid "Last Updated on"
 msgstr "zuletzt aktualisiert am"
 
@@ -880,7 +912,7 @@ msgid "Payment Method"
 msgstr "Zahlungsmethode"
 
 #. module: academy
-#: code:addons/academy/academy.py:593
+#: code:addons/academy/academy.py:647
 #, python-format
 msgid "Payment which is posted could not deleted"
 msgstr "Zahlung die gebucht wurde kann nicht gelöscht werden"
@@ -932,12 +964,17 @@ msgstr "Platz für interne Notizen..."
 #. module: academy
 #: field:academy.registration,read_school_rules:0
 msgid "Read and accepted school rules"
-msgstr "Schulordnung gelesen?"
+msgstr "Schulordnung gelesen und zur Kenntnis genommen"
 
 #. module: academy
 #: field:academy.journal.absence,name:0
 msgid "Reason"
 msgstr "Grund"
+
+#. module: academy
+#: view:academy.registration:academy.form_academy_registration
+msgid "Reassign"
+msgstr "Neuzuweisung"
 
 #. module: academy
 #: field:academy.invoice.assistant,customer_ref:0 field:academy.payment,ref:0
@@ -970,6 +1007,7 @@ msgstr "Angemeldet"
 #: view:academy.registration:academy.search_academy_registration
 #: field:academy.registration,semester_id:0
 #: field:academy.registration.invoice,registration_id:0
+#: field:academy.trainer.student,reg_id:0
 msgid "Registration"
 msgstr "Anmeldung"
 
@@ -1223,8 +1261,10 @@ msgstr "Themen"
 #: field:academy.journal,trainer_id:0
 #: view:academy.registration:academy.search_academy_registration
 #: field:academy.registration,trainer_id:0
+#: field:academy.registration,trainer_ids:0
 #: view:academy.trainer:academy.form_academy_trainer
 #: view:academy.trainer:academy.tree_academy_trainer
+#: field:academy.trainer.student,trainer_id:0
 #: model:ir.actions.act_window,name:academy.action_academy_trainer
 #: model:ir.ui.menu,name:academy.menu_academy_trainer
 msgid "Trainer"
@@ -1276,6 +1316,11 @@ msgstr "Ungebucht"
 #: field:academy.registration,message_unread:0
 msgid "Unread Messages"
 msgstr "Ungelesene Nachrichten"
+
+#. module: academy
+#: view:academy.registration:academy.form_academy_registration
+msgid "Unregister"
+msgstr "Abmelden"
 
 #. module: academy
 #: view:academy.student:academy.form_academy_student
@@ -1342,3 +1387,12 @@ msgstr "z.B. www.funkring.net"
 #: view:academy.course.product:academy.form_academy_course_product
 msgid "note to be displayed on quotations..."
 msgstr "Beschreibung welche auf Angeboten gezeigt werden soll"
+
+#. module: academy
+#: view:academy.assign.registration.wizard:academy.wizard_assign_registration
+#: view:academy.config.settings:academy.form_config_settings
+#: view:academy.invoice.assistant:academy.wizard_academy_invoice_assistant
+#: view:academy.post.payment.wizard:academy.wizard_post_payment
+#: view:academy.semester.assistant:academy.wizard_semester_assistant
+msgid "or"
+msgstr "oder"

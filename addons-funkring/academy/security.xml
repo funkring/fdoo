@@ -184,6 +184,16 @@
           <field name="perm_write" eval="False"/>
         </record>
 
+        <record id="access_academy_trainer_student_user" model="ir.model.access">
+          <field name="name">academy_trainer_student/user</field>
+          <field name="model_id" ref="model_academy_trainer_student"/>
+          <field name="group_id" ref="base.group_user"/>
+          <field name="perm_read" eval="True"/>
+          <field name="perm_unlink" eval="False"/>
+          <field name="perm_create" eval="False"/>
+          <field name="perm_write" eval="False"/>
+        </record>
+
 
         <!-- management -->
 
@@ -356,6 +366,17 @@
           <field name="perm_create" eval="True"/>
           <field name="perm_write" eval="True"/>
         </record>
+        
+        <record id="access_academy_trainer_student_management" model="ir.model.access">
+          <field name="name">academy_trainer_student/management</field>
+          <field name="model_id" ref="model_academy_trainer_student"/>
+          <field name="group_id" ref="group_management"/>
+          <field name="perm_read" eval="True"/>
+          <field name="perm_unlink" eval="True"/>
+          <field name="perm_create" eval="True"/>
+          <field name="perm_write" eval="True"/>
+        </record>
+
 
 	</data>
 </openerp>

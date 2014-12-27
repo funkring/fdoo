@@ -7,10 +7,12 @@
       <field name="model">academy.registration</field>
       <field name="arch" type="xml">
         <form string="Registration" version="7.0">
-            <header>                
+            <header>               
                 <button type="object" name="do_register" states="draft" string="Register" class="oe_highlight"/>
                 <button type="object" name="do_check" states="check" string="Checked" class="oe_highlight"/>
-                <button type="object" name="do_cancel" states="registered,assigned,open" string="DeRegister"/>
+                <button type="object" name="action_assign" states="registered" string="Assign" class="oe_highlight"/>
+                <button type="object" name="action_reassign" states="assigned" string="Reassign"/>
+                <button type="object" name="do_cancel" states="registered,assigned,check" string="Unregister"/>
                 <button type="object" name="do_draft" states="cancel" string="To Draft"/>
                 <field name="state" widget="statusbar"
                        statusbar_visible="draft,check,registered,assigned,open"
@@ -45,9 +47,14 @@
                         <field name="last_invoice_id"/>
                         <field name="invoice_residual"/>
                     </group>
-                    <group string="Assignment">
+                    <group string="Assignment">                        
                         <field name="trainer_id"/>
-                        <!-- field name="course_id"/ -->                        
+                        <field name="trainer_ids" string="Assignment">
+                            <tree editable="buttom">
+                                <field name="day" string="From"/>
+                                <field name="trainer_id"/>
+                            </tree>
+                        </field>
                     </group>
                     <group string="Editing">
                         <field name="create_date"/>

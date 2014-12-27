@@ -297,7 +297,40 @@ class academy_registration(osv.Model):
         ids = self.search(cr, uid, [("id","in",ids),("state","=","cancel")])
         self.write(cr, uid, ids, {"state" : "draft"}, context=context)
         return True
-
+    
+    def action_assign(self, cr, uid, ids, context=None):
+        trainer_student_obj = self.pool.get("academy.trainer.student")
+        ids = self.search(cr, uid, [("id","in",ids),("state","=","registered")])
+        for reg in self.browse(cr, uid, ids, context=context):
+            cr.execute("SELECT t.trainer_id FROM academy_trainer_student t "
+                       " WHERE t.reg_id = %s AND t.day = (SELECT MAX(t2.day) FROM academy_trainer_student t2 WHERE t2.reg_id = t.reg_id)", (reg.id,))
+               
+            res = cr.fetchone()
+            if res:
+                # if an entry exist update
+                # current trainer
+                trainer_id, = res
+                self.write(cr, uid, reg.id, {"trainer_id" : trainer_id,
+                                             "state" : "assigned" }, context=context)
+            elif reg.trainer_id:
+                day = reg.intership_date
+                if not day:
+                    day = reg.semester_id.date_start
+                # create trainer student
+                trainer_student_obj.create(cr, uid, {
+                                        "reg_id" : reg.id, 
+                                        "day" : day,
+                                        "trainer_id" : reg.trainer_id.id
+                                    }, context=context)
+                
+                self.write(cr, uid, reg.id,  {"state" : "assigned"}, context=context)
+        return True
+                
+    def action_reassign(self, cr, uid, ids, context=None):
+        ids = self.search(cr, uid, [("id","in",ids),("state","=","assigned")])
+        self.write(cr, uid, ids, {"state" : "registered"}, context=context)
+        return True
+                
     def create(self, cr, uid, vals, context=None):
         name = vals.get("name")
         if not name or name == "/":
@@ -372,12 +405,33 @@ class academy_registration(osv.Model):
         }),
         "location_id" : fields.many2one("academy.location", "Location", select=True, ondelete="restrict"),
         "student_of_loc" : fields.boolean("Is student of location?"),
-        "course_prod_id" : fields.many2one("academy.course.product", "Product", select=True, required=True, ondelete="restrict"),
-        "course_id" : fields.many2one("academy.course", "Course", select=True, ondelete="restrict"),
-        "trainer_id" : fields.many2one("academy.trainer", "Trainer", select=True, ondelete="restrict"),
-        "amount" : fields.float("Amount", required=True),
+        
+        "course_prod_id" : fields.many2one("academy.course.product", "Product", select=True, required=True, ondelete="restrict", readonly=True, 
+                                                                                                                      states={"draft": [("readonly",False)],
+                                                                                                                              "check" : [("readonly",False)],
+                                                                                                                              "registered" : [("readonly",False)]}),
+                
+        "course_id" : fields.many2one("academy.course", "Course", select=True, ondelete="restrict", readonly=True, states={"draft": [("readonly",False)],
+                                                                                                                            "check" : [("readonly",False)],
+                                                                                                                            "registered" : [("readonly",False)]}),
+                
+        "trainer_id" : fields.many2one("academy.trainer", "Trainer", select=True, ondelete="restrict", readonly=True, states={"draft": [("readonly",False)],
+                                                                                                                              "check" : [("readonly",False)],
+                                                                                                                              "registered" : [("readonly",False)]}),
+        "amount" : fields.float("Amount", required=True, readonly=True, states={"draft": [("readonly",False)],
+                                                                          "check" : [("readonly",False)],
+                                                                          "registered" : [("readonly",False)]}),
+                
+        "trainer_ids" : fields.one2many("academy.trainer.student", "reg_id", "Trainer", readonly=True, states={"draft": [("readonly",False)],
+                                                                                                               "check" : [("readonly",False)],
+                                                                                                               "registered" : [("readonly",False)]}),
+                
         "hours" : fields.function(_hours, type="float", store=True, readonly=True, string="Hours"),
-        "uom_id" : fields.many2one("product.uom", "Unit", select=True, ondelete="restrict"),
+        
+        "uom_id" : fields.many2one("product.uom", "Unit", select=True, ondelete="restrict", readonly=True, states={"draft": [("readonly",False)],
+                                                                                                               "check" : [("readonly",False)],
+                                                                                                               "registered" : [("readonly",False)]}),
+        
         "invoice_address_id" : fields.many2one("res.partner","Invoice Address"),
         "use_invoice_address_id" : fields.function(_use_invoice_address_id, type="many2one", obj="res.partner", string="Determined invoice address"),
         "course_uom_ids" : fields.related("course_prod_id", "course_uom_ids", type="many2many", relation="product.uom", string="Course Units"),
@@ -611,3 +665,15 @@ class academy_advance_payment(osv.Model):
         "semester_id" : _default_semester_id
     }
 
+
+class academy_trainer_student(osv.Model):
+    _name = "academy.trainer.student"
+    _description = "Academy Trainer Student"
+    _rec_name = "reg_id"
+    _columns = {
+        "reg_id" : fields.many2one("academy.registration", "Registration", required=True, select=True),    
+        "trainer_id" : fields.many2one("academy.trainer", "Trainer", required=True, select=True),
+        "day" : fields.date("Day", required=True, select=True)
+    }
+    _order = "day asc"
+    

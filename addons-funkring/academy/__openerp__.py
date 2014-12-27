@@ -50,6 +50,7 @@ oerp.at Academy
               "wizard/post_payment_wizard.xml",
               "wizard/invoice_assistant.xml",
               "wizard/semester_assistant.xml",
+              "wizard/assign_registration_wizard.xml",
               "data/registration_sequence.xml",
               "data/registration_email_template.xml",
               "data/registration_cancel_email_template.xml"
