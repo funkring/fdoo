@@ -82,37 +82,7 @@ class product_category(osv.osv):
     _order = "complete_name"
 
 
-class product_template(osv.osv):
-    _inherit = "product.template"
-    _columns = {
-        "name": fields.char("Name", required=True, translate=True, select=True)
-    }
-
-
 class product_product(osv.osv):
-
-    def _get_account_income_standard(self, cr, uid, ids, field_name, arg, context=None):
-        res = {}
-        for product in self.browse(cr, uid, ids, context):
-            account = product.product_tmpl_id.property_account_income
-            if not account:
-                account = product.categ_id.property_account_income_categ
-
-            if account:
-                res[product.id]=account.id
-            else:
-                res[product.id]=None
-        return res
-
-    def _get_account_expense_standard(self, cr, uid, ids, field_name, arg, context=None):
-        res = dict.fromkeys(ids)
-        for product in self.browse(cr, uid, ids, context):
-            account = product.product_tmpl_id.property_account_expense
-            if not account:
-                account = product.categ_id.property_account_expense_categ
-            if account:
-                res[product.id]=account.id
-        return res
 
     def name_search(self, cr, user, name='', args=None, operator='ilike', context=None, limit=100):
         if not args:
@@ -134,13 +104,6 @@ class product_product(osv.osv):
         return result
 
     _inherit = "product.product"
-    _columns = {
-        "account_income_standard_id" : fields.function(_get_account_income_standard,
-                                                    string="Standard income account",type="many2one",relation="account.account"),
-        "account_expense_standard_id" : fields.function(_get_account_expense_standard,
-                                                    string="Standard expense account",type="many2one",relation="account.account"),
-        "name_template": fields.related('product_tmpl_id', 'name', string="Template Name", type='char', store=True, select=True),
-    }
 
 
 class product_pricelist(osv.osv):
