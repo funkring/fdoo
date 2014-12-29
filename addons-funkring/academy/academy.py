@@ -26,6 +26,10 @@ from openerp.tools.translate import _
 from openerp import tools
 import openerp.addons.decimal_precision as dp
 
+from dateutil.relativedelta import relativedelta
+from datetime import datetime
+from datetime import date
+
 import re
 
 PATTERN_NO = re.compile("^[0-9]+$")
@@ -394,8 +398,12 @@ class academy_registration(osv.Model):
         "create_date" : fields.datetime("Create Date", select=True, readonly=True),
         "user_id" : fields.many2one("res.users","Agent", select=True),
         "semester_id" : fields.many2one("academy.semester", "Registration", select=True, required=True, ondelete="restrict"),
+
         "unreg_semester_id" : fields.many2one("academy.semester", "Deregistration", ondelete="restrict",
-                                              help="The start date from the ending semester must be smaller or equal than the start datum from the beginning semester"),
+                                              help="Deregistration after finished Semester"),
+        
+        "abort_date" : fields.date("Abort Date", help="This Date must be set, if the semester was not finished"),
+        
         "intership_date" : fields.date("Intership Date", help="This Date must be set, if there was an intership during the semester."),
         "student_id" : fields.many2one("academy.student", "Student", select=True, required=True, ondelete="restrict"),
         "student_parent_id" : fields.related("student_id", "parent_id", type="many2one", relation="res.partner", string="Parent", readonly=True, store={
@@ -477,6 +485,91 @@ class academy_trainer(osv.Model):
 
     def on_change_zip(self, cr, uid, ids, zip_code, city):
         return self.pool.get("res.partner").on_change_zip(cr, uid, ids, zip_code, city)
+
+    def _students(self, cr, uid, ids, date_from, date_to, context=None):
+        res = []
+        reg_obj = self.pool["academy.registration"]
+        sem_obj = self.pool["academy.semester"]
+        
+        dt_from = util.strToDate(date_from)
+        dt_to = util.strToDate(date_to)
+        
+        for trainer in self.browse(cr, uid, ids, context=context):
+            # get week end            
+            dt_we = dt_from+relativedelta(days=(6-dt_from.weekday()))
+            # get week start
+            dt_ws = dt_from
+
+            # registry per trainer            
+            regs = {}
+            trainer_data = {
+                "trainer" : trainer,
+                "regs" : regs
+            }
+            res.append(trainer_data)
+            
+            # start loop
+            while dt_ws < dt_to: # until to date
+                # convert to str
+                we = util.dateToStr(dt_we)
+                ws = util.dateToStr(dt_ws)
+                                
+                # only process if semester exist
+                semester_id = sem_obj.search_id(cr, uid, [("date_start","<=",we),("date_end",">=",ws)], context=context)
+                if semester_id:
+                
+                    # query students
+                    cr.execute("SELECT ts.reg_id FROM academy_trainer_student ts "
+                               "INNER JOIN academy_registration r ON r.id = ts.reg_id "
+                               "       AND r.state = 'assigned' "
+                               "LEFT  JOIN academy_semester sb ON sb.id = r.semester_id "
+                               "LEFT  JOIN academy_semester se ON se.id = r.unreg_semester_id "
+                               "WHERE  ts.trainer_id = %s "                          
+                               "  AND  sb.date_start <= %s"
+                               "  AND  ( se.date_end IS NULL OR se.date_end >= %s )"
+                               "  AND  ( r.intership_date IS NULL OR r.intership_date >= %s )"
+                               "  AND  ( r.abort_date IS NULL OR r.abort_date > %s )"
+                               "  AND  ts.day = ( SELECT MAX(ts2.day) FROM academy_trainer_student ts2 "
+                                                 " WHERE ts2.reg_id = ts.reg_id "
+                                                 "   AND ts2.trainer_id = ts.trainer_id "
+                                                 "   AND ts2.day < %s "
+                                                ") "
+                               " GROUP BY 1 " 
+                               ,
+                                ( 
+                                 trainer.id, 
+                                 ws, # check semester start
+                                 ws, # check semester end
+                                 ws, # check intership start
+                                 we, # check abort 
+                                 we  # check teacher assignment
+                                )
+                               )
+                    
+                    # process registers
+                    reg_ids = cr.fetchall()
+                    if reg_ids:
+                        reg_ids = [r[0] for r in reg_ids]
+                        for reg_id in reg_ids:
+                            reg_data = regs.get(reg_id,None)
+                            if reg_data is None:
+                                reg_data = {
+                                    "reg" : reg_obj.browse(cr, uid, reg_id, context=context),
+                                    "hours" : 0.0
+                                }
+                                regs[reg_id]=reg_data
+                                
+                            reg_data["hours"]=reg_data["hours"]+reg_data["reg"].hours
+                    
+                
+                # increment
+                # .. next week start
+                dt_ws = dt_we + relativedelta(days=1)
+                # .. next week end
+                dt_we += relativedelta(weeks=1)
+                
+        return res
+        
 
     _name = "academy.trainer"
     _description = "Academy Trainer"

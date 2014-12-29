@@ -31,7 +31,7 @@
         <menuitem id="menu_invoice_assistant"
             name="Invoicing"
             action="action_invoice_assistant"
-            parent="menu_academy_management" 
+            parent="menu_academy_regmain" 
             sequence="50"/>
 
     </data>

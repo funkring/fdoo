@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <report id="report_trainer_student_xls"
+      string="Registrations"
+      name="academy.trainer.student"
+      auto="False"
+      report_type="aeroo"
+      model="academy.trainer"
+      in_format="oo-ods"
+      out_format="oo-xls"
+      parser="academy/report/trainer_student_report.py"
+      rml="academy/report/trainer_student_report.ods"/>
+  </data>
+</openerp>

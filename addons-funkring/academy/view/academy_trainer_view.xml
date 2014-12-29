@@ -130,32 +130,33 @@
           <field name="name">Trainer</field>
           <field name="res_model">academy.trainer</field>
           <field name="view_type">form</field>
-          <field name="view_mode">kanban,tree,form</field>
+          <field name="view_mode">tree,kanban,form</field>
           <field name="help" type="html">
             <p class="oe_view_nocontent_create">
               Click here to create a new Trainer
             </p>
           </field>
         </record>
-        <record id="action_academy_trainer_kanban" model="ir.actions.act_window.view">
+        <record id="action_academy_trainer_tree" model="ir.actions.act_window.view">
           <field name="sequence" eval="0"/>
+          <field name="view_mode">tree</field>
+          <field name="view_id" ref="tree_academy_trainer"/>
+          <field name="act_window_id" ref="action_academy_trainer"/>
+        </record>
+        <record id="action_academy_trainer_kanban" model="ir.actions.act_window.view">
+          <field name="sequence" eval="1"/>
           <field name="view_mode">kanban</field>
           <field name="view_id" ref="kanban_academy_trainer"/>
           <field name="act_window_id" ref="action_academy_trainer"/>
         </record>
         <record id="action_academy_trainer_form" model="ir.actions.act_window.view">
-          <field name="sequence" eval="1"/>
+          <field name="sequence" eval="2"/>
           <field name="view_mode">form</field>
           <field name="view_id" ref="form_academy_trainer"/>
           <field name="act_window_id" ref="action_academy_trainer"/>
         </record>
-        <record id="action_academy_trainer_tree" model="ir.actions.act_window.view">
-          <field name="sequence" eval="2"/>
-          <field name="view_mode">tree</field>
-          <field name="view_id" ref="tree_academy_trainer"/>
-          <field name="act_window_id" ref="action_academy_trainer"/>
-        </record>
-
+        
+        
         <menuitem id="menu_academy_trainer" name="Trainer" parent="menu_academy_management"
           sequence="1"
           action="action_academy_trainer"/>

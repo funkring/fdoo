@@ -201,15 +201,15 @@
       </field>
     </record>
 
-    <menuitem id="menu_academy_registration" name="Registrations" parent="menu_academy_management"
+    <menuitem id="menu_academy_registration" name="Registrations" parent="menu_academy_regmain"
       sequence="3"
       action="action_academy_registration"/>
       
-    <menuitem id="menu_academy_registration_draft" name="Reg. in Draft" parent="menu_academy_management"
+    <menuitem id="menu_academy_registration_draft" name="Reg. in Draft" parent="menu_academy_regmain"
       sequence="4"
       action="action_academy_registration_draft"/>
       
-    <menuitem id="menu_academy_registration_check" name="Reg. to Check" parent="menu_academy_management"
+    <menuitem id="menu_academy_registration_check" name="Reg. to Check" parent="menu_academy_regmain"
       sequence="5"
       action="action_academy_registration_check"/>
 

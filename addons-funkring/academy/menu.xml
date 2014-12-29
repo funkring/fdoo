@@ -4,10 +4,15 @@
 
 		<menuitem id="menu_academy" name="Academy" sequence="55"
 		          groups="group_management,group_trainer"/>
-
-		<menuitem id="menu_academy_management"
-		          name="Management" parent="menu_academy" sequence="1"
-		          groups="group_management"/>
+		          
+		<menuitem id="menu_academy_regmain" 
+                  name="Registrations" parent="menu_academy" sequence="1" 
+                  groups="group_management"/>
+                
+        <menuitem id="menu_academy_management"
+                  name="Management" parent="menu_academy" sequence="50"
+                  groups="group_management"/>
+        
 
 		<menuitem id="menu_academy_config"
 		          name="Configuration" parent="menu_academy" sequence="100"
@@ -18,7 +23,7 @@
 
 		<menuitem id="menu_academy_config_courses"
 		          name="Courses" parent="menu_academy_config" sequence="10"/>
-
+        
 		<!--
 		<menuitem id="menu_academy_trainer" name="Trainer" parent="menu_academy_management" sequence="1"
         		  action="action_academy_trainer"/>

@@ -167,7 +167,7 @@
       <field name="name">Student</field>
       <field name="res_model">academy.student</field>
       <field name="view_type">form</field>
-      <field name="view_mode">kanban,tree,form</field>
+      <field name="view_mode">tree,kanban,form</field>
       <field name="help" type="html">
         <p class="oe_view_nocontent_create">
           Click here to create a new Student
@@ -176,24 +176,25 @@
         </p>
       </field>
     </record>
-    <record id="action_academy_student_kanban" model="ir.actions.act_window.view">
+    <record id="action_academy_student_tree" model="ir.actions.act_window.view">
       <field name="sequence" eval="0"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="tree_academy_student"/>
+      <field name="act_window_id" ref="action_academy_student"/>
+    </record>
+    <record id="action_academy_student_kanban" model="ir.actions.act_window.view">
+      <field name="sequence" eval="1"/>
       <field name="view_mode">kanban</field>
       <field name="view_id" ref="kanban_academy_student"/>
       <field name="act_window_id" ref="action_academy_student"/>
     </record>
     <record id="action_academy_student_form" model="ir.actions.act_window.view">
-      <field name="sequence" eval="1"/>
+      <field name="sequence" eval="2"/>
       <field name="view_mode">form</field>
       <field name="view_id" ref="form_academy_student"/>
       <field name="act_window_id" ref="action_academy_student"/>
     </record>
-    <record id="action_academy_student_tree" model="ir.actions.act_window.view">
-      <field name="sequence" eval="2"/>
-      <field name="view_mode">tree</field>
-      <field name="view_id" ref="tree_academy_student"/>
-      <field name="act_window_id" ref="action_academy_student"/>
-    </record>
+  
 
     <menuitem id="menu_academy_student" name="Student" parent="menu_academy_management"
       sequence="1"

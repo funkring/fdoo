@@ -67,7 +67,7 @@
       <field name="context">{'search_default_unposted':1}</field>
     </record>
 
-    <menuitem id="menu_academy_payment" name="Payment" parent="menu_academy_management"
+    <menuitem id="menu_academy_payment" name="Payment" parent="menu_academy_regmain"
       sequence="50"
       action="action_academy_payment"/>
   </data>
