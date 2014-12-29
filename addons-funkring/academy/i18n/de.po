@@ -1,45 +1,54 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* academy
+# 	* academy
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-29 23:38+0000\n"
-"PO-Revision-Date: 2014-12-29 23:38+0000\n"
-"Last-Translator: <>\n"
+"PO-Revision-Date: 2014-12-30 00:45+0100\n"
+"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"X-Generator: Poedit 1.5.4\n"
 
 #. module: academy
 #: model:email.template,body_html:academy.email_template_registration
-msgid "\n"
+msgid ""
+"\n"
 "<h3>Thank your for Registration!</h3>\n"
 "            "
-msgstr "\n"
-"\n"
-"<h3><span class=\"oe_form_text_content\">Vielen herzlichen Dank für Ihre erfolgreich durchgeführte Anmeldung!</span></h3>\n"
+msgstr ""
 "\n"
 "\n"
-"<h3><span class=\"oe_form_text_content\">Unsere Lehrkraft wird sich ab Beginn der zweiten Schulwoche telefonisch bei Ihnen melden, um den genauen Unterrichtszeitpunkt mit Ihnen individuell zu vereinbaren. </span></h3>\n"
+"<h3><span class=\"oe_form_text_content\">Vielen herzlichen Dank für Ihre "
+"erfolgreich durchgeführte Anmeldung!</span></h3>\n"
 "\n"
 "\n"
-"<h3><span class=\"oe_form_text_content\">Bis dahin bitten wir Sie um Geduld und wünschen einen sehr erfolgreichen Schulstart.<br></span></h3>\n"
+"<h3><span class=\"oe_form_text_content\">Unsere Lehrkraft wird sich ab "
+"Beginn der zweiten Schulwoche telefonisch bei Ihnen melden, um den genauen "
+"Unterrichtszeitpunkt mit Ihnen individuell zu vereinbaren. </span></h3>\n"
 "\n"
 "\n"
-"<h3><span class=\"oe_form_text_content\">Mit musikalischen Grüßen - Ihre Musikschule Polyhymnia.</span></h3>\n"
-""
+"<h3><span class=\"oe_form_text_content\">Bis dahin bitten wir Sie um Geduld "
+"und wünschen einen sehr erfolgreichen Schulstart.<br></span></h3>\n"
+"\n"
+"\n"
+"<h3><span class=\"oe_form_text_content\">Mit musikalischen Grüßen - Ihre "
+"Musikschule Polyhymnia.</span></h3>\n"
 
 #. module: academy
 #: model:email.template,body_html:academy.email_template_registration_cancel
-msgid "\n"
+msgid ""
+"\n"
 "<h3>Your Registration was canceled!</h3>\n"
 "            "
-msgstr "\n"
+msgstr ""
+"\n"
 "<h3>Ihre Anmeldung wurde storniert!</h3>\n"
 "            "
 
@@ -52,14 +61,16 @@ msgstr ""
 #. module: academy
 #: code:addons/academy/wizard/invoice_assistant.py:134
 #, python-format
-msgid "%s - %s\n"
+msgid ""
+"%s - %s\n"
 "%s"
 msgstr ""
 
 #. module: academy
 #: code:addons/academy/wizard/invoice_assistant.py:129
 #, python-format
-msgid "%s - %s\n"
+msgid ""
+"%s - %s\n"
 "%s\n"
 "%s"
 msgstr ""
@@ -71,24 +82,28 @@ msgstr "(editiere die Adresse der Eltern)"
 
 #. module: academy
 #: model:ir.actions.act_window,help:academy.action_academy_trainer
-msgid "<p class=\"oe_view_nocontent_create\">\n"
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
 "              Click here to create a new Trainer\n"
 "            </p>\n"
 "          "
-msgstr "<p class=\"oe_view_nocontent_create\">\n"
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
 "              Hier klicken um einen neuen Lehrer zu erstellen\n"
 "            </p>\n"
 "          "
 
 #. module: academy
 #: model:ir.actions.act_window,help:academy.action_academy_student
-msgid "<p class=\"oe_view_nocontent_create\">\n"
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
 "          Click here to create a new Student\n"
 "        </p><p>\n"
 "          The Students are academy customers\n"
 "        </p>\n"
 "      "
-msgstr "<p class=\"oe_view_nocontent_create\">\n"
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
 "          Hier klicken um einen neuen Schüler zu erstellen\n"
 "        </p><p>\n"
 "         Schüler sind die Kunden der Schule\n"
@@ -97,38 +112,45 @@ msgstr "<p class=\"oe_view_nocontent_create\">\n"
 
 #. module: academy
 #: model:ir.actions.act_window,help:academy.action_academy_year
-msgid "<p class=\"oe_view_nocontent_create\">\n"
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
 "          Click here to create a new academy year and its semester\n"
 "        </p><p>\n"
 "          An academy year is the period for one school year\n"
 "        </p>\n"
 "      "
-msgstr "<p class=\"oe_view_nocontent_create\">\n"
-"         Hier klicken um ein neues Schuljahr zu erstellen inklusive der Semester\n"
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"         Hier klicken um ein neues Schuljahr zu erstellen inklusive der "
+"Semester\n"
 "        </p>      "
 
 #. module: academy
 #: model:ir.actions.act_window,help:academy.action_academy_registration
 #: model:ir.actions.act_window,help:academy.action_academy_registration_check
 #: model:ir.actions.act_window,help:academy.action_academy_registration_draft
-msgid "<p class=\"oe_view_nocontent_create\">\n"
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
 "          Click here to create a new registration.\n"
 "        </p>\n"
 "      "
-msgstr "<p class=\"oe_view_nocontent_create\">\n"
-"          Klicken sie hier um eine Anmeldung für einen Lehrgang zu erstellen\n"
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"          Klicken sie hier um eine Anmeldung für einen Lehrgang zu "
+"erstellen\n"
 "        </p>\n"
-""
 
 #. module: academy
 #: model:ir.actions.act_window,help:academy.action_academy_course_product
-msgid "<p class=\"oe_view_nocontent_create\">\n"
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
 "          Click to create a new Course Product\n"
 "        </p><p>\n"
 "          A Course Product is an service you offer as academy\n"
 "        </p>\n"
 "      "
-msgstr "<p class=\"oe_view_nocontent_create\">\n"
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
 "         Klicken sie hier um ein Produkt für einen Lehrgang zu erstellen\n"
 "        </p><p>\n"
 "          Produkte zu Lehrgängen werden für die Abrechnung benötigt\n"
@@ -137,16 +159,19 @@ msgstr "<p class=\"oe_view_nocontent_create\">\n"
 
 #. module: academy
 #: model:ir.actions.act_window,help:academy.action_academy_location
-msgid "<p class=\"oe_view_nocontent_create\">\n"
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
 "          Click to create a new location\n"
 "        </p><p>\n"
 "          Location are resources where courses are held\n"
 "        </p>\n"
 "      "
-msgstr "<p class=\"oe_view_nocontent_create\">\n"
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
 "          Klicken sie hier um einen neuen Standort zu erstellen\n"
 "        </p><p>\n"
-"          Über den Standort wird das Gebäude, der Ort bestimmt, wo ein Lehrgang stattfindet\n"
+"          Über den Standort wird das Gebäude, der Ort bestimmt, wo ein "
+"Lehrgang stattfindet\n"
 "        </p>\n"
 "      "
 
@@ -244,8 +269,7 @@ msgid "Agent"
 msgstr "Bearbeiter"
 
 #. module: academy
-#: field:academy.payment,amount:0
-#: field:academy.registration,amount:0
+#: field:academy.payment,amount:0 field:academy.registration,amount:0
 msgid "Amount"
 msgstr "Menge"
 
@@ -289,8 +313,11 @@ msgstr "Beginn"
 #. module: academy
 #: code:addons/academy/academy.py:390
 #, python-format
-msgid "Can not delete registrations, which are not in state 'Draft' or 'Cancelled'"
-msgstr "Es können  nur Anmeldungen gelöscht werden die entweder im Entwurf sind bzw. abgebrochen wurden!"
+msgid ""
+"Can not delete registrations, which are not in state 'Draft' or 'Cancelled'"
+msgstr ""
+"Es können  nur Anmeldungen gelöscht werden die entweder im Entwurf sind bzw. "
+"abgebrochen wurden!"
 
 #. module: academy
 #: view:academy.config.settings:academy.form_config_settings
@@ -299,7 +326,7 @@ msgstr "Es können  nur Anmeldungen gelöscht werden die entweder im Entwurf sin
 #: selection:academy.registration,state:0
 #: view:academy.semester.assistant:academy.wizard_semester_assistant
 msgid "Cancel"
-msgstr "Abgebrochen"
+msgstr "Abbrechen"
 
 #. module: academy
 #: view:academy.registration:academy.search_academy_registration
@@ -335,9 +362,11 @@ msgstr "Stadt"
 
 #. module: academy
 #: view:academy.assign.registration.wizard:academy.wizard_assign_registration
-msgid "Click to assign all registrations which are in state 'registered' to,\n"
+msgid ""
+"Click to assign all registrations which are in state 'registered' to,\n"
 "            it's teachers"
-msgstr "Klicke, um alle Anmeldungen im Status 'Angemeldet', ihren Lehrern zuzuweisen"
+msgstr ""
+"Klicke, um alle Anmeldungen im Status 'Angemeldet', ihren Lehrern zuzuweisen"
 
 #. module: academy
 #: view:academy.assign.registration.wizard:academy.wizard_assign_registration
@@ -381,8 +410,7 @@ msgstr "Vertrag"
 
 #. module: academy
 #: view:academy.topic:academy.form_academy_topic
-#: field:academy.topic,contract_ids:0
-#: field:academy.trainer,contract_ids:0
+#: field:academy.topic,contract_ids:0 field:academy.trainer,contract_ids:0
 msgid "Contracts"
 msgstr "Verträge"
 
@@ -397,8 +425,7 @@ msgstr "Land"
 #: view:academy.course:academy.form_academy_course
 #: view:academy.course:academy.tree_academy_course
 #: view:academy.course.product:academy.form_academy_course_product
-#: field:academy.journal,course_id:0
-#: field:academy.registration,course_id:0
+#: field:academy.journal,course_id:0 field:academy.registration,course_id:0
 #: field:academy.topic,course_id:0
 #: model:ir.actions.act_window,name:academy.action_academy_course
 #: model:ir.actions.act_window,name:academy.action_academy_course_product
@@ -438,47 +465,38 @@ msgstr "Erstellungsdatum"
 #. module: academy
 #: field:academy.assign.registration.wizard,create_uid:0
 #: field:academy.config.settings,create_uid:0
-#: field:academy.contract,create_uid:0
-#: field:academy.course,create_uid:0
-#: field:academy.course.product,create_uid:0
-#: field:academy.fee,create_uid:0
+#: field:academy.contract,create_uid:0 field:academy.course,create_uid:0
+#: field:academy.course.product,create_uid:0 field:academy.fee,create_uid:0
 #: field:academy.invoice.assistant,create_uid:0
 #: field:academy.journal,create_uid:0
 #: field:academy.journal.absence,create_uid:0
-#: field:academy.location,create_uid:0
-#: field:academy.payment,create_uid:0
+#: field:academy.location,create_uid:0 field:academy.payment,create_uid:0
 #: field:academy.post.payment.wizard,create_uid:0
 #: field:academy.registration,create_uid:0
 #: field:academy.registration.invoice,create_uid:0
 #: field:academy.semester,create_uid:0
 #: field:academy.semester.assistant,create_uid:0
-#: field:academy.student,create_uid:0
-#: field:academy.topic,create_uid:0
+#: field:academy.student,create_uid:0 field:academy.topic,create_uid:0
 #: field:academy.trainer,create_uid:0
 #: field:academy.trainer.reg.wizard,create_uid:0
-#: field:academy.trainer.student,create_uid:0
-#: field:academy.year,create_uid:0
+#: field:academy.trainer.student,create_uid:0 field:academy.year,create_uid:0
 msgid "Created by"
 msgstr "Erstellt von"
 
 #. module: academy
 #: field:academy.assign.registration.wizard,create_date:0
 #: field:academy.config.settings,create_date:0
-#: field:academy.contract,create_date:0
-#: field:academy.course,create_date:0
-#: field:academy.course.product,create_date:0
-#: field:academy.fee,create_date:0
+#: field:academy.contract,create_date:0 field:academy.course,create_date:0
+#: field:academy.course.product,create_date:0 field:academy.fee,create_date:0
 #: field:academy.invoice.assistant,create_date:0
 #: field:academy.journal,create_date:0
 #: field:academy.journal.absence,create_date:0
-#: field:academy.location,create_date:0
-#: field:academy.payment,create_date:0
+#: field:academy.location,create_date:0 field:academy.payment,create_date:0
 #: field:academy.post.payment.wizard,create_date:0
 #: field:academy.registration.invoice,create_date:0
 #: field:academy.semester,create_date:0
 #: field:academy.semester.assistant,create_date:0
-#: field:academy.student,create_date:0
-#: field:academy.topic,create_date:0
+#: field:academy.student,create_date:0 field:academy.topic,create_date:0
 #: field:academy.trainer,create_date:0
 #: field:academy.trainer.reg.wizard,create_date:0
 #: field:academy.trainer.student,create_date:0
@@ -494,8 +512,7 @@ msgstr "Aktuelles Semester"
 #. module: academy
 #: field:academy.journal,date:0
 #: view:academy.payment:academy.search_academy_payment
-#: field:academy.payment,date:0
-#: selection:academy.trainer.reg.wizard,unit:0
+#: field:academy.payment,date:0 selection:academy.trainer.reg.wizard,unit:0
 msgid "Date"
 msgstr "Datum"
 
@@ -569,10 +586,8 @@ msgid "Editing"
 msgstr "Bearbeitung"
 
 #. module: academy
-#: field:academy.journal,end:0
-#: field:academy.semester,date_end:0
-#: field:academy.trainer.reg.wizard,date_end:0
-#: field:academy.year,date_end:0
+#: field:academy.journal,end:0 field:academy.semester,date_end:0
+#: field:academy.trainer.reg.wizard,date_end:0 field:academy.year,date_end:0
 msgid "End"
 msgstr "Ende"
 
@@ -636,8 +651,13 @@ msgstr "Gruppiert nach"
 
 #. module: academy
 #: help:academy.registration,message_summary:0
-msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
-msgstr "Hier finden Sie die Nachrichtenübersicht (Anzahl Nachrichten etc., ...) im html Format, um über dieses Format dann später in einer Kanban Ansicht weiterzuarbeiten.\""
+msgid ""
+"Holds the Chatter summary (number of messages, ...). This summary is "
+"directly in html format in order to be inserted in kanban views."
+msgstr ""
+"Hier finden Sie die Nachrichtenübersicht (Anzahl Nachrichten etc., ...) im "
+"html Format, um über dieses Format dann später in einer Kanban Ansicht "
+"weiterzuarbeiten.\""
 
 #. module: academy
 #: field:academy.semester,holiday_weeks:0
@@ -652,26 +672,16 @@ msgstr "Stunden"
 
 #. module: academy
 #: field:academy.assign.registration.wizard,id:0
-#: field:academy.config.settings,id:0
-#: field:academy.contract,id:0
-#: field:academy.course,id:0
-#: field:academy.course.product,id:0
-#: field:academy.fee,id:0
-#: field:academy.invoice.assistant,id:0
-#: field:academy.journal,id:0
-#: field:academy.journal.absence,id:0
-#: field:academy.location,id:0
-#: field:academy.payment,id:0
-#: field:academy.post.payment.wizard,id:0
-#: field:academy.registration,id:0
-#: field:academy.registration.invoice,id:0
-#: field:academy.semester,id:0
-#: field:academy.semester.assistant,id:0
-#: field:academy.student,id:0
-#: field:academy.topic,id:0
-#: field:academy.trainer,id:0
-#: field:academy.trainer.reg.wizard,id:0
-#: field:academy.trainer.student,id:0
+#: field:academy.config.settings,id:0 field:academy.contract,id:0
+#: field:academy.course,id:0 field:academy.course.product,id:0
+#: field:academy.fee,id:0 field:academy.invoice.assistant,id:0
+#: field:academy.journal,id:0 field:academy.journal.absence,id:0
+#: field:academy.location,id:0 field:academy.payment,id:0
+#: field:academy.post.payment.wizard,id:0 field:academy.registration,id:0
+#: field:academy.registration.invoice,id:0 field:academy.semester,id:0
+#: field:academy.semester.assistant,id:0 field:academy.student,id:0
+#: field:academy.topic,id:0 field:academy.trainer,id:0
+#: field:academy.trainer.reg.wizard,id:0 field:academy.trainer.student,id:0
 #: field:academy.year,id:0
 msgid "ID"
 msgstr ""
@@ -776,52 +786,41 @@ msgstr "Datum der letzten Nachricht"
 #. module: academy
 #: field:academy.assign.registration.wizard,write_uid:0
 #: field:academy.config.settings,write_uid:0
-#: field:academy.contract,write_uid:0
-#: field:academy.course,write_uid:0
-#: field:academy.course.product,write_uid:0
-#: field:academy.fee,write_uid:0
+#: field:academy.contract,write_uid:0 field:academy.course,write_uid:0
+#: field:academy.course.product,write_uid:0 field:academy.fee,write_uid:0
 #: field:academy.invoice.assistant,write_uid:0
-#: field:academy.journal,write_uid:0
-#: field:academy.journal.absence,write_uid:0
-#: field:academy.location,write_uid:0
-#: field:academy.payment,write_uid:0
+#: field:academy.journal,write_uid:0 field:academy.journal.absence,write_uid:0
+#: field:academy.location,write_uid:0 field:academy.payment,write_uid:0
 #: field:academy.post.payment.wizard,write_uid:0
 #: field:academy.registration,write_uid:0
 #: field:academy.registration.invoice,write_uid:0
 #: field:academy.semester,write_uid:0
 #: field:academy.semester.assistant,write_uid:0
-#: field:academy.student,write_uid:0
-#: field:academy.topic,write_uid:0
+#: field:academy.student,write_uid:0 field:academy.topic,write_uid:0
 #: field:academy.trainer,write_uid:0
 #: field:academy.trainer.reg.wizard,write_uid:0
-#: field:academy.trainer.student,write_uid:0
-#: field:academy.year,write_uid:0
+#: field:academy.trainer.student,write_uid:0 field:academy.year,write_uid:0
 msgid "Last Updated by"
 msgstr "zuletzt aktualisiert von"
 
 #. module: academy
 #: field:academy.assign.registration.wizard,write_date:0
 #: field:academy.config.settings,write_date:0
-#: field:academy.contract,write_date:0
-#: field:academy.course,write_date:0
-#: field:academy.course.product,write_date:0
-#: field:academy.fee,write_date:0
+#: field:academy.contract,write_date:0 field:academy.course,write_date:0
+#: field:academy.course.product,write_date:0 field:academy.fee,write_date:0
 #: field:academy.invoice.assistant,write_date:0
 #: field:academy.journal,write_date:0
 #: field:academy.journal.absence,write_date:0
-#: field:academy.location,write_date:0
-#: field:academy.payment,write_date:0
+#: field:academy.location,write_date:0 field:academy.payment,write_date:0
 #: field:academy.post.payment.wizard,write_date:0
 #: field:academy.registration,write_date:0
 #: field:academy.registration.invoice,write_date:0
 #: field:academy.semester,write_date:0
 #: field:academy.semester.assistant,write_date:0
-#: field:academy.student,write_date:0
-#: field:academy.topic,write_date:0
+#: field:academy.student,write_date:0 field:academy.topic,write_date:0
 #: field:academy.trainer,write_date:0
 #: field:academy.trainer.reg.wizard,write_date:0
-#: field:academy.trainer.student,write_date:0
-#: field:academy.year,write_date:0
+#: field:academy.trainer.student,write_date:0 field:academy.year,write_date:0
 msgid "Last Updated on"
 msgstr "zuletzt aktualisiert am"
 
@@ -876,14 +875,11 @@ msgid "Misc"
 msgstr "Sonstiges"
 
 #. module: academy
-#: field:academy.contract,name:0
-#: field:academy.course,name:0
-#: field:academy.journal,name:0
-#: field:academy.semester,name:0
+#: field:academy.contract,name:0 field:academy.course,name:0
+#: field:academy.journal,name:0 field:academy.semester,name:0
 #: view:academy.student:academy.form_academy_student
 #: field:academy.topic,name:0
-#: view:academy.trainer:academy.form_academy_trainer
-#: field:academy.year,name:0
+#: view:academy.trainer:academy.form_academy_trainer field:academy.year,name:0
 msgid "Name"
 msgstr ""
 
@@ -910,8 +906,7 @@ msgid "Notes..."
 msgstr "Notizen..."
 
 #. module: academy
-#: field:academy.course,number:0
-#: field:academy.registration,name:0
+#: field:academy.course,number:0 field:academy.registration,name:0
 msgid "Number"
 msgstr "Nummer"
 
@@ -941,8 +936,7 @@ msgstr "Erziehungsberechtigte(r)"
 
 #. module: academy
 #: field:academy.journal.absence,partner_id:0
-#: field:academy.student,partner_id:0
-#: field:academy.student,tmp_partner_id:0
+#: field:academy.student,partner_id:0 field:academy.student,tmp_partner_id:0
 #: field:academy.trainer,partner_id:0
 msgid "Partner"
 msgstr ""
@@ -994,8 +988,7 @@ msgid "Pro-forma"
 msgstr ""
 
 #. module: academy
-#: field:academy.course.product,product_id:0
-#: field:academy.fee,product_id:0
+#: field:academy.course.product,product_id:0 field:academy.fee,product_id:0
 #: field:academy.registration,course_prod_id:0
 msgid "Product"
 msgstr "Produkt"
@@ -1027,8 +1020,7 @@ msgid "Reassign"
 msgstr "Neuzuweisung"
 
 #. module: academy
-#: field:academy.invoice.assistant,customer_ref:0
-#: field:academy.payment,ref:0
+#: field:academy.invoice.assistant,customer_ref:0 field:academy.payment,ref:0
 msgid "Reference"
 msgstr "Referenz"
 
@@ -1185,8 +1177,7 @@ msgid "Semester Weeks minus Holiday Weeks"
 msgstr "Semester Woche minus der Ferien Wochen"
 
 #. module: academy
-#: field:academy.course.product,sequence:0
-#: field:academy.fee,sequence:0
+#: field:academy.course.product,sequence:0 field:academy.fee,sequence:0
 msgid "Sequence"
 msgstr "Sequenz"
 
@@ -1239,8 +1230,7 @@ msgid "Student"
 msgstr "Schüler"
 
 #. module: academy
-#: field:academy.course,student_ids:0
-#: field:academy.journal,student_ids:0
+#: field:academy.course,student_ids:0 field:academy.journal,student_ids:0
 #: view:academy.student:academy.tree_academy_student
 msgid "Students"
 msgstr "Schüler"
@@ -1273,26 +1263,32 @@ msgid "Teacher Registrations"
 msgstr "Anmeldungen"
 
 #. module: academy
-#: help:academy.journal,end:0
-#: help:academy.journal.absence,time_to:0
+#: help:academy.journal,end:0 help:academy.journal.absence,time_to:0
 msgid "The time must be between 00:00 and 24:00 o'clock"
 msgstr "Die Zeit muss zwischen 00:00 und 24:00 Uhr sein."
 
 #. module: academy
-#: help:academy.journal,begin:0
-#: help:academy.journal.absence,time_from:0
-msgid "The time must be between 00:00 and 24:00 o'clock and must not be bigger than the end"
-msgstr "Die Zeit muss zwischen 00:00 und 24:00 Uhr und darf nicht größer als das Ende sein."
+#: help:academy.journal,begin:0 help:academy.journal.absence,time_from:0
+msgid ""
+"The time must be between 00:00 and 24:00 o'clock and must not be bigger than "
+"the end"
+msgstr ""
+"Die Zeit muss zwischen 00:00 und 24:00 Uhr und darf nicht größer als das "
+"Ende sein."
 
 #. module: academy
 #: help:academy.registration,abort_date:0
 msgid "This Date must be set, if the semester was not finished"
-msgstr "Dieses Datum muss gesetzt werden, wenn das Semester vorzeitig abgebrochen wird"
+msgstr ""
+"Dieses Datum muss gesetzt werden, wenn das Semester vorzeitig abgebrochen "
+"wird"
 
 #. module: academy
 #: help:academy.registration,intership_date:0
 msgid "This Date must be set, if there was an intership during the semester."
-msgstr "Dieses Datum muss gesetzt werden, wenn ein Quereinstieg während des Semesters erfolgte."
+msgstr ""
+"Dieses Datum muss gesetzt werden, wenn ein Quereinstieg während des "
+"Semesters erfolgte."
 
 #. module: academy
 #: field:academy.journal.absence,time_to:0
@@ -1354,8 +1350,7 @@ msgid "Transport Expenses"
 msgstr "Fahrtkosten"
 
 #. module: academy
-#: field:academy.registration,uom_id:0
-#: field:academy.trainer.reg.wizard,unit:0
+#: field:academy.registration,uom_id:0 field:academy.trainer.reg.wizard,unit:0
 msgid "Unit"
 msgstr "Einheit"
 
@@ -1370,8 +1365,7 @@ msgid "Unit of Measure Categories"
 msgstr "Einheiten"
 
 #. module: academy
-#: field:academy.journal,duration:0
-#: field:academy.topic,duration:0
+#: field:academy.journal,duration:0 field:academy.topic,duration:0
 msgid "Unit(s)"
 msgstr "Einheit(en)"
 
@@ -1466,4 +1460,3 @@ msgstr "Beschreibung welche auf Angeboten gezeigt werden soll"
 #: view:academy.trainer.reg.wizard:academy.wizard_trainer_reg
 msgid "or"
 msgstr "oder"
-
