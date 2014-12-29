@@ -118,7 +118,7 @@
           <field name="model">academy.trainer</field>
           <field name="arch" type="xml">
             <tree string="Trainer">
-                <field name="display_name"/>
+                <field name="name"/>
                 <field name="phone"/>
                 <field name="email"/>
             </tree>

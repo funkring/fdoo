@@ -26,7 +26,7 @@ from dateutil.relativedelta import relativedelta
 from datetime import datetime
 from datetime import date
 
-class teacher_reg_wizard(models.TransientModel):
+class trainer_reg_wizard(models.TransientModel):
     
     @api.multi
     def onchange_unit(self,unit):
@@ -40,12 +40,14 @@ class teacher_reg_wizard(models.TransientModel):
             semester_id = reg_obj._get_semester_id(self._cr, self._uid, self._context)
             value["sem_start_id"] = semester_id
             value["sem_end_id"] = semester_id
+            value.update(self.onchange_sem(semester_id, semester_id)["value"])
         elif unit == "period":
             period_obj = self.pool["account.period"]
             month = util.dateToStr(datetime.today()-relativedelta(months=1))
             period_id = period_obj.search_id(self._cr, self._uid, [("date_start","<=",month),("date_stop",">=",month)])
             value["period_start_id"] = period_id
             value["period_end_id"] = period_id
+            value.update(self.onchange_period(period_id, period_id)["value"])
         return res
     
     @api.multi
@@ -58,6 +60,8 @@ class teacher_reg_wizard(models.TransientModel):
           "value" : value          
         }
         sem_obj = self.env["academy.semester"]
+        sem_start = None
+        sem_end = None
         
         if sem_start_id:
             sem_start = sem_obj.browse(sem_start_id)
@@ -65,6 +69,12 @@ class teacher_reg_wizard(models.TransientModel):
             
         if sem_end_id:
             sem_end = sem_obj.browse(sem_end_id)
+            
+            # check semester end
+            if sem_start and sem_end.date_end <= sem_start.date_start:
+                sem_end = sem_start
+                value["sem_end_id"] = sem_end.id
+            
             value["date_end"]=sem_end.date_end
             
         return res
@@ -79,6 +89,8 @@ class teacher_reg_wizard(models.TransientModel):
           "value" : value          
         }
         period_obj = self.env["account.period"]
+        period_start = None
+        period_end = None
         
         if period_start_id:
             period_start = period_obj.browse(period_start_id)
@@ -86,50 +98,60 @@ class teacher_reg_wizard(models.TransientModel):
             
         if period_end_id:
             period_end = period_obj.browse(period_end_id)
+            
+            # check if period end
+            if period_start and period_end.date_stop <= period_start.date_start:
+                period_end = period_start
+                value["period_end_id"] = period_end.id
+                
             value["date_end"]=period_end.date_stop
             
         return res
     
-    @api.one
-    def action_create(self):
-        report_ctx = dict(self._context)
-        report_ctx["date_start"]=self.date_start
-        report_ctx["date_end"]=self.date_end
+    @api.v7
+    def action_create(self, cr, uid, ids, context=None):
+        wizard = self.browse(cr, uid, ids[0], context)
         
-        if self.unit == "semester":
-            if self.sem_start_id.id == self.sem_end_id.id:
-                report_ctx["duration_title"]=self.sem_start_id.name_get()[0][1]
+        report_ctx = context and dict(context) or {}
+        report_ctx["date_start"]=wizard.date_start
+        report_ctx["date_end"]=wizard.date_end
+          
+        if wizard.unit == "semester":
+            if wizard.sem_start_id.id == wizard.sem_end_id.id:
+                report_ctx["duration_title"]=wizard.sem_start_id.name_get()[0][1]
             else:
-                report_ctx["duration_title"]="%s - %s" % (self.sem_start_id.name_get()[0][1],self.sem_end_id.name_get()[0][1])
-        elif self.unit == "period":
-            if self.period_start_id.id == self.period_end_id.id:
-                report_ctx["duration_title"]=self.period_start_id.name_get()[0][1]
+                report_ctx["duration_title"]="%s - %s" % (wizard.sem_start_id.name_get()[0][1],wizard.sem_end_id.name_get()[0][1])
+        elif wizard.unit == "period":
+            if wizard.period_start_id.id == wizard.period_end_id.id:
+                report_ctx["duration_title"]=wizard.period_start_id.name_get()[0][1]
             else:
-                report_ctx["duration_title"]="%s - %s" % (self.period_start_id.name_get()[0][1],self.period_end_id.name_get()[0][1])
+                report_ctx["duration_title"]="%s - %s" % (wizard.period_start_id.name_get()[0][1],wizard.period_end_id.name_get()[0][1])
         else:
-            f = format.LangFormat(self._cr, self._uid, self._context)
-            report_ctx["duration_title"]="%s - %s" % (f.formatLang(self.date_start,date=True),f.formatLang(self.date_end,date=True))
-        
+            f = format.LangFormat(cr, uid, context)
+            report_ctx["duration_title"]="%s - %s" % (f.formatLang(wizard.date_start,date=True),f.formatLang(wizard.date_end,date=True))
 
-        # prepare report
-        active_ids = util.active_ids(self._context,"academy.trainer")
+        
         datas = {
-            "ids": active_ids,
-            "model": "academy.trainer",
-            "form": self.read()[0]
+             "ids": util.active_ids(context,"academy.trainer"),
+             "model": "academy.trainer"
+        }        
+        return  {
+            "type": "ir.actions.report.xml",
+            "report_name": "trainer.reg",
+            "datas": datas,
+            "context" : report_ctx
         }
-        return self.pool["report"].get_action(self._cr, self._uid, active_ids, "academy.trainer.student", data=datas, context=report_ctx)        
     
-    _name = "academy.teacher.reg.wizard"
-    _description = "Teacher Registrations"
-    _rec_name = "date_start"
+    
+    _name = "academy.trainer.reg.wizard"
+    _description = "Trainer Registrations"
     
     unit = fields.Selection([("date","Date"),
                              ("semester","Semester"),
                              ("period","Invoice Period")], 
                              "Unit", 
                              required=True,
-                             default="date")
+                             default="period")
     
     sem_start_id = fields.Many2one("academy.semester","Start Semester")
     sem_end_id = fields.Many2one("academy.semester","End Semester")

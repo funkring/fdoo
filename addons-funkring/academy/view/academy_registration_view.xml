@@ -12,7 +12,7 @@
                 <button type="object" name="do_check" states="check" string="Checked" class="oe_highlight"/>
                 <button type="object" name="action_assign" states="registered" string="Assign" class="oe_highlight"/>
                 <button type="object" name="action_reassign" states="assigned" string="Reassign"/>
-                <button type="object" name="do_cancel" states="registered,assigned,check" string="Unregister"/>
+                <button type="object" name="do_cancel" states="registered,assigned,check" string="Cancel"/>
                 <button type="object" name="do_draft" states="cancel" string="To Draft"/>
                 <field name="state" widget="statusbar"
                        statusbar_visible="draft,check,registered,assigned,open"
@@ -62,6 +62,7 @@
                     </group>
                     <group string="Deregistration">
                         <field name="unreg_semester_id" on_change="onchange_unreg_semester(semester_id, unreg_semester_id)"/>
+                        <field name="abort_date"/>
                     </group>  
                     <notebook colspan="4">
                         <page string="Note">
@@ -106,7 +107,7 @@
       <field name="name">academy.tree_academy_registration</field>
       <field name="model">academy.registration</field>
       <field name="arch" type="xml">
-        <tree string="Registrations" fonts="bold:message_unread==True" colors="grey:state=='cancel';blue:state=='draft';red:state=='check'">
+        <tree string="Registrations" fonts="bold:message_unread==True" colors="grey:state=='cancel';blue:state=='draft';red:state=='check';black:state=='assigned'">
             <field name="message_unread" invisible="1"/>
             <field name="name"/>
             <field name="semester_id"/>

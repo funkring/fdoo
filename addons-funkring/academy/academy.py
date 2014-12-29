@@ -527,22 +527,21 @@ class academy_trainer(osv.Model):
                                "WHERE  ts.trainer_id = %s "                          
                                "  AND  sb.date_start <= %s"
                                "  AND  ( se.date_end IS NULL OR se.date_end >= %s )"
-                               "  AND  ( r.intership_date IS NULL OR r.intership_date >= %s )"
+                               "  AND  ( r.intership_date IS NULL OR r.intership_date <= %s )"
                                "  AND  ( r.abort_date IS NULL OR r.abort_date > %s )"
                                "  AND  ts.day = ( SELECT MAX(ts2.day) FROM academy_trainer_student ts2 "
                                                  " WHERE ts2.reg_id = ts.reg_id "
-                                                 "   AND ts2.trainer_id = ts.trainer_id "
                                                  "   AND ts2.day < %s "
                                                 ") "
                                " GROUP BY 1 " 
                                ,
                                 ( 
-                                 trainer.id, 
+                                 trainer.id, # trainer
                                  ws, # check semester start
                                  ws, # check semester end
                                  ws, # check intership start
                                  we, # check abort 
-                                 we  # check teacher assignment
+                                 we  # check trainer assignment
                                 )
                                )
                     

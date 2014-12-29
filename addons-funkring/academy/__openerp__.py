@@ -51,11 +51,11 @@ oerp.at Academy
               "wizard/invoice_assistant.xml",
               "wizard/semester_assistant.xml",
               "wizard/assign_registration_wizard.xml",
-              "wizard/teacher_reg_wizard.xml",
+              "wizard/trainer_reg_wizard.xml",
               "data/registration_sequence.xml",
               "data/registration_email_template.xml",
               "data/registration_cancel_email_template.xml",
-              "report/trainer_student_report.xml"
+              "report/trainer_reg_report.xml"
               ],
     "auto_install" : False,
     "installable": True,

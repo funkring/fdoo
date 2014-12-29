@@ -53,11 +53,11 @@ class Parser(extreport.basic_parser):
            "start_date_format" : _("%d.%m.%Y KW %W")
         })
         
-    def _minutes(self, s):
-        return int(s["hours"]*60.0)
+    def _minutes(self, reg_data):
+        return int(reg_data["hours"]*60.0)
     
-    def _start_date(self, s):
-        reg = s["reg"]
+    def _start_date(self, reg_data):
+        reg = reg_data["reg"]
         start_date = reg.intership_date
         if not start_date:
             start_date = reg.semester_id.date_start

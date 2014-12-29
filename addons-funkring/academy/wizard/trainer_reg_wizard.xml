@@ -2,9 +2,9 @@
 <openerp>
   <data>
   
-    <record id="wizard_teacher_reg" model="ir.ui.view">
-      <field name="name">academy.teacher_reg</field>
-      <field name="model">academy.teacher.reg.wizard</field>
+    <record id="wizard_trainer_reg" model="ir.ui.view">
+      <field name="name">academy.trainer_reg</field>
+      <field name="model">academy.trainer.reg.wizard</field>
       <field name="arch" type="xml">
         <form string="Trainer Registrations" version="7.0">          
           <group>            
@@ -33,16 +33,16 @@
       </field>
     </record>
     
-    <act_window id="action_teacher_reg"
+    <act_window id="action_trainer_reg"
       multi="True"
       key2="client_action_multi"
       name="Trainer Registrations"
-      res_model="academy.teacher.reg.wizard"
+      res_model="academy.trainer.reg.wizard"
       src_model="academy.trainer"
       view_mode="form"
       target="new"
       view_type="form"
-      view_id="wizard_teacher_reg"/>
+      view_id="wizard_trainer_reg"/>
       
   </data>  
 </openerp>
