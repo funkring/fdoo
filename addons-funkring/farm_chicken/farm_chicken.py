@@ -283,17 +283,7 @@ class chicken_log(models.Model):
                                        (2,"02"),
                                        (3,"03"),
                                        (4,"04"),
-                                       (5,"05"),
-                                       (6,"06"),
-                                       (7,"07"),
-                                       (8,"08"),
-                                       (9,"09"),
-                                       (10,"10"),
-                                       (11,"11"),
-                                       (12,"12"),
-                                       (13,"13"),
-                                       (14,"14"),
-                                       (15,"15"),
+                                       (5,"05")
                                       ]
                                       , string="Eggs Dote Color", help="Color aligned to the DSM Yolk Color Fan"
                                       , readonly=True, states={'draft': [('readonly', False)]}) 
