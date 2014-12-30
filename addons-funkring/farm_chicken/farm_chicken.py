@@ -227,28 +227,88 @@ class chicken_log(models.Model):
         return None
     
     @api.one
-    @api.depends("day","logbook_id","logbook_id.house_id","logbook_id.house_id.parent_id","logbook_id.house_id.child_ids")
-    def _compute_child_ids(self):
-        self.child_ids = self.search([("logbook_id.house_id","child_of",logbook_id.house_id.id),("day","=",self.day)])
-    
-    @api.one
-    @api.depends("day","logbook_id","logbook_id.house_id","logbook_id.house_id.parent_id")
+    @api.depends("day",
+                 "logbook_id",
+                 "logbook_id.house_id",
+                 "logbook_id.house_id.parent_id")
     def _compute_parent_id(self):
-        log = None
-        if self.logbook_id.house_id.parent_id:
-            log = self.search([("logbook_id.house_id","=",self.logbook_id.house_id.parent_id.id),("day","=",self.day)])
-            if not log:
-                log = self.create({
-                        "logbook_id" : self.logbook_id.id,
-                        "day" : self.day
-                      })
-        self.parent_id = log and log[0] or None
+        parent_log = None
+        parent_house = self.logbook_id.house_id.parent_id
+        
+        if parent_house:
+            parent_log = self.search([("day","=",self.day),
+                               ("logbook_id.state","=","active"),
+                               ("logbook_id.house_id","=",parent_house.id)])
+            # create parent if not exist
+            if not parent_log:
+                logbook_obj = self.env["farm.chicken.logbook"]
+                parent_logbook = logbook_obj._get_active(parent_house.id)
+                if parent_logbook:
+                    parent_log = self.create({
+                            "logbook_id" : parent_logbook.id,
+                            "day" : self.day
+                          })
+            # use existing
+            else:
+                parent_log = parent_log[0]
+        self.parent_id = parent_log
+        
+    @api.one
+    def _validate(self, values=None):
+        parent = self.parent_id
+        if parent:
+            # check for validate
+            if values:
+                validate_fields = []            
+                for field in self._forward_fields:
+                    if field in values:
+                        validate_fields.append(field)
+            else:
+                validate_fields = self._forward_fields
+
+            # validate fields                
+            if validate_fields:
+                childs = parent.child_ids
+                if childs:
+                    values = self.read(validate_fields)[0]
+                    for key in validate_fields:
+                        val = values[key]
+                        for child in childs:
+                            if child.id == self.id:
+                                continue
+                            val += child[key]
+                        values[key]=val
+                    parent.write(values)
+                    
+    def _create(self, cr, uid, vals, context=None):
+        res = super(chicken_log,self)._create(cr, uid, vals, context=context)
+        self.browse(cr, uid, res, context=context)._validate(vals)
+        return res
+                
+    def _write(self, cr, uid, ids, vals, context=None):
+        res = super(chicken_log,self)._write(cr, uid, ids, vals, context=context)        
+        self.browse(cr, uid, ids, context=context)._validate(vals)
+        return res
     
     _name = "farm.chicken.log"
     _description = "Log"
     _inherit = ["mail.thread"]
     _order = "day desc, logbook_id"
     _rec_name = "day"
+    
+    _forward_fields = [
+        "loss",
+         "feed",
+         "water",                 
+         "eggs_total",
+         "eggs_nest",
+         "eggs_top",
+         "eggs_buttom",
+         "eggs_dirty",
+         "eggs_broken",
+         "eggs_removed"      
+    ]
+    
     _sql_constraints = [
         ("date_uniq", "unique(logbook_id, day)",
             "Only one log entry per day allowed!")
@@ -338,5 +398,5 @@ class chicken_log(models.Model):
     inv_diff_eggs = fields.Integer("Eggs Difference", readonly=True, compute="_compute_delivery", store=True)
     inv_diff_presorted = fields.Integer("Eggs Difference (presorted)", readonly=True, compute="_compute_delivery", store=True)
     
-    child_ids = fields.One2many("farm.chicken.log", string="Child Logs", compute="_compute_child_ids", readonly=True)
-    parent_id = fields.Many2one("farm.chicken.log", string="Parent Log", compute="_compute_parent_id", readonly=True)
+    child_ids = fields.One2many("farm.chicken.log", "parent_id", string="Child Logs", readonly=True)
+    parent_id = fields.Many2one("farm.chicken.log", string="Parent Log", compute="_compute_parent_id", readonly=True, store=True)
