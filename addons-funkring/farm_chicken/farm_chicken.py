@@ -89,11 +89,11 @@ class chicken_logbook(models.Model):
             if not log:
                 values["day"]=day
                 values["logbook_id"]=logbook.id
-                log_obj.create(values)
+                log = log_obj.create(values)
             elif log.state == "draft":
                 if log.feed_manual:
                     values.pop("feed")
-                log_obj.write(values)
+                log.write(values)
         return True
     
     @api.one
@@ -226,6 +226,23 @@ class chicken_log(models.Model):
                 return logbook.id            
         return None
     
+    @api.one
+    @api.depends("day","logbook_id","logbook_id.house_id","logbook_id.house_id.parent_id","logbook_id.house_id.child_ids")
+    def _compute_child_ids(self):
+        self.child_ids = self.search([("logbook_id.house_id","child_of",logbook_id.house_id.id),("day","=",self.day)])
+    
+    @api.one
+    @api.depends("day","logbook_id","logbook_id.house_id","logbook_id.house_id.parent_id")
+    def _compute_parent_id(self):
+        log = None
+        if self.logbook_id.house_id.parent_id:
+            log = self.search([("logbook_id.house_id","=",self.logbook_id.house_id.parent_id.id),("day","=",self.day)])
+            if not log:
+                log = self.create({
+                        "logbook_id" : self.logbook_id.id,
+                        "day" : self.day
+                      })
+        self.parent_id = log and log[0] or None
     
     _name = "farm.chicken.log"
     _description = "Log"
@@ -320,3 +337,6 @@ class chicken_log(models.Model):
     
     inv_diff_eggs = fields.Integer("Eggs Difference", readonly=True, compute="_compute_delivery", store=True)
     inv_diff_presorted = fields.Integer("Eggs Difference (presorted)", readonly=True, compute="_compute_delivery", store=True)
+    
+    child_ids = fields.One2many("farm.chicken.log", string="Child Logs", compute="_compute_child_ids", readonly=True)
+    parent_id = fields.Many2one("farm.chicken.log", string="Parent Log", compute="_compute_parent_id", readonly=True)
