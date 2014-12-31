@@ -36,6 +36,7 @@ a chicken farming module for logging activities in chicken housings
               "sequence.xml",
               "view/chicken_log_view.xml",
               "view/chicken_logbook_view.xml",
+              "view/analyzer_index_template.xml",
               "wizard/validate_log_wizard.xml"],
     "auto_install" : False,
     "installable": True
