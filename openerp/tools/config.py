@@ -74,7 +74,12 @@ def _get_default_datadir():
 
 class configmanager(object):
     def __init__(self, fname=None):
+        """Constructor.
 
+        :param fname: a shortcut allowing to instantiate :class:`configmanager`
+                      from Python code without resorting to environment
+                      variable
+        """
         #funkring.net begin
         self.defaultLang = "de_DE"
         self.baseLang = "en_US"
@@ -410,8 +415,7 @@ class configmanager(object):
             rcfilepath = os.path.expanduser('~/.openerp_serverrc')
 
         self.rcfile = os.path.abspath(
-            self.config_file or opt.config \
-                or os.environ.get('OPENERP_SERVER') or rcfilepath)
+            self.config_file or opt.config or os.environ.get('OPENERP_SERVER') or rcfilepath)
         self.load()
 
         # Verify that we want to log or not, if not the output will go to stdout
@@ -483,9 +487,14 @@ class configmanager(object):
 
         self.options['root_path'] = os.path.abspath(os.path.expanduser(os.path.expandvars(os.path.dirname(openerp.__file__))))
         if not self.options['addons_path'] or self.options['addons_path']=='None':
+            default_addons = []
             base_addons = os.path.join(self.options['root_path'], 'addons')
+            if os.path.exists(base_addons):
+                default_addons.append(base_addons)
             main_addons = os.path.abspath(os.path.join(self.options['root_path'], '../addons'))
-            self.options['addons_path'] = '%s,%s' % (base_addons, main_addons)
+            if os.path.exists(main_addons):
+                default_addons.append(main_addons)
+            self.options['addons_path'] = ','.join(default_addons)
         else:
             self.options['addons_path'] = ",".join(
                     os.path.abspath(os.path.expanduser(os.path.expandvars(x)))
