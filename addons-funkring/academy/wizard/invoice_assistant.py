@@ -146,8 +146,8 @@ class academy_invoice_assistant(osv.osv_memory):
                 intership_dt = util.strToDate(reg.intership_date)
                 if intership_dt > sem_start_dt and intership_dt < sem_end_dt:
                     missed_duration = intership_dt - sem_start_dt
-                    missed_weeks = int(round(missed_duration.days/7.0))
-                    if missed_duration:
+                    missed_weeks = int(missed_duration.days/7.0)
+                    if missed_weeks:
                         discount = (100.0/sem_weeks) * missed_weeks
                         #discount_reason = _("Intership discount for %s missed weeks") % missed_weeks
                                       

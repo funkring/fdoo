@@ -57,8 +57,7 @@ class Parser(extreport.basic_parser):
         return int(reg_data["hours"]*60.0)
     
     def _start_date(self, reg_data):
-        reg = reg_data["reg"]
-        start_date = util.strToDate(reg.start_date)
+        start_date = util.strToDate(reg_data["start_date"])
         return datetime.strftime(start_date, self.localcontext["start_date_format"])
         
     def _students(self, trainer):

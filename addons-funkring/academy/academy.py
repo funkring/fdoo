@@ -530,7 +530,7 @@ class academy_trainer(osv.Model):
                 if semester_id:
                 
                     # query students
-                    cr.execute("SELECT ts.reg_id FROM academy_trainer_student ts "
+                    cr.execute("SELECT ts.reg_id, ts.day FROM academy_trainer_student ts "
                                "INNER JOIN academy_registration r ON r.id = ts.reg_id "
                                "       AND r.state = 'assigned' "
                                "LEFT  JOIN academy_semester sb ON sb.id = r.semester_id "
@@ -544,7 +544,7 @@ class academy_trainer(osv.Model):
                                                  " WHERE ts2.reg_id = ts.reg_id "
                                                  "   AND ts2.day < %s "
                                                 ") "
-                               " GROUP BY 1 " 
+                               " GROUP BY 1,2 " 
                                ,
                                 ( 
                                  trainer.id, # trainer
@@ -557,21 +557,21 @@ class academy_trainer(osv.Model):
                                )
                     
                     # process registers
-                    reg_ids = cr.fetchall()
-                    if reg_ids:
-                        reg_ids = [r[0] for r in reg_ids]
-                        for reg_id in reg_ids:
+                    rows = cr.fetchall()
+                    if rows:
+                        for reg_id, start_date in rows:
                             reg_data = regs.get(reg_id,None)
                             if reg_data is None:
                                 reg_data = {
                                     "reg" : reg_obj.browse(cr, uid, reg_id, context=context),
+                                    "start_date" : start_date,
                                     "hours" : 0.0
                                 }
                             
                             reg = reg_data["reg"]
                                 
                             # check if day is in the other month
-                            dt_reg_start = util.strToDate(reg.start_date)
+                            dt_reg_start = util.strToDate(start_date)
                             dt_course_date = dt_ws - relativedelta(days=dt_ws.weekday()) + relativedelta(days=dt_reg_start.weekday())
                             if dt_to < dt_course_date or dt_from > dt_course_date:
                                 continue 
