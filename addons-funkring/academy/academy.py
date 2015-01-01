@@ -525,60 +525,56 @@ class academy_trainer(osv.Model):
                 we = util.dateToStr(dt_we)
                 ws = util.dateToStr(dt_ws)
                                 
-                # only process if semester exist
-                semester_id = sem_obj.search_id(cr, uid, [("date_start","<=",we),("date_end",">=",ws)], context=context)
-                if semester_id:
+                # query students
+                cr.execute("SELECT ts.reg_id, ts.day FROM academy_trainer_student ts "
+                           "INNER JOIN academy_registration r ON r.id = ts.reg_id "
+                           "       AND r.state = 'assigned' "
+                           "LEFT  JOIN academy_semester sb ON sb.id = r.semester_id "
+                           "LEFT  JOIN academy_semester se ON se.id = r.unreg_semester_id "
+                           "WHERE  ts.trainer_id = %s "                          
+                           "  AND  sb.date_start <= %s"
+                           "  AND  ( se.date_end IS NULL OR se.date_end >= %s )"
+                           "  AND  ( r.intership_date IS NULL OR r.intership_date <= %s )"
+                           "  AND  ( r.abort_date IS NULL OR r.abort_date > %s )"
+                           "  AND  ts.day = ( SELECT MAX(ts2.day) FROM academy_trainer_student ts2 "
+                                             " WHERE ts2.reg_id = ts.reg_id "
+                                             "   AND ts2.day < %s "
+                                            ") "
+                           " GROUP BY 1,2 " 
+                           ,
+                            ( 
+                             trainer.id, # trainer
+                             ws, # check semester start
+                             ws, # check semester end
+                             ws, # check intership start
+                             we, # check abort 
+                             we  # check trainer assignment
+                            )
+                           )
                 
-                    # query students
-                    cr.execute("SELECT ts.reg_id, ts.day FROM academy_trainer_student ts "
-                               "INNER JOIN academy_registration r ON r.id = ts.reg_id "
-                               "       AND r.state = 'assigned' "
-                               "LEFT  JOIN academy_semester sb ON sb.id = r.semester_id "
-                               "LEFT  JOIN academy_semester se ON se.id = r.unreg_semester_id "
-                               "WHERE  ts.trainer_id = %s "                          
-                               "  AND  sb.date_start <= %s"
-                               "  AND  ( se.date_end IS NULL OR se.date_end >= %s )"
-                               "  AND  ( r.intership_date IS NULL OR r.intership_date <= %s )"
-                               "  AND  ( r.abort_date IS NULL OR r.abort_date > %s )"
-                               "  AND  ts.day = ( SELECT MAX(ts2.day) FROM academy_trainer_student ts2 "
-                                                 " WHERE ts2.reg_id = ts.reg_id "
-                                                 "   AND ts2.day < %s "
-                                                ") "
-                               " GROUP BY 1,2 " 
-                               ,
-                                ( 
-                                 trainer.id, # trainer
-                                 ws, # check semester start
-                                 ws, # check semester end
-                                 ws, # check intership start
-                                 we, # check abort 
-                                 we  # check trainer assignment
-                                )
-                               )
-                    
-                    # process registers
-                    rows = cr.fetchall()
-                    if rows:
-                        for reg_id, start_date in rows:
-                            reg_data = regs.get(reg_id,None)
-                            if reg_data is None:
-                                reg_data = {
-                                    "reg" : reg_obj.browse(cr, uid, reg_id, context=context),
-                                    "start_date" : start_date,
-                                    "hours" : 0.0
-                                }
+                # process registers
+                rows = cr.fetchall()
+                if rows:
+                    for reg_id, start_date in rows:
+                        reg_data = regs.get(reg_id,None)
+                        if reg_data is None:
+                            reg_data = {
+                                "reg" : reg_obj.browse(cr, uid, reg_id, context=context),
+                                "start_date" : start_date,
+                                "hours" : 0.0
+                            }
+                        
+                        reg = reg_data["reg"]
                             
-                            reg = reg_data["reg"]
-                                
-                            # check if day is in the other month
-                            dt_reg_start = util.strToDate(start_date)
-                            dt_course_date = dt_ws - relativedelta(days=dt_ws.weekday()) + relativedelta(days=dt_reg_start.weekday())
-                            if dt_to < dt_course_date or dt_from > dt_course_date:
-                                continue 
-                            
-                            # increment hours
-                            reg_data["hours"]=reg_data["hours"]+(int(round(reg.hours*60.0))/60.0)
-                            regs[reg_id]=reg_data
+                        # check if day is in the other month
+                        dt_reg_start = util.strToDate(start_date)
+                        dt_course_date = dt_ws - relativedelta(days=dt_ws.weekday()) + relativedelta(days=dt_reg_start.weekday())
+                        if dt_to < dt_course_date or dt_from > dt_course_date:
+                            continue 
+                        
+                        # increment hours
+                        reg_data["hours"]=reg_data["hours"]+(int(round(reg.hours*60.0))/60.0)
+                        regs[reg_id]=reg_data
                     
                 
                 # increment
