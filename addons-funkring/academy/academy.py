@@ -577,7 +577,7 @@ class academy_trainer(osv.Model):
                                 continue 
                             
                             # increment hours
-                            reg_data["hours"]=reg_data["hours"]+reg.hours
+                            reg_data["hours"]=reg_data["hours"]+(int(round(reg.hours*60.0))/60.0)
                             regs[reg_id]=reg_data
                     
                 
