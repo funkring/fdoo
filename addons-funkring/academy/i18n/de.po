@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-29 23:38+0000\n"
-"PO-Revision-Date: 2014-12-30 00:45+0100\n"
+"POT-Creation-Date: 2015-01-01 13:22+0000\n"
+"PO-Revision-Date: 2015-01-01 14:25+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -311,7 +311,7 @@ msgid "Begin"
 msgstr "Beginn"
 
 #. module: academy
-#: code:addons/academy/academy.py:390
+#: code:addons/academy/academy.py:399
 #, python-format
 msgid ""
 "Can not delete registrations, which are not in state 'Draft' or 'Cancelled'"
@@ -326,7 +326,7 @@ msgstr ""
 #: selection:academy.registration,state:0
 #: view:academy.semester.assistant:academy.wizard_semester_assistant
 msgid "Cancel"
-msgstr "Abbrechen"
+msgstr "Abgebrochen"
 
 #. module: academy
 #: view:academy.registration:academy.search_academy_registration
@@ -602,14 +602,14 @@ msgid "End Semester"
 msgstr ""
 
 #. module: academy
-#: code:addons/academy/academy.py:739
+#: code:addons/academy/academy.py:759
 #: code:addons/academy/wizard/semester_assistant.py:30
 #, python-format
 msgid "Error"
 msgstr "Fehler"
 
 #. module: academy
-#: code:addons/academy/academy.py:390
+#: code:addons/academy/academy.py:399
 #, python-format
 msgid "Error!"
 msgstr "Fehler!"
@@ -700,11 +700,6 @@ msgstr "Unvollständige Anmeldungen"
 #: view:academy.course.product:academy.form_academy_course_product
 msgid "Information"
 msgstr ""
-
-#. module: academy
-#: field:academy.registration,intership_date:0
-msgid "Intership Date"
-msgstr "Quereinstiegsdatum"
 
 #. module: academy
 #: view:academy.invoice.assistant:academy.wizard_academy_invoice_assistant
@@ -955,7 +950,7 @@ msgid "Payment Method"
 msgstr "Zahlungsmethode"
 
 #. module: academy
-#: code:addons/academy/academy.py:739
+#: code:addons/academy/academy.py:759
 #, python-format
 msgid "Payment which is posted could not deleted"
 msgstr "Zahlung die gebucht wurde kann nicht gelöscht werden"
@@ -1194,6 +1189,12 @@ msgid "Start"
 msgstr ""
 
 #. module: academy
+#: field:academy.registration,intership_date:0
+#: field:academy.registration,start_date:0
+msgid "Start Date"
+msgstr "Beginndatum"
+
+#. module: academy
 #: field:academy.trainer.reg.wizard,period_start_id:0
 msgid "Start Period"
 msgstr "Start Periode"
@@ -1263,6 +1264,15 @@ msgid "Teacher Registrations"
 msgstr "Anmeldungen"
 
 #. module: academy
+#: help:academy.registration,intership_date:0
+msgid ""
+"The Date when the Course starts. If no date was entered the Semester start "
+"date are used"
+msgstr ""
+"Das Beginndatum des Kurses. Wird kein Datum eingegeben, wird das Beginndatum "
+"des Semesters verwendet"
+
+#. module: academy
 #: help:academy.journal,end:0 help:academy.journal.absence,time_to:0
 msgid "The time must be between 00:00 and 24:00 o'clock"
 msgstr "Die Zeit muss zwischen 00:00 und 24:00 Uhr sein."
@@ -1282,13 +1292,6 @@ msgid "This Date must be set, if the semester was not finished"
 msgstr ""
 "Dieses Datum muss gesetzt werden, wenn das Semester vorzeitig abgebrochen "
 "wird"
-
-#. module: academy
-#: help:academy.registration,intership_date:0
-msgid "This Date must be set, if there was an intership during the semester."
-msgstr ""
-"Dieses Datum muss gesetzt werden, wenn ein Quereinstieg während des "
-"Semesters erfolgte."
 
 #. module: academy
 #: field:academy.journal.absence,time_to:0

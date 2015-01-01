@@ -58,10 +58,7 @@ class Parser(extreport.basic_parser):
     
     def _start_date(self, reg_data):
         reg = reg_data["reg"]
-        start_date = reg.intership_date
-        if not start_date:
-            start_date = reg.semester_id.date_start
-        start_date = util.strToDate(start_date)
+        start_date = util.strToDate(reg.start_date)
         return datetime.strftime(start_date, self.localcontext["start_date_format"])
         
     def _students(self, trainer):

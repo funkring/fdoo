@@ -383,6 +383,15 @@ class academy_registration(osv.Model):
             else:
                 res[obj.id] = obj.student_id.partner_id.id
         return res
+    
+    def _compute_start_date(self, cr, uid, ids, field_name, args, context=None):
+        res = dict.fromkeys(ids,None)
+        for reg in self.browse(cr, uid, ids, context):
+            start_date = reg.intership_date
+            if not start_date:
+                start_date = reg.semester_id.date_start
+            res[reg.id] = start_date
+        return res
 
     def unlink(self, cr, uid, ids, context=None):
         for reg in self.browse(cr, uid, ids, context):
@@ -404,7 +413,7 @@ class academy_registration(osv.Model):
         
         "abort_date" : fields.date("Abort Date", help="This Date must be set, if the semester was not finished"),
         
-        "intership_date" : fields.date("Intership Date", help="This Date must be set, if there was an intership during the semester."),
+        "intership_date" : fields.date("Start Date", help="The Date when the Course starts. If no date was entered the Semester start date are used"),
         "student_id" : fields.many2one("academy.student", "Student", select=True, required=True, ondelete="restrict"),
         "student_parent_id" : fields.related("student_id", "parent_id", type="many2one", relation="res.partner", string="Parent", readonly=True, store={
             "res.partner" :  (_relids_partner,["parent_id"], 10),                                                                                                
@@ -459,7 +468,9 @@ class academy_registration(osv.Model):
                                             "academy.registration": (lambda self, cr, uid, ids, context=None: ids, ["invoice_ids"], 10),
                                             "account.invoice": (_relids_invoice, ["state","residual"], 10),                                                                 
                               }),
-        "read_school_rules" : fields.boolean("Read and accepted school rules")
+        "read_school_rules" : fields.boolean("Read and accepted school rules"),
+        
+        "start_date" : fields.function(_compute_start_date, type="date", readonly=True, string="Start Date")
 
     }
     _sql_constraints = [
@@ -556,9 +567,18 @@ class academy_trainer(osv.Model):
                                     "reg" : reg_obj.browse(cr, uid, reg_id, context=context),
                                     "hours" : 0.0
                                 }
-                                regs[reg_id]=reg_data
+                            
+                            reg = reg_data["reg"]
                                 
-                            reg_data["hours"]=reg_data["hours"]+reg_data["reg"].hours
+                            # check if day is in the other month
+                            dt_reg_start = util.strToDate(reg.start_date)
+                            dt_course_date = dt_ws - relativedelta(days=dt_ws.weekday()) + relativedelta(days=dt_reg_start.weekday())
+                            if dt_to < dt_course_date or dt_from > dt_course_date:
+                                continue 
+                            
+                            # increment hours
+                            reg_data["hours"]=reg_data["hours"]+reg.hours
+                            regs[reg_id]=reg_data
                     
                 
                 # increment
