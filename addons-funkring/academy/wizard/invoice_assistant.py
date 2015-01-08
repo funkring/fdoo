@@ -181,7 +181,7 @@ class academy_invoice_assistant(osv.osv_memory):
                     parent = student.partner_id.parent_id
                         
                     fee_query = (" SELECT COUNT(l.id) FROM account_invoice_line l "
-                                " INNER JOIN account_invoice inv ON inv.id = l.invoice_id "
+                                " INNER JOIN account_invoice inv ON inv.id = l.invoice_id AND inv.state != 'cancel' "
                                 " INNER JOIN academy_registration_invoice rinv ON rinv.invoice_id = inv.id AND rinv.semester_id = %s "
                                 " INNER JOIN academy_registration r ON r.id = rinv.registration_id "
                                 " INNER JOIN academy_student s ON s.id = r.student_id "

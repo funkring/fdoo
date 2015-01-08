@@ -9,43 +9,33 @@ var filterList = Ext.create('Ext.List', {
    itemTpl: '{name}'
 });
 
+var productionList = Ext.create('Ext.List', {   
+   store: {
+     fields: ['name'],
+     data: [{"name":"Test1"}]
+   },
+   itemTpl: '{name}'
+});
+
+
 var selPanel = Ext.create('widget.formpanel',{
-   
-   prodSel1 : {
-       oid: 0,
-       title: "Produktion 1",
-       item: "<Keine>"        
-   },
-   
-   prodSel2 : {
-       oid: 0,
-       title: "Produktion 2",
-       item: "<Keine>"
-   },
    
    items: [{
        xtype: 'fieldset',
-       title: 'Produktion',
-       items: [        
-         {
-             xtype: 'button',
-             text: 'Produktion 1: <Keine>',
-             handler: function() {
-                 
-             }
-         },
+       title: 'Produktion',       
+       items: [
          {
              xtype: 'hiddenfield',
-             name: 'production2',
+             name: 'production1',
              value: 0             
          },
          {
              xtype: 'button',
-             text: 'Produktion 1: <Keine>',
+             text: 'Produktion 1: Keine',
              handler: function() {
                  
              }
-         },
+         }        
        ]       
    }] 
     
