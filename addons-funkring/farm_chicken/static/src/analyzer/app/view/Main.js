@@ -1,3 +1,5 @@
+/*global Ext:false,alert:false*/
+
 var filterList = Ext.create('Ext.List', {
    flex : 1,
    store: {
@@ -7,57 +9,69 @@ var filterList = Ext.create('Ext.List', {
    itemTpl: '{name}'
 });
 
-var optionPanel = Ext.create('Ext.Panel', {
-   flex : 1,
-   layout : {
-       type : 'vbox'
+var selPanel = Ext.create('widget.formpanel',{
+   
+   prodSel1 : {
+       oid: 0,
+       title: "Produktion 1",
+       item: "<Keine>"        
    },
-   items : [
-        {
-            xtype : 'toolbar',
-            docked : 'top',
-            items : [
-                {
-                    xtype : 'button',
-                    text
-                    
-                }
-            ]   
-        }
-   ]
+   
+   prodSel2 : {
+       oid: 0,
+       title: "Produktion 2",
+       item: "<Keine>"
+   },
+   
+   items: [{
+       xtype: 'fieldset',
+       title: 'Produktion',
+       items: [        
+         {
+             xtype: 'button',
+             text: 'Produktion 1: <Keine>',
+             handler: function() {
+                 
+             }
+         },
+         {
+             xtype: 'hiddenfield',
+             name: 'production2',
+             value: 0             
+         },
+         {
+             xtype: 'button',
+             text: 'Produktion 1: <Keine>',
+             handler: function() {
+                 
+             }
+         },
+       ]       
+   }] 
+    
 });
 
-var navPanel = Ext.create('Ext.Panel', {    
+var navPanel = Ext.create('widget.navigationview',{
     flex : 1,
-    layout: {
-        type : 'vbox'
-    },
+    items: [
+        selPanel
+    ]    
+});
+
+var graphMenu = Ext.create("widget.toolbar",{
+    docked: 'top',
     items : [
-        {
-            xtype: 'toolbar',
-            docked: 'top',
-            items : [
-                {
-                    xtype: 'button',
-                    text: 'Hinzufügen',
-                    handler: function() {
-                        /*
-                        view.push({
-                                         
-                             xtype: 'panel',
-                             flex: 1,
-                             items : [
-                                xtype: 'toolbar',
-                                docked: 'top'
-                             ]                                          
-                        });*/
-                    }
-                }
-            ]
-            
-        },       
-        filterList
-    ]
+    ]    
+});
+
+var graphPanel = Ext.create('widget.panel', {
+   flex : 2,
+   layout: {
+      type: 'vbox'
+   }, 
+   items : [
+        graphMenu
+   ] 
 });
 
 Ext.define('ChickenFarmAnalyzer.view.Main', {
@@ -72,11 +86,7 @@ Ext.define('ChickenFarmAnalyzer.view.Main', {
         },        
         items: [            
             navPanel,
-            {
-                xtype: 'panel',
-                html: 'Chart',
-                flex: 2
-            }         
+            graphPanel  
         ]
     }
 });

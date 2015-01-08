@@ -68,7 +68,7 @@ class academy_invoice_assistant(osv.osv_memory):
         invoices = {}        
         for reg in reg_obj.browse(cr, uid, reg_ids, context=context):
             # check if invoice for registration exist
-            reg_inv_id = reg_inv_obj.search_id(cr, uid, [("registration_id","=",reg.id),("semester_id","=",semester.id)], context=context)
+            reg_inv_id = reg_inv_obj.search_id(cr, uid, [("registration_id","=",reg.id),("semester_id","=",semester.id),("invoice_id.state","!=","cancel")], context=context)
             if reg_inv_id:
                 continue
         
