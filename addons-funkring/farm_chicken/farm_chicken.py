@@ -124,46 +124,90 @@ class chicken_logbook(models.Model):
 class chicken_log(models.Model):
 
     @api.one
-    def _validate(self):
-        if not self.inv_exists:
-            parent_log = self._parent_log()
-            if parent_log:
-               pass                                          
-                
-    @api.one
     def _parent_log(self):
         parent_house = self.logbook_id.house_id.parent_id
         if parent_house:
             parent_logs = self.search([("logbook_id.house_id","=",parent_house.id),("day","=",self.day)])
             return parent_logs and parent_logs[0] or None
             
-    @api.one
-    def validate_dependend(self):        
-        house = self.logbook_id.house_id
-        
-        parent_house = house.parent_id
-        root_house = house
-        while parent_house:
-            root_house = parent_house
-            parent_house = house.parent_id 
-            
-        dependend = self.search([("id","child_of",root_house.id),("day","=",self.day)])
-        for log in dependend:
-            log._validate()        
     
     @api.multi
     def action_draft(self):
         return self.write({"state":"draft"})
-    
+        
+    @api.one
+    def _validate_inv(self):
+        # get childs
+        parent = self.parent_id
+        if not parent:
+            parent = self
+        logs = [parent]
+        logs.extend(parent.child_ids)
+        
+        # get invoice logs
+        inv_logs = []
+        non_inv_logs = []
+        inv_parent = False
+        delivered = False
+        for log in logs:
+            if log.delivered:
+                delivered = True
+            if log.inv_exists:
+                inv_logs.append(log)
+                if log.id == parent.id:
+                    inv_parent = True
+            else:
+                non_inv_logs.append(log)
+        
+        # check if invoice exist
+        if inv_logs:
+            for inv_log in inv_logs:
+                inv_log.inv_hierarchy = True
+                
+            # check if parent has no invoice
+            if not inv_parent:
+                # sumup invoice fields
+                inv_fields = {}
+                for inv_field in self._inv_fields:
+                    val = inv_logs[0][inv_field]
+                    for inv_log in inv_logs[1:]:
+                        val+=inv_log[inv_field]                    
+                    inv_fields[inv_field] = val
+                
+                # set it to parent
+                for inv_field,val in inv_fields.iteritems():
+                    parent[inv_field] = val
+                    
+                if delivered:
+                    parent.delivered=delivered 
+                    
+#             else:
+#                 if non_inv_logs:
+#                     # calc rest
+#                     inv_fields = {}
+#                     inv_logs.remove(parent)
+#                     for inv_field in self._inv_fields:
+#                         val = parent[inv_field]
+#                         for inv_log in inv_logs:
+#                             val-=inv_log[inv_field]                    
+#                         inv_fields[inv_field] = val
+#                     
+#                     for inv_field in self._inv_fields:
+#                         for log in non_inv_logs:
+                    
+        else:
+            for log in logs:
+                log.inv_hierarchy = False
+        
+        return True
+            
     @api.multi
     def action_validate(self):
-        #for log in self:
-        #    log.validate()
+        for log in self:
+            log._validate_inv()
+            logs_after = log.search([("logbook_id","=",self.logbook_id.id),("day",">",self.day)])
+            logs_after._validate_inv()
         return self.write({"state":"valid"})
-    
-    @api.multi
-    def action_invalid(self):
-        return self.write({"state":"invalid"})
     
     @api.one
     @api.depends("loss")
@@ -308,6 +352,17 @@ class chicken_log(models.Model):
          "eggs_broken",
          "eggs_removed"      
     ]
+    _inv_fields = [
+         "delivered_eggs_mixed",
+         "delivered_eggs_industry",
+         "inv_eggs_xl",
+         "inv_eggs_m",
+         "inv_eggs_l",
+         "inv_eggs_s",
+         "inv_eggs_s45g",
+         "inv_eggs_industry",
+         "inv_eggs_presorted"     
+    ]
     
     _sql_constraints = [
         ("date_uniq", "unique(logbook_id, day)",
@@ -386,6 +441,7 @@ class chicken_log(models.Model):
     delivered_eggs = fields.Integer("Delivered Eggs Total", readonly=True, compute="_compute_delivery", store=True)
     
     inv_exists = fields.Boolean("Invoice Exists", help="Standalone invoice for the delivery exists", states={'draft': [('readonly', False)]})
+    inv_hierarchy = fields.Boolean("Invoice in Hierarchy Exists")
     inv_eggs_xl = fields.Integer("Invoiced Eggs XL", readonly=True, states={'draft': [('readonly', False)]})
     inv_eggs_l = fields.Integer("Invoiced Eggs L", readonly=True, states={'draft': [('readonly', False)]})
     inv_eggs_m = fields.Integer("Invoiced Eggs M", readonly=True, states={'draft': [('readonly', False)]})

@@ -35,6 +35,9 @@
     },
     "build.properties.merge": {
       "ec0f832e80d63d776086203cffe9fed5c73b4294": "eJytUstOw0AMvPcrRuoNQT8AiQPixIGHoD/gZp3E6saOdjeJ+vc4fagSQZy6N3vs8YzXazzd8q3W2LaSUUtk9MlGCZxBChs5JQ/Qm2hBbQmBaxpiwUhJaBe9zjOiHCCK0nJmZ4s2cXImsSTlcOTNj6u1I8ADig1Vu/E5PacinM/pu82ZOy+xP5FZtl01Es7gATvKLsgUu0Fi2LCOkkw7dg+iuTAFUAi4krkmZzNlWH1ygVaa9h8T3huGqojpUm3hXESbJaBUZORlvqdqTw3/dvf69vnxtX1+33rJN2vVEl66gEliRMepYRxsSPC8Nu5hktJCSoZNijAkl4ChbxL5b25Oy6LRxH1b8VUIXVgq0zpK5Z0nvKP93BvJwXvkibmf48uc467K5WBm5tte4w874erN"
+    },
+    "{modelFileName}.js.tpl.merge": {
+      "b440abe61f1cfb3bbc31c9554696b4c7e9e2c329": "eJxtUsFugzAMvfMVVqUqtEXQXaF0h2nX/QDikIJpo6UBkdAxRfn3ObCiVasPsbH9Hi923kcT19gIhSGz17ZG+cGvqDteoYutotixCGwAZDgaVHUKzJ64xjfJtabiVJqOqlWNOKe/3d4agbLWKRR2veS83bgcUMdzGXIIm0FVRrSKoim3+UOykLU9hDfeQ4+GMEUZQcd74/EzKNadFCZkEdtEICi9z8gd5q5YojqbSwa7nXjGPsvqoSHcBChEeSdM2SZ7CiAlcTfoS2jBjyqFptiTLPPdTfFLCe4J0gX/UkQ09Mq77LHoNuHDsP7Qrd3BdNKPJV/NxdXxAXsXxZY9zsKY9d4xcLYYhapxhDyHsWoHZeAVGAPqiVjpDgn94BjYNSRbOEmuPkHSSwHTktJ6qBCu2J9xWrwUFa3iKxk09oC1oI9tQhoXRWUw391P5AeOxqsQ"
     }
   },
   "targets": {
@@ -276,6 +279,18 @@
         "senchadir": ".sencha",
         "uniqueId": "f18982f7-f448-4ad6-a885-7c5ccac87c77",
         "viewNamespace": "ChickenFarmAnalyzer.view"
+      }
+    },
+    "app/model/farm/chicken/logbook.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "b440abe61f1cfb3bbc31c9554696b4c7e9e2c329",
+      "parameters": {
+        "appName": "ChickenFarmAnalyzer",
+        "baseClass": "Ext.data.Model",
+        "fields": "name:auto:null",
+        "modelFileName": "farm/chicken/logbook",
+        "modelNamespace": "ChickenFarmAnalyzer.model",
+        "name": "farm.chicken.logbook"
       }
     }
   }

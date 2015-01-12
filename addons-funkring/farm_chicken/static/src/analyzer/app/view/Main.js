@@ -1,58 +1,34 @@
 /*global Ext:false,alert:false*/
 
-var filterList = Ext.create('Ext.List', {
-   flex : 1,
-   store: {
-     fields: ['name'],
-     data: [{"name":"Test1"}]
-   },
-   itemTpl: '{name}'
-});
-
-var productionList = Ext.create('Ext.List', {   
-   store: {
-     fields: ['name'],
-     data: [{"name":"Test1"}]
-   },
-   itemTpl: '{name}'
-});
-
-
-var selPanel = Ext.create('widget.formpanel',{
-   
+var formPanel = Ext.create('widget.formpanel',{
    items: [{
        xtype: 'fieldset',
        title: 'Produktion',       
        items: [
-         {
-             xtype: 'hiddenfield',
-             name: 'production1',
-             value: 0             
-         },
-         {
-             xtype: 'button',
-             text: 'Produktion 1: Keine',
-             handler: function() {
-                 
-             }
-         }        
-       ]       
-   }] 
-    
+       {             
+             xtype: 'selectfield',
+             label: 'Produktion 1',
+             valueField: 'name',
+             displayField: 'name',
+             store: {
+                 fields: ['name'],
+                 data: [
+                    { name: 'Item 1'},
+                    { name: 'Item 2'},
+                    { name: 'Item 3'}
+                 ]
+            }
+       }]
+   }]    
 });
 
 var navPanel = Ext.create('widget.navigationview',{
     flex : 1,
     items: [
-        selPanel
+        formPanel
     ]    
 });
 
-var graphMenu = Ext.create("widget.toolbar",{
-    docked: 'top',
-    items : [
-    ]    
-});
 
 var graphPanel = Ext.create('widget.panel', {
    flex : 2,
@@ -60,14 +36,20 @@ var graphPanel = Ext.create('widget.panel', {
       type: 'vbox'
    }, 
    items : [
-        graphMenu
+        {
+            xtype: 'toolbar',
+            docked: 'top',
+            items: [
+            
+            ]        
+        }
    ] 
 });
 
 Ext.define('ChickenFarmAnalyzer.view.Main', {
     extend: 'Ext.Container',
     xtype: 'main',
-    requires: [
+    requires: [     
     ],
     config: {
         fullscreen: true,

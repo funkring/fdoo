@@ -7,7 +7,7 @@
     /**
      * The file path to this application's front HTML document, relative to this app.json file
      */
-    "indexHtmlPath": "index.html",
+    "indexHtmlPath": "index.html.tmpl",
 
     /**
      * The absolute URL to this application in development environment, i.e: the URL to run this application
