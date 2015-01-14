@@ -147,7 +147,7 @@
           <field name="note"/>
           <field name="last_invoice_id"/>
           <separator/>
-          <filter string="Complete Registrations" name="registered" domain="[('state','=','registered')]"/>
+          <filter string="Complete Registrations" name="registered" domain="[('state','in',['registered','assigned'])]"/>
           <filter string="Incomplete Registrations" name="draft" domain="[('state','=','draft')]"/>
           <filter string="Registrations to check" name="check" domain="[('state','=','check')]"/>          
           <filter string="Canceled Registrations" name="cancel" domain="[('state','=','cancel')]"/>
