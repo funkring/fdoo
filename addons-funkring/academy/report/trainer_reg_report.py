@@ -69,11 +69,14 @@ class Parser(extreport.basic_parser):
              
         trainer_regs = sorted(trainer_regs, key=lambda trainer_reg: trainer_reg["reg"].student_id.name)
         minutes = 0.0
+        hours = 0.0
         for reg_data in trainer_regs:
             minutes += self._minutes(reg_data)
+            hours += reg_data["hours"]
         
         return [{
             "regs" : trainer_regs,
-            "minutes" : int(minutes) 
+            "minutes" : int(minutes),
+            "hours" : hours
         }]
         
