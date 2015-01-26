@@ -3816,7 +3816,9 @@ class BaseModel(object):
         upd_todo = []
         updend = []
         direct = []
-        totranslate = context.get('lang', False) and (context['lang'] != tools.config.defaultLang)
+        # funkring.net begin // if not base Lang translate
+        totranslate = context.get('lang', False) and (context['lang'] != tools.config.baseLang)
+        # funkring.net end
         for field in vals:
             ffield = self._fields.get(field)
             if ffield and ffield.deprecated:
