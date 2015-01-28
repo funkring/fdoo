@@ -174,7 +174,21 @@ class academy_invoice_assistant(osv.osv_memory):
                             break
                     if not has_category:
                         continue
-                                                            
+                                           
+                # check fee already paid this year
+                if fee.per_year:
+                    cr.execute(" SELECT COUNT(l.id) FROM account_invoice_line l "
+                               " INNER JOIN account_invoice inv ON inv.id = l.invoice_id AND inv.state != 'cancel' "
+                               " INNER JOIN academy_registration_invoice rinv ON rinv.invoice_id = inv.id "
+                               " INNER JOIN academy_semester sem ON sem.id = rinv.semester_id AND sem.year_id = %s "
+                               " INNER JOIN academy_registration r ON r.id = rinv.registration_id AND r.student_id = %s "
+                               " WHERE l.product_id = %s ",(semester.year_id.id, student.id, fee.product_id.id))
+                    
+                    rows = cr.fetchone()
+                    # check if alfready invoiced this year
+                    if rows and rows[0]:
+                        continue       
+                                     
                 # check for discount
                 discount = 0.0
                 if fee.sibling_discount:

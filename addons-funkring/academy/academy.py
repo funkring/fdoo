@@ -726,6 +726,7 @@ class academy_fee(osv.Model):
     _columns = {
         "location_category_ids" : fields.many2many("res.partner.category", "academy_fee_id", "category_id", string="Locations"),
         "apply_uom_id" : fields.boolean("Apply on all with same unit"),
+        "per_year" : fields.boolean("Once per Year"),
         "product_id" : fields.many2one("product.product", "Product", select=True, ondelete="restrict", required=True),
         "sibling_discount" : fields.float("Sibling Discount"),    
         "sequence" : fields.integer("Sequence")

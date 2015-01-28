@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-01 13:22+0000\n"
-"PO-Revision-Date: 2015-01-01 14:25+0100\n"
+"POT-Creation-Date: 2015-01-28 22:02+0000\n"
+"PO-Revision-Date: 2015-01-28 23:03+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -24,22 +24,8 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"\n"
-"<h3><span class=\"oe_form_text_content\">Vielen herzlichen Dank für Ihre "
-"erfolgreich durchgeführte Anmeldung!</span></h3>\n"
-"\n"
-"\n"
-"<h3><span class=\"oe_form_text_content\">Unsere Lehrkraft wird sich ab "
-"Beginn der zweiten Schulwoche telefonisch bei Ihnen melden, um den genauen "
-"Unterrichtszeitpunkt mit Ihnen individuell zu vereinbaren. </span></h3>\n"
-"\n"
-"\n"
-"<h3><span class=\"oe_form_text_content\">Bis dahin bitten wir Sie um Geduld "
-"und wünschen einen sehr erfolgreichen Schulstart.<br></span></h3>\n"
-"\n"
-"\n"
-"<h3><span class=\"oe_form_text_content\">Mit musikalischen Grüßen - Ihre "
-"Musikschule Polyhymnia.</span></h3>\n"
+"<h3>Danke für die Registrierung!</h3>\n"
+"            "
 
 #. module: academy
 #: model:email.template,body_html:academy.email_template_registration_cancel
@@ -599,10 +585,10 @@ msgstr "End Periode"
 #. module: academy
 #: field:academy.trainer.reg.wizard,sem_end_id:0
 msgid "End Semester"
-msgstr ""
+msgstr "Semester Ende"
 
 #. module: academy
-#: code:addons/academy/academy.py:759
+#: code:addons/academy/academy.py:754
 #: code:addons/academy/wizard/semester_assistant.py:30
 #, python-format
 msgid "Error"
@@ -906,6 +892,11 @@ msgid "Number"
 msgstr "Nummer"
 
 #. module: academy
+#: field:academy.fee,per_year:0
+msgid "Once per Year"
+msgstr "Einmal pro Jahr"
+
+#. module: academy
 #: code:addons/academy/wizard/semester_assistant.py:30
 #, python-format
 msgid "Only academy manager could change semester!"
@@ -950,7 +941,7 @@ msgid "Payment Method"
 msgstr "Zahlungsmethode"
 
 #. module: academy
-#: code:addons/academy/academy.py:759
+#: code:addons/academy/academy.py:754
 #, python-format
 msgid "Payment which is posted could not deleted"
 msgstr "Zahlung die gebucht wurde kann nicht gelöscht werden"
@@ -1202,7 +1193,7 @@ msgstr "Start Periode"
 #. module: academy
 #: field:academy.trainer.reg.wizard,sem_start_id:0
 msgid "Start Semester"
-msgstr ""
+msgstr "Semester Beginn"
 
 #. module: academy
 #: view:academy.location:academy.form_academy_location
@@ -1257,11 +1248,6 @@ msgstr "Stichwort"
 #: view:academy.trainer:academy.form_academy_trainer
 msgid "Tags..."
 msgstr "Stichworte..."
-
-#. module: academy
-#: model:ir.model,name:academy.model_academy_teacher_reg_wizard
-msgid "Teacher Registrations"
-msgstr "Anmeldungen"
 
 #. module: academy
 #: help:academy.registration,intership_date:0
