@@ -19,18 +19,18 @@
 ##############################################################################
 
 {
-    "name" : "oerp.at Fpos",
+    "name" : "oerp.at Fclipboard",
     "description":"""
-oerp.at Fpos
-============
+Fclipboard
+==========
 
-* A module which adds additional features to the original point of sale
-
+* a simple tool for mobile data recording
+ 
     """,
     "version" : "1.0",
     "author" :  "funkring.net",
-    "category" : "Point of Sale",
-    "depends" : ["point_of_sale"],
+    "category" : "Sales",
+    "depends" : ["at_sale"],
     "data" : [],
     "auto_install" : False,
     "installable": True

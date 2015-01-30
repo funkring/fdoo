@@ -33,6 +33,11 @@ apt-get -y install python-xlwt
 apt-get -y install python-geoip
 apt-get -y install python-vatnumber
 apt-get -y install python-passlib
+apt-get -y install python-gevent
+
+#ruby
+apt-get -y install ruby
+apt-get -y install ruby-dev
 
 #aeroolib
 apt-get -y install python-relatorio

@@ -22,32 +22,38 @@
 
 from openerp.osv import fields,osv
 
+UID_ROOT = 1
 
 class posix_domain(osv.Model):
-    
-    def name_get(self, cr, uid, ids, context=None):
-        if not len(ids):
-            return []
-        reads = self.read(cr, uid, ids, ['name','parent_id'], context=context)
-        res = []
-        for record in reads:
-            name = record['name']
-            if record['parent_id']:
-                name = name + "." + record['parent_id'][1]
-            res.append((record['id'], name))
-        return res
 
-    def _name_get_fnc(self, cr, uid, ids, prop, unknow_none, context=None):        
-        res = self.name_get(cr, uid, ids, context=context)
-        return dict(res)
+    def _name_get_fnc(self, cr, uid, ids, field_name, arg, context=None):
+        res = dict.fromkeys(ids)
+        for domain in self.browse(cr, UID_ROOT, ids, context=context):        
+            cur_domain = domain
+            name = [cur_domain.name]
+            while cur_domain.parent_id:
+                cur_domain = cur_domain.parent_id
+                name.append(cur_domain.name)
+            
+            res[domain.id] = ".".join(name)                
+        return res
+        
+    def _relids_posix_domain(self, cr, uid, ids, context=None):
+        res = list(ids)
+        res.extend(self.search(cr, UID_ROOT, [("parent_id", "child_of", ids)]))
+        return list(set(res))
     
     _name="posix.domain"
     _description="Domain"
+    _rec_name = "complete_name"
     _columns = {
         "name" : fields.char("Name",size=32),
-        'complete_name': fields.function(_name_get_fnc, type="char", string="Name",size=64,store=True),
-        "parent_id" : fields.many2one("posix.domain","Parent Domain",select=True,ondelete="restrict"),
-        "child_ids" : fields.one2many("posix.domain","parent_id",string="Child Domains"),
+        'complete_name': fields.function(_name_get_fnc, type="char", string="Name", size=256,
+                                         store={
+                                             "posix.domain" : (_relids_posix_domain,["name","parent_id"],10)
+                                         }),
+        "parent_id" : fields.many2one("posix.domain","Parent Domain", select=True, ondelete="restrict"),
+        "child_ids" : fields.one2many("posix.domain", "parent_id", string="Child Domains"),
         "description" : fields.text("Description")
     }        
 
