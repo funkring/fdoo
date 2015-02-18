@@ -30,8 +30,8 @@ Fclipboard
     "version" : "1.0",
     "author" :  "funkring.net",
     "category" : "Sales",
-    "depends" : ["at_sale"],
-    "data" : [],
+    "depends" : ["at_sale","web"],
+    "data" : ["tmpl/index_tmpl.xml"],
     "auto_install" : False,
     "installable": True
 }

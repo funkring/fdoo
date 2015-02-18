@@ -190,7 +190,7 @@ instance.web.ActionManager = instance.web.Widget.extend({
                     // this action has been explicitly marked as not pushable
                     return;
                 }
-                state['title'] = this.inner_action.name;
+                state['title'] = this.inner_action.display_name;
                 if(this.inner_action.type == 'ir.actions.act_window') {
                     state['model'] = this.inner_action.res_model;
                 }
@@ -425,7 +425,7 @@ instance.web.ActionManager = instance.web.Widget.extend({
             // it from reloading the original form view
             this.dialog_stop(executor.action);
             this.dialog = new instance.web.Dialog(this, {
-                title: executor.action.name,
+                title: executor.action.display_name,
                 dialogClass: executor.klass,
             });
 
@@ -500,7 +500,7 @@ instance.web.ActionManager = instance.web.Widget.extend({
             post_process: function(widget) {
                 self.push_breadcrumb({
                     widget: widget,
-                    title: action.name,
+                    title: action.display_name,
                     on_reverse_breadcrumb: options.on_reverse_breadcrumb,
                     hide_breadcrumb: options.hide_breadcrumb,
                 });
@@ -860,6 +860,9 @@ instance.web.ViewManager =  instance.web.Widget.extend({
             if (_.isString(groupby)) {
                 groupby = [groupby];
             }
+            if (!controller.grouped && !_.isEmpty(groupby)){
+                self.dataset.set_sort([]);
+            }
             $.when(controller.do_search(results.domain, results.context, groupby || [])).then(function() {
                 self.view_completely_inited.resolve();
             });
@@ -1116,8 +1119,8 @@ instance.web.ViewManagerAction = instance.web.ViewManager.extend({
     do_create_view: function(view_type) {
         var self = this;
         return this._super.apply(this, arguments).then(function() {
-            var view = self.views[view_type].controller;
-            view.set({ 'title': self.action.name });
+            var view = self.views[view_type].controller;            
+            view.set({ 'title': self.action.display_name });
         });
     },
     get_action_manager: function() {

@@ -55,7 +55,6 @@ class report_stylesheets(osv.osv):
         
     }
 
-report_stylesheets()
 
 class res_company(osv.osv):
     _name = 'res.company'
@@ -69,7 +68,6 @@ class res_company(osv.osv):
         'stylesheet_intern_landscape_id' : fields.many2one('report.stylesheets', 'Aeroo Intern Landscape Stylesheet')
     }
 
-res_company()
 
 class report_mimetypes(osv.osv):
     '''
@@ -87,7 +85,6 @@ class report_mimetypes(osv.osv):
         'mimetype' : fields.char('Mimetype',readonly=True)
     }
 
-report_mimetypes()
 
 class report_xml(osv.osv):
     _name = 'ir.actions.report.xml'
@@ -345,19 +342,4 @@ class report_xml(osv.osv):
         self.localcontext.update({})""",
         'active' : True,
     }
-
-report_xml()
-
-class ir_translation(osv.osv):
-    _name = 'ir.translation'
-    _inherit = 'ir.translation'
-
-    def __init__(self, pool, cr):
-        super(ir_translation, self).__init__(pool, cr)
-        if ('report', 'Report') not in self._columns['type'].selection:
-            self._columns['type'].selection.append(
-                        ('report', 'Report'),
-                    )
-
-ir_translation()
 

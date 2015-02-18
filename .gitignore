@@ -5,6 +5,7 @@ addons-custom*
 # dotfiles
 .*
 !.gitignore
+!.mailmap
 # compiled python files
 *.py[co]
 # setup.py egg_info
