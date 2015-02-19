@@ -693,25 +693,27 @@ openerp.web_graph.Graph = openerp.web.Widget.extend({
     // ----------------------------------------------------------------------
     // Drawing charts code
     // ----------------------------------------------------------------------
-    bar: function () {
+    bar: function () {        
         var self = this,
             dim_x = this.pivot.rows.groupby.length,
             dim_y = this.pivot.cols.groupby.length,
             show_controls = (this.width > 400 && this.height > 300 && dim_x + dim_y >=2),
             data;
 
+        var measure_index = self.pivot.measures.length-1;
+        
         // No groupby 
         if ((dim_x === 0) && (dim_y === 0)) {
             data = [{key: _t('Total'), values:[{
                 x: _t('Total'),
-                y: this.pivot.get_total()[0],
+                y: this.pivot.get_total()[measure_index],
             }]}];
         // Only column groupbys 
         } else if ((dim_x === 0) && (dim_y >= 1)){
             data =  _.map(this.pivot.get_cols_with_depth(1), function (header) {
                 return {
                     key: header.title,
-                    values: [{x:header.title, y: self.pivot.get_total(header)[0]}]
+                    values: [{x:header.title, y: self.pivot.get_total(header)[measure_index]}]
                 };
             });
         // Just 1 row groupby 
@@ -728,7 +730,7 @@ openerp.web_graph.Graph = openerp.web.Widget.extend({
                 var values = _.map(self.pivot.get_rows_with_depth(1), function (header) {
                     return {
                         x: header.title || _t('Undefined'),
-                        y: self.pivot.get_values(header.id, colhdr.id)[0] || 0
+                        y: self.pivot.get_values(header.id, colhdr.id)[measure_index] || 0
                     };
                 });
                 return {key: colhdr.title || _t('Undefined'), values: values};
@@ -745,7 +747,7 @@ openerp.web_graph.Graph = openerp.web.Widget.extend({
                     });
                     return {
                         x: hdr.title || _t('Undefined'),
-                        y: (subhdr) ? self.pivot.get_total(subhdr)[0] : 0
+                        y: (subhdr) ? self.pivot.get_total(subhdr)[measure_index] : 0
                     };
                 });
                 return {key:key, values: values};
@@ -785,14 +787,15 @@ openerp.web_graph.Graph = openerp.web.Widget.extend({
             labels = _.pluck(rows, 'title');
 
         var data = _.map(this.pivot.get_cols_leaves(), function (col) {
+            var measure_index = self.pivot.measures.length-1;
             var values = _.map(rows, function (row, index) {
-                return {x: index, y: self.pivot.get_values(row.id,col.id)[0] || 0};
+                return {x: index, y: self.pivot.get_values(row.id,col.id)[measure_index] || 0};
             });
             var title = _.map(col.path, function (p) {
                 return p || _t('Undefined');
             }).join('/');
             if (dim_y === 0) {
-                title = self.pivot.measures[0].string;
+                title = self.pivot.measures[measure_index].string;
             }
             return {values: values, key: title};
         });
@@ -813,9 +816,12 @@ openerp.web_graph.Graph = openerp.web.Widget.extend({
           });
     },
 
-    pie: function () {
+    pie: function () {        
         var self = this,
             dim_x = this.pivot.rows.groupby.length;
+        
+        var measure_index = self.pivot.measures.length-1;
+        
         var data = _.map(this.pivot.get_rows_leaves(), function (row) {
             var title = _.map(row.path, function (p) {
                 return p || _t('Undefined');
@@ -823,7 +829,7 @@ openerp.web_graph.Graph = openerp.web.Widget.extend({
             if (dim_x === 0) {
                 title = self.measure_label;
             }
-            return {x: title, y: self.pivot.get_total(row)[0]};
+            return {x: title, y: self.pivot.get_total(row)[measure_index]};
         });
 
         nv.addGraph(function () {
