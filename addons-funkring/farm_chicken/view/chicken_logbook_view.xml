@@ -66,9 +66,11 @@
             <field name="name"/>
             <field name="house_id"/>
             <field name="state"/>
+            <seperator/>
+            <filter name="active_only" string="Active" domain="[('state','=','active')]"/>
             <group expand="0" string="Group By...">
-                <filter string="Status" context="{'group_by': 'state'}"/>
-                <filter string="House" context="{'group_by': 'house_id'}"/>
+                <filter string="Status" context="{'group_by':'state'}"/>
+                <filter string="House" context="{'group_by':'house_id'}"/>
             </group>
         </search>
       </field>
@@ -79,6 +81,7 @@
       <field name="res_model">farm.chicken.logbook</field>
       <field name="view_type">form</field>
       <field name="view_mode">tree,form</field>
+      <field name="context">{'search_default_active_only':1}</field>
       <field name="help" type="html">
         <p class="oe_view_nocontent_create">
             Click here to create a new Logbook for an chicken house

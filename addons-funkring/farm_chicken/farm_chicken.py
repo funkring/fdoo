@@ -431,9 +431,9 @@ class chicken_log(models.Model):
     
     chicken_age = fields.Integer("Chicken Age [Days]", readonly=True, compute="_compute_chicken_age", store=True)
     chicken_age_weeks = fields.Integer("Chicken Age [Weeks]", readonly=True, compute="_compute_chicken_age", store=True)
-    chicken_count = fields.Integer("Chicken Count", readonly=True, compute="_compute_chicken_count")
+    chicken_count = fields.Integer("Chicken Count", readonly=True, compute="_compute_chicken_count", store=True)
     eggs_count = fields.Integer("Eggs Stock", readonly=True, compute="_compute_eggs_count")
-    eggs_performance = fields.Float("Eggs Performance", readonly=True, compute="_compute_eggs_performance")
+    eggs_performance = fields.Float("Eggs Performance", readonly=True, compute="_compute_eggs_performance", store=True)
     
     delivered = fields.Boolean("Delivery", readonly=True, states={'draft': [('readonly', False)]})    
     delivered_eggs_mixed = fields.Integer("Delivered Eggs", readonly=True, states={'draft': [('readonly', False)]})

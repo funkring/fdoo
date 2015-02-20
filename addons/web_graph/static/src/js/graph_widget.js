@@ -799,11 +799,45 @@ openerp.web_graph.Graph = openerp.web.Widget.extend({
             }
             return {values: values, key: title};
         });
-
+        
         nv.addGraph(function () {
-            var chart = nv.models.lineChart()
+            var chart = nv.models.lineWithFocusChart()
                 .x(function (d,u) { return u; });
-
+            
+            if (self.pivot_options.tooltip_action !== null) {
+                //create cache                
+                var tooltip_cache = {};
+                // get model
+                var model_obj = new openerp.Model(self.model.name);
+                // tooltip content
+                chart.tooltipContent(function(key, x, y, e, graph) {
+                  var tip_key = [x,y];
+                  var tip = tooltip_cache[tip_key];
+                  if ( tip === undefined ) { 
+                    tip = _t('Data is loading...');
+                    // save cache entry
+                    tooltip_cache[tip_key] = tip;
+                    // get col and row domain
+                    var cols = self.pivot.get_cols_leaves();
+                    var rows = self.pivot.get_rows_leaves();
+                    var cell_domain = [].concat(cols[e.seriesIndex].domain,rows[e.pointIndex].domain);
+                    //query tooltip
+                    model_obj.call(self.pivot_options.tooltip_action, [key, x, y, cell_domain]).then(function(result) {
+                        //set new tooltip
+                        if ( result !== null) {                        
+                            tooltip_cache[tip_key] = result;
+                            //update tooltip
+                            var tooltip_container = d3.select(".nvtooltip");
+                            if ( tooltip_container !== null && tooltip_container.node() !== null) {
+                                tooltip_container.node().innerHTML = result;
+                            }
+                        }
+                    });
+                  }                                      
+                  return tip;
+                });
+            }
+            
             chart.xAxis.tickFormat(function (d,u) {return labels[d];});
 
             d3.select(self.svg)

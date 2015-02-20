@@ -42,11 +42,17 @@ instance.web_graph.GraphView = instance.web.View.extend({
             stacked : (arch.attrs.stacked === 'True'),
             mode: arch.attrs.type || 'bar',
             measures: [],
+            marker_fields: [], 
             row_groupby: [],
             col_groupby: [],
             graph_view: this,
+            tooltip_action: null,
         };
-
+        
+        if (_.has(arch.attrs,'tooltip_action') ) {
+            this.widget_config.tooltip_action = arch.attrs.tooltip_action;
+        }
+        
         _.each(arch.children, function (field) {
             var field_name = field.attrs.name;
             if (_.has(field.attrs, 'interval')) {

@@ -1,20 +1,19 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* farm_chicken
+#	* farm_chicken
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-12 21:07+0000\n"
-"PO-Revision-Date: 2015-01-12 22:12+0100\n"
-"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
+"POT-Creation-Date: 2015-02-20 01:25+0000\n"
+"PO-Revision-Date: 2015-02-20 01:25+0000\n"
+"Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 1.5.4\n"
 
 #. module: farm_chicken
 #: selection:farm.chicken.log,eggs_color:0
@@ -98,29 +97,28 @@ msgstr ""
 
 #. module: farm_chicken
 #: model:ir.actions.act_window,help:farm_chicken.action_logbook
-msgid ""
-"<p class=\"oe_view_nocontent_create\">\n"
+msgid "<p class=\"oe_view_nocontent_create\">\n"
 "            Click here to create a new Logbook for an chicken house\n"
 "        </p>\n"
 "      "
-msgstr ""
-"<p class=\"oe_view_nocontent_create\">\n"
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
 "Klicken sie hier um einen neuen Verlauf zu erstellen\n"
 " </p>\n"
+""
 
 #. module: farm_chicken
 #: model:ir.actions.act_window,help:farm_chicken.action_chicken_log
-msgid ""
-"<p class=\"oe_view_nocontent_create\">\n"
+msgid "<p class=\"oe_view_nocontent_create\">\n"
 "          Click here to create a new daily chicken log\n"
 "        </p>\n"
 "      "
-msgstr ""
-"<p class=\"oe_view_nocontent_create\">\n"
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
 "          Klicke sie hier um einen Tagesverlauf zu erstellen\n"
 "        </p>\n"
+""
 
 #. module: farm_chicken
+#: view:farm.chicken.logbook:farm_chicken.search_logbook
 #: selection:farm.chicken.logbook,state:0
 msgid "Active"
 msgstr "Aktiv"
@@ -161,6 +159,8 @@ msgstr "Hühner Alter [Wochen]"
 
 #. module: farm_chicken
 #: view:farm.chicken.log:farm_chicken.form_chicken_log
+#: field:farm.chicken.log,chicken_count:0
+#: field:farm.chicken.log.report,chicken_count:0
 #: field:farm.chicken.logbook,chicken_count:0
 msgid "Chicken Count"
 msgstr "Hühneranzahl"
@@ -208,17 +208,25 @@ msgid "Close"
 msgstr "Abschließen"
 
 #. module: farm_chicken
-#: field:farm.chicken.log,co2:0 field:farm.chicken.log.report,co2:0
+#: field:farm.chicken.log,co2:0
+#: field:farm.chicken.log.report,co2:0
 msgid "Co2"
 msgstr ""
 
 #. module: farm_chicken
-#: help:farm.chicken.log,eggs_color:0 help:farm.chicken.log,eggs_color_dote:0
+#: help:farm.chicken.log,eggs_color:0
+#: help:farm.chicken.log,eggs_color_dote:0
 msgid "Color aligned to the DSM Yolk Color Fan"
 msgstr "Farbe nach dem DSM Yolk Color Farbfächer"
 
 #. module: farm_chicken
-#: field:farm.chicken.log,create_uid:0 field:farm.chicken.logbook,create_uid:0
+#: field:farm.chicken.log.report,comments:0
+msgid "Comments"
+msgstr "Notizen"
+
+#. module: farm_chicken
+#: field:farm.chicken.log,create_uid:0
+#: field:farm.chicken.logbook,create_uid:0
 #: field:farm.chicken.validate.log.wizard,create_uid:0
 msgid "Created by"
 msgstr "Erstellt von"
@@ -238,7 +246,8 @@ msgstr "Datum der letzten Nachricht"
 
 #. module: farm_chicken
 #: view:farm.chicken.log:farm_chicken.search_chicken_log
-#: field:farm.chicken.log,day:0 field:farm.chicken.log.report,day:0
+#: field:farm.chicken.log,day:0
+#: field:farm.chicken.log.report,day:0
 msgid "Day"
 msgstr "Tag"
 
@@ -270,12 +279,14 @@ msgid "Dirty Eggs"
 msgstr "Schmutzeier"
 
 #. module: farm_chicken
-#: selection:farm.chicken.log,state:0 selection:farm.chicken.logbook,state:0
+#: selection:farm.chicken.log,state:0
+#: selection:farm.chicken.logbook,state:0
 msgid "Done"
 msgstr "Abgeschlossen"
 
 #. module: farm_chicken
-#: selection:farm.chicken.log,state:0 selection:farm.chicken.logbook,state:0
+#: selection:farm.chicken.log,state:0
+#: selection:farm.chicken.logbook,state:0
 msgid "Draft"
 msgstr "Entwurf"
 
@@ -301,7 +312,6 @@ msgstr "Eier verlegt unten"
 
 #. module: farm_chicken
 #: field:farm.chicken.log,eggs_color:0
-#: field:farm.chicken.log.report,eggs_color:0
 msgid "Eggs Color"
 msgstr "Farbe Eierschale"
 
@@ -317,12 +327,13 @@ msgstr "Eier Differenz (Vorsortiert)"
 
 #. module: farm_chicken
 #: field:farm.chicken.log,eggs_color_dote:0
-#: field:farm.chicken.log.report,eggs_color_dote:0
 msgid "Eggs Dote Color"
 msgstr "Farbe Eierdotter"
 
 #. module: farm_chicken
 #: view:farm.chicken.log:farm_chicken.form_chicken_log
+#: field:farm.chicken.log,eggs_performance:0
+#: field:farm.chicken.log.report,eggs_performance:0
 msgid "Eggs Performance"
 msgstr "Legeleistung [Eier/Huhn]"
 
@@ -339,7 +350,6 @@ msgstr "Eier auf Lager"
 
 #. module: farm_chicken
 #: field:farm.chicken.log,eggs_thickness:0
-#: field:farm.chicken.log.report,eggs_thickness:0
 msgid "Eggs Thickness [kg]"
 msgstr "Dicke Eierschale [kg]"
 
@@ -415,9 +425,7 @@ msgstr "Gruppiert nach..."
 #. module: farm_chicken
 #: help:farm.chicken.log,message_summary:0
 #: help:farm.chicken.logbook,message_summary:0
-msgid ""
-"Holds the Chatter summary (number of messages, ...). This summary is "
-"directly in html format in order to be inserted in kanban views."
+msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
 msgstr ""
 
 #. module: farm_chicken
@@ -429,13 +437,16 @@ msgid "House"
 msgstr "Stall"
 
 #. module: farm_chicken
-#: field:farm.chicken.log,humidity:0 field:farm.chicken.log.report,humidity:0
+#: field:farm.chicken.log,humidity:0
+#: field:farm.chicken.log.report,humidity:0
 msgid "Humidity [%]"
 msgstr "Luftfeuchtigkeit [%]"
 
 #. module: farm_chicken
-#: field:farm.chicken.log,id:0 field:farm.chicken.log.report,id:0
-#: field:farm.chicken.logbook,id:0 field:farm.chicken.validate.log.wizard,id:0
+#: field:farm.chicken.log,id:0
+#: field:farm.chicken.log.report,id:0
+#: field:farm.chicken.logbook,id:0
+#: field:farm.chicken.validate.log.wizard,id:0
 msgid "ID"
 msgstr ""
 
@@ -455,6 +466,11 @@ msgstr "Inaktiv"
 #: field:farm.chicken.log,inv_exists:0
 msgid "Invoice Exists"
 msgstr "Abrechnung vorhanden"
+
+#. module: farm_chicken
+#: field:farm.chicken.log,inv_hierarchy:0
+msgid "Invoice in Hierarchy Exists"
+msgstr "Rechnung vorhanden"
 
 #. module: farm_chicken
 #: field:farm.chicken.log,inv_eggs_s45g:0
@@ -509,13 +525,15 @@ msgid "Last Message Date"
 msgstr "Letzte Nachricht"
 
 #. module: farm_chicken
-#: field:farm.chicken.log,write_uid:0 field:farm.chicken.logbook,write_uid:0
+#: field:farm.chicken.log,write_uid:0
+#: field:farm.chicken.logbook,write_uid:0
 #: field:farm.chicken.validate.log.wizard,write_uid:0
 msgid "Last Updated by"
 msgstr "Zuletzt aktualisiert von"
 
 #. module: farm_chicken
-#: field:farm.chicken.log,write_date:0 field:farm.chicken.logbook,write_date:0
+#: field:farm.chicken.log,write_date:0
+#: field:farm.chicken.logbook,write_date:0
 #: field:farm.chicken.validate.log.wizard,write_date:0
 msgid "Last Updated on"
 msgstr "Zuletzt aktualisiert am"
@@ -545,7 +563,8 @@ msgid "Logs"
 msgstr "Tage"
 
 #. module: farm_chicken
-#: field:farm.chicken.log,loss:0 field:farm.chicken.log.report,loss:0
+#: field:farm.chicken.log,loss:0
+#: field:farm.chicken.log.report,loss:0
 msgid "Loss"
 msgstr "Ausfall"
 
@@ -561,7 +580,8 @@ msgid "Messages"
 msgstr "Nachrichten"
 
 #. module: farm_chicken
-#: help:farm.chicken.log,message_ids:0 help:farm.chicken.logbook,message_ids:0
+#: help:farm.chicken.log,message_ids:0
+#: help:farm.chicken.logbook,message_ids:0
 msgid "Messages and communication history"
 msgstr "Nachrichten und Kommunikationsprotokoll"
 
@@ -629,7 +649,8 @@ msgid "Start"
 msgstr ""
 
 #. module: farm_chicken
-#: field:farm.chicken.log,state:0 field:farm.chicken.logbook,state:0
+#: field:farm.chicken.log,state:0
+#: field:farm.chicken.logbook,state:0
 msgid "State"
 msgstr "Status"
 
@@ -646,7 +667,8 @@ msgid "Summary"
 msgstr "Zusammenfassung"
 
 #. module: farm_chicken
-#: field:farm.chicken.log,temp:0 field:farm.chicken.log.report,temp:0
+#: field:farm.chicken.log,temp:0
+#: field:farm.chicken.log.report,temp:0
 msgid "Temperature [°C]"
 msgstr "Temperatur [°C]"
 
@@ -693,11 +715,9 @@ msgstr "Validiere Tage"
 
 #. module: farm_chicken
 #: view:farm.chicken.validate.log.wizard:farm_chicken.wizard_validate_log
-msgid ""
-"Validate all selected logs. Once a log is validated,\n"
+msgid "Validate all selected logs. Once a log is validated,\n"
 "            you will not be able to modify them"
-msgstr ""
-"Validiere alle ausgewählten Tage. Wenn Tage validiert sind,\n"
+msgstr "Validiere alle ausgewählten Tage. Wenn Tage validiert sind,\n"
 "könn sie nicht mehr editiert werden."
 
 #. module: farm_chicken
@@ -719,3 +739,4 @@ msgstr "Gewicht [kg]"
 #: view:farm.chicken.validate.log.wizard:farm_chicken.wizard_validate_log
 msgid "or"
 msgstr "oder"
+

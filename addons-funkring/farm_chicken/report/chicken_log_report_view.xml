@@ -5,10 +5,13 @@
             <field name="name">farm_chicken.graph_chicken_log_report</field>
             <field name="model">farm.chicken.log.report</field>
             <field name="arch" type="xml">
-                <graph string="Chicken Log Analysis" type="pivot" stacked="True">
+                <graph string="Chicken Log Analysis" type="pivot" stacked="True" 
+                       tooltip_action="action_graphtooltip">
                     <field name="chicken_age_weeks" type="row"/>
                     <field name="logbook_id" type="col"/>
-                    <field name="eggs_total" type="measure"/>
+                    <field name="comments" type="measure"/>
+                    <field name="eggs_performance" type="measure"/>
+                    <field name="eggs_total" type="measure"/>                    
                 </graph>            
             </field>
         </record>
