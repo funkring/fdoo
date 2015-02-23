@@ -56,7 +56,7 @@ class sale_order(osv.osv):
         order_values = {}
 
         if order_id:
-            order_read = self.read(cr, uid, order_id, ["project_id","partner_id","pricelist_id","name","shop_id"], context)
+            order_read = self.read(cr, uid, order_id, ["project_id","partner_id","pricelist_id","name","shop_id", "client_order_ref"], context)
             order_values["project_id"]=get_fkey(order_read,"project_id")
             order_values["partner_id"]=get_fkey(order_read,"partner_id")
             order_values["pricelist_id"]=get_fkey(order_read,"pricelist_id")
