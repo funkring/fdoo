@@ -35,6 +35,15 @@ Ext.define('Fclipboard.view.Main', {
                     itemId: 'itemList',
                     store: 'Items',
                     disableSelection:true,
+                    cls: 'ItemList',
+                    itemTpl: Ext.create('Ext.XTemplate',
+                                    '<tpl if="type==\'product_amount\'">',
+                                        '<span class="left-col">{name}</span>',
+                                        '<input class="right-col" name="item_{id}" type="number" data-index="{sequence}"/>',
+                                    '<tpl else>',
+                                        '{name}',
+                                    '</tpl>')
+                    /*
                     itemTpl: Ext.create('Ext.XTemplate',
                                     '<tpl if="type==\'product_amount\'">',
                                         '<span style="width:100%;">{name}</span>',
@@ -65,5 +74,10 @@ Ext.define('Fclipboard.view.Main', {
                 ]
             }
         ]
-    }
+    },
+    
+    // init
+   constructor: function(config) {
+        this.callParent(config);
+   }
 });
