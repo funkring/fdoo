@@ -583,6 +583,7 @@ def trans_parse_view(element, callback):
     for el in element.iter():
         if (not isinstance(el, SKIPPED_ELEMENT_TYPES)
                 and el.tag.lower() not in SKIPPED_ELEMENTS
+                and el.get("translation", '').strip() != "off"
                 and el.text):
             if el.tag.lower() == 'attribute':
                 if el.get("name") in ('string','name'):
