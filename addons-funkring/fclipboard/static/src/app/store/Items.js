@@ -12,7 +12,7 @@ Ext.define('Fclipboard.store.Items', {
 
 
 Ext.define('Fclipboard.store.Items', {
-    extend: 'Ext.data.Store'
+    extend: 'Ext.data.Store',
     proxy: {
         type: 'pouchdb',
         database: 'fclipboard'        
