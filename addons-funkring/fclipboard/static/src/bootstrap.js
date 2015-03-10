@@ -771,9 +771,12 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.viewport.WindowsPhone": [
     "Ext.viewport.WP"
   ],
-  "Fclipboard.model.Item": [],
   "Fclipboard.proxy.PouchDB": [],
-  "Fclipboard.store.Items": [],
+  "Fclipboard.proxy.PouchDBDriver": [
+    "PouchDBDriver"
+  ],
+  "Fclipboard.store.ItemStore": [],
+  "Fclipboard.store.PartnerStore": [],
   "Fclipboard.view.Main": []
 });
 
@@ -1730,11 +1733,12 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.viewport.Ios": [],
   "Ext.viewport.Viewport": [],
   "Ext.viewport.WindowsPhone": [],
-  "Fclipboard.model.Item": [],
   "Fclipboard.proxy.PouchDB": [
     "proxy.pouchdb"
   ],
-  "Fclipboard.store.Items": [],
+  "Fclipboard.proxy.PouchDBDriver": [],
+  "Fclipboard.store.ItemStore": [],
+  "Fclipboard.store.PartnerStore": [],
   "Fclipboard.view.Main": [
     "widget.main"
   ]

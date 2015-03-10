@@ -11,10 +11,13 @@ Ext.define('Fclipboard.store.Items', {
 });*/
 
 
-Ext.define('Fclipboard.store.Items', {
+Ext.define('Fclipboard.store.ItemStore', {
     extend: 'Ext.data.Store',
-    proxy: {
-        type: 'pouchdb',
-        database: 'fclipboard'        
+    config: {
+        proxy: {
+            type: 'pouchdb',
+            database: 'fclipboard',
+            domain: [['fdoo__ir_model','=','fclipboard.item']]      
+        }
     }
 });

@@ -23,11 +23,11 @@ Ext.application({
     ],
 
     models: [
-        'Item'
     ],
     
     stores: [
-        'Items'
+        'ItemStore',
+        'PartnerStore'
     ],
     
     icon: {

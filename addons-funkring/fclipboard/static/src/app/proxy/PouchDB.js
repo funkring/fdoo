@@ -1,7 +1,11 @@
-/*global Ext:false,PouchDB:false*/
+/*global Ext:false,PouchDB:false,PouchDBDriver:false*/
+
 Ext.define('Fclipboard.proxy.PouchDB', {
     extend: 'Ext.data.proxy.Proxy',
-    alias: 'proxy.pouchdb',    
+    alias: 'proxy.pouchdb',
+    requires: [
+        'Fclipboard.proxy.PouchDBDriver'
+    ],
     config: {
         /**
          * @cfg {Object} reader
@@ -17,7 +21,12 @@ Ext.define('Fclipboard.proxy.PouchDB', {
          * @cfg {String} database
          * Database name to access tables from
          */
-        database: null 
+        database: null, 
+        /**
+         * @cfg {List} domain 
+         * Tuple list of filters
+         */
+        domain: null
     },
     
      /**
@@ -26,10 +35,11 @@ Ext.define('Fclipboard.proxy.PouchDB', {
      */
     constructor: function(config) {
         this.callParent(arguments);
+        this.domain = config.domain;
         if (typeof config.database == 'string') {
             this.db = new PouchDB(config.database);
         } else {
-            this.db = config.database;
+            this.db = PouchDBDriver.getDB(config.database);
         }
         
     },
@@ -52,18 +62,19 @@ Ext.define('Fclipboard.proxy.PouchDB', {
             }
         }
     },
-    
-        
+             
     // read function
     read: function(operation, callback, scope) {
         var self = this;
         var params = {'include_docs':true};
+        var filter_domain = self.domain;
         var sorters = operation.getSorters();
         var filters = operation.getFilters();
         
         var operation_params = operation.getParams();
-        if (operation_params ) {
-            Ext.apply(params, operation_params); 
+        if (operation_params) {
+            Ext.apply(params, operation_params);
+            filter_domain = PouchDBDriver.joinDomain(filter_domain, operation_params.domain);                         
         } 
         
         operation.setStarted();
@@ -139,9 +150,9 @@ Ext.define('Fclipboard.proxy.PouchDB', {
         };                
         
         //query all or filter
-        if (params.fun) {
-            var fun = params.fun;
-            self.db.query(fun,params,res);       
+        var build_query = PouchDBDriver.buildDomainQuery(filter_domain);
+        if (build_query !== null) {
+            self.db.query(build_query,params,res);       
         } else {
             self.db.allDocs(params,res);
         } 
