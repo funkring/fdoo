@@ -7,12 +7,23 @@
             <field name="inherit_id" ref="base.view_res_partner_filter"/>
             <field name="arch" type="xml">
 	            <data>
-	            	<field name="name" position="after" >
-	            		<field name="phone_n" filter_domain="[('phone_n','ilike',self)]" string="Phone"/>
-	            		<field name="mobile_n" filter_domain="[('mobile_n','ilike',self)]" string="Mobile"/>
-	            		<field name="fax_n" filter_domain="[('fax_n','ilike',self)]" string="Fax"/>
-	            	</field>
-	            </data>
+                    <field name="name" position="after">
+                        <field
+                            filter_domain="[('phone_n','ilike',self)]"
+                            name="phone_n" string="Phone"/>
+                        <field
+                            filter_domain="[('mobile_n','ilike',self)]"
+                            name="mobile_n" string="Mobile"/>
+                        <field filter_domain="[('fax_n','ilike',self)]"
+                            name="fax_n" string="Fax"/>
+                        <field filter_domain="[('street', 'ilike', self)]" name="street" string="Street"/>
+                        <field filter_domain="[('zip', 'ilike', self)]" name="zip" string="Zip"/>
+                    </field>
+                    <group expand="0" string="Group By">
+                        <filter string="Street" context="{'group_by': 'street'}"/>
+                        <filter string="Zip" context="{'group_by': 'zip'}"/>
+                    </group>
+                </data>
             </field>
         </record>
         <record id="form_partner_title" model="ir.ui.view">
@@ -34,12 +45,33 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
             	<data>
-            		<field name="phone" position="after" >
-            			<field name="phone_n" invisible="1"/>
-            			<field name="mobile_n" invisible="1"/>
-            			<field name="fax_n" invisible="1"/>
-            		</field>
-            	</data>
+                    <field name="phone" position="after">
+                        <field name="mobile"/>
+                        <field invisible="1" name="phone_n"/>
+                        <field invisible="1" name="mobile_n"/>
+                        <field invisible="1" name="fax_n"/>
+                    </field>
+                    <field name="email" position="after">
+                        <field name="zip"/>
+                        <field name="street"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+
+        <record id="kanban_res_partner" model="ir.ui.view">
+            <field name="name">base.kanban_res_partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+            <field name="type">kanban</field>
+            <field name="arch" type="xml">
+                <data>
+                    <li t-if="record.email.raw_value" position="before">
+                        <li t-if="record.phone.raw_value and !record.mobile.raw_value"><field name="phone"/></li>
+                        <li t-if="!record.phone.raw_value and record.mobile.raw_value"><field name="mobile"/></li>
+                        <li t-if="record.phone.raw_value and record.mobile.raw_value"><field name="phone"/>, <field name="mobile"/></li>
+                    </li>
+                </data>
             </field>
         </record>
 
@@ -68,7 +100,7 @@
             	</data>
             </field>
         </record>
-        
+
         <record id="form_partner_simple" model="ir.ui.view">
               <field name="name">at_base.form_partner_simple</field>
               <field name="model">res.partner</field>
