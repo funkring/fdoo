@@ -19,8 +19,7 @@ Ext.application({
     ],
 
     views: [
-        'Main',
-        'ItemList'
+        'Main'
     ],
 
     models: [

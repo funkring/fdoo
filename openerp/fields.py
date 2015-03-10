@@ -637,8 +637,11 @@ class Field(object):
     #
 
     def to_column(self):
-        """ return a low-level field object corresponding to `self` """
-        assert self.store or self.column
+        """ Return a column object corresponding to `self`, or ``None``. """
+        if not self.store and self.compute:
+            # non-stored computed fields do not have a corresponding column
+            self.column = None
+            return None
 
         # determine column parameters
         #_logger.debug("Create fields._column for Field %s", self)
@@ -655,7 +658,7 @@ class Field(object):
             self.column = fields.property(**args)
         elif self.column:
             # let the column provide a valid column for the given parameters
-            self.column = self.column.new(**args)
+            self.column = self.column.new(_computed_field=bool(self.compute), **args)
         else:
             # create a fresh new column of the right type
             self.column = getattr(fields, self.type)(**args)

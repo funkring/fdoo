@@ -49,7 +49,7 @@ import pytz
 import re
 import time
 from collections import defaultdict, MutableMapping
-from inspect import getmembers
+from inspect import getmembers, currentframe
 
 import babel.dates
 import dateutil.relativedelta
@@ -64,8 +64,9 @@ from .api import Environment
 from .exceptions import except_orm, AccessError, MissingError, ValidationError
 from .osv import fields
 from .osv.query import Query
-from .tools import lazy_property, ormcache
+from .tools import frozendict, lazy_property, ormcache
 from .tools.config import config
+from .tools.func import frame_codeinfo
 from .tools.misc import CountingStream, DEFAULT_SERVER_DATETIME_FORMAT, DEFAULT_SERVER_DATE_FORMAT
 from .tools.safe_eval import safe_eval as eval
 from .tools.translate import _
@@ -643,6 +644,7 @@ class BaseModel(object):
             '_register': False,
             '_columns': None,           # recomputed in _setup_fields()
             '_defaults': None,          # recomputed in _setup_base()
+            '_fields': frozendict(),    # idem
             '_inherits': dict(cls._inherits),
             '_depends': dict(cls._depends),
             '_constraints': list(cls._constraints),
@@ -2920,6 +2922,7 @@ class BaseModel(object):
         cls._inherit_fields = struct = {}
         for parent_model, parent_field in cls._inherits.iteritems():
             parent = cls.pool[parent_model]
+            parent._inherits_reload()
             for name, column in parent._columns.iteritems():
                 struct[name] = (parent_model, parent_field, column, parent_model)
             for name, source in parent._inherit_fields.iteritems():
@@ -3010,8 +3013,9 @@ class BaseModel(object):
         cls._columns = {}
         for name, field in cls._fields.iteritems():
             field.setup(self.env)
-            if field.store or field.column:
-                cls._columns[name] = field.to_column()
+            column = field.to_column()
+            if column:
+                cls._columns[name] = column
 
         # group fields by compute to determine field.computed_fields
         fields_by_compute = defaultdict(list)
@@ -5527,7 +5531,9 @@ class BaseModel(object):
         """ Test whether two recordsets are equivalent (up to reordering). """
         if not isinstance(other, BaseModel):
             if other:
-                _logger.warning("Comparing apples and oranges: %s == %s", self, other)
+                filename, lineno = frame_codeinfo(currentframe(), 1)
+                _logger.warning("Comparing apples and oranges: %r == %r (%s:%s)",
+                                self, other, filename, lineno)
             return False
         return self._name == other._name and set(self._ids) == set(other._ids)
 
@@ -5841,6 +5847,11 @@ class BaseModel(object):
             values = dict(record._cache)
             # attach `self` with a different context (for cache consistency)
             record._origin = self.with_context(__onchange=True)
+
+        # load fields on secondary records, to avoid false changes
+        with env.do_in_onchange():
+            for field_seq in secondary:
+                record.mapped(field_seq)
 
         # determine which field(s) should be triggered an onchange
         todo = list(names) or list(values)
