@@ -63,6 +63,18 @@
             </field>
         </record>
 
+        <!-- traomer search -->
+        <record id="search_academy_traomer" model="ir.ui.view">
+          <field name="name">academy.search_academy_traomer</field>
+          <field name="model">academy.trainer</field>
+          <field name="arch" type="xml">
+            <search string="Search Trainer">
+              <field name="name"
+                    filter_domain="[('name','ilike',self)]"/>
+            </search>
+          </field>
+        </record>
+
        <!-- trainer kanban view -->
        <record id="kanban_academy_trainer" model="ir.ui.view">
             <field name="name">academy.kanban_academy_trainer</field>
@@ -155,8 +167,8 @@
           <field name="view_id" ref="form_academy_trainer"/>
           <field name="act_window_id" ref="action_academy_trainer"/>
         </record>
-        
-        
+
+
         <menuitem id="menu_academy_trainer" name="Trainer" parent="menu_academy_management"
           sequence="1"
           action="action_academy_trainer"/>
