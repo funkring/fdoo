@@ -161,6 +161,7 @@ Ext.define('Fclipboard.proxy.PouchDB', {
     
     // update function
     update: function(operation, callback, scope) {
+        debugger;
         var self = this;        
         operation.setStarted();
                         

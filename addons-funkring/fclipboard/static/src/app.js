@@ -19,15 +19,23 @@ Ext.application({
     ],
 
     views: [
-        'Main'
+        'Main',
+        'FormView',
+        'ItemWorkbookForm'
     ],
 
     models: [
+        'Item',
+        'Partner'
     ],
     
     stores: [
         'ItemStore',
         'PartnerStore'
+    ],
+    
+    controllers: [
+        'Main'
     ],
     
     icon: {

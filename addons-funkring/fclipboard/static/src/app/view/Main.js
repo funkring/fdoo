@@ -1,43 +1,62 @@
-/*global Ext:false*/
+/*global Ext:false*, Fclipboard:false*/
 
 Ext.define('Fclipboard.view.Main', {
     extend: 'Ext.navigation.View',
     xtype: 'main',
+    id: 'mainView',
     requires: [
         'Ext.TitleBar', 
-        'Ext.TabPanel'
+        'Ext.TabPanel',
+        'Ext.dataview.List',
+        'Ext.field.Search'
     ],
     config: {
-                        
+        // **********************************************************
+        // Title
+        // **********************************************************
+        
+        title: 'Arbeitsmappen',
+    
         // **********************************************************
         // Define available Items
         // **********************************************************
-            
-        item: null,
-        itemParent: null,
-        itemCreateables: null,
-        itemDef: [
+        
+        record: null,        
+        recordCreateables: null,
+        recordViews: [
             { 
               name:'Arbeitsmappe', 
               type: 'workbook', 
-              createable: [null], 
-              items: [
-                { 
-                    xtype : 'textfield',
-                    label : 'Name',
-                    name : 'name'
-                },
-                {
-                    xtype : 'select',
-                    label : 'Partner',
-                    name : 'partner_id',
-                    valueField : '_id',
-                    displayField : 'name',
-                    store : 'PartnerStore'
-                }
-              ]
+              createable: [null],
+              form: 'Fclipboard.view.ItemWorkbookForm'
             }            
         ],
+        
+        // **********************************************************
+        // NavigationBar Items
+        // **********************************************************
+        
+        navigationBar: {
+            items: {
+                xtype: 'button',
+                id: 'saveViewButton',
+                text: 'Speichern',
+                align: 'right',
+                hidden: true,
+                action: 'saveView'
+            }
+        },
+        
+        
+        listeners : {
+            activeitemchange : function(view, newCard) {
+                var items = view.getInnerItems(),
+                    index = items.indexOf(newCard),
+                    button = view.down('button[action=saveView]'),
+                    action = index === 0 ? 'hide' : 'show';
+                button[action]();
+            }
+        },
         
         // **********************************************************
         // View Items
@@ -47,11 +66,16 @@ Ext.define('Fclipboard.view.Main', {
             {                
                 xtype: 'tabpanel',
                 tabBarPosition: 'bottom',      
-                id: 'tab-panel',
+                id: 'mainPanel',
+                
+                getTitle : function() {
+                    return Ext.getCmp("mainView").getTitle();
+                },   
+                                        
                 items: [   
                     {
                         title: 'Einträge',
-                        id: 'tab-item',
+                        id: 'itemTab',
                         iconCls: 'home',                        
                         items: [{
                             docked: 'top',
@@ -65,17 +89,17 @@ Ext.define('Fclipboard.view.Main', {
                                 },
                                 {
                                     xtype: 'button',
-                                    id: 'button-item-new',
-                                    text: 'Neu'          
+                                    id: 'newItemButton',
+                                    text: 'Neu',
+                                    action: 'newItem'      
                                 }
                             ]                           
                         },
                         {
                             xtype: 'list',
                             height: '100%',
-                            itemId: 'item-list',
                             store: 'ItemStore',
-                            disableSelection:true,
+                            disableSelection:true,                            
                             cls: 'ItemList',
                             itemTpl: Ext.create('Ext.XTemplate',
                                             '<tpl if="type==\'product_amount\'">',
@@ -100,11 +124,11 @@ Ext.define('Fclipboard.view.Main', {
                                 }                        
                             }*/                     
                                                                     
-                        }]                
+                        }]            
                     },                   
                     {
                         title: 'Anhänge',
-                        id: 'tab-attachment',
+                        id: 'attachmentTab',
                         iconCls: 'action',        
                         items: [
                             {
@@ -127,7 +151,7 @@ Ext.define('Fclipboard.view.Main', {
                     },
                     {
                         title: 'Info',
-                        id: 'tab-settings',
+                        id: 'settingsTab',
                         iconCls: 'info',        
                         items: [                           
                         ]
@@ -141,32 +165,99 @@ Ext.define('Fclipboard.view.Main', {
    constructor: function(config) {
         var self = this;
         self.callParent(config);
-        self.updateItemState();        
+        self.updateData(null);        
    },
    
-   
-   updateItemState: function() {
+      
+   updateData: function(newData) {
        var self = this;
+       self.callParent(arguments);
+              
+       var title = 'Arbeitsmappen';
+       var dataType = null;
        
-       var item = self.getItem();
-       var itemType = null;
-       var title = "Arbeitsmappen";
-       
-       if (item !== null) {
-           itemType = item.type;
-           title = item.name;
+       if (newData !== null) {
+           dataType = newData.type;
+           title = newData.name;
        } 
        
-       
-       var itemCreateables = self.getItemDef().filter(function(e) {
-                                return (itemType in e.createable);
+       var recordCreateables = self.getRecordViews().filter(function(e) {                                
+                                for (var i=0; i<e.createable.length; i++) {
+                                    if (e.createable[i] === dataType) {
+                                        return true;
+                                    }
+                                }
+                                return false;
                              });
-                             
-       self.setItemCreateables(itemCreateables);
+       
+       // update state       
+       self.setTitle(title);                      
+       self.setRecordCreateables(recordCreateables);
 
-       // change button states
-       //Ext.getCmp('button-new-item').setHidden(itemCreateables.length===0);
-       // set title
-       self.getNavigationBar().setTitle(title);
-   }
+       // update button state
+       Ext.getCmp('newItemButton').setHidden(recordCreateables.length===0);              
+   },
+   
+   showNewItemSelection: function() {       
+        var self = this;
+        var recordCreateables = self.getRecordCreateables();        
+        if ( recordCreateables.length === 0) { 
+            return;
+        } 
+        else if ( recordCreateables.length === 1) {
+           self.fireEvent('createItem', self, recordCreateables[0].type);
+        } else {        
+            var newItemPicker = Ext.create('Ext.Picker',{
+                doneButton: 'Erstellen',
+                cancelButton: 'Abbrechen',
+                modal: true,
+                slots:[{
+                    name: 'item_type',
+                    title: 'Element',
+                    displayField: 'name',
+                    valueField: 'type',
+                    data: recordCreateables
+                }],               
+                listeners: {
+                    change: function(picker,button) {
+                        var val = picker.getValue()['item_type'];
+                        self.fireEvent('createItem', self, val);
+                    }
+                } 
+            });
+            
+            Ext.Viewport.add(newItemPicker);
+            newItemPicker.show();
+        }
+   },
+
+   getItemView: function(item_type) {
+        var self = this;
+        var recordViews = self.getRecordViews();
+        for (var i=0; i<recordViews.length; i++) {
+            if (recordViews[i].type === item_type) {
+                return recordViews[i];
+            }
+        }
+        return null;
+   },
+   
+   /*
+   push: function(view) {
+        var self = this;
+        if ( view.isEditable() ) {
+            Ext.getCmp('saveViewButton').setHidden(false);
+        }
+        
+        self.callParent(arguments);
+
+       
+   },
+   
+   pop: function(view) {
+       var self = this;
+       self.callParent(arguments);
+       Ext.getCmp('saveViewButton').setHidden(true);           
+   }*/
+   
 });
