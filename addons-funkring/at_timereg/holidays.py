@@ -21,24 +21,26 @@
 from openerp.osv import osv,fields
 from itertools import groupby
 from operator import itemgetter
+from openerp.addons.at_base import helper, util
+from datetime import timedelta
 
 class hr_holidays_status(osv.osv):
-    
+
     def get_days_sum(self, cr, uid, ids, employee_id, return_false, context=None):
-        if ids:        
+        if ids:
             cr.execute("SELECT id, type, number_of_days, holiday_status_id FROM hr_holidays WHERE employee_id = %s AND state='validate' AND holiday_status_id in %s",
                 [employee_id, tuple(ids)])
             result = sorted(cr.dictfetchall(), key=lambda x: x['holiday_status_id'])
             grouped_lines = dict((k, [v for v in itr]) for k, itr in groupby(result, itemgetter('holiday_status_id')))
             res = {}
             max_leaves = 0
-            leaves_taken = 0        
+            leaves_taken = 0
             for record in self.browse(cr, uid, ids, context=context):
-                res[record.id] = {}            
+                res[record.id] = {}
                 if record.id in grouped_lines:
                     leaves_taken = leaves_taken + sum([item['number_of_days'] for item in grouped_lines[record.id] if item['type'] == 'remove'])
                     max_leaves = max_leaves + sum([item['number_of_days'] for item in grouped_lines[record.id] if item['type'] == 'add'])
-                    
+
             remaining_leaves = max_leaves + leaves_taken
             return {
                "max_leaves" : max_leaves,
@@ -51,8 +53,8 @@ class hr_holidays_status(osv.osv):
                "leaves_taken" : 0,
                "remaining_leaves" : 0
             }
-        
-    
+
+
     _inherit = "hr.holidays.status"
 
 
@@ -62,24 +64,29 @@ class hr_holidays(osv.osv):
         """ Add Resource Leaves """
         if super(hr_holidays,self).holidays_validate(cr, uid, ids, context=context):
             data_holiday = self.browse(cr, uid, ids,context=context)
-            obj_res_leave = self.pool.get('resource.calendar.leaves')        
+            obj_res_leave = self.pool.get('resource.calendar.leaves')
             for record in data_holiday:
                 working_hours = record.employee_id.working_hours
-                if working_hours:                
+                if working_hours:
                     if record.holiday_type == 'employee' and record.type == 'remove':
                         vals = {
                            'name' : record.name,
                            'calendar_id' : working_hours.id,
                            'resource_id' : record.employee_id.resource_id.id,
-                           'date_from' : record.date_from,
-                           'date_to' : record.date_to,
-                           'holiday_id': record.id                 
+                           'date_from' : helper.strToLocalDateStr(cr, uid, record.date_from, context),
+                           'date_to' : util.getLastTimeOfDay(util.strToDate(helper.strToLocalDateStr(cr, uid, record.date_to, context))),
+                           'holiday_id': record.id
                         }
-                        leave_id = obj_res_leave.create(cr,uid,vals)                      
+                        leave_ids = obj_res_leave.search(cr, uid, [("name", "=", record.name), ("date_from","=", record.date_from), ("date_to", "=", record.date_to)])
+                        if leave_ids:
+                            obj_res_leave.write(cr, uid, leave_ids, vals)
+                            leave_id = leave_ids[0]
+                        else:
+                            leave_id = obj_res_leave.create(cr,uid,vals)
                         self.write(cr, uid, ids, {'leave_id': leave_id})
             return True
         return False
-  
+
     def holidays_cancel(self, cr, uid, ids, context=None):
         """ Remove Resource Leaves """
         if super(hr_holidays,self).holidays_cancel(cr,uid,ids,context=context):
@@ -96,9 +103,11 @@ class hr_holidays(osv.osv):
             if record.state == "validate":
                 self.holidays_cancel(cr, uid, ids)
         return super(hr_holidays,self).holidays_reset(cr,uid,ids,context=context)
-    
+
+
+
     _inherit = "hr.holidays"
     _columns = {
         "leave_id" : fields.many2one("resource.calendar.leaves","Leave Resource")
-    }        
+    }
 

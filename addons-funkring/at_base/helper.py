@@ -44,36 +44,36 @@ def getMonthName(cr,uid,month,context=None):
     ]
     return month_names[month-1]
 
-def getRangeName(cr,uid,start_date,end_date,context):        
+def getRangeName(cr,uid,start_date,end_date,context):
     if not start_date or not end_date:
-        return ""    
+        return ""
     if start_date == end_date:
         f = LangFormat(cr, uid, context=context)
         return f.formatLang(start_date, date=True)
     else:
         start = util.strToDate(start_date)
-        end = util.strToDate(end_date)        
+        end = util.strToDate(end_date)
         if start.month==1 and end.month==3 and start.year == end.year:
-            return _("1st Quarter %s") % (end.strftime("%Y"),) 
+            return _("1st Quarter %s") % (end.strftime("%Y"),)
         elif start.month==4 and end.month==6 and start.year == end.year:
-            return _("2nd Quarter %s") % (end.strftime("%Y"),) 
+            return _("2nd Quarter %s") % (end.strftime("%Y"),)
         elif start.month==7 and end.month==9 and start.year == end.year:
-            return _("3rd Quarter %s") % (end.strftime("%Y"),) 
+            return _("3rd Quarter %s") % (end.strftime("%Y"),)
         elif start.month==10 and end.month==12 and start.year == end.year:
-            return _("4th Quarter %s") % (end.strftime("%Y"),) 
+            return _("4th Quarter %s") % (end.strftime("%Y"),)
         else:
-            if util.getFirstOfMonth(start_date) == start_date and util.getEndOfMonth(end_date) == end_date:                 
+            if util.getFirstOfMonth(start_date) == start_date and util.getEndOfMonth(end_date) == end_date:
                 return getMonthYearRange(cr,uid,start_date,end_date,context)
             else:
                 f = LangFormat(cr, uid, context=context)
-                return "%s - %s" % (f.formatLang(start_date, date=True),f.formatLang(end_date, date=True))     
-    
+                return "%s - %s" % (f.formatLang(start_date, date=True),f.formatLang(end_date, date=True))
 
-def getMonth(cr,uid,str_date,context=None):    
+
+def getMonth(cr,uid,str_date,context=None):
     d_date = util.strToDate(str_date)
     return getMonthName(cr,uid,d_date.month)
 
-def getMonthYear(cr,uid,str_date,context=None):    
+def getMonthYear(cr,uid,str_date,context=None):
     d_date = util.strToDate(str_date)
     str_pattern = getMonthName(cr,uid,d_date.month) + " %Y"
     return d_date.strftime(str_pattern)
@@ -92,32 +92,32 @@ def getMonthYearRange(cr,uid,str_from,str_to,context=None):
     return ""
 
 def printReport(cr,uid,report,model,ids,printer=None,context=None):
-    report_obj = netsvc.LocalService("report."+report)    
+    report_obj = netsvc.LocalService("report."+report)
     data, format = report_obj.create(cr, uid, ids, {"model" : model }, context)
-    
+
     fd = None
     if printer:
         fd = os.popen("lp -d " + printer,"wb")
     else:
-        fd = os.popen("lp","wb")    
-        
-    if fd:        
+        fd = os.popen("lp","wb")
+
+    if fd:
         fd.write(data)
         fd.close()
     return True
-    
-    
+
+
 def printRaw(cr,uid,data,printer=None,context=None):
     fd = None
     if printer:
         fd = os.popen("lp -o raw -d " + printer,"wb")
     else:
-        fd = os.popen("lp -o raw","wb")    
-        
+        fd = os.popen("lp -o raw","wb")
+
     if fd:
         fd.write(data)
         fd.close()
-    
+
     return True
 
 
@@ -126,12 +126,12 @@ def printText(cr,uid,data,printer=None,context=None):
     if printer:
         fd = os.popen("lp -d " + printer,"wb")
     else:
-        fd = os.popen("lp","wb")    
-        
+        fd = os.popen("lp","wb")
+
     if fd:
         fd.write(data)
         fd.close()
-    
+
     return True
 
 
@@ -144,5 +144,13 @@ def strToLocalTimeStr(cr, uid, str_time, context):
     return util.timeToStr(converted)
 
 
-        
-    
+def strToLocalDateStr(cr, uid, str_time, context):
+    # Convert datetime values to the expected client/context timezone
+    timestamp=util.strToTime(str_time)
+    converted = datetime_field.context_timestamp(cr, uid,
+                                            timestamp=timestamp,
+                                            context=context)
+    return util.timeToDateStr(converted)
+
+
+
