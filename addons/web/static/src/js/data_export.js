@@ -405,7 +405,7 @@ instance.web.DataExport = instance.web.Dialog.extend({
             data: {data: JSON.stringify({
                 model: this.dataset.model,
                 fields: exported_fields,
-                ids: this.ids_to_export,
+                ids: ids_to_export,
                 domain: this.dataset.domain,
                 context: this.dataset.context,
                 import_compat: !!this.$el.find("#import_compat").val(),

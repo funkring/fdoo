@@ -35,9 +35,10 @@
 									<group>
 										<field name="calc_type" />
 									</group>
+									<label for="leave_ids" />
+                                    <field name="leave_ids" />
 								</group>
-								<label for="leave_ids" />
-								<field name="leave_ids" />
+
 							</form>
 						</field>
 					</sheet>

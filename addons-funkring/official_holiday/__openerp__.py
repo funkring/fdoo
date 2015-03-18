@@ -30,7 +30,7 @@ oerp.at Official Holiday
     "version" : "1.0",
     "author" :  "funkring.net",
     "category" : "Human Resources",
-    "depends" : ["at_timereg"],
+    "depends" : ["at_timereg", "at_hr"],
     "data" : ["wizard/official_holiday_wizard.xml",
               "view/official_holiday_view.xml",
               "menu.xml",

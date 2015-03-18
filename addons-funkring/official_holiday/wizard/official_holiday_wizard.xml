@@ -6,7 +6,15 @@
 			<field name="arch" type="xml">
 				<form string="Create Holidays" version="7.0">
 					<group string="Do you want to enter the holidays in the calendar?">
-						<field name="fiscalyear_id" />
+					    <group>
+                            <field name="fiscalyear_id" />
+                        </group>
+                        <group>
+                        </group>
+                        <group>
+                        <label for="calendar_ids" string="Working Time"/>
+                        <field name="calendar_ids" nolabel="1" />
+                        </group>
 						<footer>
 							<button name="do_create" string="OK" type="object" icon="gtk-go-forward" class="oe_highlight" />
 							or
@@ -37,6 +45,6 @@
 			<field name="value" eval="'ir.actions.act_window,' + str(ref('action_official_holiday_template_wizard'))" />
 			<field name="key">action</field>
 		</record>
-		
+
 	</data>
 </openerp>

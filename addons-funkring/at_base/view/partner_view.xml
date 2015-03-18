@@ -16,7 +16,13 @@
                             name="mobile_n" string="Mobile"/>
                         <field filter_domain="[('fax_n','ilike',self)]"
                             name="fax_n" string="Fax"/>
+                        <field filter_domain="[('street', 'ilike', self)]" name="street" string="Street"/>
+                        <field filter_domain="[('zip', 'ilike', self)]" name="zip" string="Zip"/>
                     </field>
+                    <group expand="0" string="Group By...">
+                        <filter string="Street" context="{'group_by': 'street'}"/>
+                        <filter string="Zip" context="{'group_by': 'zip'}"/>
+                    </group>
                 </data>
             </field>
         </record>
@@ -31,6 +37,7 @@
                 </field>
             </field>
         </record>
+
         <record id="tree_res_partner" model="ir.ui.view">
             <field name="name">base.tree_res_partner</field>
             <field name="model">res.partner</field>
@@ -39,13 +46,35 @@
             <field name="arch" type="xml">
                 <data>
                     <field name="phone" position="after">
+                        <field name="mobile"/>
                         <field invisible="1" name="phone_n"/>
                         <field invisible="1" name="mobile_n"/>
                         <field invisible="1" name="fax_n"/>
                     </field>
+                    <field name="email" position="after">
+                        <field name="street"/>
+                        <field name="zip"/>
+                    </field>
                 </data>
             </field>
         </record>
+
+        <record id="kanban_res_partner" model="ir.ui.view">
+            <field name="name">base.kanban_res_partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+            <field name="type">kanban</field>
+            <field name="arch" type="xml">
+                <data>
+                    <li t-if="record.email.raw_value" position="before">
+                        <li t-if="record.street.raw_value and !record.zip.raw_value"><field name="street"/></li>
+                        <li t-if="!record.street.raw_value and record.zip.raw_value"><field name="zip"/></li>
+                        <li t-if="record.street.raw_value and record.zip.raw_value"><field name="street"/>, <field name="zip"/></li>
+                    </li>
+                </data>
+            </field>
+        </record>
+
         <record id="form_partner_view" model="ir.ui.view">
             <field name="name">at_base.form_partner_view</field>
             <field name="model">res.partner</field>
@@ -82,7 +111,7 @@
                             <group>
                                 <group>
                                     <field name="sea_level"/>
-                                </group>                            
+                                </group>
                                 <group>
                                     <field name="lat"/>
                                     <field name="lon"/>
