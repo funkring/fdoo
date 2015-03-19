@@ -165,20 +165,21 @@ Ext.define('Fclipboard.view.Main', {
    constructor: function(config) {
         var self = this;
         self.callParent(config);
-        self.updateData(null);        
+        self.loadRecord();        
    },
    
       
-   updateData: function(newData) {
+   loadRecord: function() {
        var self = this;
-       self.callParent(arguments);
               
        var title = 'Arbeitsmappen';
        var dataType = null;
        
-       if (newData !== null) {
-           dataType = newData.type;
-           title = newData.name;
+       var record = self.getRecord();
+       var itemData = record !== null ? record.data : null;       
+       if (itemData !== null) {
+           dataType = itemData.type;
+           title = itemData.name;
        } 
        
        var recordCreateables = self.getRecordViews().filter(function(e) {                                
@@ -195,7 +196,11 @@ Ext.define('Fclipboard.view.Main', {
        self.setRecordCreateables(recordCreateables);
 
        // update button state
-       Ext.getCmp('newItemButton').setHidden(recordCreateables.length===0);              
+       Ext.getCmp('newItemButton').setHidden(recordCreateables.length===0);
+       
+       // load data
+       var itemStore =  Ext.StoreMgr.lookup("ItemStore");
+       itemStore.load();              
    },
    
    showNewItemSelection: function() {       

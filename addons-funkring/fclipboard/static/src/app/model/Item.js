@@ -5,8 +5,9 @@ Ext.define('Fclipboard.model.Item', {
        'Fclipboard.proxy.PouchDB'
    ],
    config: {
-       fields: ['_id', 'name', 'partner_id', 'parent_id', 'form', 'type'],
+       fields: ['name', 'partner_id', 'parent_id', 'form', 'type'],
        belongsTo: 'parent_id',
+       identifier: 'uuid',
        proxy: {
             type: 'pouchdb',
             database: 'fclipboard',

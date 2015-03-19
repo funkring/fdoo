@@ -62,9 +62,8 @@ Ext.define('Fclipboard.controller.Main', {
                 }
             );
         }
-        
         self.getMainView().push({
-            title: itemView.title,
+            title: itemView.name,
             xtype: 'formpanel',
             record: record,
             items: items,
@@ -72,15 +71,18 @@ Ext.define('Fclipboard.controller.Main', {
         });
     },
     
-    saveRecord: function() {        
+    saveRecord: function() {
         var self = this;
         var mainView = self.getMainView();
         var view = mainView.getActiveItem();
         var record = view.getRecord();
         if ( record !== null ) {
+            var values = view.getValues(); 
+            record.set(values);
             record.save();
         }
         mainView.pop();
+        mainView.loadRecord();
     }
     
 });

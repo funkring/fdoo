@@ -5,7 +5,8 @@ Ext.define('Fclipboard.model.Partner', {
        'Fclipboard.proxy.PouchDB'
    ],
    config: {
-       fields: ['_id','name', 'street', 'mobile', 'phone', 'zip'],
+       fields: ['name', 'street', 'mobile', 'phone', 'zip'],
+       identifier: 'uuid',
        proxy: {
             model: 'Fclipboard.model.Partner',
             type: 'pouchdb',
