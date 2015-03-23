@@ -31,7 +31,7 @@ Fclipboard
     "author" :  "funkring.net",
     "category" : "Sales",
     "depends" : ["at_sale","web"],
-    "data" : ["tmpl/index_tmpl.xml"],
+    "data" : [],
     "auto_install" : False,
     "installable": True
 }
