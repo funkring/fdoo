@@ -61,19 +61,21 @@ apt-get -y install python-simplejson
 apt-get -y install python-ipcalc
 apt-get -y install pdftk
 
-#easy_install
-python -m easy_install py4j
+#install pip for further installation
+python -m easy_install pip
 
-#for pygal
+#install p4j 
+python -m pip install py4j
+
+#install pygal depends
 apt-get -y install libffi-dev
 apt-get -y install python-cairosvg
 apt-get -y install python-cssselect
-#python -m easy_install pygal
-python -m easy_install tinycss
+python -m pip install tinycss
 
-#for pdf printing
+#install printing depends
 apt-get -y install wkhtmltopdf 
-python -m easy_install wkhtmltopdf
+python -m pip install wkhtmltopdf
 
-#saas
+#install saas depends
 gem install sass compass bootstrap-sass
