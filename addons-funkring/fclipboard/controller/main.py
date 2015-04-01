@@ -28,18 +28,16 @@ import simplejson
 
 _logger = logging.getLogger(__name__)
 
-class AnalyzerController(http.Controller):
-    ''' It was a try with sencha and openerp, but not finished yet !!! '''
-    
-
-    @http.route("/fclipboard/static/src/index.html", type="http", auth="user")
-    def index(self, debug=False, **k):
-        cr, uid, context, session = request.cr, request.uid, request.context, request.session
-
-        if not session.uid:
-            return login_redirect()
-
-        html = request.registry.get("ir.ui.view").render(cr, session.uid,'fclipboard.index',{})
-        return html
+class FclipboardController(http.Controller):
+    pass
+#     @http.route("/fclipboard/static/src/index.html", type="http", auth="user")
+#     def index(self, debug=False, **k):
+#         cr, uid, context, session = request.cr, request.uid, request.context, request.session
+# 
+#         if not session.uid:
+#             return login_redirect()
+# 
+#         html = request.registry.get("ir.ui.view").render(cr, session.uid,'fclipboard.index',{})
+#         return html
     
   
