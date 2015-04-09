@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="form_eagency_client_education" model="ir.ui.view">
+          <field name="name">eagency.form_eagency_client_education</field>
+          <field name="model">eagency.client.education</field>
+          <field name="arch" type="xml">
+            <form string="Education" version="7.0">
+                <sheet>
+                    <group string="Education">
+                        <group >
+                            <field name="completed" />
+                            <field name="education_id"/>
+                            <field name="country_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+          </field>
+        </record>
+
+        <record id="form_eagency_education" model="ir.ui.view">
+          <field name="name">eagency.form_eagency_education</field>
+          <field name="model">eagency.education</field>
+          <field name="arch" type="xml">
+            <form string="Education" version="7.0">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                        </group>
+                        <group>
+                            <field name="code" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+          </field>
+        </record>
+    </data>
+</openerp>

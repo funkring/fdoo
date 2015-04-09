@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="form_eagency_area" model="ir.ui.view">
+          <field name="name">eagency.form_eagency_area</field>
+          <field name="model">eagency.area</field>
+          <field name="arch" type="xml">
+            <form string="Areas" version="7.0">
+                <sheet>
+                    <group>
+                        <field name="name" />
+                    </group>
+                    <label for="country_ids" />
+                    <field name="country_ids" />
+                </sheet>
+            </form>
+          </field>
+        </record>
+
+        <record id="tree_eagency_area" model="ir.ui.view">
+            <field name="name">eagency.tree_eagency_area</field>
+            <field name="model">eagency.area</field>
+            <field name="arch" type="xml">
+              <tree string="Areas">
+                  <field name="name" />
+              </tree>
+            </field>
+        </record>
+
+        <record id="search_eagency_area" model="ir.ui.view">
+            <field name="name">eagency.search_eagency_area</field>
+            <field name="model">eagency.area</field>
+            <field name="arch" type="xml">
+              <search string="Search Area">
+                  <field name="name" />
+              </search>
+            </field>
+        </record>
+
+        <record id="action_eagency_area" model="ir.actions.act_window">
+            <field name="name">Areas</field>
+            <field name="res_model">eagency.area</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_eagency_area" name="Areas" parent="menu_agency_config"
+          sequence="10"
+          action="action_eagency_area"/>
+    </data>
+</openerp>

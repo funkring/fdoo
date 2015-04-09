@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="form_eagency_prof_status" model="ir.ui.view">
+          <field name="name">eagency.form_eagency_prof_status</field>
+          <field name="model">eagency.prof.status</field>
+          <field name="arch" type="xml">
+            <form string="Professional status" version="7.0">
+                <sheet>
+                    <group>
+                        <field name="name" />
+                    </group>
+                </sheet>
+            </form>
+          </field>
+        </record>
+
+        <record id="tree_eagency_prof_status" model="ir.ui.view">
+            <field name="name">eagency.tree_eagency_prof_status</field>
+            <field name="model">eagency.prof.status</field>
+            <field name="arch" type="xml">
+              <tree string="Professional status">
+                  <field name="name" />
+              </tree>
+            </field>
+        </record>
+
+        <record id="search_eagency_prof_status" model="ir.ui.view">
+            <field name="name">eagency.search_eagency_prof_status</field>
+            <field name="model">eagency.prof.status</field>
+            <field name="arch" type="xml">
+              <search string="Search professional status">
+                  <field name="name" />
+              </search>
+            </field>
+        </record>
+
+        <record id="action_eagency_prof_status" model="ir.actions.act_window">
+            <field name="name">Professional status</field>
+            <field name="res_model">eagency.prof.status</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_eagency_prof_status" name="Professional status" parent="menu_agency_config"
+          sequence="20"
+          action="action_eagency_prof_status"/>
+    </data>
+</openerp>
