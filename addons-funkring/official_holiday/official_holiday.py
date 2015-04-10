@@ -24,7 +24,7 @@ from openerp.osv import fields,osv
 from openerp.addons.at_base import util
 
 class official_holiday_template(osv.osv):
-    
+
     _name = "official.holiday.template"
     _description = "Official Holiday Template"
     _columns = {
@@ -34,7 +34,7 @@ class official_holiday_template(osv.osv):
 
 
 class official_holiday(osv.osv):
-            
+
     def create_calendar_entries(self, cr, uid, ids, fiscalyear_id, company_id=None, calendar_id=None,
                                   resource_id=None, context=None):
         leave_obj = self.pool.get("resource.calendar.leaves")
@@ -42,9 +42,8 @@ class official_holiday(osv.osv):
         account_fiscalyear_obj = self.pool.get("account.fiscalyear")
         fiscal_year_date =  util.strToDate(account_fiscalyear_obj.browse(cr,uid,fiscalyear_id,context).date_start)
         easter_sunday_date = util.dateEasterSunday(fiscal_year_date.year)
-                
+
         for holiday in self.browse(cr, uid, ids, context):
-            leave_ids = leave_obj.search(cr, uid, [("official_holiday_id", "=", holiday.id)])
             holiday_date = util.strToDate(holiday.date)
             if holiday.calc_type == "none":
                 holiday_date=holiday_date.replace(year=fiscal_year_date.year)
@@ -52,7 +51,8 @@ class official_holiday(osv.osv):
                 holiday_easter_sunday_date = util.dateEasterSunday(holiday_date.year)
                 easter_delta = holiday_easter_sunday_date-easter_sunday_date
                 holiday_date = holiday_date+abs(easter_delta)
-            if not leave_ids:            
+            leave_ids = leave_obj.search(cr, uid, [("official_holiday_id", "=", holiday.id), ("calendar_id", "=", calendar_id), ("date_from", "=", util.timeToStr(holiday_date))])
+            if not leave_ids:
                 leave_values = {
                     "name" : holiday.name,
                     "date_from" : util.timeToStr(holiday_date),
@@ -73,8 +73,8 @@ class official_holiday(osv.osv):
                 event_values["official_holiday_id"]=holiday.id
                 event_values["partner_ids"] = None
                 event_obj.create(cr, uid, event_values, context=context)
-            
-    
+
+
     _name = "official.holiday"
     _description = "Official Holiday"
     _columns = {
@@ -85,13 +85,13 @@ class official_holiday(osv.osv):
         "leave_ids" : fields.one2many("resource.calendar.leaves","official_holiday_id", "Resource Leaves"),
         "event_ids" : fields.one2many("calendar.event", "official_holiday_id", "Events")
     }
-    
+
     _order = "date, name"
 
 class calendar_event(osv.osv):
     _inherit="calendar.event"
     _columns = {
-        "official_holiday_id" : fields.many2one("official.holiday","Holiday",ondelete="cascade")        
+        "official_holiday_id" : fields.many2one("official.holiday","Holiday",ondelete="cascade")
     }
 
 class resource_calendar_leaves(osv.osv):
@@ -99,4 +99,4 @@ class resource_calendar_leaves(osv.osv):
     _columns = {
         "official_holiday_id" : fields.many2one("official.holiday","Holiday",ondelete="cascade")
     }
-    
+

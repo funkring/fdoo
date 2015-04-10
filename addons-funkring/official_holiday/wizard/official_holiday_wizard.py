@@ -24,30 +24,35 @@ from openerp.osv import fields,osv
 from openerp.addons.at_base import util
 
 class official_holiday_template_wizard(osv.osv_memory):
-    
+
     def do_create(self, cr, uid, ids, context=None):
         holiday_obj = self.pool.get("official.holiday")
         template_obj = self.pool.get("official.holiday.template")
         user_obj = self.pool.get("res.users")
-        
+
         template_ids = template_obj.search(cr,uid,[("id","in",util.active_ids(context))])
         company_id = user_obj.browse(cr, uid, uid, context).company_id.id
         official_holiday_ids = []
-        
+
         for template_id in template_ids:
             template = template_obj.browse(cr, uid, template_id)
             for holiday in template.official_holiday_ids:
                 official_holiday_ids.append(holiday.id)
-        
+
         for wizard in self.browse(cr, uid, ids, context=context):
-            holiday_obj.create_calendar_entries(cr, uid, official_holiday_ids, fiscalyear_id=wizard.fiscalyear_id.id, company_id=company_id, context=context)
-        
+            if wizard.calendar_ids:
+                for calendar in wizard.calendar_ids:
+                    holiday_obj.create_calendar_entries(cr, uid, official_holiday_ids, fiscalyear_id=wizard.fiscalyear_id.id, company_id=company_id, calendar_id=calendar.id,context=context)
+            else:
+                holiday_obj.create_calendar_entries(cr, uid, official_holiday_ids, fiscalyear_id=wizard.fiscalyear_id.id, company_id=company_id, context=context)
+
         return { "type" : "ir.actions.act_window_close" }
-    
+
     _name = "official.holiday.template.wizard"
     _description = "Official holiday template wizard"
-    
+
     _columns = {
-        "fiscalyear_id" : fields.many2one("account.fiscalyear", "Fiscal Year")
+        "fiscalyear_id" : fields.many2one("account.fiscalyear", "Fiscal Year"),
+        "calendar_ids" : fields.many2many("resource.calendar", "holiday_calendar_rel", "holiday_id", "calendar_id", "Working Time"),
     }
-    
+
