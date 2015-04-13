@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+<template id="snippets" inherit_id="website.snippets">
+    <xpath expr="//div[@id='snippet_structure']" position="inside">
+        <div>        
+            <div class="oe_snippet_thumbnail">
+                <img class="oe_snippet_thumbnail_img" src="/at_website/static/src/img/blocks/block_4columns.png"/>
+                <span class="oe_snippet_thumbnail_title">Four Columns</span>
+            </div>
+            <section class="oe_snippet_body">
+                <div class="container">
+                    <div class="row">
+
+                        <!-- a -->
+                        <div class="col-md-3">
+                            <div class="box-wrapper">
+                                <div class="box">
+                                    <div class="latest-box">
+
+                                        <!-- .media -->
+                                        <div class="media">
+
+                                            <!-- overlay -->
+                                            <div class="overlay-wrapper">
+                                                <div class="overlay">
+                                                    <div class="overlay-content">
+                                                        <div class="content-hidden">
+                                                            <p>SHARE THIS CAUSE</p>
+                                                            <ul class="list-inline list-unstyled">
+                                                                <li><a href="#"><i class="fa fa-facebook-square"></i></a>
+                                                                </li>
+                                                                <li><a href="#"><i class="fa fa-twitter-square"></i></a>
+                                                                </li>
+                                                                <li><a href="#"><i class="fa fa-google-plus-square"></i></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- .overlay -->
+
+                                            <!-- image -->
+                                            <a href="cause-single.html">
+                                                <img src="/at_website/static/src/img/small_preview_8.png" class="img-responsive" title="" alt="" />
+                                            </a>
+                                            <!-- image -->
+                                        </div>
+                                        <!-- .media -->
+
+                                        <!-- content -->
+                                        <div class="content-wrapper">
+                                            <div class="content">
+
+                                                <!-- cause meta -->
+                                                <div class="meta clearfix">
+                                                    <a class="pull-left" href="#">Disease</a>
+                                                    <a class="pull-right share-trigger" data-rel="tooltip" title="Share Cause" href="javascript:;"><i class="fa fa-share-alt"></i></a>
+                                                </div>
+                                                <!-- .cause meta -->
+
+                                                <!-- excerpt -->
+                                                <div class="excerpt">
+                                                    <h6><a href="cause-single.html">Urgent surgery needed for this child</a>
+                                                    </h6>
+
+                                                </div>
+                                                <!-- .excerpt -->
+
+                                                <!-- rised bar -->
+                                                <div class="slider-content">
+                                                    <input class="rised" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="13000" data-slider-step="1" data-slider-enabled="false" data-slider-value="12300" />
+                                                </div>
+                                                <!-- .rised bar -->
+
+                                                <!-- rised slider meta -->
+                                                <div class="slider-meta clearfix">
+                                                    <span class="pull-left">$12.300</span>
+                                                    <span class="pull-right">$13.000</span>
+                                                </div>
+                                                <!-- .rised slider meta -->
+
+
+                                            </div>
+                                        </div>
+                                        <!-- .content -->
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- .a -->
+
+                        <!-- b -->
+                        <div class="col-md-3">
+                            <div class="box-wrapper">
+                                <div class="box">
+                                    <div class="latest-box">
+
+                                        <!-- .media -->
+                                        <div class="media">
+
+                                            <!-- overlay -->
+                                            <div class="overlay-wrapper">
+                                                <div class="overlay">
+                                                    <div class="overlay-content">
+                                                        <div class="content-hidden">
+                                                            <p>SHARE THIS CAUSE</p>
+                                                            <ul class="list-inline list-unstyled">
+                                                                <li><a href="#"><i class="fa fa-facebook-square"></i></a>
+                                                                </li>
+                                                                <li><a href="#"><i class="fa fa-twitter-square"></i></a>
+                                                                </li>
+                                                                <li><a href="#"><i class="fa fa-google-plus-square"></i></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- .overlay -->
+
+                                            <!-- image -->
+                                            <a href="cause-single.html">
+                                                <img src="/at_website/static/src/img/small_preview_7.png" class="img-responsive" title="" alt="" />
+                                            </a>
+                                            <!-- image -->
+                                        </div>
+                                        <!-- .media -->
+
+                                        <!-- content -->
+                                        <div class="content-wrapper">
+                                            <div class="content">
+
+                                                <!-- cause meta -->
+                                                <div class="meta clearfix">
+                                                    <a class="pull-left" href="#">Poverty</a>
+                                                    <a class="pull-right share-trigger" data-rel="tooltip" title="Share Cause" href="javascript:;"><i class="fa fa-share-alt"></i></a>
+                                                </div>
+                                                <!-- .cause meta -->
+
+                                                <!-- excerpt -->
+                                                <div class="excerpt">
+                                                    <h6><a href="cause-single.html">Help this mother to buy new house</a>
+                                                    </h6>
+
+                                                </div>
+                                                <!-- .excerpt -->
+
+                                                <!-- rised bar -->
+                                                <div class="slider-content">
+                                                    <input class="rised" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="7000" data-slider-step="1" data-slider-enabled="false" data-slider-value="4150" />
+                                                </div>
+                                                <!-- .rised bar -->
+
+                                                <!-- rised slider meta -->
+                                                <div class="slider-meta clearfix">
+                                                    <span class="pull-left">$4.150</span>
+                                                    <span class="pull-right">$7.000</span>
+                                                </div>
+                                                <!-- .rised slider meta -->
+
+
+                                            </div>
+                                        </div>
+                                        <!-- .content -->
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- .b -->
+
+
+                        <!-- c -->
+                        <div class="col-md-3">
+                            <div class="box-wrapper">
+                                <div class="box">
+                                    <div class="latest-box">
+
+                                        <!-- .media -->
+                                        <div class="media">
+
+                                            <!-- overlay -->
+                                            <div class="overlay-wrapper">
+                                                <div class="overlay">
+                                                    <div class="overlay-content">
+                                                        <div class="content-hidden">
+                                                            <p>SHARE THIS CAUSE</p>
+                                                            <ul class="list-inline list-unstyled">
+                                                                <li><a href="#"><i class="fa fa-facebook-square"></i></a>
+                                                                </li>
+                                                                <li><a href="#"><i class="fa fa-twitter-square"></i></a>
+                                                                </li>
+                                                                <li><a href="#"><i class="fa fa-google-plus-square"></i></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- .overlay -->
+
+                                            <!-- image -->
+                                            <a href="cause-single.html">
+                                                <img src="/at_website/static/src/img/small_preview_6.png" class="img-responsive" title="" alt="" />
+                                            </a>
+                                            <!-- image -->
+                                        </div>
+                                        <!-- .media -->
+
+                                        <!-- content -->
+                                        <div class="content-wrapper">
+                                            <div class="content">
+
+                                                <!-- cause meta -->
+                                                <div class="meta clearfix">
+                                                    <a class="pull-left" href="#">Education</a>
+                                                    <a class="pull-right share-trigger" data-rel="tooltip" title="Share Cause" href="javascript:;"><i class="fa fa-share-alt"></i></a>
+                                                </div>
+                                                <!-- .cause meta -->
+
+                                                <!-- excerpt -->
+                                                <div class="excerpt">
+                                                    <h6><a href="cause-single.html">Education center need your help a.s.a.p.</a>
+                                                    </h6>
+
+                                                </div>
+                                                <!-- .excerpt -->
+
+                                                <!-- rised bar -->
+                                                <div class="slider-content">
+                                                    <input class="rised" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="20000" data-slider-step="1" data-slider-enabled="false" data-slider-value="17780" />
+                                                </div>
+                                                <!-- .rised bar -->
+
+                                                <!-- rised slider meta -->
+                                                <div class="slider-meta clearfix">
+                                                    <span class="pull-left">$17.780</span>
+                                                    <span class="pull-right">$20.000</span>
+                                                </div>
+                                                <!-- .rised slider meta -->
+
+
+                                            </div>
+                                        </div>
+                                        <!-- .content -->
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- .c -->
+
+                        <!-- d -->
+                        <div class="col-md-3">
+                            <div class="box-wrapper">
+                                <div class="box">
+                                    <div class="latest-box">
+
+                                        <!-- .media -->
+                                        <div class="media">
+
+                                            <!-- overlay -->
+                                            <div class="overlay-wrapper">
+                                                <div class="overlay">
+                                                    <div class="overlay-content">
+                                                        <div class="content-hidden">
+                                                            <p>SHARE THIS CAUSE</p>
+                                                            <ul class="list-inline list-unstyled">
+                                                                <li><a href="#"><i class="fa fa-facebook-square"></i></a>
+                                                                </li>
+                                                                <li><a href="#"><i class="fa fa-twitter-square"></i></a>
+                                                                </li>
+                                                                <li><a href="#"><i class="fa fa-google-plus-square"></i></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- .overlay -->
+
+                                            <!-- image -->
+                                            <a href="cause-single.html">
+                                                <img src="/at_website/static/src/img/small_preview_5.png" class="img-responsive" title="" alt="" />
+                                            </a>
+                                            <!-- image -->
+                                        </div>
+                                        <!-- .media -->
+
+                                        <!-- content -->
+                                        <div class="content-wrapper">
+                                            <div class="content">
+
+                                                <!-- cause meta -->
+                                                <div class="meta clearfix">
+                                                    <a class="pull-left" href="#">Poverty</a>
+                                                    <a class="pull-right share-trigger" data-rel="tooltip" title="Share Cause" href="javascript:;"><i class="fa fa-share-alt"></i></a>
+                                                </div>
+                                                <!-- .cause meta -->
+
+                                                <!-- excerpt -->
+                                                <div class="excerpt">
+                                                    <h6><a href="cause-single.html">Help this young student to continue studies</a>
+                                                    </h6>
+
+                                                </div>
+                                                <!-- .excerpt -->
+
+                                                <!-- rised bar -->
+                                                <div class="slider-content">
+                                                    <input class="rised" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="12300" data-slider-step="1" data-slider-enabled="false" data-slider-value="5000" />
+                                                </div>
+                                                <!-- .rised bar -->
+
+                                                <!-- rised slider meta -->
+                                                <div class="slider-meta clearfix">
+                                                    <span class="pull-left">$5.000</span>
+                                                    <span class="pull-right">$12.300</span>
+                                                </div>
+                                                <!-- .rised slider meta -->
+
+
+                                            </div>
+                                        </div>
+                                        <!-- .content -->
+
+                                    </div>
+                                </div>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>                                           
+            </section>            
+        </div>       
+    
+    </xpath>
+</template>
+
+
+</data>
+</openerp>
