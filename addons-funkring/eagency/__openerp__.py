@@ -1,9 +1,6 @@
-# -*- coding: utf-8 -*-
-# -*- encoding: utf-8 -*-
-
 #############################################################################
 #
-#    Copyright (c) 2007 Martin Reisenhofer <martin.reisenhofer@funkring.net>
+#    Copyright (c) 2007 Martin Reisenhofer <martinr@funkring.net>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -19,22 +16,27 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 {
-    "name" : "oerp.at Official Holiday",
+    "name" : "oerp.at E-Agency",
     "description":"""
-oerp.at Official Holiday
-========================
-  * This module sets the holidays for austria
-    """,
+oerp.at Employment Agency
+=========================
+* Module for employment agencies
+* Client handling with special criteria, requirements and conditions
+""",
     "version" : "1.0",
     "author" :  "funkring.net",
-    "category" : "Human Resources",
-    "depends" : ["at_timereg", "at_hr"],
-    "data" : ["view/official_holiday_view.xml",
+    "website": "http://www.funkring.net",
+    "category" : "Agency",
+    "depends" : ["at_base"],
+    "data" : ["security.xml",
               "menu.xml",
-              "data/holiday_at.xml",
-              ],
-    "active": False,
+              "view/eagency_client_view.xml",
+              "view/eagency_education_view.xml",
+              "view/eagency_area_view.xml",
+              "view/eagency_prof_status_view.xml",
+              "view/eagency_lang_view.xml",
+              "view/eagency_skill_view.xml"],
+    "auto_install": False,
     "installable": True
 }

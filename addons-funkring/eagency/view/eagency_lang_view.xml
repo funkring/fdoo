@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="form_eagency_lang" model="ir.ui.view">
+          <field name="name">eagency.form_eagency_lang</field>
+          <field name="model">eagency.lang</field>
+          <field name="arch" type="xml">
+            <form string="Language" version="7.0">
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="code" />
+                    </group>
+                </sheet>
+            </form>
+          </field>
+        </record>
+
+        <record id="tree_eagency_lang" model="ir.ui.view">
+            <field name="name">eagency.tree_eagency_lang</field>
+            <field name="model">eagency.lang</field>
+            <field name="arch" type="xml">
+              <tree string="Language">
+                  <field name="name" />
+                  <field name="code" />
+              </tree>
+            </field>
+        </record>
+
+        <record id="search_eagency_lang" model="ir.ui.view">
+            <field name="name">eagency.search_eagency_lang</field>
+            <field name="model">eagency.lang</field>
+            <field name="arch" type="xml">
+              <search string="Search Language">
+                  <field name="name" />
+                  <field name="code" />
+              </search>
+            </field>
+        </record>
+
+        <record id="action_eagency_lang" model="ir.actions.act_window">
+            <field name="name">Languages</field>
+            <field name="res_model">eagency.lang</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_eagency_lang" name="Language" parent="menu_agency_config"
+          sequence="30"
+          action="action_eagency_lang"/>
+    </data>
+</openerp>

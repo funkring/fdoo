@@ -27,7 +27,7 @@ oerp.at Sale Extensions
 * Shop specific product categories
 * More informational invoice line
 * Aeroo report replacement
-* Shop for picking 
+* Shop for picking
 
 """,
     "version" : "1.1",
@@ -37,11 +37,12 @@ oerp.at Sale Extensions
     "depends" : ["account",
                  "sale",
                  "sale_crm",
+                 "sale_stock",
                  "at_base",
                  "at_product",
                  "at_account",
                  "at_resource",
-                 "at_procurement",                                  
+                 "at_procurement",
                  "at_stock"],
     "data" : [ "view/partner_view.xml",
                "security.xml",
@@ -50,6 +51,7 @@ oerp.at Sale Extensions
                "view/crm_categ_view.xml",
                "view/stock_picking_view.xml",
                "view/sale_line_invoice_wizard.xml",
+               "view/product_view.xml",
                "report/sale_order_report.xml"],
     "auto_install": False,
     "installable": True

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+
+        <record id="at_product_template_form_view" model="ir.ui.view">
+            <field name="name">Product Template</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view" />
+            <field name="arch" type="xml">
+                <data>
+                    <field name="list_price" position="after">
+                        <field name="brutto_price" readonly="0" on_change="onchange_brutto_price(brutto_price, taxes_id, company_id)"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</openerp>

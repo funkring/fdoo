@@ -37,6 +37,7 @@ modules
     "depends" : ["project","at_base"],
     "data" : [ "view/project_view.xml",
                "view/task_division_view.xml",
+               "report/project_issue_report.xml",
                "security.xml"],
     "auto_install": False,
     "installable": True

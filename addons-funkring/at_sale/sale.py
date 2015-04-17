@@ -130,13 +130,15 @@ class sale_order(osv.osv):
                 value["payment_term"]=shop.payment_default_id and shop.payment_default_id.id or None
         return res
 
-    def onchange_shop_id(self, cr, uid, ids, shop_id, context=None):
+    def onchange_shop_id(self, cr, uid, ids, shop_id, state, context=None):
         value = {}
         res = { "value": value }
         if shop_id:
             shop = self.pool.get('sale.shop').browse(cr, uid, shop_id)
             if shop.note:
-                value["note"]=shop.note
+                value["note"] = shop.note
+            if shop.company_id and state == "draft":
+                value["company_id"] = shop.company_id
         return res
 
     def action_wait(self, cr, uid, ids, context=None):
@@ -149,7 +151,7 @@ class sale_order(osv.osv):
         return super(sale_order,self).action_wait(cr,uid,ids,context=context)
 
     def _get_date_planned(self, cr, uid, order, line, start_date, context=None):
-        start_date = util.strToTime(self.date_to_datetime(cr, uid, start_date, context))
+        start_date = util.strToTime(start_date)
         company = order.company_id
         date_planned = None
 
@@ -181,7 +183,7 @@ class sale_order(osv.osv):
         "last_invoice_id" : fields.function(_last_invoice,string="Last Invoice", readonly=True, type='many2one', relation="account.invoice")
     }
     _defaults = {
-        "shop_id" : _default_shop_id
+        "shop_id" : _default_shop_id,
     }
 
 class sale_order_line(osv.osv):
