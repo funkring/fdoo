@@ -24,8 +24,9 @@ from openerp import SUPERUSER_ID
 from openerp.addons.web import http
 from openerp.addons.web.http import request
 from openerp.tools.translate import _
-from openerp.addons.website.controllers.main import Website as controllers
-controllers = controllers()
+
+#from openerp.addons.website.controllers.main import Website as controllers
+#controllers = controllers()
 
 import logging
 _logger = logging.getLogger(__name__)
