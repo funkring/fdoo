@@ -7,7 +7,7 @@
         <t t-call="website_embedded.layout">
             <t t-set="head">
                 <link rel="stylesheet" href="/website_academy/static/src/css/website_academy.css"/>
-                <script type="text/javascript" src="/at_base/static/src/js/validator.js"/>                
+                <script type="text/javascript" src="/website_academy/static/src/js/validator.js"/>                
                 <script type="text/javascript" src="/website_academy/static/src/js/website_academy.js"/>
                 <t t-raw="head or ''"/>
             </t>
@@ -164,9 +164,9 @@
     <!-- registration -->
     <template id="registration" name="Registration">
         <t t-call="website_embedded.layout">      
-            <t t-set="head">                
-                <script type="text/javascript" src="/at_base/static/src/js/validator.js"/>
-                <link rel="stylesheet" href="/website_academy/static/src/css/website_academy.css"/>
+            <t t-set="head">
+                <link rel="stylesheet" href="/website_academy/static/src/css/website_academy.css"/>               
+                <script type="text/javascript" src="/website_academy/static/src/js/validator.js"/>                
                 <script type="text/javascript" src="/website_academy/static/src/js/website_academy.js"/>
                 <meta http-equiv="pragma" content="no-cache"/>
                 <t t-raw="head or ''"/>
