@@ -27,10 +27,11 @@ Modul which extends standard odoo website functions
 """,
     "version" : "1.0",
     "author" :  "funkring.net",
+    "category" : "Hidden",
     "website": "http://www.funkring.net",
     "depends" : ["at_base",
                  "website"],    
-    "data" : ["view/snippets.xml"],
+    "data" : [],
     "auto_install" : False,
     "installable": True
 }
