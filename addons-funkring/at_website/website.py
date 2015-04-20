@@ -30,7 +30,7 @@ class website(osv.osv):
         
         lang = request.context.get('lang')
         website = self.browse(cr, uid, ids[0])
-        for lang_data in self._get_languages(cr, uid, website.id, context=context):
+        for lang_data in self._get_languages(cr, uid, website.id):
             if lang == lang_data[0]:
                 return lang_data
             if not lang_default and website.default_lang_code == lang_data[0]:
