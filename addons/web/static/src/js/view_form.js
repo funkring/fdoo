@@ -292,7 +292,7 @@ instance.web.FormView = instance.web.View.extend(instance.web.form.FieldManagerM
                 var fields = _.keys(self.fields_view.fields);
                 fields.push('display_name');
                 return self.dataset.read_index(fields, {
-                    context: { 'bin_size': true, 'future_display_name' : true }
+                    context: { 'bin_size': true }
                 }).then(function(r) {
                     self.trigger('load_record', r);
                 });
@@ -852,6 +852,16 @@ instance.web.FormView = instance.web.View.extend(instance.web.form.FieldManagerM
                     }
                 }
             }
+            // Heuristic to assign a proper sequence number for new records that
+            // are added in a dataset containing other lines with existing sequence numbers
+            if (!self.datarecord.id && self.fields.sequence &&
+                !_.has(values, 'sequence') && !_.isEmpty(self.dataset.cache)) {
+                // Find current max or min sequence (editable top/bottom)
+                var current = _[prepend_on_create ? "min" : "max"](
+                    _.map(self.dataset.cache, function(o){return o.values.sequence})
+                );
+                values['sequence'] = prepend_on_create ? current - 1 : current + 1;
+            }
             if (form_invalid) {
                 self.set({'display_invalid_fields': true});
                 first_invalid_field.focus();
@@ -961,10 +971,7 @@ instance.web.FormView = instance.web.View.extend(instance.web.form.FieldManagerM
                 fields.push('display_name');
                 return self.dataset.read_index(fields,
                     {
-                        context: {
-                            'bin_size': true,
-                            'future_display_name': true
-                        },
+                        context: { 'bin_size': true },
                         check_access_rule: true
                     }).then(function(r) {
                         self.trigger('load_record', r);
@@ -2574,7 +2581,7 @@ instance.web.form.FieldCharDomain = instance.web.form.AbstractField.extend(insta
             var model = this.options.model || this.field_manager.get_field_value(this.options.model_field);
             var domain = instance.web.pyeval.eval('domain', this.get('value'));
             var ds = new instance.web.DataSetStatic(self, model, self.build_context());
-            ds.call('search_count', [domain]).then(function (results) {
+            ds.call('search_count', [domain, self.build_context()]).then(function (results) {
                 $('.oe_domain_count', self.$el).text(results + ' records selected');
                 if (self.get('effective_readonly')) {
                     $('button span', self.$el).text(' See selection');
@@ -2842,6 +2849,7 @@ instance.web.form.FieldText = instance.web.form.AbstractField.extend(instance.we
             this.$textarea = this.$el.find('textarea');
             this.auto_sized = false;
             this.default_height = this.$textarea.css('height');
+            if (this.default_height === '0px') this.default_height = '90px';
             if (this.get("effective_readonly")) {
                 this.$textarea.attr('disabled', 'disabled');
             }
@@ -3739,9 +3747,9 @@ instance.web.form.FieldMany2One = instance.web.form.AbstractField.extend(instanc
             minLength: 0,
             delay: 200,
         });
-        var appendTo = this.$el.parents('.oe_view_manager_body, .modal-dialog').last();
+        var appendTo = this.$el.parents('.oe_view_manager_body:visible, .modal-dialog:visible').last();
         if (appendTo.length === 0){
-            appendTo = '.oe_application > *';
+            appendTo = '.oe_application > *:visible:last';
         }
         this.$input.autocomplete({
             appendTo: appendTo
@@ -4397,8 +4405,8 @@ instance.web.form.One2ManyListView = instance.web.ListView.extend({
 
         this.records
             .bind('add', this.proxy("changed_records"))
-            .bind('edit', this.proxy("changed_records"))
             .bind('remove', this.proxy("changed_records"));
+        this.on('save:after', this, this.proxy("changed_records"));
     },
     start: function () {
         var ret = this._super();
@@ -4415,7 +4423,6 @@ instance.web.form.One2ManyListView = instance.web.ListView.extend({
         if (!this.fields_view || !this.editable()){
             return true;
         }
-        var r;
         if (_.isEmpty(this.records.records)){
             return true;
         }
@@ -4426,9 +4433,8 @@ instance.web.form.One2ManyListView = instance.web.ListView.extend({
             current_values[field.name] = field.get('value');
         });
         var valid = _.every(this.records.records, function(record){
-            r = record;
             _.each(self.editor.form.fields, function(field){
-                field.set_value(r.attributes[field.name]);
+                field.set_value(record.attributes[field.name]);
             });
             return _.every(self.editor.form.fields, function(field){
                 field.process_modifiers();
