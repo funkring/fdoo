@@ -22,9 +22,6 @@ from openerp.osv import fields, osv
 
 class eagency_client(osv.Model):
 
-    _name = "eagency.client"
-    _inherits = {"res.partner" : "partner_id"}
-
     def onchange_address(self, cr, uid, ids, use_parent_address, parent_id, context=None):
         return self.pool.get("res.partner").onchange_address(cr, uid, ids, use_parent_address, parent_id, context=context)
 
@@ -34,6 +31,8 @@ class eagency_client(osv.Model):
     def on_change_zip(self, cr, uid, ids, zip_code, city):
         return self.pool.get("res.partner").on_change_zip(cr, uid, ids, zip_code, city)
 
+    _name = "eagency.client"
+    _inherits = {"res.partner" : "partner_id"}
     _columns = {
         "partner_id" : fields.many2one("res.partner", "Partner", required=True, ondelete="cascade"),
         "education_ids" : fields.one2many("eagency.client.education", "client_id", "Education"),
@@ -52,9 +51,7 @@ class eagency_client(osv.Model):
 class eagency_client_education(osv.Model):
 
     _name = "eagency.client.education"
-
     _rec_name = "education_id"
-
     _columns = {
         "client_id" : fields.many2one("eagency.client", "Client", invisible=True, required=True, ondelete="cascade"),
         "completed" : fields.integer("Graduation date", required=True),
@@ -62,18 +59,17 @@ class eagency_client_education(osv.Model):
         "education_id" : fields.many2one("eagency.education", "Education", required=True),
     }
 
+
 class eagency_education(osv.Model):
 
     _name = "eagency.education"
-
     _columns = {
         "name" : fields.char("Name", size=64, required=True, translate=True),
         "code" : fields.char("Code", size=8)
     }
+    
 
 class eagency_skill(osv.Model):
-
-    _name = "eagency.skill"
 
     def name_get(self, cr, uid, ids, context=None):
         if not len(ids):
@@ -91,41 +87,46 @@ class eagency_skill(osv.Model):
         res = self.name_get(cr, uid, ids, context=context)
         return dict(res)
 
+    _name = "eagency.skill"
     _rec_name = "complete_name"
-
     _columns = {
         "complete_name" : fields.function(_name_get_fnc, method=True, type="char", size=256, string="Name", select=True),
         "name" : fields.char("Name", size=64, required=True, translate=True),
         "parent_id" : fields.many2one("eagency.skill", "Parent"),
     }
+    _order = "name"
+    
 
 class eagency_prof_status(osv.Model):
 
     _name = "eagency.prof.status"
-
     _columns = {
-        "name" : fields.char("Name", required=True, size=64, translate=True)
+        "name" : fields.char("Name", required=True, size=64, translate=True),
+        "sequence" : fields.integer("Sequence")
     }
+    _order = "sequence, name"
 
 
 class eagency_area(osv.Model):
 
     _name = "eagency.area"
-
     _columns = {
         "name" : fields.char("Name", required=True, size=64, translate=True),
         "country_ids" : fields.many2many("res.country", "eagency_area_country_rel", "area_id", "country_id", "Countries"),
+        "sequence" : fields.integer("Sequence")
     }
+    _order = "sequence, name"
 
 
 class eagency_lang(osv.Model):
 
     _name = "eagency.lang"
-
     _columns = {
         "name" : fields.char("Name", required=True, size=64, translate=True),
         "code" : fields.char("Code", required=True, size=8),
+        "sequence" : fields.integer("Sequence")
     }
+    _order = "sequence, name"
 
 
 class eagency_lang_skill(osv.Model):

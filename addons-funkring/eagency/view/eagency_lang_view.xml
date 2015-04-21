@@ -21,6 +21,7 @@
             <field name="model">eagency.lang</field>
             <field name="arch" type="xml">
               <tree string="Language">
+                  <field name="sequence" widget="handle"/>
                   <field name="name" />
                   <field name="code" />
               </tree>

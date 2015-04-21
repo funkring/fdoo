@@ -20,9 +20,13 @@
 
 from openerp.osv import orm, osv, fields
 from openerp.addons.web.http import request
+import uuid
 
 class website(osv.osv):
     _inherit = "website"
+    
+    def create_uuid(self, **kwargs):
+        return uuid.uuid4()
     
     def get_language(self, cr, uid, ids, context=None):
         lang_first = None

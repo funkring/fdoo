@@ -28,50 +28,45 @@
           <field name="perm_write" eval="False"/>
         </record>
 
-        <record id="access_eagency_area_user" model="ir.model.access">
-          <field name="name">eagency_area/user</field>
+        <record id="access_eagency_area_all" model="ir.model.access">
+          <field name="name">eagency_area/all</field>
           <field name="model_id" ref="model_eagency_area"/>
-          <field name="group_id" ref="base.group_user"/>
           <field name="perm_read" eval="True"/>
           <field name="perm_unlink" eval="False"/>
           <field name="perm_create" eval="False"/>
           <field name="perm_write" eval="False"/>
         </record>
 
-        <record id="access_eagency_prof_status_user" model="ir.model.access">
-          <field name="name">eagency_prof_status/user</field>
+        <record id="access_eagency_prof_status_all" model="ir.model.access">
+          <field name="name">eagency_prof_status/all</field>
           <field name="model_id" ref="model_eagency_prof_status"/>
-          <field name="group_id" ref="base.group_user"/>
           <field name="perm_read" eval="True"/>
           <field name="perm_unlink" eval="False"/>
           <field name="perm_create" eval="False"/>
           <field name="perm_write" eval="False"/>
         </record>
 
-        <record id="access_eagency_lang_user" model="ir.model.access">
-          <field name="name">eagency_lang/user</field>
+        <record id="access_eagency_lang_all" model="ir.model.access">
+          <field name="name">eagency_lang/aöö</field>
           <field name="model_id" ref="model_eagency_lang"/>
-          <field name="group_id" ref="base.group_user"/>
           <field name="perm_read" eval="True"/>
           <field name="perm_unlink" eval="False"/>
           <field name="perm_create" eval="False"/>
           <field name="perm_write" eval="False"/>
         </record>
 
-        <record id="access_eagency_lang_skill_user" model="ir.model.access">
-          <field name="name">eagency_lang_skill/user</field>
+        <record id="access_eagency_lang_skill_all" model="ir.model.access">
+          <field name="name">eagency_lang_skill/all</field>
           <field name="model_id" ref="model_eagency_lang_skill"/>
-          <field name="group_id" ref="base.group_user"/>
           <field name="perm_read" eval="True"/>
           <field name="perm_unlink" eval="False"/>
           <field name="perm_create" eval="False"/>
           <field name="perm_write" eval="False"/>
         </record>
 
-        <record id="access_eagency_education_user" model="ir.model.access">
-          <field name="name">eagency_education/user</field>
+        <record id="access_eagency_education_all" model="ir.model.access">
+          <field name="name">eagency_education/all</field>
           <field name="model_id" ref="model_eagency_education"/>
-          <field name="group_id" ref="base.group_user"/>
           <field name="perm_read" eval="True"/>
           <field name="perm_unlink" eval="False"/>
           <field name="perm_create" eval="False"/>
@@ -88,10 +83,9 @@
           <field name="perm_write" eval="False"/>
         </record>
 
-        <record id="access_eagency_skill_user" model="ir.model.access">
-          <field name="name">eagency_skill/user</field>
+        <record id="access_eagency_skill_all" model="ir.model.access">
+          <field name="name">eagency_skill/all</field>
           <field name="model_id" ref="model_eagency_skill"/>
-          <field name="group_id" ref="base.group_user"/>
           <field name="perm_read" eval="True"/>
           <field name="perm_unlink" eval="False"/>
           <field name="perm_create" eval="False"/>

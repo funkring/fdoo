@@ -20,6 +20,7 @@
             <field name="model">eagency.prof.status</field>
             <field name="arch" type="xml">
               <tree string="Professional status">
+                  <field name="sequence" widget="handle"/>
                   <field name="name" />
               </tree>
             </field>
