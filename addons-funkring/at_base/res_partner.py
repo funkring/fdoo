@@ -177,6 +177,16 @@ class res_partner(osv.osv):
                 res[partner.id] = self._get_number(cr, uid, ids, partner.fax)
         return res
     
+    def _split_name(self, cr, uid, ids, field_names, arg, context=None):
+        res = dict.fromkeys(ids)
+        for obj in self.browse(cr, uid, ids, context):
+            val = {}            
+            res[obj.id] = val
+            split = re.split("[ ]+", obj.name)
+            val["firstname"] = split[-1:] or None
+            val["surname"] = " ".join(split[:-1]) or None
+        return res
+    
     _inherit = "res.partner"
     _columns =  {    
         "mail_without_company" : fields.boolean("Mail Address without company"),
@@ -186,5 +196,7 @@ class res_partner(osv.osv):
         "phone_n" : fields.function(_get_phone, type="char", store=True, string="Phone normalized"),
         "mobile_n" : fields.function(_get_mobile, type="char", store=True, string="Mobile normalized"),
         "fax_n" : fields.function(_get_fax, type="char", store=True, string="Fax normalized"),
-        "birthday" : fields.date("Birthday")
+        "birthday" : fields.date("Birthday"),
+        "firstname" : fields.function(_split_name, string="Firstname", type="char", multi="_split_name"),
+        "surname" : fields.function(_split_name, string="Surname", type="char", multi="_split_name") 
      }

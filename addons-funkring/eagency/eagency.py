@@ -31,12 +31,31 @@ class eagency_client(osv.Model):
     def on_change_zip(self, cr, uid, ids, zip_code, city):
         return self.pool.get("res.partner").on_change_zip(cr, uid, ids, zip_code, city)
 
+    def _user_id(self, cr, uid, ids, field_name, arg, context=None):
+        res = dict.fromkeys(ids)
+        cr.execute("SELECT c.id, u.id FROM eagency_client c " 
+                   " INNER JOIN res_partner p ON p.id = c.partner_id "
+                   " INNER JOIN res_users u ON u.partner_id = p.id "
+                   " WHERE c.id IN %s " 
+                   " GROUP BY 1,2", (tuple(ids),))
+        for row in cr.fetchall():
+            res[row[0]]=res[row[1]]
+        return res
+        
+    def _relids_user_ids(self, cr, uid, ids, context=None):
+        cr.execute("SELECT c.id FROM res_users u " 
+                   " INNER JOIN res_partner p ON p.id = u.partner_id "
+                   " INNER JOIN eagency_client c ON c.partner_id = p.id "
+                   " WHERE u.id IN %s " 
+                   " GROUP BY 1", (tuple(ids),))
+        return [r[0] for r in cr.fetchall()]
+
     _name = "eagency.client"
     _inherits = {"res.partner" : "partner_id"}
     _columns = {
         "partner_id" : fields.many2one("res.partner", "Partner", required=True, ondelete="cascade"),
         "education_ids" : fields.one2many("eagency.client.education", "client_id", "Education"),
-        "skill_ids" : fields.many2many("eagency.skill", "eagency_client_skill_rel", "client_id", "skill_id", "Skills", domain=[("parent_id", "!=", None)]),
+        "skill_ids" : fields.many2many("eagency.skill", "eagency_client_skill_rel", "client_id", "skill_id", "Skills"),
         "add_education" : fields.text("Additional Education"),
         "employer_id" : fields.many2one("res.partner", "Employer"),
         "prof_status_id" : fields.many2one("eagency.prof.status", "Professional status"),
@@ -45,6 +64,10 @@ class eagency_client(osv.Model):
         "req_area_ids" : fields.many2many("eagency.area", "eagency_client_area_rel", "client_id", "area_id", "Areas", required=True),
         "req_other" : fields.text("Other mediation requirements"),
         "motivation" : fields.text("Motivation, important conditions and other"),
+        "user_id" : fields.function(_user_id, string="User", type="many2one", obj="res.users", store={
+            "res.users" : (_relids_user_ids,["partner_id"],10),
+            "eagency.client": (lambda self, cr, uid, ids, context=None: ids, ["partner_id"],10)
+        })
     }
 
 
