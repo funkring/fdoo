@@ -183,8 +183,8 @@ class res_partner(osv.osv):
             val = {}            
             res[obj.id] = val
             split = re.split("[ ]+", obj.name)
-            val["firstname"] = split[-1:] or None
-            val["surname"] = " ".join(split[:-1]) or None
+            val["firstname"] = " ".join(split[-1:])
+            val["surname"] = " ".join(split[:-1])
         return res
     
     _inherit = "res.partner"
