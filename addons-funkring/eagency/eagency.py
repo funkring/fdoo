@@ -39,7 +39,7 @@ class eagency_client(osv.Model):
                    " WHERE c.id IN %s " 
                    " GROUP BY 1,2", (tuple(ids),))
         for row in cr.fetchall():
-            res[row[0]]=res[row[1]]
+            res[row[0]]=row[1]
         return res
         
     def _relids_user_ids(self, cr, uid, ids, context=None):
@@ -49,22 +49,32 @@ class eagency_client(osv.Model):
                    " WHERE u.id IN %s " 
                    " GROUP BY 1", (tuple(ids),))
         return [r[0] for r in cr.fetchall()]
+    
+    def _send_mails(self, cr, uid, template_xmlid, ids, context=None):
+        template_obj = self.pool["email.template"]
+        template_id = self.pool["ir.model.data"].xmlid_to_res_id(cr, uid, template_xmlid)
+        if template_id:
+            for client in self.browse(cr, uid, ids, context=context):
+                template_obj.send_mail(cr, uid, template_id, client.id, force_send=True, context=context)
 
     _name = "eagency.client"
     _inherits = {"res.partner" : "partner_id"}
     _columns = {
+        "title_name" : fields.char("Title"),
         "partner_id" : fields.many2one("res.partner", "Partner", required=True, ondelete="cascade"),
         "education_ids" : fields.one2many("eagency.client.education", "client_id", "Education"),
         "skill_ids" : fields.many2many("eagency.skill", "eagency_client_skill_rel", "client_id", "skill_id", "Skills"),
         "add_education" : fields.text("Additional Education"),
-        "employer_id" : fields.many2one("res.partner", "Employer"),
-        "prof_status_id" : fields.many2one("eagency.prof.status", "Professional status"),
+        "employer" : fields.char("Employer"),
+        "employer_id" : fields.many2one("res.partner", "(Registered) Employer"),
+        "prof_status_id" : fields.many2one("eagency.prof.status", "(Registered) Professional status"),
+        "prof_status" : fields.char("Professional status"),
         "lang_skill_ids" : fields.one2many("eagency.lang.skill", "client_id", "Language skills"),
         "lang_other" : fields.text("Other language skills"),
         "req_area_ids" : fields.many2many("eagency.area", "eagency_client_area_rel", "client_id", "area_id", "Areas", required=True),
         "req_other" : fields.text("Other mediation requirements"),
         "motivation" : fields.text("Motivation, important conditions and other"),
-        "user_id" : fields.function(_user_id, string="User", type="many2one", obj="res.users", store={
+        "user_id" : fields.function(_user_id, string="User", type="many2one", obj="res.users", copy=False, store={
             "res.users" : (_relids_user_ids,["partner_id"],10),
             "eagency.client": (lambda self, cr, uid, ids, context=None: ids, ["partner_id"],10)
         })

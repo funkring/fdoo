@@ -13,6 +13,10 @@
                     <h1>
                         <field name="name" default_focus="1" placeholder="Name" />
                     </h1>
+                    <label for="title_name" class="oe_edit_only"/>
+                    <h3>
+                        <field name="title_name" placeholder="Title"/>
+                    </h3>
                     <field name="type" invisible="1"/>
                     <field name="customer" invisible="1"/>
                     <label for="active" />
@@ -46,7 +50,9 @@
                         <group>
                             <group string="Education and professional background">
                                 <field name="skill_ids" widget="many2many_tags" />
-                                <field name="prof_status_id" />
+                                <field name="prof_status"/>
+                                <field name="prof_status_id"/>    
+                                <field name="employer"/>                                                            
                                 <field name="employer_id" />
                                 <field name="add_education" />
                             </group>
@@ -95,7 +101,7 @@
             <field name="phone" />
             <field name="email" />
             <field name="req_area_ids" />
-            <field name="prof_status_id" />
+            <field name="prof_status"/>
             <field name="skill_ids" />
         </tree>
       </field>
@@ -108,7 +114,8 @@
         <search string="Search Client">
             <field name="name" filter_domain="['|',('name','ilike',self),('email','ilike',self)]"/>
             <field name="req_area_ids" />
-            <field name="prof_status_id" />
+            <field name="prof_status" />
+            <field name="employer" />
             <field name="skill_ids" />
             <field name="add_education" />
             <filter string="Inactive" domain="[('active','=',False)]" />

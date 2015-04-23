@@ -45,7 +45,7 @@ class res_users(osv.Model):
 
     _inherit = "res.users"
     _columns = {
-        "eagency_client_id" : fields.function(_eagency_client_id, string="Client", type="many2one", obj="eagency.client", store={
+        "eagency_client_id" : fields.function(_eagency_client_id, string="Client", type="many2one", obj="eagency.client", copy=False, store={
             "eagency.client" : (_relids_eagency_client,["partner_id"],10),
             "res.users": (lambda self, cr, uid, ids, context=None: ids, ["partner_id"],10)
         })

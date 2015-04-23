@@ -6,15 +6,25 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-09 14:10+0000\n"
-"PO-Revision-Date: 2015-04-09 16:11+0100\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2015-04-23 00:28+0000\n"
+"PO-Revision-Date: 2015-04-23 02:30+0100\n"
+"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "X-Generator: Poedit 1.5.4\n"
+
+#. module: eagency
+#: field:eagency.client,employer_id:0
+msgid "(Registered) Employer"
+msgstr "(registrierter) Arbeitgeber"
+
+#. module: eagency
+#: field:eagency.client,prof_status_id:0
+msgid "(Registered) Professional status"
+msgstr "(registrierter) Status"
 
 #. module: eagency
 #: field:eagency.client,add_education:0
@@ -39,11 +49,6 @@ msgid "Agency"
 msgstr "Vermittlung"
 
 #. module: eagency
-#: model:res.groups,name:eagency.group_management
-msgid "Agency Management"
-msgstr "Vermittlung / Management"
-
-#. module: eagency
 #: view:eagency.area:eagency.form_eagency_area
 #: view:eagency.area:eagency.tree_eagency_area
 #: field:eagency.client,req_area_ids:0
@@ -60,7 +65,7 @@ msgstr "Stadt"
 #. module: eagency
 #: view:eagency.client:eagency.tree_eagency_client
 #: field:eagency.client.education,client_id:0
-#: field:eagency.lang.skill,client_id:0
+#: field:eagency.lang.skill,client_id:0 field:res.users,eagency_client_id:0
 msgid "Client"
 msgstr "Klient"
 
@@ -93,7 +98,7 @@ msgstr "Länder"
 #: field:eagency.lang.skill,create_uid:0
 #: field:eagency.prof.status,create_uid:0 field:eagency.skill,create_uid:0
 msgid "Created by"
-msgstr ""
+msgstr "Erstellt von"
 
 #. module: eagency
 #: field:eagency.area,create_date:0 field:eagency.client,create_date:0
@@ -102,7 +107,7 @@ msgstr ""
 #: field:eagency.lang.skill,create_date:0
 #: field:eagency.prof.status,create_date:0 field:eagency.skill,create_date:0
 msgid "Created on"
-msgstr ""
+msgstr "Erstellt am"
 
 #. module: eagency
 #: view:eagency.client:eagency.form_eagency_client
@@ -120,14 +125,14 @@ msgid "Education and professional background"
 msgstr "Ausbildung und beruflicher Hintergrund"
 
 #. module: eagency
-#: field:eagency.client,employer_id:0
+#: field:eagency.client,employer:0
 msgid "Employer"
 msgstr "Arbeitgeber"
 
 #. module: eagency
 #: model:ir.module.category,description:eagency.module_category_agency
 msgid "Employment Agency security"
-msgstr ""
+msgstr "Sicherheit"
 
 #. module: eagency
 #: selection:eagency.lang.skill,skill:0
@@ -198,7 +203,7 @@ msgstr "Sprachen"
 #: field:eagency.lang.skill,write_uid:0 field:eagency.prof.status,write_uid:0
 #: field:eagency.skill,write_uid:0
 msgid "Last Updated by"
-msgstr ""
+msgstr "Zuletzt aktualisiert von"
 
 #. module: eagency
 #: field:eagency.area,write_date:0 field:eagency.client,write_date:0
@@ -207,6 +212,11 @@ msgstr ""
 #: field:eagency.lang.skill,write_date:0
 #: field:eagency.prof.status,write_date:0 field:eagency.skill,write_date:0
 msgid "Last Updated on"
+msgstr "Zuletzt aktualisiert am"
+
+#. module: eagency
+#: model:res.groups,name:eagency.group_management
+msgid "Management"
 msgstr ""
 
 #. module: eagency
@@ -275,7 +285,7 @@ msgstr "Beruf"
 
 #. module: eagency
 #: view:eagency.client:eagency.search_eagency_client
-#: field:eagency.client,prof_status_id:0
+#: field:eagency.client,prof_status:0
 #: view:eagency.prof.status:eagency.form_eagency_prof_status
 #: view:eagency.prof.status:eagency.tree_eagency_prof_status
 #: model:ir.actions.act_window,name:eagency.action_eagency_prof_status
@@ -309,6 +319,12 @@ msgid "Search professional status"
 msgstr "Suche berufliche Positionen"
 
 #. module: eagency
+#: field:eagency.area,sequence:0 field:eagency.lang,sequence:0
+#: field:eagency.prof.status,sequence:0
+msgid "Sequence"
+msgstr "Sequenz"
+
+#. module: eagency
 #: field:eagency.client,skill_ids:0
 #: view:eagency.skill:eagency.form_eagency_skill
 #: view:eagency.skill:eagency.tree_eagency_skill
@@ -321,6 +337,22 @@ msgstr "Fachgebiete"
 #: view:eagency.client:eagency.form_eagency_client
 msgid "Street..."
 msgstr "Straße..."
+
+#. module: eagency
+#: view:eagency.client:eagency.form_eagency_client
+#: field:eagency.client,title_name:0
+msgid "Title"
+msgstr "Titel"
+
+#. module: eagency
+#: field:eagency.client,user_id:0
+msgid "User"
+msgstr "Benutzer"
+
+#. module: eagency
+#: model:ir.model,name:eagency.model_res_users
+msgid "Users"
+msgstr "Benutzer"
 
 #. module: eagency
 #: view:eagency.client:eagency.form_eagency_client
