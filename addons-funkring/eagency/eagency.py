@@ -19,6 +19,7 @@
 ##############################################################################
 
 from openerp.osv import fields, osv
+from openerp.addons.at_base import util
 
 class eagency_client(osv.Model):
 
@@ -34,6 +35,17 @@ class eagency_client(osv.Model):
     def _user_id(self, cr, uid, ids, field_name, arg, context=None):
         res = dict.fromkeys(ids)
         cr.execute("SELECT c.id, u.id FROM eagency_client c " 
+                   " INNER JOIN res_partner p ON p.id = c.partner_id "
+                   " INNER JOIN res_users u ON u.partner_id = p.id "
+                   " WHERE c.id IN %s " 
+                   " GROUP BY 1,2", (tuple(ids),))
+        for row in cr.fetchall():
+            res[row[0]]=row[1]
+        return res
+    
+    def _user_active(self, cr, uid, ids, field_name, arg, context=None):
+        res = dict.fromkeys(ids)
+        cr.execute("SELECT c.id, u.active FROM eagency_client c " 
                    " INNER JOIN res_partner p ON p.id = c.partner_id "
                    " INNER JOIN res_users u ON u.partner_id = p.id "
                    " WHERE c.id IN %s " 
@@ -57,6 +69,21 @@ class eagency_client(osv.Model):
             for client in self.browse(cr, uid, ids, context=context):
                 template_obj.send_mail(cr, uid, template_id, client.id, force_send=True, context=context)
 
+    
+    def unlink(self, cr, uid, ids, context):
+        ids = util.idList(ids)     
+        user_ids = []
+        for client in self.browse(cr, uid, ids, context=context):
+            if client.user_id:   
+                user_ids.append(client.user_id.id)             
+                
+        super(eagency_client,self).unlink(cr, uid, ids, context=context)
+        
+        user_obj = self.pool["res.users"]
+        if user_ids:
+            user_obj.unlink(cr, uid, user_ids, context=context)             
+        
+
     _name = "eagency.client"
     _inherits = {"res.partner" : "partner_id"}
     _columns = {
@@ -77,7 +104,11 @@ class eagency_client(osv.Model):
         "user_id" : fields.function(_user_id, string="User", type="many2one", obj="res.users", copy=False, store={
             "res.users" : (_relids_user_ids,["partner_id"],10),
             "eagency.client": (lambda self, cr, uid, ids, context=None: ids, ["partner_id"],10)
-        })
+        }),
+        "activated" : fields.function(_user_active, string="Activated", type="boolean", copy=False, store={
+            "res.users" : (_relids_user_ids,["partner_id"],10),
+            "eagency.client": (lambda self, cr, uid, ids, context=None: ids, ["partner_id"],10)
+        }),
     }
 
 
@@ -156,7 +187,7 @@ class eagency_lang(osv.Model):
     _name = "eagency.lang"
     _columns = {
         "name" : fields.char("Name", required=True, size=64, translate=True),
-        "code" : fields.char("Code", required=True, size=8),
+        "lang_id" : fields.many2one("res.lang", "Language", required=True),
         "sequence" : fields.integer("Sequence")
     }
     _order = "sequence, name"

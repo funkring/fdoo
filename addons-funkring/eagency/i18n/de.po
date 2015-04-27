@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-23 00:28+0000\n"
-"PO-Revision-Date: 2015-04-23 02:30+0100\n"
+"POT-Creation-Date: 2015-04-27 09:54+0000\n"
+"PO-Revision-Date: 2015-04-27 11:56+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -19,12 +19,17 @@ msgstr ""
 #. module: eagency
 #: field:eagency.client,employer_id:0
 msgid "(Registered) Employer"
-msgstr "(registrierter) Arbeitgeber"
+msgstr "Eingetragener Arbeitgeber"
 
 #. module: eagency
 #: field:eagency.client,prof_status_id:0
 msgid "(Registered) Professional status"
-msgstr "(registrierter) Status"
+msgstr "Eingetragener Status"
+
+#. module: eagency
+#: field:eagency.client,activated:0
+msgid "Activated"
+msgstr "Aktiviert"
 
 #. module: eagency
 #: field:eagency.client,add_education:0
@@ -125,6 +130,11 @@ msgid "Education and professional background"
 msgstr "Ausbildung und beruflicher Hintergrund"
 
 #. module: eagency
+#: model:res.groups,name:eagency.group_management
+msgid "Employee Agency Management"
+msgstr "Vermittlung Manager"
+
+#. module: eagency
 #: field:eagency.client,employer:0
 msgid "Employer"
 msgstr "Arbeitgeber"
@@ -213,11 +223,6 @@ msgstr "Zuletzt aktualisiert von"
 #: field:eagency.prof.status,write_date:0 field:eagency.skill,write_date:0
 msgid "Last Updated on"
 msgstr "Zuletzt aktualisiert am"
-
-#. module: eagency
-#: model:res.groups,name:eagency.group_management
-msgid "Management"
-msgstr ""
 
 #. module: eagency
 #: view:eagency.client:eagency.form_eagency_client

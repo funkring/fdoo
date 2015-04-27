@@ -9,7 +9,7 @@
                 <sheet>
                     <group>
                         <field name="name" />
-                        <field name="code" />
+                        <field name="lang_id" />
                     </group>
                 </sheet>
             </form>
@@ -23,7 +23,7 @@
               <tree string="Language">
                   <field name="sequence" widget="handle"/>
                   <field name="name" />
-                  <field name="code" />
+                  <field name="lang_id" />
               </tree>
             </field>
         </record>
@@ -34,7 +34,7 @@
             <field name="arch" type="xml">
               <search string="Search Language">
                   <field name="name" />
-                  <field name="code" />
+                  <field name="lang_id" />
               </search>
             </field>
         </record>

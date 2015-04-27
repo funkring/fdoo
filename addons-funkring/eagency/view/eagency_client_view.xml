@@ -16,16 +16,14 @@
                     <label for="title_name" class="oe_edit_only"/>
                     <h3>
                         <field name="title_name" placeholder="Title"/>
-                    </h3>
+                    </h3>                    
                     <field name="type" invisible="1"/>
-                    <field name="customer" invisible="1"/>
-                    <label for="active" />
-                    <field name="active" />
+                    <field name="customer" invisible="1"/>                   
                 </div>
 
                 <group>
                     <group>
-                        <field name="user_id"/>
+                        <field name="user_id" />
                         <label for="street" string="Address"/>
                         <div>
                             <field name="street" placeholder="Street..." required="1"/>
@@ -96,13 +94,14 @@
       <field name="name">eagency.tree_eagency_client</field>
       <field name="model">eagency.client</field>
       <field name="arch" type="xml">
-        <tree string="Client">
+        <tree string="Client" colors="blue:activated!=True">
             <field name="name" />
             <field name="phone" />
             <field name="email" />
             <field name="req_area_ids" />
             <field name="prof_status"/>
             <field name="skill_ids" />
+            <field name="activated" invisible="1"/>
         </tree>
       </field>
     </record>

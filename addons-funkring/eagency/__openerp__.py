@@ -28,7 +28,7 @@ oerp.at Employment Agency
     "author" :  "funkring.net",
     "website": "http://www.funkring.net",
     "category" : "Agency",
-    "depends" : ["at_base"],
+    "depends" : ["base","at_base","mail"],
     "data" : ["security.xml",
               "menu.xml",
               "view/eagency_client_view.xml",
