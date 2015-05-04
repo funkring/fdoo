@@ -98,7 +98,7 @@ class LangFormat(object):
         return float_time
     
     
-    def formatLang(self, value, digits=None, date=False, date_time=False, grouping=True, monetary=False, dp=False,float_time=False):
+    def formatLang(self, value, digits=None, date=False, date_time=False, grouping=True, monetary=False, dp=False, float_time=False):
         """
             Assuming 'Account' decimal.precision=3:
                 formatLang(value) -> digits=2 (default)
@@ -148,3 +148,35 @@ class LangFormat(object):
             return self.floatTimeConvert(value)
 
         return lang_dict['lang_obj'].format('%.' + str(digits) + 'f', value, grouping=grouping, monetary=monetary)
+
+    
+#     def parseLang(self, value, digits=None, date=False, date_time=False, grouping=True, monetary=False, dp=False, float_time=False):
+#         lang_dict = self._get_lang_dict()        
+#         if date or date_time:
+#             if not str(value):
+#                 return ''
+# 
+#             parse_format = lang_dict['date_format']
+#             if date_time:                
+#                 parse_format = date_format + " " + lang_dict['time_format']
+#             
+#             if date_time:
+#                 # Convert datetime values to the expected client/context timezone
+#                 date = datetime_field.context_timestamp(self.cr, self.uid,
+#                                                         timestamp=date,
+#                                                         context=self.localcontext)
+#                 
+#             dt_val = date.strptime(parse_format, value)
+#             if not dt_val:
+#                 return None
+#             elif date_time:              
+#                 local_value = datetime_field.context_timestamp(self.cr, self.uid,
+#                                               timestamp=util.timeToStr(dt_val),
+#                                               context=self.localcontext)  
+#                 return local_value
+#             else:
+#                 
+#                 
+#         
+#         return value
+        
