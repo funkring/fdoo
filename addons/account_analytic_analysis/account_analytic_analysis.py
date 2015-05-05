@@ -415,7 +415,7 @@ class account_analytic_account(osv.osv):
     def _get_total_estimation(self, account):
         tot_est = 0.0
         if account.fix_price_invoices:
-            tot_est += account.amount_max 
+            tot_est += account.amount_max
         if account.invoice_on_timesheets:
             tot_est += account.hours_qtt_est
         return tot_est
@@ -557,14 +557,14 @@ class account_analytic_account(osv.osv):
         res = super(account_analytic_account, self).on_change_template(cr, uid, ids, template_id, date_start=date_start, context=context)
 
         template = self.browse(cr, uid, template_id, context=context)
-        
+
         if not fix_price_invoices:
             res['value']['fix_price_invoices'] = template.fix_price_invoices
             res['value']['amount_max'] = template.amount_max
         if not invoice_on_timesheets:
             res['value']['invoice_on_timesheets'] = template.invoice_on_timesheets
             res['value']['hours_qtt_est'] = template.hours_qtt_est
-        
+
         if template.to_invoice.id:
             res['value']['to_invoice'] = template.to_invoice.id
         if template.pricelist_id.id:
@@ -742,8 +742,10 @@ class account_analytic_account(osv.osv):
                 new_date = next_date+relativedelta(days=+interval)
             elif contract.recurring_rule_type == 'weekly':
                 new_date = next_date+relativedelta(weeks=+interval)
-            else:
+            elif contract.recurring_rule_type == 'monthly':
                 new_date = next_date+relativedelta(months=+interval)
+            else:
+                new_date = next_date+relativedelta(years=+interval)
             self.write(cr, uid, [contract.id], {'recurring_next_date': new_date.strftime('%Y-%m-%d')}, context=context)
         return True
 
@@ -785,14 +787,14 @@ class account_analytic_account_summary_user(osv.osv):
             with mu as
                 (select max(id) as max_user from res_users)
             , lu AS
-                (SELECT   
-                 l.account_id AS account_id,   
-                 coalesce(l.user_id, 0) AS user_id,   
-                 SUM(l.unit_amount) AS unit_amount   
-             FROM account_analytic_line AS l,   
-                 account_analytic_journal AS j   
-             WHERE (j.type = 'general' ) and (j.id=l.journal_id)   
-             GROUP BY l.account_id, l.user_id   
+                (SELECT
+                 l.account_id AS account_id,
+                 coalesce(l.user_id, 0) AS user_id,
+                 SUM(l.unit_amount) AS unit_amount
+             FROM account_analytic_line AS l,
+                 account_analytic_journal AS j
+             WHERE (j.type = 'general' ) and (j.id=l.journal_id)
+             GROUP BY l.account_id, l.user_id
             )
             select (lu.account_id * mu.max_user) + lu.user_id as id,
                     lu.account_id as account_id,
