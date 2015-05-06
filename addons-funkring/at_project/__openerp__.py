@@ -34,7 +34,7 @@ modules
     "author" :  "funkring.net",
     "website": "http://www.funkring.net",
     "category" : "Project Management",
-    "depends" : ["project","at_base"],
+    "depends" : ["project","at_base","project_issue"],
     "data" : [ "view/project_view.xml",
                "view/task_division_view.xml",
                "report/project_issue_report.xml",
