@@ -17,43 +17,18 @@
 #
 ##############################################################################
 {
-    "name" : "oerp.at Sale",
+    "name" : "oerp.at Partner Birthday Mail",
     "description":"""
-oerp.at Sale Extensions
-=======================
-
-* Invoice <-> Sale link
-* CRM category code
-* Shop specific product categories
-* More informational invoice line
-* Aeroo report replacement
-* Shop for picking
-
+oerp.at Partner Birthday Mail
+=============================
+* Send birthday mails automatically
 """,
-    "version" : "1.1",
+    "version" : "1.0",
     "author" :  "funkring.net",
     "website": "http://www.funkring.net",
-    "category" : "Sales",
-    "depends" : ["account",
-                 "sale",
-                 "sale_crm",
-                 "sale_stock",
-                 "at_base",
-                 "at_product",
-                 "at_account",
-                 "at_resource",
-                 "at_procurement",
-                 "at_product",
-                 "at_stock"],
-    "data" : [ "view/partner_view.xml",
-               "security.xml",
-               "view/shop_view.xml",
-               "view/sale_view.xml",
-               "view/crm_categ_view.xml",
-               "view/stock_picking_view.xml",
-               "view/sale_line_invoice_wizard.xml",
-               "view/product_view.xml",
-               "report/sale_order_report.xml"],
+    "category" : "Mail",
+    "depends" : ["at_base"],
+    "data" : [],
     "auto_install": False,
     "installable": True
 }

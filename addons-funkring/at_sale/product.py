@@ -44,12 +44,36 @@ class product_product(osv.osv):
 
         return res
 
+    def onchange_brutto_price(self, cr, uid, ids, brutto_price, taxes_id, company_id, context=None):
+        res = {
+           "value" : {}
+        }
+
+        tax_obj = self.pool.get("account.tax")
+        cur_obj = self.pool.get("res.currency")
+        company_obj = self.pool.get("res.company")
+
+        price = brutto_price
+        taxes_list = taxes_id[0][2]
+        if taxes_list:
+            price_list = tax_obj.compute_inv(cr, uid, tax_obj.browse(cr, uid, taxes_list), price, 1)
+            if price_list:
+                price = price_list[0]["price_unit"]
+        currency_id = company_obj.browse(cr, uid, company_id).currency_id
+        if currency_id:
+            res["value"]["lst_price"] = cur_obj.round(cr, uid, currency_id, price)
+        else:
+            res["value"]["lst_price"] = price
+
+        return res
+
+
+
     _inherit = "product.product"
 
 class product_template(osv.osv):
 
     _inherit = "product.template"
-
 
     def onchange_brutto_price(self, cr, uid, ids, brutto_price, taxes_id, company_id, context=None):
         res = {
@@ -97,3 +121,4 @@ class product_template(osv.osv):
         "brutto_price" : fields.function(_calculate_price, type="float", string="Brutto Price",
                                          help="The brutto price is based on the given tax."),
     }
+
