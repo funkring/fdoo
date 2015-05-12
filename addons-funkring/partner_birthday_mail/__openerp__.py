@@ -29,7 +29,7 @@ oerp.at Partner Birthday Mail
     "category" : "Mail",
     "depends" : ["at_base", "mail"],
     "data" : ["data/birthday_email_template.xml",
-              "data/birthday_email_data.xml"],
+              "data/birthday_email_cron.xml"],
     "auto_install": False,
     "installable": True
 }
