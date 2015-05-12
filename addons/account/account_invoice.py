@@ -131,7 +131,7 @@ class account_invoice(models.Model):
                 continue
             # Get the correct line residual amount
             if line.currency_id == self.currency_id:
-                line_amount = line.currency_id and line.amount_residual_currency or line.amount_residual
+                line_amount = line.amount_residual_currency if line.currency_id else line.amount_residual
             else:
                 from_currency = line.company_id.currency_id.with_context(date=line.date)
                 line_amount = from_currency.compute(line.amount_residual, self.currency_id)
@@ -720,7 +720,10 @@ class account_invoice(models.Model):
             for tax in self.tax_line:
                 if tax.manual:
                     continue
-                key = (tax.tax_code_id.id, tax.base_code_id.id, tax.account_id.id)
+                # funkring.net begin
+                #  added account_analytic_id as key
+                key = (tax.tax_code_id.id, tax.base_code_id.id, tax.account_id.id, tax.account_analytic_id.id)
+                # funkring.net end
                 tax_key.append(key)
                 if key not in compute_taxes:
                     raise except_orm(_('Warning!'), _('Global taxes defined, but they are not in invoice lines !'))
@@ -1568,7 +1571,10 @@ class account_invoice_tax(models.Model):
                 if not val.get('account_analytic_id') and line.account_analytic_id and val['account_id'] == line.account_id.id:
                     val['account_analytic_id'] = line.account_analytic_id.id
 
-                key = (val['tax_code_id'], val['base_code_id'], val['account_id'])
+                # funkring.net begin 
+                #   added analytic account to key
+                key = (val['tax_code_id'], val['base_code_id'], val['account_id'], val['account_analytic_id'])
+                # funkring.net end
                 if not key in tax_grouped:
                     tax_grouped[key] = val
                 else:
