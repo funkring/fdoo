@@ -1,22 +1,21 @@
 <openerp>
-  <data noupdate="1">
-      <record id="email_partner_birthday" model="email.template">
-            <field name="name">Activate Account</field>
-            <field name="lang">${object.lang.code}</field>
-            <field name="subject">Happy Birthday</field>
+    <data noupdate="1">
+        <record id="email_partner_birthday" model="email.template">
+            <field name="name">Partner Birthday</field>
             <field name="email_from">${(user.email or '')|safe}</field>
-            <field name="partner_to">${object.id}</field>
-            <field name="model_id" ref="partner_birthday_mail.model_partner_birthday_mail"/>
+            <field name="subject">Happy Birthday</field>
+            <field name="email_to">${object.email|safe}</field>
+            <field name="lang">${object.lang}</field>
+            <field name="model_id" ref="base.model_res_partner"/>
             <field name="body_html"><![CDATA[
-<p>Dear ${object.name},
+            <p>Dear ${object.name},
+            <br/><br/>
+            we wish you a happy Birthday!
+            <br/><br/>
+            Kind regards
+            </p>
 
-we wish you a happy Birthday!
-
-Kind regards
-</p>
-
-]]></field>
-
-     </record>
-  </data>
+            ]]></field>
+        </record>
+    </data>
 </openerp>

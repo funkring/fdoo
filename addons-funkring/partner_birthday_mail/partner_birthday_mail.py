@@ -20,24 +20,23 @@
 
 from openerp.osv import fields, osv
 import datetime
+from openerp.addons.at_base import util
 
 class res_partner(osv.osv):
 
     _inherit = "res.partner"
 
-    def _send_mails(self, cr, uid, template_xmlid, ids, context=None):
+    def _check_birthday(self, cr, uid):
+        dt_current = util.strToDate(util.currentDate())
+        date_search = "%%-%02d-%02d" % (dt_current.month,dt_current.day)
+        template_xmlid = "partner_birthday_mail.email_partner_birthday"
+
+        partner_ids = self.search(cr, uid, [("birthday","ilike",date_search)])
         template_obj = self.pool["email.template"]
         template_id = self.pool["ir.model.data"].xmlid_to_res_id(cr, uid, template_xmlid)
         if template_id:
-            today = datetime.date.today()
-            for partner in self.browse(cr, uid, ids, context=context):
-                birthday = partner.birthday
-                if birthday.day == today.day and birthday.month == today.month:
-                    template_obj.send_mail(cr, uid, template_id, partner.id, force_send=True, context=context)
-
-
-
-
+            for partner in self.browse(cr, uid, partner_ids):
+                template_obj.send_mail(cr, uid, template_id, partner.id, force_send=True)
 
 
 

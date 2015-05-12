@@ -27,8 +27,9 @@ oerp.at Partner Birthday Mail
     "author" :  "funkring.net",
     "website": "http://www.funkring.net",
     "category" : "Mail",
-    "depends" : ["at_base"],
-    "data" : [],
+    "depends" : ["at_base", "mail"],
+    "data" : ["data/birthday_email_template.xml",
+              "data/birthday_email_data.xml"],
     "auto_install": False,
     "installable": True
 }
