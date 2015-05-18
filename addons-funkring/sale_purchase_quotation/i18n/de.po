@@ -1,0 +1,318 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sit_sale_pre_purchase_quotation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-01-21 12:40+0000\n"
+"PO-Revision-Date: 2015-01-21 12:40+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sit_sale_pre_purchase_quotation
+#: model:email.template,body_html:sit_sale_pre_purchase_quotation.email_to_supplier_with_quotation
+msgid "\n"
+"				<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"		           <p>Hello, </p>\n"
+"		           <p>Request for Quotation</p>\n"
+"			        <div style=\"width: 400px; margin: 0px; padding: 5px 14px; line-height: 16px; background-color: #F2F2F2;\">\n"
+"			            <span style=\"color: #222; margin-bottom: 5px; display: block; \">\n"
+"	                        <table border=\"1\">\n"
+"	                            <tr>\n"
+"	                                <th>Description</th>\n"
+"	                                <th>Quantity</th>\n"
+"	                                <th>UOM</th>\n"
+"	                            </tr>\n"
+"	                            <tr>\n"
+"	                                <td>${object.name}</th>\n"
+"	                                <td>${object.product_uom_qty}</th>\n"
+"	                                <td>${object.product_uom.name}</th>\n"
+"	                            </tr>\n"
+"	                        </table>\n"
+"                            <br/>\n"
+"				            <p>Thank you,</p>\n"
+"				            <p>Regards,</p>\n"
+"				            <p>Solvate</p>\n"
+"                         </span>\n"
+"			        </div>\n"
+"				</div>\n"
+"            "
+msgstr "\n"
+"				<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"		           <p>Hallo, </p>\n"
+"		           <p>Angebotsanfrage</p>\n"
+"			        <div style=\"width: 400px; margin: 0px; padding: 5px 14px; line-height: 16px; background-color: #F2F2F2;\">\n"
+"			            <span style=\"color: #222; margin-bottom: 5px; display: block; \">\n"
+"	                        <table border=\"1\">\n"
+"	                            <tr>\n"
+"	                                <th>Beschreibung</th>\n"
+"	                                <th>Menge</th>\n"
+"	                                <th>UOM</th>\n"
+"	                            </tr>\n"
+"	                            <tr>\n"
+"	                                <td>${object.name}</th>\n"
+"	                                <td>${object.product_uom_qty}</th>\n"
+"	                                <td>${object.product_uom.name}</th>\n"
+"	                            </tr>\n"
+"	                        </table>\n"
+"                            <br/>\n"
+"				            <p>Vielen Dank!</p>\n"
+"				            <p>Mit freundlichen Grüßen,</p>\n"
+"				            <p>Solvate</p>\n"
+"                         </span>\n"
+"			        </div>\n"
+"				</div>\n"
+"            "
+
+#. module: sit_sale_pre_purchase_quotation
+#: view:mail.compose.message:sit_sale_pre_purchase_quotation.email_compose_message_wizard_form_inherit
+msgid "Add contacts to notify..."
+msgstr "Kontakte als Empfänger hinzufügen"
+
+#. module: sit_sale_pre_purchase_quotation
+#: view:mail.compose.message:sit_sale_pre_purchase_quotation.email_compose_message_wizard_form_inherit
+msgid "All records matching your current search filter will be mailed,\n"
+"                                    not only the ids selected in the list view."
+msgstr "Alle Daten des aktuellen Suchfilters werden per E-Mail versendet,\n"
+"                                    nicht nur die Daten die Sie aktuell in der Ansicht ausgewählt haben."
+
+#. module: sit_sale_pre_purchase_quotation
+#: view:mail.compose.message:sit_sale_pre_purchase_quotation.email_compose_message_wizard_form_inherit
+msgid "Attach a file"
+msgstr "Eine Datei anhängen"
+
+#. module: sit_sale_pre_purchase_quotation
+#: field:sale.order.line,purchase_ok:0
+msgid "Can be purchase"
+msgstr "Kann bestellt werden"
+
+#. module: sit_sale_pre_purchase_quotation
+#: view:mail.compose.message:sit_sale_pre_purchase_quotation.email_compose_message_wizard_form_inherit
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#. module: sit_sale_pre_purchase_quotation
+#: code:addons/sit_sale_pre_purchase_quotation/sale.py:183
+#: code:addons/sit_sale_pre_purchase_quotation/sale.py:255
+#: view:mail.compose.message:sit_sale_pre_purchase_quotation.email_compose_message_wizard_form_inherit
+#, python-format
+msgid "Compose Email"
+msgstr "E-Mail schreiben"
+
+#. module: sit_sale_pre_purchase_quotation
+#: field:sale.line.supplier,price:0
+msgid "Cost Price"
+msgstr "Anschaffungspreis"
+
+#. module: sit_sale_pre_purchase_quotation
+#: field:sale.line.supplier,create_uid:0
+msgid "Created by"
+msgstr "Erstellt von"
+
+#. module: sit_sale_pre_purchase_quotation
+#: field:sale.line.supplier,create_date:0
+msgid "Created on"
+msgstr "Erstellt am"
+
+#. module: sit_sale_pre_purchase_quotation
+#: view:sale.order:sit_sale_pre_purchase_quotation.view_sale_order_line
+msgid "Do you really want to send email to all suppliers?"
+msgstr "Möchten Sie wirklich E-Mails an alle Lieferanten senden?"
+
+#. module: sit_sale_pre_purchase_quotation
+#: field:sale.line.supplier,send_mail:0
+msgid "E-mail Sent"
+msgstr "E-Mail wurde gesendet"
+
+#. module: sit_sale_pre_purchase_quotation
+#: code:addons/sit_sale_pre_purchase_quotation/sale.py:194
+#, python-format
+msgid "E-mail was already sent to these suppliers!"
+msgstr "E-Mails wurde bereits an diese Lieferanten gesendet!"
+
+#. module: sit_sale_pre_purchase_quotation
+#: code:addons/sit_sale_pre_purchase_quotation/sale.py:236
+#, python-format
+msgid "E-mail was already sent to this supplier!"
+msgstr "Eine E-Mail wurde bereits an diesen Lieferanten gesendet!"
+
+#. module: sit_sale_pre_purchase_quotation
+#: view:mail.compose.message:sit_sale_pre_purchase_quotation.email_compose_message_wizard_form_inherit
+msgid "Email address to redirect replies..."
+msgstr "E-Mail Adresse zur E-Mailweiterleitung"
+
+#. module: sit_sale_pre_purchase_quotation
+#: model:ir.model,name:sit_sale_pre_purchase_quotation.model_mail_compose_message
+msgid "Email composition wizard"
+msgstr "E-Mail Assistent"
+
+#. module: sit_sale_pre_purchase_quotation
+#: code:addons/sit_sale_pre_purchase_quotation/sale.py:41
+#, python-format
+msgid "Error!"
+msgstr "Fehler!"
+
+#. module: sit_sale_pre_purchase_quotation
+#: view:mail.compose.message:sit_sale_pre_purchase_quotation.email_compose_message_wizard_form_inherit
+msgid "Followers of the document and"
+msgstr "Verfolger des Dokuments und"
+
+#. module: sit_sale_pre_purchase_quotation
+#: field:sale.line.supplier,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: sit_sale_pre_purchase_quotation
+#: view:mail.compose.message:sit_sale_pre_purchase_quotation.email_compose_message_wizard_form_inherit
+msgid "If you want to work only with selected ids, please uncheck the\n"
+"                                list header checkbox."
+msgstr "Wenn Sie nur mit ausgewählten ID's arbeiten möchten, deaktivieren Sie bitte die Checkbox in der Kopfzeile."
+
+#. module: sit_sale_pre_purchase_quotation
+#: field:sale.line.supplier,write_uid:0
+msgid "Last Updated by"
+msgstr "Letzte Aktualisierung durchfeführt von"
+
+#. module: sit_sale_pre_purchase_quotation
+#: field:sale.line.supplier,write_date:0
+msgid "Last Updated on"
+msgstr "Letzte Aktualisierung am"
+
+#. module: sit_sale_pre_purchase_quotation
+#: field:sale.line.supplier,pricelist_price:0
+msgid "Pricelist Price"
+msgstr "Preis laut Preisliste"
+
+#. module: sit_sale_pre_purchase_quotation
+#: field:sale.line.supplier,product_id:0
+msgid "Product"
+msgstr "Product"
+
+#. module: sit_sale_pre_purchase_quotation
+#: field:sale.line.supplier,product_uom_qty:0
+msgid "Quantity (UOM)"
+msgstr "Quantität (Maßeinheit)"
+
+#. module: sit_sale_pre_purchase_quotation
+#: view:mail.compose.message:sit_sale_pre_purchase_quotation.email_compose_message_wizard_form_inherit
+msgid "Recipients"
+msgstr "Empfänger"
+
+#. module: sit_sale_pre_purchase_quotation
+#: model:email.template,subject:sit_sale_pre_purchase_quotation.email_to_supplier_with_quotation
+msgid "Request for Quotaion"
+msgstr "Angebotsanfrage"
+
+#. module: sit_sale_pre_purchase_quotation
+#: field:sale.line.supplier,line_id:0
+msgid "Sale Line"
+msgstr "Verkaufsposition"
+
+#. module: sit_sale_pre_purchase_quotation
+#: model:ir.model,name:sit_sale_pre_purchase_quotation.model_sale_order
+msgid "Sales Order"
+msgstr "Verkaufsauftrag"
+
+#. module: sit_sale_pre_purchase_quotation
+#: model:ir.model,name:sit_sale_pre_purchase_quotation.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Auftragsposition"
+
+#. module: sit_sale_pre_purchase_quotation
+#: view:mail.compose.message:sit_sale_pre_purchase_quotation.email_compose_message_wizard_form_inherit
+msgid "Save as a new template"
+msgstr "Als neue Vorlage speichern"
+
+#. module: sit_sale_pre_purchase_quotation
+#: view:mail.compose.message:sit_sale_pre_purchase_quotation.email_compose_message_wizard_form_inherit
+msgid "Save as new template"
+msgstr "Als neue Vorlage speichern"
+
+#. module: sit_sale_pre_purchase_quotation
+#: view:sale.line.supplier:sit_sale_pre_purchase_quotation.view_sale_order_supplier_line
+msgid "Select Supplier"
+msgstr "Lieferanten auswählen"
+
+#. module: sit_sale_pre_purchase_quotation
+#: field:sale.line.supplier,selected_supplier:0
+#: field:sale.order.line,dummy_supplier_id:0
+#: field:sale.order.line,supplier_id:0
+msgid "Selected Supplier"
+msgstr "Lieferanten ausgewählt"
+
+#. module: sit_sale_pre_purchase_quotation
+#: view:mail.compose.message:sit_sale_pre_purchase_quotation.email_compose_message_wizard_form_inherit
+msgid "Send"
+msgstr "Senden"
+
+#. module: sit_sale_pre_purchase_quotation
+#: view:sale.line.supplier:sit_sale_pre_purchase_quotation.view_sale_order_supplier_line
+msgid "Send E-mail"
+msgstr "E-Mail senden"
+
+#. module: sit_sale_pre_purchase_quotation
+#: view:sale.order:sit_sale_pre_purchase_quotation.view_sale_order_line
+msgid "Send E-mail to all Suppliers"
+msgstr "E-Mail an alle Lieferanten senden"
+
+#. module: sit_sale_pre_purchase_quotation
+#: field:sale.order.line,no_supplier:0
+#: field:sale.order.line,sent_to_all:0
+msgid "Sent to All"
+msgstr "An alle senden"
+
+#. module: sit_sale_pre_purchase_quotation
+#: view:mail.compose.message:sit_sale_pre_purchase_quotation.email_compose_message_wizard_form_inherit
+msgid "Subject..."
+msgstr "Betreff..."
+
+#. module: sit_sale_pre_purchase_quotation
+#: field:sale.line.supplier,partner_id:0
+#: view:sale.order:sit_sale_pre_purchase_quotation.view_sale_order_line
+msgid "Supplier"
+msgstr "Lieferant"
+
+#. module: sit_sale_pre_purchase_quotation
+#: view:sale.line.supplier:sit_sale_pre_purchase_quotation.view_sale_order_supplier_line
+msgid "Supplier Details"
+msgstr "Leferantendetails"
+
+#. module: sit_sale_pre_purchase_quotation
+#: field:sale.order.line,supplier_price:0
+msgid "Supplier Price"
+msgstr "Preis Lieferant"
+
+#. module: sit_sale_pre_purchase_quotation
+#: field:sale.order.line,supplier_ids:0
+msgid "Suppliers"
+msgstr "Lieferanten"
+
+#. module: sit_sale_pre_purchase_quotation
+#: view:mail.compose.message:sit_sale_pre_purchase_quotation.email_compose_message_wizard_form_inherit
+msgid "Use template"
+msgstr "Benutze Vorlage"
+
+#. module: sit_sale_pre_purchase_quotation
+#: code:addons/sit_sale_pre_purchase_quotation/sale.py:194
+#: code:addons/sit_sale_pre_purchase_quotation/sale.py:236
+#, python-format
+msgid "Warning!"
+msgstr "Achtung!"
+
+#. module: sit_sale_pre_purchase_quotation
+#: code:addons/sit_sale_pre_purchase_quotation/sale.py:41
+#, python-format
+msgid "You cannot confirm a sales order which has no line."
+msgstr "Sie können keinen Verkaufsauftrag ohne Positionen bestätigen."
+
+#. module: sit_sale_pre_purchase_quotation
+#: view:mail.compose.message:sit_sale_pre_purchase_quotation.email_compose_message_wizard_form_inherit
+msgid "or"
+msgstr "an"
+
