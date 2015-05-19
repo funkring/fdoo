@@ -146,3 +146,15 @@ class product_supplierinfo(osv.osv):
         return res
 
     _inherit = "product.supplierinfo"
+    _columns = {
+        "cost_price" : fields.float("Cost price")
+    }
+
+
+
+
+
+
+
+
+
