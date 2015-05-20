@@ -73,5 +73,31 @@
 			</field>
 		</record> -->
 
+		<record id="at_product_supplier_form_view" model="ir.ui.view">
+            <field name="name">Product Supplier Form</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="inherit_id" ref="product.product_supplierinfo_form_view" />
+            <field name="arch" type="xml">
+                <data>
+                    <field name="delay" position="after">
+                        <field name="cost_price" />
+                    </field>
+                </data>
+            </field>
+        </record>
+
+        <record id="at_product_supplier_tree_view" model="ir.ui.view">
+            <field name="name">Product Supplier Tree</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="inherit_id" ref="product.product_supplierinfo_tree_view" />
+            <field name="arch" type="xml">
+                <data>
+                    <field name="delay" position="after">
+                        <field name="cost_price" />
+                    </field>
+                </data>
+            </field>
+        </record>
+
 	</data>
 </openerp>

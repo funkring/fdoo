@@ -17,19 +17,18 @@
 #
 ##############################################################################
 {
-    "name" : "oerp.at Partner Birthday Mail",
+    "name" : "oerp.at Product Vendor",
     "description":"""
-oerp.at Partner Birthday Mail
+oerp.at Product Vendor
 =============================
-* Send birthday mails automatically
+* Adds manufacturer field to product
 """,
     "version" : "1.0",
     "author" :  "funkring.net",
     "website": "http://www.funkring.net",
-    "category" : "Mail",
-    "depends" : ["at_base", "mail"],
-    "data" : ["data/birthday_email_template.xml",
-              "data/birthday_email_cron.xml"],
+    "category" : "Product",
+    "depends" : ["at_product"],
+    "data" : ["view/product_view.xml"],
     "auto_install": False,
     "installable": True
 }

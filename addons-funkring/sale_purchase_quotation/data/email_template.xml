@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="1">
+        <!-- Out going Email configuration -->
+        <record id="email_to_supplier_with_quotation" model="email.template">
+            <field name="name">Supplier Quotation</field>
+            <field name="subject">Request for Quotaion</field>
+            <field name="email_from">object.order_id.company_id.email</field>
+            <field name="model_id" ref="sale.model_sale_order_line"/>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                   <p>Hello ${object.supplier_id.name}, </p>
+                   <p>Request for Quotation</p>
+                    <div style="width: 400px; margin: 0px; padding: 5px 14px; line-height: 16px; background-color: #F2F2F2;">
+                        <span style="color: #222; margin-bottom: 5px; display: block; ">
+                            <table border="1">
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Quantity</th>
+                                    <th>UOM</th>
+                                </tr>
+                                <tr>
+                                    <td>${object.name}</th>
+                                    <td>${object.product_uom_qty}</th>
+                                    <td>${object.product_uom.name}</th>
+                                </tr>
+                            </table>
+                            <br/>
+                            <p>Thank you,</p>
+                            <p>Regards,</p>
+                            <p>${object.order_id.company_id.name}</p>
+                         </span>
+                    </div>
+                </div>
+            ]]></field>
+        </record>
+    </data>
+</openerp>

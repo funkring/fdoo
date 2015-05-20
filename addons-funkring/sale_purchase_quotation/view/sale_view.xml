@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+   <data>
+      <record id="view_sale_order_supplier_line" model="ir.ui.view">
+         <field name="name">sale.line.supplier.form.inherit</field>
+         <field name="model">sale.line.supplier</field>
+         <field name="arch" type="xml">
+            <tree string="Supplier Details" editable="bottom">
+               <field name="partner_id" />
+               <field name="price" on_change="on_change_price(price)" />
+               <field name="pricelist_price" />
+               <field name="send_mail" invisible="1" />
+               <field name="selected_supplier" invisible="1" />
+               <button name="send_mail_supplier_one" type="object" string="Send E-mail"
+                  attrs="{'readonly' : [('send_mail','=',True)]}" />
+               <button name="assign_selected_partner" type="object" string="Select Supplier"
+                  attrs="{'readonly' : [('selected_supplier','=',True)]}" />
+            </tree>
+         </field>
+      </record>
+
+      <record id="view_sale_order_line" model="ir.ui.view">
+         <field name="name">sale.order.form.inherit</field>
+         <field name="model">sale.order</field>
+         <field name="inherit_id" ref="at_sale.form_sale_order" />
+         <field name="arch" type="xml">
+            <xpath expr="/form/sheet/notebook/page[@string='Order Lines']/field[@name='order_line']/tree"
+               position="attributes">
+               <attribute name="editable" />
+            </xpath>
+            <xpath expr="/form/sheet/notebook/page[@string='Order Lines']/field[@name='order_line']/form/group"
+               position="after">
+               <newline />
+               <group>
+                  <separator string="Supplier" colspan="4" attrs="{'invisible' : [('purchase_ok','=',False)]}" />
+                  <field name="supplier_ids" nolabel="1" colspan="4" attrs="{'invisible' : [('purchase_ok','=',False)]}"
+                     options="{'reload_on_button': true}" />
+                  <field name="purchase_ok" invisible="1" />
+                  <field name="sent_to_all" invisible="1" />
+                  <field name="no_supplier" invisible="1" />
+               </group>
+               <newline />
+               <group colspan="4" col="4">
+                  <group colspan="2">
+                     <button name="send_mail_supplier" type="object" string="Send E-mail to all Suppliers"
+                        colspan="2"
+                        attrs="{'invisible' : ['|', '|', ('no_supplier','=',False), ('purchase_ok','=',False), ('sent_to_all','=',True)]}"
+                        confirm="Do you really want to send email to all suppliers?" />
+                  </group>
+               </group>
+            </xpath>
+            <xpath
+               expr="/form/sheet/notebook/page[@string='Order Lines']/field[@name='order_line']/form/group/group[2]/field[@name='address_allotment_id']"
+               position="after">
+               <field name="supplier_id" readonly="1"
+                  attrs="{'invisible' : [('purchase_ok','=',False)]}" />
+               <field name="dummy_supplier_id" invisible="1" />
+            </xpath>
+            <xpath expr="/form/sheet/notebook/page[@string='Order Lines']/field[@name='order_line']/tree/field[@name='name']"
+               position="after">
+               <field name="supplier_id" nolabel="1" colspan="4" />
+               <field name="dummy_supplier_id" invisible="1" />
+            </xpath>
+         </field>
+      </record>
+   </data>
+</openerp>

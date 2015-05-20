@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 #############################################################################
 #
 #    Copyright (c) 2007 Martin Reisenhofer <martinr@funkring.net>
@@ -17,19 +18,31 @@
 #
 ##############################################################################
 {
-    "name" : "oerp.at Partner Birthday Mail",
-    "description":"""
-oerp.at Partner Birthday Mail
-=============================
-* Send birthday mails automatically
-""",
-    "version" : "1.0",
-    "author" :  "funkring.net",
+    "name": "oerp.at Sale Purchase Quotation",
+    "version": "1.0",
+    "author": "Funkring",
     "website": "http://www.funkring.net",
-    "category" : "Mail",
-    "depends" : ["at_base", "mail"],
-    "data" : ["data/birthday_email_template.xml",
-              "data/birthday_email_cron.xml"],
+    "category": "Sales",
+    "sequence": 1,
+    "complexity": "easy",
+    "description": """
+oerp.at Sale Purchase Quotation
+===============================
+
+* Adds possibility to do a purchase request within sale order lines of draft sale orders.
+* Adds table to of available suppliers of selected product.
+* Adds possibility to send email to any single or all suppliers.
+* Allows to set cost price for each available product supplier.
+* Adds possibility to select any supplier for each sale order line.""",
+    "depends": ["at_sale",
+                "at_purchase",
+                "at_stock",
+                "at_base"],
+    "data": ["view/templates.xml",
+             "view/sale_view.xml",
+             "data/email_template.xml",
+             "wizard/mail_compose.xml"],
+    "installable": True,
     "auto_install": False,
-    "installable": True
+    "application": True,
 }
