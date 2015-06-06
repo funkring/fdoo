@@ -35,7 +35,7 @@ oerp.at Project + Sale
     "author" :  "funkring.net",
     "website": "http://www.funkring.net",
     "category" : "Sales Management/Project Management",
-    "depends" : ["at_project","at_sale","sale_margin","at_hr"],
+    "depends" : ["at_project","at_sale","sale_margin","at_hr","sale_service"],
     "data" : [ 
                 "view/analytic_account_view.xml",
                 "view/sale_shop_view.xml",
