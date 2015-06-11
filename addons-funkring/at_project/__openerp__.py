@@ -38,6 +38,8 @@ modules
     "data" : [ "view/project_view.xml",
                "view/task_division_view.xml",
                "report/project_issue_report.xml",
+               "report/task_report.xml",
+               "report/task_list_report.xml",
                "security.xml"],
     "auto_install": False,
     "installable": True

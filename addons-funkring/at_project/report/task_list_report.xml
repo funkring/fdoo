@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <report id="report_project_task_list_pdf"
+               string="Tasklist report"
+               name="project_task_list.report"
+               auto="False"
+               report_type="aeroo"
+               model="project.task"
+               stylesheet="None"
+               in_format="oo-odt"
+               out_format="oo-pdf"
+               parser="at_project/report/task_list_report.py"
+               rml="at_project/report/task_list_report.odt"/>
+    </data>
+</openerp>
