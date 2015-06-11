@@ -36,7 +36,7 @@ class project_division(osv.Model):
 
 
 class project_task(osv.Model):
-    
+
     def _read_group_division_ids(self, cr, uid, ids, domain, read_group_order=None, access_rights_uid=None, context=None):
         division_obj = self.pool.get('project.task.division')
         order = division_obj._order
@@ -53,8 +53,8 @@ class project_task(osv.Model):
         for division in division_obj.browse(cr, access_rights_uid, division_ids, context=context):
             fold[division.id] = division.fold
         return result, fold
-    
-    
+
+
     _inherit = "project.task"
     _columns = {
         "division_id" : fields.many2one("project.task.division","Division",select=True)
