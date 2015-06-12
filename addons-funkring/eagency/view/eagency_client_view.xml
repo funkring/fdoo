@@ -48,10 +48,8 @@
                     <page string="Profession">
                         <group>
                             <group string="Education and professional background">
-                                <field name="skill_ids" widget="many2many_tags" />
-                                <field name="prof_status"/>
+                                <field name="skill_ids" widget="many2many_tags" />                                
                                 <field name="prof_status_id"/>    
-                                <field name="employer"/>                                                            
                                 <field name="employer_id" />
                                 <field name="add_education" />
                             </group>
@@ -100,7 +98,7 @@
             <field name="phone" />
             <field name="email" />
             <field name="req_area_ids" />
-            <field name="prof_status"/>
+            <field name="prof_status_id"/>
             <field name="skill_ids" />
             <field name="activated" invisible="1"/>
         </tree>
@@ -114,16 +112,16 @@
         <search string="Search Client">
             <field name="name" filter_domain="['|',('name','ilike',self),('email','ilike',self)]"/>
             <field name="req_area_ids" />
-            <field name="prof_status" />
-            <field name="employer" />
+            <field name="employer_id" />
+            <field name="prof_status_id" />
             <field name="skill_ids" />
             <field name="add_education" />
             <filter string="Inactive" domain="[('active','=',False)]" />
             <group expand='0' string='Group by...'>
                 <!-- <filter string="Area requirements" domain="[]" context="{'group_by' : 'req_area_ids'}" />
                 <filter string="Language skills" domain="[]" context="{'group_by' : 'lang_skill_ids'}" /> -->
-                <filter string="Professional status" domain="[]" context="{'group_by' : 'prof_status_id'}" />
-                <filter string="Education" domain="[]" context="{'group_by' : 'education_id'}" />
+                <filter name="prof_status" string="Professional status" domain="[]" context="{'group_by' : 'prof_status_id'}" />
+                <filter name="education" string="Education" domain="[]" context="{'group_by' : 'education_id'}" />
             </group>
         </search>
       </field>

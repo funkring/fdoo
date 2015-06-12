@@ -84,6 +84,7 @@ class eagency_client(osv.Model):
             user_obj.unlink(cr, uid, user_ids, context=context)             
         
 
+
     _name = "eagency.client"
     _inherits = {"res.partner" : "partner_id"}
     _columns = {
@@ -91,11 +92,9 @@ class eagency_client(osv.Model):
         "partner_id" : fields.many2one("res.partner", "Partner", required=True, ondelete="cascade"),
         "education_ids" : fields.one2many("eagency.client.education", "client_id", "Education"),
         "skill_ids" : fields.many2many("eagency.skill", "eagency_client_skill_rel", "client_id", "skill_id", "Skills"),
-        "add_education" : fields.text("Additional Education"),
-        "employer" : fields.char("Employer"),
+        "add_education" : fields.text("Additional Education"),     
         "employer_id" : fields.many2one("res.partner", "(Registered) Employer"),
         "prof_status_id" : fields.many2one("eagency.prof.status", "(Registered) Professional status"),
-        "prof_status" : fields.char("Professional status"),
         "lang_skill_ids" : fields.one2many("eagency.lang.skill", "client_id", "Language skills"),
         "lang_other" : fields.text("Other language skills"),
         "req_area_ids" : fields.many2many("eagency.area", "eagency_client_area_rel", "client_id", "area_id", "Areas", required=True),
