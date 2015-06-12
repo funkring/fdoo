@@ -31,7 +31,7 @@ Modul which extends standard odoo website functions
     "website": "http://www.funkring.net",
     "depends" : ["at_base",
                  "website"],    
-    "data" : [],
+    "data" : ["view/website_view.xml"],
     "auto_install" : False,
     "installable": True
 }

@@ -1,22 +1,37 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* at_website
+# 	* at_website
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-12 08:45+0000\n"
-"PO-Revision-Date: 2015-06-12 08:45+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2015-06-12 19:12+0000\n"
+"PO-Revision-Date: 2015-06-12 21:13+0100\n"
+"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"X-Generator: Poedit 1.5.4\n"
+
+#. module: at_website
+#: field:website.menu,inv_footer:0
+msgid "Invisible in Footer"
+msgstr "Unsichtbar im Header"
+
+#. module: at_website
+#: field:website.menu,inv_header:0
+msgid "Invisible in Header"
+msgstr "Unsichtbar im Footer"
 
 #. module: at_website
 #: model:ir.model,name:at_website.model_website
 msgid "Website"
 msgstr "Webseite"
 
+#. module: at_website
+#: model:ir.model,name:at_website.model_website_menu
+msgid "Website Menu"
+msgstr "Webseite Menü"

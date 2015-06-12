@@ -22,6 +22,13 @@ from openerp.osv import orm, osv, fields
 from openerp.addons.web.http import request
 import uuid
 
+class website_menu(osv.osv):
+    _inherit = "website.menu"    
+    _columns = {
+        "inv_header": fields.boolean("Invisible in Header"),
+        "inv_footer": fields.boolean("Invisible in Footer")
+    }
+
 class website(osv.osv):
     _inherit = "website"
     

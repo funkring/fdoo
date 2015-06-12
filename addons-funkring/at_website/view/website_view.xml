@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record id="tree_menu" model="ir.ui.view">
+      <field name="name">at_website.tree_menu</field>
+      <field name="model">website.menu</field>
+      <field name="inherit_id" ref="website.menu_tree"/>
+        <field name="arch" type="xml">
+            <field name="new_window" position="after">
+                <field name="inv_header"/>
+                <field name="inv_footer"/>
+            </field>
+        </field>
+    </record>
+  </data>
+</openerp>
