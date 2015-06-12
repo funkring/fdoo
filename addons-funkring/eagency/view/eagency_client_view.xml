@@ -32,7 +32,8 @@
                                 <field name="zip" placeholder="ZIP" style="width: 16%%" required="1"
                                           on_change="on_change_zip(zip,city)"/>
                                 <field name="city" placeholder="City" style="width: 40%%" required="1"/>
-                            </div>
+                                <field name="state_id" style="width: 40%%" />
+                            </div>                            
                         </div>
                         <field name="country_id" string="Nationality" required="1" />
                     </group>
