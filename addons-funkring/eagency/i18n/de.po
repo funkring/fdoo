@@ -316,7 +316,7 @@ msgstr "Suche Sprachen"
 #. module: eagency
 #: view:eagency.skill:eagency.search_eagency_skill
 msgid "Search Skills"
-msgstr "Suche Fachgebiete"
+msgstr "Suche Fachgebiet"
 
 #. module: eagency
 #: view:eagency.prof.status:eagency.search_eagency_prof_status
@@ -336,7 +336,7 @@ msgstr "Sequenz"
 #: model:ir.actions.act_window,name:eagency.action_eagency_skill
 #: model:ir.ui.menu,name:eagency.menu_eagency_skill
 msgid "Skills"
-msgstr "Fachgebiete"
+msgstr "Fachgebiet"
 
 #. module: eagency
 #: view:eagency.client:eagency.form_eagency_client
