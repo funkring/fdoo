@@ -2,16 +2,9 @@
 <openerp>
     <data>
 
-        <menuitem id="menu_agency" name="Agency" sequence="60"
-                  groups="group_management"/>
+        <menuitem id="menu_agency_config" name="Agency" sequence="60"
+                  groups="group_management" parent="base.menu_base_config"/>
 
-        <menuitem id="menu_agency_agency"
-                  name="Agency" parent="menu_agency" sequence="1"
-                  groups="group_management"/>
-
-        <menuitem id="menu_agency_config"
-                  name="Configuration" parent="menu_agency" sequence="100"
-                  groups="group_management"/>
-
+    
     </data>
 </openerp>

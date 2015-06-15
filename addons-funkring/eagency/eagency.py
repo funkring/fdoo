@@ -21,93 +21,40 @@
 from openerp.osv import fields, osv
 from openerp.addons.at_base import util
 
-class eagency_client(osv.Model):
-
-    def onchange_address(self, cr, uid, ids, use_parent_address, parent_id, context=None):
-        return self.pool.get("res.partner").onchange_address(cr, uid, ids, use_parent_address, parent_id, context=context)
-
-    def onchange_state(self, cr, uid, ids, state_id, context=None):
-        return self.pool.get("res.partner").onchange_state(cr, uid, ids, state_id, context=context)
-
-    def on_change_zip(self, cr, uid, ids, zip_code, city):
-        return self.pool.get("res.partner").on_change_zip(cr, uid, ids, zip_code, city)
-
-    def _user_id(self, cr, uid, ids, field_name, arg, context=None):
-        res = dict.fromkeys(ids)
-        cr.execute("SELECT c.id, u.id FROM eagency_client c " 
-                   " INNER JOIN res_partner p ON p.id = c.partner_id "
-                   " INNER JOIN res_users u ON u.partner_id = p.id "
-                   " WHERE c.id IN %s " 
-                   " GROUP BY 1,2", (tuple(ids),))
-        for row in cr.fetchall():
-            res[row[0]]=row[1]
-        return res
+class res_partner(osv.Model):
     
-    def _user_active(self, cr, uid, ids, field_name, arg, context=None):
-        res = dict.fromkeys(ids)
-        cr.execute("SELECT c.id, u.active FROM eagency_client c " 
-                   " INNER JOIN res_partner p ON p.id = c.partner_id "
-                   " INNER JOIN res_users u ON u.partner_id = p.id "
-                   " WHERE c.id IN %s " 
-                   " GROUP BY 1,2", (tuple(ids),))
-        for row in cr.fetchall():
-            res[row[0]]=row[1]
-        return res
-        
-    def _relids_user_ids(self, cr, uid, ids, context=None):
-        cr.execute("SELECT c.id FROM res_users u " 
-                   " INNER JOIN res_partner p ON p.id = u.partner_id "
-                   " INNER JOIN eagency_client c ON c.partner_id = p.id "
-                   " WHERE u.id IN %s " 
-                   " GROUP BY 1", (tuple(ids),))
-        return [r[0] for r in cr.fetchall()]
-    
-    def _send_mails(self, cr, uid, template_xmlid, ids, context=None):
-        template_obj = self.pool["email.template"]
-        template_id = self.pool["ir.model.data"].xmlid_to_res_id(cr, uid, template_xmlid)
-        if template_id:
-            for client in self.browse(cr, uid, ids, context=context):
-                template_obj.send_mail(cr, uid, template_id, client.id, force_send=True, context=context)
-
-    
-    def unlink(self, cr, uid, ids, context):
+    def unlink(self, cr, uid, ids, context=None):
         ids = util.idList(ids)     
-        user_ids = []
-        for client in self.browse(cr, uid, ids, context=context):
-            if client.user_id:   
-                user_ids.append(client.user_id.id)             
-                
-        super(eagency_client,self).unlink(cr, uid, ids, context=context)
+        user_ids = set()
         
-        user_obj = self.pool["res.users"]
+        context = context and dict(context) or {}
+        context["active_test"]=False
+        
+        for partner in self.browse(cr, uid, ids, context=context):            
+            for user in partner.user_ids:
+                if not user.active or user.share:
+                    user_ids.add(user.id)
+       
+        user_ids = list(user_ids)
         if user_ids:
-            user_obj.unlink(cr, uid, user_ids, context=context)             
+            user_obj = self.pool["res.users"]
+            user_obj.unlink(cr, uid, user_ids, context=context)     
+                     
+        super(res_partner,self).unlink(cr, uid, ids, context=context)
         
-
-
-    _name = "eagency.client"
-    _inherits = {"res.partner" : "partner_id"}
-    _columns = {
-        "title_name" : fields.char("Title"),
-        "partner_id" : fields.many2one("res.partner", "Partner", required=True, ondelete="cascade"),
-        "education_ids" : fields.one2many("eagency.client.education", "client_id", "Education"),
-        "skill_ids" : fields.many2many("eagency.skill", "eagency_client_skill_rel", "client_id", "skill_id", "Skills"),
-        "add_education" : fields.text("Additional Education"),     
-        "employer_id" : fields.many2one("res.partner", "(Registered) Employer"),
-        "prof_status_id" : fields.many2one("eagency.prof.status", "(Registered) Professional status"),
-        "lang_skill_ids" : fields.one2many("eagency.lang.skill", "client_id", "Language skills"),
-        "lang_other" : fields.text("Other language skills"),
-        "req_area_ids" : fields.many2many("eagency.area", "eagency_client_area_rel", "client_id", "area_id", "Areas", required=True),
-        "req_other" : fields.text("Other mediation requirements"),
-        "motivation" : fields.text("Motivation, important conditions and other"),
-        "user_id" : fields.function(_user_id, string="User", type="many2one", obj="res.users", copy=False, store={
-            "res.users" : (_relids_user_ids,["partner_id"],10),
-            "eagency.client": (lambda self, cr, uid, ids, context=None: ids, ["partner_id"],10)
-        }),
-        "activated" : fields.function(_user_active, string="Activated", type="boolean", copy=False, store={
-            "res.users" : (_relids_user_ids,["partner_id"],10),
-            "eagency.client": (lambda self, cr, uid, ids, context=None: ids, ["partner_id"],10)
-        }),
+               
+        
+    _inherit = "res.partner"
+    _columns = {        
+        "education_ids" : fields.one2many("eagency.client.education", "partner_id", "Education"),
+        "skill_ids" : fields.many2many("eagency.skill", "eagency_partner_skill_rel", "partner_id", "skill_id", "Skills"),
+        "education" : fields.text("Additional Education"),     
+        "prof_status_id" : fields.many2one("eagency.prof.status", "Professional Status"),
+        "lang_skill_ids" : fields.one2many("eagency.lang.skill", "partner_id", "Language Skills"),
+        "lang_other" : fields.char("Other language skills"),
+        "preferred_area_ids" : fields.many2many("eagency.area", "eagency_partner_area_rel", "partner_id", "area_id", "Areas", required=True),
+        "special_requirements" : fields.text("Special Requirements"),
+        "motivation" : fields.text("Motivation",help="Important conditions and other")
     }
 
 
@@ -116,7 +63,7 @@ class eagency_client_education(osv.Model):
     _name = "eagency.client.education"
     _rec_name = "education_id"
     _columns = {
-        "client_id" : fields.many2one("eagency.client", "Client", invisible=True, required=True, ondelete="cascade"),
+        "partner_id" : fields.many2one("res.partner", "Client", invisible=True, required=True, ondelete="cascade"),
         "completed" : fields.integer("Graduation date", required=True),
         "country_id" : fields.many2one("res.country", "Graduation country", required=True),
         "education_id" : fields.many2one("eagency.education", "Education", required=True),
@@ -200,7 +147,7 @@ class eagency_lang_skill(osv.Model):
     _columns = {
         "language_id" : fields.many2one("eagency.lang", "Language", required=True),
         "skill" : fields.selection([("none", "None / Few"), ("intermediate", "Intermediate"),
-                                    ("fluent", "Fluent"), ("mother_language", "Mother language")], "Language skill", required=True),
-        "client_id" : fields.many2one("eagency.client", "Client", invisible=True,  required=True, ondelete="cascade")
+                                    ("fluent", "Fluent"), ("mother_language", "Mother language")], "Skill", required=True),
+        "partner_id" : fields.many2one("res.partner", "Client", invisible=True, required=True, ondelete="cascade")
     }
 

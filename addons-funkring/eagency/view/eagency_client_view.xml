@@ -1,141 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
-  <data>
-    <record id="form_eagency_client" model="ir.ui.view">
-      <field name="name">eagency.form_eagency_client</field>
-      <field name="model">eagency.client</field>
-      <field name="arch" type="xml">
-        <form string="Clients" version="7.0">
-            <sheet>
-                <field name="image" widget="image" class="oe_left oe_avatar" options='{"preview_image": "image_medium", "size": [90, 90]}'/>
-                <div class="oe_title">
-                    <label for="name" class="oe_edit_only"/>
-                    <h1>
-                        <field name="name" default_focus="1" placeholder="Name" />
-                    </h1>
-                    <label for="title_name" class="oe_edit_only"/>
-                    <h3>
-                        <field name="title_name" placeholder="Title"/>
-                    </h3>                    
-                    <field name="type" invisible="1"/>
-                    <field name="customer" invisible="1"/>                   
-                </div>
-
-                <group>
-                    <group>
-                        <field name="user_id" />
-                        <label for="street" string="Address"/>
-                        <div>
-                            <field name="street" placeholder="Street..." required="1"/>
-                            <field name="street2" placeholder="Additional address..."/>
-                            <div class="address_format">
-                                <field name="zip" placeholder="ZIP" style="width: 16%%" required="1"
-                                          on_change="on_change_zip(zip,city)"/>
-                                <field name="city" placeholder="City" style="width: 40%%" required="1"/>
-                                <field name="state_id" style="width: 40%%" />
-                            </div>                            
-                        </div>
-                        <field name="country_id" string="Nationality" required="1" />
-                    </group>
-                    <group>
-                        <field name="phone" required="1" placeholder="e.g. +32.81.81.37.00"/>
-                        <field name="user_ids" invisible="1"/>
-                        <field name="email" widget="email" required="1"/>
-                        <field name="birthday" required="1" />
-                    </group>
-                </group>
-                <notebook colspan="4">
-                    <page string="Profession">
-                        <group>
-                            <group string="Education and professional background">
-                                <field name="skill_ids" widget="many2many_tags" />                                
-                                <field name="prof_status_id"/>    
-                                <field name="employer_id" />
-                                <field name="add_education" />
+    <data>
+    
+        <record id="form_partner" model="ir.ui.view">
+            <field name="name">eagency.form_partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <data>                    
+                    <page name="internal_notes" position="before">
+                        <page
+                            attrs="{'invisible': [('customer','=',False)] }"
+                            name="eagency_client" string="Agency">
+                            <group>
+                                <group name="background" string="Education and professional background">
+                                    <field name="skill_ids" widget="many2many_tags"/>
+                                    <field name="prof_status_id"/>
+                                    <field name="lang_other"/>
+                                    <field name="education"/>                                    
+                                </group>
+                                <group name="area" string="Preferred Area">
+                                    <field name="preferred_area_ids" widget="many2many_tags"/>
+                                </group>                              
+                                <group name="education" string="Education">                                    
+                                    <field name="education_ids" nolabel="1">
+                                        <tree editable="top">
+                                            <field name="completed"/>
+                                            <field name="education_id"/>
+                                            <field name="country_id"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                                <group name="language" string="Language">
+                                    <field name="lang_skill_ids" nolabel="1">
+                                        <tree editable="Top" string="Language">
+                                            <field name="language_id"/>
+                                            <field name="skill"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                                <group name="special_requirements" string="Special Requirements">
+                                    <field name="special_requirements" nolabel="1"/>                                
+                                </group>
+                                <group name="motivation" string="Motivation">
+                                    <field name="motivation" nolabel="1"/>
+                                </group>
                             </group>
-                            <group string="Mediation requirements">
-                                <field name="req_area_ids" widget="many2many_tags" />
-                                <field name="req_other" />
-                            </group>
-                            <group string="Education" >
-                                <field name="education_ids" nolabel="1">
-                                    <tree editable="top">
-                                        <field name="completed" />
-                                        <field name="education_id" />
-                                        <field name="country_id" />
-                                    </tree>
-                                </field>
-                            </group>
-                        </group>
-
+                        </page>
                     </page>
-                    <page string="Language">
-                        <field name="lang_skill_ids">
-                            <tree string="Language" editable="Top" >
-                                <field name="language_id" />
-                                <field name="skill" />
-                            </tree>
-                        </field>
-                        <label for="lang_other" />
-                        <field name="lang_other" />
-                    </page>
-                    <page string="Other">
-                        <label for="motivation" string="Motivation, important conditions and other" />
-                        <field name="motivation" />
-                    </page>
-                </notebook>
-            </sheet>
-        </form>
-      </field>
-    </record>
-
-    <record id="tree_eagency_client" model="ir.ui.view">
-      <field name="name">eagency.tree_eagency_client</field>
-      <field name="model">eagency.client</field>
-      <field name="arch" type="xml">
-        <tree string="Client" colors="blue:activated!=True">
-            <field name="name" />
-            <field name="phone" />
-            <field name="email" />
-            <field name="req_area_ids" />
-            <field name="prof_status_id"/>
-            <field name="skill_ids" />
-            <field name="activated" invisible="1"/>
-        </tree>
-      </field>
-    </record>
-
-    <record id="search_eagency_client" model="ir.ui.view">
-      <field name="name">eagency.search_eagency_client</field>
-      <field name="model">eagency.client</field>
-      <field name="arch" type="xml">
-        <search string="Search Client">
-            <field name="name" filter_domain="['|',('name','ilike',self),('email','ilike',self)]"/>
-            <field name="req_area_ids" />
-            <field name="employer_id" />
-            <field name="prof_status_id" />
-            <field name="skill_ids" />
-            <field name="add_education" />
-            <filter string="Inactive" domain="[('active','=',False)]" />
-            <group expand='0' string='Group by...'>
-                <!-- <filter string="Area requirements" domain="[]" context="{'group_by' : 'req_area_ids'}" />
-                <filter string="Language skills" domain="[]" context="{'group_by' : 'lang_skill_ids'}" /> -->
-                <filter name="prof_status" string="Professional status" domain="[]" context="{'group_by' : 'prof_status_id'}" />
-                <filter name="education" string="Education" domain="[]" context="{'group_by' : 'education_id'}" />
-            </group>
-        </search>
-      </field>
-    </record>
-
-    <record id="action_eagency_client" model="ir.actions.act_window">
-      <field name="name">Clients</field>
-      <field name="res_model">eagency.client</field>
-      <field name="view_type">form</field>
-      <field name="view_mode">tree,form</field>
-    </record>
-
-    <menuitem id="menu_eagency_client" name="Clients" parent="menu_agency_agency"
-      sequence="1"
-      action="action_eagency_client"/>
-  </data>
+                </data>
+            </field>
+        </record>
+        
+    </data>
 </openerp>

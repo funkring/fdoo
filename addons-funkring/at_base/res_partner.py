@@ -187,6 +187,17 @@ class res_partner(osv.osv):
             val["surname"] = " ".join(split[:-1])
         return res
     
+    def _get_login_id(self, cr, uid, ids, field_name, arg, context=None):
+        res = dict.fromkeys(ids)
+        cr.execute("SELECT p.id, u.id FROM res_users u "
+                   " INNER JOIN res_partner p ON p.id = u.partner_id "
+                   " WHERE p.id IN %s", (tuple(ids),))
+        
+        for (partner_id, login_id) in cr.fetchall():
+            res[partner_id]=login_id
+        return res
+        
+    
     _inherit = "res.partner"
     _columns =  {    
         "mail_without_company" : fields.boolean("Mail Address without company"),
@@ -198,5 +209,6 @@ class res_partner(osv.osv):
         "fax_n" : fields.function(_get_fax, type="char", store=True, string="Fax normalized"),
         "birthday" : fields.date("Birthday"),
         "firstname" : fields.function(_split_name, string="Firstname", type="char", multi="_split_name"),
-        "surname" : fields.function(_split_name, string="Surname", type="char", multi="_split_name") 
+        "surname" : fields.function(_split_name, string="Surname", type="char", multi="_split_name"),
+        "login_id" : fields.function(_get_login_id, string="Login", type="many2one", obj="res.users", copy=False, readonly=True)
      }

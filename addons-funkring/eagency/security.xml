@@ -22,17 +22,7 @@
         </record -->
         
         <!-- base.user -->
-
-        <record id="access_eagency_client" model="ir.model.access">
-          <field name="name">eagency_client/user</field>
-          <field name="model_id" ref="model_eagency_client"/>
-          <field name="group_id" ref="base.group_user"/>
-          <field name="perm_read" eval="True"/>
-          <field name="perm_unlink" eval="False"/>
-          <field name="perm_create" eval="False"/>
-          <field name="perm_write" eval="False"/>
-        </record>
-
+        
         <record id="access_eagency_area_all" model="ir.model.access">
           <field name="name">eagency_area/all</field>
           <field name="model_id" ref="model_eagency_area"/>
@@ -96,17 +86,8 @@
           <field name="perm_create" eval="False"/>
           <field name="perm_write" eval="False"/>
         </record>
+        
         <!-- management -->
-
-        <record id="access_eagency_client_management" model="ir.model.access">
-          <field name="name">eagency_client/management</field>
-          <field name="model_id" ref="model_eagency_client"/>
-          <field name="group_id" ref="group_management"/>
-          <field name="perm_read" eval="True"/>
-          <field name="perm_unlink" eval="True"/>
-          <field name="perm_create" eval="True"/>
-          <field name="perm_write" eval="True"/>
-        </record>
 
         <record id="access_eagency_area_management" model="ir.model.access">
           <field name="name">eagency_area/management</field>
