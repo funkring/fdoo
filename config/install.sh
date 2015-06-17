@@ -34,6 +34,7 @@ apt-get -y install python-geoip
 apt-get -y install python-vatnumber
 apt-get -y install python-passlib
 apt-get -y install python-gevent
+apt-get -y isntall python-pyicu
 
 #ruby
 apt-get -y install ruby
