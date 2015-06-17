@@ -18,57 +18,87 @@
             </tree>
          </field>
       </record>
+    
 
-      <record id="view_sale_order_line" model="ir.ui.view">
-         <field name="name">sale.order.form.inherit</field>
+      <record id="form_sale_order" model="ir.ui.view">
+         <field name="name">sale_purchase_quotation.form_sale_order</field>
          <field name="model">sale.order</field>
          <field name="inherit_id" ref="at_sale.form_sale_order" />
          <field name="arch" type="xml">
-            <data>                
+            <data>
                 <xpath expr="/form/sheet/notebook/page[@string='Order Lines']/field[@name='order_line']/tree" position="attributes">
                    <attribute name="editable" />
                 </xpath>
-                <xpath expr="/form/sheet/notebook/page[@string='Order Lines']/field[@name='order_line']/form/group"
-                   position="after">
-                   <newline />
-                   <group>
-                      <separator string="Supplier" colspan="4" attrs="{'invisible' : [('quotation_active','=',False)]}" />
-                      <field name="supplier_ids" nolabel="1" colspan="4" attrs="{'invisible' : [('quotation_active','=',False)]}"
-                         options="{'reload_on_button': true}" />
-                      <field name="quotation_active" invisible="1" />
-                      <field name="quotation_all" invisible="1" />
-                   </group>
-                   <newline />
-                   <group colspan="4" col="4">
-                      <group colspan="2">
-                         <button name="send_mail_supplier" type="object" string="Send E-mail to all Suppliers"
-                            colspan="2"
-                            attrs="{'invisible' : ['|',('quotation_active','=',False),('quotation_all','=',True)]}"
-                            confirm="Do you really want to send email to all suppliers?" />
-                      </group>
-                   </group>
-                </xpath>         
+               
+                <!--
+                <xpath expr="/form/sheet/notebook/page[@string='Order Lines']/field[@name='order_line']/form/header/button[@string='Invoice']" position="after">
+                    <button name="start_quotation" type="object" string="Request Supplier" 
+                            attrs="{'invisible' : ['|',('quotation_active','=',True),('state','!=','draft')]}" />
+                            
+                    <button name="recreate_quotation" type="object" string="Request Supplier"
+                            attrs="{'invisible' : ['|',('quotation_active','=',False),('state','!=','draft')]}"
+                            confirm="Do you really want to recreate all supplier requests?" />                           
+                </xpath> -->
+                
+                <group name="seller_options_grp" position="inside">          
+                    <field name="quotation_active" invisible="1" />
+                    <field name="quotation_all" invisible="1" />
+                    
+                    <group colspan="2" cols="4">
+                        
+                        <button name="start_quotation" type="object" string="Request Supplier" 
+                                attrs="{'invisible' : ['|',('quotation_active','=',True),('state','!=','draft')]}" 
+                                colspan="2" />
+                                
+                        <button name="recreate_quotation" type="object" string="Request Supplier"
+                                attrs="{'invisible' : ['|',('quotation_active','=',False),('state','!=','draft')]}"
+                                confirm="Do you really want to recreate all supplier requests?" 
+                                colspan="2" />
+                                
+                    </group> 
+                </group>
+               
+                <field name="supplier_id" position="replace">
+                    <field name="supplier_id" options="{'reload_on_button': true}" 
+                           domain="[('id','in',available_supplier_ids[0][2])]" 
+                           attrs="{'invisible' : [('quotation_active','=',True)]} "
+                           />
+                </field>
+               
+                <xpath expr="/form/sheet/notebook/page[@string='Order Lines']/field[@name='order_line']/form/group[@name='seller_grp']"  position="after">
+                    <div attrs="{'invisible' : [('quotation_active','=',False)]}">
+                        <label for="supplier_ids" />
+                        <field name="supplier_ids" nolabel="1" colspan="4" options="{'reload_on_button': true}" />                                         
+                    </div>      
+                    <group colspan="4">
+                        <div class="oe_right oe_button_box">       
+                            <button name="send_mail_supplier" type="object" string="Send E-mail to all Suppliers" 
+                                    attrs="{'invisible' : ['|','|',('quotation_active','=',False),('state','!=','draft'),('quotation_all','=',True)]}"
+                                    confirm="Do you really want to send email to all suppliers?" />
+                         </div>
+                     </group>
+                     
+                </xpath>
+                
             </data>
          </field>
       </record>
   
-      <record id="form_sale_order" model="ir.ui.view">
-        <field name="name">sale_purchase_quotation.form_sale_order</field>
+      <!-- <record id="form_sale_order_3" model="ir.ui.view">
+        <field name="name">sale_purchase_quotation.form_sale_order_3</field>
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="at_purchase_sale.form_sale_order"/>
         <field name="arch" type="xml">
             <field name="supplier_id" position="after">
                 <group colspan="2">
-                    <!--
-                    <button name="start_quotation" type="object" string="Request Quotations" 
-                            colspan="2" attrs="{'invisible' : [('quotation_active','=',True)]}" />
-                    -->
+                                        
+                   
                     <button name="start_quotation" type="object" string="Request Quotations"  />
                             
                 </group>
             </field>
         </field>
-      </record>
+      </record> -->
 
    </data>
 </openerp>

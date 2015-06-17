@@ -6,18 +6,19 @@
 			<field name="model">sale.order</field>
 			<field name="inherit_id" ref="at_sale.form_sale_order" />
 			<field name="arch" type="xml">									
-				<xpath
-					expr="//notebook/page/field/form[@string='Sales Order Lines']/field[@name='name']"
-					position="after">
-					<group name="seller_grp">
-						<div name="seller_note_grp">
-							<label for="procurement_note"/>
-							<field name="procurement_note" />
-						</div>			
+				<xpath expr="//notebook/page/field/form[@string='Sales Order Lines']/field[@name='name']" position="after">				         
+					<group name="seller_grp">					    
+					    <group name="procurement_note">					        
+    						<div name="seller_note_grp">
+    						    <label for="procurement_note"/>    						    					
+    							<field name="procurement_note" />
+    						</div>			
+    					</group>
 						<group name="seller_options_grp">
 							<field name="priority" />
-							<field name="supplier_ships" />
-							<field name="supplier_id" options="{'reload_on_button': true}" />
+							<field name="supplier_ships"/>
+							<field name="available_supplier_ids" invisible="1"/>
+							<field name="supplier_id" options="{'reload_on_button': true}" domain="[('id','in',available_supplier_ids[0][2])]"/>
 						</group>										
 					</group>
 				</xpath>				

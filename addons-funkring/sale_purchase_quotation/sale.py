@@ -35,7 +35,7 @@ class sale_order_line(osv.Model):
                     sent_all = False
             res[rec.id] = sent_all
         return res
-    
+       
     def start_quotation(self, cr, uid, ids, context=None):
         supplier_line_obj = self.pool["sale.line.supplier"]
         for line in self.browse(cr, uid, ids, context=context):
@@ -57,9 +57,12 @@ class sale_order_line(osv.Model):
                 if supplier_line_ids:
                     self.write(cr, uid, line.id, {"quotation_active" : True})
         return True
+    
+    def recreate_quotation(self, cr, uid, ids, context=None):
+        return self.start_quotation(cr, uid, ids, context)
 
-    def _product_id_change(self, res, flag, product_id, partner_id, lang, context=None):
-        res = super(sale_order_line,self)._product_id_change(res, flag, product_id, partner_id, lang, context)
+    def _product_id_change(self, cr, uid, res, flag, product_id, partner_id, lang, context=None):
+        res = super(sale_order_line,self)._product_id_change(cr, uid, res, flag, product_id, partner_id, lang, context)
         res["value"].update({"quotation_active" : False})
         return res
    
@@ -86,8 +89,8 @@ class sale_order_line(osv.Model):
 
     _inherit = 'sale.order.line'
     _columns = {
-        "supplier_ids" : fields.one2many("sale.line.supplier", "line_id", "Suppliers"),
-        "quotation_active" : fields.boolean("Quotation Active"),
+        "supplier_ids" : fields.one2many("sale.line.supplier", "line_id", "Suppliers", copy=False),
+        "quotation_active" : fields.boolean("Quotation Active", copy=False),
         "quotation_all" : fields.function(_quotation_all, type="boolean", string="All Quotation Sent to Suppliers"),
     }
 
@@ -130,9 +133,10 @@ class sale_line_supplier(osv.osv):
                 
             email_context = {
                 "active_ids" : ids,
-                "active_model" : "sale.order.line",
-                "default_model" : "sale.order.line",                
-                "default_partner_ids" : list(partner_ids),      
+                "active_id" : ids[0],
+                "active_model" : "sale.line.supplier",
+                "default_model" : "sale.line.supplier",
+                "default_res_id" : ids[0], 
                 "default_composition_mode" : composition_mode,
                 "default_template_id" : template_id,
                 "default_use_template" : bool(template_id),
@@ -164,8 +168,7 @@ class sale_line_supplier(osv.osv):
         sale_order_line_obj = self.pool.get('sale.order.line')
         for rec in self.browse(cr, uid, ids, context=context):
             sale_order_line_obj.write(cr, uid, [rec.line_id.id], {'supplier_id' : rec.partner_id.id,
-                                                                  'supplier_price' : rec.price,
-                                                                  'dummy_supplier_id' : rec.partner_id.id})
+                                                                  'supplier_price' : rec.price })
             self.write(cr, uid, [rec.id], {'selected_supplier' : True}, context=context)
             supplier_ids = [x.id for x in rec.line_id.supplier_ids]
             supplier_ids.remove(rec.id)
@@ -174,6 +177,7 @@ class sale_line_supplier(osv.osv):
 
 
     _name = "sale.line.supplier"
+    _rec_name = "product_id"
     _inherit = ["mail.thread"]
     _columns = {
         "partner_id" : fields.many2one("res.partner", "Supplier", ondelete="cascade", required=True),
@@ -192,7 +196,7 @@ class mail_compose_message(osv.TransientModel):
         context = context or {}
         if context.get("default_model") == "sale.line.supplier" and context.get("mark_quotation_send"):
             line_supplier_obj = self.pool["sale.line.supplier"]
-            for wizard in self.browse(cr, uid, arg, context):
+            for wizard in self.browse(cr, uid, ids, context=context):
                 res_ids = self._res_ids(wizard, context)
                 line_supplier_obj.write(cr, uid, res_ids, {"send_mail" : True}, context=context)
         return super(mail_compose_message, self).send_mail(cr, uid, ids, context=context)

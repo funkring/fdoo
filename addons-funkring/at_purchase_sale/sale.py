@@ -34,9 +34,9 @@ class sale_shop(osv.osv):
 
 class sale_order(osv.osv):
     
-    def _prepare_order_line_procurement(self, cr, uid, order, line, move_id, date_planned, context=None):
-        res = super(sale_order,self)._prepare_order_line_procurement(cr, uid, order, line, move_id, date_planned, context=context )
-        supplier_ships=line.type=="make_to_order" and (line.supplier_ships or line.order_id.supplier_ships) 
+    def _prepare_order_line_procurement(self, cr, uid, order, line, group_id=False, context=None):
+        res = super(sale_order,self)._prepare_order_line_procurement(cr, uid, order, line, group_id, context=context )
+        supplier_ships=line.supplier_ships or line.order_id.supplier_ships 
         res["supplier_ships"]=supplier_ships
         if not res.get("account_analytic_id") and order.project_id:
             res["account_analytic_id"]=order.project_id.id
@@ -61,8 +61,8 @@ class sale_order(osv.osv):
 
 class sale_order_line(osv.osv):
    
-    def _product_id_change(self, res, flag, product_id, partner_id, lang, context=None):
-        if flag:
+    def _product_id_change(self, cr, uid, res, flag, product_id, partner_id, lang, context=None):
+        if not flag:
             if product_id:
                 context = {'lang': lang, 'partner_id': partner_id}
                 product_obj = self.pool.get('product.product')             
@@ -70,16 +70,20 @@ class sale_order_line(osv.osv):
                     
                 product_context = context and context.copy() or {}
                 product_context.update({'lang': lang, 'partner_id': partner_id})
-                product_val = product_obj.browse(cr, uid, product, context=product_context)          
+                product_val = product_obj.browse(cr, uid, product_id, context=product_context)          
                     
+                # set default seller
                 if product_val and product_val.seller_ids:
                     seller_line_id = product_val.seller_ids[0]
                     util.setSubDictValue(res,"value","supplier_id",seller_line_id and seller_line_id.id or None)
-                    util.setSubDictValue(res,"domain","supplier_id",[("product_id","=",product_val.id)])
+                    
+                supplier_ids = self._supplier_ids(product_val)
+                res["value"]["supplier_id"]=supplier_ids and supplier_ids[0] or None
+                res["value"]["available_supplier_ids"]=[(6,0,supplier_ids)]
             else:
                 res["supplier_id"]=None
-                util.setSubDictValue(res, "domain", "supplier_id",[("product_id","=",False)])
-                
+                res["value"]["available_supplier_ids"]=[(6,0,[])]
+                        
         return res
    
     def product_id_change(self, cr, uid, ids, pricelist, product, qty=0,
@@ -91,7 +95,7 @@ class sale_order_line(osv.osv):
                                                       name=name, partner_id=partner_id,lang=lang,update_tax=update_tax,
                                                       date_order=date_order, packaging=packaging, fiscal_position=fiscal_position,flag=flag,context=context)
         
-        return self._product_id_change(res, flag, product, partner_id, lang, context=context)
+        return self._product_id_change(cr, uid, res, flag, product, partner_id, lang, context=context)
     
     def product_id_change_with_wh(self, cr, uid, ids, pricelist, product, qty=0,
                                   uom=False, qty_uos=0, uos=False, name='', partner_id=False,
@@ -102,13 +106,27 @@ class sale_order_line(osv.osv):
                                                                          lang=lang, update_tax=update_tax, date_order=date_order, packaging=packaging,
                                                                          fiscal_position=fiscal_position, flag=flag, warehouse_id=warehouse_id, context=context)
         
-        return self._product_id_change(res, flag, product, partner_id, lang, context=context)
+        return self._product_id_change(cr, uid, res, flag, product, partner_id, lang, context=context)
 
+    def _supplier_ids(self, product):
+        res = []
+        if not product:
+            return res
+        for supplier in product.seller_ids:
+            res.append(supplier.name.id)
+        return res
+    
+    def _available_supplier_ids(self, cr, uid, ids, field_name, arg, context=None):
+        res = dict.fromkeys(ids)
+        for line in self.browse(cr, uid, ids, context):
+            res[line.id]=self._supplier_ids(line.product_id)
+        return res
     
     _inherit = "sale.order.line"
     _columns = {
         "supplier_ships" : fields.boolean("Supplier Ships",readonly=True,states={"draft": [("readonly", False)]}),
-        "supplier_id" : fields.many2one("res.partner", "Selected Supplier"),        
+        "supplier_id" : fields.many2one("res.partner", "Selected Supplier"),    
+        "available_supplier_ids" : fields.function(_available_supplier_ids, string="Available Suppliers", type="many2many", relation="res.partner", store=False, readonly=True ),    
         "priority": fields.selection(PRIORITY, "Priority"),        
         "procurement_note" : fields.text("Procurement Note")
     }

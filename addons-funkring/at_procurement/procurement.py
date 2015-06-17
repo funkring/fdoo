@@ -24,5 +24,6 @@ from openerp.osv import fields,osv
 class procurement_order(osv.osv):
     _inherit = "procurement.order"    
     _columns = {
-        "account_analytic_id":fields.many2one("account.analytic.account", "Analytic Account")
+        "account_analytic_id": fields.many2one("account.analytic.account", "Analytic Account"),
+        "note" : fields.text("Note")
     }
