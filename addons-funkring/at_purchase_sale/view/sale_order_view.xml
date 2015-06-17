@@ -15,9 +15,9 @@
 							<field name="procurement_note" />
 						</div>			
 						<group name="seller_options_grp">
-								<field name="preferred_seller_id" />
-								<field name="supplier_ships" />
-								<field name="priority" />
+							<field name="priority" />
+							<field name="supplier_ships" />
+							<field name="supplier_id" options="{'reload_on_button': true}" />
 						</group>										
 					</group>
 				</xpath>				

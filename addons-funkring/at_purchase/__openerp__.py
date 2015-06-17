@@ -22,24 +22,15 @@
 oerp.at Purchase Base
 =====================
 
-* Purchase line priority
-* Purchase line severity
-* Additional functions, function fields, helpers around pickings
-* Supplier unit price
-* Supplier invoiced flag
-* Directory name (for webdav,ftp)
-* Mail Support for Purchase Order
 * Aeroo Reports
+
 """,
     "version" : "1.0",
     "author" :  "funkring.net",
     "category" : "Purchase",
     "website": "http://www.funkring.net",
     "depends" : ["at_procurement","purchase","procurement_jit"],
-    "data" : ["security.xml",
-              "menu.xml",
-              "view/purchase_line_level.xml",
-              "report/purchase_order_report.xml",
+    "data" : ["report/purchase_order_report.xml",
               "report/purchase_quote_request_report.xml"],
     "auto_install": False,
     "installable": True

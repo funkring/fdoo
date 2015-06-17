@@ -18,13 +18,14 @@
 #
 ##############################################################################
 
-from openerp.osv import fields,osv
-
-class purchase_order(osv.osv):
-    
-    _inherit = "purchase.order"
-    _columns = {             
-        "supplier_ships" : fields.boolean("Supplier Ships",states={"confirmed":[("readonly",True)], "approved":[("readonly",True)],"done":[("readonly",True)]})
-    }
-    
-
+{
+    "name" : "oerp.at Mail Extensions",
+    "description": "oerp.at Mail Extensions",
+    "version" : "1.0",
+    "author" :  "funkring.net",
+    "category" : "Base",
+    "depends" : ["at_base","mail"],
+    "data" : [],
+    "auto_install" : False,
+    "installable": True
+}

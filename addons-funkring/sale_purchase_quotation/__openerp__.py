@@ -35,9 +35,10 @@ oerp.at Sale Purchase Quotation
 * Allows to set cost price for each available product supplier.
 * Adds possibility to select any supplier for each sale order line.""",
     "depends": ["at_sale",
-                "at_purchase",
+                "at_purchase_sale",
                 "at_stock",
-                "at_base"],
+                "at_mail",
+                "mail"],
     "data": ["view/templates.xml",
              "view/sale_view.xml",
              "data/email_template.xml",

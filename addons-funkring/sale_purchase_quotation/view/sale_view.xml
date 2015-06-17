@@ -24,44 +24,51 @@
          <field name="model">sale.order</field>
          <field name="inherit_id" ref="at_sale.form_sale_order" />
          <field name="arch" type="xml">
-            <xpath expr="/form/sheet/notebook/page[@string='Order Lines']/field[@name='order_line']/tree"
-               position="attributes">
-               <attribute name="editable" />
-            </xpath>
-            <xpath expr="/form/sheet/notebook/page[@string='Order Lines']/field[@name='order_line']/form/group"
-               position="after">
-               <newline />
-               <group>
-                  <separator string="Supplier" colspan="4" attrs="{'invisible' : [('purchase_ok','=',False)]}" />
-                  <field name="supplier_ids" nolabel="1" colspan="4" attrs="{'invisible' : [('purchase_ok','=',False)]}"
-                     options="{'reload_on_button': true}" />
-                  <field name="purchase_ok" invisible="1" />
-                  <field name="sent_to_all" invisible="1" />
-                  <field name="no_supplier" invisible="1" />
-               </group>
-               <newline />
-               <group colspan="4" col="4">
-                  <group colspan="2">
-                     <button name="send_mail_supplier" type="object" string="Send E-mail to all Suppliers"
-                        colspan="2"
-                        attrs="{'invisible' : ['|', '|', ('no_supplier','=',False), ('purchase_ok','=',False), ('sent_to_all','=',True)]}"
-                        confirm="Do you really want to send email to all suppliers?" />
-                  </group>
-               </group>
-            </xpath>
-            <xpath
-               expr="/form/sheet/notebook/page[@string='Order Lines']/field[@name='order_line']/form/group/group[2]/field[@name='address_allotment_id']"
-               position="after">
-               <field name="supplier_id" readonly="1"
-                  attrs="{'invisible' : [('purchase_ok','=',False)]}" />
-               <field name="dummy_supplier_id" invisible="1" />
-            </xpath>
-            <xpath expr="/form/sheet/notebook/page[@string='Order Lines']/field[@name='order_line']/tree/field[@name='name']"
-               position="after">
-               <field name="supplier_id" nolabel="1" colspan="4" />
-               <field name="dummy_supplier_id" invisible="1" />
-            </xpath>
+            <data>                
+                <xpath expr="/form/sheet/notebook/page[@string='Order Lines']/field[@name='order_line']/tree" position="attributes">
+                   <attribute name="editable" />
+                </xpath>
+                <xpath expr="/form/sheet/notebook/page[@string='Order Lines']/field[@name='order_line']/form/group"
+                   position="after">
+                   <newline />
+                   <group>
+                      <separator string="Supplier" colspan="4" attrs="{'invisible' : [('quotation_active','=',False)]}" />
+                      <field name="supplier_ids" nolabel="1" colspan="4" attrs="{'invisible' : [('quotation_active','=',False)]}"
+                         options="{'reload_on_button': true}" />
+                      <field name="quotation_active" invisible="1" />
+                      <field name="quotation_all" invisible="1" />
+                   </group>
+                   <newline />
+                   <group colspan="4" col="4">
+                      <group colspan="2">
+                         <button name="send_mail_supplier" type="object" string="Send E-mail to all Suppliers"
+                            colspan="2"
+                            attrs="{'invisible' : ['|',('quotation_active','=',False),('quotation_all','=',True)]}"
+                            confirm="Do you really want to send email to all suppliers?" />
+                      </group>
+                   </group>
+                </xpath>         
+            </data>
          </field>
       </record>
+  
+      <record id="form_sale_order" model="ir.ui.view">
+        <field name="name">sale_purchase_quotation.form_sale_order</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="at_purchase_sale.form_sale_order"/>
+        <field name="arch" type="xml">
+            <field name="supplier_id" position="after">
+                <group colspan="2">
+                    <!--
+                    <button name="start_quotation" type="object" string="Request Quotations" 
+                            colspan="2" attrs="{'invisible' : [('quotation_active','=',True)]}" />
+                    -->
+                    <button name="start_quotation" type="object" string="Request Quotations"  />
+                            
+                </group>
+            </field>
+        </field>
+      </record>
+
    </data>
 </openerp>

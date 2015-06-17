@@ -18,13 +18,20 @@
 #
 ##############################################################################
 
-from openerp.osv import fields,osv
+from openerp.osv import fields, osv
 
-class purchase_order(osv.osv):
+class mail_compose_message(osv.Model):
     
-    _inherit = "purchase.order"
-    _columns = {             
-        "supplier_ships" : fields.boolean("Supplier Ships",states={"confirmed":[("readonly",True)], "approved":[("readonly",True)],"done":[("readonly",True)]})
-    }
+    def _res_ids(self, wizard, context=None):
+        mass_mode = wizard.composition_mode in ('mass_mail', 'mass_post')
+        if mass_mode and wizard.use_active_domain and wizard.model:
+            res_ids = self.pool[wizard.model].search(cr, uid, eval(wizard.active_domain), context=context)
+        elif mass_mode and wizard.model and context.get('active_ids'):
+            res_ids = context['active_ids']
+        else:
+            res_ids = [wizard.res_id]
+        return res_ids
     
+    _inherit = "mail.compose.message"
 
+    

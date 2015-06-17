@@ -23,6 +23,7 @@ from openerp.addons.at_base import util
 from openerp.addons.at_base.util import PRIORITY
 
 class sale_shop(osv.osv):
+    
     _inherit = "sale.shop"
     _columns = {
         "supplier_ships_default" : fields.boolean("Supplier Ships"),
@@ -44,11 +45,11 @@ class sale_order(osv.osv):
         res["note"]=line.procurement_note
         return res
           
-    def onchange_shop_id(self, cr, uid, ids, shop_id):
-        res = super(sale_order,self).onchange_shop_id(cr,uid,ids,shop_id)
+    def onchange_shop_id(self, cr, uid, ids, shop_id, state, context=None):
+        res = super(sale_order,self).onchange_shop_id(cr, uid, ids, shop_id, state, context=context)
         value = res.get("value",None) or {}
         if shop_id:
-            shop_rec = self.pool.get('sale.shop').browse(cr, uid, shop_id)
+            shop_rec = self.pool.get("sale.shop").browse(cr, uid, shop_id, context=context)
             value["supplier_ships"]=shop_rec.supplier_ships_default
         return {'value': value}
     
@@ -60,38 +61,54 @@ class sale_order(osv.osv):
 
 class sale_order_line(osv.osv):
    
+    def _product_id_change(self, res, flag, product_id, partner_id, lang, context=None):
+        if flag:
+            if product_id:
+                context = {'lang': lang, 'partner_id': partner_id}
+                product_obj = self.pool.get('product.product')             
+                res["value"]["supplier_ships"]=product_obj.read(cr, uid, product_id, ["supplier_ships"], context=context)["supplier_ships"]
+                    
+                product_context = context and context.copy() or {}
+                product_context.update({'lang': lang, 'partner_id': partner_id})
+                product_val = product_obj.browse(cr, uid, product, context=product_context)          
+                    
+                if product_val and product_val.seller_ids:
+                    seller_line_id = product_val.seller_ids[0]
+                    util.setSubDictValue(res,"value","supplier_id",seller_line_id and seller_line_id.id or None)
+                    util.setSubDictValue(res,"domain","supplier_id",[("product_id","=",product_val.id)])
+            else:
+                res["supplier_id"]=None
+                util.setSubDictValue(res, "domain", "supplier_id",[("product_id","=",False)])
+                
+        return res
+   
     def product_id_change(self, cr, uid, ids, pricelist, product, qty=0,
             uom=False, qty_uos=0, uos=False, name='', partner_id=False,
             lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False, context=None):
                        
-        res =  super(sale_order_line,self).product_id_change(cr,uid,ids,pricelist,product,
+        res = super(sale_order_line,self).product_id_change(cr,uid,ids,pricelist,product,
                                                       qty=qty,uom=uom, qty_uos=qty_uos, uos=uos, 
                                                       name=name, partner_id=partner_id,lang=lang,update_tax=update_tax,
                                                       date_order=date_order, packaging=packaging, fiscal_position=fiscal_position,flag=flag,context=context)
-        if flag:
-            if product:
-                context = {'lang': lang, 'partner_id': partner_id}
-                product_obj = self.pool.get('product.product')             
-                res["value"]["supplier_ships"]=product_obj.read(cr, uid, product, ["supplier_ships"], context=context)["supplier_ships"]
-                
-                product_context = context and context.copy() or {}
-                product_context.update({'lang': lang, 'partner_id': partner_id})
-                product_val = product_obj.browse(cr, uid, product, context=product_context)          
-                
-                if product_val and product_val.seller_ids:
-                    seller_line_id = product_val.seller_ids[0]
-                    util.setSubDictValue(res,"value","preferred_seller_id",seller_line_id and seller_line_id.id or None)
-                    util.setSubDictValue(res,"domain","preferred_seller_id",[("product_id","=",product_val.id)])
-            else:
-                res["preferred_seller_id"]=None
-                util.setSubDictValue(res, "domain", "preferred_seller_id",[("product_id","=",False)])
+        
+        return self._product_id_change(res, flag, product, partner_id, lang, context=context)
+    
+    def product_id_change_with_wh(self, cr, uid, ids, pricelist, product, qty=0,
+                                  uom=False, qty_uos=0, uos=False, name='', partner_id=False,
+                                  lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False, warehouse_id=False, context=None):
 
-        return res  
+        res = super(sale_order_line, self).product_id_change_with_wh(cr, uid, ids, pricelist, product, qty=qty,
+                                                                         uom=uom, qty_uos=qty_uos, uos=uos, name=name, partner_id=partner_id,
+                                                                         lang=lang, update_tax=update_tax, date_order=date_order, packaging=packaging,
+                                                                         fiscal_position=fiscal_position, flag=flag, warehouse_id=warehouse_id, context=context)
+        
+        return self._product_id_change(res, flag, product, partner_id, lang, context=context)
+
     
     _inherit = "sale.order.line"
     _columns = {
         "supplier_ships" : fields.boolean("Supplier Ships",readonly=True,states={"draft": [("readonly", False)]}),
-        "preferred_seller_id" : fields.many2one("product.supplierinfo","Seller",states={"draft": [("readonly", False)]}),        
+        "supplier_id" : fields.many2one("res.partner", "Selected Supplier"),        
         "priority": fields.selection(PRIORITY, "Priority"),        
         "procurement_note" : fields.text("Procurement Note")
     }

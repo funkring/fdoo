@@ -18,13 +18,24 @@
 #
 ##############################################################################
 
-from openerp.osv import fields,osv
+{
+    "name" : "oerp.at CRM Extensions",
+    "description":"""
+oerp.at CRM Extensions
+======================
 
-class purchase_order(osv.osv):
-    
-    _inherit = "purchase.order"
-    _columns = {             
-        "supplier_ships" : fields.boolean("Supplier Ships",states={"confirmed":[("readonly",True)], "approved":[("readonly",True)],"done":[("readonly",True)]})
-    }
-    
+* Support new call planing from a lead
 
+    """,
+    "version" : "1.0",
+    "author" :  "funkring.net",
+    "category" : "Customer Relationship Management",
+    "depends" : ["at_base","crm"],
+    "data" : [
+       "view/crm_categ_view.xml",
+       "view/crm_lead.xml",
+
+    ],
+    "auto_install" : False,
+    "installable": True
+}
