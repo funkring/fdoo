@@ -22,9 +22,9 @@
                                     <th>UOM</th>
                                 </tr>
                                 <tr>
-                                    <td>${object.line_id.name}</th>
-                                    <td>${object.line_id.product_uom_qty}</th>
-                                    <td>${object.line_id.product_uom.name}</th>
+                                    <td>${object.line_id.name}</td>
+                                    <td>${object.line_id.product_uom_qty}</td>
+                                    <td>${object.line_id.product_uom.name}</td>
                                 </tr>
                             </table>
                             <br/>

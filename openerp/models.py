@@ -338,10 +338,6 @@ class BaseModel(object):
     _inherit_fields = {}
 
     _table = None
-    #funkring.net begin
-    _event = None
-    _chgnotify_enabled = False
-    #funkring.net end
     _log_create = False
     _sql_constraints = []
 
@@ -742,13 +738,6 @@ class BaseModel(object):
         for (key, _, msg) in cls._sql_constraints:
             cls.pool._sql_error[cls._table + '_' + key] = msg
 
-    @classmethod
-    def _init_event(cls):
-        #funkring.net begin
-        if not cls._event:
-            cls._event = cls._table
-        #funkring.net end
-        
     @property
     def _constraint_methods(self):
         """ Return a list of methods implementing Python constraints. """
@@ -3059,11 +3048,6 @@ class BaseModel(object):
         # register constraints and onchange methods
         cls._init_constraints_onchanges()
 
-        # funkring.net begin
-        # init event
-        cls._init_event()
-        # funkring.net end
-
         # check defaults
         for name in cls._defaults:
             assert name in cls._fields, \
@@ -5195,13 +5179,11 @@ class BaseModel(object):
         """ stuff to do right after the registry is built """
         pass
     
+    # funkring.net //begin
     def _chgnotify(self, cr, uid, ids, delete=False, context=None):
-        if self._chgnotify_enabled and (not context or not context.get("chgnotify_disabled")):
-            sender = context.get("chgnotify_sender")
-            if sender:
-                cr.event_notify(self._event,param={"sender" : sender})
-            else:
-                cr.event_notify(self._event)
+        """ stuff to do right after create, insert and before delete """
+        pass        
+    #funkring.net //end
 
     @classmethod
     def _patch_method(cls, name, method):
