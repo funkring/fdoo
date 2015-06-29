@@ -28,28 +28,28 @@ import openerp.addons.decimal_precision as dp
 class account_invoice(osv.osv):
 
 
-    def _create_payment(self, cr, uid, invoice_id, journal_id, 
-                        compensation_id=None, 
-                        amount=0.0, 
-                        date=None, 
-                        voucher_id=None, 
-                        post=False, 
+    def _create_payment(self, cr, uid, invoice_id, journal_id,
+                        compensation_id=None,
+                        amount=0.0,
+                        date=None,
+                        voucher_id=None,
+                        post=False,
                         currency_id=None,
                         period_id=None,
                         context=None):
-        
+
         res_value = {}
         if not invoice_id or not journal_id:
             return res_value
-        
+
         voucher_obj = self.pool.get("account.voucher")
         voucher_line_obj = self.pool.get("account.voucher.line")
         compensation_obj = self.pool.get("account.bank.statement.compensation")
         partner_obj = self.pool.get("res.partner")
         move_line_obj = self.pool.get("account.move.line")
         period_obj = self.pool.get("account.period")
-        
-        invoice = self.browse(cr, uid, invoice_id, context=context)        
+
+        invoice = self.browse(cr, uid, invoice_id, context=context)
         currency = invoice.currency_id
         invoice_journal = invoice.journal_id
         company = invoice.company_id
@@ -62,7 +62,7 @@ class account_invoice(osv.osv):
 
         if not amount:
             amount = residual_amount
-            
+
         if not period_id:
             period_ids = period_obj.find(cr, uid, dt=(date or util.currentDate()), context=context)
             if period_ids:
@@ -131,7 +131,7 @@ class account_invoice(osv.osv):
                  data["payment_option"]="with_writeoff"
                  data["writeoff_acc_id"]=compensation.account_id.id
                  data["comment"]=compensation.name
-           
+
 
         if line_datas:
             data[line_datas_field] = [(0,0,l) for l in line_datas]
@@ -163,13 +163,13 @@ class account_invoice(osv.osv):
             res_value["type"] = "supplier"
         else:
             res_value["type"] = "general"
-            
+
         # post voucher
         if post:
             voucher_obj.proforma_voucher(cr, uid, voucher_id, context=voucher_context)
 
         return res_value
-        
+
 
     def invoice_validate(self, cr, uid, ids, context=None):
         self.write(cr, uid, ids, {'state':'open'}, context=context)
@@ -283,6 +283,7 @@ class account_invoice(osv.osv):
             else:
                 res[invoice.id] = ''
         return res
+
 
     _inherit = "account.invoice"
     _columns = {
