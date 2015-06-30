@@ -24,14 +24,16 @@
 Fclipboard
 ==========
 
-* a simple tool for mobile data recording
+Dynamic data support for mobile data recording 
  
-    """,
+""",
+
     "version" : "1.0",
     "author" :  "funkring.net",
     "category" : "Sales",
-    "depends" : ["at_sale","web"],
-    "data" : [],
+    "depends" : ["at_sale"],
+    "data" : ["view/fclipboard_view.xml",
+              "security.xml"],
     "auto_install" : False,
     "installable": True
 }
