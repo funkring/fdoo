@@ -3,7 +3,7 @@
 	<data>
        <report id="account.account_invoices"
                string="Invoice"
-               name="account.invoice"
+               name="account.report_invoice"
                auto="False"
                report_type="aeroo"
                process_sep="True"
