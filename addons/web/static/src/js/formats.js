@@ -160,12 +160,18 @@ instance.web.format_value = function (value, descriptor, value_if_empty) {
             return instance.web.insert_thousand_seps(
                 _.str.sprintf('%d', value));
         case 'float':
-            var digits = descriptor.digits ? descriptor.digits : [69,2];
-            digits = typeof digits === "string" ? py.eval(digits) : digits;
-            var precision = digits[1];
-            var formatted = _.str.sprintf('%.' + precision + 'f', value).split('.');
-            formatted[0] = instance.web.insert_thousand_seps(formatted[0]);
-            return formatted.join(l10n.decimal_point);
+            if ( descriptor.digits === 0 ) {
+                var formatted = _.str.sprintf('%f', value).split('.');
+                formatted[0] = instance.web.insert_thousand_seps(formatted[0]);
+                return formatted.join(l10n.decimal_point);
+            } else {
+                var digits = descriptor.digits ? descriptor.digits : [69,2];
+                digits = typeof digits === "string" ? py.eval(digits) : digits;
+                var precision = digits[1];
+                var formatted = _.str.sprintf('%.' + precision + 'f', value).split('.');
+                formatted[0] = instance.web.insert_thousand_seps(formatted[0]);
+                return formatted.join(l10n.decimal_point);
+            }
         case 'float_time':
             var pattern = '%02d:%02d';
             if (value < 0) {

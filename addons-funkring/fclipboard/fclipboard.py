@@ -62,15 +62,16 @@ class fclipboard_item(models.Model):
                              ("d","Date"),                         
                             ],"Type", select=True, required=True)
     
-    pos = fields.Selection([(1,"Master"),
-                            (2,"Detail")],
-                           "Position", select=True, required=True)
+    section = fields.Selection([(1,"Master"),
+                                (2,"Detail")],
+                                   "Section", select=True, required=True)
     
     ref = fields.Reference([("res.partner","Partner"),
                             ("product.product","Product"),
                             ("sale.order","Sales Order")], string="Reference", select=True)
     
     owner_id = fields.Many2one("res.users", "Owner", ondelete="set null")
+    active = fields.Boolean("Active")
     is_template = fields.Boolean("Template")
     
     root_id = fields.Many2one("fclipboard.item","Root", select=True, compute="_compute_root_id", readonly=True)
@@ -90,9 +91,11 @@ class fclipboard_item(models.Model):
     # main definition
     _name = "fclipboard.item"
     _description = "Item"  
-    _order = "pos, sequence"
+    _order = "section, sequence"
     _defaults = {
         "sequence" : 20,
-        "pos" : 1
+        "section" : 2,
+        "type" : "n",
+        "active" : True
     }
     

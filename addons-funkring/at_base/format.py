@@ -59,6 +59,10 @@ class LangFormat(object):
         digits = self.get_digits(obj, f, dp)
         return "%%.%df" % (digits, )
 
+    def _check_digits(self, val):
+        if val == 0:
+            return val
+        return val[1]
     
     def get_digits(self, obj=None, f=None, dp=None):
         d = DEFAULT_DIGITS = 2
@@ -72,11 +76,21 @@ class LangFormat(object):
             if isinstance(res_digits, tuple):
                 d = res_digits[1]
             else:
-                d = res_digits(self.cr)[1]
+                res_digits = res_digits(self.cr)
+                if res_digits == 0: # special digits, no rounding
+                    d = res_digits
+                else:
+                    d = res_digits[1]
         elif (hasattr(obj, '_field') and\
                 isinstance(obj._field, (float_class, function_class)) and\
                 obj._field.digits):
-                d = obj._field.digits[1] or DEFAULT_DIGITS
+                
+                res_digits = obj._field.digits
+                if res_digits == 0:  # special digits, no rounding
+                    d = res_digits
+                else:
+                    d = obj._field.digits[1] or DEFAULT_DIGITS
+                
         return d
 
     def digits(self):
@@ -147,6 +161,9 @@ class LangFormat(object):
         elif float_time:
             return self.floatTimeConvert(value)
 
+        if digits == 0:
+            lang_dict['lang_obj'].format('%f', value, grouping=grouping, monetary=monetary)
+        
         return lang_dict['lang_obj'].format('%.' + str(digits) + 'f', value, grouping=grouping, monetary=monetary)
 
     

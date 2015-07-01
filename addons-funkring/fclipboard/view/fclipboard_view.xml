@@ -16,7 +16,7 @@
                 </div>
                 <group>
                     <group>
-                        <field name="pos"/>
+                        <field name="section"/>
                         <field name="type"/>
                         <field name="valc" attrs="{'invisible':[('type','!=','c')]}"/>
                         <field name="valt" attrs="{'invisible':[('type','!=','t')]}"/>
@@ -25,7 +25,8 @@
                         <field name="valb" attrs="{'invisible':[('type','!=','b')]}"/>
                         <field name="vald" attrs="{'invisible':[('type','!=','d')]}"/>
                     </group>     
-                    <group>                                  
+                    <group>                              
+                        <field name="active"/>    
                         <field name="is_template"/>
                         <field name="parent_id" invisible="context.get('item_view',False)" domain="[('id','!=',active_id),'!',('id','child_of',active_id)]"/>
                         <field name="owner_id" attrs="{'invisible':[('parent_id','!=',False)]}"/>                       
@@ -39,7 +40,7 @@
                             <field name="sequence" widget="handle"/>
                             <field name="name"/>
                             <field name="type"/>       
-                            <field name="pos"/>
+                            <field name="section"/>
                             <field name="code"/>
                             <field name="ref"/>
                             <field name="value"/>
@@ -59,7 +60,7 @@
         <tree string="Items" >
             <field name="name"/>
             <field name="type"/>    
-            <field name="pos"/>     
+            <field name="section"/>     
             <field name="parent_id"/>
             <field name="is_template"/>
             <field name="owner_id"/>            
