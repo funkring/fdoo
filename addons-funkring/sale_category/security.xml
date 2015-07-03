@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+	
+		<record id="access_sale_category_user" model="ir.model.access">
+			<field name="name">sale_category/group_user</field>
+			<field name="model_id" ref="model_sale_category"/>
+			<field name="group_id" ref="base.group_user"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="False"/>
+			<field name="perm_write" eval="False"/>
+		</record>
+		
+		<record id="access_sale_category_system" model="ir.model.access">
+			<field name="name">sale_category/system</field>
+			<field name="model_id" ref="model_sale_category"/>
+			<field name="group_id" ref="base.group_system"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		<record id="access_sale_category_report_user" model="ir.model.access">
+			<field name="name">sale_category_report/group_user</field>
+			<field name="model_id" ref="model_sale_category_report"/>
+			<field name="group_id" ref="base.group_user"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="False"/>
+			<field name="perm_write" eval="False"/>
+		</record>
+		
+		<record id="access_sale_category_report_system" model="ir.model.access">
+			<field name="name">sale_category_report/system</field>
+			<field name="model_id" ref="model_sale_category_report"/>
+			<field name="group_id" ref="base.group_system"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+	</data>	
+</openerp>

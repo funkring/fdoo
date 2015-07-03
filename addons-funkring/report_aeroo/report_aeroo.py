@@ -4,7 +4,7 @@
 #
 # Copyright (c) 2009-2011 Alistek, SIA. (http://www.alistek.com) All Rights Reserved.
 #                    General contacts <info@alistek.com>
-# Copyright (C) 2009  Domsense s.r.l.                                   
+# Copyright (C) 2009  Domsense s.r.l.
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -66,13 +66,13 @@ AEROO_RETRIES = 3
 
 def fixPdf(data,ret_reader=False):
     if data:
-        try:        
+        try:
             reader = PdfFileReader(StringIO(data))
             if ret_reader:
                 return reader
             return data
         except Exception, e:
-            error = hasattr(e, "message") and e.message or ""                            
+            error = hasattr(e, "message") and e.message or ""
             logger.error("PDF corrupted and should be fixed: %s",error)
             if os.path.exists("/usr/bin/pdftk"):
                 pdfFile = None
@@ -83,27 +83,27 @@ def fixPdf(data,ret_reader=False):
                     try:
                         fp.write(data)
                     finally:
-                        fp.close()     
-                        
-                    pdfFileFixed = tempfile.mktemp(".pdf", "fixed")     
+                        fp.close()
+
+                    pdfFileFixed = tempfile.mktemp(".pdf", "fixed")
                     cmd = "pdftk %s output %s" % (pdfFile,pdfFileFixed)
                     cmd_fp = os.popen(cmd,"r",1)
                     try:
                         logger.info("PDF Fixed %s",cmd_fp.read())
-                    finally:                    
+                    finally:
                         cmd_fp.close()
-                    
+
                     if os.path.exists(pdfFileFixed):
                         data_fp = open(pdfFileFixed,"r")
-                        try: 
+                        try:
                             data = data_fp.read()
                         finally:
                             data_fp.close()
-                        
+
                         reader = PdfFileReader(StringIO(data))
                         if ret_reader:
                             return reader
-                        return data                        
+                        return data
                 finally:
                     if pdfFile:
                         os.remove(pdfFile)
@@ -160,7 +160,7 @@ class Aeroo_report(report_sxw):
     def __del__(self):
         logger.info("aeroo report cleanup")
         self._cleanup()
-        
+
     def getObjects_mod(self, cr, uid, ids, rep_type, context):
         table_obj = RegistryManager.get(cr.dbname).get(self.table)
         return table_obj.browse(cr, uid, ids, context=context)
@@ -260,7 +260,7 @@ class Aeroo_report(report_sxw):
             if report_xml_ids:
                 report_xml = ir_obj.browse(cr, uid, report_xml_ids[0], context=context)
                 data = {'model': obj._table_name, 'id': obj.id, 'report_type': 'aeroo', 'in_format': 'oo-odt'}
-                
+
                 reportInstance = ir_obj._lookup_report(cr, name)
                 report, output = reportInstance.create_aeroo_report(cr, uid, \
                                             [obj.id], data, report_xml, context=context, output='odt') # change for OpenERP 6.0 - Service class usage
@@ -282,8 +282,8 @@ class Aeroo_report(report_sxw):
             if report_xml_ids:
                 report_xml = ir_obj.browse(cr, uid, report_xml_ids[0], context=context)
                 data = {'model': obj._table_name, 'id': obj.id, 'report_type': 'aeroo', 'in_format': 'genshi-raw'}
-                
-                reportInstance = ir_obj._lookup_report(cr, name)                
+
+                reportInstance = ir_obj._lookup_report(cr, name)
                 report, output = reportInstance.create_genshi_raw_report(cr, uid, \
                                             [obj.id], data, report_xml, context=context, output=output) # change for OpenERP 6.0 - Service class usage
                 return report
@@ -293,7 +293,7 @@ class Aeroo_report(report_sxw):
             return odt_subreport
         elif output=='raw':
             return raw_subreport
-        
+
     def _cleanup(self):
         while self.oo_subreports:
             sub_report = oo_subreports.pop()
@@ -301,7 +301,7 @@ class Aeroo_report(report_sxw):
                 os.unlink(sub_report)
             except:
                 logger.warn("Unable to cleanup %s" % sub_report)
-                
+
     def set_xml_data_fields(self, objects, parser):
         xml_data_fields = parser.localcontext.get('xml_data_fields', False)
         if xml_data_fields:
@@ -328,19 +328,19 @@ class Aeroo_report(report_sxw):
         styles_mode = report_xml.styles_mode
         if styles_mode != 'default':
             style_content = None
-            
+
             if styles_mode == 'intern':
                 company_id = pool.get('res.users')._get_company(cr, uid, context=context)
                 style_content = pool.get('res.company').browse(cr, uid, company_id, context=context).stylesheet_intern_id
                 style_content = style_content and style_content.report_styles or False
                 if not style_content:
-                    styles_mode='global'                    
+                    styles_mode='global'
             elif styles_mode == 'intern_landscape':
                 company_id = pool.get('res.users')._get_company(cr, uid, context=context)
                 style_content = pool.get('res.company').browse(cr, uid, company_id, context=context).stylesheet_intern_landscape_id
                 style_content = style_content and style_content.report_styles or False
                 if not style_content:
-                    styles_mode='global_landscape'                
+                    styles_mode='global_landscape'
 
             if not style_content:
                 if styles_mode=='global':
@@ -354,7 +354,7 @@ class Aeroo_report(report_sxw):
                 elif styles_mode=='specified':
                     style_content = report_xml.stylesheet_id
                     style_content = style_content and style_content.report_styles or False
-                
+
             if style_content:
                 style_io = StringIO()
                 style_io.write(base64.decodestring(style_content))
@@ -392,9 +392,9 @@ class Aeroo_report(report_sxw):
 
         self.epl_images = []
         basic = NewTextTemplate(source=base64.decodestring(file_data))
-        
+
         data = preprocess(basic.generate(**oo_parser.localcontext).render().decode('utf8').encode(report_xml.charset))
-        
+
         if report_xml.content_fname:
             output = report_xml.content_fname
         return data, output
@@ -416,11 +416,19 @@ class Aeroo_report(report_sxw):
         pool = RegistryManager.get(cr.dbname)
         if not context:
             context={}
+
+        # report replacement
+        if ids and len(ids) == 1 and context.get('active_model'):
+            report_obj = pool.get("ir.actions.report.xml")
+            repl_report_xml = report_obj._get_replacement(cr, uid, context.get('active_model'), ids[0], report_xml, context=context)
+            if repl_report_xml:
+                return self.create_aeroo_report(cr, uid, ids, data, repl_report_xml, context=context, output=output)
+
         context = context.copy()
         if self.name=='report.printscreen.list':
             context['model'] = data['model']
             context['ids'] = ids
-        
+
         objects = not context.get('no_objects', False) and self.getObjects_mod(cr, uid, ids, report_xml.report_type, context) or []
         oo_parser = self.parser(cr, uid, self.name2, context=context)
 
@@ -473,8 +481,8 @@ class Aeroo_report(report_sxw):
                                       'next':self._next})
 
         user_name = pool.get('res.users').browse(cr, uid, uid, {}).name
-        
-        eval_model = data.get("model",context.get("active_model"))        
+
+        eval_model = data.get("model",context.get("active_model"))
         model_id = pool.get('ir.model').search(cr, uid, [('model','=',eval_model)])[0]
         model_name = pool.get('ir.model').browse(cr, uid, model_id).name
 
@@ -508,17 +516,17 @@ class Aeroo_report(report_sxw):
                             if self.oo_subreports:
                                 DC.insertSubreports(self.oo_subreports)
                             return DC.readDocumentFromStreamAndClose(report_xml.out_format.filter_name)
-                        except Exception as e:                            
+                        except Exception as e:
                             logger.error(str(e))
-                            if retry>0:    
+                            if retry>0:
                                 logger.error("Failed to build subreport, retry %s" % retry)
-                                time.sleep(AEROO_TIMEOUT)                        
+                                time.sleep(AEROO_TIMEOUT)
                                 return build_report(data,retry-1)
-                            
+
                             self._cleanup()
                             output=report_xml.in_format[3:]
                             raise e
-                
+
                 data = build_report(data)
             else:
                 output=report_xml.in_format[3:]
@@ -570,16 +578,16 @@ class Aeroo_report(report_sxw):
         if attach or add_pdf_attachments or aeroo_ooo and report_xml.process_sep:
             objs = self.getObjects(cr, uid, ids, context)
             results = []
-            for obj in objs:                
+            for obj in objs:
                 aname = attach and eval(attach, {'object':obj, 'time':time}) or False
                 attachment_id = None
-                
+
                 #create file name
                 extension = report_xml.out_format.extension or "pdf"
                 fname = aname
                 if fname and not fname.endswith(extension):
-                    fname = "%s.%s" % (fname,extension) 
-                
+                    fname = "%s.%s" % (fname,extension)
+
                 result = False
                 if report_xml.attachment_use and aname and context.get('attachment_use', True):
                     attachment_ids = attachment_obj.search(cr, uid, [('datas_fname','=',fname),('res_model','=',self.table),('res_id','=',obj.id)])
@@ -591,7 +599,7 @@ class Aeroo_report(report_sxw):
                             result = (d,extension,attachment.name,attachment.datas_fname)
                         else:
                             logger.error("Attachment for %s - %s for reloading does not exists. Try to create a new one..." % (aname,fname))
-                        
+
                 if not result:
                     # create report
                     result = self.create_single_pdf(cr, uid, [obj.id], data, report_xml, context)
@@ -605,7 +613,7 @@ class Aeroo_report(report_sxw):
                             extension = result[1] or "pdf"
                             fname = aname
                             if not fname.endswith(extension):
-                                fname = "%s.%s" % (fname,extension) 
+                                fname = "%s.%s" % (fname,extension)
                             #create attachment
                             attachment_id = attachment_obj.create(cr, uid, {
                                 'name': aname,
@@ -618,11 +626,11 @@ class Aeroo_report(report_sxw):
                             cr.commit()
                     except Exception,e:
                          tb_s = reduce(lambda x, y: x+y, traceback.format_exception(sys.exc_type, sys.exc_value, sys.exc_traceback))
-                         logger.error(str(e))             
-                
+                         logger.error(str(e))
+
                 #add result
                 results.append(result)
-                
+
                 # add pdf attachments
                 if add_pdf_attachments:
                     attachment_ids =attachment_obj.search(cr, uid, [('id','!=',attachment_id),('res_model','=',self.table),('res_id','=',obj.id)])
@@ -630,19 +638,19 @@ class Aeroo_report(report_sxw):
                         if attachment.datas and attachment.datas_fname and attachment.datas_fname.endswith(".pdf"):
                             d = base64.decodestring(attachment.datas)
                             results.append((d,"pdf",attachment.name,attachment.datas_fname))
-                            
-                
+
+
             if results:
                 if results[0][1]=='pdf':
                     output = PdfFileWriter()
                     for r in results:
                         reader = fixPdf(r[0],ret_reader=True)
-                        if reader: 
+                        if reader:
                             for page in range(reader.getNumPages()):
                                 output.addPage(reader.getPage(page))
                         else:
                             logger.error("Unable to merge corrupted PDF %s - %s" % (r[2],r[3]))
-                                
+
                     s = StringIO()
                     output.write(s)
                     return s.getvalue(), results[0][1]
@@ -686,7 +694,7 @@ class Aeroo_report(report_sxw):
                 except Exception,e:
                     logger.error(str(e))
                 results.append(result)
-        
+
         # build report
         if results and len(results)==1:
             return results[0]
@@ -710,8 +718,8 @@ class Aeroo_report(report_sxw):
                         time.sleep(AEROO_TIMEOUT)
                         logger.error("Failed to build report, retry %s" % retry)
                         return build_report(data,retry-1)
-                    raise e    
-                    
+                    raise e
+
             return build_report(retry)
 
     # override needed to intercept the call to the proper 'create' method
@@ -721,7 +729,7 @@ class Aeroo_report(report_sxw):
         report_xml_ids = ir_obj.search(cr, uid,
                 [('report_name', '=', self.name[7:])], context=context)
         if report_xml_ids:
-            report_xml = ir_obj.browse(cr, uid, report_xml_ids[0], context=context)            
+            report_xml = ir_obj.browse(cr, uid, report_xml_ids[0], context=context)
         else:
             title = ''
             rml = tools.file_open(self.tmpl, subdir=None).read()

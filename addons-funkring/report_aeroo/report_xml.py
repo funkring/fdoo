@@ -48,11 +48,11 @@ class report_stylesheets(osv.osv):
     '''
     _name = 'report.stylesheets'
     _description = 'Report Stylesheets'
-    
+
     _columns = {
         'name':fields.char('Name', size=64, required=True),
         'report_styles' : fields.binary('Template Stylesheet', help='OpenOffice.org stylesheet (.odt)'),
-        
+
     }
 
 
@@ -75,7 +75,7 @@ class report_mimetypes(osv.osv):
     '''
     _name = 'report.mimetypes'
     _description = 'Report Mime-Types'
-    
+
     _columns = {
         'name':fields.char('Name', size=64, required=True, readonly=True),
         'code':fields.char('Code', size=16, required=True, readonly=True),
@@ -130,8 +130,8 @@ class report_xml(osv.osv):
             return None
 
     def _lookup_report(self, cr, name):
-        cr.execute("SELECT * FROM ir_act_report_xml WHERE report_type = 'aeroo' AND report_name = %s AND active='t'", (name,)) 
-        records = cr.dictfetchall()        
+        cr.execute("SELECT * FROM ir_act_report_xml WHERE report_type = 'aeroo' AND report_name = %s AND active='t'", (name,))
+        records = cr.dictfetchall()
         for record in records:
             parser=rml_parse
             if record['parser_state']=='loc' and record['parser_loc']:
@@ -140,10 +140,10 @@ class report_xml(osv.osv):
                 parser=self.load_from_source("from report import report_sxw\n"+record['parser_def']) or parser
             return Aeroo_report(cr, "report."+name, record['model'], record['report_rml'],parser)
         return super(report_xml,self)._lookup_report(cr, name)
-        
+
     def _report_content(self, cursor, user, ids, name, arg, context=None):
         res = {}
-        for report in self.browse(cursor, user, ids, context=context):   
+        for report in self.browse(cursor, user, ids, context=context):
             data = report.report_sxw_content_data
             report_file = report.report_rml
             if report.report_type=='aeroo' and report.tml_source=='file' or not data and report_file:
@@ -180,7 +180,7 @@ class report_xml(osv.osv):
         ids = obj.search(cr, uid, [('filter_name','=',False)], context=context)
         res = obj.read(cr, uid, ids, ['code', 'name'], context)
         return [(r['code'], r['name']) for r in res] + [('','')]
-   
+
     def _get_attachment_name(self, cr, uid, report, obj, ext=None, context=None):
         attach = report.attachment
         aname = attach and eval(attach, {'object':obj, 'time':time}) or False
@@ -191,7 +191,7 @@ class report_xml(osv.osv):
         fname = aname
         if not fname.endswith(extension):
             fname = "%s.%s" % (fname,extension)
-        return aname, fname 
+        return aname, fname
 
     def _get_attachment_id(self, cr, uid, report, obj, context=None):
         aname, fname = self._get_attachment_name(cr, uid, report, obj, context=context)
@@ -217,15 +217,15 @@ class report_xml(osv.osv):
                 attachment_id = self.pool.get("ir.attachment").create(cr,uid,values,context=context)
             return attachment_id
         return False
-        
+
     def _get_report_obj(self, cr, uid, res_model, res_id, report_name=None, context=None):
         if not report_name:
             report_name=res_model
-            
+
         report_id = self.search_id(cr, uid, [("report_name","=",report_name)])
         if not report_id:
             raise osv.except_osv(_("Error!"), _("No report with report_name=%s found") % report_name)
-        
+
         report = self.browse(cr, uid, report_id, context)
         if not report.attachment:
             raise osv.except_osv(_("Error!"), _("Attachments not defined for report %s") % report.name)
@@ -233,7 +233,7 @@ class report_xml(osv.osv):
         model = self.pool.get(res_model)
         if not model:
             raise osv.except_osv(_("Error!"), _("Model %s not found") % res_model)
-                
+
         obj = model.browse(cr,uid,res_id,context=context)
         return report, obj
 
@@ -241,11 +241,14 @@ class report_xml(osv.osv):
         report, obj = self._get_report_obj(cr, uid, res_model, res_id, report_name, context)
         attachment_id = self._get_attachment_id(cr, uid, report, obj, context=context)
         return self._write_attachment(cr, uid, report, obj, attachment_id=attachment_id, datas=datas, data=data, origin=origin, context=context)
-    
+
     def get_attachment_id(self, cr, uid, res_model, res_id, report_name=None, context=None):
         report, obj = self._get_report_obj(cr, uid, res_model, res_id, report_name, context)
         return self._get_attachment_id(cr, uid, report, obj, context=context)
-            
+
+    def _get_replacement(self, cr, uid, res_model, res_id, report_xml, context=None):
+        return None
+
     _columns = {
         'charset':fields.selection(_get_encodings, string='Charset', required=True),
         'content_fname': fields.char('Override Extension',size=64, help='Here you can override output file extension'),
@@ -292,19 +295,19 @@ class report_xml(osv.osv):
         ####################################
         reports = self.read(cr, uid, ids, ['report_name','model'])
         for r in reports:
-            ir_value_ids = self.pool.get('ir.values').search(cr, uid, [('name','=',r['report_name']), 
+            ir_value_ids = self.pool.get('ir.values').search(cr, uid, [('name','=',r['report_name']),
                                                                             ('value','=','ir.actions.report.xml,%s' % r['id']),
                                                                             ('model','=',r['model'])
                                                                             ])
         model_data_obj = self.pool.get('ir.model.data')
         model_data_ids = model_data_obj.search(cr, uid, [('model','=','ir.actions.report.xml'),('res_id','in',ids)])
         self.pool.get('ir.model.data').unlink(cr, uid, model_data_ids)
-        
+
         ####################################
         res = super(report_xml, self).unlink(cr, uid, ids, context)
         return res
 
-    
+
     def write(self, cr, user, ids, vals, context=None):
         if 'report_sxw_content_data' in vals:
             if vals['report_sxw_content_data']:
@@ -313,7 +316,7 @@ class report_xml(osv.osv):
                 except binascii.Error:
                     vals['report_sxw_content_data'] = False
         if type(ids)==list:
-            ids = ids[0]       
+            ids = ids[0]
         res = super(report_xml, self).write(cr, user, ids, vals, context)
         return res
 

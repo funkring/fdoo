@@ -289,6 +289,10 @@ class account_invoice(osv.osv):
     _columns = {
         "invoice_text" : fields.function(_invoice_text, type="text", string="Invoice Text"),
         "subject" : fields.function(_get_subject, type="char", size=128, string="Subject"),
+        "is_performance" : fields.boolean("Performance Period")
+    }
+    _defaults = {
+        "is_performance" : True,
     }
 
 
