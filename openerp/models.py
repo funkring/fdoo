@@ -1646,7 +1646,7 @@ class BaseModel(object):
     # funkring.net begin // simple search one helper
     def search_id(self, cr, user, args, offset=0, order=None, context=None):
         res_ids = self.search(cr, user, args, offset=offset, limit=1, order=order, context=context)
-        return res_ids and res_ids[0] or None
+        return res_ids and res_ids[0] or False
     # funkring.net end
 
 

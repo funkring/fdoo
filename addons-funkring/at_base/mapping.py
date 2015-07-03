@@ -20,6 +20,7 @@
 
 from openerp.osv import fields, osv
 import uuid
+from openerp import SUPERUSER_ID
 
 class res_mapping(osv.Model):
 
@@ -39,14 +40,21 @@ class res_mapping(osv.Model):
     def get_uuid(self, cr, uid, res_model, res_id, uuid=None, name=None):
         uuid_id = self.search_id(cr, uid, [("name","=",name),("res_model","=",res_model),("res_id","=",res_id)])
         if not uuid_id:
-            uuid_id = self.create(cr, uid, {"name" : name, "res_model" : res_model, "res_id" : res_id})
+            if uuid:
+                uuid_id = self.create(cr, uid, {"name" : name, "res_model" : res_model, "res_id" : res_id, "uuid" : uuid})
+            else:
+                uuid_id = self.create(cr, uid, {"name" : name, "res_model" : res_model, "res_id" : res_id})
         return self.read(cr, uid, uuid_id, ["uuid"])["uuid"]
 
     def get_id(self, cr, uid, res_model, res_uuid, name=None):
         uuid_id =  self.search_id(cr, uid, [("name","=",name),("res_model","=",res_model),("uuid","=",res_uuid)])
         if not uuid_id:
-            return None
-        return self.read(cr, uid, uuid_id, ["res_id"])["res_id"]
+            return False
+        res_id = self.read(cr, uid, uuid_id, ["res_id"])["res_id"]
+        res_id = self.pool[res_model].search_id(cr ,SUPERUSER_ID, [("id","=",res_id)], context={"active_test":False})
+        if not res_id:
+            self.write(cr, SUPERUSER_ID, uuid_id, {"active" : False})
+        return res_id
 
     def unlink_uuid(self, cr, uid, uuids, name=None, context=None):
         if isinstance(uuids, basestring):
