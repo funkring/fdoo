@@ -24,18 +24,12 @@ from openerp import SUPERUSER_ID
 
 class res_mapping(osv.Model):
 
-    def _browse_mapped(self, cr, uid, uuid, name=None, context=None):
+    def _browse_mapped(self, cr, uid, uuid, res_model=None, name=None, context=None):
         if uuid:
-            uuid_id = self.search_id(cr, uid, [("name","=",name),("uuid","=",uuid)])
-            if uuid_id:
-                values = self.read(cr, uid, uuid_id, ["res_model","res_id"], context=context)
-                res_model = values.get("res_model")
-                res_id = values.get("res_id")
-                if res_model and res_id:
-                    model_obj = self.pool.get(res_model)
-                    if model_obj:
-                        return model_obj.browse(cr, uid, res_id, context=context)
-        return None
+            res_id = self.get_id(cr, uid, res_model, uuid, name=name)
+            if res_id:
+                return model_obj.browse(cr, uid, res_id, context=context)
+        return False
 
     def get_uuid(self, cr, uid, res_model, res_id, uuid=None, name=None):
         uuid_id = self.search_id(cr, uid, [("name","=",name),("res_model","=",res_model),("res_id","=",res_id)])
@@ -47,9 +41,15 @@ class res_mapping(osv.Model):
         return self.read(cr, uid, uuid_id, ["uuid"])["uuid"]
 
     def get_id(self, cr, uid, res_model, res_uuid, name=None):
-        uuid_id =  self.search_id(cr, uid, [("name","=",name),("res_model","=",res_model),("uuid","=",res_uuid)])
+        uuid_id = False
+        if not res_model:
+            uuid_id = self.search_id(cr, uid, [("name","=",name),("uuid","=",res_uuid)])
+        else:
+            uuid_id = self.search_id(cr, uid, [("name","=",name),("res_model","=",res_model),("uuid","=",res_uuid)])
+            
         if not uuid_id:
             return False
+        
         res_id = self.read(cr, uid, uuid_id, ["res_id"])["res_id"]
         res_id = self.pool[res_model].search_id(cr ,SUPERUSER_ID, [("id","=",res_id)], context={"active_test":False})
         if not res_id:
@@ -76,14 +76,42 @@ class res_mapping(osv.Model):
         self.write(cr, uid, deactivate_ids, {"active" : False}, context=context)
         return True
 
+    def search_uuid(self, cr, uid, res_model, domain, fields=None, offset=0, limit=None, order=None, context=None, count=False, name=None):
+        model_obj = self.pool[res_model]
+        res_ids = model_obj.search(cr, uid, domain, offset=offset, limit=limit, order=order, context=context)
+        
+        if not fields:
+            uuids = []
+            for res_id in res_ids:
+                res_uuid = self.get_uuid(cr, uid, res_model, res_id, name=name)
+                uuids.append(res_uuid) 
+            
+            if count:
+                return len(uuids)
+            return uuids
+        
+        values = False
+        if not fields:
+            values = []
+            for res_id in res_ids:
+                values.append(self.get_uuid(cr, uid, res_model, res_id, name=name))
+        else:
+            values = model_obj.read(cr, uid, res_ids, fields, context=context)
+            for val in values:
+                val["_id"] =  self.get_uuid(cr, uid, res_model, val["id"], name=name)
+            
+        return values;
 
+    
+        
     _name = "res.mapping"
+    _rec_name = "uuid"
     _columns = {
-        "name" : fields.char("Type", size=64, select=True),
-        "res_model" : fields.char("Model", size=64, select=True),
+        "name" : fields.char("Type", select=True),
+        "res_model" : fields.char("Model", select=True),
         "res_id" : fields.integer("ID", select=True),
-        "uuid" : fields.char("UUID", size=64, select=True),
-        "active" : fields.boolean("Active",select=True)
+        "uuid" : fields.char("UUID", select=True),
+        "active" : fields.datetime("Active",select=True)
     }
 
     _defaults = {

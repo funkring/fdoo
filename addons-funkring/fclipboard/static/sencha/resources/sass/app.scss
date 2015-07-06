@@ -1,0 +1,35 @@
+// The following two lines import the default Sencha Touch theme. If you are building
+// a new theme, remove them and the add your own CSS on top of the base CSS (which
+// is already included in your app.json file).
+
+@import 'sencha-touch/default';
+@import 'sencha-touch/default/all';
+
+// Custom code goes here..
+
+// Examples of using the icon mixin:
+// @include icon('user');
+
+
+// Customized CSS
+
+ItemList {    
+}
+
+.ItemList .x-list-item .left-col {
+    float: left;
+    margin: 0px 10px 0px 10px;
+}
+
+
+.ItemList .x-list-item .right-col {
+    float: right;
+    width: 100px;
+}
+
+.ItemList .x-list-item .right-arrow {
+    float: right;
+    height: 1em;
+    width: 1em;
+    width: 100px;
+}
