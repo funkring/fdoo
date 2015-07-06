@@ -1762,7 +1762,9 @@ Ext.ClassManager.addNameAliasMappings({
   "Fclipboard.view.ConfigView": [
     "widget.configform"
   ],
-  "Fclipboard.view.FormView": [],
+  "Fclipboard.view.FormView": [
+    "widget.formview"
+  ],
   "Fclipboard.view.ListSelect": [
     "widget.listselect"
   ],
