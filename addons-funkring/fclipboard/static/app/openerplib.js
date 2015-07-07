@@ -42,10 +42,46 @@ openerplib.json_rpc = function(url, fct, params, callback) {
     req.send(JSON.stringify(data));
 };
 
+openerplib.Service = function(con, service) {
+    var self = this;
+    //
+    this.con = con;
+    this.service = service;
+    
+    //call function
+    this.exec = function(method, args, callback) {                    
+                    self.con.send(self.service, method, args, callback);
+                };
+};
+
+openerplib.Model = function(con, model) {
+    var self = this;
+    //
+    this.service = new openerplib.Service(con, "object"); 
+    this.con = con;
+    this.model = model;
+    
+    
+    // call function
+    this.exec = function(method, args, kwargs, callback) {
+                    self.service.exec("execute_kw",
+                                 [ con.database, 
+                                   con.user_id, 
+                                   con._password,
+                                   self.model,
+                                   method,
+                                   args, 
+                                   kwargs ],
+                                 callback);   
+                };
+};
+
 /**
  * JsonRPC Connector
  */ 
 openerplib.JsonRPCConnector = function(url, database, login, password, user_id) {
+    var self = this;
+    
     this._url = url;
     this._url_jsonrpc = url + "/jsonrpc";
     this._password = password;   
@@ -55,8 +91,6 @@ openerplib.JsonRPCConnector = function(url, database, login, password, user_id) 
     this.session_id = null;
     this.user_context = null;
     
-    var self = this;
-        
     this.authenticate = function(callback) {
         var params = {
             "db" : self.database,
@@ -66,11 +100,10 @@ openerplib.JsonRPCConnector = function(url, database, login, password, user_id) 
         
         var url = self._url + "/web/session/authenticate";
         openerplib.json_rpc(url, null, params, function(res,err) {
-            
             if ( err === null ) {
                 // update session data
                 self.session_id = res.session_id;
-                self.user_id = res.user_id;
+                self.user_id = res.uid;
                 self.user_context = res.user_context;
             }
             
@@ -82,32 +115,15 @@ openerplib.JsonRPCConnector = function(url, database, login, password, user_id) 
     };
     
     this.send = function(service_name, method, args, callback) {
-        openerplib.json_rpc(self._url, "call", { service: service_name, method: method, args: args }, callback);
+        openerplib.json_rpc(self._url_jsonrpc, "call", { service: service_name, method: method, args: args }, callback);
     };
     
     this.get_service = function(service_name) {
-        return function() {
-            this.call = function(method, args, callback) {
-                self.send(service_name, method, args, callback);
-            };
-        };
+        return new openerplib.Service(self, service_name);
     };
     
     this.get_model = function(model_name) {
-        var service = self.get_service("object");
-        return function() {
-            this.call = function(method, args, kwargs, callback) {
-                service.call("execute_kw",
-                             [ self.database, 
-                               self.user_id, 
-                               self._password,
-                               model_name,
-                               method,
-                               args, 
-                               kwargs ],
-                             callback);   
-            };
-        };
+        return new openerplib.Model(self, model_name); 
     };
     
 };

@@ -56,18 +56,27 @@ class res_mapping(osv.Model):
             self.write(cr, SUPERUSER_ID, uuid_id, {"active" : False})
         return res_id
 
-    def unlink_uuid(self, cr, uid, uuids, name=None, context=None):
+    def unlink_uuid(self, cr, uid, uuids, res_model=None, name=False, context=None):
         if isinstance(uuids, basestring):
             uuids = [uuids]
 
         deactivate_ids = []
+        
         for uuid in uuids:
-            uuid_id = self.search_id(cr, uid, [("name","=",name),("uuid","=",uuid)])
+            # get uuid
+            if not res_model:
+                uuid_id = self.search_id(cr, uid, [("name","=",name),("uuid","=",uuid)])
+            else:
+                uuid_id = self.search_id(cr, uid, [("name","=",name),("res_model","=",res_model),("uuid","=",uuid)])
+                
             if uuid_id:
                 deactivate_ids.append(uuid_id)
+        
                 values = self.read(cr, uid, uuid_id, ["res_model","res_id"], context=context)
+                
                 res_model = values.get("res_model")
                 res_id = values.get("res_id")
+                
                 if res_model and res_id:
                     model_obj = self.pool.get(res_model)
                     if model_obj:
@@ -102,16 +111,27 @@ class res_mapping(osv.Model):
             
         return values;
 
-    
+    def check_deleted(self, cr, uid, res_model):
+        model_obj = self.pool[res_model]
+        query =  ("SELECT m.id FROM res_mapping m "
+                 " LEFT JOIN %s r ON r.id = res_id " 
+                 " WHERE m.res_model = '%s' AND r.id IS NULL ") % (model_obj._table, res_model)
+        
+        cr.execute(query)
+        
+        mapping_ids = [r[0] for r in cr.fetchall()]
+        self.write(cr, SUPERUSER_ID, mapping_ids, {"active" : False})
+        
+        return True
+        
         
     _name = "res.mapping"
-    _rec_name = "uuid"
     _columns = {
         "name" : fields.char("Type", select=True),
         "res_model" : fields.char("Model", select=True),
         "res_id" : fields.integer("ID", select=True),
         "uuid" : fields.char("UUID", select=True),
-        "active" : fields.datetime("Active",select=True)
+        "active" : fields.boolean("Active",select=True)
     }
 
     _defaults = {

@@ -181,7 +181,7 @@ Ext.define('Fclipboard.controller.Main', {
     deleteRecord: function() {
         var self = this;
         var record = self.getMainView().getActiveItem().getRecord();
-        debugger;
+
         if ( record !== null ) {
             Ext.Msg.confirm('Löschen', 'Soll der ausgewählte Datensatz gelöscht werden?', function(choice)
             {
@@ -189,7 +189,8 @@ Ext.define('Fclipboard.controller.Main', {
                {                    
                    var db = self.getDB();
                    db.get( record.getId() ).then( function(doc) { 
-                        db.remove(doc).then( function() {
+                        doc._deleted=true;
+                        db.put(doc).then( function() {
                            self.getMainView().leave();
                         });
                    });
@@ -243,7 +244,10 @@ Ext.define('Fclipboard.controller.Main', {
         db.get('_local/config').then( function(config) {
             var log = Ext.getStore("LogStore");
             log.info("Hochladen auf <b>" + config.host + ":" + config.port + "</b> mit Benutzer <b>" + config.user +"</b>");
-            PouchDBDriver.syncOdoo(config, [Ext.getStore("PartnerStore")], log);
+            // reload after sync
+            PouchDBDriver.syncOdoo(config, [Ext.getStore("PartnerStore")], log, function(res, doc) {
+                 mainView.loadRecord();
+            });
         });        
        
     }

@@ -109,7 +109,6 @@ Ext.define('Fclipboard.view.Main', {
                     newButton.show();
                     deleteButton.hide();
                 } else {
-                    debugger;
                     // check for deletable support
                     try {
                         if (newCard.getDeleteable() && !newCard.getRecord().phantom ) {
@@ -346,7 +345,7 @@ Ext.define('Fclipboard.view.Main', {
        Ext.getCmp('partnerSearch').setValue(null);       
        Ext.getCmp('newItemButton').setHidden(syncTabActive);
        Ext.getCmp('editItemButton').setHidden(!itemTabActive || record === null || syncTabActive );
-       Ext.getCmp('parentItemButton').setHidden(record === null);
+       Ext.getCmp('parentItemButton').setHidden(!itemTabActive || record === null);
        Ext.getCmp('syncButton').setHidden(!syncTabActive);
        Ext.getCmp('editConfigButton').setHidden(!syncTabActive);
        Ext.getCmp('deleteRecord').setHidden(true);
