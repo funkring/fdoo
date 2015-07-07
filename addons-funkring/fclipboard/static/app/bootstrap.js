@@ -35,7 +35,8 @@ Ext.Loader.addClassPathMappings({
   "Ext.device.sqlite.SQLTransaction": "touch/src/device/sqlite/Sencha.js",
   "Ext.draw.engine.SvgContext.Gradient": "touch/src/draw/engine/SvgContext.js",
   "Ext.proxy": "app/proxy",
-  "Fclipboard": "app"
+  "Fclipboard": "app",
+  "ScrollList": "app/view/ScrollList.js"
 });
 
 Ext.ClassManager.addNameAlternateMappings({
@@ -790,7 +791,8 @@ Ext.ClassManager.addNameAlternateMappings({
   "Fclipboard.view.FormView": [],
   "Fclipboard.view.ListSelect": [],
   "Fclipboard.view.Main": [],
-  "Fclipboard.view.PartnerView": []
+  "Fclipboard.view.PartnerView": [],
+  "ScrollList": []
 });
 
 Ext.ClassManager.addNameAliasMappings({
@@ -1773,6 +1775,9 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "Fclipboard.view.PartnerView": [
     "widget.partnerform"
+  ],
+  "ScrollList": [
+    "widget.scrolllist"
   ]
 });
 

@@ -66,17 +66,9 @@ Ext.define('Ext.proxy.PouchDB', {
      * Creates the proxy, throws an error if local storage is not supported in the current browser.
      * @param {Object} config (optional) Config object.
      */
-    constructor: function(config) {
-        this.callParent(arguments);
-        this.domain = config.domain;
-        
-        if (typeof config.database == 'string') {
-            this.db = new PouchDB(config.database);
-        } else {
-            this.db = PouchDBDriver.getDB(config.database);
-        }
-        
-    },
+    //constructor: function(config) {
+    //    this.callParent(arguments);        
+    //},
     
     /**
      * @private
@@ -338,10 +330,11 @@ Ext.define('Ext.proxy.PouchDB', {
     // read function
     read: function(operation, callback, scope) {
         var self = this;
+        var db = PouchDBDriver.getDB(self.getDatabase());
         
         var param;
         var params = {'include_docs':true};
-        var filter_domain = self.domain;
+        var filter_domain = self.getDomain();
         var sorters = operation.getSorters();
         var filters = operation.getFilters();
         var associations = self.getModel().getAssociations().items;
@@ -434,7 +427,7 @@ Ext.define('Ext.proxy.PouchDB', {
                                 //NEW QUERY                                
                                 queryCount++;
                                 
-                                self.db.get(foreign_uuid, function(err, doc) {
+                                db.get(foreign_uuid, function(err, doc) {
                                     if (err===null) {
                                         row.doc[assoc_key] = doc;
                                     }    
@@ -457,9 +450,9 @@ Ext.define('Ext.proxy.PouchDB', {
         // QUERY
         var builtQuery = self.buildDomainQuery(filter_domain);
         if (builtQuery !== null) {
-            self.db.query(builtQuery, params, res);       
+            db.query(builtQuery, params, res);       
         } else {
-            self.db.allDocs(params, res);
+            db.allDocs(params, res);
         } 
         
         
@@ -468,7 +461,8 @@ Ext.define('Ext.proxy.PouchDB', {
     // update function
     update: function(operation, callback, scope) {
         var self = this;    
-        
+        var db = PouchDBDriver.getDB(self.getDatabase());
+         
         operation.setStarted();
         
         var records = operation.getRecords();                   
@@ -476,19 +470,19 @@ Ext.define('Ext.proxy.PouchDB', {
         
         Ext.each(operation.getRecords(), function(record) {
            //get current values          
-           self.db.get(record.getId(), function(err, doc) {
+           db.get(record.getId(), function(err, doc) {
                 // get defaults
                 var defaults;
                 if (!err) {
                     defaults = doc;
                 } else {
                     defaults = {};
-                    self.addDomainAsDefaultValues(self.domain, defaults);
+                    self.addDomainAsDefaultValues(self.getDomain(), defaults);
                 }
                 
                 //create next doc
                 var nextDoc = self.createDocument(record, defaults);
-                self.db.put(nextDoc, function(err,response) {
+                db.put(nextDoc, function(err,response) {
                      self.setException(operation, err);
                      
                      if ( !err ) {
@@ -518,14 +512,16 @@ Ext.define('Ext.proxy.PouchDB', {
     
     // destroy
     destroy: function(operation, callback, scope) {
-        var self = this;        
+        var self = this;     
+        var db = PouchDBDriver.getDB(self.getDatabase());
+           
         operation.setStarted();
         
         var records = operation.getRecords();                   
         var operationCount = records.length+1;
         
         Ext.each(operation.getRecords(), function(record) {           
-           self.db.remove(record.data, function(err,response) {
+           db.remove(record.data, function(err,response) {
                 self.setException(operation, err);
                 
                 //check if finished

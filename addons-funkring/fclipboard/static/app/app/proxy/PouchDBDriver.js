@@ -25,9 +25,14 @@ Ext.define('Ext.proxy.PouchDBDriver',{
         return db;
     },    
     
-    
+    resetDB: function(dbName, callback) {
+        var self = this;
+        var db = self.getDB(dbName);
+        db.destroy(callback);
+        self.databases[dbName] = undefined;
+    },
 
-    /**
+     /**
      * sync odoo store
      */
     syncOdooStore: function(con, db, store, syncUuid, res_model, log, callback) {        
@@ -46,7 +51,7 @@ Ext.define('Ext.proxy.PouchDBDriver',{
         var syncChanges = function(syncPoint) {
             db.changes({
                 include_docs: true,
-                since: syncPoint.sequence,
+                since: syncPoint.seq,
                 filter: function(doc) {
                     return doc.fdoo__ir_model === res_model;
                 }
@@ -61,45 +66,46 @@ Ext.define('Ext.proxy.PouchDBDriver',{
                        con.user_context
                      ],                       
                      null, 
-                     function(res, err) {
+                     function(err, res) {
                          if ( err ) {                                                             
                              log.error(err);
                          } else {
                              var server_changes = res.changes;
                              var server_lastsync = res.lastsync;
-                             var pending_server_changes = server_changes.length;
+                             var pending_server_changes = server_changes.length+1;
                              
                                                           
-                             var serverChangeDone = function(res, err) {
+                             var serverChangeDone = function(err) {
                                 pending_server_changes--;
                                 
                                 if ( err ) {
-                                    log.warning("Fehler sind aufgetreten " + err);
+                                    log.warning(err);
                                 }
                                 
                                 if ( !pending_server_changes ) {
                                     log.info("Synchronisation abgeschlossen!");        
-                                    /*   
+                                   
                                     db.info().then(function(res) {
                                         server_lastsync.seq = res.update_seq;
                                         server_lastsync._id = syncPoint._id;
                                         
-                                        db.get(server_lastsync._id, function(doc, err) {
+                                        db.get(server_lastsync._id, function(err, doc) {
                                            if (err) {
-                                               db.put(server_lastsync, function(doc, err) {
-                                                   log.info("Synchronisationspunkt erstellt!");
-                                                   callback(server_lastsync, err);
+                                               db.put(server_lastsync, function(err) {
+                                                   log.info("Synchronisationspunkt erstmals erstellt!");
+                                                   callback(err,server_lastsync);
                                                });
                                            } else {
                                               server_lastsync._rev = doc._rev;
-                                              db.put(server_lastsync, function(doc, err) {
+                                              db.put(server_lastsync, function(err) {
                                                    log.info("Synchronisationspunkt erstellt!");
-                                                   callback(server_lastsync, err);
+                                                   callback(err,server_lastsync);
                                                });
                                            }
                                         });
-                                    });*/               
-                                }
+                                    });           
+                                }                              
+                                 
                              };
                              
                              // iterate changes
@@ -108,33 +114,34 @@ Ext.define('Ext.proxy.PouchDBDriver',{
                                 if ( server_change.deleted ) {
                                     
                                     // lösche dokument
-                                    db.get(server_change.id,function(doc, err) {
+                                    db.get(server_change.id, function(err, doc) {
                                          if ( !err ) {
-                                            doc._deleted=true;
-                                            db.put(doc, serverChangeDone); //<- decrement pending operations
+                                            doc._deleted=true;                                          
                                             log.info("Dokument " + server_change.id + " wird gelöscht");
+                                            db.put(doc, serverChangeDone); //<- decrement pending operations
                                          } else {
                                             log.warning("Dokument " + server_change.id + " nicht vorhanden zu löschen");
-                                            
                                             // decrement operations
                                             serverChangeDone(); 
-                                         }
-                                          
-                                                                                
+                                         }                                      
                                     });
                                     
                                 //handle update
                                 } else if ( server_change.doc ) {
-                                    db.get(server_change.id, function(doc, err) {
+                                    db.get(server_change.id, function(err, doc) {
                                          if ( err ) {
                                              log.warning("Dokument " + server_change.id + " wird neu erzeugt");
+                                         } else {                                         
+                                             server_change.doc._rev = doc._rev;
+                                             log.info("Dokument " + server_change.id + " wird aktualisiert");
                                          }
-                                         
                                          db.put(server_change.doc, serverChangeDone); //<- decrement pending operations                                         
-                                         log.info("Dokument " + server_change.id + " wird aktualisiert");
                                     });
                                 }
                              });
+                             
+                             // changes done
+                             serverChangeDone();
                          }
                      });                                
             }).catch(function(err) {
@@ -150,7 +157,6 @@ Ext.define('Ext.proxy.PouchDBDriver',{
             syncChanges({
                 "_id" : syncpointUuid,
                 "date" : null,
-                "id" : null,
                 "sequence" : 0
             });
         });
@@ -200,7 +206,7 @@ Ext.define('Ext.proxy.PouchDBDriver',{
         
                      
          // start sync                    
-         con.authenticate( function(res, err)  {
+         con.authenticate( function(err)  {
              if (err) {
                  log.error(err);
              } else {

@@ -23,7 +23,8 @@ Ext.application({
         'FormView',
         'PartnerView',
         'ConfigView',
-        'ListSelect'
+        'ListSelect',
+        'ScrollList'
     ],
 
     models: [

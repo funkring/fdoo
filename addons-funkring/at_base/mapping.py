@@ -26,9 +26,21 @@ class res_mapping(osv.Model):
 
     def _browse_mapped(self, cr, uid, uuid, res_model=None, name=None, context=None):
         if uuid:
+            # check if model exist
+            if not res_model:
+                uuid_id = self.search_id(cr, uid, [("uuid","=",uuid)])
+                if not uuid_id:
+                    raise osv.except_osv(_("Error"), _("No model found for uuid %s" % uuid))
+                
+                res_model = self.read(cr, uid, uuid_id, ["res_model"])["res_model"]
+                if not res_model:
+                    raise osv.except_osv(_("Error"), _("No model found for uuid %s" % uuid))
+            
+            # get id
             res_id = self.get_id(cr, uid, res_model, uuid, name=name)
             if res_id:
-                return model_obj.browse(cr, uid, res_id, context=context)
+                return self.pool[res_model].browse(cr, uid, res_id, context=context)
+            
         return False
 
     def get_uuid(self, cr, uid, res_model, res_id, uuid=None, name=None):
@@ -39,6 +51,7 @@ class res_mapping(osv.Model):
             else:
                 uuid_id = self.create(cr, uid, {"name" : name, "res_model" : res_model, "res_id" : res_id})
         return self.read(cr, uid, uuid_id, ["uuid"])["uuid"]
+
 
     def get_id(self, cr, uid, res_model, res_uuid, name=None):
         uuid_id = False

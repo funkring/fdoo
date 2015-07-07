@@ -36,6 +36,9 @@ Ext.define('Fclipboard.controller.Main', {
             'button[action=deleteRecord]' : {
                 tap: 'deleteRecord'  
             },
+            'button[action=resetSync]' : {
+                tap: 'resetSync'  
+            },
             mainView: {
                 createItem: 'createItem',
                 newPartner: 'newPartner',
@@ -237,19 +240,42 @@ Ext.define('Fclipboard.controller.Main', {
         return db;
     },
 
+    getLog: function() {
+        return Ext.getStore("LogStore");
+    },
+
     sync: function() {        
         var self = this;
         var db = self.getDB();
         
         db.get('_local/config').then( function(config) {
-            var log = Ext.getStore("LogStore");
+            var log = self.getLog();
             log.info("Hochladen auf <b>" + config.host + ":" + config.port + "</b> mit Benutzer <b>" + config.user +"</b>");
             // reload after sync
-            PouchDBDriver.syncOdoo(config, [Ext.getStore("PartnerStore")], log, function(res, doc) {
-                 mainView.loadRecord();
+            PouchDBDriver.syncOdoo(config, [Ext.getStore("PartnerStore")], log, function(err) {
+                 if (err) {
+                     log.error(err);
+                 }
+                 self.getMainView.loadRecord();
             });
         });        
        
+    },
+    
+    resetSync: function() {
+        var self = this;
+        var log = this.getLog();
+        
+        PouchDBDriver.resetDB('fclipboard', function(err) {
+            if (err) {
+                log.error(err);
+            } else {
+                log.info("Datenbank zurückgesetzt!");
+                self.getMainView().loadRecord();   
+            }
+        });
     }
+    
+    
     
 });

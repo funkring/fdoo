@@ -34,7 +34,7 @@ openerplib.json_rpc = function(url, fct, params, callback) {
             callback(null, 'Expected JSON encoded response, found "' + contentType + '"');
         } else {
             var result = JSON.parse(this.responseText);
-            callback(result.result || null, result.error || null);
+            callback(result.error || null, result.result || null);
         }
     };
 
@@ -99,7 +99,7 @@ openerplib.JsonRPCConnector = function(url, database, login, password, user_id) 
         };
         
         var url = self._url + "/web/session/authenticate";
-        openerplib.json_rpc(url, null, params, function(res,err) {
+        openerplib.json_rpc(url, null, params, function(err, res) {
             if ( err === null ) {
                 // update session data
                 self.session_id = res.session_id;
@@ -109,7 +109,7 @@ openerplib.JsonRPCConnector = function(url, database, login, password, user_id) 
             
             // callback
             if ( callback ) {
-                callback(res, err);
+                callback(err, res);
             }
         });        
     };

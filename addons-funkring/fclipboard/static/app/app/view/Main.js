@@ -44,10 +44,17 @@ Ext.define('Fclipboard.view.Main', {
                 xtype: 'button',
                 id: 'editConfigButton',
                 iconCls: 'settings',                
-                align: 'right',
+                align: 'left',
                 hidden: true,   
                 action: 'editConfig'   
             },  
+            {
+                xtype: 'button',
+                id: 'resetSync',
+                iconCls: 'trash',
+                align: 'left',
+                action: 'resetSync'  
+            }, 
             {
                 xtype: 'button',
                 id: 'syncButton',
@@ -102,7 +109,8 @@ Ext.define('Fclipboard.view.Main', {
                     backButton = view.down('button[action=parentItem]'),
                     editConfigButton = view.down('button[action=editConfig]'),
                     syncButton = view.down('button[action=sync]'),
-                    deleteButton = view.down('button[action=deleteRecord]');
+                    deleteButton = view.down('button[action=deleteRecord]'),
+                    resetSyncButton = view.down('button[action=resetSync]');
                     
                 if ( index === 0) {
                     saveButton.hide();
@@ -126,6 +134,7 @@ Ext.define('Fclipboard.view.Main', {
                     backButton.hide();
                     syncButton.hide();
                     editConfigButton.hide();
+                    resetSyncButton.hide();
                 }
             }
         },
@@ -236,7 +245,7 @@ Ext.define('Fclipboard.view.Main', {
                         iconCls: 'refresh',
                         items: [                          
                             {
-                                xtype: 'list',
+                                xtype: 'scrolllist',
                                 id: 'logList',
                                 height: '100%',
                                 store: 'LogStore',
@@ -349,6 +358,7 @@ Ext.define('Fclipboard.view.Main', {
        Ext.getCmp('syncButton').setHidden(!syncTabActive);
        Ext.getCmp('editConfigButton').setHidden(!syncTabActive);
        Ext.getCmp('deleteRecord').setHidden(true);
+       Ext.getCmp('resetSync').setHidden(!syncTabActive);
        
        // reset title      
        self.setTitle(title);

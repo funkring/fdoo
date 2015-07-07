@@ -45,19 +45,7 @@ Ext.define('Fclipboard.view.ConfigView', {
                         required: true
                     }
                 ]   
-            },
-            {
-                xtype: 'fieldset',
-                title: 'Zurücksetzen',
-                items: [
-                    {
-                        xtype: 'button',
-                        text: 'Sync-Daten löschen',
-                        ui: 'default',
-                        action: 'resetSync'
-                    }            
-                ]
-            }        
+            }
         ]       
     }
     
