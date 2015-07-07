@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<menuitem id="menu_sale_category" name="Sale category" parent="base.menu_base_config" sequence="11"
+        		  action="action_sale_category"/>
+
+	</data>
+</openerp>

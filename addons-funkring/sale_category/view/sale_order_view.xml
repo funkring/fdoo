@@ -1,0 +1,17 @@
+<openerp>
+	<data>
+		<record id="form_sale_order_sale_category" model="ir.ui.view">
+            <field name="name">Sale order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="at_sale.form_sale_order"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<data>
+            		<field name="date_order" position="after">
+            			<field name="sale_category_id" />
+            		</field>
+            	</data>
+            </field>
+        </record>
+	</data>
+</openerp>
