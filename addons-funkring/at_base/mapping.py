@@ -127,13 +127,14 @@ class res_mapping(osv.Model):
     def check_deleted(self, cr, uid, res_model):
         model_obj = self.pool[res_model]
         query =  ("SELECT m.id FROM res_mapping m "
-                 " LEFT JOIN %s r ON r.id = res_id " 
-                 " WHERE m.res_model = '%s' AND r.id IS NULL ") % (model_obj._table, res_model)
+                 " LEFT JOIN %s r ON r.id = m.res_id " 
+                 " WHERE m.active=true AND m.res_model = '%s' AND r.id IS NULL ") % (model_obj._table, res_model)
         
         cr.execute(query)
         
         mapping_ids = [r[0] for r in cr.fetchall()]
-        self.write(cr, SUPERUSER_ID, mapping_ids, {"active" : False})
+        if mapping_ids:
+            self.write(cr, SUPERUSER_ID, mapping_ids, {"active" : False})
         
         return True
         
