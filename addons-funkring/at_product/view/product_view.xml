@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
 	<data>
+        <record id="search_at_product" model="ir.ui.view">
+            <field name="name">at_product.search_at_product"</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_template_search_view"></field>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="name" position="after">
+                        <field name="default_code" string="Reference" filter_domain="[('default_code','ilike',self)]"/>
+                    </field>
+                </data>
+            </field>
+        </record>
 
         <record id="form_uom_categ" model="ir.ui.view">
           <field name="name">at_product.form_uom_categ</field>

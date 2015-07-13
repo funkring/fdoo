@@ -48,12 +48,40 @@ class sale_shop(osv.osv):
         "invoice_text" : fields.text("Sale Invoice Text"),
         "invoice_in_text" : fields.text("Purchase Invoice Text"),
         "refund_text" : fields.text("Customer Refund Text"),
-        "refund_in_text" : fields.text("Supplier Refund Text")
+        "refund_in_text" : fields.text("Supplier Refund Text"),
+        "report_ids" : fields.one2many("sale.shop.report", "shop_id", "Reports")
     }
     _defaults = {
         "company_id": lambda s, cr, uid, c: s.pool.get('res.company')._company_default_get(cr, uid, 'sale.shop', context=c),
     }
 
+class sale_shop_report(osv.osv):
+
+    _name = "sale.shop.report"
+    _description = "Sale shop report"
+
+    _columns = {
+        "name" : fields.char("Name", size=64),
+        "shop_id" : fields.many2one("sale.shop", "Shop",on_delete="cascade",required=True),
+        "source_report_id" : fields.many2one("ir.actions.report.xml", "Source Report",on_delete="cascade",required=True),
+        "dest_report_id" : fields.many2one("ir.actions.report.xml", "Destination Report",on_delete="cascade",required=True),
+    }
+
+class report_xml(osv.osv):
+
+    def _get_replacement(self, cr, uid, res_model, res_id, report_xml, context=None):
+        model_obj =self.pool.get(res_model)
+        res_br = model_obj.browse(cr,uid,res_id,context=context)
+        if res_br and hasattr(res_br, "shop_id"):
+            shop_id = res_br.shop_id
+            report_obj = self.pool.get("sale.shop.report")
+            report_ids = report_obj.search(cr, uid, [("shop_id","=",shop_id.id),("source_report_id","=",report_xml.id)])
+            if report_ids:
+                report = report_obj.browse(cr, uid, report_ids[0], context=context)
+                return report.dest_report_id
+        return None
+
+    _inherit = "ir.actions.report.xml"
 
 
 class sale_order(osv.osv):

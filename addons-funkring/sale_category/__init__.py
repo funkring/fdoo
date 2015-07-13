@@ -1,4 +1,0 @@
-import sale_category
-
-import sale_order
-import account_invoice

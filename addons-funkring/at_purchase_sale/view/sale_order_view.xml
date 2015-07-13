@@ -1,39 +1,61 @@
 <openerp>
-	<data>
-
-		<record id="form_sale_order" model="ir.ui.view">
-			<field name="name">sale.form_sale_order</field>
-			<field name="model">sale.order</field>
-			<field name="inherit_id" ref="at_sale.form_sale_order" />
-			<field name="arch" type="xml">									
-				<xpath expr="//notebook/page/field/form[@string='Sales Order Lines']/field[@name='name']" position="after">				         
-					<group name="seller_grp">					    
-					    <group name="procurement_note">					        
-    						<div name="seller_note_grp">
-    						    <label for="procurement_note"/>    						    					
-    							<field name="procurement_note" />
-    						</div>			
-    					</group>
-						<group name="seller_options_grp">
-							<field name="priority" />
-							<field name="supplier_ships"/>
-							<field name="available_supplier_ids" invisible="1"/>
-							<field name="supplier_id" options="{'reload_on_button': true}" domain="[('id','in',available_supplier_ids[0][2])]"/>
-						</group>										
-					</group>
-				</xpath>				
-			</field>
-		</record>
-
-		<record id="form_sale_stock" model="ir.ui.view">
+    <data>
+        <record id="sale_purchase_order_action" model="ir.actions.act_window">
+            <field name="name">Purchase order</field>
+            <field name="res_model">purchase.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="domain">[('sale_order_id', '=', active_id)]</field>
+            <field eval="[(4, ref('base.group_sale_salesman'))]" name="groups_id"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                Click to create a purchase order.
+                </p>
+            </field>
+        </record>
+        <record id="form_sale_order" model="ir.ui.view">
+            <field name="name">sale.form_sale_order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="at_sale.form_sale_order"/>
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <div class="oe_right oe_button_box" name="sale_buttons">
+                        <button class="oe_inline oe_stat_button"
+                            icon="fa-credit-card"
+                            name="%(at_purchase_sale.sale_purchase_order_action)d"
+                            string="Purchase orders" type="action" widget="statinfo"/>
+                    </div>
+                </field>
+                <xpath
+                    expr="//notebook/page/field/form[@string='Sales Order Lines']/field[@name='name']" position="after">
+                    <group name="seller_grp">
+                        <group name="procurement_note">
+                            <div name="seller_note_grp">
+                                <label for="procurement_note"/>
+                                <field name="procurement_note"/>
+                            </div>
+                        </group>
+                        <group name="seller_options_grp">
+                            <field name="priority"/>
+                            <field name="supplier_ships"/>
+                            <field invisible="1" name="available_supplier_ids"/>
+                            <field
+                                domain="[('id','in',available_supplier_ids[0][2])]"
+                                name="supplier_id" options="{'reload_on_button': true}"/>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        <record id="form_sale_stock" model="ir.ui.view">
             <field name="name">sale_order.form_sale_stock</field>
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale_stock.view_order_form_inherit"/>
-            <field name="arch" type="xml">            	
-            	<group name="logistics" position="inside">
-					<field name="supplier_ships" />
-				</group>          
+            <field name="arch" type="xml">
+                <group name="logistics" position="inside">
+                    <field name="supplier_ships"/>
+                </group>
             </field>
         </record>
-	</data>
+    </data>
 </openerp>

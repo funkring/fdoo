@@ -6,15 +6,24 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-13 12:27+0000\n"
-"PO-Revision-Date: 2015-07-13 14:27+0100\n"
-"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
+"POT-Creation-Date: 2015-07-13 14:00+0000\n"
+"PO-Revision-Date: 2015-07-13 16:02+0100\n"
+"Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "X-Generator: Poedit 1.5.4\n"
+
+#. module: at_purchase_sale
+#: model:ir.actions.act_window,help:at_purchase_sale.sale_purchase_order_action
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                Click to create a purchase order.\n"
+"                </p>\n"
+"            "
+msgstr ""
 
 #. module: at_purchase_sale
 #: field:sale.order.line,available_supplier_ids:0
@@ -44,7 +53,7 @@ msgstr "Nicht Dringend"
 #. module: at_purchase_sale
 #: model:ir.model,name:at_purchase_sale.model_stock_picking
 msgid "Picking List"
-msgstr "Lieferschein"
+msgstr "Pickliste"
 
 #. module: at_purchase_sale
 #: field:sale.order.line,priority:0
@@ -70,6 +79,16 @@ msgstr "Produkt"
 #: model:ir.model,name:at_purchase_sale.model_purchase_order
 msgid "Purchase Order"
 msgstr "Bestellung"
+
+#. module: at_purchase_sale
+#: model:ir.actions.act_window,name:at_purchase_sale.sale_purchase_order_action
+msgid "Purchase order"
+msgstr "Bestellungen"
+
+#. module: at_purchase_sale
+#: view:sale.order:at_purchase_sale.form_sale_order
+msgid "Purchase orders"
+msgstr "Bestellungen"
 
 #. module: at_purchase_sale
 #: field:procurement.order,sale_order_id:0
