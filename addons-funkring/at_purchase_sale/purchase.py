@@ -23,7 +23,8 @@ from openerp.osv import fields,osv
 class purchase_order(osv.osv):
     
     _inherit = "purchase.order"
-    _columns = {             
+    _columns = {    
+        "sale_order_id" : fields.many2one("sale.order","Sale Order", states={"confirmed":[("readonly",True)], "approved":[("readonly",True)],"done":[("readonly",True)]}, ondelete="set null", copy=False),         
         "supplier_ships" : fields.boolean("Supplier Ships",states={"confirmed":[("readonly",True)], "approved":[("readonly",True)],"done":[("readonly",True)]})
     }
     

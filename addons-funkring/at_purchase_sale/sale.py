@@ -42,6 +42,7 @@ class sale_order(osv.osv):
             res["account_analytic_id"]=order.project_id.id
         if supplier_ships:
             res["dest_address_id"]=order.partner_shipping_id.id
+        res["sale_order_id"]=order.id
         res["note"]=line.procurement_note
         return res
           

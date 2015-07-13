@@ -1,19 +1,25 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* at_purchase_sale
+# 	* at_purchase_sale
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-17 14:11+0000\n"
-"PO-Revision-Date: 2015-06-17 14:11+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2015-07-13 12:27+0000\n"
+"PO-Revision-Date: 2015-07-13 14:27+0100\n"
+"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"X-Generator: Poedit 1.5.4\n"
+
+#. module: at_purchase_sale
+#: field:sale.order.line,available_supplier_ids:0
+msgid "Available Suppliers"
+msgstr "Verfügbare Lieferanten"
 
 #. module: at_purchase_sale
 #: view:sale.shop:at_purchase_sale.form_sale_shop
@@ -66,6 +72,12 @@ msgid "Purchase Order"
 msgstr "Bestellung"
 
 #. module: at_purchase_sale
+#: field:procurement.order,sale_order_id:0
+#: field:purchase.order,sale_order_id:0
+msgid "Sale Order"
+msgstr "Verkaufsauftrag"
+
+#. module: at_purchase_sale
 #: model:ir.model,name:at_purchase_sale.model_sale_order
 msgid "Sales Order"
 msgstr "Verkaufsauftrag"
@@ -76,16 +88,14 @@ msgid "Sales Order Line"
 msgstr "Auftragsposition"
 
 #. module: at_purchase_sale
-#: field:sale.shop,sender_address_id:0
-#: field:stock.picking,sender_address_id:0
+#: field:sale.shop,sender_address_id:0 field:stock.picking,sender_address_id:0
 msgid "Sender Address"
 msgstr "Absenderadresse"
 
 #. module: at_purchase_sale
 #: field:procurement.order,supplier_ships:0
 #: field:product.product,supplier_ships:0
-#: field:purchase.order,supplier_ships:0
-#: field:sale.order,supplier_ships:0
+#: field:purchase.order,supplier_ships:0 field:sale.order,supplier_ships:0
 #: field:sale.order.line,supplier_ships:0
 #: field:sale.shop,supplier_ships_default:0
 msgid "Supplier Ships"
@@ -100,4 +110,3 @@ msgstr "Dringend"
 #: selection:sale.order.line,priority:0
 msgid "Very Urgent"
 msgstr "Sehr Dringend"
-
