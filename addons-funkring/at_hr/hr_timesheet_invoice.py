@@ -20,6 +20,7 @@
 
 from openerp.addons.at_base import util
 from openerp.addons.at_base import format
+from openerp.tools.translate import _
 from openerp.osv import osv
 import time
 
@@ -70,12 +71,12 @@ class account_analytic_line(osv.Model):
                         "FROM account_analytic_line as line " \
                         "WHERE account_id = %s " \
                             "AND id IN %s AND to_invoice IS NOT NULL", (account.id, tuple(context["active_ids"]),))
-                                                              
+
                 for row in cr.fetchall():
                     invoice_name = "%s %s - %s" % ( account.name or "",f.formatLang(row[0],date=True), f.formatLang(row[1],date=True))
-            
+
                 if not invoice_name:
-                    invoice_name = "%s %s" % (account.name or "",f.formatLang(util.currentDate(),date=True)) 
+                    invoice_name = "%s %s" % (account.name or "",f.formatLang(util.currentDate(),date=True))
 
                 curr_invoice = {
                     'name': invoice_name,
@@ -160,9 +161,9 @@ class account_analytic_line(osv.Model):
                         #blocks = 0
                         if data.get('date', False):
                             #blocks+=1
-                            details.append(f.formatLang(line['date'],date=True))                           
+                            details.append(f.formatLang(line['date'],date=True))
                         if data.get('time', False):
-                            #blocks+=1                            
+                            #blocks+=1
                             if line['product_uom_id']:
                                 details.append("%s %s" % (f.formatLang(line['unit_amount']), product_uom_obj.browse(cr, uid, [line['product_uom_id']],context2)[0].name))
                             else:
@@ -183,5 +184,5 @@ class account_analytic_line(osv.Model):
                 invoice_obj.button_reset_taxes(cr, uid, [last_invoice], context)
         return invoices
 
-    
+
     _inherit = "account.analytic.line"
