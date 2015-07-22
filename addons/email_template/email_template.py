@@ -159,7 +159,10 @@ class email_template(osv.osv):
     def render_post_process(self, cr, uid, html, context=None):
         html = self._replace_local_links(cr, uid, html, context=context)
         return html
-
+    
+    def _get_render_env(self, cr, uid, template, model, res_ids, variables, context=None):
+        return variables
+    
     def render_template_batch(self, cr, uid, template, model, res_ids, context=None, post_process=False):
         """Render the given template text, replace mako expressions ``${expr}``
            with the result of evaluating these expressions with
@@ -194,6 +197,7 @@ class email_template(osv.osv):
             'user': user,
             'ctx': context,  # context kw would clash with mako internals
         }
+        variables = self._get_render_env(cr, uid, template, model, res_ids, variables, context)
         for record in records:
             res_id = record.id if record else None
             variables['object'] = record
