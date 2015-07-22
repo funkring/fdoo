@@ -18,14 +18,15 @@
 #
 ##############################################################################
 
-{
-    "name" : "oerp.at Mail Extensions",
-    "description": "oerp.at Mail Extensions",
-    "version" : "1.0",
-    "author" :  "funkring.net",
-    "category" : "Base",
-    "depends" : ["at_base","mail","email_template"],
-    "data" : [],
-    "auto_install" : False,
-    "installable": True
-}
+from openerp.osv import fields, osv
+from openerp.addons.at_base.format import LangFormat
+
+class email_template(osv.osv):
+
+    def _get_render_env(self, cr, uid, template, model, res_ids, variables, context=None):
+        variables = super(email_template, self)._get_render_env(cr, uid, template, model, res_ids, variables, context=context)
+        langFormat = LangFormat(cr, uid, context=context)
+        variables["formatLang"]=langFormat.formatLang
+        return variables
+
+    _inherit = "email.template"
