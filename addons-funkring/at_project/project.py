@@ -62,3 +62,30 @@ class project_task(osv.Model):
     _group_by_full = {
         "division_id" : _read_group_division_ids
     }
+
+class project_task_type(osv.Model):
+
+    _inherit = "project.task.type"
+    _columns = {
+        "active" : fields.boolean("Active")
+    }
+    _defaults = {
+        "active" : True
+    }
+
+class project_project(osv.Model):
+
+    def _get_main_project(self, cr, uid, ids, field_name, arg, context=None):
+        res = dict.fromkeys(ids,False)
+        for obj in self.browse(cr, uid, ids, context):
+            parent_id = obj.parent_id
+            if parent_id:
+                project_ids = self.search(cr, uid, [("analytic_account_id", "=", parent_id.id)])
+                if project_ids:
+                    res[obj.id] = project_ids[0]
+        return res
+
+    _inherit = "project.project"
+    _columns = {
+        "main_project_id" : fields.function(_get_main_project,type="many2one", obj="project.project", store=True, string="Project")
+    }

@@ -21,42 +21,64 @@
 ##############################################################################
 
 from openerp.osv import fields,osv
+from openerp.tools.translate import _
+
+class mail_compose_message(osv.TransientModel):
+
+    def send_mail(self, cr, uid, ids, context=None):
+        context = context or {}
+        if context.get("default_model") == "account.reminder":
+            reminder_obj = self.pool["account.reminder"]
+            for wizard in self.browse(cr, uid, ids, context=context):
+                res_ids = self._res_ids(wizard, context)
+                reminder_obj.write(cr, uid, res_ids, {"state" : "sent"}, context=context)
+        return super(mail_compose_message, self).send_mail(cr, uid, ids, context=context)
+
+    _inherit = "mail.compose.message"
 
 class account_reminder(osv.Model):
-    
-    def action_reminder_send(self, cr, uid, ids, context=None):
-        """
-        This function opens a window to compose an email, with the edi reminder template message loaded by default
-        """
-        assert len(ids) == 1, "This option should only be used for a single id at a time."
-        ir_model_data = self.pool.get("ir.model.data")
-        try:
-            template_id = ir_model_data.get_object_reference(cr, uid, "account_dunning", "email_template_edi_reminder")[1]
-        except ValueError:
-            template_id = False
-        try:
-            compose_form_id = ir_model_data.get_object_reference(cr, uid, "mail", "email_compose_message_wizard_form")[1]
-        except ValueError:
-            compose_form_id = False 
-        ctx = dict(context)
-        ctx.update({
-            "default_model": "account.reminder",
-            "default_res_id": ids[0],
-            "default_use_template": bool(template_id),
-            "default_template_id": template_id,
-            "default_composition_mode": "comment"
-        })
-        return {
-            "type": "ir.actions.act_window",
-            "view_type": "form",
-            "view_mode": "form",
-            "res_model": "mail.compose.message",
-            "views": [(compose_form_id, "form")],
-            "view_id": compose_form_id,
-            "target": "new",
-            "context": ctx,
-        }
-    
+
+    def send_reminder_mail(self, cr, uid, ids, context=None):
+        model_data_obj = self.pool["ir.model.data"]
+        template_id = model_data_obj.get_object_reference(cr, uid, "account_dunning", "email_to_customer_reminder")[1]
+        compose_form = model_data_obj.get_object_reference(cr, uid, "account_dunning", "email_compose_message_wizard_form_inherit")[1]
+
+        if ids and template_id and compose_form:
+            composition_mode = len(ids) > 1 and "mass_mail" or "comment"
+
+            partner_ids = set()
+            for reminder in self.browse(cr, uid, ids, context=context):
+                partner_ids.add(reminder.partner_id.id)
+                if reminder.state == ("sent"):
+                    raise osv.except_osv(_('Warning!'), _('The reminder was already sent to the customer. If you want to send a reminder again,'
+                                                          'you need to call the reminder wizard again!'))
+
+            email_context = {
+                "active_ids" : ids,
+                "active_id" : ids[0],
+                "active_model" : "account.reminder",
+                "default_model" : "account.reminder",
+                "default_res_id" : ids[0],
+                "default_composition_mode" : composition_mode,
+                "default_template_id" : template_id,
+                "default_use_template" : bool(template_id),
+                "mark_quotation_send" : True
+            }
+
+            return {
+                    "name": _("Compose Email"),
+                    "type": "ir.actions.act_window",
+                    "view_type": "form",
+                    "view_mode": "form",
+                    "res_model": "mail.compose.message",
+                    "views": [(compose_form, "form")],
+                    "view_id": compose_form,
+                    "target": "new",
+                    "context": email_context,
+            }
+
+        return True
+
     _name="account.reminder"
     _inherit = ["mail.thread"]
     _rec_name="date"
@@ -65,42 +87,43 @@ class account_reminder(osv.Model):
         "partner_id" : fields.many2one("res.partner", "Partner", required=True),
         "profile_id" : fields.many2one("account.dunning_profile", "Profile", required=True),
         "max_profile_line_id" : fields.many2one("account.dunning_profile_line", "Highest dunning level"),
-        "line_ids" : fields.one2many("account.reminder.line", "reminder_id", string="Lines")
+        "line_ids" : fields.one2many("account.reminder.line", "reminder_id", string="Lines"),
+        "state": fields.selection([('validated', 'Validated'), ('sent', 'Reminder sent'),], "State", readonly=True, copy=False),
     }
-    
+
 
 class account_reminder_line(osv.Model):
-    
+
     def unlink(self, cr, uid, ids, context=None):
         invoice_obj = self.pool.get("account.invoice")
-        
+
         for line in self.browse(cr, uid, ids, context):
             invoice_obj.write(cr, uid, [line.invoice_id.id], {"followup_line_id" : None,
                                                               "followup_date" : None})
-            
+
         return super(account_reminder_line, self).unlink(cr, uid, ids, context=context)
-    
+
     def onchange_invoice(self, cr, uid, ids, invoice_id):
         res = {
             "value" : {}
         }
-        
+
         amount = 0.0
         if invoice_id:
             invoice_obj = self.pool.get("account.invoice")
             amount = invoice_obj.browse(cr, uid, invoice_id).residual
-        
+
         res["value"]["amount"] = amount
-        
+
         return res
-    
+
     _name="account.reminder.line"
     _rec_name="invoice_id"
-    
+
     _columns = {
         "reminder_id" : fields.many2one("account.reminder", "Reminder", ondelete="cascade", select=True),
         "invoice_id" : fields.many2one("account.invoice", "Invoice", ondelete="cascade", select=True, required=True),
         "profile_line_id" : fields.many2one("account.dunning_profile_line", "Dunning level", required=True),
         "amount" : fields.float("Residual", readonly=True),
     }
-    
+

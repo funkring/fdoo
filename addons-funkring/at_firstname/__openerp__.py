@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 #############################################################################
 #
-#    Copyright (c) 2007 Martin Reisenhofer <martin.reisenhofer@funkring.net>
+#    Copyright (c) 2007 Martin Reisenhofer <martinr@funkring.net>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -17,30 +16,20 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 {
-    "name" : "oerp.at Account Dunning",
+    "name" : "oerp.at Firstname",
     "description":"""
-oerp.at Account Dunning
-=======================
+oerp.at Firstname
+========================
+Module which adds firstname and surname to the partner
 
-  * This module allows to completly handle the reminders
-  * Single/multiple reminder (re)print
-    """,
+""",
     "version" : "1.0",
     "author" :  "funkring.net",
-    "category" : "Accounting",
-    "depends" : ["at_account"],
-    "data" : ["view/account_dunning_view.xml",
-              "view/account_reminder_view.xml",
-              "view/account_invoice_view.xml",
-              "view/partner_view.xml",
-              "report/account_reminder_report.xml",
-              "wizard/dunning_wizard.xml",
-              "wizard/mail_compose.xml",
-              "data/email_template.xml",
-              "menu.xml",
-              "security.xml",],
+    "website": "http://www.funkring.net",
+    "category" : "Base",
+    "depends" : ["at_base"],
+    "data" : ["view/partner_view.xml"],
     "auto_install" : False,
     "installable": True
 }

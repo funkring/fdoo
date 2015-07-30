@@ -27,10 +27,10 @@ Modules
 
 * Aeroo report support
 * Utils
-* Basic wizards 
+* Basic wizards
 
 """,
-    "version" : "1.5",
+    "version" : "1.6",
     "author" :  "funkring.net",
     "website": "http://www.funkring.net",
     "category" : "Base",
@@ -39,7 +39,7 @@ Modules
                  "report",
                  "report_aeroo",
                  "report_aeroo_ooo",
-                 "report_aeroo_printscreen"],    
+                 "report_aeroo_printscreen"],
     "data" : ["sequence_tmpl.xml",
               "view/partner_view.xml",
               "wizard/info_wizard.xml",
