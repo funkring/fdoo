@@ -20,17 +20,18 @@
 
 from openerp.osv import fields,osv
 
-class procurement_order(osv.osv):   
-    
+class procurement_order(osv.osv):
+
     def create_procurement_purchase_order(self, cr, uid, procurement, po_vals, line_vals, context=None):
         po_vals["supplier_ships"]=procurement.supplier_ships
-        po_vals["sale_order_id"]=procurement.sale_order_id
+        if procurement.sale_order_id:
+            po_vals["sale_order_id"]=procurement.sale_order_id.id
         if procurement.supplier_ships:
             po_vals["dest_address_id"]=procurement.dest_address_id and procurement.dest_address_id.id or None
         return super(procurement_order,self).create_procurement_purchase_order(cr, uid, procurement, po_vals, line_vals, context=context)
-     
-    _inherit = "procurement.order"        
+
+    _inherit = "procurement.order"
     _columns = {
-        "supplier_ships" : fields.boolean("Supplier Ships"),    
-        "sale_order_id" : fields.many2one("sale.order","Sale Order")    
+        "supplier_ships" : fields.boolean("Supplier Ships"),
+        "sale_order_id" : fields.many2one("sale.order","Sale Order")
     }
