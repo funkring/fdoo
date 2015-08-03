@@ -5,11 +5,12 @@
 			<field name="name">account.form_account_reminder</field>
 			<field name="model">account.reminder</field>
 			<field name="arch" type="xml">
-				<form string="Reminder" version="7.0">
+				<form string="Reminder">
+				    <header>
+                        <button name="send_reminder_mail" string="Send by Email" type="object" states="validated" class="oe_highlight" groups="base.group_user" />
+                        <field name="state" widget="statusbar" statusbar_visible="validated,sent"/>
+                    </header>
 					<sheet>
-						<header>
-							<!-- button name="action_reminder_send" string="Send by Email" type="object" states="draft" class="oe_highlight" groups="base.group_user"/ -->
-						</header>
 						<group>
 							<group>
 								<field name="date" />
@@ -53,6 +54,7 @@
 					<field name="partner_id" />
 					<field name="profile_id" />
 					<field name="max_profile_line_id" />
+					<field name="state" />
 				</tree>
 			</field>
 		</record>

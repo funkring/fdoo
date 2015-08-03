@@ -55,6 +55,18 @@
                 </p>
             </field>
         </record>
+
+        <record id="form_at_project_task_type" model="ir.ui.view">
+            <field name="name">at_project_task_type_form</field>
+            <field name="model">project.task.type</field>
+            <field name="inherit_id" ref="project.task_type_edit"/>
+            <field name="arch" type="xml">
+                <field name="fold" position="after">
+                    <field name="active"/>
+                </field>
+            </field>
+        </record>
+
         <menuitem action="action_project_task_division"
             id="menu_project_task_division"
             parent="project.menu_project_management" sequence="6"/>

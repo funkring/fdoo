@@ -34,6 +34,7 @@
             	 <field name="shortcut" position="after">
                     <field name="mail_salutation" colspan="2"/>
                    	<field name="co_salutation" colspan="2"/>
+                   	<field name="active"/>
             	 </field>
             </field>
         </record>

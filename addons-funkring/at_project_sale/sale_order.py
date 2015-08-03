@@ -26,8 +26,9 @@ import openerp.addons.decimal_precision as dp
 class sale_shop(osv.osv):
     _inherit = "sale.shop"
     _columns = {
-        "autocreate_order_parent_id": fields.many2one('account.analytic.account', domain=[("type","=","view")], 'Analytic account default parent', ondelete="restrict"),
-        "autocreate_order_analytic_account" : fields.boolean("Analytic Account per Order")
+        "autocreate_order_parent_id": fields.many2one('account.analytic.account', domain=[("type","=","view")], 'Analytic account default parent'),
+        "autocreate_order_analytic_account" : fields.boolean("Analytic Account per Order"),
+        "project_template_id" : fields.many2one("project.project", "Project template")
     }
 
 class sale_order(osv.osv):
@@ -145,7 +146,13 @@ class sale_order(osv.osv):
 
                 #create new
                 if not project_id:
-                    proj_id = proj_obj.create(cr,uid,project_vals,project_context)
+                    #proj_id = proj_obj.create(cr,uid,project_vals,project_context)
+                    # create from template
+                    project_vals["name"] = project_vals["code"]
+                    if shop.project_template_id:
+                        proj_id = proj_obj.copy(cr,uid,shop.project_template_id.id,project_vals,project_context)
+                    else:
+                        proj_id = proj_obj.create(cr,uid,project_vals,project_context)
                     project_id = get_fkey(proj_obj.read(cr, uid, proj_id, ["analytic_account_id"], context),"analytic_account_id")
                     vals["project_id"]=project_id
                     return project_id

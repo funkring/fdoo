@@ -7,6 +7,8 @@
 			<field name="arch" type="xml">
 				<field name="project_id" position="after">
 					<field name="autocreate_order_analytic_account" />
+					<field name="project_template_id"
+					       attrs="{'invisible' : [('autocreate_order_analytic_account', '=', False)]}" />
 					<field name="autocreate_order_parent_id" />
 				</field>
 			</field>

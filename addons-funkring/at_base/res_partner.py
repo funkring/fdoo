@@ -26,7 +26,11 @@ class res_partner_title(osv.Model):
     _inherit = "res.partner.title"
     _columns = {
         "mail_salutation": fields.text("Mail Salutation",translate=True),
-        "co_salutation" : fields.text("C/O Salutation",translate=True)
+        "co_salutation" : fields.text("C/O Salutation",translate=True),
+        "active" : fields.boolean("Active")
+    }
+    _defaults = {
+        "active" : True
     }
 
 class res_partner(osv.osv):
@@ -36,14 +40,74 @@ class res_partner(osv.osv):
             vals["ref"]=self.pool.get('ir.sequence').get(cr, uid, 'res.partner')
 
     def write(self, cr, uid, ids, vals, context=None):
+        # check if name, surname or firstname are changed
+        has_name = vals.get("name")
+        if not has_name and ("surname" in vals or "firstname" in vals):
+            # generate name for each
+            for partner_vals in self.read(cr, uid, ids, ["name","is_company","surname","firstname"]):
+                if not vals.get("is_company",partner_vals.get("is_company")):
+                    name_build = []
+                    last_name = vals.get("surname", partner_vals.get("surname"))
+                    if last_name:
+                        name_build.append(last_name)
+                    first_name = vals.get("firstname", partner_vals.get("firstname"))
+                    if first_name:
+                        name_build.append(first_name)
+                    name = vals.get("name")
+                    new_vals = vals.copy()
+                    if name_build:
+                        new_vals["name"] = " ".join(name_build)
+                    elif name:
+                        split = re.split("[ ]+", name)
+                        new_vals["firstname"] = " ".join(split[-1:])
+                        new_vals["surname"] = " ".join(split[:-1])
+
+                    # write new partner vals
+                    super(res_partner,self).write(cr, uid, [partner_vals["id"]], new_vals, context=context)
+                else:
+                    # write default
+                    super(res_partner,self).write(cr, uid, [partner_vals["id"]], vals, context=context)
+
+            return True
+
+        elif has_name:
+            surname, firstname = self._split_name(vals["name"])
+            vals[surname]=surname
+            vals[firstname]=firstname
+
         ids = util.idList(ids)
         if len(ids) == 1:
             self._check_for_ref(cr,uid,vals,context)
-        return super(res_partner,self).write(cr,uid,ids,vals,context)
+
+        # default write
+        return super(res_partner,self).write(cr, uid, ids, vals, context=context)
 
     def create(self, cr, uid, vals, context=None):
         self._check_for_ref(cr,uid,vals,context)
-        return super(res_partner,self).create(cr,uid,vals,context)
+
+        has_name = vals.get("name")
+        if not has_name and ("surname" in vals or "firstname" in vals):
+            name_build = []
+            last_name = vals.get("surname")
+            if last_name:
+                name_build.append(last_name)
+            first_name = vals.get("firstname")
+            if first_name:
+                name_build.append(first_name)
+            name = vals.get("name")
+            if name_build:
+                vals["name"] = " ".join(name_build)
+            elif name:
+                split = re.split("[ ]+", name)
+                vals["firstname"] = " ".join(split[-1:])
+                vals["surname"] = " ".join(split[:-1])
+
+        elif has_name:
+            surname, firstname = self._split_name(vals["name"])
+            vals[surname]=surname
+            vals[firstname]=firstname
+
+        return super(res_partner,self).create(cr, uid, vals, context=context)
 
     def _get_mail_salutation(self, cr, uid, ids, field_name, arg, context=None):
         res = dict.fromkeys(ids)
@@ -177,15 +241,11 @@ class res_partner(osv.osv):
                 res[partner.id] = self._get_number(cr, uid, ids, partner.fax)
         return res
 
-    def _split_name(self, cr, uid, ids, field_names, arg, context=None):
-        res = dict.fromkeys(ids)
-        for obj in self.browse(cr, uid, ids, context):
-            val = {}
-            res[obj.id] = val
-            split = re.split("[ ]+", obj.name)
-            val["firstname"] = " ".join(split[-1:])
-            val["surname"] = " ".join(split[:-1])
-        return res
+    def _split_name(self, name):
+        split = re.split("[ ]+", name)
+        firstname = " ".join(split[-1:])
+        surname   = " ".join(split[:-1])
+        return (surname, firstname)
 
     def _get_login_id(self, cr, uid, ids, field_name, arg, context=None):
         res = dict.fromkeys(ids)
@@ -208,7 +268,7 @@ class res_partner(osv.osv):
         "mobile_n" : fields.function(_get_mobile, type="char", store=True, string="Mobile normalized"),
         "fax_n" : fields.function(_get_fax, type="char", store=True, string="Fax normalized"),
         "birthday" : fields.date("Birthday"),
-        "firstname" : fields.function(_split_name, string="Firstname", type="char", multi="_split_name"),
-        "surname" : fields.function(_split_name, string="Surname", type="char", multi="_split_name"),
+        "firstname" : fields.char("First Name"),
+        "surname" : fields.char("Last Name"),
         "login_id" : fields.function(_get_login_id, string="Login", type="many2one", obj="res.users", copy=False, readonly=True)
      }
