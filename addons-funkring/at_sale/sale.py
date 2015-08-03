@@ -40,7 +40,7 @@ class sale_shop(osv.osv):
         "payment_default_id": fields.many2one("account.payment.term", "Payment Term", required=True, select=True),
         "warehouse_id": fields.many2one("stock.warehouse", "Warehouse"),
         "pricelist_id": fields.many2one("product.pricelist", "Pricelist"),
-        "project_id": fields.many2one("account.analytic.account", "Analytic Account", domain=[("parent_id", "!=", False)]),
+        "project_id": fields.many2one("account.analytic.account", "Analytic Account", domain=[("parent_id", "!=", False), ("type","!=","view")], ondelete="restrict"),
         "company_id": fields.many2one("res.company", "Company", required=False),
         "note" : fields.text("Note"),
         "product_category_ids" : fields.many2many("product.category", "shop_product_category_rel", "shop_id", "category_id", "Product Categories"),

@@ -34,5 +34,9 @@ class procurement_order(osv.Model):
                 if supplier_line.price:
                     res["price_unit"] = supplier_line.price
         return res
+    
+    def create_procurement_purchase_order(self, cr, uid, procurement, po_vals, line_vals, context=None):
+        res = super(procurement_order,self).create_procurement_purchase_order(cr, uid, procurement, po_vals, line_vals, context)
+        return res
 
     _inherit = "procurement.order"
