@@ -147,11 +147,33 @@ class ir_translation_import_cursor(object):
         
         # Step 3: insert new translations
         # funkring.net - begin
+        
+        if self._debug:
+            # insert
+            cr.execute(""" SELECT name, lang, res_id, src, type, value, module, state, comments
+                           FROM %s AS ti
+                           WHERE NOT EXISTS(SELECT irt.id FROM ONLY %s AS irt WHERE %s);
+                       """ % (self._table_name, self._parent_table, find_expr))
+            
+            for row in cr.fetchall():
+                _logger.info("INSERT TRANSLATION: name=%s, lang=%s, res_id=%s, src=%s, type=%s, value=%s, module=%s, state=%s, comments=%s" % (row[0] or "", row[1] or "", row[2] or "", row[3] or "", row[4] or "", row[5] or "", row[6] or "", row[7] or "", row[8] or ""))
+            
+            # insert not
+            cr.execute(""" SELECT name, lang, res_id, src, type, value, module, state, comments
+                           FROM %s AS ti
+                           WHERE EXISTS(SELECT irt.id FROM ONLY %s AS irt WHERE %s);
+                       """ % (self._table_name, self._parent_table, find_expr))
+            
+            for row in cr.fetchall():
+                _logger.info("NOT INSERT TRANSLATION: name=%s, lang=%s, res_id=%s, src=%s, type=%s, value=%s, module=%s, state=%s, comments=%s" % (row[0] or "", row[1] or "", row[2] or "", row[3] or "", row[4] or "", row[5] or "", row[6] or "", row[7] or "", row[8] or ""))
+                
+        
         cr.execute("""INSERT INTO %s(name, lang, res_id, src, type, value, module, state, comments)
             SELECT name, lang, res_id, src, type, value, module, state, comments
               FROM %s AS ti
-              WHERE NOT EXISTS(SELECT irt.id FROM %s AS irt WHERE %s);
+              WHERE NOT EXISTS(SELECT irt.id FROM ONLY %s AS irt WHERE %s);
               """ % (self._parent_table, self._table_name, self._parent_table, find_expr))
+        
         # funkring.net - end
 
         if self._debug:
@@ -516,17 +538,17 @@ class ir_translation(osv.osv):
         return ir_translation_import_cursor(cr, uid, self, context=context)
 
     def load_module_terms(self, cr, modules, langs, context=None):
-        context = dict(context or {}) # local copy
         for module_name in modules:
             modpath = openerp.modules.get_module_path(module_name)
             if not modpath:
                 continue
             for lang in langs:
                 lang_code = tools.get_iso_codes(lang)
-                base_lang_code = None
-                if '_' in lang_code:
-                    base_lang_code = lang_code.split('_')[0]
-
+                # funkring.net begin
+                base_lang_code = '_' in lang_code and lang_code.split('_')[0] or lang_code
+                context = dict(context or {}) # local copy
+                # funkring.net end
+                    
                 # Step 1: for sub-languages, load base language first (e.g. es_CL.po is loaded over es.po)
                 if base_lang_code:
                     base_trans_file = openerp.modules.get_module_resource(module_name, 'i18n', base_lang_code + '.po')
@@ -541,19 +563,23 @@ class ir_translation(osv.osv):
                         _logger.info('module %s: loading extra base translation file %s for language %s', module_name, base_lang_code, lang)
                         tools.trans_load(cr, base_trans_extra_file, lang, verbose=False, module_name=module_name, context=context)
                         context['overwrite'] = True # make sure the requested translation will override the base terms later
-
+                
+                # funkring.net - begin
                 # Step 2: then load the main translation file, possibly overriding the terms coming from the base language
-                trans_file = openerp.modules.get_module_resource(module_name, 'i18n', lang_code + '.po')
-                if trans_file:
-                    _logger.info('module %s: loading translation file (%s) for language %s', module_name, lang_code, lang)
-                    tools.trans_load(cr, trans_file, lang, verbose=False, module_name=module_name, context=context)
-                elif lang_code != openerp.tools.config.baseLang:
-                    _logger.warning('module %s: no translation for language %s', module_name, lang_code)
-
-                trans_extra_file = openerp.modules.get_module_resource(module_name, 'i18n_extra', lang_code + '.po')
-                if trans_extra_file:
-                    _logger.info('module %s: loading extra translation file (%s) for language %s', module_name, lang_code, lang)
-                    tools.trans_load(cr, trans_extra_file, lang, verbose=False, module_name=module_name, context=context)
+                # check if a sub lang exist
+                if lang_code != base_lang_code:                    
+                    trans_file = openerp.modules.get_module_resource(module_name, 'i18n', lang_code + '.po')
+                    if trans_file:
+                        _logger.info('module %s: loading translation file (%s) for language %s', module_name, lang_code, lang)
+                        tools.trans_load(cr, trans_file, lang, verbose=False, module_name=module_name, context=context)
+                    elif lang_code != openerp.tools.config.baseLang:
+                        _logger.warning('module %s: no translation for language %s', module_name, lang_code)
+    
+                    trans_extra_file = openerp.modules.get_module_resource(module_name, 'i18n_extra', lang_code + '.po')
+                    if trans_extra_file:
+                        _logger.info('module %s: loading extra translation file (%s) for language %s', module_name, lang_code, lang)
+                        tools.trans_load(cr, trans_extra_file, lang, verbose=False, module_name=module_name, context=context)
+                # funkring.net - end
         return True
 
 

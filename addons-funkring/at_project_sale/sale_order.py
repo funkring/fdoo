@@ -26,7 +26,7 @@ import openerp.addons.decimal_precision as dp
 class sale_shop(osv.osv):
     _inherit = "sale.shop"
     _columns = {
-        "autocreate_order_parent_id": fields.many2one("account.analytic.account", "Analytic account default parent", domain=[("type","=","view")]),
+        "autocreate_order_parent_id": fields.many2one('account.analytic.account', 'Analytic account default parent', domain=[("type","=","view")]),
         "autocreate_order_analytic_account" : fields.boolean("Analytic Account per Order"),
         "project_template_id" : fields.many2one("project.project", "Project template")
     }
