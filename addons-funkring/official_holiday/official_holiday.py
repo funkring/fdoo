@@ -22,6 +22,8 @@
 
 from openerp.osv import fields,osv
 from openerp.addons.at_base import util
+from datetime import datetime, timedelta
+from openerp.tools import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT
 
 class official_holiday_template(osv.osv):
 
@@ -65,14 +67,18 @@ class official_holiday(osv.osv):
                 leave_obj.create(cr,uid, leave_values,context=context)
             event_ids = event_obj.search(cr, uid, [("official_holiday_id", "=", holiday.id)])
             if not event_ids:
-                event_values=event_obj.onchange_dates(cr,uid,[],util.timeToStr(holiday_date),allday=True,context=context)["value"]
-                event_values["name"]=holiday.name
-                event_values["class"]="public"
-                event_values["user_id"]=None
-                event_values["show_as"]="busy"
-                event_values["official_holiday_id"]=holiday.id
-                event_values["partner_ids"] = None
-                event_obj.create(cr, uid, event_values, context=context)
+                event_values_start=event_obj.onchange_dates(cr,uid,[],fromtype="start",start=util.timeToDateStr(holiday_date),checkallday=True,allday=True,context=context)
+                event_values_end=event_obj.onchange_dates(cr,uid,[],fromtype="stop",end=util.timeToDateStr(util.getLastTimeOfDay(holiday_date)),checkallday=True,allday=True,context=context)
+                if event_values_start and event_values_end:
+                    event_values = event_values_start["value"]
+                    event_values.update(event_values_end["value"])
+                    event_values["name"]=holiday.name
+                    event_values["class"]="public"
+                    event_values["user_id"]=None
+                    event_values["show_as"]="busy"
+                    event_values["official_holiday_id"]=holiday.id
+                    event_values["partner_ids"] = None
+                    event_obj.create(cr, uid, event_values, context=context)
 
 
     _name = "official.holiday"
@@ -89,6 +95,42 @@ class official_holiday(osv.osv):
     _order = "date, name"
 
 class calendar_event(osv.osv):
+
+#     def onchange_dates(self, cr, uid, ids, start=False, end=False, checkallday=False, allday=False, context=None):
+#
+#         """Returns duration and end date based on values passed
+#         @param ids: List of calendar event's IDs.
+#         """
+#         value = {}
+#
+#         if checkallday != allday:
+#             return value
+#
+#         value['allday'] = checkallday  # Force to be rewrited
+#
+#         if allday:
+#             if start:
+#                 start = datetime.strptime(start, DEFAULT_SERVER_DATE_FORMAT)
+#                 value['start_datetime'] = datetime.strftime(start, DEFAULT_SERVER_DATETIME_FORMAT)
+#                 value['start'] = datetime.strftime(start, DEFAULT_SERVER_DATETIME_FORMAT)
+#
+#             if end:
+#                 end = datetime.strptime(end, DEFAULT_SERVER_DATE_FORMAT)
+#                 value['stop_datetime'] = datetime.strftime(end, DEFAULT_SERVER_DATETIME_FORMAT)
+#                 value['stop'] = datetime.strftime(end, DEFAULT_SERVER_DATETIME_FORMAT)
+#
+#         else:
+#             if start:
+#                 start = datetime.strptime(start, DEFAULT_SERVER_DATETIME_FORMAT)
+#                 value['start_date'] = datetime.strftime(start, DEFAULT_SERVER_DATE_FORMAT)
+#                 value['start'] = datetime.strftime(start, DEFAULT_SERVER_DATETIME_FORMAT)
+#             if end:
+#                 end = datetime.strptime(end, DEFAULT_SERVER_DATETIME_FORMAT)
+#                 value['stop_date'] = datetime.strftime(end, DEFAULT_SERVER_DATE_FORMAT)
+#                 value['stop'] = datetime.strftime(end, DEFAULT_SERVER_DATETIME_FORMAT)
+#
+#         return {'value': value}
+
     _inherit="calendar.event"
     _columns = {
         "official_holiday_id" : fields.many2one("official.holiday","Holiday",ondelete="cascade")

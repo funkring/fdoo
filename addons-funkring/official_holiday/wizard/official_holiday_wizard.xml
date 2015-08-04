@@ -25,26 +25,16 @@
 			</field>
 		</record>
 
-		<record id="action_official_holiday_template_wizard" model="ir.actions.act_window">
-			<field name="name">Create Holidays</field>
-			<field name="type">ir.actions.act_window</field>
-			<field name="res_model">official.holiday.template.wizard</field>
-			<field name="view_type">form</field>
-			<field name="view_mode">form</field>
-			<field name="view_id" ref="wizard_official_holiday_template" />
-			<field name="multi">True</field>
-			<field name="target">new</field>
-		</record>
-
-
-		<record id="irconfig_official_holiday_template" model="ir.values">
-			<field name="model_id" ref="model_official_holiday_template" />
-			<field name="model">official.holiday.template</field>
-			<field name="name">Create Holidays</field>
-			<field name="key2">client_action_multi</field>
-			<field name="value" eval="'ir.actions.act_window,' + str(ref('action_official_holiday_template_wizard'))" />
-			<field name="key">action</field>
-		</record>
+		<act_window id="action_official_holiday_template_wizard"
+            multi="True"
+            key2="client_action_multi"
+            name="Create holidays"
+            res_model="official.holiday.template.wizard"
+            src_model="official.holiday.template"
+            view_mode="form"
+            target="new"
+            view_type="form"
+            view_id="wizard_official_holiday_template"/>
 
 	</data>
 </openerp>

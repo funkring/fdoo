@@ -1,5 +1,16 @@
 <openerp>
 	<data>
+        <record id="search_account_reminder" model="ir.ui.view">
+            <field name="name">Account reminder</field>
+            <field name="model">account.reminder</field>
+            <field name="arch" type="xml">
+                <search string="Account reminder">
+                    <field name="date" filter_domain="[('date', 'ilike', self)]" string="Date" />
+                    <field name="partner_id" filter_domain="[('partner_id', 'ilike', self)]" string="Partner"/>
+                    <field name="max_profile_line_id" filter_domain="[('max_profile_line_id', 'ilike', self)]" string="Highest dunning level"/>
+                </search>
+            </field>
+        </record>
 
 		<record id="form_account_reminder" model="ir.ui.view">
 			<field name="name">account.form_account_reminder</field>

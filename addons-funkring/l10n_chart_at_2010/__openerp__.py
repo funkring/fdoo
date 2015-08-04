@@ -18,15 +18,15 @@
 ##############################################################################
 {
     "name" : "oerp.at Austria 2010 - Chart of Accounts",
-    "description":"""        
-        oerp.at Extended Chart of Accounts 
+    "description":"""
+        oerp.at Extended Chart of Accounts
     """,
     "version" : "1.0",
     "author" :  "funkring.net",
     "website": "http://www.funkring.net",
     "category" : "Localization/Account Charts",
     "depends" : ["account_chart",
-                 "base_vat"],    
+                 "base_vat"],
     "data" : ["data/account_tax_code_base.xml",
                     "data/account_tax_code.xml",
                     "data/account_chart_base.xml",

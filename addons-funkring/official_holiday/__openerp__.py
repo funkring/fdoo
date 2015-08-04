@@ -32,6 +32,7 @@ oerp.at Official Holiday
     "category" : "Human Resources",
     "depends" : ["at_timereg", "at_hr"],
     "data" : ["view/official_holiday_view.xml",
+              "wizard/official_holiday_wizard.xml",
               "menu.xml",
               "data/holiday_at.xml",
               ],

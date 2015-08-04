@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-30 15:15+0000\n"
-"PO-Revision-Date: 2015-07-30 17:16+0100\n"
+"POT-Creation-Date: 2015-08-04 15:58+0000\n"
+"PO-Revision-Date: 2015-08-04 17:59+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -31,13 +31,11 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
-"\n"
-"                <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, "
-"Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-"
-"color: #FFF; \">\n"
-"                    <p><br></p>\n"
-"                </div>\n"
-"            "
+
+#. module: account_dunning
+#: view:account.reminder:account_dunning.search_account_reminder
+msgid "Account reminder"
+msgstr "Mahnungen"
 
 #. module: account_dunning
 #: model:ir.actions.report.xml,name:account_dunning.report_account_reminder_pdf
@@ -196,6 +194,7 @@ msgid "Followers of the document and"
 msgstr "Verfolger des Dokuments und"
 
 #. module: account_dunning
+#: view:account.reminder:account_dunning.search_account_reminder
 #: field:account.reminder,max_profile_line_id:0
 msgid "Highest dunning level"
 msgstr "Höchste Mahnstufe"
@@ -293,11 +292,6 @@ msgid "Lines"
 msgstr "Zeilen"
 
 #. module: account_dunning
-#: model:email.template,report_name:account_dunning.email_to_customer_reminder
-msgid "Mahnung"
-msgstr ""
-
-#. module: account_dunning
 #: field:account.reminder,message_ids:0
 msgid "Messages"
 msgstr "Nachrichten"
@@ -309,6 +303,7 @@ msgstr "Nachrichten und Kommunikationshistorie"
 
 #. module: account_dunning
 #: field:account.dunning_profile_line,name:0
+#: view:account.reminder:account_dunning.search_account_reminder
 msgid "Name"
 msgstr ""
 
@@ -323,6 +318,7 @@ msgid "No dunning on payment"
 msgstr "Keine Mahnung bei Teilzahlung"
 
 #. module: account_dunning
+#: view:account.reminder:account_dunning.search_account_reminder
 #: field:account.reminder,partner_id:0
 #: model:ir.model,name:account_dunning.model_res_partner
 msgid "Partner"
@@ -375,7 +371,7 @@ msgstr "Mahnzeilen"
 #. module: account_dunning
 #: selection:account.reminder,state:0
 msgid "Reminder sent"
-msgstr "Mahnung gesendet"
+msgstr "Mahnung versendet"
 
 #. module: account_dunning
 #: view:account.reminder:account_dunning.tree_account_reminder
@@ -409,7 +405,7 @@ msgstr "Senden"
 #. module: account_dunning
 #: view:account.reminder:account_dunning.form_account_reminder
 msgid "Send by Email"
-msgstr "Mahnung versenden"
+msgstr "Versende Mahnung"
 
 #. module: account_dunning
 #: field:account.dunning_profile_line,sequence:0
@@ -448,6 +444,8 @@ msgid ""
 "The reminder was already sent to the customer. If you want to send a "
 "reminder again,you need to call the reminder wizard again!"
 msgstr ""
+"Diese Mahnung wurde bereits an den Kunden geschickt. Wenn Sie erneut eine "
+"Mahnung senden wollen, müssen Sie den Mahnassistenten ausführen"
 
 #. module: account_dunning
 #: view:account.reminder:account_dunning.form_account_reminder
@@ -473,7 +471,7 @@ msgstr "Validiert"
 #: code:addons/account_dunning/account_reminder.py:53
 #, python-format
 msgid "Warning!"
-msgstr "Warnung!"
+msgstr "Warnung"
 
 #. module: account_dunning
 #: view:account.dunning_wizard:account_dunning.wizard_account_dunning
