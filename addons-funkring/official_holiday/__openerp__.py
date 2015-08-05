@@ -35,6 +35,7 @@ oerp.at Official Holiday
               "wizard/official_holiday_wizard.xml",
               "menu.xml",
               "data/holiday_at.xml",
+              "security.xml",
               ],
     "active": False,
     "installable": True
