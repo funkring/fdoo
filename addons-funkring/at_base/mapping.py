@@ -21,6 +21,7 @@
 from openerp.osv import fields, osv
 import uuid
 from openerp import SUPERUSER_ID
+from openerp.tools.translate import _
 
 class res_mapping(osv.Model):
 
