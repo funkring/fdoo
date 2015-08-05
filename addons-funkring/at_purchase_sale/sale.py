@@ -34,18 +34,6 @@ class sale_shop(osv.osv):
 
 class sale_order(osv.osv):
 
-    def action_button_confirm(self, cr, uid, ids, context=None):
-        res = super(sale_order, self).action_button_confirm(cr, uid, ids, context=context)
-
-        for order_id in ids:
-            purchase_order_obj = self.pool["purchase.order"]
-            purchase_order_ids = purchase_order_obj.search(cr, uid, [("sale_order_id", "=", order_id)])
-            for purchase_order in purchase_order_obj.browse(cr, uid, purchase_order_ids):
-                if purchase_order.state in ("draft", "sent"):
-                    purchase_order_obj.action_cancel(cr, uid, [purchase_order.id], context=context)
-
-        return res
-
     def _prepare_order_line_procurement(self, cr, uid, order, line, group_id=False, context=None):
         res = super(sale_order,self)._prepare_order_line_procurement(cr, uid, order, line, group_id, context=context )
         supplier_ships=line.supplier_ships or line.order_id.supplier_ships
