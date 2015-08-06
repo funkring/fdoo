@@ -94,7 +94,7 @@ class res_mapping(osv.Model):
                 if res_model and res_id:
                     model_obj = self.pool.get(res_model)
                     if model_obj:
-                        model_obj.unlink(cr, uid, res_id, context=context)
+                        model_obj.unlink(cr, uid, [res_id], context=context)
 
         self.write(cr, uid, deactivate_ids, {"active" : False}, context=context)
         return True
