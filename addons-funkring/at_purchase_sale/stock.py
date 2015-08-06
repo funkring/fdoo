@@ -25,35 +25,16 @@ class stock_move(osv.osv):
     def _prepare_procurement_from_move(self, cr, uid, move, context=None):
         """ 
          since new version of odoo routing a procurement could initiate 
-         another procurement. all fields added in _prepare_order_line_procurement 
-         have also be added to new procurement
+         another procurement, sale_line_id should also be copied
         """
         res = super(stock_move,self)._prepare_procurement_from_move(cr, uid, move, context=context)
         source_procurement = move.procurement_id
+        
         if source_procurement:                        
             sale_line = source_procurement.sale_line_id
-            sale_order =  source_procurement.sale_order_id
-            
             if sale_line:
-                
                 if not "sale_line_id" in res:
                     res["sale_line_id"] = sale_line.id
-                    
-                if not "note" in res:
-                    res["note"] = source_procurement.note
-            
-                if not "supplier_ships" in res:
-                    res["supplier_ships"] = source_procurement.supplier_ships
-                    if source_procurement.supplier_ships:
-                         res["dest_address_id"]=source_procurement.dest_address_id.id
-            
-            if sale_order:
-                
-                if not "sale_order_id" in res:
-                    res["sale_order_id"] = sale_order.id
-            
-                if not "account_analytic_id" in res:
-                    res["account_analytic_id"] = sale_order.project_id.id
                     
         return res
         

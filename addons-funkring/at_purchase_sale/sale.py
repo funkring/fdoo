@@ -34,20 +34,6 @@ class sale_shop(osv.osv):
 
 class sale_order(osv.osv):
 
-    def _prepare_order_line_procurement(self, cr, uid, order, line, group_id=False, context=None):
-        """ add fields to procurement order """
-                
-        res = super(sale_order,self)._prepare_order_line_procurement(cr, uid, order, line, group_id, context=context )
-        supplier_ships=line.supplier_ships or line.order_id.supplier_ships
-        res["supplier_ships"]=supplier_ships
-        if not res.get("account_analytic_id") and order.project_id:
-            res["account_analytic_id"]=order.project_id.id
-        if supplier_ships:
-            res["dest_address_id"]=order.partner_shipping_id.id
-        res["sale_order_id"]=order.id
-        res["note"]=line.procurement_note
-        return res
-
     def onchange_shop_id(self, cr, uid, ids, shop_id, state, context=None):
         res = super(sale_order,self).onchange_shop_id(cr, uid, ids, shop_id, state, context=context)
         value = res.get("value",None) or {}
