@@ -204,7 +204,7 @@ class hr_timesheet_sheet(osv.osv):
             res[sheet.id] = {}
             status_ids = holidays_status_obj.search(cr,uid,[('categ_id.leave_type','=','sickness')])
             days = holidays_status_obj.get_days_sum(cr,uid,status_ids,sheet.employee_id.id,False,context)
-            res[sheet.id]["leaves_taken"] = days["leaves_taken"]
+            res[sheet.id] = days["leaves_taken"]
         return res
 
 

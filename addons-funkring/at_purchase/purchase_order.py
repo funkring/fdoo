@@ -1,9 +1,6 @@
-# -*- coding: utf-8 -*-
-# -*- encoding: utf-8 -*-
-
 #############################################################################
 #
-#    Copyright (c) 2007 Martin Reisenhofer <martin.reisenhofer@funkring.net>
+#    Copyright (c) 2007 Martin Reisenhofer <martinr@funkring.net>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -20,23 +17,18 @@
 #
 ##############################################################################
 
-{
-    "name" : "oerp.at Official Holiday",
-    "description":"""
-oerp.at Official Holiday
-========================
-  * This module sets the holidays for austria
-    """,
-    "version" : "1.0",
-    "author" :  "funkring.net",
-    "category" : "Human Resources",
-    "depends" : ["at_timereg", "at_hr"],
-    "data" : ["view/official_holiday_view.xml",
-              "wizard/official_holiday_wizard.xml",
-              "menu.xml",
-              "data/holiday_at.xml",
-              "security.xml",
-              ],
-    "active": False,
-    "installable": True
-}
+from openerp.osv import fields, osv
+
+class purchase_order(osv.Model):
+
+    _inherit = "purchase.order"
+
+    def wkf_approve_order(self, cr, uid, ids, context=None):
+        product_template_obj = self.pool["product.template"]
+        for order in self.browse(cr, uid, ids):
+            for line in order.order_line:
+                if line.product_id:
+                    template_id = line.product_id.product_tmpl_id.id
+                    product_template_obj.write(cr, uid, template_id, {"standard_price" : line.price_unit})
+
+        return super(purchase_order,self).wkf_approve_order(cr, uid, ids, context=context)
