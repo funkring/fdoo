@@ -35,6 +35,8 @@ class sale_shop(osv.osv):
 class sale_order(osv.osv):
 
     def _prepare_order_line_procurement(self, cr, uid, order, line, group_id=False, context=None):
+        """ add fields to procurement order """
+                
         res = super(sale_order,self)._prepare_order_line_procurement(cr, uid, order, line, group_id, context=context )
         supplier_ships=line.supplier_ships or line.order_id.supplier_ships
         res["supplier_ships"]=supplier_ships

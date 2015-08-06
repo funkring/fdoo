@@ -27,11 +27,15 @@ class procurement_order(osv.Model):
 
     def _get_product_supplier(self, cr, uid, procurement, context=None):
         ''' returns the main supplier of the procurement's product given as argument'''
-        return procurement.sale_line_id.supplier_id
-
+        res = procurement.sale_line_id.supplier_id
+        if not res:
+            return super(procurement_order,self)._get_product_supplier(cr, uid, procurement, context=context)
+        
     def make_po(self, cr, uid, ids, context=None):
         """ Resolve the purchase from procurement, which may result in a new PO creation, a new PO line creation or a quantity change on existing PO line.
         Note that some operations (as the PO creation) are made as SUPERUSER because the current user may not have rights to do it (mto product launched by a sale for example)
+
+        --> This version of make_po is without Grouping
 
         @return: dictionary giving for each procurement its related resolving PO line.
         """
@@ -83,6 +87,7 @@ class procurement_order(osv.Model):
 
 
     def _get_po_line_values_from_proc(self, cr, uid, procurement, partner, company, schedule_date, context=None):
+        """ add requested price from supplier to purchase order """        
         res = super(procurement_order,self)._get_po_line_values_from_proc(cr, uid, procurement, partner, company, schedule_date, context=context)
         sale_line = procurement.sale_line_id
         if sale_line:
@@ -96,6 +101,8 @@ class procurement_order(osv.Model):
         return res
 
     def create_procurement_purchase_order(self, cr, uid, procurement, po_vals, line_vals, context=None):
+        """ use existing purchase order or create new """
+        
         sale_order_line =  procurement.sale_line_id
 
         # check sale line

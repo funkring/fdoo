@@ -21,7 +21,7 @@
 from openerp.osv import fields,osv
 
 class procurement_order(osv.osv):
-
+   
     def create_procurement_purchase_order(self, cr, uid, procurement, po_vals, line_vals, context=None):
         po_vals["supplier_ships"]=procurement.supplier_ships
         if procurement.sale_order_id:
