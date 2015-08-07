@@ -348,6 +348,11 @@ class mail_compose_message(osv.TransientModel):
             results[res_id].update(default_recipients.get(res_id, dict()))
         return results
 
+    # funkring.net // begin
+    def _get_render_env(self, cr, uid, template, model, res_ids, variables, context=None):
+        return variables
+    # funkring.net // end
+
     def render_template_batch(self, cr, uid, template, model, res_ids, context=None, post_process=False):
         """ Render the given template text, replace mako-like expressions ``${expr}``
         with the result of evaluating these expressions with an evaluation context
@@ -369,11 +374,11 @@ class mail_compose_message(osv.TransientModel):
         for res_id in res_ids:
             def merge(match):
                 exp = str(match.group()[2:-1]).strip()
-                result = eval(exp, {
+                result = eval(exp, self._get_render_env(cr, uid, template, model, res_ids, {
                     'user': self.pool.get('res.users').browse(cr, uid, uid, context=context),
                     'object': self.pool[model].browse(cr, uid, res_id, context=context),
                     'context': dict(context),  # copy context to prevent side-effects of eval
-                })
+                }, context=context))
                 return result and tools.ustr(result) or ''
             results[res_id] = template and EXPRESSION_PATTERN.sub(merge, template)
         return results
