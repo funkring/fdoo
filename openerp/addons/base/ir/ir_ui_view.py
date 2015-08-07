@@ -366,7 +366,9 @@ class view(osv.osv):
                           'msg': message,
                         }
         _logger.error(message)
-        raise AttributeError(message)
+        #funkring.net begin
+        #raise AttributeError(message)
+        #funkring.net end
 
     def locate_node(self, arch, spec):
         """ Locate a node in a source (parent) architecture.
