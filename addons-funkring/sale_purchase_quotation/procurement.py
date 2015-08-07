@@ -87,19 +87,6 @@ class procurement_order(osv.Model):
         return res
 
 
-    def _get_po_line_values_from_proc(self, cr, uid, procurement, partner, company, schedule_date, context=None):
-        """ add requested price from supplier to purchase order """        
-        res = super(procurement_order,self)._get_po_line_values_from_proc(cr, uid, procurement, partner, company, schedule_date, context=context)
-        sale_line = procurement.sale_line_id
-        if sale_line:
-            supplier = sale_line.supplier_id
-            supplier_line_obj = self.pool["sale.line.supplier"]
-            if supplier:
-                supplier_line_id = supplier_line_obj.search_id(cr, uid, [("line_id","=",sale_line.id),("partner_id","=",supplier.id)], context=context)
-                supplier_line = supplier_line_obj.browse(cr, uid, supplier_line_id, context=context)
-                if supplier_line.price:
-                    res["price_unit"] = supplier_line.price
-        return res
 
     def create_procurement_purchase_order(self, cr, uid, procurement, po_vals, line_vals, context=None):
         """ use existing purchase order or create new """
@@ -107,28 +94,25 @@ class procurement_order(osv.Model):
         sale_order_line =  procurement.sale_line_id
 
         # check sale line
-        if sale_order_line:
-            sale_line_supplier_obj = self.pool["sale.line.supplier"]
-            supplier_line_id = sale_line_supplier_obj.search_id(cr, uid, [("line_id","=",sale_order_line.id), ("selected_supplier", "=", True)], context=context)
-            # check purchase order for line already exist
-            if supplier_line_id:
-                line_supplier = sale_line_supplier_obj.browse(cr, uid, supplier_line_id, context=context)
-                purchase_line = line_supplier.purchase_line_id
-                # check if supplier for order line was defined
-                if purchase_line:
-                    # get purchase order id
-                    purchase_id = purchase_line.order_id.id
-                    # update purchase order line
-                    po_vals.update({"order_line": [(1,purchase_line.id,line_vals)]})
-                    self.pool["purchase.order"].write(cr, uid, purchase_id, po_vals, context=context)
-                    # return foun id
-                    return purchase_id
-            else:
-                line_vals.update({"name": sale_order_line.name})
-                po_vals.update({"order_line": [(0,0,line_vals)],
-                                "sale_order_id": sale_order_line.order_id.id})
-                return self.pool.get("purchase.order").create(cr, uid, po_vals, context=context)
-
+        if sale_order_line:            
+            product = sale_order_line.product_id
+            if product:
+                purchase_line_obj = self.pool["purchase.order.line"]
+                purchase_line_id = purchase_line_obj.search_id(cr, uid, [("sale_line_id","=",sale_order_line.id), ("quot_selected", "=", True), ("product_id","=",product.id)], context=context)
+                if purchase_line_id:      
+                    purchase_line = purchase_line_obj.browse(cr, uid, purchase_line_id, context=context)                    
+                    order = purchase_line.order_id
+                    
+                    # take price from existing
+                    if purchase_line.price_unit:
+                        line_vals["price_unit"] = purchase_line.price_unit
+                    
+                    # set new order line values
+                    po_vals["order_line"] = [(1,purchase_line_id, line_vals)]
+                    self.pool["purchase.order"].write(cr, uid, order.id, po_vals, context=context)
+                    
+                    return order.id
+                    
         # or create new
         return super(procurement_order,self).create_procurement_purchase_order(cr, uid, procurement, po_vals, line_vals, context)
 

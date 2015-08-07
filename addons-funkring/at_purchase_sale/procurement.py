@@ -25,15 +25,10 @@ class procurement_order(osv.osv):
     def create_procurement_purchase_order(self, cr, uid, procurement, po_vals, line_vals, context=None):
         sale_line = procurement.sale_line_id
         if sale_line:
-            po_vals["supplier_ships"]=sale_line.supplier_ships
-            po_vals["sale_order_id"]=sale_line.order_id.id
             po_vals["notes"]=sale_line.procurement_note
-            if sale_line.supplier_ships:
-                po_vals["dest_address_id"]=procurement.dest_address_id and procurement.dest_address_id.id or None
+            po_vals["sale_order_id"]=sale_line.order_id.id
+            po_vals["sale_line_id"]=sale_line.id
         return super(procurement_order,self).create_procurement_purchase_order(cr, uid, procurement, po_vals, line_vals, context=context)
-
+    
     _inherit = "procurement.order"
-    _columns = {
-        "supplier_ships" : fields.boolean("Supplier Ships"),
-        "sale_order_id" : fields.many2one("sale.order","Sale Order")
-    }
+    

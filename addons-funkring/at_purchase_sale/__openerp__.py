@@ -38,8 +38,7 @@ oerp.at Purchase + Sale combination
     "depends" : ["sale_stock","at_stock","at_purchase","at_sale","at_product"],
     "data" : ["view/shop_view.xml",
               "view/sale_order_view.xml",
-              "view/purchase_view.xml",
-              "view/product_view.xml"],
+              "view/purchase_view.xml"],
     "auto_install": False,
     "installable": True
 }

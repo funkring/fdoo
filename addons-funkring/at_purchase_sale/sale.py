@@ -20,31 +20,13 @@
 
 from openerp.osv import fields,osv
 from openerp.addons.at_base import util
-from openerp.addons.at_base.util import PRIORITY
 
 class sale_shop(osv.osv):
 
     _inherit = "sale.shop"
     _columns = {
-        "supplier_ships_default" : fields.boolean("Supplier Ships"),
         "neutral_delivery" : fields.boolean("Neutral Delivery"),
         "sender_address_id" : fields.many2one("res.partner", "Sender Address")
-    }
-
-
-class sale_order(osv.osv):
-
-    def onchange_shop_id(self, cr, uid, ids, shop_id, state, context=None):
-        res = super(sale_order,self).onchange_shop_id(cr, uid, ids, shop_id, state, context=context)
-        value = res.get("value",None) or {}
-        if shop_id:
-            shop_rec = self.pool.get("sale.shop").browse(cr, uid, shop_id, context=context)
-            value["supplier_ships"]=shop_rec.supplier_ships_default
-        return {'value': value}
-
-    _inherit = "sale.order"
-    _columns = {
-        "supplier_ships" : fields.boolean("Supplier Ships",readonly=True,states={"draft": [("readonly", False)]})
     }
 
 
@@ -55,7 +37,6 @@ class sale_order_line(osv.osv):
             if product_id:
                 context = {'lang': lang, 'partner_id': partner_id}
                 product_obj = self.pool.get('product.product')
-                res["value"]["supplier_ships"]=product_obj.read(cr, uid, product_id, ["supplier_ships"], context=context)["supplier_ships"]
 
                 product_context = context and context.copy() or {}
                 product_context.update({'lang': lang, 'partner_id': partner_id})
@@ -113,12 +94,7 @@ class sale_order_line(osv.osv):
 
     _inherit = "sale.order.line"
     _columns = {
-        "supplier_ships" : fields.boolean("Supplier Ships",readonly=True,states={"draft": [("readonly", False)]}),
         "supplier_id" : fields.many2one("res.partner", "Selected Supplier"),
         "available_supplier_ids" : fields.function(_available_supplier_ids, string="Available Suppliers", type="many2many", relation="res.partner", store=False, readonly=True ),
-        "priority": fields.selection(PRIORITY, "Priority"),
         "procurement_note" : fields.text("Procurement Note")
-    }
-    _defaults = {
-        "priority" : PRIORITY[1][0]
     }

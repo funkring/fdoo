@@ -36,8 +36,6 @@
                             </div>
                         </group>
                         <group name="seller_options_grp">
-                            <field name="priority"/>
-                            <field name="supplier_ships"/>
                             <field invisible="1" name="available_supplier_ids"/>
                             <field
                                 domain="[('id','in',available_supplier_ids[0][2])]"
@@ -46,16 +44,6 @@
                     </group>
                 </xpath>
             </field>
-        </record>
-        <record id="form_sale_stock" model="ir.ui.view">
-            <field name="name">sale_order.form_sale_stock</field>
-            <field name="model">sale.order</field>
-            <field name="inherit_id" ref="sale_stock.view_order_form_inherit"/>
-            <field name="arch" type="xml">
-                <group name="logistics" position="inside">
-                    <field name="supplier_ships"/>
-                </group>
-            </field>
-        </record>
+        </record>       
     </data>
 </openerp>

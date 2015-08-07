@@ -1,27 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
    <data>
-      <record id="view_sale_order_supplier_line" model="ir.ui.view">
-         <field name="name">sale.line.supplier.form.inherit</field>
-         <field name="model">sale.line.supplier</field>
-         <field name="arch" type="xml">
-            <tree string="Supplier Details" editable="bottom">
-               <field name="partner_id" />
-               <field name="price" on_change="on_change_price(price)" />
-               <field name="pricelist_price" />
-               <field name="purchase_line_id" invisible="1"/>
-               <field name="purchase_state" invisible="1" />
-               <field name="selected_supplier" invisible="1" />
-               <button name="send_mail_supplier_one" type="object" string="Send E-mail"
-                  attrs="{'readonly' : [('purchase_state', 'in', ('sent','bid','confirmed','approved','done','cancel'))]}"/>
-               <button name="assign_selected_partner" type="object" string="Select Supplier"
-                  attrs="{'readonly' : [('selected_supplier','=',True)]}" />
-            </tree>
-         </field>
-      </record>
-
-
-      <record id="form_sale_order" model="ir.ui.view">
+ 
+       <record id="form_sale_order" model="ir.ui.view">
          <field name="name">sale_purchase_quotation.form_sale_order</field>
          <field name="model">sale.order</field>
          <field name="inherit_id" ref="at_sale.form_sale_order" />
@@ -47,11 +28,11 @@
 
                     <group colspan="2" cols="4">
 
-                        <button name="start_quotation" type="object" string="Request Supplier"
+                        <button name="start_quotation" type="object" string="Request Supplier" 
                                 attrs="{'invisible' : ['|',('quotation_active','=',True),('state','!=','draft')]}"
                                 colspan="2" />
 
-                        <button name="recreate_quotation" type="object" string="Request Supplier"
+                        <button name="recreate_quotation" type="object" string="Request Supplier" 
                                 attrs="{'invisible' : ['|',('quotation_active','=',False),('state','!=','draft')]}"
                                 confirm="Do you really want to recreate all supplier requests?"
                                 colspan="2" />
@@ -68,13 +49,31 @@
 
                 <xpath expr="/form/sheet/notebook/page[@string='Order Lines']/field[@name='order_line']/form/group[@name='seller_grp']"  position="after">
                     <div attrs="{'invisible' : [('quotation_active','=',False)]}">
-                        <label for="supplier_ids" />
-                        <field name="supplier_ids" nolabel="1" colspan="4" options="{'reload_on_button': true}" />
+                        <label for="quotation_ids" />
+                        <field name="quotation_ids" nolabel="1" colspan="4" options="{'reload_on_button': true}">
+                             <tree string="Supplier Details" editable="bottom" colors="blue:quot_selected == True">
+                            
+                               <button  name="assign_selected_partner" type="object" string="Select"
+                                  attrs="{'readonly' : [('quot_selected','=',True)]}" />
+                              
+                               <button  name="send_mail_supplier_one" type="object" string="Send E-mail"
+                                  attrs="{'readonly' : ['|',('quot_sent','=',True),('state', 'in', ('confirmed','approved','done'))] }"/>
+                                  
+                               <field name="partner_id" />
+                               <field name="price_unit" />
+                               <field name="pricelist_price" />
+                               
+                               <field name="quot_sent" invisible="1"/>
+                               <field name="quot_selected" invisible="1"/>
+                               <field name="state" invisible="1"/>
+                            </tree>
+                        </field>
                     </div>
                     <group colspan="4">
                         <div class="oe_right oe_button_box">
+                            <field name="quotation_active" invisible="1"/>
                             <button name="send_mail_supplier" type="object" string="Send E-mail to all Suppliers"
-                                    attrs="{'invisible' : ['|',('quotation_active','=',False),'|',('state','!=','draft'),('quotation_all','=',False)]}"
+                                    attrs="{'invisible' : [('quotation_active','=',False),'|',('state','!=','draft'),('quotation_all','=',True)]}"
                                     confirm="Do you really want to send email to all suppliers?" />
                          </div>
                      </group>
@@ -85,21 +84,6 @@
          </field>
       </record>
 
-      <!-- <record id="form_sale_order_3" model="ir.ui.view">
-        <field name="name">sale_purchase_quotation.form_sale_order_3</field>
-        <field name="model">sale.order</field>
-        <field name="inherit_id" ref="at_purchase_sale.form_sale_order"/>
-        <field name="arch" type="xml">
-            <field name="supplier_id" position="after">
-                <group colspan="2">
-
-
-                    <button name="start_quotation" type="object" string="Request Quotations"  />
-
-                </group>
-            </field>
-        </field>
-      </record> -->
-
+    
    </data>
 </openerp>

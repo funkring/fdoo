@@ -24,8 +24,13 @@ class purchase_order(osv.osv):
     
     _inherit = "purchase.order"
     _columns = {    
-        "sale_order_id" : fields.many2one("sale.order","Sale Order", states={"confirmed":[("readonly",True)], "approved":[("readonly",True)],"done":[("readonly",True)]}, ondelete="set null", copy=False),         
-        "supplier_ships" : fields.boolean("Supplier Ships",states={"confirmed":[("readonly",True)], "approved":[("readonly",True)],"done":[("readonly",True)]})
+        "sale_order_id" : fields.many2one("sale.order","Sale Order", states={"confirmed":[("readonly",True)], "approved":[("readonly",True)],"done":[("readonly",True)]}, ondelete="set null", copy=False)
     }
-    
 
+
+class purchase_order_line(osv.osv):
+    
+    _inherit = "purchase.order.line"
+    _columns = {
+       "sale_line_id" : fields.many2one("sale.order.line", "Sale Order Line", readonly=True, copy=False, ondelete="set null"),
+    } 
