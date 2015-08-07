@@ -126,6 +126,9 @@ def run(args):
                 cr.execute("DELETE FROM %s WHERE id=%s" % (table, oid))
 
         def delete_model_data(oid, module_name, model, res_id):
+            if not module_name or len(module_name) == 0:
+                raise Exception("Empty module name")
+            
             if not args.fix:
                 return
             # to not delete from specific module names
@@ -158,7 +161,6 @@ def run(args):
         xmlid_exclude = re.compile("trans_.*|chart[0-9]+.*|module_install_notification",re.IGNORECASE)
         cr.execute("SELECT id, module, model, res_id, name, noupdate FROM ir_model_data")
         for oid, module, model, res_id, xmlid, noupdate in cr.fetchall():
-            
             # ignore specific system models
             if model in ("ir.model.access","ir.module.category","ir.module.module"):
                 continue
@@ -195,7 +197,7 @@ def run(args):
                         logger.warning("[UNFIXABLE] XML record [%s] has moved from [%s] in one of this modules [%s], or something else!" % (xmlid, module, ",".join(xmlid_modules)))
 
         # delete all from removed modules
-        cr.execute("SELECT id, module, model, res_id FROM ir_model_data WHERE module NOT IN %s" % (tuple(modules),))
+        cr.execute("SELECT id, module, model, res_id FROM ir_model_data WHERE module NOT IN %s AND NOT (module IS NULL OR module='')" % (tuple(modules),))
         for oid, module_name, model, res_id in cr.fetchall():
             delete_model_data(oid, module_name, model, res_id)
 
