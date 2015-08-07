@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-17 15:49+0000\n"
-"PO-Revision-Date: 2015-06-17 17:49+0100\n"
+"POT-Creation-Date: 2015-08-07 20:45+0000\n"
+"PO-Revision-Date: 2015-08-07 22:48+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,134 +16,11 @@ msgstr ""
 "Plural-Forms: \n"
 "X-Generator: Poedit 1.5.4\n"
 
-#. module: sale_purchase_quotation
-#: model:email.template,body_html:sale_purchase_quotation.email_to_supplier_with_quotation
-msgid ""
-"\n"
-"                <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, "
-"Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-"
-"color: #FFF; \">\n"
-"                   <p>${object.partner_id.mail_salutation}, </p>\n"
-"                   <p>Request for Quotation</p>\n"
-"                    <div style=\"width: 400px; margin: 0px; padding: 5px "
-"14px; line-height: 16px; background-color: #F2F2F2;\">\n"
-"                        <span style=\"color: #222; margin-bottom: 5px; "
-"display: block; \">\n"
-"                            <table border=\"1\">\n"
-"                                <tr>\n"
-"                                    <th>Description</th>\n"
-"                                    <th>Quantity</th>\n"
-"                                    <th>UOM</th>\n"
-"                                </tr>\n"
-"                                <tr>\n"
-"                                    <td>${object.line_id.name}</th>\n"
-"                                    <td>${object.line_id.product_uom_qty}</"
-"th>\n"
-"                                    <td>${object.line_id.product_uom.name}</"
-"th>\n"
-"                                </tr>\n"
-"                            </table>\n"
-"                            <br/>\n"
-"                            <p>Thank you,</p>\n"
-"                            <p>Regards,</p>\n"
-"                            <p>${object.line_id.order_id.company_id.name}</"
-"p>\n"
-"                         </span>\n"
-"                    </div>\n"
-"                </div>\n"
-"            "
-msgstr ""
-"\n"
-"                <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, "
-"Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-"
-"color: #FFF; \">\n"
-"                   <p>${object.partner_id.mail_salutation}, </p>\n"
-"                   <p>Preisanfrage</p>\n"
-"                    <div style=\"width: 400px; margin: 0px; padding: 5px "
-"14px; line-height: 16px; background-color: #F2F2F2;\">\n"
-"                        <span style=\"color: #222; margin-bottom: 5px; "
-"display: block; \">\n"
-"                            <table border=\"1\">\n"
-"                                <tr>\n"
-"                                    <th>Beschreibung</th>\n"
-"                                    <th>Menge</th>\n"
-"                                    <th>Einheit</th>\n"
-"                                </tr>\n"
-"                                <tr>\n"
-"                                    <td>${object.line_id.name}</th>\n"
-"                                    <td>${object.line_id.product_uom_qty}</"
-"th>\n"
-"                                    <td>${object.line_id.product_uom.name}</"
-"th>\n"
-"                                </tr>\n"
-"                            </table>\n"
-"                            <br/>\n"
-"                            <p>Danke,</p>\n"
-"                            <p>mit freundlichen Grüßen,</p>\n"
-"                            <p>${object.line_id.order_id.company_id.name}</"
-"p>\n"
-"                         </span>\n"
-"                    </div>\n"
-"                </div>\n"
-"            "
-
-#. module: sale_purchase_quotation
-#: view:mail.compose.message:sale_purchase_quotation.email_compose_message_wizard_form_inherit
-msgid "Add contacts to notify..."
-msgstr "Kontakte als Empfänger hinzufügen"
 
 #. module: sale_purchase_quotation
 #: field:sale.order.line,quotation_all:0
 msgid "All Quotation Sent to Suppliers"
 msgstr "Es wurden alle Angebotsanfragen versendet"
-
-#. module: sale_purchase_quotation
-#: view:mail.compose.message:sale_purchase_quotation.email_compose_message_wizard_form_inherit
-msgid ""
-"All records matching your current search filter will be mailed,\n"
-"                                    not only the ids selected in the list "
-"view."
-msgstr ""
-"Alle Daten des aktuellen Suchfilters werden per E-Mail versendet,\n"
-"                                    nicht nur die Daten die Sie aktuell in "
-"der Ansicht ausgewählt haben."
-
-#. module: sale_purchase_quotation
-#: view:mail.compose.message:sale_purchase_quotation.email_compose_message_wizard_form_inherit
-msgid "Attach a file"
-msgstr "Eine Datei anhängen"
-
-#. module: sale_purchase_quotation
-#: view:mail.compose.message:sale_purchase_quotation.email_compose_message_wizard_form_inherit
-msgid "Cancel"
-msgstr "Abbrechen"
-
-#. module: sale_purchase_quotation
-#: code:addons/sale_purchase_quotation/sale.py:146
-#: view:mail.compose.message:sale_purchase_quotation.email_compose_message_wizard_form_inherit
-#, python-format
-msgid "Compose Email"
-msgstr "E-Mail schreiben"
-
-#. module: sale_purchase_quotation
-#: field:sale.line.supplier,price:0
-msgid "Cost Price"
-msgstr "Anschaffungspreis"
-
-#. module: sale_purchase_quotation
-#: field:sale.line.supplier,create_uid:0
-msgid "Created by"
-msgstr "Erstellt von"
-
-#. module: sale_purchase_quotation
-#: field:sale.line.supplier,create_date:0
-msgid "Created on"
-msgstr "Erstellt am"
-
-#. module: sale_purchase_quotation
-#: help:sale.line.supplier,message_last_post:0
-msgid "Date of the last message posted on the record."
-msgstr ""
 
 #. module: sale_purchase_quotation
 #: view:sale.order:sale_purchase_quotation.form_sale_order
@@ -157,26 +34,22 @@ msgid "Do you really want to send email to all suppliers?"
 msgstr "Möchten Sie wirklich E-Mails an alle Lieferanten senden?"
 
 #. module: sale_purchase_quotation
-#: field:sale.line.supplier,send_mail:0
-msgid "E-mail Sent"
-msgstr "E-Mail wurde gesendet"
+#: code:addons/sale_purchase_quotation/procurement.py:82
+#, python-format
+msgid "Draft Purchase Order created"
+msgstr "Entwurfsbestellung erstellt"
 
 #. module: sale_purchase_quotation
-#: code:addons/sale_purchase_quotation/sale.py:84
+#: code:addons/sale_purchase_quotation/sale.py:152
 #, python-format
 msgid "E-mail was already sent to all supplier!"
 msgstr "E-Mail wurde bereits an alle Lieferanten geschickt!"
 
 #. module: sale_purchase_quotation
-#: code:addons/sale_purchase_quotation/sale.py:132
+#: code:addons/sale_purchase_quotation/purchase.py:89
 #, python-format
 msgid "E-mail was already sent to this supplier!"
-msgstr "E-Mail wurde bereits zu diesem Lieferanten geschickt!"
-
-#. module: sale_purchase_quotation
-#: view:mail.compose.message:sale_purchase_quotation.email_compose_message_wizard_form_inherit
-msgid "Email address to redirect replies..."
-msgstr "E-Mail Adresse zur E-Mailweiterleitung"
+msgstr "Angebotsanfrage wurde bereits gesendet!"
 
 #. module: sale_purchase_quotation
 #: model:ir.model,name:sale_purchase_quotation.model_mail_compose_message
@@ -184,80 +57,15 @@ msgid "Email composition wizard"
 msgstr "E-Mail Assistent"
 
 #. module: sale_purchase_quotation
-#: field:sale.line.supplier,message_follower_ids:0
-msgid "Followers"
-msgstr ""
+#: code:addons/sale_purchase_quotation/procurement.py:61
+#, python-format
+msgid "PO: %s"
+msgstr "EK: %s"
 
 #. module: sale_purchase_quotation
-#: view:mail.compose.message:sale_purchase_quotation.email_compose_message_wizard_form_inherit
-msgid "Followers of the document and"
-msgstr "Verfolger des Dokuments und"
-
-#. module: sale_purchase_quotation
-#: help:sale.line.supplier,message_summary:0
-msgid ""
-"Holds the Chatter summary (number of messages, ...). This summary is "
-"directly in html format in order to be inserted in kanban views."
-msgstr ""
-
-#. module: sale_purchase_quotation
-#: field:sale.line.supplier,id:0
-msgid "ID"
-msgstr ""
-
-#. module: sale_purchase_quotation
-#: help:sale.line.supplier,message_unread:0
-msgid "If checked new messages require your attention."
-msgstr ""
-
-#. module: sale_purchase_quotation
-#: view:mail.compose.message:sale_purchase_quotation.email_compose_message_wizard_form_inherit
-msgid ""
-"If you want to work only with selected ids, please uncheck the\n"
-"                                list header checkbox."
-msgstr ""
-"Wenn Sie nur mit ausgewählten ID's arbeiten möchten, deaktivieren Sie bitte "
-"die Checkbox in der Kopfzeile."
-
-#. module: sale_purchase_quotation
-#: field:sale.line.supplier,message_is_follower:0
-msgid "Is a Follower"
-msgstr ""
-
-#. module: sale_purchase_quotation
-#: field:sale.line.supplier,message_last_post:0
-msgid "Last Message Date"
-msgstr ""
-
-#. module: sale_purchase_quotation
-#: field:sale.line.supplier,write_uid:0
-msgid "Last Updated by"
-msgstr "Letzte Aktualisierung durchfeführt von"
-
-#. module: sale_purchase_quotation
-#: field:sale.line.supplier,write_date:0
-msgid "Last Updated on"
-msgstr "Letzte Aktualisierung am"
-
-#. module: sale_purchase_quotation
-#: field:sale.line.supplier,message_ids:0
-msgid "Messages"
-msgstr ""
-
-#. module: sale_purchase_quotation
-#: help:sale.line.supplier,message_ids:0
-msgid "Messages and communication history"
-msgstr ""
-
-#. module: sale_purchase_quotation
-#: field:procurement.order,note:0
-msgid "Note"
-msgstr "Notiz"
-
-#. module: sale_purchase_quotation
-#: field:sale.line.supplier,pricelist_price:0
+#: field:purchase.order.line,pricelist_price:0
 msgid "Pricelist Price"
-msgstr "Preis laut Preisliste"
+msgstr "Listenpreis"
 
 #. module: sale_purchase_quotation
 #: model:ir.model,name:sale_purchase_quotation.model_procurement_order
@@ -265,9 +73,21 @@ msgid "Procurement"
 msgstr "Beschaffung"
 
 #. module: sale_purchase_quotation
-#: field:sale.line.supplier,product_id:0
-msgid "Product"
-msgstr "Produkt"
+#: model:ir.model,name:sale_purchase_quotation.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "Bestellpositionen"
+
+#. module: sale_purchase_quotation
+#: code:addons/sale_purchase_quotation/procurement.py:84
+#, python-format
+msgid "Purchase line created and linked to an existing Purchase Order"
+msgstr "Bestellzeile wurde einer Bestellung zugeordnet"
+
+#. module: sale_purchase_quotation
+#: code:addons/sale_purchase_quotation/procurement.py:86
+#, python-format
+msgid "Quantity added in existing Purchase Order Line"
+msgstr "Menge wurde in der Bestellung hinzugefügt"
 
 #. module: sale_purchase_quotation
 #: field:sale.order.line,quotation_active:0
@@ -275,9 +95,9 @@ msgid "Quotation Active"
 msgstr "Angebotsanfragen sind aktiv"
 
 #. module: sale_purchase_quotation
-#: view:mail.compose.message:sale_purchase_quotation.email_compose_message_wizard_form_inherit
-msgid "Recipients"
-msgstr "Empfänger"
+#: field:sale.order.line,quotation_ids:0
+msgid "Quotations"
+msgstr "Angebotsanfragen"
 
 #. module: sale_purchase_quotation
 #: view:sale.order:sale_purchase_quotation.form_sale_order
@@ -285,14 +105,9 @@ msgid "Request Supplier"
 msgstr "Preisanfrage"
 
 #. module: sale_purchase_quotation
-#: model:email.template,subject:sale_purchase_quotation.email_to_supplier_with_quotation
+#: model:email.template,subject:sale_purchase_quotation.email_purchase_quotation
 msgid "Request for Quotaion"
-msgstr "Angebote anfragen"
-
-#. module: sale_purchase_quotation
-#: field:sale.line.supplier,line_id:0
-msgid "Sale Line"
-msgstr "Verkaufsposition"
+msgstr "Preisanfrage"
 
 #. module: sale_purchase_quotation
 #: model:ir.model,name:sale_purchase_quotation.model_sale_order
@@ -305,35 +120,25 @@ msgid "Sales Order Line"
 msgstr "Auftragsposition"
 
 #. module: sale_purchase_quotation
-#: view:mail.compose.message:sale_purchase_quotation.email_compose_message_wizard_form_inherit
-msgid "Save as a new template"
-msgstr "Als neue Vorlage speichern"
-
-#. module: sale_purchase_quotation
-#: view:mail.compose.message:sale_purchase_quotation.email_compose_message_wizard_form_inherit
-msgid "Save as new template"
-msgstr "Als neue Vorlage speichern"
-
-#. module: sale_purchase_quotation
-#: view:sale.line.supplier:sale_purchase_quotation.view_sale_order_supplier_line
+#: view:sale.order:sale_purchase_quotation.form_sale_order
 msgid "Select Supplier"
-msgstr "Lieferanten auswählen"
+msgstr "Wähle Lieferant"
 
 #. module: sale_purchase_quotation
-#: field:sale.line.supplier,selected_supplier:0
+#: field:purchase.order.line,quot_selected:0
+#: field:purchase.order.line,quot_sent:0
+msgid "Selected"
+msgstr "Auswählen"
+
+#. module: sale_purchase_quotation
 #: field:sale.order.line,supplier_id:0
 msgid "Selected Supplier"
 msgstr "Lieferanten ausgewählt"
 
 #. module: sale_purchase_quotation
-#: view:mail.compose.message:sale_purchase_quotation.email_compose_message_wizard_form_inherit
-msgid "Send"
-msgstr "Senden"
-
-#. module: sale_purchase_quotation
-#: view:sale.line.supplier:sale_purchase_quotation.view_sale_order_supplier_line
+#: view:sale.order:sale_purchase_quotation.form_sale_order
 msgid "Send E-mail"
-msgstr "E-Mail senden"
+msgstr "Sende E-Mail"
 
 #. module: sale_purchase_quotation
 #: view:sale.order:sale_purchase_quotation.form_sale_order
@@ -341,48 +146,19 @@ msgid "Send E-mail to all Suppliers"
 msgstr "E-Mail an alle Lieferanten senden"
 
 #. module: sale_purchase_quotation
-#: view:mail.compose.message:sale_purchase_quotation.email_compose_message_wizard_form_inherit
-msgid "Subject..."
-msgstr "Betreff..."
-
-#. module: sale_purchase_quotation
-#: field:sale.line.supplier,message_summary:0
-msgid "Summary"
-msgstr ""
-
-#. module: sale_purchase_quotation
-#: field:sale.line.supplier,partner_id:0
-msgid "Supplier"
-msgstr "Lieferant"
-
-#. module: sale_purchase_quotation
-#: view:sale.line.supplier:sale_purchase_quotation.view_sale_order_supplier_line
+#: view:sale.order:sale_purchase_quotation.form_sale_order
 msgid "Supplier Details"
-msgstr "Leferantendetails"
+msgstr "Lieferanten Eigenschaften"
 
 #. module: sale_purchase_quotation
-#: field:sale.order.line,supplier_ids:0
-msgid "Suppliers"
-msgstr "Lieferanten"
+#: code:addons/sale_purchase_quotation/procurement.py:54
+#, python-format
+msgid "There is no supplier associated to product %s"
+msgstr "Es ist kein Lieferant zum Produkt %s zugeordnet!"
 
 #. module: sale_purchase_quotation
-#: field:sale.line.supplier,message_unread:0
-msgid "Unread Messages"
-msgstr ""
-
-#. module: sale_purchase_quotation
-#: view:mail.compose.message:sale_purchase_quotation.email_compose_message_wizard_form_inherit
-msgid "Use template"
-msgstr "Benutze Vorlage"
-
-#. module: sale_purchase_quotation
-#: code:addons/sale_purchase_quotation/sale.py:84
-#: code:addons/sale_purchase_quotation/sale.py:132
+#: code:addons/sale_purchase_quotation/purchase.py:89
+#: code:addons/sale_purchase_quotation/sale.py:152
 #, python-format
 msgid "Warning!"
-msgstr ""
-
-#. module: sale_purchase_quotation
-#: view:mail.compose.message:sale_purchase_quotation.email_compose_message_wizard_form_inherit
-msgid "or"
-msgstr "oder"
+msgstr "Warnung!"
