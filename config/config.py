@@ -15,7 +15,7 @@ DIR_DIST_ADDONS = os.path.join(DIR_DIST,"addons")
 DIR_SERVER = os.path.abspath(os.path.join(DIR_CONFIG,".."))
 DIR_WORKSPACE = os.path.abspath(os.path.join(DIR_SERVER,".."))
 
-ADDONS_IGNORED = []
+ADDONS_IGNORED = ["antomed","fclipboard"]
 ADDONS_INCLUDED = {
 #       "addon-path" : [
 #          "modulexy"
