@@ -101,7 +101,6 @@ class sale_order_line(osv.Model):
                    
                 
                 # reset selected if not update
-                purchase_line_vals["quot_selected"] = False
                 purchase_line_vals["quot_sent"] = False
                 
                 # onchange for order
@@ -164,7 +163,7 @@ class sale_order_line(osv.Model):
 
     _inherit = 'sale.order.line'
     _columns = {
-        "quotation_ids" : fields.one2many("purchase.order.line", "sale_line_id", "Quotations", copy=False),
+        "quotation_ids" : fields.one2many("purchase.order.line", "sale_line_id", "Quotations", copy=False, readonly=True, states={'draft': [('readonly', False)]} ),
         "quotation_active" : fields.boolean("Quotation Active", copy=False),
         "quotation_all" : fields.function(_quotation_all, type="boolean", string="All Quotation Sent to Suppliers"),
     }

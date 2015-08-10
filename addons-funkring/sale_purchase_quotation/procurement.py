@@ -98,7 +98,7 @@ class procurement_order(osv.Model):
             product = sale_order_line.product_id
             if product:
                 purchase_line_obj = self.pool["purchase.order.line"]
-                purchase_line_id = purchase_line_obj.search_id(cr, uid, [("sale_line_id","=",sale_order_line.id), ("quot_selected", "=", True), ("product_id","=",product.id)], context=context)
+                purchase_line_id = purchase_line_obj.search_id(cr, uid, [("sale_line_id","=",sale_order_line.id), ("partner_id", "=", sale_order_line.supplier_id.id), ("product_id","=",product.id)], context=context)
                 if purchase_line_id:      
                     purchase_line = purchase_line_obj.browse(cr, uid, purchase_line_id, context=context)                    
                     order = purchase_line.order_id

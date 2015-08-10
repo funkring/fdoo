@@ -40,8 +40,10 @@ oerp.at Sale Purchase Quotation
                 "at_mail",
                 "mail"],
     "data": ["view/sale_view.xml",
-             "data/email_template.xml"],
+             "data/email_template.xml",
+             "view/quotation_widget.xml"],
     "installable": True,
     "auto_install": False,
     "application": True,
+    "qweb" : ["static/src/xml/quotation.xml"]
 }

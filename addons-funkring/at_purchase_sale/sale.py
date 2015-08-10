@@ -94,7 +94,7 @@ class sale_order_line(osv.osv):
 
     _inherit = "sale.order.line"
     _columns = {
-        "supplier_id" : fields.many2one("res.partner", "Selected Supplier"),
+        "supplier_id" : fields.many2one("res.partner", "Supplier"),
         "available_supplier_ids" : fields.function(_available_supplier_ids, string="Available Suppliers", type="many2many", relation="res.partner", store=False, readonly=True ),
         "procurement_note" : fields.text("Procurement Note")
     }

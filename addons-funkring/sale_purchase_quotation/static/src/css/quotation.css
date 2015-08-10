@@ -1,0 +1,28 @@
+.openerp .oe_purchase_quotation {
+  margin: 6px 0px 8px 0px;
+  overflow-x: auto;
+}
+.openerp .oe_purchase_quotation table {
+  width: 100%;
+}
+.openerp .oe_purchase_quotation td {
+  padding: 3px;
+  text-align: right;
+}
+.openerp .oe_purchase_quotation th {
+  text-align: right;
+  color: #4c4c4c;
+  font-size: 13px;
+  height: 25px;
+  font-family: "Lucida Grande", Helvetica, Verdana, Arial, sans-serif;
+  background: #eee;
+  min-width: 47px;
+}
+.openerp .oe_purchase_quotation .oe_purchase_quotation_menu {
+  margin: 0px 4px 4px 0px;
+}
+.openerp .oe_purchase_quotation .oe_purchase_quotation_menu button {
+  margin: 0px 4px 0px 0px;
+}
+
+/*# sourceMappingURL=quotation.css.map */

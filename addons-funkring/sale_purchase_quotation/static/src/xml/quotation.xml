@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates>
+    <t t-name="sale_purchase_quotation.PurchaseQuotation">
+        <div class="oe_purchase_quotation">
+            <div class="oe_purchase_quotation_menu" >
+                <t t-if="!widget.get('effective_readonly')">
+                    <button class="oe_purchase_quotation_create">Create Quotations</button>
+                </t>
+                <t t-if="widget.get('effective_readonly')">
+                    <button disabled="true">Create Quotations</button>
+                </t>
+                <t t-if="!widget.quotation_all">
+                    <button t-if="widget.quotation_active" class="oe_purchase_quotation_send_all">Send E-Mail</button>
+                </t>
+                <t t-if="widget.quotation_all">
+                    <button t-if="widget.quotation_active" disabled="true">Send E-Mail</button>
+                </t>
+                
+            </div>
+            <table t-if="widget.quotation_active">
+                <tr>
+                    <th class="oe_purchase_quotation_head">Supplier</th>
+                    <th class="oe_purchase_quotation_head">Unit Price</th>
+                    <th class="oe_purchase_quotation_head">Standard Price</th>
+                    <th class="oe_purchase_quotation_head"></th>
+                    <th class="oe_purchase_quotation_head"></th>
+                </tr>   
+                <tr t-foreach="widget.quotations" t-as="quot">
+                    <td class="oe_purchase_quotation_cell"><t t-esc="quot.partner"/></td>
+                    <td class="oe_purchase_quotation_cell">
+                        <input t-if="!widget.get('effective_readonly')" class="oe_purchase_quotation_price_input" type="text" 
+                                t-att-data-quotation-id="quot.id" t-att-value="quot.price_unit"/>                            
+                        <t t-if="widget.get('effective_readonly')" t-esc="quot.price_unit"/>
+                    </td>
+                    <td class="oe_purchase_quotation_cell"><t t-esc="quot.pricelist_price"/></td>
+                    <td class="oe_purchase_quotation_cell">
+                        <t t-if="!quot.quot_sent">
+                            <button class="oe_purchase_quotation_send_one" t-att-data-quotation-id="quot.id">Send E-Mail</button>
+                        </t>                        
+                        <t t-if="quot.quot_sent">
+                            <button disabled="true">Send E-Mail</button>
+                        </t>
+                    </td>
+                    <td class="oe_purchase_quotation_cell">
+                        <t t-if="!widget.get('effective_readonly')">
+                            <button class="oe_purchase_quotation_select" t-att-data-supplier-id="quot.partner_id" t-if="!quot.quot_selected">Select</button>
+                        </t>  
+                         <t t-if="widget.get('effective_readonly')">
+                            <button disabled="true" t-if="!quot.quot_selected">Select</button>
+                        </t>                        
+                    </td>                                        
+                </tr>
+            </table>
+        </div>
+    </t>
+</templates>

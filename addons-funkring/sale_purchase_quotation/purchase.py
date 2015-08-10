@@ -50,13 +50,6 @@ class purchase_order_line(osv.osv):
                         
         return res
     
-#     def onchange_quotation_price(self, cr, uid, ids, price, context=None):
-#         if ids:
-#             for line in self.browse(cr, uid, ids, context):
-#                 if not line.order_id.state in ("confirmed","approved","done"):                
-#                     self.write(cr, uid, line.id, {"price" : price}, context=context)
-#         return {"value" : {}}
-    
     def _send_supplier_mail(self, cr, uid, ids, context=None):
         if not ids:
             return True
@@ -130,29 +123,9 @@ class purchase_order_line(osv.osv):
         context["except_supplier_mail_sent"]=True
         return self._send_supplier_mail(cr, uid, ids, context)
     
-    
-    def assign_selected_partner(self, cr, uid, ids, context=None):
-        if context is None:
-            context = {}
-
-        if ids:
-            sale_line_obj = self.pool["sale.order.line"]
-            for line in self.browse(cr, uid, ids, context=context):
-                sale_line = line.sale_line_id
-                if sale_line:
-                    sale_line_obj.write(cr, uid, [sale_line.id], {"supplier_id" : line.partner_id.id,
-                                                                  "supplier_price" : line.price_unit })
-                    
-                    unselect_ids = self.search(cr, uid, [("sale_line_id","=",sale_line.id),("id","!=",line.id)])
-                    self.write(cr, uid, unselect_ids, {"quot_selected":False}, context=context)
-                    self.write(cr, uid, [line.id], {"quot_selected":True}, context=context)
-            
-        return True
-  
-    
+     
     _inherit = "purchase.order.line"
     _columns = {
-       "quot_selected" : fields.boolean("Selected"),
        "quot_sent" : fields.boolean("Selected"),
        "pricelist_price" : fields.function(_get_pricelist_price, type="float", string="Pricelist Price")
     }   

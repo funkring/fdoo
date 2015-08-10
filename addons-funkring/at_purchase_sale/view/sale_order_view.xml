@@ -26,23 +26,13 @@
                             string="Purchase orders" type="action" widget="statinfo"/>
                     </div>
                 </field>
-                <xpath
-                    expr="//notebook/page/field/form[@string='Sales Order Lines']/field[@name='name']" position="after">
-                    <group name="seller_grp">
-                        <group name="procurement_note">
-                            <div name="seller_note_grp">
-                                <label for="procurement_note"/>
-                                <field name="procurement_note"/>
-                            </div>
-                        </group>
-                        <group name="seller_options_grp">
-                            <field invisible="1" name="available_supplier_ids"/>
-                            <field
-                                domain="[('id','in',available_supplier_ids[0][2])]"
-                                name="supplier_id" options="{'reload_on_button': true}"/>
-                        </group>
-                    </group>
-                </xpath>
+                <div name="discount" position="after">
+                    <field invisible="1" name="available_supplier_ids"/>
+                    <field name="supplier_id"  domain="[('id','in',available_supplier_ids[0][2])]"/>
+                </div>
+                <field name="address_allotment_id" position="after">                   
+                    <field name="procurement_note" />
+                </field>
             </field>
         </record>       
     </data>
