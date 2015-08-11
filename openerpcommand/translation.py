@@ -60,7 +60,7 @@ def run_import(args):
                     if module_obj.search(cr, 1, [("state", "=", "installed"),("name","=",m)]):
                         logger.info('Read translation file for %s to %s', lang_msg, lang_filename)
                         lang_file_path = os.path.join(lang_dir,lang_filename)
-                        openerp.tools.trans_load(cr,lang_file_path,lang,context=context)
+                        openerp.tools.trans_load(cr,lang_file_path,lang,module_name=m,context=context)
                         
         cr.commit()
     finally:
