@@ -3323,7 +3323,12 @@ class BaseModel(object):
                         res_trans = ir_translation._get_ids(
                             '%s,%s' % (self._name, f), 'model', context['lang'], ids)
                         for vals in result:
-                            vals[f] = res_trans.get(vals['id'], False) or vals[f]
+                            # funkring.net begin
+                            # empty translation allowed
+                            trans_val = res_trans.get(vals['id'], False)
+                            if not trans_val is False:
+                                vals[f] = trans_val
+                            # funkring.net end
 
             # apply the symbol_get functions of the fields we just read
             for field in fields_pre:
@@ -3908,16 +3913,20 @@ class BaseModel(object):
                 for f in direct:
                     if self._columns[f].translate:
                         # funkring.net begin // handle setting default lang
+                        cur_lang = context['lang']
                         baselang_ctx = {"lang" : tools.config.baseLang }
                         # src translation os resolved with base language not default language !!!
-                        src_trans = self.pool.get(self._name).read(cr, user, ids, [f],baselang_ctx)[0][f] or None
+                        src_trans = self.pool.get(self._name).read(cr, user, ids, [f], baselang_ctx)[0][f] or None
                         cur_trans = vals[f] or None
-                        if not src_trans: # or cur_lang == default_lang : #if it is the default lang than override the source
+                        # if src_trans is empty  
+                        # then create a src translation
+                        if not src_trans:
                             src_trans = cur_trans
                             # Inserting value to DB
-                            self.write(cr, user, ids, {f: cur_trans},baselang_ctx)
+                            self.write(cr, user, ids, {f: cur_trans}, baselang_ctx)
+                        self.pool.get('ir.translation')._set_ids(cr, user, self._name+','+f, 'model', cur_lang, ids, cur_trans, src_trans)
                         # funkring.net end
-                        self.pool.get('ir.translation')._set_ids(cr, user, self._name+','+f, 'model', context['lang'], ids, vals[f], src_trans)
+                        
 
         # invalidate and mark new-style fields to recompute; do this before
         # setting other fields, because it can require the value of computed
