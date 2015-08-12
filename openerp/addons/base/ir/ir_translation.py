@@ -126,7 +126,7 @@ class ir_translation_import_cursor(object):
             AND irt.type = ti.type
             AND irt.module = ti.module
             AND irt.name = ti.name
-            AND (irt.type IN ('field', 'help') OR irt.src = ti.src)
+            AND irt.type IN ('field', 'help', 'model', 'view') OR irt.src = ti.src
             AND (    irt.type NOT IN ('model', 'view')
                  OR (irt.type = 'model' AND irt.res_id = ti.res_id)
                  OR (irt.type = 'view' AND (irt.res_id IS NULL OR irt.res_id = ti.res_id))
@@ -149,29 +149,21 @@ class ir_translation_import_cursor(object):
         # funkring.net - begin
         
         if self._debug:
-            # insert
+            # check insert
             cr.execute(""" SELECT name, lang, res_id, src, type, value, module, state, comments
                            FROM %s AS ti
-                           WHERE NOT EXISTS(SELECT irt.id FROM ONLY %s AS irt WHERE %s);
+                           WHERE NOT EXISTS(SELECT 1 FROM ONLY %s AS irt WHERE %s);
                        """ % (self._table_name, self._parent_table, find_expr))
             
-            for row in cr.fetchall():
-                _logger.info("INSERT TRANSLATION: name=%s, lang=%s, res_id=%s, src=%s, type=%s, value=%s, module=%s, state=%s, comments=%s" % (row[0] or "", row[1] or "", row[2] or "", row[3] or "", row[4] or "", row[5] or "", row[6] or "", row[7] or "", row[8] or ""))
-            
-            # insert not
-            cr.execute(""" SELECT name, lang, res_id, src, type, value, module, state, comments
-                           FROM %s AS ti
-                           WHERE EXISTS(SELECT irt.id FROM ONLY %s AS irt WHERE %s);
-                       """ % (self._table_name, self._parent_table, find_expr))
-            
-            for row in cr.fetchall():
-                _logger.info("NOT INSERT TRANSLATION: name=%s, lang=%s, res_id=%s, src=%s, type=%s, value=%s, module=%s, state=%s, comments=%s" % (row[0] or "", row[1] or "", row[2] or "", row[3] or "", row[4] or "", row[5] or "", row[6] or "", row[7] or "", row[8] or ""))
-                
-        
+            for tmp_rec in cr.dictfetchall():
+                _logger.info("INSERT TRANSLATION: name=%(name)s, lang=%(lang)s, res_id=%(res_id)s, src=%(src)s,"
+                             " type=%(type)s, value=%(value)s, module=%(module)s, state=%(state)s, comments=%(comments)s" % tmp_rec)
+                                
+                      
         cr.execute("""INSERT INTO %s(name, lang, res_id, src, type, value, module, state, comments)
             SELECT name, lang, res_id, src, type, value, module, state, comments
               FROM %s AS ti
-              WHERE NOT EXISTS(SELECT irt.id FROM ONLY %s AS irt WHERE %s);
+              WHERE NOT EXISTS(SELECT 1 FROM ONLY %s AS irt WHERE %s);
               """ % (self._parent_table, self._table_name, self._parent_table, find_expr))
         
         # funkring.net - end
@@ -231,9 +223,11 @@ class ir_translation(osv.osv):
             #We need to take the context without the language information, because we want to write on the
             #value store in db and not on the one associate with current language.
             #Also not removing lang from context trigger an error when lang is different
-            context_wo_lang = context.copy()
-            context_wo_lang.pop('lang', None)
-            model.write(cr, uid, [record.res_id], {field: value}, context=context_wo_lang)
+            context_base_lang = context.copy()
+            # funkring.net begin
+            context_base_lang['lang'] = tools.config.baseLang
+            # funkring.net end
+            model.write(cr, uid, [record.res_id], {field: value}, context=context_base_lang)
         return self.write(cr, uid, id, {'src': value}, context=context)
 
     _columns = {
@@ -309,11 +303,10 @@ class ir_translation(osv.osv):
             for res_id, value in cr.fetchall():
                 translations[res_id] = value
         return translations
-
+    
     def _set_ids(self, cr, uid, name, tt, lang, ids, value, src=None):
         self._get_ids.clear_cache(self)
         self.__get_source.clear_cache(self)
-        original_module = self.pool[name.split(',')[0]]._original_module
         cr.execute('update ir_translation '
                   'set value=%s '
                   '  , src=%s '
@@ -321,10 +314,9 @@ class ir_translation(osv.osv):
                 'where lang=%s '
                     'and type=%s '
                     'and name=%s '
-                    'and module=%s '
                     'and res_id IN %s '
                 'returning res_id',
-                (value,src,'translated',lang,tt,name,original_module,tuple(ids),))
+                (value,src,'translated',lang,tt,name,tuple(ids),))
 
         existing_ids = [x[0] for x in cr.fetchall()]
 
@@ -334,7 +326,6 @@ class ir_translation(osv.osv):
                 'type':tt,
                 'name':name,
                 'res_id':id,
-                'module':original_module,
                 'value':value,
                 'src':src,
                 'state':'translated'
