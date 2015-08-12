@@ -75,30 +75,6 @@ def getCmd(args,opt=None):
         args.append(opt.db_user)
     return args
 
-def getTranslations(database=None, modules=None, lang="de_DE", opt=None):
-    if not modules:
-        modules=",".join(getMaintainedModules())
-
-    if not database:
-        log.error("No Database passed")
-        return
-
-    prog = os.path.join(DIR_SERVER,"oe")
-    cmdList = getCmd([str(prog),"translation","export","--addons", str(DIR_DIST_ADDONS),"--database",database,"--module",modules], opt)
-    subprocess.call(cmdList)
-
-def setTranslations(database=None, modules=None, lang="de_DE", opt=None):
-    if not modules:
-        modules=",".join(getMaintainedModules())
-
-    if not database:
-        log.error("No Database passed")
-        return
-
-    prog = os.path.join(DIR_SERVER,"oe")
-    cmdList = getCmd([str(prog),"translation","import","--addons", str(DIR_DIST_ADDONS),"--database",database,"--module",modules], opt)
-    subprocess.call(cmdList)
-
 
 def update(database=None, module=None, override=False, opt=None):
     if not database:
@@ -108,25 +84,23 @@ def update(database=None, module=None, override=False, opt=None):
     log.info("Update Modules: %s" % module)
 
     #translation export --module sale --lang de_DE --addons ${workspace_loc}/dist/addons --database openerp7_demo
-    prog = os.path.join(DIR_SERVER,"oe")
-    cmdList = getCmd([str(prog),"update","--addons", str(DIR_DIST_ADDONS),"--database",database], opt)
+    prog = os.path.join(DIR_SERVER,"run.py")
+    cmdList = getCmd([str(prog),"update","--addons-path", str(DIR_DIST_ADDONS),"--database",database], opt)
     if module:
         cmdList.append("--module")
         cmdList.append(module)
     subprocess.call(cmdList)
 
-def cleanup(database=None, fix=False, verbose=False, full=False, opt=None):
+def cleanup(database=None, fix=False, full=False, opt=None):
     if not database:
         return
 
     log.info("Cleanup Database %s" % database)
 
-    prog = os.path.join(DIR_SERVER,"oe")
-    cmdList = getCmd([str(prog),"cleanup","--addons", str(DIR_DIST_ADDONS),"--database",database], opt)
+    prog = os.path.join(DIR_SERVER,"run.py")
+    cmdList = getCmd([str(prog),"cleanup","--addons-path", str(DIR_DIST_ADDONS),"--database",database], opt)
     if fix:
         cmdList.append("--fix")
-    if verbose:
-        cmdList.append("--verbose")
     if full:
         cmdList.append("--full")
     subprocess.call(cmdList)
@@ -288,7 +262,6 @@ if __name__ == "__main__":
     parser.add_option("--links", dest="links", help="Ceate symbolic links", action="store_true", default=False)
     parser.add_option("--fix", dest="fix", help="Fix fixable automatically", action="store_true", default=False)
     parser.add_option("--full", dest="full", help="Enable full cleanup", action="store_true", default=False)
-    parser.add_option("--verbose", dest="verbose", help="Verbose mode", action="store_true", default=False)
     parser.add_option("--update",dest="update",default=None,help="Update Database")
     parser.add_option("--cleanup",dest="cleanup",default=None,help="Cleanup Database")
     parser.add_option("--module",dest="module",default=None,help="Module to Update")
@@ -301,13 +274,9 @@ if __name__ == "__main__":
 
     if opt.links:
         setup(onlyLinks=True)
-    elif opt.getTranslations:
-        getTranslations(database=opt.getTranslations, modules=opt.module, opt=opt)
-    elif opt.setTranslations:
-        setTranslations(database=opt.setTranslations, modules=opt.module, opt=opt)
     elif opt.update:
         update(database=opt.update, module=opt.module, override=opt.override, opt=opt)
     elif opt.cleanup:
-        cleanup(database=opt.cleanup, fix=opt.fix, verbose=opt.verbose, full=opt.full, opt=opt)
+        cleanup(database=opt.cleanup, fix=opt.fix, full=opt.full, opt=opt)
     else:
         setup()

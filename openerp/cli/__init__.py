@@ -38,6 +38,7 @@ import server
 import deploy
 import scaffold
 import start
+import config
 
 def main():
     args = sys.argv[1:]
