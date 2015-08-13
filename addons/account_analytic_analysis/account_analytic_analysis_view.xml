@@ -149,7 +149,7 @@
                     </group>
                     <separator string="Recurring Invoices" attrs="{'invisible': [('recurring_invoices','!=',True)]}"/>
                     <div>
-                        <div attrs="{'invisible': [('type','!=', 'contract'), ('recurring_invoices', '=', False)]}">
+                        <div attrs="{'invisible': [('type', '!=', 'template'),('type','!=', 'contract'),('recurring_invoices', '=', False)]}">
                             <field name="recurring_invoices" on_change="onchange_recurring_invoices(recurring_invoices, date_start)" class="oe_inline" />
                             <label for="recurring_invoices" />
                         </div>
