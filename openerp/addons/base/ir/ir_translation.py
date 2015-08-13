@@ -129,7 +129,7 @@ class ir_translation_import_cursor(object):
             AND irt.type IN ('field', 'help', 'model', 'view') OR irt.src = ti.src
             AND (    irt.type NOT IN ('model', 'view')
                  OR (irt.type = 'model' AND irt.res_id = ti.res_id)
-                 OR (irt.type = 'view' AND (irt.res_id IS NULL OR irt.res_id = ti.res_id))
+                 OR (irt.type = 'view'  AND irt.res_id = ti.res_id)
                 )
         """
         # funkring.net - end
