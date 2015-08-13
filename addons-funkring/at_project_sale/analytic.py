@@ -21,11 +21,12 @@
 ##############################################################################
 
 from openerp.osv import osv,fields
-
+from openerp.addons.at_base import util
 
 class account_analytic_account(osv.osv):    
     
     def name_get(self, cr, uid, ids, context=None):
+        ids = util.idList(ids)
         res = super(account_analytic_account,self).name_get(cr,uid,ids,context=context)        
         if ids:
             cr.execute("SELECT a.id, p.name FROM account_analytic_account AS a "
