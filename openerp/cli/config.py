@@ -261,6 +261,7 @@ class CleanUp(ConfigCommand):
             
         self.cr.execute("DELETE FROM ir_module_module_dependency WHERE name=%s OR module_id=%s", (module.name, module.id))
         self.cr.execute("DELETE FROM ir_module_module WHERE id=%s", (module.id,))
+	self.cr.execute("DELETE FROM ir_model_data WHERE model='ir.module.module' AND res_id=%s", (module.id,))
         
     def cleanup_modules(self):
         module_obj = self.pool["ir.module.module"]
@@ -269,6 +270,17 @@ class CleanUp(ConfigCommand):
             info = openerp.modules.module.load_information_from_description_file(module.name)
             if not info:
                 self.delete_module(module)
+
+	# check invalid module data
+	self.cr.execute("SELECT id, res_id, name FROM ir_model_data WHERE model='ir.module.module' AND res_id > 0")
+	for model_data_id, module_id, name in self.cr.fetchall():
+	    module_name = name[7:]
+	    self.cr.execute("SELECT id FROM ir_module_module WHERE id=%s",(module_id,))
+	    res = self.cr.fetchone()
+	    if not res:
+		self.fixable("Module %s for module data %s not exist" % (module_name, model_data_id))
+		self.cr.execute("DELETE FROM ir_model_data WHERE id=%s", (model_data_id,))
+
                 
 #     def cleanup_properties(self):
 #         self.cr.execute("SELECT name, type, value_reference FROM ir_property WHERE NOT company_id IS NULL AND ")
