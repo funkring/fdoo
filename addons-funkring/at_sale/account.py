@@ -25,14 +25,15 @@ from openerp.osv import fields,osv
 class account_invoice(osv.osv):
     _columns = {
         "sale_order_ids" : fields.many2many("sale.order","sale_order_invoice_rel","invoice_id","order_id","Orders",readonly=True),
+        "shop_id" : fields.many2one("sale.shop", "Shop", required=True)
     }
     _inherit = "account.invoice"
 
 
 class account_invoice_line(osv.osv):
-    
+
     def _order_info(self, cr, uid, ids, field_name, args, context=None):
-        res = dict.fromkeys(ids)               
+        res = dict.fromkeys(ids)
         for invoice_line in self.browse(cr, uid, ids):
             for order_line in invoice_line.sale_order_line_ids:
                 order = order_line.order_id
@@ -41,9 +42,9 @@ class account_invoice_line(osv.osv):
                     infos.append(order.name)
                 if order.client_order_ref:
                     infos.append(order.client_order_ref)
-                res[invoice_line.id] = " / ".join(infos)  
+                res[invoice_line.id] = " / ".join(infos)
         return res
-    
+
     _inherit = "account.invoice.line"
     _columns = {
         "order_info" : fields.function(_order_info, type="text", string="Order Info"),

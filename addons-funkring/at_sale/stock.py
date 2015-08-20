@@ -23,7 +23,12 @@
 from openerp.osv import fields,osv
 
 class stock_picking(osv.osv):
-    
+
+    def _create_invoice_from_picking(self, cr, uid, picking, vals, context=None):
+        if picking and picking.shop_id:
+            vals["shop_id"] = picking.shop_id.id
+        return super(stock_picking,self)._create_invoice_from_picking(cr, uid, picking, vals, context=context)
+
     _inherit = "stock.picking"
     _columns = {
         "shop_id" : fields.related("sale_id","shop_id",type="many2one",relation="sale.shop",string="Shop",readonly=True,store=True,select=True),

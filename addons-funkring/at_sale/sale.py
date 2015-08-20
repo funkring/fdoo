@@ -72,6 +72,7 @@ class report_xml(osv.osv):
     def _get_replacement(self, cr, uid, res_model, res_id, report_xml, context=None):
         model_obj =self.pool.get(res_model)
         res_br = model_obj.browse(cr,uid,res_id,context=context)
+        #If order
         if res_br and hasattr(res_br, "shop_id"):
             shop_id = res_br.shop_id
             report_obj = self.pool.get("sale.shop.report")
@@ -177,6 +178,16 @@ class sale_order(osv.osv):
                 "customer" : True
             },context=context)
         return super(sale_order,self).action_wait(cr,uid,ids,context=context)
+
+    def _make_invoice(self, cr, uid, order, lines, context=None):
+        invoice_id = super(sale_order,self)._make_invoice(cr, uid, order, lines, context=context)
+
+        invoice_obj = self.pool["account.invoice"]
+        if order and order.shop_id:
+            invoice_obj.write(cr, uid, [invoice_id], {"shop_id" : order.shop_id.id})
+
+        return invoice_id
+
 
     def _get_date_planned(self, cr, uid, order, line, start_date, context=None):
         start_date = util.strToTime(start_date)
