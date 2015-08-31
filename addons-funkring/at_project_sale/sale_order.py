@@ -149,6 +149,7 @@ class sale_order(osv.osv):
                     #proj_id = proj_obj.create(cr,uid,project_vals,project_context)
                     # create from template
                     project_vals["name"] = project_vals["code"]
+                    project_vals["user_id"] = uid
                     if shop.project_template_id:
                         proj_id = proj_obj.copy(cr,uid,shop.project_template_id.id,project_vals,project_context)
                     else:
