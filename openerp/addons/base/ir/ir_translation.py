@@ -126,14 +126,13 @@ class ir_translation_import_cursor(object):
             AND irt.type = ti.type
             AND irt.module = ti.module
             AND irt.name = ti.name
-            AND irt.type IN ('field', 'help', 'model', 'view') OR irt.src = ti.src
-            AND (    irt.type NOT IN ('model', 'view')
+            AND (irt.type IN ('field','help','model','view') OR irt.src = ti.src) 
+            AND (    irt.type NOT IN ('model','view')
                  OR (irt.type = 'model' AND irt.res_id = ti.res_id)
                  OR (irt.type = 'view'  AND irt.res_id = ti.res_id)
                 )
         """
-        # funkring.net - end
-
+        
         # Step 2: update existing (matching) translations
         if self._overwrite:
             cr.execute("""UPDATE ONLY %s AS irt
