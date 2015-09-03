@@ -255,10 +255,6 @@ if __name__ == "__main__":
             pass
 
     parser = optparse.OptionParser(description="Setup Util", usage="%prog [options]")
-    parser.add_option("--getTranslations",dest="getTranslations",help="Get Translations of a specified database",default=None)
-    parser.add_option("--setTranslations",dest="setTranslations",help="Set Translations of a specified database",default=None)
-    parser.add_option("--pushAll", dest="pushAll", help="Push all branches to Parent", action="store_true", default=False)
-    parser.add_option("--commitAll",dest="commitAll",default=None,help="Commit All")
     parser.add_option("--links", dest="links", help="Ceate symbolic links", action="store_true", default=False)
     parser.add_option("--fix", dest="fix", help="Fix fixable automatically", action="store_true", default=False)
     parser.add_option("--full", dest="full", help="Enable full cleanup", action="store_true", default=False)
