@@ -24,6 +24,7 @@ import openerp
 import argparse
 import os
 
+from openerp import tools
 from openerp import api
 from openerp.tools.config import config
 from openerp.modules.registry import RegistryManager
@@ -92,6 +93,9 @@ class ConfigCommand(Command):
                              help="specify the database port", type=int)
         self.parser.add_argument("--db_user", metavar="DB_USER", default=False,
                             help="specify the database user")
+        
+        self.parser.add_argument("--lang", required=False, 
+                                 help="Language (Default is %s)" % config.defaultLang)
     
     def run(self, args):  
         params = self.parser.parse_args(args)
@@ -133,6 +137,10 @@ class ConfigCommand(Command):
         if params.addons_path:
             config_args.append("--addons-path")
             config_args.append(params.addons_path)
+            
+        if params.lang:
+            config_args.append("--lang")
+            config_args.append(params.lang)
         
         config.parse_config(config_args)
         self.params = params
@@ -140,6 +148,25 @@ class ConfigCommand(Command):
         
     def run_config(self):
         _logger.info("Nothing to do!")
+        
+    def run_config_env(self):
+        _logger.info("Nothing to do!")
+         
+    def setup_env(self):
+        # setup pool    
+        self.pool = RegistryManager.get(self.params.database)
+        self.cr = self.pool.cursor()
+        try:
+            # create environment
+            with api.Environment.manage():
+                self.run_config_env()
+                    
+            self.cr.commit()    
+        except Exception, e:
+            _logger.error(e)
+        finally:
+            self.cr.rollback()
+            self.cr.close()
 
 
 class Update(ConfigCommand):
@@ -152,6 +179,72 @@ class Update(ConfigCommand):
             config["update"]["all"]=1
         RegistryManager.get(self.params.database, update_module=True)
         
+        
+class Po_Export(ConfigCommand):
+    """ Export *.po File """
+    
+    def run_config(self):
+        # check module
+        if not self.params.module:
+            _logger.error("No module defined for export!")
+            return
+        # check path
+        self.modpath = openerp.modules.get_module_path(self.params.module)
+        if not self.modpath:
+            _logger.error("No module %s not found in path!" % self.params.module)
+            return
+       
+        # check lang
+        self.lang = self.params.lang or config.defaultLang
+        self.langfile = self.lang.split("_")[0] + ".po"
+        self.langdir = os.path.join(self.modpath,"i18n")
+        if not os.path.exists(self.langdir):
+            _logger.warning("Created language directory %s" % self.langdir)
+            os.mkdir(self.langdir)
+        
+        # run with env
+        self.setup_env()
+      
+    def run_config_env(self):
+        # check module installed
+        self.model_obj = self.pool["ir.module.module"]
+        if not self.model_obj.search_id(self.cr, 1, [("state","=","installed"),("name","=",self.params.module)]):
+            _logger.error("No module %s installed!" % self.params.module)
+            return 
+        
+        export_filename = os.path.join(self.langdir, self.langfile)
+        export_f = file(export_filename,"w")
+        try:
+            _logger.info('Writing %s', export_filename)
+            tools.trans_export(self.lang, [self.params.module], export_f, "po", self.cr)
+        finally:
+            export_f.close()
+        
+class Po_Import(Po_Export):
+    """ Import *.po File """
+    
+    def __init__(self):
+        super(Po_Import, self).__init__()
+        self.parser.add_argument("--overwrite", action="store_true", default=True, help="Override existing translations")
+    
+    def run_config_env(self):
+        # check module installed
+        self.model_obj = self.pool["ir.module.module"]
+        if not self.model_obj.search_id(self.cr, 1, [("state","=","installed"),("name","=",self.params.module)]):
+            _logger.error("No module %s installed!" % self.params.module)
+            return 
+        
+        import_filename = os.path.join(self.langdir, self.langfile)
+        if not os.path.exists(import_filename):
+            _logger.error("File %s does not exist!" % import_filename)
+            return 
+        
+        # import 
+        context = {'overwrite': self.params.overwrite }
+        if self.params.overwrite:
+            _logger.info("Overwrite existing translations for %s/%s", self.params.module, self.lang)
+        openerp.tools.trans_load(self.cr, import_filename, self.lang, module_name=self.params.module, context=context)  
+               
         
 class CleanUp(ConfigCommand):
     """ CleanUp Database """
@@ -261,7 +354,27 @@ class CleanUp(ConfigCommand):
             
         self.cr.execute("DELETE FROM ir_module_module_dependency WHERE name=%s OR module_id=%s", (module.name, module.id))
         self.cr.execute("DELETE FROM ir_module_module WHERE id=%s", (module.id,))
-	self.cr.execute("DELETE FROM ir_model_data WHERE model='ir.module.module' AND res_id=%s", (module.id,))
+        self.cr.execute("DELETE FROM ir_model_data WHERE model='ir.module.module' AND res_id=%s", (module.id,))
+        
+    def cleanup_model_data(self):
+        self.cr.execute("SELECT d.id, d.model, d.res_id, d.name FROM ir_model_data d "
+                        " INNER JOIN ir_module_module m ON  m.name = d.module AND m.state='installed' "
+                        " WHERE d.res_id > 0 ")
+        
+        for oid, model, res_id, name in self.cr.fetchall():
+            model_obj = self.pool[model]
+            
+            deletable = False
+            if not model_obj:                
+                deletable = True
+            else:
+                self.cr.execute("SELECT id FROM %s WHERE id=%s" % (model_obj._table, res_id))
+                if not self.cr.fetchall():                   
+                    deletable = True
+                    
+            if deletable:
+                self.fixable("ir.model.data %s/%s (%s) not exist" %  (model, res_id, name))
+                self.cr.execute("DELETE FROM ir_model_data WHERE id=%s" % oid)
         
     def cleanup_modules(self):
         module_obj = self.pool["ir.module.module"]
@@ -271,21 +384,17 @@ class CleanUp(ConfigCommand):
             if not info:
                 self.delete_module(module)
 
-	# check invalid module data
-	self.cr.execute("SELECT id, res_id, name FROM ir_model_data WHERE model='ir.module.module' AND res_id > 0")
-	for model_data_id, module_id, name in self.cr.fetchall():
-	    module_name = name[7:]
-	    self.cr.execute("SELECT id FROM ir_module_module WHERE id=%s",(module_id,))
-	    res = self.cr.fetchone()
-	    if not res:
-		self.fixable("Module %s for module data %s not exist" % (module_name, model_data_id))
-		self.cr.execute("DELETE FROM ir_model_data WHERE id=%s", (model_data_id,))
+        # check invalid module data
+        self.cr.execute("SELECT id, res_id, name FROM ir_model_data WHERE model='ir.module.module' AND res_id > 0")
+        for model_data_id, module_id, name in self.cr.fetchall():
+            module_name = name[7:]
+            self.cr.execute("SELECT id FROM ir_module_module WHERE id=%s",(module_id,))
+            res = self.cr.fetchone()
+            if not res:
+                self.fixable("Module %s for module data %s not exist" % (module_name, model_data_id))
+                self.cr.execute("DELETE FROM ir_model_data WHERE id=%s", (model_data_id,))
 
                 
-#     def cleanup_properties(self):
-#         self.cr.execute("SELECT name, type, value_reference FROM ir_property WHERE NOT company_id IS NULL AND ")
-#         for 
-        
     def cleanup_models(self):
         model_obj = self.pool["ir.model"]        
         model_ids = model_obj.search(self.cr, SUPERUSER_ID, [])
@@ -312,7 +421,8 @@ class CleanUp(ConfigCommand):
                 with api.Environment.manage():
 
                     self.cleanup_models()
-                    self.cleanup_modules()                    
+                    self.cleanup_modules()   
+                    self.cleanup_model_data()                 
                     
                     if self.params.fix:
                         self.cr.commit()
