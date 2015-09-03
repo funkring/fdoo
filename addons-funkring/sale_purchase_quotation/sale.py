@@ -121,6 +121,10 @@ class sale_order_line(osv.Model):
                 
                 purchase_line_vals["taxes_id"]=[(6,0,purchase_line_vals.get("taxes_id",[]))]
                 
+                # pop related fields
+                purchase_order_vals.pop("related_location_id")
+                purchase_order_vals.pop("related_usage")
+                
                 #  update or create
                 if purchase_line_id:
                      purchase_order_vals["order_line"]=[(1,purchase_line_id,purchase_line_vals)]

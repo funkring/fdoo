@@ -90,13 +90,23 @@ openerp.sale_purchase_quotation = function(instance, local) {
                     self.field_manager.set_values({quotation_ids:commands});
                 }
             });
-            
-            self.$('.oe_purchase_quotation_create').click(function() {
+
+            // create button            
+            var quotation_create_button = self.$('.oe_purchase_quotation_create');  
+            quotation_create_button.attr('disabled',!self.view.is_interactible_record());
+            quotation_create_button.click(function() {
                 self.view.recursive_save().then(function() {
-                    // execute quotation create
-                    self.dm_execute.add(new instance.web.Model(self.view.model).call("start_quotation", [self.view.dataset.ids, new instance.web.CompoundContext()]).done(function(result) {
+                    // build action data
+                    var action_data = {
+                       name: "start_quotation",
+                       type: "object"
+                    };
+                    
+                    // call action
+                    self.view.do_execute_action(action_data, self.view.dataset, self.view.datarecord.id, function() {
                        self.view.recursive_reload();
-                    }));
+                    });                    
+                    
                 });
             });
                 
