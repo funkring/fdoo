@@ -1,48 +1,57 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* sale_purchase_quotation
+# 	* sale_purchase_quotation
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-10 20:14+0000\n"
-"PO-Revision-Date: 2015-08-10 20:14+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2015-09-03 17:38+0000\n"
+"PO-Revision-Date: 2015-09-03 19:39+0100\n"
+"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"X-Generator: Poedit 1.5.4\n"
 
 #. module: sale_purchase_quotation
 #: model:email.template,body_html:sale_purchase_quotation.email_purchase_quotation
-msgid "<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
-"   <p>${object.partner_id.mail_salutation}, </p>\n"
-"   <p>Preisanfrage</p>\n"
-"    <div style=\"width: 400px; margin: 0px; padding: 5px 14px; line-height: 16px; background-color: #F2F2F2;\">\n"
-"        <span style=\"color: #222; margin-bottom: 5px; display: block; \">\n"
-"            <table border=\"1\">\n"
-"                <tr>\n"
-"                    <th>Beschreibung</th>\n"
-"                    <th>Menge</th>\n"
-"                    <th>Einheit</th>\n"
-"                </tr>\n"
-"                % for line in object.order_line:\n"
-"                <tr>\n"
-"                    <td>${line.name}</th>\n"
-"                    <td>${formatLang(line.product_qty)}</th>\n"
-"                    <td>${line.product_uom and line.product_uom.name or ''}</th>\n"
-"                </tr>\n"
-"                % endfor\n"
-"            </table>\n"
-"            <br/>\n"
-"            <p>Danke,</p>\n"
-"            <p>mit freundlichen Grüßen,</p>\n"
-"            <p>${object.company_id.name}</p>\n"
-"         </span>\n"
-"    </div>\n"
-"</div>\n"
+msgid ""
+"\n"
+"               <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, "
+"Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-"
+"color: #FFF; \">\n"
+"                   <p>${object.partner_id.mail_salutation}, </p>\n"
+"                   <p>Preisanfrage</p>\n"
+"                    <div style=\"width: 400px; margin: 0px; padding: 5px "
+"14px; line-height: 16px; background-color: #F2F2F2;\">\n"
+"                        <span style=\"color: #222; margin-bottom: 5px; "
+"display: block; \">\n"
+"                            <table border=\"1\">\n"
+"                                <tr>\n"
+"                                    <th>Beschreibung</th>\n"
+"                                    <th>Menge</th>\n"
+"                                    <th>Einheit</th>\n"
+"                                </tr>\n"
+"                                % for line in object.order_line:\n"
+"                                <tr>\n"
+"                                    <td>${line.name}</th>\n"
+"                                    <td>${formatLang(line.product_qty)}</"
+"th>\n"
+"                                    <td>${line.product_uom and line."
+"product_uom.name or ''}</th>\n"
+"                                </tr>\n"
+"                                % endfor\n"
+"                            </table>\n"
+"                            <br/>\n"
+"                            <p>Danke,</p>\n"
+"                            <p>mit freundlichen Grüßen,</p>\n"
+"                            <p>${object.company_id.name}</p>\n"
+"                         </span>\n"
+"                    </div>\n"
+"                </div>\n"
 "            "
 msgstr ""
 
@@ -52,8 +61,14 @@ msgid "All Quotation Sent to Suppliers"
 msgstr "Es wurden alle Angebotsanfragen versendet"
 
 #. module: sale_purchase_quotation
+#: field:sale.order.line,quotation_price:0
+msgid "Cost Price"
+msgstr "Einkfaufspreis"
+
+#. module: sale_purchase_quotation
 #. openerp-web
-#: code:addons/sale_purchase_quotation/static/src/xml/quotation.xml:7
+#: code:addons/sale_purchase_quotation/static/src/xml/quotation.xml:8
+#: code:addons/sale_purchase_quotation/static/src/xml/quotation.xml:11
 #, python-format
 msgid "Create Quotations"
 msgstr "Erstelle Preisanfragen"
@@ -65,7 +80,7 @@ msgid "Draft Purchase Order created"
 msgstr "Entwurfsbestellung erstellt"
 
 #. module: sale_purchase_quotation
-#: code:addons/sale_purchase_quotation/sale.py:160
+#: code:addons/sale_purchase_quotation/sale.py:164
 #, python-format
 msgid "E-mail was already sent to all supplier!"
 msgstr "E-Mail wurde bereits an alle Lieferanten geschickt!"
@@ -115,6 +130,11 @@ msgid "Quantity added in existing Purchase Order Line"
 msgstr "Menge wurde in der Bestellung hinzugefügt"
 
 #. module: sale_purchase_quotation
+#: field:sale.order.line,quotation_id:0
+msgid "Quotation"
+msgstr "Preisanfrage"
+
+#. module: sale_purchase_quotation
 #: field:sale.order.line,quotation_active:0
 msgid "Quotation Active"
 msgstr "Angebotsanfragen sind aktiv"
@@ -141,35 +161,37 @@ msgstr "Auftragsposition"
 
 #. module: sale_purchase_quotation
 #. openerp-web
-#: code:addons/sale_purchase_quotation/static/src/xml/quotation.xml:30
+#: code:addons/sale_purchase_quotation/static/src/xml/quotation.xml:47
+#: code:addons/sale_purchase_quotation/static/src/xml/quotation.xml:50
 #, python-format
 msgid "Select"
 msgstr "Auswählen"
 
 #. module: sale_purchase_quotation
-#: field:purchase.order.line,quot_selected:0
 #: field:purchase.order.line,quot_sent:0
 msgid "Selected"
 msgstr "Auswählen"
 
 #. module: sale_purchase_quotation
 #. openerp-web
-#: code:addons/sale_purchase_quotation/static/src/xml/quotation.xml:8
-#: code:addons/sale_purchase_quotation/static/src/xml/quotation.xml:27
+#: code:addons/sale_purchase_quotation/static/src/xml/quotation.xml:14
+#: code:addons/sale_purchase_quotation/static/src/xml/quotation.xml:17
+#: code:addons/sale_purchase_quotation/static/src/xml/quotation.xml:39
+#: code:addons/sale_purchase_quotation/static/src/xml/quotation.xml:42
 #, python-format
 msgid "Send E-Mail"
 msgstr "Sende E-Mail"
 
 #. module: sale_purchase_quotation
 #. openerp-web
-#: code:addons/sale_purchase_quotation/static/src/xml/quotation.xml:14
+#: code:addons/sale_purchase_quotation/static/src/xml/quotation.xml:25
 #, python-format
 msgid "Standard Price"
 msgstr "Listenpreis"
 
 #. module: sale_purchase_quotation
 #. openerp-web
-#: code:addons/sale_purchase_quotation/static/src/xml/quotation.xml:12
+#: code:addons/sale_purchase_quotation/static/src/xml/quotation.xml:23
 #: field:sale.order.line,supplier_id:0
 #, python-format
 msgid "Supplier"
@@ -183,15 +205,14 @@ msgstr "Es ist kein Lieferant zum Produkt %s zugeordnet!"
 
 #. module: sale_purchase_quotation
 #. openerp-web
-#: code:addons/sale_purchase_quotation/static/src/xml/quotation.xml:13
+#: code:addons/sale_purchase_quotation/static/src/xml/quotation.xml:24
 #, python-format
 msgid "Unit Price"
 msgstr "Preis"
 
 #. module: sale_purchase_quotation
 #: code:addons/sale_purchase_quotation/purchase.py:82
-#: code:addons/sale_purchase_quotation/sale.py:160
+#: code:addons/sale_purchase_quotation/sale.py:164
 #, python-format
 msgid "Warning!"
 msgstr "Warnung!"
-

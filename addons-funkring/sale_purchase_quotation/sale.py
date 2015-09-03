@@ -26,6 +26,7 @@ from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
 from openerp.tools.translate import _
 from openerp.addons.at_base import util
 
+import openerp.addons.decimal_precision as dp
 
 class sale_order_line(osv.Model):
 
@@ -164,10 +165,47 @@ class sale_order_line(osv.Model):
             
         # send mails
         return purchase_line_obj._send_supplier_mail(cr, uid, purchase_line_ids, context=context)
+    
+    def _quotation_id(self, cr, uid, ids, field_name, arg, context=None):
+        res = dict.fromkeys(ids)
+        purchase_line_obj = self.pool["purchase.order.line"]
+        for line in self.browse(cr, uid, ids, context):
+            supplier = line.supplier_id            
+            if supplier:
+                res[line.id] = purchase_line_obj.search_id(cr, uid, [("sale_line_id","=",line.id),("partner_id","=",supplier.id)])
+        return res
+    
+    def _product_margin(self, cr, uid, ids, field_name, arg, context=None):
+        cur_obj = self.pool.get("res.currency")
+        res = dict.fromkeys(ids)
+        for line in self.browse(cr, uid, ids, context=context):
+            quotation = line.quotation_id
+            if quotation:
+                res[line.id] = line.price_subtotal - quotation.price_subtotal
+            else:                                  
+                cur = line.order_id.pricelist_id.currency_id
+                res[line.id] = 0
+                if line.product_id:
+                    tmp_margin = line.price_subtotal - ((line.purchase_price or line.product_id.standard_price) * line.product_uos_qty)
+                    res[line.id] = cur_obj.round(cr, uid, cur, tmp_margin)
+        return res
+    
+    def _quotation_price(self, cr, uid, ids, field_name, arg, context=None):
+        res = dict.fromkeys(ids)
+        for line in self.browse(cr, uid, ids, context):
+            quotation = line.quotation_id
+            if quotation:
+                res[line.id] = quotation.price_subtotal
+            else:
+                res[line.id] = line.purchase_price
+        return res
 
     _inherit = 'sale.order.line'
     _columns = {
+        "quotation_price" : fields.function(_quotation_price, type="float", string="Cost Price", copy=False, readonly=True),
+        "quotation_id" : fields.function(_quotation_id, type="many2one", obj="purchase.order.line", string="Quotation", copy=False, readonly=True),
         "quotation_ids" : fields.one2many("purchase.order.line", "sale_line_id", "Quotations", copy=False, readonly=True, states={'draft': [('readonly', False)]} ),
         "quotation_active" : fields.boolean("Quotation Active", copy=False),
         "quotation_all" : fields.function(_quotation_all, type="boolean", string="All Quotation Sent to Suppliers"),
+        "margin": fields.function(_product_margin, string="Margin", digits_compute= dp.get_precision("Product Price"), store=True)
     }
