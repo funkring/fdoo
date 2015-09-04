@@ -638,7 +638,7 @@ class Aeroo_report(report_sxw):
                     pages = 0
                     for r in results:
                         reader = fixPdf(r[0],ret_reader=True)
-                        if reader and read.getNumPages(): 
+                        if reader and reader.getNumPages(): 
                             for page in range(reader.getNumPages()):
                                 pages += 1
                                 output.addPage(reader.getPage(page))
