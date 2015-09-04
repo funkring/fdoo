@@ -233,7 +233,7 @@ class NumberObject(int, PdfObject):
         if name.find(".") != -1:
             return FloatObject(name)
         else:
-            return NumberObject(name or 0)
+            return NumberObject(name)
     readFromStream = staticmethod(readFromStream)
 
 

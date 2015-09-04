@@ -634,22 +634,26 @@ class Aeroo_report(report_sxw):
                 
             if results:
                 if results[0][1]=='pdf':
-                    output = PdfFileWriter()
-                    pages = 0
-                    for r in results:
-                        reader = fixPdf(r[0],ret_reader=True)
-                        if reader and reader.getNumPages(): 
-                            for page in range(reader.getNumPages()):
-                                pages += 1
-                                output.addPage(reader.getPage(page))
-                        else:
-                            logger.error("Unable to merge corrupted PDF %s - %s" % (r[2],r[3]))
-                    
-                    # only return if pages exist
-                    if pages:     
-                        s = StringIO()
-                        output.write(s)
-                        return s.getvalue(), results[0][1]
+                    try:
+                        output = PdfFileWriter()
+                        pages = 0
+                        for r in results:
+                            reader = fixPdf(r[0],ret_reader=True)
+                            if reader:
+                                for page in range(reader.getNumPages()):
+                                    pages += 1
+                                    output.addPage(reader.getPage(page))
+                            else:
+                                logger.error("Unable to merge corrupted PDF %s - %s" % (r[2],r[3]))
+                        
+                        # only return if pages exist
+                        if pages:     
+                            s = StringIO()
+                            output.write(s)
+                            return s.getvalue(), results[0][1]
+                        
+                    except Exception as e:
+                        logger.error("Unable to merge corrupted PDF",e)
                     
         return self.create_single_pdf(cr, uid, ids, data, report_xml, context)
 
