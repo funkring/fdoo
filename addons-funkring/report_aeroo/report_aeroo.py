@@ -636,18 +636,24 @@ class Aeroo_report(report_sxw):
                 if results[0][1]=='pdf':
                     try:
                         output = PdfFileWriter()
-                        pages = 0
+                        total_pages = 0
                         for r in results:
                             reader = fixPdf(r[0],ret_reader=True)
                             if reader:
+                                pages = 0
                                 for page in range(reader.getNumPages()):
                                     pages += 1
                                     output.addPage(reader.getPage(page))
+                                    
+                                if not pages:
+                                    logger.error("No pages to merge corrupted PDF %s - %s" % (r[2],r[3]))
+                                    
+                                tota_pages += pages
                             else:
                                 logger.error("Unable to merge corrupted PDF %s - %s" % (r[2],r[3]))
                         
                         # only return if pages exist
-                        if pages:     
+                        if total_pages:     
                             s = StringIO()
                             output.write(s)
                             return s.getvalue(), results[0][1]
