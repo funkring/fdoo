@@ -21,6 +21,7 @@
 ##############################################################################
 
 from openerp.report import report_sxw
+from openerp.tools.translate import _
 
 class Parser(report_sxw.rml_parse):
     def __init__(self, cr, uid, name, context=None):

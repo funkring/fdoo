@@ -22,6 +22,7 @@
 
 from openerp.report import report_sxw
 import time
+from openerp.tools.translate import _
 
 class Parser(report_sxw.rml_parse):
     def __init__(self, cr, uid, name, context=None):
@@ -33,7 +34,14 @@ class Parser(report_sxw.rml_parse):
             "get_line_tax": self._get_line_tax,
             "get_tax": self._get_tax,
             "get_product_code": self._get_product_code,
+            "get_type" : self._get_type
         })
+
+    def _get_type(self, purchase):
+        if purchase.state in ("confirmed","approved"):
+            return _("Order")
+        else:
+            return _("Request")
 
     def _address_lines(self,purchase):
         partner = purchase.partner_id or None

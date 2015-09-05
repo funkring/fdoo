@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
-        <report id="purchase.report_purchase_order"
+                       
+        <report id="purchase.action_report_purchase_order"
                string="Purchase Order"
                name="purchase.report_purchaseorder"
                process_sep="True"
@@ -12,5 +13,18 @@
                out_format="oo-pdf"
                parser="at_purchase/report/purchase_order_report.py"
                rml="at_purchase/report/purchase_order_report.odt"/>
+    
+        <report id="purchase.report_purchase_quotation"
+               string="Purchase Order"
+               name="purchase.report_purchasequotation"
+               process_sep="True"
+               auto="False"
+               report_type="aeroo"
+               model="purchase.order"
+               in_format="oo-odt"
+               out_format="oo-pdf"
+               parser="at_purchase/report/purchase_order_report.py"
+               rml="at_purchase/report/purchase_order_report.odt"/>
+
     </data>
 </openerp>
