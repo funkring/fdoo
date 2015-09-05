@@ -65,10 +65,8 @@ class account_dunning_wizard(osv.osv_memory):
                         for inv in invoice_obj.browse(cr, uid, invoice_ids):
                             if (user.company_id == inv.company_id) and inv.payment_term and not inv.noremind:
                                 reminder_line_id = reminder_line_obj.search_id(cr, uid, [("reminder_id","=",reminder_id),("invoice_id", "=", inv.id)])
-                                if reminder_line_id and inv.state in ["paid", "cancel"] :
-                                    lines.append((2, reminder_line_id))
 
-                                elif inv.state == "open":
+                                if inv.state == "open":
                                     profile_line = profile_line_obj.line_next(cr,uid,wizard.profile_id,inv.profile_line_id,wizard.date,inv.date_due)
 
                                     # check if no dunning option

@@ -31,10 +31,8 @@
                                 <field name="company_id" groups="base.group_multi_company" widget="selection"/>
                             </group>
                         </group>
-                        <group>
-                            <separator string="Description for Quotations"/>
-                            <field name="description_sale" placeholder="note to be displayed on quotations..."/>
-                        </group>
+                        <label for="description_sale" />
+                        <field name="description_sale" placeholder="note to be displayed on quotations..."/>
                     </page>
                     <page string="Units">
                         <field name="course_uom_ids" domain="[('category_id','=',uom_categ_id)]"/>

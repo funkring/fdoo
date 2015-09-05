@@ -81,8 +81,8 @@ class academy_semester(osv.Model):
         "date_start" : fields.date("Start", required=True),
         "date_end" : fields.date("End", required=True),
         "semester_weeks" : fields.function(_semester_weeks, type="integer", string="Semester Weeks", help="Semester Weeks minus Holiday Weeks"),
-        "holiday_weeks" : fields.integer("Holiday Weeks")                
-    } 
+        "holiday_weeks" : fields.integer("Holiday Weeks")
+    }
     _order ="date_start desc"
 
 class academy_student(osv.Model):
@@ -139,7 +139,7 @@ class academy_location(osv.Model):
 
     def on_change_zip(self, cr, uid, ids, zip_code, city):
         return self.pool.get("res.partner").on_change_zip(cr, uid, ids, zip_code, city)
-    
+
     _name = "academy.location"
     _inherits = { "res.partner" : "address_id" }
     _columns = {
@@ -205,13 +205,13 @@ class academy_registration(osv.Model):
         return self.pool.get("ir.sequence").get(cr, uid, "academy.registration")
 
     def _get_semester_id(self, cr, uid, context=None):
-        
-        # get current semester        
+
+        # get current semester
         user = self.pool["res.users"].browse(cr, uid, uid, context)
         semester = user.company_id.academy_semester_id
         if semester:
             return semester.id
-        
+
         # search semester based on date if current semester is not set
         semester_obj = self.pool["academy.semester"]
         #search next semester
@@ -236,21 +236,20 @@ class academy_registration(osv.Model):
         for obj in self.browse(cr, uid, ids, context):
             res[obj.id]=self._calc_hours(cr, uid, obj.uom_id, obj.amount, context)
         return res
-    
-    
+
     def _relids_academy_student(self, cr, uid, ids, context=None):
         return self.pool["academy.registration"].search(cr, uid, [("student_id","in",ids)])
-        
+
     def _relids_partner(self, cr, uid, ids, context=None):
         return self.pool["academy.registration"].search(cr, uid, [("student_id.partner_id","in",ids)])
-            
+
     def _relids_invoice(self, cr, uid, ids, context=None):
         cr.execute("SELECT registration_id FROM academy_registration_invoice ri WHERE ri.invoice_id IN %s GROUP BY 1", (tuple(ids),))
         return [r[0] for r in cr.fetchall()]
-    
+
     def _compute_invoiced(self, cr, uid, ids, field_names, arg, context=None):
         res = dict.fromkeys(ids)
-        semester_id = self._get_semester_id(cr, uid, context)        
+        semester_id = self._get_semester_id(cr, uid, context)
         for reg in self.browse(cr, uid, ids, context):
             # calc values
             residual = 0.0
@@ -259,13 +258,13 @@ class academy_registration(osv.Model):
                 invoice = reg_invoice.invoice_id
                 if invoice.state not in ("cancel","draft"):
                     last_invoice_id = invoice.id
-                    residual += invoice.residual         
-                       
+                    residual += invoice.residual
+
             res[reg.id]={
                 "invoice_residual" : residual,
                 "last_invoice_id" : last_invoice_id
-            }        
-            
+            }
+
         return res
 
     def message_get_default_recipients(self, cr, uid, ids, context=None):
@@ -301,14 +300,14 @@ class academy_registration(osv.Model):
         ids = self.search(cr, uid, [("id","in",ids),("state","=","cancel")])
         self.write(cr, uid, ids, {"state" : "draft"}, context=context)
         return True
-    
+
     def action_assign(self, cr, uid, ids, context=None):
         trainer_student_obj = self.pool.get("academy.trainer.student")
         ids = self.search(cr, uid, [("id","in",ids),("state","=","registered")])
         for reg in self.browse(cr, uid, ids, context=context):
             cr.execute("SELECT t.trainer_id FROM academy_trainer_student t "
                        " WHERE t.reg_id = %s AND t.day = (SELECT MAX(t2.day) FROM academy_trainer_student t2 WHERE t2.reg_id = t.reg_id)", (reg.id,))
-               
+
             res = cr.fetchone()
             if res:
                 # if an entry exist update
@@ -322,19 +321,19 @@ class academy_registration(osv.Model):
                     day = reg.semester_id.date_start
                 # create trainer student
                 trainer_student_obj.create(cr, uid, {
-                                        "reg_id" : reg.id, 
+                                        "reg_id" : reg.id,
                                         "day" : day,
                                         "trainer_id" : reg.trainer_id.id
                                     }, context=context)
-                
+
                 self.write(cr, uid, reg.id,  {"state" : "assigned"}, context=context)
         return True
-                
+
     def action_reassign(self, cr, uid, ids, context=None):
         ids = self.search(cr, uid, [("id","in",ids),("state","=","assigned")])
         self.write(cr, uid, ids, {"state" : "registered"}, context=context)
         return True
-                
+
     def create(self, cr, uid, vals, context=None):
         name = vals.get("name")
         if not name or name == "/":
@@ -383,7 +382,7 @@ class academy_registration(osv.Model):
             else:
                 res[obj.id] = obj.student_id.partner_id.id
         return res
-    
+
     def _compute_start_date(self, cr, uid, ids, field_name, args, context=None):
         res = dict.fromkeys(ids,None)
         for reg in self.browse(cr, uid, ids, context):
@@ -410,45 +409,45 @@ class academy_registration(osv.Model):
 
         "unreg_semester_id" : fields.many2one("academy.semester", "Deregistration", ondelete="restrict",
                                               help="Deregistration after finished Semester"),
-        
+
         "abort_date" : fields.date("Abort Date", help="This Date must be set, if the semester was not finished"),
-        
+
         "intership_date" : fields.date("Start Date", help="The Date when the Course starts. If no date was entered the Semester start date are used"),
         "student_id" : fields.many2one("academy.student", "Student", select=True, required=True, ondelete="restrict"),
         "student_parent_id" : fields.related("student_id", "parent_id", type="many2one", relation="res.partner", string="Parent", readonly=True, store={
-            "res.partner" :  (_relids_partner,["parent_id"], 10),                                                                                                
+            "res.partner" :  (_relids_partner,["parent_id"], 10),
             "academy.student" : (_relids_academy_student,["parent_id"], 10),
-            "acadmey.registration": (lambda self, cr, uid, ids, context=None: ids, ["student_id"], 10)
+            "academy.registration": (lambda self, cr, uid, ids, context=None: ids, ["student_id"], 10)
         }),
         "location_id" : fields.many2one("academy.location", "Location", select=True, ondelete="restrict"),
         "student_of_loc" : fields.boolean("Is student of location?"),
-        
-        "course_prod_id" : fields.many2one("academy.course.product", "Product", select=True, required=True, ondelete="restrict", readonly=True, 
+
+        "course_prod_id" : fields.many2one("academy.course.product", "Product", select=True, required=True, ondelete="restrict", readonly=True,
                                                                                                                       states={"draft": [("readonly",False)],
                                                                                                                               "check" : [("readonly",False)],
                                                                                                                               "registered" : [("readonly",False)]}),
-                
+
         "course_id" : fields.many2one("academy.course", "Course", select=True, ondelete="restrict", readonly=True, states={"draft": [("readonly",False)],
                                                                                                                             "check" : [("readonly",False)],
                                                                                                                             "registered" : [("readonly",False)]}),
-                
+
         "trainer_id" : fields.many2one("academy.trainer", "Trainer", select=True, ondelete="restrict", readonly=True, states={"draft": [("readonly",False)],
                                                                                                                               "check" : [("readonly",False)],
                                                                                                                               "registered" : [("readonly",False)]}),
         "amount" : fields.float("Amount", required=True, readonly=True, states={"draft": [("readonly",False)],
                                                                           "check" : [("readonly",False)],
                                                                           "registered" : [("readonly",False)]}),
-                
+
         "trainer_ids" : fields.one2many("academy.trainer.student", "reg_id", "Trainer", readonly=True, states={"draft": [("readonly",False)],
                                                                                                                "check" : [("readonly",False)],
                                                                                                                "registered" : [("readonly",False)]}),
-                
+
         "hours" : fields.function(_hours, type="float", store=True, readonly=True, string="Hours"),
-        
+
         "uom_id" : fields.many2one("product.uom", "Unit", select=True, ondelete="restrict", readonly=True, states={"draft": [("readonly",False)],
                                                                                                                "check" : [("readonly",False)],
                                                                                                                "registered" : [("readonly",False)]}),
-        
+
         "invoice_address_id" : fields.many2one("res.partner","Invoice Address"),
         "use_invoice_address_id" : fields.function(_use_invoice_address_id, type="many2one", obj="res.partner", string="Determined invoice address"),
         "course_uom_ids" : fields.related("course_prod_id", "course_uom_ids", type="many2many", relation="product.uom", string="Course Units"),
@@ -462,14 +461,14 @@ class academy_registration(osv.Model):
         "invoice_ids" : fields.one2many("academy.registration.invoice","registration_id","Invoices", readonly=True),
         "last_invoice_id" : fields.function(_compute_invoiced, string="Last Invoice", type="many2one", obj="account.invoice", multi="_compute_invoiced", store={
                                             "academy.registration": (lambda self, cr, uid, ids, context=None: ids, ["invoice_ids"], 10),
-                                            "account.invoice": (_relids_invoice, ["state","residual"], 10),                                                                 
+                                            "account.invoice": (_relids_invoice, ["state","residual"], 10),
                                         }),
         "invoice_residual" : fields.function(_compute_invoiced, string="Residual", type="float", multi="_compute_invoiced", store={
                                             "academy.registration": (lambda self, cr, uid, ids, context=None: ids, ["invoice_ids"], 10),
-                                            "account.invoice": (_relids_invoice, ["state","residual"], 10),                                                                 
+                                            "account.invoice": (_relids_invoice, ["state","residual"], 10),
                               }),
         "read_school_rules" : fields.boolean("Read and accepted school rules"),
-        
+
         "start_date" : fields.function(_compute_start_date, type="date", readonly=True, string="Start Date")
 
     }
@@ -501,37 +500,37 @@ class academy_trainer(osv.Model):
         res = []
         reg_obj = self.pool["academy.registration"]
         sem_obj = self.pool["academy.semester"]
-        
+
         dt_from = util.strToDate(date_from)
         dt_to = util.strToDate(date_to)
-        
+
         for trainer in self.browse(cr, uid, ids, context=context):
-            # get week end            
+            # get week end
             dt_we = dt_from+relativedelta(days=(6-dt_from.weekday()))
             # get week start
             dt_ws = dt_from
 
-            # registry per trainer            
+            # registry per trainer
             regs = {}
             trainer_data = {
                 "trainer" : trainer,
                 "regs" : regs
             }
             res.append(trainer_data)
-            
+
             # start loop
             while dt_ws < dt_to: # until to date
                 # convert to str
                 we = util.dateToStr(dt_we)
                 ws = util.dateToStr(dt_ws)
-                                
+
                 # query students
                 cr.execute("SELECT ts.reg_id, ts.day FROM academy_trainer_student ts "
                            "INNER JOIN academy_registration r ON r.id = ts.reg_id "
                            "       AND r.state = 'assigned' "
                            "LEFT  JOIN academy_semester sb ON sb.id = r.semester_id "
                            "LEFT  JOIN academy_semester se ON se.id = r.unreg_semester_id "
-                           "WHERE  ts.trainer_id = %s "                          
+                           "WHERE  ts.trainer_id = %s "
                            "  AND  sb.date_start <= %s"
                            "  AND  ( se.date_end IS NULL OR se.date_end >= %s )"
                            "  AND  ( r.abort_date IS NULL OR r.abort_date > %s )"
@@ -539,17 +538,17 @@ class academy_trainer(osv.Model):
                                              " WHERE ts2.reg_id = ts.reg_id "
                                              "   AND ts2.day < %s "
                                             ") "
-                           " GROUP BY 1,2 " 
+                           " GROUP BY 1,2 "
                            ,
-                            ( 
+                            (
                              trainer.id, # trainer
                              ws, # check semester start
                              ws, # check semester end
-                             we, # check abort 
+                             we, # check abort
                              we  # check trainer assignment
                             )
                            )
-                
+
                 # process registers
                 rows = cr.fetchall()
                 if rows:
@@ -561,28 +560,28 @@ class academy_trainer(osv.Model):
                                 "start_date" : start_date,
                                 "hours" : 0.0
                             }
-                        
+
                         reg = reg_data["reg"]
-                            
+
                         # check if day is in the other month
                         dt_reg_start = util.strToDate(start_date)
                         dt_course_date = dt_ws - relativedelta(days=dt_ws.weekday()) + relativedelta(days=dt_reg_start.weekday())
                         if dt_to < dt_course_date or dt_from > dt_course_date:
-                            continue 
-                        
+                            continue
+
                         # increment hours
                         reg_data["hours"]=reg_data["hours"]+(int(round(reg.hours*60.0))/60.0)
                         regs[reg_id]=reg_data
-                    
-                
+
+
                 # increment
                 # .. next week start
                 dt_ws = dt_we + relativedelta(days=1)
                 # .. next week end
                 dt_we += relativedelta(weeks=1)
-                
+
         return res
-        
+
 
     _name = "academy.trainer"
     _description = "Academy Trainer"
@@ -685,7 +684,7 @@ class academy_journal_absence(osv.Model):
 class academy_registration_invoice(osv.Model):
     _name = "academy.registration.invoice"
     _description = "Academy registration invoice"
-    
+
     _columns = {
         "registration_id" : fields.many2one("academy.registration", "Registration", select=True, ondelete="restrict"),
         "semester_id" : fields.many2one("academy.semester", "Semester", select=True, ondelete="restrict"),
@@ -705,10 +704,10 @@ class academy_registration_invoice(osv.Model):
 
 
 class academy_fee(osv.Model):
-    
+
     def onchange_uom(self, cursor, user, ids, uom_id, uom_po_id):
          return self.pool["product.product"].onchange_uom(cursor, user, ids, uom_id, uom_po_id)
-    
+
     def unlink(self, cr, uid, ids, context=None):
         """ Also delete Product """
         product_ids = []
@@ -718,42 +717,42 @@ class academy_fee(osv.Model):
         res = super(academy_fee,self).unlink(cr, uid, ids, context)
         self.pool["product.product"].unlink(cr, uid, product_ids, context)
         return res
-    
+
     _name = "academy.fee"
     _description = "Academy Fee"
     _inherits = { "product.product" : "product_id" }
-    
+
     _columns = {
         "location_category_ids" : fields.many2many("res.partner.category", "academy_fee_id", "category_id", string="Locations"),
         "apply_uom_id" : fields.boolean("Apply on all with same unit"),
         "per_year" : fields.boolean("Once per Year"),
         "product_id" : fields.many2one("product.product", "Product", select=True, ondelete="restrict", required=True),
-        "sibling_discount" : fields.float("Sibling Discount"),    
+        "sibling_discount" : fields.float("Sibling Discount"),
         "sequence" : fields.integer("Sequence")
     }
     _defaults = {
-        "sequence" : 10   
+        "sequence" : 10
     }
     _order = "sequence asc"
 
 
 class academy_advance_payment(osv.Model):
-    
+
     def _default_semester_id(self, cr, uid, context=None):
-        # get current semester        
+        # get current semester
         user = self.pool["res.users"].browse(cr, uid, uid, context)
         semester = user.company_id.academy_semester_id
         if semester:
             return semester.id
         return None
-    
+
     def unlink(self, cr, uid, ids, context=None):
         ids = util.idList(ids)
         for payment in self.browse(cr, uid, ids, context):
             if payment.invoice_id:
                 raise osv.except_osv(_("Error"), _("Payment which is posted could not deleted"))
         super(academy_advance_payment,self).unlink(cr, uid, ids, context=context)
-        
+
     _name = "academy.payment"
     _description = "Advance Payment"
     _rec_name = "reg_id"
@@ -766,7 +765,7 @@ class academy_advance_payment(osv.Model):
         "invoice_id" : fields.many2one("account.invoice","Invoice", select=True, readonly=True),
         "voucher_id" : fields.many2one("account.voucher","Voucher", select=True, readonly=True)
     }
-       
+
     _defaults = {
         "date" : util.currentDate(),
         "semester_id" : _default_semester_id
@@ -778,9 +777,8 @@ class academy_trainer_student(osv.Model):
     _description = "Academy Trainer Student"
     _rec_name = "reg_id"
     _columns = {
-        "reg_id" : fields.many2one("academy.registration", "Registration", required=True, select=True),    
+        "reg_id" : fields.many2one("academy.registration", "Registration", required=True, select=True),
         "trainer_id" : fields.many2one("academy.trainer", "Trainer", required=True, select=True),
         "day" : fields.date("Day", required=True, select=True)
     }
     _order = "day asc"
-    
