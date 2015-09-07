@@ -43,7 +43,7 @@ class project_task(osv.osv):
         for obj in self.browse(cr, uid, ids, context):
             proc = obj.procurement_id
             if proc:
-                res[obj.id]=proc_obj.quantity_get(cr,uid,proc.id,context=context)
+                res[obj.id]=proc.product_qty
         return res
 
     def _invoice_hours_set(self, cr, uid, oid, field_name, field_value, arg, context=None):
