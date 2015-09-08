@@ -1,6 +1,7 @@
 <openerp>
 	<data>
-	
+	    <!-- 
+	    TODO migration to odoo 8
 		<record id="access_account_bank_statement_compensation_account_user" model="ir.model.access">
 			<field name="name">account_bank_statement_compensation/account_user</field>
 			<field name="model_id" ref="model_account_bank_statement_compensation"/>
@@ -20,6 +21,7 @@
 			<field name="perm_create" eval="True"/>
 			<field name="perm_write" eval="True"/>
 		</record>
+		-->
 		
 		<record id="access_account_invoice_report_account_invoice" model="ir.model.access">
 		  <field name="name">account_invoice_report/account_invoice</field>

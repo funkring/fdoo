@@ -6,6 +6,7 @@
             <field name="inherit_id" ref="account.view_account_journal_form"/>
             <field name="arch" type="xml">
             	<data>
+            	    <!-- TODO migration to odoo 8
             		<notebook position="inside">
             			<page string="Compensation Types">
             				<field name="compensation_ids" nolabel="1">
@@ -22,6 +23,7 @@
             				</field>
             			</page>
             		</notebook>
+            		-->
 	            	<field name="entry_posted" position="after" >
 	            		<field name="ignore_payment_term" />
 	            	</field>

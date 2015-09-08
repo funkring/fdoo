@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-30 13:23+0000\n"
-"PO-Revision-Date: 2015-08-20 11:38+0100\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2015-09-08 19:17+0000\n"
+"PO-Revision-Date: 2015-09-08 21:18+0100\n"
+"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,7 +17,6 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 
 #. module: at_account
-#: field:account.bank.statement.compensation,account_id:0
 #: code:addons/at_account/report/account_bank_statement_report.py:105
 #: model:ir.model,name:at_account.model_account_account
 #, python-format
@@ -171,11 +170,6 @@ msgid "Companies"
 msgstr "Unternehmen"
 
 #. module: at_account
-#: field:account.bank.statement.line,compensation_id:0
-msgid "Compensation"
-msgstr "Skonto/Ausgleich"
-
-#. module: at_account
 #: view:account.journal:at_account.form_account_journal
 msgid "Compensation Type"
 msgstr "Skonto/Abschreibungs Typ"
@@ -186,19 +180,12 @@ msgid "Compensation Types"
 msgstr "Skonto/Ausgleich Typen"
 
 #. module: at_account
-#: field:account.journal,compensation_ids:0
-msgid "Compensations"
-msgstr "Skonto/Ausgleich"
-
-#. module: at_account
-#: field:account.bank.statement.compensation,create_uid:0
 #: field:account.invoice.attachment.wizard,create_uid:0
 #: field:invoice.cancel.wizard,create_uid:0
 msgid "Created by"
 msgstr "Erstellt von"
 
 #. module: at_account
-#: field:account.bank.statement.compensation,create_date:0
 #: field:account.invoice.attachment.wizard,create_date:0
 #: field:invoice.cancel.wizard,create_date:0
 msgid "Created on"
@@ -283,7 +270,6 @@ msgid "Fiscal Position"
 msgstr "Steuerzuordnung"
 
 #. module: at_account
-#: field:account.bank.statement.compensation,id:0
 #: field:account.invoice.attachment.wizard,id:0
 #: field:invoice.cancel.wizard,id:0
 msgid "ID"
@@ -311,8 +297,7 @@ msgid "Import Document"
 msgstr "Beleg Import"
 
 #. module: at_account
-#: field:account.bank.statement.line,invoice_id:0
-#: field:account.voucher,invoice_id:0 code:addons/at_account/invoice.py:270
+#: code:addons/at_account/invoice.py:270
 #: model:ir.model,name:at_account.model_account_invoice
 #, python-format
 msgid "Invoice"
@@ -327,7 +312,7 @@ msgstr "Beleg Import Assistent"
 #: view:invoice.cancel.wizard:at_account.wizard_invoice_cancel
 #: model:ir.model,name:at_account.model_invoice_cancel_wizard
 msgid "Invoice Cancel Wizard"
-msgstr ""
+msgstr "Assistent für das Abbrechen von Rechnungen"
 
 #. module: at_account
 #: code:addons/at_account/report/account_bank_statement_report.py:108
@@ -339,6 +324,11 @@ msgstr "Rechnungsdatum"
 #: model:ir.model,name:at_account.model_account_invoice_line
 msgid "Invoice Line"
 msgstr "Rechungsposition"
+
+#. module: at_account
+#: model:ir.model,name:at_account.model_account_invoice_tax
+msgid "Invoice Tax"
+msgstr "Umsatzsteuer"
 
 #. module: at_account
 #: field:account.invoice,invoice_text:0
@@ -368,12 +358,6 @@ msgid "Invoice/Refund Text"
 msgstr "Rechnung / Gutschrift Text"
 
 #. module: at_account
-#: field:account.voucher,invoice_ids:0
-msgid "Invoices"
-msgstr "Rechnungen"
-
-#. module: at_account
-#: field:account.bank.statement.compensation,journal_id:0
 #: code:addons/at_account/report/account_bank_statement_report.py:90
 #: code:addons/at_account/report/account_invoice_list_report.py:45
 #: code:addons/at_account/report/account_voucher_list_report.py:68
@@ -383,21 +367,18 @@ msgid "Journal"
 msgstr ""
 
 #. module: at_account
-#: field:account.bank.statement.compensation,write_uid:0
 #: field:account.invoice.attachment.wizard,write_uid:0
 #: field:invoice.cancel.wizard,write_uid:0
 msgid "Last Updated by"
 msgstr "Aktualisiert von"
 
 #. module: at_account
-#: field:account.bank.statement.compensation,write_date:0
 #: field:account.invoice.attachment.wizard,write_date:0
 #: field:invoice.cancel.wizard,write_date:0
 msgid "Last Updated on"
 msgstr "Aktualisiert am"
 
 #. module: at_account
-#: field:account.bank.statement.compensation,name:0
 #: code:addons/at_account/report/account_account_report.py:81
 #: code:addons/at_account/report/account_bank_statement_report.py:84
 #, python-format
@@ -441,7 +422,6 @@ msgid "Partner"
 msgstr ""
 
 #. module: at_account
-#: view:account.bank.statement:at_account.form_account_bank_statement
 #: code:addons/at_account/account_bank_statement.py:61
 #: code:addons/at_account/report/account_invoice_list_report.py:44
 #, python-format
@@ -512,20 +492,9 @@ msgid "Residual"
 msgstr "Restwert"
 
 #. module: at_account
-#: view:account.bank.statement:at_account.form_account_bank_statement
-#: field:account.bank.statement.line,residual_amount:0
-msgid "Rest"
-msgstr ""
-
-#. module: at_account
 #: view:res.company:at_account.form_company field:res.company,invoice_text:0
 msgid "Sale Invoice Text"
 msgstr "Ausgangsrechnungstext"
-
-#. module: at_account
-#: field:account.bank.statement.compensation,sequence:0
-msgid "Sequence"
-msgstr "Sequenz"
 
 #. module: at_account
 #: code:addons/at_account/report/account_invoice_list_report.py:42
@@ -579,11 +548,6 @@ msgid "Unable to import document (check if invoice is validated)"
 msgstr "Beleg kann nicht importiert werden (Ist die Rechnung validiert?)"
 
 #. module: at_account
-#: field:account.bank.statement.line,voucher_id:0
-msgid "Voucher"
-msgstr "Zahlung"
-
-#. module: at_account
 #: code:addons/at_account/report/account_voucher_list_report.py:39
 #, python-format
 msgid "Voucher overview"
@@ -604,10 +568,10 @@ msgstr "PLZ"
 #. module: at_account
 #: view:invoice.cancel.wizard:at_account.wizard_invoice_cancel
 msgid "and it's payments"
-msgstr ""
+msgstr "und die Zahlung"
 
 #. module: at_account
 #: view:account.invoice.attachment.wizard:at_account.wizard_account_invoice_attachment
 #: view:invoice.cancel.wizard:at_account.wizard_invoice_cancel
 msgid "or"
-msgstr ""
+msgstr "oder"

@@ -86,7 +86,8 @@ class account_journal(osv.osv):
     
     _inherit = "account.journal"    
     _columns = {
-        "compensation_ids" : fields.one2many("account.bank.statement.compensation","journal_id","Compensations"),
+        # TODO conversion to odoo 8
+        #"compensation_ids" : fields.one2many("account.bank.statement.compensation","journal_id","Compensations"),
         "ignore_payment_term" : fields.boolean("Ignore Payment Term",
                                                 help="If you have made two lines for the payment term, then the system will not create two account move lines for each payment term line.")
     }

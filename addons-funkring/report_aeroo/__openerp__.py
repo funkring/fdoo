@@ -29,7 +29,7 @@
                     """,
     'author': 'Alistek Ltd, Simone Orsi - Domsense',
     'website': 'http://www.alistek.com',
-    'depends': ['base'],    
+    'depends': ['base','report'],    
     'data': ["security.xml",
                    "report_view.xml", 
                    "data/report_aeroo_data.xml", 

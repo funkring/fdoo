@@ -23,11 +23,25 @@
 from openerp.osv import fields,osv
 
 class account_invoice(osv.osv):
+    
+    def _default_shop_id(self, cr, uid, context=None):
+        company_id = self.pool["res.company"]._company_default_get(cr, uid, "account.invoice", context=context)
+        res = None
+        if company_id:
+            shop_obj = self.pool["sale.shop"]
+            res = shop_obj.search_id(cr, uid, [("company_id","=",company_id)],context=context)
+            if not res:
+                res = shop_obj.search_id(cr, uid, [("company_id","=",False)],context=context)
+        return res
+        
+    _inherit = "account.invoice"
     _columns = {
         "sale_order_ids" : fields.many2many("sale.order","sale_order_invoice_rel","invoice_id","order_id","Orders",readonly=True),
         "shop_id" : fields.many2one("sale.shop", "Shop", required=True)
     }
-    _inherit = "account.invoice"
+    _defaults = {
+        "shop_id" : _default_shop_id
+    }
 
 
 class account_invoice_line(osv.osv):

@@ -179,16 +179,11 @@ class sale_order(osv.osv):
             },context=context)
         return super(sale_order,self).action_wait(cr,uid,ids,context=context)
 
-    def _make_invoice(self, cr, uid, order, lines, context=None):
-        invoice_id = super(sale_order,self)._make_invoice(cr, uid, order, lines, context=context)
-
-        invoice_obj = self.pool["account.invoice"]
-        if order and order.shop_id:
-            invoice_obj.write(cr, uid, [invoice_id], {"shop_id" : order.shop_id.id})
-
-        return invoice_id
-
-
+    def _prepare_invoice(self, cr, uid, order, lines, context=None):
+        res = super(sale_order)._prepare_invoice(cr, uid, order, lines, context=context)
+        res["shop_id"] = order.shop_id.id
+        return res 
+  
     def _get_date_planned(self, cr, uid, order, line, start_date, context=None):
         start_date = util.strToTime(start_date)
         company = order.company_id

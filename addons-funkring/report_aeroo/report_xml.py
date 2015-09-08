@@ -86,6 +86,21 @@ class report_mimetypes(osv.osv):
     }
 
 
+class Report(osv.Model):
+    
+    def _get_report_from_name(self, cr, uid, report_name):
+        """Get the first record of ir.actions.report.xml having the ``report_name`` as value for
+        the field report_name.
+        """
+        report_obj = self.pool['ir.actions.report.xml']
+        qwebtypes = ['aeroo', 'qweb-pdf', 'qweb-html']
+        conditions = [('report_type', 'in', qwebtypes), ('report_name', '=', report_name)]
+        idreport = report_obj.search(cr, uid, conditions)[0]
+        return report_obj.browse(cr, uid, idreport)
+    
+    _inherit = "report"
+    
+
 class report_xml(osv.osv):
     _name = 'ir.actions.report.xml'
     _inherit = 'ir.actions.report.xml'
@@ -141,34 +156,11 @@ class report_xml(osv.osv):
             return Aeroo_report(cr, "report."+name, record['model'], record['report_rml'],parser)
         return super(report_xml,self)._lookup_report(cr, name)
 
-    def _report_content(self, cursor, user, ids, name, arg, context=None):
-        res = {}
-        for report in self.browse(cursor, user, ids, context=context):
-            data = report.report_sxw_content_data
-            report_file = report.report_rml
-            if report.report_type=='aeroo' and report.tml_source=='file' or not data and report_file:
-                fp = None
-                try:
-                    fp = tools.file_open(report_file, mode='rb')
-                    data = base64.encodestring(fp.read())
-                except Exception as e:
-                    _logger.exception(e)
-                    data = False
-                finally:
-                    if fp:
-                        fp.close()
-            res[report.id] = data
-        return res
-
     def _get_encodings(self, cursor, user, context={}):
         l = list(set(encodings._aliases.values()))
         l.sort()
         return zip(l, l)
-
-    def _report_content_inv(self, cursor, user, id, name, value, arg, context=None):
-        if value:
-            self.write(cursor, user, id, { "report_sxw_content_data" : value}, context=context)
-
+        
     def change_input_format(self, cr, uid, ids, in_format):
         out_format = self.pool.get('report.mimetypes').search(cr, uid, [('code','=',in_format)])
         return {
@@ -280,9 +272,6 @@ class report_xml(osv.osv):
         ],'State of Parser', select=True),
         'in_format': fields.selection(_get_in_mimetypes, 'Template Mime-type'),
         'out_format':fields.many2one('report.mimetypes', 'Output Mime-type'),
-        'report_sxw_content': fields.function(_report_content,
-            fnct_inv=_report_content_inv, method=True,
-            type='binary', string='SXW content', store=False),
         'active':fields.boolean('Active'),
         'user_defined' : fields.boolean('User Defined')
     }
