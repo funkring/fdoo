@@ -32,7 +32,7 @@ class sale_order_line(osv.Model):
 
     def _quotation_all(self, cr, uid, ids, field_name, arg, context=None):
         res = dict.fromkeys(ids)
-        for line in self.browse(cr, uid, ids, context=context):            
+        for line in self.browse(cr, uid, ids, context=context):
             sent_all = True
             for quotation in line.quotation_ids:
                 if not quotation.quot_sent:
@@ -41,45 +41,44 @@ class sale_order_line(osv.Model):
             res[line.id] = sent_all
         return res
 
-    def start_quotation(self, cr, uid, ids, context=None):          
+    def start_quotation(self, cr, uid, ids, context=None):
         if not ids:
             return True
-        
+
         purchase_order_obj = self.pool["purchase.order"]
         purchase_line_obj = self.pool["purchase.order.line"]
         quotation_active = False
-        
+
         for line in self.browse(cr, uid, ids, context=context):
             # check product
             product = line.product_id
             if not product:
                 continue
-            
+
             # check suppliers
             supplier_infos = product.seller_ids
             if not supplier_infos:
                 continue
-            
+
             order = line.order_id
             if not order:
                 continue
-            
+
             # process suppliers
             for supplier_info in supplier_infos:
                 partner = supplier_info.name
                 date_planned = util.dateToStr(datetime.datetime.today() + datetime.timedelta(line.delay or 0.0))
-                
+
                 purchase_line_vals = { "product_id" : product.id,
-                                       "name" : line.name,
                                        "product_qty" : line.product_uom_qty,
                                        "sale_line_id" : line.id,
                                        "date_planned" : date_planned
                                      }
-                
+
                 purchase_order_vals = { "partner_id" : partner.id,
-                                        "origin" : order.name,                                       
+                                        "origin" : order.name,
                                         "sale_order_id" : order.id }
-                
+
                 # search existing
                 purchase_line_id = purchase_line_obj.search_id(cr, uid, [("sale_line_id","=",line.id),("product_id","=",product.id),("partner_id","=",partner.id)])
                 purchase_line = None
@@ -88,44 +87,45 @@ class sale_order_line(osv.Model):
                     purchase_line = purchase_line_obj.browse(cr, uid, purchase_line_id, context=context)
                     # check readonly state
                     if purchase_line.state in ("confirmed","approved","done"):
-                        continue   
-                    
+                        continue
+
                     purchase_line_vals["price_unit"] = purchase_line.price_unit
                     purchase_line_state = purchase_line.state or 'draft'
-                    
+
                     purchase_order = purchase_line.order_id
                     if purchase_order:
                         purchase_order_vals["picking_type_id"] = purchase_order.picking_type_id.id
-                  
-                else: 
+
+                else:
                     purchase_order_vals["picking_type_id"] = purchase_order_obj._get_picking_in(cr, uid, context=context)
-                   
-                
+
+
                 # reset selected if not update
                 purchase_line_vals["quot_sent"] = False
-                
+
                 # onchange for order
                 purchase_order_vals.update(purchase_order_obj.onchange_partner_id(cr, uid, [], partner.id, context=context)["value"])
                 purchase_order_vals.update(purchase_order_obj.onchange_picking_type_id(cr, uid, [], purchase_order_vals.get("picking_type_id"), context=context)["value"])
-                
+
                 # onchaneg for line
-                purchase_line_vals.update(purchase_line_obj.onchange_product_id(cr, uid, [], 
-                                                    purchase_order_vals.get("pricelist_id"), 
-                                                    purchase_line_vals.get("product_id"), 
+                purchase_line_vals.update(purchase_line_obj.onchange_product_id(cr, uid, [],
+                                                    purchase_order_vals.get("pricelist_id"),
+                                                    purchase_line_vals.get("product_id"),
                                                     purchase_line_vals.get("product_qty"),
                                                     False,
                                                     purchase_order_vals.get("partner_id"),
                                                     date_planned=purchase_order_vals.get("date_planned"),
                                                     price_unit=purchase_line_vals.get("price_unit",False),
-                                                    state=purchase_line_state, 
-                                                    context=context)["value"]) 
-                
+                                                    state=purchase_line_state,
+                                                    context=context)["value"])
+                purchase_line_vals["name"] = line.name
+
                 purchase_line_vals["taxes_id"]=[(6,0,purchase_line_vals.get("taxes_id",[]))]
-                
+
                 # pop related fields
                 purchase_order_vals.pop("related_location_id")
                 purchase_order_vals.pop("related_usage")
-                
+
                 #  update or create
                 if purchase_line_id:
                      purchase_order_vals["order_line"]=[(1,purchase_line_id,purchase_line_vals)]
@@ -133,7 +133,7 @@ class sale_order_line(osv.Model):
                 else:
                     purchase_order_vals["order_line"]=[(0,0,purchase_line_vals)]
                     purchase_order_obj.create(cr, uid, purchase_order_vals, context=context)
-                    
+
                 quotation_active = True
                 self.write(cr, uid, [line.id], {"quotation_active" : True} )
 
@@ -151,30 +151,30 @@ class sale_order_line(osv.Model):
         purchase_line_obj = self.pool["purchase.order.line"]
         for line in self.browse(cr, uid, ids, context=context):
             purchase_line_ids = []
-            
+
             quotations = line.quotation_ids
             if not quotations:
                 continue
-            
+
             for purchase_line in quotations:
                 if not purchase_line.quot_sent:
                     purchase_line_ids.append(purchase_line.id)
-                    
+
         if not purchase_line_ids:
             raise osv.except_osv(_('Warning!'), _('E-mail was already sent to all supplier!'))
-            
+
         # send mails
         return purchase_line_obj._send_supplier_mail(cr, uid, purchase_line_ids, context=context)
-    
+
     def _quotation_id(self, cr, uid, ids, field_name, arg, context=None):
         res = dict.fromkeys(ids)
         purchase_line_obj = self.pool["purchase.order.line"]
         for line in self.browse(cr, uid, ids, context):
-            supplier = line.supplier_id            
+            supplier = line.supplier_id
             if supplier:
                 res[line.id] = purchase_line_obj.search_id(cr, uid, [("sale_line_id","=",line.id),("partner_id","=",supplier.id)])
         return res
-    
+
     def _product_margin(self, cr, uid, ids, field_name, arg, context=None):
         cur_obj = self.pool.get("res.currency")
         res = dict.fromkeys(ids)
@@ -182,14 +182,14 @@ class sale_order_line(osv.Model):
             quotation = line.quotation_id
             if quotation:
                 res[line.id] = line.price_subtotal - quotation.price_subtotal
-            else:                                  
+            else:
                 cur = line.order_id.pricelist_id.currency_id
                 res[line.id] = 0
                 if line.product_id:
                     tmp_margin = line.price_subtotal - ((line.purchase_price or line.product_id.standard_price) * line.product_uos_qty)
                     res[line.id] = cur_obj.round(cr, uid, cur, tmp_margin)
         return res
-    
+
     def _quotation_price(self, cr, uid, ids, field_name, arg, context=None):
         res = dict.fromkeys(ids)
         for line in self.browse(cr, uid, ids, context):
