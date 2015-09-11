@@ -621,8 +621,7 @@ class Aeroo_report(report_sxw):
                                 'datas_fname': fname,
                                 'res_model': self.table,
                                 'res_id': obj.id,
-                                }, context=context
-                            )
+                                }) # no context to prevent wrong default values
                             cr.commit()
                     except Exception,e:
                          tb_s = reduce(lambda x, y: x+y, traceback.format_exception(sys.exc_type, sys.exc_value, sys.exc_traceback))

@@ -180,7 +180,7 @@ class sale_order(osv.osv):
         return super(sale_order,self).action_wait(cr,uid,ids,context=context)
 
     def _prepare_invoice(self, cr, uid, order, lines, context=None):
-        res = super(sale_order)._prepare_invoice(cr, uid, order, lines, context=context)
+        res = super(sale_order, self)._prepare_invoice(cr, uid, order, lines, context=context)
         res["shop_id"] = order.shop_id.id
         return res 
   
