@@ -18,15 +18,15 @@
 			</field>
 		</record>
 
-		<act_window id="action_account_invoice_attachment_multi" 
-				name="Document Import" 
-				src_model="account.invoice" 
+		<act_window id="action_account_invoice_attachment_multi"
+				name="Document Import"
+				src_model="account.invoice"
 				res_model="account.invoice.attachment.wizard"
 				multi="True"
-				view_type="form" 
+				view_type="form"
 				view_mode="form"
-				groups="account.group_account_invoice"  
+				groups="account.group_account_invoice"
 				target="new" />
-					
+
 	</data>
 </openerp>

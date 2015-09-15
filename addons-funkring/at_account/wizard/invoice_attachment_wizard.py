@@ -28,23 +28,23 @@ from openerp.tools.translate import _
 class inovice_attachment_wizard(osv.TransientModel):
     _name = "account.invoice.attachment.wizard"
     _description = "Invoice Attachment Wizard"
-    
+
     def action_import(self, cr, uid, ids, context=None):
         wizard =  self.browse(cr, uid, ids[0])
         invoice_id =  util.active_id(context, "account.invoice")
         if not invoice_id:
             raise osv.except_osv(_("Error!"), _("No invoice found"))
         report_obj = self.pool.get("ir.actions.report.xml")
-        
+
         data=base64.decodestring(wizard.document)
         data = report_aeroo.fixPdf(data)
         if not data:
             raise osv.except_osv(_("Error!"), _("PDF is corrupted and unable to fix!"))
-        
-        if not report_obj.write_attachment(cr, uid, "account.invoice", invoice_id, datas=base64.encodestring(data), context=context, origin="account.invoice.attachment.wizard"):
-            raise osv.except_osv(_("Error!"), _("Unable to import document (check if invoice is validated)"))          
+
+        if not report_obj.write_attachment(cr, uid, "account.invoice", invoice_id, report_name="account.report_invoice", datas=base64.encodestring(data), context=context, origin="account.invoice.attachment.wizard"):
+            raise osv.except_osv(_("Error!"), _("Unable to import document (check if invoice is validated)"))
         return { "type" : "ir.actions.act_window_close" }
-    
+
     _columns = {
         "document" : fields.binary("Document")
     }
