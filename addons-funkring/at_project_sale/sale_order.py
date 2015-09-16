@@ -42,6 +42,14 @@ class sale_order(osv.osv):
             return "%s / %s" % (order_name,client_order_ref)
         return order_name
 
+    def test_no_product(self, cr, uid, order, context):
+        for line in order.order_line:
+            if line.state == "cancel":
+                continue
+            product = line.product_id
+            if product and (product.type != 'service' or product.auto_create_task):
+                return False
+        return True
 
         #get foreign key value
     def _correct_analytic_values(self,cr,uid,order_id,vals,context=None):
