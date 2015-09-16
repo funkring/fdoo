@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-# -*- encoding: utf-8 -*-
-
 #############################################################################
 #
 #    Copyright (c) 2007 Martin Reisenhofer <martin.reisenhofer@funkring.net>
@@ -20,32 +18,11 @@
 #
 ##############################################################################
 
-{
-    "name" : "oerp.at Project + Sale",
-    "description":"""
-oerp.at Project + Sale
-======================
+from openerp.osv import fields, osv
 
-* Possibility to automatically create an project for each sale order
-* Configure the auto creation process
+class product_template(osv.osv):
 
-
-    """,
-    "version" : "1.0",
-    "author" :  "funkring.net",
-    "website": "http://www.funkring.net",
-    "category" : "Sales Management/Project Management",
-    "depends" : ["at_project","at_sale","sale_margin","at_hr","sale_service"],
-    "data" : [ 
-                "view/analytic_account_view.xml",
-                "view/sale_shop_view.xml",
-                "view/sale_order_view.xml",
-                "wizard/correct_time_wizard.xml",
-                "view/task_view.xml",
-                "view/partner_view.xml",
-                "view/product_view.xml",
-                "data/properties.xml"
-                ],
-    "auto_install": False,
-    "installable": True
-}
+    _inherit = "product.template"
+    _columns = {
+        "billed_at_cost" : fields.boolean("Billed at Cost")
+    }
