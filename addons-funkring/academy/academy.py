@@ -291,7 +291,7 @@ class academy_registration(osv.Model):
         return True
 
     def do_cancel(self, cr, uid, ids, context=None):
-        ids = self.search(cr, uid, [("id","in",ids),("state","in",["registered","assigned","open"])])
+        ids = self.search(cr, uid, [("id","in",ids),("state","!=","draft"),("state","!=","cancel")])
         self.write(cr, uid, ids, {"state" : "cancel"}, context=context)
         self._send_mails(cr, uid, "academy.email_template_registration_cancel", ids, context=context)
         return True
