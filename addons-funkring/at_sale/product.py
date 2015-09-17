@@ -23,27 +23,6 @@ import openerp.addons.decimal_precision as dp
 
 class product_product(osv.osv):
 
-    def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False, submenu=False):
-        res = super(product_product,self).fields_view_get(cr, uid, view_id=view_id, view_type=view_type, context=context, toolbar=toolbar, submenu=submenu)
-        if view_type=="search":
-            shop_id =   context.get("shop",None)
-            if shop_id:
-                fields=res.get('fields',None)
-                if fields:
-                    field_categ_id =  fields.get('categ_id',None)
-                    if field_categ_id:
-                        shop_obj = self.pool.get("sale.shop")
-                        category_obj  = self.pool.get("product.category")
-                        category_ids = shop_obj.get_category_ids(cr,uid,shop_id)
-                        if category_ids:
-                            categories = category_obj.browse(cr,uid,category_ids,context)
-                            category_select = []
-                            for category in categories:
-                                category_select.append((category.id,category.name))
-                            field_categ_id["selection"] = category_select
-
-        return res
-
     def onchange_brutto_price(self, cr, uid, ids, brutto_price, taxes_id, company_id, context=None):
         res = {
            "value" : {}
@@ -67,13 +46,10 @@ class product_product(osv.osv):
 
         return res
 
-
-
     _inherit = "product.product"
 
-class product_template(osv.osv):
 
-    _inherit = "product.template"
+class product_template(osv.osv):
 
     def onchange_brutto_price(self, cr, uid, ids, brutto_price, taxes_id, company_id, context=None):
         res = {
@@ -116,7 +92,7 @@ class product_template(osv.osv):
 
         return res
 
-
+    _inherit = "product.template"
     _columns = {
         "brutto_price" : fields.function(_calculate_price, type="float", string="Brutto Price",
                                          help="The brutto price is based on the given tax."),

@@ -63,6 +63,7 @@ class project_task(osv.Model):
         "division_id" : _read_group_division_ids
     }
 
+
 class project_task_type(osv.Model):
 
     _inherit = "project.task.type"
@@ -72,6 +73,7 @@ class project_task_type(osv.Model):
     _defaults = {
         "active" : True
     }
+
 
 class project_project(osv.Model):
 
@@ -84,6 +86,31 @@ class project_project(osv.Model):
                 if project_ids:
                     res[obj.id] = project_ids[0]
         return res
+    
+#     def unlink(self, cr, uid, ids, context=None):
+#         # search unused analytic accounts
+#         unlink_account_ids = set()        
+#         for project in self.browse(cr, uid, ids, context):
+#             account = project.analytic_account_id
+#             if account:
+#                 cr_param = (account.id,)
+#                   
+#                 cr.execute("SELECT COUNT(p.id) FROM project_project p WHERE p.analytic_account_id = %s", cr_param)
+#                 count_project_res = cr.fetchone()
+#                   
+#                 cr.execute("SELECT COUNT(l.id) FROM account_analytic_line l WHERE l.account_id = %s", cr_param)
+#                 count_line_res = cr.fetchone()
+#                   
+#                 if count_project_res[0] <= 1 and count_line_res[0] == 0:
+#                     unlink_account_ids.add(account.id)
+# 
+#         res = super(project_project, self).unlink(cr, uid, ids, context=context)
+#         
+#         # remove unused analytic accounts
+#         if unlink_account_ids:
+#             self.pool["account.analytic.account"].unlink(cr, uid, list(unlink_account_ids), context=context)
+#         
+#         return res
 
     _inherit = "project.project"
     _columns = {

@@ -30,7 +30,7 @@ oerp.at Account Dunning
     "version" : "1.0",
     "author" :  "funkring.net",
     "category" : "Accounting",
-    "depends" : ["at_account"],
+    "depends" : ["at_account","account"],
     "data" : ["view/account_dunning_view.xml",
               "view/account_reminder_view.xml",
               "view/account_invoice_view.xml",

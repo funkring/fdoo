@@ -70,5 +70,5 @@ class account_analytic_account(osv.osv):
     
     _inherit = "account.analytic.account"    
     _columns = {
-        "order_id" : fields.many2one("sale.order","Order",ondelete="cascade"),        
+        "order_id" : fields.many2one("sale.order","Order", ondelete="cascade", copy=False)     
     }

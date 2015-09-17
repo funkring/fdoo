@@ -25,16 +25,9 @@ from openerp.addons.at_base import util
 import openerp.addons.decimal_precision as dp
 
 class sale_shop(osv.osv):
-
-    def get_category_ids(self,cr,uid,shop_id):
-        cr.execute("SELECT category_id FROM shop_product_category_rel WHERE shop_id = %s" % (shop_id,))
-        categ_ids = set([x[0] for x in cr.fetchall()])
-        category_obj = self.pool.get("product.category")
-        categ_child_ids = category_obj.search(cr,uid,[("parent_id","child_of",categ_ids)])
-        categ_ids.update(categ_child_ids)
-        return list(categ_ids)
-
+    
     _name = "sale.shop"
+    _description = "Shop"
     _columns = {
         "name" : fields.char("Name",size=32,required=True,select=True),
         "payment_default_id": fields.many2one("account.payment.term", "Payment Term", required=True, select=True),
@@ -55,17 +48,18 @@ class sale_shop(osv.osv):
         "company_id": lambda s, cr, uid, c: s.pool.get('res.company')._company_default_get(cr, uid, 'sale.shop', context=c),
     }
 
+
 class sale_shop_report(osv.osv):
 
     _name = "sale.shop.report"
-    _description = "Sale shop report"
-
+    _description = "Shop Report"
     _columns = {
         "name" : fields.char("Name", size=64),
         "shop_id" : fields.many2one("sale.shop", "Shop",on_delete="cascade",required=True),
         "source_report_id" : fields.many2one("ir.actions.report.xml", "Source Report",on_delete="cascade",required=True),
         "dest_report_id" : fields.many2one("ir.actions.report.xml", "Destination Report",on_delete="cascade",required=True),
     }
+
 
 class report_xml(osv.osv):
 
@@ -168,6 +162,12 @@ class sale_order(osv.osv):
                 value["note"] = shop.note
             if shop.company_id and state == "draft":
                 value["company_id"] = shop.company_id
+                
+            categories  = shop.product_category_ids
+            if not categories:
+                value["shop_category_ids"] = self.pool["product.category"].search(cr, uid, [("parent_id","=",False)])
+            else:
+                value["shop_category_ids"] = [c.id for c in categories]
         return res
 
     def action_wait(self, cr, uid, ids, context=None):
@@ -211,14 +211,27 @@ class sale_order(osv.osv):
                 res = shop_obj.search_id(cr, uid, [("company_id","=",False)],context=context)
         return res
 
+    def _shop_category_ids(self, cr, uid, ids, field_name, args, context=None):
+        res = dict.fromkeys(ids)
+        category_obj = self.pool["product.category"]
+        for order in self.browse(cr, uid, ids, context):
+            categories = order.shop_id.product_category_ids
+            if not categories:
+                res[order.id] = category_obj.search(cr, uid, [("parent_id","=",False)])
+            else:
+                res[order.id] = [c.id for c in categories]
+        return res
+
     _inherit = "sale.order"
     _columns = {
-        "shop_id" : fields.many2one("sale.shop","Shop",type="many2one",required=True),
-        "last_invoice_id" : fields.function(_last_invoice,string="Last Invoice", readonly=True, type='many2one', relation="account.invoice")
+        "shop_id" : fields.many2one("sale.shop", "Shop", type="many2one", required=True, readonly=True, states={'draft': [('readonly', False)]}),
+        "last_invoice_id" : fields.function(_last_invoice, string="Last Invoice", readonly=True, type='many2one', relation="account.invoice"),
+        "shop_category_ids" : fields.function(_shop_category_ids, string="Product Categories", readonly=True, type="many2many", relation="product.category")
     }
     _defaults = {
         "shop_id" : _default_shop_id,
     }
+
 
 class sale_order_line(osv.osv):
 
@@ -234,27 +247,6 @@ class sale_order_line(osv.osv):
                                          line.product_id.id, line.order_id.partner_id.id)
             cur = line.order_id.pricelist_id.currency_id
             res[line.id] = cur_obj.round(cr, uid, cur, taxes['total_included'])
-        return res
-
-    def product_id_change(self, cr, uid, ids, pricelist, product, qty=0,
-            uom=False, qty_uos=0, uos=False, name='', partner_id=False,
-            lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False, context=None):
-
-        res =  super(sale_order_line,self).product_id_change(cr,uid,ids,pricelist,product,
-                                                      qty=qty,uom=uom, qty_uos=qty_uos, uos=uos,
-                                                      name=name, partner_id=partner_id,lang=lang,update_tax=update_tax,
-                                                      date_order=date_order, packaging=packaging, fiscal_position=fiscal_position,flag=flag,context=context)
-
-        category_ids = None
-        shop_id = context and context.get("shop_id") or None
-        if shop_id:
-            shop_obj = self.pool.get("sale.shop")
-            category_ids = shop_obj.get_category_ids(cr,uid,shop_id)
-
-        if category_ids:
-            util.setSubDictValue(res, "domain","product_id",[("categ_id","in",category_ids)])
-        else:
-            util.setSubDictValue(res, "domain","product_id",[])
         return res
 
     def _line_sum(self, cr, uid, ids, context=None):
@@ -287,13 +279,9 @@ class sale_order_line(osv.osv):
         res["total"] = total
         res["amount_taxes"] = amount_taxes
         res["taxes"] = taxes
-
         return res
 
-
     _inherit = "sale.order.line"
-    _name = "sale.order.line"
-
     _columns = {
         "price_subtotal_taxed" : fields.function(_amount_line_taxed,string="Subtotal (Brutto)",digits_compute= dp.get_precision("Sale Price"))
     }
