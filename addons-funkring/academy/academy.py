@@ -276,9 +276,12 @@ class academy_registration(osv.Model):
                     partner_ids.append(p.id)
         return res
 
-    def do_register(self, cr, uid, ids, context=None):
+    def do_register(self, cr, uid, ids, check=False, context=None):
         ids = self.search(cr, uid, [("id","in",ids),("state","=","draft")])
-        self.write(cr, uid, ids, {"state" : "registered"}, context=context)
+        if check:
+            self.write(cr, uid, ids, {"state" : "check"}, context=context)
+        else:
+            self.write(cr, uid, ids, {"state" : "registered"}, context=context)
         self._send_mails(cr, uid, "academy.email_template_registration", ids, context=context)
         return True
 
