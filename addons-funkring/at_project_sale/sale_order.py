@@ -186,7 +186,7 @@ class sale_order(osv.osv):
                     proj = proj_obj.browse(cr, uid, proj_id, context=context)
                     
                     # proj update should be done?
-                    proj_update = order and order.state == "draft" and proj_id and order_project_template_id != template_id
+                    proj_update = order and order.state == "draft" and proj_id and template_id and order_project_template_id != template_id
                     
                     # check if data from project vals are to update                    
                     if proj_update:
