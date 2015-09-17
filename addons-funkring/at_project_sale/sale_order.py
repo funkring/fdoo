@@ -63,7 +63,7 @@ class sale_order(osv.osv):
                 return res[0]
             return None
 
-        project_id = None
+        analytic_id = None
         order_values = {}
 
         if order_id:
@@ -74,7 +74,7 @@ class sale_order(osv.osv):
             order_values["client_order_ref"]=order_read.get("client_order_ref")
             order_values["name"]=order_read.get("name")
             order_values["shop_id"]=get_fkey(order_read,"shop_id")
-            project_id = order_values.get("project_id")
+            analytic_id = order_values.get("project_id")
         else:
             if not vals.get("name"):
                 vals["name"]=self.default_get(cr, uid, ["name"], context)["name"]
@@ -83,55 +83,42 @@ class sale_order(osv.osv):
         if shop_id:
             shop=self.pool.get("sale.shop").browse(cr, uid, shop_id,context=context)
             if shop.autocreate_order_analytic_account:
-                partner_id=order_values["partner_id"]=vals.get("partner_id",order_values.get("partner_id"))
-                pricelist_id=order_values["pricelist_id"]=vals.get("pricelist_id",order_values.get("pricelist_id"))
+                # init order values
+                order_values["partner_id"]=vals.get("partner_id",order_values.get("partner_id"))
+                order_values["pricelist_id"]=vals.get("pricelist_id",order_values.get("pricelist_id"))
                 order_values["name"]=vals.get("name",order_values.get("name"))
                 order_values["client_order_ref"]=vals.get("client_order_ref",order_values.get("client_order_ref"))
 
-                project_obj = self.pool.get("account.analytic.account")
+                # init vars
+                analytic_obj = self.pool.get("account.analytic.account")
                 project_context=context.copy()
                 project_vals = {}
-
                 project_name = self._project_name_get(cr,uid,order_values)
-                partner_id = order_values.get("partner_id")
-
-                #init new
-                project_order_id = None
-                if not project_id:
-                    project_context['partner_id']=partner_id
-                    project_context['pricelist_id']=pricelist_id
-                    project_context['default_name']=project_name
-                #init update
-                else:
-                    project_order_id = get_fkey(project_obj.read(cr,uid,project_id,["order_id"]),"order_id")
-                    project_vals["name"]=project_name
-                    if partner_id:
-                        project_vals["partner_id"]=partner_id
-                    if pricelist_id:
-                        project_vals["pricelist_id"]=pricelist_id
-
+                partner_id = order_values["partner_id"]
+                pricelist_id = order_values["pricelist_id"]
+              
                 #init all and determine parent project
-                shop_project_id = shop.autocreate_order_parent_id.id
-                parent_project = None
+                shop_analytic_parent_id = shop.autocreate_order_parent_id.id
+                parent_analytic = None
 
                 # get parent project
-                parent_project_id = context.get("parent_project_id",None)
-                if parent_project_id:
-                    parent_project = project_obj.browse(cr,uid,parent_project_id,context=context)
-                elif project_id:
-                    project = project_obj.browse(cr,uid,project_id,context=context)
-                    parent_project = project.parent_id
+                parent_analytic_id = context.get("parent_project_id",None)
+                if parent_analytic_id:
+                    parent_analytic = analytic_obj.browse(cr, uid, parent_analytic_id, context=context)
+                elif analytic_id:
+                    analytic = analytic_obj.browse(cr, uid, analytic_id, context=context)
+                    parent_analytic = analytic.parent_id
 
                 # check if parent is valid
-                if parent_project:
+                if parent_analytic:
                     # reset project parent if it has not an order id
-                    if not parent_project.order_id:
-                        parent_project = None
+                    if not parent_analytic.order_id:
+                        parent_analytic = None
                     else:
-                        #reset parent_project if parent_project shop is not the same
+                        #reset parent_analytic if parent_analytic shop is not the same
                         #as the shop now
                         shop_obj = self.pool.get("sale.shop")
-                        parent_shop_id = shop_obj.search_id(cr,uid,[("autocreate_order_parent_id","=",parent_project.id)])
+                        parent_shop_id = shop_obj.search_id(cr,uid,[("autocreate_order_parent_id","=",parent_analytic.id)])
                         if parent_shop_id and parent_shop_id != shop_id:
                             parent_shop_id=None
 
@@ -140,40 +127,89 @@ class sale_order(osv.osv):
                     partner = self.pool.get("res.partner").browse(cr,uid,partner_id)
                     partner_account = partner.property_partner_analytic_account
                     if partner_account:
-                        parent_project = partner_account
+                        parent_analytic = partner_account
 
-                # set values
-                project_vals["parent_id"] = (parent_project and parent_project.id) or shop_project_id
-                project_vals["code"]= order_values.get("name")
+                # set values, these values are only written
+                # if project exists or a new one is created
+                project_vals["parent_id"]=(parent_analytic and parent_analytic.id) or shop_analytic_parent_id
+                project_vals["code"]=order_values.get("name")
                 project_vals["order_id"]=order_id
+                project_vals["name"]=project_name
+                project_context['default_name']=project_name
+                if partner_id:
+                    project_vals["partner_id"]=partner_id
+                if pricelist_id:
+                    project_vals["pricelist_id"]=pricelist_id
 
                 #check if there is already an project to link
                 proj_obj = self.pool.get("project.project")
-                # search order id
-                if order_id and not project_id:
-                    project_id = proj_obj.search_id(cr, uid, [("analytic_account_id.order_id","=",order_id)])
-                    project_order_id = order_id
+                proj_id = None                
+                
+                # search project to order
+                if order_id:
+                    # if analytic id exist, search project with account
+                    if analytic_id:
+                        proj_id = proj_obj.search_id(cr, uid, [("analytic_account_id.order_id","=",order_id),("analytic_account_id","=",analytic_id)])
+                    # otherwise search without account
+                    else:
+                        proj_id = proj_obj.search_id(cr, uid, [("analytic_account_id.order_id","=",order_id)])
+                        analytic_id = get_fkey(proj_obj.read(cr, uid, proj_id, ["analytic_account_id"], context), "analytic_account_id")
+                        
+                # template
+                template_id = shop.project_template_id and shop.project_template_id.id or None
 
-                #create new
-                if not project_id:
-                    #proj_id = proj_obj.create(cr,uid,project_vals,project_context)
-                    # create from template
-                    project_vals["name"] = project_vals["code"]
-                    if order_values.get("client_order_ref"):
-                        project_vals["name"] += " / " + order_values.get("client_order_ref")
+                #create new or recreate from template if template has changed, only if analytic account created for this order
+                if not analytic_id:
+                    # create new or copy from template
                     project_vals["user_id"] = uid
                     if shop.project_template_id:
-                        proj_id = proj_obj.copy(cr,uid,shop.project_template_id.id,project_vals,project_context)
+                        proj_id = proj_obj.copy(cr, uid, template_id, project_vals, project_context)
                     else:
-                        proj_id = proj_obj.create(cr,uid,project_vals,project_context)
-                    project_id = get_fkey(proj_obj.read(cr, uid, proj_id, ["analytic_account_id"], context),"analytic_account_id")
-                    vals["project_id"]=project_id
-                    return project_id
-                #update current, if it is the
-                # analytic account created for this order
-                elif project_order_id == order_id:
-                    project_obj.write(cr, uid, [project_id], project_vals,project_context)
-                    vals["project_id"]=project_id
+                        proj_id = proj_obj.create(cr, uid, project_vals, project_context)
+                    
+                    # get analytic account
+                    analytic_id = get_fkey(proj_obj.read(cr, uid, proj_id, ["analytic_account_id"], context), "analytic_account_id")
+                    vals["project_id"] = analytic_id
+                    return analytic_id
+                
+                # update current, if there exist a project to order
+                elif proj_id:
+                    
+                    # get order                
+                    order = None
+                    order_project_template_id = None
+                    if order_id:
+                        order = self.browse(cr, uid, order_id, context=context)
+                        order_project_template_id = order.shop_id.project_template_id and order.shop_id.project_template_id.id 
+                    
+                    # get project
+                    proj = proj_obj.browse(cr, uid, proj_id, context=context)
+                    
+                    # proj update should be done?
+                    proj_update = order and order.state == "draft" and proj_id and order_project_template_id != template_id
+                    
+                    # check if data from project vals are to update                    
+                    if proj_update:
+                        project_tmp_vals = proj_obj.copy_data(cr, uid, template_id, context=project_context)
+                        project_tmp_vals.update(project_vals)
+                        project_vals = project_tmp_vals
+                    
+                    proj_obj.write(cr, uid, [proj_id], project_vals, project_context)
+                    vals["project_id"]=analytic_id
+                    
+                    # update all tasks
+#                     if proj_update:
+#                         proj = proj_obj.browse(cr, uid, proj_id, context=context)
+#                         task_obj = self.pool["project.task"]
+#                         cr.execute("SELECT t.id FROM project_task t WHERE t.project_id = %s", (proj_id,))
+#                         task_ids = [r[0] for r in cr.fetchall()]
+#                         if task_ids:
+#                             for task_id in task_ids:
+#                                 task_onchange_res = task_obj.onchange_project(cr, SUPERUSER_ID, task_id, proj_id, context=context)
+#                                 task_values = task_onchange_res and task_onchange_res["value"] or {}
+#                                 task_values["project_id"] = proj_id
+#                                 task_obj.write(cr, SUPERUSER_ID, [task_id], task_values, context=context)
+                                
         return False
 
     def _is_correct_analytic_field(self,cr,uid,vals,context=None):

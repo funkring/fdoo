@@ -31,7 +31,7 @@ class project_work(osv.osv):
             if ts_day:
                 return {"value" : {"hours" : ts_day.total_difference }}
         return {}
-
+    
     _inherit = "project.task.work"
 
 
