@@ -23,7 +23,7 @@ oerp.at Product Vendor
 =============================
 * Adds manufacturer field to product
 """,
-    "version" : "1.0",
+    "version" : "1.1",
     "author" :  "funkring.net",
     "website": "http://www.funkring.net",
     "category" : "Product",

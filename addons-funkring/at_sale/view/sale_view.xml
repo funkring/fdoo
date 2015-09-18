@@ -35,11 +35,12 @@
                         <attribute name="domain">[('categ_id','child_of',parent.shop_category_ids[0][2])]</attribute>                                                       
                     </xpath>
                     
-                    <!-- product domain for tree field -->
+                    <!-- product domain for tree field
                     <xpath expr="//field[@name='order_line']/tree//field[@name='product_id']" position="attributes">                    
                        <attribute name="domain">[('categ_id','child_of',parent.shop_category_ids[0][2])]</attribute>         
                     </xpath>
-    				
+    				 -->
+    				 
     			</data>
 			</field>
 		</record>

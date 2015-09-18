@@ -19,10 +19,36 @@
 ##############################################################################
 
 from openerp.osv import fields, osv
+from openerp.addons.at_base import util
 
 class product_template(osv.osv):
+    
+    def _product_vendor_name(self, name2, vendor):
+        if vendor:
+            return "%s %s" % (vendor, name2)
+        return name2
+    
+    def create(self, cr, uid, vals, context=None):
+        if "name2" in vals:
+            vals["name"] = self._product_vendor_name(vals.get("name2"), vals.get("manufacturer"))
+        return super(product_template, self).create(cr, uid, vals, context=context)
+    
+    def write(self, cr, uid, ids, vals, context=None):
+        if "name2" in vals or "manufacturer" in vals:
+            ids = util.idList(ids)
+            for oid in ids:
+                vals_tmp = self.read(cr, uid, oid, ["name2","manufacturer"], context=context)
+                vals_tmp.update(vals)
+                vals_tmp["name"] = self._product_vendor_name(vals_tmp.get("name2"), vals_tmp.get("manufacturer"))
+                super(product_template, self).write(cr, uid, oid, vals_tmp, context=context)
+            return True
+        
+        return super(product_template, self).write(cr, uid, ids, vals, context=context)
+    
     _inherit = "product.template"
-
     _columns = {
-        "manufacturer" : fields.char("Manufacturer", size=128)
+        "manufacturer" : fields.char("Manufacturer"),
+        "name2": fields.char("Name", required=True, translate=True, select=True)
     }
+    
+    

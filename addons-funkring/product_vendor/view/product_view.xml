@@ -1,30 +1,38 @@
 <openerp>
     <data>
-        <record id="product_vendor_form" model="ir.ui.view">
-            <field name="name">Product Vendor Form</field>
+
+        <record id="form_product_vendor" model="ir.ui.view">
+            <field name="name">product_vendor.form_product_vendor</field>
             <field name="model">product.template</field>
             <field name="inherit_id" ref="product.product_template_form_view" />
             <field name="arch" type="xml">
                 <data>
-                    <field name="name" position="after">
-                        <field name="manufacturer" placeholder="Manufacturer"/>
-                    </field>
+                    <div class="oe_title" position="replace">
+                        <div class="oe_title" style="width: 390px;">
+                            <label class="oe_edit_only" for="name" string="Product Name"/>
+                            <field name="name" invisible="1" required="0"/>
+                            <h1><field name="name2"/></h1>
+                            <h3><field name="manufacturer"/></h3>
+                        </div>
+                    </div>
                 </data>
             </field>
         </record>
 
-        <record id="product_vendor_tree" model="ir.ui.view">
-            <field name="name">Product Vendor Tree</field>
+        <record id="tree_product_vendor" model="ir.ui.view">
+            <field name="name">product_vendor.tree_product_vendor</field>
             <field name="model">product.template</field>
             <field name="inherit_id" ref="product.product_template_tree_view" />
             <field name="arch" type="xml">
                 <data>
-                    <field name="name" position="after">
+                    <field name="name" position="replace">
+                        <field name="name" invisible="1"/>
+                        <field name="name2"/>
                         <field name="manufacturer"/>
                     </field>
-
                 </data>
             </field>
         </record>
+        
     </data>
 </openerp>
