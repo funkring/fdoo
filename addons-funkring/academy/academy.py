@@ -276,7 +276,7 @@ class academy_registration(osv.Model):
                     partner_ids.append(p.id)
         return res
 
-    def do_register(self, cr, uid, ids, check=False, context=None):
+    def do_register(self, cr, uid, ids, context=None, check=False):
         ids = self.search(cr, uid, [("id","in",ids),("state","=","draft")])
         if check:
             self.write(cr, uid, ids, {"state" : "check"}, context=context)

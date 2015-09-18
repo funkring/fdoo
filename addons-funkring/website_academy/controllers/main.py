@@ -54,28 +54,28 @@ except ImportError:
 PATTERN_PRODUCT = re.compile("^product-([0-9]+)$")
 
 class website_academy(http.Controller):
-    
+
     @http.route(["/academy/validate/birthday"], type="http", auth="public", website=True)
     def validate_date(self, **kwargs):
         for value in kwargs.values():
             if not util.tryParseDate(value):
                 return BadRequest()
         return ""
-    
+
     def get_hidden_user(self):
         public_user = request.registry["res.users"].browse(request.cr, request.uid, request.uid, context=request.context)
         hidden_user = public_user.company_id.academy_webuser_id or public_user
         return hidden_user
-    
+
     @http.route(["/academy"], type="http", auth="public", website=True)
     def begin_registration(self, state_id=None, location_id=None, zip_code=None, **kwargs):
         cr, uid, context = request.cr, request.uid, request.context
         hidden_uid = self.get_hidden_user().id
-        
+
         # conversions
         location_id = util.getId(location_id)
         state_id = util.getId(state_id)
-        
+
         # used objects
         location_obj = request.registry["academy.location"]
         academy_product_obj = request.registry["academy.course.product"]
@@ -114,12 +114,12 @@ class website_academy(http.Controller):
                        " GROUP BY 1, 2 "
                        " ORDER BY c.name ", (state_id,))
             zip_list = [(r[0], "%s %s" % (r[0],r[1])) for r in cr.fetchall()]
-                        
+
             for zip_val in zip_list:
                 if zip_val[0]==zip_code:
                     zip_sel=zip_val
                     break
-        
+
         # validate districts
         if zip_sel:
             zip_code, zip_item = zip_sel
@@ -133,8 +133,8 @@ class website_academy(http.Controller):
             if zip_code:
                 search.append(("address_id.zip","=",zip_code))
             location_ids = location_obj.search(cr, hidden_uid, search, order="name")
-        
-        # group locations        
+
+        # group locations
         locations = location_obj.browse(cr, hidden_uid, location_ids, context=context)
         location_by_zip = {}
         for location in locations:
@@ -145,20 +145,20 @@ class website_academy(http.Controller):
                 location_by_zip[zip_code] = loc_list
             loc_list.append(location)
 
-        # create zip locations tuples         
+        # create zip locations tuples
         zip_codes = sorted(location_by_zip)
         zip_locations = []
         for zip_code in zip_codes:
             zip_locations.append((zip_code,location_by_zip[zip_code]))
-                    
+
         # get current location
         location = None
         if location_id in location_ids:
             location = location_obj.browse(cr, hidden_uid, location_id, context=context)
             if location:
                 location_item = location.name
-        
-        
+
+
 
         # get products
         product_ids = academy_product_obj.search(cr, hidden_uid, [])
@@ -178,18 +178,18 @@ class website_academy(http.Controller):
             "zip_list" : zip_list
         }
         return request.website.render("website_academy.index", values, context=context)
-    
+
     @http.route(["/academy/registration","/academy/registration/<int:stage>"], type="http", auth="public", website=True, methods=['GET'])
     def registration_get(self, state_id=None, location_id=None, zip_code=None, **kwargs):
         return self.begin_registration(state_id=state_id, location_id=location_id, zip_code=zip_code)
-    
+
     @http.route(["/academy/registration","/academy/registration/<int:stage>"], type="http", auth="public", website=True, methods=['POST'])
     def registration_post(self, stage=1, **kwargs):
         cr, uid, context = request.cr, request.uid, request.context
         hidden_uid = self.get_hidden_user().id
-        
+
         courses = []
-        
+
         # used obj
         academy_product_obj = request.registry["academy.course.product"]
         uom_obj = request.registry["product.uom"]
@@ -198,14 +198,14 @@ class website_academy(http.Controller):
         partner_obj = request.registry["res.partner"]
         city_obj = request.registry["res.city"]
         reg_obj = request.registry["academy.registration"]
-        
+
         # build selection
         is_student_of_loc = False
         parent_address = True
         invoice_address = False
         extra_info = None
         read_school_rules = None
-        
+
         for key, value in kwargs.items():
             if key == "is_student_of_loc":
                 is_student_of_loc = True
@@ -214,7 +214,7 @@ class website_academy(http.Controller):
             elif key == "has_invoice_address":
                 invoice_address = True
             elif key == "textinput_extra_info":
-                extra_info = value        
+                extra_info = value
             elif key == "read_school_rules":
                 read_school_rules = True
             else:
@@ -225,7 +225,7 @@ class website_academy(http.Controller):
                         course_prod = academy_product_obj.browse(cr, hidden_uid, util.getId(m.group(1)), context=context)
                         uom = uom_obj.browse(cr, hidden_uid, uom_id, context=context)
                         courses.append((course_prod, uom))
-                        
+
         # location
         location_id = util.getId(kwargs.get("location_id"))
         location = location_id and location_obj.browse(cr, hidden_uid, location_id, context=context) or None
@@ -242,8 +242,8 @@ class website_academy(http.Controller):
                     location_lines.append("%s %s" % (address.zip, address.city))
                 else:
                     location_lines.append(address.zip)
-                        
-        # registration 
+
+        # registration
         registration = kwargs.get("registration")
         lock_hash = None
         try:
@@ -257,10 +257,10 @@ class website_academy(http.Controller):
                 if reg_id:
                     values = {
                         "message_title" : _("Registration already finished!"),
-                        "message_text" :  _("<p>Registration %s was done</p>") % registration                                  
+                        "message_text" :  _("<p>Registration %s was done</p>") % registration
                     }
-                    return request.website.render("website_academy.message", values, context=context)        
-           
+                    return request.website.render("website_academy.message", values, context=context)
+
             # handle stage
             if stage==2:
                 # finish registration
@@ -268,7 +268,7 @@ class website_academy(http.Controller):
                 messages = []
                 #
                 def create_address(obj, fields, data, name):
-                    """ get address or create new 
+                    """ get address or create new
                         :return (id,Name)
                     """
                     # search address
@@ -279,49 +279,49 @@ class website_academy(http.Controller):
                         fields = obj.fields_get(cr, hidden_uid, allfields=fields, context=context)
                         for key, value in cur_data.items():
                             if key == "id":
-                                continue                        
+                                continue
                             value1 = value or ""
                             value2 = data.get(key) or ""
-                            
+
                             # get name if it is a many2one field
                             if isinstance(value1,tuple):
-                                value1=value1[1]                            
+                                value1=value1[1]
                             if isinstance(value2,tuple):
-                                value2=value2[1]                        
+                                value2=value2[1]
                             if value1 != value2:
                                 changes.append(_("Value of field '%s' is '%s' but customer typed '%s'") % (fields[key]["string"],value1,value2))
                         if changes:
                             warnings.append("<p><b>%s</b></p>" % name)
                             for change in changes:
                                 warnings.append("<p>%s</p>" % change)
-                            warnings.append("<p></p>")                                                
+                            warnings.append("<p></p>")
                     else:
                         # convert tuple to id
                         for key, value in data.items():
                             if isinstance(value,tuple):
                                 data[key]=value[0]
-    
+
                         # create new address
                         address_id = obj.create(cr, hidden_uid, data, context=context)
-                        
+
                     if address_id:
-                        return obj.name_get(cr, hidden_uid, [address_id], context=context)[0]                    
+                        return obj.name_get(cr, hidden_uid, [address_id], context=context)[0]
                     return None
-                
+
                 def get_address(prefix):
                     """ parse address data """
                     # simple get
                     def get(name):
                         arg =  kwargs.get("%s_%s" % (prefix,name))
                         return arg and arg.strip() or ""
-                    
+
                     firstname = get("firstname")
                     lastname = get("lastname")
                     email = get("email")
-                    
+
                     if not firstname or not lastname or not email:
                         return None
-                    
+
                     name =  "%s %s" % (lastname, firstname)
                     city = get("city")
                     zip = get("zip")
@@ -331,60 +331,60 @@ class website_academy(http.Controller):
                         "street" : get("street"),
                         "zip" : zip,
                         "city" : city
-                    }  
-    
+                    }
+
                     nationality = get("nationality")
                     if nationality:
                         res["nationality"]=nationality
-    
+
                     birthday_dt, birthday = util.tryParseDate(get("birthday"))
                     if birthday_dt:
                         res["birthday"] = util.dateToStr(birthday_dt)
-                        
+
                     phone = get("phone")
                     if phone:
                         res["phone"] = phone
-                    
-                    city_values = city_obj.search_read(cr, hidden_uid, [("code","=",zip)], ["name","state_id"], context=context)                
+
+                    city_values = city_obj.search_read(cr, hidden_uid, [("code","=",zip)], ["name","state_id"], context=context)
                     for city_val in city_values:
                         if re.sub("[^A-Za-z]", "", city) == re.sub("[^A-Za-z]", "", city_val["name"]):
                             res["state_id"] = city_val["state_id"]
                             res["city"] = city_val["name"]
                             break
-                        
-                    return res              
-                   
-                   
+
+                    return res
+
+
                 if not courses:
                     raise osv.except_osv(_("Error"), _("No courses selected"))
-                   
+
                 student_values = get_address("form_student")
                 if not student_values:
                     raise osv.except_osv(_("Error"), _("No student address passed"))
-                            
+
                 if parent_address:
                     parent_values = get_address("form_parent")
                     if not parent_values:
                         raise osv.except_osv(_("Error"), _("No parent address passed"))
-                    student_values["parent_id"]=create_address(partner_obj, ["name","email","street","zip","city","phone","birthday"], 
+                    student_values["parent_id"]=create_address(partner_obj, ["name","email","street","zip","city","phone","birthday"],
                                                                parent_values, _("Parent"))
                 invoice_address_id = None
                 if invoice_address:
                     invoice_values = get_address("form_invoice")
                     if not invoice_values:
                         raise osv.except_osv(_("Error"), _("No invoice address passed"))
-                    invoice_address_id=create_address(partner_obj, ["name","email","street","zip","city","phone"], 
+                    invoice_address_id=create_address(partner_obj, ["name","email","street","zip","city","phone"],
                                                                         invoice_values, _("Invoice Address"))[0]
-                
-    
-                # create student address            
+
+
+                # create student address
                 student = create_address(student_obj,
                                          ["name","email","street","zip","city","phone","nationality","birthday","parent_id"],
                                          student_values, _("Student"))
-                
-                # create courses                               
+
+                # create courses
                 for course in courses:
-    
+
                     values = {
                         "course_prod_id" : course[0].id,
                         "uom_id" : course[1].id,
@@ -394,35 +394,35 @@ class website_academy(http.Controller):
                         "note" : extra_info,
                         "read_school_rules" : read_school_rules
                     }
-                    
+
                     # set invoice address id
                     if invoice_address_id:
                         values["invoice_address_id"]=invoice_address_id
-                    
+
                     # set registration number
                     if registration:
                         values["name"]=registration
                         registration=None
-                    
+
                     # create, register and commit
                     reg_id = reg_obj.create(cr, hidden_uid, values, context=context)
-                    reg_name = reg_obj.read(cr, hidden_uid, reg_id, ["name"], context=context)["name"]                         
-                    reg_obj.do_register(cr, hidden_uid, [reg_id], check=True, context=context)
-                    cr.commit()       
-                    
+                    reg_name = reg_obj.read(cr, hidden_uid, reg_id, ["name"], context=context)["name"]
+                    reg_obj.do_register(cr, hidden_uid, [reg_id], context=context, check=True)
+                    cr.commit()
+
                     # create status message
                     messages.append(_("<p>Registration %s was created.</p>") % reg_name)
-                    
+
                     # add info if something is to add
                     if warnings:
                         warnings = "\n".join(warnings)
                         reg_obj.message_post(cr, hidden_uid, reg_id, body=warnings, context=context)
-                
+
                 values = {
                     "message_title" : _("Registration finished!"),
-                    "message_text" : "\n".join(messages)                                   
+                    "message_text" : "\n".join(messages)
                 }
-                return request.website.render("website_academy.message", values, context=context)        
+                return request.website.render("website_academy.message", values, context=context)
             else:
                 # begin registration
                 values = {
@@ -438,7 +438,6 @@ class website_academy(http.Controller):
             # unlock
             if lock_hash:
                 cr.execute("SELECT pg_advisory_unlock(%s)" % lock_hash)
-                
-    
-    
-    
+
+
+
