@@ -266,6 +266,40 @@ class CleanUp(ConfigCommand):
         self.clean=False
         _logger.warning("[MANUAL FIX] %s" % msg)
     
+    
+    def cleanup_translation(self):
+        self.cr.execute("SELECT id, lang, name, res_id, module FROM ir_translation WHERE type='model' ORDER BY lang, module, name, res_id, id")
+        refs = {}
+        
+        for row in self.cr.fetchall():
+            # get name an res id
+            name = row[2] and row[2].split(",")[0] or None
+            res_id = row[3]            
+            if name and res_id:
+                ref = (name, res_id)
+                ref_valid = False
+                
+                if ref in refs:
+                    ref_valid = refs.get(ref)
+                else:
+                    model_obj = self.pool.get(name)
+                    
+                    # ignore uninstalled modules
+                    if not model_obj or not model_obj._table:
+                        continue
+                    
+                    self.cr.execute("SELECT COUNT(id) FROM %s WHERE id=%s" % (model_obj._table, res_id))
+                    if self.cr.fetchone()[0]:
+                        ref_valid = True
+                        
+                    refs[ref] = ref_valid
+                    
+                # check if it is to delete
+                if not ref_valid:
+                    self.fixable("Translation object %s,%s no exist" % (name, res_id))
+                    self.cr.execute("DELETE FROM ir_translation WHERE id=%s", (row[0],))
+            
+    
     def cleanup_double_translation(self):
         self.cr.execute("SELECT id, lang, name, res_id, module FROM ir_translation WHERE type='model' ORDER BY lang, module, name, res_id, id")
         last_key = None
@@ -421,8 +455,9 @@ class CleanUp(ConfigCommand):
                 with api.Environment.manage():
 
                     self.cleanup_models()
-                    self.cleanup_modules()   
-                    self.cleanup_model_data()                 
+                    self.cleanup_modules()
+                    self.cleanup_model_data()    
+                    self.cleanup_translation()            
                     
                     if self.params.fix:
                         self.cr.commit()
