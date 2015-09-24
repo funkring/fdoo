@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+  
+    <record id="tree_sale_order" model="ir.ui.view">
+      <field name="name">at_sale.tree_sale_order</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <data>
+            
+                <field name="name" position="after">
+                    <field name="client_order_ref"/>                
+                </field>
+                
+                <field name="state" position="before">
+                    <field name="shipped"/>
+                </field>
+                
+            </data>
+        </field>
+    </record>
+    
+  </data>
+</openerp>
