@@ -10,7 +10,8 @@
                     <field name="project_id" 
                         attrs="{'invisible':[('order_project_id','!=',False)]}"  
                         context="{'partner_id':partner_invoice_id, 'manager_id': user_id, 'default_pricelist_id':pricelist_id, 'default_name':name, 'default_type': 'contract'}" groups="sale.group_analytic_accounting" domain="[('type','in',['view','normal','contract'])]"/>
-                    <field name="order_project_id" groups="project.group_project_manager, project.group_project_user" />
+                    <field name="order_project_id" groups="project.group_project_manager,project.group_project_user" 
+                          attrs="{'invisible':[('order_project_id','=',False)]}" />
                 </field>
           </field>
         </record>

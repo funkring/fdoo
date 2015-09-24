@@ -44,6 +44,10 @@
       <field name="inherit_id" ref="project.edit_project"/>
       <field name="arch" type="xml">
         
+          <field name="parent_id" position="after">
+            <field name="order_id" readonly="1"/>
+          </field>
+        
           <page string="Other Info" position="inside">
                 <group string="Cost Overview">
                     <field name="debit"/>

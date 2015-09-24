@@ -26,15 +26,18 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
-                <field name="user_id" position="after">
-                    <field name="categ_ids" widget="many2many_tags"/>
-                </field>
-                <field name="client_order_ref" position="after">
-                    <field name="campaign_id" />
-                    <field name="medium_id" />
-                    <field name="source_id" />
-                </field>
-
+                <data>
+                    <field name="user_id" position="after">
+                        <field name="categ_ids" widget="many2many_tags"/>
+                    </field>
+                    <group name="sale_pay" position="after">
+                        <group name="crm">
+                            <field name="campaign_id"/>
+                            <field name="medium_id"/>
+                            <field name="source_id"/>
+                        </group>
+                    </group>
+                </data>
             </field>
         </record>
     </data>
