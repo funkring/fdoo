@@ -23,44 +23,6 @@ from openerp.osv import fields,osv
 from openerp.addons.at_base import util
 from dateutil.relativedelta import relativedelta
 
-class stock_picking(osv.osv):
-    
-    def _location_partner_id(self, cr, uid, ids, field_name, args, context=None):
-        res = dict.fromkeys(ids)
-        for picking in self.browse(cr, uid, ids, context):
-            partner = None
-            purchase = picking.purchase_id
-            
-            #partner from purchase
-            if purchase:
-                #purchase destination
-                partner = purchase.dest_address_id
-                if not partner:
-                    # or location destination
-                    location = purchase.location_id
-                    if location: 
-                        partner = location.partner_id
-                        # take partner from parent locations
-                        while not partner:
-                            location = location.partner_id
-                            if not location:
-                                break
-                            partner = location.partner_id
-            
-            #take default partner from company            
-            if not partner:
-                partner =  picking.company_id.partner_id
-              
-            #set partner if found
-            if partner:
-                res[picking.id] = partner.id
-        return res
-    
-    _inherit = "stock.picking"
-    _columns = {
-        "location_partner_id" : fields.function(_location_partner_id, string="Location Partner", type="many2one", obj="res.partner", store=False)
-    }
-    
 
 class stock_move(osv.osv):
     
