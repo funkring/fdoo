@@ -200,6 +200,16 @@ class sale_order_line(osv.Model):
                 res[line.id] = line.purchase_price
         return res
 
+    def copy_data(self, cr, uid, id, default=None, context=None):
+        if not default:
+            default = {}
+
+        if not "purchase_price" in default:
+            line = self.browse(cr, uid, id, context)            
+            default["purchase_price"] = line.quotation_price
+        
+        return super(sale_order_line,self).copy_data(cr, uid, id, default=default, context=context)
+
     _inherit = 'sale.order.line'
     _columns = {
         "quotation_price" : fields.function(_quotation_price, type="float", string="Cost Price", copy=False, readonly=True),
