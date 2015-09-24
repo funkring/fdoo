@@ -301,7 +301,21 @@ class CleanUp(ConfigCommand):
             
     
     def cleanup_double_translation(self):
+        # check model translations
         self.cr.execute("SELECT id, lang, name, res_id, module FROM ir_translation WHERE type='model' ORDER BY lang, module, name, res_id, id")
+        last_key = None
+        first_id = None
+        for row in self.cr.fetchall():
+            key = row[1:]
+            if last_key and cmp(key,last_key) == 0:                
+                self.fixable("Double Translation %s for ID %s" % (repr(row), first_id))
+                self.cr.execute("DELETE FROM ir_translation WHERE id=%s", (row[0],))
+            else:
+                first_id = row[0]
+            last_key = key
+        
+        # check view translations    
+        self.cr.execute("SELECT id, lang, name, src, module FROM ir_translation WHERE type='view' AND res_id=0 ORDER BY lang, module, name, src, id")
         last_key = None
         first_id = None
         for row in self.cr.fetchall():
