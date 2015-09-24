@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-24 07:29+0000\n"
-"PO-Revision-Date: 2015-09-24 09:29+0100\n"
+"POT-Creation-Date: 2015-09-24 10:14+0000\n"
+"PO-Revision-Date: 2015-09-24 12:14+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -40,7 +40,7 @@ msgstr "Verrechnung nach Aufwand"
 #. module: at_project_sale
 #: view:at_project_sale.correct_time_wizard:at_project_sale.wizard_correct_time
 msgid "Close"
-msgstr "Schließen"
+msgstr ""
 
 #. module: at_project_sale
 #: view:project.project:at_project_sale.search_project
@@ -64,6 +64,11 @@ msgid "Correct offered Hours"
 msgstr "Korrigiere Stunden im Angebot"
 
 #. module: at_project_sale
+#: view:project.project:at_project_sale.form_edit_project
+msgid "Cost Overview"
+msgstr "Kostenübersicht"
+
+#. module: at_project_sale
 #: field:at_project_sale.correct_time_wizard,create_uid:0
 msgid "Created by"
 msgstr "Erstellt von"
@@ -74,20 +79,9 @@ msgid "Created on"
 msgstr "Erstellt am"
 
 #. module: at_project_sale
-#: view:project.task:at_project_sale.form_task2
-#: field:project.task,invoice_hours:0
-msgid "Hours to Invoice"
-msgstr "Zu verrechnende Stunden"
-
-#. module: at_project_sale
 #: field:at_project_sale.correct_time_wizard,id:0
 msgid "ID"
 msgstr ""
-
-#. module: at_project_sale
-#: field:project.task,order_based_invoice:0
-msgid "Invoice based on Order"
-msgstr "Rechnung basierend auf Verkaufsauftrag"
 
 #. module: at_project_sale
 #: field:at_project_sale.correct_time_wizard,write_uid:0
@@ -113,6 +107,11 @@ msgstr "Auftrag"
 #: model:ir.actions.act_window,name:at_project_sale.act_analytic_account_to_order
 msgid "Order(s)"
 msgstr "Aufträge"
+
+#. module: at_project_sale
+#: view:project.project:at_project_sale.form_edit_project
+msgid "Other Info"
+msgstr "Weitere Info"
 
 #. module: at_project_sale
 #: model:ir.model,name:at_project_sale.model_res_partner
@@ -199,7 +198,7 @@ msgstr ""
 #. module: at_project_sale
 #: view:at_project_sale.correct_time_wizard:at_project_sale.wizard_correct_time
 msgid "or"
-msgstr "oder"
+msgstr ""
 
 #. module: at_project_sale
 #: view:at_project_sale.correct_time_wizard:at_project_sale.wizard_correct_time

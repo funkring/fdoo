@@ -9,11 +9,7 @@
             	<data>
 	            	<xpath expr="//field[@name='work_ids']/tree/field[@name='user_id']" position="replace">
 	                	<field name="user_id" on_change="onchange_user(date,hours,user_id)"/>
-	               </xpath>  
-	           		<field name="total_hours" position="before">
-	           		   <field name="order_based_invoice" invisible="1"/>
-	                 <field name="invoice_hours" string="Hours to Invoice" attrs="{'invisible' : [('order_based_invoice','=',False)], 'readonly': [('kanban_state','=','done')] }"/>
-	           		</field>	    
+	               </xpath>     
            		</data>     	      	    
             </field>
         </record>

@@ -20,23 +20,38 @@
       <field name="arch" type="xml">
          
          <field name="doc_count" position="after">
-            <field name="debit"/>
-            <field name="credit"/>
             <field name="balance"/>
             <field name="currency_id"/>
          </field>
          
          <div class="oe_kanban_footer_left" position="inside">
             <span t-if="record.balance.raw_value &gt; 0">
-                <field name="debit"/> - <field name="credit"/> = <field name="balance"/> 
+                <field name="balance"/> 
                 <field name="currency_id"/>
             </span>
             <span t-if="record.balance.raw_value &lt; 0" style="color: red;">
-                <field name="debit"/> - <field name="credit"/> = <field name="balance"/>
+                <field name="balance"/> 
                 <field name="currency_id"/>
             </span>
          </div>
               
+      </field>
+    </record>
+    
+    <record id="form_edit_project" model="ir.ui.view">
+      <field name="name">at_project_sale.form_edit_project</field>
+      <field name="model">project.project</field>
+      <field name="inherit_id" ref="project.edit_project"/>
+      <field name="arch" type="xml">
+        
+          <page string="Other Info" position="inside">
+                <group string="Cost Overview">
+                    <field name="debit"/>
+                    <field name="credit"/>
+                    <field name="balance"/>
+                </group>
+          </page>
+        
       </field>
     </record>
     
