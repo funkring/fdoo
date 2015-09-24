@@ -98,6 +98,22 @@ class procurement_order(osv.Model):
             product = sale_order_line.product_id
             if product:
                 purchase_line_obj = self.pool["purchase.order.line"]
+                purchase_obj = self.pool["purchase.order"]
+                
+                # cancel or remove unselected
+                unused_line_ids = purchase_line_obj.search(cr, uid, [("sale_line_id","=",sale_order_line.id), ("partner_id", "!=", sale_order_line.supplier_id.id), ("product_id","=",product.id)], context=context)               
+                if unused_line_ids:
+                    for line in purchase_line_obj.browse(cr, uid, unused_line_ids, context=context):
+                        purchase_order = line.order_id
+                        if len(purchase_order.order_line) == 1:
+                            # remove order
+                            if purchase_order.state == 'draft' and not line.quot_sent:
+                                purchase_obj.unlink(cr, uid, [purchase_order.id], context=context)
+                            # cancel order
+                            elif purchase_order.state in ('draft','sent','bid'):
+                                purchase_obj.action_cancel(cr, uid,  [purchase_order.id], context=context)
+                                
+                # get selected
                 purchase_line_id = purchase_line_obj.search_id(cr, uid, [("sale_line_id","=",sale_order_line.id), ("partner_id", "=", sale_order_line.supplier_id.id), ("product_id","=",product.id)], context=context)
                 if purchase_line_id:      
                     purchase_line = purchase_line_obj.browse(cr, uid, purchase_line_id, context=context)                    
