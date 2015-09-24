@@ -254,7 +254,7 @@ class sale_order(osv.osv):
         return order_id
 
     def _pre_calc(self, cr, uid, ids, field_name, arg, context=None):
-        res = {}
+        res = dict.fromkeys(ids)
         for obj in self.browse(cr, uid, ids, context):
             total = obj.margin
             total -= obj.timesheet_lines_amount
@@ -304,12 +304,20 @@ class sale_order(osv.osv):
         return res
 
     def _contrib_margin_percent(self,cr, uid, ids, field_name, arg, context=None):
-        res = {}
+        res = dict.fromkeys(ids)
         for obj in self.browse(cr, uid, ids, context):
             margin = 0.0
             if obj.amount_untaxed:
                 margin=100.0/obj.amount_untaxed*obj.margin
             res[obj.id]=margin
+        return res
+    
+    def _linked_project_id(self, cr, uid, ids, field_name, arg, context=None):
+        res = dict.fromkeys(ids)
+        project_obj = self.pool["project.project"]
+        project_ids = project_obj.search(cr, uid, [("order_id","in",ids)])
+        for project in project_obj.browse(cr, uid, project_ids, context=context):
+            res[project.order_id.id] = project.id
         return res
 
     _inherit = "sale.order"
@@ -318,7 +326,8 @@ class sale_order(osv.osv):
         "post_calc" : fields.function(_post_calc,string="Post Calculation (Netto)",type="float", digits_compute=dp.get_precision("Account")),
         "margin_contrib_percent" : fields.function(_contrib_margin_percent,string="Contribution Margin %",type="float"),
         "timesheet_lines" : fields.function(_timesheet_lines,string="Timesheet Lines",type="many2many",obj="hr.analytic.timesheet"),
-        "timesheet_lines_amount" : fields.function(_timesheet_lines_amount,string="Timesheet Lines",type='float', digits_compute=dp.get_precision("Account"))
+        "timesheet_lines_amount" : fields.function(_timesheet_lines_amount,string="Timesheet Lines",type='float', digits_compute=dp.get_precision("Account")),
+        "order_project_id" : fields.function(_linked_project_id, relation="project.project", type="many2one", string="Project")
      }
     
     

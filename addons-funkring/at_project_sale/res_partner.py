@@ -22,11 +22,21 @@
 
 from openerp.osv import fields,osv
 
-class res_partner(osv.osv):    
+class res_partner(osv.osv): 
+    
+    def _project_count(self, cr, uid, ids, field_name, arg, context=None):
+        res = dict.fromkeys(ids)
+        project_obj = self.pool["project.project"]
+        for partner in self.browse(cr, uid, ids, context):
+            res[partner.id] = project_obj.search(cr, uid, [("partner_id","=",partner.id),("state","=","open")], count=True, context=context)
+        return res
+       
     _inherit = "res.partner"
     _columns = {
         "property_partner_analytic_account" : fields.property(
                                                 string="Analytic Account",
                                                 type="many2one",
-                                                relation="account.analytic.account")
+                                                relation="account.analytic.account"),
+                
+        "project_count" : fields.function(_project_count, type="integer", string="Project Count")
     }

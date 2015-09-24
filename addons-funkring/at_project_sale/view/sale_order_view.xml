@@ -1,18 +1,31 @@
 <openerp>
 	<data>
 
+        <record id="form_sale_order2" model="ir.ui.view">
+          <field name="name">at_project_sale.form_sale_order2</field>
+          <field name="model">sale.order</field>
+          <field name="inherit_id" ref="sale.view_order_form"/>
+          <field name="arch" type="xml">
+                <field name="project_id" position="replace">
+                    <field name="project_id" 
+                        attrs="{'invisible':[('order_project_id','!=',False)]}"  
+                        context="{'partner_id':partner_invoice_id, 'manager_id': user_id, 'default_pricelist_id':pricelist_id, 'default_name':name, 'default_type': 'contract'}" groups="sale.group_analytic_accounting" domain="[('type','in',['view','normal','contract'])]"/>
+                    <field name="order_project_id" groups="project.group_project_manager, project.group_project_user" />
+                </field>
+          </field>
+        </record>
+
+
 		<record id="form_sale_order" model="ir.ui.view">
 			<field name="name">at_project_sale.form_sale_order</field>
 			<field name="model">sale.order</field>
-			<field name="inherit_id" ref="sale_margin.sale_margin_sale_order" />		
-			<field name="arch" type="xml">
-				
+			<field name="inherit_id" ref="sale_margin.sale_margin_sale_order" />
+			<field name="arch" type="xml">				
 				<group name="sale_margin_grp" position="inside" >
 						<field name="pre_calc" options="{'currency_field': 'currency_id'}"/>
 						<field name="margin_contrib_percent" />
 						<field name="post_calc" options="{'currency_field': 'currency_id'}"/>
 				</group>		
-				
 			</field>
 		</record>
 		
