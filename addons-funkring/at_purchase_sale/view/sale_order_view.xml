@@ -1,5 +1,6 @@
 <openerp>
     <data>
+        
         <record id="sale_purchase_order_action" model="ir.actions.act_window">
             <field name="name">Purchase order</field>
             <field name="res_model">purchase.order</field>
@@ -13,6 +14,7 @@
                 </p>
             </field>
         </record>
+        
         <record id="form_sale_order" model="ir.ui.view">
             <field name="name">sale.form_sale_order</field>
             <field name="model">sale.order</field>
@@ -26,6 +28,9 @@
                             string="Purchase orders" type="action" widget="statinfo"/>
                     </div>
                 </field>
+                <field name="incoterm" position="before">
+                    <field name="neutral_delivery"/>
+                </field>
                 <div name="discount" position="after">
                     <field invisible="1" name="available_supplier_ids"/>
                     <field name="supplier_id"  domain="[('id','in',available_supplier_ids[0][2])]"/>
@@ -34,6 +39,7 @@
                     <field name="procurement_note" />
                 </field>
             </field>
-        </record>       
-    </data>
+        </record>
+               
+    </data>    
 </openerp>

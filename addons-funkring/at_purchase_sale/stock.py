@@ -37,6 +37,24 @@ class stock_move(osv.osv):
                     res["sale_line_id"] = sale_line.id
                     
         return res
+    
+    def action_confirm(self, cr, uid, ids, context=None):
+        """
+            Pass neutral delivery flag to the picking from the sales order
+            (Should also work in case of Phantom BoMs when on explosion the original move is deleted)
+        """
+        procs_to_check = []
+        for move in self.browse(cr, uid, ids, context=context):
+            if move.procurement_id and move.procurement_id.sale_line_id and move.procurement_id.sale_line_id.order_id.neutral_delivery:
+                procs_to_check += [move.procurement_id]
+        res = super(stock_move, self).action_confirm(cr, uid, ids, context=context)
+        pick_obj = self.pool.get("stock.picking")
+        for proc in procs_to_check:
+            pickings = list(set([x.picking_id.id for x in proc.move_ids if x.picking_id and not x.picking_id.neutral_delivery]))
+            if pickings:
+                pick_obj.write(cr, uid, pickings, {'neutral_delivery': proc.sale_line_id.order_id.neutral_delivery}, context=context)
+        return res
+
         
     _inherit = "stock.move"
 
@@ -46,25 +64,35 @@ class stock_picking(osv.osv):
     def _sender_address(self, cr, uid, ids, field_name, arg, context=None):
         res = dict.fromkeys(ids)
         for picking in self.browse(cr, uid, ids, context):
-            shop = picking.shop_id
-            partner = None
-            if shop:
-                if shop.sender_address_id:
+            sale_order = picking.sale_id
+            
+            # check neutral delivery
+            if sale_order and picking.neutral_delivery:
+                res[picking.id] = sale_order.partner_id
+                
+            else:
+                # default partner from company            
+                partner = None
+                
+                # check address from shop 
+                shop = picking.shop_id
+                if shop and shop.sender_address_id:
                     partner = shop.sender_address_id
-                if not partner and shop.neutral_delivery and picking.partner_id:
-                    partner = picking.partner_id         
+                        
+                # check address from location
                 if not partner and picking.location_id:
                     partner = picking.location_id.partner_id
-                if not partner and shop.warehouse_id:
-                    partner = shop.warehouse_id.partner_id
-                if not partner and shop.company_id.partner_id:
-                    partner = shop.company_id.partner_id
-                #
-                if partner:
-                    res[picking.id]=partner.id
+                    
+                # use company address
+                if not partner:
+                    partner = picking.company_id.partner_id
+                    
+                res[picking.id]=partner.id
+                    
         return res
                 
     _inherit = "stock.picking"
     _columns = {
-        "sender_address_id" : fields.function(_sender_address, string="Sender Address", type="many2one", obj="res.partner", store=False)
+        "sender_address_id" : fields.function(_sender_address, string="Sender Address", type="many2one", obj="res.partner", store=False),
+        "neutral_delivery" : fields.boolean("Neutral Delivery")
     }    

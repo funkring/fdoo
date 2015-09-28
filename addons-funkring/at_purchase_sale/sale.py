@@ -25,10 +25,17 @@ class sale_shop(osv.osv):
 
     _inherit = "sale.shop"
     _columns = {
-        "neutral_delivery" : fields.boolean("Neutral Delivery"),
         "sender_address_id" : fields.many2one("res.partner", "Sender Address")
     }
 
+
+class sale_order(osv.osv):
+    
+    _inherit = "sale.order"
+    _columns = {
+        "neutral_delivery" : fields.boolean("Neutral Delivery", states={'draft': [('readonly', False)], 'sent': [('readonly', False)]})
+    }
+    
 
 class sale_order_line(osv.osv):
 
