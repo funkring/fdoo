@@ -26,7 +26,6 @@
 #
 ##############################################################################
 
-from barcode import barcode
 from openerp.tools import translate
 from domain_parser import domain2statement
 from currency_to_text import currency_to_text
@@ -34,6 +33,9 @@ import base64
 import StringIO
 from PIL import Image
 import time
+
+import barcode
+import barcode.writer
 
 from openerp.osv import osv
 from openerp.modules.registry import RegistryManager
@@ -44,8 +46,8 @@ from openerp.tools.safe_eval import safe_eval as eval
 import re
 
 SVG_PATTERN = re.compile('<svg ([^>]+)>',re.I & re.MULTILINE)
-WIDTH_PATTERN = re.compile('width="([0-9A-Za-z]+)',re.I & re.MULTILINE)
-HEIGHT_PATTERN = re.compile('height="([0-9A-Za-z]+)',re.I % re.MULTILINE)
+WIDTH_PATTERN = re.compile('width="([0-9A-Za-z\\.]+)',re.I & re.MULTILINE)
+HEIGHT_PATTERN = re.compile('height="([0-9A-Za-z\\.]+)',re.I % re.MULTILINE)
 FLOAT_PATTERN = re.compile('^[0-9]+(\\.[0-9]*)?$')
 
 
@@ -82,7 +84,7 @@ class ExtraFunctions(object):
             '_':self._translate_text,
             'gettext':self._translate_text,
             'currency_to_text':self._currency2text(context['company'].currency_id.name), #self._currency2text(context['company'].currency_id.code),
-            'barcode':barcode.make_barcode,
+            'barcode':self._barcode,
             'debugit':self.debugit,
             'dec_to_time':self._dec2time,
             'chunks':self._chunks,
@@ -288,24 +290,28 @@ class ExtraFunctions(object):
         if type(index)==int:
             return res[index]
         return len(res)==1 and res[0] or res
-    
-    def _asimage(self, field_value, rotate=None, dpi=96.0, width=None, height=None):
+
+    def _asimage(self, field_value, rotate=None, dpi=96.0, width=None, height=None, tf=None):
         if not field_value:
             return StringIO.StringIO(), 'image/png'
-        
-        # try to convert params to float               
+
+        # try to convert params to float
         if width and isinstance(width,basestring) and FLOAT_PATTERN.match(width):
             width = float(width)
         if height and isinstance(height,basestring) and FLOAT_PATTERN.match(height):
             height = float(height)
         if dpi and isinstance(dpi,basestring) and FLOAT_PATTERN.match(dpi):
             dpi = float(dpi)
-        
+
         # prepare data
-        field_value = base64.decodestring(field_value)
-        tf = StringIO.StringIO(field_value)
         mimetype = None
-        
+        if hasattr(field_value, "getvalue"):
+            tf = field_value
+            field_value = tf.getvalue()
+        else:
+            field_value = base64.decodestring(field_value)
+            tf = StringIO.StringIO(field_value)
+
         # check if it is svg
         if field_value.startswith("<?xml version"):
             svg_header = SVG_PATTERN.finditer(field_value).next()
@@ -320,9 +326,9 @@ class ExtraFunctions(object):
                     height = HEIGHT_PATTERN.finditer(svg_header).next()
                     if height:
                         height = height.group(1)
-            
-        # other image type 
-        if not mimetype:            
+
+        # other image type
+        if not mimetype:
             tf.seek(0)
             im=Image.open(tf)
             try:
@@ -332,24 +338,24 @@ class ExtraFunctions(object):
                     im.save(tf, im.format.lower())
             except Exception, e:
                 pass
-        
+
             im_width = im.size[0]
             im_height = im.size[1]
             mimetype = "image/%s" % im.format.lower()
-        
+
         #size vars
         size_x = None
         size_y = None
-        
+
         # Calc Width
         if width:
             if isinstance(width,basestring):
                 size_x = width
             else:
                 im_width = width
-        if not size_x and im_width:        
+        if not size_x and im_width:
             size_x = str(im_width/dpi)+'in'
-        
+
         # Calc Height
         if height:
             if isinstance(height,basestring):
@@ -358,9 +364,14 @@ class ExtraFunctions(object):
                 im_height = height
         if not size_y and im_height:
             size_y = str(im_height/dpi)+'in'
-        
+
         # Result
         return tf, mimetype, size_x, size_y
+
+    def _barcode(self, code, code_type='ean13', rotate=None, dpi=96.0, width=None, height=None):
+        tf = StringIO.StringIO()
+        barcode.generate(code_type, code, output=tf)
+        return self._asimage(tf, rotate=rotate, dpi=dpi, width=width, height=height)
 
     def _embed_image(self, extention, img, width=0, height=0) :
         "Transform a DB image into an embeded HTML image"
@@ -435,7 +446,7 @@ class ExtraFunctions(object):
             return None
 
     def debugit(self, object):
-        """ Run the server from command line and 
+        """ Run the server from command line and
             call 'debugit' from the template to inspect variables.
         """
         import pdb;pdb.set_trace()
