@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<report
+            id="stock.action_report_picking"
+            string="Stock Picking Report"
+            name="stock.report_picking"
+            auto="False"
+            report_type="aeroo"
+            process_sep="True"
+            menu="True"
+            model="stock.picking"
+            in_format="oo-odt"
+            out_format="oo-pdf"
+            parser="at_stock/report/stock_picking_report.py"
+            rml="at_stock/report/stock_picking_report.odt" />
+
+	</data>
+</openerp>
