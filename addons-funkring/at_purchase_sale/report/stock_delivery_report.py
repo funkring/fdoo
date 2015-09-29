@@ -268,7 +268,8 @@ class Parser(report_sxw.rml_parse):
         for package in range(1,package_count+1):
             packages.append({
                 "code" : "SP%sP%sP%s" % (picking.id, package, package_count),
-                "package" : package
+                "package" : package,
+                "newpage" : package < package_count
             })
                  
         weight = None
