@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+ <data>
+ 
+    <record id="form_shop" model="ir.ui.view">
+      <field name="name">shop_separation.form_shop</field>
+      <field name="model">sale.shop</field>
+      <field name="inherit_id" ref="at_sale.form_sale_shop"/>
+      <field name="arch" type="xml">
+        <page string="General" position="after">
+            <page string="Product Categories">
+                <div>
+                    <field name="product_category_ids"/>
+                </div>
+            </page>
+        </page>    
+      </field>
+    </record>
+    
+  </data>
+</openerp>

@@ -36,7 +36,6 @@ class sale_shop(osv.osv):
         "project_id": fields.many2one("account.analytic.account", "Analytic Account", domain=[("parent_id", "!=", False), ("type","!=","view")], ondelete="restrict"),
         "company_id": fields.many2one("res.company", "Company", required=False),
         "note" : fields.text("Note"),
-        "product_category_ids" : fields.many2many("product.category", "shop_product_category_rel", "shop_id", "category_id", "Product Categories"),
         "code": fields.char("Code", size=8),
         "invoice_text" : fields.text("Sale Invoice Text"),
         "invoice_in_text" : fields.text("Purchase Invoice Text"),
@@ -162,12 +161,6 @@ class sale_order(osv.osv):
                 value["note"] = shop.note
             if shop.company_id and state == "draft":
                 value["company_id"] = shop.company_id
-                
-            categories  = shop.product_category_ids
-            if not categories:
-                value["shop_category_ids"] = self.pool["product.category"].search(cr, uid, [("parent_id","=",False)])
-            else:
-                value["shop_category_ids"] = [c.id for c in categories]
         return res
 
     def action_wait(self, cr, uid, ids, context=None):
@@ -211,22 +204,10 @@ class sale_order(osv.osv):
                 res = shop_obj.search_id(cr, uid, [("company_id","=",False)],context=context)
         return res
 
-    def _shop_category_ids(self, cr, uid, ids, field_name, args, context=None):
-        res = dict.fromkeys(ids)
-        category_obj = self.pool["product.category"]
-        for order in self.browse(cr, uid, ids, context):
-            categories = order.shop_id.product_category_ids
-            if not categories:
-                res[order.id] = category_obj.search(cr, uid, [("parent_id","=",False)])
-            else:
-                res[order.id] = [c.id for c in categories]
-        return res
-
     _inherit = "sale.order"
     _columns = {
         "shop_id" : fields.many2one("sale.shop", "Shop", type="many2one", required=True, readonly=True, states={'draft': [('readonly', False)]}),
-        "last_invoice_id" : fields.function(_last_invoice, string="Last Invoice", readonly=True, type='many2one', relation="account.invoice"),
-        "shop_category_ids" : fields.function(_shop_category_ids, string="Product Categories", readonly=True, type="many2many", relation="product.category")
+        "last_invoice_id" : fields.function(_last_invoice, string="Last Invoice", readonly=True, type='many2one', relation="account.invoice")
     }
     _defaults = {
         "shop_id" : _default_shop_id,

@@ -35,12 +35,7 @@
                             <div>
                                 <field name="note"/>
                             </div>
-                        </page>
-                        <page string="Product Categories">
-                            <div>
-                                <field name="product_category_ids"/>
-                            </div>
-                        </page>
+                        </page>                       
                         <page string="Invoice/Refund Text">
                             <group>
                                 <label for="invoice_text"/>

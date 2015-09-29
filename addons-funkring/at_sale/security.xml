@@ -4,7 +4,6 @@
         <record id="access_sale_shop_user" model="ir.model.access">
             <field name="name">sale_shop/user</field>
             <field name="model_id" ref="model_sale_shop"/>
-            <field name="group_id" ref="base.group_user"/>
             <field eval="True" name="perm_read"/>
             <field eval="False" name="perm_unlink"/>
             <field eval="False" name="perm_create"/>

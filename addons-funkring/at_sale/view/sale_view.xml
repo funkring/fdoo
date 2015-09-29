@@ -9,8 +9,7 @@
 			    <data>
 			    
     				<field name="partner_id" position="replace">
-    					<field name="shop_id" on_change="onchange_shop_id(shop_id, state, context)"	widget="selection" />
-    					<field name="shop_category_ids" invisible="1"/>
+    					<field name="shop_id" on_change="onchange_shop_id(shop_id, state, context)"	widget="selection" />    					
     					<field name="partner_id"
     						on_change="onchange_partner_id(partner_id, context, shop_id)"
     						domain="[('customer','=',True)]" context="{'search_default_customer':1, 'show_address': 1}"
@@ -29,17 +28,6 @@
     				<field name="order_line" position="attributes">
     				    <attribute name="context">{'shop_id': shop_id}</attribute>
     				</field>
-                
-                    <!-- product domain for form field -->
-                    <xpath expr="//field[@name='order_line']/form//field[@name='product_id']" position="attributes">
-                        <attribute name="domain">[('categ_id','child_of',parent.shop_category_ids[0][2])]</attribute>                                                       
-                    </xpath>
-                    
-                    <!-- product domain for tree field
-                    <xpath expr="//field[@name='order_line']/tree//field[@name='product_id']" position="attributes">                    
-                       <attribute name="domain">[('categ_id','child_of',parent.shop_category_ids[0][2])]</attribute>         
-                    </xpath>
-    				 -->
     				 
     			</data>
 			</field>
