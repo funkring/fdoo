@@ -374,13 +374,8 @@ class ExtraFunctions(object):
             options = {}
 
         tf = StringIO.StringIO()
-        code_type = code_type.lower()
-        if code_type == 'code128':
-            code128 = barcode.codex.Code128(code)
-            code128.write(tf, options)
-        else:
-            barcode.generate(code_type, code, output=tf, writer_options=options)
-            
+        barcode.generate(code_type, code, output=tf, writer_options=options)
+        
         return self._asimage(tf, rotate=rotate, dpi=dpi, width=width, height=height)
 
     def _embed_image(self, extention, img, width=0, height=0) :
