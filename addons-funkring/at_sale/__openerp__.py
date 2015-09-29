@@ -24,7 +24,6 @@ oerp.at Sale Extensions
 
 * Invoice <-> Sale link
 * CRM category code
-* Shop specific product categories
 * More informational invoice line
 * Aeroo report replacement
 * Shop for picking

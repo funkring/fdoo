@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+ <data>
+ 
+    <record id="form_project" model="ir.ui.view">
+      <field name="name">shop_separation.form_project</field>
+      <field name="model">project.project</field>
+      <field name="inherit_id" ref="project.edit_project"/>
+      <field name="arch" type="xml">
+            <field name="user_id" position="before">
+                <field name="user_shop_id" attrs="{'invisible': [('order_id','!=',False)]}" 
+                    on_change="onchange_shop_id(user_shop_id, order_id)"/>
+            </field>
+      </field>
+    </record>
+    
+  </data>  
+</openerp>

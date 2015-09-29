@@ -22,6 +22,7 @@
 oerp.at Shop Separation for Project and Sale
 ============================================
 
+* Shop specific product categories
 * Different project templates per shop
 * Access rules for access only allowed project, task, 
   tickets and sale orders
@@ -34,7 +35,8 @@ oerp.at Shop Separation for Project and Sale
     "depends" : ["at_sale","at_project_sale"],
     "data" : ["view/user_view.xml", 
               "view/sale_view.xml",
-              "view/shop_view.xml",         
+              "view/shop_view.xml",  
+              "view/project_view.xml",       
               "security.xml"],
     "auto_install": False,
     "installable": True
