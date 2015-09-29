@@ -34,9 +34,8 @@ import StringIO
 from PIL import Image
 import time
 
-import barcode
-import barcode.writer
-import barcode.codex
+from barcodes import InvalidSymbolException, ean, code128, gs1
+from barcodes.write import CairoRender
 
 from openerp.osv import osv
 from openerp.modules.registry import RegistryManager
@@ -50,7 +49,7 @@ SVG_PATTERN = re.compile('<svg ([^>]+)>',re.I & re.MULTILINE)
 WIDTH_PATTERN = re.compile('width="([0-9A-Za-z\\.]+)',re.I & re.MULTILINE)
 HEIGHT_PATTERN = re.compile('height="([0-9A-Za-z\\.]+)',re.I % re.MULTILINE)
 FLOAT_PATTERN = re.compile('^[0-9]+(\\.[0-9]*)?$')
-
+FLOAT_UNIT_PATTERN = re.compile('^([0-9]+(\\.[0-9]*)?)([a-z]+)?$')
 
 class ExtraFunctions(object):
     """ This class contains some extra functions which
@@ -291,6 +290,24 @@ class ExtraFunctions(object):
         if type(index)==int:
             return res[index]
         return len(res)==1 and res[0] or res
+    
+    def _pixel(self, val, dpi=96.0):
+        if type(val) in (int, float):
+            return val    
+        if isinstance(val, basestring):
+            m = FLOAT_UNIT_PATTERN.match(val)
+            if m:
+                fval = float(m.group(1))
+                unit = m.group(3)
+                if not unit:
+                    return fval
+                elif unit == "in":
+                    return fval*dpi
+                elif unit == "mm":
+                    return (fval/25.4)*dpi
+                elif unit == "cm":
+                    return (fval/2.54)*dpi                
+        return 1.0
 
     def _asimage(self, field_value, rotate=None, dpi=96.0, width=None, height=None, tf=None):
         if not field_value:
@@ -369,14 +386,24 @@ class ExtraFunctions(object):
         # Result
         return tf, mimetype, size_x, size_y
 
-    def _barcode(self, code, code_type='ean13', rotate=None, dpi=96.0, width=None, height=None, options=None):
-        if options is None:
-            options = {}
-
+    def _barcode(self, code, code_type='ean13', width="4cm", height="1.5cm"):
+        code_type = code_type.lower()
+        barcode = None
+        if code_type == "ean13":
+            barcode = ean.EAN(code)
+        elif code_type == "code128":
+            barcode = code128.Code128.from_unicode(code)
+        elif code_type == "gs1":
+            barcode = gs1.Gs1.from_unicode(code)
+            
+        render = CairoRender(barcode, margin=0)
         tf = StringIO.StringIO()
-        barcode.generate(code_type, code, output=tf, writer_options=options)
         
-        return self._asimage(tf, rotate=rotate, dpi=dpi, width=width, height=height)
+        px_width = self._pixel(width,72.0)
+        px_height = self._pixel(height,72.0)
+        render.write_svg(tf, px_width, px_height)
+               
+        return self._asimage(tf, width=width, height=height)
 
     def _embed_image(self, extention, img, width=0, height=0) :
         "Transform a DB image into an embeded HTML image"

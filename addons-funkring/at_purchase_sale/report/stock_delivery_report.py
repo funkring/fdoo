@@ -283,6 +283,7 @@ class Parser(report_sxw.rml_parse):
         address2_name = self._get_address_name2(picking)
                    
         return [{
+          "code" : "SP%s" % picking.id,
           "address_id" : address_id,
           "address_name" : address_name,
           "address2_id" : address2_id,
