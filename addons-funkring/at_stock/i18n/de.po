@@ -1,60 +1,43 @@
-# Translation of OpenERP Server.
+# Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* at_stock
+# 	* at_stock
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 8.0alpha1\n"
+"Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-23 17:08+0000\n"
-"PO-Revision-Date: 2013-08-23 19:11+0100\n"
-"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
+"POT-Creation-Date: 2015-09-29 07:30+0000\n"
+"PO-Revision-Date: 2015-09-29 09:31+0100\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"X-Generator: Poedit 1.5.4\n"
 
 #. module: at_stock
-#: code:addons/at_stock/report/stock_picking_report.py:58
-#: code:addons/at_stock/report/stock_picking_report.py:67
+#: code:addons/at_stock/report/stock_picking_report.py:42
 #, python-format
-msgid "Not Available"
-msgstr "Nicht Verfügbar"
+msgid "Cancelled"
+msgstr "Abgebrochen"
 
 #. module: at_stock
-#: code:addons/at_stock/report/stock_picking_report.py:133
-#, python-format
-msgid "Delivery Note"
+#: model:ir.actions.report.xml,name:at_stock.report_delivery_report
+msgid "Delivery Report"
 msgstr "Lieferschein"
 
 #. module: at_stock
-#: view:stock.picking:0
-msgid "at_stock.group_stock_invoice"
-msgstr "Rechnungserstellung bei Auslieferung"
-
-#. module: at_stock
-#: model:ir.model,name:at_stock.model_stock_picking
-msgid "Picking List"
-msgstr "Lieferschein"
-
-#. module: at_stock
-#: code:addons/at_stock/report/stock_picking_report.py:135
+#: code:addons/at_stock/report/stock_picking_report.py:52
 #, python-format
-msgid "Running Note"
-msgstr "Laufschein"
+msgid "Done"
+msgstr "Abgeschlossen"
 
 #. module: at_stock
-#: code:addons/at_stock/report/stock_picking_report.py:57
-#: code:addons/at_stock/report/stock_picking_report.py:66
+#: code:addons/at_stock/report/stock_picking_report.py:40
 #, python-format
-msgid "Waiting"
-msgstr "Wartend"
-
-#. module: at_stock
-#: model:ir.actions.report.xml,name:at_stock.report_picking_list_purchase_line_pdf
-msgid "Picking Report"
-msgstr "Lieferschein"
+msgid "Draft"
+msgstr "Entwurf"
 
 #. module: at_stock
 #: model:res.groups,name:at_stock.group_stock_invoice
@@ -62,77 +45,35 @@ msgid "Invoicing from Picking"
 msgstr "Rechnungserstellung bei Auslieferung"
 
 #. module: at_stock
-#: code:addons/at_stock/report/stock_picking_report.py:59
-#: code:addons/at_stock/report/stock_picking_report.py:68
+#: code:addons/at_stock/report/stock_picking_report.py:48
 #, python-format
-msgid "Assigned"
-msgstr "Zugewiesen"
+msgid "Partially Available"
+msgstr "Teilweise Verfügbar"
 
 #. module: at_stock
-#: code:addons/at_stock/report/stock_picking_report.py:111
-#: code:addons/at_stock/report/stock_picking_report.py:127
+#: model:ir.model,name:at_stock.model_stock_picking
+msgid "Picking List"
+msgstr "Lieferauftrag"
+
+#. module: at_stock
+#: code:addons/at_stock/report/stock_picking_report.py:50
 #, python-format
-msgid "Delivery Address"
-msgstr "Lieferadresse"
-
-#. module: at_stock
-#: code:addons/at_stock/report/stock_picking_report.py:60
-#, python-format
-msgid "Binned"
-msgstr "Lagernd"
-
-#. module: at_stock
-#: field:stock.picking,location_partner_id:0
-msgid "Location Partner"
-msgstr "Lageradresse"
-
-#. module: at_stock
-#: code:addons/at_stock/report/stock_picking_report.py:56
-#: code:addons/at_stock/report/stock_picking_report.py:65
-#, python-format
-msgid "Draft"
-msgstr "Entwurf"
-
-#. module: at_stock
-#: code:addons/at_stock/report/stock_picking_report.py:69
-#, python-format
-msgid "Dispached"
-msgstr "Versendet"
-
-#. module: at_stock
-#: code:addons/at_stock/report/stock_picking_report.py:115
-#: code:addons/at_stock/report/stock_picking_report.py:129
-#, python-format
-msgid "Address"
-msgstr "Adresse"
-
-#. module: at_stock
-#: code:addons/at_stock/report/stock_picking_report.py:61
-#: code:addons/at_stock/report/stock_picking_report.py:70
-#, python-format
-msgid "Cancelled"
-msgstr "Abgebrochen"
-
-#. module: at_stock
-#: model:ir.actions.report.xml,name:at_stock.report_picking_list_small_pdf
-msgid "Small Picking Report"
-msgstr "Lieferschein A6"
+msgid "Ready to Transfer"
+msgstr "Bereit zur Lieferung"
 
 #. module: at_stock
 #: model:ir.model,name:at_stock.model_stock_move
 msgid "Stock Move"
-msgstr "Lieferung"
+msgstr "Lagerbuchung"
 
 #. module: at_stock
-#: code:addons/at_stock/report/stock_picking_report.py:137
+#: code:addons/at_stock/report/stock_picking_report.py:44
 #, python-format
-msgid "Internal Note"
-msgstr "Notiz"
+msgid "Waiting Another Operation"
+msgstr "Warte auf andere Lieferung"
 
 #. module: at_stock
-#: code:addons/at_stock/report/stock_picking_report.py:113
-#: code:addons/at_stock/report/stock_picking_report.py:125
+#: code:addons/at_stock/report/stock_picking_report.py:46
 #, python-format
-msgid "Sender Address"
-msgstr "Absender"
-
+msgid "Waiting Availability"
+msgstr "Warte auf Verfügbarkeit"
