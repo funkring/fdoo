@@ -36,6 +36,7 @@ import time
 
 import barcode
 import barcode.writer
+import barcode.codex
 
 from openerp.osv import osv
 from openerp.modules.registry import RegistryManager
@@ -368,9 +369,18 @@ class ExtraFunctions(object):
         # Result
         return tf, mimetype, size_x, size_y
 
-    def _barcode(self, code, code_type='ean13', rotate=None, dpi=96.0, width=None, height=None):
+    def _barcode(self, code, code_type='ean13', rotate=None, dpi=96.0, width=None, height=None, options=None):
+        if options is None:
+            options = {}
+
         tf = StringIO.StringIO()
-        barcode.generate(code_type, code, output=tf)
+        code_type = code_type.lower()
+        if code_type == 'code128':
+            code128 = barcode.codex.Code128(code)
+            code128.write(tf, options)
+        else:
+            barcode.generate(code_type, code, output=tf, writer_options=options)
+            
         return self._asimage(tf, rotate=rotate, dpi=dpi, width=width, height=height)
 
     def _embed_image(self, extention, img, width=0, height=0) :
