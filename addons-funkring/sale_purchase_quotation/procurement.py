@@ -113,20 +113,21 @@ class procurement_order(osv.Model):
                             elif purchase_order.state in ('draft','sent','bid'):
                                 purchase_obj.action_cancel(cr, uid,  [purchase_order.id], context=context)
                                 
+                
+                # get price
+                purchase_price = sale_order_line.quotation_price
+                if purchase_price:
+                    line_vals["price_unit"] = purchase_price
+                
                 # get selected
                 purchase_line_id = purchase_line_obj.search_id(cr, uid, [("sale_line_id","=",sale_order_line.id), ("partner_id", "=", sale_order_line.supplier_id.id), ("product_id","=",product.id)], context=context)
                 if purchase_line_id:      
                     purchase_line = purchase_line_obj.browse(cr, uid, purchase_line_id, context=context)                    
                     order = purchase_line.order_id
                     
-                    # take price from existing
-                    if purchase_line.price_unit:
-                        line_vals["price_unit"] = purchase_line.price_unit
-                    
                     # set new order line values
                     po_vals["order_line"] = [(1,purchase_line_id, line_vals)]
                     self.pool["purchase.order"].write(cr, uid, order.id, po_vals, context=context)
-                    
                     return order.id
                     
         # or create new

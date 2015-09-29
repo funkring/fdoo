@@ -31,5 +31,5 @@ class stock_picking(osv.osv):
 
     _inherit = "stock.picking"
     _columns = {
-        "shop_id" : fields.related("sale_id","shop_id",type="many2one",relation="sale.shop",string="Shop",readonly=True,store=True,select=True),
+        "shop_id" : fields.related("sale_id","shop_id",type="many2one",relation="sale.shop",string="Shop",readonly=True,store=False,select=True),
     }

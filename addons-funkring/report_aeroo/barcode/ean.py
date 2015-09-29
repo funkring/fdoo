@@ -6,8 +6,8 @@ from __future__ import unicode_literals
 
 """
 
-from barcode.base import Barcode
-from barcode.errors import *
+from base import Barcode
+from errors import *
 
 # Python 3
 try:

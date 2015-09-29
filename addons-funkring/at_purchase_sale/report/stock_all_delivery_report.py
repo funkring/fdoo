@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# -*- encoding: utf-8 -*-
+
 #############################################################################
 #
 #    Copyright (c) 2007 Martin Reisenhofer <martin.reisenhofer@funkring.net>
@@ -18,22 +20,12 @@
 #
 ##############################################################################
 
-from openerp.osv import fields,osv
+import stock_delivery_report
 
-class procurement_order(osv.osv):
-   
-    def create_procurement_purchase_order(self, cr, uid, procurement, po_vals, line_vals, context=None):
-        sale_line = procurement.sale_line_id
-        if sale_line:
-            po_vals["notes"]=sale_line.procurement_note
-            po_vals["sale_order_id"]=sale_line.order_id.id
-            po_vals["sale_line_id"]=sale_line.id
-            # add analytic account
-            analytic_account = sale_line.order_id.project_id
-            if analytic_account:
-                line_vals["name"]=sale_line.name
-                line_vals["account_analytic_id"]=analytic_account.id
-        return super(procurement_order,self).create_procurement_purchase_order(cr, uid, procurement, po_vals, line_vals, context=context)
+class Parser(stock_delivery_report.Parser):
+    def __init__(self, cr, uid, name, context):
+        super(Parser, self).__init__(cr, uid, name, context=context)
     
-    _inherit = "procurement.order"
+    def _all_pickings(self):
+        return True
     

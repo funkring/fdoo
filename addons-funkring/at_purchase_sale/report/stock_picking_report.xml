@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<report id="report_delivery_report"
+			string="Delivery Report" name="stock.delivery.report" auto="False"
+			report_type="aeroo" process_sep="True" model="stock.picking"
+			in_format="oo-odt" out_format="oo-pdf"
+			parser="at_purchase_sale/report/stock_delivery_report.py" rml="at_purchase_sale/report/stock_delivery_report.odt" />
+
+	</data>
+</openerp>

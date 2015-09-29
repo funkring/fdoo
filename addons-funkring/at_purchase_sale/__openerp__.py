@@ -25,21 +25,24 @@
     "description":"""
 oerp.at Purchase + Sale combination
 ===================================
-* Extension of stock_sale
-* Supplier shipment
-* Preferred supplier in order line
-* Correction of stock picking wizard
-* Stock picking sender address handling
+* extension of stock_sale
+* supplier shipment
+* preferred supplier in order line
+* delivery report
+* neutral delivery
 """,
     "version" : "1.2",
     "author" :  "funkring.net",
     "website": "http://www.funkring.net",
     "category" : "Sale Management/Purchase Management",
-    "depends" : ["sale_stock","at_stock","at_purchase","at_sale","at_product"],
+    "depends" : ["sale_stock","at_stock","at_purchase","at_sale","at_product","delivery"],
     "data" : ["view/shop_view.xml",
               "view/sale_order_view.xml",
               "view/purchase_view.xml",
-              "view/picking_view.xml"],
+              "view/picking_view.xml",
+              "report/stock_picking_report.xml",
+              "report/stock_delivery_label_a6.xml",
+              "report/purchase_delivery_report.xml"],
     "auto_install": False,
     "installable": True
 }

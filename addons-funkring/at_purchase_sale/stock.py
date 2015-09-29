@@ -90,9 +90,21 @@ class stock_picking(osv.osv):
                 res[picking.id]=partner.id
                     
         return res
+    
+    def _simple_type(self, cr, uid, ids, field_name, arg, context=None):
+        res = dict.fromkeys(ids)
+        for picking in self.browse(cr, uid, ids, context):
+            type_code = picking.picking_type_code
+            res[picking.id] = type_code
+            if type_code == "incoming":
+                dest_id = picking.picking_type_id.default_location_dest_id
+                if dest_id.usage == "customer":
+                    res[picking.id] = "dropshipment"        
+        return res
                 
     _inherit = "stock.picking"
     _columns = {
         "sender_address_id" : fields.function(_sender_address, string="Sender Address", type="many2one", obj="res.partner", store=False),
-        "neutral_delivery" : fields.boolean("Neutral Delivery")
+        "neutral_delivery" : fields.boolean("Neutral Delivery"),
+        "simple_type" : fields.function(_simple_type, string="Type", type="char")
     }    

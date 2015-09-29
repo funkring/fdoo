@@ -34,11 +34,11 @@ __classifiers__ = [
 ]
 
 
-from barcode.errors import BarcodeNotFoundError
-from barcode.codex import Code39, PZN, Code128
-from barcode.ean import EAN8, EAN13, JAN
-from barcode.isxn import ISBN10, ISBN13, ISSN
-from barcode.upc import UPCA
+from errors import BarcodeNotFoundError
+from codex import Code39, PZN, Code128
+from ean import EAN8, EAN13, JAN
+from isxn import ISBN10, ISBN13, ISSN
+from upc import UPCA
 
 try:
     _strbase = basestring  # lint:ok
