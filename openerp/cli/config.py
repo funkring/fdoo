@@ -159,6 +159,7 @@ class ConfigCommand(Command):
         try:
             # create environment
             with api.Environment.manage():
+                self.env = openerp.api.Environment(self.cr, 1, {})
                 self.run_config_env()
                     
             self.cr.commit()    
@@ -244,7 +245,7 @@ class Po_Import(Po_Export):
         if self.params.overwrite:
             _logger.info("Overwrite existing translations for %s/%s", self.params.module, self.lang)
         openerp.tools.trans_load(self.cr, import_filename, self.lang, module_name=self.params.module, context=context)  
-               
+
         
 class CleanUp(ConfigCommand):
     """ CleanUp Database """
@@ -466,8 +467,7 @@ class CleanUp(ConfigCommand):
             try:
                 
                 # create environment
-                with api.Environment.manage():
-
+                with api.Environment.manage():                    
                     self.cleanup_models()
                     self.cleanup_modules()
                     self.cleanup_model_data()    
@@ -506,5 +506,187 @@ class CleanUp(ConfigCommand):
         else:
             _logger.warning("Cleanup necessary")
             
-      
+            
+class RemoveTestData(ConfigCommand):
     
+        
+    def delete_invoice(self):
+        # reset move lines
+        _logger.info("reset account_move_line to 'draft'")
+        self.cr.execute("UPDATE account_move_line SET state='draft'")
+        
+        # reset moves
+        _logger.info("reset account_move to 'draft'")
+        self.cr.execute("UPDATE account_move SET state='draft'")
+
+        # remove concilations
+        reconcile_obj = self.env["account.move.reconcile"]
+        self.cr.execute("SELECT id FROM account_move_reconcile")
+        reconcile_ids = [r[0] for r in self.cr.fetchall()]
+        for reconcile in reconcile_obj.browse(reconcile_ids):
+            _logger.info("delete reconcile %s " % reconcile.name) 
+            reconcile.unlink()
+            
+        # unlink invoices
+        self.cr.execute("SELECT id FROM account_invoice")
+        invoice_ids = [r[0] for r in self.cr.fetchall()]        
+        invoice_obj = self.env["account.invoice"]
+        for inv in invoice_obj.browse(invoice_ids):
+            _logger.info("delete invoice %s " % inv.name)            
+            inv.internal_number = None
+            inv.delete_workflow()
+            inv.state="draft"            
+            inv.unlink()
+            
+        # unlink moves
+        self.cr.execute("SELECT id FROM account_move")
+        move_ids = [r[0] for r in self.cr.fetchall()]
+        move_obj = self.env["account.move"]
+        for move in  move_obj.browse(move_ids):
+            _logger.info("delete move %s" % move.name)
+            move.unlink()
+            
+        # unlink vouchers
+        voucher_obj = self.env["account.voucher"]
+        self.cr.execute("SELECT id FROM account_voucher")
+        voucher_ids = [r[0] for r in self.cr.fetchall()]
+        for voucher in voucher_obj.browse(voucher_ids):
+            _logger.info("delete voucher %s " % voucher.id) 
+            voucher.cancel_voucher()
+            voucher.unlink()
+     
+    
+    def delete_procurement(self):
+        proc_obj = self.env["procurement.order"]
+        self.cr.execute("SELECT id FROM procurement_order")
+        proc_ids = [r[0] for r in self.cr.fetchall()]        
+        for proc in proc_obj.browse(proc_ids):
+            _logger.info("delete procurement %s " % proc.name)
+            proc.state="cancel"
+            proc.unlink()
+    
+    def delete_stock(self):
+        move_obj = self.env["stock.move"]
+        
+        _logger.info("reset stock move to 'draft'")
+        self.cr.execute("UPDATE stock_move SET state='draft'")
+        
+        self.cr.execute("SELECT id FROM stock_move")        
+        move_ids = [r[0] for r in self.cr.fetchall()                    ]        
+        for move in move_obj.browse(move_ids):
+            _logger.info("delete stock move %s " % move.name)
+            move.unlink()
+            
+        quant_obj = self.env["stock.quant"]
+        self.cr.execute("SELECT id FROM stock_quant")        
+        quant_ids = [r[0] for r in self.cr.fetchall()]
+        for quant in quant_obj.browse(quant_ids):
+            _logger.info("delete quant %s " % quant.name)
+            quant.unlink()
+            
+        pack_obj = self.env["stock.pack.operation"]
+        self.cr.execute("SELECT id FROM stock_pack_operation")
+        pack_ids = [r[0] for r in self.cr.fetchall()]
+        for pack in pack_obj.browse(pack_ids):
+            _logger.info("delete pack operation %s " % pack.id)
+            pack.unlink()
+            
+        picking_obj = self.env["stock.picking"]
+        self.cr.execute("SELECT id FROM stock_picking")
+        picking_ids = [r[0] for r in self.cr.fetchall()]
+        for picking in picking_obj.browse(picking_ids):
+            _logger.info("delete picking %s" % picking.name)
+            picking.action_cancel()
+            picking.delete_workflow()
+            picking.unlink()
+            
+    def delete_purchase(self):
+        purchase_obj = self.env["purchase.order"]
+        self.cr.execute("SELECT id FROM purchase_order")
+        purchase_ids = [r[0] for r in self.cr.fetchall()]        
+        for purchase in purchase_obj.browse(purchase_ids):
+            _logger.info("delete purchase %s " % purchase.name)
+            purchase.delete_workflow()
+            purchase.state="cancel"
+            purchase.unlink()
+    
+    def delete_hr(self):
+        _logger.info("delete hr_attendance")
+        self.cr.execute("DELETE FROM hr_attendance")
+        
+        timesheet_obj = self.env["hr_timesheet_sheet.sheet"]
+        self.cr.execute("SELECT id FROM hr_timesheet_sheet_sheet")
+        sheet_ids = [r[0] for r in self.cr.fetchall()]
+        for sheet in timesheet_obj.browse(sheet_ids):
+            _logger.info("delete sheet %s" % sheet.id)
+            sheet.delete_workflow()
+            sheet.state="draft"
+            sheet.unlink()
+       
+        expense_obj = self.env["hr.expense.expense"]
+        self.cr.execute("SELECT id FROM hr_expense_expense")
+        expense_ids = [r[0] for r in self.cr.fetchall()]
+        for expense in expense_obj.browse(expense_ids):
+            _logger.info("delete expense %s" % expense.name)
+            expense.unlink()
+    
+    def delete_sale(self):
+        # delete analytic lines
+        self.cr.execute("DELETE FROM account_analytic_line")
+        deleted_task = set()
+                
+        # delete tasks
+        def delete_task(tasks):
+            for task in tasks:
+                if not task.id in deleted_task:
+                    deleted_task.add(task.id)
+                    delete_task(task.child_ids)
+                    _logger.info("delete task %s" % task.name)
+                    task.unlink()
+                    
+        # delete task without project
+        task_obj = self.env["project.task"]
+        self.cr.execute("SELECT id FROM project_task WHERE project_id IS NULL")
+        task_ids = [r[0] for r in self.cr.fetchall()]
+        delete_task(task_obj.browse(task_ids))
+              
+        # delete project which are subproject form first default project
+        project_obj = self.env["project.project"] 
+        projects = project_obj.search([("parent_id","=",1)])
+        for project in projects:
+            delete_task(project.tasks)
+            _logger.info("delete project %s" % project.name)
+            project.unlink()
+        
+        # delete order and projects
+        sale_obj = self.env["sale.order"]
+        self.cr.execute("SELECT id FROM sale_order")
+        order_ids = [r[0] for r in self.cr.fetchall()]        
+        for order in sale_obj.browse(order_ids):
+            _logger.info("delete sale order %s" % order.name)
+            order.action_cancel()
+            project = order.order_project_id
+            if project:
+                analytic_account = project.analytic_account_id
+                
+                delete_task(project.tasks)
+                
+                _logger.info("delete project %s" % project.name)
+                project.unlink()
+                
+                _logger.info("delete analytic account %s" % analytic_account.name)
+                analytic_account.unlink()
+                
+            order.unlink()
+       
+    
+    def run_config_env(self):
+        self.delete_invoice()
+        self.delete_procurement()
+        self.delete_stock()
+        self.delete_purchase()
+        self.delete_sale()
+        self.delete_hr()
+    
+    def run_config(self):
+        self.setup_env()
