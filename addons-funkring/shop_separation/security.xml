@@ -54,15 +54,15 @@
           ['|',
             ('user_id','=',user.id),
             '|',
-                ('shop_id','=',user.shop_id.id),
+                (not user.shop_ids and 1 or 0,'=',1),
                 '|',
-                    (not user.shop_ids and 1 or 0,'=',1),
-                    '|',
-                        ('members','in',[user.id]),
-                        '&amp;',
-                            ('members','=',False),
+                    ('members','in',[user.id]),
+                    '&amp;',
+                        ('members','=',False),
+                        '|',
+                            ('shop_id','=',False),
                             '|',
-                                ('shop_id','=',False),
+                                ('shop_id','=',user.shop_id.id),
                                 ('shop_id','in',[s.id for s in user.shop_ids])
           ]         
       </field>
@@ -80,15 +80,15 @@
         ['|',
             ('user_id','=',user.id),
             '|',
-                ('shop_id','=',user.shop_id.id),
+                (not user.shop_ids and 1 or 0,'=',1),
                 '|',
-                    (not user.shop_ids and 1 or 0,'=',1),
-                    '|',
-                        ('project_id.members','in',[user.id]),
-                        '&amp;',
-                            ('project_id.members','=',False),
+                    ('project_id.members','in',[user.id]),
+                    '&amp;',
+                        ('project_id.members','=',False),
+                        '|',
+                            ('shop_id','=',False),
                             '|',
-                                ('shop_id','=',False),
+                                ('shop_id','=',user.shop_id.id),
                                 ('shop_id','in',[s.id for s in user.shop_ids])
         ]         
       </field>
@@ -106,17 +106,17 @@
         ['|',
             ('user_id','=',user.id),
             '|',
-                ('shop_id','=',user.shop_id.id),
+                (not user.shop_ids and 1 or 0,'=',1),
                 '|',
-                    (not user.shop_ids and 1 or 0,'=',1),
-                    '|',
-                        ('project_id.members','in',[user.id]),
-                        '&amp;',                        
-                            ('project_id.members','=',False),
+                    ('project_id.members','in',[user.id]),
+                    '&amp;',
+                        ('project_id.members','=',False),
+                        '|',
+                            ('shop_id','=',False),
                             '|',
-                                ('shop_id','=',False),
+                                ('shop_id','=',user.shop_id.id),
                                 ('shop_id','in',[s.id for s in user.shop_ids])
-        ]             
+        ]           
       </field>
       <field name="groups" eval="[(4,ref('group_shop_separation'))]"/>
       <field name="perm_read" eval="True"/>
