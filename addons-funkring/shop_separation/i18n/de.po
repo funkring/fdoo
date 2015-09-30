@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-29 23:33+0000\n"
-"PO-Revision-Date: 2015-09-30 01:33+0100\n"
+"POT-Creation-Date: 2015-09-30 01:12+0000\n"
+"PO-Revision-Date: 2015-09-30 03:13+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -51,6 +51,11 @@ msgstr "Verkaufsauftrag"
 #: field:project.project,user_shop_id:0 field:project.task,shop_id:0
 msgid "Shop"
 msgstr "Vertriebsshop"
+
+#. module: shop_separation
+#: model:res.groups,name:shop_separation.group_shop_separation
+msgid "Shop Seperation"
+msgstr "Shop Aufteilung"
 
 #. module: shop_separation
 #: view:res.users:shop_separation.form_users
