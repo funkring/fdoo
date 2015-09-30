@@ -1,5 +1,129 @@
 <openerp>
   <data>
     
+    <record id="group_shop_separation" model="res.groups">
+      <field name="name">Shop Seperation</field>
+      <!-- field name="implied_ids" eval="[(4, ref('base.group_user'))]"/ -->
+    </record>
+   
+    <record id="rule_sale_shop_separation" model="ir.rule">
+      <field name="name">sale_shop/separation</field>
+      <field name="model_id" ref="model_sale_shop"/>
+      <field name="domain_force">
+          ['|',
+            '|',
+                ('id','=',user.shop_id.id),
+                (not user.shop_ids and 1 or 0,'=',1),
+                ('id','in',[s.id for s in user.shop_ids])
+          ]          
+      </field>
+      <field name="groups" eval="[(4,ref('group_shop_separation'))]"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_write" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_unlink" eval="False"/>
+    </record>
+    
+    <record id="rule_sale_order_shop_separation" model="ir.rule">
+      <field name="name">sale_order/shop_separation</field>
+      <field name="model_id" ref="model_sale_order"/>
+      <field name="domain_force">
+         ['|',
+            ('user_id','=',user.id),
+            '|',
+                ('shop_id','=',False),
+                '|',
+                    ('shop_id','=',user.shop_id.id),
+                    '|',
+                        (not user.shop_ids and 1 or 0,'=',1),
+                        ('shop_id','in',[s.id for s in user.shop_ids])
+         ]
+      </field>
+      <field name="groups" eval="[(4,ref('group_shop_separation'))]"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_write" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_unlink" eval="True"/>
+    </record>
+
+
+    <record id="rule_project_project_shop_separation" model="ir.rule">
+      <field name="name">project_project/shop_separation</field>
+      <field name="model_id" ref="model_project_project"/>
+      <field name="domain_force">
+          ['|',
+            ('user_id','=',user.id),
+            '|',
+                ('shop_id','=',user.shop_id.id),
+                '|',
+                    (not user.shop_ids and 1 or 0,'=',1),
+                    '|',
+                        ('members','in',[user.id]),
+                        '&amp;',
+                            ('members','=',False),
+                            '|',
+                                ('shop_id','=',False),
+                                ('shop_id','in',[s.id for s in user.shop_ids])
+          ]         
+      </field>
+      <field name="groups" eval="[(4,ref('group_shop_separation'))]"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_write" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_project_task_shop_separation" model="ir.rule">
+      <field name="name">project_task/shop_separation</field>
+      <field name="model_id" ref="model_project_task"/>
+      <field name="domain_force">
+        ['|',
+            ('user_id','=',user.id),
+            '|',
+                ('shop_id','=',user.shop_id.id),
+                '|',
+                    (not user.shop_ids and 1 or 0,'=',1),
+                    '|',
+                        ('project_id.members','in',[user.id]),
+                        '&amp;',
+                            ('project_id.members','=',False),
+                            '|',
+                                ('shop_id','=',False),
+                                ('shop_id','in',[s.id for s in user.shop_ids])
+        ]         
+      </field>
+      <field name="groups" eval="[(4,ref('group_shop_separation'))]"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_write" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_project_issue_shop_separation" model="ir.rule">
+      <field name="name">project_issue/shop_separation</field>
+      <field name="model_id" ref="model_project_issue"/>
+      <field name="domain_force">
+        ['|',
+            ('user_id','=',user.id),
+            '|',
+                ('shop_id','=',user.shop_id.id),
+                '|',
+                    (not user.shop_ids and 1 or 0,'=',1),
+                    '|',
+                        ('project_id.members','in',[user.id]),
+                        '&amp;',                        
+                            ('project_id.members','=',False),
+                            '|',
+                                ('shop_id','=',False),
+                                ('shop_id','in',[s.id for s in user.shop_ids])
+        ]             
+      </field>
+      <field name="groups" eval="[(4,ref('group_shop_separation'))]"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_write" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_unlink" eval="True"/>
+    </record>
+    
   </data>
 </openerp>

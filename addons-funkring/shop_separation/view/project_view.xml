@@ -6,11 +6,13 @@
       <field name="name">shop_separation.form_project</field>
       <field name="model">project.project</field>
       <field name="inherit_id" ref="project.edit_project"/>
-      <field name="arch" type="xml">
-            <field name="user_id" position="before">
-                <field name="user_shop_id" attrs="{'invisible': [('order_id','!=',False)]}" 
-                    on_change="onchange_shop_id(user_shop_id, order_id)"/>
-            </field>
+      <field name="arch" type="xml">      
+            <group name="group_alias" position="before">
+                <group name="group_shop">
+                    <field name="user_shop_id" attrs="{'invisible': [('order_id','!=',False)]}" 
+                           on_change="onchange_shop_id(user_shop_id, order_id)"/>
+                </group>
+            </group>
       </field>
     </record>
     
