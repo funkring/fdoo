@@ -634,6 +634,7 @@ class RemoveTestData(ConfigCommand):
         # delete analytic lines
         self.cr.execute("DELETE FROM account_analytic_line")
         deleted_task = set()
+        deleted_proj = set()
                 
         # delete tasks
         def delete_task(tasks):
@@ -643,6 +644,14 @@ class RemoveTestData(ConfigCommand):
                     delete_task(task.child_ids)
                     _logger.info("delete task %s" % task.name)
                     task.unlink()
+            
+        # delete project
+        def delete_project(proj):
+            if not proj.id in deleted_proj:
+                deleted_proj.add(proj.id)
+                delete_task(project.tasks)
+                _logger.info("delete project %s" % project.name)
+                project.unlink()
                     
         # delete task without project
         task_obj = self.env["project.task"]
@@ -650,13 +659,13 @@ class RemoveTestData(ConfigCommand):
         task_ids = [r[0] for r in self.cr.fetchall()]
         delete_task(task_obj.browse(task_ids))
               
+        
+              
         # delete project which are subproject form first default project
         project_obj = self.env["project.project"] 
         projects = project_obj.search([("parent_id","=",1)])
-        for project in projects:
-            delete_task(project.tasks)
-            _logger.info("delete project %s" % project.name)
-            project.unlink()
+        for project in projects:            
+            delete_project(project)
         
         # delete order and projects
         sale_obj = self.env["sale.order"]
@@ -667,18 +676,8 @@ class RemoveTestData(ConfigCommand):
             order.action_cancel()
             project = order.order_project_id
             if project:
-                analytic_account = project.analytic_account_id
-                
-                delete_task(project.tasks)
-                
-                _logger.info("delete project %s" % project.name)
-                project.unlink()
-                
-                _logger.info("delete analytic account %s" % analytic_account.name)
-                analytic_account.unlink()
-                
+                delete_project(project)
             order.unlink()
-       
     
     def run_config_env(self):
         self.delete_invoice()
