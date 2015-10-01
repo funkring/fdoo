@@ -176,7 +176,10 @@ class ir_mail_server(osv.osv):
                                                        "(this is very verbose and may include confidential info!)"),
         'sequence': fields.integer('Priority', help="When no specific mail server is requested for a mail, the highest priority one "
                                                     "is used. Default priority is 10 (smaller number = higher priority)"),
-        'active': fields.boolean('Active')
+        'active': fields.boolean('Active'),
+        #funkring.net - begin
+        'smtp_ignore' : fields.char('Ignore', help='Optional ignore mail addresses: test1@example.org, test2@example.org')
+        #funkring.net - end
     }
 
     _defaults = {
@@ -427,6 +430,9 @@ class ir_mail_server(osv.osv):
         assert from_rfc2822, ("Malformed 'Return-Path' or 'From' address: %r - "
                               "It should contain one valid plain ASCII email") % smtp_from
         # use last extracted email, to support rarities like 'Support@MyComp <support@mycompany.com>'
+        # funkring.net - begin
+        smtp_ignore = set([a.lower() for a in from_rfc2822])
+        # funkring.net - end
         smtp_from = from_rfc2822[-1]
         email_to = message['To']
         email_cc = message['Cc']
@@ -463,6 +469,12 @@ class ir_mail_server(osv.osv):
             smtp_port = mail_server.smtp_port
             smtp_encryption = mail_server.smtp_encryption
             smtp_debug = smtp_debug or mail_server.smtp_debug
+            # funkring.net - begin
+            if mail_server.smtp_ignore:    
+                for ignore_addr in extract_rfc2822_addresses(mail_server.smtp_ignore):
+                    if ignore_addr:
+                        smtp_ignore.add(ignore_addr.lower())
+            # funkring.net - end
         else:
             # we were passed an explicit smtp_server or nothing at all
             smtp_server = smtp_server or tools.config.get('smtp_server')
@@ -476,7 +488,13 @@ class ir_mail_server(osv.osv):
             raise osv.except_osv(
                          _("Missing SMTP Server"),
                          _("Please define at least one SMTP server, or provide the SMTP parameters explicitly."))
-
+            
+        # funking.net - begin
+        if smtp_ignore:
+            smtp_to_list = filter(lambda a: not a in smtp_ignore, smtp_to_list)
+            assert smtp_to_list, self.NO_VALID_RECIPIENT
+        # funkring.net - end
+        
         try:
             message_id = message['Message-Id']
 
