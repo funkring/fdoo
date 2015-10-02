@@ -99,6 +99,24 @@ class procurement_order(osv.Model):
             if product:
                 purchase_line_obj = self.pool["purchase.order.line"]
                 purchase_obj = self.pool["purchase.order"]
+                                
+                # get price
+                purchase_price = sale_order_line.quotation_price
+                if purchase_price:
+                    line_vals["price_unit"] = purchase_price
+                
+                # get analytic account
+                analytic_account = sale_order_line.order_id.project_id
+                if analytic_account:
+                    line_vals["account_analytic_id"]=analytic_account.id
+           
+                # get name
+                line_vals["name"] = sale_order_line.name
+                
+                # update order lines
+                purchase_line_ids = purchase_line_obj.search(cr, uid, [("sale_line_id","=",sale_order_line.id), ("product_id","=",product.id), ("state","=","draft")], context=context)
+                if purchase_line_ids:
+                    purchase_line_obj.write(cr, uid, purchase_line_ids, line_vals, context=context)
                 
                 # cancel or remove unselected
                 unused_line_ids = purchase_line_obj.search(cr, uid, [("sale_line_id","=",sale_order_line.id), ("partner_id", "!=", sale_order_line.supplier_id.id), ("product_id","=",product.id)], context=context)               
@@ -113,12 +131,7 @@ class procurement_order(osv.Model):
                             elif purchase_order.state in ('draft','sent','bid'):
                                 purchase_obj.action_cancel(cr, uid,  [purchase_order.id], context=context)
                                 
-                
-                # get price
-                purchase_price = sale_order_line.quotation_price
-                if purchase_price:
-                    line_vals["price_unit"] = purchase_price
-                
+                   
                 # get selected
                 purchase_line_id = purchase_line_obj.search_id(cr, uid, [("sale_line_id","=",sale_order_line.id), ("partner_id", "=", sale_order_line.supplier_id.id), ("product_id","=",product.id)], context=context)
                 if purchase_line_id:      

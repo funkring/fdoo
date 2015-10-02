@@ -28,11 +28,15 @@ class procurement_order(osv.osv):
             po_vals["notes"]=sale_line.procurement_note
             po_vals["sale_order_id"]=sale_line.order_id.id
             po_vals["sale_line_id"]=sale_line.id
+            
+            # update name
+            line_vals["name"]=sale_line.name
+            
             # add analytic account
             analytic_account = sale_line.order_id.project_id
-            if analytic_account:
-                line_vals["name"]=sale_line.name
+            if analytic_account:                
                 line_vals["account_analytic_id"]=analytic_account.id
+                
         return super(procurement_order,self).create_procurement_purchase_order(cr, uid, procurement, po_vals, line_vals, context=context)
     
     _inherit = "procurement.order"
