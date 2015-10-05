@@ -130,7 +130,7 @@ class ConfigCommand(Command):
             config_args.append("--db_port")
             config_args.append(params.db_port)
             
-        if params.db_port:
+        if params.db_user:
             config_args.append("--db_user")
             config_args.append(params.db_user)
             
