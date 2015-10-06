@@ -177,17 +177,16 @@ class sale_order_line(osv.Model):
 
     def _product_margin(self, cr, uid, ids, field_name, arg, context=None):
         cur_obj = self.pool.get("res.currency")
-        res = dict.fromkeys(ids)
+        res = dict.fromkeys(ids,0)
         for line in self.browse(cr, uid, ids, context=context):
             quotation = line.quotation_id
             if quotation:
                 res[line.id] = line.price_subtotal - quotation.price_subtotal
             else:
                 cur = line.order_id.pricelist_id.currency_id
-                res[line.id] = 0
-                if line.product_id:
-                    tmp_margin = line.price_subtotal - ((line.purchase_price or line.product_id.standard_price) * line.product_uos_qty)
-                    res[line.id] = cur_obj.round(cr, uid, cur, tmp_margin)
+                qty = (line.product_uos and line.product_uos_qty) or line.product_uom_qty
+                tmp_margin = line.price_subtotal - (line.purchase_price * qty)
+                res[line.id] = cur_obj.round(cr, uid, cur, tmp_margin)           
         return res
 
     def _quotation_price(self, cr, uid, ids, field_name, arg, context=None):
@@ -210,6 +209,13 @@ class sale_order_line(osv.Model):
         
         return super(sale_order_line,self).copy_data(cr, uid, id, default=default, context=context)
 
+    def _relids_purchase_order_line(self, cr, uid, ids, context=None):
+        cr.execute("SELECT l.id FROM purchase_order_line pl "
+                  " INNER JOIN sale_order_line l ON l.id = pl.sale_line_id "
+                  " WHERE pl.id IN %s", (tuple(ids),))
+        return [r[0] for r in cr.fetchall()]
+
+
     _inherit = 'sale.order.line'
     _columns = {
         "quotation_price" : fields.function(_quotation_price, type="float", string="Cost Price", copy=False, readonly=True),
@@ -217,5 +223,15 @@ class sale_order_line(osv.Model):
         "quotation_ids" : fields.one2many("purchase.order.line", "sale_line_id", "Quotations", copy=False, readonly=True, states={'draft': [('readonly', False)]} ),
         "quotation_active" : fields.boolean("Quotation Active", copy=False),
         "quotation_all" : fields.function(_quotation_all, type="boolean", string="All Quotation Sent to Suppliers"),
-        "margin": fields.function(_product_margin, string="Margin", digits_compute= dp.get_precision("Product Price"), store=True)
+        "margin": fields.function(_product_margin, string="Margin", digits_compute=dp.get_precision("Product Price"),
+                                  store={
+                                      "purchase.order.line" : (_relids_purchase_order_line,["price_unit","product_qty","product_uom"],10),
+                                      "sale.order.line": (lambda self, cr, uid, ids, context=None: ids, ["purchase_price",
+                                                                                                         "price_unit",
+                                                                                                         "product_uom_qty",
+                                                                                                         "product_uos_qty",
+                                                                                                         "product_uos",
+                                                                                                         "discount",
+                                                                                                         "product_id"],10)
+                                  })
     }
