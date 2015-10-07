@@ -72,8 +72,9 @@ class res_partner(osv.osv):
 
         elif has_name:
             surname, firstname = self._split_name(vals["name"])
-            vals[surname]=surname
-            vals[firstname]=firstname
+            vals["firstname"]=firstname
+            vals["surname"]=surname
+
 
         ids = util.idList(ids)
         if len(ids) == 1:
@@ -104,8 +105,9 @@ class res_partner(osv.osv):
 
         elif has_name:
             surname, firstname = self._split_name(vals["name"])
-            vals[surname]=surname
-            vals[firstname]=firstname
+            vals["firstname"]=firstname
+            vals["surname"]=surname
+            
 
         return super(res_partner,self).create(cr, uid, vals, context=context)
 
