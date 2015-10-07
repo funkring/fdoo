@@ -640,7 +640,10 @@ class account_account(osv.osv):
             done_list = []
         account = self.browse(cr, uid, id, context=context)
         new_child_ids = []
-        default.update(code=_("%s (copy)") % (account['code'] or ''))
+        #funkring.net - begin
+        if not "code" in default:
+            default.update(code=_("%s (copy)") % (account['code'] or ''))
+        #funkring.net - end
         if not local:
             done_list = []
         if account.id in done_list:

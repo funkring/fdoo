@@ -194,7 +194,7 @@ class sale_order_line(osv.Model):
         for line in self.browse(cr, uid, ids, context):
             quotation = line.quotation_id
             if quotation:
-                res[line.id] = quotation.price_subtotal
+                res[line.id] = quotation.price_unit
             else:
                 res[line.id] = line.purchase_price
         return res
