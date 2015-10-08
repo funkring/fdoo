@@ -25,6 +25,54 @@
 				</field>
 			</field>
 		</record>
+		
+	    <record id="form_invoice" model="ir.ui.view">
+	      <field name="name">at_account.form_invoice</field>
+	      <field name="model">account.invoice</field>
+	      <field name="inherit_id" ref="account.invoice_form"/>
+	      <field name="arch" type="xml">
+            	<field name="name" position="replace">
+            	</field>
+            	<field name="date_invoice" position="after">
+            	   <field name="name"/>
+            	</field>      
+	      </field>
+	    </record>
+
+        <record id="form_supplier_invoice" model="ir.ui.view">
+          <field name="name">at_account.form_supplier_invoice</field>
+          <field name="model">account.invoice</field>
+          <field name="inherit_id" ref="account.invoice_supplier_form"/>
+          <field name="arch" type="xml">                  
+                <field name="name" position="replace">
+                </field>
+                 <field name="date_invoice" position="after">
+                   <field name="name"/>
+                </field>                   
+          </field>
+        </record>
+        
+        <record id="tree_invoice" model="ir.ui.view">
+          <field name="name">at_account.tree_invoice</field>
+          <field name="model">account.invoice</field>
+          <field name="inherit_id" ref="account.invoice_tree"/>
+            <field name="arch" type="xml">
+                <field name="name" position="replace">
+                    <field name="name"/>
+                </field>
+            </field>
+        </record>
+        
+        <record id="search_invoice" model="ir.ui.view">
+          <field name="name">at_account.search_invoice</field>
+          <field name="model">account.invoice</field>
+          <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+          <field name="arch" type="xml">
+             <field name="number" position="replace">
+                <field name="number" string="Invoice" filter_domain="['|','|','|','|', ('number','ilike',self), ('origin','ilike',self), ('supplier_invoice_number', 'ilike', self), ('partner_id', 'child_of', self), ('name','ilike',self)]"/>
+             </field>             
+          </field>
+        </record>
 
 	</data>
 </openerp>

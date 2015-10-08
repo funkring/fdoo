@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+ <data>
+
+    <record id="form_partner" model="ir.ui.view">
+      <field name="name">invoice_per_email.form_partner</field>
+      <field name="model">res.partner</field>
+      <field name="type">form</field>
+      <field name="inherit_id" ref="account.view_partner_property_form"/>
+      <field name="arch" type="xml">
+        <field name="last_reconciliation_date" position="after">
+            <field name="invoice_per_email"/>
+        </field>
+      </field>
+    </record>
+
+  </data>
+</openerp>
