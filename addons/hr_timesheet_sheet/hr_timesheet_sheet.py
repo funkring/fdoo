@@ -245,9 +245,11 @@ class hr_timesheet_sheet(osv.osv):
             return []
         if isinstance(ids, (long, int)):
             ids = [ids]
-        return [(r['id'], _('Week ')+datetime.strptime(r['date_from'], '%Y-%m-%d').strftime('%U')) \
+        # funkring.net - begin
+        return [(r['id'], _('Week ')+str(int(datetime.strptime(r['date_from'], '%Y-%m-%d').strftime('%W') or '0')+1)) \
                 for r in self.read(cr, uid, ids, ['date_from'],
                     context=context, load='_classic_write')]
+        # funkrnig.net
 
     def unlink(self, cr, uid, ids, context=None):
         sheets = self.read(cr, uid, ids, ['state','total_attendance'], context=context)
