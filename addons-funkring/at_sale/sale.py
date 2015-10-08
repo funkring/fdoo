@@ -128,8 +128,7 @@ class sale_order(osv.osv):
                 client_order_ref = order.name + " " + _("Copy")
 
         default.update({
-            "client_order_ref": client_order_ref,
-            "date_order" : util.currentDate()
+            "client_order_ref": client_order_ref
         })
         return super(sale_order, self).copy(cr, uid, oid, default=default, context=context)
 

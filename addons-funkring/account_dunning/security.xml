@@ -40,6 +40,16 @@
 			<field name="perm_write" eval="True"/>
 		</record>
 		
+		<record id="access_account_reminder_user" model="ir.model.access">
+            <field name="name">account_reminder/user</field>
+            <field name="model_id" ref="model_account_reminder"/>
+            <field name="group_id" ref="base.group_user"/>
+            <field name="perm_read" eval="True"/>           
+            <field name="perm_unlink" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_write" eval="False"/>
+        </record>
+		
 		<record id="access_account_reminder_account_user" model="ir.model.access">
 			<field name="name">account_reminder/account_user</field>
 			<field name="model_id" ref="model_account_reminder"/>
@@ -59,6 +69,16 @@
 			<field name="perm_create" eval="True"/>
 			<field name="perm_write" eval="True"/>
 		</record>
+		
+		<record id="access_account_reminder_line_user" model="ir.model.access">
+            <field name="name">account_reminder_line/user</field>
+            <field name="model_id" ref="model_account_reminder_line"/>
+            <field name="group_id" ref="base.group_user"/>
+            <field name="perm_read" eval="True"/>           
+            <field name="perm_unlink" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_write" eval="False"/>
+        </record>
 		
 		<record id="access_account_reminder_line_account_user" model="ir.model.access">
 			<field name="name">account_reminder_line/account_user</field>
