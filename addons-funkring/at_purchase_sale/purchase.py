@@ -24,7 +24,8 @@ class purchase_order(osv.osv):
     
     _inherit = "purchase.order"
     _columns = {    
-        "sale_order_id" : fields.many2one("sale.order","Sale Order", states={"confirmed":[("readonly",True)], "approved":[("readonly",True)],"done":[("readonly",True)]}, ondelete="set null", copy=False)
+        "sale_order_id" : fields.many2one("sale.order","Sale Order", states={"confirmed":[("readonly",True)], "approved":[("readonly",True)],"done":[("readonly",True)]}, ondelete="set null", copy=False),
+        "shop_id" : fields.related("sale_order_id","shop_id",type="many2one",relation="sale.shop",string="Shop",readonly=True,store=False,select=True)
     }
 
 

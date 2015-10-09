@@ -68,11 +68,12 @@ class report_xml(osv.osv):
         #If order
         if res_br and hasattr(res_br, "shop_id"):
             shop_id = res_br.shop_id
-            report_obj = self.pool.get("sale.shop.report")
-            report_ids = report_obj.search(cr, uid, [("shop_id","=",shop_id.id),("source_report_id","=",report_xml.id)])
-            if report_ids:
-                report = report_obj.browse(cr, uid, report_ids[0], context=context)
-                return report.dest_report_id
+            if shop_id:
+                report_obj = self.pool.get("sale.shop.report")
+                report_ids = report_obj.search(cr, uid, [("shop_id","=",shop_id.id),("source_report_id","=",report_xml.id)])
+                if report_ids:
+                    report = report_obj.browse(cr, uid, report_ids[0], context=context)
+                    return report.dest_report_id
         return None
 
     _inherit = "ir.actions.report.xml"

@@ -262,6 +262,8 @@ class Parser(report_sxw.rml_parse):
                 lines.append(prep_line)
 
         addOrigin(picking.origin)
+        if picking.sale_id:
+            addOrigin(picking.sale_id.name)
 
         packages = []
         package_count = picking.number_of_packages or 1
