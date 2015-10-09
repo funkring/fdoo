@@ -71,6 +71,7 @@ class sale_order_line(osv.Model):
 
                 purchase_line_vals = { "product_id" : product.id,
                                        "product_qty" : line.product_uom_qty,
+                                       "product_uom" : line.product_uom.id,
                                        "sale_line_id" : line.id,
                                        "date_planned" : date_planned
                                      }
@@ -112,7 +113,7 @@ class sale_order_line(osv.Model):
                                                     purchase_order_vals.get("pricelist_id"),
                                                     purchase_line_vals.get("product_id"),
                                                     purchase_line_vals.get("product_qty"),
-                                                    False,
+                                                    purchase_line_vals.get("product_uom"),
                                                     purchase_order_vals.get("partner_id"),
                                                     date_planned=purchase_order_vals.get("date_planned"),
                                                     price_unit=purchase_line_vals.get("price_unit",False),

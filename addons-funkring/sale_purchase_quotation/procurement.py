@@ -112,6 +112,8 @@ class procurement_order(osv.Model):
            
                 # get name
                 line_vals["name"] = sale_order_line.name
+                # get unit
+                line_vals["product_uom"] = sale_order_line.product_uom.id
                 
                 # update order lines
                 purchase_line_ids = purchase_line_obj.search(cr, uid, [("sale_line_id","=",sale_order_line.id), ("product_id","=",product.id), ("state","=","draft")], context=context)
