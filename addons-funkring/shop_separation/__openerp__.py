@@ -36,7 +36,8 @@ oerp.at Shop Separation for Project and Sale
     "data" : ["view/user_view.xml", 
               "view/sale_view.xml",
               "view/shop_view.xml",  
-              "view/project_view.xml",       
+              "view/project_view.xml",
+              "view/project_issue_view.xml",   
               "security.xml"],
     "auto_install": False,
     "installable": True

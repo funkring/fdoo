@@ -20,7 +20,7 @@
 
 from openerp.osv import fields, osv
 from openerp import SUPERUSER_ID
-
+from openerp.addons.at_base import util
 
 class project_project(osv.Model):
     
@@ -113,6 +113,37 @@ class project_issue(osv.Model):
     def _relids_project(self, cr, uid, ids, context=None):
         return self.pool["project.issue"].search(cr, SUPERUSER_ID, [("project_id","in",ids)], context={"active_test" : False})
    
+    def on_change_project_check_stage(self, cr, uid, ids, project_id, stage_id, context=None):
+        if project_id:
+            res = self.on_change_project(cr, uid, ids, project_id, context)
+            project = self.pool.get('project.project').browse(cr, uid, project_id, context=context)
+            
+            # check stage
+            stage_ids = [s.id for s in project.type_ids]
+            next_stage_id = stage_id
+            if stage_ids and (not stage_id or not next_stage_id in stage_ids):
+                next_stage_id = stage_ids[0]
+
+            # update stage
+            if stage_id != next_stage_id:
+                util.deepUpdate(res,{"value" : {"stage_id" : next_stage_id}})
+                res_stage = self.onchange_stage_id(cr, uid, ids, next_stage_id, context=context)              
+                util.deepUpdate(res, res_stage)                
+            
+            return res                
+        return {}
+    
+    def assign_project(self, cr, uid, ids, project_id, context=None):
+        res = self.on_change_project_check_stage(cr, uid, ids, project_id, None, context=context)
+        
+        values = res.get("value",None)
+        if values is None:
+            values = {}
+            
+        values["project_id"] = project_id
+        self.write(cr, uid, ids, values, context=context)
+        return True            
+        
     
     _inherit = "project.issue"
     _columns = {

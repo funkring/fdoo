@@ -20,6 +20,7 @@
 #
 ##############################################################################
 
+import collections
 from dateutil.relativedelta import relativedelta
 from datetime import datetime
 from datetime import date
@@ -547,6 +548,14 @@ def getSalt(chars = string.letters + string.digits):
 def crypt(password):
     return crypt.crypt(password, getSalt())
 
+def deepUpdate(d, u):
+    for k, v in u.iteritems():
+        if isinstance(v, collections.Mapping):
+            r = deepUpdate(d.get(k, {}), v)
+            d[k] = r
+        else:
+            d[k] = u[k]
+    return d
 
 if __name__ == '__main__':
     print dateEasterSunday(2013)-dateEasterSunday(2012)

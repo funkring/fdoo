@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+ <data>
+    <record id="form_project_issue" model="ir.ui.view">
+      <field name="name">shop_seperation.form_project_issue</field>
+      <field name="model">project.issue</field>
+      <field name="inherit_id" ref="project_issue.project_issue_form_view"/>
+      <field name="arch" type="xml">
+            <field name="project_id" position="replace">
+                <field name="project_id" on_change="on_change_project_check_stage(project_id, stage_id)" class="oe_inline" context="{'default_use_issues':1}"/>
+            </field>
+      </field>
+    </record>
+  </data>
+</openerp>
