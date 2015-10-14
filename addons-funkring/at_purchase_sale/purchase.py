@@ -19,8 +19,15 @@
 ##############################################################################
 
 from openerp.osv import fields,osv
+from openerp.tools.translate import _
 
 class purchase_order(osv.osv):
+    
+    def do_merge(self, cr, uid, ids, context=None):
+        for order in self.browse(cr, uid, ids, context=context):
+            if order.sale_order_id:
+                raise osv.except_osv(_("Error"), _("A purchase order linked with an sale order cannot be merged!"))
+        return super(purchase_order, self).do_merge(cr, uid, ids, context=context)
     
     _inherit = "purchase.order"
     _columns = {    
