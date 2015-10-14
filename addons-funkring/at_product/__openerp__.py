@@ -32,6 +32,7 @@
     "depends" : ["at_base","product"],    
     "data" : ["security.xml",
               "view/product_view.xml",
+              "wizard/product_change_wizard.xml",
               "data/uom.xml"],
     "auto_install" : False,
     "installable": True

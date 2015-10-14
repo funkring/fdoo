@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+  
+    <record id="wizard_product_change" model="ir.ui.view">
+      <field name="name">at_sale.product_change</field>
+      <field name="model">at_sale.product_change_wizard</field>
+      <field name="arch" type="xml">
+        <form string="Product Change">
+          <p class="oe_gray">
+            Change all selected products at once
+          </p>
+          <notebook>
+            <page string="Products">
+                <div>
+                    <field name="product_ids"/>
+                </div>
+            </page>
+            <page string="Suppliers">
+                <group>
+                    <field name="supplier_replace"/>
+                </group>
+                <div>
+                    <field name="supplier_ids"/>
+                </div>
+            </page>            
+          </notebook>
+          <footer>
+            <button name="action_change" default_focus="1" string="Change"  type="object" class="oe_highlight" />
+            or
+            <button special="cancel" string="Close" class="oe_link" />
+          </footer>
+        </form>
+      </field>
+    </record>
+    
+    <record id="action_product_change" model="ir.actions.act_window">
+      <field name="name">Product Change</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">at_sale.product_change_wizard</field>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="wizard_product_change"/>
+      <field name="target">new</field>
+    </record>
+
+     <menuitem id="menu_product_change"
+            action="action_product_change"
+            groups="base.group_system"
+            parent="product.prod_config_main" />
+    
+  </data>  
+</openerp>

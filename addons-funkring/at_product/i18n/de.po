@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-19 15:39+0000\n"
-"PO-Revision-Date: 2015-05-19 17:39+0100\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2015-10-14 16:06+0000\n"
+"PO-Revision-Date: 2015-10-14 18:07+0100\n"
+"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -53,6 +53,16 @@ msgid "Category Second Normal Form View"
 msgstr "Kategorie 2. Normalform"
 
 #. module: at_product
+#: view:at_sale.product_change_wizard:at_product.wizard_product_change
+msgid "Change"
+msgstr "Ändern"
+
+#. module: at_product
+#: view:at_sale.product_change_wizard:at_product.wizard_product_change
+msgid "Close"
+msgstr "Schließen"
+
+#. module: at_product
 #: field:product.category,code:0 field:product.uom,code:0
 msgid "Code"
 msgstr ""
@@ -63,12 +73,23 @@ msgid "Cost price"
 msgstr "Beschaffungspreis"
 
 #. module: at_product
+#: field:at_sale.product_change_wizard,create_uid:0
+msgid "Created by"
+msgstr ""
+
+#. module: at_product
+#: field:at_sale.product_change_wizard,create_date:0
+msgid "Created on"
+msgstr ""
+
+#. module: at_product
 #: field:product.uom.categ,uom_ids:0
 msgid "Grouped UOMs"
 msgstr "Einheiten Gruppierung"
 
 #. module: at_product
 #: field:at_product.category_view,id:0
+#: field:at_sale.product_change_wizard,id:0
 msgid "ID"
 msgstr ""
 
@@ -76,6 +97,16 @@ msgstr ""
 #: model:ir.model,name:at_product.model_product_supplierinfo
 msgid "Information about a product supplier"
 msgstr "Informationen zum Produktlieferanten"
+
+#. module: at_product
+#: field:at_sale.product_change_wizard,write_uid:0
+msgid "Last Updated by"
+msgstr ""
+
+#. module: at_product
+#: field:at_sale.product_change_wizard,write_date:0
+msgid "Last Updated on"
+msgstr ""
 
 #. module: at_product
 #: field:at_product.category_view,leaf_categ_id:0
@@ -98,6 +129,14 @@ msgid "Product Category"
 msgstr "Produktkategorie"
 
 #. module: at_product
+#: view:at_sale.product_change_wizard:at_product.wizard_product_change
+#: model:ir.actions.act_window,name:at_product.action_product_change
+#: model:ir.model,name:at_product.model_at_sale_product_change_wizard
+#: model:ir.ui.menu,name:at_product.menu_product_change
+msgid "Product Change"
+msgstr "Produktanpassung"
+
+#. module: at_product
 #: model:ir.model,name:at_product.model_product_uom
 msgid "Product Unit of Measure"
 msgstr "Produkt Mengeneinheit (ME)"
@@ -108,9 +147,31 @@ msgid "Product uom categ"
 msgstr "Mengeneinheit (ME) Kategorie"
 
 #. module: at_product
+#: view:at_sale.product_change_wizard:at_product.wizard_product_change
+#: field:at_sale.product_change_wizard,product_ids:0
+msgid "Products"
+msgstr "Produkte"
+
+#. module: at_product
+#: view:product.product:at_product.search_at_product
+msgid "Reference"
+msgstr ""
+
+#. module: at_product
+#: field:at_sale.product_change_wizard,supplier_replace:0
+msgid "Replace Suppliers"
+msgstr "Ersetze Lieferanten"
+
+#. module: at_product
 #: field:product.uom,sequence:0
 msgid "Sequence"
 msgstr "Sequenz"
+
+#. module: at_product
+#: view:at_sale.product_change_wizard:at_product.wizard_product_change
+#: field:at_sale.product_change_wizard,supplier_ids:0
+msgid "Suppliers"
+msgstr "Lieferanten"
 
 #. module: at_product
 #: model:product.uom.categ,name:at_product.product_uom_categ_time
@@ -123,6 +184,11 @@ msgid "Units"
 msgstr "Einheiten"
 
 #. module: at_product
+#: view:at_sale.product_change_wizard:at_product.wizard_product_change
+msgid "change all selected products at once"
+msgstr "Ändere alle ausgewählten Produkte"
+
+#. module: at_product
 #: model:product.uom,name:at_product.product_uom_m2
 msgid "m²"
 msgstr ""
@@ -131,3 +197,8 @@ msgstr ""
 #: model:product.uom,name:at_product.product_uom_m3
 msgid "m³"
 msgstr ""
+
+#. module: at_product
+#: view:at_sale.product_change_wizard:at_product.wizard_product_change
+msgid "or"
+msgstr "oder"
