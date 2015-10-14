@@ -410,7 +410,7 @@ class Aeroo_report(report_sxw):
             aeroo_ooo = True
         return aeroo_ooo
 
-    def create_aeroo_report(self, cr, uid, ids, data, report_xml, context=None, output='odt'):
+    def create_aeroo_report(self, cr, uid, ids, data, report_xml, context=None, output='odt', style_io=None):
         """ Returns an aeroo report generated with aeroolib
         """
         pool = RegistryManager.get(cr.dbname)
@@ -420,9 +420,11 @@ class Aeroo_report(report_sxw):
         # report replacement
         if ids and len(ids) == 1 and context.get('active_model'):
             report_obj = pool.get("ir.actions.report.xml")
-            repl_report_xml = report_obj._get_replacement(cr, uid, context.get('active_model'), ids[0], report_xml, context=context)
+            model = context.get('active_model')
+            # get replacements
+            repl_report_xml, style_io = report_obj._get_replacement(cr, uid, model, ids[0], report_xml, context=context)
             if repl_report_xml:
-                return self.create_aeroo_report(cr, uid, ids, data, repl_report_xml, context=context, output=output)
+                return self.create_aeroo_report(cr, uid, ids, data, repl_report_xml, context=context, output=output, style_io=style_io)
 
         context = context.copy()
         if self.name=='report.printscreen.list':
@@ -442,18 +444,18 @@ class Aeroo_report(report_sxw):
             oo_parser.localcontext['o'] = objects[0]
         xfunc = ExtraFunctions(cr, uid, report_xml.id, oo_parser.localcontext)
         oo_parser.localcontext.update(xfunc.functions)
-
-        style_io=self.get_styles_file(cr, uid, report_xml, context)
+        
+        # get style
+        if not style_io:
+            style_io=self.get_styles_file(cr, uid, report_xml, context)
+        
+        # get template
         if report_xml.tml_source in ('file', 'database'):
             file_data = base64.decodestring(report_xml.report_sxw_content)
         else:
             file_data = self.get_other_template(cr, uid, data, oo_parser)
         if not file_data and not report_xml.report_sxw_content:
             return False, output
-        #elif file_data:
-        #    template_io = StringIO()
-        #    template_io.write(file_data or report_xml.report_sxw_content)
-        #    basic = Template(source=template_io, styles=style_io)
         else:
             if report_xml.preload_mode == 'preload' and hasattr(self, 'serializer'):
                 serializer = copy.copy(self.serializer)
@@ -464,11 +466,6 @@ class Aeroo_report(report_sxw):
                 template_io.write(file_data or base64.decodestring(report_xml.report_sxw_content) )
                 serializer = OOSerializer(template_io, oo_styles=style_io)
             basic = Template(source=template_io, serializer=serializer)
-
-        #if not file_data:
-        #    return False, output
-
-        #basic = Template(source=template_io, serializer=serializer)
 
         aeroo_ooo = context.get('aeroo_ooo', False)
         oo_parser.localcontext['include_subreport'] = self._subreport(cr, uid, output='odt', aeroo_ooo=aeroo_ooo, context=context)

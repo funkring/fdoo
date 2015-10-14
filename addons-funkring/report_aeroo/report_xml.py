@@ -239,7 +239,10 @@ class report_xml(osv.osv):
         return self._get_attachment_id(cr, uid, report, obj, context=context)
 
     def _get_replacement(self, cr, uid, res_model, res_id, report_xml, context=None):
-        return None
+        """
+        @return tuple with (report,template_data) 
+        """
+        return (None,None)
 
     _columns = {
         'charset':fields.selection(_get_encodings, string='Charset', required=True),

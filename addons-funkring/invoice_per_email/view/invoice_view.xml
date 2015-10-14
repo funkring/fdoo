@@ -19,7 +19,7 @@
       <field name="model">account.invoice</field>
       <field name="inherit_id" ref="account.invoice_tree"/>
         <field name="arch" type="xml">
-            <field name="date_invoice" position="after">
+            <field name="state" position="after">
                 <field name="invoice_per_email" invisible="1"/>
             </field>
         </field>

@@ -24,6 +24,14 @@ from dateutil.relativedelta import relativedelta
 from openerp.addons.at_base import util
 import openerp.addons.decimal_precision as dp
 
+import base64
+
+
+try:
+    from cStringIO import StringIO
+except ImportError:
+    from StringIO import StringIO
+
 class sale_shop(osv.osv):
     
     _name = "sale.shop"
@@ -41,7 +49,11 @@ class sale_shop(osv.osv):
         "invoice_in_text" : fields.text("Purchase Invoice Text"),
         "refund_text" : fields.text("Customer Refund Text"),
         "refund_in_text" : fields.text("Supplier Refund Text"),
-        "report_ids" : fields.one2many("sale.shop.report", "shop_id", "Reports")
+        "report_ids" : fields.one2many("sale.shop.report", "shop_id", "Reports"),
+        "stylesheet_id": fields.many2one("report.stylesheets", "Aeroo Global Stylesheet"),
+        "stylesheet_landscape_id": fields.many2one("report.stylesheets", "Aeroo Global Landscape Stylesheet"),
+        "stylesheet_intern_id" : fields.many2one("report.stylesheets", "Aeroo Intern Stylesheet"),
+        "stylesheet_intern_landscape_id" : fields.many2one("report.stylesheets", "Aeroo Intern Landscape Stylesheet")
     }
     _defaults = {
         "company_id": lambda s, cr, uid, c: s.pool.get('res.company')._company_default_get(cr, uid, 'sale.shop', context=c),
@@ -63,18 +75,46 @@ class sale_shop_report(osv.osv):
 class report_xml(osv.osv):
 
     def _get_replacement(self, cr, uid, res_model, res_id, report_xml, context=None):
+        style_io = None
+        repl_report = None
+        
         model_obj =self.pool.get(res_model)
         res_br = model_obj.browse(cr,uid,res_id,context=context)
-        #If order
+        
+        def toBinaryContent(style):
+            if style:
+                content = style.report_styles
+                bin_content = StringIO()
+                bin_content.write(base64.decodestring(content))
+                return bin_content
+            return None
+        
+        # check shop_id and search fore replacement report
         if res_br and hasattr(res_br, "shop_id"):
-            shop_id = res_br.shop_id
-            if shop_id:
+            shop = res_br.shop_id
+            if shop:                
                 report_obj = self.pool.get("sale.shop.report")
-                report_ids = report_obj.search(cr, uid, [("shop_id","=",shop_id.id),("source_report_id","=",report_xml.id)])
+                report_ids = report_obj.search(cr, uid, [("shop_id","=",shop.id),("source_report_id","=",report_xml.id)])
                 if report_ids:
                     report = report_obj.browse(cr, uid, report_ids[0], context=context)
-                    return report.dest_report_id
-        return None
+                    repl_report = report.dest_report_id
+                
+                # search template
+                styles_mode = report_xml.styles_mode
+                if styles_mode != "default":
+                    # get intern                    
+                    if styles_mode == "intern":
+                        style_io = toBinaryContent(shop.stylesheet_intern_id)
+                    elif styles_mode == "intern_landscape":
+                        style_io = toBinaryContent(shop.stylesheet_intern_landscape_id)
+                    # get global
+                    if not style_io:
+                        if styles_mode == "global" or styles_mode == "intern":
+                            style_io = toBinaryContent(shop.stylesheet_id)
+                        elif styles_mode == "global_landscape" or styles_mode == "intern_landscape":
+                            style_io = toBinaryContent(shop.stylesheet_landscape_id)
+                        
+        return (repl_report, style_io)
 
     _inherit = "ir.actions.report.xml"
 

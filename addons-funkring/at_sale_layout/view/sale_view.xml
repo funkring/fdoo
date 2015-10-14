@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+ <data>
+ 
+    <record id="form_order" model="ir.ui.view">
+      <field name="name">at_sale_layout.form_order</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_order_form"/>
+      <field name="arch" type="xml">
+        
+        <xpath expr="/form/sheet/notebook" position="inside">
+            <page string="Layout">
+                <group>
+                    <group>
+                        <field name="layout_hide_sum"/>
+                    </group>
+                    <group>
+                    </group>
+                </group>
+            </page>            
+        </xpath>
+        
+      </field>
+    </record>
+    
+  </data>
+</openerp>

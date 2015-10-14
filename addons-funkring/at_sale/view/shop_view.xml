@@ -57,13 +57,25 @@
                             </group>
                         </page>
                         <page string="Print">
-                            <field name="report_ids" colspan="4" nolabel="1">
-                                <tree string="Reports" editable="bottom">
-                                    <field name="source_report_id"/>
-                                    <field name="dest_report_id"/>
-                                    <field name="name" />
-                                </tree>
-                            </field>
+                            <group>
+                                <group>
+                                    <field name="stylesheet_id"/>
+                                    <field name="stylesheet_landscape_id"/>
+                                </group>
+                                <group>
+                                    <field name="stylesheet_intern_id"/>
+                                    <field name="stylesheet_intern_landscape_id"/>
+                                </group>
+                            </group>
+                            <div>
+                                <field name="report_ids" colspan="4" nolabel="1">
+                                    <tree string="Reports" editable="bottom">
+                                        <field name="source_report_id"/>
+                                        <field name="dest_report_id"/>
+                                        <field name="name" />
+                                    </tree>
+                                </field>
+                            </div>
                         </page>
                     </notebook>
                 </form>
