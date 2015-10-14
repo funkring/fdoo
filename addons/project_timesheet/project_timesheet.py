@@ -272,6 +272,14 @@ class task(osv.osv):
                                     'task_id' : task_obj.id
                                 }
                             continue
+                        # funkring.net - begin  
+                        #  - ignore name correction if project is the same
+                        sheet_line = task_work.hr_analytic_timesheet_id
+                        sheet = task_work.hr_analytic_timesheet_id.sheet_id         
+                        if sheet and not sheet.state in ('draft','new'):
+                            if not vals.get('project_id',False) or acc_id == sheet_line.account_id.id:                                
+                                continue
+                        # funkring.net - end
                         line_id = task_work.hr_analytic_timesheet_id.id
                         if vals.get('project_id',False):
                             vals_line['account_id'] = acc_id
