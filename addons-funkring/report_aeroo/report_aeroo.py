@@ -161,7 +161,9 @@ class Aeroo_report(report_sxw):
         logger.info("aeroo report cleanup")
         self._cleanup()
 
-    def getObjects_mod(self, cr, uid, ids, rep_type, context):
+    def getObjects_mod(self, cr, uid, ids, report_xml, context, parser=None):
+        if parser and hasattr(parser,"_load_objects"):
+            return parser._load_objects(cr, uid, ids, report_xml, context)
         table_obj = RegistryManager.get(cr.dbname).get(self.table)
         return table_obj.browse(cr, uid, ids, context=context)
 
@@ -371,9 +373,12 @@ class Aeroo_report(report_sxw):
         if not context:
             context={}
         context = context.copy()
-        objects = self.getObjects_mod(cr, uid, ids, report_xml.report_type, context)
+        
+        # get parser and objects
         oo_parser = self.parser(cr, uid, self.name2, context=context)
+        object = self.getObjects_mod(cr, uid, ids, report_xml, context, parser=oo_parser)
         oo_parser.objects = objects
+        
         self.set_xml_data_fields(objects, oo_parser) # Get/Set XML
         oo_parser.localcontext['objects'] = objects
         oo_parser.localcontext['data'] = data
@@ -431,8 +436,8 @@ class Aeroo_report(report_sxw):
             context['model'] = data['model']
             context['ids'] = ids
 
-        objects = not context.get('no_objects', False) and self.getObjects_mod(cr, uid, ids, report_xml.report_type, context) or []
         oo_parser = self.parser(cr, uid, self.name2, context=context)
+        objects = not context.get('no_objects', False) and self.getObjects_mod(cr, uid, ids, report_xml, context, parser=oo_parser) or []
 
         oo_parser.objects = objects
         self.set_xml_data_fields(objects, oo_parser) # Get/Set XML
@@ -479,13 +484,16 @@ class Aeroo_report(report_sxw):
 
         user_name = pool.get('res.users').browse(cr, uid, uid, {}).name
 
-        eval_model = data.get("model",context.get("active_model"))
-        model_id = pool.get('ir.model').search(cr, uid, [('model','=',eval_model)])[0]
-        model_name = pool.get('ir.model').browse(cr, uid, model_id).name
+        report_tile = report_xml.name
+        eval_model = data.get("model",context.get("active_model"))        
+        if eval_model:
+            modeldef_obj = pool.get('ir.model')
+            modeldef_id = modeldef_obj.search(cr, uid, [('model','=',eval_model)])[0]            
+            report_title = modeldef_obj.browse(cr, uid, modeldef_id).name
 
         #basic = Template(source=None, filepath=odt_path)
 
-        basic.Serializer.add_title(model_name)
+        basic.Serializer.add_title(report_tile)
         basic.Serializer.add_creation_user(user_name)
         version = addons.load_information_from_description_file('report_aeroo')['version']
         basic.Serializer.add_generator_info('Aeroo Lib/%s Aeroo Reports/%s' % (aeroolib.__version__, version))
@@ -552,7 +560,7 @@ class Aeroo_report(report_sxw):
         title = report_xml.name
         rml = report_xml.report_rml_content
         oo_parser = self.parser(cr, uid, self.name2, context=context)
-        objs = self.getObjects_mod(cr, uid, ids, report_xml.report_type, context)
+        objs = self.getObjects_mod(cr, uid, ids, report_xml, context, parser=oo_parser)
         oo_parser.set_context(objs, data, ids, report_xml.report_type)
         processed_rml = self.preprocess_rml(etree.XML(rml),report_xml.report_type)
         if report_xml.header:
@@ -661,7 +669,8 @@ class Aeroo_report(report_sxw):
         aeroo_ooo = self._aeroo_ooo_test(cr) # Detect report_aeroo_ooo module
         context['aeroo_ooo'] = aeroo_ooo
         if attach or aeroo_ooo and report_xml.process_sep:
-            objs = self.getObjects_mod(cr, uid, ids, report_xml.report_type, context)
+            oo_parser = self.parser(cr, uid, self.name2, context=context)
+            objs = self.getObjects_mod(cr, uid, ids, report_xml, context, parser=oo_parser)
             for obj in objs:
                 aname = attach and eval(attach, {'object':obj, 'time':time}) or False
                 result = False

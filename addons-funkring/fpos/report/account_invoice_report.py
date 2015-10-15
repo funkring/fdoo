@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# -*- encoding: utf-8 -*-
+
 #############################################################################
 #
 #    Copyright (c) 2007 Martin Reisenhofer <martin.reisenhofer@funkring.net>
@@ -18,21 +20,17 @@
 #
 ##############################################################################
 
-{
-    "name" : "oerp.at Fpos",
-    "description":"""
-oerp.at Fpos
-============
 
-* A module which adds additional features to the original point of sale
+from openerp.addons.at_account.report import account_invoice_report
 
-    """,
-    "version" : "1.0",
-    "author" :  "funkring.net",
-    "category" : "Point of Sale",
-    "depends" : ["point_of_sale"],
-    "data" : [ "report/invoice_report.xml" 
-             ],
-    "auto_install" : False,
-    "installable": True
-}
+class Parser(account_invoice_report.Parser):
+    
+    def __init__(self, cr, uid, name, context):
+        super(Parser, self).__init__(cr, uid, name, context)
+      
+    def _load_objects(self, cr, uid, ids, report_xml, context):
+        invoice_ids = []
+        for order in self.pool.get("pos.order").browse(cr, uid, ids, context=context):
+            if order.invoice_id:
+                invoice_ids.append(order.invoice_id.id)
+        return self.pool.get("account.invoice").browse(cr, uid, invoice_ids, context=context)   
