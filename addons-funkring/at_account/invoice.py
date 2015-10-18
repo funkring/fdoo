@@ -27,7 +27,6 @@ import openerp.addons.decimal_precision as dp
 
 class account_invoice(osv.osv):
 
-
     def _create_payment(self, cr, uid, invoice_id, journal_id,
                         compensation_id=None,
                         amount=0.0,
@@ -170,6 +169,23 @@ class account_invoice(osv.osv):
 
         return res_value
 
+    def _get_performance_start(self, cr, uid, inv, context=None):
+        return inv.date_invoice
+    
+    def _get_performance_end(self, cr, uid, inv, context=None):
+        return inv.date_invoice
+
+    def action_move_create(self, cr, uid, ids, context=None):
+        res = super(account_invoice, self).action_move_create(cr, uid, ids, context=context)
+        for inv in self.browse(cr, uid, ids, context=context):            
+            perf_start = inv.perf_start or self._get_performance_start(cr, uid, inv, context)
+            perf_end = max(inv.perf_end or self._get_performance_end(cr, uid, inv, context), perf_start)
+            self.write(cr, uid, [inv.id], {
+                        "perf_start" : perf_start,
+                        "perf_end" : perf_end,
+                      }, context=context)
+        
+        return res
 
     def invoice_validate(self, cr, uid, ids, context=None):
         self.write(cr, uid, ids, {'state':'open'}, context=context)
@@ -196,9 +212,6 @@ class account_invoice(osv.osv):
                         # clean up
                         attachment.unlink()
                         attachment_wizard_obj.unlink(cr, uid, [wizard_id])
-
-
-
         return True
 
     def _tax_amount(self,cr,uid,sid,context=None):
@@ -289,10 +302,12 @@ class account_invoice(osv.osv):
     _columns = {
         "invoice_text" : fields.function(_invoice_text, type="text", string="Invoice Text"),
         "subject" : fields.function(_get_subject, type="char", size=128, string="Subject"),
-        "is_performance" : fields.boolean("Performance Period")
+        "perf_start" : fields.date("Performance Start"),
+        "perf_end" : fields.date("Performance End"),
+        "perf_enabled" : fields.boolean("Performance Period")
     }
     _defaults = {
-        "is_performance" : True,
+        "perf_enabled" : True
     }
 
 

@@ -34,6 +34,12 @@ class account_invoice(osv.osv):
                 res = shop_obj.search_id(cr, uid, [("company_id","=",False)],context=context)
         return res
         
+    def _get_performance_start(self, cr, uid, inv, context=None):
+        order_date = None
+        for order in inv.sale_order_ids:
+            order_date = (not order_date and order.date_order) or min(order_date,order.date_order)
+        return order_date or super(account_invoice, self)._get_performance_start(cr, uid, inv, context=context)
+        
     _inherit = "account.invoice"
     _columns = {
         "sale_order_ids" : fields.many2many("sale.order","sale_order_invoice_rel","invoice_id","order_id","Orders",readonly=True),
@@ -48,15 +54,21 @@ class account_invoice_line(osv.osv):
 
     def _order_info(self, cr, uid, ids, field_name, args, context=None):
         res = dict.fromkeys(ids)
-        for invoice_line in self.browse(cr, uid, ids):
-            for order_line in invoice_line.sale_order_line_ids:
-                order = order_line.order_id
-                infos = []
-                if order.name:
-                    infos.append(order.name)
-                if order.client_order_ref:
-                    infos.append(order.client_order_ref)
-                res[invoice_line.id] = " / ".join(infos)
+        for invoice_line in self.browse(cr, uid, ids):        
+            order_lines = invoice_line.sale_order_line_ids
+            if order_lines:
+                for order_line in order_lines:
+                    order = order_line.order_id
+                    infos = []
+                    if invoice_line.origin:
+                        infos.append(invoice_line.origin)
+                    if order.name and order.name != invoice_line.origin:
+                        infos.append(order.name)
+                    if order.client_order_ref:
+                        infos.append(order.client_order_ref)
+                    res[invoice_line.id] = " / ".join(infos)
+            else:
+                res[invoice_line.id] = invoice_line.origin
         return res
 
     _inherit = "account.invoice.line"

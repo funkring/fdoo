@@ -1,19 +1,20 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* at_account
+# 	* at_account
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-08 20:51+0000\n"
-"PO-Revision-Date: 2015-10-08 20:51+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2015-10-18 22:29+0000\n"
+"PO-Revision-Date: 2015-10-19 00:29+0100\n"
+"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"X-Generator: Poedit 1.5.4\n"
 
 #. module: at_account
 #: code:addons/at_account/report/account_bank_statement_report.py:105
@@ -126,7 +127,7 @@ msgid "Cancel the invoice"
 msgstr "Rechnung abbrechen"
 
 #. module: at_account
-#: code:addons/at_account/invoice.py:276
+#: code:addons/at_account/invoice.py:289
 #, python-format
 msgid "Cancellation"
 msgstr "Storno"
@@ -135,13 +136,17 @@ msgstr "Storno"
 #: code:addons/at_account/account.py:43
 #, python-format
 msgid "Cannot do reverse mapping of Tax %s because no one match"
-msgstr "Die Steuer %s kann nicht zurück umgeschlüsselt werden, da mehrere Steuersätze passen würden"
+msgstr ""
+"Die Steuer %s kann nicht zurück umgeschlüsselt werden, da mehrere "
+"Steuersätze passen würden"
 
 #. module: at_account
 #: code:addons/at_account/account.py:40
 #, python-format
 msgid "Cannot do reverse mapping of Tax %s because or than one tax match"
-msgstr "Die Steuer %s kann nicht zurückaufgeschlüsselt werden, da mehrere Steuersätze passen würden"
+msgstr ""
+"Die Steuer %s kann nicht zurückaufgeschlüsselt werden, da mehrere "
+"Steuersätze passen würden"
 
 #. module: at_account
 #: view:invoice.cancel.wizard:at_account.wizard_invoice_cancel
@@ -178,8 +183,7 @@ msgid "Credit"
 msgstr "Haben"
 
 #. module: at_account
-#: view:res.company:at_account.form_company
-#: field:res.company,refund_text:0
+#: view:res.company:at_account.form_company field:res.company,refund_text:0
 msgid "Customer Refund Text"
 msgstr "Kundengutschriftstext"
 
@@ -226,8 +230,12 @@ msgid "Document Import"
 msgstr "Beleg Import"
 
 #. module: at_account
-#: code:addons/at_account/account.py:40
-#: code:addons/at_account/account.py:43
+#: view:account.invoice:at_account.form_invoice
+msgid "End"
+msgstr "Ende"
+
+#. module: at_account
+#: code:addons/at_account/account.py:40 code:addons/at_account/account.py:43
 #, python-format
 msgid "Error"
 msgstr "Fehler"
@@ -259,8 +267,13 @@ msgstr ""
 
 #. module: at_account
 #: help:account.journal,ignore_payment_term:0
-msgid "If you have made two lines for the payment term, then the system will not create two account move lines for each payment term line."
-msgstr "Wenn man zwei Zeilen in der Zahlungsbedingung erstellt hat (z.B. 14 Tage 2% Skonto, 30 Tage netto), dann werden nun nicht mehr zwei Buchungszeilen erstellt, sondern nur mehr eine mit dem Gesamtwert."
+msgid ""
+"If you have made two lines for the payment term, then the system will not "
+"create two account move lines for each payment term line."
+msgstr ""
+"Wenn man zwei Zeilen in der Zahlungsbedingung erstellt hat (z.B. 14 Tage 2% "
+"Skonto, 30 Tage netto), dann werden nun nicht mehr zwei Buchungszeilen "
+"erstellt, sondern nur mehr eine mit dem Gesamtwert."
 
 #. module: at_account
 #: field:account.journal,ignore_payment_term:0
@@ -268,13 +281,14 @@ msgid "Ignore Payment Term"
 msgstr "Ignoriere Zahlungsbedingung"
 
 #. module: at_account
+#: view:account.invoice:at_account.form_invoice
 #: view:account.invoice:at_account.form_invoice_supplier_form
 msgid "Import Document"
 msgstr "Beleg Import"
 
 #. module: at_account
 #: view:account.invoice:at_account.search_invoice
-#: code:addons/at_account/invoice.py:270
+#: code:addons/at_account/invoice.py:283
 #: model:ir.model,name:at_account.model_account_invoice
 #, python-format
 msgid "Invoice"
@@ -406,9 +420,19 @@ msgid "Payment Overview"
 msgstr "Zahlungsübersicht"
 
 #. module: at_account
-#: field:account.invoice,is_performance:0
+#: field:account.invoice,perf_end:0
+msgid "Performance End"
+msgstr "Leistungszeitraum Ende"
+
+#. module: at_account
+#: field:account.invoice,perf_enabled:0
 msgid "Performance Period"
-msgstr "Performance Periode"
+msgstr "Leistungszeitraum"
+
+#. module: at_account
+#: field:account.invoice,perf_start:0
+msgid "Performance Start"
+msgstr "Leistungszeitraum Start"
 
 #. module: at_account
 #: field:account.invoice.line,price_unit_untaxed:0
@@ -416,7 +440,7 @@ msgid "Price Unit (Netto)"
 msgstr "Preis/Einheit (Netto)"
 
 #. module: at_account
-#: code:addons/at_account/invoice.py:272
+#: code:addons/at_account/invoice.py:285
 #, python-format
 msgid "Pro-forma"
 msgstr "Proforma"
@@ -427,7 +451,7 @@ msgid "Product Taxes"
 msgstr "Produkt Steuern"
 
 #. module: at_account
-#: code:addons/at_account/invoice.py:274
+#: code:addons/at_account/invoice.py:287
 #, python-format
 msgid "Proposal"
 msgstr "Vorschlag"
@@ -446,7 +470,7 @@ msgid "Reference"
 msgstr "Referenz"
 
 #. module: at_account
-#: code:addons/at_account/invoice.py:278
+#: code:addons/at_account/invoice.py:291
 #, python-format
 msgid "Refund"
 msgstr "Gutschrift"
@@ -464,10 +488,14 @@ msgid "Residual"
 msgstr "Restwert"
 
 #. module: at_account
-#: view:res.company:at_account.form_company
-#: field:res.company,invoice_text:0
+#: view:res.company:at_account.form_company field:res.company,invoice_text:0
 msgid "Sale Invoice Text"
 msgstr "Ausgangsrechnungstext"
+
+#. module: at_account
+#: view:account.invoice:at_account.form_invoice
+msgid "Start"
+msgstr "Beginn"
 
 #. module: at_account
 #: code:addons/at_account/report/account_invoice_list_report.py:42
@@ -487,20 +515,19 @@ msgid "Subtotal (Brutto)"
 msgstr "Zwischenergebnis (Brutto)"
 
 #. module: at_account
-#: code:addons/at_account/invoice.py:282
+#: code:addons/at_account/invoice.py:295
 #, python-format
 msgid "Supplier Invoice"
 msgstr "Eingangsrechnung"
 
 #. module: at_account
-#: code:addons/at_account/invoice.py:280
+#: code:addons/at_account/invoice.py:293
 #, python-format
 msgid "Supplier Refund"
 msgstr "Gutschrift Lieferant"
 
 #. module: at_account
-#: view:res.company:at_account.form_company
-#: field:res.company,refund_in_text:0
+#: view:res.company:at_account.form_company field:res.company,refund_in_text:0
 msgid "Supplier Refund Text"
 msgstr "Lieferantengutschriftstext"
 
@@ -529,7 +556,7 @@ msgstr "Zahlungsübersicht"
 
 #. module: at_account
 #: code:addons/at_account/account_bank_statement.py:171
-#: code:addons/at_account/invoice.py:102
+#: code:addons/at_account/invoice.py:101
 #, python-format
 msgid "Write-Off"
 msgstr "Abschreiben"
@@ -549,4 +576,3 @@ msgstr "und die Zahlung"
 #: view:invoice.cancel.wizard:at_account.wizard_invoice_cancel
 msgid "or"
 msgstr "oder"
-

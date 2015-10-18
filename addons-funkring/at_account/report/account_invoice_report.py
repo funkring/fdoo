@@ -33,8 +33,7 @@ class Parser(extreport.basic_parser):
             "currency" : self._currency,
             "payment_term" : self._payment_term,
             "taxes" : self._taxes,
-            "invoice_text" : self._invoice_text,
-            "performance_period" : self._performance_period,
+            "invoice_text" : self._invoice_text
         })
 
     def _payment_term(self,invoice):
@@ -100,15 +99,5 @@ class Parser(extreport.basic_parser):
             result.append(res)
         return result
 
-    def _performance_period(self, invoice):
-        res = None
-        if invoice.is_performance == True:
-            order_date = None
-            for order in invoice.sale_order_ids:
-                order_date = (not order_date and order.date_order) or min(order_date,order.date_order)
-
-                res = order_date and "%s - %s" % (self.formatLang(order_date, date=True),
-                                                   self.formatLang(invoice.date_invoice, date=True)) or None
-        return res
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

@@ -7,32 +7,32 @@
 			<field name="priority">2</field>
 			<field name="arch" type="xml">
 				<button name="action_cancel_draft" position="after">
-						<button name="%(action_account_invoice_attachment_multi)d" type="action" string="Import Document" groups="account.group_account_invoice" states="open,paid" />
+					<button name="%(action_account_invoice_attachment_multi)d" type="action" string="Import Document" groups="account.group_account_invoice" states="open,paid" />
 				</button>
 			</field>
 		</record>
 
-		<record id="form_invoice" model="ir.ui.view">
-			<field name="name">account.form_invoice</field>
-			<field name="model">account.invoice</field>
-			<field name="inherit_id" ref="account.invoice_form" />
-			<field name="arch" type="xml">
-				<button name="action_cancel_draft" position="after">
-						<button name="%(action_account_invoice_attachment_multi)d" type="action" string="Import Document" groups="account.group_account_invoice" states="open,paid" />
-				</button>
-				<field name="period_id" position="after">
-                    <field name="is_performance"/>
-				</field>
-			</field>
-		</record>
-		
 	    <record id="form_invoice" model="ir.ui.view">
 	      <field name="name">at_account.form_invoice</field>
 	      <field name="model">account.invoice</field>
 	      <field name="inherit_id" ref="account.invoice_form"/>
 	      <field name="arch" type="xml">
+	            <button name="action_cancel_draft" position="after">
+                    <button name="%(action_account_invoice_attachment_multi)d" type="action" string="Import Document" groups="account.group_account_invoice" states="open,paid" />
+                </button>
 	            <xpath expr="/form/sheet/notebook/page[@string='Other Info']/group/group/field[@name='name']" position="replace">
 	            </xpath>            	
+	            <xpath expr="/form/sheet/notebook/page[@string='Other Info']/group" position="after">
+	               <group>
+	                   <group>
+	                       <field name="perf_enabled"/>
+	                   </group>
+	                   <group>
+	                       <field name="perf_start" string="Start" attrs="{'invisible' : [('perf_enabled','!=',True)] }"/>
+	                       <field name="perf_end" string="End" attrs="{'invisible' : [('perf_enabled','!=',True)] }"/>
+	                   </group>
+	               </group>	              
+                </xpath>
             	<field name="date_invoice" position="after">
             	   <field name="name"/>
             	</field>      
