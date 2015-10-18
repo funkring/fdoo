@@ -238,7 +238,7 @@ class report_xml(osv.osv):
         report, obj = self._get_report_obj(cr, uid, res_model, res_id, report_name, context)
         return self._get_attachment_id(cr, uid, report, obj, context=context)
 
-    def _get_replacement(self, cr, uid, res_model, res_id, report_xml, context=None):
+    def _get_replacement(self, cr, uid, obj, report_xml, context=None):
         """
         @return tuple with (report,template_data) 
         """

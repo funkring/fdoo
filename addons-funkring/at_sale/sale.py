@@ -74,12 +74,9 @@ class sale_shop_report(osv.osv):
 
 class report_xml(osv.osv):
 
-    def _get_replacement(self, cr, uid, res_model, res_id, report_xml, context=None):
+    def _get_replacement(self, cr, uid, obj, report_xml, context=None):
         style_io = None
         repl_report = None
-        
-        model_obj =self.pool.get(res_model)
-        res_br = model_obj.browse(cr,uid,res_id,context=context)
         
         def toBinaryContent(style):
             if style:
@@ -90,8 +87,8 @@ class report_xml(osv.osv):
             return None
         
         # check shop_id and search fore replacement report
-        if res_br and hasattr(res_br, "shop_id"):
-            shop = res_br.shop_id
+        if hasattr(obj, "shop_id"):
+            shop = obj.shop_id
             if shop:                
                 report_obj = self.pool.get("sale.shop.report")
                 report_ids = report_obj.search(cr, uid, [("shop_id","=",shop.id),("source_report_id","=",report_xml.id)])

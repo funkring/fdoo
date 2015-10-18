@@ -422,15 +422,6 @@ class Aeroo_report(report_sxw):
         if not context:
             context={}
 
-        # report replacement
-        if ids and len(ids) == 1 and context.get('active_model'):
-            report_obj = pool.get("ir.actions.report.xml")
-            model = context.get('active_model')
-            # get replacements
-            repl_report_xml, style_io = report_obj._get_replacement(cr, uid, model, ids[0], report_xml, context=context)
-            if repl_report_xml:
-                return self.create_aeroo_report(cr, uid, ids, data, repl_report_xml, context=context, output=output, style_io=style_io)
-
         context = context.copy()
         if self.name=='report.printscreen.list':
             context['model'] = data['model']
@@ -438,6 +429,15 @@ class Aeroo_report(report_sxw):
 
         oo_parser = self.parser(cr, uid, self.name2, context=context)
         objects = not context.get('no_objects', False) and self.getObjects_mod(cr, uid, ids, report_xml, context, parser=oo_parser) or []
+        
+        # report replacement
+        if objects and len(objects) == 1:
+            report_obj = pool.get("ir.actions.report.xml")
+            # get replacement
+            repl_report_xml, style_io = report_obj._get_replacement(cr, uid, objects[0], report_xml, context=context)
+            if repl_report_xml:
+                return self.create_aeroo_report(cr, uid, ids, data, repl_report_xml, context=context, output=output, style_io=style_io)
+
 
         oo_parser.objects = objects
         self.set_xml_data_fields(objects, oo_parser) # Get/Set XML
