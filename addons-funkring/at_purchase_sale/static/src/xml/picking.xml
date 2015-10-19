@@ -10,6 +10,7 @@
                         <th class="text-left">Product</th>
                         <th class='text-center' width="150">Scanned</th>
                         <th class='text-center'>Todo</th>
+                        <th class='text-center' width="150">Packages</th>
                         <th>From</th>
                         <th>To</th>
                     </tr>
@@ -28,12 +29,12 @@
                             <td class='brctbl-col2 text-center js_row_qty'>
                                 <t t-if="row.cols.processed == 'false' &amp;&amp; !row.cols.container">
                                     <div class="input-group">
-                                        <span class="input-group-addon js_minus input-sm" t-att-data-product-id='row.cols.product_id'><a href="#"><i class="fa fa-minus"></i></a></span>
+                                        <span class="input-group-addon input-sm js_minus_qty" t-att-data-product-id='row.cols.product_id'><a href="#"><i class="fa fa-minus"></i></a></span>
                                         <form class="js_submit_value">
                                             <input type="text" class="form-control text-center js_qty" t-att-value="row.cols.rem"></input>
                                             <!-- <input type="submit" class="hidden"></input> -->
                                         </form>
-                                        <span class="input-group-addon js_plus input-sm" t-att-data-product-id='row.cols.product_id'><a href="#"><i class="fa fa-plus"></i></a></span>
+                                        <span class="input-group-addon input-sm js_plus_qty" t-att-data-product-id='row.cols.product_id'><a href="#"><i class="fa fa-plus"></i></a></span>
                                     </div>
                                 </t>
                                 <t t-if="(row.cols.processed == 'true' || row.cols.container)">
@@ -43,12 +44,26 @@
                             <td class="brctbl-col3 text-center">
                                 <t t-esc="row.cols.qty"/> <t t-esc="row.cols.uom" />
                             </td>
-                            <td class="brctbl-col4 js_loc">
+                            <td class='brctbl-col4 text-center js_row_packages'>
+                                <t t-if="row.cols.processed == 'false' &amp;&amp; !row.cols.container">
+                                    <div class="input-group">
+                                        <span class="input-group-addon input-sm js_minus_packages" t-att-data-product-id='row.cols.product_id'><a href="#"><i class="fa fa-minus"></i></a></span>
+                                        <form class="js_submit_value">
+                                            <input type="text" class="form-control text-center js_packages" t-att-value="row.cols.package_count"></input>
+                                        </form>
+                                        <span class="input-group-addon input-sm js_plus_packages" t-att-data-product-id='row.cols.product_id'><a href="#"><i class="fa fa-plus"></i></a></span>
+                                    </div>
+                                </t>
+                                <t t-if="(row.cols.processed == 'true' || row.cols.container)">
+                                    <t t-esc="row.cols.package_count" />
+                                </t>
+                            </td>
+                            <td class="brctbl-col5 js_loc">
                                 <t t-esc="row.cols.loc" />
                                 <t t-if="row.cols.pack" ><span> : <t t-esc="row.cols.pack" /></span></t>
                                 <t t-if="row.cols.lot" ><span> : <t t-esc="row.cols.lot" /></span></t>
                             </td>
-                            <td class="brctbl-col5 js_loc"> <t t-esc="row.cols.dest" />
+                            <td class="brctbl-col6 js_loc"> <t t-esc="row.cols.dest" />
                                 <div class="pull-right btn-group">
                                     <button type="button" class="btn btn-default dropdown-toggle fa fa-cog" data-toggle="dropdown">
                                      <span class="caret"></span>
