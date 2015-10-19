@@ -40,9 +40,11 @@ oerp.at Purchase + Sale combination
               "view/sale_order_view.xml",
               "view/purchase_view.xml",
               "view/picking_view.xml",
+              "view/stock_widget.xml",
               "report/stock_picking_report.xml",
               "report/stock_delivery_label_a6.xml",
               "report/purchase_delivery_report.xml"],
+    "qweb": ["static/src/xml/picking.xml"],
     "auto_install": False,
     "installable": True
 }

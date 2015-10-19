@@ -19,6 +19,28 @@
 ##############################################################################
 
 from openerp.osv import fields,osv
+import re
+
+MATCH_BARCODE_STOCK_MOVE = re.compile("^SM([0-9]+)$")
+
+
+class stock_pack_operation(osv.osv):
+    
+    def _pack_description(self, cr, uid, ids, field_name, arg, context=None):
+        res = dict.fromkeys(ids)
+        for obj in self.browse(cr, uid, ids, context):
+            description = []
+            for link in obj.linked_move_operation_ids:
+                description.append(link.move_id.name)
+            res[obj.id] = "\n".join(description)
+        return res
+    
+    _inherit = "stock.pack.operation"
+    _columns = {
+        "name" : fields.function(_pack_description, type="char", store=False, string="Description")
+    }
+     
+
 
 class stock_move(osv.osv):
     
@@ -101,6 +123,20 @@ class stock_picking(osv.osv):
                 if dest_id.usage == "customer":
                     res[picking.id] = "dropshipment"        
         return res
+    
+    def process_barcode_from_ui(self, cr, uid, picking_id, barcode_str, visible_op_ids, context=None):
+        m = MATCH_BARCODE_STOCK_MOVE.match(barcode_str)
+        if m:
+            res = {"filter_loc": False, "operation_id": False}
+            move_id = int(m.group(1))
+            
+            stock_operation_obj = self.pool["stock.pack.operation"]
+            op_id = stock_operation_obj._search_and_increment(cr, uid, picking_id, [("linked_move_operation_ids.move_id","=",move_id)], filter_visible=True, visible_op_ids=visible_op_ids, increment=True, context=context)
+            
+            res["operation_id"] = op_id
+            return res            
+        else:
+            return super(stock_picking, self).process_barcode_from_ui(cr, uid, picking_id, barcode_str, visible_op_ids, context=context)
                 
     _inherit = "stock.picking"
     _columns = {
