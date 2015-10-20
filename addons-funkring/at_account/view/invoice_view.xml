@@ -44,8 +44,8 @@
           <field name="model">account.invoice</field>
           <field name="inherit_id" ref="account.invoice_supplier_form"/>
           <field name="arch" type="xml">                  
-                <field name="name" position="replace">
-                </field>
+                <xpath expr="/form/sheet/notebook/page[@string='Other Info']/group/group/field[@name='name']" position="replace">
+                </xpath>   
                  <field name="date_invoice" position="after">
                    <field name="name"/>
                 </field>                   

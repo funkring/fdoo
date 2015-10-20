@@ -390,7 +390,7 @@ class ExtraFunctions(object):
         code_type = code_type.lower()
         barcode = None
         if code_type == "ean13":
-            barcode = ean.EAN(code)
+            barcode = ean.Ean(code)
         elif code_type == "code128":
             barcode = code128.Code128.from_unicode(code)
         elif code_type == "gs1":

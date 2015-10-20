@@ -2,6 +2,12 @@
 <template>
 
     <t t-extend="PickingEditorWidget">
+    
+        <t t-jquery="button.js_pick_print" t-operation="replace">
+            <button type="button" class="btn btn-default js_print_shipping"> Print Shipping </button>
+            <button type="button" class="btn btn-default js_print_delivery"> Print Delivery </button>
+        </t>
+    
         <t t-jquery="table.js_op_table_todo" t-operation="replace">
         
             <table class='table table-condensed js_op_table_todo'>
@@ -9,10 +15,11 @@
                     <tr>
                         <th class="text-left">Product</th>
                         <th class='text-center' width="150">Scanned</th>
-                        <th class='text-center'>Todo</th>
-                        <th class='text-center' width="150">Packages</th>
+                        <th class='text-center'>Todo</th>                        
                         <th>From</th>
                         <th>To</th>
+                        <th class='text-left' width="120">Packages</th>
+                        <th></th>
                     </tr>
                 </thead>
 
@@ -43,27 +50,13 @@
                             </td>
                             <td class="brctbl-col3 text-center">
                                 <t t-esc="row.cols.qty"/> <t t-esc="row.cols.uom" />
-                            </td>
-                            <td class='brctbl-col4 text-center js_row_packages'>
-                                <t t-if="row.cols.processed == 'false' &amp;&amp; !row.cols.container">
-                                    <div class="input-group">
-                                        <span class="input-group-addon input-sm js_minus_packages" t-att-data-product-id='row.cols.product_id'><a href="#"><i class="fa fa-minus"></i></a></span>
-                                        <form class="js_submit_value">
-                                            <input type="text" class="form-control text-center js_packages" t-att-value="row.cols.package_count"></input>
-                                        </form>
-                                        <span class="input-group-addon input-sm js_plus_packages" t-att-data-product-id='row.cols.product_id'><a href="#"><i class="fa fa-plus"></i></a></span>
-                                    </div>
-                                </t>
-                                <t t-if="(row.cols.processed == 'true' || row.cols.container)">
-                                    <t t-esc="row.cols.package_count" />
-                                </t>
-                            </td>
-                            <td class="brctbl-col5 js_loc">
+                            </td>                          
+                            <td class="brctbl-col4 js_loc">
                                 <t t-esc="row.cols.loc" />
                                 <t t-if="row.cols.pack" ><span> : <t t-esc="row.cols.pack" /></span></t>
                                 <t t-if="row.cols.lot" ><span> : <t t-esc="row.cols.lot" /></span></t>
                             </td>
-                            <td class="brctbl-col6 js_loc"> <t t-esc="row.cols.dest" />
+                            <td class="brctbl-col5 js_loc"> <t t-esc="row.cols.dest" />
                                 <div class="pull-right btn-group">
                                     <button type="button" class="btn btn-default dropdown-toggle fa fa-cog" data-toggle="dropdown">
                                      <span class="caret"></span>
@@ -85,6 +78,23 @@
                                         </t>
                                     </ul>
                                 </div>
+                            </td>
+                            <td class='brctbl-col6 text-left js_row_package'>
+                                <t t-if="row.cols.processed == 'false' &amp;&amp; !row.cols.container">
+                                    <div class="input-group">
+                                        <span class="input-group-addon input-sm js_minus_package" t-att-data-product-id='row.cols.product_id'><a href="#"><i class="fa fa-minus"></i></a></span>
+                                        <form class="js_submit_value">
+                                            <input type="text" class="form-control text-center js_package" t-att-value="row.cols.package_count"></input>
+                                        </form>
+                                        <span class="input-group-addon input-sm js_plus_package" t-att-data-product-id='row.cols.product_id'><a href="#"><i class="fa fa-plus"></i></a></span>
+                                    </div>
+                                </t>
+                                <t t-if="(row.cols.processed == 'true' || row.cols.container)">
+                                    <t t-esc="row.cols.package_count" />
+                                </t>
+                            </td>
+                            <td t-if="row.cols.package_calc" class="brctbl-col7 text-center js_row_package_calc">
+                               / <t t-esc="row.cols.package_calc" />
                             </td>
                         </tr>
                     </t>

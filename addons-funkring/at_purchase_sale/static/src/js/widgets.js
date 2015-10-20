@@ -6,6 +6,51 @@ openerp.at_purchase_sale = function(instance, local) {
      * override get rows
      */
     instance.stock.PickingEditorWidget = instance.stock.PickingEditorWidget.extend({
+    
+       renderElement: function(){
+            var self = this;
+            this._super();
+            
+            this.$('.js_print_delivery').click(function(){ self.getParent().print_delivery(); });
+            this.$('.js_print_shipping').click(function(){ self.getParent().print_shipping(); });
+            
+            this.$('.js_plus_qty').click(function(){
+                var id = $(this).data('product-id');
+                var op_id = $(this).parents("[data-id]:first").data('id');
+                self.getParent().scan_product_id(id,true,op_id);
+            });
+            
+            this.$('.js_minus_qty').click(function(){
+                var id = $(this).data('product-id');
+                var op_id = $(this).parents("[data-id]:first").data('id');
+                self.getParent().scan_product_id(id,false,op_id);
+            });
+            
+            this.$('.js_plus_package').click(function(){
+                var op_id = $(this).parents("[data-id]:first").data('id');
+                self.getParent().add_package(op_id, 1);
+            });
+            
+            this.$('.js_minus_package').click(function(){
+                var op_id = $(this).parents("[data-id]:first").data('id');
+                self.getParent().add_package(op_id, -1);
+            });
+            
+            this.$('.js_package').focus(function(){
+                self.getParent().barcode_scanner.disconnect();
+            });
+            this.$('.js_package').blur(function(){
+                var op_id = $(this).parents("[data-id]:first").data('id');
+                var value = parseInt($(this).val(),10);
+                if (value>=0){
+                    self.getParent().set_package_count(value, op_id);
+                }
+                self.getParent().barcode_scanner.connect(function(ean){
+                    self.getParent().scan(ean);
+                });
+            });
+       },
+    
        get_rows: function(){
             var model = this.getParent();
             this.rows = [];
@@ -25,6 +70,8 @@ openerp.at_purchase_sale = function(instance, local) {
                                     name: packopline.name,
                                     qty: '',
                                     rem: '',
+                                    package_count: '',
+                                    package_calc: '',
                                     uom: undefined,
                                     lot: undefined,
                                     pack: undefined,
@@ -49,6 +96,8 @@ openerp.at_purchase_sale = function(instance, local) {
                                 name: packopline.name,
                                 qty: packopline.product_qty,
                                 rem: packopline.qty_done,
+                                package_count: packopline.package_count,
+                                package_calc: packopline.package_calc,
                                 uom: packopline.product_uom_id[1],
                                 lot: packopline.lot_id[1],
                                 pack: pack,
@@ -116,6 +165,42 @@ openerp.at_purchase_sale = function(instance, local) {
             }
             
             return self._super(ean);
+        },
+        
+        add_package: function(op_id, increment) { 
+            var self = this;
+            return new instance.web.Model('stock.picking')
+                .call('add_package', [self.picking.id, op_id, increment])
+                .then(function(result){
+                    return self.refresh_ui(self.picking.id);
+                });
+        },
+        
+        print_shipping: function(){
+            var self = this;
+            return new instance.web.Model('stock.picking').call('print_shipping',[[self.picking.id]])
+                   .then(function(action){
+                        return self.do_action(action);
+                   });
+        },
+        
+        print_delivery: function(){
+            var self = this;
+            return new instance.web.Model('stock.picking').call('print_delivery',[[self.picking.id]])
+                   .then(function(action){
+                        return self.do_action(action);                        
+                   });
+        },
+        
+        set_package_count: function(package_count, op_id){
+            var self = this;
+            if(package_count >= 0){
+                return new instance.web.Model('stock.pack.operation')
+                    .call('write',[[op_id],{'package_count': package_count }])
+                    .then(function(){
+                        self.refresh_ui(self.picking.id);
+                    });
+            }
         }
                 
     });

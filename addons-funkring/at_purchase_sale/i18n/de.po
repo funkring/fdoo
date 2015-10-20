@@ -1,25 +1,23 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* at_purchase_sale
+#	* at_purchase_sale
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-14 14:09+0000\n"
-"PO-Revision-Date: 2015-10-14 16:10+0100\n"
-"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
+"POT-Creation-Date: 2015-10-20 09:25+0000\n"
+"PO-Revision-Date: 2015-10-20 09:25+0000\n"
+"Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 1.5.4\n"
 
 #. module: at_purchase_sale
 #: model:ir.actions.act_window,help:at_purchase_sale.sale_purchase_order_action
-msgid ""
-"<p class=\"oe_view_nocontent_create\">\n"
+msgid "<p class=\"oe_view_nocontent_create\">\n"
 "                Click to create a purchase order.\n"
 "                </p>\n"
 "            "
@@ -29,13 +27,11 @@ msgstr ""
 #: code:addons/at_purchase_sale/purchase.py:29
 #, python-format
 msgid "A purchase order linked with an sale order cannot be merged!"
-msgstr ""
-"Einkäufe welche mit einem Verkaufsauftrag verknüpft ist, können nicht "
-"zusammengeführt werden"
+msgstr "Einkäufe welche mit einem Verkaufsauftrag verknüpft ist, können nicht zusammengeführt werden"
 
 #. module: at_purchase_sale
-#: code:addons/at_purchase_sale/report/stock_delivery_report.py:159
-#: code:addons/at_purchase_sale/report/stock_delivery_report.py:178
+#: code:addons/at_purchase_sale/report/stock_delivery_report.py:167
+#: code:addons/at_purchase_sale/report/stock_delivery_report.py:186
 #, python-format
 msgid "Address"
 msgstr "Adresse"
@@ -60,8 +56,37 @@ msgid "Cancelled"
 msgstr "Abgebrochen"
 
 #. module: at_purchase_sale
-#: code:addons/at_purchase_sale/report/stock_delivery_report.py:155
-#: code:addons/at_purchase_sale/report/stock_delivery_report.py:176
+#. openerp-web
+#: code:addons/at_purchase_sale/static/src/xml/picking.xml:70
+#: code:addons/at_purchase_sale/static/src/xml/picking.xml:73
+#, python-format
+msgid "Change destination location"
+msgstr ""
+
+#. module: at_purchase_sale
+#. openerp-web
+#: code:addons/at_purchase_sale/static/src/xml/picking.xml:69
+#, python-format
+msgid "Change source location"
+msgstr ""
+
+#. module: at_purchase_sale
+#. openerp-web
+#: code:addons/at_purchase_sale/static/src/xml/picking.xml:75
+#, python-format
+msgid "Configure package"
+msgstr ""
+
+#. module: at_purchase_sale
+#. openerp-web
+#: code:addons/at_purchase_sale/static/src/xml/picking.xml:66
+#, python-format
+msgid "Create / Change Lot"
+msgstr ""
+
+#. module: at_purchase_sale
+#: code:addons/at_purchase_sale/report/stock_delivery_report.py:163
+#: code:addons/at_purchase_sale/report/stock_delivery_report.py:184
 #, python-format
 msgid "Delivery Address"
 msgstr "Lieferadresse"
@@ -77,7 +102,7 @@ msgid "Delivery Label A6"
 msgstr "Versandetikett A6"
 
 #. module: at_purchase_sale
-#: code:addons/at_purchase_sale/report/stock_delivery_report.py:182
+#: code:addons/at_purchase_sale/report/stock_delivery_report.py:190
 #, python-format
 msgid "Delivery Note"
 msgstr "Lieferschein"
@@ -87,6 +112,11 @@ msgstr "Lieferschein"
 #: model:ir.actions.report.xml,name:at_purchase_sale.report_purchase_delivery
 msgid "Delivery Report"
 msgstr "Lieferschein"
+
+#. module: at_purchase_sale
+#: field:stock.pack.operation,name:0
+msgid "Description"
+msgstr "Beschreibung"
 
 #. module: at_purchase_sale
 #: code:addons/at_purchase_sale/report/stock_delivery_report.py:57
@@ -102,7 +132,19 @@ msgid "Error"
 msgstr ""
 
 #. module: at_purchase_sale
-#: code:addons/at_purchase_sale/report/stock_delivery_report.py:279
+#: field:stock.pack.operation,package_calc:0
+msgid "Expected Packages"
+msgstr "Pakete"
+
+#. module: at_purchase_sale
+#. openerp-web
+#: code:addons/at_purchase_sale/static/src/xml/picking.xml:19
+#, python-format
+msgid "From"
+msgstr ""
+
+#. module: at_purchase_sale
+#: code:addons/at_purchase_sale/report/stock_delivery_report.py:331
 #, python-format
 msgid "KG"
 msgstr ""
@@ -113,7 +155,8 @@ msgid "Logistic"
 msgstr "Logistik"
 
 #. module: at_purchase_sale
-#: field:sale.order,neutral_delivery:0 field:stock.picking,neutral_delivery:0
+#: field:sale.order,neutral_delivery:0
+#: field:stock.picking,neutral_delivery:0
 msgid "Neutral Delivery"
 msgstr "Neutrale Lieferung"
 
@@ -125,9 +168,44 @@ msgid "New"
 msgstr "Neu"
 
 #. module: at_purchase_sale
+#. openerp-web
+#: code:addons/at_purchase_sale/static/src/xml/picking.xml:21
+#: field:stock.pack.operation,package_count:0
+#, python-format
+msgid "Packages"
+msgstr "Pakete"
+
+#. module: at_purchase_sale
+#: model:ir.model,name:at_purchase_sale.model_stock_pack_operation
+msgid "Packing Operation"
+msgstr "Packvorgang"
+
+#. module: at_purchase_sale
 #: model:ir.model,name:at_purchase_sale.model_stock_picking
 msgid "Picking List"
 msgstr "Lieferauftrag"
+
+#. module: at_purchase_sale
+#. openerp-web
+#: code:addons/at_purchase_sale/static/src/xml/picking.xml:8
+#, python-format
+msgid "Print Delivery"
+msgstr "Drucke Lieferschein"
+
+#. module: at_purchase_sale
+#. openerp-web
+#: code:addons/at_purchase_sale/static/src/xml/picking.xml:7
+#: view:stock.picking:at_purchase_sale.form_picking
+#, python-format
+msgid "Print Shipping"
+msgstr "Drucke Versandetikett"
+
+#. module: at_purchase_sale
+#. openerp-web
+#: code:addons/at_purchase_sale/static/src/xml/picking.xml:77
+#, python-format
+msgid "Print package label"
+msgstr ""
 
 #. module: at_purchase_sale
 #: model:ir.model,name:at_purchase_sale.model_procurement_order
@@ -140,7 +218,10 @@ msgid "Procurement Note"
 msgstr "Beschaffungsnotiz"
 
 #. module: at_purchase_sale
+#. openerp-web
+#: code:addons/at_purchase_sale/static/src/xml/picking.xml:16
 #: model:ir.model,name:at_purchase_sale.model_product_product
+#, python-format
 msgid "Product"
 msgstr "Produkt"
 
@@ -165,6 +246,13 @@ msgid "Purchase orders"
 msgstr "Bestellungen"
 
 #. module: at_purchase_sale
+#. openerp-web
+#: code:addons/at_purchase_sale/static/src/xml/picking.xml:76
+#, python-format
+msgid "Remove from package"
+msgstr ""
+
+#. module: at_purchase_sale
 #: field:purchase.order,sale_order_id:0
 msgid "Sale Order"
 msgstr "Verkaufsauftrag"
@@ -185,9 +273,17 @@ msgid "Sales Order Line"
 msgstr "Auftragsposition"
 
 #. module: at_purchase_sale
-#: code:addons/at_purchase_sale/report/stock_delivery_report.py:157
-#: code:addons/at_purchase_sale/report/stock_delivery_report.py:174
-#: field:sale.shop,sender_address_id:0 field:stock.picking,sender_address_id:0
+#. openerp-web
+#: code:addons/at_purchase_sale/static/src/xml/picking.xml:17
+#, python-format
+msgid "Scanned"
+msgstr ""
+
+#. module: at_purchase_sale
+#: code:addons/at_purchase_sale/report/stock_delivery_report.py:165
+#: code:addons/at_purchase_sale/report/stock_delivery_report.py:182
+#: field:sale.shop,sender_address_id:0
+#: field:stock.picking,sender_address_id:0
 #, python-format
 msgid "Sender Address"
 msgstr "Absenderadresse"
@@ -201,6 +297,20 @@ msgstr "Vertriebsshop"
 #: model:ir.model,name:at_purchase_sale.model_stock_move
 msgid "Stock Move"
 msgstr "Lagerbuchung"
+
+#. module: at_purchase_sale
+#. openerp-web
+#: code:addons/at_purchase_sale/static/src/xml/picking.xml:20
+#, python-format
+msgid "To"
+msgstr ""
+
+#. module: at_purchase_sale
+#. openerp-web
+#: code:addons/at_purchase_sale/static/src/xml/picking.xml:18
+#, python-format
+msgid "Todo"
+msgstr ""
 
 #. module: at_purchase_sale
 #: field:stock.picking,simple_type:0
@@ -220,3 +330,4 @@ msgstr "Warte auf andere Lieferung"
 #, python-format
 msgid "Waiting Availability"
 msgstr "Warte auf Verfügbarkeit"
+

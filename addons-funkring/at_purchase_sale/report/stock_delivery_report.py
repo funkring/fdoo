@@ -71,10 +71,16 @@ class Parser(report_sxw.rml_parse):
         return False
     
     def _get_doc(self):        
-        pickings = None
-        move_ids = None
+        pickings = None        
         
-        model = util.model_get(self.localcontext)
+        # get move ids
+        move_ids = self.localcontext.get("move_ids")
+        if move_ids:
+            move_ids = set(move_ids)
+        else:
+            move_ids = None
+        
+        model = util.model_get(self.localcontext) or "stock.picking"
         if "purchase.order.line" == model or "purchase.order" == model:
             
             stock_move_obj = self.pool.get("stock.move")
@@ -91,7 +97,10 @@ class Parser(report_sxw.rml_parse):
             else:
                 line_ids = [o.id for o in self.objects]
             
-            move_ids = set()
+            # create move ids if not exist
+            if not move_ids:
+                move_ids = set()
+            
             picking_ids = []
             
              
@@ -131,7 +140,6 @@ class Parser(report_sxw.rml_parse):
 
             # results
             pickings = picking_obj.browse(self.cr, self.uid,picking_ids, self.localcontext)
-            move_ids = move_ids
             
         elif model and model.startswith("stock.picking"):
             pickings = self.objects
@@ -222,18 +230,26 @@ class Parser(report_sxw.rml_parse):
         move_lines_other = []
         origin = []
 
-        def addOrigin(inOrigin):
+        def addOrigin(origin, inOrigin):
             if inOrigin:
                 for originToken in inOrigin.split(":"):
                     if not originToken in origin:
                         origin.append(originToken)
+         
+        # base origin               
+        addOrigin(origin, picking.origin)
+        if picking.sale_id:
+            addOrigin(origin, picking.sale_id.name)
 
         total = 0.0
         uom = None
         purchase_line_obj = self.pool.get("purchase.order.line")
         move_ids = doc.get("move_ids", None)
-
-        for line in picking.move_lines:
+        
+        max_package_count = self.localcontext.get("max_package_count", 1)        
+        packages = []
+        
+        for line in picking.move_lines:    
             # check if move is valid
             if move_ids is None or line.id in move_ids:
                 name = line.name or (line.product_id and line.product_id.name) or ""
@@ -241,7 +257,7 @@ class Parser(report_sxw.rml_parse):
                 prep_line = {
                     "line" : line,
                     "line_code" : "SM%s" % str(line.id),
-                    "code" : (line.product_id and line.product_id.default_code) or "",
+                    "code" : (line.product_id and line.product_id.ean13) or "",
                     "name" : name,
                     "note" : note,
                     "state" : self._get_state(picking,line),
@@ -260,20 +276,64 @@ class Parser(report_sxw.rml_parse):
                     move_lines_other.append(prep_line)
                     
                 lines.append(prep_line)
-
-        addOrigin(picking.origin)
-        if picking.sale_id:
-            addOrigin(picking.sale_id.name)
-
-        packages = []
-        package_count = picking.number_of_packages or 1
-        for package in range(1,package_count+1):
-            packages.append({
-                "code" : "SP%sP%sP%s" % (picking.id, package, package_count),
-                "package" : package,
-                "newpage" : package < package_count
-            })
-                 
+                
+                package_count = 0   
+                ops = set()
+                             
+                # only search for package count if 
+                # no max package count was passed
+                if max_package_count != 1:                    
+                    # check source packages
+                    # if no move operation exists
+                    if line.move_orig_ids:
+                        for move_orig in line.move_orig_ids:
+                            for linked_op in move_orig.linked_move_operation_ids:
+                                op = linked_op.operation_id
+                                if not op.id in ops:
+                                    ops.add(op.id)
+                                    package_count += op.package_count
+                    else:
+                        for linked_op in line.linked_move_operation_ids:
+                            op = linked_op.operation_id
+                            if not op.id in ops:
+                                ops.add(op.id)
+                                package_count += op.package_count                                
+                            
+                # set package count to 1 if not set
+                if not package_count:
+                    package_count = 1
+                
+                # check max package count
+                if max_package_count:
+                    package_count = min(max_package_count, package_count)
+                  
+                # create origin
+                package_origin = list(origin)
+                for move_orig in line.move_orig_ids:
+                    picking_orig = move_orig.picking_id
+                    if picking_orig:
+                        addOrigin(package_origin, picking_orig.origin)
+               
+                # create packages 
+                for package_no in range(1,package_count+1):
+                    ean = prep_line.get("code")
+                    code = None
+                    if not ean:
+                        code = prep_line.get("line_code") 
+                        
+                    packages.append({
+                        "ean" : ean,
+                        "code" : code,
+                        "description" : name,
+                        "newpage" : True,
+                        "package" : package_no,
+                        "count" : package_count,
+                        "origin" : ":".join(package_origin)
+                    })
+                    
+        if packages:
+            packages[-1]["newpage"] = False
+      
         weight = None
         if picking.weight:
             weight_uom = picking.weight_uom_id and picking.weight_uom_id.name or _("KG")

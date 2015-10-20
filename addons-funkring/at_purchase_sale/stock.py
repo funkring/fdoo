@@ -19,6 +19,7 @@
 ##############################################################################
 
 from openerp.osv import fields,osv
+from openerp import SUPERUSER_ID, api
 import re
 
 MATCH_BARCODE_STOCK_MOVE = re.compile("^SM([0-9]+)$")
@@ -35,11 +36,35 @@ class stock_pack_operation(osv.osv):
             res[obj.id] = "\n".join(description)
         return res
     
+    def _pack_calc(self, cr, uid, ids, field_name, arg, context=None):
+        
+        res = dict.fromkeys(ids,0)
+        for obj in self.browse(cr, uid, ids, context):
+            # count
+            package_count=0
+            ops=set()
+
+            # search back
+            for link in obj.linked_move_operation_ids:
+                for move_org in link.move_id.move_orig_ids:
+                    for link_org in move_org.linked_move_operation_ids:
+                        # add package count from operation
+                        operation = link_org.operation_id
+                        if operation.id != obj.id and not operation.id in ops:
+                            ops.add(operation.id)
+                            package_count+=operation.package_count
+            
+            # set count    
+            res[obj.id] = package_count
+            
+        return res
+            
     _inherit = "stock.pack.operation"
     _columns = {
-        "name" : fields.function(_pack_description, type="char", store=False, string="Description")
+        "name" : fields.function(_pack_description, type="char", store=False, string="Description"),
+        "package_count" : fields.integer("Packages"),
+        "package_calc" : fields.function(_pack_calc, type="integer", store=False, string="Expected Packages")
     }
-     
 
 
 class stock_move(osv.osv):
@@ -124,20 +149,139 @@ class stock_picking(osv.osv):
                     res[picking.id] = "dropshipment"        
         return res
     
+    def add_package(self, cr, uid, picking_id, op_id, inc, context=None):
+        stock_operation_obj = self.pool["stock.pack.operation"]
+        op = stock_operation_obj.browse(cr, uid, op_id, context=context)
+        if inc > 0:
+            stock_operation_obj.write(cr, uid, op.id, {"package_count" : op.package_count + inc}, context=context)
+        elif inc < 0:
+            next_package_count = op.package_count+inc
+            if next_package_count <= 0:
+                stock_operation_obj.write(cr, uid, op.id, {"package_count" : 0}, context=context)
+            else:
+                stock_operation_obj.write(cr, uid, op.id, {"package_count" : next_package_count}, context=context)
+        return True
+    
     def process_barcode_from_ui(self, cr, uid, picking_id, barcode_str, visible_op_ids, context=None):
         m = MATCH_BARCODE_STOCK_MOVE.match(barcode_str)
         if m:
             res = {"filter_loc": False, "operation_id": False}
             move_id = int(m.group(1))
             
+            # check package based scan
             stock_operation_obj = self.pool["stock.pack.operation"]
-            op_id = stock_operation_obj._search_and_increment(cr, uid, picking_id, [("linked_move_operation_ids.move_id","=",move_id)], filter_visible=True, visible_op_ids=visible_op_ids, increment=True, context=context)
+            op_id = stock_operation_obj.search_id(cr, uid, [("picking_id","=",picking_id),("linked_move_operation_ids.move_id","=",move_id)], context=context)
+            if op_id and not visible_op_ids or op_id in visible_op_ids:
+                op = stock_operation_obj.browse(cr, uid, op_id, context=context)
+                if op.package_calc:
+                    # close op
+                    if  op.package_count+1 == op.package_calc:
+                        # finish op
+                        stock_operation_obj.write(cr, uid, op_id, {"qty_done" : op.product_qty}, context=context)
+                    
+                    # increment
+                    stock_operation_obj.write(cr, uid, op_id, {"package_count" : op.package_count+1 }, context=context)
+                    res["operation_id"] = op_id
+                    return res
+                else:
+                    # finish
+                    stock_operation_obj.write(cr, uid, op_id, {"qty_done" : op.product_qty}, context=context)
+                    res["operation_id"] = op_id
+                    return res
             
-            res["operation_id"] = op_id
+            # default operation
+            if op_id:
+                op_id = stock_operation_obj._search_and_increment(cr, uid, picking_id, [("id","=",op_id)], filter_visible=True, visible_op_ids=visible_op_ids, increment=True, context=context)
+                res["operation_id"] = op_id
             return res            
         else:
             return super(stock_picking, self).process_barcode_from_ui(cr, uid, picking_id, barcode_str, visible_op_ids, context=context)
+    
+    def print_delivery(self, cr, uid, ids, context=None):
+        '''This function prints the picking list'''
+        context = dict(context or {}, active_ids=ids)
+        return self.pool.get("report").get_action(cr, uid, ids, 'stock.delivery.report', context=context)
+    
+    def print_shipping(self, cr, uid, ids, context=None):
+        # default disable max_package count
+        context = context and dict(context) or {}
+        if not "max_package_count" in context:
+            context["max_package_count"] = None
+        
+        # prepare report
+        move_ids = set()
+        picking_ids = set()
+        for picking in self.browse(cr, uid, ids, context=context):        
+            for line in picking.move_lines:
+                # get destination picking
+                if line.move_dest_id:
+                    move_dest = line.move_dest_id
+                    picking_dest = move_dest.picking_id
+                    if picking_dest:
+                        move_ids.add(move_dest.id)
+                        picking_ids.add(picking_dest.id)
+                # add
+                else:
+                    picking_ids.add(picking.id)
+                    move_ids.add(line.id)
+                    
+        ids = list(picking_ids)
+        context["active_ids"] = ids
+        context["move_ids"] = list(move_ids)
+        return self.pool.get("report").get_action(cr, uid, ids, 'stock.delivery.label.a6', context=context)
+    
+    def print_shipping_one(self, cr, uid, ids, context=None):
+        context = context and dict(context) or {}
+        context["max_package_count"] = 1
+        return self.print_shipping(cr, uid, ids, context=context)
+
+    @api.cr_uid_ids_context
+    def do_prepare_partial(self, cr, uid, picking_ids, context=None):
+        context = context or {}
+        pack_operation_obj = self.pool.get('stock.pack.operation')
+        #used to avoid recomputing the remaining quantities at each new pack operation created
+        ctx = context.copy()
+        ctx['no_recompute'] = True
+
+        #get list of existing operations and delete them
+        existing_package_ids = pack_operation_obj.search(cr, uid, [('picking_id', 'in', picking_ids)], context=context)
+        if existing_package_ids:
+            pack_operation_obj.unlink(cr, uid, existing_package_ids, context)
+        for picking in self.browse(cr, uid, picking_ids, context=context):
+            forced_qties = {}  # Quantity remaining after calculating reserved quants
+            picking_quants = []
+            #Calculate packages, reserved quants, qtys of this picking's moves
+            for move in picking.move_lines:
+                if move.state not in ('assigned', 'confirmed', 'waiting'):
+                    continue
                 
+                # prepare
+                move_quants = move.reserved_quant_ids                
+                forced_qty = (move.state == 'assigned') and move.product_qty - sum([x.qty for x in move_quants]) or 0
+                
+                # single pack operation if type consumable        
+                if move.product_id.type == "consu":
+                    for vals in self._prepare_pack_ops(cr, uid, picking, move_quants, { move.product_id : forced_qty }, context=context):
+                        pack_operation_obj.create(cr, uid, vals, context=ctx)
+                    continue
+                
+                picking_quants += move_quants
+                
+                #if we used force_assign() on the move, or if the move is incoming, forced_qty > 0
+                if float_compare(forced_qty, 0, precision_rounding=move.product_id.uom_id.rounding) > 0:
+                    if forced_qties.get(move.product_id):
+                        forced_qties[move.product_id] += forced_qty
+                    else:
+                        forced_qties[move.product_id] = forced_qty
+                
+            for vals in self._prepare_pack_ops(cr, uid, picking, picking_quants, forced_qties, context=context):
+                pack_operation_obj.create(cr, uid, vals, context=ctx)
+                
+        #recompute the remaining quantities all at once
+        self.do_recompute_remaining_quantities(cr, uid, picking_ids, context=context)
+        self.write(cr, uid, picking_ids, {'recompute_pack_op': False}, context=context)
+    
+  
     _inherit = "stock.picking"
     _columns = {
         "sender_address_id" : fields.function(_sender_address, string="Sender Address", type="many2one", obj="res.partner", store=False),
