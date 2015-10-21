@@ -199,14 +199,14 @@ class stock_picking(osv.osv):
     
     def print_delivery(self, cr, uid, ids, context=None):
         '''This function prints the picking list'''
-        context = dict(context or {}, active_ids=ids)
-        return self.pool.get("report").get_action(cr, uid, ids, 'stock.delivery.report', context=context)
+        ctx = dict(context or {}, active_ids=ids)
+        return self.pool.get("report").get_action(cr, uid, ids, 'stock.delivery.report', context=ctx)
     
     def print_shipping(self, cr, uid, ids, context=None):
         # default disable max_package count
-        context = context and dict(context) or {}
-        if not "max_package_count" in context:
-            context["max_package_count"] = None
+        ctx = context and dict(context) or {}
+        if not "max_package_count" in ctx:
+            ctx["max_package_count"] = None
         
         # prepare report
         move_ids = set()
@@ -226,14 +226,14 @@ class stock_picking(osv.osv):
                     move_ids.add(line.id)
                     
         ids = list(picking_ids)
-        context["active_ids"] = ids
-        context["move_ids"] = list(move_ids)
-        return self.pool.get("report").get_action(cr, uid, ids, 'stock.delivery.label.a6', context=context)
+        ctx["active_ids"] = ids
+        ctx["move_ids"] = list(move_ids)
+        return self.pool.get("report").get_action(cr, uid, ids, "stock.delivery.label", context=ctx)
     
     def print_shipping_one(self, cr, uid, ids, context=None):
-        context = context and dict(context) or {}
-        context["max_package_count"] = 1
-        return self.print_shipping(cr, uid, ids, context=context)
+        ctx = context and dict(context) or {}
+        ctx["max_package_count"] = 1
+        return self.print_shipping(cr, uid, ids, context=ctx)
 
     @api.cr_uid_ids_context
     def do_prepare_partial(self, cr, uid, picking_ids, context=None):

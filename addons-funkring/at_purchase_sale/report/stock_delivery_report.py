@@ -80,7 +80,10 @@ class Parser(report_sxw.rml_parse):
         else:
             move_ids = None
         
-        model = util.model_get(self.localcontext) or "stock.picking"
+        if not self.objects:
+            return []
+        
+        model = self.objects[0]._model._name    
         if "purchase.order.line" == model or "purchase.order" == model:
             
             stock_move_obj = self.pool.get("stock.move")
@@ -140,11 +143,9 @@ class Parser(report_sxw.rml_parse):
 
             # results
             pickings = picking_obj.browse(self.cr, self.uid,picking_ids, self.localcontext)
-            
-        elif model and model.startswith("stock.picking"):
-            pickings = self.objects
+
         else:
-            pickings = []
+            pickings = self.objects
                 
         return [{
             "pickings" : pickings,
