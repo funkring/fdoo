@@ -14,6 +14,7 @@
                 
                 <xpath expr="//field[@name='order_line']/form//field[@name='purchase_price']" position="replace">
                     <field name="quotation_active" invisible="1" />
+                    <field name="quotation_id" invisible="1" />
                     <field name="purchase_price" groups="base.group_user" attrs="{'invisible': [('quotation_active','=',True)]}"/>
                 </xpath>
                 

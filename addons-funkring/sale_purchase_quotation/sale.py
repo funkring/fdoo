@@ -47,11 +47,28 @@ class sale_order_line(osv.Model):
 
         purchase_order_obj = self.pool["purchase.order"]
         purchase_line_obj = self.pool["purchase.order.line"]
-        quotation_active = False
+        purchase_obj = self.pool["purchase.order"]
 
         for line in self.browse(cr, uid, ids, context=context):
-            # check product
+            # check order
+            order = line.order_id
+            if not order:
+                continue
+            
+            # search existing unused, and delete or deactivate
             product = line.product_id
+            unused_purchase_line_ids = purchase_line_obj.search(cr, uid, [("sale_line_id","=",line.id),("product_id","!=",product and product.id or False)])
+            for purchase_line in purchase_line_obj.browse(cr, uid, unused_purchase_line_ids, context=context):
+                purchase_order = purchase_line.order_id
+                if len(purchase_order.order_line) == 1:
+                    # remove order
+                    if purchase_order.state == 'draft' and not purchase_line.quot_sent:
+                        purchase_obj.unlink(cr, uid, [purchase_order.id], context=context)
+                    # cancel order
+                    elif purchase_order.state in ('draft','sent','bid'):
+                        purchase_obj.action_cancel(cr, uid,  [purchase_order.id], context=context)
+                        
+            # check product
             if not product:
                 continue
 
@@ -60,10 +77,8 @@ class sale_order_line(osv.Model):
             if not supplier_infos:
                 continue
 
-            order = line.order_id
-            if not order:
-                continue
-
+            quotation_active = False
+            
             # process suppliers
             for supplier_info in supplier_infos:
                 partner = supplier_info.name
@@ -80,7 +95,7 @@ class sale_order_line(osv.Model):
                                         "origin" : order.name,
                                         "sale_order_id" : order.id }
 
-                # search existing
+                # update or create new
                 purchase_line_id = purchase_line_obj.search_id(cr, uid, [("sale_line_id","=",line.id),("product_id","=",product.id),("partner_id","=",partner.id)])
                 purchase_line = None
                 purchase_line_state = None
@@ -135,8 +150,11 @@ class sale_order_line(osv.Model):
                     purchase_order_vals["order_line"]=[(0,0,purchase_line_vals)]
                     purchase_order_obj.create(cr, uid, purchase_order_vals, context=context)
 
+                # enable quotation
                 quotation_active = True
-                self.write(cr, uid, [line.id], {"quotation_active" : True} )
+            
+            # update line
+            self.write(cr, uid, [line.id], {"quotation_active" : True, "quotation_id" : False} )
 
         return True
 
@@ -145,7 +163,7 @@ class sale_order_line(osv.Model):
 
     def _product_id_change(self, cr, uid, res, flag, product_id, partner_id, lang, context=None):
         res = super(sale_order_line,self)._product_id_change(cr, uid, res, flag, product_id, partner_id, lang, context)
-        res["value"].update({"quotation_active" : False})
+        res["value"].update({"quotation_active" : False, "quotation_id" : False})
         return res
 
     def send_mail_supplier(self, cr, uid, ids, context=None):
@@ -181,7 +199,7 @@ class sale_order_line(osv.Model):
         res = dict.fromkeys(ids,0)
         for line in self.browse(cr, uid, ids, context=context):
             quotation = line.quotation_id
-            if quotation:
+            if quotation and line.quotation_active:
                 res[line.id] = line.price_subtotal - quotation.price_subtotal
             else:
                 cur = line.order_id.pricelist_id.currency_id

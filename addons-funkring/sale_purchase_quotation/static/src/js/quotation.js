@@ -21,7 +21,7 @@ openerp.sale_purchase_quotation = function(instance, local) {
             //self.querying = false;
             self.field_manager.on("field_changed:quotation_ids", self, self.query_quotations);            
             self.field_manager.on("field_changed:supplier_id", self, self.initialize_content);
-            //self.field_manager.on("field_changes:quotation_active",self, self.query_quotations);
+            self.field_manager.on("field_changed:quotation_active", self, self.initialize_content);
             
             self.dm_query_quotation = new instance.web.DropMisordered();
             self.dm_execute = new instance.web.DropMisordered();
@@ -33,9 +33,8 @@ openerp.sale_purchase_quotation = function(instance, local) {
             self.on("change:quotations", self, self.initialize_content);
         },
         
-        initialize_content: function() {            
+        initialize_content: function() {        
             var self = this;
-            
             var selected_supplier_id = self.field_manager.get_field_value('supplier_id');           
             var quotations = [];  
             var quot_sent = 0;
@@ -58,7 +57,7 @@ openerp.sale_purchase_quotation = function(instance, local) {
                 });
             });
             
-            self.quotation_active = self.view.datarecord.quotation_active || false;
+            self.quotation_active =self.field_manager.get_field_value('quotation_active') || false;
             self.quotation_all = (quot_sent === quotations.length);
             self.quotations = quotations;
             self.$el.html(QWeb.render("sale_purchase_quotation.PurchaseQuotation", {widget: self}));
