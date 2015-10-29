@@ -34,8 +34,21 @@ class Parser(report_sxw.rml_parse):
             "get_line_tax": self._get_line_tax,
             "get_tax": self._get_tax,
             "get_product_code": self._get_product_code,
-            "get_type" : self._get_type
+            "get_type" : self._get_type,
+            "get_delivery_info" : self._get_delivery_info
         })
+
+    def _get_delivery_info(self, purchase):
+        if purchase.state in ("confirmed","approved"):
+            delivery_notes = []
+            for picking in purchase.picking_ids:
+                delivery_notes.append(picking.name)
+            
+            return [{
+              "delivery_notes" : ":".join(delivery_notes)
+            }]
+            
+        return []
 
     def _get_type(self, purchase):
         if purchase.state in ("confirmed","approved"):
