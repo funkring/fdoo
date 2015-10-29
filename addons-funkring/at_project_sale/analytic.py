@@ -23,6 +23,9 @@
 from openerp.osv import osv,fields
 from openerp.addons.at_base import util
 
+from dateutil.relativedelta import relativedelta
+
+
 class account_analytic_account(osv.osv):    
     
     def name_get(self, cr, uid, ids, context=None):
@@ -68,7 +71,70 @@ class account_analytic_account(osv.osv):
                         res.append((analytic_id,tup[1]))
         return res
     
+    def on_change_template(self, cr, uid, ids, template_id, date_start=False, context=None):
+        res = super(account_analytic_account, self).on_change_template(cr, uid, ids, template_id, date_start=date_start, context=context)
+        
+        if template_id:
+            template = self.browse(cr, uid, template_id, context=context)
+            if not ids:
+                res["value"]["recurring_prepaid"] = template.recurring_prepaid
+
+        return res
+    
+    def _prepare_invoice_data(self, cr, uid, contract, context=None):
+        invoice = super(account_analytic_account, self)._prepare_invoice_data(cr, uid, contract, context=context)
+        
+        # invoice name to contract name
+        invoice["name"] = contract.name
+        
+        # determine user
+        user_id = contract.manager_id or contract.user_id
+        if user_id:
+            invoice["user_id"] = user_id.id
+        
+        # determine shop
+        parent = contract.parent_id
+        if parent:
+            # shop
+            shop_obj = self.pool["sale.shop"]
+            shop_ids = shop_obj.search(cr, uid, [("autocreate_order_parent_id","=",parent.id)], limit=2)
+            if not shop_ids:
+                shop_ids = shop_obj.search(cr, uid, [("project_id","=",parent.id)], limit=2)
+            # check if only one shop is assinged
+            if len(shop_ids) == 1:
+                invoice["shop_id"] = shop_ids[0]
+                        
+        # performance period
+        if contract.recurring_invoices:
+            
+            # get next date function            
+            def getNextDate(cur_date,sign=1):
+                interval = contract.recurring_interval*sign
+                if contract.recurring_rule_type == 'daily':
+                    return cur_date+relativedelta(days=+interval)
+                elif contract.recurring_rule_type == 'weekly':
+                    return cur_date+relativedelta(weeks=+interval)
+                elif contract.recurring_rule_type == 'monthly':
+                    return cur_date+relativedelta(months=+interval)
+                else:
+                    return cur_date+relativedelta(years=+interval)
+            
+            
+            cur_date = util.strToDate(contract.recurring_next_date or util.currentDate())
+            if contract.recurring_prepaid:
+                invoice["perf_enabled"] = True
+                invoice["perf_start"] = cur_date
+                invoice["perf_end"] = getNextDate(cur_date)
+            else:
+                invoice["perf_enabled"] = True
+                invoice["perf_start"] = getNextDate(cur_date,-1)
+                invoice["perf_end"] = cur_date
+
+        return invoice
+    
+    
     _inherit = "account.analytic.account"    
     _columns = {
-        "order_id" : fields.many2one("sale.order","Order", ondelete="cascade", copy=False)     
+        "order_id" : fields.many2one("sale.order","Order", ondelete="cascade", copy=False),
+        "recurring_prepaid" : fields.boolean("Prepaid")    
     }
