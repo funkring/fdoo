@@ -108,3 +108,20 @@ class project_project(osv.Model):
     _columns = {
         "main_project_id" : fields.function(_get_main_project,type="many2one", obj="project.project", store=True, string="Project")
     }
+    
+
+class project_issue(osv.Model):
+    
+    def name_get(self, cr, uid, ids, context=None):
+        if not ids or not isinstance(ids, list):
+            return []
+        
+        reads = self.read(cr, uid, ids, ['name'], context=context)
+        res = []
+        for values in reads:
+            oid = values["id"]
+            name = "[Ticket#%s] %s" % (oid,values['name'])
+            res.append((oid, name))
+        return res
+      
+    _inherit = "project.issue"
