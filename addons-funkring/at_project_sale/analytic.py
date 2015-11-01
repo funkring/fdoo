@@ -129,6 +129,17 @@ class account_analytic_account(osv.osv):
                 invoice["perf_enabled"] = True
                 invoice["perf_start"] = getNextDate(cur_date,-1)
                 invoice["perf_end"] = cur_date
+                
+            # first of month and last of month
+            if contract.recurring_rule_type == 'monthly':
+                invoice["perf_end"] = util.strToDate(util.getEndOfMonth(invoice["perf_end"]))
+                if contract.recurring_interval > 0:
+                    interval = -(contract.recurring_interval-1)
+                    invoice["perf_start"] = util.strToDate(util.getFirstOfMonth(invoice["perf_end"]))+relativedelta(months=interval)
+                
+            # convert dt to str
+            invoice["perf_start"] = util.dateToStr(invoice["perf_start"])
+            invoice["perf_end"] = util.dateToStr(invoice["perf_end"])
 
         return invoice
     
