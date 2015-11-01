@@ -20,9 +20,12 @@
 ##############################################################################
 
 from openerp.osv import fields,osv
-from openerp.addons.at_base import util
-import openerp.addons.decimal_precision as dp
 
+from openerp.addons.at_base import util
+from openerp.addons.at_base import format
+
+from openerp.tools.translate import _
+import openerp.addons.decimal_precision as dp
 from openerp import SUPERUSER_ID
 
 class sale_shop(osv.osv):
@@ -335,13 +338,15 @@ class sale_order_line(osv.osv):
   
     def _prepare_order_line_invoice_line(self, cr, uid, line, account_id=False, context=None):
         res = super(sale_order_line, self)._prepare_order_line_invoice_line(cr, uid, line, account_id, context)
-        
+                
         product = line.product_id
         if product and product.type == "service" and product.billed_at_cost:
             task_obj = self.pool["project.task"]
             task_ids = task_obj.search(cr, SUPERUSER_ID, [("sale_line_id","=",line.id)])
+            f = format.LangFormat(cr, uid, context=context)
             
-            task_set = set()          
+            task_set = set()  
+            work_info = []        
             effective_hours = 0.0
             
             # add task and childs
@@ -350,8 +355,27 @@ class sale_order_line(osv.osv):
                 if task.id in task_set:
                     return 0.0
                 
-                hours = task.effective_hours 
+                hours = 0.0
                 
+                # check work 
+                for work in task.work_ids:
+                    if work.hours:
+                        hours+=work.hours
+                        work_line = []
+                        
+                        # append date
+                        if work.date:
+                            work_line.append(f.formatLang(util.timeToDateStr(work.date), date=True))
+                       
+                        # append time
+                        work_line.append(_("%s Hour(s)") % f.formatLang(work.hours, float_time=True))
+                             
+                        # append name
+                        if work.name:
+                            work_line.append(work.name)
+                            
+                        work_info.append(" - ".join(work_line))
+        
                 # add childs
                 task_set.add(task.id)
                 for child_task in task.child_ids:
@@ -366,6 +390,9 @@ class sale_order_line(osv.osv):
                 
             # get quantity
             res["quantity"] = max(effective_hours, res["quantity"])
+            # set new work info
+            if work_info:
+                res["name"] = "%s\n%s" % (res["name"], "\n".join(work_info))
             
         return res
     

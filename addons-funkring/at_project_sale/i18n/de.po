@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-29 21:51+0000\n"
-"PO-Revision-Date: 2015-10-29 22:52+0100\n"
+"POT-Creation-Date: 2015-11-01 22:02+0000\n"
+"PO-Revision-Date: 2015-11-01 23:03+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,6 +15,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "X-Generator: Poedit 1.5.4\n"
+
+#. module: at_project_sale
+#: code:addons/at_project_sale/sale_order.py:369
+#, python-format
+msgid "%s Hour(s)"
+msgstr "%s Stunde(n)"
 
 #. module: at_project_sale
 #: model:ir.model,name:at_project_sale.model_account_analytic_account
@@ -40,7 +46,7 @@ msgstr "Verrechnung nach Aufwand"
 #. module: at_project_sale
 #: view:at_project_sale.correct_time_wizard:at_project_sale.wizard_correct_time
 msgid "Close"
-msgstr ""
+msgstr "Schließen"
 
 #. module: at_project_sale
 #: view:project.project:at_project_sale.search_project

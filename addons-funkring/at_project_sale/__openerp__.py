@@ -39,6 +39,7 @@ oerp.at Project + Sale
                  "at_sale",
                  "sale",
                  "account_analytic_analysis",
+                 "project_timesheet",
                  "sale_margin",                 
                  "at_hr",
                  "sale_service"],
