@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record id="form_download" model="ir.ui.view">
+      <field name="name">portal_download.form_download</field>
+      <field name="model">portal.download</field>
+      <field name="arch" type="xml">
+        <form string="Download">
+            <sheet string="Download">
+                <group> 
+                    <group>
+                        <field name="name"/>
+                        <field name="active"/>
+                    </group>
+                    <group>
+                        <field name="code"/>
+                    </group>
+                </group>
+            </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="tree_download" model="ir.ui.view">
+      <field name="name">portal_download.tree_download</field>
+      <field name="model">portal.download</field>
+      <field name="arch" type="xml">
+        <tree string="Downloads">            
+            <field name="name"/> 
+            <field name="code"/>           
+        </tree>
+      </field>
+    </record>
+
+    <record id="search_download" model="ir.ui.view">
+      <field name="name">portal_download.search_download</field>
+      <field name="model">portal.download</field>
+      <field name="arch" type="xml">
+        <search string="Download">
+          <field name="name" filter_domain="['|', ('name','ilike',self), ('code','ilike',self)]" string="Download"/>         
+        </search>
+      </field>
+    </record>
+
+    <record id="action_download" model="ir.actions.act_window">
+      <field name="name">Download</field>
+      <field name="res_model">portal.download</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Click here to create new download
+        </p><p>
+          A download which could be shared with partners
+        </p>
+      </field>
+    </record>
+
+    <menuitem id="menu_download_edit" name="Downloads" parent="at_knowledge.menu_documents"
+      sequence="10"
+      groups="portal_download.group_download_manager" 
+      action="action_download"/>
+      
+  </data>
+</openerp>

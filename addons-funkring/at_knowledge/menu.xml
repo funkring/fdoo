@@ -1,0 +1,8 @@
+<openerp>
+  <data>
+        
+      <menuitem id="menu_documents" name="Documents" parent="knowledge.menu_document" 
+        sequence="10"/>
+
+  </data>
+</openerp>

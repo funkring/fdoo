@@ -1,0 +1,76 @@
+<openerp>
+  <data>
+  
+    <!-- Category -->
+    
+    <record model="ir.module.category" id="module_download_category">
+        <field name="name">Download</field>
+        <field name="sequence">20</field>
+    </record>
+  
+  
+    <!-- Portal User -->
+  
+    <record id="access_portal_download_portal" model="ir.model.access">
+      <field name="name">portal_download/portal</field>
+      <field name="model_id" ref="model_portal_download"/>
+      <field name="group_id" ref="base.group_portal"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_write" eval="False"/>
+    </record>
+    
+    <record id="access_portal_download_perm_portal" model="ir.model.access">
+      <field name="name">portal_download_perm/portal</field>
+      <field name="model_id" ref="model_portal_download_perm"/>
+      <field name="group_id" ref="base.group_portal"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_write" eval="False"/>
+    </record>
+    
+    <record id="rule_portal_download_download" model="ir.rule">
+      <field name="name">portal_download/download</field>
+      <field name="model_id" ref="model_portal_download"/>
+      <field name="domain_force">[('permission_ids.partner_id','=',user.partner_id.id)]</field>
+      <field name="groups" eval="[(4,ref('base.group_portal'))]"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_write" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_unlink" eval="False"/>
+    </record>
+
+
+    <!-- User -->
+        
+    <record id="group_download_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="module_download_category"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="comment">The user can manage the download for partner</field>
+    </record>
+    
+    <record id="access_portal_download_download_manager" model="ir.model.access">
+      <field name="name">portal_download/download_manager</field>
+      <field name="model_id" ref="model_portal_download"/>
+      <field name="group_id" ref="group_download_manager"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_write" eval="True"/>
+    </record>
+
+    <record id="access_portal_download_perm_download_manager" model="ir.model.access">
+      <field name="name">portal_download_perm/download_manager</field>
+      <field name="model_id" ref="model_portal_download_perm"/>
+      <field name="group_id" ref="group_download_manager"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_write" eval="True"/>
+    </record>
+    
+  </data>
+</openerp>

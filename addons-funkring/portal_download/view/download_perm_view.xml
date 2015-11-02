@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record id="form_download_perm" model="ir.ui.view">
+      <field name="name">portal_download.form_download_perm</field>
+      <field name="model">portal.download.perm</field>
+      <field name="arch" type="xml">
+        <form string="Permission">
+          <sheet>
+            <group>
+                <group>
+                    <field name="partner_id"/>
+                    <field name="download_id"/>
+                </group>
+                <group>
+                    <field name="download_count"/>
+                </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="tree_download_perm" model="ir.ui.view">
+      <field name="name">portal_download.tree_download_perm</field>
+      <field name="model">portal.download.perm</field>
+      <field name="arch" type="xml">
+        <tree string="Permissions">
+            <field name="partner_id"/>
+            <field name="download_id"/>
+            <field name="download_count"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="search_download_perm" model="ir.ui.view">
+      <field name="name">portal_download.search_download_perm</field>
+      <field name="model">portal.download.perm</field>
+      <field name="arch" type="xml">
+        <search string="Permission">
+            <field name="partner_id"/>
+            <field name="download_id"/>            
+        </search>
+      </field>
+    </record>
+
+    <record id="action_download_perm" model="ir.actions.act_window">
+      <field name="name">Permission</field>
+      <field name="res_model">portal.download.perm</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Click here to create new download permission
+        </p><p>
+          Download permission for customer
+        </p>
+      </field>
+    </record>
+
+    <menuitem id="menu_download_perm" name="Permission" parent="at_knowledge.menu_documents"
+      groups="portal_download.group_download_manager" 
+      sequence="20"
+      action="action_download_perm"/>
+  </data>
+</openerp>
