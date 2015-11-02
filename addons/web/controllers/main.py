@@ -37,7 +37,9 @@ from openerp.tools import topological_sort
 from openerp.tools.translate import _
 from openerp.tools import ustr
 from openerp import http
-
+#funkring.net - begin
+from openerp.tools import config
+#funkring.net - end
 from openerp.http import request, serialize_exception as _serialize_exception
 
 _logger = logging.getLogger(__name__)
@@ -504,13 +506,17 @@ class Home(http.Controller):
         except openerp.exceptions.AccessDenied:
             values['databases'] = None
 
+        #funkring.net - begin
+        values['disable_database_manager'] = config.get("disable_database_manager",False) 
+        #funkring.net - end
+            
         if request.httprequest.method == 'POST':
             old_uid = request.uid
             uid = request.session.authenticate(request.session.db, request.params['login'], request.params['password'])
             if uid is not False:
                 return http.redirect_with_hash(redirect)
             request.uid = old_uid
-            values['error'] = "Wrong login/password"
+            values['error'] = "Wrong login/password"          
         if request.env.ref('web.login', False):
             return request.render('web.login', values)
         else:
