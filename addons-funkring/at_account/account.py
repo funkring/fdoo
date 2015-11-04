@@ -21,7 +21,7 @@
 ##############################################################################
 
 from openerp.osv import osv, fields
-
+from openerp.tools.translate import _
 
 class account_fiscal_position(osv.osv):
     

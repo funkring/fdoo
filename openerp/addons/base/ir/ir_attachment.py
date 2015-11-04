@@ -97,8 +97,18 @@ class ir_attachment(osv.osv):
         path = path.strip('/\\')
         return os.path.join(self._filestore(cr, uid), path)
 
-    def _get_path(self, cr, uid, bin_data):
-        sha = hashlib.sha1(bin_data).hexdigest()
+    def _get_path(self, cr, uid, bin_data, file_path=None):
+        # funkring.net - begin
+        sha = None
+        if file_path:
+            h = hashlib.sha1()
+            with open(file_path,"rb") as f:
+                for chunk in iter(lambda: f.read(16384), b""):
+                    h.update(chunk)
+            sha = h.hexdigest()
+        else:
+            sha = hashlib.sha1(bin_data).hexdigest()
+        # funkring.net - end
 
         # retro compatibility
         fname = sha[:3] + '/' + sha

@@ -36,6 +36,7 @@ Modules
     "category" : "Base",
     "depends" : ["base",
                  "base_city",
+                 "web",
                  "report",
                  "report_aeroo",
                  "report_aeroo_ooo",
