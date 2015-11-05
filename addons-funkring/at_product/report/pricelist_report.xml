@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    
+        <report id="report_pricelist"
+               string="Pricelist"
+               name="product.pricelist"
+               auto="False"
+               report_type="aeroo"
+               process_sep="True"
+               model="product.pricelist"
+               in_format="oo-odt"
+               out_format="oo-pdf"
+               parser="at_product/report/pricelist_report.py"
+               rml="at_product/report/pricelist_report.odt"/>
+               
+         <report id="report_pricelist_version"
+               string="Pricelist"
+               name="pricelist.version"
+               auto="False"
+               report_type="aeroo"
+               process_sep="True"
+               model="product.pricelist.version"
+               in_format="oo-odt"
+               out_format="oo-pdf"
+               parser="at_product/report/pricelist_report.py"
+               rml="at_product/report/pricelist_report.odt"/>
+               
+    </data>
+</openerp>

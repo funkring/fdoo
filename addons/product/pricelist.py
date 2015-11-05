@@ -208,12 +208,19 @@ class product_pricelist(osv.osv):
 
         if not products:
             return {}
-
+ 
         version = False
-        for v in pricelist.version_id:
-            if ((v.date_start is False) or (v.date_start <= date)) and ((v.date_end is False) or (v.date_end >= date)):
-                version = v
-                break
+        # funkring.net - begin
+        if pricelist._name == "product.pricelist.version":
+            version = pricelist
+            pricelist = version.pricelist_id
+        
+        if not version:
+            for v in pricelist.version_id:
+                if ((v.date_start is False) or (v.date_start <= date)) and ((v.date_end is False) or (v.date_end >= date)):
+                    version = v
+                    break
+        # funkring.net - end
         if not version:
             raise osv.except_osv(_('Warning!'), _("At least one pricelist has no active version !\nPlease create or activate one."))
         categ_ids = {}
