@@ -9,9 +9,9 @@ msgstr ""
 "Project-Id-Version: Odoo 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-21 14:07+0000\n"
-"PO-Revision-Date: 2015-06-24 22:57+0000\n"
+"PO-Revision-Date: 2015-10-11 16:53+0000\n"
 "Last-Translator: Martin Trigaux\n"
-"Language-Team: Bosnian (http://www.transifex.com/p/odoo-8/language/bs/)\n"
+"Language-Team: Bosnian (http://www.transifex.com/odoo/odoo-8/language/bs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -89,7 +89,7 @@ msgstr "Aktivan"
 #. module: hr
 #: view:hr.config.settings:hr.view_human_resources_configuration
 msgid "Additional Features"
-msgstr ""
+msgstr "Dodatne mogućnosti"
 
 #. module: hr
 #: field:hr.config.settings,module_account_analytic_analysis:0
@@ -228,7 +228,7 @@ msgstr ""
 #. module: hr
 #: help:hr.employee,message_last_post:0 help:hr.job,message_last_post:0
 msgid "Date of the last message posted on the record."
-msgstr ""
+msgstr "Datum posljednje poruke ostavljene na unos."
 
 #. module: hr
 #: view:hr.department:hr.view_department_filter
@@ -444,7 +444,7 @@ msgstr ""
 #. module: hr
 #: view:hr.config.settings:hr.view_human_resources_configuration
 msgid "Install your country's payroll"
-msgstr ""
+msgstr "Instalirajte obračun plaće za vašu državu"
 
 #. module: hr
 #: field:hr.employee,message_is_follower:0 field:hr.job,message_is_follower:0
@@ -498,13 +498,13 @@ msgstr ""
 #: field:hr.employee,write_uid:0 field:hr.employee.category,write_uid:0
 #: field:hr.job,write_uid:0
 msgid "Last Updated by"
-msgstr ""
+msgstr "Zadnji ažurirao"
 
 #. module: hr
 #: field:hr.config.settings,write_date:0 field:hr.department,write_date:0
 #: field:hr.employee,write_date:0 field:hr.employee.category,write_date:0
 msgid "Last Updated on"
-msgstr ""
+msgstr "Zadnje ažurirano"
 
 #. module: hr
 #: field:hr.employee,last_login:0
@@ -973,11 +973,6 @@ msgstr ""
 #. module: hr
 #: view:hr.job:hr.view_hr_job_form
 msgid "new employee(s) expected"
-msgstr ""
-
-#. module: hr
-#: view:hr.job:hr.view_hr_job_form
-msgid "no_of_recruitment"
 msgstr ""
 
 #. module: hr

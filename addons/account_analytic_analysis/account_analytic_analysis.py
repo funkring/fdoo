@@ -374,7 +374,7 @@ class account_analytic_account(osv.osv):
         inv_ids = []
         for account in self.browse(cr, uid, ids, context=context):
             res[account.id] = 0.0
-            line_ids = lines_obj.search(cr, uid, [('account_id','=', account.id), ('invoice_id','!=',False), ('to_invoice','!=', False), ('journal_id.type', '=', 'general'), ('invoice_id.type', 'in', ['out_invoice', 'out_refund'])], context=context)
+            line_ids = lines_obj.search(cr, uid, [('account_id','=', account.id), ('invoice_id','!=',False), ('invoice_id.state', 'not in', ['draft', 'cancel']), ('to_invoice','!=', False), ('journal_id.type', '=', 'general'), ('invoice_id.type', 'in', ['out_invoice', 'out_refund'])], context=context)
             for line in lines_obj.browse(cr, uid, line_ids, context=context):
                 if line.invoice_id not in inv_ids:
                     inv_ids.append(line.invoice_id)
@@ -704,6 +704,7 @@ class account_analytic_account(osv.osv):
            'fiscal_position': fpos_id,
            'payment_term': partner_payment_term,
            'company_id': contract.company_id.id or False,
+           'user_id': contract.manager_id.id or uid,
         }
         return invoice
 
@@ -840,7 +841,7 @@ class account_analytic_account_summary_user(osv.osv):
              WHERE (j.type = 'general' ) and (j.id=l.journal_id)   
              GROUP BY l.account_id, l.user_id   
             )
-            select (lu.account_id * mu.max_user) + lu.user_id as id,
+            select (lu.account_id::bigint * mu.max_user) + lu.user_id as id,
                     lu.account_id as account_id,
                     lu.user_id as "user",
                     unit_amount

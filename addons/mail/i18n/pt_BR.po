@@ -7,14 +7,15 @@
 # danimaribeiro <danimaribeiro@gmail.com>, 2015
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014
 # Luiz Carlos de Lima <luiz.carlos@akretion.com.br>, 2015
+# Rui Andrada <shingonoide@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-21 14:07+0000\n"
-"PO-Revision-Date: 2015-07-10 13:21+0000\n"
-"Last-Translator: Luiz Carlos de Lima <luiz.carlos@akretion.com.br>\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/p/odoo-8/language/pt_BR/)\n"
+"PO-Revision-Date: 2015-10-11 23:09+0000\n"
+"Last-Translator: danimaribeiro <danimaribeiro@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/odoo/odoo-8/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -52,7 +53,7 @@ msgstr "(Sem endereço de email)"
 #, python-format
 msgid ""
 "<div><p>Hello,</p><p>%s invited you to follow %s document: %s.<p></div>"
-msgstr "<div><p>Olá,</p><p>%s você foi convidado para seguir o %s documento: %s.<p></div>"
+msgstr "<div><p>Olá,</p><p>%s convidou você para seguir o documento %s: %s.<p></div>"
 
 #. module: mail
 #: code:addons/mail/wizard/invite.py:47
@@ -272,7 +273,7 @@ msgstr "E"
 msgid ""
 "Answers do not go in the original document' discussion thread. This has an "
 "impact on the generated message-id."
-msgstr ""
+msgstr "Respostas não vão no documento original \"thread de discussão\". Isto tem um impacto sobre o id de mensagem gerado."
 
 #. module: mail
 #. openerp-web
@@ -836,7 +837,7 @@ msgstr "ID"
 msgid ""
 "ID of the parent record holding the alias (example: project holding the task"
 " creation alias)"
-msgstr ""
+msgstr "ID do registro pai segurando o alias (exemplo: projeto segurando o alias criação de tarefa)"
 
 #. module: mail
 #: help:mail.followers,res_id:0 help:mail.wizard.invite,res_id:0
@@ -1209,7 +1210,7 @@ msgstr "Sem mensagens."
 #: field:mail.compose.message,no_auto_thread:0
 #: field:mail.message,no_auto_thread:0
 msgid "No threading for answers"
-msgstr ""
+msgstr "Sem thread para respostas."
 
 #. module: mail
 #: view:mail.mail:mail.view_mail_search
@@ -1330,7 +1331,7 @@ msgstr "Modelo Principal"
 #. module: mail
 #: field:mail.alias,alias_parent_thread_id:0
 msgid "Parent Record Thread ID"
-msgstr ""
+msgstr "Pai da ficha Tópico ID"
 
 #. module: mail
 #: help:mail.alias,alias_parent_model_id:0
@@ -1338,7 +1339,7 @@ msgid ""
 "Parent model holding the alias. The model holding the alias reference\n"
 "is not necessarily the model given by alias_model_id\n"
 "(example: project (parent_model) and task (model))"
-msgstr ""
+msgstr "Modelo de pai segurando o alias. O modelo segurando a referência de alias\nnão é necessariamente o modelo dado por alias_model_id\n(example: project (parent_model) and task (model))"
 
 #. module: mail
 #: help:mail.message.subtype,parent_id:0
@@ -1401,7 +1402,7 @@ msgid ""
 "- everyone: everyone can post\n"
 "- partners: only authenticated partners\n"
 "- followers: only followers of the related document\n"
-msgstr ""
+msgstr "Política para enviar uma mensagem sobre o documento usando o MailGateway.\n- todos: todos podem postar\n- parceiros: parceiros única autenticados\n- seguidores: apenas seguidores do documento relacionado\n"
 
 #. module: mail
 #: help:res.partner,notify_email:0
@@ -1515,7 +1516,7 @@ msgstr "Responder"
 msgid ""
 "Reply email address. Setting the reply_to bypasses the automatic thread "
 "creation."
-msgstr ""
+msgstr "Responder endereço de e-mail. Definir o reply_to ignora a criação de linha automático."
 
 #. module: mail
 #: field:mail.compose.message,reply_to:0 field:mail.message,reply_to:0
@@ -1721,14 +1722,14 @@ msgid ""
 "The model (Odoo Document Kind) to which this alias corresponds. Any incoming"
 " email that does not reply to an existing record will cause the creation of "
 "a new record of this model (e.g. a Project Task)"
-msgstr ""
+msgstr "O modelo (Odoo Documento Tipo), ao qual este alias corresponde. Qualquer e-mails recebidos que não responde a um registro existente fará com que a criação de um novo registro desse modelo (e.g. a Project Task)"
 
 #. module: mail
 #: help:mail.alias,alias_name:0
 msgid ""
 "The name of the email alias, e.g. 'jobs' if you want to catch emails for "
 "<jobs@example.odoo.com>"
-msgstr ""
+msgstr "O nome do alias de e-mail, por exemplo, \"empregos\" se você quer pegar e-mails para <jobs@example.odoo.com>"
 
 #. module: mail
 #: help:mail.alias,alias_user_id:0

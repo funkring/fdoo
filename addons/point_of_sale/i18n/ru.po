@@ -5,14 +5,15 @@
 # Translators:
 # Alex <programmator@mail.ru>, 2015
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014
+# Сергей <2926117@mail.ru>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-21 14:07+0000\n"
-"PO-Revision-Date: 2015-07-09 09:08+0000\n"
-"Last-Translator: Alex <programmator@mail.ru>\n"
-"Language-Team: Russian (http://www.transifex.com/p/odoo-8/language/ru/)\n"
+"PO-Revision-Date: 2015-10-20 07:31+0000\n"
+"Last-Translator: Martin Trigaux\n"
+"Language-Team: Russian (http://www.transifex.com/odoo/odoo-8/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -191,7 +192,7 @@ msgstr ""
 #. module: point_of_sale
 #: view:pos.session:point_of_sale.view_pos_session_form
 msgid "= Theoretical Closing Balance"
-msgstr ""
+msgstr "= Теоретическое закрыие баланса"
 
 #. module: point_of_sale
 #. openerp-web
@@ -331,7 +332,7 @@ msgstr ""
 #. module: point_of_sale
 #: model:pos.category,name:point_of_sale.pomme
 msgid "Apples"
-msgstr ""
+msgstr "Яблоки"
 
 #. module: point_of_sale
 #: view:pos.ean_wizard:point_of_sale.pos_ean13_generator
@@ -419,7 +420,7 @@ msgstr ""
 #. module: point_of_sale
 #: model:pos.category,name:point_of_sale.beers
 msgid "Beers"
-msgstr ""
+msgstr "Пиво"
 
 #. module: point_of_sale
 #: model:product.template,name:point_of_sale.belle_vue_kriek_25cl_product_template
@@ -429,7 +430,7 @@ msgstr ""
 #. module: point_of_sale
 #: model:pos.category,name:point_of_sale.rouges_noyau_fruits
 msgid "Berries"
-msgstr ""
+msgstr "Ягоды"
 
 #. module: point_of_sale
 #: model:pos.category,name:point_of_sale.beverage
@@ -461,7 +462,7 @@ msgstr ""
 #: code:addons/point_of_sale/static/src/xml/pos.xml:616
 #, python-format
 msgid "CHANGE"
-msgstr ""
+msgstr "СДАЧА"
 
 #. module: point_of_sale
 #. openerp-web
@@ -492,7 +493,7 @@ msgstr ""
 #. module: point_of_sale
 #: model:product.template,name:point_of_sale.carotte_product_template
 msgid "Carrots"
-msgstr ""
+msgstr "Морковь"
 
 #. module: point_of_sale
 #. openerp-web
@@ -504,7 +505,7 @@ msgstr "Наличные"
 #. module: point_of_sale
 #: field:pos.session,details_ids:0
 msgid "Cash Control"
-msgstr ""
+msgstr "Контроль купюр"
 
 #. module: point_of_sale
 #: field:pos.session,cash_journal_id:0
@@ -670,7 +671,7 @@ msgstr ""
 #. module: point_of_sale
 #: model:pos.category,name:point_of_sale.chips
 msgid "Chips"
-msgstr ""
+msgstr "Чипсы"
 
 #. module: point_of_sale
 #. openerp-web
@@ -683,12 +684,12 @@ msgstr "Город"
 #. module: point_of_sale
 #: view:pos.session.opening:point_of_sale.pos_session_opening_form_view
 msgid "Click to continue the session."
-msgstr ""
+msgstr "Возобновить Сессию"
 
 #. module: point_of_sale
 #: view:pos.session.opening:point_of_sale.pos_session_opening_form_view
 msgid "Click to start a session."
-msgstr ""
+msgstr "Новая Сессия"
 
 #. module: point_of_sale
 #. openerp-web
@@ -708,7 +709,7 @@ msgstr "Закрыть"
 #. module: point_of_sale
 #: view:pos.session.opening:point_of_sale.pos_session_opening_form_view
 msgid "Close Session"
-msgstr ""
+msgstr "Закрыть Сессию"
 
 #. module: point_of_sale
 #: view:account.bank.statement:point_of_sale.view_pos_confirm_cash_statement_filter
@@ -959,7 +960,7 @@ msgstr "Валюта"
 #. module: point_of_sale
 #: field:pos.session,currency_id:0
 msgid "Currnecy"
-msgstr ""
+msgstr "Валюта"
 
 #. module: point_of_sale
 #. openerp-web
@@ -1674,7 +1675,7 @@ msgstr "Инвойс"
 #. module: point_of_sale
 #: field:report.transaction.pos,invoice_am:0
 msgid "Invoice Amount"
-msgstr ""
+msgstr "Сумма к оплате"
 
 #. module: point_of_sale
 #: view:pos.order:point_of_sale.view_pos_order_filter
@@ -3882,6 +3883,13 @@ msgstr "Цена единицы"
 #: code:addons/point_of_sale/static/src/xml/pos.xml:686
 #, python-format
 msgid "Unknown Barcode"
+msgstr ""
+
+#. module: point_of_sale
+#. openerp-web
+#: code:addons/point_of_sale/static/src/xml/pos.xml:914
+#, python-format
+msgid "Unknown Customer"
 msgstr ""
 
 #. module: point_of_sale

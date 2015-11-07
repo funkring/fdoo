@@ -5,14 +5,15 @@
 # Translators:
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014
 # Henri Cornuau <hcornuau@gmail.com>, 2015
+# Martin Trigaux, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-21 14:08+0000\n"
-"PO-Revision-Date: 2015-06-15 17:33+0000\n"
-"Last-Translator: Henri Cornuau <hcornuau@gmail.com>\n"
-"Language-Team: French (http://www.transifex.com/p/odoo-8/language/fr/)\n"
+"PO-Revision-Date: 2015-10-19 13:19+0000\n"
+"Last-Translator: Florian Hatat\n"
+"Language-Team: French (http://www.transifex.com/odoo/odoo-8/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -746,7 +747,7 @@ msgstr "Créer et modifier..."
 #: code:addons/web/static/src/xml/base.xml:2005
 #, python-format
 msgid "Create and edit"
-msgstr ""
+msgstr "Créer et éditer"
 
 #. module: web
 #. openerp-web
@@ -823,7 +824,7 @@ msgstr "Base de données :"
 #: code:addons/web/static/src/xml/base.xml:537
 #, python-format
 msgid "Debug View#"
-msgstr "Deboguer Vue#"
+msgstr "Vue débogueur#"
 
 #. module: web
 #. openerp-web
@@ -1208,7 +1209,7 @@ msgid ""
 "                    create databases for different companies or for different\n"
 "                    goals (testing, production). Once the database is created,\n"
 "                    you will be able to install your first application."
-msgstr ""
+msgstr "Renseignez ce formulaire pour créer un base de données Odoo. Vous pouvez\ncréer des bases de données pour différentes sociétés ou pour différents buts (tests, production). Une fois que la base de données est créée,\nvous pourrez installer votre première application."
 
 #. module: web
 #. openerp-web
@@ -1742,14 +1743,14 @@ msgstr "Odoo (anciennement OpenERP)"
 #. module: web
 #: view:website:web.qunit_suite
 msgid "Odoo Web Tests"
-msgstr ""
+msgstr "Essais Web Odoo"
 
 #. module: web
 #. openerp-web
 #: code:addons/web/static/src/xml/base.xml:420
 #, python-format
 msgid "Odoo is a trademark of the"
-msgstr ""
+msgstr "Odoo est une marque déposée de"
 
 #. module: web
 #. openerp-web
@@ -1963,7 +1964,7 @@ msgstr "Tout supprimer"
 #: code:addons/web/static/src/js/view_form.js:3775
 #, python-format
 msgid "Render"
-msgstr ""
+msgstr "Rendre"
 
 #. module: web
 #. openerp-web
@@ -2140,7 +2141,7 @@ msgstr "Sélectionner"
 #: code:addons/web/static/src/js/view_form.js:2663
 #, python-format
 msgid "Select D, M d"
-msgstr ""
+msgstr "Sélectionnez D, M, d"
 
 #. module: web
 #. openerp-web
@@ -2191,7 +2192,7 @@ msgstr "Séparateur :"
 #: code:addons/web/static/src/js/view_form.js:2662
 #, python-format
 msgid "Set DD as first week day"
-msgstr ""
+msgstr "Définis DD come premier jour de la semaine"
 
 #. module: web
 #. openerp-web
@@ -2461,7 +2462,7 @@ msgstr "Aujourd'hui"
 #: code:addons/web/static/src/xml/base.xml:1039
 #, python-format
 msgid "Toggle Dropdown"
-msgstr ""
+msgstr "Bascule la liste déroulante"
 
 #. module: web
 #. openerp-web
@@ -2942,7 +2943,7 @@ msgstr "ou"
 #: code:addons/web/static/src/xml/base.xml:233
 #, python-format
 msgid "pg_dump custom format (without filestore)"
-msgstr ""
+msgstr "format personnalisé pg_dump (sans le stockage des fichiers)"
 
 #. module: web
 #. openerp-web
@@ -2956,4 +2957,4 @@ msgstr "déclenché depuis la vue de recherche"
 #: code:addons/web/static/src/xml/base.xml:232
 #, python-format
 msgid "zip (includes filestore)"
-msgstr ""
+msgstr "zip (incluant le stockage des fichiers)"

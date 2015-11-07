@@ -9,10 +9,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-21 14:08+0000\n"
-"PO-Revision-Date: 2015-06-24 12:57+0000\n"
-"Last-Translator: Mustafa Rawi <mustafa@cubexco.com>\n"
-"Language-Team: Arabic (http://www.transifex.com/p/odoo-8/language/ar/)\n"
+"POT-Creation-Date: 2015-07-22 08:25+0000\n"
+"PO-Revision-Date: 2015-10-06 05:29+0000\n"
+"Last-Translator: Martin Trigaux\n"
+"Language-Team: Arabic (http://www.transifex.com/odoo/odoo-8/language/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -63,6 +63,20 @@ msgid ""
 ",\n"
 "                the #1"
 msgstr ",\n                النظام #1"
+
+#. module: website
+#: view:website:website.layout
+msgid ""
+",\n"
+"                  an awesome"
+msgstr ""
+
+#. module: website
+#: view:website:website.layout
+msgid ""
+",\n"
+"            Try the"
+msgstr ""
 
 #. module: website
 #: view:website:website.info
@@ -1766,6 +1780,16 @@ msgid "Open Source eCommerce"
 msgstr ""
 
 #. module: website
+#: view:website:website.layout
+msgid "Open Source CRM"
+msgstr ""
+
+#. module: website
+#: view:website:website.layout
+msgid "open source website builder"
+msgstr ""
+
+#. module: website
 #. openerp-web
 #: code:addons/website/static/src/xml/website.editor.xml:56
 #, python-format
@@ -1918,6 +1942,21 @@ msgstr "صور نصية"
 #: view:website:website.snippets
 msgid "Point of Sale Questions"
 msgstr "أسئلة نقاط البيع"
+
+#. module: website
+#: view:website:website.layout
+msgid "Create a"
+msgstr ""
+
+#. module: website
+#: view:website:website.layout
+msgid "free website"
+msgstr ""
+
+#. module: website
+#: view:website:website.layout
+msgid "with"
+msgstr ""
 
 #. module: website
 #: view:website:website.layout
@@ -2337,7 +2376,7 @@ msgstr ""
 #: code:addons/website/static/src/js/website.tour.banner.js:14
 #, python-format
 msgid "Start Tutorial"
-msgstr ""
+msgstr "ابدأ الدرس"
 
 #. module: website
 #: view:website:website.snippets
@@ -2373,7 +2412,7 @@ msgstr ""
 #. module: website
 #: view:website:website.layout
 msgid "Subtitle"
-msgstr ""
+msgstr "العنوان الفرعي"
 
 #. module: website
 #: view:website:website.layout
@@ -2594,7 +2633,7 @@ msgstr ""
 #: code:addons/website/static/src/xml/website.translator.xml:12
 #, python-format
 msgid "Translate this page"
-msgstr ""
+msgstr "ترجمة هذه الصفحة"
 
 #. module: website
 #. openerp-web
@@ -2820,7 +2859,7 @@ msgstr ""
 #. module: website
 #: field:ir.actions.server,website_url:0
 msgid "Website URL"
-msgstr ""
+msgstr "رابط الموقع"
 
 #. module: website
 #: model:ir.actions.act_url,name:website.action_website_tutorial
@@ -2836,19 +2875,19 @@ msgstr ""
 #: field:ir.ui.view,website_meta_description:0
 #: field:website.seo.metadata,website_meta_description:0
 msgid "Website meta description"
-msgstr ""
+msgstr "الوصف الدلالي للموقع"
 
 #. module: website
 #: field:ir.ui.view,website_meta_keywords:0
 #: field:website.seo.metadata,website_meta_keywords:0
 msgid "Website meta keywords"
-msgstr ""
+msgstr "الكلمات الدلالية بالموقع"
 
 #. module: website
 #: field:ir.ui.view,website_meta_title:0
 #: field:website.seo.metadata,website_meta_title:0
 msgid "Website meta title"
-msgstr ""
+msgstr "العنوان الدلالي بالموقع"
 
 #. module: website
 #: view:website:website.view_website_tree
@@ -2994,7 +3033,7 @@ msgstr ""
 #: code:addons/website/static/src/xml/website.translator.xml:16
 #, python-format
 msgid "You are about to enter the translation mode."
-msgstr ""
+msgstr "أنت على وشك الدخول في وضع الترجمة."
 
 #. module: website
 #. openerp-web

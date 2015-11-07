@@ -9,9 +9,9 @@ msgstr ""
 "Project-Id-Version: Odoo 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-21 14:07+0000\n"
-"PO-Revision-Date: 2015-05-29 12:58+0000\n"
+"PO-Revision-Date: 2015-10-31 21:21+0000\n"
 "Last-Translator: Martin Trigaux\n"
-"Language-Team: Catalan (http://www.transifex.com/projects/p/odoo-8/language/ca/)\n"
+"Language-Team: Catalan (http://www.transifex.com/odoo/odoo-8/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -46,6 +46,11 @@ msgstr ""
 #: field:hr.holidays.status,active:0
 msgid "Active"
 msgstr "Actiu"
+
+#. module: hr_holidays
+#: view:hr.holidays:hr_holidays.view_hr_holidays_filter
+msgid "Active Types"
+msgstr ""
 
 #. module: hr_holidays
 #: view:hr.holidays:hr_holidays.allocation_company_new
@@ -254,9 +259,14 @@ msgid "Current Leave Type"
 msgstr ""
 
 #. module: hr_holidays
+#: view:hr.holidays:hr_holidays.view_hr_holidays_filter
+msgid "Current Year Leaves"
+msgstr ""
+
+#. module: hr_holidays
 #: help:hr.holidays,message_last_post:0
 msgid "Date of the last message posted on the record."
-msgstr ""
+msgstr "Data de l'últim missatge enviat al registre."
 
 #. module: hr_holidays
 #: field:hr.holidays,department_id:0
@@ -329,7 +339,7 @@ msgstr "Primera aprovació"
 #. module: hr_holidays
 #: field:hr.holidays,message_follower_ids:0
 msgid "Followers"
-msgstr ""
+msgstr "Seguidors"
 
 #. module: hr_holidays
 #: field:hr.holidays.summary.dept,date_from:0
@@ -362,7 +372,7 @@ msgstr ""
 msgid ""
 "Holds the Chatter summary (number of messages, ...). This summary is "
 "directly in html format in order to be inserted in kanban views."
-msgstr ""
+msgstr "Manté el resum de la conversa (número de missatges, etc). Aquest resum és en format html  per poder-lo inserir a les vistes kanban."
 
 #. module: hr_holidays
 #: field:hr.holidays,id:0 field:hr.holidays.remaining.leaves.user,id:0
@@ -374,7 +384,7 @@ msgstr "ID"
 #. module: hr_holidays
 #: help:hr.holidays,message_unread:0
 msgid "If checked new messages require your attention."
-msgstr ""
+msgstr "Si està marcat hi ha missatges nous pendents."
 
 #. module: hr_holidays
 #: help:hr.holidays.status,active:0
@@ -394,7 +404,7 @@ msgstr ""
 #. module: hr_holidays
 #: field:hr.holidays,message_is_follower:0
 msgid "Is a Follower"
-msgstr ""
+msgstr "És un seguidor"
 
 #. module: hr_holidays
 #: selection:hr.holidays.status,color_name:0
@@ -404,21 +414,21 @@ msgstr "Ivori"
 #. module: hr_holidays
 #: field:hr.holidays,message_last_post:0
 msgid "Last Message Date"
-msgstr ""
+msgstr "Data Últim Missatge"
 
 #. module: hr_holidays
 #: field:hr.holidays,write_uid:0 field:hr.holidays.status,write_uid:0
 #: field:hr.holidays.summary.dept,write_uid:0
 #: field:hr.holidays.summary.employee,write_uid:0
 msgid "Last Updated by"
-msgstr ""
+msgstr "Actualitzat per última vegada per"
 
 #. module: hr_holidays
 #: field:hr.holidays,write_date:0 field:hr.holidays.status,write_date:0
 #: field:hr.holidays.summary.dept,write_date:0
 #: field:hr.holidays.summary.employee,write_date:0
 msgid "Last Updated on"
-msgstr ""
+msgstr "Actualitzat per última vegada el dia"
 
 #. module: hr_holidays
 #: selection:hr.holidays.status,color_name:0
@@ -624,7 +634,7 @@ msgstr "Missatges"
 #. module: hr_holidays
 #: help:hr.holidays,message_ids:0
 msgid "Messages and communication history"
-msgstr ""
+msgstr "Historial de missatges i comunicació"
 
 #. module: hr_holidays
 #: view:hr.holidays.status:hr_holidays.edit_holiday_status_form
@@ -954,7 +964,7 @@ msgstr "Impagada"
 #. module: hr_holidays
 #: field:hr.holidays,message_unread:0
 msgid "Unread Messages"
-msgstr ""
+msgstr "Missatges pendents de llegir"
 
 #. module: hr_holidays
 #: field:hr.holidays,user_id:0
@@ -1077,7 +1087,7 @@ msgstr ""
 #: view:hr.holidays.summary.dept:hr_holidays.view_hr_holidays_summary_dept
 #: view:hr.holidays.summary.employee:hr_holidays.view_hr_holidays_summary_employee
 msgid "or"
-msgstr ""
+msgstr "o"
 
 #. module: hr_holidays
 #: xsl:holidays.summary:0

@@ -10,10 +10,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-21 14:07+0000\n"
-"PO-Revision-Date: 2015-07-06 10:16+0000\n"
-"Last-Translator: Manami Hashi <manami@roomsfor.hk>\n"
-"Language-Team: Japanese (http://www.transifex.com/p/odoo-8/language/ja/)\n"
+"POT-Creation-Date: 2015-10-15 06:40+0000\n"
+"PO-Revision-Date: 2015-10-30 09:20+0000\n"
+"Last-Translator: Yoshi Tashiro <tashiro@roomsfor.hk>\n"
+"Language-Team: Japanese (http://www.transifex.com/odoo/odoo-8/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -47,7 +47,7 @@ msgid ""
 "    <br/>\n"
 "    <p>It is also possible to directly pay with Paypal:</p>\n"
 "        <a style=\"margin-left: 120px;\" href=\"${object.paypal_url}\">\n"
-"            <img class=\"oe_edi_paypal_button\" src=\"https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif\"/>\n"
+"            <img class=\"oe_edi_paypal_button\" src=\"/account/static/src/img/btn_paynowcc_lg.gif\"/>\n"
 "        </a>\n"
 "    % endif\n"
 "    \n"
@@ -102,10 +102,17 @@ msgid ""
 msgstr ""
 
 #. module: account
-#: code:addons/account/account.py:1468
+#: code:addons/account/account.py:1477
 #, python-format
 msgid " Centralisation"
 msgstr ""
+
+#. module: account
+#. openerp-web
+#: code:addons/account/static/src/js/account_widgets.js:521
+#, python-format
+msgid " seconds"
+msgstr "秒"
 
 #. module: account
 #: field:analytic.entries.report,nbr:0
@@ -153,7 +160,7 @@ msgstr ""
 #: code:addons/account/account.py:1861
 #, python-format
 msgid "%s (Copy)"
-msgstr ""
+msgstr "%s (コピー)"
 
 #. module: account
 #: code:addons/account/account.py:635 code:addons/account/account.py:786
@@ -194,7 +201,7 @@ msgstr "（現在の状態を開くために空のままとします）"
 #. module: account
 #: view:account.invoice:account.invoice_form
 msgid "(change)"
-msgstr ""
+msgstr "(変更)"
 
 #. module: account
 #: view:account.bank.statement:account.view_bank_statement_form
@@ -241,12 +248,12 @@ msgstr "30%の前払い30日期限"
 #. module: account
 #: view:website:account.report_generalledger
 msgid ": General ledger"
-msgstr ""
+msgstr ": 総勘定元帳"
 
 #. module: account
 #: view:website:account.report_trialbalance
 msgid ": Trial Balance"
-msgstr ""
+msgstr ": 試算表"
 
 #. module: account
 #: model:ir.actions.act_window,help:account.action_account_period
@@ -1288,7 +1295,7 @@ msgstr "通常、マニュアルで作成されたすべての新しい仕訳は
 msgid ""
 "All selected journal entries will be validated and posted. It means you "
 "won't be able to modify their accounting fields anymore."
-msgstr "全ての選択した仕訳帳エントリーは検証され、元帳に記帳されます。このことは、それらの会計範囲はもう変更ができなくなることを意味します。"
+msgstr "全ての選択した仕訳は検証され、元帳に記帳されます。このことは、それらの会計範囲はもう変更ができなくなることを意味します。"
 
 #. module: account
 #: code:addons/account/account_bank_statement.py:348
@@ -1601,23 +1608,27 @@ msgstr "適用"
 
 #. module: account
 #: help:account.fiscal.position,auto_apply:0
-msgid "Apply automatically this fiscal position."
-msgstr "この会計ポジションを自動的に適用します。"
-
-#. module: account
-#: help:account.fiscal.position,country_group_id:0
-msgid "Apply only if delivery or invocing country match the group."
-msgstr "配送または請求書を送付する国がグループに一致する場合のみ適用します。"
-
-#. module: account
-#: help:account.fiscal.position,country_id:0
-msgid "Apply only if delivery or invoicing country match."
-msgstr "配送または請求書を送付する国が一致する場合のみ適用します。"
+msgid "Apply automatically this fiscal position if the conditions match."
+msgstr ""
 
 #. module: account
 #: help:account.fiscal.position,vat_required:0
 msgid "Apply only if partner has a VAT number."
 msgstr "取引先がVAT番号を保有する場合に適用します。"
+
+#. module: account
+#: help:account.fiscal.position,country_group_id:0
+msgid ""
+"Apply when the shipping or invoicing country is in this country group, and "
+"no position matches the country directly."
+msgstr ""
+
+#. module: account
+#: help:account.fiscal.position,country_id:0
+msgid ""
+"Apply when the shipping or invoicing country matches. Takes precedence over "
+"positions matching on a country group."
+msgstr ""
 
 #. module: account
 #: view:validate.account.move:account.validate_account_move_view
@@ -1639,7 +1650,7 @@ msgstr "本当にエントリーを作成しますか？"
 #. module: account
 #: view:account.journal.select:account.open_journal_button_view
 msgid "Are you sure you want to open Journal Entries?"
-msgstr "仕訳帳エントリーを本当に開きますか？"
+msgstr "仕訳を本当に開きますか？"
 
 #. module: account
 #: view:account.state.open:account.view_account_state_open
@@ -2486,7 +2497,7 @@ msgstr ""
 msgid ""
 "Check this box if you are unsure of that journal entry and if you want to "
 "note it as 'to be reviewed' by an accounting expert."
-msgstr "その仕訳帳エントリーに確信がなく、会計専門家のレビューが必要と付記したい場合はこのボックスをチェックして下さい。"
+msgstr "その仕訳に確信がなく、会計専門家のレビューが必要と付記したい場合はこのボックスをチェックして下さい。"
 
 #. module: account
 #: help:account.tax.code.template,notprintable:0
@@ -2569,6 +2580,13 @@ msgstr "子/副税"
 #: model:ir.model,name:account.model_account_open_closed_fiscalyear
 msgid "Choose Fiscal Year"
 msgstr "会計年度の選択"
+
+#. module: account
+#. openerp-web
+#: code:addons/account/static/src/js/account_widgets.js:1297
+#, python-format
+msgid "Choose counterpart"
+msgstr ""
 
 #. module: account
 #: view:account.automatic.reconcile:account.account_automatic_reconcile_view1
@@ -2684,7 +2702,7 @@ msgstr "コメント"
 #. module: account
 #: view:website:account.report_invoice_document
 msgid "Comment:"
-msgstr ""
+msgstr "コメント: "
 
 #. module: account
 #: field:account.invoice,commercial_partner_id:0
@@ -2878,7 +2896,7 @@ msgstr ""
 #: view:account.config.settings:account.view_account_config_settings
 #: model:ir.actions.act_window,name:account.action_account_config
 msgid "Configure Accounting"
-msgstr ""
+msgstr "会計設定"
 
 #. module: account
 #: model:ir.actions.act_window,name:account.action_account_configuration_installer
@@ -2977,8 +2995,8 @@ msgstr "相手方"
 
 #. module: account
 #: field:account.fiscal.position,country_id:0
-msgid "Countries"
-msgstr "国"
+msgid "Country"
+msgstr ""
 
 #. module: account
 #: field:account.fiscal.position,country_group_id:0
@@ -2988,7 +3006,7 @@ msgstr "国別グループ"
 #. module: account
 #: field:account.invoice.report,country_id:0
 msgid "Country of the Partner Company"
-msgstr ""
+msgstr "取引先の国"
 
 #. module: account
 #: view:account.fiscalyear.close:account.view_account_fiscalyear_close
@@ -3030,6 +3048,13 @@ msgstr "月次期間の作成"
 #: view:account.invoice.refund:account.view_account_invoice_refund
 msgid "Create Refund"
 msgstr "返金を作成"
+
+#. module: account
+#. openerp-web
+#: code:addons/account/static/src/js/account_widgets.js:1294
+#, python-format
+msgid "Create Write-off"
+msgstr ""
 
 #. module: account
 #: selection:account.invoice.refund,filter_refund:0
@@ -3482,7 +3507,7 @@ msgstr "日付範囲"
 #: view:website:account.report_partnerledgerother
 #: view:website:account.report_trialbalance
 msgid "Date from :"
-msgstr ""
+msgstr "開始日:"
 
 #. module: account
 #: selection:account.model.line,date_maturity:0
@@ -3517,7 +3542,7 @@ msgstr "取引先の会計項目が完全に一致した前回の日付です。
 #: view:website:account.report_partnerledgerother
 #: view:website:account.report_trialbalance
 msgid "Date to :"
-msgstr ""
+msgstr "終了日:"
 
 #. module: account
 #: view:website:account.report_analyticcostledger
@@ -3877,13 +3902,13 @@ msgstr "期間"
 #: code:addons/account/account.py:3197
 #, python-format
 msgid "ECNJ"
-msgstr ""
+msgstr "ECNJ"
 
 #. module: account
 #: code:addons/account/account.py:3195
 #, python-format
 msgid "EXJ"
-msgstr ""
+msgstr "EXJ"
 
 #. module: account
 #: field:account.entries.report,date:0
@@ -5184,7 +5209,7 @@ msgstr ""
 #, python-format
 msgid ""
 "In order to close a period, you must first post related journal entries."
-msgstr "期間を閉じるためには、まず、関連する仕訳帳エントリーを記帳する必要があります。"
+msgstr "期間を閉じるためには、まず、関連する仕訳を記帳する必要があります。"
 
 #. module: account
 #: code:addons/account/account_bank_statement.py:436
@@ -5305,7 +5330,7 @@ msgstr ""
 #. module: account
 #: view:product.template:account.product_template_form_view
 msgid "Internal Category"
-msgstr ""
+msgstr "内部カテゴリ"
 
 #. module: account
 #: field:account.tax.template,description:0
@@ -5592,7 +5617,7 @@ msgstr "会社の通貨と異なる場合はレポートに通貨欄を追加し
 msgid ""
 "It indicates that the invoice has been paid and the journal entry of the "
 "invoice has been reconciled with one or several journal entries of payment."
-msgstr "この請求書は既に支払済で、１つあるいは幾つかの支払の仕訳帳エントリーを持ち、請求書が消し込み済みの仕訳帳エントリーであることを示しています。"
+msgstr "この請求書は既に支払済で、１つあるいは幾つかの支払の仕訳を持ち、請求書が消込済の仕訳であることを示しています。"
 
 #. module: account
 #: help:account.invoice,sent:0
@@ -5703,31 +5728,31 @@ msgstr ""
 #. module: account
 #: view:account.move:account.view_account_move_filter
 msgid "Journal Entries to Review"
-msgstr "レビューすべき仕訳帳エントリー"
+msgstr "レビューすべき仕訳"
 
 #. module: account
 #: view:account.entries.report:account.view_account_entries_report_search
 msgid "Journal Entries with period in current period"
-msgstr "当期の仕訳帳エントリー"
+msgstr "当期の仕訳"
 
 #. module: account
 #: view:account.entries.report:account.view_account_entries_report_search
 msgid "Journal Entries with period in current year"
-msgstr "現在年度の期間の仕訳帳エントリー"
+msgstr "現在年度期間の仕訳"
 
 #. module: account
 #: field:account.bank.statement.line,journal_entry_id:0
 #: field:account.invoice,move_id:0 field:account.invoice,move_name:0
 #: field:account.move.line,move_id:0
 msgid "Journal Entry"
-msgstr "仕訳帳入力"
+msgstr "仕訳"
 
 #. module: account
 #: view:account.model:account.view_model_form
 #: view:account.model:account.view_model_search
 #: view:account.model:account.view_model_tree
 msgid "Journal Entry Model"
-msgstr "仕訳帳エントリーのモデル"
+msgstr "仕訳モデル"
 
 #. module: account
 #: view:account.model.line:account.view_model_line_form
@@ -5745,7 +5770,7 @@ msgstr "仕訳番号"
 #. module: account
 #: view:account.move.reconcile:account.view_move_reconcile_form
 msgid "Journal Entry Reconcile"
-msgstr "仕訳帳エントリーの消し込み"
+msgstr "仕訳消込"
 
 #. module: account
 #: view:account.move:account.view_move_form
@@ -5933,9 +5958,16 @@ msgstr "検証（請求書）日の期間を使うために空のままにしま
 
 #. module: account
 #. openerp-web
+#: code:addons/account/static/src/js/account_widgets.js:1299
+#, python-format
+msgid "Keep open"
+msgstr ""
+
+#. module: account
+#. openerp-web
 #: field:account.statement.operation.template,label:0
-#: code:addons/account/static/src/js/account_widgets.js:75
-#: code:addons/account/static/src/js/account_widgets.js:80
+#: code:addons/account/static/src/js/account_widgets.js:74
+#: code:addons/account/static/src/js/account_widgets.js:79
 #: view:website:account.report_journal
 #: view:website:account.report_salepurchasejournal
 #, python-format
@@ -6764,7 +6796,7 @@ msgstr "バランスポイントを見つけるために組み合わせること
 #: code:addons/account/static/src/xml/account_bank_statement_reconciliation.xml:21
 #, python-format
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #. module: account
 #: code:addons/account/account.py:3199
@@ -6801,7 +6833,7 @@ msgstr ""
 #: code:addons/account/account.py:3392 code:addons/account/res_config.py:305
 #, python-format
 msgid "Only administrators can change the settings"
-msgstr ""
+msgstr "管理者のみ設定変更が可能です。"
 
 #. module: account
 #. openerp-web
@@ -7131,7 +7163,7 @@ msgstr "取引先残高"
 #. module: account
 #: field:account.invoice.report,commercial_partner_id:0
 msgid "Partner Company"
-msgstr ""
+msgstr "取引先"
 
 #. module: account
 #: xsl:account.transfer:0
@@ -7205,7 +7237,7 @@ msgstr "仕入先に小切手で支払う"
 #: model:account.account.type,name:account.data_account_type_payable
 #: selection:account.entries.report,type:0
 msgid "Payable"
-msgstr "支払対象"
+msgstr "買掛金"
 
 #. module: account
 #: view:account.chart.template:account.view_account_chart_template_seacrh
@@ -7544,7 +7576,7 @@ msgstr "記帳済"
 #. module: account
 #: view:account.move:account.view_account_move_filter
 msgid "Posted Journal Entries"
-msgstr "記帳済仕訳帳エントリー"
+msgstr "記帳済仕訳"
 
 #. module: account
 #: view:account.move.line:account.view_account_move_line_filter
@@ -8330,6 +8362,12 @@ msgid "Round per line"
 msgstr "明細ごとに丸め"
 
 #. module: account
+#: code:addons/account/account_bank_statement.py:899
+#, python-format
+msgid "Rounding error from currency conversion"
+msgstr ""
+
+#. module: account
 #: view:account.subscription:account.view_subscription_search
 #: selection:account.subscription,state:0
 msgid "Running"
@@ -8714,7 +8752,7 @@ msgid ""
 " 'Balance' will generally be used for cash accounts.\n"
 " 'Detail' will copy each existing journal item of the previous year, even the reconciled ones.\n"
 " 'Unreconciled' will copy only the journal items that were unreconciled on the first day of the new fiscal year."
-msgstr "このタイプの全てのアカウントの年間の仕訳帳エントリーの終わりを生成するのに使用する方法を、ここで設定します。\n\n　\"なし\" は何も行われないことを意味します。\n　\"残高\"は一般的には現金のアカウントのために使用されます。\n　\"詳細\"は消し込みされたものも含む前年のそれぞれの既存仕訳帳項目をコピーします。\n　\"未消し込み\"は未消し込みだった仕訳帳項目のみを新会計年度の初日としてコピーします。"
+msgstr "このタイプの全てのアカウントの年間の仕訳の終わりを生成するのに使用する方法を、ここで設定します。\n\n　\"なし\" は何も行われないことを意味します。\n　\"残高\"は一般的には現金のアカウントのために使用されます。\n　\"詳細\"は消込されたものも含む前年のそれぞれの既存仕訳明細をコピーします。\n　\"未消し込み\"は未消込だった仕訳明細のみを新会計年度の初日としてコピーします。"
 
 #. module: account
 #: help:account.tax.template,include_base_amount:0
@@ -9147,6 +9185,11 @@ msgid "Suppliers"
 msgstr "仕入先"
 
 #. module: account
+#: view:website:account.report_invoice_document
+msgid "TIN:"
+msgstr ""
+
+#. module: account
 #: view:cash.box.out:account.cash_box_out_form
 #: model:ir.actions.act_window,name:account.action_cash_box_out
 msgid "Take Money Out"
@@ -9347,7 +9390,7 @@ msgstr "税明細書"
 #: view:account.tax.code.template:account.view_tax_code_template_search
 #: view:account.tax.template:account.view_account_tax_template_search
 msgid "Tax Template"
-msgstr ""
+msgstr "税テンプレート"
 
 #. module: account
 #: field:account.chart.template,tax_template_ids:0
@@ -9488,7 +9531,7 @@ msgstr "アカウントのテンプレート"
 #. module: account
 #: model:ir.model,name:account.model_account_tax_template
 msgid "Templates for Taxes"
-msgstr ""
+msgstr "税テンプレート"
 
 #. module: account
 #: field:account.payment.term,line_ids:0
@@ -9616,6 +9659,20 @@ msgid ""
 msgstr ""
 
 #. module: account
+#: constraint:account.config.settings:0
+msgid ""
+"The company of the gain exchange rate account must be the same than the "
+"company selected."
+msgstr ""
+
+#. module: account
+#: constraint:account.config.settings:0
+msgid ""
+"The company of the loss exchange rate account must be the same than the "
+"company selected."
+msgstr ""
+
+#. module: account
 #: help:account.tax,type:0
 msgid "The computation method for the tax amount."
 msgstr "税額の計算方法"
@@ -9630,7 +9687,7 @@ msgstr "明細入力に使用される通貨"
 msgid ""
 "The date of your Journal Entry is not in the defined period! You should "
 "change the date or remove this constraint from the journal."
-msgstr "仕訳帳エントリーの日付が定義された期間ではありません。日付を変更するか仕訳帳からこの制約を削除する必要があります。"
+msgstr "仕訳の日付が定義された期間ではありません。日付を変更するか仕訳帳からこの制約を削除する必要があります。"
 
 #. module: account
 #: code:addons/account/wizard/account_fiscalyear_close.py:62
@@ -9643,6 +9700,11 @@ msgstr ""
 msgid ""
 "The fiscal position will determine taxes and accounts used for the partner."
 msgstr "財政状況は取引先の税と勘定を決定します。"
+
+#. module: account
+#: view:account.config.settings:account.view_account_config_settings
+msgid "The fiscal year is created when installing a Chart of Account."
+msgstr ""
 
 #. module: account
 #: constraint:account.aged.trial.balance:0 constraint:account.balance.report:0
@@ -9762,14 +9824,14 @@ msgstr "会社の通貨と等しくない場合は関連するアカウントの
 msgid ""
 "The residual amount on a receivable or payable of a journal entry expressed "
 "in its currency (maybe different of the company currency)."
-msgstr "仕訳帳エントリーの買掛金、または買掛金の残差金額は、その通貨により表されます（会社の通貨と異なることもあります）。"
+msgstr "仕訳の買掛金、または買掛金の残差金額は、その通貨により表されます（会社の通貨と異なることもあります）。"
 
 #. module: account
 #: help:account.move.line,amount_residual:0
 msgid ""
 "The residual amount on a receivable or payable of a journal entry expressed "
 "in the company currency."
-msgstr "仕訳帳エントリーの売掛金または買掛金の残差金額は会社の通貨で表現されています。"
+msgstr "仕訳の売掛金または買掛金の残差金額は会社の通貨で表現されています。"
 
 #. module: account
 #: constraint:account.move.line:0
@@ -9834,7 +9896,7 @@ msgid ""
 "The validation of journal entries process is also called 'ledger posting' "
 "and is the process of transferring debit and credit amounts from a journal "
 "of original entry to a ledger book."
-msgstr "仕訳帳エントリー過程の検証は、元帳への記帳とも呼ばれ、初期入力した仕訳帳から元帳へ借方と貸方の金額を転記する工程のことです。"
+msgstr "仕訳過程の検証は、元帳への記帳とも呼ばれ、初期入力した仕訳帳から元帳へ借方と貸方の金額を転記する工程のことです。"
 
 #. module: account
 #: code:addons/account/installer.py:114
@@ -9956,6 +10018,30 @@ msgid "This Year"
 msgstr "今年"
 
 #. module: account
+#: help:product.template,property_account_expense:0
+msgid ""
+"This account will be used for invoices instead of the default one to value "
+"expenses for the current product."
+msgstr ""
+
+#. module: account
+#: help:product.template,property_account_income:0
+msgid ""
+"This account will be used for invoices instead of the default one to value "
+"sales for the current product."
+msgstr ""
+
+#. module: account
+#: help:product.category,property_account_expense_categ:0
+msgid "This account will be used for invoices to value expenses."
+msgstr ""
+
+#. module: account
+#: help:product.category,property_account_income_categ:0
+msgid "This account will be used for invoices to value sales."
+msgstr ""
+
+#. module: account
 #: help:res.partner,property_account_payable:0
 msgid ""
 "This account will be used instead of the default one as the payable account "
@@ -9968,18 +10054,6 @@ msgid ""
 "This account will be used instead of the default one as the receivable "
 "account for the current partner"
 msgstr "このアカウントは現在のパートナのためにデフォルトアカウントの代わりに売掛金として使用されます。"
-
-#. module: account
-#: help:product.category,property_account_expense_categ:0
-#: help:product.template,property_account_expense:0
-msgid "This account will be used to value outgoing stock using cost price."
-msgstr ""
-
-#. module: account
-#: help:product.category,property_account_income_categ:0
-#: help:product.template,property_account_income:0
-msgid "This account will be used to value outgoing stock using sale price."
-msgstr ""
 
 #. module: account
 #: help:account.config.settings,module_account_budget:0
@@ -10080,7 +10154,7 @@ msgstr "この項目は、カスタムドメイン内に特別な税金を作成
 msgid ""
 "This field is used for payable and receivable journal entries. You can put "
 "the limit date for the payment of this line."
-msgstr "この項目は買掛金と売掛金仕訳帳エントリーのために使用されます。この行の支払のための期限の日付を設定することができます。"
+msgstr "この項目は買掛金と売掛金仕訳のために使用されます。この行の支払のための期限の日付を設定することができます。"
 
 #. module: account
 #: help:account.account.type,report_type:0
@@ -10289,13 +10363,13 @@ msgstr "このウィザードは選択した会計年度の最後の仕訳項目
 msgid ""
 "This wizard will validate all journal entries of a particular journal and "
 "period. Once journal entries are validated, you can not update them anymore."
-msgstr "このウィザードは特定の仕訳帳と期間の全ての仕訳帳エントリーを検証します。ひとたび仕訳帳エントリーが検証された以降は、変更はできません。"
+msgstr "このウィザードは特定の仕訳帳と期間の全ての仕訳を検証します。ひとたび仕訳が検証された以降は、変更はできません。"
 
 #. module: account
 #. openerp-web
 #: code:addons/account/static/src/xml/account_bank_statement_reconciliation.xml:36
 #, python-format
-msgid "Tip : Hit ctrl-enter to validate the whole sheet."
+msgid "Tip : Hit ctrl-enter to reconcile all balanced items."
 msgstr ""
 
 #. module: account
@@ -11057,13 +11131,21 @@ msgid ""
 msgstr "仕訳項目が関連取引先と係争状態にあることを示すには、このボックスをチェックします。"
 
 #. module: account
-#: code:addons/account/account_move_line.py:1220
+#: code:addons/account/account_move_line.py:1246
 #, python-format
 msgid "You can not add/modify entries in a closed period %s of journal %s."
 msgstr ""
 
 #. module: account
-#: code:addons/account/account.py:1047
+#: code:addons/account/wizard/account_open_closed_fiscalyear.py:42
+#, python-format
+msgid ""
+"You can not cancel closing entries if the 'End of Year Entries Journal' "
+"period is closed."
+msgstr ""
+
+#. module: account
+#: code:addons/account/account.py:1057
 #, python-format
 msgid "You can not re-open a period which belongs to closed fiscal year"
 msgstr ""
@@ -11109,7 +11191,7 @@ msgid ""
 msgstr "この事例の金額を親に統合する時に使用される係数をここで定義できます。例えば、それを加算 / 減算したい場合は、1 / -1 を設定します。"
 
 #. module: account
-#: code:addons/account/account.py:2273
+#: code:addons/account/account.py:2293
 #, python-format
 msgid ""
 "You can specify year, month and date in the name of the model using the following labels:\n"
@@ -11409,7 +11491,7 @@ msgstr "分析仕訳帳のタイプ %s を定義しなければなりません�
 #: code:addons/account/account_invoice.py:1311
 #, python-format
 msgid "You must first select a partner!"
-msgstr ""
+msgstr "取引先を選択してください。"
 
 #. module: account
 #: code:addons/account/wizard/account_automatic_reconcile.py:154
@@ -11655,3 +11737,16 @@ msgstr "取引明細書の消し込み領域で使用されます。その他の
 #: selection:account.subscription,period_type:0
 msgid "year"
 msgstr "年"
+
+#. module: account
+#: model:res.company,overdue_msg:stock.res_company_1
+msgid ""
+"Dear Sir/Madam,\n"
+"\n"
+"Our records indicate that some payments on your account are still due. Please find details below.\n"
+"If the amount has already been paid, please disregard this notice. Otherwise, please forward us the total amount stated below.\n"
+"If you have any queries regarding your account, Please contact us.\n"
+"\n"
+"Thank you in advance for your cooperation.\n"
+"Best Regards,"
+msgstr ""

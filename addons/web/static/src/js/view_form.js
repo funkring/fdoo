@@ -2964,6 +2964,10 @@ instance.web.form.FieldTextHtml = instance.web.form.AbstractField.extend(instanc
             }
         }
     },
+    focus: function() {
+        var input = !this.get("effective_readonly") && this.$cleditor
+        return input ? input.focus() : false;
+    },
     render_value: function() {
         if (! this.get("effective_readonly")) {
             this.$textarea.val(this.get('value') || '');
@@ -3296,10 +3300,8 @@ instance.web.form.FieldRadio = instance.web.form.AbstractField.extend(instance.w
         var self = this;
         this.$el.toggleClass("oe_readonly", this.get('effective_readonly'));
         this.$("input:checked").prop("checked", false);
-        if (this.get_value()) {
-            this.$("input").filter(function () {return this.value == self.get_value();}).prop("checked", true);
-            this.$(".oe_radio_readonly").text(this.get('value') ? this.get('value')[1] : "");
-        }
+        this.$("input").filter(function () {return this.value == self.get_value();}).prop("checked", true);
+        this.$(".oe_radio_readonly").text(this.get('value') ? this.get('value')[1] : "");
     }
 });
 

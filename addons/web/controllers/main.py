@@ -316,7 +316,7 @@ def login_redirect():
     # built the redirect url, keeping all the query parameters of the url
     redirect_url = '%s?%s' % (request.httprequest.base_url, werkzeug.urls.url_encode(request.params))
     return """<html><head><script>
-        window.location = '%sredirect=' + encodeURIComponent("%s");
+        window.location = '%sredirect=' + encodeURIComponent("%s" + location.hash);
     </script></head></html>
     """ % (url, redirect_url)
 
@@ -452,8 +452,8 @@ def content_disposition(filename):
     version = int((request.httprequest.user_agent.version or '0').split('.')[0])
     if browser == 'msie' and version < 9:
         return "attachment; filename=%s" % escaped
-    elif browser == 'safari':
-        return u"attachment; filename=%s" % filename
+    elif browser == 'safari' and version < 537:
+        return u"attachment; filename=%s" % filename.encode('ascii', 'replace')
     else:
         return "attachment; filename*=UTF-8''%s" % escaped
 
