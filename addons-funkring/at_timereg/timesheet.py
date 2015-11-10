@@ -71,12 +71,12 @@ class hr_timesheet_sheet(osv.osv):
                 value["total_saldo"]=(value.get("total_attendance_day") or 0.0)-value["total_target"]
         return days
 
-    def get_leaves(self,cr,uid,sid,context=None):
+    def get_leaves(self, cr, uid, sid, context=None):
         res = {}
         sheet = self.browse(cr, uid, sid, context)
         working_hours = sheet.employee_id.working_hours
         if working_hours:
-            cr.execute( "SELECT name, date_from, date_to FROM resource_calendar_leaves "
+            cr.execute( "SELECT id, name, date_from, date_to FROM resource_calendar_leaves "
                         " WHERE resource_id = %s OR resource_id IS NULL "
                         "  AND  (    (date_from >= %s AND date_from <= %s) "
                                 " OR (date_to >= %s AND date_to <= %s ) "
@@ -87,14 +87,13 @@ class hr_timesheet_sheet(osv.osv):
                      sheet.date_from,sheet.date_to))
 
 
-            for row in cr.fetchall():
-                name = row[0]
+            for oid, name, leave_date_from, leave_date_to in cr.fetchall():
 
-                date_from = util.timeToDateStr(row[1])
+                date_from = util.timeToDateStr(leave_date_from)
                 if date_from < sheet.date_from:
                     date_from = sheet.date_from
 
-                date_to = util.timeToDateStr(row[2])
+                date_to = util.timeToDateStr(leave_date_to)
                 if date_to > sheet.date_to:
                     date_to = sheet.date_to
 
@@ -110,7 +109,7 @@ class hr_timesheet_sheet(osv.osv):
                         leaves = []
                         res[cur_date]=leaves
 
-                    leaves.append(name)
+                    leaves.append((oid,name))
                     d_cur+=d_delta
 
         return res
@@ -186,28 +185,26 @@ class hr_timesheet_sheet(osv.osv):
 
 
     def _total_holiday(self, cr, uid, ids, field_names, arg, context=None):
-        res = {}
+        res = dict.fromkeys(ids,None)
         holidays_status_obj = self.pool.get("hr.holidays.status")
         for sheet in self.browse(cr, uid, ids, context):
             res[sheet.id] = {}
             status_ids = holidays_status_obj.search(cr,uid,[('categ_id.leave_type','=','holiday')])
-            days = holidays_status_obj.get_days_sum(cr,uid,status_ids,sheet.employee_id.id,False,context)
+            days = holidays_status_obj.get_days_sum(cr, uid,status_ids, sheet.employee_id.id, context=context)
             res[sheet.id]["max_leaves"] = days["max_leaves"]
             res[sheet.id]["leaves_taken"] = days["leaves_taken"]
             res[sheet.id]["remaining_leaves"] = days["remaining_leaves"]
         return res
 
     def _total_sick_leaves(self, cr, uid, ids, field_names, arg, context=None):
-        res = {}
+        res = dict.fromkeys(ids,None)
         holidays_status_obj = self.pool.get("hr.holidays.status")
         for sheet in self.browse(cr, uid, ids, context):
             res[sheet.id] = {}
             status_ids = holidays_status_obj.search(cr,uid,[('categ_id.leave_type','=','sickness')])
-            days = holidays_status_obj.get_days_sum(cr,uid,status_ids,sheet.employee_id.id,False,context)
+            days = holidays_status_obj.get_days_sum(cr, uid,status_ids, sheet.employee_id.id, context=context)
             res[sheet.id] = days["leaves_taken"]
         return res
-
-
 
     def update_saldo(self, cr, uid, sid, context=None):
         sheet = self.browse(cr, uid, sid, context)
@@ -233,6 +230,6 @@ class hr_timesheet_sheet(osv.osv):
         "total_current_target" : fields.function(_total_current_target, string="Current Target"),
         "max_leaves" : fields.function(_total_holiday,string="Total Holidays",multi="total_holiday"),
         "leaves_taken" : fields.function(_total_holiday,string="Holiday Taken",multi="total_holiday"),
-        "remaining_leaves" : fields.function(_total_holiday,string="Remaining Holidays",multi="total_holiday"),
+        "remaining_leaves" : fields.function(_total_holiday,string="Remaining Holidays",multi="total_holiday",help="Current remaining holidays, is calculated over all"),
         "sick_leaves" : fields.function(_total_sick_leaves,string="Sick Leaves Taken"),
     }

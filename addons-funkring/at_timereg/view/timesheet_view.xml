@@ -9,16 +9,15 @@
 				<data>
 					<xpath expr="//sheet/notebook/page[@string='Summary']"
 						position="inside">
-						<group groups="base.group_hr_attendance">
-							<group string="Attandance Balance">
+						<group groups="base.group_hr_attendance" string="Attandance Balance">
+							<group>
 								<field name="total_target" widget="float_time" />							
 								<field name="current_saldo" widget="float_time" />
-								<field name="saldo_correction" widget="float_time" />
+								
 							</group>
-							<group string="Holiday Balance">
-								<field name="max_leaves"/>
-								<field name="leaves_taken"/>
-								<field name="remaining_leaves"/>
+							<group>							     
+							     <field name="saldo_correction" widget="float_time" />
+							     <field name="remaining_leaves"/>								 
 							</group> 
 						</group>
 					</xpath>
@@ -26,4 +25,4 @@
 			</field>
 		</record>
 	</data>
-</openerp>
+</openerp>  

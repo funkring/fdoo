@@ -25,15 +25,35 @@ from operator import itemgetter
 
 class hr_holidays_status(osv.osv):
 
-    def get_days_sum(self, cr, uid, ids, employee_id, return_false, context=None):
-        if ids:
-            cr.execute("SELECT id, type, number_of_days, holiday_status_id FROM hr_holidays WHERE employee_id = %s AND state='validate' AND holiday_status_id in %s",
-                [employee_id, tuple(ids)])
+    def get_days_sum(self, cr, uid, ids, employee_id, context=None):
+        if ids:            
+              
+            query = ("SELECT id, type, number_of_days, holiday_status_id FROM hr_holidays h"
+                      " WHERE state='validate' "
+                      "   AND holiday_status_id in %s")
+            
+            params = [tuple(ids)]
+            
+            employee = self.pool["hr.employee"].browse(cr, uid, employee_id, context=context)         
+            category_ids = [c.id for c in employee.category_ids]
+            
+            if category_ids:
+                query += " AND (employee_id = %s OR category_id IN %s) "
+                params.append(employee_id)
+                params.append(tuple(category_ids))
+            else:
+                query += " AND employee_id = %s"
+                params.append(employee_id)
+                     
+            cr.execute(query, params)
+            
             result = sorted(cr.dictfetchall(), key=lambda x: x['holiday_status_id'])
             grouped_lines = dict((k, [v for v in itr]) for k, itr in groupby(result, itemgetter('holiday_status_id')))
             res = {}
+            
             max_leaves = 0
             leaves_taken = 0
+            
             for record in self.browse(cr, uid, ids, context=context):
                 res[record.id] = {}
                 if record.id in grouped_lines:
@@ -46,6 +66,7 @@ class hr_holidays_status(osv.osv):
                "leaves_taken" : -leaves_taken,
                "remaining_leaves" : remaining_leaves
             }
+            
         else:
             return {
                "max_leaves" : 0,
