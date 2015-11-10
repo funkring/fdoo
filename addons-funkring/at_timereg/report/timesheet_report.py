@@ -71,70 +71,85 @@ class Parser(report_sxw.rml_parse):
             timesheet_data = timesheet_obj.get_timesheet_data(self.cr, sheet.user_id.id, sheet.id, context=self.context)
             
             sheet_dt_from = util.strToDate(sheet.date_from)
+            sheet_dt_cur =  sheet_dt_from            
             sheet_dt_to = util.strToDate(sheet.date_to)
-            sheet_dt_cur =  util.strToDate(date_from)
+                        
             delta_day = relativedelta(days=1)    
     
             while sheet_dt_cur <= sheet_dt_to and sheet_dt_cur < dt_to:
                 date_day = util.dateToStr(sheet_dt_cur)
                 timesheet_day = timesheet_data.get(date_day)
-                
-                # vars
-                day_total_timesheet = timesheet_day.get("total_timesheet_day") or 0.0
-                day_saldo = timesheet_day.get("total_saldo") or 0.0
-                day_target = timesheet_day.get("total_target") or 0.0
-                day_attendance = timesheet_day.get("total_attendance_day") or 0.0
-                current_saldo+=day_saldo
+                if timesheet_day:                
+                    # vars                    
+                    day_saldo = timesheet_day.get("total_saldo") or 0.0
+                    
+                    # increment saldo
+                    current_saldo+=day_saldo
+                                             
+                    # check if date is in date from
+                    if sheet_dt_cur >= dt_from:
+                        # get vars
+                        day_total_timesheet = timesheet_day.get("total_timesheet_day") or 0.0
+                        day_target = timesheet_day.get("total_target") or 0.0
+                        day_attendance = timesheet_day.get("total_attendance_day") or 0.0
+                   
+                        
+                        # get attendance
+                        attendance = []
+                        attendance_lines = timesheet_day.get("attendances",None)            
+                        if attendance_lines:
+                            for attendance_line in attendance_lines:
+                                date_only = attendance_line["to"].split(" ")[1]
+                                if date_only != "24:00:00":
+                                    attendance.append({
+                                            "time_from" : util.timeToStrHours(attendance_line["from"]),
+                                            "time_to" : util.timeToStrHours(attendance_line["to"])
+                                    })
+                        
+                        # get work 
+                        work = timesheet_line_obj.browse(self.cr, self.uid, timesheet_day.get("lines",[]), context=self.context)
 
-                attendance = []
-                attendance_lines = timesheet_day.get("attendances",None)            
-                if attendance_lines:
-                    for attendance_line in attendance_lines:
-                        date_only = attendance_line["to"].split(" ")[1]
-                        if date_only != "24:00:00":
-                            attendance.append({
-                                    "time_from" : util.timeToStrHours(attendance_line["from"]),
-                                    "time_to" : util.timeToStrHours(attendance_line["to"])
-                            })
-                
-                work = timesheet_line_obj.browse(self.cr, self.uid, timesheet_day.get("lines",[]), context=self.context)
-                leaves = timesheet_day.get("leaves",[])
-                
-                leave_names = []               
-                for leave in leave_obj.browse(self.cr, self.uid, [l[0] for l in leaves], context=self.context):
-                    leave_names.append(leave.name)
-                    holiday = leave.holiday_id
-                    holiday_status = holiday.holiday_status_id
-                    if holiday_status:
-                        holiday_categ = holiday_status.categ_id                    
-                        if holiday_categ:
-                            if holiday_categ.leave_type == "holiday":
-                                leaves_taken+=1
-                            if holiday_categ.leave_type == "sickness":
-                                sick_leaves+=1
-                    # ONLY ONE LEAVE per DAY
-                    break
-                      
-                if sheet_dt_cur >= dt_from:
-                    total_timesheet += day_total_timesheet
-                    total_target += day_target
-                    total += day_attendance
-                    total_saldo += day_saldo
-                    day = {
-                        "day" : date_day,
-                        "total_timesheet" : day_total_timesheet,  
-                        "total" : day_attendance,
-                        "total_saldo" : day_saldo,
-                        "total_target" : day_target,
-                        "current_saldo" : current_saldo,
-                        "attendance" : attendance,
-                        "work" : work,
-                        "leaves" : leave_names,
-                        "leaves_taken" : leaves_taken,
-                        "remaining_leaves" : remaining_leaves,
-                        "sick_leaves" : sick_leaves
-                    }
-                    days.append(day)
+                        # process leaves                        
+                        leaves = timesheet_day.get("leaves",[])
+                        leave_names = []               
+                        for leave in leave_obj.browse(self.cr, self.uid, [l[0] for l in leaves], context=self.context):
+                            leave_names.append(leave.name)
+                            holiday = leave.holiday_id
+                            holiday_status = holiday.holiday_status_id
+                            if holiday_status:
+                                holiday_categ = holiday_status.categ_id                    
+                                if holiday_categ:
+                                    if holiday_categ.leave_type == "holiday":
+                                        leaves_taken+=1
+                                    if holiday_categ.leave_type == "sickness":
+                                        sick_leaves+=1
+                            # ONLY ONE LEAVE per DAY
+                            break
+                        
+                        
+                        # increment counters                        
+                        total_timesheet += day_total_timesheet
+                        total_target += day_target
+                        total += day_attendance
+                        total_saldo += day_saldo
+                        day = {
+                            "day" : date_day,
+                            "total_timesheet" : day_total_timesheet,  
+                            "total" : day_attendance,
+                            "total_saldo" : day_saldo,
+                            "total_target" : day_target,
+                            "current_saldo" : current_saldo,
+                            "attendance" : attendance,
+                            "work" : work,
+                            "leaves" : leave_names,
+                            "leaves_taken" : leaves_taken,
+                            "remaining_leaves" : remaining_leaves,
+                            "sick_leaves" : sick_leaves
+                        }
+                        days.append(day)
+                        
+                    elif sheet_dt_cur < dt_from:
+                        last_saldo = current_saldo
                 
                 # next day
                 sheet_dt_cur+=delta_day
@@ -170,13 +185,15 @@ class Parser(report_sxw.rml_parse):
             sheet_obj = self.pool["hr_timesheet_sheet.sheet"]
             
             self.cr.execute("SELECT s.id FROM hr_timesheet_sheet_sheet s "
-                            " WHERE s.date_from = ( SELECT MAX(s2.date_from) FROM hr_timesheet_sheet_sheet s2 "
-                                                                            " WHERE s2.date_from <= %s AND s2.employee_id = %s )"
-                              " AND s.date_to = ( SELECT MIN(s2.date_to) FROM hr_timesheet_sheet_sheet s2 "
-                                                                          " WHERE s2.date_to <= %s )"
+                            " WHERE (( s.date_from <= %s AND s.date_to >= %s) "
+                              "  OR  ( s.date_from <= %s AND s.date_to >= %s) "
+                              "  OR  ( s.date_from >= %s AND s.date_to <= %s)) "
                               " AND s.employee_id = %s "
                               " ORDER BY s.date_from "
-                            , (start_date, end_date, o.id))
+                            , (date_from, date_from, 
+                               date_to, date_to, 
+                               date_from, date_to, 
+                               o.id))
             
             sheet_ids = [r[0] for r in self.cr.fetchall()]
             sheets = timesheet_obj.browse(self.cr, self.uid, sheet_ids, context=self.localcontext)
@@ -191,11 +208,12 @@ class Parser(report_sxw.rml_parse):
         # get sheet before        
         if sheets:
            self.cr.execute("SELECT s.id FROM hr_timesheet_sheet_sheet s "
-                            " WHERE  s.date_to = ( SELECT MAX(s2.date_to) FROM hr_timesheet_sheet_sheet s2 "
-                                                                          " WHERE s2.date_to < %s )"
+                            " WHERE s.date_to = ( SELECT MAX(s2.date_to) FROM hr_timesheet_sheet_sheet s2 "
+                                                                          " WHERE s2.date_to < %s AND s2.employee_id = s.employee_id )"
                               " AND s.employee_id = %s "
                               " ORDER BY s.date_from "
                             , (sheets[0].date_from, sheets[0].employee_id.id))
+           
            query_res = self.cr.fetchall()
            if query_res:
                sheet_before = timesheet_obj.browse(self.cr, self.uid, query_res[0][0], context=self.localcontext)

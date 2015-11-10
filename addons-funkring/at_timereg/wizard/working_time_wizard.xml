@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+  
+    <record id="wizard_working_time" model="ir.ui.view">
+      <field name="name">at_timereg.working_time</field>
+      <field name="model">at_timereg.working.time.wizard</field>
+      <field name="arch" type="xml">
+        <form string="Working Time Report">
+          <group>
+            <field name="date"/>
+            <field name="months"/>
+          </group>
+          <footer>
+            <button name="action_print_working_time" default_focus="1" string="Working Report"  type="object" class="oe_highlight" />
+            <button name="action_print_time_only" string="Time Report"  type="object" />
+            or
+            <button special="cancel" string="Close" class="oe_link" />
+          </footer>
+        </form>
+      </field>
+    </record>
+    
+    <record id="action_working_time" model="ir.actions.act_window">
+        <field name="name">Working Time Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">at_timereg.working.time.wizard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="value_working_time"  model="ir.values" >
+        <field name="model_id" ref="at_timereg.model_at_timereg_working_time_wizard" />
+        <field name="name">Working Time Report</field>
+        <field name="key2">client_print_multi</field>
+        <field name="value" eval="'ir.actions.act_window,' + str(ref('action_working_time'))" />
+        <field name="key">action</field>
+        <field name="model">hr.employee</field>
+    </record>    
+       
+  </data>  
+</openerp>

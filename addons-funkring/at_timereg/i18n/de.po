@@ -1,20 +1,19 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* at_timereg
+#	* at_timereg
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-10 11:05+0000\n"
-"PO-Revision-Date: 2015-11-10 12:06+0100\n"
-"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
+"POT-Creation-Date: 2015-11-10 15:55+0000\n"
+"PO-Revision-Date: 2015-11-10 15:55+0000\n"
+"Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 1.5.4\n"
 
 #. module: at_timereg
 #: view:hr_timesheet_sheet.sheet:at_timereg.form_timesheet
@@ -42,6 +41,11 @@ msgid "Break Interval"
 msgstr "Pausen Interval"
 
 #. module: at_timereg
+#: view:at_timereg.working.time.wizard:at_timereg.wizard_working_time
+msgid "Close"
+msgstr "Schließen"
+
+#. module: at_timereg
 #: selection:calendar.event.type,leave_type:0
 msgid "Compensatory Days"
 msgstr "Zeitausgleich"
@@ -57,6 +61,21 @@ msgid "Correction"
 msgstr "Saldo Korrektur"
 
 #. module: at_timereg
+#: help:at_timereg.working.time.wizard,date:0
+msgid "Create working report from date, always the first day of the select month was taken"
+msgstr "Bestimmt das von Datum des Arbeitszeitenberichts.Das Datum wird aber immer auf den 1. des Monats abgerundet"
+
+#. module: at_timereg
+#: field:at_timereg.working.time.wizard,create_uid:0
+msgid "Created by"
+msgstr ""
+
+#. module: at_timereg
+#: field:at_timereg.working.time.wizard,create_date:0
+msgid "Created on"
+msgstr ""
+
+#. module: at_timereg
 #: field:hr_timesheet_sheet.sheet,current_saldo:0
 msgid "Current Saldo"
 msgstr "Stunden Saldo"
@@ -69,18 +88,17 @@ msgstr "Anwesenheit bis Heute"
 #. module: at_timereg
 #: help:hr_timesheet_sheet.sheet,remaining_leaves:0
 msgid "Current remaining holidays, is calculated over all"
-msgstr ""
-"Aktueller Resturlaub. Aktuelle Berechnung unabhängig vom Arbeitsbericht"
+msgstr "Aktueller Resturlaub. Aktuelle Berechnung unabhängig vom Arbeitsbericht"
+
+#. module: at_timereg
+#: field:at_timereg.working.time.wizard,date:0
+msgid "Date"
+msgstr "Datum"
 
 #. module: at_timereg
 #: model:ir.model,name:at_timereg.model_hr_employee
 msgid "Employee"
 msgstr "Mitarbeiter"
-
-#. module: at_timereg
-#: model:ir.actions.report.xml,name:at_timereg.report_employe_work_pdf
-msgid "Employee Work Report"
-msgstr "Mitarbeiter Bericht"
 
 #. module: at_timereg
 #: selection:calendar.event.type,leave_type:0
@@ -93,9 +111,29 @@ msgid "Holiday Taken"
 msgstr "Urlaub beansprucht"
 
 #. module: at_timereg
+#: help:at_timereg.working.time.wizard,months:0
+msgid "How many month should the report include"
+msgstr "Bestimmt wieviele Monate im Bericht inkludiert werden"
+
+#. module: at_timereg
+#: field:at_timereg.working.time.wizard,id:0
+msgid "ID"
+msgstr ""
+
+#. module: at_timereg
 #: field:hr_timesheet_sheet.sheet,last_saldo:0
 msgid "Last Saldo"
 msgstr "Letztes Saldo"
+
+#. module: at_timereg
+#: field:at_timereg.working.time.wizard,write_uid:0
+msgid "Last Updated by"
+msgstr ""
+
+#. module: at_timereg
+#: field:at_timereg.working.time.wizard,write_date:0
+msgid "Last Updated on"
+msgstr ""
 
 #. module: at_timereg
 #: model:ir.model,name:at_timereg.model_hr_holidays
@@ -117,6 +155,11 @@ msgstr "Abwesenheitstyp"
 #: model:ir.model,name:at_timereg.model_calendar_event_type
 msgid "Meeting Type"
 msgstr "Veranstaltungstyp"
+
+#. module: at_timereg
+#: field:at_timereg.working.time.wizard,months:0
+msgid "Months"
+msgstr "Monate"
 
 #. module: at_timereg
 #: field:hr_timesheet_sheet.sheet,remaining_leaves:0
@@ -146,14 +189,16 @@ msgid "Target"
 msgstr "Soll Anwesenheit"
 
 #. module: at_timereg
+#: view:at_timereg.working.time.wizard:at_timereg.wizard_working_time
+#: model:ir.actions.report.xml,name:at_timereg.report_employee_time
+#: model:ir.actions.report.xml,name:at_timereg.report_time_sheet
+msgid "Time Report"
+msgstr "Arbeitszeitbericht"
+
+#. module: at_timereg
 #: model:ir.model,name:at_timereg.model_hr_timesheet_sheet_sheet
 msgid "Timesheet"
 msgstr "Zeiterfassung"
-
-#. module: at_timereg
-#: model:ir.actions.report.xml,name:at_timereg.report_timesheet_work_pdf
-msgid "Timesheet Work Report"
-msgstr "Anwesenheitsbericht"
 
 #. module: at_timereg
 #: model:ir.model,name:at_timereg.model_hr_timesheet_sheet_sheet_day
@@ -174,3 +219,27 @@ msgstr "Arbeitszeit"
 #: help:hr.employee,working_hours:0
 msgid "Working Hours of the employee"
 msgstr "Arbeitsstunden des Mitarbeiters"
+
+#. module: at_timereg
+#: view:at_timereg.working.time.wizard:at_timereg.wizard_working_time
+#: model:ir.actions.report.xml,name:at_timereg.report_employee_working
+#: model:ir.actions.report.xml,name:at_timereg.report_working_sheet
+msgid "Working Report"
+msgstr "Arbeitszeitnachweis"
+
+#. module: at_timereg
+#: view:at_timereg.working.time.wizard:at_timereg.wizard_working_time
+#: model:ir.actions.act_window,name:at_timereg.action_working_time
+msgid "Working Time Report"
+msgstr "Arbeitszeitbericht"
+
+#. module: at_timereg
+#: model:ir.model,name:at_timereg.model_at_timereg_working_time_wizard
+msgid "Working Time Wizard"
+msgstr "Arbeitszeitbericht"
+
+#. module: at_timereg
+#: view:at_timereg.working.time.wizard:at_timereg.wizard_working_time
+msgid "or"
+msgstr "oder"
+

@@ -1,15 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
 	<data>	      
-		   <report id="report_employe_work_pdf" 
-               string="Employee Work Report" 
-               name="hr_employee_pdf" 
+		 <report id="report_working_sheet" 
+               string="Working Report" 
+               name="at_timereg.working.sheet" 
                auto="False" 
                report_type="aeroo" 
                model="hr_timesheet_sheet.sheet"
+               process_sep="True" 
                in_format="oo-odt" 
                out_format="oo-pdf" 
                parser="at_timereg/report/timesheet_report.py" 
-               rml="at_timereg/report/employee_report.odt"/>     
+               rml="at_timereg/report/employee_report.odt"/>
+               
+         <report id="report_employee_working" 
+               string="Working Report" 
+               name="at_timereg.employee.working" 
+               auto="False" 
+               menu="False"  
+               report_type="aeroo" 
+               model="hr.employee" 
+               process_sep="True" 
+               in_format="oo-odt"
+               out_format="oo-pdf" 
+               parser="at_timereg/report/timesheet_report.py" 
+               rml="at_timereg/report/employee_report.odt"/>        
 	</data>
 </openerp>

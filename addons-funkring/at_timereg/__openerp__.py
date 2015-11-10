@@ -37,9 +37,10 @@ HR Time Registration extensions
               "view/daily_timesheet_view.xml",
               "view/event_type_view.xml",
               "view/timesheet_view.xml",                            
-              "view/contract_view.xml",
+              "view/contract_view.xml",              
               "report/employee_report.xml",
-              "report/timesheet_report.xml"],
+              "report/timesheet_report.xml",
+              "wizard/working_time_wizard.xml"],
     "auto_install": False,
     "installable": True
 }

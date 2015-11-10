@@ -190,9 +190,13 @@ def getFirstOfMonth(inDate):
     inDate = strToDate(inDate)
     return dateToStr(date(inDate.year,inDate.month,1))
 
+def getFirstOfLastMonth():
+    cur_dt = datetime.now()
+    cur_dt -= relativedelta(months=1)  
+    return getFirstOfMonth(cur_dt)
+
 def getEndOfMonth(inDate):
     return getNextDayOfMonth(inDate)
-
 
 def getNextDayDate(inDate):
     day =  date(inDate.year,inDate.month,inDate.day);
