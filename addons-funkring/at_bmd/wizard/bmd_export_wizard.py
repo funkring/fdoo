@@ -332,11 +332,22 @@ class bmd_export_param(osv.TransientModel):
             if period_id and journal_ids:              
                 for journal in journal_obj.browse(cr,uid,journal_ids,context=context):
                     if journal.type in ("sale","sale_refund","purchase","purchase_refund"):
-                        invoice_ids = invoice_obj.search(cr,uid,[("period_id","=",period_id),("journal_id","=",journal.id),("state","in",("open","paid"))])
+                        
+                        inv_domain = [("period_id","=",period_id),("journal_id","=",journal.id),("state","in",("open","paid"))]
+                        if obj.number_from:
+                            inv_domain.append(("number",">=",obj.number_from))
+                                                        
+                        invoice_ids = invoice_obj.search(cr,uid,inv_domain)
                         for invoice in invoice_obj.browse(cr,uid,invoice_ids):
-                            exportInvoice(invoice)                        
+                            exportInvoice(invoice)                  
+                                  
                     elif journal.type in ("bank","cash"):
-                        move_ids = move_obj.search(cr, uid, [("period_id","=",period_id),("journal_id","=",journal.id),("state","=","posted")], context=context)
+                        
+                        move_domain = [("period_id","=",period_id),("journal_id","=",journal.id),("state","=","posted")]
+                        if obj.number_from:
+                            move_domain.append(("name",">=",obj.number_from))
+                        
+                        move_ids = move_obj.search(cr, uid, move_domain, context=context)
                         for move in move_obj.browse(cr,uid,move_ids,context=context):
                             exportMove(move)
                                                   
@@ -387,6 +398,7 @@ class bmd_export_param(osv.TransientModel):
         "profile_id" : fields.many2one("bmd.export.profile", "BMD Export Profile", required=True),
         "period_id" : fields.many2one("account.period", "Period", required=True),    
         "name" : fields.char("Name"),
+        "number_from" : fields.char("Ab Nummer",help="Export alle Belege ab der angegebenen Nummer"),
         "journal_ids" :fields.many2many("account.journal", "bmd_export_param_journal_rel", "bmd_export_param_id", "journal_id",string="Journals"),            
     }   
     _defaults = {

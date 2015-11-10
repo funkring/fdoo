@@ -13,6 +13,7 @@
 						</group>
 						<group>
 							<field name="name"/>
+							<field name="number_from"/>
 						</group>
 					</group>					
 					<footer>
