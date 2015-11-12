@@ -535,8 +535,19 @@ class bmd_export_result(osv.TransientModel):
                     output.write(line.steucod)
                 output.write(";")                
                 output.write(lf)
-            res["buerf"] = base64.encodestring(output.getvalue().encode("cp1252"))
-            output.close()
+
+            try:
+                res["buerf"] = base64.encodestring(output.getvalue().encode("cp1252","ignore"))
+            except UnicodeEncodeError:
+                line_no=1
+                for line in output.getvalue().split(lf):
+                    try:
+                        line.encode("cp1252")
+                        line_no+=1
+                    except UnicodeEncodeError:
+                        raise osv.except_osv("Fehler !","Falscher Zeichencode in Zeile %s\n%s" % (line_no, line))
+            finally:
+                output.close()
             
             #export stammdaten
             output = StringIO.StringIO()
