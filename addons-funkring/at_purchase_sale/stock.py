@@ -20,6 +20,8 @@
 
 from openerp.osv import fields,osv
 from openerp import SUPERUSER_ID, api
+from openerp.tools.float_utils import float_compare
+
 import re
 
 MATCH_BARCODE_STOCK_MOVE = re.compile("^SM([0-9]+)$")
