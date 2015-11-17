@@ -276,7 +276,7 @@ class account_invoice(osv.osv):
             ids = self.search(cr, user, [('partner_id',operator,name)] + args, limit=limit, context=context)
         return self.name_get(cr, user, ids, context)
 
-    def _get_subject(self,cr,uid,ids,field_name,arg,context=None):
+    def _get_subject(self, cr, uid, ids, field_name, arg, context=None):
         res = dict.fromkeys(ids)
         for invoice in self.browse(cr, uid, ids, context):
             if invoice.type=='out_invoice' and (invoice.state=='open' or invoice.state=='paid'):
@@ -297,6 +297,14 @@ class account_invoice(osv.osv):
                 res[invoice.id] = ''
         return res
 
+    def report_name_get(self, cr, uid, ids, context=None):
+        res = []
+        for invoice in self.browse(cr, uid, ids, context):
+            if invoice.number:
+                res.append((invoice.id,invoice.number))
+            else:
+                res.append((invoice.id,None))            
+        return res
 
     _inherit = "account.invoice"
     _columns = {

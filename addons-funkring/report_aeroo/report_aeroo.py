@@ -166,6 +166,37 @@ class Aeroo_report(report_sxw):
             return parser._load_objects(cr, uid, ids, report_xml, context)
         table_obj = RegistryManager.get(cr.dbname).get(self.table)
         return table_obj.browse(cr, uid, ids, context=context)
+    
+    def _onResult(self, cr, uid, objs, res, context=None):
+        report_meta = None
+        if not context is None:
+            report_meta = context.get("report_meta")
+        if not report_meta is None and objs and len(objs) == 1 and objs[0]._model:
+            obj = objs[0]
+            obj_name = None
+            
+            if hasattr(obj._model,"report_name_get"):
+                obj_name = obj._model.report_name_get(cr, uid, [obj.id], context=context)[0][1]
+            else:
+                obj_name = obj._model.name_get(cr, uid, [obj.id], context=context)[0][1]
+                
+            if obj_name:
+                obj_name = obj_name.strip()
+                
+            if obj_name:
+                first_name = report_meta.get("name")            
+                if not first_name:
+                    report_meta["name"] = obj_name 
+                else:
+                    report_meta["name"] = min(obj_name,first_name)
+                    
+                last_name = report_meta.get("last_name")
+                if not last_name:
+                    report_meta["last_name"] = obj_name
+                else:
+                    report_meta["last_name"] = max(obj_name,last_name)
+                
+        return res
 
     ##### Counter functions #####
     def _def_inc(self, name, start=0, interval=1):
@@ -370,13 +401,14 @@ class Aeroo_report(report_sxw):
                 data = data.replace('<binary_data>', img, 1)
             return data.replace('\n', '\r\n')
 
-        if not context:
+        if context is None:
             context={}
-        context = context.copy()
+        else:
+            context = context.copy()
         
         # get parser and objects
         oo_parser = self.parser(cr, uid, self.name2, context=context)
-        object = self.getObjects_mod(cr, uid, ids, report_xml, context, parser=oo_parser)
+        objects = self.getObjects_mod(cr, uid, ids, report_xml, context, parser=oo_parser)
         oo_parser.objects = objects
         
         self.set_xml_data_fields(objects, oo_parser) # Get/Set XML
@@ -402,7 +434,7 @@ class Aeroo_report(report_sxw):
 
         if report_xml.content_fname:
             output = report_xml.content_fname
-        return data, output
+        return self._onResult(cr, uid, objects, (data, output), context=context)
 
     def _aeroo_ooo_test(self, cr):
         '''
@@ -419,10 +451,11 @@ class Aeroo_report(report_sxw):
         """ Returns an aeroo report generated with aeroolib
         """
         pool = RegistryManager.get(cr.dbname)
-        if not context:
+        if context is None:
             context={}
-
-        context = context.copy()
+        else:
+            context = context.copy()
+            
         if self.name=='report.printscreen.list':
             context['model'] = data['model']
             context['ids'] = ids
@@ -541,12 +574,10 @@ class Aeroo_report(report_sxw):
 
         if report_xml.content_fname:
             output = report_xml.content_fname
-        return data, output
+        return self._onResult(cr, uid, objects, (data, output), context=context)
 
     # override needed to keep the attachments' storing procedure
     def create_single_pdf(self, cr, uid, ids, data, report_xml, context=None):
-        if not context:
-            context={}
         if report_xml.report_type == 'aeroo':
             if report_xml.out_format.code.startswith('oo-'):
                 output = report_xml.out_format.code[3:]
@@ -555,8 +586,13 @@ class Aeroo_report(report_sxw):
                 return self.create_aeroo_report(cr, uid, ids, data, report_xml, context=context, output=output)
             elif report_xml.out_format.code =='genshi-raw':
                 return self.create_genshi_raw_report(cr, uid, ids, data, report_xml, context=context, output='raw')
-        logo = None
-        context = context.copy()
+        
+        logo = None        
+        if context is None:
+            context={}
+        else:
+            context = context.copy()
+            
         title = report_xml.name
         rml = report_xml.report_rml_content
         oo_parser = self.parser(cr, uid, self.name2, context=context)
@@ -569,7 +605,7 @@ class Aeroo_report(report_sxw):
             logo = base64.decodestring(oo_parser.logo)
         create_doc = self.generators[report_xml.report_type]
         pdf = create_doc(etree.tostring(processed_rml),oo_parser.localcontext,logo,title.encode('utf8'))
-        return (pdf, report_xml.report_type)
+        return self._onResult(cr, uid, objects, (pdf, report_xml.report_type), context=context)
 
     def create_source_pdf(self, cr, uid, ids, data, report_xml, context=None):
         if not context:

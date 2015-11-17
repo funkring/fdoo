@@ -77,6 +77,9 @@ def exp_report(db, uid, object, ids, datas=None, context=None):
         datas={}
     if not context:
         context={}
+    else:
+        # copy context 
+        context=dict(context)
 
     self_id_protect.acquire()
     global self_id
@@ -84,18 +87,31 @@ def exp_report(db, uid, object, ids, datas=None, context=None):
     id = self_id
     self_id_protect.release()
 
-    self_reports[id] = {'uid': uid, 'result': False, 'state': False, 'exception': None}
+    self_reports[id] = {'uid': uid, 'result': False, 'state': False, 'exception': None, 'name': None}
 
     def go(id, uid, ids, datas, context):
         with openerp.api.Environment.manage():
             cr = openerp.registry(db).cursor()
             try:
+                # funkring.net - begin
+                context["report_meta"] = {}
+                # funkrnig.net - end
                 result, format = openerp.report.render_report(cr, uid, ids, object, datas, context)
                 if not result:
                     tb = sys.exc_info()
                     self_reports[id]['exception'] = openerp.exceptions.DeferredException('RML is not available at specified location or not enough data to print!', tb)
                 self_reports[id]['result'] = result
-                self_reports[id]['format'] = format
+                self_reports[id]['format'] = format                
+                # funkring.net - begin
+                report_meta = context.get("report_meta")
+                if report_meta:
+                    name = report_meta.get('name')
+                    last_name = report_meta.get('last_name')
+                    if name and last_name and name != last_name:
+                        self_reports[id]['name'] = "%s_%s" % (name, last_name)
+                    else:                        
+                        self_reports[id]['name'] = name
+                # funkrnig.net - end
                 self_reports[id]['state'] = True
             except Exception, exception:
                 _logger.exception('Exception: %s\n', exception)
@@ -132,6 +148,9 @@ def _check_report(report_id):
         if res2:
             res['result'] = base64.encodestring(res2)
         res['format'] = result['format']
+        # funkring.net - begin
+        res['name'] = result['name']
+        # funkring.net - end
         del self_reports[report_id]
     return res
 

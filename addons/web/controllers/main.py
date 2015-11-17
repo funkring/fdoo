@@ -1552,6 +1552,27 @@ class Reports(http.Controller):
         'sxw': 'application/vnd.sun.xml.writer',
         'xls': 'application/vnd.ms-excel',
     }
+    
+    #funkring.net - begin
+    def _cleanFileName(self, inName):
+        repl_map = {
+                "Ö" : "Oe",
+                "Ü" : "Ue",
+                "Ä" : "Ae",
+                "ö" : "oe",
+                "ü" : "ue",
+                "ä" : "ae"
+        }
+    
+    
+        for key,value in repl_map.iteritems():
+            inName = inName.replace(key,value)
+    
+        inName = inName.replace(", ","_")
+        inName = inName.replace(" ","_")
+        inName = re.sub("[^a-zA-Z0-9\-_ ,]","",inName)
+        return inName
+    #funkring.ent - end
 
     @http.route('/web/report', type='http', auth="user")
     @serialize_exception
@@ -1590,6 +1611,7 @@ class Reports(http.Controller):
             report = zlib.decompress(report)
         report_mimetype = self.TYPES_MAPPING.get(
             report_struct['format'], 'octet-stream')
+        
         file_name = action.get('name', 'report')
         if 'name' not in action:
             reports = request.session.model('ir.actions.report.xml')
@@ -1599,8 +1621,13 @@ class Reports(http.Controller):
                 file_name = reports.read(res_id[0], ['name'], context)['name']
             else:
                 file_name = action['report_name']
+        # funkring.net - begin
+        report_name = report_struct.get("name")
+        if report_name:
+            file_name = '%s %s' % (file_name, report_name)
+        file_name = self._cleanFileName(file_name)
+        # funkring.net - end
         file_name = '%s.%s' % (file_name, report_struct['format'])
-
         return request.make_response(report,
              headers=[
                  ('Content-Disposition', content_disposition(file_name)),
