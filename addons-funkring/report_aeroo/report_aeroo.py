@@ -637,7 +637,7 @@ class Aeroo_report(report_sxw):
                         attachment = attachment_obj.browse(cr, uid, attachment_id)
                         if attachment.datas:
                             d = base64.decodestring(attachment.datas)
-                            result = (d,extension,attachment.name,attachment.datas_fname)
+                            result = self._onResult(cr, uid, objs, (d,extension,attachment.name,attachment.datas_fname), context=context)
                         else:
                             logger.error("Attachment for %s - %s for reloading does not exists. Try to create a new one..." % (aname,fname))
 
