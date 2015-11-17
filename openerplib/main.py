@@ -233,7 +233,7 @@ class JsonRPCSConnector(Connector):
         :param hostname: The hostname of the computer holding the instance of OpenERP.
         :param port: The port used by the OpenERP instance for JsonRPC (default to 8069).
         """
-        super(Connector,self).__init__("https",hostname,port)
+        super(JsonRPCSConnector,self).__init__("https", hostname, port)
         self.url = 'https://%s:%d/jsonrpc' % (hostname, port)
 
     def send(self, service_name, method, *args):
