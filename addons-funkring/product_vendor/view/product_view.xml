@@ -12,6 +12,7 @@
                             <label class="oe_edit_only" for="name" string="Product Name"/>
                             <field name="name" invisible="1" required="0"/>
                             <h1><field name="name2"/></h1>
+                            <label class="oe_edit_only" for="manufacturer" string="Manufacturer"/>
                             <h3><field name="manufacturer"/></h3>
                         </div>
                     </div>
