@@ -7,7 +7,7 @@
             <field name="arch" type="xml">
                 <data>
                     <field name="account_id" position="after">
-                        <field name="shop_id"/>
+                        <field name="shop_id" on_change="onchange_shop(shop_id, company_id, partner_id, type, invoice_line, currency_id)"/>
                     </field>
                 </data>
             </field>

@@ -24,6 +24,17 @@ from openerp.osv import fields,osv
 
 class account_invoice(osv.osv):
     
+    def onchange_shop(self, cr, uid, ids, shop_id, company_id, part_id, type, invoice_line, currency_id):
+        if shop_id and company_id:
+            shop_obj = self.pool["sale.shop"]
+            shop = shop_obj.browse(cr, uid, shop_id)
+            if shop and shop.company_id and shop.company_id.id != company_id:
+                new_company_id = shop.company_id.id
+                res = self.onchange_company_id(cr, uid, ids, new_company_id, part_id, type, invoice_line, currency_id)
+                res["value"]["company_id"] = new_company_id
+                return res            
+        return {}
+    
     def _default_shop_id(self, cr, uid, context=None):
         company_id = self.pool["res.company"]._company_default_get(cr, uid, "account.invoice", context=context)
         res = None
