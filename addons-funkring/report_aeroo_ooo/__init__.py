@@ -27,7 +27,7 @@
 ##############################################################################
 
 import report
-import installer
+import res_config
     
 try:
     import DocumentConverter

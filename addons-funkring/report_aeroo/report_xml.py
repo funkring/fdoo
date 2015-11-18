@@ -102,7 +102,6 @@ class Report(osv.Model):
     
 
 class report_xml(osv.osv):
-    _name = 'ir.actions.report.xml'
     _inherit = 'ir.actions.report.xml'
 
     def load_from_file(self, path, dbname, key):
@@ -246,7 +245,6 @@ class report_xml(osv.osv):
 
     _columns = {
         'charset':fields.selection(_get_encodings, string='Charset', required=True),
-        'content_fname': fields.char('Override Extension',size=64, help='Here you can override output file extension'),
         'styles_mode': fields.selection([
             ('default','Not used'),
             ('global', 'Global'),
@@ -276,6 +274,7 @@ class report_xml(osv.osv):
         'in_format': fields.selection(_get_in_mimetypes, 'Template Mime-type'),
         'out_format':fields.many2one('report.mimetypes', 'Output Mime-type'),
         'active':fields.boolean('Active'),
+        'process_sep':fields.boolean('Process separately'),
         'user_defined' : fields.boolean('User Defined')
     }
 

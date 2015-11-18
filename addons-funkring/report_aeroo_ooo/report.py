@@ -29,33 +29,15 @@
 from openerp.osv import osv,fields
 from DocumentConverter import DocumentConverter
 
-class oo_service(DocumentConverter):
-    def __init__(self, cr, host=None, port=None):
-        if host is None and port is None:
-            cr.execute("SELECT host, port FROM oo_config")
-            host, port = cr.fetchone()
-        DocumentConverter.__init__(self, host, port)
-
-class oo_config(osv.osv):
-    '''
-        OpenOffice connection
-    '''
-    _name = 'oo.config'
-    _description = 'OpenOffice connection'
-
-    _columns = {
-        'host':fields.char('Host', size=128, required=True),
-        'port': fields.integer('Port', required=True),
-    }
-    
-    def _lookup_service(self, cr, uid, context=None):
-        return oo_service(cr)
-
-
 class report_xml(osv.osv):
     _name = 'ir.actions.report.xml'
     _inherit = 'ir.actions.report.xml'
 
-    _columns = {
-        'process_sep':fields.boolean('Process separately'),
-    }
+    def _new_ooproxy(self, cr, uid, host=None, port=None, context=None):
+        param_obj = self.pool["ir.config_parameter"]
+        if host is None:
+            host = param_obj.get_param(cr, uid, "host", default="127.0.0.1", context=context)
+        if port is None:
+            port = int(param_obj.get_param(cr, uid, "port", default="8099", context=context))
+        return DocumentConverter(host, port)
+        

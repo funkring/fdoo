@@ -22,19 +22,17 @@
 
 {
     'name': 'Aeroo Reports',
-    'version': '1.0',
+    'version': '2.0',
     'category': 'Generic Modules/Aeroo Reporting',
     'description': """Gives possibility to easily create complicated reports.
                     Requires "aeroolib" to be installed.
                     """,
-    'author': 'Alistek Ltd, Simone Orsi - Domsense',
+    'author': 'Alistek Ltd featured by Martin Reisenhofer',
     'website': 'http://www.alistek.com',
     'depends': ['base','report'],    
     'data': ["security.xml",
                    "report_view.xml", 
                    "data/report_aeroo_data.xml", 
-                   "wizard/add_print_button_view.xml",
-                   "wizard/remove_print_button_view.xml",
                    "security/ir.model.access.csv"                   
                    ],
     'installable': True,

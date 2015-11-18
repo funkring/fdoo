@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <report id="report_ticket_list_pdf"
+               string="Issue List"
+               name="issue.list.pdf"
+               auto="False"
+               report_type="aeroo" 
+               model="project.issue"
+               stylesheet="intern_landscape"
+               in_format="oo-odt"
+               out_format="oo-pdf"
+               parser="at_project/report/project_issue_report.py"
+               rml="at_project/report/ticket_list_report.odt"/>
+    </data>
+</openerp>

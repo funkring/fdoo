@@ -367,6 +367,8 @@ form: module.record_id""" % (xml_id,)
                         stylesheet_ids = self.pool.get("report.stylesheets").search(cr,self.uid,[("name","=",value)])
                         assert stylesheet_ids, "Stylesheet %s not found!" % (value,)
                         res["stylesheet_id"]=stylesheet_ids[0]
+                elif field == "process_sep":
+                    res["process_sep"] = eval(rec.get('process_sep','False'))
                 else:
                     res[dest] = rec.get(field).encode('utf8')
                 #funkrnig.net end

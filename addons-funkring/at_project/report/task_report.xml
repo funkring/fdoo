@@ -8,7 +8,7 @@
                report_type="aeroo"
                process_sep="True"
                model="project.task"
-               stylesheet="global"
+               stylesheet="intern"
                in_format="oo-odt"
                out_format="oo-pdf"
                parser="at_project/report/task_report.py"

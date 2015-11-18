@@ -431,9 +431,6 @@ class Aeroo_report(report_sxw):
         basic = NewTextTemplate(source=base64.decodestring(file_data))
 
         data = preprocess(basic.generate(**oo_parser.localcontext).render().decode('utf8').encode(report_xml.charset))
-
-        if report_xml.content_fname:
-            output = report_xml.content_fname
         return self._onResult(cr, uid, objects, (data, output), context=context)
 
     def _aeroo_ooo_test(self, cr):
@@ -462,10 +459,10 @@ class Aeroo_report(report_sxw):
 
         oo_parser = self.parser(cr, uid, self.name2, context=context)
         objects = not context.get('no_objects', False) and self.getObjects_mod(cr, uid, ids, report_xml, context, parser=oo_parser) or []
+        report_obj = pool.get("ir.actions.report.xml")
         
         # report replacement
-        if objects and len(objects) == 1:
-            report_obj = pool.get("ir.actions.report.xml")
+        if objects and len(objects) == 1:            
             # get replacement
             repl_report_xml, style_io = report_obj._get_replacement(cr, uid, objects[0], report_xml, context=context)
             if repl_report_xml:
@@ -548,7 +545,7 @@ class Aeroo_report(report_sxw):
             if aeroo_ooo:
                 # build sub report
                 def build_report(data,retry=AEROO_RETRIES):
-                    with RegistryManager.get(cr.dbname).get("oo.config")._lookup_service(cr,uid,context=context) as DC:
+                    with report_obj._new_ooproxy(cr, uid, context=context) as DC:
                         try:
                             DC.putDocument(data)
                             if self.oo_subreports:
@@ -571,9 +568,6 @@ class Aeroo_report(report_sxw):
         elif output in ('pdf', 'doc', 'xls'):
             output=report_xml.in_format[3:]
         #####################################
-
-        if report_xml.content_fname:
-            output = report_xml.content_fname
         return self._onResult(cr, uid, objects, (data, output), context=context)
 
     # override needed to keep the attachments' storing procedure
@@ -700,6 +694,7 @@ class Aeroo_report(report_sxw):
         if not context:
             context={}
         pool = RegistryManager.get(cr.dbname)
+        report_obj = pool.get("ir.actions.report.xml")
         results = []
         attach = report_xml.attachment
         aeroo_ooo = self._aeroo_ooo_test(cr) # Detect report_aeroo_ooo module
@@ -744,7 +739,7 @@ class Aeroo_report(report_sxw):
         else:
             def build_report(retry=AEROO_RETRIES):
                 try:
-                    with RegistryManager.get(cr.dbname).get("oo.config")._lookup_service(cr,uid,context=context) as DC:
+                    with report_obj._new_ooproxy(cr,uid,context=context) as DC:
                         if DC:
                             doc_list = list(reversed(results))
                             doc_data = doc_list.pop()

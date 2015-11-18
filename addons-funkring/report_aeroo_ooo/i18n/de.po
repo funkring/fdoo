@@ -1,30 +1,96 @@
-# Translation of OpenERP Server.
+# Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* report_aeroo_ooo
+# 	* report_aeroo_ooo
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 8.0alpha1\n"
+"Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-15 19:17+0000\n"
-"PO-Revision-Date: 2013-08-16 09:39+0100\n"
+"POT-Creation-Date: 2015-11-18 13:25+0000\n"
+"PO-Revision-Date: 2015-11-18 14:29+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"X-Generator: Poedit 1.5.4\n"
 
 #. module: report_aeroo_ooo
-#: model:ir.actions.act_window,name:report_aeroo_ooo.action_aeroo_config_wizard
-#: model:ir.ui.menu,name:report_aeroo_ooo.menu_oo_config_wizard
-msgid "Configure OpenOffice.org connection"
-msgstr "OpenOffice.org Verbindung konfigurieren"
+#: model:ir.actions.act_window,name:report_aeroo_ooo.action_aeroo_report_settings
+#: model:ir.ui.menu,name:report_aeroo_ooo.menu_aeroo_report_settings
+msgid "Aeroo Report"
+msgstr ""
 
 #. module: report_aeroo_ooo
-#: help:aeroo_config.installer,link:0
-msgid "Installation (Dependencies and Base system setup)"
-msgstr "Installation (Abhängigkeiten und Basis System Setup)"
+#: model:ir.model,name:report_aeroo_ooo.model_aeroo_report_config
+msgid "Aeroo Report Configuration"
+msgstr "Aeroo Report Konfiguration"
+
+#. module: report_aeroo_ooo
+#: view:aeroo.report.config:report_aeroo_ooo.form_aeroo_report_settings
+msgid "Apply"
+msgstr "Anwenden"
+
+#. module: report_aeroo_ooo
+#: view:aeroo.report.config:report_aeroo_ooo.form_aeroo_report_settings
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#. module: report_aeroo_ooo
+#: view:aeroo.report.config:report_aeroo_ooo.form_aeroo_report_settings
+msgid "Configure Aeroo Reports"
+msgstr "Aeroo Report Konfiguration"
+
+#. module: report_aeroo_ooo
+#: field:aeroo.report.config,create_uid:0
+msgid "Created by"
+msgstr ""
+
+#. module: report_aeroo_ooo
+#: field:aeroo.report.config,create_date:0
+msgid "Created on"
+msgstr ""
+
+#. module: report_aeroo_ooo
+#: help:aeroo.report.config,port:0
+msgid "Default is 8099"
+msgstr "Standard Port ist 8099"
+
+#. module: report_aeroo_ooo
+#: help:aeroo.report.config,host:0
+msgid "Default is localhost"
+msgstr "Standard host ist localhost"
+
+#. module: report_aeroo_ooo
+#: field:aeroo.report.config,host:0
+msgid "Host"
+msgstr ""
+
+#. module: report_aeroo_ooo
+#: field:aeroo.report.config,id:0
+msgid "ID"
+msgstr ""
+
+#. module: report_aeroo_ooo
+#: field:aeroo.report.config,write_uid:0
+msgid "Last Updated by"
+msgstr ""
+
+#. module: report_aeroo_ooo
+#: field:aeroo.report.config,write_date:0
+msgid "Last Updated on"
+msgstr ""
+
+#. module: report_aeroo_ooo
+#: view:aeroo.report.config:report_aeroo_ooo.form_aeroo_report_settings
+msgid "OpenOffice/LibreOffice Proxy"
+msgstr ""
+
+#. module: report_aeroo_ooo
+#: field:aeroo.report.config,port:0
+msgid "Port"
+msgstr ""
 
 #. module: report_aeroo_ooo
 #: field:ir.actions.report.xml,process_sep:0
@@ -32,129 +98,11 @@ msgid "Process separately"
 msgstr "Getrennt verarbeiten"
 
 #. module: report_aeroo_ooo
-#: selection:aeroo_config.installer,state:0
-msgid "Init"
-msgstr "Initialisierung"
+#: view:aeroo.report.config:report_aeroo_ooo.form_aeroo_report_settings
+msgid "Test"
+msgstr ""
 
 #. module: report_aeroo_ooo
-#: model:ir.model,name:report_aeroo_ooo.model_oo_config
-msgid "OpenOffice connection"
-msgstr "OpenOffice Verbindung"
-
-#. module: report_aeroo_ooo
-#: code:addons/report_aeroo_ooo/installer.py:140
-#, python-format
-msgid "Connection to the OpenOffice.org instance was successfully established and PDF convertion is working."
-msgstr "Verbindung zu OpenOffice.org Server war erfolgreich, PDF Konvertierung funktioniert."
-
-#. module: report_aeroo_ooo
-#: field:aeroo_config.installer,link:0
-msgid "Installation Manual"
-msgstr "Installationshandbuch"
-
-#. module: report_aeroo_ooo
-#: view:aeroo_config.installer:0
-msgid "title"
-msgstr "Titel"
-
-#. module: report_aeroo_ooo
-#: code:addons/report_aeroo_ooo/DocumentConverter.py:168
-#: code:addons/report_aeroo_ooo/DocumentConverter.py:180
-#, python-format
-msgid "Error inserting file %s on the OpenOffice document: %s"
-msgstr "Fehler beim einfügen der Datei %s in OpenOffice Dokument: %s"
-
-#. module: report_aeroo_ooo
-#: model:ir.model,name:report_aeroo_ooo.model_aeroo_config_installer
-msgid "aeroo_config.installer"
-msgstr "Installer"
-
-#. module: report_aeroo_ooo
-#: field:aeroo_config.installer,error_details:0
-msgid "Error Details"
-msgstr "Fehler Details"
-
-#. module: report_aeroo_ooo
-#: view:aeroo_config.installer:0
-msgid "Here you can configure Aeroo connection to OpenOffice.org and test now document conversion."
-msgstr "Hier können sie die OpenOffice.org Server Verbindung konfigurieren und testen"
-
-#. module: report_aeroo_ooo
-#: field:aeroo_config.installer,host:0
-#: field:oo.config,host:0
-msgid "Host"
-msgstr "Host"
-
-#. module: report_aeroo_ooo
-#: view:aeroo_config.installer:0
-#: model:ir.actions.act_window,name:report_aeroo_ooo.action_aeroo_config_installer
-msgid "OpenOffice.org connection Configuration"
-msgstr "OpenOffice.org Verbindungskonfiguration"
-
-#. module: report_aeroo_ooo
-#: view:aeroo_config.installer:0
-msgid "Continue"
-msgstr "Fortfahren"
-
-#. module: report_aeroo_ooo
-#: selection:aeroo_config.installer,state:0
-msgid "Error"
-msgstr "Fehler"
-
-#. module: report_aeroo_ooo
-#: code:addons/report_aeroo_ooo/installer.py:138
-#, python-format
-msgid "Connection to OpenOffice.org instance was not established or convertion to PDF unsuccessful!"
-msgstr "Verbindung zu OpenOffice.org Server konnte nicht hergestellt werden oder PDF Konvertierung ist fehlgeschlagen!"
-
-#. module: report_aeroo_ooo
-#: field:aeroo_config.installer,config_logo:0
-msgid "Image"
-msgstr "Bild"
-
-#. module: report_aeroo_ooo
-#: field:aeroo_config.installer,state:0
-msgid "State"
-msgstr "Status"
-
-#. module: report_aeroo_ooo
-#: view:aeroo_config.installer:0
+#: view:aeroo.report.config:report_aeroo_ooo.form_aeroo_report_settings
 msgid "or"
 msgstr "oder"
-
-#. module: report_aeroo_ooo
-#: selection:aeroo_config.installer,state:0
-msgid "Done"
-msgstr "Erledigt"
-
-#. module: report_aeroo_ooo
-#: view:aeroo_config.installer:0
-msgid "Connect"
-msgstr "Verbinden"
-
-#. module: report_aeroo_ooo
-#: view:aeroo_config.installer:0
-msgid "Close"
-msgstr "Schließen"
-
-#. module: report_aeroo_ooo
-#: field:aeroo_config.installer,msg:0
-msgid "Message"
-msgstr "Nachricht"
-
-#. module: report_aeroo_ooo
-#: field:aeroo_config.installer,port:0
-#: field:oo.config,port:0
-msgid "Port"
-msgstr "Port"
-
-#. module: report_aeroo_ooo
-#: model:ir.model,name:report_aeroo_ooo.model_ir_actions_report_xml
-msgid "ir.actions.report.xml"
-msgstr "Report Aktion"
-
-#. module: report_aeroo_ooo
-#: view:aeroo_config.installer:0
-msgid "Details"
-msgstr "Details"
-

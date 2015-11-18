@@ -1,92 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 	<data>
-		<record model="ir.ui.view" id="act_report_xml_view1">
-			<field name="name">ir.actions.report.xml.aeroo.form</field>
+		<record model="ir.ui.view" id="form_aeroo_report">
+			<field name="name">report_aeroo.form_aeroo_report</field>
 			<field name="model">ir.actions.report.xml</field>
 			<field name="priority">14</field>
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Aeroo Report">
-					<group col="6" colspan="4">
-						<field name="name" select="1" />
-						<field name="model" select="1" />
-						<field name="type" select="1" invisible="1" />
-
-						<field name="report_name" select="1" />
-						<field name="usage" />
-						<field name="report_type" invisible="1" />
-						<field name="user_defined" />
-					</group>
-					<group col="4" colspan="4">
-						<field name="in_format" required="1"
-							on_change="change_input_format(in_format)" />
-						<field name="out_format" required="1"
-							domain="[('compatible_types','=',in_format)]" />
-						<field name="content_fname" />
-					</group>
-
-					<notebook colspan="4">
-						<page string="Other Configuration">
-							<separator string="Template" colspan="4" />
-							<group colspan="4" col="2">
-								<field name="tml_source" colspan="2" required="1" />
-								<field name="report_sxw_content_data" colspan="2"
-									string="Template Content"
-									attrs="{'invisible': [('tml_source','&lt;&gt;','database')],'required': [('tml_source','=','database')]}" />
-								<field name="report_rml" colspan="2" string="Template path"
-									attrs="{'invisible': [('tml_source','&lt;&gt;','file')],'required': [('tml_source','=','file')]}" />
-							</group>
-							<group attrs="{'invisible': [('in_format','=','genshi-raw')]}"
-								colspan="4">
-								<separator string="Stylesheet" colspan="4" />
-								<group colspan="4" col="8">
-									<field name="styles_mode" colspan="2" />
-									<group colspan="6">
-										<field name="stylesheet_id"
-											attrs="{'invisible': [('styles_mode','&lt;&gt;','specified')]}" />
-									</group>
-								</group>
-							</group>
-							<group attrs="{'invisible': [('in_format','&lt;&gt;','genshi-raw')]}"
-								colspan="4" col="8">
-								<field name="charset" colspan="2" />
-								<separator colspan="2" />
-							</group>
-							<group col="2" colspan="2">
-								<separator string="Attachments" colspan="2" />
-								<group colspan="2">
-									<field name="attachment" />
-								</group>
-								<field name="attachment_use" colspan="2" />
-							</group>
-							<group col="2" colspan="2">
-								<separator string="Miscellaneous" colspan="2" />
-								<field name="multi" colspan="2" />
-							</group>
-						</page>
-						<page string="Parser">
-							<field name="parser_state" />
-							<newline />
-							<group attrs="{'invisible': [('parser_state','&lt;&gt;','def')]}"
-								colspan="4" expand="1">
-								<separator string="Parser Definition" colspan="4" />
-								<field name="parser_def" nolabel="1" />
-							</group>
-							<field name="parser_loc"
-								attrs="{'invisible': [('parser_state','&lt;&gt;','loc')],'required': [('parser_state','=','loc')]}" />
-						</page>
-						<page string="Advanced">
-							<field name="preload_mode"
-								attrs="{'invisible': ['|',('in_format','=','genshi-raw'),('tml_source','=','parser')]}" />
-							<field name="active" select="1" />
-						</page>
-						<page string="Security">
-							<separator string="Groups" colspan="4" />
-							<field colspan="4" name="groups_id" nolabel="1" />
-						</page>
-					</notebook>
-
+				    <group>
+				        <group>
+				            <field name="name"/>
+                            <field name="model"/>
+                            <field name="type" invisible="1" />		
+                            <field name="active"/>
+				        </group>
+				        <group>
+				            <field name="report_name"/>
+                            <field name="report_type" invisible="1" />
+                            <field name="user_defined" />       				        
+				        </group>				        
+				    </group>
+                    <notebook>
+                        <page string="Style/Format">
+                            <group>
+                                <group string="Template">
+                                    <field name="tml_source" />
+                                    <field name="report_sxw_content_data" 
+                                        string="Template Content"
+                                        attrs="{'invisible': [('tml_source','!=','database')],'required': [('tml_source','=','database')]}" />
+                                    <field name="report_rml" string="Template path"
+                                        attrs="{'invisible': [('tml_source','!=','file')],'required': [('tml_source','=','file')]}" />
+                                </group>
+                                <group string="Style">
+                                    <field name="styles_mode"/>
+                                    <field name="stylesheet_id"
+                                            attrs="{'invisible': [('styles_mode','!=','specified')]}" />
+                                </group>
+                                <group string="Attachment">
+                                    <field name="attachment_use"/>
+                                    <field name="attachment" />
+                                </group>
+                                <group string="Format">
+                                    <field name="process_sep"/>
+                                    <field name="in_format" required="1"
+                                        on_change="change_input_format(in_format)" />
+                                    <field name="out_format" required="1"
+                                        domain="[('compatible_types','=',in_format)]" />
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Parser">
+                            <group>
+                                <group>
+                                    <field name="parser_state" />
+                                    <field name="parser_def" attrs="{'invisible': [('parser_state','!=','def')]}"/>
+                                    <field name="parser_loc" attrs="{'invisible': [('parser_state','!=','loc')],'required': [('parser_state','=','loc')]}" />
+                                </group>
+                            </group>
+                        </page>     
+                        <page string="Security">
+                            <field name="groups_id"/>
+                        </page>                   
+                    </notebook>
 				</form>
 			</field>
 		</record>
@@ -113,20 +89,16 @@
 			<field name="type">search</field>
 			<field name="arch" type="xml">
 				<search string="Report xml">
-					<group col="10" colspan="4">
-						<field name="name" />
-						<field name="model" />
-						<field name="type" />
-						<field name="in_format" />
-						<field name="out_format" />
-					</group>
-					<newline />
-					<group expand="0" string="Group By" colspan="4">
+					<field name="name" />
+					<field name="model" />
+					<field name="type" />
+					<field name="in_format" />
+					<field name="out_format" />
+					<group expand="0" string="Group By">
 						<filter string="Template Mime-type" icon="terp-stock_symbol-selection"
 							domain="[]" context="{'group_by':'in_format'}" />
 						<filter string="Output Mime-type" icon="terp-stock_symbol-selection"
 							domain="[]" context="{'group_by':'out_format'}" />
-						<separator orientation="vertical" />
 						<filter string="Template Source" icon="gtk-copy" domain="[]"
 							context="{'group_by':'tml_source'}" />
 					</group>
@@ -157,8 +129,14 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Report Stylesheet">
-					<field name="name" select="1" colspan="4" />
-					<field name="report_styles" />
+				    <group>
+				        <group>
+				            <field name="name"/>
+				        </group>
+				        <group>
+                            <field name="report_styles"/>
+                        </group>
+				    </group>
 				</form>
 			</field>
 		</record>
@@ -202,8 +180,6 @@
 		</record>
 		<!--======================== -->
 
-		<function model="ir.actions.report.xml" name="_set_auto_false" />
-
 		<menuitem name="Aeroo Reports" id="menu_ir_action_aeroo_reports_xml"
 			parent="base.menu_custom" />
 
@@ -219,7 +195,7 @@
 		</record>
 
 		<record model="ir.actions.act_window.view" id="act_aeroo_report_xml_tree_view">
-			<field name="sequence" eval="1" />
+			<field name="sequence" eval="0" />
 			<field name="view_mode">tree</field>
 			<field name="view_id" ref="act_aeroo_report_xml_view_tree" />
 			<field name="act_window_id" ref="action_aeroo_report_xml_tree" />
@@ -228,7 +204,7 @@
 		<record model="ir.actions.act_window.view" id="act_aeroo_report_xml_form_view">
 			<field name="sequence" eval="1" />
 			<field name="view_mode">form</field>
-			<field name="view_id" ref="act_report_xml_view1" />
+			<field name="view_id" ref="form_aeroo_report" />
 			<field name="act_window_id" ref="action_aeroo_report_xml_tree" />
 		</record>
 

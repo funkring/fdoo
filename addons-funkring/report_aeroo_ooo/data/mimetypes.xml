@@ -1,12 +1,7 @@
 <?xml version="1.0"?>
 <openerp>
-    <data noupdate="1">
-
-	    <record model="oo.config" id="oo_con_config">
-		    <field name="host">localhost</field>
-		    <field name="port">8100</field>
-	    </record>
-
+    <data>
+	   
 	    <record model="report.mimetypes" id="report_mimetypes_pdf_odt" >
 		    <field name="name">PDF - Portable Document Format (.pdf)</field>
 		    <field name="code">oo-pdf</field>
