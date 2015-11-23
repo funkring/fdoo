@@ -1,0 +1,36 @@
+<openerp>
+  <data>
+   
+        <record id='sale_layout.report_configuration_action' model='ir.actions.act_window'>
+            <field name="name">Report Configuration</field>
+            <field name="res_model">sale_layout.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('order_id','=',False)]</field>
+        </record>
+        
+        <!--
+        <record id="form_report_layout" model="ir.ui.view">
+          <field name="name">sale_layout.form_report_layout</field>
+          <field name="model">sale_layout.category</field>
+          <field name="inherit_id" ref="sale_layout.report_configuration_form_view"/>
+          <field name="arch" type="xml">
+            <field name="pagebreak" position="after">
+                <field name="group_by_prod_categ"/>
+            </field>
+          </field>
+        </record>
+
+        <record id="tree_report_layout" model="ir.ui.view">
+          <field name="name">sale_layout.tree_report_layout</field>
+          <field name="model">sale_layout.category</field>
+          <field name="inherit_id" ref="sale_layout.report_configuration_tree_view"/>
+          <field name="arch" type="xml">
+            <field name="pagebreak" position="after">
+                <field name="group_by_prod_categ"/>
+            </field>
+          </field>
+        </record>    
+        -->
+  </data>
+</openerp>

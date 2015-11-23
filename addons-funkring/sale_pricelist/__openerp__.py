@@ -19,21 +19,19 @@
 ##############################################################################
 
 {
-    "name" : "oerp.at Sale Layout Light",
+    "name" : "oerp.at Sale Pricelist",
+    "summary" : "Filter for products which exist in the pricelist",
     "description":"""
-Sale Order Layout
-=================
-* adds simple layout options to sale order
-* no endsum option
-
-    """,
+oerp.at Sale Pricelist
+======================
+* Filter products which exist in the selected price list
+""",
     "version" : "1.0",
-    "author" :  "funkring.net",
+    "author" :  "oerp.at",
+    "website" : "http://oerp.at",
     "category" : "Sale",
-    "depends" : ["sale",
-                 "at_sale"],
-    "data" : ["view/sale_view.xml"
-              ],
+    "depends" : ["sale","at_sale"],
+    "data" : [],
     "auto_install" : False,
     "installable": True
 }
