@@ -36,8 +36,8 @@ class report_xml(osv.osv):
     def _new_ooproxy(self, cr, uid, host=None, port=None, context=None):
         param_obj = self.pool["ir.config_parameter"]
         if host is None:
-            host = param_obj.get_param(cr, uid, "host", default="127.0.0.1", context=context)
+            host = param_obj.get_param(cr, uid, "ooproxy_host", default="127.0.0.1", context=context)
         if port is None:
-            port = int(param_obj.get_param(cr, uid, "port", default="8099", context=context))
+            port = int(param_obj.get_param(cr, uid, "ooproxy_port", default="8099", context=context))
         return DocumentConverter(host, port)
         
