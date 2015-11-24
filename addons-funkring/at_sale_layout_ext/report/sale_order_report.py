@@ -58,14 +58,32 @@ class Parser(extreport.basic_parser):
     def _sale_layout(self,sale_order):
         sale_obj = self.pool.get("sale.order")
         res = sale_obj.sale_layout_lines(self.cr, self.uid, [sale_order.id], order_id=sale_order.id, context=self.localcontext )
+        
+        categ_pos = 1
+        product_categ_pos = 1      
         pos = 1
+         
         for categ in res:
             prepared_lines = []      
             product_categ_list = []
-            product_categ_dict = {}      
+            product_categ_dict = {} 
+            categ["pos"] = "{:02d}".format(categ_pos)     
             lines = categ.get("lines")
             if lines:
                 for line in lines:
+                    
+                    # check category
+                    product_categ = line.product_id and line.product_id.categ_id or None
+                    product_categ_name = product_categ and product_categ.name or ''
+                    product_categ_values = product_categ_dict.get(product_categ_name, None)
+                    if product_categ_values is None:
+                        pos = 1
+                        product_categ_values = { "prod_categ" : product_categ, 
+                                                 "lines" : [], 
+                                                 "pos":"{:02d}.{:02d}".format(categ_pos, product_categ_pos)}
+                        product_categ_dict[product_categ_name] = product_categ_values
+                        product_categ_list.append(product_categ_values)
+                    
                     # line name
                     notes = []
                     lines = line.name.split("\n")
@@ -89,23 +107,22 @@ class Parser(extreport.basic_parser):
                     line_res['price_subtotal'] = line.price_subtotal or 0.00 
                     line_res['price_subtotal_taxed'] = line.price_subtotal_taxed or 0.00
                     line_res['currency'] = sale_order.pricelist_id.currency_id.symbol
-                    line_res['pos'] = str(pos)
+                    line_res['pos'] = "{:02d}.{:02d}.{:03d}".format(categ_pos, product_categ_pos, pos)
                     line_res['id'] = line.id
                     line_res['line'] = line
+                    
+                    # increment only if new product category
+                    if pos == 1:
+                        product_categ_pos += 1
+                                            
+                    # increment pos
                     pos += 1
                     prepared_lines.append(line_res)
-                    
-                    product_categ = line.product_id and line.product_id.categ_id or None
-                    product_categ_name = product_categ and product_categ.name or ''
-                    product_categ_values = product_categ_dict.get(product_categ_name, None)
-                    if product_categ_values is None:
-                        product_categ_values = { "prod_categ" : product_categ, "lines" : []}
-                        product_categ_dict[product_categ_name] = product_categ_values
-                        product_categ_list.append(product_categ_values)
-                        
+                    # add lines
                     product_categ_values["lines"].append(line_res)
                 
                 categ["lines"] = prepared_lines
                 categ["product_categ"] = product_categ_list
+                categ_pos += 1
                     
         return res
