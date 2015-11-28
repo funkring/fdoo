@@ -519,7 +519,7 @@ class academy_trainer(osv.Model):
             res.append(trainer_data)
 
             # start loop
-            while dt_ws < dt_to: # until to date
+            while dt_ws <= dt_to: # until to date
                 # convert to str
                 we = util.dateToStr(dt_we)
                 ws = util.dateToStr(dt_ws)

@@ -195,11 +195,6 @@
       <field name="view_type">form</field>
       <field name="view_mode">tree,form</field>
       <field name="domain">[('state','=','check')]</field>
-      <field name="help" type="html">
-        <p class="oe_view_nocontent_create">
-          Click here to create a new registration.
-        </p>
-      </field>
     </record>
 
     <menuitem id="menu_academy_registration" name="Registrations" parent="menu_academy_regmain"

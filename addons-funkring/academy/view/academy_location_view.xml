@@ -72,13 +72,6 @@
       <field name="res_model">academy.location</field>
       <field name="view_type">form</field>
       <field name="view_mode">tree,form</field>
-      <field name="help" type="html">
-        <p class="oe_view_nocontent_create">
-          Click to create a new location
-        </p><p>
-          Location are resources where courses are held
-        </p>
-      </field>
     </record>
 
     <menuitem id="menu_academy_location" name="Locations" parent="menu_academy_config_misc"

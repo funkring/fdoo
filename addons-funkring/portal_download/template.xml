@@ -1,7 +1,7 @@
 <openerp>
   <data>
     
-     <template id="tmpl_module" name="protal_download.assets" inherit_id="web.assets_backend">
+     <template id="tmpl_module" name="portal_download.assets" inherit_id="web.assets_backend">
         <xpath expr="." position="inside">
              <link rel="stylesheet" href="/portal_download/static/src/css/module.css"/>
         </xpath>

@@ -168,13 +168,6 @@
       <field name="res_model">academy.student</field>
       <field name="view_type">form</field>
       <field name="view_mode">tree,kanban,form</field>
-      <field name="help" type="html">
-        <p class="oe_view_nocontent_create">
-          Click here to create a new Student
-        </p><p>
-          The Students are academy customers
-        </p>
-      </field>
     </record>
     <record id="action_academy_student_tree" model="ir.actions.act_window.view">
       <field name="sequence" eval="0"/>

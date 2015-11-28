@@ -1,5 +1,5 @@
 <openerp>
-  <data noupdate="0">
+  <data noupdate="1">
       <record id="email_template_registration_cancel" model="email.template">
             <field name="name">Registration Cancel</field>
             <field name="lang">${object.student_id.lang.code}</field>

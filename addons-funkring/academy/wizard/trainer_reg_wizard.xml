@@ -33,16 +33,25 @@
       </field>
     </record>
     
-    <act_window id="action_trainer_reg"
-      multi="True"
-      key2="client_action_multi"
-      name="Trainer Registrations"
-      res_model="academy.trainer.reg.wizard"
-      src_model="academy.trainer"
-      view_mode="form"
-      target="new"
-      view_type="form"
-      view_id="wizard_trainer_reg"/>
+    <record id="action_trainer_reg2" model="ir.actions.act_window">
+      <field name="name">Trainer Registrations</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">academy.trainer.reg.wizard</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+    </record>
+    
+    <record id="irconfig_trainer_reg2" model="ir.values">
+      <field name="model_id" ref="academy.model_academy_trainer_reg_wizard" />      
+      <field name="name">Trainer Registrations</field>
+      <field name="key2">client_action_multi</field>
+      <field name="value" eval="'ir.actions.act_window,' + str(ref('action_trainer_reg2'))" />
+      <field name="key">action</field>
+      <field name="model">academy.trainer</field>
+    </record>
+
+
       
   </data>  
 </openerp>
