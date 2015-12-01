@@ -19,8 +19,7 @@
 ##############################################################################
 
 from openerp.osv import fields, osv
-
-UID_ROOT=1
+from openerp import SUPERUSER_ID
 
 class semester_assistant(osv.TransientModel):
     
@@ -32,7 +31,7 @@ class semester_assistant(osv.TransientModel):
         user = user_obj.browse(cr, uid, uid, context=context)
         wizard = self.browse(cr, uid, ids[0], context)
         company_obj = self.pool["res.company"]
-        company_obj.write(cr, UID_ROOT, user.company_id.id, {"academy_semester_id" : wizard.semester_id.id }, context=context)
+        company_obj.write(cr, SUPERUSER_ID, user.company_id.id, {"academy_semester_id" : wizard.semester_id.id }, context=context)
         return {'type': 'ir.actions.act_window_close'}
         
     def _default_semester_id(self, cr, uid, context=None):

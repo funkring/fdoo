@@ -14,7 +14,7 @@
 						attrs="{'invisible': [('correct_offered_hours','=',False)] }" />
 					<field name="task_hours" widget="float_time" />
 					<footer>
-						<button icon="gtk-ok" name="action" string="action_name" type="object" class="oe_highlight" />
+						<button icon="gtk-ok" name="action" string="Correct" type="object" class="oe_highlight" />
 						or
 						<button special="cancel" string="Close"  class="oe_link"/>
 					</footer>

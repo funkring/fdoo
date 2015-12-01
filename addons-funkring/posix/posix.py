@@ -21,14 +21,13 @@
 ##############################################################################
 
 from openerp.osv import fields,osv
-
-UID_ROOT = 1
+from openerp import SUPERUSER_ID
 
 class posix_domain(osv.Model):
 
     def _name_get_fnc(self, cr, uid, ids, field_name, arg, context=None):
         res = dict.fromkeys(ids)
-        for domain in self.browse(cr, UID_ROOT, ids, context=context):        
+        for domain in self.browse(cr, SUPERUSER_ID, ids, context=context):        
             cur_domain = domain
             name = [cur_domain.name]
             while cur_domain.parent_id:
@@ -40,7 +39,7 @@ class posix_domain(osv.Model):
         
     def _relids_posix_domain(self, cr, uid, ids, context=None):
         res = list(ids)
-        res.extend(self.search(cr, UID_ROOT, [("parent_id", "child_of", ids)]))
+        res.extend(self.search(cr, SUPERUSER_ID, [("parent_id", "child_of", ids)]))
         return list(set(res))
     
     _name="posix.domain"

@@ -38,6 +38,7 @@ oerp.at Project + Sale
     "depends" : ["at_project",
                  "at_sale",
                  "sale",
+                 "account",
                  "account_analytic_analysis",
                  "project_timesheet",
                  "sale_margin",                 
@@ -52,6 +53,8 @@ oerp.at Project + Sale
                 "view/partner_view.xml",
                 "view/product_view.xml",
                 "view/project_view.xml",
+                "report/account_invoice_report.xml",
+                "report/account_analytic_entries_report.xml",
                 "data/properties.xml"
                 ],
     "auto_install": False,

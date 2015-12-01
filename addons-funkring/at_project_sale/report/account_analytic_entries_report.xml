@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+ <data>
+ 
+    <record id="search_analytic_entries_report" model="ir.ui.view">
+      <field name="name">at_project_sale.search_analytic_entries_report</field>
+      <field name="model">analytic.entries.report</field>
+      <field name="inherit_id" ref="account.view_analytic_entries_report_search"/>
+      <field name="arch" type="xml">
+        <field name="account_id" position="after">
+            <field name="account_id"/>
+        </field>
+        <filter name="Account" position="after">
+            <filter string="Main Analytic Account" name="root_account_id" context="{'group_by':'root_account_id'}" groups="analytic.group_analytic_accounting"/>
+        </filter>        
+      </field>
+    </record>
+    
+    <record id="account.action_analytic_entries_report" model="ir.actions.act_window">
+        <field name="name">Analytic Entries Analysis</field>
+        <field name="res_model">analytic.entries.report</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">graph</field>
+        <field name="search_view_id" ref="account.view_analytic_entries_report_search"/>
+        <field name="context">{'group_by_no_leaf':1, 'search_default_root_account_id':1, 'group_by':[]}</field>
+        <field name="help">From this view, have an analysis of your different analytic entries following the analytic account you defined matching your business need. Use the tool search to analyse information about analytic entries generated in the system.</field>
+    </record>
+    
+  </data>
+</openerp>

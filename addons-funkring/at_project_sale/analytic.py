@@ -143,9 +143,25 @@ class account_analytic_account(osv.osv):
 
         return invoice
     
+    def _root_account(self, cr, uid, ids, field_name, arg, context=None):
+        res = dict.fromkeys(ids)
+        for obj in self.browse(cr, uid, ids, context):
+            parent = obj.parent_id            
+            if parent:
+                while parent.parent_id:
+                    parent = parent.parent_id
+                res[obj.id] = parent.id
+        return res
+    
+    def _relids_account(self, cr, uid, ids, context=None):
+        res = self.search(cr, uid, [("id","child_of",ids)], context=context)
+        return res
     
     _inherit = "account.analytic.account"    
     _columns = {
         "order_id" : fields.many2one("sale.order","Order", ondelete="cascade", copy=False),
-        "recurring_prepaid" : fields.boolean("Prepaid")    
+        "recurring_prepaid" : fields.boolean("Prepaid"),
+        "root_account_id" : fields.function(_root_account, type="many2one", obj="account.analytic.account", string="Root", select=True, store={
+            "account.analytic.account" : (_relids_account, ["parent_id"], 10)
+        })   
     }
