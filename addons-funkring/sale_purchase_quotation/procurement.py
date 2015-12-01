@@ -86,8 +86,6 @@ class procurement_order(osv.Model):
             self.message_post(cr, uid, sum_po_line_ids, body=_("Quantity added in existing Purchase Order Line"), context=context)
         return res
 
-
-
     def create_procurement_purchase_order(self, cr, uid, procurement, po_vals, line_vals, context=None):
         """ use existing purchase order or create new """
         

@@ -25,6 +25,7 @@ from openerp.osv import fields, osv
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
 from openerp.tools.translate import _
 from openerp.addons.at_base import util
+from openerp import SUPERUSER_ID
 
 import openerp.addons.decimal_precision as dp
 
@@ -41,13 +42,27 @@ class sale_order_line(osv.Model):
             res[line.id] = sent_all
         return res
 
+    def _unlink_purchase_line(self, cr, uid, unused_purchase_line_ids, context=None):
+        """ Remove or cancel safely all purchase lines """
+        if unused_purchase_line_ids:
+            purchase_order_obj = self.pool["purchase.order"]
+            purchase_line_obj = self.pool["purchase.order.line"]
+            for purchase_line in purchase_line_obj.browse(cr, uid, unused_purchase_line_ids, context=context):
+                purchase_order = purchase_line.order_id
+                if len(purchase_order.order_line) == 1:
+                    # remove order
+                    if purchase_order.state == 'draft' and not purchase_line.quot_sent:
+                        purchase_order_obj.unlink(cr, uid, [purchase_order.id], context=context)
+                    # cancel order
+                    elif purchase_order.state in ('draft','sent','bid'):
+                        purchase_order_obj.action_cancel(cr, uid,  [purchase_order.id], context=context)
+
     def start_quotation(self, cr, uid, ids, context=None):
         if not ids:
             return True
 
         purchase_order_obj = self.pool["purchase.order"]
         purchase_line_obj = self.pool["purchase.order.line"]
-        purchase_obj = self.pool["purchase.order"]
 
         for line in self.browse(cr, uid, ids, context=context):
             # check order
@@ -57,18 +72,10 @@ class sale_order_line(osv.Model):
             
             # search existing unused, and delete or deactivate
             product = line.product_id
-            unused_purchase_line_ids = purchase_line_obj.search(cr, uid, [("sale_line_id","=",line.id),("product_id","!=",product and product.id or False)])
-            for purchase_line in purchase_line_obj.browse(cr, uid, unused_purchase_line_ids, context=context):
-                purchase_order = purchase_line.order_id
-                if len(purchase_order.order_line) == 1:
-                    # remove order
-                    if purchase_order.state == 'draft' and not purchase_line.quot_sent:
-                        purchase_obj.unlink(cr, uid, [purchase_order.id], context=context)
-                    # cancel order
-                    elif purchase_order.state in ('draft','sent','bid'):
-                        purchase_obj.action_cancel(cr, uid,  [purchase_order.id], context=context)
-                        
-            # check product
+            self._unlink_purchase_line(cr, uid, 
+                     purchase_line_obj.search(cr, uid, [("sale_line_id","=",line.id),("product_id","!=",product and product.id or False)]),
+                     context = context)
+            
             if not product:
                 continue
 
@@ -234,6 +241,14 @@ class sale_order_line(osv.Model):
                   " WHERE pl.id IN %s", (tuple(ids),))
         return [r[0] for r in cr.fetchall()]
 
+    def unlink(self, cr, uid, ids, context=None):
+        po_line_obj = self.pool["purchase.order.line"]
+
+        self._unlink_purchase_line(cr, uid, 
+                                   po_line_obj.search(cr, uid, [("sale_line_id","in",ids)]),
+                                   context=context)
+        
+        return super(sale_order_line, self).unlink(cr, uid, ids, context=context)
 
     _inherit = 'sale.order.line'
     _columns = {
