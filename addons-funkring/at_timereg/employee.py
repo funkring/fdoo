@@ -62,14 +62,18 @@ class hr_employee(osv.osv):
                                 break_duration_delta = relativedelta(hours=break_duration)
                                 next_break = from_time+break_interval_delta                                
                                 while next_break < until_time:                                    
-                                    attendance_obj.create(cr,uid, {
+                                    att_id = attendance_obj.create(cr,uid, {
                                                     "name" : util.timeToStr(next_break),
                                                     "action" : "sign_out",
                                                     "employee_id" : employee.id
                                                 }, context)
                                     
+                                    # check if after break sign in would be after sign out
                                     next_break += break_duration_delta 
-                                    attendance_obj.create(cr,uid, {
+                                    if next_break >= until_time:
+                                        return att_id
+                                    
+                                    att_id  = attendance_obj.create(cr,uid, {
                                                     "name" : util.timeToStr(next_break),
                                                     "action" : "sign_in",
                                                     "employee_id" : employee.id
@@ -77,7 +81,7 @@ class hr_employee(osv.osv):
                                     next_break += break_interval_delta                                    
                                                                         
                                         
-        att_id =  super(hr_employee,self).attendance_action_change(cr,uid,ids,context=context)
+        att_id = super(hr_employee,self).attendance_action_change(cr,uid,ids,context=context)
         return att_id
                 
         
