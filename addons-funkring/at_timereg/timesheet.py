@@ -176,10 +176,11 @@ class hr_timesheet_sheet(osv.osv):
                         attendance_lines = timesheet_day.get("attendances",None)            
                         if attendance_lines:
                             for attendance_line in attendance_lines:
-                                date_only = attendance_line["to"].split(" ")[1]
-                                if date_only != "24:00:00":
+                                timestamp_to = attendance_line["to"]
+                                time_only = timestamp_to and timestamp_to.split(" ")[1] or None
+                                if time_only != "24:00:00":
                                     time_from = util.timeToStrHours(attendance_line["from"])
-                                    time_to = util.timeToStrHours(attendance_line["to"])
+                                    time_to = util.timeToStrHours(timestamp_to)
                                     attendance_text.append("%s - %s" % (time_from,time_to))
                                     attendance.append({
                                             "time_from" : time_from,
