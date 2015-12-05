@@ -20,6 +20,7 @@
 
 from openerp.osv import fields, osv
 import openerp.addons.decimal_precision as dp
+from openerp import SUPERUSER_ID
 
 class product_product(osv.osv):
 
@@ -79,14 +80,14 @@ class product_template(osv.osv):
         tax_obj = self.pool.get("account.tax")
         cur_obj = self.pool.get("res.currency")
 
-        for product in self.browse(cr, uid, ids, context=context):
+        for product in self.browse(cr, SUPERUSER_ID, ids, context=context):
             price = product.list_price
             tax_ids = product.taxes_id
             if tax_ids:
-                price = tax_obj.compute_all(cr, uid, tax_ids, price, 1)["total_included"]
+                price = tax_obj.compute_all(cr, SUPERUSER_ID, tax_ids, price, 1)["total_included"]
             if product.company_id and product.company_id.currency_id:
                 cur = product.company_id.currency_id
-                res[product.id] = cur_obj.round(cr, uid, cur, price)
+                res[product.id] = cur_obj.round(cr, SUPERUSER_ID, cur, price)
             else:
                 res[product.id] = price
 
