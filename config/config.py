@@ -15,6 +15,9 @@ DIR_DIST_ADDONS = os.path.join(DIR_DIST,"addons")
 DIR_SERVER = os.path.abspath(os.path.join(DIR_CONFIG,".."))
 DIR_WORKSPACE = os.path.abspath(os.path.join(DIR_SERVER,".."))
 
+ADDON_META = "__openerp__.py"
+ADDON_API = 8
+
 ADDONS_IGNORED = []
 ADDONS_INCLUDED = {
 #       "addon-path" : [
@@ -195,13 +198,22 @@ def setup(onlyLinks=False):
                     #process addons
                     for curAddon in listDir(curAddonPackageDir):
                         if not curAddon in ignoreAddons and (addonIncludeList is None or curAddon in addonIncludeList):
-                            curAddonPath = os.path.join(curAddonPackageDir,curAddon)
-                            dstPath = os.path.join(dirEnabledAddons,curAddon)
-                            if not os.path.exists(dstPath) and not curAddonPath.endswith(".pyc"):
-                                #log.info("Create addon link " + str(dstPath) + " from " + str(curAddonPath))
-                                os.symlink(curAddonPath,dstPath)
-                                t_addedLinks += 1
-                                dir_added.add(curAddon)
+                            curAddonPath = os.path.join(curAddonPackageDir, curAddon)
+                            curAddonPathMeta = os.path.join(curAddonPath, ADDON_META)
+                            if os.path.exists(curAddonPathMeta):
+                                addonMeta = None
+                                with open(curAddonPathMeta) as metaFp:
+                                    addonMeta = eval(metaFp.read())
+                                    
+                                # check api
+                                supported_api = addonMeta.get("api")
+                                if not supported_api or ADDON_API in supported_api:                                     
+                                    dstPath = os.path.join(dirEnabledAddons, curAddon)                            
+                                    if not os.path.exists(dstPath) and not curAddonPath.endswith(".pyc"):
+                                        #log.info("Create addon link " + str(dstPath) + " from " + str(curAddonPath))
+                                        os.symlink(curAddonPath,dstPath)
+                                        t_addedLinks += 1
+                                        dir_added.add(curAddon)
 
             else:
                 #log.info("processed twice: " + curAddonPackageDir)
