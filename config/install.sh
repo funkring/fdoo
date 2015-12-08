@@ -75,7 +75,7 @@ apt-get -y install python-cssselect
 python -m pip install tinycss
 
 #install printing depends
-apt-get -y install wkhtmltopdf 
+#apt-get -y install wkhtmltopdf
 python -m pip install wkhtmltopdf
 
 #install saas depends
