@@ -44,9 +44,6 @@ oerp.at Accounting and Finance Extensions
                     "report/account_account_report.xml",
                     "report/transfer_form_report.xml",
                     "report/payment_overview_report.xml",
-                    "view/account_journal_view.xml",
-                    # TODO conversion to odoo 8.0
-                    #"view/account_bank_statement_view.xml",
                     "view/company_view.xml",
                     "wizard/invoice_attachment_wizard.xml",
                     "wizard/invoice_cancel_wizard.xml",

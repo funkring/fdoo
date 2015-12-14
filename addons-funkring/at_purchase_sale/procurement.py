@@ -31,7 +31,9 @@ class procurement_order(osv.osv):
             
             # update name
             line_vals["name"]=sale_line.name
-            
+            # update line
+            line_vals["sale_line_id"]=sale_line.id
+                        
             # add analytic account
             analytic_account = sale_line.order_id.project_id
             if analytic_account:                
