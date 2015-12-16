@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-16 14:26+0000\n"
-"PO-Revision-Date: 2015-09-16 16:27+0100\n"
+"POT-Creation-Date: 2015-12-16 14:22+0000\n"
+"PO-Revision-Date: 2015-12-16 15:23+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -32,6 +32,26 @@ msgid ""
 "              </p>\n"
 "            "
 msgstr ""
+
+#. module: at_sale
+#: field:sale.shop,stylesheet_landscape_id:0
+msgid "Aeroo Global Landscape Stylesheet"
+msgstr "Globale Formatvorlage Querformat"
+
+#. module: at_sale
+#: field:sale.shop,stylesheet_id:0
+msgid "Aeroo Global Stylesheet"
+msgstr "Globale Formatvorlage"
+
+#. module: at_sale
+#: field:sale.shop,stylesheet_intern_landscape_id:0
+msgid "Aeroo Intern Landscape Stylesheet"
+msgstr "Interne Formatvorlage Querformat"
+
+#. module: at_sale
+#: field:sale.shop,stylesheet_intern_id:0
+msgid "Aeroo Intern Stylesheet"
+msgstr "Interne Formatvorlage"
 
 #. module: at_sale
 #: field:sale.shop,project_id:0
@@ -69,7 +89,7 @@ msgid "Conditions"
 msgstr "Konditionen"
 
 #. module: at_sale
-#: code:addons/at_sale/sale.py:127 code:addons/at_sale/sale.py:129
+#: code:addons/at_sale/sale.py:164 code:addons/at_sale/sale.py:166
 #, python-format
 msgid "Copy"
 msgstr "Kopieren"
@@ -122,7 +142,7 @@ msgstr "Rechnung"
 #. module: at_sale
 #: model:ir.model,name:at_sale.model_account_invoice_line
 msgid "Invoice Line"
-msgstr "Rechungsposition"
+msgstr "Rechnungszeile"
 
 #. module: at_sale
 #: field:res.partner,invoice_partner_id:0
@@ -164,6 +184,12 @@ msgid "Last Updated on"
 msgstr "Zuletzt aktualisiert am"
 
 #. module: at_sale
+#: view:sale.report:at_sale.search_order_product
+#: field:sale.report,root_analytic_id:0
+msgid "Main Analytic Account"
+msgstr "Hauptkostenstelle"
+
+#. module: at_sale
 #: field:sale.shop,name:0 field:sale.shop.report,name:0
 msgid "Name"
 msgstr ""
@@ -196,7 +222,12 @@ msgstr "Zahlungskondition"
 #. module: at_sale
 #: model:ir.model,name:at_sale.model_stock_picking
 msgid "Picking List"
-msgstr "Pickliste"
+msgstr "Lieferauftrag"
+
+#. module: at_sale
+#: field:sale.report,post_calc:0
+msgid "Post Calculation"
+msgstr "Nachkalkulation"
 
 #. module: at_sale
 #: field:sale.shop,pricelist_id:0
@@ -214,8 +245,7 @@ msgid "Product"
 msgstr "Produkt"
 
 #. module: at_sale
-#: field:sale.order,shop_category_ids:0 view:sale.shop:at_sale.form_sale_shop
-#: field:sale.shop,product_category_ids:0
+#: field:sale.order,shop_category_ids:0 field:sale.shop,product_category_ids:0
 msgid "Product Categories"
 msgstr "Produkt Kategorien"
 
@@ -247,7 +277,7 @@ msgstr "Verkaufszeilen"
 #. module: at_sale
 #: model:ir.model,name:at_sale.model_sale_order_line_make_invoice
 msgid "Sale OrderLine Make_invoice"
-msgstr "Abrechnung einer einzelnen Auftragsposition"
+msgstr "Verkaufsauftragszeile Erzeuge Rechnung"
 
 #. module: at_sale
 #: model:ir.model,name:at_sale.model_sale_shop_report
@@ -270,9 +300,15 @@ msgid "Sales Order Line"
 msgstr "Auftragsposition"
 
 #. module: at_sale
+#: model:ir.model,name:at_sale.model_sale_report
+msgid "Sales Orders Statistics"
+msgstr "Statistik Verkaufsauftrag"
+
+#. module: at_sale
 #: field:account.invoice,shop_id:0
 #: model:ir.actions.act_window,name:at_sale.action_sale_shop
 #: model:ir.ui.menu,name:at_sale.menu_sale_shop field:sale.order,shop_id:0
+#: view:sale.report:at_sale.search_order_product field:sale.report,shop_id:0
 #: view:sale.shop:at_sale.form_sale_shop field:sale.shop.report,shop_id:0
 #: field:stock.picking,shop_id:0
 msgid "Shop"

@@ -79,10 +79,12 @@ class Parser(extreport.basic_parser):
                     if product_categ_values is None:
                         pos = 1
                         product_categ_values = { "prod_categ" : product_categ, 
+                                                 "sequence" : product_categ_pos,
                                                  "lines" : [], 
                                                  "pos":"{:02d}.{:02d}".format(categ_pos, product_categ_pos)}
                         product_categ_dict[product_categ_name] = product_categ_values
                         product_categ_list.append(product_categ_values)
+                        product_categ_pos += 1
                     
                     # line name
                     notes = []
@@ -107,14 +109,10 @@ class Parser(extreport.basic_parser):
                     line_res['price_subtotal'] = line.price_subtotal or 0.00 
                     line_res['price_subtotal_taxed'] = line.price_subtotal_taxed or 0.00
                     line_res['currency'] = sale_order.pricelist_id.currency_id.symbol
-                    line_res['pos'] = "{:02d}.{:02d}.{:03d}".format(categ_pos, product_categ_pos, pos)
+                    line_res['pos'] = "{:02d}.{:02d}.{:03d}".format(categ_pos, product_categ_values["sequence"], pos)
                     line_res['id'] = line.id
                     line_res['line'] = line
                     
-                    # increment only if new product category
-                    if pos == 1:
-                        product_categ_pos += 1
-                                            
                     # increment pos
                     pos += 1
                     prepared_lines.append(line_res)
@@ -123,6 +121,7 @@ class Parser(extreport.basic_parser):
                 
                 categ["lines"] = prepared_lines
                 categ["product_categ"] = product_categ_list
-                categ_pos += 1
+            
+            categ_pos += 1
                     
         return res
