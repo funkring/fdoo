@@ -54,7 +54,7 @@ oerp.at Sale Extensions
                "view/sale_line_invoice_wizard.xml",
                "view/product_view.xml",
                "view/invoice_view.xml",
-               "report/sale_report_view.xml",
+               "view/sale_order_report_view.xml",
                "report/sale_order_report.xml"],
     "auto_install": False,
     "installable": True

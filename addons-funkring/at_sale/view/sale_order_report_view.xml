@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <record id="graph_order_sale_report" model="ir.ui.view">
+         <field name="name">at_sale.graph_order_sale_report</field>
+         <field name="model">sale.order.report</field>
+         <field name="arch" type="xml">
+             <graph string="Sales Analysis" type="pivot" stacked="True">
+                 <field name="shop_id" type="row"/>
+                 <field name="date" interval="month" type="col"/>
+                 <field name="amount_untaxed" type="measure"/>
+                 <field name="post_calc" type="measure"/>
+             </graph>
+         </field>
+    </record>
+
+    <!-- Custom reports (aka filters) -->
+    <record id="filter_sale_order_report_sales_funnel" model="ir.filters">
+        <field name="name">Sales Funnel</field>
+        <field name="model_id">sale.order.report</field>
+        <field name="domain">['&amp;', ('date','&lt;=', time.strftime('%%Y-12-31')), '&amp;', ('date','&gt;=',time.strftime('%%Y-01-01')), ('state','not in',('cancel',))]</field>
+        <field name="user_id" eval="False"/>
+        <field name="context">{'group_by': ['state'], 'measures': ['price_total']}</field>
+    </record>
+    <record id="filter_sale_order_report_salespersons" model="ir.filters">
+        <field name="name">By Salespersons</field>
+        <field name="model_id">sale.order.report</field>
+        <field name="user_id" eval="False"/>
+        <field name="context">{'group_by': ['date:month', 'user_id']}</field>
+    </record>
+    <record id="filter_sale_order_report_salesteam" model="ir.filters">
+        <field name="name">By Salesteam</field>
+        <field name="model_id">sale.order.report</field>
+        <field name="user_id" eval="False"/>
+        <field name="context">{'group_by': ['date:month', 'section_id']}</field>
+    </record>
+      <record id="filter_sale_order_report_shop" model="ir.filters">
+        <field name="name">By Shop</field>
+        <field name="model_id">sale.order.report</field>
+        <field name="user_id" eval="False"/>
+        <field name="context">{'group_by': ['date:month', 'shop_id']}</field>
+    </record>
+
+    <record id="view_sale_order_report_search" model="ir.ui.view">
+        <field name="name">at_sale.view_sale_order_report_search</field>
+        <field name="model">sale.order.report</field>
+        <field name="arch" type="xml">
+            <search string="Sales Analysis">
+                <field name="date"/>
+                <field name="date_confirm"/>                
+                <filter string="This Year" name="year" invisible="1" domain="[('date','&lt;=', time.strftime('%%Y-12-31')),('date','&gt;=',time.strftime('%%Y-01-01'))]"/>
+                <filter name="Quotations" domain="[('state','=','draft')]"/>
+                <filter name="Sales" string="Sales" domain="[('state','not in',('draft', 'cancel'))]"/>
+                <separator/>
+                <filter string="My Sales" help="My Sales" domain="[('user_id','=',uid)]"/>
+                <field name="partner_id"/>
+                <field name="user_id"/>
+                <field name="root_analytic_id"/>
+                <field name="shop_id"/>
+                <group expand="0" string="Extended Filters">
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </group>
+                <group expand="1" string="Group By">
+                    <filter string="Salesperson" name="User" context="{'group_by':'user_id'}"/>
+                    <filter string="Sales Team" context="{'group_by':'section_id'}" groups="base.group_multi_salesteams"/>
+                    <filter string="Customer" name="Customer" context="{'group_by':'partner_id'}"/>
+                    <filter string="Main Analytic Account" name="root_analytic_account" context="{'group_by':'root_analytic_id'}"/>
+                    <filter string="Shop" name="shop" context="{'group_by':'shop_id'}"/>
+                    <filter string="Status" context="{'group_by':'state'}"/>
+                    <filter string="Company" groups="base.group_multi_company" context="{'group_by':'company_id'}"/>
+                    <separator/>
+                    <filter string="Order Month" context="{'group_by':'date:month'}" help="Ordered date of the sales order"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sale_order_report" model="ir.actions.act_window">
+        <field name="name">Sales Order Analysis</field>
+        <field name="res_model">sale.order.report</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">graph</field>
+        <field name="search_view_id" ref="view_sale_order_report_search"/>
+        <field name="view_id" ref="graph_order_sale_report"/>
+        <field name="context">{'search_default_Sales':1, 'group_by_no_leaf':1,'group_by':[]}</field>
+        <field name="help">This report performs analysis on your quotations and sales orders. Analysis check your sales revenues and sort it by different group criteria (salesman, partner, product, etc.) Use this report to perform analysis on sales not having invoiced yet. If you want to analyse your turnover, you should use the Invoice Analysis report in the Accounting application.</field>
+    </record>
+
+    <menuitem action="action_sale_order_report" id="menu_sale_order_report2" parent="base.next_id_64" sequence="12"/>
+</data>
+</openerp>

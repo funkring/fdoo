@@ -270,11 +270,11 @@ _ = GettextAlias()
 
 
 def quote(s):
-    """Returns quoted PO term string, with special PO characters escaped"""
-    assert r"\n" not in s, "Translation terms may not include escaped newlines ('\\n'), please use only literal newlines! (in '%s')" % s
+    """Returns quoted PO term string, with special PO characters escaped"""    
     return '"%s"' % s.replace('\\','\\\\') \
                      .replace('"','\\"') \
                      .replace('\n', '\\n"\n"')
+    assert r"\n" not in s, "Translation terms may not include escaped newlines ('\\n'), please use only literal newlines! (in '%s')" % s
 
 re_escaped_char = re.compile(r"(\\.)")
 re_escaped_replacements = {'n': '\n', }
