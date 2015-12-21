@@ -3,7 +3,7 @@
 <data>
 
     <record id="graph_order_sale_report" model="ir.ui.view">
-         <field name="name">at_sale.graph_order_sale_report</field>
+         <field name="name">at_project_sale.graph_order_sale_report</field>
          <field name="model">sale.order.report</field>
          <field name="arch" type="xml">
              <graph string="Sales Analysis" type="pivot" stacked="True">
@@ -16,34 +16,27 @@
     </record>
 
     <!-- Custom reports (aka filters) -->
-    <record id="filter_sale_order_report_sales_funnel" model="ir.filters">
-        <field name="name">Sales Funnel</field>
-        <field name="model_id">sale.order.report</field>
-        <field name="domain">['&amp;', ('date','&lt;=', time.strftime('%%Y-12-31')), '&amp;', ('date','&gt;=',time.strftime('%%Y-01-01')), ('state','not in',('cancel',))]</field>
-        <field name="user_id" eval="False"/>
-        <field name="context">{'group_by': ['state'], 'measures': ['price_total']}</field>
-    </record>
-    <record id="filter_sale_order_report_salespersons" model="ir.filters">
-        <field name="name">By Salespersons</field>
+    <record id="filter_sale_order_report_sales_person" model="ir.filters">
+        <field name="name">By Person</field>
         <field name="model_id">sale.order.report</field>
         <field name="user_id" eval="False"/>
         <field name="context">{'group_by': ['date:month', 'user_id']}</field>
     </record>
-    <record id="filter_sale_order_report_salesteam" model="ir.filters">
-        <field name="name">By Salesteam</field>
+    <record id="filter_sale_order_report_sales_team" model="ir.filters">
+        <field name="name">By Team</field>
         <field name="model_id">sale.order.report</field>
         <field name="user_id" eval="False"/>
         <field name="context">{'group_by': ['date:month', 'section_id']}</field>
     </record>
-      <record id="filter_sale_order_report_shop" model="ir.filters">
-        <field name="name">By Shop</field>
+    <record id="filter_sale_order_report_sales_shop" model="ir.filters">
+        <field name="name">By Sales Shop</field>
         <field name="model_id">sale.order.report</field>
         <field name="user_id" eval="False"/>
         <field name="context">{'group_by': ['date:month', 'shop_id']}</field>
     </record>
 
     <record id="view_sale_order_report_search" model="ir.ui.view">
-        <field name="name">at_sale.view_sale_order_report_search</field>
+        <field name="name">at_project_sale.view_sale_order_report_search</field>
         <field name="model">sale.order.report</field>
         <field name="arch" type="xml">
             <search string="Sales Analysis">

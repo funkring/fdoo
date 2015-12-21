@@ -4,7 +4,7 @@
     <record id="graph_order_sale_report" model="ir.ui.view">
       <field name="name">sale_purchase_quotation.graph_order_sale_report</field>
       <field name="model">sale.order.report</field>
-      <field name="inherit_id" ref="at_sale.graph_order_sale_report"/>
+      <field name="inherit_id" ref="at_project_sale.graph_order_sale_report"/>
       <field name="type">form</field>
       <field name="arch" type="xml">
          <field name="post_calc" position="after">
