@@ -45,6 +45,7 @@ oerp.at Project + Sale
                  "at_hr",
                  "sale_service"],
     "data" : [ 
+                "security.xml",
                 "view/analytic_account_view.xml",
                 "view/sale_shop_view.xml",
                 "view/sale_order_view.xml",
