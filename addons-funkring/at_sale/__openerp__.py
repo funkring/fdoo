@@ -51,7 +51,6 @@ oerp.at Sale Extensions
                "view/sale_view.xml",
                "view/sale_tree_view.xml",
                "view/stock_picking_view.xml",
-               "view/sale_line_invoice_wizard.xml",
                "view/product_view.xml",
                "view/invoice_view.xml",
                "report/sale_order_report.xml"],
