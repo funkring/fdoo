@@ -61,6 +61,7 @@ apt-get -y install python-simplejson
 #misc
 apt-get -y install python-ipcalc
 apt-get -y install pdftk
+apt-get -y install python-couchdb
 
 #install pip for further installation
 python -m easy_install pip

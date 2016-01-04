@@ -43,15 +43,16 @@ class pad_common(osv.osv_memory):
         # contruct the url
         url = '%s/p/%s' % (pad["server"], path)
 
+        # create pad
+        myPad = EtherpadLiteClient(pad["key"], pad["server"]+'/api')
+        try:
+            myPad.createPad(path)
+        except urllib2.URLError:
+            raise osv.except_osv(_("Error"), _("Pad creation failed, \
+            either there is a problem with your pad server URL or with your connection."))
+
         #if create with content
         if "field_name" in context and "model" in context and "object_id" in context:
-            myPad = EtherpadLiteClient( pad["key"], pad["server"]+'/api')
-            try:
-                myPad.createPad(path)
-            except urllib2.URLError:
-                raise osv.except_osv(_("Error"), _("Pad creation failed, \
-                either there is a problem with your pad server URL or with your connection."))
-
             #get attr on the field model
             model = self.pool[context["model"]]
             field = model._fields[context['field_name']]
