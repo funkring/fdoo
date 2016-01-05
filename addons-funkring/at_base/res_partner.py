@@ -258,13 +258,26 @@ class res_partner(osv.osv):
         for (partner_id, login_id) in cr.fetchall():
             res[partner_id]=login_id
         return res
-
+    
+    def _get_contact_info(self, cr, uid, ids, field_name, arg, context=None):
+        res = dict.fromkeys(ids)
+        for obj in self.browse(cr, uid, ids, context):
+            info = [obj.name]
+            if obj.phone:
+                info.append(obj.phone)
+            if obj.mobile:
+                info.append(obj.mobile)
+            if obj.email:
+                info.append(obj.email)
+            res[obj.id] = "\n".join(info)
+        return res
 
     _inherit = "res.partner"
     _columns =  {
         "mail_without_company" : fields.boolean("Mail Address without company"),
         "mail_salutation" : fields.function(_get_mail_salutation, type="text",string="Mail Salutation"),
         "mail_address" : fields.function(_get_mail_address,type="text",string="Mail Address"),
+        "contact_info" : fields.function(_get_contact_info,type="text",string="Contact Info"),
         "co_salutation" : fields.function(_get_co_salutation, type="text", string="C/O Salutation"),
         "phone_n" : fields.function(_get_phone, type="char", store=True, string="Phone normalized"),
         "mobile_n" : fields.function(_get_mobile, type="char", store=True, string="Mobile normalized"),
