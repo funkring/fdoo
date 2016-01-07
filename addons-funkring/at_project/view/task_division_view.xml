@@ -1,12 +1,12 @@
 <openerp>
 	<data>		
-				<record id="form_task_division" model="ir.ui.view">
+		<record id="form_task_division" model="ir.ui.view">
             <field name="name">at_project.form_task_division</field>
             <field name="model">project.task.division</field>
             <field name="arch" type="xml">
-                <form string="Task Division" version="7.0">
+                <form string="Task Division">
                 		<group>
-                				<field name="name"/>
+                			<field name="name"/>
                 		</group>
                     <group>
                     		<field name="fold"/>
@@ -21,7 +21,7 @@
             <field name="arch" type="xml">
                 <tree string="Task Divisions">
                 	 <field name="name"/>
-                	 <field name="sequence" invisible="1"/>
+                	 <field name="sequence" widget="handle"/>
                 </tree>
             </field>
         </record>
