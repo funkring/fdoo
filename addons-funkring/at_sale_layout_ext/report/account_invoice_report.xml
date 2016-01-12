@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+       <report id="account.account_invoices"
+               string="Invoice"
+               name="account.report_invoice"
+               auto="False"
+               report_type="aeroo"
+               process_sep="True"
+               model="account.invoice"
+               in_format="oo-odt"
+               out_format="oo-pdf"
+               parser="at_sale_layout_ext/report/account_invoice_report.py"
+               rml="at_sale_layout_ext/report/account_invoice_report.odt"/>
+	</data>
+</openerp>
