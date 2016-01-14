@@ -29,60 +29,14 @@ class Parser(extreport.basic_parser):
             "pricelist_versions": self._pricelist_versions
         })
         
-    def _pricelist_view(self, version):
-        product_map = {}
-        category_list = []
-        products_by_qty_by_partner = []
-        category_map = {}
-        
-        def add_product(product):
-            if not product.id in product_map:
-                product_vals = {
-                    "product" : product,
-                    "price" :  product.list_price
-                }
-                # set to product map
-                product_map[product.id] = product_vals         
-                products_by_qty_by_partner.append((product, 1, None))       
-                # check if category exist
-                category_vals = category_map.get(product.categ_id.id)
-                if not category_vals:
-                    category_vals = {
-                        "name" : product.categ_id.name,
-                        "products" : []
-                    }
-                    category_list.append(category_vals)
-                    category_map[product.categ_id.id]=category_vals
-                    
-                category_vals["products"].append(product_vals)
-            
-        
-        for item in version.items_id:
-            product = item.product_id                   
-            if product:
-                add_product(product)      
-                
-        # determine price
-        pricelist_obj = self.pool.get("product.pricelist")
-        price_dict = pricelist_obj._price_get_multi(self.cr, self.uid, version, products_by_qty_by_partner, self.localcontext)
-        for product_id, price in price_dict.items():
-            product_vals = product_map.get(product_id)
-            if product_vals and price:
-                product_vals["price"]=price
-                
-        return {
-            "name" : version.name,
-            "categories" : category_list,
-            "currency" : version.pricelist_id.currency_id
-        }
-        
     def _pricelist_versions(self, o):
+        version_obj = self.pool["product.pricelist.version"]
         if o._name == "product.pricelist.version":
-            return [self._pricelist_view(o)]
+            return [version_obj._pricelist_view(self.cr, self.uid, o, context=self.localcontext)]
         if o._name == "product.pricelist":
             version = o.active_version_id
             if version:
-                return [self._pricelist_view(version)] 
+                return [version_obj._pricelist_view(self.cr, self.uid, version, context=self.localcontext)] 
         return []
         
         

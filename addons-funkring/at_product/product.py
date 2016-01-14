@@ -123,13 +123,63 @@ class product_pricelist(osv.osv):
             res[row[0]]=row[1]
         return res
 
-
     _inherit = "product.pricelist"
     _columns = {
         "active_version_id" : fields.function(_active_version,string="Active Pricelist",type="many2one"
                                               ,relation="product.pricelist.version"),
 
     }
+    
+class product_pricelist_version(osv.osv):
+    
+    def _pricelist_view(self, cr, uid, version, context=None):
+        product_map = {}
+        category_list = []
+        products_by_qty_by_partner = []
+        category_map = {}
+        
+        def add_product(product):
+            if not product.id in product_map:
+                product_vals = {
+                    "product" : product,
+                    "price" :  product.list_price
+                }
+                # set to product map
+                product_map[product.id] = product_vals         
+                products_by_qty_by_partner.append((product, 1, None))       
+                # check if category exist
+                category_vals = category_map.get(product.categ_id.id)
+                if not category_vals:
+                    category_vals = {
+                        "name" : product.categ_id.name,
+                        "products" : []
+                    }
+                    category_list.append(category_vals)
+                    category_map[product.categ_id.id]=category_vals
+                    
+                category_vals["products"].append(product_vals)
+            
+        
+        for item in version.items_id:
+            product = item.product_id                   
+            if product:
+                add_product(product)      
+                
+        # determine price
+        pricelist_obj = self.pool.get("product.pricelist")
+        price_dict = pricelist_obj._price_get_multi(cr, uid, version, products_by_qty_by_partner, context)
+        for product_id, price in price_dict.items():
+            product_vals = product_map.get(product_id)
+            if product_vals and price:
+                product_vals["price"]=price
+                
+        return {
+            "name" : version.name,
+            "categories" : category_list,
+            "currency" : version.pricelist_id.currency_id
+        }
+    
+    _inherit = "product.pricelist.version"
 
 
 class product_supplierinfo(osv.osv):
