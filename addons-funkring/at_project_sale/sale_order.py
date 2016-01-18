@@ -65,9 +65,10 @@ class sale_order(osv.osv):
             :returns: analytic account id if a new one is created otherwise False is returned
         """
         def get_fkey(inDict,inKey):
-            res = inDict.get(inKey,None)
-            if res:
-                return res[0]
+            if inDict:
+                res = inDict.get(inKey,None)
+                if res:
+                    return res[0]
             return None
 
         analytic_id = None

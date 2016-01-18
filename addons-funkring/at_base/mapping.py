@@ -53,6 +53,10 @@ class res_mapping(osv.Model):
                 uuid_id = self.create(cr, uid, {"name" : name, "res_model" : res_model, "res_id" : res_id})
         return self.read(cr, uid, uuid_id, ["uuid"])["uuid"]
 
+    def _get_uuid(self, cr, uid, obj, uuid=None, name=None):
+        if not obj:
+            return None
+        return self.get_uuid(cr, uid, obj._model._name, obj.id, uuid, name)
 
     def get_id(self, cr, uid, res_model, res_uuid, name=None):
         uuid_id = False
