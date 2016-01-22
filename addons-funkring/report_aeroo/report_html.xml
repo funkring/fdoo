@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <report id="report_html_report"
+      string="Html Report"
+      name="html"
+      auto="False"
+      menu="False" 
+      model="ir.actions.report.xml" 
+      report_type="qweb-html"/>
+  </data>
+</openerp>

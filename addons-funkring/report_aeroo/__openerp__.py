@@ -32,7 +32,8 @@
     'depends': ['base','report'],    
     'data': ["security.xml",
                    "report_view.xml", 
-                   "data/report_aeroo_data.xml", 
+                   "report_html.xml",
+                   "data/report_aeroo_data.xml",
                    "security/ir.model.access.csv"                   
                    ],
     'installable': True,

@@ -157,9 +157,8 @@ class Aeroo_report(report_sxw):
             if template_io:
                 self.serializer = OOSerializer(template_io, oo_styles=style_io)
 
-    def __del__(self):
-        logger.info("aeroo report cleanup")
-        self._cleanup()
+    #def __del__(self):
+    #    self._cleanup_subreports()
 
     def getObjects_mod(self, cr, uid, ids, report_xml, context, parser=None):
         if parser and hasattr(parser,"_load_objects"):
@@ -286,28 +285,55 @@ class Aeroo_report(report_sxw):
         pool = RegistryManager.get(cr.dbname)
         ir_obj = pool.get('ir.actions.report.xml')
         #### for odt documents ####
-        def odt_subreport(name=None, obj=None):
+        def odt_subreport(name=None, obj=None, data=None):
             if not aeroo_ooo:
                 return _("Error! Subreports not available!")
             report_xml_ids = ir_obj.search(cr, uid, [('report_name', '=', name)], context=context)
             if report_xml_ids:
                 report_xml = ir_obj.browse(cr, uid, report_xml_ids[0], context=context)
-                data = {'model': obj._table_name, 'id': obj.id, 'report_type': 'aeroo', 'in_format': 'oo-odt'}
-
-                reportInstance = ir_obj._lookup_report(cr, name)
-                report, output = reportInstance.create_aeroo_report(cr, uid, \
-                                            [obj.id], data, report_xml, context=context, output='odt') # change for OpenERP 6.0 - Service class usage
-
-                dummy_fd, temp_file_name = tempfile.mkstemp(suffix='.odt', prefix='aeroo-report-')
-                temp_file = open(temp_file_name, 'wb')
-                try:
-                    temp_file.write(report)
-                finally:
-                    temp_file.close()
-
-                self.oo_subreports.append(temp_file_name)
-
-                return "<insert_doc('%s')>" % temp_file_name
+                # if no param was passed set 
+                # report action
+                if not obj:
+                    obj = report_xml
+                
+                report = None
+                report_format = None
+                
+                # update data
+                tdata = {'model': obj._model._name, 
+                         'id': obj.id, 
+                         'report_type': report_xml.report_type, 
+                         'in_format': report_xml.in_format
+                        }
+                if data:
+                    tdata.update(data)
+                    
+                # set data
+                data = tdata
+                 
+                # aeroo report
+                if report_xml.report_type == "aeroo":
+                    reportInstance = ir_obj._lookup_report(cr, name)
+                    report, report_format = reportInstance.create_aeroo_report(cr, uid, \
+                                                [obj.id], data, report_xml, context=context, output='odt') # change for OpenERP 6.0 - Service class usage
+                
+                # html report
+                else:
+                    report_format = "html"
+                    report = pool["report"].get_html(cr, uid, [obj.id], name, data=data, context=context)
+                    
+                # create 
+                if report:
+                    dummy_fd, temp_file_name = tempfile.mkstemp(suffix="."+report_format, prefix="aeroo-report-")
+                    temp_file = open(temp_file_name, "wb")
+                    try:
+                        temp_file.write(report)
+                    finally:
+                        temp_file.close()
+                            
+                    self.oo_subreports.append(temp_file_name)
+                    return "<insert_doc('%s')>" % temp_file_name
+                
             return None
         #### for text documents ####
         def raw_subreport(name=None, obj=None):
@@ -327,9 +353,9 @@ class Aeroo_report(report_sxw):
         elif output=='raw':
             return raw_subreport
 
-    def _cleanup(self):
+    def _cleanup_subreports(self):
         while self.oo_subreports:
-            sub_report = oo_subreports.pop()
+            sub_report = self.oo_subreports.pop()
             try:
                 os.unlink(sub_report)
             except:
@@ -537,7 +563,7 @@ class Aeroo_report(report_sxw):
         except Exception, e:
             tb_s = reduce(lambda x, y: x+y, traceback.format_exception(sys.exc_type, sys.exc_value, sys.exc_traceback))
             logger.error(tb_s)
-            self._cleanup()
+            self._cleanup_subreports()
             raise Exception(_("Aeroo Reports: Error while generating the report."), e, str(e), _("For more reference inspect error logs."))
 
         ######### OpenOffice extras #########
@@ -558,9 +584,11 @@ class Aeroo_report(report_sxw):
                                 time.sleep(AEROO_TIMEOUT)
                                 return build_report(data,retry-1)
 
-                            self._cleanup()
                             output=report_xml.in_format[3:]
                             raise e
+                        finally:
+                            self._cleanup_subreports()
+                                    
 
                 data = build_report(data)
             else:
