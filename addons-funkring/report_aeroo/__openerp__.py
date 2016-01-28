@@ -31,11 +31,11 @@
     'website': 'http://www.alistek.com',
     'depends': ['base','report'],    
     'data': ["security.xml",
-                   "report_view.xml", 
-                   "report_html.xml",
-                   "data/report_aeroo_data.xml",
-                   "security/ir.model.access.csv"                   
-                   ],
+             "data/report_aeroo_data.xml",
+             "security/ir.model.access.csv",
+             "report_view.xml", 
+             "report_html.xml",
+            ],
     'installable': True,
     'auto_install': False,
 }
