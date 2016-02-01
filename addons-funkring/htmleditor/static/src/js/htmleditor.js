@@ -15,8 +15,8 @@ openerp.htmleditor = function(instance, local) {
                     height:     height, // height not including margins, borders or padding
                     plugins: [
                         'advlist autolink autosave link lists charmap hr anchor pagebreak spellchecker',
-                        'searchreplace wordcount visualblocks visualchars code fullscreen nonbreaking',
-                        'table contextmenu directionality paste fullpage textcolor colorpicker'
+                        'searchreplace wordcount visualblocks visualchars code nonbreaking',
+                        'table contextmenu directionality paste textcolor colorpicker'
                     ],
                     toolbar: " bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent | hr nonbreaking pagebreak | removeformat | code translate",
                     menubar: false,
