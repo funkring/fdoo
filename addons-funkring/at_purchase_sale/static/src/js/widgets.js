@@ -5,7 +5,7 @@ openerp.at_purchase_sale = function(instance, local) {
     /**
      * override get rows
      */
-    instance.stock.PickingEditorWidget = instance.stock.PickingEditorWidget.extend({
+    instance.stock.PickingEditorWidget.include({
     
        renderElement: function(){
             var self = this;
@@ -145,7 +145,7 @@ openerp.at_purchase_sale = function(instance, local) {
     /**
      * override product scan
      */
-    instance.stock.PickingMainWidget = instance.stock.PickingMainWidget.extend({
+    instance.stock.PickingMainWidget.include({
                
         scan: function(ean){ //scans a barcode, sends it to the server, then reload the ui
             var self = this;
@@ -209,7 +209,7 @@ openerp.at_purchase_sale = function(instance, local) {
     /**
      * override picking scan
     */
-    instance.stock.PickingMenuWidget = instance.stock.PickingMenuWidget.extend({
+    instance.stock.PickingMenuWidget.include({
     
         on_scan: function(barcode) {
                 var self = this;

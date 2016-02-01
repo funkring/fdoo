@@ -1,0 +1,15 @@
+<openerp>
+  <data>
+    
+<template id="assets_backend" name="htmleditor.assets_backend" inherit_id="web.assets_backend">
+    <xpath expr="." position="inside">
+        <!-- link rel="stylesheet" href="/htmleditor/static/lib/stock/static/src/css/stock.css"/ -->
+        <script type="text/javascript" src="/htmleditor/static/lib/tinymce/tinymce.min.js"></script>
+        <script type="text/javascript" src="/htmleditor/static/lib/tinymce/jquery.tinymce.js"></script>
+        <script type="text/javascript" src="/htmleditor/static/src/js/htmleditor.js"/>
+    </xpath>
+</template>
+    
+    
+  </data>
+</openerp>
