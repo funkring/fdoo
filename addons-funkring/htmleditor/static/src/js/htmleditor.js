@@ -1,11 +1,10 @@
 /*global openerp:false, instance:false*, _:false, $:false*/
 openerp.htmleditor = function(instance, local) {
-    
     instance.web.form.FieldTextHtml.include({
         // overwrite existing widget
         initialize_content: function() {
             var self = this;
-            if (! this.get("effective_readonly")) {
+            if (!this.get("effective_readonly")) {
                 self._updating_editor = false;
                 this.$textarea = this.$el.find('textarea');
                 var width = ((this.node.attrs || {}).editor_width || 'calc(100% - 4px)');
@@ -17,7 +16,7 @@ openerp.htmleditor = function(instance, local) {
                     plugins: [
                         'advlist autolink autosave link lists charmap hr anchor pagebreak spellchecker',
                         'searchreplace wordcount visualblocks visualchars code fullscreen nonbreaking',
-                        'table contextmenu directionality textcolor paste fullpage textcolor colorpicker'
+                        'table contextmenu directionality paste fullpage textcolor colorpicker'
                     ],
                     toolbar: " bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent | hr nonbreaking pagebreak | removeformat | code translate",
                     menubar: false,
@@ -34,7 +33,12 @@ openerp.htmleditor = function(instance, local) {
                                onclick: self.on_translate
                             });
                         }
-                    }          
+                    },
+                    urlconverter_callback: function(url, node, on_save, name) {
+                        debugger;
+                        return url;
+                    }
+                           
                 })[0];
             }
         },
@@ -45,7 +49,7 @@ openerp.htmleditor = function(instance, local) {
         },
         
         render_value: function() {
-            if (! this.get("effective_readonly")) {
+            if (!this.get("effective_readonly")) {
                 this.$textarea.val(this.get('value') || '');
             } else {
                 this.$el.html(this.get('value'));
