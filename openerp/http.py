@@ -1480,7 +1480,7 @@ def db_monodb(httprequest=None):
     db_name = openerp.tools.config['db_name']
     if db_name:
         return db_name
-    #funkrnig.net end
+    #funkring.net end
     
     httprequest = httprequest or request.httprequest
 
