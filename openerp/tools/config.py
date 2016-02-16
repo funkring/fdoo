@@ -322,9 +322,10 @@ class configmanager(object):
         group.add_option("--unaccent", dest="unaccent", my_default=False, action="store_true",
                          help="Use the unaccent function provided by the database when available.")
         #funkring.net begin
+        group.add_option("--db-prefix", dest="db_prefix", my_default=False, help="If enabled the host is used for database name")
         group.add_option("--disable-database-manager", dest="disable_database_manager", my_default=False, action="store_true",
                          help="Disable the database manager.")
-        #funkrnig.net end
+        #funkring.net end
         group.add_option("--geoip-db", dest="geoip_database", my_default='/usr/share/GeoIP/GeoLiteCity.dat',
                          help="Absolute path to the GeoIP database file.")
         parser.add_option_group(group)
@@ -460,7 +461,7 @@ class configmanager(object):
         keys = [
             'language', 'translate_out', 'translate_in', 'overwrite_existing_translations',
             #funkring.net begin
-            'default_language','translate_get', 'translate_set', 'disable_database_manager',
+            'default_language','translate_get', 'translate_set', 'disable_database_manager', 'db_prefix',
             #funkring.net end
             'debug_mode', 'smtp_ssl', 'load_language',
             'stop_after_init', 'logrotate', 'without_demo', 'xmlrpc', 'syslog',

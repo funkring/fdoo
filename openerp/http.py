@@ -1483,7 +1483,15 @@ def db_monodb(httprequest=None):
     #funkring.net end
     
     httprequest = httprequest or request.httprequest
-
+    #funkring.net begin
+    db_prefix = openerp.tools.config['db_prefix']
+    if db_prefix:
+        host = httprequest.environ.get('HTTP_HOST', '').split(':')[0]
+        host = host.split('.')[0]
+        if host:
+            return "%s%s" % (db_prefix, host)
+    #funkring.net end
+    
     dbs = db_list(True, httprequest)
 
     # try the db already in the session
