@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Odoo 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-21 14:07+0000\n"
-"PO-Revision-Date: 2015-10-18 14:22+0000\n"
+"PO-Revision-Date: 2016-02-15 19:44+0000\n"
 "Last-Translator: Martin Trigaux\n"
 "Language-Team: Ukrainian (http://www.transifex.com/odoo/odoo-8/language/uk/)\n"
 "MIME-Version: 1.0\n"
@@ -126,7 +126,7 @@ msgstr ""
 #: view:hr.holidays:hr_holidays.allocation_company_new
 #: view:hr.holidays:hr_holidays.edit_holiday_new
 msgid "Approve"
-msgstr ""
+msgstr "Затвердити"
 
 #. module: hr_holidays
 #: selection:hr.employee,current_leave_state:0 selection:hr.holidays,state:0
@@ -144,12 +144,12 @@ msgstr ""
 #. module: hr_holidays
 #: selection:hr.holidays.status,color_name:0
 msgid "Black"
-msgstr ""
+msgstr "Чорний"
 
 #. module: hr_holidays
 #: selection:hr.holidays.status,color_name:0
 msgid "Blue"
-msgstr ""
+msgstr "Блакитна"
 
 #. module: hr_holidays
 #: selection:hr.holidays.summary.dept,holiday_type:0
@@ -618,12 +618,12 @@ msgstr ""
 #. module: hr_holidays
 #: field:hr.holidays,meeting_id:0
 msgid "Meeting"
-msgstr ""
+msgstr "Зустріч"
 
 #. module: hr_holidays
 #: field:hr.holidays.status,categ_id:0
 msgid "Meeting Type"
-msgstr ""
+msgstr "Тип зустрічі"
 
 #. module: hr_holidays
 #: field:hr.holidays,message_ids:0
@@ -638,7 +638,7 @@ msgstr "Повідомлення та історія бесіди"
 #. module: hr_holidays
 #: view:hr.holidays.status:hr_holidays.edit_holiday_status_form
 msgid "Misc"
-msgstr ""
+msgstr "Різне"
 
 #. module: hr_holidays
 #: view:hr.holidays:hr_holidays.edit_holiday_new
@@ -704,7 +704,7 @@ msgstr ""
 #. module: hr_holidays
 #: selection:hr.holidays.status,color_name:0
 msgid "Red"
-msgstr ""
+msgstr "Червона"
 
 #. module: hr_holidays
 #: view:hr.holidays:hr_holidays.allocation_company_new
@@ -811,7 +811,7 @@ msgstr "Початкова дата"
 #. module: hr_holidays
 #: view:hr.holidays:hr_holidays.view_hr_holidays_filter
 msgid "Start Month"
-msgstr ""
+msgstr "Місяць початку"
 
 #. module: hr_holidays
 #: field:hr.holidays,state:0
@@ -958,7 +958,7 @@ msgstr "Тип"
 #. module: hr_holidays
 #: model:hr.holidays.status,name:hr_holidays.holiday_status_unpaid
 msgid "Unpaid"
-msgstr ""
+msgstr "Неоплачено"
 
 #. module: hr_holidays
 #: field:hr.holidays,message_unread:0
@@ -979,7 +979,7 @@ msgstr "Провірити"
 #. module: hr_holidays
 #: view:hr.holidays:hr_holidays.view_hr_holidays_filter
 msgid "Validated"
-msgstr ""
+msgstr "Підтверджено"
 
 #. module: hr_holidays
 #: view:hr.holidays.status:hr_holidays.edit_holiday_status_form

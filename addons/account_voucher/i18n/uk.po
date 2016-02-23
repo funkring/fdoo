@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Odoo 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-21 14:07+0000\n"
-"PO-Revision-Date: 2015-10-13 18:34+0000\n"
+"PO-Revision-Date: 2016-02-15 19:44+0000\n"
 "Last-Translator: Bogdan\n"
 "Language-Team: Ukrainian (http://www.transifex.com/odoo/odoo-8/language/uk/)\n"
 "MIME-Version: 1.0\n"
@@ -174,7 +174,7 @@ msgstr ""
 #. module: account_voucher
 #: view:account.voucher:account_voucher.view_purchase_receipt_form
 msgid "Bill Date"
-msgstr ""
+msgstr "Дата рахунку"
 
 #. module: account_voucher
 #: view:account.voucher:account_voucher.view_purchase_receipt_form
@@ -429,7 +429,7 @@ msgstr ""
 #: code:addons/account_voucher/account_voucher.py:1104
 #, python-format
 msgid "Go to the configuration panel"
-msgstr ""
+msgstr "Перейти до панелі налаштувань"
 
 #. module: account_voucher
 #: view:account.voucher:account_voucher.view_voucher_filter
@@ -520,7 +520,7 @@ msgstr ""
 #: view:account.voucher:account_voucher.view_voucher_form
 #: field:account.voucher,move_ids:0
 msgid "Journal Items"
-msgstr ""
+msgstr "Проведення"
 
 #. module: account_voucher
 #: model:ir.actions.act_window,name:account_voucher.action_voucher_list
@@ -746,7 +746,7 @@ msgstr ""
 #. module: account_voucher
 #: view:account.voucher:account_voucher.view_voucher_form
 msgid "Post"
-msgstr ""
+msgstr "Допис"
 
 #. module: account_voucher
 #: view:account.voucher:account_voucher.view_voucher_filter
@@ -871,7 +871,7 @@ msgstr ""
 #. module: account_voucher
 #: field:sale.receipt.report,user_id:0
 msgid "Salesperson"
-msgstr ""
+msgstr "Продавець"
 
 #. module: account_voucher
 #: view:account.voucher:account_voucher.view_voucher_filter
