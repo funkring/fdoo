@@ -34,6 +34,6 @@ class report_html(models.AbstractModel):
             html = data.get("html") or None
             if html:
                 html = HTML(html,"UTF-8")
-                sanitize = HTMLSanitizer()
+                sanitize = HTMLSanitizer(safe_attrs=HTMLSanitizer.SAFE_ATTRS | set(['style']))
                 return StringIO.StringIO(html | sanitize).getvalue()
         return None
