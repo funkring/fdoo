@@ -655,6 +655,11 @@ class pos_order(osv.osv):
             }, context=context)
         return order_id
 
+    # funkring.net - begin
+    def _after_invoice(self, cr, uid, order, context=None):
+        pass
+    # funkring.net - end
+
     def create_from_ui(self, cr, uid, orders, context=None):
         # Keep only new orders
         submitted_references = [o['data']['name'] for o in orders]
@@ -680,7 +685,9 @@ class pos_order(osv.osv):
                 self.action_invoice(cr, uid, [order_id], context)
                 order_obj = self.browse(cr, uid, order_id, context)
                 self.pool['account.invoice'].signal_workflow(cr, uid, [order_obj.invoice_id.id], 'invoice_open')
-
+                # funkring.net - begin
+                self._after_invoice(cr, uid, order_obj, context=context)
+                # funkring.net -end
         return order_ids
 
     def write(self, cr, uid, ids, vals, context=None):

@@ -39,16 +39,16 @@ class pos_confirm(osv.osv_memory):
                 order.signal_workflow('done')
 
         # Check if there is orders to reconcile their invoices
+        # funkring.net - begin
         move_line_obj = self.pool.get('account.move.line')
         ids = order_obj.search(cr, uid, [('state','=','invoiced'),('invoice_id.state','=','open')], context=context)
         for order in order_obj.browse(cr, uid, ids, context=context):
             invoice = order.invoice_id
             data_lines = [x.id for x in invoice.move_id.line_id if x.account_id.id == invoice.account_id.id]
-            for st in order.statement_ids:
-                move = st.journal_entry_id
-                if move:
-                    data_lines += [x.id for x in move.line_id if x.account_id.id == invoice.account_id.id]
-                    move_line_obj.reconcile(cr, uid, data_lines, context=context)
+            for st_line in order.statement_ids:
+                data_lines += [x.id for x in st_line.journal_entry_id.line_id if x.account_id.id == invoice.account_id.id]
+            move_line_obj.reconcile(cr, uid, data_lines, context=context)                
+        #funkring.net - end        
         return {}
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
