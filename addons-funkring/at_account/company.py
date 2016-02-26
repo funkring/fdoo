@@ -28,5 +28,6 @@ class res_company(osv.osv):
         "invoice_text" : fields.text("Sale Invoice Text"),
         "invoice_in_text" : fields.text("Purchase Invoice Text"),
         "refund_text" : fields.text("Customer Refund Text"),
-        "refund_in_text" : fields.text("Supplier Refund Text")
+        "refund_in_text" : fields.text("Supplier Refund Text"),
+        "code" : fields.char("Code")
     }

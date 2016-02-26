@@ -6,6 +6,9 @@
 			<field name="inherit_id" ref="base.view_company_form" />
 			<field name="model">res.company</field>
 			<field name="arch" type="xml">
+			    <field name="company_registry" position="after">
+			         <field name="code"/>
+			    </field>
 				<notebook position="inside">
 					<page string="Invoice/Refund Text">
 						<group col="2" colspan="2">
