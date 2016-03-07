@@ -1,0 +1,170 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* jdoc
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-12-29 09:28+0000\n"
+"PO-Revision-Date: 2015-12-29 09:28+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: jdoc
+#: view:jdoc.res.config:jdoc.form_jdoc_res_config
+msgid "Apply"
+msgstr "Übernehmen"
+
+#. module: jdoc
+#: view:jdoc.res.config:jdoc.form_jdoc_res_config
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#. module: jdoc
+#: view:jdoc.res.config:jdoc.form_jdoc_res_config
+msgid "CouchDB"
+msgstr ""
+
+#. module: jdoc
+#: field:jdoc.res.config,couchdb_password:0
+msgid "CouchDB Password"
+msgstr "CouchDB Passwort"
+
+#. module: jdoc
+#: field:jdoc.res.config,couchdb_public_url:0
+msgid "CouchDB Public Url"
+msgstr "CouchDB öffentlich URL"
+
+#. module: jdoc
+#: field:jdoc.res.config,couchdb_url:0
+msgid "CouchDB Url"
+msgstr "CouchDB URL"
+
+#. module: jdoc
+#: help:jdoc.res.config,couchdb_public_url:0
+msgid "CouchDB Url for extern/public synchronisation"
+msgstr "CouchDB URL für die Externe/Öffentliche Synchronisation"
+
+#. module: jdoc
+#: help:jdoc.res.config,couchdb_url:0
+msgid "CouchDB Url for intern synchronisation"
+msgstr "CouchDB URL für die Interne Synchronisation"
+
+#. module: jdoc
+#: field:jdoc.res.config,couchdb_user:0
+msgid "CouchDB User"
+msgstr "CouchDB Benutzer"
+
+#. module: jdoc
+#: field:jdoc.res.config,create_uid:0
+msgid "Created by"
+msgstr ""
+
+#. module: jdoc
+#: field:jdoc.res.config,create_date:0
+msgid "Created on"
+msgstr ""
+
+#. module: jdoc
+#: code:addons/jdoc/jdoc.py:688
+#: code:addons/jdoc/jdoc.py:776
+#: code:addons/jdoc/jdoc.py:838
+#: code:addons/jdoc/jdoc.py:852
+#: code:addons/jdoc/jdoc.py:856
+#, python-format
+msgid "Error"
+msgstr "Fehler"
+
+#. module: jdoc
+#: field:jdoc.jdoc,id:0
+#: field:jdoc.res.config,id:0
+msgid "ID"
+msgstr ""
+
+#. module: jdoc
+#: model:ir.model,name:jdoc.model_jdoc_jdoc
+msgid "JSON Document Support"
+msgstr "JSON Dokument Unterstützung"
+
+#. module: jdoc
+#: field:jdoc.res.config,write_uid:0
+msgid "Last Updated by"
+msgstr ""
+
+#. module: jdoc
+#: field:jdoc.res.config,write_date:0
+msgid "Last Updated on"
+msgstr ""
+
+#. module: jdoc
+#: code:addons/jdoc/jdoc.py:838
+#, python-format
+msgid "No configuration name passed"
+msgstr "Es wurde kein Konfigurationsname übergeben"
+
+#. module: jdoc
+#: code:addons/jdoc/jdoc.py:856
+#, python-format
+msgid "No public couchdb url defined"
+msgstr "Es wurde keine Öffentliche CouchDB URL definiert"
+
+#. module: jdoc
+#: view:jdoc.res.config:jdoc.form_jdoc_res_config
+msgid "Password"
+msgstr "Passwort"
+
+#. module: jdoc
+#: view:jdoc.res.config:jdoc.form_jdoc_res_config
+msgid "Public Url"
+msgstr "Öffentliche URL"
+
+#. module: jdoc
+#: code:addons/jdoc/jdoc.py:688
+#, python-format
+msgid "Unable to determine model"
+msgstr "Das Modell konnte nicht gefunden werden"
+
+#. module: jdoc
+#: code:addons/jdoc/jdoc.py:852
+#, python-format
+msgid "Unable to get user password. Deinstall 'auth_crypt' Module"
+msgstr "Benutzer Passwort konnte nicht abgefragt werden, bitte das Modul 'auth_crypt' deinstallieren"
+
+#. module: jdoc
+#: view:jdoc.res.config:jdoc.form_jdoc_res_config
+msgid "Url"
+msgstr "URL"
+
+#. module: jdoc
+#: view:jdoc.res.config:jdoc.form_jdoc_res_config
+msgid "User"
+msgstr "Benutzer"
+
+#. module: jdoc
+#: code:addons/jdoc/jdoc.py:776
+#, python-format
+msgid "Using list for non list type"
+msgstr "Es wird ein Listentyp für einen Typ der keine Liste ist benutzt"
+
+#. module: jdoc
+#: model:ir.actions.act_window,name:jdoc.action_jdoc_res_config
+#: model:ir.ui.menu,name:jdoc.menu_jdoc_res_config
+#: view:jdoc.res.config:jdoc.form_jdoc_res_config
+msgid "jDoc Configuration"
+msgstr "jDoc Konfiguration"
+
+#. module: jdoc
+#: model:ir.model,name:jdoc.model_jdoc_res_config
+msgid "jDoc Configuration "
+msgstr "jDoc Konfiguration"
+
+#. module: jdoc
+#: view:jdoc.res.config:jdoc.form_jdoc_res_config
+msgid "or"
+msgstr "oder"
+
