@@ -7,6 +7,9 @@ import subprocess
 
 import shutil
 import ConfigParser
+import psycopg2
+import uuid
+import tempfile
 
 SERVER_CONF = "server.conf"
 DIR_CONFIG = os.path.dirname(os.path.realpath( __file__ ))
@@ -237,6 +240,43 @@ def setup(onlyLinks=False):
     log.info("Added links: "  + str(t_addedLinks))
     log.info("Finished!")
 
+def copyDatabase(database, dest):
+    if not dest:
+        log.info("No destination for copying the database to found!\n")
+        
+    log.info("Copy Database %s to %s " % (database, dest))
+    
+    tmpFile = tempfile.NamedTemporaryFile("w", bufsize=4096, suffix=".sql", prefix="pg_tmp_")
+    try:
+        # dump db
+        p = subprocess.Popen(["pg_dump",database],stdout=tmpFile)
+        p.wait()
+        tmpFile.flush();
+
+        # create db
+        p = subprocess.Popen(["createdb", dest])
+        p.wait()
+        
+        # import
+        p = subprocess.Popen(["psql","-d", dest, "-f", tmpFile.name])
+        p.wait()
+    
+        # update db
+        con = psycopg2.connect("dbname=%s" % dest)
+        database_uuid = str(uuid.uuid1())         
+        try:
+            cr = con.cursor()
+            try:
+                cr.execute("UPDATE ir_config_parameter SET value=%s WHERE key='database.uuid'", (database_uuid,))
+                log.info("Changed Database UUID to %s" % database_uuid)
+            finally:
+                cr.close()
+        finally:
+            con.close()
+    finally:
+        tmpFile.close()
+
+    
 
 if __name__ == "__main__":
     import optparse
@@ -271,6 +311,8 @@ if __name__ == "__main__":
     parser.add_option("--fix", dest="fix", help="Fix fixable automatically", action="store_true", default=False)
     parser.add_option("--full", dest="full", help="Enable full cleanup", action="store_true", default=False)
     parser.add_option("--update",dest="update",default=None,help="Update Database")
+    parser.add_option("--copy",dest="copy",default=None,help="Copy Database")
+    parser.add_option("--dest",dest="dest",default=None,help="Destination Database")
     parser.add_option("--cleanup",dest="cleanup",default=None,help="Cleanup Database")
     parser.add_option("--module",dest="module",default=None,help="Module to Update")
     parser.add_option("--override",dest="override",action="store_true",default=False)
@@ -286,5 +328,7 @@ if __name__ == "__main__":
         update(database=opt.update, module=opt.module, override=opt.override, opt=opt)
     elif opt.cleanup:
         cleanup(database=opt.cleanup, fix=opt.fix, full=opt.full, opt=opt)
+    elif opt.copy:
+        copyDatabase(database=opt.copy, dest=opt.dest)
     else:
         setup()

@@ -1,0 +1,9 @@
+#. module: product
+#: model:product.uom,name:product.product_uom_qt
+msgid "qt"
+msgstr "Quant"
+
+#. module: product
+#: model:product.uom,name:product.product_uom_floz
+msgid "fl oz"
+msgstr "Flüssigunze"

@@ -36,9 +36,13 @@ class product_product(osv.osv):
         price = brutto_price
         taxes_list = taxes_id[0][2]
         if taxes_list:
-            price_list = tax_obj.compute_inv(cr, uid, tax_obj.browse(cr, uid, taxes_list), price, 1)
-            if price_list:
-                price = price_list[0]["price_unit"]
+            taxes = tax_obj.browse(cr, uid, taxes_list)
+            if taxes:
+                taxes = [t for t in taxes if not t.price_include]
+                if taxes:          
+                    price_list = tax_obj.compute_inv(cr, uid, taxes, price, 1)
+                    if price_list:
+                        price = price_list[0]["price_unit"]
         currency_id = company_obj.browse(cr, uid, company_id).currency_id
         if currency_id:
             res["value"]["lst_price"] = cur_obj.round(cr, uid, currency_id, price)
@@ -64,9 +68,13 @@ class product_template(osv.osv):
         price = brutto_price
         taxes_list = taxes_id[0][2]
         if taxes_list:
-            price_list = tax_obj.compute_inv(cr, uid, tax_obj.browse(cr, uid, taxes_list), price, 1)
-            if price_list:
-                price = price_list[0]["price_unit"]
+            taxes = tax_obj.browse(cr, uid, taxes_list)
+            if taxes:
+                taxes = [t for t in taxes if not t.price_include]
+                if taxes:          
+                    price_list = tax_obj.compute_inv(cr, uid, taxes, price, 1)
+                    if price_list:
+                        price = price_list[0]["price_unit"]
         currency_id = company_obj.browse(cr, uid, company_id).currency_id
         if currency_id:
             res["value"]["list_price"] = cur_obj.round(cr, uid, currency_id, price)
