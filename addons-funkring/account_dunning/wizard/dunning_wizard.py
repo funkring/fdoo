@@ -123,7 +123,7 @@ class account_dunning_wizard(osv.osv_memory):
                                 if line_id:                                    
                                     line_id = reminder_line_obj.create(cr, uid, values, context)
                                 else:
-                                    reminder_line_obj.update(cr, uid, values, context)
+                                    reminder_line_obj.write(cr, uid, line_id, values, context)
                                 # add line
                                 reminder_line_ids.append(line_id)
                                 
