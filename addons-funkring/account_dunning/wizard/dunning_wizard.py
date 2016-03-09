@@ -40,20 +40,23 @@ class account_dunning_wizard(osv.osv_memory):
                         " SELECT r.partner_id FROM account_reminder r")
 
             partner_ids = [r[0] for r in cr.fetchall()]
+            reminder_ids = []
+                        
+            # check if there any partner ids
             if not partner_ids:
                 break
 
             customers = partner_obj.browse(cr,uid,partner_ids,context=context)
             for customer in customers:
+                # get active reminder id
+                reminder_id = reminder_obj.search_id(cr, uid, [("partner_id", "=", customer.id),("profile_id","=",wizard.profile_id.id)])
                 if not customer.noremind:
-                    reminder_id = reminder_obj.search_id(cr, uid, [("partner_id", "=", customer.id),("profile_id","=",wizard.profile_id.id)])
-                    customer_balance_check = customer
-                    if customer.parent_id:
-                        customer_balance_check = customer.parent_id
-
-                    if customer_balance_check.credit <= customer_balance_check.debit and not reminder_id:
-                            continue
-                    else:
+                   
+                    # check balance           
+                    commercial_partner = customer.commercial_partner_id       
+                    if commercial_partner.credit > commercial_partner.debit or reminder_id:
+                        
+                        # check invoice
                         invoice_ids = invoice_obj.search(cr, uid, [("partner_id", "=", customer.id), ("type", "=", "out_invoice"), ("noremind","=",False)])
                         if not invoice_ids:
                             continue
@@ -62,10 +65,11 @@ class account_dunning_wizard(osv.osv_memory):
                         max_profile_line = None
                         profile_line = None
 
+                        # check invoices
                         for inv in invoice_obj.browse(cr, uid, invoice_ids):
+                                                    
                             if (user.company_id == inv.company_id) and inv.payment_term and not inv.noremind:
                                 reminder_line_id = reminder_line_obj.search_id(cr, uid, [("reminder_id","=",reminder_id),("invoice_id", "=", inv.id)])
-
                                 if inv.state == "open":
                                     profile_line = profile_line_obj.line_next(cr,uid,wizard.profile_id,inv.profile_line_id,wizard.date,inv.date_due)
 
@@ -77,22 +81,18 @@ class account_dunning_wizard(osv.osv_memory):
                                                                      "dunning_date" : wizard.date }, context)
 
                                     # check next remind
-                                    if not profile_line:
-                                        if reminder_line_id:
-                                            lines.append((2, reminder_line_id))
-                                        else:
-                                            continue
-
-                                    else:
+                                    if profile_line and inv.residual:                                        
                                         line_values =  {"invoice_id" : inv.id,
                                                         "profile_line_id" : profile_line and profile_line.id or None,
                                                         "amount" : inv.residual}
 
+                                        # update remind
                                         if not reminder_line_id:
                                             lines.append((0, 0, line_values))
                                         else:
                                             lines.append((1, reminder_line_id, line_values))
 
+                                        # determine max profile
                                         if max_profile_line:
                                             if max_profile_line.sequence < profile_line.sequence:
                                                 max_profile_line = profile_line
@@ -100,24 +100,45 @@ class account_dunning_wizard(osv.osv_memory):
                                             max_profile_line = profile_line
 
                         #update or create reminder
-                        if lines:
+                        if max_profile_line:
                             values = {"date" : wizard.date,
                                       "partner_id" : customer.id,
                                       "profile_id" : wizard.profile_id.id,
-                                      "max_profile_line_id" : max_profile_line and max_profile_line.id or None,
+                                      "max_profile_line_id" : max_profile_line.id,
                                       "line_ids" : lines,
                                       "state" : "validated"}
-
+                            
+                            # create or update reminder
                             if reminder_id:
                                 reminder_obj.write(cr, uid, reminder_id, values, context)
-
                             else:
-                                reminder_obj.create(cr, uid, values, context)
-
-                        # check if reminder is ready to delete
-                        elif reminder_id:
-                            reminder_obj.unlink(cr, uid, reminder_id, context)
-
+                                reminder_id = reminder_obj.create(cr, uid, values, context)
+                                
+                            # update lines
+                            reminder_line_ids = []
+                            for line in lines:
+                                values = line[2]
+                                values["reminder_id"] = reminder_id
+                                line_id = line[0]                                
+                                if line_id:                                    
+                                    line_id = reminder_line_obj.create(cr, uid, values, context)
+                                else:
+                                    reminder_line_obj.update(cr, uid, values, context)
+                                # add line
+                                reminder_line_ids.append(line_id)
+                                
+                            # only add if there are lines 
+                            if reminder_line_ids:
+                                # delete unused lines
+                                unused_line_ids = reminder_line_obj.search(cr, uid, [("reminder_id","=",reminder_id),("id","not in",reminder_line_ids)], context=context)
+                                reminder_line_obj.unlink(cr, uid, unused_line_ids, context=context)                                
+                                # add reminder
+                                reminder_ids.append(reminder_id)
+                            
+            # remove untouched, unused
+            unused_reminder_ids = reminder_obj.search(cr, uid, [("id", "not in", reminder_ids),("profile_id","=",wizard.profile_id.id)])
+            reminder_obj.unlink(cr, uid, unused_reminder_ids, context=context)
+            
         return {
             "name" : _("Reminders"),
             "res_model" : "account.reminder",

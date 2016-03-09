@@ -28,49 +28,13 @@ class Parser(extreport.basic_parser):
         super(Parser, self).__init__(cr, uid, name, context)
         self.localcontext.update({
             "util" : util,
-            "get_sum" : self._get_sum,
-            "get_currency" : self._get_currency,
-            "get_dunning_fee" : self._get_dunning_fee,
-            "reminder_text" : self._reminder_text
+            "remind" : self._remind
         })
         
            
-    def _get_sum(self, reminder):
-        res = 0.0
-        for line in reminder.line_ids:
-            invoice = line.invoice_id
-            res+=invoice.residual
-        return res
-    
     def _get_currency(self, remind):
         return remind.profile_id.company_id.currency_id.symbol or ''
     
-    def _get_dunning_fee(self, reminder):
-        dunning_fee = 0.0
-        amount = 0.0
-        max_profile_line_id = reminder.max_profile_line_id
-        for line in reminder.line_ids:
-            invoice = line.invoice_id
-            amount+=invoice.residual
-        if max_profile_line_id.dunning_fee_percent:
-            dunning_fee = (amount / 100) * max_profile_line_id.dunning_fee
-        else:
-            dunning_fee = max_profile_line_id.dunning_fee
-            
-        return dunning_fee
-    
-    def _reminder_text(self, reminder):
-        profile_line = reminder.max_profile_line_id
-        partner = reminder.partner_id
-        profile = reminder.max_profile_line_id.profile_id
-        dunning_date = reminder.date
-        
-        text_before = self._eval_text(profile_line.description, partner, profile, dunning_date)
-        text_after = self._eval_text(profile_line.description2, partner, profile, dunning_date)
-        
-        return {"text_before" : text_before,
-                "text_after" : text_after}
-        
     def _eval_text(self,text,partner,profile,str_date):
         res = ""
         if text:
@@ -83,3 +47,66 @@ class Parser(extreport.basic_parser):
             }            
             res = text % val
         return res
+    
+    def _remind(self, remind):
+        dunning_fee = 0.0
+        amount = 0.0
+        max_profile_line_id = remind.max_profile_line_id
+        commercial_partner = remind.partner_id.commercial_partner_id
+        invoice_obj = self.pool["account.invoice"]
+        
+
+        # get text        
+        profile_line = remind.max_profile_line_id
+        partner = remind.partner_id
+        profile = remind.max_profile_line_id.profile_id
+        dunning_date = remind.date
+        
+        text_before = self._eval_text(profile_line.description, partner, profile, dunning_date)
+        text_after = self._eval_text(profile_line.description2, partner, profile, dunning_date)
+        
+        # calc lines
+        lines = []
+        for line in remind.line_ids:
+            invoice = line.invoice_id
+            amount+=invoice.residual
+            lines.append({
+              "amount" : invoice.residual,
+              "inv" : invoice,
+              "obj" : line      
+            })
+                          
+            
+           
+        # calc refunds and out invoices
+        invoice_ids = invoice_obj.search(self.cr, self.uid, [("partner_id","=",commercial_partner.id),("state","=","open"),("type","in", ["in_invoice","out_refund","in_refund"])])
+        invoices = []
+        for invoice in invoice_obj.browse(self.cr, self.uid, invoice_ids, context=self.localcontext):
+            if invoice.residual:
+                invoice_amount = 0.0
+                if invoice.type in ("out_refund","in_invoice"):
+                    invoice_amount=-invoice.residual
+                else:
+                    invoice_amount=invoice.residual
+                invoices.append({
+                    "inv" : invoice,
+                    "amount" : invoice_amount
+                })
+                amount += invoice_amount
+                             
+            
+        if max_profile_line_id.dunning_fee_percent:
+            dunning_fee = (amount / 100) * max_profile_line_id.dunning_fee
+        else:
+            dunning_fee = max_profile_line_id.dunning_fee
+            
+        return [{"total" : amount+dunning_fee,
+                 "fee" : dunning_fee,
+                 "amount" : amount,
+                 "text_before" : text_before,
+                 "text_after" : text_after,
+                 "currency" : remind.profile_id.company_id.currency_id.symbol or '',
+                 "invoices" : invoices,
+                 "lines" : lines 
+                }]
+        
