@@ -119,8 +119,8 @@ class account_dunning_wizard(osv.osv_memory):
                             for line in lines:
                                 values = line[2]
                                 values["reminder_id"] = reminder_id
-                                line_id = line[0]                                
-                                if line_id:                                    
+                                line_id = line[1]                                
+                                if not line_id:                                    
                                     line_id = reminder_line_obj.create(cr, uid, values, context)
                                 else:
                                     reminder_line_obj.write(cr, uid, line_id, values, context)
