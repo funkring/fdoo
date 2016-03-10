@@ -33,7 +33,9 @@ from openerp.tools import misc, config
 A dictionary holding some configuration parameters to be initialized when the database is created.
 """
 _default_parameters = {
-    "database.uuid": lambda: (str(uuid.uuid1()), []),
+    # funkring.net - begin
+    "database.uuid": lambda: (str(uuid.uuid4()), []),
+    # funkring.net - end
     "database.create_date": lambda: (datetime.datetime.now().strftime(misc.DEFAULT_SERVER_DATETIME_FORMAT), ['base.group_user']),
     "web.base.url": lambda: ("http://localhost:%s" % config.get('xmlrpc_port'), []),
 }

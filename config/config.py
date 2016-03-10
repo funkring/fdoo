@@ -263,7 +263,7 @@ def copyDatabase(database, dest):
     
         # update db
         con = psycopg2.connect("dbname=%s" % dest)
-        database_uuid = str(uuid.uuid1())         
+        database_uuid = str(uuid.uuid4())         
         try:
             cr = con.cursor()
             try:
