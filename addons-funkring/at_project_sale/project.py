@@ -33,3 +33,27 @@ class project_work(osv.osv):
         return {}
     
     _inherit = "project.task.work"
+
+
+class project(osv.osv):
+    
+    def name_get(self, cr, uid, ids, context=None):
+        res = []
+        for project in self.browse(cr, uid, ids, context=context):
+            name = project.name or ""
+            partner = project.partner_id
+            if partner:
+                res.append((project.id, "%s [%s]"  % (name, partner.name)))
+            else:
+                res.append((project.id,name))
+        return res
+    
+    def name_search(self, cr, uid, name, args=None, operator='ilike', context=None, limit=100):        
+        res = super(project,self).name_search(cr, uid, name, args=args, operator=operator, context=context, limit=limit)
+        if not res:
+            project_ids = self.search(cr, uid, [("partner_id.name", operator, name)], limit=limit, context=context)
+            if project_ids:
+                return self.name_get(cr, uid, project_ids, context=context)
+        return res   
+    
+    _inherit = "project.project"

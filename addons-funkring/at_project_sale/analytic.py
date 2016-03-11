@@ -57,6 +57,10 @@ class account_analytic_account(osv.osv):
     def name_search(self, cr, uid, name, args=None, operator='ilike', context=None, limit=100):        
         res = super(account_analytic_account,self).name_search(cr,uid,name,args=args,operator=operator,context=context,limit=limit)   
         if not res:
+            account_ids = self.search(cr, uid, [("partner_id.name", operator, name)], limit=limit, context=context)
+            if account_ids:
+                return self.name_get(cr, uid, account_ids, context=context)
+                        
             order_res = self.pool.get("sale.order").name_search(cr,uid,name,args=None,operator=operator,context=context,limit=limit)
             res = []
             if order_res:
