@@ -30,8 +30,7 @@
     'author': 'Alistek Ltd',
     'website': 'http://www.alistek.com',
     'depends': ['base','report_aeroo'],    
-    'data': ["view/aeroo_config_view.xml",
-             "data/mimetypes.xml"],
+    'data': ["data/mimetypes.xml"],
     'installable': True,
     'auto_install': False,
 }

@@ -329,6 +329,8 @@ class configmanager(object):
         group.add_option("--syncdb-user", dest="syncdb_user", my_default=False, help="User for couchdb")
         group.add_option("--syncdb-password", dest="syncdb_password", my_default=False, help="Password for couchdb")
         group.add_option("--syncdb-public-url", dest="syncdb_public_url", my_default=False, help="Public URL for couchdb")
+        group.add_option("--ooproxy", dest="ooproxy", my_default="127.0.0.1", help="OpenOffice Proxy")
+        group.add_option("--ooport", dest="ooport", my_default=8099, help="OpenOffice Proxy Port", type="int")
         #funkring.net end
         group.add_option("--geoip-db", dest="geoip_database", my_default='/usr/share/GeoIP/GeoLiteCity.dat',
                          help="Absolute path to the GeoIP database file.")
@@ -466,7 +468,7 @@ class configmanager(object):
             'language', 'translate_out', 'translate_in', 'overwrite_existing_translations',
             #funkring.net begin
             'default_language','translate_get', 'translate_set', 'disable_database_manager', 'db_prefix',
-            'syncdb_url', 'syncdb_user', 'syncdb_password', 'syncdb_public_url',
+            'syncdb_url', 'syncdb_user', 'syncdb_password', 'syncdb_public_url', 'ooproxy', 'ooport',
             #funkring.net end
             'debug_mode', 'smtp_ssl', 'load_language',
             'stop_after_init', 'logrotate', 'without_demo', 'xmlrpc', 'syslog',
