@@ -3928,14 +3928,16 @@ class BaseModel(object):
                         baselang_ctx = {"lang" : tools.config.baseLang }
                         # src translation os resolved with base language not default language !!!
                         src_trans = self.pool.get(self._name).read(cr, user, ids, [f], baselang_ctx)[0][f] or None
-                        cur_trans = vals[f] or None
-                        # if src_trans is empty  
-                        # then create a src translation
-                        if not src_trans:
-                            src_trans = cur_trans
+                        cur_trans = self.pool.get(self._name).read(cr, user, ids, [f], context)[0][f] or None
+                        new_trans = vals[f] or None
+                        # if src_trans is empty
+                        # if src_trans is equal to cur translation update it   
+                        # if empty create the first src translation
+                        if not src_trans or src_trans == cur_trans:
+                            src_trans = new_trans
                             # Inserting value to DB
-                            self.write(cr, user, ids, {f: cur_trans}, baselang_ctx)
-                        self.pool.get('ir.translation')._set_ids(cr, user, self._name+','+f, 'model', cur_lang, ids, cur_trans, src_trans)
+                            self.write(cr, user, ids, {f: new_trans}, baselang_ctx)
+                        self.pool.get('ir.translation')._set_ids(cr, user, self._name+','+f, 'model', cur_lang, ids, new_trans, src_trans)
                         # funkring.net end
                         
 
