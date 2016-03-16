@@ -57,7 +57,7 @@ class bmd_export_param(osv.TransientModel):
         for obj in self.browse(cr, uid, ids, context):
             journal_ids = [x.id for x in obj.profile_id.journal_ids]   
             if not journal_ids:
-                raise osv.except_osv("Fehler!","Es wurde kein Journal ausgewählt")
+                raise osv.except_osv("Fehler","Es wurde kein Journal ausgewählt")
                 
             export_name = obj.name
             period_id = obj.period_id.id 
@@ -149,7 +149,10 @@ class bmd_export_param(osv.TransientModel):
                             # Wenn kein Produkt angegeben wurde, wird ein reverse mapping der Steuer versucht
                             # falls ein Steuermapping verwendet wird
                             elif invoice.fiscal_position:
-                                taxes = fpos_obj.unmap_tax(cr,uid,invoice.fiscal_position,taxes)
+                                try:
+                                    taxes = fpos_obj.unmap_tax(cr,uid,invoice.fiscal_position,taxes)
+                                except Exception as e:
+                                    raise osv.except_osv("Fehler", "Steuerumschlüsselungsfehler bei Rechnung %s" % invoice.number)
                         
                         if european_union:
                             steucod="09" #Einkauf innergem. Erwerb, wenn VSt-Abzug besteht
@@ -295,7 +298,7 @@ class bmd_export_param(osv.TransientModel):
                         lines = debit                    
                     else:
                         log_ids.append(log_obj.warn(cr,uid,"Buchung %s kann nicht exportiert werden (mehr als eine Haben oder Soll Buchung)" % move.name,context=context))
-                        raise osv.except_osv("Fehler !","Buchung %s kann nicht exportiert werden (mehr als eine Haben oder Soll Buchung)" % move.name)
+                        raise osv.except_osv("Fehler","Buchung %s kann nicht exportiert werden (mehr als eine Haben oder Soll Buchung)" % move.name)
                     #
                     line = main["line"]
                     bmd_line_pattern = {
@@ -413,7 +416,7 @@ class fix_format(object):
        
     def addf(self,inName,inValue,inWidth,inPre,inPost,inStart,inEnd):
         if len(self.line)+1!=inStart:
-            raise osv.except_osv("Fehler !","Falsche Position bei %s: %d != %d" % (inName,len(self.line),inStart))
+            raise osv.except_osv("Fehler","Falsche Position bei %s: %d != %d" % (inName,len(self.line),inStart))
         tokens = str(inValue or 0.0).split(".")
         
         first  = ""
@@ -431,23 +434,23 @@ class fix_format(object):
             self.line +=inValue >= 0.0 and "+" or "-"
             
         if len(self.line)!=inEnd:
-            raise osv.except_osv("Fehler !","Falsche Position bei %s: %d != %d" % (inName,len(self.line),inEnd))                
+            raise osv.except_osv("Fehler","Falsche Position bei %s: %d != %d" % (inName,len(self.line),inEnd))                
  
     def addn(self,inName,inValue,inWidth,inStart,inEnd):
         if len(self.line)+1!=inStart:
-            raise osv.except_osv("Fehler !","Falsche Position bei %s: %d != %d" % (inName,len(self.line),inStart))
+            raise osv.except_osv("Fehler","Falsche Position bei %s: %d != %d" % (inName,len(self.line),inStart))
         self.line += ustr(inValue or "").rjust(inWidth,"0")[:inWidth]
         if len(self.line)!=inEnd:
-            raise osv.except_osv("Fehler !","Falsche Position bei %s: %d != %d" % (inName,len(self.line),inEnd))                
+            raise osv.except_osv("Fehler","Falsche Position bei %s: %d != %d" % (inName,len(self.line),inEnd))                
         
     def adds(self,inName,inValue,inWidth,inStart,inEnd):
         if len(self.line)+1!=inStart:
-            raise osv.except_osv("Fehler !","Falsche Position bei %s: %d != %d" % (inName,len(self.line),inStart))
+            raise osv.except_osv("Fehler","Falsche Position bei %s: %d != %d" % (inName,len(self.line),inStart))
         inValue=inValue or ""
         inValue=inValue.strip()
         self.line += ustr(inValue).ljust(inWidth," ")[:inWidth]
         if len(self.line)!=inEnd:
-            raise osv.except_osv("Fehler !","Falsche Position bei %s: %d != %d" % (inName,len(self.line),inEnd))
+            raise osv.except_osv("Fehler","Falsche Position bei %s: %d != %d" % (inName,len(self.line),inEnd))
         
 
 class bmd_export_result(osv.TransientModel):
@@ -547,7 +550,7 @@ class bmd_export_result(osv.TransientModel):
                         line.encode("cp1252")
                         line_no+=1
                     except UnicodeEncodeError:
-                        raise osv.except_osv("Fehler !","Falscher Zeichencode in Zeile %s\n%s" % (line_no, line))
+                        raise osv.except_osv("Fehler","Falscher Zeichencode in Zeile %s\n%s" % (line_no, line))
             finally:
                 output.close()
             
