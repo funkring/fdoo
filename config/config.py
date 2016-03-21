@@ -10,6 +10,7 @@ import ConfigParser
 import psycopg2
 import uuid
 import tempfile
+import re
 
 SERVER_CONF = "server.conf"
 DIR_CONFIG = os.path.dirname(os.path.realpath( __file__ ))
@@ -276,7 +277,36 @@ def copyDatabase(database, dest):
     finally:
         tmpFile.close()
 
-    
+
+def getConnection(opt, db="postgres"):
+    params = []
+    params.append("dbname='%s'" % db)
+    if opt.db_host:
+        params.append("host='%s'" % opt.db_host)
+    if opt.db_user:
+        params.append("user='%s'" % opt.db_user)
+    if opt.db_password:
+        params.append("password='%s'" % opt.db_password)
+    if opt.db_port:
+        params.append("port='%s'" % opt.db_port)
+    params = " ".join(params)
+    return psycopg2.connect(params)
+
+def getDatabases(name, opt):
+    if "*" in name:        
+        p = re.compile("^" + name.replace("*",".*") + "$") 
+        con = getConnection(opt)
+        try:
+            cr = con.cursor()
+            try:
+                cr.execute("SELECT datname from pg_database")                
+                return [r[0] for r in cr.fetchall() if p.match(r[0])]
+            finally:
+                cr.close()
+        finally:
+            con.close()
+    else:
+        return [name]
 
 if __name__ == "__main__":
     import optparse
@@ -320,15 +350,21 @@ if __name__ == "__main__":
     parser.add_option("--db_port",dest="db_port",default=defaults.get("db_port"),help="Database Port")
     parser.add_option("--db_password",dest="db_password",default=defaults.get("db_password"),help="Database Password")
     parser.add_option("--db_user",dest="db_user",default=defaults.get("db_user"),help="Database User")
+    parser.add_option("--list",dest="list",default=None, help="List Databases")
     opt, args = parser.parse_args()
 
     if opt.links:
         setup(onlyLinks=True)
     elif opt.update:
-        update(database=opt.update, module=opt.module, override=opt.override, opt=opt)
+        for db in getDatabases(opt.update, opt):
+            update(database=db, module=opt.module, override=opt.override, opt=opt)
     elif opt.cleanup:
-        cleanup(database=opt.cleanup, fix=opt.fix, full=opt.full, opt=opt)
+        for db in getDatabases(opt.cleanup, opt):
+            cleanup(database=db, fix=opt.fix, full=opt.full, opt=opt)
     elif opt.copy:
         copyDatabase(database=opt.copy, dest=opt.dest)
+    elif opt.list:        
+        for db in getDatabases(opt.list, opt):
+            print db
     else:
         setup()

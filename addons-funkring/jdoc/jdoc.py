@@ -968,6 +968,12 @@ class jdoc_jdoc(osv.AbstractModel):
         user_doc["password"] = client_passwd
         user_db.save(user_doc)
         
+        # CHECK RESET / DB DELETION
+        if config.get("reset"):
+            if client_db in server:
+                server.delete(client_db)
+            return True
+        
         # CREATE/OPEN DB
         db = None
         if not client_db in server:
