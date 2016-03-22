@@ -61,9 +61,9 @@ class Parser(report_sxw.rml_parse):
             res_value["account_code"] = line.account_id.code
             res_value["account_name"] = line.account_id.name
             
-            voucher = line.voucher_id
-            if voucher:
-                move_ids = [x.id for x in line.voucher_id.move_ids]
+            move = line.journal_entry_id
+            if move:
+                move_ids = [x.id for x in move.line_id]
                 if move_ids:
                     self.cr.execute("SELECT inv.date_invoice FROM account_invoice inv "
                         "    INNER JOIN account_move_line m ON m.move_id = inv.move_id AND m.account_id = inv.account_id "
