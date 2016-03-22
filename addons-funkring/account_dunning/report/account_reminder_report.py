@@ -77,9 +77,8 @@ class Parser(extreport.basic_parser):
             })
                           
             
-           
         # calc refunds and out invoices
-        invoice_ids = invoice_obj.search(self.cr, self.uid, [("partner_id","=",commercial_partner.id),("state","=","open"),("type","in", ["in_invoice","out_refund","in_refund"])])
+        invoice_ids = invoice_obj.search(self.cr, self.uid, [("partner_id","=",commercial_partner.id),("state","=","open"),("type","in", ["out_refund"])])
         invoices = []
         for invoice in invoice_obj.browse(self.cr, self.uid, invoice_ids, context=self.localcontext):
             if invoice.residual:
