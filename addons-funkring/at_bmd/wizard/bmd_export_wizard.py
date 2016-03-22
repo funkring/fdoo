@@ -100,13 +100,19 @@ class bmd_export_param(osv.TransientModel):
                 bmd_text = [invoice.number]             
                 if invoice.name:
                     bmd_text.append(invoice.name)                
+                    
+                # check/trim period
+                period = invoice.period_id
+                bookingdate = invoice.date_invoice
+                if bookingdate < period.date_start or bookingdate > period.date_stop:
+                    bookingdate = period.date_stop
                              
                 bmd_line = {
                     "bereich" : area,
                     "satzart" : "0",   
                     "invoice_id" : invoice.id,
                     "partner_id" : invoice.partner_id.id,
-                    "buchdat" : invoice.date_invoice,
+                    "buchdat" : bookingdate,
                     "belegdat" : invoice.date_invoice,
                     "belegnr" : self.belegnr_get(invoice.number),
                     "bucod" : "1",      
