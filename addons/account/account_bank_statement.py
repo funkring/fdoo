@@ -39,8 +39,14 @@ class account_bank_statement(osv.osv):
         return super(account_bank_statement, self).create(cr, uid, vals, context=context)
 
     def write(self, cr, uid, ids, vals, context=None):
+        # funkring.net - begin
+        if 'line_ids' in vals:
+            for idx, line in enumerate(vals['line_ids']):
+                if line and not line[1]:
+                    line[2]['sequence'] = idx + 1
+        # funkrnig.net - end
         res = super(account_bank_statement, self).write(cr, uid, ids, vals, context=context)
-        account_bank_statement_line_obj = self.pool.get('account.bank.statement.line')
+        account_bank_statement_line_obj = self.pool.get('account.bank.statement.line')        
         for statement in self.browse(cr, uid, ids, context):
             for idx, line in enumerate(statement.line_ids):
                 account_bank_statement_line_obj.write(cr, uid, [line.id], {'sequence': idx + 1}, context=context)
