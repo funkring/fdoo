@@ -54,7 +54,7 @@ class sale_order_report(osv.osv):
         select_str = """
              SELECT  o.id as id                    
                     ,o.shop_id as shop_id
-                    ,ay.root_account_id as root_account_id
+                    ,ay.root_account_id as root_analytic_id
                     ,o.id as order_id                 
                     ,o.date_order as date
                     ,o.date_confirm as date_confirm
