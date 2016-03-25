@@ -34,5 +34,18 @@
     			</data>
 			</field>
 		</record>
+		
+		<record id="search_sale_order" model="ir.ui.view">
+		  <field name="name">at_sale.search_sale_order</field>
+		  <field name="model">sale.order</field>
+		  <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+		  <field name="type">form</field>
+		  <field name="arch" type="xml">
+		     <field name="name" position="replace">
+		          <field name="name" string="Sales Order" filter_domain="['|','|','|','|','|',('name','ilike',self),('client_order_ref','ilike',self),('partner_id.name','ilike',self),('partner_id.zip','ilike',self),('partner_id.city','ilike',self),('partner_id.street','ilike',self)]"/>
+		     </field>
+		  </field>
+		</record>
+
 	</data>
 </openerp>
