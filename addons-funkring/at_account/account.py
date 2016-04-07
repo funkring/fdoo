@@ -23,6 +23,8 @@
 from openerp.osv import osv, fields
 from openerp.tools.translate import _
 
+from openerp import api
+
 class account_fiscal_position(osv.osv):
     
     def unmap_tax(self, cr, uid, fposition, mapped_taxes, context=None):
@@ -150,4 +152,74 @@ class account_journal(osv.osv):
         return res
     
     _inherit = "account.journal"
+    
+    
+class account_tax(osv.osv):
+    
+    _inherit = "account.tax"
+    
+    @api.v7
+    def compute_full(self, cr, uid, taxes, price_unit, quantity, product=None, partner=None, force_excluded=False, force_included=False, netto_to_price=False):
+        """
+        :param force_excluded: boolean used to say that we don't want to consider the value of field price_include of
+            tax. It's used in encoding by line where you don't matter if you encoded a tax with that boolean to True or
+            False.
+            If list_price is True the price_unit is netto and the list_price was calculated. 
+            If force_included is True the price_unit is a brutto price. 
+        RETURN: {
+                'total': 0.0,                # Total without taxes
+                'total_included: 0.0,        # Total with taxes
+                'taxes': []                  # List of taxes, see compute for the format
+            }
+        """
+
+        # By default, for each tax, tax amount will first be computed
+        # and rounded at the 'Account' decimal precision for each
+        # PO/SO/invoice line and then these rounded amounts will be
+        # summed, leading to the total amount for that tax. But, if the
+        # company has tax_calculation_rounding_method = round_globally,
+        # we still follow the same method, but we use a much larger
+        # precision when we round the tax amount for each line (we use
+        # the 'Account' decimal precision + 5), and that way it's like
+        # rounding after the sum of the tax amounts of each line
+        precision = self.pool.get('decimal.precision').precision_get(cr, uid, 'Account')
+        tax_compute_precision = precision
+        if taxes and taxes[0].company_id.tax_calculation_rounding_method == 'round_globally':
+            tax_compute_precision += 5
+        totalin = totalex = round(price_unit * quantity, precision)
+        tin = []
+        tex = []
+        for tax in taxes:
+            # funkring.net - begin
+            if netto_to_price:
+                if tax.price_include:
+                    tex.append(tax)
+            else:
+                if not force_included and (not tax.price_include or force_excluded):
+                    tex.append(tax)
+                else:
+                    tin.append(tax)
+            # funkring.net - end
+        tin = self.compute_inv(cr, uid, tin, price_unit, quantity, product=product, partner=partner, precision=tax_compute_precision)
+        for r in tin:
+            totalex -= r.get('amount', 0.0)
+        totlex_qty = 0.0
+        try:
+            totlex_qty = totalex/quantity
+        except:
+            pass
+        tex = self._compute(cr, uid, tex, totlex_qty, quantity, product=product, partner=partner, precision=tax_compute_precision)
+        for r in tex:
+            totalin += r.get('amount', 0.0)
+        return {
+            'total': totalex,
+            'total_included': totalin,
+            'taxes': tin + tex
+        }
+
+    @api.v8
+    def compute_full(self, price_unit, quantity, product=None, partner=None, force_excluded=False, force_included=False, netto_to_price=False):
+        return account_tax.compute_all(
+            self._model, self._cr, self._uid, self, price_unit, quantity,
+            product=product, partner=partner, force_excluded=force_excluded, force_included=force_included, netto_to_price=netto_to_price)
     

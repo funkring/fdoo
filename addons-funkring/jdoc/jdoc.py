@@ -1106,8 +1106,8 @@ class jdoc_jdoc(osv.AbstractModel):
             for update_res in db.update(o_changes):
                 if update_res[0]:
                     changed_revs.add((update_res[1], update_res[2]))
-                else:                    
-                    raise osv.except_osv(_("Error"), _("Sync Error: %s") % update_res[2])
+                else:
+                    _logger.error("Sync Conflict %s -> %s " % (update_res[1],update_res[2]))                    
             
                 
             # FINALIZE SYNC

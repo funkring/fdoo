@@ -8,7 +8,8 @@
             <field name="arch" type="xml">
                 <data>
                     <field name="list_price" position="after">
-                        <field name="brutto_price" readonly="0" on_change="onchange_brutto_price(brutto_price, taxes_id, company_id)"/>
+                        <field name="netto_price" readonly="0" on_change="onchange_netto_price(netto_price, taxes_id, company_id)"/>
+                        <field name="brutto_price" readonly="0" on_change="onchange_brutto_price(brutto_price, taxes_id, company_id)"/>                        
                     </field>
                 </data>
             </field>

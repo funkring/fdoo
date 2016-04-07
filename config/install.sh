@@ -35,6 +35,14 @@ apt-get -y install python-vatnumber
 apt-get -y install python-passlib
 apt-get -y install python-gevent
 apt-get -y install python-pyicu
+apt-get -y install python-feedparser
+apt-get -y install python-imaging
+apt-get -y install python-ldap
+apt-get -y install python-libxslt1
+apt-get -y install python-libxml2
+apt-get -y install python-pyparsing
+apt-get -y install python-serial
+apt-get -y install python-dev
 
 #ruby
 apt-get -y install ruby
@@ -45,12 +53,6 @@ apt-get -y install python-relatorio
 apt-get -y install python-genshi
 apt-get -y install python-cairo
 apt-get -y install python-pycha
-
-#apt-get -y install libreoffic-base
-#apt-get -y install libreoffice-calc
-#apt-get -y install libreoffice-draw
-#apt-get -y install libreoffice-impress
-#apt-get -y install libreoffice-writer
 
 #web
 apt-get -y install python-cherrypy3
