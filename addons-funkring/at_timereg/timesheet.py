@@ -153,7 +153,7 @@ class hr_timesheet_sheet(osv.osv):
                         
             delta_day = relativedelta(days=1)    
     
-            while sheet_dt_cur <= sheet_dt_to and sheet_dt_cur < dt_to:
+            while sheet_dt_cur <= sheet_dt_to and sheet_dt_cur <= dt_to:
                 date_day = util.dateToStr(sheet_dt_cur)
                 timesheet_day = timesheet_data.get(date_day)
                 if timesheet_day:                
