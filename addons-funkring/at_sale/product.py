@@ -25,10 +25,10 @@ from openerp import SUPERUSER_ID
 class product_product(osv.osv):
 
     def onchange_brutto_price(self, cr, uid, ids, brutto_price, taxes_id, company_id, context=None):
-        return self._onchange_price(cr, uid, ids, brutto_price, taxes_id, company_id, True, price_field="lst_price", context=context)
+        return self.pool["product.template"]._onchange_price(cr, uid, ids, brutto_price, taxes_id, company_id, True, price_field="lst_price", context=context)
        
     def onchange_netto_price(self, cr, uid, ids, brutto_price, taxes_id, company_id, context=None):
-        return self._onchange_price(cr, uid, ids, brutto_price, taxes_id, company_id, False, price_field="lst_price", context=context)
+        return self.pool["product.template"]._onchange_price(cr, uid, ids, brutto_price, taxes_id, company_id, False, price_field="lst_price", context=context)
 
     _inherit = "product.product"
 
