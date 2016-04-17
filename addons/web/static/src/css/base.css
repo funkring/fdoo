@@ -196,7 +196,7 @@
   padding: 3px 12px;
   font-size: 13px;
   text-align: center;
-  background-color: #e3e3e3;
+  background-color: #e4e4e4;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#efefef), to(#d8d8d8));
   background-image: -webkit-linear-gradient(top, #efefef, #d8d8d8);
   background-image: -moz-linear-gradient(top, #efefef, #d8d8d8);
@@ -214,7 +214,7 @@
   outline: none;
 }
 .openerp a.button:hover, .openerp button:hover, .openerp .oe_button:hover, .openerp input[type='submit']:hover {
-  background-color: #ececec;
+  background-color: #ededed;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#f6f6f6), to(#e3e3e3));
   background-image: -webkit-linear-gradient(top, #f6f6f6, #e3e3e3);
   background-image: -moz-linear-gradient(top, #f6f6f6, #e3e3e3);
@@ -227,7 +227,7 @@
 .openerp a.button:focus, .openerp button:focus, .openerp .oe_button:focus, .openerp input[type='submit']:focus {
   border: 1px solid #80bfff;
   background-position: 0;
-  background-color: #ececec;
+  background-color: #ededed;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#f6f6f6), to(#e3e3e3));
   background-image: -webkit-linear-gradient(top, #f6f6f6, #e3e3e3);
   background-image: -moz-linear-gradient(top, #f6f6f6, #e3e3e3);
@@ -239,7 +239,7 @@
   box-shadow: 0 0 3px #80bfff, 0 1px 1px rgba(255, 255, 255, 0.8) inset;
 }
 .openerp a.button:active, .openerp a.button.active, .openerp button:active, .openerp .oe_button:active, .openerp .oe_button.active, .openerp input[type='submit']:active, .openerp input[type='submit'].active {
-  background-color: #ececec;
+  background-color: #ededed;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#e3e3e3), to(#f6f6f6));
   background-image: -webkit-linear-gradient(top, #e3e3e3, #f6f6f6);
   background-image: -moz-linear-gradient(top, #e3e3e3, #f6f6f6);
@@ -323,7 +323,7 @@
   background: #DC5F59;
 }
 .openerp button.oe_highlight {
-  background-color: #c02c2c;
+  background-color: #c12d2d;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#df3f3f), to(#a21a1a));
   background-image: -webkit-linear-gradient(top, #df3f3f, #a21a1a);
   background-image: -moz-linear-gradient(top, #df3f3f, #a21a1a);
@@ -335,7 +335,7 @@
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(155, 155, 155, 0.4) inset;
 }
 .openerp button.oe_highlight:hover {
-  background-color: #c63939;
+  background-color: #c73a3a;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#e25858), to(#ab1b1b));
   background-image: -webkit-linear-gradient(top, #e25858, #ab1b1b);
   background-image: -moz-linear-gradient(top, #e25858, #ab1b1b);
@@ -344,7 +344,7 @@
   background-image: linear-gradient(to bottom, #e25858, #ab1b1b);
 }
 .openerp button.oe_highlight:active {
-  background-color: #cb2121;
+  background-color: #cc2222;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#c52020), to(#d22323));
   background-image: -webkit-linear-gradient(top, #c52020, #d22323);
   background-image: -moz-linear-gradient(top, #c52020, #d22323);
@@ -361,7 +361,7 @@
   font-weight: bold;
 }
 .openerp .oe_form_dirty button.oe_highlight_on_dirty {
-  background-color: #c74a44;
+  background-color: #c84b45;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#dc5f59), to(#b33630));
   background-image: -webkit-linear-gradient(top, #dc5f59, #b33630);
   background-image: -moz-linear-gradient(top, #dc5f59, #b33630);
@@ -902,6 +902,7 @@
   height: 100%;
 }
 .openerp .oe_leftbar > div > div > div {
+  display: table-cell;
   position: relative;
   height: 100%;
 }
@@ -1062,6 +1063,7 @@
   height: 100%;
 }
 .openerp .oe_application > div > .oe_view_manager > .oe_view_manager_wrapper > div {
+  display: table-cell;
   position: relative;
   height: 100%;
 }
@@ -1798,7 +1800,7 @@
   background: none;
 }
 .openerp .oe_view_manager_current .oe_form_editable button.oe_highlight {
-  background-color: #e3e3e3;
+  background-color: #e4e4e4;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#efefef), to(#d8d8d8));
   background-image: -webkit-linear-gradient(top, #efefef, #d8d8d8);
   background-image: -moz-linear-gradient(top, #efefef, #d8d8d8);
@@ -1810,7 +1812,7 @@
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(255, 255, 255, 0.8) inset;
 }
 .openerp .oe_view_manager_current .oe_form_editable button.oe_highlight:active {
-  background-color: #ececec;
+  background-color: #ededed;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#e3e3e3), to(#f6f6f6));
   background-image: -webkit-linear-gradient(top, #e3e3e3, #f6f6f6);
   background-image: -moz-linear-gradient(top, #e3e3e3, #f6f6f6);
@@ -1822,7 +1824,7 @@
   box-shadow: none;
 }
 .openerp .oe_view_manager_current .oe_form_editable button.oe_highlight:hover {
-  background-color: #ececec;
+  background-color: #ededed;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#f6f6f6), to(#e3e3e3));
   background-image: -webkit-linear-gradient(top, #f6f6f6, #e3e3e3);
   background-image: -moz-linear-gradient(top, #f6f6f6, #e3e3e3);
@@ -2480,7 +2482,7 @@
   padding-left: 14px;
 }
 .openerp ul.oe_form_status li.oe_active, .openerp ul.oe_form_status_clickable li.oe_active {
-  background-color: #5382b9;
+  background-color: #5382ba;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#729fcf), to(#3465a4));
   background-image: -webkit-linear-gradient(top, #729fcf, #3465a4);
   background-image: -moz-linear-gradient(top, #729fcf, #3465a4);
@@ -2527,7 +2529,7 @@
   color: #7C7BAD;
 }
 .openerp ul.oe_form_status_clickable li.oe_active:hover {
-  background-color: #3a699f;
+  background-color: #3a69a0;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#4c85c2), to(#284d7d));
   background-image: -webkit-linear-gradient(top, #4c85c2, #284d7d);
   background-image: -moz-linear-gradient(top, #4c85c2, #284d7d);
@@ -3460,3 +3462,5 @@ body {
     position: static !important;
   }
 }
+
+/*# sourceMappingURL=base.css.map */
