@@ -927,7 +927,14 @@ class jdoc_jdoc(osv.AbstractModel):
         # READ CONFIG      
         client_db =  "%s-%s-%s" % (config_name, db_uuid, uid)
         client_uuid = "%s-%s" % (db_uuid, uid)
-        client_passwd = self.pool["res.users"].read(cr, uid, uid, {"password"}, context=context)["password"]
+        
+        # get passowrd
+        client_passwd = None
+        cr.execute("SELECT password FROM res_users WHERE id=%s",(uid,))
+        cr_res = cr.fetchone()
+        if cr_res:
+            client_passwd = cr_res[0]
+        
         if not client_passwd:
             raise osv.except_osv(_("Error"), _("Unable to get user password. Deinstall 'auth_crypt' Module"))
         
