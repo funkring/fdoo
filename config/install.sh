@@ -43,6 +43,7 @@ apt-get -y install python-libxml2
 apt-get -y install python-pyparsing
 apt-get -y install python-serial
 apt-get -y install python-dev
+apt-get -y install python-wand
 
 #ruby
 apt-get -y install ruby
