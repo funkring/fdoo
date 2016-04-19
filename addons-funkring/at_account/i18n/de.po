@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-18 22:29+0000\n"
-"PO-Revision-Date: 2015-10-19 00:29+0100\n"
+"POT-Creation-Date: 2016-04-19 08:21+0000\n"
+"PO-Revision-Date: 2016-04-19 10:22+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,9 +17,7 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 
 #. module: at_account
-#: code:addons/at_account/report/account_bank_statement_report.py:105
 #: model:ir.model,name:at_account.model_account_account
-#, python-format
 msgid "Account"
 msgstr "Konto"
 
@@ -34,17 +32,11 @@ msgid "Account voucher list"
 msgstr "Konto Belegliste"
 
 #. module: at_account
-#: model:ir.model,name:at_account.model_account_voucher
-msgid "Accounting Voucher"
-msgstr "Buchung Zahlungsbelege"
-
-#. module: at_account
 #: view:account.invoice.attachment.wizard:at_account.wizard_account_invoice_attachment
 msgid "Add"
 msgstr "Hinzufügen"
 
 #. module: at_account
-#: code:addons/at_account/report/account_bank_statement_report.py:99
 #: code:addons/at_account/report/account_voucher_list_report.py:80
 #, python-format
 msgid "Amount"
@@ -69,32 +61,15 @@ msgid "Balance"
 msgstr "Saldo"
 
 #. module: at_account
-#: code:addons/at_account/report/account_bank_statement_report.py:96
-#, python-format
-msgid "Balance End"
-msgstr "Endsaldo"
-
-#. module: at_account
 #: model:ir.actions.report.xml,name:at_account.report_account_account_pdf
 msgid "Balance Report"
 msgstr "Saldenbericht"
-
-#. module: at_account
-#: code:addons/at_account/report/account_bank_statement_report.py:93
-#, python-format
-msgid "Balance Start"
-msgstr "Startsaldo"
 
 #. module: at_account
 #: code:addons/at_account/report/account_account_report.py:42
 #, python-format
 msgid "Balance list"
 msgstr "Saldenliste"
-
-#. module: at_account
-#: model:ir.model,name:at_account.model_account_bank_statement
-msgid "Bank Statement"
-msgstr "Bankauszug"
 
 #. module: at_account
 #: model:ir.model,name:at_account.model_account_bank_statement_line
@@ -104,7 +79,12 @@ msgstr "Bankauszug Buchungen"
 #. module: at_account
 #: model:ir.actions.report.xml,name:at_account.report_bank_statement_pdf
 msgid "Bank statement Report"
-msgstr "Bankauszugs Bericht"
+msgstr "Bankauszüge"
+
+#. module: at_account
+#: model:ir.actions.report.xml,name:at_account.report_bank_statement_detail_pdf
+msgid "Bank statement Report (detail)"
+msgstr "Bankauszüge (detailiert)"
 
 #. module: at_account
 #: view:account.invoice.attachment.wizard:at_account.wizard_account_invoice_attachment
@@ -133,7 +113,7 @@ msgid "Cancellation"
 msgstr "Storno"
 
 #. module: at_account
-#: code:addons/at_account/account.py:43
+#: code:addons/at_account/account.py:45
 #, python-format
 msgid "Cannot do reverse mapping of Tax %s because no one match"
 msgstr ""
@@ -141,7 +121,7 @@ msgstr ""
 "Steuersätze passen würden"
 
 #. module: at_account
-#: code:addons/at_account/account.py:40
+#: code:addons/at_account/account.py:42
 #, python-format
 msgid "Cannot do reverse mapping of Tax %s because or than one tax match"
 msgstr ""
@@ -155,6 +135,7 @@ msgstr "Schließen"
 
 #. module: at_account
 #: code:addons/at_account/report/account_account_report.py:78
+#: field:res.company,code:0
 #, python-format
 msgid "Code"
 msgstr "Konto"
@@ -188,7 +169,6 @@ msgid "Customer Refund Text"
 msgstr "Kundengutschriftstext"
 
 #. module: at_account
-#: code:addons/at_account/report/account_bank_statement_report.py:87
 #: code:addons/at_account/report/account_invoice_list_report.py:34
 #: code:addons/at_account/report/account_voucher_list_report.py:65
 #, python-format
@@ -235,7 +215,7 @@ msgid "End"
 msgstr "Ende"
 
 #. module: at_account
-#: code:addons/at_account/account.py:40 code:addons/at_account/account.py:43
+#: code:addons/at_account/account.py:42 code:addons/at_account/account.py:45
 #, python-format
 msgid "Error"
 msgstr "Fehler"
@@ -266,21 +246,6 @@ msgid "ID"
 msgstr ""
 
 #. module: at_account
-#: help:account.journal,ignore_payment_term:0
-msgid ""
-"If you have made two lines for the payment term, then the system will not "
-"create two account move lines for each payment term line."
-msgstr ""
-"Wenn man zwei Zeilen in der Zahlungsbedingung erstellt hat (z.B. 14 Tage 2% "
-"Skonto, 30 Tage netto), dann werden nun nicht mehr zwei Buchungszeilen "
-"erstellt, sondern nur mehr eine mit dem Gesamtwert."
-
-#. module: at_account
-#: field:account.journal,ignore_payment_term:0
-msgid "Ignore Payment Term"
-msgstr "Ignoriere Zahlungsbedingung"
-
-#. module: at_account
 #: view:account.invoice:at_account.form_invoice
 #: view:account.invoice:at_account.form_invoice_supplier_form
 msgid "Import Document"
@@ -304,12 +269,6 @@ msgstr "Beleg Import Assistent"
 #: model:ir.model,name:at_account.model_invoice_cancel_wizard
 msgid "Invoice Cancel Wizard"
 msgstr "Assistent für das Abbrechen von Rechnungen"
-
-#. module: at_account
-#: code:addons/at_account/report/account_bank_statement_report.py:108
-#, python-format
-msgid "Invoice Date"
-msgstr "Rechnungsdatum"
 
 #. module: at_account
 #: model:ir.model,name:at_account.model_account_invoice_line
@@ -344,7 +303,6 @@ msgid "Invoice/Refund Text"
 msgstr "Rechnung / Gutschrift Text"
 
 #. module: at_account
-#: code:addons/at_account/report/account_bank_statement_report.py:90
 #: code:addons/at_account/report/account_invoice_list_report.py:45
 #: code:addons/at_account/report/account_voucher_list_report.py:68
 #: model:ir.model,name:at_account.model_account_journal
@@ -366,7 +324,6 @@ msgstr "Aktualisiert am"
 
 #. module: at_account
 #: code:addons/at_account/report/account_account_report.py:81
-#: code:addons/at_account/report/account_bank_statement_report.py:84
 #, python-format
 msgid "Name"
 msgstr ""
@@ -400,7 +357,6 @@ msgid "PDF is corrupted and unable to fix!"
 msgstr "PDF ist Fehlerhaft . Die Fehler können nicht korrigiert werden!"
 
 #. module: at_account
-#: code:addons/at_account/report/account_bank_statement_report.py:102
 #: code:addons/at_account/report/account_invoice_list_report.py:36
 #: code:addons/at_account/report/account_voucher_list_report.py:77
 #, python-format
@@ -408,7 +364,6 @@ msgid "Partner"
 msgstr ""
 
 #. module: at_account
-#: code:addons/at_account/account_bank_statement.py:61
 #: code:addons/at_account/report/account_invoice_list_report.py:44
 #, python-format
 msgid "Payment"
@@ -532,6 +487,11 @@ msgid "Supplier Refund Text"
 msgstr "Lieferantengutschriftstext"
 
 #. module: at_account
+#: model:ir.model,name:at_account.model_account_tax
+msgid "Tax"
+msgstr "Steuer"
+
+#. module: at_account
 #: code:addons/at_account/report/account_invoice_list_report.py:47
 #, python-format
 msgid "Taxes"
@@ -555,11 +515,10 @@ msgid "Voucher overview"
 msgstr "Zahlungsübersicht"
 
 #. module: at_account
-#: code:addons/at_account/account_bank_statement.py:171
 #: code:addons/at_account/invoice.py:101
 #, python-format
 msgid "Write-Off"
-msgstr "Abschreiben"
+msgstr "Abschreibung"
 
 #. module: at_account
 #: view:res.company:at_account.form_company

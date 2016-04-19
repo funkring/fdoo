@@ -41,6 +41,7 @@ oerp.at Accounting and Finance Extensions
                     "report/account_voucher_list_report.xml",
                     "report/account_invoice_list_report.xml",
                     "report/account_bank_statement_report.xml",
+                    "report/account_bank_statement_report_detail.xml",
                     "report/account_account_report.xml",
                     "report/transfer_form_report.xml",
                     "report/payment_overview_report.xml",
