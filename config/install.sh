@@ -69,8 +69,10 @@ apt-get -y install python-couchdb
 #install pip for further installation
 python -m easy_install pip
 
-#install p4j 
+# install p4j 
 python -m pip install py4j
+# install ofxparse
+python -m pip install ofxparse
 
 #install pygal depends
 apt-get -y install libffi-dev

@@ -1,2 +1,3 @@
 import invoice_attachment_wizard
 import invoice_cancel_wizard
+import ofx_import_wizard

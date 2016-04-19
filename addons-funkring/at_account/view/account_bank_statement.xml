@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+ <data>
+    <record id="form_bank_statement" model="ir.ui.view">
+      <field name="name">at_account.form_bank_statement</field>
+      <field name="model">account.bank.statement</field>
+      <field name="inherit_id" ref="account.view_bank_statement_form"/>
+      <field name="arch" type="xml">
+            <xpath expr="//div[@name='import_buttons']" position="inside">
+                <button class="oe_inline oe_stat_button" name="%(action_ofx_import)d" attrs="{'invisible':[('state','=','confirm')]}" string="Import OFX" help="Import OFX File" type="action" icon="fa-pencil-square-o" widget="statinfo"/>
+            </xpath>
+      </field>
+    </record>
+  </data>
+</openerp>

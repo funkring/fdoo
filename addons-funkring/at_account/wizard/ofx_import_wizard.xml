@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+  
+    <record id="wizard_ofx_import" model="ir.ui.view">
+      <field name="name">at_account.wizard_ofx_import</field>
+      <field name="model">account.ofx.import.wizard</field>
+      <field name="arch" type="xml">
+        <form string="ofx_import">
+          <group>
+            <group>
+              <field name="statement_id"/>
+              <field name="ofx_datas"/>
+            </group>
+          </group>
+          <footer>
+            <button icon="gtk-go-forward" name="action_import" string="Import"  type="object" class="oe_highlight" />
+            or
+            <button special="cancel" string="Close" class="oe_link" />
+          </footer>
+        </form>
+      </field>
+    </record>
+    
+    <record id="action_ofx_import" model="ir.actions.act_window">
+      <field name="name">OFX Import</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">account.ofx.import.wizard</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+    </record>
+    
+  </data>
+</openerp>
