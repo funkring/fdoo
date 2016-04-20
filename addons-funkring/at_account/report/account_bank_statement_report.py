@@ -51,10 +51,14 @@ class Parser(report_sxw.rml_parse):
     def _get_detail(self, statement):
         line_vals = []
         invoice_obj = self.pool.get("account.invoice")
+        report_obj = self.pool.get("ir.actions.report.xml")
         att_obj = self.pool.get("ir.attachment")
         invoice_set = set()
         images = []
         print_detail = self.localcontext.get("print_detail")
+        
+        inv_report = None
+        inv_report_context = None
         
         # ADD ATTACHMENT FUNCTION
         def addAttachments(obj, pos):
@@ -126,6 +130,18 @@ class Parser(report_sxw.rml_parse):
                 for inv in invoices:
                     if not inv.id in invoice_set:
                         invoice_set.add(inv.id)
+                        
+                        # update report,
+                        # if it is an self produced invoice
+                        if inv.type in ("out_invoice","out_refund"):
+                            if not inv_report:
+                                inv_report = report_obj._lookup_report(self.cr, "account.report_invoice")
+                                report_context = dict(self.localcontext)
+                                report_context["report_title"] = _("Invoice")
+                            if inv_report:
+                                inv_report.create(self.cr, self.uid, [inv.id], {"model":"account.invoice"}, report_context)
+                            
+                        # add attaments
                         addAttachments(inv, pos)
                         
             pos += 1
