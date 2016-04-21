@@ -61,24 +61,34 @@ class Parser(report_sxw.rml_parse):
         inv_report_context = None
         
         # ADD ATTACHMENT FUNCTION
-        def addAttachments(obj, pos):
+        def addAttachments(obj, pos, report_data=None):
+            # add report data
+            datab_list = []
+            if report_data:
+                datab_list.append(report_data)
             # add attachments
-            att_ids = att_obj.search(self.cr, self.uid, [("res_model","=",obj._model._name),("res_id","=",obj.id)])
-            for att in att_obj.browse(self.cr, self.uid, att_ids, context=self.localcontext):
-                fname = att.datas_fname
-                if not fname:
-                    continue
-                if not fname.lower().endswith(".pdf"):
-                    continue
-                
-                datas = att.datas
-                if not datas:
-                    continue
-                
-                datab = base64.decodestring(datas)
-                if not datab:
-                    continue
-                
+            else:
+                att_ids = att_obj.search(self.cr, self.uid, [("res_model","=",obj._model._name),("res_id","=",obj.id)])
+                for att in att_obj.browse(self.cr, self.uid, att_ids, context=self.localcontext):
+                    fname = att.datas_fname
+                    if not fname:
+                        continue
+                    if not fname.lower().endswith(".pdf"):
+                        continue
+                    
+                    # check if report data was passed
+                    datas = att.datas                        
+                    if not datas:
+                        continue
+                    
+                    datab = base64.decodestring(datas)
+                    if not datab:
+                        continue
+
+                    datab_list.append(datab)
+                    
+            # add data
+            for datab in datab_list:
                 im = Image(blob=datab, resolution=150)
                 bk = Color("white")
                 for i, page in enumerate(im.sequence):
@@ -96,6 +106,7 @@ class Parser(report_sxw.rml_parse):
                             image_datas = base64.encodestring(buf.getvalue())
                             images.append({"pos" : pos, 
                                            "image" : image_datas})
+                           
 
         # add details
         if print_detail:
@@ -133,16 +144,17 @@ class Parser(report_sxw.rml_parse):
                         
                         # update report,
                         # if it is an self produced invoice
+                        report_data = None
                         if inv.type in ("out_invoice","out_refund"):
                             if not inv_report:
                                 inv_report = report_obj._lookup_report(self.cr, "account.report_invoice")
                                 report_context = dict(self.localcontext)
                                 report_context["report_title"] = _("Invoice")
                             if inv_report:
-                                inv_report.create(self.cr, self.uid, [inv.id], {"model":"account.invoice"}, report_context)
+                                (report_data,ext) = inv_report.create(self.cr, self.uid, [inv.id], {"model":"account.invoice"}, report_context)
                             
                         # add attaments
-                        addAttachments(inv, pos)
+                        addAttachments(inv, pos, report_data)
                         
             pos += 1
             
