@@ -111,7 +111,7 @@ class Parser(report_sxw.rml_parse):
                 if move_ids:
                     self.cr.execute("SELECT inv.id FROM account_invoice inv "
                         " INNER JOIN account_move_line m ON m.move_id = inv.move_id AND m.account_id = inv.account_id "
-                        " INNER JOIN account_move_reconcile r ON r.id = m.reconcile_id "
+                        " INNER JOIN account_move_reconcile r ON r.id = m.reconcile_id OR r.id = m.reconcile_partial_id "
                         " INNER JOIN account_move_line m2 ON m2.reconcile_id = r.id OR m2.reconcile_partial_id = r.id "
                         " WHERE m2.id in %s GROUP BY 1 ", (tuple(move_ids),))
                      
