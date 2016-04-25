@@ -56,7 +56,7 @@ class QWeb(orm.AbstractModel):
         super(QWeb, self).add_template(qcontext, name, node)
 
     # oerp.at - begin
-    lang_param_re = re.compile(",\s*lang\s*=")
+    url_for_re = re.compile("^url_for\s*\\(")
     # oerp.at - end
 
     def render_att_att(self, element, attribute_name, attribute_value, qwebcontext):
@@ -66,9 +66,8 @@ class QWeb(orm.AbstractModel):
             # oerp.at - begin
             if is_website and att == URL_ATTRS and isinstance(val, basestring)  \
                 and not (     attribute_name=="t-att-href" \
-                          and isinstance(attribute_value, basestring)
-                          and attribute_value.startswith("url_for") \
-                          and self.lang_param_re.search(attribute_value) ): #handle special case, lang passed in url_for 
+                          and isinstance(attribute_value, basestring) \
+                          and self.url_for_re.match(attribute_value)  ): # check if url_for already used 
                 val = qwebcontext.get('url_for')(val)
             # oerp.at - end
             yield (att, val)
