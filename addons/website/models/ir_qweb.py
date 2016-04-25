@@ -59,8 +59,13 @@ class QWeb(orm.AbstractModel):
         URL_ATTRS = self.URL_ATTRS.get(element.tag)
         is_website = request.website
         for att, val in super(QWeb, self).render_att_att(element, attribute_name, attribute_value, qwebcontext):
-            if is_website and att == URL_ATTRS and isinstance(val, basestring):
+            # oerp.at - begin
+            if is_website and att == URL_ATTRS and isinstance(val, basestring)  \
+                and not (attribute_name=="t-att-href" \
+                         and attribute_value.startswith("url_for") \
+                         and "lang=" in attribute_value): #handle special case, lang passed in url_for 
                 val = qwebcontext.get('url_for')(val)
+            # oerp.at - end
             yield (att, val)
 
 
