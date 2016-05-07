@@ -122,7 +122,7 @@ msgstr ""
 "korrespondierende \n"
 "                Verkaufskategorie, in der dieser Umsatz auftauchen soll, "
 "festzulegen.\n"
-"                Wenn das Produkt keinen explizit zugewiesenen Point Of Sale "
+"                Wenn das Produkt keinen explizit zugewiesene Kasse "
 "hat,\n"
 "                können Sie es hierüber verkaufen.\n"
 "                 </p)\n"
@@ -150,8 +150,8 @@ msgstr ""
 "                Zahlungsmethoden werden durch Journale definiert,  die "
 "optional <i>PoS Zahlungsmethode</i> aktiviert \n"
 "                haben müssen. Um für das Touchscreen Interface "
-"funktionsfähig zu sein, müssen Sie dort die Zahlungsmethode am\n"
-"                <Point Of Sale</i> konfigurieren.\n"
+"funktionsfähig zu sein, müssen Sie dort die Zahlungsmethode auf der \n"
+"                <i>Kasse</i> konfigurieren.\n"
 "              </p>\n"
 "            "
 
@@ -235,7 +235,7 @@ msgstr ""
 "              </p><p>\n"
 "               Eine Kassensitzung ist eine bestimmte Zeitspanne, "
 "normalerweise über die Dauer eines Tages,\n"
-"               während der am Point Of Sale verkauft wird. Der Benutzer muss "
+"               während mit der Kasse verkauft wird. Der Benutzer muss "
 "zur Eröffnung und zum Abschluss\n"
 "               der Kasse den Geldbestand zählen.  \n"
 "              </p><p>\n"
@@ -384,7 +384,7 @@ msgstr "Ein anonymer Verkauf kann nicht berechnet werden"
 #. module: point_of_sale
 #: help:pos.config,name:0
 msgid "An internal identification of the point of sale"
-msgstr "Die interne Identifikation für den Point Of Sale"
+msgstr "Die interne Identifikation für die Kasse"
 
 #. module: point_of_sale
 #: view:pos.ean_wizard:point_of_sale.pos_ean13_generator
@@ -411,7 +411,7 @@ msgstr "Vorhandene Zahlungsmethoden"
 #. module: point_of_sale
 #: field:product.template,available_in_pos:0
 msgid "Available in the Point of Sale"
-msgstr "Verfügbar am Point Of Sale"
+msgstr "Verfügbar auf der Kasse"
 
 #. module: point_of_sale
 #: field:report.pos.order,average_price:0
@@ -594,7 +594,7 @@ msgstr ""
 #. module: point_of_sale
 #: help:product.template,available_in_pos:0
 msgid "Check if you want this product to appear in the Point of Sale"
-msgstr "bisher gibt es keine Übersetzung bisher"
+msgstr "Ankreuzen wenn sie wollen das, dass Produkt auf der Kasse verfügbar ist"
 
 #. module: point_of_sale
 #: help:product.template,income_pdt:0
@@ -610,7 +610,7 @@ msgid ""
 "the point of sale backend, example: money lost, transfer to bank, etc."
 msgstr ""
 "Aktivieren Sie diese Option, wenn dieses Produkt verwendet werden kann, um "
-"aus der Kasse am Point Of Sale Arbeitsplatz Bargeld zu entnehmen, z.B. "
+"aus der Kasse Bargeld zu entnehmen, z.B. "
 "Ausgleich Kassendifferenz, Einzahlung auf Bankkonto etc."
 
 #. module: point_of_sale
@@ -782,7 +782,7 @@ msgstr "Das Bild konnte nicht gelesen werden"
 #: code:addons/point_of_sale/static/src/js/widgets.js:1243
 #, python-format
 msgid "Could not close the point of sale."
-msgstr "Die Kassa kann nicht geschlossen werden"
+msgstr "Die Kasse kann nicht geschlossen werden"
 
 #. module: point_of_sale
 #. openerp-web
@@ -898,7 +898,7 @@ msgstr "Fehlerdiagnosefenster"
 #. module: point_of_sale
 #: field:res.users,pos_config:0
 msgid "Default Point of Sale"
-msgstr "Standard Point Of Sale"
+msgstr "Standard Kasse"
 
 #. module: point_of_sale
 #: field:report.pos.order,delay_validation:0
@@ -1080,7 +1080,7 @@ msgstr ""
 "einzigen Barcode \n"
 "zutreffen, wird das längste Muster mit den wenigsten \"x\" oder \"*\" als "
 "passend ermittelt. Wenn ein \n"
-"Barcode keinem Muster zugeordnet werden kann, wird vom POS demnach auch kein "
+"Barcode keinem Muster zugeordnet werden kann, wird von der Kasse demnach auch kein "
 "Wert ermittelt."
 
 #. module: point_of_sale
@@ -1139,7 +1139,7 @@ msgstr "Ermöglicht die Nutzung einer integrierten virtuellen Tastatur"
 #. module: point_of_sale
 #: help:pos.config,iface_invoicing:0
 msgid "Enables invoice generation from the Point of Sale"
-msgstr "Ermöglicht die Erstellung einer Rechnung am Point-of-Sale"
+msgstr "Ermöglicht die Erstellung einer Rechnung auf der Kasse"
 
 #. module: point_of_sale
 #: view:website:point_of_sale.report_detailsofsales
@@ -1721,7 +1721,7 @@ msgstr "Öffnen der Kasse"
 #. module: point_of_sale
 #: model:ir.actions.client,name:point_of_sale.action_client_pos_menu
 msgid "Open POS Menu"
-msgstr "Öffnen POS Menü"
+msgstr "Öffne Kassen Menü"
 
 #. module: point_of_sale
 #: view:pos.open.statement:point_of_sale.view_pos_open_statement
@@ -1887,7 +1887,7 @@ msgstr "POS Kaufpositionen"
 #: view:report.transaction.pos:point_of_sale.view_report_transaction_pos_calendar
 #: view:report.transaction.pos:point_of_sale.view_report_transaction_pos_graph
 msgid "POS Report"
-msgstr "POS Auswertung"
+msgstr "Kassen Auswertung"
 
 #. module: point_of_sale
 #: view:report.pos.order:point_of_sale.view_report_pos_order_search
@@ -2071,66 +2071,66 @@ msgstr "PoS Kasseneröffnung"
 #: view:res.users:point_of_sale.res_users_form_view
 #: view:website:point_of_sale.report_sessionsummary
 msgid "Point of Sale"
-msgstr "Kassa"
+msgstr "Kasse"
 
 #. module: point_of_sale
 #: view:report.pos.order:point_of_sale.view_report_pos_order_graph
 #: view:report.pos.order:point_of_sale.view_report_pos_order_search
 msgid "Point of Sale Analysis"
-msgstr "Analyse Point of Sale"
+msgstr "Analyse Kasse(n)"
 
 #. module: point_of_sale
 #: field:product.template,income_pdt:0
 msgid "Point of Sale Cash In"
-msgstr "Point Of Sale Einzahlung"
+msgstr "Kassen Einzahlung"
 
 #. module: point_of_sale
 #: field:product.template,expense_pdt:0
 msgid "Point of Sale Cash Out"
-msgstr "Point Of Sale Auszahlung"
+msgstr "Kassen Auszahlung"
 
 #. module: point_of_sale
 #: field:product.template,pos_categ_id:0
 msgid "Point of Sale Category"
-msgstr "Point of Sale Kategorie"
+msgstr "Kassen Kategorie"
 
 #. module: point_of_sale
 #: view:pos.config:point_of_sale.view_pos_config_search
 msgid "Point of Sale Config"
-msgstr "Point Of Sale Konfiguration"
+msgstr "Kassen Konfiguration"
 
 #. module: point_of_sale
 #: view:pos.config:point_of_sale.view_pos_config_form
 #: view:pos.config:point_of_sale.view_pos_config_tree
 msgid "Point of Sale Configuration"
-msgstr "Point Of Sale Konfiguration"
+msgstr "Kassen Konfiguration"
 
 #. module: point_of_sale
 #: field:pos.config,name:0
 msgid "Point of Sale Name"
-msgstr "Point Of Sale Bezeichnung"
+msgstr "Kassen Bezeichnung"
 
 #. module: point_of_sale
 #: view:pos.order:point_of_sale.view_pos_pos_form
 msgid "Point of Sale Orders"
-msgstr "Point Of Sale Verkäufe"
+msgstr "Kassen Verkäufe"
 
 #. module: point_of_sale
 #: model:ir.model,name:point_of_sale.model_report_pos_order
 msgid "Point of Sale Orders Statistics"
-msgstr "Auswertungen POS Verkäufe"
+msgstr "Auswertungen Kassen Verkäufe"
 
 #. module: point_of_sale
 #: model:ir.model,name:point_of_sale.model_pos_make_payment
 msgid "Point of Sale Payment"
-msgstr "Point Of Sale Zahlung"
+msgstr "Kassen Zahlung"
 
 #. module: point_of_sale
 #: view:pos.session:point_of_sale.view_pos_session_form
 #: view:pos.session:point_of_sale.view_pos_session_search
 #: view:pos.session:point_of_sale.view_pos_session_tree
 msgid "Point of Sale Session"
-msgstr "Point of Sale Sitzung"
+msgstr "Kassen Sitzung"
 
 #. module: point_of_sale
 #: model:ir.actions.act_window,name:point_of_sale.action_pos_config_pos
@@ -2142,13 +2142,13 @@ msgstr "Kassenplätze"
 #. module: point_of_sale
 #: view:pos.category:point_of_sale.product_pos_category_form_view
 msgid "Pos Categories"
-msgstr "POS Kategorien"
+msgstr "Kassen Kategorien"
 
 #. module: point_of_sale
 #: model:ir.actions.act_window,name:point_of_sale.product_pos_category_action
 #: model:ir.ui.menu,name:point_of_sale.menu_product_pos_category
 msgid "Pos Product Categories"
-msgstr "POS Produktkategorien"
+msgstr "Kategorien"
 
 #. module: point_of_sale
 #: view:pos.confirm:point_of_sale.view_pos_confirm
@@ -2557,7 +2557,7 @@ msgstr "Kunden wählen"
 #. module: point_of_sale
 #: view:pos.session.opening:point_of_sale.pos_session_opening_form_view
 msgid "Select your Point of Sale"
-msgstr "Auswahl Ihres Point Of Sale"
+msgstr "Auswahl der Kasse"
 
 #. module: point_of_sale
 #: code:addons/point_of_sale/point_of_sale.py:1077
@@ -2725,7 +2725,7 @@ msgstr "Start Periode"
 #. module: point_of_sale
 #: model:ir.actions.act_url,name:point_of_sale.action_pos_pos
 msgid "Start Point of Sale"
-msgstr "Starte Point Of Sale"
+msgstr "Starte Kasse"
 
 #. module: point_of_sale
 #: field:pos.session,cash_register_balance_start:0
@@ -2920,7 +2920,7 @@ msgid ""
 "use\n"
 "                        a modern browser like"
 msgstr ""
-"Der Point Of Sale wird nicht von Microsoft Internet Explorer unterstützt. "
+"Die Kasse wird nicht von Microsoft Internet Explorer unterstützt. "
 "Bitte benutzen Sie einen\n"
 "                                        modernen Browser wie"
 
@@ -3003,7 +3003,7 @@ msgstr "Dieses Merkmal identifiziert Produktbarcodes"
 #. module: point_of_sale
 #: help:pos.session,config_id:0
 msgid "The physical point of sale you will use."
-msgstr "Der physikalische Point Of Sale"
+msgstr "Die physikalische Kasse"
 
 #. module: point_of_sale
 #. openerp-web
@@ -3479,7 +3479,7 @@ msgstr ""
 msgid ""
 "You cannot create two active sessions related to the same point of sale!"
 msgstr ""
-"Sie können nicht zwei gleichzeitig aktive Sitzungen für einen Point Of Sale "
+"Sie können nicht zwei gleichzeitig aktive Sitzungen für eine Kasse "
 "öffnen."
 
 #. module: point_of_sale
@@ -3510,7 +3510,7 @@ msgstr "Bei einer Bankzahlung kann kein negativer Betrag angegeben werden"
 #: constraint:pos.config:0
 msgid "You cannot have two cash controls in one Point Of Sale !"
 msgstr ""
-"Sie können kein weiteres Kartenlesegerät an einem Point Of Sale einsetzen."
+"Sie können kein weiteres Kartenlesegerät auf einer Kasse einsetzen."
 
 #. module: point_of_sale
 #: code:addons/point_of_sale/point_of_sale.py:547
@@ -3534,12 +3534,12 @@ msgid ""
 "new payment methods directly from menu \"PoS Backend / Configuration / "
 "Payment Methods\"."
 msgstr ""
-"Sie müssen die  Zahlungsmethoden bestimmen, die an Ihrem Point Of Sale "
+"Sie müssen die  Zahlungsmethoden bestimmen, die an Ihrer Kasse "
 "akzeptiert werden, indem Sie die vorhandene Bank und Kasse über \"Finanzen / "
 "Konfiguration / Journale / Journale\" verwenden. Wählen Sie hier ein Journal "
-"aus und aktivieren Sie die Option \"POS Zahlungsmethode\" über den "
-"Aktenreiter \"Point Of Sale\". Sie können des weiteren neue Zahlungsmethoden "
-"direkt über das Menü \"POS Backend / Konfiguration / Zahlungsmethoden\" "
+"aus und aktivieren Sie die Option \"Kassen Zahlungsmethode\" über den "
+"Aktenreiter \"Kasse\". Sie können des weiteren neue Zahlungsmethoden "
+"direkt über das Menü \"Kasse / Konfiguration / Zahlungsmethoden\" "
 "erstellen."
 
 #. module: point_of_sale
@@ -3573,7 +3573,7 @@ msgstr ""
 #: code:addons/point_of_sale/point_of_sale.py:386
 #, python-format
 msgid "You should assign a Point of Sale to your session."
-msgstr "Sie müssen einen Point Of Sale für Ihre Sitzung auswählen."
+msgstr "Sie müssen eine Kasse für Ihre Sitzung auswählen."
 
 #. module: point_of_sale
 #. openerp-web
@@ -3728,7 +3728,7 @@ msgstr "Aktenreiter der"
 #. module: point_of_sale
 #: model:ir.model,name:point_of_sale.model_report_transaction_pos
 msgid "transaction for the pos"
-msgstr "Transaktionen für das POS"
+msgstr "Transaktionen der Kasse"
 
 #. module: point_of_sale
 #: field:account.bank.statement,pos_session_id:0

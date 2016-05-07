@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-05 10:43+0000\n"
-"PO-Revision-Date: 2015-11-05 11:44+0100\n"
+"POT-Creation-Date: 2016-04-27 08:45+0000\n"
+"PO-Revision-Date: 2016-04-27 10:45+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -119,11 +119,21 @@ msgid "Leaf Category"
 msgstr "(Lezte)Kategorie"
 
 #. module: at_product
+#: field:product.uom,nounit:0
+msgid "No Unit"
+msgstr "Keine Einheit"
+
+#. module: at_product
 #: model:ir.actions.report.xml,name:at_product.report_pricelist
 #: model:ir.actions.report.xml,name:at_product.report_pricelist_version
 #: model:ir.model,name:at_product.model_product_pricelist
 msgid "Pricelist"
 msgstr "Preisliste"
+
+#. module: at_product
+#: model:ir.model,name:at_product.model_product_pricelist_version
+msgid "Pricelist Version"
+msgstr "Preislistenversion"
 
 #. module: at_product
 #: model:ir.model,name:at_product.model_product_product

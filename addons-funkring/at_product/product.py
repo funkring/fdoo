@@ -33,7 +33,8 @@ class product_uom(osv.osv):
     _inherit = "product.uom"
     _columns = {
         "code": fields.char("Code", size=32, select=True),
-        "sequence" : fields.integer("Sequence")
+        "sequence" : fields.integer("Sequence"),
+        "nounit" : fields.boolean("No Unit")
     }
     _order = "sequence"
     _defaults = {
