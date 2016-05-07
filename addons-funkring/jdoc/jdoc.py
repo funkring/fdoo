@@ -396,7 +396,8 @@ class jdoc_jdoc(osv.AbstractModel):
         res_doc = data.get("result_format") == "doc"
                 
         # get search domain
-        search_domain = data.get("domain") or []
+        filter_domain = data.get("domain") or []
+        search_domain = list(filter_domain)
         
         # get options        
         fields = data.get("fields")
