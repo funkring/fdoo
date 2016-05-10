@@ -951,234 +951,247 @@ class jdoc_jdoc(osv.AbstractModel):
         client_db =  "%s-%s-%s" % (config_name, db_uuid, uid)
         client_uuid = "%s-%s" % (db_uuid, uid)
         
-        # get passowrd
-        client_passwd = None
-        cr.execute("SELECT password FROM res_users WHERE id=%s",(uid,))
-        cr_res = cr.fetchone()
-        if cr_res:
-            client_passwd = cr_res[0]
+        lock_id = hash(client_uuid)
         
-        if not client_passwd:
-            raise osv.except_osv(_("Error"), _("Unable to get user password. Deinstall 'auth_crypt' Module"))
-        
-        couchdb_public_url = openerp.tools.config.get("syncdb_public_url") 
-        if not couchdb_public_url:
-            raise osv.except_osv(_("Error"), _("No public couchdb url defined"))
-        
-        res = {
-            "url" : couchdb_public_url,
-            "db" : client_db,
-            "user" : client_uuid
-        } 
-        
-        # READ/UPDATE USER
-        couchdb_url = openerp.tools.config.get("syncdb_url")
-        if not couchdb_url:
-            raise osv.except_osv(_("Error"), _("No couchdb url defined"))
-  
-        couchdb_user = openerp.tools.config.get("syncdb_user")
-        couchdb_password = openerp.tools.config.get("syncdb_password")
-    
-        server = couchdb.Server(couchdb_url)
-        if couchdb_user and couchdb_password:
-            server.resource.credentials = (couchdb_user, couchdb_password)
-            
-        user_db = server["_users"]
-        user_id = "org.couchdb.user:%s" % client_uuid
-        
-        user_doc = user_db.get(user_id)
-        if not user_doc:
-            user_doc = {
-                "_id" :  user_id,
-                "name" : client_uuid,
-                "type" : "user",
-                "roles" : []
-            }
-        
-        user_doc["password"] = client_passwd
-        user_db.save(user_doc)
-        
-        # CHECK RESET / DB DELETION
-        if config.get("reset"):
-            if client_db in server:
-                server.delete(client_db)
+        # lock
+        cr.execute("SELECT pg_try_advisory_lock(%s)" % lock_id)
+        res = cr.fetchone()    
+        if not res[0]:
             return True
         
-        # CREATE/OPEN DB
-        db = None
-        if not client_db in server:
-            db = server.create(client_db)
-        else:
-            db = server[client_db]
+        try:
+            # get password
+            client_passwd = None
+            cr.execute("SELECT password FROM res_users WHERE id=%s",(uid,))
+            cr_res = cr.fetchone()
+            if cr_res:
+                client_passwd = cr_res[0]
             
-        # UPDATE/DB SECURITY
-        permissions = db.get("_security") or {"_id" : "_security" }
-        members = permissions.get("members")
-        names = members and members.get("names")
-        if not names or not client_uuid in names:
-            permissions["admins"] = {}
-            permissions["members"] = {"names" : [client_uuid] }
-            db.put(permissions) 
-            db.commit()
+            if not client_passwd:
+                raise osv.except_osv(_("Error"), _("Unable to get user password. Deinstall 'auth_crypt' Module"))
+            
+            couchdb_public_url = openerp.tools.config.get("syncdb_public_url") 
+            if not couchdb_public_url:
+                raise osv.except_osv(_("Error"), _("No public couchdb url defined"))
+            
+            res = {
+                "url" : couchdb_public_url,
+                "db" : client_db,
+                "user" : client_uuid
+            } 
+            
+            # READ/UPDATE USER
+            couchdb_url = openerp.tools.config.get("syncdb_url")
+            if not couchdb_url:
+                raise osv.except_osv(_("Error"), _("No couchdb url defined"))
+      
+            couchdb_user = openerp.tools.config.get("syncdb_user")
+            couchdb_password = openerp.tools.config.get("syncdb_password")
         
-        # CONFIG ONLY 
-        if config_only:
-            return res
-             
-        
-        # BUILD SYNC CONFIG
-               
-        class SyncConfig(object):
-            def __init__(self, model_config, lastsync, resync=False):
-                self.lastsync = lastsync 
-                self.readonly = model_config.get("readonly")
-                self.config = dict(model_config)
-                self.config["lastsync"] = lastsync
-                self.config["result_format"] = "doc"
-                self.config["resync"] = resync
-                self.model = model_config["model"]
-                self.seq = lastsync.get("seq", 0)
-                self.changed_revs = set()
-                self.resetChanges()
-            
-            def resetChanges(self):
-                self.changes = []
-                self.config["changes"] = self.changes
-            
-            def updateLastSync(self, lastsync):
-                self.lastsync.update(lastsync)
+            server = couchdb.Server(couchdb_url)
+            if couchdb_user and couchdb_password:
+                server.resource.credentials = (couchdb_user, couchdb_password)
                 
-            def getLastsync(self):
-                self.lastsync["seq"] = self.seq
-                return self.lastsync
-                            
-        
-        # BUILD PROFILES
-        syncConfigs = []
-        syncConfigMap = {}
-        minseq = None
-        models = config.get("models")       
-        resync = config.get("resync", False)
-         
-        for model_config in models:
-            config_uuid = "_local/lastsync_%s" % (self._get_uuid(model_config),)
-            # get lastsync
-            lastsync = db.get(config_uuid)
-            if not lastsync:
-                lastsync = { "_id" : config_uuid }
-                
+            user_db = server["_users"]
+            user_id = "org.couchdb.user:%s" % client_uuid
             
-            # prepare config
-            sc = SyncConfig(model_config, lastsync, resync)
-            syncConfigs.append(sc)
-            if minseq is None:
-                minseq = sc.seq
+            user_doc = user_db.get(user_id)
+            if not user_doc:
+                user_doc = {
+                    "_id" :  user_id,
+                    "name" : client_uuid,
+                    "type" : "user",
+                    "roles" : []
+                }
+            
+            user_doc["password"] = client_passwd
+            user_db.save(user_doc)
+            
+            # CHECK RESET / DB DELETION
+            if config.get("reset"):
+                if client_db in server:
+                    server.delete(client_db)
+                return True
+            
+            # CREATE/OPEN DB
+            db = None
+            if not client_db in server:
+                db = server.create(client_db)
             else:
-                minseq = min(sc.seq, minseq)            
-        
-            syncConfigMap[sc.model] = sc
+                db = server[client_db]
+                
+            # UPDATE/DB SECURITY
+            permissions = db.get("_security") or {"_id" : "_security" }
+            members = permissions.get("members")
+            names = members and members.get("names")
+            if not names or not client_uuid in names:
+                permissions["admins"] = {}
+                permissions["members"] = {"names" : [client_uuid] }
+                db.put(permissions) 
+                db.commit()
             
-        
-        # CHECK IF THERE ARE MODELS                  
-        if minseq is None:
+            # CONFIG ONLY 
+            if config_only:
+                return res
+                 
+            
+            # BUILD SYNC CONFIG
+                   
+            class SyncConfig(object):
+                def __init__(self, model_config, lastsync, resync=False):
+                    self.lastsync = lastsync 
+                    self.readonly = model_config.get("readonly")
+                    self.config = dict(model_config)
+                    self.config["lastsync"] = lastsync
+                    self.config["result_format"] = "doc"
+                    self.config["resync"] = resync
+                    self.model = model_config["model"]
+                    self.seq = lastsync.get("seq", 0)
+                    self.changed_revs = set()
+                    self.resetChanges()
+                
+                def resetChanges(self):
+                    self.changes = []
+                    self.config["changes"] = self.changes
+                
+                def updateLastSync(self, lastsync):
+                    self.lastsync.update(lastsync)
+                    
+                def getLastsync(self):
+                    self.lastsync["seq"] = self.seq
+                    return self.lastsync
+                                
+            
+            # BUILD PROFILES
+            syncConfigs = []
+            syncConfigMap = {}
+            minseq = None
+            models = config.get("models")       
+            resync = config.get("resync", False)
+             
+            for model_config in models:
+                config_uuid = "_local/lastsync_%s" % (self._get_uuid(model_config),)
+                # get lastsync
+                lastsync = db.get(config_uuid)
+                if not lastsync:
+                    lastsync = { "_id" : config_uuid }
+                    
+                
+                # prepare config
+                sc = SyncConfig(model_config, lastsync, resync)
+                syncConfigs.append(sc)
+                if minseq is None:
+                    minseq = sc.seq
+                else:
+                    minseq = min(sc.seq, minseq)            
+            
+                syncConfigMap[sc.model] = sc
+                
+            
+            # CHECK IF THERE ARE MODELS                  
+            if minseq is None:
+                return res
+            
+            mapping_obj = self.pool.get("res.mapping")
+            
+            # validate model for change
+            def validateModel(change):
+                doc = change["doc"]
+                model = doc.get(META_MODEL)
+                if not model:
+                    if doc.get(META_DELETE):
+                        model = mapping_obj._get_model(cr, uid, doc["_id"])
+                        if model:
+                            doc[META_MODEL] = model
+                return model
+            
+            # SYNC DB        
+            db_changeset = db.changes(since=minseq, include_docs=True)
+            for change in db_changeset["results"]:      
+                model = validateModel(change) 
+                if not model:
+                    continue
+                
+                syncConfig = syncConfigMap.get(model)
+                if not syncConfig:
+                    continue
+                
+                if syncConfig.seq >= change["seq"]:
+                    continue
+                
+                # ADD CHANGE
+                if not syncConfig.readonly:
+                    syncConfig.changes.append(change)
+                
+            # SYNC CHANGES
+            for sc in syncConfigs:
+                sync_res = self.jdoc_sync(cr, uid, sc.config, context=context)            
+                sc.updateLastSync(sync_res["lastsync"])
+                sc.seq = db_changeset["last_seq"]
+                
+                # update documents
+                changed_revs = set()
+                o_changes = sync_res["changes"]
+                
+                # determine revision, for overwrite
+                for o_change in o_changes:
+                    uuid = o_change.get("_id")
+                    if uuid:
+                        doc = db.get(uuid)
+                        if doc:
+                            o_change["_rev"] = doc["_rev"]
+                            
+                # SYNC BACK CHANGES
+                for update_res in db.update(o_changes):
+                    if update_res[0]:
+                        changed_revs.add((update_res[1], update_res[2]))
+                    else:
+                        _logger.error("Sync Conflict %s -> %s " % (update_res[1],update_res[2]))                    
+                
+                    
+                # FINALIZE SYNC
+                
+                if changed_revs:           
+                    # get changes                
+                    sc.resetChanges()
+                    # get changes again
+                    db_changeset = db.changes(since=sc.seq, include_docs=True)
+                    sc.seq = db_changeset["last_seq"]
+                    # no sync if readonly
+                    if not sc.readonly:
+                        for change in db_changeset["results"]:
+                            # check model
+                            model = validateModel(change)
+                            if not model or model != sc.model:
+                                continue
+                            
+                            # check already process
+                            already_processed = False
+                            for rev_change in change["changes"]:
+                                if (change["id"], rev_change["rev"]) in changed_revs:
+                                    already_processed = True
+                                    break
+                            
+                            if not already_processed:
+                                sc.changes.append(change) 
+                    
+                    # check if changes exist
+                    if sc.changes:
+                        sync_res = self.jdoc_sync(cr, uid, sc.config, context=context)
+                        sc.updateLastSync(sync_res["lastsync"])
+                     
+                # commit            
+                cr.commit() 
+                
+                # update lastsync
+                db.save(sc.getLastsync())
+                db.commit()
+                                      
             return res
         
-        mapping_obj = self.pool.get("res.mapping")
-        
-        # validate model for change
-        def validateModel(change):
-            doc = change["doc"]
-            model = doc.get(META_MODEL)
-            if not model:
-                if doc.get(META_DELETE):
-                    model = mapping_obj._get_model(cr, uid, doc["_id"])
-                    if model:
-                        doc[META_MODEL] = model
-            return model
-        
-        # SYNC DB        
-        db_changeset = db.changes(since=minseq, include_docs=True)
-        for change in db_changeset["results"]:      
-            model = validateModel(change) 
-            if not model:
-                continue
-            
-            syncConfig = syncConfigMap.get(model)
-            if not syncConfig:
-                continue
-            
-            if syncConfig.seq >= change["seq"]:
-                continue
-            
-            # ADD CHANGE
-            if not syncConfig.readonly:
-                syncConfig.changes.append(change)
-            
-        # SYNC CHANGES
-        for sc in syncConfigs:
-            sync_res = self.jdoc_sync(cr, uid, sc.config, context=context)            
-            sc.updateLastSync(sync_res["lastsync"])
-            sc.seq = db_changeset["last_seq"]
-            
-            # update documents
-            changed_revs = set()
-            o_changes = sync_res["changes"]
-            
-            # determine revision, for overwrite
-            for o_change in o_changes:
-                uuid = o_change.get("_id")
-                if uuid:
-                    doc = db.get(uuid)
-                    if doc:
-                        o_change["_rev"] = doc["_rev"]
-                        
-            # SYNC BACK CHANGES
-            for update_res in db.update(o_changes):
-                if update_res[0]:
-                    changed_revs.add((update_res[1], update_res[2]))
-                else:
-                    _logger.error("Sync Conflict %s -> %s " % (update_res[1],update_res[2]))                    
-            
-                
-            # FINALIZE SYNC
-            
-            if changed_revs:           
-                # get changes                
-                sc.resetChanges()
-                # get changes again
-                db_changeset = db.changes(since=sc.seq, include_docs=True)
-                sc.seq = db_changeset["last_seq"]
-                # no sync if readonly
-                if not sc.readonly:
-                    for change in db_changeset["results"]:
-                        # check model
-                        model = validateModel(change)
-                        if not model or model != sc.model:
-                            continue
-                        
-                        # check already process
-                        already_processed = False
-                        for rev_change in change["changes"]:
-                            if (change["id"], rev_change["rev"]) in changed_revs:
-                                already_processed = True
-                                break
-                        
-                        if not already_processed:
-                            sc.changes.append(change) 
-                
-                # check if changes exist
-                if sc.changes:
-                    sync_res = self.jdoc_sync(cr, uid, sc.config, context=context)
-                    sc.updateLastSync(sync_res["lastsync"])
-                 
-            # commit            
-            cr.commit() 
-            
-            # update lastsync
-            db.save(sc.getLastsync())
-            db.commit()
-                                  
-        return res
+        finally:
+            # unlock
+            cr.execute("SELECT pg_advisory_unlock(%s)" % lock_id)        
     
     @openerp.tools.ormcache()
     def _jdoc_def(self, cr, uid, model):
