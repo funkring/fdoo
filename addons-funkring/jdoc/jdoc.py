@@ -954,10 +954,14 @@ class jdoc_jdoc(osv.AbstractModel):
         lock_id = hash(client_uuid)
         
         # lock
-        cr.execute("SELECT pg_try_advisory_lock(%s)" % lock_id)
-        res = cr.fetchone()    
-        if not res[0]:
-            return True
+        cr.autocommit(True)
+        try:
+            cr.execute("SELECT pg_try_advisory_lock(%s)" % lock_id)
+            res = cr.fetchone()    
+            if not res[0]:
+                raise osv.except_osv(_("Error"), _("Sync is already active"))
+        finally:
+            cr.autocommit(False)
         
         try:
             # get password
