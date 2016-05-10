@@ -399,6 +399,10 @@ class jdoc_jdoc(osv.AbstractModel):
         filter_domain = data.get("domain") or []
         search_domain = list(filter_domain)
         
+        # get negative/non/delete domain
+        filter_ndomain = data.get("ndomain") or []
+        search_ndomain = data.get("ndomain") or []
+        
         # get options        
         fields = data.get("fields")
         compositions = data.get("compositions")
@@ -583,6 +587,7 @@ class jdoc_jdoc(osv.AbstractModel):
             # domain for search
             if sync_inc:
                 search_domain.append(("write_date",">",last_date))
+                search_ndomain.append(("write_date",">",last_date))
             # domain for search deleted
             del_search_domain.append(("write_date",">",last_date))
             
@@ -618,7 +623,8 @@ class jdoc_jdoc(osv.AbstractModel):
                         out_list.append({ "id" : doc["_id"],                                 
                                           "doc" : doc 
                                         })
-                
+         
+         
         #
         # search deleted
         #
@@ -627,10 +633,26 @@ class jdoc_jdoc(osv.AbstractModel):
         mapping_obj.check_deleted(cr, uid, model)
         
         
-        # read ids
+        # read deleted 
         out_deleted_vals = mapping_obj.search_read(cr, uid, del_search_domain, 
                                                             ["uuid", "write_date", "res_id"],                                                             
                                                             order="write_date asc, res_id asc")
+        
+        # read filtered which should be deleted
+        if filter_ndomain:
+            filtered_ids = model_obj.search(cr, uid, search_ndomain, order="write_date asc, id asc")
+            if filtered_ids:
+                
+                # get last change date
+                cr.execute("SELECT MAX(write_date) FROM %s WHERE id IN %%s " % model_obj._table, (tuple(filtered_ids),))
+                res = cr.fetchone()
+                if res:
+                    last_date = max(last_date, res[0])
+                
+                # add out deleted vals
+                out_deleted_vals += mapping_obj.search_read(cr, uid, [("res_model","=",model),("active","=",True),("res_id","in",filtered_ids)], 
+                                            ["uuid", "write_date", "res_id"],                                                             
+                                            order="write_date asc, res_id asc")
                       
         if out_deleted_vals:
             # get last change date
@@ -1165,5 +1187,4 @@ class jdoc_jdoc(osv.AbstractModel):
     _description = "JSON Document Support"    
     _name = "jdoc.jdoc"
 
- 
-    
+   
