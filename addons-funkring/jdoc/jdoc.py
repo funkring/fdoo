@@ -1119,9 +1119,6 @@ class jdoc_jdoc(osv.AbstractModel):
                 
             # SYNC CHANGES
             for sc in syncConfigs:
-                if sc.model == "product.product":
-                    pass
-                
                 sync_res = self.jdoc_sync(cr, uid, sc.config, context=context)            
                 sc.updateLastSync(sync_res["lastsync"])
                 sc.seq = db_changeset["last_seq"]
