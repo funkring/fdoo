@@ -2804,14 +2804,14 @@ msgstr "Zwischensumme"
 #. module: point_of_sale
 #: field:pos.order.line,price_subtotal:0
 msgid "Subtotal w/o Tax"
-msgstr "Zwischensumme mit/ohne Steuer"
+msgstr "Zwischensumme ohne Steuer"
 
 #. module: point_of_sale
 #. openerp-web
 #: code:addons/point_of_sale/static/src/xml/pos.xml:974
 #, python-format
 msgid "Subtotal:"
-msgstr "Zwischensumme:"
+msgstr "Summe:"
 
 #. module: point_of_sale
 #: help:pos.session,cash_register_balance_end:0
