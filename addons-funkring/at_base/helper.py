@@ -151,5 +151,13 @@ def strToLocalDateStr(cr, uid, str_time, context):
                                             context=context)
     return util.timeToDateStr(converted)
 
+def strToLocalTimeFormat(cr, uid, str_time, format, context):
+    # Convert datetime values to the expected client/context timezone
+    timestamp=util.strToTime(str_time)
+    converted = datetime_field.context_timestamp(cr, uid,
+                                            timestamp=timestamp,
+                                            context=context)
+    return util.dateFormat(converted, format)
+
 
 
