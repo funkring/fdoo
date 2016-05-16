@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+ <data>
+    <record id="form_sale_order" model="ir.ui.view">
+      <field name="name">fast_sale.form_sale_order</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_order_form"/>
+      <field name="arch" type="xml">
+            <button name="action_view_invoice" position="after">
+                <button name="action_deliver_invoice" string="Delivery and Invoice" 
+                    groups="base.group_user" 
+                    type="object" attrs="{'invisible': ['|',('invoice_exists','=',True),('state','!=','draft'),('state','!=','manual'),('state','!=','progress')]}"/> 
+            </button>
+      </field>
+    </record>
+  </data>
+</openerp>

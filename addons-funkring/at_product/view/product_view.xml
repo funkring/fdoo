@@ -3,11 +3,12 @@
 	<data>
         <record id="search_at_product" model="ir.ui.view">
             <field name="name">at_product.search_at_product"</field>
-            <field name="model">product.product</field>
+            <field name="model">product.template</field>
             <field name="inherit_id" ref="product.product_template_search_view"></field>
             <field name="arch" type="xml">
-                <data>
-                    <field name="name" position="after">
+                <data>                    
+                    <field name="name" position="replace">
+                        <field name="name" string="Product" filter_domain="['|','|',('default_code','ilike',self),('name','ilike',self),('ean13','=',self)]"/>
                         <field name="default_code" string="Reference" filter_domain="[('default_code','ilike',self)]"/>
                     </field>
                 </data>
