@@ -439,11 +439,13 @@ class jdoc_jdoc(osv.AbstractModel):
         # init last sync default
         last_date = None
         seq = 0
+        first_sync = True
         lastsync_lastchange = None
         
         if lastsync:        
             last_date = lastsync.get("date", None)
             seq = lastsync.get("seq", 0)
+            first_sync = (seq == 0)
             # check for resync
             if not data.get("resync"):
                 lastsync_lastchange = lastsync.get("lastchange", None)
@@ -628,56 +630,57 @@ class jdoc_jdoc(osv.AbstractModel):
         # search deleted
         #
         
-        # process deleted
-        mapping_obj.check_deleted(cr, uid, model)
-        
-        
-        # read deleted 
-        out_deleted_vals = mapping_obj.search_read(cr, uid, del_search_domain, 
-                                                            ["uuid", "write_date", "res_id"],                                                             
-                                                            order="write_date asc, res_id asc")
-        
-        # read filtered which should be deleted
-        if filter_ndomain:
-            filtered_ids = model_obj.search(cr, uid, search_ndomain, order="write_date asc, id asc")
-            if filtered_ids:
-                
-                # get last change date
-                cr.execute("SELECT MAX(write_date) FROM %s WHERE id IN %%s " % model_obj._table, (tuple(filtered_ids),))
-                res = cr.fetchone()
-                if res:
-                    last_date = max(last_date, res[0])
-                
-                # add out deleted vals
-                out_deleted_vals += mapping_obj.search_read(cr, uid, [("res_model","=",model),("active","=",True),("res_id","in",filtered_ids)], 
-                                            ["uuid", "write_date", "res_id"],                                                             
-                                            order="write_date asc, res_id asc")
+        if not first_sync:
+            # process deleted
+            mapping_obj.check_deleted(cr, uid, model)
+            
+            
+            # read deleted 
+            out_deleted_vals = mapping_obj.search_read(cr, uid, del_search_domain, 
+                                                                ["uuid", "write_date", "res_id"],                                                             
+                                                                order="write_date asc, res_id asc")
+            
+            # read filtered which should be deleted
+            if filter_ndomain:
+                filtered_ids = model_obj.search(cr, uid, search_ndomain, order="write_date asc, id asc")
+                if filtered_ids:
+                    
+                    # get last change date
+                    cr.execute("SELECT MAX(write_date) FROM %s WHERE id IN %%s " % model_obj._table, (tuple(filtered_ids),))
+                    res = cr.fetchone()
+                    if res:
+                        last_date = max(last_date, res[0])
+                    
+                    # add out deleted vals
+                    out_deleted_vals += mapping_obj.search_read(cr, uid, [("res_model","=",model),("active","=",True),("res_id","in",filtered_ids)], 
+                                                ["uuid", "write_date", "res_id"],                                                             
+                                                order="write_date asc, res_id asc")
                       
-        if out_deleted_vals:
-            # get last change date
-            cr.execute("SELECT MAX(write_date) FROM %s WHERE res_model=%%s AND id IN %%s" % mapping_obj._table, 
-                                                                (model, tuple([v["id"] for v in out_deleted_vals]) ) ) 
-            res = cr.fetchone()
-            if res:            
-                last_date = max(last_date, res[0])
-                
-            # get uuids
-            for out_deleted_val in out_deleted_vals:
-                if not last_date or out_deleted_val["write_date"] >= last_date:
-                    last_date = out_deleted_val["write_date"]
-                
-                # uuid 
-                uuid = out_deleted_val["uuid"]
-                if res_doc:
-                    out_list.append({
-                       "_id" : uuid,
-                       "_deleted" : True                                 
-                     })
-                else:
-                    out_list.append({
-                       "id" : uuid,
-                       "deleted" : True                                 
-                     })
+            if out_deleted_vals:
+                # get last change date
+                cr.execute("SELECT MAX(write_date) FROM %s WHERE res_model=%%s AND id IN %%s" % mapping_obj._table, 
+                                                                    (model, tuple([v["id"] for v in out_deleted_vals]) ) ) 
+                res = cr.fetchone()
+                if res:            
+                    last_date = max(last_date, res[0])
+                    
+                # get uuids
+                for out_deleted_val in out_deleted_vals:
+                    if not last_date or out_deleted_val["write_date"] >= last_date:
+                        last_date = out_deleted_val["write_date"]
+                    
+                    # uuid 
+                    uuid = out_deleted_val["uuid"]
+                    if res_doc:
+                        out_list.append({
+                           "_id" : uuid,
+                           "_deleted" : True                                 
+                         })
+                    else:
+                        out_list.append({
+                           "id" : uuid,
+                           "deleted" : True                                 
+                         })
         
         
         lastsync =  {
