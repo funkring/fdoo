@@ -398,13 +398,10 @@ form: module.record_id""" % (xml_id,)
 
         #funkring.net begin // aeroo report specific
         if is_aeroo_report:
-            try:
-                aeroo_rec = self.pool.get('ir.model.data').get_object(cr,self.uid,module,xml_id)
-                if aeroo_rec.user_defined:                
-                    del res["tml_source"]                
-                    del res["parser_state"]
-            except:
-                pass
+            report_rec = self.pool['ir.model.data'].xmlid_to_object(cr, self.uid, "%s.%s" % (self.module, xml_id), raise_if_not_found=False)
+            if report_rec and report_rec.user_defined:                
+                del res["tml_source"]                
+                del res["parser_state"]
         #funkring.net end
         
         id = self.pool['ir.model.data']._update(cr, self.uid, "ir.actions.report.xml", self.module, res, xml_id, noupdate=self.isnoupdate(data_node), mode=self.mode)
