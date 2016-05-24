@@ -397,11 +397,14 @@ form: module.record_id""" % (xml_id,)
             res['groups_id'] = groups_value
 
         #funkring.net begin // aeroo report specific
-        if is_aeroo_report:
-            report_rec = self.pool['ir.model.data'].xmlid_to_object(cr, self.uid, "%s.%s" % (self.module, xml_id), raise_if_not_found=False)
-            if report_rec and report_rec.user_defined:                
-                del res["tml_source"]                
-                del res["parser_state"]
+        full_xml_id = xml_id        
+        if not "." in full_xml_id:
+            full_xml_id = "%s.%s" % (self.module, xml_id)
+        
+        report_rec = self.pool['ir.model.data'].xmlid_to_object(cr, self.uid, full_xml_id, raise_if_not_found=False)
+        if report_rec and report_rec.report_type in ("qweb-pdf","aeroo") and report_rec.user_defined:
+            res["tml_source"] = report_rec.tml_source
+            res["parser_state"] = report_rec.parser_state
         #funkring.net end
         
         id = self.pool['ir.model.data']._update(cr, self.uid, "ir.actions.report.xml", self.module, res, xml_id, noupdate=self.isnoupdate(data_node), mode=self.mode)
