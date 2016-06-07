@@ -99,7 +99,7 @@ class ir_translation_import_cursor(object):
         if self._debug:
             cr.execute("SELECT count(*) FROM %s" % self._table_name)
             c = cr.fetchone()[0]
-            _logger.debug("ir.translation.cursor: We have %d entries to process", c)
+            _logger.info("ir.translation.cursor: We have %d entries to process", c)
 
         # Step 1: resolve ir.model.data references to res_ids
         cr.execute("""UPDATE %s AS ti
@@ -129,7 +129,7 @@ class ir_translation_import_cursor(object):
             AND (irt.type IN ('field','help','model','view') OR irt.src = ti.src) 
             AND (    irt.type NOT IN ('model','view')
                  OR (irt.type = 'model' AND irt.res_id = ti.res_id)
-                 OR (irt.type = 'view'  AND irt.res_id != 0 AND NOT irt.res_id IS NULL AND irt.res_id = ti.res_id)
+                 OR (irt.type = 'view'  AND irt.res_id != 0 AND NOT irt.res_id IS NULL AND irt.res_id = ti.res_id AND (NOT ti.name='website' OR irt.src = ti.src) )
                  OR (irt.type = 'view'  AND (irt.res_id = 0 OR irt.res_id IS NULL) AND (ti.res_id = 0 OR ti.res_id IS NULL) AND irt.src = ti.src)
                 )
         """
