@@ -195,7 +195,8 @@ class hr_timesheet_sheet(osv.osv):
                         leave_names = []               
                         for leave in leave_obj.browse(cr, uid, [l[0] for l in leaves], context=context):
                             leave_names.append(leave.name)
-                            attendance_text.append(leave.name)
+                            if leave.name:
+                                attendance_text.append(leave.name)
                             holiday = leave.holiday_id
                             holiday_status = holiday.holiday_status_id
                             if holiday_status:
