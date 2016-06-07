@@ -3929,7 +3929,7 @@ class BaseModel(object):
                         # src translation os resolved with base language not default language !!!
                         src_trans = self.pool.get(self._name).read(cr, user, ids, [f], baselang_ctx)[0][f] or None
                         cur_trans = self.pool.get(self._name).read(cr, user, ids, [f], context)[0][f] or None
-                        new_trans = vals[f] or None
+                        new_trans = self._columns[f]._symbol_set[1](vals[f]) or None
                         # if src_trans is empty
                         # if src_trans is equal to cur translation update it   
                         # if empty create the first src translation
@@ -5802,6 +5802,7 @@ class BaseModel(object):
                         name: rec[name] for name in names
                     })
                     with rec.env.norecompute():
+                        map(rec._recompute_done, field.computed_fields)
                         rec._write(values)
                 except MissingError:
                     pass
@@ -5989,6 +5990,21 @@ class BaseModel(object):
 
         result = {'value': {}}
 
+        # special case for merging commands from *2many fields
+        # TODO: do not forward-port this in 9.0
+        def merge_commands(commands1, commands2):
+            # retrieve updates from commands1
+            updates = {cmd[1]: cmd[2] for cmd in commands1 if cmd[0] == 1}
+            # enrich commands2 with updates from commands1
+            commands = []
+            for cmd in commands2:
+                if cmd[0] == 1 and cmd[1] in updates:
+                    cmd = (1, cmd[1], dict(updates[cmd[1]], **cmd[2]))
+                elif cmd[0] == 4 and cmd[1] in updates:
+                    cmd = (1, cmd[1], updates[cmd[1]])
+                commands.append(cmd)
+            return commands
+
         # process names in order (or the keys of values if no name given)
         while todo:
             name = todo.pop(0)
@@ -6011,9 +6027,10 @@ class BaseModel(object):
                     newval = record[name]
                     if field.type in ('one2many', 'many2many'):
                         if newval != oldval or newval._is_dirty():
-                            # put new value in result
-                            result['value'][name] = field.convert_to_write(
-                                newval, record._origin, subfields.get(name),
+                            # merge new value into result
+                            result['value'][name] = merge_commands(
+                                result['value'].get(name, []),
+                                field.convert_to_write(newval, record._origin, subfields.get(name)),
                             )
                             todo.append(name)
                         else:

@@ -3,7 +3,7 @@
 <data>
 <template id="report_attendanceerrors">
 <t t-call="report.html_container">
-<t t-foreach="get_employees(data['form']['emp_ids'])" t-as="employee">
+<t t-foreach="get_employees(data and data['form']['emp_ids'] or [])" t-as="employee">
 <t t-call="report.internal_layout">
 <div class="page">
 <div class="oe_structure"/>
