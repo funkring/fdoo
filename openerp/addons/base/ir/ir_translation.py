@@ -146,7 +146,6 @@ class ir_translation_import_cursor(object):
 
         
         # Step 3: insert new translations
-        # funkring.net - begin
         
         if self._debug:
             # check insert
