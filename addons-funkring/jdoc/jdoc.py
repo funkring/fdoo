@@ -36,12 +36,14 @@ PATTERN_REV = re.compile("^([0-9]+)-(.*)$")
 META_ID = "_id"
 META_REV = "_rev"
 META_DELETE = "_deleted"
+META_NAME = "_name"
 META_MODEL  = "fdoo__ir_model"
 
 META_FIELDS = set([
  META_ID,
  META_MODEL,
  META_DELETE,
+ META_NAME,
  META_REV 
 ])
 
@@ -99,7 +101,7 @@ class jdoc_jdoc(osv.AbstractModel):
         #check recursion
         if recursion_set and model_obj._name in recursion_set:
             raise DefRecursionException
-                       
+        
         #create result
         field_defs = {}
         res =  {
