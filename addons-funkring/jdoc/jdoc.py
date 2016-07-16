@@ -891,7 +891,7 @@ class jdoc_jdoc(osv.AbstractModel):
                         else:
                             obj_id = model_obj.create(cr, uid, values, context=context)
                 except Exception as e:
-                    _logger.exception(e);
+                    _logger.exception(e);                        
                     if not errors is None:
                         errors.append({
                            "model" : model,
@@ -903,17 +903,19 @@ class jdoc_jdoc(osv.AbstractModel):
                     else:
                         raise e
                    
-            # validate, create uuid
-            # use uuid passed in values if new
-            uuid = mapping_obj.get_uuid(cr, uid, model, obj_id, uuid=uuid)
-            
-            # update updated dict
-            if not changed_models is None: 
-                changed_ids =changed_models.get(model, None)
-                if changed_ids is None:
-                    changed_ids = set()
-                    changed_models[model]=changed_ids
-                changed_ids.add(obj_id)
+            # check obj_id
+            if obj_id:
+                # validate, create uuid
+                # use uuid passed in values if new
+                uuid = mapping_obj.get_uuid(cr, uid, model, obj_id, uuid=uuid)
+                
+                # update updated dict
+                if not changed_models is None: 
+                    changed_ids =changed_models.get(model, None)
+                    if changed_ids is None:
+                        changed_ids = set()
+                        changed_models[model]=changed_ids
+                    changed_ids.add(obj_id)
                     
             
 
