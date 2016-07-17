@@ -20,7 +20,7 @@
 
 from openerp.osv import fields, osv
 from openerp.addons.at_base import util
-
+from openerp.exceptions import AccessError
 from openerp.tools.translate import _
 
 import simplejson
@@ -618,14 +618,17 @@ class jdoc_jdoc(osv.AbstractModel):
             
             # create docs
             for obj in model_obj.browse(cr, uid, out_ids, context=context):
-                doc = method_get(cr, uid, obj, options=options, context=context)
-                if doc:
-                    if res_doc:
-                        out_list.append(doc)
-                    else:
-                        out_list.append({ "id" : doc["_id"],                                 
-                                          "doc" : doc 
-                                        })
+                try:
+                    doc = method_get(cr, uid, obj, options=options, context=context)
+                    if doc:
+                        if res_doc:
+                            out_list.append(doc)
+                        else:
+                            out_list.append({ "id" : doc["_id"],                                 
+                                              "doc" : doc 
+                                            })
+                except AccessError as e:
+                    _logger.warning("Access Denied %s/%s" % (obj._model._name, obj.id))
          
          
         #
@@ -891,7 +894,11 @@ class jdoc_jdoc(osv.AbstractModel):
                         else:
                             obj_id = model_obj.create(cr, uid, values, context=context)
                 except Exception as e:
-                    _logger.exception(e);                        
+                    if ( isinstance(e, AccessError)):
+                        _logger.warning("Access Denied %s/%s" % (model, uuid))
+                    else:
+                        _logger.exception(e);
+                                                
                     if not errors is None:
                         errors.append({
                            "model" : model,
