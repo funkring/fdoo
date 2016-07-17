@@ -628,7 +628,7 @@ class jdoc_jdoc(osv.AbstractModel):
                                               "doc" : doc 
                                             })
                 except AccessError as e:
-                    _logger.warning("Access Denied %s/%s" % (obj._model._name, obj.id))
+                    _logger.warning("Access Denied for read %s/%s" % (obj._model._name, obj.id))
          
          
         #
@@ -785,7 +785,10 @@ class jdoc_jdoc(osv.AbstractModel):
                     mapping_obj.unlink_uuid(cr, uid, uuid, res_model=model, context=context)
                     obj_id = False
             except Exception as e:
-                _logger.exception(e);
+                if isinstance(e, AccessError):
+                    _logger.warning("Access Denied for delete %s/%s" % (model, uuid))
+                else:
+                    _logger.exception(e);
                 if not errors is None:
                     errors.append({
                        "model" : model,
@@ -894,8 +897,8 @@ class jdoc_jdoc(osv.AbstractModel):
                         else:
                             obj_id = model_obj.create(cr, uid, values, context=context)
                 except Exception as e:
-                    if ( isinstance(e, AccessError)):
-                        _logger.warning("Access Denied %s/%s" % (model, uuid))
+                    if isinstance(e, AccessError):
+                        _logger.warning("Access Denied for write %s/%s" % (model, uuid))
                     else:
                         _logger.exception(e);
                                                 
