@@ -86,7 +86,7 @@ class Parser(extreport.basic_parser):
             res["note"] = line_note
             res['product_uom_qty'] = line.product_uos and line.product_uos_qty or line.product_uom_qty or 0.00
             res['product_uom'] = line.product_uos and line.product_uos.name or line.product_uom.name
-            res['price_unit'] = line.price_unit or 0.00
+            res['price_unit'] = line.price_unit_untaxed or 0.00
             res['discount'] = line.discount or 0.00
             res['price_subtotal'] = line.price_subtotal or 0.00 
             res['price_subtotal_taxed'] = line.price_subtotal_taxed or 0.00
