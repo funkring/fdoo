@@ -23,9 +23,9 @@
                                 </tr>
                                 % for line in object.order_line:
                                 <tr>
-                                    <td>${line.name}</th>
-                                    <td>${formatLang(line.product_qty)}</th>
-                                    <td>${line.product_uom and line.product_uom.name or ''}</th>
+                                    <td>${line.name}</td>
+                                    <td>${formatLang(line.product_qty)}</td>
+                                    <td>${line.product_uom and line.product_uom.name or ''}</td>
                                 </tr>
                                 % endfor
                             </table>
