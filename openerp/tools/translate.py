@@ -481,7 +481,7 @@ def trans_export(lang, modules, buffer, format, cr):
                 writer.writerow((module, type, name, res_id, src, trad))
         elif format == 'po':
             writer = TinyPoFile(buffer)
-            writer.write_infos(modules)
+            writer.write_infos(modules, lang)
 
             # we now group the translations by source. That means one translation per source.
             grouped_rows = {}
