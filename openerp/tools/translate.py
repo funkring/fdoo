@@ -409,7 +409,7 @@ class TinyPoFile(object):
             return self.next()
         return trans_type, name, res_id, source, trad, '\n'.join(comments)
 
-    def write_infos(self, modules):
+    def write_infos(self, modules, lang=None):
         import openerp.release as release
         self.buffer.write("# Translation of %(project)s.\n" \
                           "# This file contains the translation of the following modules:\n" \
@@ -418,6 +418,7 @@ class TinyPoFile(object):
                           "msgid \"\"\n" \
                           "msgstr \"\"\n" \
                           '''"Project-Id-Version: %(project)s %(version)s\\n"\n''' \
+                          '''"Language: %(lang)s\\n"\n''' \
                           '''"Report-Msgid-Bugs-To: \\n"\n''' \
                           '''"POT-Creation-Date: %(now)s\\n"\n'''        \
                           '''"PO-Revision-Date: %(now)s\\n"\n'''         \
@@ -433,6 +434,7 @@ class TinyPoFile(object):
                               'version': release.version,
                               'modules': reduce(lambda s, m: s + "#\t* %s\n" % m, modules, ""),
                               'now': datetime.utcnow().strftime('%Y-%m-%d %H:%M')+"+0000",
+                              'lang': lang or config.config.defaultLang
                             }
                           )
 
