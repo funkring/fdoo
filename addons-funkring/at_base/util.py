@@ -204,13 +204,15 @@ def getEndOfMonth(inDate):
     return getNextDayOfMonth(inDate)
 
 def getNextDayDate(inDate):
+    inDate = strToDate(inDate)
     day =  date(inDate.year,inDate.month,inDate.day);
     day += relativedelta(days=1)
     return day
 
-def getNextDayDateTime(inDate):
-    day =  datetime(inDate.year,inDate.month,inDate.day);
-    day += relativedelta(days=1)
+def getPrevDayDate(inDate):
+    inDate = strToDate(inDate)
+    day =  date(inDate.year,inDate.month,inDate.day);
+    day -= relativedelta(days=1)
     return day
 
 #def getEndOfDayDate(inDate):
