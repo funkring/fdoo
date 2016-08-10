@@ -1607,9 +1607,17 @@ class Many2one(_Relational):
             return value.id
 
     def convert_to_write(self, value, target=None, fnames=None):
+        # funkring.net - begin
+        if isinstance(value, (NoneType, int, long)):
+            return value
+        # funkring.net - end
         return value.id
 
     def convert_to_onchange(self, value):
+        # funkring.net - begin
+        if isinstance(value, (NoneType, int, long)):
+            return value
+        # funkring.net - end
         return value.id
 
     def convert_to_export(self, value, env):
