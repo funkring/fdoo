@@ -143,6 +143,11 @@ def dateToStr(inDate):
 def currentDate():
     return time.strftime(DT_FORMAT)
 
+def lastDay():
+    day =  strToDate(currentDate())
+    day += relativedelta(days=-1)
+    return day
+
 def currentDateTime():
     return time.strftime(DHM_FORMAT)
 
@@ -202,7 +207,6 @@ def getNextDayDate(inDate):
     day =  date(inDate.year,inDate.month,inDate.day);
     day += relativedelta(days=1)
     return day
-
 
 def getNextDayDateTime(inDate):
     day =  datetime(inDate.year,inDate.month,inDate.day);
