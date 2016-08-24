@@ -629,6 +629,14 @@ class jdoc_jdoc(osv.AbstractModel):
                                             })
                 except AccessError as e:
                     _logger.warning("Access Denied for read %s/%s" % (obj._model._name, obj.id))
+                    
+        elif not last_date:
+            
+            # get last change date over all
+            cr.execute("SELECT MAX(write_date) FROM %s " % model_obj._table)
+            res = cr.fetchone()
+            if res:
+                last_date = max(last_date, res[0])
          
          
         #
