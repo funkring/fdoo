@@ -629,19 +629,8 @@ class jdoc_jdoc(osv.AbstractModel):
                                             })
                 except AccessError as e:
                     _logger.warning("Access Denied for read %s/%s" % (obj._model._name, obj.id))
-                    
-        elif not last_date:
-            
-            # get last change date over all
-            cr.execute("SELECT MAX(write_date) FROM %s " % model_obj._table)
-            res = cr.fetchone()
-            if res:
-                last_date = max(last_date, res[0])
-            else:
-                # set current time as last date
-                last_date = util.currentDateTime()
-         
-         
+        
+        
         #
         # search deleted
         #
@@ -697,8 +686,13 @@ class jdoc_jdoc(osv.AbstractModel):
                            "id" : uuid,
                            "deleted" : True                                 
                          })
+       
+        # if last date is empty or it's the first sync,
+        # than set current date/time as last date
+        if not last_date or first_sync:
+            last_date = util.currentDateTime()
         
-        
+        # create last sync
         lastsync =  {
                        "date" : last_date,
                        "seq" : seq                  
@@ -779,7 +773,7 @@ class jdoc_jdoc(osv.AbstractModel):
                         if not model:
                             model = value.get(META_MODEL)
                         res = mapping_obj.get_id(cr, uid, model, res_uuid)                        
-                    #else:
+                    #else: !! DANGEROUS !! 
                         # update document and get reference
                         #res = self.jdoc_put(cr, uid, value, return_id=True, changed_models=changed_models, errors=errors, context=context)
                         
