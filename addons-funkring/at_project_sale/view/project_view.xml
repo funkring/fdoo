@@ -14,7 +14,7 @@
     </record>
     
     <record id="kanban_project" model="ir.ui.view">
-      <field name="name">inred.kanban_project</field>
+      <field name="name">at_project_sale.kanban_project</field>
       <field name="model">project.project</field>
       <field name="inherit_id" ref="project.view_project_kanban"/>
       <field name="arch" type="xml">
@@ -25,11 +25,11 @@
          </field>
          
          <div class="oe_kanban_footer_left" position="inside">
-            <span t-if="record.balance.raw_value &gt; 0">
+            <span t-if="record.balance.raw_value &gt; 0"  groups="analytic.group_analytic_accounting">
                 <field name="balance"/> 
                 <field name="currency_id"/>
             </span>
-            <span t-if="record.balance.raw_value &lt; 0" style="color: red;">
+            <span t-if="record.balance.raw_value &lt; 0" style="color: red;" groups="analytic.group_analytic_accounting">
                 <field name="balance"/> 
                 <field name="currency_id"/>
             </span>

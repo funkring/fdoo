@@ -7,7 +7,7 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <filter name="draft" position="after">
-                    <filter domain="[('stage_id.fold','=',False)]"
+                    <filter domain="[('state','=','open'),('stage_id.fold','=',False)]"
                         name="open" string="Open"/>
                 </filter>
                 <filter name="User" position="before">
