@@ -637,6 +637,9 @@ class jdoc_jdoc(osv.AbstractModel):
             res = cr.fetchone()
             if res:
                 last_date = max(last_date, res[0])
+            else:
+                # set current time as last date
+                last_date = util.currentDateTime()
          
          
         #
