@@ -159,5 +159,13 @@ def strToLocalTimeFormat(cr, uid, str_time, format, context):
                                             context=context)
     return util.dateFormat(converted, format)
 
-
+def strDateToUTCTimeStr(cr, uid, str_date, context):
+    timestamp=util.strToTime(util.dateToTimeStr(str_date))
+    converted = datetime_field.context_timestamp(cr, uid,
+                                            timestamp=timestamp,
+                                            context=context)
+    converted = util.strToTime(util.timeToStr(converted))
+    diff = (converted-timestamp)
+    utcTimestamp = timestamp - diff
+    return util.timeToStr(utcTimestamp)
 

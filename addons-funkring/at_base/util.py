@@ -207,13 +207,13 @@ def getNextDayDate(inDate):
     inDate = strToDate(inDate)
     day =  date(inDate.year,inDate.month,inDate.day);
     day += relativedelta(days=1)
-    return day
+    return dateToStr(day)
 
 def getPrevDayDate(inDate):
     inDate = strToDate(inDate)
     day =  date(inDate.year,inDate.month,inDate.day);
     day -= relativedelta(days=1)
-    return day
+    return dateToStr(day)
 
 #def getEndOfDayDate(inDate):
 #    day =  date(inDate.year,inDate.month,inDate.day);
