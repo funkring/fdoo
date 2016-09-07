@@ -268,13 +268,14 @@ class sale_order_line(osv.osv):
     def _price_unit_untaxed(self, cr, uid, ids, field_name, arg, context=None):
         tax_obj = self.pool.get('account.tax')
         cur_obj = self.pool.get('res.currency')
-        res = dict.fromkeys(ids)
+        res = dict.fromkeys(ids, 0.0)
         for line in self.browse(cr, uid, ids, context=context):
             price = line.price_unit
             taxes = tax_obj.compute_all(cr, uid, line.tax_id, price, line.product_uom_qty,
                                          line.product_id.id, line.order_id.partner_id.id)
-            cur = line.order_id.pricelist_id.currency_id
-            res[line.id] = cur_obj.round(cr, uid, cur, taxes['total'] / line.product_uom_qty)
+            cur = line.order_id.pricelist_id.currency_id       
+            divisor = line.product_uom_qty or 1.0
+            res[line.id] = cur_obj.round(cr, uid, cur, taxes['total'] / divisor)
         return res
 
     def _line_sum(self, cr, uid, ids, context=None):
