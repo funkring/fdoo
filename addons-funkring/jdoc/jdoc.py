@@ -20,6 +20,7 @@
 
 from openerp.osv import fields, osv
 from openerp.addons.at_base import util
+from openerp.addons.at_base import helper
 from openerp.exceptions import AccessError
 from openerp.tools.translate import _
 
@@ -265,6 +266,23 @@ class jdoc_jdoc(osv.AbstractModel):
             field_defs[field_name]=field_def        
         return res
     
+    def _jdoc_access(self, cr, uid, res_model, res_id, auto=False, context=None):
+        # update access
+        curUTC = util.currentUTCDateTime()
+        if auto:
+            cr.execute("UPDATE jdoc_usage SET used=%s, auto=%s WHERE res_model=%s AND res_id=%s AND user_id=%s", (curUTC, True, res_model, res_id, uid))
+        else:
+            cr.execute("UPDATE jdoc_usage SET used=%s WHERE res_model=%s AND res_id=%s AND user_id=%s", (curUTC, res_model, res_id, uid))
+        if not cr.rowcount:
+            usage_obj = self.pool.get("jdoc.usage")
+            usage_obj.create(cr, uid, {
+                "used" : util.currentDateTime(),
+                "user_id" : uid,
+                "res_model" : res_model,
+                "res_id" : res_id,
+                "auto" : auto
+            }, context=context)
+       
     def _jdoc_get(self, cr, uid, obj, refonly=False, options=None, context=None):
         if not obj:
             return False
@@ -347,7 +365,7 @@ class jdoc_jdoc(osv.AbstractModel):
         res.update(simplejson.dumps(data))
         return res.hexdigest()
     
-    def jdoc_sync(self, cr, uid, data, context=None):
+    def jdoc_sync(self, cr, uid, data, usage_map=None, context=None):
         """
         jdoc_sync
         @param changes: changeset to sync 
@@ -403,7 +421,11 @@ class jdoc_jdoc(osv.AbstractModel):
         
         # get negative/non/delete domain
         filter_ndomain = data.get("ndomain") or []
-        search_ndomain = data.get("ndomain") or []
+        search_ndomain = list(filter_ndomain)
+        
+        # check auto 
+        auto = usage_map and model in usage_map
+        auto_date = None
         
         # get options        
         fields = data.get("fields")
@@ -482,7 +504,7 @@ class jdoc_jdoc(osv.AbstractModel):
             
             def put_change(change, uuid2id_resolver=None):
                 doc = change["doc"]               
-                return method_put(cr, uid, doc, return_id=True, uuid2id_resolver=uuid2id_resolver, changed_models=changed_models, errors=errors, context=context)
+                return method_put(cr, uid, doc, return_id=True, uuid2id_resolver=uuid2id_resolver, changed_models=changed_models, errors=errors, usage_map=usage_map, context=context)
             
             def get_dependency(uuid):
                 # check if dependency was already processed
@@ -572,7 +594,7 @@ class jdoc_jdoc(osv.AbstractModel):
         # build search domain
         del_search_domain = [("res_model","=",model),("active","=",False)]
       
-        # check for full sync due to changed dependency
+        # check for full sync due to changed dependency        
         sync_inc = True
         lastchange = None
         if method_lastchange:            
@@ -580,26 +602,88 @@ class jdoc_jdoc(osv.AbstractModel):
             if lastchange:   
                 for key, value in lastchange.items():
                     lastsync_lastchange_date = lastsync_lastchange.get(key)
-                    if not lastsync_lastchange_date or value > lastsync_lastchange_date:                        
+                    if not lastsync_lastchange_date or value > lastsync_lastchange_date:
+                        # TODO implement incremental                        
                         sync_inc = False
                         break
                         
+        # check auto
+        auto_ids = None
+        auto_del_ids = None
+        if auto:          
+            if last_date:                
+                query = ("DELETE FROM jdoc_usage "
+                           " WHERE id IN ( SELECT u.id FROM jdoc_usage u "
+                           "               LEFT JOIN %s t ON t.id = u.res_id AND u.res_model=%%s AND u.user_id = %%s  "
+                           "               WHERE t.id IS NULL )" % model_obj._table)
+                # delete unused
+                cr.execute(query, (model, uid))
+                    
+                # check deleted only incremental
+                query = ("SELECT t.id FROM %s t "
+                           " INNER JOIN jdoc_usage u ON u.res_model=%%s AND u.res_id=t.id AND u.user_id=%%s AND NOT u.auto "
+                           " WHERE u.auto_date > %%s " % model_obj._table)
+                cr.execute(query, (model, uid, last_date))
+                auto_del_ids = [r[0] for r in cr.fetchall()]
+                
+                if auto_del_ids:
+                    
+                    # query max change date
+                    query = ("SELECT MAX(u.auto_date) FROM %s t "
+                           " INNER JOIN jdoc_usage u ON u.res_model=%%s AND u.res_id=t.id AND u.user_id=%%s AND NOT u.auto "
+                           " WHERE u.auto_date > %%s " % model_obj._table)
+                
+                    cr.execute(query, (model, uid, last_date))
+                    res = cr.fetchone()
+                    if res:
+                        auto_date = res[0]
+                
+                    # substruct  unused ids which meet the search domain
+                    if search_domain:
+                        auto_search_ndomain = [("id","in",auto_del_ids)]
+                        auto_search_ndomain += search_domain
+                        auto_del_ignore_ids = model_obj.search(cr, uid, auto_search_ndomain)
+                        if auto_del_ignore_ids:
+                            auto_del_ids = list(set(auto_del_ids) - set(auto_del_ignore_ids))
             
+                # include auto added
+                # prepare query
+                if sync_inc:
+                    query = ("SELECT t.id FROM %s t "
+                             " INNER JOIN jdoc_usage u ON u.res_model=%%s "
+                                                    " AND u.res_id=t.id AND u.user_id=%%s "
+                                                    " AND u.auto "
+                                                    " AND t.write_date > %%s " % model_obj._table)                    
+                    cr.execute(query, (model, uid, last_date))
+                    auto_ids = [r[0] for r in cr.fetchall()]                    
+                else:
+                    query = ("SELECT t.id FROM %s t "
+                             " INNER JOIN jdoc_usage u ON u.res_model=%%s AND u.res_id=t.id AND u.user_id=%%s AND u.auto " % model_obj._table)
+                    cr.execute(query, (model, uid))                    
+                    auto_ids = [r[0] for r in cr.fetchall()]
+                          
       
         # only sync with last date  
         if last_date:
             # domain for search
-            if sync_inc:
+            if sync_inc:                
                 search_domain.append(("write_date",">",last_date))
                 search_ndomain.append(("write_date",">",last_date))
             # domain for search deleted
             del_search_domain.append(("write_date",">",last_date))
             
-        
+            
         #
         # search changes
         #
         out_ids = model_obj.search(cr, uid, search_domain, order="write_date asc, id asc")
+        if auto_ids:
+            auto_domain = []
+            if out_ids:
+                auto_domain.append("|")
+                auto_domain.append(("id","in",out_ids))
+            auto_domain.append(("id","in",auto_ids))
+            out_ids = model_obj.search(cr, uid, auto_domain, order="write_date asc, id asc")
         
         # resync errors
         if errors:
@@ -646,10 +730,15 @@ class jdoc_jdoc(osv.AbstractModel):
                                                                 order="write_date asc, res_id asc")
             
             # read filtered which should be deleted
-            if filter_ndomain:
-                filtered_ids = model_obj.search(cr, uid, search_ndomain, order="write_date asc, id asc")
+            if filter_ndomain or auto_del_ids:
+                # get filtered ids
+                filtered_ids = []
+                if filter_ndomain:
+                    filtered_ids = model_obj.search(cr, uid, search_ndomain, order="write_date asc, id asc")
+                if auto_del_ids:
+                    filtered_ids += auto_del_ids
+                # check if there are ids to delete
                 if filtered_ids:
-                    
                     # get last change date
                     cr.execute("SELECT MAX(write_date) FROM %s WHERE id IN %%s " % model_obj._table, (tuple(filtered_ids),))
                     res = cr.fetchone()
@@ -686,6 +775,25 @@ class jdoc_jdoc(osv.AbstractModel):
                            "id" : uuid,
                            "deleted" : True                                 
                          })
+       
+       
+        # after sync check for deleted
+        if auto:   
+            # only if last date exist       
+            if last_date:
+                # check for unused
+                usage_obj = self.pool["jdoc.usage"]
+                sliceDate = util.getNextDayOfMonth(util.currentDate(),inDay=1,inMonth=-1)
+                unused_ids = usage_obj.search(cr, uid, [("res_model","=",model),("user_id","=",uid),("used","<",sliceDate),("auto","=",True)])
+                if unused_ids:                   
+                    usage_obj.write(cr, uid, unused_ids, {"auto" : False}, context=context)
+                    cr.execute("UPDATE jdoc_usage SET auto_date=write_date WHERE id IN %s", (tuple(unused_ids),))
+
+                # max auto_date or last_date
+                if auto_date:
+                    last_date = max(auto_date, last_date)
+                
+      
        
         # if last date is empty or it's the first sync,
         # than set current date/time as last date
@@ -726,7 +834,7 @@ class jdoc_jdoc(osv.AbstractModel):
             return False
         return self._jdoc_get(cr, uid, obj, refonly=refonly, options=options, context=context)
     
-    def jdoc_put(self, cr, uid, doc, return_id=False, return_value=False, uuid2id_resolver=None, changed_models=None, errors=None, model=False, context=None):
+    def jdoc_put(self, cr, uid, doc, return_id=False, return_value=False, uuid2id_resolver=None, changed_models=None, errors=None, model=False, usage_map=None, context=None):
         if not doc:
             return False
         
@@ -780,6 +888,13 @@ class jdoc_jdoc(osv.AbstractModel):
             # if not found try uuid resolver
             if not res and res_uuid and uuid2id_resolver:
                 res = uuid2id_resolver(res_uuid)
+                
+            # build usage        
+            if res and usage_map:
+                usage_set = usage_map.get(model, None)
+                if not usage_set is None and not res in usage_set:
+                    usage_set.add(res)
+                    self._jdoc_access(cr, uid, model, res, context=context)
                 
             return res
         
@@ -860,7 +975,7 @@ class jdoc_jdoc(osv.AbstractModel):
                             # get values
                             sub_values = None
                             if ( isinstance(list_value, dict) and not isReference(list_value) ):
-                                sub_values = self.jdoc_put(cr, uid, list_value, return_value=True, model=sub_model, changed_models=changed_models, errors=errors, context=context)
+                                sub_values = self.jdoc_put(cr, uid, list_value, return_value=True, model=sub_model, changed_models=changed_models, errors=errors, usage_map=usage_map, context=context)
                                 
                             # get sub id
                             sub_id = get_id(list_value, attribs)
@@ -1084,6 +1199,15 @@ class jdoc_jdoc(osv.AbstractModel):
             minseq = None
             models = config.get("models")       
             resync = config.get("resync", False)
+            
+            # check auto and create usage
+            # map if needed
+            auto = config.get("auto")
+            usage_map = None
+            if auto:
+                usage_map = {}
+                for auto_model in auto:
+                    usage_map[auto_model] = set()
              
             for model_config in models:
                 config_uuid = "_local/lastsync_%s" % (self._get_uuid(model_config),)
@@ -1141,7 +1265,7 @@ class jdoc_jdoc(osv.AbstractModel):
                 
             # SYNC CHANGES
             for sc in syncConfigs:
-                sync_res = self.jdoc_sync(cr, uid, sc.config, context=context)            
+                sync_res = self.jdoc_sync(cr, uid, sc.config, usage_map=usage_map, context=context)            
                 sc.updateLastSync(sync_res["lastsync"])
                 sc.seq = db_changeset["last_seq"]
                 
@@ -1203,7 +1327,7 @@ class jdoc_jdoc(osv.AbstractModel):
                     
                     # check if changes exist
                     if sc.changes:
-                        sync_res = self.jdoc_sync(cr, uid, sc.config, context=context)
+                        sync_res = self.jdoc_sync(cr, uid, sc.config, usage_map=usage_map, context=context)
                         sc.updateLastSync(sync_res["lastsync"])
                      
                 # commit            
@@ -1215,9 +1339,13 @@ class jdoc_jdoc(osv.AbstractModel):
                                       
             return res
         
+        except:
+            cr.rollback()
+            raise
+        
         finally:
             # unlock
-            cr.execute("SELECT pg_advisory_unlock(%s)" % lock_id)        
+            cr.execute("SELECT pg_advisory_unlock(%s)" % lock_id)
     
     @openerp.tools.ormcache()
     def _jdoc_def(self, cr, uid, model):
@@ -1226,4 +1354,18 @@ class jdoc_jdoc(osv.AbstractModel):
     _description = "JSON Document Support"    
     _name = "jdoc.jdoc"
 
+
+class jdoc_usage(osv.Model):
+    
+    _name = "jdoc.usage"
+    _description = "JSON Document Usage"
+    
+    _columns = {
+        "used" : fields.datetime("Used Timestamp", select=True, required=True),        
+        "user_id" : fields.many2one("res.users", "User", select=True, required=True),
+        "res_model" : fields.char("Resource Model", select=True, required=True),
+        "res_id" : fields.integer("Resource ID", select=True, required=True),        
+        "auto" : fields.boolean("Auto Sync", select=True),
+        "auto_date" : fields.datetime("Auto Change", select=True)
+    } 
    

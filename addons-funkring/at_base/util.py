@@ -151,6 +151,9 @@ def lastDay():
 def currentDateTime():
     return time.strftime(DHM_FORMAT)
 
+def currentUTCDateTime():
+    return datetime.utcnow().strftime(DHM_FORMAT)
+
 def nextMinute():
     return timeToStr(datetime.now()+relativedelta(minute=1))
 

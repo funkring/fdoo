@@ -1,0 +1,16 @@
+<openerp>
+  <data>
+    
+    <record id="access_jdoc_usage_user" model="ir.model.access">
+      <field name="name">jdoc_usage/user</field>
+      <field name="model_id" ref="model_jdoc_usage"/>
+      <field name="group_id" ref="base.group_user"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_write" eval="True"/>
+    </record>
+
+    
+  </data>
+</openerp>

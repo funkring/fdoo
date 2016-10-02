@@ -20,12 +20,16 @@
 #
 ##############################################################################
 
-from openerp import netsvc
 import os
 import util
+import openerp
+import pytz
+
+from openerp import netsvc
 from openerp.osv.fields import datetime as datetime_field
 from openerp.tools.translate import _
 from format import LangFormat
+from openerp import SUPERUSER_ID
 
 def getMonthName(cr,uid,month,context=None):
     month_names = [
@@ -169,3 +173,21 @@ def strDateToUTCTimeStr(cr, uid, str_date, context):
     utcTimestamp = timestamp - diff
     return util.timeToStr(utcTimestamp)
 
+
+def strTimeToUTCTimeStr(cr, uid, timestamp, context):
+    context_tz = context and context.get('tz') or None
+    tz_name = None
+    if context_tz:
+        tz_name = context_tz
+    else:
+        registry = openerp.modules.registry.RegistryManager.get(cr.dbname)
+        user = registry['res.users'].browse(cr, SUPERUSER_ID, uid)
+        tz_name = user.tz
+        
+    if not tz_name:
+        return timestamp
+    
+    tz = pytz.timezone(tz_name)
+    l_timestamp = tz.localize(util.strToTime(timestamp))
+    l_timestamp = l_timestamp.astimezone(pytz.utc)
+    return util.timeToStr(l_timestamp)

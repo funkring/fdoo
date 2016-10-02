@@ -44,6 +44,7 @@ apt-get -y install python-pyparsing
 apt-get -y install python-serial
 apt-get -y install python-dev
 apt-get -y install python-wand
+apt-get -y install python-qrcode
 
 #ruby
 apt-get -y install ruby

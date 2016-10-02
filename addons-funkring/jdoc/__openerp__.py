@@ -32,7 +32,7 @@ json Documents
     "website": "http://www.funkring.net",
     "category" : "Hidden",
     "depends" : ["at_base"],
-    "data" : [],
+    "data" : ["security.xml"],
     "auto_install": False,
     "installable": True
 }

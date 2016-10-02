@@ -25,6 +25,13 @@ from openerp.osv import osv,fields
 from openerp.tools.translate import _
 import openerp.addons.decimal_precision as dp
 
+import qrcode
+
+try:
+    import cStringIO as StringIO
+except ImportError:
+    import StringIO
+
 class account_invoice(osv.osv):
 
     def _create_payment(self, cr, uid, invoice_id, journal_id,
@@ -305,6 +312,34 @@ class account_invoice(osv.osv):
             else:
                 res.append((invoice.id,None))            
         return res
+    
+    def _qrcode(self, cr, uid, ids, field_name, arg, context=None):
+        res = dict.fromkeys(ids)
+        for obj in self.browse(cr, uid, ids, context):
+            qr = qrcode.QRCode(
+                    version=13,
+                    box_size=2,
+                    border=4   
+                 )
+            data = "\n".join(["BCD",
+               "001",
+               "1",
+               "SCT",
+               bic,
+               company,
+               iban,
+               amount,
+               "",
+               ref])
+        
+            qr.add_data(data)
+            qr.make()
+            im = qr.make_image()
+            image_data = StringIO.StringIO()
+            im.save(image_data,"PNG")
+            res[obj.id] = image_data.getvalue().encode("base64")
+        return res
+   
 
     _inherit = "account.invoice"
     _columns = {
@@ -312,7 +347,8 @@ class account_invoice(osv.osv):
         "subject" : fields.function(_get_subject, type="char", size=128, string="Subject"),
         "perf_start" : fields.date("Performance Start"),
         "perf_end" : fields.date("Performance End"),
-        "perf_enabled" : fields.boolean("Performance Period")
+        "perf_enabled" : fields.boolean("Performance Period"),
+        "qrcode" : fields.function(_qrcode, type="binary", string="QR Code")
     }
     _defaults = {
         "perf_enabled" : True
