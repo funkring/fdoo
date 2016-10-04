@@ -410,7 +410,7 @@ class account_invoice_line(osv.osv):
         cur_obj = self.pool.get('res.currency')
         res = dict.fromkeys(ids,0.0)
         for line in self.browse(cr, uid, ids, context=context):
-            price = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
+            price = line.price_unit
             taxes = tax_obj.compute_all(cr, uid, line.invoice_line_tax_id, price, 1, line.product_id.id, line.partner_id.id)
             cur = line.invoice_id.currency_id
             res[line.id] = cur_obj.round(cr, uid, cur, taxes['total'])
