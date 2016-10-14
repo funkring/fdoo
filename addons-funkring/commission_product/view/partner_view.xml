@@ -1,0 +1,35 @@
+<openerp>
+	<data>		
+	
+		<record id="form_partner" model="ir.ui.view">
+            <field name="name">commission_product.form_partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                  <data>
+                   		<xpath expr="//notebook" position="inside">
+                   			<page string="Product Commissions" groups="account.group_account_user,account.group_account_manager">
+                   			    <div>
+                       				<field string="Commission" name="product_commission_ids">
+                       					<form>
+                       						<field name="product_id"/>
+                       						<field name="commission_percent"/>      
+                       						<field name="property_commission_product"/>
+                       						<field name="property_analytic_journal"/>             						
+                       					</form>
+                       					<tree string="Commissions" editable="bottom">
+                       						<field name="product_id"/>
+                       						<field name="commission_percent"/>
+                       						<field name="property_commission_product"/>
+                       						<field name="property_analytic_journal"/>
+                       					</tree>
+                       				</field>
+                   				</div>
+                   			</page>
+                   		</xpath>
+                   </data>          
+            </field>
+        </record>
+        
+	</data>
+</openerp>

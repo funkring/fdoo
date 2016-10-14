@@ -1,0 +1,240 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* commission_sale
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Language: de_DE\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-10-13 09:14+0000\n"
+"PO-Revision-Date: 2016-10-13 11:17+0100\n"
+"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.4\n"
+
+#. module: commission_sale
+#: view:crm.case.section:commission_sale.form_crm_section
+msgid "Bonus"
+msgstr ""
+
+#. module: commission_sale
+#: field:commission_sale.bonus_line,bonus:0
+msgid "Bonus %"
+msgstr ""
+
+#. module: commission_sale
+#: help:commission_sale.bonus_line,bonus:0
+msgid "Bonus = Volume of Sales * Bonus %"
+msgstr "Bonus = Verkaufsvolumen * Bonus %"
+
+#. module: commission_sale
+#: field:commission_sale.bonus,line_ids:0
+msgid "Bonus Lines"
+msgstr "Bonus Positionen"
+
+#. module: commission_sale
+#: field:commission_sale.rule,categ_id:0
+msgid "Category"
+msgstr "Kategorie"
+
+#. module: commission_sale
+#: view:crm.case.section:commission_sale.form_crm_section
+#: field:product.pricelist.item,commission:0
+msgid "Commission"
+msgstr "Provision"
+
+#. module: commission_sale
+#: field:commission_sale.rule,commission:0
+#: field:crm.case.section,sales_commission:0
+msgid "Commission %"
+msgstr "Provision %"
+
+#. module: commission_sale
+#: field:product.pricelist.item,commission_active:0
+msgid "Commission Active"
+msgstr "Provision aktiv"
+
+#. module: commission_sale
+#: field:crm.case.section,property_analytic_journal:0
+msgid "Commission Journal"
+msgstr "Provision Journal"
+
+#. module: commission_sale
+#: field:crm.case.section,commission_rule_ids:0
+msgid "Commission Rules"
+msgstr "Provision Regeln"
+
+#. module: commission_sale
+#: field:commission_sale.bonus,create_uid:0
+#: field:commission_sale.bonus_line,create_uid:0
+#: field:commission_sale.rule,create_uid:0
+msgid "Created by"
+msgstr ""
+
+#. module: commission_sale
+#: field:commission_sale.bonus,create_date:0
+#: field:commission_sale.bonus_line,create_date:0
+#: field:commission_sale.rule,create_date:0
+msgid "Created on"
+msgstr ""
+
+#. module: commission_sale
+#: field:commission_sale.bonus,display_name:0
+#: field:commission_sale.bonus_line,display_name:0
+#: field:commission_sale.rule,display_name:0
+msgid "Display Name"
+msgstr ""
+
+#. module: commission_sale
+#: view:crm.case.section:commission_sale.form_crm_section
+msgid "General"
+msgstr "Allgemein"
+
+#. module: commission_sale
+#: field:commission_sale.bonus,id:0 field:commission_sale.bonus_line,id:0
+#: field:commission_sale.rule,id:0
+msgid "ID"
+msgstr ""
+
+#. module: commission_sale
+#: model:ir.model,name:commission_sale.model_account_invoice
+msgid "Invoice"
+msgstr "Rechnung"
+
+#. module: commission_sale
+#: field:crm.case.section,property_commission_product:0
+msgid "Invoice Product"
+msgstr "Produkt für die Verrechnung"
+
+#. module: commission_sale
+#: field:commission_sale.bonus,__last_update:0
+#: field:commission_sale.bonus_line,__last_update:0
+#: field:commission_sale.rule,__last_update:0
+msgid "Last Modified on"
+msgstr ""
+
+#. module: commission_sale
+#: field:commission_sale.bonus,write_uid:0
+#: field:commission_sale.bonus_line,write_uid:0
+#: field:commission_sale.rule,write_uid:0
+msgid "Last Updated by"
+msgstr ""
+
+#. module: commission_sale
+#: field:commission_sale.bonus,write_date:0
+#: field:commission_sale.bonus_line,write_date:0
+#: field:commission_sale.rule,write_date:0
+msgid "Last Updated on"
+msgstr ""
+
+#. module: commission_sale
+#: view:commission_sale.bonus:commission_sale.form_bonus
+msgid "Line"
+msgstr "Zeile"
+
+#. module: commission_sale
+#: view:commission_sale.bonus:commission_sale.form_bonus
+msgid "Lines"
+msgstr "Zeilen"
+
+#. module: commission_sale
+#: field:commission_sale.bonus,name:0 field:commission_sale.bonus_line,name:0
+msgid "Name"
+msgstr ""
+
+#. module: commission_sale
+#: code:addons/commission_sale/sale.py:43
+#, python-format
+msgid "No Period found for creating commission line"
+msgstr "Es gibt keine gültige Periode für das anlegen der Provision"
+
+#. module: commission_sale
+#: model:ir.model,name:commission_sale.model_product_pricelist_item
+msgid "Pricelist item"
+msgstr "Preisliste Einzelposition"
+
+#. module: commission_sale
+#: field:commission_sale.rule,product_id:0
+msgid "Product"
+msgstr "Produkt"
+
+#. module: commission_sale
+#: model:ir.model,name:commission_sale.model_commission_sale_rule
+msgid "Sale Commission Rules"
+msgstr "Provision Regeln"
+
+#. module: commission_sale
+#: field:commission.line,sales_bonus_line_id:0
+#: view:commission_sale.bonus:commission_sale.form_bonus
+#: view:commission_sale.bonus:commission_sale.tree_bonus
+#: field:commission_sale.bonus_line,bonus_id:0
+#: field:crm.case.section,sales_bonus_id:0
+#: model:ir.actions.act_window,name:commission_sale.action_bonus
+#: model:ir.model,name:commission_sale.model_commission_sale_bonus
+#: model:ir.ui.menu,name:commission_sale.menu_bonus
+msgid "Sales Bonus"
+msgstr "Verkaufsbonus"
+
+#. module: commission_sale
+#: model:ir.model,name:commission_sale.model_commission_sale_bonus_line
+msgid "Sales Bonus Line"
+msgstr "Verkuafsbonus Zeile"
+
+#. module: commission_sale
+#: model:product.template,name:commission_sale.product_default_product_template
+msgid "Sales Commission"
+msgstr "Verkaufsprovision"
+
+#. module: commission_sale
+#: code:addons/commission_sale/account.py:95
+#: code:addons/commission_sale/sale.py:78
+#, python-format
+msgid "Sales Commission: %s"
+msgstr "Verkaufsprovision: %s"
+
+#. module: commission_sale
+#: model:ir.model,name:commission_sale.model_sale_order
+msgid "Sales Order"
+msgstr "Verkaufsauftrag"
+
+#. module: commission_sale
+#: model:ir.model,name:commission_sale.model_crm_case_section
+msgid "Sales Teams"
+msgstr "Verkaufsteams"
+
+#. module: commission_sale
+#: field:commission.line,salesman_id:0
+msgid "Salesman"
+msgstr "Verkäufer"
+
+#. module: commission_sale
+#: field:commission_sale.rule,section_id:0
+msgid "Section"
+msgstr "Verkaufsteam"
+
+#. module: commission_sale
+#: field:commission_sale.bonus_line,sequence:0
+#: field:commission_sale.rule,sequence:0
+msgid "Sequence"
+msgstr "Sequenz"
+
+#. module: commission_sale
+#: field:commission_sale.bonus_line,volume_of_sales:0
+msgid "Volume of Sales"
+msgstr "Verkaufsvolumen"
+
+#. module: commission_sale
+#: code:addons/commission_sale/sale.py:43
+#, python-format
+msgid "Warning!"
+msgstr "Warnung!"
+
+#. module: commission_sale
+#: model:ir.model,name:commission_sale.model_commission_recalc_wizard
+msgid "Wizard to recalculate the commissions"
+msgstr "Assistent für Neuberechnung"

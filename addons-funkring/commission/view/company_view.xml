@@ -1,0 +1,18 @@
+<openerp>
+	<data>		
+		
+		<record id="form_res_company" model="ir.ui.view">
+            <field name="name">base.form_res_company</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//page[@string='Configuration']/group" position="inside"> 
+            		<group string="Commission">
+            			<field name="commission_type" />
+            		</group>
+            	</xpath>
+            </field>
+        </record>
+        
+	</data>
+</openerp>

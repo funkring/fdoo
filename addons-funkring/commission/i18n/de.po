@@ -1,0 +1,499 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* commission
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Language: de_DE\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-10-12 16:47+0000\n"
+"PO-Revision-Date: 2016-10-14 00:58+0100\n"
+"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.4\n"
+
+#. module: commission
+#: code:addons/commission/commission_invoice_wizard.py:65
+#, python-format
+msgid "%s %% Commission +%s %% Bonus from %s %s"
+msgstr "%s %% Provision +%s %% Bonus von %s %s"
+
+#. module: commission
+#: code:addons/commission/commission_invoice_wizard.py:69
+#, python-format
+msgid "%s %% Commission -%s %% Malus from %s %s"
+msgstr "%s %% Provision -%s %% Malus von %s %s"
+
+#. module: commission
+#: code:addons/commission/commission_invoice_wizard.py:63
+#, python-format
+msgid "%s %% Commission from %s %s"
+msgstr "%s %% Provision von %s %s"
+
+#. module: commission
+#: field:commission.line,currency_id:0
+msgid "Account Currency"
+msgstr "Währung"
+
+#. module: commission
+#: field:commission.line,amount:0
+msgid "Amount"
+msgstr "Total"
+
+#. module: commission
+#: field:commission.line,amount_currency:0
+msgid "Amount Currency"
+msgstr "Währung"
+
+#. module: commission
+#: field:commission.line,account_id:0
+#: model:ir.model,name:commission.model_account_analytic_account
+msgid "Analytic Account"
+msgstr "Kostenstelle"
+
+#. module: commission
+#: field:commission.line,journal_id:0
+msgid "Analytic Journal"
+msgstr "Analytisches Konto"
+
+#. module: commission
+#: field:commission.line,line_id:0
+msgid "Analytic line"
+msgstr "Analytische Position"
+
+#. module: commission
+#: field:commission.line,base_commission:0
+msgid "Base Commission %"
+msgstr "Basis Provision %"
+
+#. module: commission
+#: help:commission.line,amount:0
+msgid ""
+"Calculated by multiplying the quantity and the price given in the Product's "
+"cost price. Always expressed in the company main currency."
+msgstr ""
+
+#. module: commission
+#: view:commission.commission_invoice_wizard:commission.wizard_commission_invoice
+#: view:commission.recalc_wizard:commission.wizard_commission_recalc
+msgid "Close"
+msgstr "Schließen"
+
+#. module: commission
+#: field:commission.line,code:0
+msgid "Code"
+msgstr ""
+
+#. module: commission
+#: view:commission.line:commission.form_commission_line
+#: view:commission.line:commission.tree_commission_line
+#: model:product.uom,name:commission.product_commission_uom
+#: model:product.uom.categ,name:commission.product_commission_uom_category
+#: view:res.company:commission.form_res_company
+msgid "Commission"
+msgstr "Provision"
+
+#. module: commission
+#: field:commission.line,total_commission:0
+msgid "Commission %"
+msgstr "Provision %"
+
+#. module: commission
+#: view:commission.commission_invoice_wizard:commission.wizard_commission_invoice
+msgid "Commission Invoice Wizard"
+msgstr "Rechnungsprovision Assistent"
+
+#. module: commission
+#: view:commission.line:commission.form_commission_line
+#: model:ir.actions.act_window,name:commission.action_commission_line
+msgid "Commission Line"
+msgstr "Provision Zeile"
+
+#. module: commission
+#: field:account.invoice.line,commission_line_ids:0
+#: view:commission.line:commission.search_commission_line
+#: view:commission.line:commission.tree_commission_line
+msgid "Commission Lines"
+msgstr "Provision Zeilen"
+
+#. module: commission
+#: field:res.company,commission_type:0
+msgid "Commission Type"
+msgstr "Provision Typ"
+
+#. module: commission
+#: model:ir.ui.menu,name:commission.menu_commission_line
+#: model:product.category,name:commission.product_category
+msgid "Commissions"
+msgstr "Provisionen"
+
+#. module: commission
+#: model:ir.model,name:commission.model_res_company
+msgid "Companies"
+msgstr "Unternehmen"
+
+#. module: commission
+#: field:commission.line,company_id:0
+msgid "Company"
+msgstr "Firma"
+
+#. module: commission
+#: view:res.company:commission.form_res_company
+msgid "Configuration"
+msgstr "Konfiguration"
+
+#. module: commission
+#: view:commission.commission_invoice_wizard:commission.wizard_commission_invoice
+msgid "Create Invoices"
+msgstr "Erstelle Rechnungen"
+
+#. module: commission
+#: model:ir.model,name:commission.model_commission_commission_invoice_wizard
+msgid "Create invoice from commission"
+msgstr "Erstelle Rechnung von Provisionen"
+
+#. module: commission
+#: field:commission.commission_invoice_wizard,create_uid:0
+#: field:commission.line,create_uid:0
+#: field:commission.recalc_wizard,create_uid:0
+msgid "Created by"
+msgstr ""
+
+#. module: commission
+#: field:commission.commission_invoice_wizard,create_date:0
+#: field:commission.line,create_date:0
+#: field:commission.recalc_wizard,create_date:0
+msgid "Created on"
+msgstr ""
+
+#. module: commission
+#: selection:res.company,commission_type:0
+msgid "Customer Invoice"
+msgstr "Kundenrechnung"
+
+#. module: commission
+#: field:commission.line,date:0
+msgid "Date"
+msgstr "Datum"
+
+#. module: commission
+#: field:commission.recalc_wizard,date_from:0
+msgid "Date from"
+msgstr "Datum von"
+
+#. module: commission
+#: field:commission.recalc_wizard,date_to:0
+msgid "Date to"
+msgstr "Datum bis"
+
+#. module: commission
+#: field:commission.commission_invoice_wizard,name:0
+#: field:commission.line,name:0
+msgid "Description"
+msgstr "Beschreibung"
+
+#. module: commission
+#: field:commission.commission_invoice_wizard,display_name:0
+#: field:commission.line,display_name:0
+#: field:commission.recalc_wizard,display_name:0
+msgid "Display Name"
+msgstr "Anzeigename"
+
+#. module: commission
+#: view:commission.recalc_wizard:commission.wizard_commission_recalc
+msgid ""
+"Do you really want to recalculate all commissions? It will take several "
+"minutes!\""
+msgstr ""
+"Wollen sie wirklich alle Provisionen neu berechnen? Das könnte einige "
+"Minuten dauern!"
+
+#. module: commission
+#: code:addons/commission/commission_invoice_wizard.py:96
+#, python-format
+msgid "Error !"
+msgstr "Fehler!"
+
+#. module: commission
+#: view:commission.line:commission.form_commission_line
+msgid "General"
+msgstr "Allgemein"
+
+#. module: commission
+#: field:commission.line,general_account_id:0
+msgid "General Account"
+msgstr "Standard Konto"
+
+#. module: commission
+#: view:commission.line:commission.search_commission_line
+msgid "Group By..."
+msgstr "Gruppiert nach..."
+
+#. module: commission
+#: field:commission.commission_invoice_wizard,id:0 field:commission.line,id:0
+#: field:commission.recalc_wizard,id:0
+msgid "ID"
+msgstr ""
+
+#. module: commission
+#: field:commission.line,invoice_id:0
+#: model:ir.model,name:commission.model_account_invoice
+msgid "Invoice"
+msgstr "Rechnung"
+
+#. module: commission
+#: model:ir.actions.act_window,name:commission.action_commission_invoice_wizard
+msgid "Invoice Commissions"
+msgstr "Provisionen abrechnen"
+
+#. module: commission
+#: field:commission.line,invoice_line_id:0
+#: model:ir.model,name:commission.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Rechungsposition"
+
+#. module: commission
+#: field:commission.line,invoiced_line_ids:0
+msgid "Invoice Lines"
+msgstr "Rechnung Zeilen"
+
+#. module: commission
+#: field:commission.line,to_invoice:0
+msgid "Invoiceable"
+msgstr "Verrechenbar"
+
+#. module: commission
+#: field:commission.line,invoiced_id:0
+msgid "Invoiced"
+msgstr "Verrechnet"
+
+#. module: commission
+#: view:commission.line:commission.form_commission_line
+msgid "Invoicing"
+msgstr "Verrechnung"
+
+#. module: commission
+#: help:commission.line,to_invoice:0
+msgid ""
+"It allows to set the discount while making invoice, keep empty if the "
+"activities should not be invoiced."
+msgstr ""
+
+#. module: commission
+#: view:commission.line:commission.search_commission_line
+msgid "Journal"
+msgstr ""
+
+#. module: commission
+#: field:commission.commission_invoice_wizard,__last_update:0
+#: field:commission.line,__last_update:0
+#: field:commission.recalc_wizard,__last_update:0
+msgid "Last Modified on"
+msgstr ""
+
+#. module: commission
+#: field:commission.commission_invoice_wizard,write_uid:0
+#: field:commission.line,write_uid:0
+#: field:commission.recalc_wizard,write_uid:0
+msgid "Last Updated by"
+msgstr ""
+
+#. module: commission
+#: field:commission.commission_invoice_wizard,write_date:0
+#: field:commission.line,write_date:0
+#: field:commission.recalc_wizard,write_date:0
+msgid "Last Updated on"
+msgstr ""
+
+#. module: commission
+#: field:commission.line,move_id:0
+msgid "Move Line"
+msgstr "Buchung"
+
+#. module: commission
+#: field:commission.line,order_id:0
+msgid "Order"
+msgstr "Auftrag"
+
+#. module: commission
+#: field:commission.line,order_line_id:0
+msgid "Order Line"
+msgstr "Auftragszeile"
+
+#. module: commission
+#: view:commission.line:commission.search_commission_line
+#: field:commission.line,sale_partner_id:0
+msgid "Partner"
+msgstr ""
+
+#. module: commission
+#: field:commission.line,percentage:0
+msgid "Percentage"
+msgstr "Prozent"
+
+#. module: commission
+#: view:commission.line:commission.search_commission_line
+#: field:commission.line,period_id:0
+#: view:commission.recalc_wizard:commission.wizard_commission_recalc
+msgid "Period"
+msgstr "Periode"
+
+#. module: commission
+#: view:commission.line:commission.search_commission_line
+#: field:commission.line,product_id:0 field:commission.line,sale_product_id:0
+msgid "Product"
+msgstr "Produkt"
+
+#. module: commission
+#: code:addons/commission/commission_invoice_wizard.py:42
+#, python-format
+msgid "Provision %s"
+msgstr "Provision %s"
+
+#. module: commission
+#: field:commission.line,unit_amount:0
+msgid "Quantity"
+msgstr "Menge"
+
+#. module: commission
+#: view:commission.recalc_wizard:commission.wizard_commission_recalc
+msgid "Recalculate"
+msgstr "Neuberechnen"
+
+#. module: commission
+#: model:ir.ui.menu,name:commission.menu_commission_recalc_wizard
+msgid "Recalculate Commission Wizard"
+msgstr "Neuberechnungs Assistent"
+
+#. module: commission
+#: view:commission.recalc_wizard:commission.wizard_commission_recalc
+#: model:ir.actions.act_window,name:commission.action_commission_recalc
+msgid "Recalculate Commissions"
+msgstr "Provisionen Neuberechnung"
+
+#. module: commission
+#: field:commission.line,ref:0
+msgid "Ref."
+msgstr ""
+
+#. module: commission
+#: field:commission.commission_invoice_wizard,related_invoice:0
+msgid "Related Invoice"
+msgstr "Rechnungsbezug"
+
+#. module: commission
+#: view:commission.line:commission.form_commission_line
+msgid "Sale"
+msgstr "Verkauf"
+
+#. module: commission
+#: selection:res.company,commission_type:0
+msgid "Sale Order"
+msgstr "Verkaufsauftrag"
+
+#. module: commission
+#: model:ir.model,name:commission.model_sale_order
+msgid "Sales Order"
+msgstr "Verkaufsauftrag"
+
+#. module: commission
+#: field:account.analytic.account,salesman_id:0
+#: view:commission.line:commission.search_commission_line
+#: field:commission.line,partner_id:0
+msgid "Salesman"
+msgstr "Verkäufer"
+
+#. module: commission
+#: help:commission.line,unit_amount:0
+msgid "Specifies the amount of quantity to count."
+msgstr ""
+
+#. module: commission
+#: field:commission.line,price_sub:0
+msgid "Subtotal"
+msgstr "Zwichensumme"
+
+#. module: commission
+#: help:commission.line,amount_currency:0
+msgid ""
+"The amount expressed in the related account currency if not equal to the "
+"company one."
+msgstr ""
+
+#. module: commission
+#: help:commission.recalc_wizard,date_from:0
+#: help:commission.recalc_wizard,date_to:0
+msgid "The date which you entered is involved!"
+msgstr ""
+
+#. module: commission
+#: help:commission.line,currency_id:0
+msgid "The related account currency if not equal to the company one."
+msgstr ""
+
+#. module: commission
+#: help:commission.commission_invoice_wizard,related_invoice:0
+msgid "The related invoice will be displayed"
+msgstr ""
+
+#. module: commission
+#: code:addons/commission/commission_invoice_wizard.py:97
+#, python-format
+msgid "There is no purchase journal defined for this company: \"%s\" (id:%d)"
+msgstr ""
+
+#. module: commission
+#: view:commission.line:commission.search_commission_line
+msgid "To Invoice"
+msgstr "Abzurechnen"
+
+#. module: commission
+#: view:commission.line:commission.tree_commission_line
+msgid "Total amount"
+msgstr "Gesamtbetrag"
+
+#. module: commission
+#: view:commission.line:commission.tree_commission_line
+msgid "Total commissions"
+msgstr "Provisionen Gesamt"
+
+#. module: commission
+#: view:commission.line:commission.tree_commission_line
+msgid "Total subtotal"
+msgstr "Zwischensumme Gesamt"
+
+#. module: commission
+#: view:commission.line:commission.tree_commission_line
+msgid "Total unit amount"
+msgstr "Menge Gesamt"
+
+#. module: commission
+#: field:commission.line,product_uom_id:0
+msgid "Unit of Measure"
+msgstr "Einheit"
+
+#. module: commission
+#: field:commission.line,user_id:0
+msgid "User"
+msgstr "Benutzer"
+
+#. module: commission
+#: view:commission.line:commission.tree_commission_line
+msgid "Volumne of Amount"
+msgstr ""
+
+#. module: commission
+#: model:ir.model,name:commission.model_commission_recalc_wizard
+msgid "Wizard to recalculate the commissions"
+msgstr "Assistent für Neuberechnung"
+
+#. module: commission
+#: view:commission.commission_invoice_wizard:commission.wizard_commission_invoice
+#: view:commission.recalc_wizard:commission.wizard_commission_recalc
+msgid "or"
+msgstr "oder"

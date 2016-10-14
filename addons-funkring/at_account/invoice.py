@@ -255,16 +255,6 @@ class account_invoice(osv.osv):
     def _replace_invoice_ids_with_id(self, cr, uid, ids, oid, context=None):
         pass
 
-    def invoice_ref(self,cr,uid,invoice):
-        res = None
-        if invoice.type in ("in_invoice", "in_refund"):
-            res = invoice.reference
-        else:
-            res = self._convert_ref(cr, uid, invoice.number)
-        if not res:
-            res = invoice.name
-        return res
-
     def name_search(self, cr, user, name, args=None, operator='ilike', context=None, limit=100):
         if not args:
             args = []

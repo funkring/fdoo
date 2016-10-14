@@ -1,0 +1,31 @@
+<openerp>
+	<data>
+		<record id="access_product_commission_account_invoice" model="ir.model.access">
+			<field name="name">product_commission/account_invoice</field>
+			<field name="model_id" ref="model_commission_product_commission"/>
+			<field name="group_id" ref="account.group_account_invoice"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+		<record id="access_product_commission_account_manager" model="ir.model.access">
+			<field name="name">product_commission/account_manager</field>
+			<field name="model_id" ref="model_commission_product_commission"/>
+			<field name="group_id" ref="account.group_account_manager"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+		<record id="access_product_commission_base_user" model="ir.model.access">
+			<field name="name">product_commission/base_user</field>
+			<field name="model_id" ref="model_commission_product_commission"/>
+			<field name="group_id" ref="base.group_user"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="False"/>
+			<field name="perm_write" eval="False"/>
+		</record>
+	</data>
+</openerp>

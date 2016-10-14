@@ -70,7 +70,7 @@ class account_period(osv.osv):
             args = [('date_start','<=',dt),('date_stop','>=',dt)]
             
             # add company
-            if context.get('company_id', False):
+            if context and context.get('company_id', False):
                 args.append(('company_id', '=', context['company_id']))
             else:
                 company_id = self.pool.get('res.users').browse(cr, uid, uid, context=context).company_id.id

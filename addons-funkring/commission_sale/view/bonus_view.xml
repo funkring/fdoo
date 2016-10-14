@@ -1,0 +1,54 @@
+<openerp>
+	<data>		
+		<record id="form_bonus" model="ir.ui.view">
+            <field name="name">commission_sale.form_bonus</field>
+            <field name="model">commission_sale.bonus</field>
+            <field name="arch" type="xml">
+                <form string="Sales Bonus">
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                	<div>
+                    	<field name="line_ids">
+                    	    <tree editable="bottom" string="Lines">
+                    	        <field name="name"/>
+    	                		<field name="volume_of_sales"/>
+    	                		<field name="bonus"/>
+    	                	</tree>
+    	                	<form string="Line">
+    	                	    <field name="name"/>
+    	                		<field name="volume_of_sales"/>
+    	                		<field name="bonus"/>	                	    
+    	                	</form>
+                    	</field>
+                	</div>
+                </form>
+            </field>
+        </record>
+
+        <record id="tree_bonus" model="ir.ui.view">
+            <field name="name">commission_sale.tree_bonus</field>
+            <field name="model">commission_sale.bonus</field>
+            <field name="arch" type="xml">
+                <tree string="Sales Bonus">
+                	<field name="name"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_bonus" model="ir.actions.act_window">
+            <field name="name">Sales Bonus</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">commission_sale.bonus</field>            
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+				
+        <menuitem id="menu_bonus" name="Sales Bonus" parent="base.menu_base_config" sequence="10"
+        		  action="action_bonus"/>		
+	</data>
+</openerp>

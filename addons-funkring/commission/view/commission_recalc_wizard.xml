@@ -1,0 +1,36 @@
+<openerp>
+	<data>
+		<record id="wizard_commission_recalc" model="ir.ui.view">
+			<field name="name">commission.recalc_wizard</field>
+			<field name="model">commission.recalc_wizard</field>
+			<field name="arch" type="xml">
+				<form string="Recalculate Commissions">
+					<p>Do you really want to recalculate all commissions? It will take several minutes!"</p>
+					<group>
+					    <group string="Period">
+    					   <field name="date_from"/>
+                           <field name="date_to"/>
+                        </group>
+					</group>
+					<footer>
+					    <button  name="do_recalc" string="Recalculate"  type="object" class="oe_highlight" />
+                        or
+                        <button special="cancel" string="Close" class="oe_link"/>
+					</footer>				
+				</form>
+			</field>
+		</record>
+
+        <record id="action_commission_recalc" model="ir.actions.act_window">
+          <field name="name">Recalculate Commissions</field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="res_model">commission.recalc_wizard</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">form</field>
+          <field name="target">new</field>
+        </record>
+
+		<menuitem id="menu_commission_recalc_wizard" name="Recalculate Commission Wizard" parent="account.menu_finance_periodical_processing_billing" sequence="3" action="action_commission_recalc" />
+		
+	</data>
+</openerp>

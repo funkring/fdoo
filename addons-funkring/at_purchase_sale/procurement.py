@@ -27,8 +27,7 @@ class procurement_order(osv.osv):
         if sale_line:
             po_vals["notes"]=sale_line.procurement_note
             po_vals["sale_order_id"]=sale_line.order_id.id
-            po_vals["sale_line_id"]=sale_line.id
-            
+                        
             # update name
             line_vals["name"]=sale_line.name
             # update line

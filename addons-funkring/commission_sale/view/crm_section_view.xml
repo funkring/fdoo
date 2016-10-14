@@ -1,0 +1,38 @@
+<openerp>
+	<data>		
+		<record id="form_crm_section" model="ir.ui.view">
+            <field name="name">crm.form_crm_section</field>
+            <field name="model">crm.case.section</field>
+            <field name="inherit_id" ref="sales_team.crm_case_section_view_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <data>
+					<xpath expr="//notebook" position="inside">
+						<page string="Commission">
+						      <group>
+    					          <group string="General">
+    					              <field name="property_commission_product"/>
+                                      <field name="property_analytic_journal"/>
+                                      <field name="sales_commission"/>
+    					          </group>
+    					          <group string="Bonus">
+    					              <field name="sales_bonus_id"/>						          
+    					          </group>					             							    
+    					       </group>
+    					       <div>
+    					           <field name="commission_rule_ids">
+    					               <tree editable="buttom">
+    					                   <field name="sequence" widget="handle"/>
+    					                   <field name="categ_id"/>
+    					                   <field name="product_id"/>
+    					                   <field name="commission"/>
+    					               </tree>
+    					           </field>  
+    					       </div>
+						</page>
+					</xpath>
+				</data>               			              
+            </field>
+        </record>
+	</data>
+</openerp>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>		
+	   
+		<record id="wizard_commission_invoice" model="ir.ui.view">
+            <field name="name">commission.wizard_commission_invoice</field>
+            <field name="model">commission.commission_invoice_wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Commission Invoice Wizard">
+                    <group>
+                        <field name="name"/>
+                        <field name="related_invoice" />
+                    </group>
+                	<footer>
+                        <button  name="do_create" string="Create Invoices"  type="object" class="oe_highlight" />
+                        or
+                        <button special="cancel" string="Close" class="oe_link" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_commission_invoice_wizard" model="ir.actions.act_window">
+          <field name="name">Invoice Commissions</field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="res_model">commission.commission_invoice_wizard</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">form</field>
+          <field name="target">new</field>
+        </record>
+        
+        <record id="irconfig_commission_invoice" model="ir.values">
+          <field name="model_id" ref="commission.model_commission_line" />      
+          <field name="name">Invoice Commissions</field>
+          <field name="key2">client_action_multi</field>
+          <field name="value" eval="'ir.actions.act_window,' + str(ref('action_commission_invoice_wizard'))" />
+          <field name="key">action</field>
+          <field name="model">commission.line</field>
+        </record>
+      
+    </data>
+</openerp>

@@ -1,0 +1,13 @@
+<openerp>
+	<data>	    	    		
+	    <record id="product_default" model="product.product">
+			<field name="name">Product Commission</field>
+			<field name="list_price">0.0</field>
+            <field name="standard_price">0.0</field>
+            <field name="uom_id" ref="commission.product_commission_uom"/>
+            <field name="uom_po_id" ref="commission.product_commission_uom"/>
+            <field name="type">service</field>
+            <field name="categ_id" ref="commission.product_category"/>	
+		</record>	    
+	</data>
+</openerp>

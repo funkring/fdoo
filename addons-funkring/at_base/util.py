@@ -122,6 +122,9 @@ def strToDate(inDate):
 
     if isinstance(inDate,datetime):
         return inDate
+    
+    if len(inDate) > 10:
+        inDate = timeToDateStr(inDate)
 
     return datetime.strptime(inDate, DT_FORMAT)
 
