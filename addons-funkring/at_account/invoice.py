@@ -26,6 +26,7 @@ from openerp.tools.translate import _
 import openerp.addons.decimal_precision as dp
 
 import qrcode
+import qrcode.image.svg 
 
 try:
     import cStringIO as StringIO
@@ -305,11 +306,34 @@ class account_invoice(osv.osv):
     
     def _qrcode(self, cr, uid, ids, field_name, arg, context=None):
         res = dict.fromkeys(ids)
-        for obj in self.browse(cr, uid, ids, context):
+        for inv in self.browse(cr, uid, ids, context):
+            ref = None
+            bank = None                  
+            if inv.type in ["out_invoice","in_refund"]:
+                company = inv.company_id.name                      
+                ref = inv.number
+                banks = inv.company_id.bank_ids
+                if banks:
+                    bank = banks[0]
+            else:
+                company = inv.partner_id.name
+                ref = inv.number
+                banks = inv.partner_id.bank_ids
+                if banks:
+                    bank = banks[0]
+                
+            # check if ref exist
+            if not ref or not bank:
+                continue
+            
+            amount = "%s%s" % (inv.currency_id.name, inv.amount_total)
+            iban = bank.acc_number or ""
+            bic = bank.bank_bic or ""
+            
             qr = qrcode.QRCode(
                     version=13,
-                    box_size=2,
-                    border=4   
+                    box_size=4.2,
+                    border=4  
                  )
             data = "\n".join(["BCD",
                "001",
@@ -324,10 +348,11 @@ class account_invoice(osv.osv):
         
             qr.add_data(data)
             qr.make()
-            im = qr.make_image()
+            im = qr.make_image(image_factory=qrcode.image.svg.SvgImage)
             image_data = StringIO.StringIO()
-            im.save(image_data,"PNG")
-            res[obj.id] = image_data.getvalue().encode("base64")
+            im.save(image_data,"SVG")
+            res[inv.id] = image_data.getvalue().encode("base64")
+            
         return res
    
 
