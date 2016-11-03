@@ -614,8 +614,8 @@ class jdoc_jdoc(osv.AbstractModel):
             if last_date:                
                 query = ("DELETE FROM jdoc_usage "
                            " WHERE id IN ( SELECT u.id FROM jdoc_usage u "
-                           "               LEFT JOIN %s t ON t.id = u.res_id AND u.res_model=%%s AND u.user_id = %%s  "
-                           "               WHERE t.id IS NULL )" % model_obj._table)
+                           "               LEFT JOIN %s t ON t.id = u.res_id "
+                           "               WHERE u.res_model=%%s AND u.user_id = %%s AND t.id IS NULL )" % model_obj._table)
                 # delete unused
                 cr.execute(query, (model, uid))
                     
@@ -829,10 +829,75 @@ class jdoc_jdoc(osv.AbstractModel):
     
     def jdoc_get(self, cr, uid, uuid, res_model=None, refonly=False, options=None, name=None, context=None):
         mapping_obj = self.pool["res.mapping"]
-        obj = mapping_obj._browse_mapped(cr, uid, uuid, res_model=res_model, name=name, context=None)
+        obj = mapping_obj._browse_mapped(cr, uid, uuid, res_model=res_model, name=name, context=context)
         if not obj:
             return False
         return self._jdoc_get(cr, uid, obj, refonly=refonly, options=options, context=context)
+    
+    def jdoc_load(self, cr, uid, data, context=None):
+        model = data["model"]  
+        model_obj = self.pool[model]
+        
+        # get mapping
+        mapping_obj = self.pool["res.mapping"]
+
+        # get options        
+        fields = data.get("fields")
+        compositions = data.get("compositions")
+        options = {"empty_values" : False }
+        model_options = {}
+        if fields:
+            model_options["fields"] = set(fields)
+        if compositions:
+            model_options["compositions"] = set(compositions)
+        
+        if model_options:
+            options["model"] = {
+                model : model_options
+            }
+            
+        # get view
+        view = None
+        view_name = data.get("view")
+        if view_name:
+            view = getattr(model_obj,view_name)(cr, uid, context=context)
+            
+        # Method GET
+        method_get = view and view.get("get") or self._jdoc_get
+        
+        # GET via UUID
+        uuid = data.get("uuid")
+        if uuid:
+            obj = mapping_obj._browse_mapped(cr, uid, uuid, res_model=res_model, name=name, context=context)
+            if not obj:
+                return False
+            return method_get(cr, uid, obj, options=options, context=context)
+        
+        # GET via DOMAIN
+        domain = data.get("domain")
+        if isinstance(domain,list):
+            # check params
+            limit = data.get("limit",None)
+            order = data.get("order",None)
+            count = data.get("count",False)
+            offset = data.get("offset",0)
+
+            # search
+            ids = model_obj.search(cr, uid, domain, offset=offset, limit=limit, order=order, count=count, context=context)
+            if count:
+                return ids            
+            
+            # prepare result
+            res = []
+            for obj in model_obj.browse(cr, uid, ids, context=context):
+                doc = method_get(cr, uid, obj, options=options, context=context)
+                res.append(doc)
+                
+            return res
+            
+        # too few params
+        return False
+        
     
     def jdoc_put(self, cr, uid, doc, return_id=False, return_value=False, uuid2id_resolver=None, changed_models=None, errors=None, model=False, usage_map=None, context=None):
         if not doc:
