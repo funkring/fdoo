@@ -998,6 +998,13 @@ class Field(object):
         # ``records``, except fields currently being computed
         spec = []
         for field, path in self._triggers:
+            if not field.compute:
+                # Note: do not invalidate non-computed fields. Such fields may
+                # require invalidation in general (like *2many fields with
+                # domains) but should not be invalidated in this case, because
+                # we would simply lose their values during an onchange!
+                continue
+
             target = env[field.model_name]
             computed = target.browse(env.computed[field])
             if path == 'id':
@@ -1034,6 +1041,7 @@ class Integer(Field):
     }
 
     _related_group_operator = property(attrgetter('group_operator'))
+    _description_group_operator = property(attrgetter('group_operator'))
     _column_group_operator = property(attrgetter('group_operator'))
 
     def convert_to_cache(self, value, record, validate=True):
@@ -1094,6 +1102,7 @@ class Float(Field):
     _related_group_operator = property(attrgetter('group_operator'))
 
     _description_digits = property(attrgetter('digits'))
+    _description_group_operator = property(attrgetter('group_operator'))
 
     _column_digits = property(lambda self: not callable(self._digits) and self._digits)
     _column_digits_compute = property(lambda self: callable(self._digits) and self._digits)
@@ -1122,7 +1131,7 @@ class _String(Field):
     _column_translate = property(attrgetter('translate'))
     _related_translate = property(attrgetter('translate'))
     _description_translate = property(attrgetter('translate'))
-    
+
 
 class Char(_String):
     """ Basic string field, can be length-limited, usually displayed as a
