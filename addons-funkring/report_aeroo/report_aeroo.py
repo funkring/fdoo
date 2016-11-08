@@ -105,9 +105,9 @@ def fixPdf(data,ret_reader=False):
                             return reader
                         return data
                 finally:
-                    if pdfFile:
+                    if pdfFile and os.path.exists(pdfFile):
                         os.remove(pdfFile)
-                    if pdfFileFixed:
+                    if pdfFileFixed and os.path.exists(pdfFileFixed):
                         os.remove(pdfFileFixed)
     return None
 
