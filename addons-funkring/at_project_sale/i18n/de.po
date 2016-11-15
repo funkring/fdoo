@@ -1,23 +1,23 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* at_project_sale
+#	* at_project_sale
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
+"Language: de_DE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-21 13:24+0000\n"
-"PO-Revision-Date: 2015-12-21 14:24+0100\n"
-"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
+"POT-Creation-Date: 2016-11-15 09:11+0000\n"
+"PO-Revision-Date: 2016-11-15 09:11+0000\n"
+"Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 1.5.4\n"
 
 #. module: at_project_sale
-#: code:addons/at_project_sale/sale_order.py:371
+#: code:addons/at_project_sale/sale_order.py:372
 #, python-format
 msgid "%s Hour(s)"
 msgstr "%s Stunde(n)"
@@ -125,6 +125,11 @@ msgid "Customer"
 msgstr "Kunde"
 
 #. module: at_project_sale
+#: field:at_project_sale.correct_time_wizard,display_name:0
+msgid "Display Name"
+msgstr ""
+
+#. module: at_project_sale
 #: view:sale.order.report:at_project_sale.view_sale_order_report_search
 msgid "Extended Filters"
 msgstr "Erweiterte Filter"
@@ -143,6 +148,11 @@ msgstr ""
 #: model:ir.model,name:at_project_sale.model_account_invoice_report
 msgid "Invoices Statistics"
 msgstr "Statistik Rechnungen"
+
+#. module: at_project_sale
+#: field:at_project_sale.correct_time_wizard,__last_update:0
+msgid "Last Modified on"
+msgstr ""
 
 #. module: at_project_sale
 #: field:at_project_sale.correct_time_wizard,write_uid:0
@@ -205,6 +215,7 @@ msgstr ""
 
 #. module: at_project_sale
 #: field:at_project_sale.correct_time_wizard,planned_hours:0
+#: field:product.template,planned_hours:0
 msgid "Planned Hours"
 msgstr "Geplante Stunden"
 
@@ -224,11 +235,17 @@ msgid "Prepaid"
 msgstr "Vorauszahlung"
 
 #. module: at_project_sale
+#: model:ir.model,name:at_project_sale.model_procurement_order
+msgid "Procurement"
+msgstr "Beschaffung"
+
+#. module: at_project_sale
 #: model:ir.model,name:at_project_sale.model_product_template
 msgid "Product Template"
 msgstr "Produktvorlage"
 
 #. module: at_project_sale
+#: model:ir.model,name:at_project_sale.model_project_project
 #: field:sale.order,order_project_id:0
 msgid "Project"
 msgstr "Projekt"
@@ -328,19 +345,8 @@ msgstr "Dieses Jahr"
 
 #. module: at_project_sale
 #: model:ir.actions.act_window,help:at_project_sale.action_sale_order_report
-msgid ""
-"This report performs analysis on your quotations and sales orders. Analysis "
-"check your sales revenues and sort it by different group criteria (salesman, "
-"partner, product, etc.) Use this report to perform analysis on sales not "
-"having invoiced yet. If you want to analyse your turnover, you should use "
-"the Invoice Analysis report in the Accounting application."
-msgstr ""
-"Diese Auswertung analysiert Ihre Angebote und Verkaufsaufträge. Hierbei "
-"werden Ihre Verkaufsumsätze  ausgewertet und nach verschiedenen Kriterien "
-"gruppiert (Verkäufer, Partner, Produkt, etc). Benutzen Sie diese Auswertung "
-"außerdem, um noch nicht in Rechnung gestellte Verkaufsaufträge zu "
-"analysieren. Wenn Sie Ihren Umsatz analysieren möchten, nutzen Sie bitte die "
-"Statistik für die Umsatzerlöse in der Finanzbuchhaltung."
+msgid "This report performs analysis on your quotations and sales orders. Analysis check your sales revenues and sort it by different group criteria (salesman, partner, product, etc.) Use this report to perform analysis on sales not having invoiced yet. If you want to analyse your turnover, you should use the Invoice Analysis report in the Accounting application."
+msgstr "Diese Auswertung analysiert Ihre Angebote und Verkaufsaufträge. Hierbei werden Ihre Verkaufsumsätze  ausgewertet und nach verschiedenen Kriterien gruppiert (Verkäufer, Partner, Produkt, etc). Benutzen Sie diese Auswertung außerdem, um noch nicht in Rechnung gestellte Verkaufsaufträge zu analysieren. Wenn Sie Ihren Umsatz analysieren möchten, nutzen Sie bitte die Statistik für die Umsatzerlöse in der Finanzbuchhaltung."
 
 #. module: at_project_sale
 #: field:sale.order,timesheet_lines:0
@@ -357,3 +363,4 @@ msgstr "oder"
 #: view:at_project_sale.correct_time_wizard:at_project_sale.wizard_correct_time
 msgid "title"
 msgstr "Titel"
+

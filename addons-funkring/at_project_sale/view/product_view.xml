@@ -8,7 +8,8 @@
       <field name="inherit_id" ref="sale_service.view_product_task_form"/>
       <field name="arch" type="xml">
         <field name="auto_create_task" position="after">
-            <field name="billed_at_cost"/>
+            <field name="billed_at_cost" attrs="{'invisible':[('auto_create_task','!=',True)]}"/>
+            <field name="planned_hours" attrs="{'invisible':[('auto_create_task','!=',True)]}"/>
         </field>
       </field>
     </record>

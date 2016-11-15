@@ -20,10 +20,11 @@
 
 from openerp.osv import fields, osv
 
-class product_template(osv.osv):
+class procurement_order(osv.Model):
+    _inherit = "procurement.order"
 
-    _inherit = "product.template"
-    _columns = {
-        "billed_at_cost" : fields.boolean("Billed at Cost"),
-        "planned_hours" : fields.float("Planned Hours")
-    }
+    def _convert_qty_company_hours(self, cr, uid, procurement, context=None):
+        product = procurement.product_id
+        if product.planned_hours:
+            return product.planned_hours
+        return super(procurement_order, self)._convert_qty_company_hours(cr, uid, procurement, context=context)
