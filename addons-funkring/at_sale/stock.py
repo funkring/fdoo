@@ -21,6 +21,7 @@
 ##############################################################################
 
 from openerp.osv import fields,osv
+from openerp import SUPERUSER_ID
 
 class stock_picking(osv.osv):
 
@@ -29,7 +30,62 @@ class stock_picking(osv.osv):
             vals["shop_id"] = picking.shop_id.id
         return super(stock_picking,self)._create_invoice_from_picking(cr, uid, picking, vals, context=context)
 
+    def _relids_sale_order(self, cr, uid, ids, context=None):
+        if not ids:
+            return []
+        
+        cr.execute("SELECT p.id FROM sale_order s "
+                   " INNER JOIN stock_picking p ON p.group_id = s.procurement_group_id "
+                   " WHERE s.id IN %s "
+                   " GROUP BY 1 ", (tuple(ids),))
+                   
+        res = [r[0] for r in cr.fetchall()]
+        return res
+
+    def _relids_picking(self, cr, uid, ids, context=None):
+        if not ids:
+            return []
+        cr.execute("SELECT m.picking_id FROM stock_move m WHERE m.id IN %s GROUP BY 1", (tuple(ids),))
+        res = [r[0] for r in cr.fetchall()]
+        return res
+
+    def _sale_id(self, cr, uid, ids, field_names, arg, context=None):
+        sale_obj = self.pool.get("sale.order")
+        res = dict.fromkeys(ids)
+        
+        for oid in ids:
+            res[oid] = {"sale_id" : None, 
+                        "shop_id" : None}
+        
+        cr.execute("SELECT p.id, s.id, s.shop_id FROM stock_picking p "
+                   " INNER JOIN sale_order s ON s.procurement_group_id = p.group_id "
+                   " WHERE p.id IN %s "
+                   " GROUP BY 1,2,3 "
+                   " ORDER BY p.id, s.date_order DESC, s.id DESC ", (tuple(ids),))
+        
+        last_picking_id = None
+        
+        for picking_id, order_id, shop_id in cr.fetchall():
+            if not last_picking_id or picking_id != last_picking_id:
+                res[picking_id]["sale_id"] = order_id
+                res[picking_id]["shop_id"] = shop_id
+            last_picking_id = picking_id
+            
+        return res
+
+    
+    
     _inherit = "stock.picking"
     _columns = {
-        "shop_id" : fields.related("sale_id","shop_id",type="many2one",relation="sale.shop",string="Shop",readonly=True,store=False,select=True)
+        "sale_id": fields.function(_sale_id, type="many2one", relation="sale.order", string="Sale Order", multi="_sale_id",  store={
+                                       "sale.order" : (_relids_sale_order,["procurement_group_id"], 20),
+                                       "stock.move": (_relids_picking, ["picking_id"], 20),
+                                       "stock.picking": (lambda self, cr, uid, ids, context=None: ids, ["move_lines"], 20)
+
+                                   }),
+        "shop_id": fields.function(_sale_id, type="many2one", relation="sale.shop", string="Sale Shop", multi="_sale_id",  store={
+                                       "sale.order" : (_relids_sale_order,["procurement_group_id"], 20),
+                                       "stock.move": (_relids_picking, ["picking_id"], 20),
+                                       "stock.picking": (lambda self, cr, uid, ids, context=None: ids, ["move_lines"], 20)                                       
+                                   })
     }

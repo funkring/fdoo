@@ -1,5 +1,6 @@
 <openerp>
 	<data>
+	
         <record id="tree_vpicktree" model="ir.ui.view">
             <field name="name">at_sale.tree_stock_picking_out</field>
             <field name="model">stock.picking</field>
@@ -11,5 +12,20 @@
             	</field>
             </field>
         </record>
+        
+        <record id="search_picking_internal" model="ir.ui.view">
+            <field name="name">at_sale.search_picking_internal</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="shop_id"/>
+                </field>
+                <filter string="Procurement Group" position="after">
+                    <filter string="Shop" context="{'group_by':'shop_id'}"/>
+                </filter>
+            </field>
+        </record>
+        
 	</data>
 </openerp>
