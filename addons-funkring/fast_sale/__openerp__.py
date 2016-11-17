@@ -20,18 +20,21 @@
 
 {
     "name" : "oerp.at Fast Sale",
-    "summary" : "Fast Sale - One button for invoice and delivery",
+    "summary" : "Shortcuts and additional Reports for simple sale workflow",
     "description":"""
 Fast Sale
 =========
 * One button for invoice and delivery
+* Delivery note based on sale order
+* Packing list based on sale order
     """,
     "version" : "1.0",
     "author" :  "oerp.at",
     "website" : "http://oerp.at",
     "category" : "Sales",
     "depends" : ["at_sale","sale"],
-    "data" : ["view/sale_view.xml"],
+    "data" : ["view/sale_view.xml",
+              "report/sale_delivery_report.xml"],
     "auto_install" : False,
     "installable": True
 }
