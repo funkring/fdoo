@@ -12,6 +12,8 @@ import uuid
 import tempfile
 import re
 
+from multiprocessing import Pool
+
 SERVER_CONF = "server.conf"
 DIR_CONFIG = os.path.dirname(os.path.realpath( __file__ ))
 DIR_DIST = os.path.join(DIR_CONFIG,"enabled-addons/openerp")
@@ -343,6 +345,7 @@ if __name__ == "__main__":
     parser.add_option("--update",dest="update",default=None,help="Update Database")
     parser.add_option("--copy",dest="copy",default=None,help="Copy Database")
     parser.add_option("--dest",dest="dest",default=None,help="Destination Database")
+    parser.add_option("--threads",dest="threads",type="int",default=0,help="Threads for parallel processing")
     parser.add_option("--cleanup",dest="cleanup",default=None,help="Cleanup Database")
     parser.add_option("--module",dest="module",default=None,help="Module to Update")
     parser.add_option("--override",dest="override",action="store_true",default=False)
@@ -353,18 +356,57 @@ if __name__ == "__main__":
     parser.add_option("--list",dest="list",default=None, help="List Databases")
     opt, args = parser.parse_args()
 
+    # ####################################################################
+    # DB FUNCTIONS
+    # ####################################################################
+    
+    # function
+    db_func = None
+    databases = None
+    
+    # update
+    def db_update(db):
+        update(database=db, module=opt.module, override=opt.override, opt=opt)
+        
+    # cleanup
+    def db_cleanup(db):
+        cleanup(database=db, fix=opt.fix, full=opt.full, opt=opt)
+  
+        
+    # ####################################################################
+    # Evaluate Parameters
+    # ####################################################################
+
     if opt.links:
         setup(onlyLinks=True)
     elif opt.update:
-        for db in getDatabases(opt.update, opt):
-            update(database=db, module=opt.module, override=opt.override, opt=opt)
+        db_func = db_update
+        databases = getDatabases(opt.update, opt)
     elif opt.cleanup:
-        for db in getDatabases(opt.cleanup, opt):
-            cleanup(database=db, fix=opt.fix, full=opt.full, opt=opt)
+        db_func = db_cleanup
+        databases = getDatabases(opt.cleanup, opt)
     elif opt.copy:
         copyDatabase(database=opt.copy, dest=opt.dest)
-    elif opt.list:        
+    elif opt.list:
         for db in getDatabases(opt.list, opt):
             print db
     else:
         setup()
+    
+    
+    # ####################################################################
+    # EXECUTE DB FUNCTIONS
+    # ####################################################################
+ 
+    if db_func and databases:
+        if not opt.threads:
+            # single thread
+            for db in databases:
+                db_func(db)
+        else:
+            # multi thread
+            log.info("Create thread pool for %s processes" % opt.threads)
+            pool = Pool(processes=opt.threads)
+            pool.map(db_func, databases)
+        
+        
