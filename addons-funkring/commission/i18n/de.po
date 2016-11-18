@@ -8,7 +8,7 @@ msgstr ""
 "Language: de_DE\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-12 16:47+0000\n"
-"PO-Revision-Date: 2016-10-14 00:58+0100\n"
+"PO-Revision-Date: 2016-11-18 14:13+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -484,8 +484,8 @@ msgstr "Benutzer"
 
 #. module: commission
 #: view:commission.line:commission.tree_commission_line
-msgid "Volumne of Amount"
-msgstr ""
+msgid "Volume of Amount"
+msgstr "Provisions Basis"
 
 #. module: commission
 #: model:ir.model,name:commission.model_commission_recalc_wizard

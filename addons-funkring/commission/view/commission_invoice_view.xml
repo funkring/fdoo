@@ -71,8 +71,8 @@
                 	<field name="sale_product_id" />
                 	<field name="name" />
                 	<field name="unit_amount" sum="Total unit amount"/>
-                	<field name="price_sub" string="Volumne of Amount" sum="Total subtotal"/>
-                	<field name="total_commission" string="Commission" sum="Total commissions"/>
+                	<field name="price_sub" string="Volume of Amount" sum="Total subtotal"/>
+                	<field name="total_commission"/>
                     <field name="amount" sum="Total amount"/>
                 	<field name="period_id" />
                     <field name="journal_id" />
