@@ -1,0 +1,405 @@
+<openerp>
+  <data>
+    
+    <!-- GROUP -->
+    
+    <record id="group_sale_extern" model="res.groups">
+        <field name="name">Extern Salesman</field>
+        <field name="category_id" ref="base.module_category_sales_management"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_portal'))]"/>
+        <field name="comment">Extern salesman which is not an employee</field>    
+    </record>
+    
+    
+    <!-- SALE ORDER -->
+    
+    <record id="access_sale_order_sale_extern" model="ir.model.access">
+      <field name="name">sale_order/sale_extern</field>
+      <field name="model_id" ref="sale.model_sale_order"/>
+      <field name="group_id" ref="group_sale_extern"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_write" eval="True"/>
+    </record>
+    
+    <record id="rule_sale_order_sale_extern" model="ir.rule">
+      <field name="name">sale_order/sale_extern</field>
+      <field name="model_id" ref="sale.model_sale_order"/>
+      <field name="domain_force">['|',('user_id','=',user.id),('section_id.member_ids','in',user.id)]</field>
+      <field name="groups" eval="[(4,ref('group_sale_extern'))]"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_write" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_unlink" eval="True"/>
+    </record>
+    
+    
+    <!-- SALE ORDER LINE -->
+    
+    <record id="access_sale_order_line_sale_extern" model="ir.model.access">
+      <field name="name">sale_order_line/sale_extern</field>
+      <field name="model_id" ref="sale.model_sale_order_line"/>
+      <field name="group_id" ref="group_sale_extern"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_write" eval="True"/>
+    </record>
+
+    <record id="rule_sale_order_line_sale_extern" model="ir.rule">
+      <field name="name">sale_order_line/sale_extern</field>
+      <field name="model_id" ref="sale.model_sale_order_line"/>
+      <field name="domain_force">['|',('order_id.user_id','=',user.id),('order_id.section_id.member_ids','in',user.id)]</field>
+      <field name="groups" eval="[(4,ref('group_sale_extern'))]"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_write" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_unlink" eval="True"/>
+    </record>
+
+    
+    <!-- WAREHOUSE -->
+
+    <record id="access_stock_warehouse_sale_extern" model="ir.model.access">
+      <field name="name">stock_warehouse/sale_extern</field>
+      <field name="model_id" ref="stock.model_stock_warehouse"/>
+      <field name="group_id" ref="group_sale_extern"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_write" eval="False"/>
+    </record>
+
+    
+    <!-- PRODUCT CATEGORY -->
+
+    <record id="access_product_category_sale_extern" model="ir.model.access">
+      <field name="name">product.category/sale_extern</field>
+      <field name="model_id" ref="product.model_product_category"/>
+      <field name="group_id" ref="group_sale_extern"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_write" eval="False"/>
+    </record>
+    
+    
+    <!-- ACCOUNT -->
+
+    <record id="access_ir_sequence_sale_extern" model="ir.model.access">
+      <field name="name">ir_sequence/sale_extern</field>
+      <field name="model_id" ref="base.model_ir_sequence"/>
+      <field name="group_id" ref="group_sale_extern"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_write" eval="False"/>
+    </record>
+    
+    <record id="access_account_sequence_fiscalyear_sale_extern" model="ir.model.access">
+     <field name="name">account_sequence_fiscalyear/sale_extern</field>
+     <field name="model_id" ref="account.model_account_sequence_fiscalyear"/>
+     <field name="group_id" ref="group_sale_extern"/>
+     <field name="perm_read" eval="True"/>
+     <field name="perm_unlink" eval="False"/>
+     <field name="perm_create" eval="False"/>
+     <field name="perm_write" eval="False"/>
+    </record>
+    
+    <record id="access_account_fiscal_position_sale_extern" model="ir.model.access">
+      <field name="name">account_fiscal_position/sale_extern</field>
+      <field name="model_id" ref="account.model_account_fiscal_position"/>
+      <field name="group_id" ref="group_sale_extern"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_write" eval="False"/>
+    </record>
+
+    <record id="access_account_payment_term_sale_extern" model="ir.model.access">
+      <field name="name">account_payment_term/sale_extern</field>
+      <field name="model_id" ref="account.model_account_payment_term"/>
+      <field name="group_id" ref="group_sale_extern"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_write" eval="False"/>
+    </record>
+
+
+    <!-- PROJECT -->
+
+    <record id="access_project_project_sale_extern" model="ir.model.access">
+      <field name="name">project_project/sale_extern</field>
+      <field name="model_id" ref="project.model_project_project"/>
+      <field name="group_id" ref="group_sale_extern"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_write" eval="True"/>
+    </record>
+
+    <record id="rule_project_project_sale_extern" model="ir.rule">
+      <field name="name">project_project/sale_extern</field>
+      <field name="model_id" ref="project.model_project_project"/>
+      <field name="domain_force">['|','|',('user_id','=',user.id),('order_id.user_id','=',user.id),('order_id.section_id.member_ids','in',user.id)]</field>
+      <field name="groups" eval="[(4,ref('group_sale_extern'))]"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_write" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_project_project_template_sale_extern" model="ir.rule">
+      <field name="name">project_project/template_sale_extern</field>
+      <field name="model_id" ref="project.model_project_project"/>
+      <field name="domain_force">[('state','=','template'),('id','=',user.shop_id.project_template_id.id)]</field>
+      <field name="groups" eval="[(4,ref('group_sale_extern'))]"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_write" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_unlink" eval="False"/>
+    </record>
+    
+    <record id="access_account_analytic_invoice_line_sale_extern" model="ir.model.access">
+      <field name="name">account_analytic_invoice_line/sale_extern</field>
+      <field name="model_id" ref="account_analytic_analysis.model_account_analytic_invoice_line"/>
+      <field name="group_id" ref="group_sale_extern"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_write" eval="False"/>
+    </record>
+    
+    <record id="rule_account_analytic_invoice_line_sale_extern" model="ir.rule">
+      <field name="name">account_analytic_invoice_line/sale_extern</field>
+      <field name="model_id" ref="account_analytic_analysis.model_account_analytic_invoice_line"/>
+      <field name="domain_force">['|','|',('analytic_account_id.user_id','=',user.id),('analytic_account_id.order_id.user_id','=',user.id),('analytic_account_id.order_id.section_id.member_ids','in',user.id)]</field>
+      <field name="groups" eval="[(4,ref('group_sale_extern'))]"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_write" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_unlink" eval="False"/>
+    </record>
+
+
+
+    <!-- ANALYTIC ACCOUNT -->
+
+    <record id="access_analytic_analytic_account_sale_extern" model="ir.model.access">
+      <field name="name">account_analytic_account/sale_extern</field>
+      <field name="model_id" ref="analytic.model_account_analytic_account"/>
+      <field name="group_id" ref="group_sale_extern"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_write" eval="True"/>
+    </record>
+
+    <record id="rule_analytic_analytic_account_sale_extern" model="ir.rule">
+      <field name="name">account_analytic_account/sale_extern</field>
+      <field name="model_id" ref="analytic.model_account_analytic_account"/>
+      <field name="domain_force">['|','|',('user_id','=',user.id),('order_id.user_id','=',user.id),('order_id.section_id.member_ids','in',user.id)]</field>
+      <field name="groups" eval="[(4,ref('group_sale_extern'))]"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_write" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_project_project_template_sale_extern" model="ir.rule">
+      <field name="name">project_project/template_sale_extern</field>
+      <field name="model_id" ref="project.model_project_project"/>
+      <field name="domain_force">[('id','=',user.shop_id.project_template_id.analytic_account_id.id)]</field>
+      <field name="groups" eval="[(4,ref('group_sale_extern'))]"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_write" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- PARTNER -->
+    
+    <record id="access_res_partner_sale_extern" model="ir.model.access">
+      <field name="name">res_partner/sale_extern</field>
+      <field name="model_id" ref="base.model_res_partner"/>
+      <field name="group_id" ref="group_sale_extern"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_write" eval="True"/>
+    </record>
+    
+    <record id="rule_res_partner_sale_extern" model="ir.rule">
+      <field name="name">res_partner/sale_extern</field>
+      <field name="model_id" ref="base.model_res_partner"/>
+      <field name="domain_force">['|','|',('id','=',user.partner_id.id),('user_id','=',user.id),('section_id.member_ids','in',user.id)]</field>
+      <field name="groups" eval="[(4,ref('group_sale_extern'))]"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_write" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_unlink" eval="True"/>
+    </record>
+    
+    <record id="rule_res_partner_company_sale_extern" model="ir.rule">
+      <field name="name">res_partner/sale_extern</field>
+      <field name="model_id" ref="base.model_res_partner"/>
+      <field name="domain_force">['|',('id','child_of',user.company_id.partner_id.id),('id','=',user.partner_id.parent_id.id)]</field>
+      <field name="groups" eval="[(4,ref('group_sale_extern'))]"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_write" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_unlink" eval="False"/>
+    </record>
+
+
+    <!-- PRODUCT -->
+    
+    <record id="access_product_product_sale_extern" model="ir.model.access">
+      <field name="name">product_product/sale_extern</field>
+      <field name="model_id" ref="product.model_product_product"/>
+      <field name="group_id" ref="group_sale_extern"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_write" eval="False"/>
+    </record>
+
+    <record id="rule_product_product_sale_extern" model="ir.rule">
+      <field name="name">product_product/sale_extern</field>
+      <field name="model_id" ref="product.model_product_product"/>
+      <field name="domain_force">[('categ_id','child_of',[c.id for c in user.shop_id.product_category_ids])]</field>
+      <field name="groups" eval="[(4,ref('group_sale_extern'))]"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_write" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="access_product_template_sale_extern" model="ir.model.access">
+      <field name="name">product_template/sale_extern</field>
+      <field name="model_id" ref="product.model_product_template"/>
+      <field name="group_id" ref="group_sale_extern"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_write" eval="False"/>
+    </record>
+
+    <record id="rule_product_template_sale_extern" model="ir.rule">
+      <field name="name">product_template/sale_extern</field>
+      <field name="model_id" ref="product.model_product_template"/>
+      <field name="domain_force">[('categ_id','child_of',[c.id for c in user.shop_id.product_category_ids])]</field>
+      <field name="groups" eval="[(4,ref('group_sale_extern'))]"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_write" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_unlink" eval="False"/>
+    </record>
+    
+    <record id="access_product_uom_sale_extern" model="ir.model.access">
+      <field name="name">product_uom/sale_extern</field>
+      <field name="model_id" ref="product.model_product_uom"/>
+      <field name="group_id" ref="group_sale_extern"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_write" eval="False"/>
+    </record>
+
+    <record id="access_product_pricelist_version_sale_extern" model="ir.model.access">
+      <field name="name">product_pricelist_version/sale_extern</field>
+      <field name="model_id" ref="product.model_product_pricelist_version"/>
+      <field name="group_id" ref="group_sale_extern"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_write" eval="False"/>
+    </record>
+
+    <record id="access_product_pricelist_item_sale_extern" model="ir.model.access">
+      <field name="name">product_pricelist_item/sale_extern</field>
+      <field name="model_id" ref="product.model_product_pricelist_item"/>
+      <field name="group_id" ref="group_sale_extern"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_write" eval="False"/>
+    </record>
+    
+    <record id="access_product_pricelist_type_sale_extern" model="ir.model.access">
+      <field name="name">product_pricelist_type/sale_extern</field>
+      <field name="model_id" ref="product.model_product_pricelist_type"/>
+      <field name="group_id" ref="group_sale_extern"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_write" eval="False"/>
+    </record>
+    
+    <record id="access_product_price_type_sale_extern" model="ir.model.access">
+      <field name="name">product_price_type/sale_extern</field>
+      <field name="model_id" ref="product.model_product_price_type"/>
+      <field name="group_id" ref="group_sale_extern"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_write" eval="False"/>
+    </record>
+
+    <record id="access_stock_quant_sale_extern" model="ir.model.access">
+      <field name="name">stock_quant/sale_extern</field>
+      <field name="model_id" ref="stock.model_stock_quant"/>
+      <field name="group_id" ref="group_sale_extern"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_write" eval="False"/>
+    </record>
+
+    <record id="access_product_supplierinfo_sale_extern" model="ir.model.access">
+      <field name="name">product_supplierinfo/sale_extern</field>
+      <field name="model_id" ref="product.model_product_supplierinfo"/>
+      <field name="group_id" ref="group_sale_extern"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_write" eval="False"/>
+    </record>
+
+    <record id="access_product_packaging_sale_extern" model="ir.model.access">
+      <field name="name">product_packaging/sale_extern</field>
+      <field name="model_id" ref="product.model_product_packaging"/>
+      <field name="group_id" ref="group_sale_extern"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_write" eval="False"/>
+    </record>
+    
+    <record id="access_delivery_grid_sale_extern" model="ir.model.access">
+      <field name="name">delivery_grid/sale_extern</field>
+      <field name="model_id" ref="delivery.model_delivery_grid"/>
+      <field name="group_id" ref="group_sale_extern"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_write" eval="False"/>
+    </record>
+
+    
+    <!-- OTHER -->
+  
+    <record id="access_mail_alias_sale_extern" model="ir.model.access">
+      <field name="name">mail_alias/sale_extern</field>
+      <field name="model_id" ref="mail.model_mail_alias"/>
+      <field name="group_id" ref="group_sale_extern"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_write" eval="True"/>
+    </record>
+    
+  </data>
+</openerp>

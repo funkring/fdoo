@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+ <data>
+ 
+    <record id="portal_project.open_view_project"  model="ir.actions.act_window">
+        <field name="domain">[("state","!=","template")]</field>
+    </record>
+        
+  </data>
+</openerp>

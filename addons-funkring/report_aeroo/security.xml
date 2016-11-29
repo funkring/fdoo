@@ -1,19 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
-	<data>
-		<record id="access_report_mimetype" model="ir.model.access">
+    <data>
+        
+        <record id="access_report_stylesheets_system" model="ir.model.access">
+          <field name="name">report_stylesheets/system</field>
+          <field name="model_id" ref="model_report_stylesheets"/>
+          <field name="group_id" ref="base.group_system"/>
+          <field name="perm_read" eval="True"/>
+          <field name="perm_unlink" eval="True"/>
+          <field name="perm_create" eval="True"/>
+          <field name="perm_write" eval="True"/>
+        </record>
+
+        <record id="access_stylesheets_user" model="ir.model.access">
+          <field name="name">stylesheets/user</field>
+          <field name="model_id" ref="model_report_stylesheets"/>
+          <field name="group_id" ref="base.group_user"/>
+          <field name="perm_read" eval="True"/>
+          <field name="perm_unlink" eval="False"/>
+          <field name="perm_create" eval="False"/>
+          <field name="perm_write" eval="False"/>
+        </record>
+
+        <record id="access_mimetypes_system" model="ir.model.access">
+          <field name="name">mimetypes/system</field>
+          <field name="model_id" ref="model_report_mimetypes"/>
+          <field name="group_id" ref="base.group_system"/>
+          <field name="perm_read" eval="True"/>
+          <field name="perm_unlink" eval="True"/>
+          <field name="perm_create" eval="True"/>
+          <field name="perm_write" eval="True"/>
+        </record>
+
+        <record id="access_mimetypes_user" model="ir.model.access">
+          <field name="name">mimetypes/user</field>
+          <field name="model_id" ref="model_report_mimetypes"/>
+          <field name="group_id" ref="base.group_user"/>
+          <field name="perm_read" eval="True"/>
+          <field name="perm_unlink" eval="False"/>
+          <field name="perm_create" eval="False"/>
+          <field name="perm_write" eval="False"/>
+        </record>
+
+		<record id="rule_report_mimetype_user" model="ir.model.access">
 			<field name="name">report_mimetype_user</field>
 			<field name="model_id" search="[('model','=','report.mimetypes')]"/>
 			<field name="group_id" ref="base.group_user"/>
 			<field name="perm_read" eval="True"/>			
 		</record>
 		
-		<record id="access_report_stylesheet" model="ir.model.access">
+        <record id="rule_report_mimetype_portal" model="ir.model.access">
+            <field name="name">report_mimetype_user</field>
+            <field name="model_id" search="[('model','=','report.mimetypes')]"/>
+            <field name="group_id" ref="base.group_portal"/>
+            <field name="perm_read" eval="True"/>           
+        </record>
+		
+		<record id="rule_report_stylesheet_user" model="ir.model.access">
 			<field name="name">report_stylesheets_user</field>
 			<field name="model_id" search="[('model','=','report.stylesheets')]"/>
 			<field name="group_id" ref="base.group_user"/>
 			<field name="perm_read" eval="True"/>			
 		</record>
+		
+		<record id="rule_report_stylesheet_portal" model="ir.model.access">
+            <field name="name">report_stylesheets_user</field>
+            <field name="model_id" search="[('model','=','report.stylesheets')]"/>
+            <field name="group_id" ref="base.group_portal"/>
+            <field name="perm_read" eval="True"/>           
+        </record>
 		
 	</data>
 </openerp>

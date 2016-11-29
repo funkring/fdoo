@@ -4,37 +4,60 @@
         <record id="access_sale_shop_user" model="ir.model.access">
             <field name="name">sale_shop/user</field>
             <field name="model_id" ref="model_sale_shop"/>
-            <field eval="True" name="perm_read"/>
-            <field eval="False" name="perm_unlink"/>
-            <field eval="False" name="perm_create"/>
-            <field eval="False" name="perm_write"/>
+            <field name="perm_read"  eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_write" eval="False"/>
         </record>
+        
+        <record id="access_sale_shop_portal" model="ir.model.access">
+          <field name="name">sale_shop/portal</field>
+          <field name="model_id" ref="model_sale_shop"/>
+          <field name="group_id" ref="base.group_portal"/>
+          <field name="perm_read" eval="True"/>
+          <field name="perm_unlink" eval="False"/>
+          <field name="perm_create" eval="False"/>
+          <field name="perm_write" eval="False"/>
+        </record>
+        
         <record id="access_sale_shop_sale_manager" model="ir.model.access">
             <field name="name">sale_shop/sale_manager</field>
             <field name="model_id" ref="model_sale_shop"/>
             <field name="group_id" ref="base.group_sale_manager"/>
-            <field eval="True" name="perm_read"/>
-            <field eval="True" name="perm_unlink"/>
-            <field eval="True" name="perm_create"/>
-            <field eval="True" name="perm_write"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_write" eval="True"/>
         </record>
+     
         <record id="access_sale_shop_report_user" model="ir.model.access">
             <field name="name">sale_shop_report/user</field>
             <field name="model_id" ref="model_sale_shop_report"/>
             <field name="group_id" ref="base.group_user"/>
-            <field eval="True" name="perm_read"/>
-            <field eval="False" name="perm_unlink"/>
-            <field eval="False" name="perm_create"/>
-            <field eval="False" name="perm_write"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_unlink" eval="False" />
+            <field name="perm_create" eval="False"/>
+            <field name="perm_write" eval="False"/>
         </record>
+        
+        <record id="access_sale_shop_report_portal" model="ir.model.access">
+          <field name="name">sale_shop_report/portal</field>
+          <field name="model_id" ref="model_sale_shop_report"/>
+          <field name="group_id" ref="base.group_portal"/>
+          <field name="perm_read" eval="True"/>
+          <field name="perm_unlink" eval="False"/>
+          <field name="perm_create" eval="False"/>
+          <field name="perm_write" eval="False"/>
+        </record>
+        
         <record id="access_sale_shop_report_manager" model="ir.model.access">
             <field name="name">sale_shop_report/manager</field>
             <field name="model_id" ref="model_sale_shop_report"/>
             <field name="group_id" ref="base.group_sale_manager"/>
-            <field eval="True" name="perm_read"/>
-            <field eval="True" name="perm_unlink"/>
-            <field eval="True" name="perm_create"/>
-            <field eval="True" name="perm_write"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_write" eval="True"/>
         </record>       
     </data>
 </openerp>

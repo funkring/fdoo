@@ -1,0 +1,28 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* portal_shop
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Language: de_DE\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-11-29 04:06+0000\n"
+"PO-Revision-Date: 2016-11-29 05:06+0100\n"
+"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.4\n"
+
+#. module: portal_shop
+#: model:res.groups,name:portal_shop.group_sale_extern
+msgid "Extern Salesman"
+msgstr "Externer Verkäufer"
+
+#. module: portal_shop
+#: model:res.groups,comment:portal_shop.group_sale_extern
+msgid "Extern salesman which is not an employee"
+msgstr "Externer Verkäufer welcher kein Mitarbeiter ist"

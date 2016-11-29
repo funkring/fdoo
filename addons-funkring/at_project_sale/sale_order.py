@@ -170,7 +170,7 @@ class sale_order(osv.osv):
                 if not analytic_id:
                     # create new or copy from template
                     project_vals["user_id"] = uid
-                    if shop.project_template_id:
+                    if shop.project_template_id:                        
                         proj_id = proj_obj.copy(cr, uid, template_id, project_vals, project_context)
                     else:
                         proj_id = proj_obj.create(cr, uid, project_vals, project_context)

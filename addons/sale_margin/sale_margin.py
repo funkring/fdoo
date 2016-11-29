@@ -20,6 +20,9 @@
 
 from openerp.osv import fields, osv
 import openerp.addons.decimal_precision as dp
+# funkring.net - begin
+from openerp import SUPERUSER_ID
+# funkring.net - end
 
 class sale_order_line(osv.osv):
     _inherit = "sale.order.line"
@@ -37,7 +40,9 @@ class sale_order_line(osv.osv):
         frm_cur = self.pool.get('res.users').browse(cr, uid, uid).company_id.currency_id.id
         to_cur = self.pool.get('product.pricelist').browse(cr, uid, [pricelist])[0].currency_id.id
         if product:
-            product = self.pool['product.product'].browse(cr, uid, product, context=context)
+            # funkring.net - begin
+            product = self.pool['product.product'].browse(cr, SUPERUSER_ID, product, context=context)
+            # funkrnig.net - end
             purchase_price = product.standard_price
             to_uom = res.get('product_uom', uom)
             if to_uom != product.uom_id.id:

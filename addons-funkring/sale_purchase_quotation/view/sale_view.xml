@@ -8,9 +8,9 @@
          <field name="inherit_id" ref="sale.view_order_form" />
          <field name="arch" type="xml">
             <data>
-                <xpath expr="/form/sheet/notebook/page[@string='Order Lines']/field[@name='order_line']/tree" position="attributes">
+                <!-- xpath expr="/form/sheet/notebook/page[@string='Order Lines']/field[@name='order_line']/tree" position="attributes">
                    <attribute name="editable" />
-                </xpath>
+                </xpath -->
                 
                 <xpath expr="//field[@name='order_line']/form//field[@name='purchase_price']" position="replace">
                     <field name="quotation_active" invisible="1" />
@@ -24,7 +24,7 @@
                 </xpath>
 
                 <xpath expr="//notebook/page/field/form[@string='Sales Order Lines']/field[@name='name']" position="after">
-                    <div>
+                    <div groups="base.group_user">
                         <label for="quotation_ids"/>                        
                         <field name="quotation_ids" invisible="1" />
                         <widget type="purchase_quotation" attrs="{'readonly': [('state', '!=', 'draft')]}">
