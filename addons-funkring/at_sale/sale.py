@@ -243,7 +243,7 @@ class sale_order(osv.osv):
 
     _inherit = "sale.order"
     _columns = {
-        "shop_id" : fields.many2one("sale.shop", "Shop", type="many2one", required=True, readonly=True, states={'draft': [('readonly', False)]}),
+        "shop_id" : fields.many2one("sale.shop", "Shop", type="many2one", select=True, required=True, readonly=True, states={'draft': [('readonly', False)]}),
         "last_invoice_id" : fields.function(_last_invoice, string="Last Invoice", readonly=True, type='many2one', relation="account.invoice")
     }
     _defaults = {
