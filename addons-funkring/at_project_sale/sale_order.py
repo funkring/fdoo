@@ -361,7 +361,13 @@ class sale_order_line(osv.osv):
                 # check work 
                 for work in task.work_ids:
                     if work.hours:
-                        hours+=work.hours
+                        # round to quarter and add
+                        work_minutes = round(work.hours * 60)
+                        work_minutes_rest = work_minutes % 15
+                        if work_minutes_rest:
+                            work_minutes = work_minutes + (15 - work_minutes_rest)                        
+                        hours+=float(work_minutes) / 60.0
+                                                
                         work_line = []
                         
                         # append date
