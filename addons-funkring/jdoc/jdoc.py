@@ -535,7 +535,10 @@ class jdoc_jdoc(osv.AbstractModel):
                     if resolved_change and resolved_change["seq"] == change["seq"]:
                         continue
                 
-                put_change(change,uuid2id_resolver=get_dependency)
+                try:
+                    put_change(change,uuid2id_resolver=get_dependency)
+                except AccessError as e:
+                    _logger.warning("Access Denied for write %s" % simplejson.dumps(doc))
 
                 
             if actions:
@@ -1083,7 +1086,7 @@ class jdoc_jdoc(osv.AbstractModel):
                             obj_id = model_obj.create(cr, uid, values, context=context)
                 except Exception as e:
                     if isinstance(e, AccessError):
-                        _logger.warning("Access Denied for write %s/%s" % (model, uuid))
+                        _logger.warning("Access Denied for write %s/%s: %s" % (model, uuid, simplejson.dumps(values)))
                     else:
                         _logger.exception(e);
                                                 
