@@ -28,8 +28,19 @@ class hr_employee(osv.osv):
     def _get_contract(self, cr, uid, employee_id, date_from=None, date_to=None, context=None):
         if not date_from:
             date_from = util.currentDate()
+        if not date_to:
+            date_to = date_from
+
         contract_obj = self.pool["hr.contract"]
-        contract_ids = contract_obj.search(cr, uid, [("employee_id","=",employee_id),'|',("date_start","<=",date_from),("date_start","=",False),'|',("date_start","<=",date_to),("date_start","=",False)], order="date_start desc", context=context)
+        
+        # fetch contracts
+        cr.execute("SELECT c.id FROM hr_contract c"
+                   " WHERE c.employee_id = %s "
+                   "   AND (c.date_start IS NULL OR (c.date_start <= %s AND (c.date_end IS NULL OR c.date_end >= %s) OR (c.date_start <= %s AND c.date_start >= %s)) )"
+                   " ORDER BY c.date_start DESC ",
+                   (employee_id, date_from, date_from, date_to, date_from))
+
+        contract_ids = [r[0] for r in cr.fetchall()]
         
         # return if not found
         if not contract_ids:
@@ -44,11 +55,11 @@ class hr_employee(osv.osv):
             # validate range
             if date_from < contract.date_start:
                 date_from = contract.date_start
-            if contract.date_end and date_to and contract.date_end < date_to:
+            if contract.date_end and contract.date_end < date_to:
                 date_to = contract.date_end
             
             # check date_to
-            if date_to and date_to < date_from:
+            if date_to < date_from:
                 continue 
             
             return {

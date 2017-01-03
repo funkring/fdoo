@@ -313,11 +313,10 @@ class hr_timesheet_sheet(osv.osv):
         return res
 
     def _total_target(self,cr,uid,ids,name,arg,context=None):
-        res = {}
+        res = dict.fromkeys(ids,0.0)
         working_hour_obj = self.pool.get("resource.calendar")
         employee_obj = self.pool.get("hr.employee")
         for sheet in self.browse(cr, uid, ids, context):
-            res[sheet.id] = 0.0
             contract = employee_obj._get_contract(cr, uid, sheet.employee_id.id, date_from=sheet.date_from, date_to=sheet.date_to, context=context)
             if contract:
                 res[sheet.id] = working_hour_obj.interval_hours_without_leaves(cr,uid,contract["working_hours"].id,
@@ -327,11 +326,10 @@ class hr_timesheet_sheet(osv.osv):
         return res
 
     def _total_current_target(self,cr,uid,ids,field_name,arg,context=None):
-        res = {}
+        res = dict.fromkeys(ids,0.0)
         working_hour_obj = self.pool.get("resource.calendar")
         employee_obj = self.pool.get("hr.employee")
         for sheet in self.browse(cr, uid, ids, context):
-            res[sheet.id] = 0.0
             contract = employee_obj._get_contract(cr, uid, sheet.employee_id.id, date_from=sheet.date_from, date_to=sheet.date_to, context=context)
             if contract:
                 sheet_now = datetime.now()
@@ -351,22 +349,17 @@ class hr_timesheet_sheet(osv.osv):
         return res
 
     def _current_saldo(self, cr, uid, ids, field_name, arg, context=None):
-        res = {}
-
-        total_sums = super(hr_timesheet_sheet,self)._total(cr,uid,ids,field_name,arg,context)
-        total_current_targets = self._total_current_target(cr, uid, ids, field_name, arg, context)
-
+        res = dict.fromkeys(ids, 0.0)
         for sheet in self.browse(cr, uid, ids, context):
             if sheet.state == "new" or sheet.state == "draft":
-                saldo =  sheet.saldo_correction + (total_sums[sheet.id]['total_attendance']-total_current_targets[sheet.id])
+                saldo =  sheet.saldo_correction + (sheet.total_attendance-sheet.total_target)
                 # add previous sheet saldo
-                prev_ids = self.search(cr, 1, ['&',('employee_id','=',sheet.employee_id.id),('date_to','<=',sheet.date_from)],limit=1,order='date_from desc')
+                prev_ids = self.search(cr, 1, [('employee_id','=',sheet.employee_id.id),('date_to','<=',sheet.date_from)],limit=1,order='date_from desc')
                 if prev_ids:
                     prev_sheet = self.read(cr, uid, prev_ids[0], ["current_saldo"])
                     saldo = saldo + prev_sheet["current_saldo"]
 
                 res[sheet.id] = saldo
-
             else:
                 res[sheet.id] = sheet.saldo
 
@@ -377,7 +370,7 @@ class hr_timesheet_sheet(osv.osv):
         for sheet in self.browse(cr, uid, ids, context):
             res[sheet.id] = 0.0
             # add previous sheet saldo
-            prev_ids = self.search(cr, 1, ['&',('employee_id','=',sheet.employee_id.id),('date_to','<=',sheet.date_from)],limit=1,order='date_from desc')
+            prev_ids = self.search(cr, 1, [('employee_id','=',sheet.employee_id.id),('date_to','<=',sheet.date_from)],limit=1,order='date_from desc')
             if prev_ids:
                 prev_sheet = self.browse(cr, uid, prev_ids[0], context)
                 res[sheet.id] = prev_sheet.current_saldo
