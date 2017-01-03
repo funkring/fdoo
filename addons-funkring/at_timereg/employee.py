@@ -25,14 +25,40 @@ import time
 
 class hr_employee(osv.osv):   
     
-    def _get_working_hours(self, cr, uid, ids, field_name, arg, context=None):
-        res = dict.fromkeys(ids)
-        for obj in self.browse(cr, uid, ids, context):
-            contract = obj.contract_id
-            if contract:
-                res[obj.id]=contract.working_hours
-        return res
+    def _get_contract(self, cr, uid, employee_id, date_from=None, date_to=None, context=None):
+        if not date_from:
+            date_from = util.currentDate()
+        contract_obj = self.pool["hr.contract"]
+        contract_ids = contract_obj.search(cr, uid, [("employee_id","=",employee_id),'|',("date_start","<=",date_from),("date_start","=",False),'|',("date_start","<=",date_to),("date_start","=",False)], order="date_start desc", context=context)
         
+        # return if not found
+        if not contract_ids:
+            return None
+        
+        # validate range
+        for contract in contract_obj.browse(cr, uid, contract_ids, context=context):
+            # check working_hours            
+            if not contract.working_hours:
+                continue
+            
+            # validate range
+            if date_from < contract.date_start:
+                date_from = contract.date_start
+            if contract.date_end and date_to and contract.date_end < date_to:
+                date_to = contract.date_end
+            
+            # check date_to
+            if date_to and date_to < date_from:
+                continue 
+            
+            return {
+                "contract" : contract,
+                "working_hours" : contract.working_hours,
+                "date_from" : date_from,
+                "date_to" : date_to
+            }
+        return None 
+    
     def attendance_action_change(self, cr, uid, ids, context=None):
         if not context:
             context = {}
@@ -87,6 +113,3 @@ class hr_employee(osv.osv):
         
         
     _inherit = "hr.employee"    
-    _columns = {
-        "working_hours": fields.function(_get_working_hours,string="Working Hours",type="many2one", relation="resource.calendar",help="Working Hours of the employee" )
-    }

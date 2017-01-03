@@ -27,11 +27,12 @@ import json
 
 #http://devkit1:8069/rest/object/funkring/res.users/execute?funct=%27whoami%27
 class Execute(object):
-    def __init__(self,proxy,name):
+    
+    def __init__(self, proxy, name):
         self.name=name
         self.proxy=proxy
 
-    def execute(self,*args,**kwargs):
+    def execute(self, *args, **kwargs):
         res_str = None
         #do get if no params
         if not args and not kwargs:            
@@ -63,13 +64,30 @@ class Execute(object):
 
 
 class RPCProxyOne(object):
-    def __init__(self, url, database, user, password, obj):
-        self.database=database
-        self.url=url
-        auth = BasicAuth(user,password)        
-        self.resource=Resource("%s/rest/object/%s/%s" % (url,database,obj),filters=[auth],basic_auth_url=True)
+    def __init__(self, con, obj):
+        self.con = con
+        auth = BasicAuth(self.con.user, self.con.password)        
+        self.resource = Resource("%s/rest/object/%s/%s" % (self.con.url, self.con.database, obj), filters=[auth], basic_auth_url=True)
+    
     def __getattr__(self, name):
         return lambda *args, **kwargs: Execute(self,name).execute(*args, **kwargs)
+    
+    def search_read(self, domain=None, fields=None, offset=0, limit=None, order=None, context=None):
+        """
+        A shortcut method to combine a search() and a read().
+
+        :param domain: The domain for the search.
+        :param fields: The fields to extract (can be None or [] to extract all fields).
+        :param offset: The offset for the rows to read.
+        :param limit: The maximum number of rows to read.
+        :param order: The order to class the rows.
+        :param context: The context.
+        :return: A list of dictionaries containing all the specified fields.
+        """
+        record_ids = self.search(domain or [], offset, limit or False, order or False, context or {})
+        if not record_ids: return []
+        records = self.read(record_ids, fields or [], context or {})
+        return records
 
 
 class RPCProxy(object):
@@ -78,13 +96,26 @@ class RPCProxy(object):
         self.password=password
         self.url=url
         self.user=user
+        self.user_context = None
+                
+    def get_model(self, obj):
+        return RPCProxyOne(self, obj)
+    
     def get(self, obj):
-        return RPCProxyOne(self.url, self.database, self.user, self.password, obj)
+        return self.get_model(obj)    
+    
+    def get_user_context(self):
+        """
+        Query the default context of the user.
+        """
+        if not self.user_context:
+            self.user_context = self.get_model('res.users').context_get()
+        return self.user_context
     
 
 if __name__ == '__main__':
     proxy = RPCProxy("http://localhost:8069","inred","admin","**")
-    proxy_category_obj = proxy.get("product.category")
+    proxy_category_obj = proxy.get_model("product.category")
     ids = proxy_category_obj.search([])    
     res = proxy_category_obj.name_get(ids)
     print str(res)

@@ -50,7 +50,7 @@ class resource_calendar(osv.osv):
         resource_cal_leaves = self.pool.get('resource.calendar.leaves')
         dt_leave = []
 
-        query = "SELECT id FROM resource_calendar_leaves AS l WHERE l.calendar_id=%s " % (str(oid),)
+        query = "SELECT id FROM resource_calendar_leaves AS l WHERE ( l.calendar_id IS NULL OR calendar_id=%s )" % (str(oid),)        
         if resource_id:
             query += " AND ( l.resource_id IS NULL OR l.resource_id = %s )" % (str(resource_id),)
         else:

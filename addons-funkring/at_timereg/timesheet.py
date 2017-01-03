@@ -36,15 +36,16 @@ class hr_timesheet_sheet_sheet_day(osv.osv):
     def _total_target(self, cr, uid, ids, field_name, arg, context=None):
         res = dict.fromkeys(ids,0.0)
         working_hour_obj = self.pool.get("resource.calendar")
+        employee_obj = self.pool.get("hr.employee")
         for daily_sheet in self.browse(cr, uid, ids, context):
             sheet = daily_sheet.sheet_id
-            working_hours = sheet.employee_id.working_hours
-            if working_hours:
-                date_from = util.strToDate(daily_sheet.name)
-                date_to = util.getLastTimeOfDay(date_from)
-                res[sheet.id] = working_hour_obj.interval_hours_without_leaves(cr,uid,working_hours.id,
-                                                                        date_from,
-                                                                        date_to,
+            date_from = daily_sheet.name
+            date_to = util.dateToStr(util.getLastTimeOfDay(util.strToDate(date_from)))
+            contract = employee_obj._get_contract(cr, uid, sheet.employee_id.id, date_from=date_from, date_to=date_to, context=context)
+            if contract:               
+                res[sheet.id] = working_hour_obj.interval_hours_without_leaves(cr,uid,contract["working_hours"],
+                                                                        util.strToDate(contract["date_from"]),
+                                                                        util.strtoDate(contract["date_to"]),
                                                                         sheet.employee_id.resource_id.id)
         return res
 
@@ -254,22 +255,25 @@ class hr_timesheet_sheet(osv.osv):
     def get_timesheet_data(self, cr, uid, oid, context=None):
         days = super(hr_timesheet_sheet,self).get_timesheet_data(cr, uid, oid, context=context)
         working_hour_obj = self.pool.get("resource.calendar")
+        employee_obj = self.pool.get("hr.employee")
         sheet = self.browse(cr, uid, oid, context)
         for key,value in days.items():
-            working_hours = sheet.employee_id.working_hours
-            if working_hours:
-                value["total_target"]=working_hour_obj.interval_hours_without_leaves(cr,uid,working_hours.id,
-                                                                    util.strToDate(key),
-                                                                    util.strToDate(key),
+            contract = employee_obj._get_contract(cr, uid, sheet.employee_id.id, date_from=key, date_to=key, context=context)
+            if contract:
+                dt = util.strToDate(key)
+                value["total_target"]=working_hour_obj.interval_hours_without_leaves(cr, uid, contract["working_hours"].id,
+                                                                    dt,
+                                                                    dt,
                                                                     sheet.employee_id.resource_id.id) or 0.0
                 value["total_saldo"]=(value.get("total_attendance_day") or 0.0)-value["total_target"]
         return days
 
     def get_leaves(self, cr, uid, sid, context=None):
-        res = {}
+        res = {}        
         sheet = self.browse(cr, uid, sid, context)
-        working_hours = sheet.employee_id.working_hours
-        if working_hours:
+        employee_obj = self.pool.get("hr.employee")
+        contract = employee_obj._get_contract(cr, uid, sheet.employee_id.id, date_from=sheet.date_from, date_to=sheet.date_to, context=context)
+        if contract:
             cr.execute( "SELECT id, name, date_from, date_to FROM resource_calendar_leaves "
                         " WHERE resource_id = %s OR resource_id IS NULL "
                         "  AND  (    (date_from >= %s AND date_from <= %s) "
@@ -311,36 +315,38 @@ class hr_timesheet_sheet(osv.osv):
     def _total_target(self,cr,uid,ids,name,arg,context=None):
         res = {}
         working_hour_obj = self.pool.get("resource.calendar")
+        employee_obj = self.pool.get("hr.employee")
         for sheet in self.browse(cr, uid, ids, context):
             res[sheet.id] = 0.0
-            working_hours = sheet.employee_id.working_hours
-            if working_hours:
-                res[sheet.id] = working_hour_obj.interval_hours_without_leaves(cr,uid,working_hours.id,
-                                                                    util.strToDate(sheet.date_from),
-                                                                    util.strToDate(sheet.date_to),
+            contract = employee_obj._get_contract(cr, uid, sheet.employee_id.id, date_from=sheet.date_from, date_to=sheet.date_to, context=context)
+            if contract:
+                res[sheet.id] = working_hour_obj.interval_hours_without_leaves(cr,uid,contract["working_hours"].id,
+                                                                    util.strToDate(contract["date_from"]),
+                                                                    util.strToDate(contract["date_to"]),
                                                                     sheet.employee_id.resource_id.id)
         return res
 
     def _total_current_target(self,cr,uid,ids,field_name,arg,context=None):
         res = {}
         working_hour_obj = self.pool.get("resource.calendar")
+        employee_obj = self.pool.get("hr.employee")
         for sheet in self.browse(cr, uid, ids, context):
             res[sheet.id] = 0.0
-            working_hours = sheet.employee_id.working_hours
-            if working_hours:
+            contract = employee_obj._get_contract(cr, uid, sheet.employee_id.id, date_from=sheet.date_from, date_to=sheet.date_to, context=context)
+            if contract:
                 sheet_now = datetime.now()
                 sheet_from = util.strToDate(sheet.date_from)
                 sheet_to = util.strToDate(sheet.date_to)
 
                 if sheet_to.date() < sheet_now.date() or not sheet_from.date() < sheet_now.date():
-                    res[sheet.id] = working_hour_obj.interval_hours_without_leaves(cr,uid,working_hours.id,
-                                                                        sheet_from,
-                                                                        sheet_to,
+                    res[sheet.id] = working_hour_obj.interval_hours_without_leaves(cr, uid, contract["working_hours"].id,
+                                                                        util.strToDate(contract["date_from"]),
+                                                                        util.strToDate(contract["date_to"]),
                                                                         sheet.employee_id.resource_id.id)
                 else:
-                    res[sheet.id] = working_hour_obj.interval_hours_without_leaves(cr,uid,working_hours.id,
-                                                                        sheet_from,
-                                                                        sheet_now,
+                    res[sheet.id] = working_hour_obj.interval_hours_without_leaves(cr, uid, contract["working_hours"].id,
+                                                                        util.strToDate(contract["date_from"]),
+                                                                        util.strToDate(contract["date_to"]),
                                                                         sheet.employee_id.resource_id.id)
         return res
 

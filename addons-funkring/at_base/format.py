@@ -31,7 +31,7 @@ import openerp.tools
 class LangFormat(object):
     
     """ A simple lang format class """
-    def __init__(self, cr, uid, context=None, dp=None, obj=None, f=None):
+    def __init__(self, cr, uid, context=None, dp=None, obj=None, f=None, dt=None, tz=None):
         if not context:
             context={}
             
@@ -41,8 +41,11 @@ class LangFormat(object):
         self.lang = context.get("lang",None)
         self.user = self.pool.get('res.users').browse(cr, uid, uid, context=context)
         self.dp = dp
+        self.dt = dt
+        self.tz = context.get("tz") or tz
         self.obj = obj
         self.f = f
+        self.evalContext = None
         
         if not self.lang:
             self.lang = self.user.company_id.partner_id.lang or openerp.tools.config.defaultLang
@@ -111,6 +114,22 @@ class LangFormat(object):
         float_time = '%02d:%02d' % (hours,mins)
         return float_time
     
+    def evalStr(self, value):
+        if self.evalContext is None:
+            t = self.dt and util.strToTime(self.dt) or datetime.now()
+            t = datetime_field.context_timestamp(self.cr, self.uid,
+                                                        timestamp=t,
+                                                        context={"tz":self.tz})
+            sequences = {
+                'year': '%Y', 'month': '%m', 'day': '%d', 'y': '%y', 'doy': '%j', 'woy': '%W',
+                'weekday': '%w', 'h24': '%H', 'h12': '%I', 'min': '%M', 'sec': '%S'
+            }
+            self.evalContext = {key: t.strftime(sequence) for key, sequence in sequences.iteritems()}
+        
+        if value:
+            return value % self.evalContext
+
+        return value
     
     def formatLang(self, value, digits=None, date=False, date_time=False, grouping=True, monetary=False, dp=False, float_time=False):
         """
@@ -155,7 +174,7 @@ class LangFormat(object):
                 # Convert datetime values to the expected client/context timezone
                 date = datetime_field.context_timestamp(self.cr, self.uid,
                                                         timestamp=date,
-                                                        context=self.localcontext)
+                                                        context={"tz":self.tz})
                 
             return date.strftime(date_format)
         elif float_time:
@@ -165,35 +184,4 @@ class LangFormat(object):
             lang_dict['lang_obj'].format('%f', value, grouping=grouping, monetary=monetary)
         
         return lang_dict['lang_obj'].format('%.' + str(digits) + 'f', value, grouping=grouping, monetary=monetary)
-
     
-#     def parseLang(self, value, digits=None, date=False, date_time=False, grouping=True, monetary=False, dp=False, float_time=False):
-#         lang_dict = self._get_lang_dict()        
-#         if date or date_time:
-#             if not str(value):
-#                 return ''
-# 
-#             parse_format = lang_dict['date_format']
-#             if date_time:                
-#                 parse_format = date_format + " " + lang_dict['time_format']
-#             
-#             if date_time:
-#                 # Convert datetime values to the expected client/context timezone
-#                 date = datetime_field.context_timestamp(self.cr, self.uid,
-#                                                         timestamp=date,
-#                                                         context=self.localcontext)
-#                 
-#             dt_val = date.strptime(parse_format, value)
-#             if not dt_val:
-#                 return None
-#             elif date_time:              
-#                 local_value = datetime_field.context_timestamp(self.cr, self.uid,
-#                                               timestamp=util.timeToStr(dt_val),
-#                                               context=self.localcontext)  
-#                 return local_value
-#             else:
-#                 
-#                 
-#         
-#         return value
-        

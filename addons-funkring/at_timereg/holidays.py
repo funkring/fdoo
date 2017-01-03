@@ -84,22 +84,28 @@ class hr_holidays(osv.osv):
         """ Add Resource Leaves """
         if super(hr_holidays,self).holidays_validate(cr, uid, ids, context=context):
             data_holiday = self.browse(cr, uid, ids,context=context)
+            employee_obj = self.pool.get("hr.employee")
             obj_res_leave = self.pool.get('resource.calendar.leaves')
             for record in data_holiday:
-                working_hours = record.employee_id.working_hours
-                if working_hours:
-                    if record.holiday_type == 'employee' and record.type == 'remove':
+                # only holidays from employees                
+                if record.holiday_type == 'employee' and record.type == 'remove':
+                    # get holiday date
+                    date_from = helper.strToLocalDateStr(cr, uid, record.date_from, context)
+                    date_to = util.getLastTimeOfDay(util.strToDate(helper.strToLocalDateStr(cr, uid, record.date_to, context)))
+                    # get contract
+                    contract = employee_obj._get_contract(cr, uid, record.employee_id.id, date_from=date_from, date_to=date_to, context=context)
+                    if contract:
                         vals = {
                            'name' : record.name,
-                           'calendar_id' : working_hours.id,
+                           'calendar_id' : contract["working_hours"].id,
                            'resource_id' : record.employee_id.resource_id.id,
-                           'date_from' : helper.strToLocalDateStr(cr, uid, record.date_from, context),
-                           'date_to' : util.getLastTimeOfDay(util.strToDate(helper.strToLocalDateStr(cr, uid, record.date_to, context))),
+                           'date_from' : date_from,
+                           'date_to' : date_to,
                            'holiday_id': record.id
                         }
                         leave_id = obj_res_leave.create(cr,uid,vals)
                         self.write(cr, uid, ids, {'leave_id': leave_id})
-            return True
+            return True        
         return False
 
     def holidays_cancel(self, cr, uid, ids, context=None):

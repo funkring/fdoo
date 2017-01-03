@@ -221,16 +221,6 @@ def getPrevDayDate(inDate):
     day -= relativedelta(days=1)
     return dateToStr(day)
 
-#def getEndOfDayDate(inDate):
-#    day =  date(inDate.year,inDate.month,inDate.day);
-#    day += relativedelta(days=1)
-#    return day
-#
-#def getEndOfDayDateTime(inDate):
-#    day =  datetime(inDate.year,inDate.month,inDate.day);
-#    day += relativedelta(days=1)
-#    return day
-
 def getLastTimeOfDay(inDate):
     day =  datetime(inDate.year,inDate.month,inDate.day);
     day += relativedelta(days=1)

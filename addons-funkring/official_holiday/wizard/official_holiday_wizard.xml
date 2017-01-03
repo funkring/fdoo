@@ -6,21 +6,14 @@
 			<field name="arch" type="xml">
 				<form string="Create Holidays" version="7.0">
 					<group string="Do you want to enter the holidays in the calendar?">
-						<group>
-                            <field name="fiscalyear_id" />
-                        </group>
-                        <group>
-                        </group>
-                        <group>
-                        <label for="calendar_ids" string="Working Time"/>
-                        <field name="calendar_ids" nolabel="1" />
-                        </group>
-						<footer>
-							<button name="do_create" string="OK" type="object" icon="gtk-go-forward" class="oe_highlight" />
-							or
-							<button special="cancel" string="Close"  class="oe_link"/>
-						</footer>
+					    <field name="fiscalyear_id" />
+					    <field name="calendar_ids"/>						
 					</group>
+					<footer>
+                        <button name="do_create" string="OK" type="object" icon="gtk-go-forward" class="oe_highlight" />
+                        or
+                        <button special="cancel" string="Close"  class="oe_link"/>
+                    </footer>
 				</form>
 			</field>
 		</record>

@@ -23,8 +23,12 @@
 							<separator string="Supplier Refund Text" colspan="2" />
 							<field name="refund_in_text" nolabel="1" height="200"/>
 						</group>
-					</page>
+					</page>					
 				</notebook>
+				<field name="currency_id" position="after">
+				    <field name="fiscal_auto_year"/>
+				    <field name="fiscal_auto_seq" attrs="{'invisible':[('fiscal_auto_year','!=',True)]}"/>
+				</field>				
 				<field name="zip" position="replace"></field>
 				<field name="city" position="before">
 					<field name="zip" placeholder="ZIP" style="width: 16%%"/>

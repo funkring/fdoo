@@ -377,6 +377,15 @@ class Connection(object):
         """
         self.check_login(False)
         return self.connector.get_changes(self.get_session_id(), models, timeout)
+    
+    def info(self, msg):
+        self.__logger.log(logging.INFO, msg)
+    
+    def warn(self, msg):
+        self.__logger.log(logging.WARN, msg)
+        
+    def error(self, msg):
+        self.__logger.log(logging.ERROR, msg)
 
 class AuthenticationError(Exception):
     """
