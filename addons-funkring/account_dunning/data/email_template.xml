@@ -15,7 +15,7 @@
                     <p>You received an invoice reminder from us.</p>
                     <br/>
                     <p>Regards,</p>
-                    <p>${object.line_id.order_id.company_id.name}</p>
+                    <p>${object.invoice_id.company_id.name}</p>
                 </div>
             ]]></field>
         </record>

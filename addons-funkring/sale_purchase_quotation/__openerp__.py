@@ -36,6 +36,7 @@ oerp.at Sale Purchase Quotation
 * Adds possibility to select any supplier for each sale order line.""",
     "depends": ["at_sale",
                 "at_purchase_sale",
+                "at_project_sale",
                 "at_stock",
                 "at_mail",
                 "mail",

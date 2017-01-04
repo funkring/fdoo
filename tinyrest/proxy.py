@@ -65,9 +65,10 @@ class Execute(object):
 
 class RPCProxyOne(object):
     def __init__(self, con, obj):
-        self.con = con
-        auth = BasicAuth(self.con.user, self.con.password)        
-        self.resource = Resource("%s/rest/object/%s/%s" % (self.con.url, self.con.database, obj), filters=[auth], basic_auth_url=True)
+        self.model_name = obj
+        self.connection = con
+        auth = BasicAuth(self.connection.user, self.connection.password)        
+        self.resource = Resource("%s/rest/object/%s/%s" % (self.connection.url, self.connection.database, obj), filters=[auth], basic_auth_url=True)
     
     def __getattr__(self, name):
         return lambda *args, **kwargs: Execute(self,name).execute(*args, **kwargs)
