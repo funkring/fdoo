@@ -37,7 +37,7 @@ class Parser(extreport.basic_parser):
         })
 
     def _payment_term(self,invoice):
-        return invoice.payment_term and invoice.payment_term.name or ''
+        return invoice.payment_term and invoice.payment_term.note or ""
 
     def _currency(self,invoice):
         return invoice.currency_id.symbol or ""

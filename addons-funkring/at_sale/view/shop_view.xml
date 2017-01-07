@@ -13,6 +13,7 @@
                                 <field name="code"/>
                             </group>
                             <group>
+                                <field name="team_id" groups="base.group_multi_salesteams"/>
                                 <field groups="base.group_multi_company"
                                     name="company_id" widget="selection"/>
                             </group>

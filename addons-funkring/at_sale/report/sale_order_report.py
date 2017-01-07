@@ -35,10 +35,10 @@ class Parser(extreport.basic_parser):
             "taxes" : self.taxes
         })
        
-    def payment_note(self,sale_order):
-        return format(sale_order.payment_term and sale_order.payment_term.note or '')
+    def payment_note(self, sale_order):        
+        return sale_order.payment_term and sale_order.payment_term.note or ""
     
-    def currency(self,sale_order):
+    def currency(self, sale_order):
         return (sale_order.pricelist_id and sale_order.pricelist_id.currency_id and sale_order.pricelist_id.currency_id.symbol) or ''
     
     def payment_term(self,sale_order):
