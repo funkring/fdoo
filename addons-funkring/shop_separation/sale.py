@@ -33,8 +33,8 @@ class sale_shop(osv.osv):
 
 class sale_order(osv.osv):
    
-    def onchange_shop_id(self, cr, uid, ids, shop_id, state, context=None):
-        res = super(sale_order, self).onchange_shop_id(cr, uid, ids, shop_id, state, context=context)
+    def onchange_shop_id(self, cr, uid, ids, shop_id, state, project_id, context=None):
+        res = super(sale_order, self).onchange_shop_id(cr, uid, ids, shop_id, state, project_id, context=context)
         if shop_id:
             shop = self.pool.get('sale.shop').browse(cr, uid, shop_id)
             categories  = shop.product_category_ids

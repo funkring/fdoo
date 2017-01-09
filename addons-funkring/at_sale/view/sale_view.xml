@@ -9,7 +9,7 @@
 			    <data>
 			    
     				<field name="partner_id" position="replace">
-    					<field name="shop_id" on_change="onchange_shop_id(shop_id, state, context)"	
+    					<field name="shop_id" on_change="onchange_shop_id(shop_id, state, project_id, context)"	
     					       domain="['|',('company_id','=',company_id),('company_id','=',False)]" widget="selection" />    					
     					<field name="partner_id"
     						on_change="onchange_partner_id(partner_id, context, shop_id)"

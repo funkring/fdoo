@@ -190,7 +190,7 @@ class sale_order(osv.osv):
                 value["payment_term"]=shop.payment_default_id and shop.payment_default_id.id or None
         return res
 
-    def onchange_shop_id(self, cr, uid, ids, shop_id, state, context=None):
+    def onchange_shop_id(self, cr, uid, ids, shop_id, state, project_id, context=None):
         value = {}
         res = { "value": value }
         if shop_id:

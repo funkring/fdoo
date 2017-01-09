@@ -44,6 +44,21 @@ class sale_order(osv.osv):
         if client_order_ref:
             return "%s / %s" % (order_name,client_order_ref)
         return order_name
+    
+    def onchange_shop_id(self, cr, uid, ids, shop_id, state, project_id, context=None):
+        res = super(sale_order, self).onchange_shop_id(cr, uid, ids, shop_id, state, project_id, context=context)
+        if shop_id:
+            shop = self.pool["sale.shop"].browse(cr, uid, shop_id)
+            value = res["value"]
+            if shop.autocreate_order_analytic_account:
+                account_id = value.get("project_id") or project_id
+                if account_id:
+                    if not ids:
+                        value["project_id"] = None
+                    else:
+                        value["project_id"] = self.pool["account.analytic.account"].search_id(cr, SUPERUSER_ID, [("order_id","in",ids),("id","=",account_id)])
+        return res
+   
 
 #    TODO: For this Workflow has to be extended, that means
 #          after finishing the shipping a manual invoice have to be started
@@ -59,44 +74,48 @@ class sale_order(osv.osv):
 #                 return False
 #         return True
 
-    def _correct_analytic_values(self,cr,uid,order_id,vals,context=None):
+    def _correct_analytic_values(self, cr, uid, order_id, vals, context=None):
         """ Sync analytic account and sale order
 
             :returns: analytic account id if a new one is created otherwise False is returned
         """
-        def get_fkey(inDict,inKey):
+        def getValue(inDict, inKey, inOverride=None):
             if inDict:
-                res = inDict.get(inKey,None)
-                if res:
+                # get value
+                if inOverride and inKey in inOverride:
+                    res = inOverride[inKey]
+                else:
+                    res = inDict.get(inKey, None)
+                
+                # check if it is a link
+                if isinstance(res,tuple) and len(res) == 2:
                     return res[0]
+                
+                return res
+            
+            # return none if empty
             return None
 
         analytic_id = None
         order_values = {}
 
+        order_read = vals
         if order_id:
-            order_read = self.read(cr, uid, order_id, ["project_id","partner_id","pricelist_id","name","shop_id", "client_order_ref"], context)
-            order_values["project_id"]=get_fkey(order_read,"project_id")
-            order_values["partner_id"]=get_fkey(order_read,"partner_id")
-            order_values["pricelist_id"]=get_fkey(order_read,"pricelist_id")
-            order_values["client_order_ref"]=order_read.get("client_order_ref")
-            order_values["name"]=order_read.get("name")
-            order_values["shop_id"]=get_fkey(order_read,"shop_id")
-            analytic_id = order_values.get("project_id")
+            order_read = self.read(cr, uid, order_id, ["project_id","partner_id","pricelist_id","name","shop_id", "client_order_ref"], context)           
         else:
             if not vals.get("name"):
                 vals["name"]=self.default_get(cr, uid, ["name"], context)["name"]
+                
+        analytic_id = order_values["project_id"] = getValue(order_read, "project_id", vals)
+        shop_id = order_values["shop_id"] = getValue(order_read, "shop_id", vals) or context.get("shop",None)
+        order_values["partner_id"] = getValue(order_read, "partner_id", vals)
+        order_values["pricelist_id"] = getValue(order_read, "pricelist_id", vals)
+        order_values["client_order_ref"] = getValue(order_read, "client_order_ref", vals)
+        order_values["name"] = getValue(order_read, "name", vals)
 
-        shop_id = vals.get("shop_id",order_values.get("shop_id",context.get("shop")))
         if shop_id:
-            shop=self.pool.get("sale.shop").browse(cr, uid, shop_id,context=context)
+            shop = self.pool.get("sale.shop").browse(cr, uid, shop_id, context=context)
             if shop.autocreate_order_analytic_account:
-                # init order values
-                order_values["partner_id"]=vals.get("partner_id",order_values.get("partner_id"))
-                order_values["pricelist_id"]=vals.get("pricelist_id",order_values.get("pricelist_id"))
-                order_values["name"]=vals.get("name",order_values.get("name"))
-                order_values["client_order_ref"]=vals.get("client_order_ref",order_values.get("client_order_ref"))
-
                 # init vars
                 analytic_obj = self.pool.get("account.analytic.account")
                 project_context=context.copy()
@@ -161,7 +180,7 @@ class sale_order(osv.osv):
                     # otherwise search without account
                     else:
                         proj_id = proj_obj.search_id(cr, uid, [("analytic_account_id.order_id","=",order_id)])
-                        analytic_id = get_fkey(proj_obj.read(cr, uid, proj_id, ["analytic_account_id"], context), "analytic_account_id")
+                        analytic_id = getValue(proj_obj.read(cr, uid, proj_id, ["analytic_account_id"], context), "analytic_account_id")
                         
                 # template
                 template_id = shop.project_template_id and shop.project_template_id.id or None
@@ -176,7 +195,7 @@ class sale_order(osv.osv):
                         proj_id = proj_obj.create(cr, uid, project_vals, project_context)
                     
                     # get analytic account
-                    analytic_id = get_fkey(proj_obj.read(cr, uid, proj_id, ["analytic_account_id"], context), "analytic_account_id")
+                    analytic_id = getValue(proj_obj.read(cr, uid, proj_id, ["analytic_account_id"], context), "analytic_account_id")
                     vals["project_id"] = analytic_id
                     return analytic_id
                 
