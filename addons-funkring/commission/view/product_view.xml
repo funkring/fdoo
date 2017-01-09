@@ -1,0 +1,21 @@
+<openerp>
+	<data>		
+	
+		<record id="form_product_normal" model="ir.ui.view">
+            <field name="name">commission.form_product_normal</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+              	  <data>
+                   		<xpath expr="//notebook" position="inside">
+                   			<page string="Partner Commissions" name="commission" groups="account.group_account_user,account.group_account_manager">
+                   			   
+                   			</page>
+                   		</xpath>
+                   </data>          
+            </field>
+        </record>
+        
+        
+	</data>
+</openerp>

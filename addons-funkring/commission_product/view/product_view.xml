@@ -4,29 +4,27 @@
 		<record id="form_product_normal" model="ir.ui.view">
             <field name="name">commission_product.form_product_normal</field>
             <field name="model">product.product</field>
-            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="inherit_id" ref="commission.form_product_normal"/>
             <field name="arch" type="xml">
               	  <data>
-                   		<xpath expr="//notebook" position="inside">
-                   			<page string="Partner Commissions" groups="account.group_account_user,account.group_account_manager">
-                   			    <div>
-                       				<field name="commission_ids">
-                       					<form string="Commission">
-                       						<field name="partner_id"/>
-                       						<field name="commission_percent"/>   
-                       						<field name="property_commission_product"/>
-                       						<field name="property_analytic_journal"/>                    						
-                       					</form>
-                       					<tree string="Commissions" editable="bottom">
-                       						<field name="partner_id"/>
-                       						<field name="commission_percent"/>
-                       						<field name="property_commission_product"/>
-                       						<field name="property_analytic_journal"/>    
-                       					</tree>
-                       				</field>
-                   				</div>
-                   			</page>
-                   		</xpath>
+               			<page name="commission" position="inside">
+               			    <div>
+                   				<field name="commission_ids">
+                   					<form string="Commission">
+                   						<field name="partner_id"/>
+                   						<field name="commission_percent"/>   
+                   						<field name="property_commission_product"/>
+                   						<field name="property_analytic_journal"/>                    						
+                   					</form>
+                   					<tree string="Commissions" editable="bottom">
+                   						<field name="partner_id"/>
+                   						<field name="commission_percent"/>
+                   						<field name="property_commission_product"/>
+                   						<field name="property_analytic_journal"/>    
+                   					</tree>
+                   				</field>
+               				</div>
+               			</page>
                    </data>          
             </field>
         </record>

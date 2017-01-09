@@ -89,7 +89,7 @@
             <field name="context">{'search_default_invoiced_id': 1}</field>
         </record>
 				
-        <menuitem id="menu_commission_line" name="Commissions" parent="account.menu_finance_periodical_processing_billing" sequence="2"
+        <menuitem id="menu_commission_line" name="Commissions" parent="menu_commission" sequence="2"
         		  action="action_commission_line"/>	
         		  	
 	</data>

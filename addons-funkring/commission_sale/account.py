@@ -58,7 +58,7 @@ class account_invoice(osv.osv):
                             team = salesman_user.default_section_id
                             if team and partner:
                                 # get global commission
-                                percent = team.sales_commission
+                                percent = product.commission_percent or product.categ_id.commission_percent or team.sales_commission
                                 # search for rule                                                               
                                 rule = rule_obj._get_rule(cr, uid, team, product, context=context)
                                 if rule:

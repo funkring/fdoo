@@ -53,7 +53,7 @@ class sale_order(osv.osv):
                         partner = order.user_id.partner_id
                         if partner and team:
                             # get global commission
-                            percent = team.sales_commission
+                            percent = product.commission_percent or product.categ_id.commission_percent or team.sales_commission
                             # search for rule                                                               
                             rule = rule_obj._get_rule(cr, uid, team, product, context=context)
                             if rule:

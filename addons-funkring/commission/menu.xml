@@ -1,0 +1,8 @@
+<openerp>
+  <data>
+     
+     <menuitem id="menu_commission" name="Commissions" parent="account.menu_finance" sequence="9"
+                  action="action_commission_line"/> 
+                  
+  </data>
+</openerp>

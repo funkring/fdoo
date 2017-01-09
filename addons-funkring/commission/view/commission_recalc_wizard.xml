@@ -5,9 +5,8 @@
 			<field name="model">commission.recalc_wizard</field>
 			<field name="arch" type="xml">
 				<form string="Recalculate Commissions">
-					<p>Do you really want to recalculate all commissions? It will take several minutes!"</p>
 					<group>
-					    <group string="Period">
+					    <group string="Do you really want to recalculate all commissions? It will take several minutes!">
     					   <field name="date_from"/>
                            <field name="date_to"/>
                         </group>
@@ -30,7 +29,7 @@
           <field name="target">new</field>
         </record>
 
-		<menuitem id="menu_commission_recalc_wizard" name="Recalculate Commission Wizard" parent="account.menu_finance_periodical_processing_billing" sequence="3" action="action_commission_recalc" />
+		<menuitem id="menu_commission_recalc_wizard" name="Recalculate Commission Wizard" parent="menu_commission" sequence="3" action="action_commission_recalc" />
 		
 	</data>
 </openerp>

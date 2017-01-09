@@ -1,0 +1,36 @@
+<openerp>
+	<data>		
+	
+		<record id="form_product_normal" model="ir.ui.view">
+            <field name="name">commission_sale.form_product_normal</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="commission.form_product_normal"/>
+            <field name="arch" type="xml">
+              	  <data>
+               			<page name="commission" position="inside">
+               			    <group>                   			        
+               			        <field name="commission_percent"/>
+               			    </group>                   			   
+               			</page>
+                   </data>          
+            </field>
+        </record>
+        
+     
+        <record id="form_product_category" model="ir.ui.view">
+          <field name="name">commission_sale.form_product_category</field>
+          <field name="model">product.category</field>
+          <field name="inherit_id" ref="product.product_category_form_view"/>
+          <field name="type">form</field>
+          <field name="arch" type="xml">
+                 <xpath expr="//group[@name='parent']" position="inside">
+                     <group name="commission" string="Commission" colspan="2">
+                        <field name="commission_percent"/>
+                     </group>
+                 </xpath>
+          </field>
+        </record>
+
+        
+	</data>
+</openerp>

@@ -20,29 +20,19 @@
 #
 ##############################################################################
 
-{
-    "name" : "oerp.at Sale Commission",
-    "description":"""
-Commission based on Sale
-========================
+from openerp.osv import fields, osv
 
-* creates commission based on sales
-* creates commission based on contracts
+class product_product(osv.osv):
+       
+    _inherit = "product.product"
+    _columns = {
+        "commission_percent" : fields.float("Commission %")
+    }
 
-""",
-    "version" : "1.0",
-    "author" :  "oerp.at",
-    "category" : "Commission",
-    "depends" : ["at_base","at_sale","commission","sales_team","product"],
-    "data" : ["security.xml",
-              "data/analytic_journals.xml",
-              "data/products.xml",
-              "data/properties.xml",
-              "view/pricelist_item_view.xml",
-              "view/crm_section_view.xml",
-              "view/bonus_view.xml",
-              "view/product_view.xml"
-              ],
-    "auto_install" : False,
-    "installable": True
-}
+
+class product_category(osv.osv):
+    
+    _inherit = "product.category"
+    _columns = {
+        "commission_percent" : fields.float("Commission %")
+    }
