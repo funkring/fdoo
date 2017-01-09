@@ -198,7 +198,9 @@ class sale_order(osv.osv):
             if shop.note:
                 value["note"] = shop.note
             if shop.company_id and state == "draft":
-                value["company_id"] = shop.company_id
+                value["company_id"] = shop.company_id.id
+            if shop.team_id:
+                value["section_id"] = shop.team_id.id
         return res
 
     def action_wait(self, cr, uid, ids, context=None):
