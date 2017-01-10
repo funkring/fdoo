@@ -28,28 +28,30 @@ from openerp.tools.translate import _
 
 
 class procurement_order(osv.osv):
-   
+        
     def create_procurement_purchase_order(self, cr, uid, procurement, po_vals, line_vals, context=None):
         sale_line = procurement.sale_line_id
         if sale_line:
-            po_vals["notes"]=sale_line.procurement_note
-            po_vals["sale_order_id"]=sale_line.order_id.id
-                        
-            # update name
-            line_vals["name"]=sale_line.name
-            # update line
-            line_vals["sale_line_id"]=sale_line.id
-                        
+            po_vals["sale_order_id"]=sale_line.order_id.id            
+        return super(procurement_order,self).create_procurement_purchase_order(cr, uid, procurement, po_vals, line_vals, context=context)
+                
+    def _get_po_line_values_from_proc(self, cr, uid, procurement, partner, company, schedule_date, context=None):
+        res = super(procurement_order, self)._get_po_line_values_from_proc(cr, uid, procurement, partner, company, schedule_date, context=context)
+        sale_line = procurement.sale_line_id
+        if sale_line:
+            # set sale line 
+            res["sale_line_id"] = sale_line.id
+               
+            # procurement info note NOT added
+            # because for example sale_purchase_quotation add procurement
+            # info directly to purchase order
+            # if needed an extra module sale_purchase_note should added
+                       
             # add analytic account
             analytic_account = sale_line.order_id.project_id
             if analytic_account:                
-                line_vals["account_analytic_id"]=analytic_account.id
+                res["account_analytic_id"]=analytic_account.id
                 
-        return super(procurement_order,self).create_procurement_purchase_order(cr, uid, procurement, po_vals, line_vals, context=context)
-    
-    def _get_po_line_values_from_proc(self, cr, uid, procurement, partner, company, schedule_date, context=None):
-        res = super(procurement_order, self)._get_po_line_values_from_proc(cr, uid, procurement, partner, company, schedule_date, context=context)
-        res["sale_line_id"] = procurement.sale_line_id.id
         return res
     
     def make_po(self, cr, uid, ids, context=None):
