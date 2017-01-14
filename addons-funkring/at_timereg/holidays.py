@@ -91,7 +91,7 @@ class hr_holidays(osv.osv):
                 if record.holiday_type == 'employee' and record.type == 'remove':
                     # get holiday date
                     date_from = helper.strToLocalDateStr(cr, uid, record.date_from, context)
-                    date_to = util.getLastTimeOfDay(util.strToDate(helper.strToLocalDateStr(cr, uid, record.date_to, context)))
+                    date_to = util.dateToStr(util.getLastTimeOfDay(util.strToDate(helper.strToLocalDateStr(cr, uid, record.date_to, context))))
                     # get contract
                     contract = employee_obj._get_contract(cr, uid, record.employee_id.id, date_from=date_from, date_to=date_to, context=context)
                     if contract:
