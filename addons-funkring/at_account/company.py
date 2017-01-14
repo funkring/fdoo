@@ -33,7 +33,11 @@ class res_company(osv.osv):
         "refund_in_text" : fields.text("Supplier Refund Text"),
         "code" : fields.char("Code"),
         "fiscal_auto_year" : fields.boolean("Auto fiscal year"),
-        "fiscal_auto_seq" : fields.boolean("Auto fiscal year sequence")
+        "fiscal_auto_seq" : fields.boolean("Auto fiscal year sequence"),
+        "account_customer_seq_id" : fields.many2one("ir.sequence","Customer Account Sequence"),
+        "account_customer_tmpl_id" : fields.many2one("account.account","Customer Account Template"),
+        "account_supplier_seq_id" : fields.many2one("ir.sequence","Supplier Account Sequence"),
+        "account_supplier_tmpl_id" : fields.many2one("account.account","Supplier Account Template")
     }
     _defaults = {
         "fiscal_auto_year" : True,

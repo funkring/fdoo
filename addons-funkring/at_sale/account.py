@@ -54,7 +54,7 @@ class account_invoice(osv.osv):
     _inherit = "account.invoice"
     _columns = {
         "sale_order_ids" : fields.many2many("sale.order","sale_order_invoice_rel","invoice_id","order_id","Orders",readonly=True),
-        "shop_id" : fields.many2one("sale.shop", "Shop", required=True)
+        "shop_id" : fields.many2one("sale.shop", "Shop", required=True, readonly=True, states={"draft": [("readonly", False)]}, select=True)
     }
     _defaults = {
         "shop_id" : _default_shop_id
