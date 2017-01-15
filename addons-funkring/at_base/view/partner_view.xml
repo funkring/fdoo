@@ -7,7 +7,9 @@
             <field name="inherit_id" ref="base.view_res_partner_filter"/>
             <field name="arch" type="xml">
 	            <data>
-                    <field name="name" position="after">
+                    <field name="name" position="replace">
+                        <field name="name"
+                            filter_domain="['|','|',('display_name','ilike',self),('ref','ilike',self),('email','ilike',self)]"/>
                         <field
                             filter_domain="[('phone_n','ilike',self)]"
                             name="phone_n" string="Phone"/>
@@ -18,10 +20,13 @@
                             name="fax_n" string="Fax"/>
                         <field filter_domain="[('street', 'ilike', self)]" name="street" string="Street"/>
                         <field filter_domain="[('zip', 'ilike', self)]" name="zip" string="Zip"/>
+                        <field filter_domain="[('city', 'ilike', self)]" name="city" string="City"/>
+                        <field name="country_id"/>
                     </field>
                     <group expand="0" string="Group By">
                         <filter string="Street" context="{'group_by': 'street'}"/>
                         <filter string="Zip" context="{'group_by': 'zip'}"/>
+                        <filter string="City" context="{'group_by': 'city'}"/>
                     </group>
                 </data>
             </field>
