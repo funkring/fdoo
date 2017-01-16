@@ -218,6 +218,12 @@ class res_partner(osv.osv):
         for partner in self.browse(cr, uid, ids, context):
             res[partner.id] = "\n".join(self._build_address_text(cr, uid, partner, address_type="mail", context=context))
         return res
+    
+    def _get_display_address(self, cr, uid, ids, field_name, arg, context=None):
+        res = dict.fromkeys(ids)
+        for partner in self.browse(cr, uid, ids, context):
+            res[partner.id] = "\n".join(self._build_address_text(cr, uid, partner, context=context))
+        return res
 
     def _get_number(self, cr, uid, ids, num, context=None):
         return re.sub(r"[^0-9+]","", num)
@@ -277,6 +283,7 @@ class res_partner(osv.osv):
         "mail_without_company" : fields.boolean("Mail Address without company"),
         "mail_salutation" : fields.function(_get_mail_salutation, type="text",string="Mail Salutation"),
         "mail_address" : fields.function(_get_mail_address,type="text",string="Mail Address"),
+        "display_address" : fields.function(_get_display_address,type="text",string="Address"),
         "contact_info" : fields.function(_get_contact_info,type="text",string="Contact Info"),
         "co_salutation" : fields.function(_get_co_salutation, type="text", string="C/O Salutation"),
         "phone_n" : fields.function(_get_phone, type="char", store=True, string="Phone normalized"),
