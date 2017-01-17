@@ -57,3 +57,20 @@ class stock_move(osv.osv):
         return new_moves
     
     _inherit = "stock.move"
+    
+
+class stock_picking(osv.osv):
+    
+    def _get_invoice_vals(self, cr, uid, key, inv_type, journal_id, move, context=None):
+        res = super(stock_picking, self)._get_invoice_vals(cr, uid, key, inv_type, journal_id, move, context=context)        
+        picking = move.picking_id
+        if picking:
+            group = picking.group_id
+            if group:
+                origin = res.get("origin")
+                res["origin"] =  origin and "%s:%s" % (origin, group.name) or group.name
+                if not res.get("name"):
+                    res["name"] = group.name
+        return res
+    
+    _inherit = 'stock.picking'
