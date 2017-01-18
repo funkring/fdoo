@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+ <data>
+  
+    <record id="form_download" model="ir.ui.view">
+      <field name="name">portal_download_product.form_download</field>
+      <field name="model">portal.download</field>
+      <field name="inherit_id" ref="portal_download.form_download"/>
+      <field name="arch" type="xml">    
+            <field name="code" position="before">   
+                <field name="product_id"/>
+            </field>
+      </field>
+    </record>
+    
+    <record id="tree_download" model="ir.ui.view">
+      <field name="name">portal_download_product.tree_download</field>
+      <field name="model">portal.download</field>
+      <field name="inherit_id" ref="portal_download.tree_download"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+            <field name="code" position="before">   
+                <field name="product_id"/>
+            </field>
+      </field>
+    </record>
+
+    <record id="search_download" model="ir.ui.view">
+      <field name="name">portal_download_product.search_download</field>
+      <field name="model">portal.download</field>
+      <field name="inherit_id" ref="portal_download.search_download"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="product_id"/>
+                <group expand="0" string="Group By">
+                    <filter name="product" string="Product" context="{'group_by':'product_id'}"/>
+                </group>
+            </field>
+      </field>
+    </record>
+    
+  </data>
+</openerp>
