@@ -311,5 +311,7 @@ class res_users(osv.Model):
     def copy(self, cr, uid, id, default=None, context=None):
         if not default or not default.get('email'):
             # avoid sending email to the user we are duplicating
-            context = dict(context or {}, reset_password=False)
+            # funkring.net - begin
+            context = dict(context or {}, no_reset_password=True)
+            # funkring.net - end
         return super(res_users, self).copy(cr, uid, id, default=default, context=context)
