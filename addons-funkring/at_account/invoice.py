@@ -415,52 +415,6 @@ class account_invoice(osv.osv):
 
 class account_invoice_line(osv.osv):
 
-    def move_line_get(self, cr, uid, invoice_id, context=None):
-        res = []
-        tax_obj = self.pool.get('account.tax')
-        cur_obj = self.pool.get('res.currency')
-        if context is None:
-            context = {}
-        inv = self.pool.get('account.invoice').browse(cr, uid, invoice_id, context=context)
-        company_currency = self.pool['res.company'].browse(cr, uid, inv.company_id.id).currency_id.id
-        for line in inv.invoice_line:
-            mres = self.move_line_get_item(cr, uid, line, context)
-            if not mres:
-                continue
-            res.append(mres)
-            tax_code_found= False
-            for tax in tax_obj.compute_all(cr, uid, line.invoice_line_tax_id,
-                    (line.price_unit * (1.0 - (line['discount'] or 0.0) / 100.0)),
-                    line.quantity, line.product_id,
-                    inv.partner_id)['taxes']:
-
-                if inv.type in ('out_invoice', 'in_invoice'):
-                    if inv.type == "in_invoice":
-                        tax_code_id = tax['ref_base_code_id']
-                    else:
-                        tax_code_id = tax['base_code_id']
-                    tax_amount = line.price_subtotal * tax['base_sign']
-                else:
-                    if inv.type == "in_refund":
-                        tax_code_id = tax['base_code_id']
-                    else:
-                        tax_code_id = tax['ref_base_code_id']
-                    tax_amount = line.price_subtotal * tax['ref_base_sign']
-
-                if tax_code_found:
-                    if not tax_code_id:
-                        continue
-                    res.append(self.move_line_get_item(cr, uid, line, context))
-                    res[-1]['price'] = 0.0
-                    res[-1]['account_analytic_id'] = False
-                elif not tax_code_id:
-                    continue
-                tax_code_found = True
-
-                res[-1]['tax_code_id'] = tax_code_id
-                res[-1]['tax_amount'] = cur_obj.compute(cr, uid, inv.currency_id.id, company_currency, tax_amount, context={'date': inv.date_invoice})
-        return res
-
     def _price_unit_untaxed(self, cr, uid, ids, field_name, arg, context=None):
         if context is None:
             context = {}
