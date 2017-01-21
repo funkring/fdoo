@@ -404,11 +404,13 @@ instance.web.ActionManager = instance.web.Widget.extend({
      */
     ir_actions_common: function(executor, options) {
         if (this.inner_widget && executor.action.target !== 'new') {
+            // funkring.net - begin
             if (this.getParent().has_uncommitted_changes()) {
-                return $.Deferred().reject();
-            } else if (options.clear_breadcrumbs) {
+                return $.Deferred().reject();                
+            } else if (options.clear_breadcrumbs || executor.action.clear_breadcrumbs) {
                 this.clear_breadcrumbs();
             }
+            // funkring.net - end
         }
         var widget = executor.widget();
         if (executor.action.target === 'new') {
