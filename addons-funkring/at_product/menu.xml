@@ -1,0 +1,9 @@
+<openerp>
+  <data>
+        <menuitem
+            action="product.product_category_action_form"
+            id="product.menu_products_category"
+            parent="base.menu_product"
+            sequence="30" groups="base.group_no_one"/>
+  </data>
+</openerp>    

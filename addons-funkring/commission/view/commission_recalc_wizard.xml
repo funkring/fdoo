@@ -4,15 +4,19 @@
 			<field name="name">commission.recalc_wizard</field>
 			<field name="model">commission.recalc_wizard</field>
 			<field name="arch" type="xml">
-				<form string="Recalculate Commissions">
+				<form string="Calculate Commissions">
 					<group>
-					    <group string="Do you really want to recalculate all commissions? It will take several minutes!">
+					    <group string="Range">
+					       <field name="company_id" invisible="1"/>
     					   <field name="date_from"/>
                            <field name="date_to"/>
                         </group>
+                        <group string="Options">
+                           <field name="remove_existing"/>  
+                        </group>
 					</group>
 					<footer>
-					    <button  name="do_recalc" string="Recalculate"  type="object" class="oe_highlight" />
+					    <button  name="action_calc" string="Recalculate"  type="object" class="oe_highlight" />
                         or
                         <button special="cancel" string="Close" class="oe_link"/>
 					</footer>				
@@ -29,7 +33,7 @@
           <field name="target">new</field>
         </record>
 
-		<menuitem id="menu_commission_recalc_wizard" name="Recalculate Commission Wizard" parent="menu_commission" sequence="3" action="action_commission_recalc" />
+		<menuitem id="menu_commission_recalc_wizard" name="Commission calculate" parent="menu_commission" sequence="3" action="action_commission_recalc" />
 		
 	</data>
 </openerp>

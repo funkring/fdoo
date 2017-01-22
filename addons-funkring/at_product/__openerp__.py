@@ -31,6 +31,7 @@
     "category" : "Sales Management",
     "depends" : ["at_base","product"],    
     "data" : ["security.xml",
+              "menu.xml",
               "view/product_view.xml",
               "report/pricelist_report.xml",
               "wizard/product_change_wizard.xml",              

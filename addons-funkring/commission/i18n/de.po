@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Language: de_DE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-09 01:00+0000\n"
-"PO-Revision-Date: 2017-01-09 01:00+0000\n"
+"POT-Creation-Date: 2017-01-22 14:10+0000\n"
+"PO-Revision-Date: 2017-01-22 14:10+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -71,6 +71,11 @@ msgid "Base Commission %"
 msgstr "Basis Provision %"
 
 #. module: commission
+#: view:commission.recalc_wizard:commission.wizard_commission_recalc
+msgid "Calculate Commissions"
+msgstr "Berechne Provisionen"
+
+#. module: commission
 #: help:commission.line,amount:0
 msgid "Calculated by multiplying the quantity and the price given in the Product's cost price. Always expressed in the company main currency."
 msgstr "Berechnung erfolgt durch das multiplizieren der Menge mit den Produkteinkaufspreis. Es wird immer die Unternehmenswährung verwendet. "
@@ -88,6 +93,8 @@ msgstr ""
 
 #. module: commission
 #: view:commission.line:commission.form_commission_line
+#: view:product.product:commission.form_product_normal
+#: view:product.template:commission.form_product_template
 #: model:product.uom,name:commission.product_commission_uom
 #: model:product.uom.categ,name:commission.product_commission_uom_category
 #: view:res.company:commission.form_res_company
@@ -123,9 +130,16 @@ msgid "Commission Type"
 msgstr "Provision Typ"
 
 #. module: commission
+#: model:ir.ui.menu,name:commission.menu_commission_recalc_wizard
+msgid "Commission calculate"
+msgstr "Provisionen berechnen"
+
+#. module: commission
+#: code:addons/commission/commission_recalc_wizard.py:31
 #: model:ir.ui.menu,name:commission.menu_commission
 #: model:ir.ui.menu,name:commission.menu_commission_line
 #: model:product.category,name:commission.product_category
+#, python-format
 msgid "Commissions"
 msgstr "Provisionen"
 
@@ -136,6 +150,7 @@ msgstr "Unternehmen"
 
 #. module: commission
 #: field:commission.line,company_id:0
+#: field:commission.recalc_wizard,company_id:0
 msgid "Company"
 msgstr "Firma"
 
@@ -162,6 +177,11 @@ msgstr ""
 #: field:commission.recalc_wizard,create_date:0
 msgid "Created on"
 msgstr ""
+
+#. module: commission
+#: field:commission.line,sale_partner_id:0
+msgid "Customer"
+msgstr "Kunde"
 
 #. module: commission
 #: selection:res.company,commission_type:0
@@ -195,11 +215,6 @@ msgstr "Beschreibung"
 #: field:commission.recalc_wizard,display_name:0
 msgid "Display Name"
 msgstr "Anzeigename"
-
-#. module: commission
-#: view:commission.recalc_wizard:commission.wizard_commission_recalc
-msgid "Do you really want to recalculate all commissions? It will take several minutes!"
-msgstr "Wollen sie Wirklich alle Provisionen neuberechnen? Das könnte einige Minuten dauern!"
 
 #. module: commission
 #: view:commission.line:commission.form_commission_line
@@ -246,6 +261,11 @@ msgid "Invoice Lines"
 msgstr "Rechnung Zeilen"
 
 #. module: commission
+#: field:commission.line,to_invoice:0
+msgid "Invoiceable"
+msgstr "Verrechenbar"
+
+#. module: commission
 #: field:commission.line,invoiced_id:0
 msgid "Invoiced"
 msgstr "Verrechnet"
@@ -254,6 +274,11 @@ msgstr "Verrechnet"
 #: view:commission.line:commission.form_commission_line
 msgid "Invoicing"
 msgstr "Verrechnung"
+
+#. module: commission
+#: help:commission.line,to_invoice:0
+msgid "It allows to set the discount while making invoice, keep empty if the activities should not be invoiced."
+msgstr ""
 
 #. module: commission
 #: view:commission.line:commission.search_commission_line
@@ -287,6 +312,11 @@ msgid "Move Line"
 msgstr "Buchung"
 
 #. module: commission
+#: view:commission.recalc_wizard:commission.wizard_commission_recalc
+msgid "Options"
+msgstr "Optionen"
+
+#. module: commission
 #: field:commission.line,order_id:0
 msgid "Order"
 msgstr "Auftrag"
@@ -298,14 +328,8 @@ msgstr "Auftragszeile"
 
 #. module: commission
 #: view:commission.line:commission.search_commission_line
-#: field:commission.line,sale_partner_id:0
 msgid "Partner"
 msgstr ""
-
-#. module: commission
-#: view:product.product:commission.form_product_normal
-msgid "Partner Commissions"
-msgstr "Partner Provision"
 
 #. module: commission
 #: view:commission.line:commission.search_commission_line
@@ -327,9 +351,19 @@ msgid "Provision %s"
 msgstr ""
 
 #. module: commission
+#: field:commission.line,partner_id:0
+msgid "Provision Receiver"
+msgstr "Provision Empfänger"
+
+#. module: commission
 #: field:commission.line,unit_amount:0
 msgid "Quantity"
 msgstr "Menge"
+
+#. module: commission
+#: view:commission.recalc_wizard:commission.wizard_commission_recalc
+msgid "Range"
+msgstr "Bereich"
 
 #. module: commission
 #: view:commission.recalc_wizard:commission.wizard_commission_recalc
@@ -337,12 +371,6 @@ msgid "Recalculate"
 msgstr "Neuberechnen"
 
 #. module: commission
-#: model:ir.ui.menu,name:commission.menu_commission_recalc_wizard
-msgid "Recalculate Commission Wizard"
-msgstr "Neuberechnungs Assistent"
-
-#. module: commission
-#: view:commission.recalc_wizard:commission.wizard_commission_recalc
 #: model:ir.actions.act_window,name:commission.action_commission_recalc
 msgid "Recalculate Commissions"
 msgstr "Provisionen Neuberechnung"
@@ -356,6 +384,11 @@ msgstr ""
 #: field:commission.commission_invoice_wizard,related_invoice:0
 msgid "Related Invoice"
 msgstr "Rechnungsbezug"
+
+#. module: commission
+#: field:commission.recalc_wizard,remove_existing:0
+msgid "Remove existing"
+msgstr "Lösche vorhandene Provisionen"
 
 #. module: commission
 #: view:commission.line:commission.form_commission_line
@@ -375,7 +408,6 @@ msgstr "Verkaufsauftrag"
 #. module: commission
 #: field:account.analytic.account,salesman_id:0
 #: view:commission.line:commission.search_commission_line
-#: field:commission.line,partner_id:0
 msgid "Salesman"
 msgstr "Verkäufer"
 

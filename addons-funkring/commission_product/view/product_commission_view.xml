@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+  
+    <record id="form_product_commission" model="ir.ui.view">
+      <field name="name">commission_product.form_product_commission</field>
+      <field name="model">commission_product.commission</field>
+      <field name="arch" type="xml">
+        <form string="Product Commission">
+            <field name="product_id"/>
+            <field name="partner_id"/>
+            <field name="commission_percent"/>
+            <field name="property_commission_product"/>
+            <field name="property_analytic_journal"/>
+        </form>
+      </field>
+    </record>
+
+    <record id="tree_product_commission" model="ir.ui.view">
+      <field name="name">commission_product.tree_product_commission</field>
+      <field name="model">commission_product.commission</field>
+      <field name="arch" type="xml">
+        <tree string="Product Commissions">
+            <field name="product_id"/>
+            <field name="partner_id"/>
+            <field name="commission_percent"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="search_product_commission" model="ir.ui.view">
+      <field name="name">commission_product.search_product_commission</field>
+      <field name="model">commission_product.commission</field>
+      <field name="arch" type="xml">
+        <search string="Product Commission">      
+          <field name="product_id"/>      
+          <field name="partner_id"/>
+          <group expand="0" string="Group By...">
+            <filter string="Product" context="{'group_by': 'product_id'}"/>
+            <filter string="Partner" context="{'group_by': 'partner_id'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
+
+    <record id="action_product_commission" model="ir.actions.act_window">
+      <field name="name">Product Commissions</field>
+      <field name="res_model">commission_product.commission</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_product_commission" name="Product Commission" parent="base.menu_product" groups="base.group_no_one"
+      sequence="50"
+      action="action_product_commission"/>
+      
+  </data>
+</openerp>

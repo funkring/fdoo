@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
             	<xpath expr="//page[@string='Configuration']/group" position="inside"> 
             		<group string="Commission">
-            			<field name="commission_type" />
+            			<field name="commission_type"/>
             		</group>
             	</xpath>
             </field>

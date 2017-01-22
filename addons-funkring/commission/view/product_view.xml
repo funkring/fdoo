@@ -6,16 +6,27 @@
             <field name="model">product.product</field>
             <field name="inherit_id" ref="product.product_normal_form_view"/>
             <field name="arch" type="xml">
-              	  <data>
-                   		<xpath expr="//notebook" position="inside">
-                   			<page string="Partner Commissions" name="commission" groups="account.group_account_user,account.group_account_manager">
-                   			   
-                   			</page>
-                   		</xpath>
-                   </data>          
+           		<xpath expr="//notebook" position="inside">
+           			<page string="Commission" name="commission" groups="account.group_account_user,account.group_account_manager">
+           			   
+           			</page>
+           		</xpath>
             </field>
         </record>
-        
-        
+          
+        <record id="form_product_template" model="ir.ui.view">
+          <field name="name">commission_product.form_product_template</field>
+          <field name="model">product.template</field>
+          <field name="inherit_id" ref="product.product_template_only_form_view"/>
+          <field name="type">form</field>
+          <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Commission" name="commission" attrs="{'invisible': [('product_variant_count', '>', 1)]}" groups="account.group_account_user,account.group_account_manager">
+                       
+                    </page>
+                </xpath>
+          </field>
+        </record>
+
 	</data>
 </openerp>

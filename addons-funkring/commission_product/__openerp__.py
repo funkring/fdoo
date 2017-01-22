@@ -37,6 +37,7 @@ Commission based on product
     "data" : ["security.xml",                    
               "view/partner_view.xml",
               "view/product_view.xml",
+              "view/product_commission_view.xml",
               "data/products.xml",
               "data/analytic_journals.xml",
               "data/properties.xml",                    

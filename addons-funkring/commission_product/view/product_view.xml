@@ -1,32 +1,57 @@
 <openerp>
 	<data>		
-	
+		
 		<record id="form_product_normal" model="ir.ui.view">
             <field name="name">commission_product.form_product_normal</field>
             <field name="model">product.product</field>
             <field name="inherit_id" ref="commission.form_product_normal"/>
             <field name="arch" type="xml">
-              	  <data>
-               			<page name="commission" position="inside">
-               			    <div>
-                   				<field name="commission_ids">
-                   					<form string="Commission">
-                   						<field name="partner_id"/>
-                   						<field name="commission_percent"/>   
-                   						<field name="property_commission_product"/>
-                   						<field name="property_analytic_journal"/>                    						
-                   					</form>
-                   					<tree string="Commissions" editable="bottom">
-                   						<field name="partner_id"/>
-                   						<field name="commission_percent"/>
-                   						<field name="property_commission_product"/>
-                   						<field name="property_analytic_journal"/>    
-                   					</tree>
-                   				</field>
-               				</div>
-               			</page>
-                   </data>          
+       			<page name="commission" position="inside">
+       			    <div>
+           				<field name="commission_ids">
+           					<form string="Commission">
+           						<field name="partner_id"/>
+           						<field name="commission_percent"/>   
+           						<field name="property_commission_product"/>
+           						<field name="property_analytic_journal"/>                    						
+           					</form>
+           					<tree string="Commissions" editable="bottom">
+           						<field name="partner_id"/>
+           						<field name="commission_percent"/>
+           						<field name="property_commission_product"/>
+           						<field name="property_analytic_journal"/>    
+           					</tree>
+           				</field>
+       				</div>
+       			</page>
             </field>
+        </record>
+        
+        <record id="form_product_template" model="ir.ui.view">
+          <field name="name">commission_product.form_product_template</field>
+          <field name="model">product.template</field>
+          <field name="inherit_id" ref="commission.form_product_template"/>
+          <field name="type">form</field>
+          <field name="arch" type="xml">
+                <page name="commission" position="inside">
+                    <div>
+                        <field name="commission_ids">
+                            <form string="Commission">
+                                <field name="partner_id"/>
+                                <field name="commission_percent"/>   
+                                <field name="property_commission_product"/>
+                                <field name="property_analytic_journal"/>                                           
+                            </form>
+                            <tree string="Commissions" editable="bottom">
+                                <field name="partner_id"/>
+                                <field name="commission_percent"/>
+                                <field name="property_commission_product"/>
+                                <field name="property_analytic_journal"/>    
+                            </tree>
+                        </field>
+                    </div>
+                </page>
+          </field>
         </record>
         
 	</data>

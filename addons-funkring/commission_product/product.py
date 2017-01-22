@@ -26,6 +26,7 @@ class product_commission(osv.osv):
     
     _name="commission_product.commission"
     _description="Commission"
+    _rec_name = "product_id"
     _columns = {
         "product_id" : fields.many2one("product.product","Product",required=True,select=True),
         "partner_id" : fields.many2one("res.partner","Partner",required=True),
@@ -39,8 +40,15 @@ class product_commission(osv.osv):
                                                       string="Commission Journal")
     }
     
-
-
+    
+class product_template(osv.osv):
+    
+    _inherit = "product.template"
+    _columns = {
+        "commission_ids" : fields.related("product_variant_ids", "commission_ids", obj="commission_product.commission", type="one2many", string="Commission")
+    }
+    
+    
 class product_product(osv.osv):
        
     _inherit = "product.product"

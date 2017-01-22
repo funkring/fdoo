@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Language: de_DE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-09 01:00+0000\n"
-"PO-Revision-Date: 2017-01-09 02:00+0100\n"
+"POT-Creation-Date: 2017-01-22 10:44+0000\n"
+"PO-Revision-Date: 2017-01-22 11:45+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,9 +18,16 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 
 #. module: commission_product
+#: field:product.product,billed_at_cost:0
+msgid "Billed at Cost"
+msgstr ""
+
+#. module: commission_product
 #: model:ir.model,name:commission_product.model_commission_product_commission
 #: view:product.product:commission_product.form_product_normal
 #: field:product.product,commission_ids:0
+#: view:product.template:commission_product.form_product_template
+#: field:product.template,commission_ids:0
 #: view:res.partner:commission_product.form_partner
 msgid "Commission"
 msgstr "Provision"
@@ -37,6 +44,7 @@ msgstr "Provision Journal"
 
 #. module: commission_product
 #: view:product.product:commission_product.form_product_normal
+#: view:product.template:commission_product.form_product_template
 #: view:res.partner:commission_product.form_partner
 msgid "Commissions"
 msgstr "Provisionen"
@@ -55,6 +63,11 @@ msgstr ""
 #: field:commission_product.commission,display_name:0
 msgid "Display Name"
 msgstr "Anzeigename"
+
+#. module: commission_product
+#: view:commission_product.commission:commission_product.search_product_commission
+msgid "Group By..."
+msgstr ""
 
 #. module: commission_product
 #: field:commission_product.commission,id:0
@@ -87,51 +100,55 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: commission_product
-#: code:addons/commission_product/sale.py:44
-#, python-format
-msgid "No Period found for creating commission line"
-msgstr "Keine Periode gefunden um Provisionszeile zu erstellen"
-
-#. module: commission_product
+#: view:commission_product.commission:commission_product.search_product_commission
 #: field:commission_product.commission,partner_id:0
 #: model:ir.model,name:commission_product.model_res_partner
 msgid "Partner"
 msgstr ""
 
 #. module: commission_product
+#: field:product.product,planned_hours:0
+msgid "Planned Hours"
+msgstr ""
+
+#. module: commission_product
+#: view:commission_product.commission:commission_product.search_product_commission
 #: field:commission_product.commission,product_id:0
 #: model:ir.model,name:commission_product.model_product_product
 msgid "Product"
 msgstr "Produkt"
 
 #. module: commission_product
+#: view:commission_product.commission:commission_product.form_product_commission
+#: view:commission_product.commission:commission_product.search_product_commission
+#: model:ir.ui.menu,name:commission_product.menu_product_commission
 #: model:product.template,name:commission_product.product_default_product_template
 #: field:res.partner,product_commission_ids:0
 msgid "Product Commission"
 msgstr "Produkt Provision"
 
 #. module: commission_product
-#: code:addons/commission_product/account.py:69
-#: code:addons/commission_product/sale.py:48
+#: code:addons/commission_product/commission.py:42
 #, python-format
 msgid "Product Commission: %s"
 msgstr "Produkt Provision: %s"
 
 #. module: commission_product
+#: view:commission_product.commission:commission_product.tree_product_commission
+#: model:ir.actions.act_window,name:commission_product.action_product_commission
 #: view:res.partner:commission_product.form_partner
 msgid "Product Commissions"
 msgstr "Produkt Provisionen"
 
 #. module: commission_product
+#: model:ir.model,name:commission_product.model_product_template
+msgid "Product Template"
+msgstr "Produktvorlage"
+
+#. module: commission_product
 #: model:ir.model,name:commission_product.model_sale_order
 msgid "Sales Order"
 msgstr "Verkaufsauftrag"
-
-#. module: commission_product
-#: code:addons/commission_product/sale.py:44
-#, python-format
-msgid "Warning!"
-msgstr "Warnung!"
 
 #. module: commission_product
 #: model:ir.model,name:commission_product.model_commission_recalc_wizard

@@ -28,6 +28,8 @@ class commission_recalc_wizard(osv.osv_memory):
         res = super(commission_recalc_wizard, self).do_recalc(cr, uid, ids, context)
         invoice_obj = self.pool.get("account.invoice")
         order_obj = self.pool.get("sale.order")
+        commission_line_obj = self.pool.get("commission.line")
+       
         for wizard in self.browse(cr, uid, ids):
             if wizard.date_from and wizard.date_to:
                 order_ids = order_obj.search(cr, uid, [("state", "!=", "draft"), ("state", "!=", "cancel"), 
@@ -46,9 +48,9 @@ class commission_recalc_wizard(osv.osv_memory):
             else:
                 order_ids = order_obj.search(cr, uid, [("state", "!=", "draft"), ("state", "!=", "cancel"), ("date_order", ">=", wizard.date_from)])
                 invoice_ids = invoice_obj.search(cr, uid, [("state", "!=", "draft"), ("state", "!=", "cancel"), ("date_invoice", ">=", wizard.date_from)])
-        order_obj._calc_sale_commission(cr, uid, order_ids, context)
-        invoice_obj._calc_sale_commission(cr, uid, invoice_ids, context)
         
+        order_obj._calc_sale_commission(cr, uid, order_ids, context)
+        invoice_obj._calc_sale_commission(cr, uid, invoice_ids, context)       
         return res
     
     _inherit = "commission.recalc_wizard"

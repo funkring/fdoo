@@ -39,16 +39,16 @@ class commission_line(osv.osv):
         
     _columns = {
         "line_id": fields.many2one("account.analytic.line", "Analytic line", ondelete="cascade", required=True),        
-        "base_commission" : fields.float("Base Commission %",required=True),
-        "total_commission" : fields.float("Commission %",required=True),
+        "base_commission" : fields.float("Base Commission %", required=True),
+        "total_commission" : fields.float("Commission %", required=True),
         "invoice_line_id" : fields.many2one("account.invoice.line","Invoice Line", select=True),
         "invoice_id" : fields.related("invoice_line_id", "invoice_id", type="many2one", obj="account.invoice", string="Invoice", readonly=True, select=True, store=True),
         "order_line_id" : fields.many2one("sale.order.line", "Order Line" , select=True),
         "order_id" : fields.related("order_line_id", "order_id", type="many2one", obj="sale.order", string="Order", readonly=True, select=True, store=True),
-        "period_id" : fields.many2one("account.period", string="Period", readonly=True, select=True, store=True),
-        "sale_partner_id" : fields.many2one("res.partner", string="Partner", readonly=True, select=True, store=True),
+        "period_id" : fields.many2one("account.period", string="Period", readonly=True, select=True, store=True, required=True),
+        "sale_partner_id" : fields.many2one("res.partner", string="Customer", readonly=True, select=True, store=True),
         "sale_product_id" : fields.many2one("product.product", string="Product", readonly=True, select=True, store=True),
-        "partner_id" : fields.many2one("res.partner","Salesman", select=True),
+        "partner_id" : fields.many2one("res.partner","Provision Receiver", select=True),
         "invoiced_id" : fields.many2one("account.invoice","Invoiced", select=True, ondelete="set null"),
         "invoiced_line_ids" : fields.many2many("account.invoice.line", "commission_invoice_line_rel", "commission_line_id", "invoice_line_id", "Invoice Lines"),       
         "price_sub" : fields.float("Subtotal", digits_compute=dp.get_precision("Account"))

@@ -16,6 +16,20 @@
             </field>
         </record>
         
+        <record id="form_product_template" model="ir.ui.view">
+            <field name="name">commission_sale.form_product_template</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="commission.form_product_template"/>
+            <field name="arch" type="xml">
+                  <data>
+                        <page name="commission" position="inside">
+                            <group>                                     
+                                <field name="commission_percent"/>
+                            </group>                               
+                        </page>
+                   </data>          
+            </field>
+        </record>
      
         <record id="form_product_category" model="ir.ui.view">
           <field name="name">commission_sale.form_product_category</field>
@@ -30,7 +44,6 @@
                  </xpath>
           </field>
         </record>
-
         
 	</data>
 </openerp>

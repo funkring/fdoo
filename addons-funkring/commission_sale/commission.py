@@ -21,20 +21,14 @@
 ##############################################################################
 
 from openerp.osv import fields, osv
+from openerp.tools.translate import _
 
 class commission_line(osv.osv):
     
-    def _get_sale_commission(self, cr, uid, price_subtotal, percent, context=None):
-        if percent: 
-            factor = percent / 100.0
-            return factor*price_subtotal               
-        return 0
-    
     def _update_bonus(self, cr, uid, salesman_ids, period_ids, context=None):
-        #
         if not salesman_ids or not period_ids:
             return 
-        #
+
         period_id = None
         partner_id = None
         team_id = None
@@ -102,6 +96,75 @@ class commission_line(osv.osv):
                         "amount" : amount,
                         "sales_bonus_line_id" : bonus.id                             
                     },context)
+                    
+    def _get_sale_commission(self, cr, uid, name, user, customer, product, qty, netto, date, pricelist=None, defaults=None, period=None, context=None):
+        res = []
+        
+        commission_obj = self.pool["commission_product.commission"]
+        period_obj = self.pool["account.period"]        
+        pricelist_obj = self.pool.get("product.pricelist")
+        pricelist_item_obj = self.pool.get("product.pricelist.item")
+        rule_obj = self.pool.get("commission_sale.rule")
+        
+        team = user.default_section_id
+        partner = user.partner_id
+        
+        #check partner and team
+        if not partner or not team:
+            return res
+        
+        # get global commission
+        percent = product.commission_percent or product.categ_id.commission_percent or team.sales_commission
+        # search for rule                                                               
+        rule = rule_obj._get_rule(cr, uid, team, product, context=context)
+        if rule:
+            percent = rule.get("commission",0.0) or 0.0
+        elif pricelist:
+            # search for pricelist rule
+            item_id = pricelist_obj.price_rule_get(cr, uid, [pricelist.id], product.id, qty,
+                                partner=customer.id,context=context)[pricelist.id][1]
+            
+            if item_id:
+                prule = pricelist_item_obj.read(cr, uid, item_id, ["commission_active","commission"], context=context)
+                if prule.get("commission_active"):
+                    percent = prule.get("commission",0.0) or 0.0
+                             
+        
+        if percent:
+            factor = percent / 100.0
+            
+            period_id = period and period.id or None
+            if not period_id:
+                period_id = period_obj.find(cr, uid, dt=date, context=context)[0]
+            
+            commission_product = team.property_commission_product
+            journal = team.property_analytic_journal
+            
+            entry = {}
+            if defaults:
+                entry.update(defaults)
+            entry.update({
+                "date": date,
+                "name": _("Sales Commission: %s") % self._short_name(name),
+                "unit_amount": qty,
+                "amount": netto*factor,
+                "base_commission" : percent,
+                "total_commission" : percent,
+                "product_id": commission_product.id,
+                "product_uom_id": commission_product.uom_id.id,
+                "general_account_id": commission_product.account_income_standard_id.id,
+                "journal_id": journal.id,
+                "partner_id" : partner.id,
+                "user_id" : uid,
+                "period_id" : period_id,
+                "price_sub" : netto,
+                "salesman_id" : user.id,
+                "sale_partner_id" : customer.id,
+                "sale_product_id" : product.id
+            })
+            res.append(entry)
+                
+        return res
     
     _columns = {
         "salesman_id" : fields.many2one("res.users","Salesman",ondelete="restrict"),

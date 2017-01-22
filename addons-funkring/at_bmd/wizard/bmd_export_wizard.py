@@ -380,6 +380,7 @@ class bmd_export_param(osv.TransientModel):
                 "view_id" : False,
                 "views" : [(res_id,"form")],
                 "type" : "ir.actions.act_window",
+                "clear_breadcrumbs" : True,
                 "context" : { "period_id" :  obj.period_id.id,
                               "journal_ids" : journal_ids,
                               "default_log_ids" : log_ids

@@ -103,8 +103,6 @@ class commission_invoice_wizard(osv.osv_memory):
                   "reference" : wizard.name,
                   "origin" : wizard.name,
                   "partner_id" : partner.id,
-                  "address_contact_id" :  partner_obj.address_get(cr, uid,[partner.id], adr_pref=["contact"])["contact"],
-                  "address_invoice_id" :  partner_obj.address_get(cr, uid,[partner.id], adr_pref=["invoice"])["invoice"],
                   "payment_term" : partner.property_payment_term.id or False,
                   "journal_id" : journal_ids[0],
                   "account_id" : partner.property_account_receivable.id,

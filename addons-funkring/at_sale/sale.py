@@ -324,6 +324,9 @@ class sale_order_line(osv.osv):
         res["amount_taxes"] = amount_taxes
         res["taxes"] = taxes
         return res
+    
+    def _extra_cost(self, cr, uid, line, context=None):
+        return 0.0
 
     _inherit = "sale.order.line"
     _columns = {
