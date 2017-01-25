@@ -100,7 +100,6 @@ class commission_line(osv.osv):
     def _get_sale_commission(self, cr, uid, name, user, customer, product, qty, netto, date, pricelist=None, defaults=None, period=None, context=None):
         res = []
         
-        commission_obj = self.pool["commission_product.commission"]
         period_obj = self.pool["account.period"]        
         pricelist_obj = self.pool.get("product.pricelist")
         pricelist_item_obj = self.pool.get("product.pricelist.item")
@@ -113,8 +112,13 @@ class commission_line(osv.osv):
         if not partner or not team:
             return res
         
-        # get global commission
-        percent = product.commission_percent or product.categ_id.commission_percent or team.sales_commission
+        # get percent
+        percent = product.commission_percent
+        if not percent:
+            percent = product.categ_id.commission_percent
+        if not percent:
+            percent = team.sales_commission
+            
         # search for rule                                                               
         rule = rule_obj._get_rule(cr, uid, team, product, context=context)
         if rule:
