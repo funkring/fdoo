@@ -159,7 +159,7 @@ class res_partner(osv.osv):
         _lines = []
 
         #check default value
-        if without_company is None and address_type == "mail":
+        if without_company is None:
             without_company = address.mail_without_company
 
         _use_parent_address = address.use_parent_address
@@ -172,12 +172,12 @@ class res_partner(osv.osv):
             title = _name_address.title
             _lines.append(title and "\n".join((title.name,_name_address.name)) or _name_address.name)
             #build co
-            if _name_address != address:
+            if _name_address.id != address.id:
                 co_salutation = address.co_salutation
                 if co_salutation:
                     _lines.append(co_salutation)
         #check with company
-        elif _name_address != address:
+        elif _name_address.id != address.id:
             _lines.append(_name_address.name)
         elif _mail_address:
             _lines.append(_mail_address.name)
