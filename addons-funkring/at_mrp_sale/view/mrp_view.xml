@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+ <data>
+ 
+    <record id="form_bom" model="ir.ui.view">
+      <field name="name">at_mrp.form_bom</field>
+      <field name="model">mrp.bom</field>
+      <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+      <field name="arch" type="xml">
+        <field name="company_id" position="after">
+            <field name="auto_produce"/>
+        </field>
+      </field>
+    </record>
+    
+  </data>
+</openerp>
