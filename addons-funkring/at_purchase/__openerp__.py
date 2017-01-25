@@ -30,7 +30,8 @@ oerp.at Purchase Base
     "category" : "Purchase",
     "website": "http://www.funkring.net",
     "depends" : ["at_procurement","purchase","procurement_jit"],
-    "data" : ["report/purchase_order_report.xml",
+    "data" : ["view/purchase_view.xml",
+              "report/purchase_order_report.xml",
               "report/purchase_quote_request_report.xml"],
     "auto_install": False,
     "installable": True

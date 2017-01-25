@@ -1,0 +1,29 @@
+<openerp>
+  <data>
+    
+    <record id="search_purchase_quotation" model="ir.ui.view">
+      <field name="name">at_purchase.search_purchase_quotation</field>
+      <field name="model">purchase.order</field>
+      <field name="inherit_id" ref="purchase.view_request_for_quotation_filter"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+         <field name="name" position="replace">
+             <field name="name" string="Reference" filter_domain="['|',('name','ilike',self),('origin','ilike',self)]"/>
+         </field>
+      </field>
+    </record>
+
+    <record id="search_purchase_order" model="ir.ui.view">
+      <field name="name">at_purchase.search_purchase_order</field>
+      <field name="model">purchase.order</field>
+      <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+         <field name="name" position="replace">
+             <field name="name" string="Reference" filter_domain="['|',('name','ilike',self),('origin','ilike',self)]"/>
+         </field>         
+      </field>
+    </record>
+
+  </data>
+</openerp>
