@@ -342,6 +342,21 @@ class sale_order(osv.osv):
         for project in project_obj.browse(cr, uid, project_ids, context=context):
             res[project.order_id.id] = project.id
         return res
+    
+    def copy_data(self, cr, uid, oid, default=None, context=None):
+        order = self.browse(cr, uid, oid, context=context)
+        
+        # don't copy if auto create is enabled        
+        if (default is None or not "project_id" in default) and order.shop_id.autocreate_order_analytic_account:
+            if default is None:
+                default = {}
+            else:
+                default = dict(default)
+            default["project_id"] = None
+            
+            
+        res = super(sale_order, self).copy_data(cr, uid, oid,  default=default, context=context)
+        return res
 
     _inherit = "sale.order"
     _columns = {
