@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+  
+    <record id="wizard_sale_order_edit" model="ir.ui.view">
+      <field name="name">at_sale_change.wizard_sale_order_edit</field>
+      <field name="model">sale.order.edit.wizard</field>
+      <field name="arch" type="xml">
+        <form string="Modify Order Lines">
+          <group>
+            <group>
+              <div>
+                  <field name="line_ids">
+                    <tree editable="buttom">
+                        <field name="line_id"/>
+                        <field name="name"/>
+                        <field name="discount"/>
+                        <field name="modify"/>
+                    </tree>
+                  </field>
+               </div>
+            </group>
+          </group>
+          <footer>
+            <button name="action_modify" string="Modify"  type="object" class="oe_highlight" />
+            or
+            <button special="cancel" string="Close" class="oe_link" />
+          </footer>
+        </form>
+      </field>
+    </record>
+    
+    <record id="action_sale_order_edit" model="ir.actions.act_window">
+      <field name="name">Modify Line</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">sale.order.edit.wizard</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+    </record>
+
+  </data>
+</openerp>

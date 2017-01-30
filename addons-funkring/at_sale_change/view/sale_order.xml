@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+  
+    <record id="form_sale_order" model="ir.ui.view">
+      <field name="name">at_sale_change.form_sale_order</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_order_form"/>
+      <field name="arch" type="xml">
+        <button name="invoice_cancel" position="after">
+            <button name="%(action_sale_order_edit)d" type="action" string="Modify" states="progress,manual,waiting_date,shipping_except,invoice_except,done" groups="base.group_sale_manager"/>
+        </button>
+      </field>
+    </record>
+  
+  </data>
+</openerp>
