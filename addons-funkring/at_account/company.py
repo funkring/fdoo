@@ -35,9 +35,7 @@ class res_company(osv.osv):
         "fiscal_auto_year" : fields.boolean("Auto fiscal year"),
         "fiscal_auto_seq" : fields.boolean("Auto fiscal year sequence"),
         "account_customer_seq_id" : fields.many2one("ir.sequence","Customer Account Sequence"),
-        "account_customer_tmpl_id" : fields.many2one("account.account","Customer Account Template"),
-        "account_supplier_seq_id" : fields.many2one("ir.sequence","Supplier Account Sequence"),
-        "account_supplier_tmpl_id" : fields.many2one("account.account","Supplier Account Template")
+        "account_supplier_seq_id" : fields.many2one("ir.sequence","Supplier Account Sequence")
     }
     _defaults = {
         "fiscal_auto_year" : True,

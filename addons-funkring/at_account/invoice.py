@@ -195,22 +195,23 @@ class account_invoice(osv.osv):
         
         return res
 
-    def _check_partner_account(self, cr, uid, inv, seq, account_tmpl, partner_account_field, context=None):
-        if seq and account_tmpl and account_tmpl.id == inv.account_id.id:  
+    def _check_partner_account(self, cr, uid, inv, seq, partner_account_field, context=None):
+        account_tmpl =  self.pool["ir.property"].get(cr, uid, partner_account_field, "res.partner")
+        partner = inv.partner_id
+        if seq and account_tmpl and (account_tmpl.id == inv.account_id.id or (partner.parent_id and partner.type == "invoice" and partner.commercial_partner_id[partner_account_field].id == inv.account_id.id)):  
             if context is None:
                 copyContext = {}
             else:
                 copyContext = dict(context)
             copyContext = {"company_id" : inv.company_id.id }
             
-            partner_obj = self.pool["res.partner"]
-            partner = inv.partner_id
-            partner_account = partner_obj.read(cr, uid, partner.id, [partner_account_field], context=copyContext)[partner_account_field]
+            partner_obj = self.pool["res.partner"]           
+            partner_account_id = partner_obj.read(cr, uid, partner.id, [partner_account_field], context=copyContext)[partner_account_field][0]
 
             # check if partner account is
             # template account
             # if it is create a new wone            
-            if partner_account[0] == account_tmpl.id:
+            if partner_account_id == account_tmpl.id or (partner.parent_id and partner.type == "invoice" and partner.commercial_partner_id[partner_account_field].id == partner_account_id):
                 code = self.pool["ir.sequence"].next_by_id(cr, uid, seq.id, context=copyContext)
                 new_account_id = self.pool["account.account"].copy(cr, uid, account_tmpl.id, {"code": code,
                                                                                              "name" : inv.partner_id.name,
@@ -231,10 +232,10 @@ class account_invoice(osv.osv):
         for inv in self.browse(cr, uid, ids, context=context):
             company = inv.company_id
             if inv.type in ("out_invoice", "out_refund"):
-                self._check_partner_account(cr, uid, inv, company.account_customer_seq_id, company.account_customer_tmpl_id, 
+                self._check_partner_account(cr, uid, inv, company.account_customer_seq_id,  
                             "property_account_receivable", context=context)
             elif inv.type in ("in_invoice", "in_refund"):
-                self._check_partner_account(cr, uid, inv, company.account_supplier_seq_id, company.account_supplier_tmpl_id, 
+                self._check_partner_account(cr, uid, inv, company.account_supplier_seq_id,
                             "property_account_payable", context=context)
         return super(account_invoice, self).action_date_assign(cr, uid, ids, context=context)
 

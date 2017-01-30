@@ -512,8 +512,13 @@ class bmd_export_result(osv.TransientModel):
                     accounts[line.account_contra_id.code]=line.account_contra_id
                 #
                 if line.partner_id:
+                    # if invoice address 
+                    # add to partner ids
+                    if line.partner_id.type == "invoice":
+                        partner_ids.add(line.partner_id.id)
                     # add comercial partner
-                    partner_ids.add(line.partner_id.commercial_partner_id.id)
+                    else:
+                        partner_ids.add(line.partner_id.commercial_partner_id.id)
                     
                 output.write(line.konto)
                 output.write(";")

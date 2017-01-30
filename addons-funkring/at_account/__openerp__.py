@@ -52,6 +52,7 @@ oerp.at Accounting and Finance Extensions
                     "wizard/invoice_cancel_wizard.xml",                    
                     "view/invoice_view.xml",
                     "view/fiscal_position_view.xml",
+                    "view/partner_view.xml",
                     "menu.xml",
                     "security.xml"],
     "installable": True,
