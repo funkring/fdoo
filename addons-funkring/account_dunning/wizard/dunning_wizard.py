@@ -144,7 +144,8 @@ class account_dunning_wizard(osv.osv_memory):
             "res_model" : "account.reminder",
             "type" : "ir.actions.act_window",
             "view_type" : "form",
-            "view_mode" : "tree,form"
+            "view_mode" : "tree,form",
+            "clear_breadcrumbs" : True
         }
 
 
