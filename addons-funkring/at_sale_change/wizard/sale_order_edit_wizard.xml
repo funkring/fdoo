@@ -7,20 +7,28 @@
       <field name="model">sale.order.edit.wizard</field>
       <field name="arch" type="xml">
         <form string="Modify Order Lines">
-          <group>
+          <group>                        
             <group>
-              <div>
-                  <field name="line_ids">
-                    <tree editable="buttom">
-                        <field name="line_id"/>
-                        <field name="name"/>
-                        <field name="discount"/>
-                        <field name="modify"/>
-                    </tree>
-                  </field>
-               </div>
+                <field name="order_id"/>
+                <field name="date_order"/>
+                <field name="modify"/>
+            </group>
+            <group>
             </group>
           </group>
+          <div>
+           <field name="line_ids">
+             <tree editable="buttom">
+                 <field name="line_id"/>
+                 <field name="name" on_change="onchange_line(line_id, name, discount, price_unit, qty, modify)"/>
+                 <field name="qty"  on_change="onchange_line(line_id, name, discount, price_unit, qty, modify)" />
+                 <field name="discount" on_change="onchange_line(line_id, name, discount, price_unit, qty, modify)"/>
+                 <field name="price_unit" on_change="onchange_line(line_id, name, discount, price_unit, qty, modify)"/>
+                 <field name="price_subtotal" on_change="onchange_line(line_id, name, discount, price_unit, qty, modify)"/>
+                 <field name="modify" on_change="onchange_line(line_id, name, discount, price_unit, qty, modify)"/>
+             </tree>
+           </field>
+          </div>         
           <footer>
             <button name="action_modify" string="Modify"  type="object" class="oe_highlight" />
             or
