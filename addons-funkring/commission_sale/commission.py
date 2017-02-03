@@ -33,10 +33,10 @@ class commission_line(osv.osv):
         partner_id = None
         team_id = None
         team = None
-        
+         
         team_obj = self.pool.get("crm.case.section")
         commission_line_obj = self.pool.get("commission.line")
-        
+         
         cr.execute("SELECT s.id team_id, cl.period_id, cl.partner_id, SUM(cl.price_sub) "
                    " FROM commission_line cl "
                    " INNER JOIN res_users u ON u.id = cl.salesman_id "
@@ -46,7 +46,7 @@ class commission_line(osv.osv):
                    " GROUP BY 1,2,3 "
                    " ORDER BY 1,2,3 "
                    ,(tuple(salesman_ids),tuple(period_ids)))
-                                 
+                                  
         for row in cr.fetchall():            
             # grouped by section
             if team_id != row[0]:                
@@ -62,19 +62,19 @@ class commission_line(osv.osv):
             #            
             bonus = None
             for bonus_line in sale_bonus.line_ids:
-                if bonus_line.volume_of_sales <= total:
+                if total >= bonus_line.volume_of_sales:
                     bonus = bonus_line
-                    continue
-                break
-                        
+                else:                    
+                    break
+                         
             if not bonus:
                 line_ids = commission_line_obj.search(cr,uid,[("period_id","=",period_id),
                                                               ("partner_id","=",partner_id),
                                                               ("invoiced_id","=",False),
                                                               ("sales_bonus_line_id","!=",False)])
-                
+                 
                 for cl in commission_line_obj.browse(cr,uid,line_ids,context):
-                    amount = self._get_sale_commission(cr, uid, cl.price_sub, cl.base_commission, context=context)
+                    amount = cl.price_sub * (cl.base_commission / 100.0)*-1.0
                     commission_line_obj.write(cr,uid,[cl.id], {  
                         "total_commission" : cl.base_commission,                                                            
                         "amount" : amount,
@@ -87,16 +87,18 @@ class commission_line(osv.osv):
                                                               '|',
                                                               ("sales_bonus_line_id","!=",bonus.id),
                                                               ("sales_bonus_line_id","=",False)])
-                
+                 
                 for cl in commission_line_obj.browse(cr,uid,line_ids,context):
                     total_commission=cl.base_commission+bonus.bonus
-                    amount = self._get_sale_commission(cr, uid, cl.price_sub, total_commission, context=context)
+                    amount = cl.price_sub * (total_commission / 100.0)*-1.0
                     commission_line_obj.write(cr,uid,[cl.id], {
                         "total_commission" : total_commission,
                         "amount" : amount,
                         "sales_bonus_line_id" : bonus.id                             
                     },context)
                     
+        return True
+    
     def _get_sale_commission(self, cr, uid, name, user, customer, product, qty, netto, date, pricelist=None, defaults=None, period=None, context=None):
         res = []
         
@@ -135,7 +137,7 @@ class commission_line(osv.osv):
                              
         
         if percent:
-            factor = percent / 100.0
+            factor = (percent / 100.0)*-1
             
             period_id = period and period.id or None
             if not period_id:

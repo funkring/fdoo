@@ -38,13 +38,12 @@ class bonus_line(osv.osv):
     _columns = {   
         "name" : fields.char("Name",size=64,required=True,translate=True),        
         "bonus_id" : fields.many2one("commission_sale.bonus","Sales Bonus",required=True,select=True,ondelete="cascade"),
-        "sequence" : fields.integer("Sequence"),
         "volume_of_sales" : fields.float("Volume of Sales",digits_compute=dp.get_precision("Sale Price"),required=True),
         "bonus" : fields.float("Bonus %",help="Bonus = Volume of Sales * Bonus %",required=True)
     }
     _name = "commission_sale.bonus_line"
     _description="Sales Bonus Line"
-    _order = "bonus_id, sequence"
+    _order = "volume_of_sales"
 
 
 class crm_case_section(osv.osv):

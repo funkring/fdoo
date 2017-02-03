@@ -34,10 +34,9 @@ class account_invoice(osv.osv):
             company = invoice.company_id
             if company.commission_type == "invoice" or invoice.type in ("out_refund","in_invoice"):
                 
-                # sign
-                if invoice.type in ("out_invoice", "in_refund"):
-                    sign = 1
-                else:
+                sign = 1
+                # change sign on in invoice or out refund
+                if invoice.type in ("in_invoice", "out_refund"):
                     sign = -1
                     
                 for line in invoice.invoice_line:

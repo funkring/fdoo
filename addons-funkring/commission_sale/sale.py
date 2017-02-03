@@ -58,7 +58,7 @@ class sale_order(osv.osv):
                         
                         for commisson_line in commission_lines:
                             period_ids.add(commisson_line["period_id"])
-                            salesman_ids.add(commisson_line["partner_id"])
+                            salesman_ids.add(commisson_line["salesman_id"])
                             
                             commission_line_id = commission_line_obj.search_id(cr, uid, [("order_line_id", "=", commisson_line["order_line_id"]),
                                                                                        ("partner_id", "=", commisson_line["partner_id"]),

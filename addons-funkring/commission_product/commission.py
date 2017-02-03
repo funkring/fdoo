@@ -29,7 +29,7 @@ class commission_line(osv.Model):
         period_obj = self.pool["account.period"]
         commission_ids = commission_obj.search(cr, uid, [("product_id", "=", product.id)], context=context)
         for commission in commission_obj.browse(cr, uid, commission_ids, context=context):
-            factor = commission.commission_percent / 100.0
+            factor = (commission.commission_percent / 100.0)*-1
             
             period_id = period and period.id or None
             if not period_id:

@@ -40,9 +40,10 @@ class account_invoice(osv.osv):
             company = invoice.company_id
             if company.commission_type == "invoice" or invoice.type in ("out_refund","in_invoice"):
 
-                sign = -1
-                if invoice.type in ("out_invoice", "in_refund"):
-                    sign = 1
+                sign = 1
+                # change sign on in invoice or out refund
+                if invoice.type in ("in_invoice", "out_refund"):
+                    sign = -1
 
                 for line in invoice.invoice_line:
                     product = line.product_id
@@ -70,7 +71,7 @@ class account_invoice(osv.osv):
                         
                             for commisson_line in commission_lines:
                                 period_ids.add(commisson_line["period_id"])
-                                salesman_ids.add(commisson_line["partner_id"])
+                                salesman_ids.add(commisson_line["salesman_id"])
                                 
                                 commission_line_id = commission_line_obj.search_id(cr, uid, [("invoice_line_id", "=", commisson_line["invoice_line_id"]),
                                                                                           ("partner_id", "=", commisson_line["partner_id"]),
