@@ -1,0 +1,55 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* portal_sale_base
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Language: de_DE\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-02-04 16:46+0000\n"
+"PO-Revision-Date: 2017-02-04 16:46+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: portal_sale_base
+#: model:ir.actions.act_window,name:portal_sale_base.portal_action_invoices
+#: model:ir.ui.menu,name:portal_sale_base.portal_invoices
+msgid "Invoices"
+msgstr "Rechnungen"
+
+#. module: portal_sale_base
+#: model:ir.actions.act_window,name:portal_sale_base.action_quotations_portal
+#: model:ir.ui.menu,name:portal_sale_base.portal_quotations
+msgid "Quotations"
+msgstr "Angebote"
+
+#. module: portal_sale_base
+#: model:ir.actions.act_window,name:portal_sale_base.action_orders_portal
+msgid "Sale Orders"
+msgstr "Aufträge"
+
+#. module: portal_sale_base
+#: model:ir.ui.menu,name:portal_sale_base.portal_sales_orders
+msgid "Sales Orders"
+msgstr "Aufträge"
+
+#. module: portal_sale_base
+#: model:ir.actions.act_window,help:portal_sale_base.portal_action_invoices
+msgid "We haven't sent you any invoice."
+msgstr "Es liegt noch keine Rechnung für Sie vor."
+
+#. module: portal_sale_base
+#: model:ir.actions.act_window,help:portal_sale_base.action_quotations_portal
+msgid "We haven't sent you any quotation."
+msgstr "Es liegt noch kein Angebot für Sie vor."
+
+#. module: portal_sale_base
+#: model:ir.actions.act_window,help:portal_sale_base.action_orders_portal
+msgid "We haven't sent you any sales order."
+msgstr "Wir haben Ihnen noch keinen Auftrag zugesendet."
+

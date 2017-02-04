@@ -10,6 +10,7 @@
                stylesheet="intern_landscape"
                in_format="oo-odt"
                out_format="oo-pdf"
+               groups="account.group_account_user" 
                parser="at_account/report/account_account_report.py"
                rml="at_account/report/account_account_report.odt"/>
     </data>

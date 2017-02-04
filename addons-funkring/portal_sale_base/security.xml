@@ -1,0 +1,16 @@
+<openerp>
+  <data>
+    
+    <record id="access_product_category_portal" model="ir.model.access">
+      <field name="name">product_category/portal_user</field>
+      <field name="model_id" ref="product.model_product_category"/>
+      <field name="group_id" ref="base.group_portal"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_write" eval="False"/>
+    </record>
+
+    
+  </data>
+</openerp>

@@ -25,7 +25,7 @@
                         <button class="oe_inline oe_stat_button"
                             icon="fa-credit-card"
                             name="%(at_purchase_sale.sale_purchase_order_action)d"
-                            string="Purchase orders" type="action" widget="statinfo"/>
+                            string="Purchase orders" type="action" widget="statinfo" groups="purchase.group_purchase_user"/>
                     </div>
                 </field>
                 <field name="incoterm" position="before">
