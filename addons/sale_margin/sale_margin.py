@@ -53,8 +53,10 @@ class sale_order_line(osv.osv):
             res['value'].update({'purchase_price': price})
         return res
     
+    # funkring.net - begin
     def _product_margin_extra(self, cr, uid, line, context=None):
         return 0.0
+    # funkring.net - end
 
     def _product_margin(self, cr, uid, ids, field_name, arg, context=None):
         cur_obj = self.pool.get('res.currency')
