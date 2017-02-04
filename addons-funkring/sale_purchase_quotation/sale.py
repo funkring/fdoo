@@ -207,11 +207,11 @@ class sale_order_line(osv.Model):
         for line in self.browse(cr, uid, ids, context=context):
             quotation = line.quotation_id
             if quotation and line.quotation_active:
-                res[line.id] = line.price_subtotal - quotation.price_subtotal
+                res[line.id] = line.price_subtotal - quotation.price_subtotal + self._product_margin_extra(cr, uid, line, context)
             else:
                 cur = line.order_id.pricelist_id.currency_id
                 qty = (line.product_uos and line.product_uos_qty) or line.product_uom_qty
-                tmp_margin = line.price_subtotal - (line.purchase_price * qty)
+                tmp_margin = line.price_subtotal - (line.purchase_price * qty) + self._product_margin_extra(cr, uid, line, context)
                 res[line.id] = cur_obj.round(cr, uid, cur, tmp_margin)           
         return res
 

@@ -52,6 +52,9 @@ class sale_order_line(osv.osv):
             price = self.pool.get('res.currency').compute(cr, uid, frm_cur, to_cur, purchase_price, round=False, context=ctx)
             res['value'].update({'purchase_price': price})
         return res
+    
+    def _product_margin_extra(self, cr, uid, line, context=None):
+        return 0.0
 
     def _product_margin(self, cr, uid, ids, field_name, arg, context=None):
         cur_obj = self.pool.get('res.currency')
@@ -60,7 +63,7 @@ class sale_order_line(osv.osv):
             cur = line.order_id.pricelist_id.currency_id
             # funkring.net - begin
             qty = (line.product_uos and line.product_uos_qty) or line.product_uom_qty
-            tmp_margin = line.price_subtotal - (line.purchase_price * qty)            
+            tmp_margin = line.price_subtotal - (line.purchase_price * qty) + self._product_margin_extra(cr, uid, line, context)            
             res[line.id] = cur_obj.round(cr, uid, cur, tmp_margin)
             # funkrnig.net - end
         return res

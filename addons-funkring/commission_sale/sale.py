@@ -74,3 +74,30 @@ class sale_order(osv.osv):
         commission_line_obj._update_bonus(cr, uid, salesman_ids, period_ids, context=context)
 
     _inherit = "sale.order"
+    
+    
+class sale_order_line(osv.osv):    
+    _inherit = "sale.order.line"
+        
+    def _product_margin_extra(self, cr, uid, line, context=None):
+        res = super(sale_order_line, self)._product_margin_extra(cr, uid, line, context=context)
+        product = line.product_id        
+        if product:
+            order = line.order_id
+            commissionEntries = self.pool("commission.line")._get_sale_commission(cr, uid, 
+                                      line.name, 
+                                      order.user_id, 
+                                      order.partner_id, 
+                                      product, 
+                                      line.product_uos_qty, 
+                                      line.price_subtotal, 
+                                      date=order.date_order, 
+                                      pricelist=order.pricelist_id, 
+                                      context=context)
+            
+            for commissionEntry in commissionEntries:
+                res+=commissionEntry["amount"]
+        return res
+    
+
+    
