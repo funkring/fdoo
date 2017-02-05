@@ -16,6 +16,9 @@
 	          <field name="recurring_next_date" position="after">
 	              <field name="recurring_prepaid"/>
 	          </field>
+	          <field name="parent_id" position="after">
+	               <field name="shop_id"/>
+	          </field>
 	      </field>
 	    </record>
 

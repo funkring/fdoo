@@ -97,16 +97,28 @@ class account_analytic_account(osv.osv):
             invoice["user_id"] = user_id.id
         
         # determine shop
-        parent = contract.parent_id
-        if parent:
-            # shop
-            shop_obj = self.pool["sale.shop"]
-            shop_ids = shop_obj.search(cr, uid, [("autocreate_order_parent_id","=",parent.id)], limit=2)
-            if not shop_ids:
-                shop_ids = shop_obj.search(cr, uid, [("project_id","=",parent.id)], limit=2)
-            # check if only one shop is assinged
-            if len(shop_ids) == 1:
-                invoice["shop_id"] = shop_ids[0]
+        if contract.shop_id:
+            invoice["shop_id"] = contract.shop_id.id
+        else:
+            # shop from template
+            template = contract.template_id
+            if template and template.shop_id:
+                invoice["shop_id"] = template.shop_id.id
+            else:
+                parent = contract.parent_id
+                if parent:
+                    # get shop from parent
+                    if parent.shop_id:
+                        invoice["shop_id"] = parent.shop_id.id
+                    else:
+                        # shop from autocreate
+                        shop_obj = self.pool["sale.shop"]
+                        shop_ids = shop_obj.search(cr, uid, [("autocreate_order_parent_id","=",parent.id)], limit=2)
+                        if not shop_ids:
+                            shop_ids = shop_obj.search(cr, uid, [("project_id","=",parent.id)], limit=2)
+                        # check if only one shop is assinged
+                        if len(shop_ids) == 1:
+                            invoice["shop_id"] = shop_ids[0]
                         
         # performance period
         if contract.recurring_invoices:
@@ -163,7 +175,8 @@ class account_analytic_account(osv.osv):
     
     _inherit = "account.analytic.account"    
     _columns = {
-        "order_id" : fields.many2one("sale.order","Order", ondelete="cascade", copy=False),
+        "order_id" : fields.many2one("sale.order", "Order", ondelete="cascade", copy=False),
+        "shop_id" : fields.many2one("sale.shop", "Shop"),
         "recurring_prepaid" : fields.boolean("Prepaid"),
         "root_account_id" : fields.function(_root_account, type="many2one", obj="account.analytic.account", string="Root", select=True, store={
             "account.analytic.account" : (_relids_account, ["parent_id"], 10)
