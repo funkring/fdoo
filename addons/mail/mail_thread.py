@@ -392,7 +392,11 @@ class mail_thread(osv.AbstractModel):
         for key, val in context.iteritems():
             if key.startswith('default_') and key[8:] not in create_values:
                 create_values[key[8:]] = val
-        self.message_auto_subscribe(cr, uid, [thread_id], create_values.keys(), context=context, values=create_values)
+        # funkring.net - begin
+        auto_subscribe_context = dict(context)
+        auto_subscribe_context["mail_notify_noemail"] = True
+        self.message_auto_subscribe(cr, uid, [thread_id], create_values.keys(), context=auto_subscribe_context, values=create_values)
+        # funkring.net - end
 
         # track values
         track_ctx = dict(context)
