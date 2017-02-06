@@ -25,6 +25,8 @@ from openerp.addons.at_base import util
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
+from openerp import SUPERUSER_ID
+
 class hr_timesheet_sheet_sheet_day(osv.osv):
 
     def _total_saldo(self, cr,uid, ids, field_name,arg,context=None):
@@ -353,10 +355,15 @@ class hr_timesheet_sheet(osv.osv):
         for sheet in self.browse(cr, uid, ids, context):
             if sheet.state == "new" or sheet.state == "draft":
                 saldo =  sheet.saldo_correction + (sheet.total_attendance-sheet.total_target)
+                
                 # add previous sheet saldo
-                prev_ids = self.search(cr, 1, [('employee_id','=',sheet.employee_id.id),('date_to','<=',sheet.date_from)],limit=1,order='date_from desc')
-                if prev_ids:
-                    prev_sheet = self.read(cr, uid, prev_ids[0], ["current_saldo"])
+                prev_id = self.search_id(cr, SUPERUSER_ID, 
+                                         [("employee_id","=",sheet.employee_id.id),
+                                          ("date_to","<=",sheet.date_from),
+                                          ("id","!=",sheet.id)], 
+                                         order='date_from desc', context=context)
+                if prev_id:
+                    prev_sheet = self.read(cr, SUPERUSER_ID, prev_id, ["current_saldo"])
                     saldo = saldo + prev_sheet["current_saldo"]
 
                 res[sheet.id] = saldo
