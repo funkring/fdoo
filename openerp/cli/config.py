@@ -94,6 +94,8 @@ class ConfigCommand(Command):
         self.parser.add_argument("--db_user", metavar="DB_USER", default=False,
                             help="specify the database user")
         
+        self.parser.add_argument("--debug", action="store_true")
+        
         self.parser.add_argument("--lang", required=False, 
                                  help="Language (Default is %s)" % config.defaultLang)
     
@@ -164,7 +166,10 @@ class ConfigCommand(Command):
                     
             self.cr.commit()    
         except Exception, e:
-            _logger.error(e)
+            if self.params.debug:
+                _logger.exception(e)
+            else:
+                _logger.error(e)
         finally:
             self.cr.rollback()
             self.cr.close()

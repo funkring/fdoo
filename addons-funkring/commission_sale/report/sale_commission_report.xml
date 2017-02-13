@@ -1,0 +1,18 @@
+<openerp>
+  <data>
+    
+    <report id="report_sale_commission" 
+            string="Sale Commission" 
+            name="sale.commission.report.pdf" 
+            auto="False" 
+            report_type="aeroo" 
+            model="account.invoice"
+            process_sep="True" 
+            in_format="oo-odt" 
+            out_format="oo-pdf" 
+            parser="commission_sale/report/sale_commission_report.py" 
+            rml="commission_sale/report/sale_commission_report.odt" />
+
+    
+  </data>
+</openerp>

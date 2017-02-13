@@ -42,7 +42,7 @@ Basic module for commission management
               "menu.xml",
               "view/commission_recalc_wizard.xml",
               "view/company_view.xml",
-              "view/commission_invoice_view.xml",
+              "view/commission_view.xml",
               "view/commission_invoice_wizard.xml",
               "view/analytic_view.xml",
               "view/product_view.xml",

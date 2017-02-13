@@ -30,11 +30,11 @@ class basic_parser(report_sxw.rml_parse):
         self.localcontext["company_email"]=""
         user = self.localcontext.get("user")
         if user:
-            company_rec = user.company_id
-            self.localcontext["company"]=company_rec
-            if company_rec:
-                self.localcontext["company_name"]=company_rec.name
-                address_rec = company_rec.partner_id and company_rec.partner_id
+            company = user.company_id
+            self.localcontext["company"]=company
+            if company:
+                self.localcontext["company_name"]=company.name
+                address_rec = company.partner_id and company.partner_id
                 if address_rec:
                     self.localcontext["company_phone"]=address_rec.phone
                     self.localcontext["company_fax"]=address_rec.fax

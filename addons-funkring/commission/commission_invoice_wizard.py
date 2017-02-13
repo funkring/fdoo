@@ -77,6 +77,7 @@ class commission_invoice_wizard(osv.osv_memory):
         partner_obj = self.pool.get("res.partner")
         commission_line_obj = self.pool.get("commission.line")
         journal_obj = self.pool.get("account.journal")
+        shop_obj = self.pool.get("sale.shop")
         wizard = self.browse(cr, uid, ids[0], context)        
         #
         partner = None
@@ -87,15 +88,17 @@ class commission_invoice_wizard(osv.osv_memory):
         for line in commission_line_obj.browse(cr, uid, line_ids):
             # group partners
             if not partner or partner.id != line.partner_id.id:
-                partner = line.partner_id                
+                partner = line.partner_id
+                salesman = line.salesman_id                
+                team = salesman and salesman.default_section_id or None
+                                     
                 account_position = partner.property_account_position
                 company = line.company_id
-                #
+
                 journal_ids = journal_obj.search(cr, uid, [('type', '=','purchase'),('company_id', '=', company.id)], limit=1)
                 if not journal_ids:
                     raise osv.except_osv(_("Warning!"),
                         _('There is no purchase journal defined for this company: "%s" (id:%d)') % (company.name, company.id))
-                  
                 
                 inv_values = {
                   "type" : "in_invoice",
@@ -111,8 +114,13 @@ class commission_invoice_wizard(osv.osv_memory):
                   "company_id" : company.id,
                   "fiscal_position" : account_position.id
                 }
+                
+                if team:
+                    shop_id = shop_obj.search_id(cr, uid, [("team_id","=",team.id)], context=context)
+                    if shop_id:
+                        inv_values["shop_id"] = shop_id
+                
                 invoice_id = invoice_obj.create(cr,uid,inv_values,context=context)
-                #
                 invoice_ids.append(invoice_id)
 
             product = line.product_id                    
@@ -128,7 +136,8 @@ class commission_invoice_wizard(osv.osv_memory):
                 "product_id" : product.id,               
                 "uos_id" : line.product_uom_id.id,
                 "account_id" : line.general_account_id.id,
-                "account_analytic_id" : line.account_id.id
+                "account_analytic_id" : line.account_id.id,
+                "origin" : line.ref
             }
             
             chg_values = invoice_line_obj.product_id_change(cr, uid, [],
@@ -151,26 +160,25 @@ class commission_invoice_wizard(osv.osv_memory):
             values["name"] = self._inv_line_name_get(cr, uid, wizard, line, context)            
             values["note"] = self._inv_line_note_get(cr, uid, wizard, line, context)               
             invoice_line_id = invoice_line_obj.create(cr,uid,values,context=context)
-            #            
+
             commission_line_obj.write(cr,uid,line.id,{"invoiced_id" : invoice_id,
                                                       "invoiced_line_ids" : [(4,invoice_line_id)]
                                                       })
         
         # update invoices                       
         if invoice_ids:
-            #
             invoice_obj.button_compute(cr, uid, invoice_ids, set_total=True, context=context)
-            #
+            
             # Show Invoices
-            #
             mod_obj = self.pool.get("ir.model.data")
             act_obj = self.pool.get("ir.actions.act_window")
-            #
+
             mod_ids = mod_obj.search(cr, uid, [("name", "=", "action_invoice_tree2")], context=context)[0]
             res_id = mod_obj.read(cr, uid, mod_ids, ["res_id"], context=context)["res_id"]
             act_win = act_obj.read(cr, uid, res_id, [], context=context)
             act_win["domain"] = [("id","in",invoice_ids),("type","=","in_invoice")]            
             return act_win
+        
         #or nothing
         return { "type" : "ir.actions.act_window_close" }
     

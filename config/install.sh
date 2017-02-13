@@ -45,6 +45,7 @@ apt-get -y install python-serial
 apt-get -y install python-dev
 apt-get -y install python-wand
 apt-get -y install python-qrcode
+apt-get -y install python-pycryptopp
 
 #ruby
 apt-get -y install ruby

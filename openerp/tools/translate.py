@@ -784,7 +784,7 @@ def trans_generate(lang, modules, cr):
                     if not model_data_ids:
                         push_translation(module, 'model', name, 0, encode(obj_value[field_name]))
 
-            if hasattr(field_def, 'selection') and isinstance(field_def.selection, (list, tuple)):
+            if hasattr(field_def, 'selection') and isinstance(field_def.selection, (list, tuple)):                
                 for dummy, val in field_def.selection:
                     push_translation(module, 'selection', name, 0, encode(val))
 
