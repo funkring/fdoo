@@ -22,7 +22,7 @@ from openerp import models, fields, api, _
 
 class portal_download(models.Model):
     _inherit = "portal.download"
+    _order = "product_id, name"
     
-    name = fields.Char("Name", required=True)
-    product_id = fields.Many2one("product.product", "Product", ondelete="restrict")
+    product_id = fields.Many2one("product.product", "Product", ondelete="restrict", copy=True, index=True)
     

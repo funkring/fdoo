@@ -23,6 +23,7 @@ from openerp import models, fields, api, _
 class portal_download(models.Model):
     _name = "portal.download"
     _description = "Download"
+    _order = "name"
     
     @api.one
     def _compute_download_link(self):
@@ -40,7 +41,7 @@ class portal_download(models.Model):
             }
 
     
-    name = fields.Char("Name", required=True)
+    name = fields.Char("Name", required=True, index=True)
     code = fields.Char("Code", help="Download code which can be used for identifying or as shortcut")
     permission_ids = fields.One2many("portal.download.perm", "download_id", "Permissions")
     download_link = fields.Html("Download Link",compute="_compute_download_link") 
