@@ -130,7 +130,7 @@ class commission_invoice_wizard(osv.osv_memory):
             values = {
                 "invoice_id" : invoice_id,
                 "price_unit" : line.amount*-1,
-                "quantity" : line.unit_amount,
+                "quantity" : 1.0,
                 "invoice_line_tax_id" : tax,
                 "name" : line.name,                
                 "product_id" : product.id,               

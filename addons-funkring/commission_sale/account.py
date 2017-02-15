@@ -22,6 +22,8 @@
 
 from openerp.osv import fields, osv
 from openerp.tools.translate import _
+from openerp.exceptions import Warning
+
 
 class account_invoice(osv.osv):
     
@@ -47,11 +49,18 @@ class account_invoice(osv.osv):
 
                 for line in invoice.invoice_line:
                     product = line.product_id
-                    analytic_account = line.account_analytic_id
-                    if analytic_account and product:     
-                        
+                    if product:     
+                    
+                        analytic_account = line.account_analytic_id    
+                        default_analytic_account = analytic_account
+                        if not analytic_account:
+                            default_analytic_account = invoice.shop_id.project_id
+                            
+                        if not default_analytic_account:
+                            raise Warning(_("No analytic account for commission found!"))
+                            
                         def create_commission(salesman_user, name=None, commission_date=None, ref=None, pricelist=None):
-                            price_subtotal = sign*line.price_subtotal                            
+                            price_subtotal = sign*line.price_subtotal              
                             commission_lines = commission_line_obj._get_sale_commission(cr, uid, 
                                                                  line.name, salesman_user, 
                                                                  invoice.partner_id, 
@@ -60,14 +69,15 @@ class account_invoice(osv.osv):
                                                                  price_subtotal, 
                                                                  date=commission_date or invoice.date_invoice, 
                                                                  pricelist=pricelist, 
-                                                                 defaults={
+                                                                 defaults=commission_defaults, 
+                                                                 context= {
                                                                     "ref": ref or invoice.number,
                                                                     "invoice_line_id" : line.id,
                                                                     "invoice_id" : invoice.id,
-                                                                    "account_id": analytic_account.id,
                                                                     "sale_partner_id" : invoice.partner_id.id,
-                                                                    "sale_product_id" : line.product_id.id
-                                                                 }, context=context)
+                                                                    "sale_product_id" : line.product_id.id,
+                                                                    "account_id" : default_analytic_account.id 
+                                                                })
                         
                             for commisson_line in commission_lines:
                                 period_ids.add(commisson_line["period_id"])
@@ -84,24 +94,29 @@ class account_invoice(osv.osv):
                             
                         
                         # order based
-                        cr.execute("SELECT sl.salesman_id, o.id FROM sale_order_line_invoice_rel rel  "
-                                   " INNER JOIN sale_order_line sl ON sl.id = rel.order_line_id "
-                                   " INNER JOIN sale_order o ON o.id = sl.order_id "
-                                   " WHERE      rel.invoice_id = %s " 
-                                   "       AND  sl.salesman_id IS NOT NULL "
-                                   "       AND  o.pricelist_id IS NOT NULL "
-                                   " GROUP BY 1,2 ", (line.id,))
-                       
-                        for salesman_id, order_id in cr.fetchall():
-                            salesman_user = user_obj.browse(cr, uid, salesman_id, context=context)
-                            order = order_obj.browse(cr, uid, order_id, context=context)     
-                            commission_date = order.date_order                      
-                            create_commission(salesman_user, name=order.name, commission_date=order.date_order, ref=order.name, pricelist=order.pricelist_id)
+                        if sign > 0:
+                            cr.execute("SELECT sl.salesman_id, o.id FROM sale_order_line_invoice_rel rel  "
+                                       " INNER JOIN sale_order_line sl ON sl.id = rel.order_line_id "
+                                       " INNER JOIN sale_order o ON o.id = sl.order_id "
+                                       " WHERE      rel.invoice_id = %s " 
+                                       "       AND  sl.salesman_id IS NOT NULL "
+                                       "       AND  o.pricelist_id IS NOT NULL "
+                                       " GROUP BY 1,2 ", (line.id,))
+                           
+                            for salesman_id, order_id in cr.fetchall():
+                                salesman_user = user_obj.browse(cr, uid, salesman_id, context=context)
+                                order = order_obj.browse(cr, uid, order_id, context=context)     
+                                commission_date = order.date_order                      
+                                create_commission(salesman_user, name=order.name, commission_date=order.date_order, ref=order.name, pricelist=order.pricelist_id)
+                        # invoice based (refund)
+                        else:
+                            create_commission(invoice.user_id, name=invoice.name, commission_date=invoice.date_invoice, ref=invoice.origin)
                             
                         # contract based
-                        salesman_user = analytic_account.salesman_id
-                        if salesman_user and not line.sale_order_line_ids:
-                            create_commission(salesman_user)
+                        if analytic_account:
+                            salesman_user = analytic_account.salesman_id
+                            if salesman_user and not line.sale_order_line_ids:
+                                create_commission(salesman_user)
         
         period_ids = list(period_ids)
         salesman_ids = list(salesman_ids)        
