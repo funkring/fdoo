@@ -500,21 +500,28 @@ class configmanager(object):
             # ... or keep, but cast, the config file value.
             elif isinstance(self.options[arg], basestring) and self.casts[arg].type in optparse.Option.TYPE_CHECKER:
                 self.options[arg] = optparse.Option.TYPE_CHECKER[self.casts[arg].type](self.casts[arg], arg, self.options[arg])
-
+        
         self.options['root_path'] = os.path.abspath(os.path.expanduser(os.path.expandvars(os.path.dirname(openerp.__file__))))
         if not self.options['addons_path'] or self.options['addons_path']=='None':
-            default_addons = []
-            base_addons = os.path.join(self.options['root_path'], 'addons')
-            if os.path.exists(base_addons):
-                default_addons.append(base_addons)
-            main_addons = os.path.abspath(os.path.join(self.options['root_path'], '../addons'))
-            if os.path.exists(main_addons):
-                default_addons.append(main_addons)
-            self.options['addons_path'] = ','.join(default_addons)
+            # funkring.net - begin            
+            enabled_addons = os.path.join(self.options['root_path'], '../config/enabled-addons/openerp/addons')
+            if os.path.exists(enabled_addons):
+                self.options['addons_path'] = os.path.abspath(enabled_addons)
+            else:
+                default_addons = []
+                base_addons = os.path.join(self.options['root_path'], 'addons')
+                if os.path.exists(base_addons):
+                    default_addons.append(base_addons)
+                main_addons = os.path.abspath(os.path.join(self.options['root_path'], '../addons'))
+                if os.path.exists(main_addons):
+                    default_addons.append(main_addons)
+                self.options['addons_path'] = ','.join(default_addons)
+            # funkring.net - end
         else:
             self.options['addons_path'] = ",".join(
                     os.path.abspath(os.path.expanduser(os.path.expandvars(x)))
                       for x in self.options['addons_path'].split(','))
+        
 
         self.options['init'] = opt.init and dict.fromkeys(opt.init.split(','), 1) or {}
         self.options['demo'] = not opt.without_demo and dict(self.options['init']) or {}

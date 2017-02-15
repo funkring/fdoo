@@ -40,6 +40,7 @@ Shop for external salesman
                  "portal_project",
                  "delivery"],
     "data" : ["security.xml",
+              "menu.xml",
               "view/sale_view.xml",
               "view/portal_project_view.xml"],
     "auto_install" : False,

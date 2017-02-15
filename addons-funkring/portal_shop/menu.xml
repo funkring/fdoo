@@ -1,0 +1,9 @@
+<openerp>
+  <data>
+  
+     <menuitem name="Customers" id="portal_customer" parent="portal.portal_orders" sequence="1"
+            action="base.action_partner_form" 
+            groups="base.group_partner_manager"/>
+    
+  </data>
+</openerp>
