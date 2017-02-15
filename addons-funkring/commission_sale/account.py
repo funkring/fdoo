@@ -61,6 +61,16 @@ class account_invoice(osv.osv):
                             
                         def create_commission(salesman_user, name=None, commission_date=None, ref=None, pricelist=None):
                             price_subtotal = sign*line.price_subtotal              
+                            
+                            commission_defaults = {
+                                "ref": ref or invoice.number,
+                                "invoice_line_id" : line.id,
+                                "invoice_id" : invoice.id,
+                                "sale_partner_id" : invoice.partner_id.id,
+                                "sale_product_id" : line.product_id.id,
+                                "account_id" : default_analytic_account.id 
+                            }
+                            
                             commission_lines = commission_line_obj._get_sale_commission(cr, uid, 
                                                                  line.name, salesman_user, 
                                                                  invoice.partner_id, 
@@ -70,14 +80,7 @@ class account_invoice(osv.osv):
                                                                  date=commission_date or invoice.date_invoice, 
                                                                  pricelist=pricelist, 
                                                                  defaults=commission_defaults, 
-                                                                 context= {
-                                                                    "ref": ref or invoice.number,
-                                                                    "invoice_line_id" : line.id,
-                                                                    "invoice_id" : invoice.id,
-                                                                    "sale_partner_id" : invoice.partner_id.id,
-                                                                    "sale_product_id" : line.product_id.id,
-                                                                    "account_id" : default_analytic_account.id 
-                                                                })
+                                                                 context=context)
                         
                             for commisson_line in commission_lines:
                                 period_ids.add(commisson_line["period_id"])
