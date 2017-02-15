@@ -138,14 +138,16 @@ class project(osv.osv):
     def _progress_rate(self, cr, uid, ids, names, arg, context=None):
         child_parent = self._get_project_and_children(cr, uid, ids, context)
         # compute planned_hours, total_hours, effective_hours specific to each project
+        # funkring.net - begin
         cr.execute("""
             SELECT project_id, COALESCE(SUM(planned_hours), 0.0),
                 COALESCE(SUM(total_hours), 0.0), COALESCE(SUM(effective_hours), 0.0)
             FROM project_task
             LEFT JOIN project_task_type ON project_task.stage_id = project_task_type.id
-            WHERE project_task.project_id IN %s AND project_task_type.fold = False
+            WHERE project_task.project_id IN %s 
             GROUP BY project_id
             """, (tuple(child_parent.keys()),))
+        # funkring.net - end
         # aggregate results into res
         res = dict([(id, {'planned_hours':0.0, 'total_hours':0.0, 'effective_hours':0.0}) for id in ids])
         for id, planned, total, effective in cr.fetchall():
