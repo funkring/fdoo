@@ -50,11 +50,11 @@ class account_dunning_wizard(osv.osv_memory):
             for customer in customers:
                 # get active reminder id
                 reminder_id = reminder_obj.search_id(cr, uid, [("partner_id", "=", customer.id),("profile_id","=",wizard.profile_id.id)])
-                if not customer.noremind:
-                   
-                    # check balance           
-                    commercial_partner = customer.commercial_partner_id       
-                    if commercial_partner.credit > commercial_partner.debit or reminder_id:
+                if not customer.noremind:           
+                    commercial_partner = customer.commercial_partner_id
+                    # check balance      
+                    # not commercial_partner.credit (should never happen, but it happens) 
+                    if not commercial_partner.credit or commercial_partner.credit > commercial_partner.debit or reminder_id:
                         
                         # check invoice
                         invoice_ids = invoice_obj.search(cr, uid, [("partner_id", "=", customer.id), ("type", "=", "out_invoice"), ("noremind","=",False)])

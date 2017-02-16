@@ -98,8 +98,7 @@ class account_reminder_line(osv.Model):
         invoice_obj = self.pool.get("account.invoice")
 
         for line in self.browse(cr, uid, ids, context):
-            invoice_obj.write(cr, uid, [line.invoice_id.id], {"followup_line_id" : None,
-                                                              "followup_date" : None})
+            invoice_obj.write(cr, uid, [line.invoice_id.id], {"dunning_date" : None})
 
         return super(account_reminder_line, self).unlink(cr, uid, ids, context=context)
 
