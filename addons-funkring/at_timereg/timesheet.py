@@ -357,14 +357,31 @@ class hr_timesheet_sheet(osv.osv):
                 saldo =  sheet.saldo_correction + (sheet.total_attendance-sheet.total_target)
                 
                 # add previous sheet saldo
-                prev_id = self.search_id(cr, SUPERUSER_ID, 
-                                         [("employee_id","=",sheet.employee_id.id),
-                                          ("date_to","<=",sheet.date_from),
-                                          ("id","!=",sheet.id)], 
-                                         order='date_from desc', context=context)
-                if prev_id:
-                    prev_sheet = self.read(cr, SUPERUSER_ID, prev_id, ["current_saldo"])
-                    saldo = saldo + prev_sheet["current_saldo"]
+                date_from = sheet.date_from
+                employee_id = sheet.employee_id.id
+                prev_ids = [sheet.id]
+                
+                while prev_ids:                                
+                    prev_ids = self.search(cr, SUPERUSER_ID, 
+                                             [("employee_id","=",employee_id),
+                                              ("date_to","<=",date_from),
+                                              "!",("id","in",prev_ids)],                                              
+                                             order="date_from desc", limit=100, context=context)
+                    
+                    prev_sheet_entries = self.read(cr, SUPERUSER_ID, prev_ids, ["state","saldo_correction", "total_attendance", "total_target", "date_from", "saldo"], context=context)
+                    for prev_sheet_entry in prev_sheet_entries:
+                        date_from = prev_sheet_entry["date_from"]
+                        
+                        prev_sheet_current_saldo = 0.0
+                        if prev_sheet_entry["state"] in ("new", "draft"):
+                            prev_sheet_saldo_correction =  prev_sheet_entry["saldo_correction"] or 0.0
+                            prev_sheet_total_attendance = prev_sheet_entry["total_attendance"] or 0.0
+                            prev_sheet_total_target = prev_sheet_entry["total_target"] or 0.0
+                            saldo += prev_sheet_saldo_correction + (prev_sheet_total_attendance-prev_sheet_total_target)                        
+                        else:
+                            saldo += (prev_sheet_entry["saldo"] or 0.0)
+                            prev_ids = None
+                            break
 
                 res[sheet.id] = saldo
             else:
@@ -373,14 +390,16 @@ class hr_timesheet_sheet(osv.osv):
         return res
 
     def _last_saldo(self, cr, uid, ids, field_name, arg, context=None):
-        res = {}
-        for sheet in self.browse(cr, uid, ids, context):
-            res[sheet.id] = 0.0
+        res = dict.fromkeys(ids, 0.0)
+        for sheet in self.browse(cr, uid, ids, context=context):
             # add previous sheet saldo
-            prev_ids = self.search(cr, 1, [('employee_id','=',sheet.employee_id.id),('date_to','<=',sheet.date_from)],limit=1,order='date_from desc')
-            if prev_ids:
-                prev_sheet = self.browse(cr, uid, prev_ids[0], context)
-                res[sheet.id] = prev_sheet.current_saldo
+            prev_id = self.search_id(cr, SUPERUSER_ID, 
+                                 [("employee_id","=",sheet.employee_id.id),
+                                  ("date_to","<=",sheet.date_from),
+                                  ("id","!=",sheet.id)],
+                                 order="date_from desc", context=context)
+            if prev_id:
+                res[sheet.id] = self.read(cr, SUPERUSER_ID, prev_id, ["current_saldo"], context=context)["current_saldo"] or 0.0
         return res
 
 
@@ -407,13 +426,13 @@ class hr_timesheet_sheet(osv.osv):
         return res
 
     def update_saldo(self, cr, uid, sid, context=None):
-        sheet = self.browse(cr, uid, sid, context)
-        if sheet.saldo != sheet.current_saldo:
-            self.write(cr, uid, sid, {"saldo" : sheet.current_saldo }, context)
-
-        next_ids = self.search(cr, 1, ['&',('employee_id','=',sheet.employee_id.id),('date_from','>=',sheet.date_to)],limit=1,order='date_from')
-        for next_id in next_ids:
-            self.update_saldo(cr,uid,next_id,context)
+        sheet = self.browse(cr, uid, sid, context=context)
+        
+        # update next
+        sheet_ids = self.search(cr, SUPERUSER_ID, [("employee_id","=",sheet.employee_id.id),("date_from",">=",sheet.date_from)], order="date_from")
+        for sheet in self.browse(cr, SUPERUSER_ID, sheet_ids, context=context):
+            if sheet.saldo != sheet.current_saldo:
+                self.write(cr, uid, sheet.id, {"saldo" : sheet.current_saldo }, context=context)
 
     def button_confirm(self, cr, uid, ids, context=None):
         for sid in ids:
