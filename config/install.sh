@@ -75,6 +75,8 @@ python -m easy_install pip
 python -m pip install py4j
 # install ofxparse
 python -m pip install ofxparse
+# install pycrypt
+python -m pip install pycrypto
 
 #install pygal depends
 apt-get -y install libffi-dev
