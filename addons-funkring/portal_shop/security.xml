@@ -162,27 +162,6 @@
       <field name="perm_unlink" eval="False"/>
     </record>
         
-    <record id="access_account_analytic_invoice_line_sale_extern" model="ir.model.access">
-      <field name="name">account_analytic_invoice_line/sale_extern</field>
-      <field name="model_id" ref="account_analytic_analysis.model_account_analytic_invoice_line"/>
-      <field name="group_id" ref="group_sale_extern"/>
-      <field name="perm_read" eval="True"/>
-      <field name="perm_unlink" eval="False"/>
-      <field name="perm_create" eval="False"/>
-      <field name="perm_write" eval="False"/>
-    </record>
-    
-    <record id="rule_account_analytic_invoice_line_sale_extern" model="ir.rule">
-      <field name="name">account_analytic_invoice_line/sale_extern</field>
-      <field name="model_id" ref="account_analytic_analysis.model_account_analytic_invoice_line"/>
-      <field name="domain_force">['|','|',('analytic_account_id.user_id','=',user.id),('analytic_account_id.order_id.user_id','=',user.id),('analytic_account_id.order_id.section_id.member_ids','in',user.id)]</field>
-      <field name="groups" eval="[(4,ref('group_sale_extern'))]"/>
-      <field name="perm_read" eval="True"/>
-      <field name="perm_write" eval="False"/>
-      <field name="perm_create" eval="False"/>
-      <field name="perm_unlink" eval="False"/>
-    </record>
-
 
     <!-- ANALYTIC ACCOUNT -->
 
@@ -211,6 +190,27 @@
       <field name="name">account_analytic_account/sale_extern</field>
       <field name="model_id" ref="analytic.model_account_analytic_account"/>
       <field name="domain_force">[('id','=',user.shop_id.project_template_id.analytic_account_id.id)]</field>
+      <field name="groups" eval="[(4,ref('group_sale_extern'))]"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_write" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_unlink" eval="False"/>
+    </record>
+
+   <record id="access_account_analytic_invoice_line_sale_extern" model="ir.model.access">
+      <field name="name">account_analytic_invoice_line/sale_extern</field>
+      <field name="model_id" ref="account_analytic_analysis.model_account_analytic_invoice_line"/>
+      <field name="group_id" ref="group_sale_extern"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_write" eval="False"/>
+    </record>
+    
+    <record id="rule_account_analytic_invoice_line_sale_extern" model="ir.rule">
+      <field name="name">account_analytic_invoice_line/sale_extern</field>
+      <field name="model_id" ref="account_analytic_analysis.model_account_analytic_invoice_line"/>
+      <field name="domain_force">['|','|',('analytic_account_id.user_id','=',user.id),('analytic_account_id.order_id.user_id','=',user.id),('analytic_account_id.order_id.section_id.member_ids','in',user.id)]</field>
       <field name="groups" eval="[(4,ref('group_sale_extern'))]"/>
       <field name="perm_read" eval="True"/>
       <field name="perm_write" eval="False"/>
