@@ -182,7 +182,8 @@ class mail_thread(osv.AbstractModel):
 
     def read_followers_data(self, cr, uid, follower_ids, context=None):
         result = []
-        for follower in self.pool.get('res.partner').browse(cr, uid, follower_ids, context=context):
+        # funkring.net - begin
+        for follower in self.pool.get('res.partner').browse(cr, SUPERUSER_ID, follower_ids, context=context):
             is_editable = self.pool['res.users'].has_group(cr, uid, 'base.group_no_one')
             is_uid = uid in map(lambda x: x.id, follower.user_ids)
             data = (follower.id,
@@ -190,6 +191,7 @@ class mail_thread(osv.AbstractModel):
                     {'is_editable': is_editable, 'is_uid': is_uid},
                     )
             result.append(data)
+        # funkring.net - end
         return result
 
     def _get_subscription_data(self, cr, uid, ids, name, args, user_pid=None, context=None):
