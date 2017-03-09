@@ -47,8 +47,8 @@ class commission_recalc_wizard(osv.osv_memory):
                 order_ids = order_obj.search(cr, uid, [("state", "!=", "draft"), ("state", "!=", "cancel"), ("date_order", ">=", wizard.date_from)])
                 invoice_ids = invoice_obj.search(cr, uid, [("state", "!=", "draft"), ("state", "!=", "cancel"), ("date_invoice", ">=", wizard.date_from)])
                 
-        order_obj._calc_product_commission(cr, uid, order_ids, context)
-        invoice_obj._calc_product_commission(cr, uid, invoice_ids, context)
+        order_obj._calc_product_commission(cr, uid, order_ids, force=True, context=context)
+        invoice_obj._calc_product_commission(cr, uid, invoice_ids, force=True, context=context)
         return res
     
     _inherit = "commission.recalc_wizard"

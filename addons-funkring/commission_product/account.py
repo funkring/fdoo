@@ -25,14 +25,14 @@ from openerp.tools.translate import _
 
 class account_invoice(osv.osv):
 
-    def _calc_product_commission(self, cr, uid, ids, context=None):
+    def _calc_product_commission(self, cr, uid, ids, force=False, context=None):
         commission_obj = self.pool.get("commission_product.commission")
         invoice_obj = self.pool.get("account.invoice")
         commission_line_obj = self.pool.get("commission.line")
         for invoice in self.browse(cr, uid, ids, context=context):
             """ Create Analytic lines for invoice """
             company = invoice.company_id
-            if company.commission_type == "invoice" or invoice.type in ("out_refund","in_invoice"):
+            if company.commission_type == "invoice" or (force and invoice.type in ("out_refund","in_invoice")):
                 
                 sign = 1
                 # change sign on in invoice or out refund
@@ -57,9 +57,8 @@ class account_invoice(osv.osv):
                                                          price_subtotal,
                                                          commission_date,
                                                          defaults={
-                                                           "account_id": analytic_account.id,
+                                                           "account_id" : analytic_account.id,
                                                            "invoice_line_id" : line.id,
-                                                           "invoice_id" : invoice.id,                                                           
                                                            "ref": ":".join(order_names) or ref or None,
                                                            "sale_partner_id" : invoice.partner_id.id,
                                                            "sale_product_id" : line.product_id.id   

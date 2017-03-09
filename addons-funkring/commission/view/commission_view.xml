@@ -47,12 +47,12 @@
                         <group string="Sale">
                            <field name="sale_partner_id"/>                
                            <field name="sale_product_id"/>
-                           <field name="unit_amount" />
-                           <field name="price_sub"/>
+                           <field name="unit_amount"/>
+                           <field name="price_sub" on_change="onchange_commission(total_commission, amount, price_sub)"/>
                         </group>
                         <group string="Commission">
-                            <field name="total_commission" />
-                            <field name="amount" />
+                            <field name="total_commission" on_change="onchange_commission(total_commission, amount, price_sub)"/>
+                            <field name="amount"/>
                         </group>
                     </group>
                 </form>

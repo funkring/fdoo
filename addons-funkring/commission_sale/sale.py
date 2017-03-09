@@ -26,7 +26,7 @@ from openerp.addons.at_base import util
 
 class sale_order(osv.osv):
         
-    def _calc_sale_commission(self, cr, uid, ids, context=None):
+    def _calc_sale_commission(self, cr, uid, ids, force=False, context=None):
         commission_line_obj = self.pool.get("commission.line")
         
         period_ids = set()
@@ -49,11 +49,10 @@ class sale_order(osv.osv):
                                                                  pricelist=order.pricelist_id, 
                                                                  defaults={
                                                                     "ref": order.name,
-                                                                    "order_line_id" : line.id,
-                                                                    "order_id" : order.id,
+                                                                    "order_line_id": line.id,
                                                                     "account_id": analytic_account.id,
-                                                                    "sale_partner_id" : order.partner_id.id,
-                                                                    "sale_product_id" : line.product_id.id
+                                                                    "sale_partner_id": order.partner_id.id,
+                                                                    "sale_product_id": line.product_id.id
                                                                  }, context=context)
                         
                         for commisson_line in commission_lines:

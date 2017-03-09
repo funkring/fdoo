@@ -37,6 +37,19 @@ class commission_line(osv.osv):
             return name.split("\n")[0]
         return ""
         
+    def onchange_commission(self, cr, uid, ids, total_commission, amount, price_sub, context=None):
+        value = {}
+        res = { "value" : value }
+        sign = 1.0
+        
+        if amount < 0.0:
+            sign = -1.0
+        
+        if total_commission:
+            value["amount"] = price_sub * (total_commission / 100.0) * sign
+              
+        return res
+    
     _columns = {
         "line_id": fields.many2one("account.analytic.line", "Analytic line", ondelete="cascade", required=True),        
         "base_commission" : fields.float("Base Commission %", required=True),

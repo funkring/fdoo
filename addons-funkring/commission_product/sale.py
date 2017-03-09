@@ -26,7 +26,7 @@ from openerp.addons.at_base import util
 
 class sale_order(osv.osv):
       
-    def _calc_product_commission(self, cr, uid, ids, context=None):
+    def _calc_product_commission(self, cr, uid, ids, force=False, context=None):
         commission_obj = self.pool.get("commission_product.commission")
         commission_line_obj = self.pool.get("commission.line")
         for order in self.browse(cr, uid, ids, context=context):
@@ -44,7 +44,6 @@ class sale_order(osv.osv):
                                                      defaults= {
                                                         "account_id": analytic_account.id,
                                                         "order_line_id" : line.id,
-                                                        "order_id" : order.id,
                                                         "ref": order.name,
                                                         "sale_partner_id" : order.partner_id.id,
                                                         "sale_product_id" : line.product_id.id

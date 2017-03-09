@@ -27,7 +27,7 @@ from openerp.exceptions import Warning
 
 class account_invoice(osv.osv):
     
-    def _calc_sale_commission(self, cr, uid, ids, context=None):   
+    def _calc_sale_commission(self, cr, uid, ids, force=False, context=None):   
         """ Create Analytic lines for invoice """        
         period_ids = set()
         salesman_ids = set()
@@ -40,7 +40,7 @@ class account_invoice(osv.osv):
         for invoice in self.browse(cr, uid, ids, context=context):                       
             
             company = invoice.company_id
-            if company.commission_type == "invoice" or invoice.type in ("out_refund","in_invoice"):
+            if company.commission_type == "invoice" or (force and invoice.type in ("out_refund","in_invoice")):
 
                 sign = 1
                 # change sign on in invoice or out refund
@@ -63,9 +63,8 @@ class account_invoice(osv.osv):
                             price_subtotal = sign*line.price_subtotal              
                             
                             commission_defaults = {
-                                "ref": ref or invoice.number,
+                                "ref" : ref or invoice.number,
                                 "invoice_line_id" : line.id,
-                                "invoice_id" : invoice.id,
                                 "sale_partner_id" : invoice.partner_id.id,
                                 "sale_product_id" : line.product_id.id,
                                 "account_id" : default_analytic_account.id 
