@@ -18,28 +18,16 @@
 #
 ##############################################################################
 
-{
-    "name" : "oerp.at Portal Download",
-    "summary" : "Publish downloads for partner",
-    "description":"""
-Download Module
-===============
+__name__ = ("Add Download Key")
 
-* Publish Downloads for Customer
-* Manager Download Versions
+import uuid
+
+def migrate(cr, version):
+    if not version:
+        return
     
-""",
-    "version" : "1.2",
-    "author" :  "oerp.at",
-    "website" : "http://oerp.at",
-    "category" : "Portal",
-    "depends" : ["at_base","mail","web","at_knowledge","portal"],
-    "data" : ["security.xml",
-              "template.xml",
-              "view/portal_download_view.xml",
-              "view/download_view.xml",
-              "view/download_perm_view.xml",
-              "view/partner_view.xml"],
-    "auto_install" : False,
-    "installable": True
-}
+    cr.execute("SELECT id FROM portal_download_perm WHERE download_key IS NULL")
+    ids = [r[0] for r in cr.fetchall()]
+    
+    for perm_id in ids:
+         cr.execute("UPDATE portal_download_perm SET download_key = '%s' WHERE id = %s" % (uuid.uuid4().hex, perm_id))

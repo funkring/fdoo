@@ -19,6 +19,9 @@
 ##############################################################################
 
 from openerp import models, fields, api, _
+from openerp import SUPERUSER_ID
+import urlparse
+import uuid
 
 class portal_download(models.Model):
     _name = "portal.download"
@@ -44,15 +47,27 @@ class portal_download(models.Model):
     name = fields.Char("Name", required=True, index=True)
     code = fields.Char("Code", help="Download code which can be used for identifying or as shortcut")
     permission_ids = fields.One2many("portal.download.perm", "download_id", "Permissions")
-    download_link = fields.Html("Download Link",compute="_compute_download_link") 
+    download_link = fields.Html("Download Link",compute="_compute_download_link")
     active = fields.Boolean("Active", default=True)
     
     
 class portal_download_perm(models.Model):
     _name = "portal.download.perm"
     _description = "Download Permission"
+    _rec_name = "download_id"
     
     partner_id = fields.Many2one("res.partner","Partner", required=True, ondelete="cascade")
     download_id = fields.Many2one("portal.download","Download",required=True, ondelete="cascade")
     download_count = fields.Integer("Download Count",readonly=True)
+    download_key = fields.Char("Download Key", default=lambda self: uuid.uuid4().hex, readonly=True)
+    download_link = fields.Char("Download Link", compute="_download_link", readonly=True)
     
+    @api.one
+    @api.depends("download_key")
+    def _download_link(self):
+        if self.download_key:
+            url = "/portal_download/start/%s?key=%s" % (self.download_id.id, self.download_key)
+            baseurl = self.env["ir.config_parameter"].get_param("web.base.url", default="http://localhost:8069")
+            self.download_link = urlparse.urljoin(baseurl, url)
+        else:
+            self.download_link = None  

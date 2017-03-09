@@ -32,13 +32,25 @@ _logger = logging.getLogger(__name__)
 
 class portal_download_ctrl(http.Controller):
     
-    @http.route(["/portal_download/start/<int:download_id>"],type="http", auth="user", methods=["GET"])
+    @http.route(["/portal_download/start/<int:download_id>"], type="http", auth="public", methods=["GET"])
     def download_start(self, download_id=None, **kwargs):
         cr, uid, context = request.cr, request.uid, request.context
         
-        if isinstance(download_id,basestring):
+        if isinstance(download_id, basestring):
             download_id = int(download_id)
-        
+
+        # check for download key           
+        perm_obj = request.registry["portal.download.perm"]
+        user_obj = request.registry["res.users"]
+        perm_ids = None
+        download_key = kwargs.get("key")        
+        if download_key:
+            perm_ids = perm_obj.search(cr, SUPERUSER_ID, [("download_key","=",download_key)])
+            if perm_ids:
+                perm = perm_obj.browse(cr, SUPERUSER_ID, perm_ids[0])
+                uid = user_obj.search_id(cr, SUPERUSER_ID, [("partner_id","=",perm.partner_id.id)])
+                if not uid:
+                    return request.not_found()
         
         download_obj = request.registry["portal.download"]                
         download = download_obj.browse(cr, uid, download_id, context=context)
@@ -67,11 +79,10 @@ class portal_download_ctrl(http.Controller):
             return request.not_found()
         
                 
-        perm_obj = request.registry["portal.download.perm"]
-        user_obj = request.registry["res.users"]
-        
-        user = user_obj.browse(cr, SUPERUSER_ID, uid, context=context)
-        perm_ids = perm_obj.search(cr, SUPERUSER_ID, [("partner_id","=",user.partner_id.id),("download_id","=",download_id)])
+        if not perm_ids:           
+            user = user_obj.browse(cr, SUPERUSER_ID, uid, context=context)
+            perm_ids = perm_obj.search(cr, SUPERUSER_ID, [("partner_id","=",user.partner_id.id),("download_id","=",download_id)])
+            
         if perm_ids:
             for perm_id in perm_ids:
                 download_count = perm_obj.read(cr, SUPERUSER_ID, perm_id, ["download_count"], context=context)["download_count"]

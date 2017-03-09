@@ -18,28 +18,14 @@
 #
 ##############################################################################
 
-{
-    "name" : "oerp.at Portal Download",
-    "summary" : "Publish downloads for partner",
-    "description":"""
-Download Module
-===============
+from openerp import models, fields, api, _
 
-* Publish Downloads for Customer
-* Manager Download Versions
+class res_partner(models.Model):
+    _inherit = "res.partner"
     
-""",
-    "version" : "1.2",
-    "author" :  "oerp.at",
-    "website" : "http://oerp.at",
-    "category" : "Portal",
-    "depends" : ["at_base","mail","web","at_knowledge","portal"],
-    "data" : ["security.xml",
-              "template.xml",
-              "view/portal_download_view.xml",
-              "view/download_view.xml",
-              "view/download_perm_view.xml",
-              "view/partner_view.xml"],
-    "auto_install" : False,
-    "installable": True
-}
+    download_count = fields.Integer("# Downloads", compute="_download_count", store=False)
+    download_perm_ids = fields.One2many("portal.download.perm", "partner_id", "Download Permissions")
+    
+    @api.one
+    def _download_count(self):        
+        self.download_count = self.env["portal.download.perm"].search([('partner_id','=',self.id)], count=True)

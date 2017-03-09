@@ -6,7 +6,7 @@
       <field name="model">portal.download.perm</field>
       <field name="arch" type="xml">
         <form string="Permission">
-          <sheet>
+          <sheet>            
             <group>
                 <group>
                     <field name="partner_id"/>
@@ -16,6 +16,10 @@
                     <field name="download_count"/>
                 </group>
             </group>
+            <div>
+                <label for="download_link"/>
+                <field name="download_link" widget="url"/>                            
+            </div>
           </sheet>
         </form>
       </field>
@@ -39,7 +43,7 @@
       <field name="arch" type="xml">
         <search string="Permission">
             <field name="partner_id"/>
-            <field name="download_id"/>            
+            <field name="download_id"/>                      
         </search>
       </field>
     </record>

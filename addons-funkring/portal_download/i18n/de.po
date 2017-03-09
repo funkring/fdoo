@@ -5,9 +5,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
+"Language: de_DE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-02 17:28+0000\n"
-"PO-Revision-Date: 2015-11-02 18:28+0100\n"
+"POT-Creation-Date: 2017-03-09 11:47+0000\n"
+"PO-Revision-Date: 2017-03-09 12:48+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -55,6 +56,11 @@ msgid "Code"
 msgstr ""
 
 #. module: portal_download
+#: view:portal.download.perm:portal_download.form_download_perm
+msgid "Create Link"
+msgstr "Erstelle Link"
+
+#. module: portal_download
 #: field:portal.download,create_uid:0 field:portal.download.perm,create_uid:0
 msgid "Created by"
 msgstr ""
@@ -66,7 +72,13 @@ msgid "Created on"
 msgstr ""
 
 #. module: portal_download
-#: code:addons/portal_download/portal_download.py:36
+#: field:portal.download,display_name:0
+#: field:portal.download.perm,display_name:0
+msgid "Display Name"
+msgstr ""
+
+#. module: portal_download
+#: code:addons/portal_download/portal_download.py:40
 #, python-format
 msgid "Document Download"
 msgstr "Dokument Download"
@@ -87,6 +99,17 @@ msgstr ""
 #: field:portal.download.perm,download_count:0
 msgid "Download Count"
 msgstr "Download Anzahl"
+
+#. module: portal_download
+#: field:portal.download.perm,download_key:0
+msgid "Download Key"
+msgstr ""
+
+#. module: portal_download
+#: field:portal.download,download_link:0
+#: field:portal.download.perm,download_link:0
+msgid "Download Link"
+msgstr ""
 
 #. module: portal_download
 #: model:ir.model,name:portal_download.model_portal_download_perm
@@ -111,6 +134,12 @@ msgstr ""
 #. module: portal_download
 #: field:portal.download,id:0 field:portal.download.perm,id:0
 msgid "ID"
+msgstr ""
+
+#. module: portal_download
+#: field:portal.download,__last_update:0
+#: field:portal.download.perm,__last_update:0
+msgid "Last Modified on"
 msgstr ""
 
 #. module: portal_download
