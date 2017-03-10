@@ -45,7 +45,7 @@ class portal_download_ctrl(http.Controller):
         perm_ids = None
         download_key = kwargs.get("key")        
         if download_key:
-            perm_ids = perm_obj.search(cr, SUPERUSER_ID, [("download_key","=",download_key)])
+            perm_ids = perm_obj.search(cr, SUPERUSER_ID, [("download_key_intern","=",download_key)])
             if perm_ids:
                 perm = perm_obj.browse(cr, SUPERUSER_ID, perm_ids[0])
                 uid = user_obj.search_id(cr, SUPERUSER_ID, [("partner_id","=",perm.partner_id.id)])
