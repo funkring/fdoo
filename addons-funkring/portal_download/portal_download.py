@@ -58,16 +58,28 @@ class portal_download_perm(models.Model):
     
     partner_id = fields.Many2one("res.partner","Partner", required=True, ondelete="cascade")
     download_id = fields.Many2one("portal.download","Download",required=True, ondelete="cascade")
-    download_count = fields.Integer("Download Count",readonly=True)
-    download_key = fields.Char("Download Key", default=lambda self: uuid.uuid4().hex, readonly=True)
+    download_count = fields.Integer("Download Count", readonly=True, copy=False)
+    download_key = fields.Char("Download Key", compute="_download_key", store=False, readonly=True)
+    download_key_intern = fields.Char("Download Key (Intern)", copy=False)
     download_link = fields.Char("Download Link", compute="_download_link", readonly=True)
     
     @api.one
-    @api.depends("download_key")
+    @api.depends("download_key_intern")
     def _download_link(self):
-        if self.download_key:
-            url = "/portal_download/start/%s?key=%s" % (self.download_id.id, self.download_key)
+        download_key = self.download_key
+        if download_key:
+            url = "/portal_download/start/%s?key=%s" % (self.download_id.id, download_key)
             baseurl = self.env["ir.config_parameter"].get_param("web.base.url", default="http://localhost:8069")
             self.download_link = urlparse.urljoin(baseurl, url)
         else:
             self.download_link = None  
+        
+    @api.one
+    @api.depends("download_key_intern")
+    def _download_key(self):
+        download_key = self.download_key_intern
+        if not download_key and self.id:
+            download_key = uuid.uuid4().hex
+            self._cr.execute("UPDATE portal_download_perm SET download_key_intern=%s WHERE id=%s", (download_key, self.id))
+            
+        self.download_key = download_key
