@@ -5,10 +5,12 @@
             <field name="name">commission_product.form_partner</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="groups_id" eval="[(4, ref('account.group_account_user')),(4,ref('account.group_account_manager'))]"/>
+            <field name="priority">50</field>
             <field name="arch" type="xml">
                   <data>
                    		<xpath expr="//notebook" position="inside">
-                   			<page string="Product Commissions" groups="account.group_account_user,account.group_account_manager">
+                   			<page string="Product Commissions">
                    			    <div>
                        				<field string="Commission" name="product_commission_ids">
                        					<form>
