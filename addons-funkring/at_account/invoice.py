@@ -225,6 +225,11 @@ class account_invoice(osv.osv):
                 
                 # change account for invoice
                 self.write(cr, uid, [inv.id], { "account_id": new_account_id }, context=copyContext)
+            
+            # check if default account was set, but there already exist and account 
+            elif account_tmpl.id == inv.account_id.id and partner_account_id != account_tmpl.id:
+                # change account for invoice
+                self.write(cr, uid, [inv.id], { "account_id": partner_account_id }, context=copyContext)
                 
         return True
     
