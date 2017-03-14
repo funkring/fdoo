@@ -1,0 +1,23 @@
+<openerp>
+  <data>
+          
+        <record id="form_partner" model="ir.ui.view">
+          <field name="name">portal_shop.form_partner</field>
+          <field name="model">res.partner</field>
+          <field name="priority" eval="25"/>
+          <field name="groups_id" eval="[(4, ref('portal_shop.group_sale_extern'))]"/>
+          <field name="inherit_id" ref="project.view_task_partner_info_form"/>
+          <field name="arch" type="xml">
+                <xpath expr="//div[@name='buttons']/button[@name='%(project.action_view_task)d']" position="after">
+                    <button class="oe_inline oe_stat_button" type="action" name="%(project.open_view_project_all)d"
+                        context="{'search_default_partner_id' : active_id}"  
+                        icon="fa-folder-o">
+                        <field string="Projects" name="project_count" widget="statinfo"/>
+                    </button>     
+                </xpath>
+                
+          </field>
+        </record>
+    
+  </data>
+</openerp>

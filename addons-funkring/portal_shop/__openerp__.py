@@ -42,7 +42,8 @@ Shop for external salesman
     "data" : ["security.xml",
               "menu.xml",
               "view/sale_view.xml",
-              "view/portal_project_view.xml"],
+              "view/portal_project_view.xml",
+              "view/partner_view.xml"],
     "auto_install" : False,
     "installable": True
 }
