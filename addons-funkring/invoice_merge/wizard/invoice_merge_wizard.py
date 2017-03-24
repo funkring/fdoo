@@ -119,12 +119,34 @@ class invoice_merge_wizard(osv.osv_memory):
         res["merge_ids"]=res_merge_ids
         return res
 
+    def _prepare_invoice(self, cr, uid, merge, context=None):
+        doc = {
+            "name" : merge.name,
+            "type" : merge.type,
+            "account_id" : merge.account_id.id,
+            "partner_id" : merge.partner_id.id,
+            "journal_id" : merge.journal_id.id,
+            "currency_id" : merge.currency_id and merge.currency_id.id or None,
+            "comment" : merge.comment,
+            "payment_term" : merge.payment_term and  merge.payment_term.id or None,
+            "fiscal_position" : merge.fiscal_position and merge.fiscal_position.id or None,
+            "date_invoice" : merge.date,
+            "company_id" : merge.company_id.id,
+            "user_id" : merge.user_id.id
+        }
+        
+        # set defaults
+        sale_obj = self.pool.get("sale.order")
+        if sale_obj:
+            invoice = merge.invoice_ids[0]
+            doc["shop_id"] = invoice.shop_id.id
+            
+        return doc
 
     def do_merge(self, cr, uid, ids, context=None):
         invoice_obj = self.pool.get("account.invoice")
         invoice_line_obj = self.pool.get("account.invoice.line")
         wkf_workitem_obj = self.pool.get("workflow.workitem")
-        picking_obj = self.pool.get("stock.picking")
         purchase_obj = self.pool.get("purchase.order")
         sale_obj = self.pool.get("sale.order")
 
@@ -139,21 +161,10 @@ class invoice_merge_wizard(osv.osv_memory):
                     continue
 
                 invoice_ids = []
-                values =  {
-                    "name" : merge.name,
-                    "type" : merge.type,
-                    "account_id" : merge.account_id.id,
-                    "partner_id" : merge.partner_id.id,
-                    "journal_id" : merge.journal_id.id,
-                    "currency_id" : merge.currency_id and merge.currency_id.id or None,
-                    "comment" : merge.comment,
-                    "payment_term" : merge.payment_term and  merge.payment_term.id or None,
-                    "fiscal_position" : merge.fiscal_position and merge.fiscal_position.id or None,
-                    "date_invoice" : merge.date,
-                    "company_id" : merge.company_id.id,
-                    "user_id" : merge.user_id.id
-                }
-                invoice_id = invoice_obj.create(cr,uid,values,context=context)
+                
+                # create invoice                
+                invDoc = self._prepare_invoice(cr, uid, merge, context=context)  
+                invoice_id = invoice_obj.create(cr, uid, invDoc, context=context)
 
                 for invoice in merge.invoice_ids:
                     invoice_ids.append(invoice.id)
@@ -162,10 +173,10 @@ class invoice_merge_wizard(osv.osv_memory):
                         if invoice.origin and (not origin or invoice.origin not in origin):
                             origin = origin and ":".join((invoice.origin,origin)) or invoice.origin or None
 
-                        invoice_line_obj.write(cr,uid,line.id, {
-                            "origin" : origin,
-                            "invoice_id" : invoice_id
-                        },context=context)
+                        invoice_line_obj.write(cr,uid,line.id,{
+                            "origin": origin,
+                            "invoice_id": invoice_id
+                        }, context=context)
 
                 #correct work flows
                 cr.execute("SELECT id FROM wkf_instance WHERE res_type='account.invoice' AND res_id=%s",(invoice_id,))
@@ -195,19 +206,17 @@ class invoice_merge_wizard(osv.osv_memory):
                         res = [r[0] for r in cr.fetchall()]
                         return res
 
-                    # Not more used
-                    #depIds = getInvDepIds("picking_invoice_rel","picking_id")
-                    #picking_obj.write(cr,uid,depIds,{"invoice_ids" : [(4,invoice_id)] },context)
+                    if purchase_obj:
+                        depIds = getInvDepIds("purchase_invoice_rel","purchase_id")
+                        purchase_obj.write(cr,uid,depIds,{"invoice_ids": [(4,invoice_id)] }, context)
 
-                    depIds = getInvDepIds("purchase_invoice_rel","purchase_id")
-                    purchase_obj.write(cr,uid,depIds,{"invoice_ids" : [(4,invoice_id)] },context)
-
-                    depIds = getInvDepIds("sale_order_invoice_rel","order_id")
-                    sale_obj.write(cr,uid,depIds,{"invoice_ids" : [(4,invoice_id)] },context)
+                    if sale_obj:
+                        depIds = getInvDepIds("sale_order_invoice_rel","order_id")
+                        sale_obj.write(cr,uid,depIds,{"invoice_ids": [(4,invoice_id)] }, context)
 
                     if has_analytic_invoice:
                         depIds = getInvDepIds("account_analytic_line","id")
-                        account_analytic_line_obj.write(cr,uid,depIds,{"invoice_id" : invoice_id},context)
+                        account_analytic_line_obj.write(cr,uid,depIds,{"invoice_id": invoice_id}, context)
 
                     invoice_obj._replace_invoice_ids_with_id(cr, uid, invoice_ids, invoice_id, context)
 
