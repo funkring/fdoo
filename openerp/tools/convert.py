@@ -402,6 +402,9 @@ form: module.record_id""" % (xml_id,)
         if report_rec and report_rec.report_type in ("qweb-pdf","aeroo") and report_rec.user_defined:
             res["tml_source"] = report_rec.tml_source
             res["parser_state"] = report_rec.parser_state
+            if report_rec.styles_mode == "specified":
+                res["styles_mode"] = "specified"
+                res["stylesheet_id"] = report_rec.stylesheet_id.id
         #funkring.net end
         
         id = self.pool['ir.model.data']._update(cr, self.uid, "ir.actions.report.xml", self.module, res, xml_id, noupdate=self.isnoupdate(data_node), mode=self.mode)
