@@ -38,7 +38,6 @@ class account_invoice(osv.osv):
         order_obj = self.pool.get("sale.order")
              
         for invoice in self.browse(cr, uid, ids, context=context):                       
-            
             company = invoice.company_id
             if company.commission_type == "invoice" or (force and invoice.type in ("out_refund","in_invoice")):
 
@@ -97,19 +96,27 @@ class account_invoice(osv.osv):
                         
                         # order based
                         if sign > 0:
-                            cr.execute("SELECT sl.salesman_id, o.id FROM sale_order_line_invoice_rel rel  "
+                            cr.execute("SELECT o.user_id, o.id FROM sale_order_line_invoice_rel rel  "
                                        " INNER JOIN sale_order_line sl ON sl.id = rel.order_line_id "
                                        " INNER JOIN sale_order o ON o.id = sl.order_id "
                                        " WHERE      rel.invoice_id = %s " 
-                                       "       AND  sl.salesman_id IS NOT NULL "
+                                       "       AND  o.user_id IS NOT NULL "
                                        "       AND  o.pricelist_id IS NOT NULL "
                                        " GROUP BY 1,2 ", (line.id,))
                            
+                            found_order = False
                             for salesman_id, order_id in cr.fetchall():
                                 salesman_user = user_obj.browse(cr, uid, salesman_id, context=context)
                                 order = order_obj.browse(cr, uid, order_id, context=context)     
                                 commission_date = order.date_order                      
                                 create_commission(salesman_user, name=order.name, commission_date=order.date_order, ref=order.name, pricelist=order.pricelist_id)
+                                found_order = True
+                                break
+                            
+                            # invoice based
+                            if not found_order:
+                                create_commission(invoice.user_id, name=invoice.name, commission_date=invoice.date_invoice, ref=invoice.origin)
+                            
                         # invoice based (refund)
                         else:
                             create_commission(invoice.user_id, name=invoice.name, commission_date=invoice.date_invoice, ref=invoice.origin)
