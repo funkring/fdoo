@@ -24,11 +24,11 @@ from openerp.tools.float_utils import float_compare
 
 class purchase_order(osv.osv):
     
-    def do_merge(self, cr, uid, ids, context=None):
-        for order in self.browse(cr, uid, ids, context=context):
-            if order.sale_order_id:
-                raise osv.except_osv(_("Error"), _("A purchase order linked with an sale order cannot be merged!"))
-        return super(purchase_order, self).do_merge(cr, uid, ids, context=context)
+#     def do_merge(self, cr, uid, ids, context=None):
+#         for order in self.browse(cr, uid, ids, context=context):
+#             if order.sale_order_id:
+#                 raise osv.except_osv(_("Error"), _("A purchase order linked with an sale order cannot be merged!"))
+#         return super(purchase_order, self).do_merge(cr, uid, ids, context=context)
     
     def _prepare_order_line_move(self, cr, uid, order, order_line, picking_id, group_id, context=None):
         ''' prepare the stock move data from the PO line. This function returns a list of dictionary ready to be used in stock.move's create()
