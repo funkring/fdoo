@@ -26,6 +26,7 @@ from openerp.osv import fields, osv
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT, DATETIME_FORMATS_MAP
 from openerp.tools.translate import _
 
+import re
 
 class procurement_order(osv.osv):
         
@@ -82,11 +83,18 @@ class procurement_order(osv.osv):
                 available_draft_po_ids = po_obj.search(cr, uid, [
                     ('partner_id', '=', partner.id), ('state', '=', 'draft'), ('picking_type_id', '=', procurement.rule_id.picking_type_id.id),
                     ('location_id', '=', procurement.location_id.id), ('company_id', '=', procurement.company_id.id), ('dest_address_id', '=', procurement.partner_dest_id.id)], context=context)
-                if available_draft_po_ids:
+                if available_draft_po_ids:                   
+                    
                     po_id = available_draft_po_ids[0]
                     po_rec = po_obj.browse(cr, uid, po_id, context=context)
 
-                    po_to_update = {'origin': ', '.join(filter(None, set([po_rec.origin, procurement.origin])))}
+                    # crate new origin
+                    po_origins = set(self._re_split_po_origin.split(po_rec.origin or ""))                    
+                    po_origins |= set(self._re_split_po_origin.split(procurement.origin or ""))
+                    po_origins = list(po_origins)
+                    po_origins.sort()                    
+                    po_to_update = {'origin': ', '.join(po_origins)}
+                    
                     #if the product has to be ordered earlier those in the existing PO, we replace the purchase date on the order to avoid ordering it too late
                     if datetime.strptime(po_rec.date_order, DEFAULT_SERVER_DATETIME_FORMAT) > purchase_date:
                         po_to_update.update({'date_order': purchase_date.strftime(DEFAULT_SERVER_DATETIME_FORMAT)})
@@ -136,4 +144,4 @@ class procurement_order(osv.osv):
         return res
     
     _inherit = "procurement.order"
-    
+    _re_split_po_origin = re.compile("[,]\s*")
