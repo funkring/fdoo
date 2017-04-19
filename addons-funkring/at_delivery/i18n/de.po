@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Language: de_DE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-18 23:37+0000\n"
-"PO-Revision-Date: 2017-04-19 01:37+0100\n"
+"POT-Creation-Date: 2017-04-19 12:06+0000\n"
+"PO-Revision-Date: 2017-04-19 14:06+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -38,9 +38,14 @@ msgid "Carrier API"
 msgstr "Frachführer API"
 
 #. module: at_delivery
-#: field:stock.picking,carrier_label_pdf:0
+#: field:stock.picking,carrier_error:0
+msgid "Carrier Error"
+msgstr "Frachtführer Fehler"
+
+#. module: at_delivery
+#: field:stock.picking,carrier_label:0
 msgid "Carrier Label"
-msgstr "Frachführer Etikett"
+msgstr "Frachtführer Etikett"
 
 #. module: at_delivery
 #: field:stock.picking,carrier_label_name:0
@@ -61,13 +66,13 @@ msgstr "Erstelle Lieferung"
 
 #. module: at_delivery
 #: selection:stock.picking,carrier_status:0
-msgid "Delivered"
-msgstr "Übergeben"
+msgid "Created"
+msgstr "Erstellt"
 
 #. module: at_delivery
 #: selection:stock.picking,carrier_status:0
-msgid "Packed"
-msgstr "Verpackt"
+msgid "Delivered"
+msgstr "Übergeben"
 
 #. module: at_delivery
 #: model:ir.model,name:at_delivery.model_stock_picking

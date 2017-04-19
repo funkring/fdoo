@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://web.paketomat.at/webservice/"
+    xmlns:s="http://www.w3.org/2001/XMLSchema"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+    xmlns:tns="http://web.paketomat.at/webservice/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:types>
+        <s:schema targetNamespace="http://web.paketomat.at/webservice/">
+            <s:complexType name="SblArr">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="0" name="pt"
+                        nillable="true" type="s:string"/>
+                    <s:element maxOccurs="1" minOccurs="0" name="dpd"
+                        nillable="true" type="s:string"/>
+                    <s:element maxOccurs="1" minOccurs="0" name="storno"
+                        nillable="false" type="s:boolean"/>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="LabelArr">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="1" name="label"
+                        nillable="true" type="s:string"/>
+                    <s:element maxOccurs="1" minOccurs="0" name="epl"
+                        nillable="true" type="s:string"/>
+                    <s:element maxOccurs="1" minOccurs="0" name="zpl"
+                        nillable="true" type="s:string"/>
+                    <s:element maxOccurs="1" minOccurs="0" name="paknr"
+                        nillable="true" type="s:string"/>
+                    <s:element maxOccurs="1" minOccurs="0" name="saved"
+                        nillable="true" type="s:string"/>
+                    <s:element maxOccurs="1" minOccurs="0"
+                        name="err_code" nillable="true" type="s:string"/>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="ReprArr">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="0" name="label"
+                        nillable="true" type="s:string"/>
+                    <s:element maxOccurs="1" minOccurs="0" name="epl"
+                        nillable="true" type="s:string"/>
+                    <s:element maxOccurs="1" minOccurs="0" name="zpl"
+                        nillable="true" type="s:string"/>
+                    <s:element maxOccurs="1" minOccurs="0"
+                        name="err_code" nillable="true" type="s:string"/>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="CancelArr">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="0" name="paknr"
+                        nillable="true" type="s:string"/>
+                    <s:element maxOccurs="1" minOccurs="0" name="storno"
+                        nillable="true" type="s:string"/>
+                    <s:element maxOccurs="1" minOccurs="0"
+                        name="err_code" nillable="true" type="s:string"/>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="Produkt1Arr">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="0" name="fix"
+                        nillable="true" type="s:string"/>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="Produkt2Arr">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="0" name="hv"
+                        nillable="true" type="s:string"/>
+                    <s:element maxOccurs="1" minOccurs="0" name="asg"
+                        nillable="true" type="s:string"/>
+                    <s:element maxOccurs="1" minOccurs="0" name="id"
+                        nillable="true" type="s:string"/>
+                    <s:element maxOccurs="1" minOccurs="0" name="abt"
+                        nillable="true" type="s:string"/>
+                    <s:element maxOccurs="1" minOccurs="0" name="aviso"
+                        nillable="true" type="s:string"/>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="Produkt3Arr">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="0"
+                        name="nachnahme" nillable="true" type="s:string"/>
+                    <s:element maxOccurs="1" minOccurs="0" name="refnn"
+                        nillable="true" type="s:string"/>
+                    <s:element maxOccurs="1" minOccurs="0" name="nnbar"
+                        nillable="true" type="s:string"/>
+                    <s:element maxOccurs="1" minOccurs="0"
+                        name="refnnbar" nillable="true" type="s:string"/>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="Produkt4Arr">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="0" name="wp"
+                        nillable="true" type="s:string"/>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="Produkt6Arr">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="0" name="aviso"
+                        nillable="true" type="s:string"/>
+                    <s:element maxOccurs="1" minOccurs="0"
+                        name="predict" nillable="true" type="s:string"/>
+                </s:sequence>
+            </s:complexType>
+        </s:schema>
+    </wsdl:types>
+    <wsdl:message name="getSblListSoapIn">
+        <wsdl:part name="username" type="s:string"/>
+        <wsdl:part name="password" type="s:string"/>
+        <wsdl:part name="mandant" type="s:int"/>
+        <wsdl:part name="von" type="s:string"/>
+        <wsdl:part name="bis" type="s:string"/>
+    </wsdl:message>
+    <wsdl:message name="getSblListSoapOut">
+        <wsdl:part name="return" type="tns:SblArr"/>
+    </wsdl:message>
+    <wsdl:message name="getLabelSoapIn">
+        <wsdl:part name="username" type="s:string"/>
+        <wsdl:part name="password" type="s:string"/>
+        <wsdl:part name="mandant" type="s:int"/>
+        <wsdl:part name="kdnr" type="s:string"/>
+        <wsdl:part name="name" type="s:string"/>
+        <wsdl:part name="anschrift" type="s:string"/>
+        <wsdl:part name="zusatz" type="s:string"/>
+        <wsdl:part name="plz" type="s:string"/>
+        <wsdl:part name="ort" type="s:string"/>
+        <wsdl:part name="land" type="s:string"/>
+        <wsdl:part name="bezugsp" type="s:string"/>
+        <wsdl:part name="tel" type="s:string"/>
+        <wsdl:part name="mail" type="s:string"/>
+        <wsdl:part name="liefernr" type="s:string"/>
+        <wsdl:part name="pakettyp" type="s:string"/>
+        <wsdl:part name="gewicht" type="s:string"/>
+        <wsdl:part name="vdat" type="s:string"/>
+        <wsdl:part name="produkt1" type="s:string"/>
+        <wsdl:part name="produkt2" type="tns:Produkt2Arr"/>
+        <wsdl:part name="produkt3" type="tns:Produkt3Arr"/>
+        <wsdl:part name="produkt4" type="tns:Produkt4Arr"/>
+        <wsdl:part name="produkt5" type="s:string"/>
+        <wsdl:part name="produkt6" type="tns:Produkt6Arr"/>
+        <wsdl:part name="produkt7" type="s:string"/>
+    </wsdl:message>
+    <wsdl:message name="getLabelSoapOut">
+        <wsdl:part name="return" type="tns:LabelArr"/>
+    </wsdl:message>
+    <wsdl:message name="getReprintByTracknrSoapIn">
+        <wsdl:part name="username" type="s:string"/>
+        <wsdl:part name="password" type="s:string"/>
+        <wsdl:part name="mandant" type="s:int"/>
+        <wsdl:part name="paknr" type="s:string"/>
+    </wsdl:message>
+    <wsdl:message name="getReprintByTracknrSoapOut">
+        <wsdl:part name="return" type="tns:ReprArr"/>
+    </wsdl:message>
+    <wsdl:message name="cancelByTracknrSoapIn">
+        <wsdl:part name="username" type="s:string"/>
+        <wsdl:part name="password" type="s:string"/>
+        <wsdl:part name="mandant" type="s:int"/>
+        <wsdl:part name="paknr" type="s:string"/>
+    </wsdl:message>
+    <wsdl:message name="cancelByTracknrSoapOut">
+        <wsdl:part name="return" type="tns:CancelArr"/>
+    </wsdl:message>
+    <wsdl:portType name="PaketomatServiceSoap">
+        <wsdl:operation name="getSblList" parameterOrder="username password mandant von bis">
+            <wsdl:input message="tns:getSblListSoapIn"/>
+            <wsdl:output message="tns:getSblListSoapOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="getLabel" parameterOrder="username password mandant kdnr name anschrift zusatz plz ort land bezugsp tel mail liefernr pakettyp gewicht vdat produkt1 produkt2 produkt3 produkt4 produkt5 produkt6 produkt7">
+            <wsdl:input message="tns:getLabelSoapIn"/>
+            <wsdl:output message="tns:getLabelSoapOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="getReprintByTracknr" parameterOrder="username password mandant paknr">
+            <wsdl:input message="tns:getReprintByTracknrSoapIn"/>
+            <wsdl:output message="tns:getReprintByTracknrSoapOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="cancelByTracknr" parameterOrder="username password mandant paknr">
+            <wsdl:input message="tns:cancelByTracknrSoapIn"/>
+            <wsdl:output message="tns:cancelByTracknrSoapOut"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="PaketomatServiceSoap" type="tns:PaketomatServiceSoap">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="getSblList">
+            <soap:operation soapAction="http://web.paketomat.at/webservice/getSblList"/>
+            <wsdl:input>
+                <soap:body
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                    namespace="http://web.paketomat.at/webservice/"
+                    parts="username password mandant von bis" use="encoded"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                    namespace="http://web.paketomat.at/webservice/"
+                    parts="return" use="encoded"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getLabel">
+            <soap:operation soapAction="http://web.paketomat.at/webservice/getLabel"/>
+            <wsdl:input>
+                <soap:body
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                    namespace="http://web.paketomat.at/webservice/"
+                    parts="username password mandant kdnr name anschrift zusatz plz ort land bezugsp tel mail liefernr pakettyp gewicht vdat produkt1 produkt2 produkt3 produkt4 produkt5 produkt6 produkt7" use="encoded"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                    namespace="http://web.paketomat.at/webservice/"
+                    parts="return" use="encoded"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getReprintByTracknr">
+            <soap:operation soapAction="http://web.paketomat.at/webservice/getReprintByTracknr"/>
+            <wsdl:input>
+                <soap:body
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                    namespace="http://web.paketomat.at/webservice/"
+                    parts="username password mandant paknr" use="encoded"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                    namespace="http://web.paketomat.at/webservice/"
+                    parts="return" use="encoded"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="cancelByTracknr">
+            <soap:operation soapAction="http://web.paketomat.at/webservice/cancelByTracknr"/>
+            <wsdl:input>
+                <soap:body
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                    namespace="http://web.paketomat.at/webservice/"
+                    parts="username password mandant paknr" use="encoded"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                    namespace="http://web.paketomat.at/webservice/"
+                    parts="return" use="encoded"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="PaketomatService">
+        <wsdl:port binding="tns:PaketomatServiceSoap" name="PaketomatServiceSoap">
+            <soap:address location="http://web.paketomat.at/webservice/service-1.0.2.php"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

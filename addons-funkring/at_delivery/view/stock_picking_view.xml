@@ -26,12 +26,35 @@
             <field name="carrier_tracking_ref" position="replace">
                 <field name="carrier_tracking_ref" attrs="{'readonly': [('carrier_api','!=',False),('carrier_status','!=',False)]}"/>
                 <field name="carrier_status"/>
+                <field name="carrier_error"/>
                 <field name="carrier_label_name" invisible="1"/>
-                <field name="carrier_label_pdf" attrs="{'invisible': [('carrier_label_pdf','=',False)]}"/>
+                <field name="carrier_label"/>
             </field>
       </field>
     </record>
 
+    <record id="tree_stock_picking" model="ir.ui.view">
+      <field name="name">at_delivery.tree_stock_picking</field>
+      <field name="model">stock.picking</field>
+      <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+            <field name="state" position="after">
+                <field name="carrier_status"/>
+                <field name="carrier_error"/>
+            </field>      
+        </field>
+    </record>
     
+    <!--
+    <record id="search_stock_picking" model="ir.ui.view">
+      <field name="name">at_delivery.search_stock_picking</field>
+      <field name="model">stock.picking</field>
+      <field name="inherit_id" ref="at_delivery.view_picking_internal_search"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+         <filter name="done">
+      </field>
+    </record> -->
+
   </data>
 </openerp>

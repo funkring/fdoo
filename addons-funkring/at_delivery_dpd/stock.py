@@ -22,21 +22,15 @@ from openerp.osv import fields, osv
 
 class stock_picking(osv.Model):
     _inherit = "stock.picking"
-    _columns = {
-        "carrier_label_name" : fields.char("Carrier Label Name", copy=False, readonly=True),
-        "carrier_label" : fields.binary("Carrier Label", copy=False, readonly=True),
-        "carrier_error" : fields.text("Carrier Error", copy=False, readonly=True),
-        "carrier_api" : fields.related("carrier_id", "api", type="char", string="Carrier API", readonly=True),
-        "carrier_status" : fields.selection([("created","Created"),
-                                             ("delivered","Delivered"),
-                                             ("received","Received"),
-                                             ("rejected","Rejected"),
-                                             ("returned","Returned")], string="Carrier Status", copy=False, readonly=True)
-                
-    }
-    
-    def action_carrier_label(self, cr, uid, ids, context=None):
-        return True
+     
+    def action_carrier_label(self, cr, uid, ids, context=None):        
+        for picking in self.browse(cr, uid, ids, context=context):
+            if picking.carrier_api == "dpd":
+                return self.pool["delivery.carrier"]._dpd_label_get(cr, uid, picking, context=context)
+        return super(stock_picking, self).action_carrier_label(cr, uid, ids, context=context)
     
     def action_carrier_cancel(self, cr, uid, ids, context=None):
-        return True
+        for picking in self.browse(cr, uid, ids, context=context):
+            if picking.carrier_api == "dpd":
+                return self.pool["delivery.carrier"]._dpd_cancel(cr, uid, picking, context=context)
+        return super(stock_picking, self).action_carrier_label(cr, uid, ids, context=context)
