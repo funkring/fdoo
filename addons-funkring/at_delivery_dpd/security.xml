@@ -1,0 +1,25 @@
+<openerp>
+  <data>
+    
+    <record id="access_delivery_carrier_dpd_sale_salesman" model="ir.model.access">
+      <field name="name">delivery_carrier_dpd/sale_salesman</field>
+      <field name="model_id" ref="model_delivery_carrier_dpd"/>
+      <field name="group_id" ref="base.group_sale_salesman"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_write" eval="False"/>
+    </record>
+
+    <record id="access_delivery_carrier_dpd_sale_manager" model="ir.model.access">
+      <field name="name">delivery_carrier_dpd/sale_manager</field>
+      <field name="model_id" ref="model_delivery_carrier_dpd"/>
+      <field name="group_id" ref="base.group_sale_manager"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_write" eval="True"/>
+    </record>
+    
+  </data>
+</openerp>

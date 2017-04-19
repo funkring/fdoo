@@ -5,9 +5,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
+"Language: de_DE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-21 15:04+0000\n"
-"PO-Revision-Date: 2015-10-21 17:04+0100\n"
+"POT-Creation-Date: 2017-04-18 22:19+0000\n"
+"PO-Revision-Date: 2017-04-19 00:21+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -26,16 +27,8 @@ msgid ""
 msgstr ""
 
 #. module: at_purchase_sale
-#: code:addons/at_purchase_sale/purchase.py:29
-#, python-format
-msgid "A purchase order linked with an sale order cannot be merged!"
-msgstr ""
-"Einkäufe welche mit einem Verkaufsauftrag verknüpft ist, können nicht "
-"zusammengeführt werden"
-
-#. module: at_purchase_sale
-#: code:addons/at_purchase_sale/report/stock_delivery_report.py:167
-#: code:addons/at_purchase_sale/report/stock_delivery_report.py:186
+#: code:addons/at_purchase_sale/report/stock_delivery_report.py:168
+#: code:addons/at_purchase_sale/report/stock_delivery_report.py:187
 #, python-format
 msgid "Address"
 msgstr "Adresse"
@@ -89,8 +82,8 @@ msgid "Create / Change Lot"
 msgstr ""
 
 #. module: at_purchase_sale
-#: code:addons/at_purchase_sale/report/stock_delivery_report.py:163
-#: code:addons/at_purchase_sale/report/stock_delivery_report.py:184
+#: code:addons/at_purchase_sale/report/stock_delivery_report.py:164
+#: code:addons/at_purchase_sale/report/stock_delivery_report.py:185
 #, python-format
 msgid "Delivery Address"
 msgstr "Lieferadresse"
@@ -106,7 +99,7 @@ msgid "Delivery Label"
 msgstr "Versandetikett"
 
 #. module: at_purchase_sale
-#: code:addons/at_purchase_sale/report/stock_delivery_report.py:190
+#: code:addons/at_purchase_sale/report/stock_delivery_report.py:191
 #, python-format
 msgid "Delivery Note"
 msgstr "Lieferschein"
@@ -130,9 +123,9 @@ msgid "Done"
 msgstr "Erledigt"
 
 #. module: at_purchase_sale
-#: code:addons/at_purchase_sale/purchase.py:29
+#: code:addons/at_purchase_sale/procurement.py:139
 #, python-format
-msgid "Error"
+msgid "Draft Purchase Order created"
 msgstr ""
 
 #. module: at_purchase_sale
@@ -148,7 +141,7 @@ msgid "From"
 msgstr ""
 
 #. module: at_purchase_sale
-#: code:addons/at_purchase_sale/report/stock_delivery_report.py:339
+#: code:addons/at_purchase_sale/report/stock_delivery_report.py:340
 #, python-format
 msgid "KG"
 msgstr ""
@@ -169,6 +162,12 @@ msgstr "Neutrale Lieferung"
 #, python-format
 msgid "New"
 msgstr "Neu"
+
+#. module: at_purchase_sale
+#: code:addons/at_purchase_sale/procurement.py:118
+#, python-format
+msgid "PO: %s"
+msgstr ""
 
 #. module: at_purchase_sale
 #. openerp-web
@@ -198,8 +197,12 @@ msgstr "Drucke Lieferschein"
 #. module: at_purchase_sale
 #. openerp-web
 #: code:addons/at_purchase_sale/static/src/xml/picking.xml:7
-#: view:stock.picking:at_purchase_sale.form_picking
 #, python-format
+msgid "Print Package Labels"
+msgstr "Drucke Paket Etiketten"
+
+#. module: at_purchase_sale
+#: view:stock.picking:at_purchase_sale.form_picking
 msgid "Print Shipping"
 msgstr "Drucke Versandetikett"
 
@@ -223,7 +226,6 @@ msgstr "Beschaffungsnotiz"
 #. module: at_purchase_sale
 #. openerp-web
 #: code:addons/at_purchase_sale/static/src/xml/picking.xml:16
-#: model:ir.model,name:at_purchase_sale.model_product_product
 #, python-format
 msgid "Product"
 msgstr "Produkt"
@@ -239,6 +241,12 @@ msgid "Purchase Order Line"
 msgstr "Bestellpositionen"
 
 #. module: at_purchase_sale
+#: code:addons/at_purchase_sale/procurement.py:141
+#, python-format
+msgid "Purchase line created and linked to an existing Purchase Order"
+msgstr ""
+
+#. module: at_purchase_sale
 #: model:ir.actions.act_window,name:at_purchase_sale.sale_purchase_order_action
 msgid "Purchase order"
 msgstr "Bestellungen"
@@ -247,6 +255,12 @@ msgstr "Bestellungen"
 #: view:sale.order:at_purchase_sale.form_sale_order
 msgid "Purchase orders"
 msgstr "Bestellungen"
+
+#. module: at_purchase_sale
+#: code:addons/at_purchase_sale/procurement.py:143
+#, python-format
+msgid "Quantity added in existing Purchase Order Line"
+msgstr ""
 
 #. module: at_purchase_sale
 #. openerp-web
@@ -283,14 +297,15 @@ msgid "Scanned"
 msgstr ""
 
 #. module: at_purchase_sale
-#: code:addons/at_purchase_sale/report/stock_delivery_report.py:165
-#: code:addons/at_purchase_sale/report/stock_delivery_report.py:182
+#: code:addons/at_purchase_sale/report/stock_delivery_report.py:166
+#: code:addons/at_purchase_sale/report/stock_delivery_report.py:183
 #: field:sale.shop,sender_address_id:0 field:stock.picking,sender_address_id:0
 #, python-format
 msgid "Sender Address"
 msgstr "Absenderadresse"
 
 #. module: at_purchase_sale
+#: model:ir.model,name:at_purchase_sale.model_sale_shop
 #: field:purchase.order,shop_id:0
 msgid "Shop"
 msgstr "Vertriebsshop"
@@ -298,7 +313,18 @@ msgstr "Vertriebsshop"
 #. module: at_purchase_sale
 #: model:ir.model,name:at_purchase_sale.model_stock_move
 msgid "Stock Move"
-msgstr "Lagerbuchung"
+msgstr "Bestandsbuchung"
+
+#. module: at_purchase_sale
+#: field:sale.order.line,supplier_id:0
+msgid "Supplier"
+msgstr ""
+
+#. module: at_purchase_sale
+#: code:addons/at_purchase_sale/procurement.py:76
+#, python-format
+msgid "There is no supplier associated to product %s"
+msgstr ""
 
 #. module: at_purchase_sale
 #. openerp-web

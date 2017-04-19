@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+ <data>
+ 
+    <record id="form_stock_picking" model="ir.ui.view">
+      <field name="name">at_delivery.form_stock_picking</field>
+      <field name="model">stock.picking</field>
+      <field name="inherit_id" ref="stock.view_picking_form"/>
+      <field name="arch" type="xml">
+            <button name="action_cancel" position="after">
+                <button string="Print Carrier Label" name="action_carrier_label" type="object" attrs="{'invisible': ['|',('picking_type_code','=','incoming'),'|',('state','=','confirmed'),('carrier_api','=',False)]}"/>
+                <button string="Cancel Carrier Delivery" name="action_carrier_cancel"  type="object" attrs="{'invisible': ['|',('carrier_api','=',False),('carrier_status','=',False)]}"/>
+            </button>           
+      </field>
+    </record>
+    
+    <record id="form_stock_picking_delivery" model="ir.ui.view">
+      <field name="name">at_delivery.form_stock_picking_delivery</field>
+      <field name="model">stock.picking</field>
+      <field name="inherit_id" ref="delivery.view_picking_withcarrier_out_form"/>
+      <field name="arch" type="xml">
+            <field name="carrier_id" position="replace">
+                <field name="carrier_id" attrs="{'readonly': [('carrier_api','!=',False),('carrier_status','!=',False)]}"/>
+                <field name="carrier_api" invisible="1"/>
+            </field>
+            <field name="carrier_tracking_ref" position="replace">
+                <field name="carrier_tracking_ref" attrs="{'readonly': [('carrier_api','!=',False),('carrier_status','!=',False)]}"/>
+                <field name="carrier_status"/>
+                <field name="carrier_label_name" invisible="1"/>
+                <field name="carrier_label_pdf" attrs="{'invisible': [('carrier_label_pdf','=',False)]}"/>
+            </field>
+      </field>
+    </record>
+
+    
+  </data>
+</openerp>

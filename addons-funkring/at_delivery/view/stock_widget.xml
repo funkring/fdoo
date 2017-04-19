@@ -1,0 +1,11 @@
+<openerp>
+<data>
+    
+<template id="assets_backend" name="at_delivery.assets_backend" inherit_id="web.assets_backend">
+    <xpath expr="." position="inside">
+        <script type="text/javascript" src="/at_delivery/static/src/js/widgets.js"></script>
+    </xpath>
+</template>
+    
+</data>
+</openerp>

@@ -67,6 +67,9 @@ class stock_pack_operation(osv.osv):
         "package_count" : fields.integer("Packages"),
         "package_calc" : fields.function(_pack_calc, type="integer", store=False, string="Expected Packages")
     }
+    _defaults = {
+        "package_count" : 1
+    }
 
 
 class stock_move(osv.osv):

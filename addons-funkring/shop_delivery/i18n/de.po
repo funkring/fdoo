@@ -1,0 +1,132 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* shop_delivery
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Language: de_DE\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-04-18 22:33+0000\n"
+"PO-Revision-Date: 2017-04-19 01:31+0100\n"
+"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.4\n"
+
+#. module: shop_delivery
+#: field:sale.shop,carrier_id:0
+msgid "Carrier"
+msgstr "Frachtführer"
+
+#. module: shop_delivery
+#. openerp-web
+#: code:addons/shop_delivery/static/src/xml/picking.xml:70
+#: code:addons/shop_delivery/static/src/xml/picking.xml:73
+#, python-format
+msgid "Change destination location"
+msgstr ""
+
+#. module: shop_delivery
+#. openerp-web
+#: code:addons/shop_delivery/static/src/xml/picking.xml:69
+#, python-format
+msgid "Change source location"
+msgstr ""
+
+#. module: shop_delivery
+#. openerp-web
+#: code:addons/shop_delivery/static/src/xml/picking.xml:75
+#, python-format
+msgid "Configure package"
+msgstr ""
+
+#. module: shop_delivery
+#. openerp-web
+#: code:addons/shop_delivery/static/src/xml/picking.xml:66
+#, python-format
+msgid "Create / Change Lot"
+msgstr ""
+
+#. module: shop_delivery
+#. openerp-web
+#: code:addons/shop_delivery/static/src/xml/picking.xml:19
+#, python-format
+msgid "From"
+msgstr ""
+
+#. module: shop_delivery
+#. openerp-web
+#: code:addons/shop_delivery/static/src/xml/picking.xml:21
+#, python-format
+msgid "Packages"
+msgstr ""
+
+#. module: shop_delivery
+#. openerp-web
+#: code:addons/shop_delivery/static/src/xml/picking.xml:8
+#, python-format
+msgid "Print Delivery"
+msgstr ""
+
+#. module: shop_delivery
+#. openerp-web
+#: code:addons/shop_delivery/static/src/xml/picking.xml:7
+#, python-format
+msgid "Print Shipping"
+msgstr ""
+
+#. module: shop_delivery
+#. openerp-web
+#: code:addons/shop_delivery/static/src/xml/picking.xml:77
+#, python-format
+msgid "Print package label"
+msgstr ""
+
+#. module: shop_delivery
+#. openerp-web
+#: code:addons/shop_delivery/static/src/xml/picking.xml:16
+#, python-format
+msgid "Product"
+msgstr ""
+
+#. module: shop_delivery
+#. openerp-web
+#: code:addons/shop_delivery/static/src/xml/picking.xml:76
+#, python-format
+msgid "Remove from package"
+msgstr ""
+
+#. module: shop_delivery
+#: model:ir.model,name:shop_delivery.model_sale_order
+msgid "Sales Order"
+msgstr "Verkaufsauftrag"
+
+#. module: shop_delivery
+#. openerp-web
+#: code:addons/shop_delivery/static/src/xml/picking.xml:17
+#, python-format
+msgid "Scanned"
+msgstr ""
+
+#. module: shop_delivery
+#: model:ir.model,name:shop_delivery.model_sale_shop
+msgid "Shop"
+msgstr "Vertriebsshop"
+
+#. module: shop_delivery
+#. openerp-web
+#: code:addons/shop_delivery/static/src/xml/picking.xml:20
+#, python-format
+msgid "To"
+msgstr ""
+
+#. module: shop_delivery
+#. openerp-web
+#: code:addons/shop_delivery/static/src/xml/picking.xml:18
+#, python-format
+msgid "Todo"
+msgstr ""

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+  
+    <record id="form_delivery_carrier_dpd" model="ir.ui.view">
+      <field name="name">at_delivery_dpd.form_delivery_carrier_dpd</field>
+      <field name="model">delivery.carrier.dpd</field>
+      <field name="arch" type="xml">
+        <form string="Carrier Profile">
+            <group>
+                <group>
+                  <field name="name"/>
+                  <field name="client"/>
+                  <field name="customerId"/>
+                </group>
+                <group>
+                  <field name="user"/>
+                  <field name="password"/>
+                </group>
+            </group>
+        </form>
+      </field>
+    </record>
+
+    <record id="tree_delivery_carrier_dpd" model="ir.ui.view">
+      <field name="name">at_delivery_dpd.tree_delivery_carrier_dpd</field>
+      <field name="model">delivery.carrier.dpd</field>
+      <field name="arch" type="xml">
+        <tree string="Carrier Profiles">
+            <field name="name"/>
+            <field name="client"/>
+            <field name="customerId"/>
+            <field name="user"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="search_delivery_carrier_dpd" model="ir.ui.view">
+      <field name="name">at_delivery_dpd.search_delivery_carrier_dpd</field>
+      <field name="model">delivery.carrier.dpd</field>
+      <field name="arch" type="xml">
+        <search string="Carrier Profile">
+            <field name="name"/>
+            <field name="client"/>
+            <field name="customerId"/>
+            <field name="user"/>
+        </search>
+      </field>
+    </record>
+
+    <record id="action_delivery_carrier_dpd" model="ir.actions.act_window">
+      <field name="name">Carrier Profile</field>
+      <field name="res_model">delivery.carrier.dpd</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_delivery_carrier_dpd" 
+            name="Carrier Profile" 
+            parent="delivery.menu_delivery" 
+            action="action_delivery_carrier_dpd" 
+            groups="base.group_no_one" sequence="50"/>
+            
+  </data>
+</openerp>

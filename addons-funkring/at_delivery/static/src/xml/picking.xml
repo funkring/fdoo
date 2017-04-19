@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+
+    <t t-extend="PickingEditorWidget">
+        <t t-jquery="button.js_pick_done" t-operation="replace">
+            <button type="button" class='btn btn-primary js_pick_done'> Create Delivery </button>
+        </t>
+    </t>
+    
+</template>

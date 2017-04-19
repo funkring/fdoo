@@ -4,7 +4,7 @@
     <t t-extend="PickingEditorWidget">
     
         <t t-jquery="button.js_pick_print" t-operation="replace">
-            <button type="button" class="btn btn-default js_print_shipping"> Print Package Labels </button>
+            <button type="button" class="btn btn-default js_print_shipping"> Print Shipping </button>
             <button type="button" class="btn btn-default js_print_delivery"> Print Delivery </button>
         </t>
     
