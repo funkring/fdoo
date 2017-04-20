@@ -35,6 +35,21 @@ class stock_picking(osv.Model):
                 
     }
     
+    def action_print_label(self, cr, uid, ids, context=None):
+        for picking in self.browse(cr, uid, ids, context=context):
+            # check if carrier api
+            if picking.carrier_api:
+                # check if label should created
+                if not picking.carrier_label or not picking.carrier_status:
+                    self.action_carrier_label(cr, uid, [picking.id], context=context)
+                # create link for download
+                return {
+                    "url" : "/picking/%s/label.pdf" % picking.id,
+                    #"url" : "/web/binary/saveas?model=stock.picking&field=carrier_label&id=%s&filename_field=carrier_label_name" % picking.id,
+                    "type" : "ir.actions.act_url"
+                }
+        return True
+    
     def action_carrier_label(self, cr, uid, ids, context=None):
         return True
     

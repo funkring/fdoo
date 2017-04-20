@@ -8,7 +8,8 @@
       <field name="inherit_id" ref="stock.view_picking_form"/>
       <field name="arch" type="xml">
             <button name="action_cancel" position="after">
-                <button string="Print Carrier Label" name="action_carrier_label" type="object" attrs="{'invisible': ['|',('picking_type_code','=','incoming'),'|',('state','=','confirmed'),('carrier_api','=',False)]}"/>
+                <button string="Create Carrier Label" name="action_carrier_label" type="object" attrs="{'invisible': ['|',('picking_type_code','=','incoming'),'|',('state','=','confirmed'),'|',('carrier_api','=',False),('carrier_status','!=',False)]}"/>
+                <button string="Print Carrier Label" name="action_print_label" type="object" attrs="{'invisible': ['|',('carrier_api','=',False),('carrier_status','=',False)]}"/>
                 <button string="Cancel Carrier Delivery" name="action_carrier_cancel"  type="object" attrs="{'invisible': ['|',('carrier_api','=',False),('carrier_status','=',False)]}"/>
             </button>           
       </field>
@@ -40,7 +41,6 @@
         <field name="arch" type="xml">
             <field name="state" position="after">
                 <field name="carrier_status"/>
-                <field name="carrier_error"/>
             </field>      
         </field>
     </record>

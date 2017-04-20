@@ -5,12 +5,12 @@ openerp.at_delivery = function(instance, local) {
     /**
      * override done
      */
-    instance.stock.PickingMainWidget.include({               
+    instance.stock.PickingMainWidget.include({      
         carrier_label: function() {
             var self = this;
-            return new instance.web.Model('stock.picking').call('action_carrier_label', [[self.picking.id], new instance.web.CompoundContext()])
+            return new instance.web.Model('stock.picking').call('action_print_label', [[self.picking.id], new instance.web.CompoundContext()])
                 .then(function(action){
-                    if ( typeof action == 'object') {
+                    if ( typeof action == 'object') {                     
                         return self.do_action(action);
                     } else {
                         return 0;

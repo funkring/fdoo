@@ -19,9 +19,9 @@
 
 from openerp.osv import fields, osv
 
-class purchase_order(osv.Model):
-    _inherit = "purchase.order"
-
+# class purchase_order(osv.Model):
+#     _inherit = "purchase.order"
+#     
 #     def wkf_approve_order(self, cr, uid, ids, context=None):
 #         product_template_obj = self.pool["product.template"]
 #         for order in self.browse(cr, uid, ids):
@@ -29,5 +29,9 @@ class purchase_order(osv.Model):
 #                 if line.product_id:
 #                     template_id = line.product_id.product_tmpl_id.id
 #                     product_template_obj.write(cr, uid, template_id, {"standard_price" : line.price_unit})
-# 
+#  
 #         return super(purchase_order,self).wkf_approve_order(cr, uid, ids, context=context)
+
+class purchase_order_line(osv.Model):
+    _inherit = "purchase.order.line"
+    _order = "name, id"

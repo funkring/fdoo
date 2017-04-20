@@ -57,6 +57,7 @@ class stock_move(osv.osv):
         return new_moves
     
     _inherit = "stock.move"
+    _order = "name, id"
     
 
 class stock_picking(osv.osv):

@@ -103,6 +103,10 @@ class delivery_carrier(osv.Model):
     def _dpd_client_get(self, context=None):
         if self._dpd_client is None:
             self._dpd_client = Client("http://web.paketomat.at/webservice/service-1.0.2.php?wsdl")
+#             logger = logging.getLogger('zeep.transports')
+#             logger.setLevel(logging.DEBUG)
+#             logger.propagate = True
+            
         return self._dpd_client
     
     def _dpd_error(self, e):
@@ -110,12 +114,6 @@ class delivery_carrier(osv.Model):
         if hasattr(e, "message"):
             raise Warning(e.message)
         raise e
-    
-    def _dpd_download(self, cr, uid, picking, context=None):
-        return {
-            "url" : "/web/binary/saveas?model=stock.picking&field=carrier_label&id=%s&filename_field=carrier_label_name" % picking.id,
-            "type" : "ir.actions.act_url"
-        }
     
     def _dpd_label_get(self, cr, uid, picking, context=None):
         carrier = picking.carrier_id
@@ -126,35 +124,30 @@ class delivery_carrier(osv.Model):
         if not profile:
             raise Warning(_("No DPD Profile defined!"))
         
-        # check if label already exist
-        if picking.carrier_status and picking.carrier_label:
-            return self._dpd_download(cr, uid, picking, context=context)
-        
         partner = picking.partner_id
         client = self._dpd_client_get(context)
         try:
             parts = {}
+            
             parts["username"] = profile.user            
             parts["password"] = md5(profile.password).hexdigest()
             parts["mandant"] = profile.client
-            
-            if partner.ref:
-                parts["kdnr"] = partner.ref
+            parts["kdnr"] = partner.ref or ""
                           
-            parts["name"] = partner.name            
-            parts["anschrift"] = partner.street
-            parts["zusatz"] = partner.street2
-            parts["plz"] = partner.zip
-            parts["ort"] = partner.city
+            parts["name"] = partner.name or ""       
+            parts["anschrift"] = partner.street or ""
+            parts["zusatz"] = partner.street2 or ""
+            parts["plz"] = partner.zip or ""
+            parts["ort"] = partner.city or ""
             parts["land"] = partner.country_id and partner.country_id.code or "AT"
              
-            parts["bezugsp"] = SkipValue
-            parts["tel"] = partner.phone or partner.mobile or SkipValue
-            parts["mail"] = SkipValue
-            parts["liefernr"] = picking.name
+            parts["bezugsp"] = partner.name or ""
+            parts["tel"] = partner.phone or partner.mobile or ""
+            parts["mail"] = partner.email or ""
+            parts["liefernr"] = picking.name or ""
             parts["pakettyp"] = carrier.dpd_type or "DPD"
               
-            parts["gewicht"] = "1000" #SkipValue 
+            parts["gewicht"] = "1000" 
             if picking.weight:
                 uom_obj = self.pool["product.uom"]
                 uom_id = uom_obj.search_id(cr, uid, [("category_id","=",picking.weight_uom_id.category_id.id),'|',("name","=","g"),("code","=","g")])
@@ -163,14 +156,14 @@ class delivery_carrier(osv.Model):
                     raise Warning(_("No unit gramm found!"))            
                 parts["gewicht"] = str(int(uom_obj._compute_qty(cr, uid, picking.weight_uom_id, picking.weight, uom))) 
                       
-            parts["vdat"] = SkipValue            
-            parts["produkt1"] = carrier.dpd_product1 or "KP"
-            parts["produkt2"] = SkipValue 
-            parts["produkt3"] = SkipValue
-            parts["produkt4"] = SkipValue
-            parts["produkt5"] = SkipValue
-            parts["produkt6"] = SkipValue
-            parts["produkt7"] = SkipValue
+            parts["vdat"] = ""            
+            parts["produkt1"] = carrier.dpd_product1 or "NP"
+            parts["produkt2"] = []
+            parts["produkt3"] = []
+            parts["produkt4"] = []
+            parts["produkt5"] = ""
+            parts["produkt6"] = []
+            parts["produkt7"] = ""
             
             msgSoapOut = client.service.getLabel(**parts)
             picking_obj = self.pool["stock.picking"]
@@ -207,28 +200,27 @@ class delivery_carrier(osv.Model):
                     "carrier_error" : message
                 }, context=context)
                 
-                return True
-            
-            
-            # update status
-            tracking_no = msgSoapOut.paknr
-            picking_obj.write(cr, uid, picking.id, {                       
-                "carrier_tracking_ref" : tracking_no,
-                "carrier_status" : "created",
-                "carrier_error" : None
-            }, context=context)
+            else:
+                # update status
+                tracking_no = msgSoapOut.paknr
+                picking_obj.write(cr, uid, picking.id, {                       
+                    "carrier_tracking_ref" : tracking_no,
+                    "carrier_status" : "created",
+                    "carrier_error" : None
+                }, context=context)
 
-            return self._dpd_download(cr, uid, picking, context=context)
         except Exception, e:            
             self._dpd_error(e)
             raise e
+        
+        return True
         
     def _dpd_cancel(self, cr, uid, picking, context=None):
         carrier = picking.carrier_id
         if not carrier or carrier.api != "dpd":
             raise Warning(_("Invalid carrier type!"))
         
-        if picking.carrier_status == "created":
+        if picking.carrier_status != "created":
             raise Warning(_("Delivery could only canceled in state 'created'"))
         
         if not picking.carrier_tracking_ref:
@@ -238,18 +230,20 @@ class delivery_carrier(osv.Model):
         if not profile:
             raise Warning(_("No DPD Profile defined!"))
         
+        picking_obj = self.pool["stock.picking"]
+        client = self._dpd_client_get(context)
         try:
             parts = {}
             parts["username"] = profile.user            
             parts["password"] = md5(profile.password).hexdigest()
             parts["mandant"] = profile.client
-            parts["paknr"] = profile.carrier_tracking_ref
+            parts["paknr"] = picking.carrier_tracking_ref
             
-            msgSoapOut = client.service.getLabel(**parts)
+            msgSoapOut = client.service.cancelByTracknr(**parts)
                        
             # update status
-            if msgSoapOut.storno == "1":
-                tracking_no = msgSoapOut.paknr
+            if msgSoapOut.storno == "1" or msgSoapOut.err_code == "FR06":
+                tracking_no = msgSoapOut.paknr                
                 picking_obj.write(cr, uid, picking.id, {                       
                     "carrier_tracking_ref" : tracking_no,
                     "carrier_status" : None,
