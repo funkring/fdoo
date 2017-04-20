@@ -45,16 +45,17 @@
         </field>
     </record>
     
-    <!--
     <record id="search_stock_picking" model="ir.ui.view">
       <field name="name">at_delivery.search_stock_picking</field>
       <field name="model">stock.picking</field>
-      <field name="inherit_id" ref="at_delivery.view_picking_internal_search"/>
+      <field name="inherit_id" ref="stock.view_picking_internal_search"/>
       <field name="type">form</field>
       <field name="arch" type="xml">
-         <filter name="done">
+         <field name="name" position="after">
+            <field name="carrier_tracking_ref"/>
+         </field>
       </field>
-    </record> -->
+    </record>
 
   </data>
 </openerp>

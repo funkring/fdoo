@@ -90,3 +90,6 @@ python -m pip install wkhtmltopdf
 
 #install saas depends
 gem install sass compass bootstrap-sass
+
+# install zeep for soap web services
+python -m pip install zeep
