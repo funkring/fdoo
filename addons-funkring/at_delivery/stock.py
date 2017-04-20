@@ -20,6 +20,7 @@
 
 from openerp.osv import fields, osv
 
+
 class stock_picking(osv.Model):
     _inherit = "stock.picking"
     _columns = {
@@ -38,14 +39,9 @@ class stock_picking(osv.Model):
     def action_print_label(self, cr, uid, ids, context=None):
         for picking in self.browse(cr, uid, ids, context=context):
             # check if carrier api
-            if picking.carrier_api:
-                # check if label should created
-                if not picking.carrier_label or not picking.carrier_status:
-                    self.action_carrier_label(cr, uid, [picking.id], context=context)
-                # create link for download
+            if picking.carrier_api and picking.carrier_label:
                 return {
                     "url" : "/picking/%s/label.pdf" % picking.id,
-                    #"url" : "/web/binary/saveas?model=stock.picking&field=carrier_label&id=%s&filename_field=carrier_label_name" % picking.id,
                     "type" : "ir.actions.act_url"
                 }
         return True
@@ -55,3 +51,19 @@ class stock_picking(osv.Model):
     
     def action_carrier_cancel(self, cr, uid, ids, context=None):
         return True
+    
+    def action_done_from_ui(self, cr, uid, picking_id, context=None):
+        next_picking_id = super(stock_picking, self).action_done_from_ui(cr, uid, picking_id, context=context)
+        
+        # auto create label
+        picking_ids = [picking_id]
+        picking = self.pool["stock.picking"].browse(cr, uid, picking_id, context=context)        
+        if picking.carrier_api:
+            # cancel if already created
+            if picking.carrier_status == "created":
+                self.action_carrier_cancel(cr, uid, picking_ids, context=context)
+            # recreate
+            if not picking.carrier_status or picking.carrier_state == "created" or not picking.carrier_label:                
+                self.action_carrier_label(cr, uid, picking_ids, context=context)
+                
+        return next_picking_id

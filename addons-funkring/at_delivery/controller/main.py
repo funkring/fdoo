@@ -33,13 +33,11 @@ class delivery_helper(http.Controller):
         
         picking = picking_obj.browse(cr, uid, picking_id, context=context)
         
-        label_name = picking.carrier_label_name
         label = picking.carrier_label
-        
-        if not label or not label_name:
+        if not label:
             return request.not_found()
         
         pdfdata = base64.b64decode(label)
         return request.make_response(pdfdata,
             [('Content-Type', 'application/pdf'),
-             ('Content-Disposition', content_disposition(label_name))])       
+             ('Content-Disposition', content_disposition("label.pdf"))])       

@@ -29,6 +29,7 @@ from zeep import Client
 from zeep.xsd import SkipValue
 from openerp.tools.translate import _
 
+from pyPdf import PdfFileWriter, PdfFileReader
 
 try:
     from cStringIO import StringIO
@@ -124,91 +125,140 @@ class delivery_carrier(osv.Model):
         if not profile:
             raise Warning(_("No DPD Profile defined!"))
         
+        
+        # check packages        
+        pack_op_obj = self.pool["stock.pack.operation"]        
+        package_count = 0
+        package_count_all = True
+        
+        # check operation for package count
+        for operation in picking.pack_operation_ids:
+            if operation.qty_done:
+                # check if all operation have a package count
+                # if not add one package for itself
+                if not operation.package_count:
+                    if package_count_all:
+                        package_count_all = False
+                        package_count += 1
+                else:
+                    # add packages
+                    package_count += operation.package_count
+        
+        if not package_count:
+            package_count = 1
+        
         partner = picking.partner_id
-        client = self._dpd_client_get(context)
+        client = self._dpd_client_get(context)      
+        
+        tracking_refs = []
+        carrier_errors = []
+        label_pdf = PdfFileWriter()
+        carrier_label_name = None        
         try:
-            parts = {}
             
-            parts["username"] = profile.user            
-            parts["password"] = md5(profile.password).hexdigest()
-            parts["mandant"] = profile.client
-            parts["kdnr"] = partner.ref or ""
-                          
-            parts["name"] = partner.name or ""       
-            parts["anschrift"] = partner.street or ""
-            parts["zusatz"] = partner.street2 or ""
-            parts["plz"] = partner.zip or ""
-            parts["ort"] = partner.city or ""
-            parts["land"] = partner.country_id and partner.country_id.code or "AT"
-             
-            parts["bezugsp"] = partner.name or ""
-            parts["tel"] = partner.phone or partner.mobile or ""
-            parts["mail"] = partner.email or ""
-            parts["liefernr"] = picking.name or ""
-            parts["pakettyp"] = carrier.dpd_type or "DPD"
-              
-            parts["gewicht"] = "1000" 
-            if picking.weight:
-                uom_obj = self.pool["product.uom"]
-                uom_id = uom_obj.search_id(cr, uid, [("category_id","=",picking.weight_uom_id.category_id.id),'|',("name","=","g"),("code","=","g")])
-                uom = uom_obj.browse(cr, uid, uom_id, context=context)
-                if not uom:
-                    raise Warning(_("No unit gramm found!"))            
-                parts["gewicht"] = str(int(uom_obj._compute_qty(cr, uid, picking.weight_uom_id, picking.weight, uom))) 
-                      
-            parts["vdat"] = ""            
-            parts["produkt1"] = carrier.dpd_product1 or "NP"
-            parts["produkt2"] = []
-            parts["produkt3"] = []
-            parts["produkt4"] = []
-            parts["produkt5"] = ""
-            parts["produkt6"] = []
-            parts["produkt7"] = ""
-            
-            msgSoapOut = client.service.getLabel(**parts)
-            picking_obj = self.pool["stock.picking"]
-             
-            # save pdf
-            label_url = msgSoapOut.label
-            if label_url:
-                label_file = urllib2.urlopen(label_url)
-                buf = StringIO()
-                base64.encode(label_file,buf)
+            for packageNo in range(0, package_count):
+          
+                parts = {}
+                parts["username"] = profile.user            
+                parts["password"] = md5(profile.password).hexdigest()
+                parts["mandant"] = profile.client
+                parts["kdnr"] = partner.ref or ""
+                              
+                name = partner.name or ""
+                zusatz = ""
                 
-                filename = label_url.split("/")[-1]
-                picking_obj.write(cr, uid, picking.id, {
-                    "carrier_label_name" : filename,
-                    "carrier_label" : buf.getvalue()
-                }, context=context)
-                
-            
-            # evaluate error
-            err_code = msgSoapOut.err_code            
-            if err_code:
-                message = []
-                for err, err_message in self._dpd_errors:
-                    if err in err_code:
-                        message.append(err_message)
-                        
-                    
-                if not message:
-                    message.append(_("Error: %s") % err_code)
-                
-                # write error
-                message = "\n".join(message)
-                picking_obj.write(cr, uid, picking.id, {                       
-                    "carrier_error" : message
-                }, context=context)
-                
-            else:
-                # update status
-                tracking_no = msgSoapOut.paknr
-                picking_obj.write(cr, uid, picking.id, {                       
-                    "carrier_tracking_ref" : tracking_no,
-                    "carrier_status" : "created",
-                    "carrier_error" : None
-                }, context=context)
+                if len(name) > 48:
+                    shortName = name[:48]
+                    lastSpacePos = shortName.rfind(" ")
+                    if lastSpacePos > 30:
+                        lastSpacePos+=1
+                        zusatz = name[lastSpacePos:lastSpacePos+32]
+                        name = shortName[:lastSpacePos]                        
+                    else:
+                        zusatz = name[48:80]
+                        name = shortName
 
+                parts["name"] = name
+                parts["anschrift"] = partner.street or ""
+                parts["zusatz"] = partner.street2 or zusatz
+                parts["plz"] = partner.zip or ""
+                parts["ort"] = partner.city or ""
+                parts["land"] = partner.country_id and partner.country_id.code or "AT"
+                 
+                parts["bezugsp"] = ""
+                parts["tel"] = partner.phone or partner.mobile or ""
+                parts["mail"] = partner.email or ""
+                parts["liefernr"] = picking.name or ""
+                parts["pakettyp"] = carrier.dpd_type or "DPD"
+                  
+                parts["gewicht"] = "1000" 
+                if picking.weight:
+                    uom_obj = self.pool["product.uom"]
+                    uom_id = uom_obj.search_id(cr, uid, [("category_id","=",picking.weight_uom_id.category_id.id),'|',("name","=","g"),("code","=","g")])
+                    uom = uom_obj.browse(cr, uid, uom_id, context=context)
+                    if not uom:
+                        raise Warning(_("No unit gramm found!"))            
+                    parts["gewicht"] = str(int(uom_obj._compute_qty(cr, uid, picking.weight_uom_id, picking.weight, uom))) 
+                          
+                parts["vdat"] = ""            
+                parts["produkt1"] = carrier.dpd_product1 or "NP"
+                parts["produkt2"] = []
+                parts["produkt3"] = []
+                parts["produkt4"] = []
+                parts["produkt5"] = ""
+                parts["produkt6"] = []
+                parts["produkt7"] = ""
+                
+                msgSoapOut = client.service.getLabel(**parts)
+                picking_obj = self.pool["stock.picking"]
+                 
+                # save pdf
+                label_url = msgSoapOut.label                
+                if label_url:
+                    carrier_label_name = label_url.split("/")[-1]
+                    label_file = urllib2.urlopen(label_url)
+                    try:                    
+                        # add page
+                        label_pdf.addPage(PdfFileReader(StringIO(label_file.read())).getPage(0))
+                    finally:
+                        label_file.close()
+                
+                # evaluate error
+                err_code = msgSoapOut.err_code            
+                if err_code:               
+                    carrier_error = _("Error: %s") % err_code     
+                    for err, err_message in self._dpd_errors:
+                        if err in err_code:
+                            carrier_error = err_message
+                    carrier_errors.append(carrier_error)
+                else:
+                    # store ref
+                    tracking_refs.append(msgSoapOut.paknr)
+                    
+            
+            # build label           
+            carrier_label = None
+            if label_pdf.getNumPages() > 0:
+                bufPdf = StringIO()
+                try:
+                    label_pdf.write(bufPdf)
+                    carrier_label = base64.encodestring(bufPdf.getvalue())
+                finally:
+                    bufPdf.close()                
+                
+            status = None
+            if not carrier_errors:
+                status = "created"
+                
+            # write data
+            picking_obj.write(cr, uid, picking.id, {
+                "carrier_label_name": carrier_label_name,
+                "carrier_label": carrier_label,
+                "carrier_error": "\n".join(carrier_errors),
+                "carrier_tracking_ref": ", ".join(tracking_refs),
+                "carrier_status" : status
+            }, context=context)
+    
         except Exception, e:            
             self._dpd_error(e)
             raise e
@@ -223,9 +273,6 @@ class delivery_carrier(osv.Model):
         if picking.carrier_status != "created":
             raise Warning(_("Delivery could only canceled in state 'created'"))
         
-        if not picking.carrier_tracking_ref:
-            raise Warning(_("No tracking number!"))
-        
         profile = carrier.dpd_profile_id
         if not profile:
             raise Warning(_("No DPD Profile defined!"))
@@ -233,25 +280,26 @@ class delivery_carrier(osv.Model):
         picking_obj = self.pool["stock.picking"]
         client = self._dpd_client_get(context)
         try:
-            parts = {}
-            parts["username"] = profile.user            
-            parts["password"] = md5(profile.password).hexdigest()
-            parts["mandant"] = profile.client
-            parts["paknr"] = picking.carrier_tracking_ref
-            
-            msgSoapOut = client.service.cancelByTracknr(**parts)
-                       
+            if picking.carrier_tracking_ref:
+                for tracking_ref in picking.carrier_tracking_ref.split(", "):        
+                    parts = {}
+                    parts["username"] = profile.user            
+                    parts["password"] = md5(profile.password).hexdigest()
+                    parts["mandant"] = profile.client
+                    parts["paknr"] = tracking_ref
+                    
+                    msgSoapOut = client.service.cancelByTracknr(**parts)
+                               
+                    # check status
+                    if msgSoapOut.storno != "1" and msgSoapOut.err_code != "FR06":
+                        raise Warning(_("Unable to cancel %s. Call DPD for manual cancel!") % tracking_ref)
+
             # update status
-            if msgSoapOut.storno == "1" or msgSoapOut.err_code == "FR06":
-                tracking_no = msgSoapOut.paknr                
-                picking_obj.write(cr, uid, picking.id, {                       
-                    "carrier_tracking_ref" : tracking_no,
-                    "carrier_status" : None,
-                    "carrier_error" : None
-                }, context=context)
-            else:
-                raise Warning(_("Cancel not possible, call your carrier"))
-            
+            picking_obj.write(cr, uid, picking.id, {                       
+                "carrier_status" : None,
+                "carrier_error" : None
+            }, context=context)
+                
         except Exception, e:            
             self._dpd_error(e)
             raise e

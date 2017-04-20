@@ -3,7 +3,12 @@
 
     <t t-extend="PickingEditorWidget">
         <t t-jquery="button.js_pick_done" t-operation="replace">
-            <button type="button" class='btn btn-primary js_pick_done'> Create Delivery </button>
+            <button type="button" class='btn btn-danger js_pick_done'> Create Delivery </button>
+        </t>
+        <t t-jquery="button.js_drop_down" t-operation="replace">
+            <button type="button" class='btn btn-default js_drop_down'> Put in Cart </button>
+        </t>
+        <t t-jquery="button.js_print_shipping" t-operation="replace">            
         </t>
     </t>
     
