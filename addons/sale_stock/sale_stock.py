@@ -275,14 +275,25 @@ class sale_order_line(osv.osv):
 
         return {'value': result, 'warning': warning}
 
-    def _check_routing(self, cr, uid, ids, product, warehouse_id, context=None):
+    # funkring.net - begin // add route_id
+    def _check_routing(self, cr, uid, ids, product, warehouse_id, route_id=None, context=None):
         """ Verify the route of the product based on the warehouse
             return True if the product availibility in stock does not need to be verified
         """
         is_available = False
+        
+        # find routes
+        routes = []
+        route = None
+        if route_id:
+            route = self.pool.get('stock.location.route').browse(cr, uid, route_id, context=context)
+            if route:
+                routes.append(route)
+        routes.extend(product.route_ids)
+            
         if warehouse_id:
             warehouse = self.pool['stock.warehouse'].browse(cr, uid, warehouse_id, context=context)
-            for product_route in product.route_ids:
+            for product_route in routes:
                 if warehouse.mto_pull_id and warehouse.mto_pull_id.route_id and warehouse.mto_pull_id.route_id.id == product_route.id:
                     is_available = True
                     break
@@ -293,22 +304,37 @@ class sale_order_line(osv.osv):
                 # if route MTO not found in ir_model_data, we treat the product as in MTS
                 mto_route_id = False
             if mto_route_id:
-                for product_route in product.route_ids:
+                for product_route in routes:
                     if product_route.id == mto_route_id:
                         is_available = True
                         break
         if not is_available:
-            product_routes = product.route_ids + product.categ_id.total_route_ids
-            for pull_rule in product_routes.mapped('pull_ids'):
+            all_rules = []
+            for rt in routes:
+                all_rules.extend(rt.pull_ids)
+            for rt in product.categ_id.total_route_ids:
+                all_rules.extend(rt.pull_ids)
+            for pull_rule in all_rules:
                 if pull_rule.picking_type_id.sudo().default_location_src_id.usage == 'supplier' and\
                         pull_rule.picking_type_id.sudo().default_location_dest_id.usage == 'customer':
                     is_available = True
                     break
+        if not is_available and route:
+            supplier_rule = 0
+            customer_rule = 0
+            for pull_rule in route.pull_ids:
+                if pull_rule.picking_type_id.sudo().default_location_src_id.usage == 'supplier':
+                    supplier_rule+=1
+                if pull_rule.picking_type_id.sudo().default_location_dest_id.usage == 'customer':
+                    customer_rule+=1                    
+                if customer_rule > 0 and supplier_rule > 0:
+                    is_available = True
+                    break             
         return is_available
-
+    
     def product_id_change_with_wh(self, cr, uid, ids, pricelist, product, qty=0,
             uom=False, qty_uos=0, uos=False, name='', partner_id=False,
-            lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False, warehouse_id=False, context=None):
+            lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False, warehouse_id=False, route_id=False, context=None):
         context = context or {}
         product_uom_obj = self.pool.get('product.uom')
         product_obj = self.pool.get('product.product')
@@ -341,7 +367,7 @@ class sale_order_line(osv.osv):
 
         if product_obj.type == 'product':
             #determine if the product needs further check for stock availibility
-            is_available = self._check_routing(cr, uid, ids, product_obj, warehouse_id, context=context)
+            is_available = self._check_routing(cr, uid, ids, product_obj, warehouse_id, route_id, context=context)
 
             #check if product is available, and if not: raise a warning, but do this only for products that aren't processed in MTO
             if not is_available:
@@ -368,7 +394,8 @@ class sale_order_line(osv.osv):
                     }
         res.update({'warning': warning})
         return res
-
+    # funkrnig.net - end
+    
     def button_cancel(self, cr, uid, ids, context=None):
         lines = self.browse(cr, uid, ids, context=context)
         for procurement in lines.mapped('procurement_ids'):

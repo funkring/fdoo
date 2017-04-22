@@ -7,20 +7,23 @@ from openerp.exceptions import Warning
 class sale_order_line(models.Model):
     _inherit = 'sale.order.line'
 
+    # funkring.net - begin // add route
     @api.multi
-    def _check_routing(self, product, warehouse):
+    def _check_routing(self, product, warehouse_id, route_id):
         """ skip stock verification if the route goes from supplier to customer
             As the product never goes in stock, no need to verify it's availibility
         """
-        res = super(sale_order_line, self)._check_routing(product, warehouse)
-        if not res:
-            for line in self:
-                for pull_rule in line.route_id.pull_ids:
+        res = super(sale_order_line, self)._check_routing(product, warehouse_id, route_id)
+        if not res and route_id:
+            route = self.env["stock.location.route"].browse(route_id)
+            if route:
+                for pull_rule in route.pull_ids:
                     if (pull_rule.picking_type_id.default_location_src_id.usage == 'supplier' and
-                            pull_rule.picking_type_id.default_location_dest_id.usage == 'customer'):
+                           pull_rule.picking_type_id.default_location_dest_id.usage == 'customer'):
                         res = True
                         break
         return res
+    # funkring.ent - end
 
 
 class purchase_order(models.Model):

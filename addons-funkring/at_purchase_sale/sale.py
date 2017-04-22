@@ -21,6 +21,10 @@
 from openerp.osv import fields,osv
 from openerp.addons.at_base import util
 
+from openerp.exceptions import Warning
+from openerp.tools.translate import _
+
+
 class sale_shop(osv.osv):
 
     _inherit = "sale.shop"
@@ -76,14 +80,54 @@ class sale_order_line(osv.osv):
 
     def product_id_change_with_wh(self, cr, uid, ids, pricelist, product, qty=0,
                                   uom=False, qty_uos=0, uos=False, name='', partner_id=False,
-                                  lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False, warehouse_id=False, context=None):
+                                  lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False, warehouse_id=False, route_id=False, context=None):
 
         res = super(sale_order_line, self).product_id_change_with_wh(cr, uid, ids, pricelist, product, qty=qty,
                                                                          uom=uom, qty_uos=qty_uos, uos=uos, name=name, partner_id=partner_id,
                                                                          lang=lang, update_tax=update_tax, date_order=date_order, packaging=packaging,
-                                                                         fiscal_position=fiscal_position, flag=flag, warehouse_id=warehouse_id, context=context)
+                                                                         fiscal_position=fiscal_position, flag=flag, warehouse_id=warehouse_id, route_id=route_id, context=context)
 
-        return self._product_id_change(cr, uid, res, flag, product, partner_id, lang, context=context)
+        if not context or not context.get("keep_warning"):
+            warning = res.get("warning")
+            if warning:
+                res["value"]["available"] = False
+                del res["warning"]
+            else:
+                res["value"]["available"] = True
+            
+        res =  self._product_id_change(cr, uid, res, flag, product, partner_id, lang, context=context)
+        return res
+    
+    def action_available(self, cr, uid, ids, context=None):
+        
+        context = context and dict(context) or {}
+        context["keep_warning"] = True
+        
+        for line in self.browse(cr, uid, ids, context=context):
+            order = line.order_id
+            
+            res = self.product_id_change_with_wh(cr, uid, [line.id], order.pricelist_id.id, line.product_id.id, 
+                                                 qty=line.product_uom_qty, uom=line.product_uom.id, 
+                                                 qty_uos=line.product_uos_qty, uos=line.product_uos.id, 
+                                                 name=line.name, 
+                                                 partner_id=order.partner_id.id,
+                                                 lang=False, update_tax=False, 
+                                                 date_order=order.date_order, 
+                                                 packaging=line.product_packaging.id,
+                                                 fiscal_position=order.fiscal_position.id, 
+                                                 flag=True,
+                                                 warehouse_id=order.warehouse_id.id, 
+                                                 route_id=line.route_id.id, 
+                                                 context=context)
+            
+            warning = res.get("warning")
+            if warning:
+                raise Warning(warning["title"], warning["message"])
+            
+            # set to available
+            self.write(cr, uid, line.id, {"available": True}, context=context)
+            
+        return True
 
     def _supplier_ids(self, product):
         res = []
@@ -103,5 +147,6 @@ class sale_order_line(osv.osv):
     _columns = {
         "supplier_id" : fields.many2one("res.partner", "Supplier"),
         "available_supplier_ids" : fields.function(_available_supplier_ids, string="Available Suppliers", type="many2many", relation="res.partner", store=False, readonly=True ),
-        "procurement_note" : fields.text("Procurement Note")
-    }
+        "procurement_note" : fields.text("Procurement Note"),
+        "available" : fields.boolean("Available", copy=False)
+    }  

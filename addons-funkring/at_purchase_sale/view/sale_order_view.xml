@@ -16,7 +16,7 @@
         </record>
         
         <record id="form_sale_order" model="ir.ui.view">
-            <field name="name">sale.form_sale_order</field>
+            <field name="name">at_purchase_sale.form_sale_order</field>
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="at_sale.form_sale_order"/>
             <field name="arch" type="xml">
@@ -39,6 +39,24 @@
                     <field name="procurement_note" />
                 </field>
             </field>
+        </record>
+                
+        <record id="form_sale_order_stock" model="ir.ui.view">
+          <field name="name">at_purchase_sale.form_sale_order_stock</field>
+          <field name="model">sale.order</field>
+          <field name="inherit_id" ref="sale_stock.view_order_form_inherit"/>
+          <field name="type">form</field>
+          <field name="arch" type="xml">
+               <!--
+               <xpath expr="//field[@name='order_line']/form/group/group/field[@name='route_id']" position="after">
+               </xpath>
+               -->                    
+               <xpath expr="//field[@name='order_line']/tree/field[@name='route_id']" position="after">
+                   <field name="available" groups="at_purchase_sale.group_available_status" string="" 
+                        on_change="product_id_change_with_wh(parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, False, False, parent.date_order, product_packaging, parent.fiscal_position, True, parent.warehouse_id, route_id, context)"/>
+                   <button name="action_available" type="object" icon="STOCK_NO" attrs="{'invisible': [('available','=',True)]}" groups="at_purchase_sale.group_available_status"/>                   
+               </xpath>             
+          </field>
         </record>
                
     </data>    
