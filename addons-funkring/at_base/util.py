@@ -32,8 +32,6 @@ import tempfile
 import random
 import crypt
 import string
-from mechanize._util import days
-from matplotlib.dates import weeks
 
 DT_FORMAT = '%Y-%m-%d'
 DHM_FORMAT = '%Y-%m-%d %H:%M:%S'
