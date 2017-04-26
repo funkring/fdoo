@@ -32,6 +32,8 @@ import tempfile
 import random
 import crypt
 import string
+from mechanize._util import days
+from matplotlib.dates import weeks
 
 DT_FORMAT = '%Y-%m-%d'
 DHM_FORMAT = '%Y-%m-%d %H:%M:%S'
@@ -195,11 +197,32 @@ def getNextDayOfMonth(inDate,inDay=-1,inMonth=1):
     """ Get next day of month """
     return dateToStr(getNextDayOfMonthDate(strToDate(inDate),inDay=inDay,inMonth=inMonth))
 
+def getFirstOfYear(inDate):
+    if not inDate:
+        return inDate
+    inDate = strToDate(inDate)
+    return dateToStr(date(inDate.year,1,1))
+
+def getFirstOfNextYear(inDate):
+    if not inDate:
+        return inDate
+    inDate = strToDate(inDate)
+    dt = date(inDate.year,1,1)
+    dt += relativedelta(years=1)
+    return dateToStr(dt)
+
 def getFirstOfMonth(inDate):
     if not inDate:
         return inDate
     inDate = strToDate(inDate)
     return dateToStr(date(inDate.year,inDate.month,1))
+
+def getFirstOfNextMonth(inDate):
+    if not inDate:
+        return inDate
+    dt = date(inDate.year,inDate.month,1)
+    dt += relativedelta(months=1)
+    return dateToStr(dt)
 
 def getFirstOfLastMonth():
     cur_dt = datetime.now()
@@ -208,6 +231,20 @@ def getFirstOfLastMonth():
 
 def getEndOfMonth(inDate):
     return getNextDayOfMonth(inDate)
+
+def getFirstOfWeek(inDate):
+    if not inDate:
+        return inDate
+    inDate = strToDate(inDate)
+    inDate -= relativedelta(days=weekday)
+    return dateToStr(inDate)
+
+def getFirstOfNextWeek(inDate):
+    if not inDate:
+        return inDate
+    inDate = strToDate(inDate)
+    inDate += relativedelta(days=(7-inDate.weekday()))
+    return dateToStr(inDate)
 
 def getNextDayDate(inDate):
     inDate = strToDate(inDate)
