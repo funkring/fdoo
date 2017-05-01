@@ -1,0 +1,10 @@
+[Unit]
+Description=Odoo Service
+Require=postgresql.service
+
+[Service]
+User=odoo
+ExecStart=/home/odoo/odoo/openerp-server --config=/home/odoo/odoo/config/server.conf
+
+[Install]
+WantedBy=multi-user.target
