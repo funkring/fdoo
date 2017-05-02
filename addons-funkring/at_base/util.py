@@ -218,6 +218,7 @@ def getFirstOfMonth(inDate):
 def getFirstOfNextMonth(inDate):
     if not inDate:
         return inDate
+    inDate = strToDate(inDate)
     dt = date(inDate.year,inDate.month,1)
     dt += relativedelta(months=1)
     return dateToStr(dt)
@@ -234,7 +235,7 @@ def getFirstOfWeek(inDate):
     if not inDate:
         return inDate
     inDate = strToDate(inDate)
-    inDate -= relativedelta(days=weekday)
+    inDate -= relativedelta(days=inDate.weekday())
     return dateToStr(inDate)
 
 def getFirstOfNextWeek(inDate):
