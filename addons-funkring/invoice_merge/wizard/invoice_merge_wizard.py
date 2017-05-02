@@ -110,7 +110,7 @@ class invoice_merge_wizard(osv.osv_memory):
         for data in invoice_merge.values():
             mergeLines("info")
             mergeLines("comment")
-            str_range = helper.getMonthYearRange(cr, uid,  toStrDate("from_date"), toStrDate("to_date"), context)
+            str_range = helper.getMonthYearRange(cr, uid, toStrDate("from_date"), toStrDate("to_date"), context)
             if str_range:
                 data["name"] = _("Collective Invoice %s") % (str_range,)
             data["invoice_ids"]=[(6,0,data["invoice_ids"])]
@@ -152,7 +152,7 @@ class invoice_merge_wizard(osv.osv_memory):
 
         #check if account analytic_line invoice_id exists
         account_analytic_line_obj = self.pool.get("account.analytic.line")
-        has_analytic_invoice = (account_analytic_line_obj and account_analytic_line_obj.fields_get(cr,uid,"invoice_id") and True) or False
+        has_analytic_invoice = (account_analytic_line_obj and account_analytic_line_obj.fields_get(cr, uid, allfields=["invoice_id"]) and True) or False
 
         for wizard in self.browse(cr, uid, ids, context):
             for merge in wizard.merge_ids:
