@@ -190,15 +190,16 @@ class delivery_carrier(osv.Model):
                 parts["mail"] = partner.email or ""
                 parts["liefernr"] = picking.name or ""
                 parts["pakettyp"] = carrier.dpd_type or "DPD"
-                  
-                parts["gewicht"] = "1000" 
-                if picking.weight:
+                
+                parts["gewicht"] = "1000"
+                weight = picking.carrier_weight or picking.weight or 0.0
+                if weight:
                     uom_obj = self.pool["product.uom"]
                     uom_id = uom_obj.search_id(cr, uid, [("category_id","=",picking.weight_uom_id.category_id.id),'|',("name","=","g"),("code","=","g")])
                     uom = uom_obj.browse(cr, uid, uom_id, context=context)
                     if not uom:
                         raise Warning(_("No unit gramm found!"))            
-                    parts["gewicht"] = str(int(uom_obj._compute_qty(cr, uid, picking.weight_uom_id, picking.weight, uom))) 
+                    parts["gewicht"] = str(int(uom_obj._compute_qty(cr, uid, picking.weight_uom_id.id, weight, uom.id))) 
                           
                 parts["vdat"] = ""            
                 parts["produkt1"] = carrier.dpd_product1 or "NP"

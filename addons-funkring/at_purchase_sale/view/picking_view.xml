@@ -12,6 +12,10 @@
 				<field name="picking_type_id" position="after">
 				    <field name="neutral_delivery"/>
                 </field>
+                <xpath expr="//field[@name='pack_operation_ids']/tree/field[@name='result_package_id']">
+                    <field name="package_count"/>
+                    <field name="package_calc"/>
+                </xpath>
 			</field>
 		</record>
 	</data>
