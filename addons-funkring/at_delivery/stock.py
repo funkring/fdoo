@@ -33,7 +33,7 @@ class stock_picking(osv.Model):
                                              ("received","Received"),
                                              ("rejected","Rejected"),
                                              ("returned","Returned")], string="Carrier Status", copy=False, readonly=True),
-        "carrier_weight" : fields.float("Carrier Weight")
+        "carrier_weight" : fields.float("Carrier Weight", copy=False)
                 
     }
     
