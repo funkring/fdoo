@@ -30,6 +30,7 @@ from zeep.xsd import SkipValue
 from openerp.tools.translate import _
 
 from pyPdf import PdfFileWriter, PdfFileReader
+from HTMLParser import HTMLParser
 
 try:
     from cStringIO import StringIO
@@ -37,7 +38,7 @@ except ImportError:
     from StringIO import StringIO
 
 import logging
-logger = logging.getLogger(__name__) 
+_logger = logging.getLogger(__name__) 
 
 
 class delivery_carrier_dpd(osv.Model):
@@ -104,9 +105,9 @@ class delivery_carrier(osv.Model):
     def _dpd_client_get(self, context=None):
         if self._dpd_client is None:
             self._dpd_client = Client("http://web.paketomat.at/webservice/service-1.0.2.php?wsdl")
-#             logger = logging.getLogger('zeep.transports')
-#             logger.setLevel(logging.DEBUG)
-#             logger.propagate = True
+            logger = logging.getLogger('zeep.transports')
+            logger.setLevel(logging.DEBUG)
+            logger.propagate = True
             
         return self._dpd_client
     
@@ -202,7 +203,14 @@ class delivery_carrier(osv.Model):
                     parts["gewicht"] = str(int(uom_obj._compute_qty(cr, uid, picking.weight_uom_id.id, weight, uom.id))) 
                           
                 parts["vdat"] = ""            
-                parts["produkt1"] = carrier.dpd_product1 or "NP"
+                
+                produkt1 = carrier.dpd_product1
+                if not produkt1:
+                    produkt1 = "KP"
+                    if weight >= 3000:
+                        produkt1 = "NP"
+                
+                parts["produkt1"] = produkt1
                 parts["produkt2"] = []
                 parts["produkt3"] = []
                 parts["produkt4"] = []
@@ -227,10 +235,18 @@ class delivery_carrier(osv.Model):
                 # evaluate error
                 err_code = msgSoapOut.err_code            
                 if err_code:               
-                    carrier_error = _("Error: %s") % err_code     
+                    carrier_error = err_code
+                    foundError = False
                     for err, err_message in self._dpd_errors:
                         if err in err_code:
                             carrier_error = err_message
+                            foundError = True
+                            
+                    if not foundError:
+                        h = HTMLParser()
+                        carrier_error = h.unescape(carrier_error)
+                        
+                    _logger.error(carrier_error)
                     carrier_errors.append(carrier_error)
                 else:
                     # store ref
