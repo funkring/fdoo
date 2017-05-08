@@ -180,10 +180,10 @@ class delivery_carrier(osv.Model):
                         name = shortName
 
                 parts["name"] = name
-                parts["anschrift"] = partner.street or ""
-                parts["zusatz"] = partner.street2 or zusatz
-                parts["plz"] = partner.zip or ""
-                parts["ort"] = partner.city or ""
+                parts["anschrift"] = partner.street and partner.street.strip() or ""
+                parts["zusatz"] = partner.street2 and partner.street2.strip() or zusatz
+                parts["plz"] = partner.zip and partner.zip.strip() or  ""
+                parts["ort"] = partner.city and partner.city.strip() or ""
                 parts["land"] = partner.country_id and partner.country_id.code or "AT"
                  
                 parts["bezugsp"] = ""
@@ -207,7 +207,7 @@ class delivery_carrier(osv.Model):
                 produkt1 = carrier.dpd_product1
                 if not produkt1:
                     produkt1 = "KP"
-                    if weight >= 3000:
+                    if weight > 3000:
                         produkt1 = "NP"
                 
                 parts["produkt1"] = produkt1
