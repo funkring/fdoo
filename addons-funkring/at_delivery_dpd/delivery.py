@@ -207,7 +207,7 @@ class delivery_carrier(osv.Model):
                 produkt1 = carrier.dpd_product1
                 if not produkt1:
                     produkt1 = "KP"
-                    if weight > 3000:
+                    if weight > 3:
                         produkt1 = "NP"
                 
                 parts["produkt1"] = produkt1
