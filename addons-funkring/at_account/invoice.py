@@ -380,7 +380,6 @@ class account_invoice(osv.osv):
             bic = bank.bank_bic or ""
             
             qr = qrcode.QRCode(
-                    version=13,
                     box_size=4.2,
                     border=4  
                  )
@@ -395,8 +394,9 @@ class account_invoice(osv.osv):
                "",
                ref])
         
-            qr.add_data(data)
+            qr.add_data(data, optimize=0)
             qr.make()
+            
             im = qr.make_image(image_factory=qrcode.image.svg.SvgImage)
             image_data = StringIO.StringIO()
             im.save(image_data,"SVG")
