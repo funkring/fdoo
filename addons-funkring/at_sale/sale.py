@@ -204,16 +204,7 @@ class sale_order(osv.osv):
             if shop.project_id:
                 value["project_id"] = shop.project_id.id
         return res
-
-    def action_wait(self, cr, uid, ids, context=None):
-        #convert from non customer to customer
-        partner_obj = self.pool.get("res.partner")
-        should_customers_ids = partner_obj.search(cr,uid,[("id","in",ids),("customer","=",False)])
-        partner_obj.write(cr, uid, should_customers_ids, {
-                "customer" : True
-            },context=context)
-        return super(sale_order,self).action_wait(cr,uid,ids,context=context)
-    
+     
     # auto assign
     def action_ship_create(self, cr, uid, ids, context=None):
         picking_obj = self.pool.get('stock.picking')
