@@ -16,5 +16,25 @@
       </field>
     </record>
     
+    <record id="form_sale_order_extern" model="ir.ui.view">
+      <field name="name">portal_shop.form_sale_order_extern</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_order_form"/>
+      <field name="priority">20</field>
+      <field name="groups_id" eval="[(4, ref('portal_shop.group_sale_extern'))]"/>
+      <field name="arch" type="xml">
+        <button name="invoice_recreate" position="after">
+            <button name="action_quotation_send" string="Send by Email" type="object" states="draft" class="oe_highlight"/>
+            <button name="action_quotation_send" string="Send by Email" type="object" states="sent,progress,manual"/>
+            <button name="print_quotation" string="Print" type="object" states="draft" class="oe_highlight"/>
+            <button name="print_quotation" string="Print" type="object" states="sent,progress,manual"/>
+            <button name="action_view_invoice" string="View Invoice" type="object" class="oe_highlight"
+                            attrs="{'invisible': [('invoice_exists', '=', False)]}"/>
+            <button name="copy_quotation" states="cancel" string="New Copy of Quotation" type="object"/>
+            <button name="cancel" states="draft,sent" string="Cancel"/>
+        </button>
+      </field>
+    </record>
+    
   </data>
 </openerp>

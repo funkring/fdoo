@@ -118,6 +118,17 @@
       <field name="perm_create" eval="False"/>
       <field name="perm_write" eval="False"/>
     </record>
+    
+    <record id="access_stock_location_route_sale_extern" model="ir.model.access">
+      <field name="name">stock_location_route/sale_extern</field>
+      <field name="model_id" ref="stock.model_stock_location_route"/>
+      <field name="group_id" ref="group_sale_extern"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_write" eval="False"/>
+    </record>
+
 
     
     <!-- PRODUCT CATEGORY -->
@@ -234,6 +245,17 @@
       <field name="perm_unlink" eval="True"/>
     </record>
     
+    <record id="rule_analytic_analytic_account_project_sale_extern" model="ir.rule">
+      <field name="name">account_analytic_account_project/sale_extern</field>
+      <field name="model_id" ref="analytic.model_account_analytic_account"/>
+      <field name="domain_force">['|','|',('type','=','view'),('id','=',user.shop_id.project_id.id),('id','in',[s.project_id.id for s in user.shop_ids])]</field>
+      <field name="groups" eval="[(4,ref('group_sale_extern'))]"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_write" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_unlink" eval="False"/>
+    </record>
+             
     <record id="rule_template_analytic_analytic_account_sale_extern" model="ir.rule">
       <field name="name">account_analytic_account/sale_extern</field>
       <field name="model_id" ref="analytic.model_account_analytic_account"/>
@@ -456,7 +478,54 @@
       <field name="perm_create" eval="False"/>
       <field name="perm_write" eval="False"/>
     </record>
+    
 
+    <!-- PROCUREMENT -->
+    
+    <record id="access_procurement_rule_sale_extern" model="ir.model.access">
+      <field name="name">procurement_rule/sale_extern</field>
+      <field name="model_id" ref="procurement.model_procurement_rule"/>
+      <field name="group_id" ref="group_sale_extern"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_write" eval="False"/>
+    </record>
+    
+    <record id="access_procurement_order_sale_extern" model="ir.model.access">
+      <field name="name">procurement_order/sale_extern</field>
+      <field name="model_id" ref="procurement.model_procurement_order"/>
+      <field name="group_id" ref="group_sale_extern"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_write" eval="False"/>
+    </record>
+    
+    <record id="rule_procurement_order_sale_extern" model="ir.rule">
+      <field name="name">procurement_order/sale_extern</field>
+      <field name="model_id" ref="procurement.model_procurement_order"/>
+      <field name="domain_force">['|',('order_id.user_id','=',user.id),('order_id.section_id.member_ids','in',user.id)]</field>
+      <field name="groups" eval="[(4,ref('group_sale_extern'))]"/>      
+      <field name="perm_read" eval="True"/>
+      <field name="perm_write" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_unlink" eval="False"/>
+    </record>
+    
+    
+    <!-- FISCAL POSITION -->
+    
+    <record id="access_account_fiscal_position_tax_sale_extern" model="ir.model.access">
+      <field name="name">fiscalpos_tax/sale_extern</field>
+      <field name="model_id" ref="account.model_account_fiscal_position_tax"/>
+      <field name="group_id" ref="group_sale_extern"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_write" eval="False"/>
+    </record>
+    
     
     <!-- OTHER -->
   
@@ -469,6 +538,16 @@
       <field name="perm_create" eval="True"/>
       <field name="perm_write" eval="True"/>
     </record>
+    
+    <record id="access_email_template_sale_extern" model="ir.model.access">
+      <field name="name">email_template/sale_extern</field>
+      <field name="model_id" ref="email_template.model_email_template"/>
+      <field name="group_id" ref="portal_shop.group_sale_extern"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_write" eval="False"/>
+    </record>    
     
   </data>
 </openerp>
