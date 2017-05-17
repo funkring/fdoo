@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record id="form_delivery_order" model="ir.ui.view">
+      <field name="name">at_delivery.form_delivery_order</field>
+      <field name="model">delivery.order</field>
+      <field name="arch" type="xml">
+        <form string="Delivery">
+          <header>
+            <button name="action_collect_picking" string="Collect Pickings" type="object"/>
+          </header>
+          <sheet>
+              <group>
+                <group>
+                    <field name="name"/>                 
+                </group>
+                <group>            
+                    <field name="date"/>
+                    <field name="user_id"/>
+                </group>
+              </group>
+              <notebook>
+                <page string="Pickings">
+                    <field name="picking_ids" readonly="1">             
+                        <tree>       
+                            <field name="name"/>               
+                            <field name="date_done"/>
+                            <field name="carrier_tracking_ref"/>
+                            <field name="weight" sum="Total Weight"/>     
+                            <field name="carrier_weight" sum="Total Carrier Weight"/>                    
+                            <field name="number_of_packages" sum="Total Packages"/>  
+                            <field name="state" invisible="1"/>              
+                        </tree>
+                    </field>
+                </page>
+              </notebook>
+            </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="tree_delivery_order" model="ir.ui.view">
+      <field name="name">at_delivery.tree_delivery_order</field>
+      <field name="model">delivery.order</field>
+      <field name="arch" type="xml">
+        <tree string="Deliveries">
+            <field name="name"/>
+            <field name="user_id"/>
+            <field name="date"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="search_delivery_order" model="ir.ui.view">
+      <field name="name">at_delivery.search_delivery_order</field>
+      <field name="model">delivery.order</field>
+      <field name="arch" type="xml">
+        <search string="Delivery">            
+            <field name="name"/>
+            <field name="user_id"/>            
+        </search>
+      </field>
+    </record>
+
+    <record id="action_delivery_order" model="ir.actions.act_window">
+      <field name="name">Delivery</field>
+      <field name="res_model">delivery.order</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_delivery_order" name="Delivery" parent="stock.menu_traceability"
+      sequence="50"
+      action="action_delivery_order"/>
+      
+  </data>
+</openerp>

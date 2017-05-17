@@ -1,0 +1,17 @@
+<openerp>
+  <data>
+    
+    <report id="report_delivery_order" 
+            string="Delivery Order" 
+            name="delivery.order" 
+            auto="False" 
+            report_type="aeroo" 
+            model="delivery.order"
+            process_sep="True" 
+            in_format="oo-odt" 
+            out_format="oo-pdf" 
+            parser="at_delivery/report/delivery_report.py" 
+            rml="at_delivery/report/delivery_report.odt" />
+    
+  </data>
+</openerp>

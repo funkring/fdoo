@@ -31,8 +31,14 @@ Basic delivery API
     "depends" : ["delivery", 
                  "stock",
                  "at_purchase_sale"],
-    "data" : ["view/stock_picking_view.xml",
-              "view/stock_widget.xml"],
+    "data" : ["security.xml",              
+              "view/stock_picking_view.xml",
+              "view/stock_widget.xml",
+              "view/stock_picking_view.xml",
+              "view/delivery_order_view.xml",
+              "data/delivery_seq.xml",
+              "report/delivery_report.xml"
+            ],
     "qweb": ["static/src/xml/picking.xml"],
     "auto_install" : False,
     "installable": True

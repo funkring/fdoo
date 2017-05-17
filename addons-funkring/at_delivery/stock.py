@@ -33,8 +33,8 @@ class stock_picking(osv.Model):
                                              ("received","Received"),
                                              ("rejected","Rejected"),
                                              ("returned","Returned")], string="Carrier Status", copy=False, readonly=True),
-        "carrier_weight" : fields.float("Carrier Weight", copy=False)
-                
+        "carrier_weight" : fields.float("Carrier Weight", copy=False),
+        "carrier_order_id" : fields.many2one("delivery.order", "Delivery Order", ondelete="set null")                
     }
     
     def action_print_label(self, cr, uid, ids, context=None):

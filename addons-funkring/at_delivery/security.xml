@@ -1,0 +1,15 @@
+<openerp>
+  <data>
+    
+    <record id="access_delivery_order_stock_user" model="ir.model.access">
+      <field name="name">delivery_order/stock_user</field>
+      <field name="model_id" ref="model_delivery_order"/>
+      <field name="group_id" ref="stock.group_stock_user"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_write" eval="True"/>
+    </record>
+    
+  </data>
+</openerp>

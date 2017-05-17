@@ -30,3 +30,39 @@ class delivery_carrier(osv.Model):
     _columns = {
         "api" : fields.selection(_api_select, string="API")
     }
+
+
+class delivery_order(osv.Model):
+    _name = "delivery.order"
+    _description = "Delivery Order"
+    
+    def create(self, cr, uid, vals, context=None):
+        if context is None:
+            context = {}
+        if vals.get("name", "/") == "/":
+            vals['name'] = self.pool.get("ir.sequence").get(cr, uid, "delivery.order", context=context) or "/"
+        res = super(delivery_order, self).create(cr, uid, vals, context=context)
+        return res
+    
+    def action_collect_picking(self, cr, uid, ids, context=None):
+        for order_id in ids:
+            picking_obj = self.pool["stock.picking"]
+            picking_ids = picking_obj.search(cr, uid, [("state","=","done"),("carrier_id","!=",False),("carrier_order_id","=",False),("carrier_status","!=",False)], context=context)
+            picking_obj.write(cr, uid, picking_ids, {
+                "carrier_order_id" : order_id
+            }, context=context)
+        return True
+    
+    _columns = {
+        "name" : fields.char("Name", required=True),
+        "date" : fields.date("Date", required=True),
+        "user_id" : fields.many2one("res.users", "User", ondelete="restrict", required=True),
+        "picking_ids": fields.one2many("stock.picking", "carrier_order_id", "Pickings")
+    }
+    
+    _defaults = {
+        "name": lambda obj, cr, uid, context: '/',
+        "date" : fields.datetime.now,
+        "user_id": lambda obj, cr, uid, context: uid
+    }
+    

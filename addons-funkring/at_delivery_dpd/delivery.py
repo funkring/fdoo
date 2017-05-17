@@ -112,7 +112,7 @@ class delivery_carrier(osv.Model):
         return self._dpd_client
     
     def _dpd_error(self, e):
-        logger.exception(e)
+        _logger.exception(e)
         if hasattr(e, "message"):
             raise Warning(e.message)
         raise e
@@ -180,13 +180,14 @@ class delivery_carrier(osv.Model):
                         name = shortName
 
                 parts["name"] = name
-                parts["anschrift"] = partner.street and partner.street.strip() or ""
-                parts["zusatz"] = partner.street2 and partner.street2.strip() or zusatz
+                parts["zusatz"] = zusatz
+                
+                parts["anschrift"] = partner.street and partner.street.strip() or ""         
                 parts["plz"] = partner.zip and partner.zip.strip() or  ""
                 parts["ort"] = partner.city and partner.city.strip() or ""
                 parts["land"] = partner.country_id and partner.country_id.code or "AT"
                  
-                parts["bezugsp"] = ""
+                parts["bezugsp"] = partner.street2 and partner.street2.strip() or ""
                 parts["tel"] = partner.phone or partner.mobile or ""
                 parts["mail"] = partner.email or ""
                 parts["liefernr"] = picking.name or ""
@@ -273,7 +274,8 @@ class delivery_carrier(osv.Model):
                 "carrier_label": carrier_label,
                 "carrier_error": "\n".join(carrier_errors),
                 "carrier_tracking_ref": ", ".join(tracking_refs),
-                "carrier_status" : status
+                "carrier_status" : status,
+                "number_of_packages" : package_count
             }, context=context)
     
         except Exception, e:            

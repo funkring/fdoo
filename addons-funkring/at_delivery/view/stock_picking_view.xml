@@ -21,6 +21,7 @@
       <field name="inherit_id" ref="delivery.view_picking_withcarrier_out_form"/>
       <field name="arch" type="xml">
             <field name="carrier_id" position="replace">
+                <field name="carrier_order_id"/>
                 <field name="carrier_id" attrs="{'readonly': [('carrier_api','!=',False),('carrier_status','!=',False)]}"/>
                 <field name="carrier_api" invisible="1"/>
             </field>
