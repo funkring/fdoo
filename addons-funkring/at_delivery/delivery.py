@@ -65,4 +65,5 @@ class delivery_order(osv.Model):
         "date" : fields.datetime.now,
         "user_id": lambda obj, cr, uid, context: uid
     }
+    _order = "name desc"
     
