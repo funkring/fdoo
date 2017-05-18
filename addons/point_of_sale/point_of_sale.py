@@ -28,6 +28,7 @@ from openerp import tools
 from openerp.osv import fields, osv
 from openerp.tools import float_is_zero
 from openerp.tools.translate import _
+from openerp import api
 
 import openerp.addons.decimal_precision as dp
 import openerp.addons.product.product
@@ -558,7 +559,10 @@ class pos_order(osv.osv):
 
     def _amount_line_tax(self, cr, uid, line, context=None):
         account_tax_obj = self.pool['account.tax']
-        taxes_ids = [tax for tax in line.product_id.taxes_id if tax.company_id.id == line.order_id.company_id.id]
+        # funkring.net - begin // TAX GETTER
+        line_obj = self.pool['pos.order.line']
+        taxes_ids = line_obj._get_taxes(cr, uid, line, context=context)
+        # funkring.net - end
         price = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
         taxes = account_tax_obj.compute_all(cr, uid, taxes_ids, price, line.qty, product=line.product_id, partner=line.order_id.partner_id or False)['taxes']
         val = 0.0
@@ -1107,11 +1111,13 @@ class pos_order(osv.osv):
         # Tricky, via the workflow, we only have one id in the ids variable
         """Create a account move line of order grouped by products or not."""
         account_move_obj = self.pool.get('account.move')
-        account_period_obj = self.pool.get('account.period')
         account_tax_obj = self.pool.get('account.tax')
         property_obj = self.pool.get('ir.property')
         cur_obj = self.pool.get('res.currency')
-
+        # funkring.net - begin // TAXES GETTER
+        line_obj = self.pool.get('pos.order.line')
+        # funkring.net - end
+        
         #session_ids = set(order.session_id for order in self.browse(cr, uid, ids, context=context))
 
         if session and not all(session.id == order.session_id.id for order in self.browse(cr, uid, ids, context=context)):
@@ -1215,10 +1221,9 @@ class pos_order(osv.osv):
                 round_per_line = False
             for line in order.lines:
                 tax_amount = 0
-                taxes = []
-                for t in line.product_id.taxes_id:
-                    if t.company_id.id == current_company.id:
-                        taxes.append(t)
+                # funkring.net - begin // TAXES GETTER
+                taxes = line_obj._get_taxes(cr, uid, line, context=context)
+                # funkring.net - end
                 computed_taxes = account_tax_obj.compute_all(cr, uid, taxes, line.price_unit * (100.0-line.discount) / 100.0, line.qty)['taxes']
 
                 for tax in computed_taxes:
@@ -1360,43 +1365,42 @@ class pos_order_line(osv.osv):
     _description = "Lines of Point of Sale"
     _rec_name = "product_id"
 
+    @api.cr_uid_context
+    def _get_taxes(self, cr, uid, line, context=None):
+        return [tax for tax in line.product_id.taxes_id if tax.company_id.id == line.order_id.company_id.id]
+
     def _amount_line_all(self, cr, uid, ids, field_names, arg, context=None):
         res = dict([(i, {}) for i in ids])
         account_tax_obj = self.pool.get('account.tax')
-        cur_obj = self.pool.get('res.currency')
         for line in self.browse(cr, uid, ids, context=context):
-            taxes_ids = [ tax for tax in line.product_id.taxes_id if tax.company_id.id == line.order_id.company_id.id ]
+            taxes_ids = self._get_taxes(cr, uid, line, context=context)
             price = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
             taxes = account_tax_obj.compute_all(cr, uid, taxes_ids, price, line.qty, product=line.product_id, partner=line.order_id.partner_id or False)
-
-            cur = line.order_id.pricelist_id.currency_id
             res[line.id]['price_subtotal'] = taxes['total']
             res[line.id]['price_subtotal_incl'] = taxes['total_included']
         return res
 
     def onchange_product_id(self, cr, uid, ids, pricelist, product_id, qty=0, partner_id=False, context=None):
-       context = context or {}
-       if not product_id:
+        context = context or {}
+        if not product_id:
             return {}
-       if not pricelist:
-           raise osv.except_osv(_('No Pricelist!'),
-               _('You have to select a pricelist in the sale form !\n' \
-               'Please set one before choosing a product.'))
-
-       price = self.pool.get('product.pricelist').price_get(cr, uid, [pricelist],
-               product_id, qty or 1.0, partner_id)[pricelist]
-
-       result = self.onchange_qty(cr, uid, ids, product_id, 0.0, qty, price, context=context)
-       result['value']['price_unit'] = price
-       return result
+        if not pricelist:
+            raise osv.except_osv(_('No Pricelist!'),
+                _('You have to select a pricelist in the sale form !\n' \
+                'Please set one before choosing a product.'))
+        
+        price = self.pool.get('product.pricelist').price_get(cr, uid, [pricelist],
+                product_id, qty or 1.0, partner_id)[pricelist]
+        
+        result = self.onchange_qty(cr, uid, ids, product_id, 0.0, qty, price, context=context)
+        result['value']['price_unit'] = price
+        return result
 
     def onchange_qty(self, cr, uid, ids, product, discount, qty, price_unit, context=None):
         result = {}
         if not product:
             return result
         account_tax_obj = self.pool.get('account.tax')
-        cur_obj = self.pool.get('res.currency')
-
         prod = self.pool.get('product.product').browse(cr, uid, product, context=context)
 
         price = price_unit * (1 - (discount or 0.0) / 100.0)

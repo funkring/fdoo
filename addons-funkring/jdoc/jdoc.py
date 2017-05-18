@@ -365,6 +365,27 @@ class jdoc_jdoc(osv.AbstractModel):
         res.update(simplejson.dumps(data))
         return res.hexdigest()
     
+    def _bulk_get(self, cr, uid, objs, method_get, **kwargs):
+        docs = []
+        if objs:
+            for obj in objs:
+                doc = method_get(cr, uid, obj, **kwargs)
+                if doc:
+                    docs.append(doc)
+        return docs
+    
+    def _bulk_getter(self, cr, uid, view, context=None):
+        method_get = self._jdoc_get
+        if view:
+            # get bulk get
+            method_bulk_get = view.get("bulk_get")
+            if method_bulk_get:
+                return method_bulk_get
+            # get normal get
+            method_get = view.get("get", method_get)
+            
+        return lambda cr, uid, objs, **kwargs: self._bulk_get(cr, uid, objs, method_get, **kwargs)
+    
     def jdoc_sync(self, cr, uid, data, usage_map=None, context=None):
         """
         jdoc_sync
@@ -482,7 +503,7 @@ class jdoc_jdoc(osv.AbstractModel):
         actions = data.get("actions")
                           
         # Method GET
-        method_get = view and view.get("get") or self._jdoc_get
+        bulk_get = self._bulk_getter(cr, uid, view, context=context)
         # Method PUT
         method_put = view and view.get("put") or self.jdoc_put
         # Method CHANGE
@@ -703,20 +724,14 @@ class jdoc_jdoc(osv.AbstractModel):
             if res:
                 last_date = max(last_date, res[0])
             
-            # create docs
-            for obj in model_obj.browse(cr, uid, out_ids, context=context):
-                try:
-                    doc = method_get(cr, uid, obj, options=options, context=context)
-                    if doc:
-                        if res_doc:
-                            out_list.append(doc)
-                        else:
-                            out_list.append({ "id" : doc["_id"],                                 
-                                              "doc" : doc 
-                                            })
-                except AccessError as e:
-                    _logger.warning("Access Denied for read %s/%s" % (obj._model._name, obj.id))
-        
+            # build doc list
+            docs = bulk_get(cr, uid,  model_obj.browse(cr, uid, out_ids, context=context), options=options, context=context)
+            if not res_doc:
+                docs = [{"id":d["_id"], "doc":d} for d in docs]
+            # add docs
+            out_list.extend(docs)
+          
+                  
         
         #
         # search deleted
@@ -866,7 +881,7 @@ class jdoc_jdoc(osv.AbstractModel):
             view = getattr(model_obj,view_name)(cr, uid, context=context)
             
         # Method GET
-        method_get = view and view.get("get") or self._jdoc_get
+        bulk_get = self._bulk_getter(cr, uid, view, context)
         
         # GET via UUID
         uuid = data.get("uuid")
@@ -874,7 +889,8 @@ class jdoc_jdoc(osv.AbstractModel):
             obj = mapping_obj._browse_mapped(cr, uid, uuid, res_model=res_model, name=name, context=context)
             if not obj:
                 return False
-            return method_get(cr, uid, obj, options=options, context=context)
+            docs = bulk_get(cr, uid, [obj], options=options, context=context)
+            return docs and docs[0] or None
         
         # GET via DOMAIN
         domain = data.get("domain")
@@ -891,12 +907,8 @@ class jdoc_jdoc(osv.AbstractModel):
                 return ids            
             
             # prepare result
-            res = []
-            for obj in model_obj.browse(cr, uid, ids, context=context):
-                doc = method_get(cr, uid, obj, options=options, context=context)
-                res.append(doc)
-                
-            return res
+            docs = bulk_get(cr, uid, model_obj.browse(cr, uid, ids, context=context), options=options, context=context)
+            return docs
             
         # too few params
         return False

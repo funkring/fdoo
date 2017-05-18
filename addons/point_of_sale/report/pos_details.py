@@ -179,15 +179,19 @@ class pos_details(report_sxw.rml_parse):
         account_tax_obj = self.pool.get('account.tax')
         user_ids = form['user_ids'] or self._get_all_users()
         pos_order_obj = self.pool.get('pos.order')
+        pos_line_obj = self.pool.get('pos.order.line')
         company_id = self.pool['res.users'].browse(self.cr, self.uid, self.uid).company_id.id
         date_start, date_end = self._get_utc_time_range(form)
         pos_ids = pos_order_obj.search(self.cr, self.uid, [('date_order','>=',date_start),('date_order','<=',date_end),('state','in',['paid','invoiced','done']),('user_id','in',user_ids), ('company_id', '=', company_id)])
         for order in pos_order_obj.browse(self.cr, self.uid, pos_ids):
             for line in order.lines:
-                line_taxes = account_tax_obj.compute_all(self.cr, self.uid, line.product_id.taxes_id, line.price_unit * (1-(line.discount or 0.0)/100.0), line.qty, product=line.product_id, partner=line.order_id.partner_id or False)
+                # funkring.net - begin // TAX GETTER
+                taxes_ids = pos_line_obj._get_taxes(self.cr, self.uid, line, context=self.localcontext)
+                line_taxes = account_tax_obj.compute_all(self.cr, self.uid, taxes_ids, line.price_unit * (1-(line.discount or 0.0)/100.0), line.qty, product=line.product_id, partner=line.order_id.partner_id or False)
                 for tax in line_taxes['taxes']:
                     taxes.setdefault(tax['id'], {'name': tax['name'], 'amount':0.0})
                     taxes[tax['id']]['amount'] += tax['amount']
+                # funkring.net - end
         return taxes.values()
 
     def _get_user_names(self, user_ids):
