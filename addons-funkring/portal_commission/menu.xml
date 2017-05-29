@@ -1,0 +1,11 @@
+<openerp>
+  <data>
+    
+    <menuitem name="Commission" id="portal_commission" parent="portal.portal_menu" sequence="50" 
+                groups="portal_shop.group_sale_extern"/>
+    
+    <menuitem name="Commissions" parent="portal_commission" id="portal_commissions" 
+            sequence="10" action="commission.action_commission_line"/>
+    
+  </data>
+</openerp>

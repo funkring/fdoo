@@ -32,6 +32,12 @@ class commission_line(osv.osv):
         self.pool.get("account.analytic.line").unlink(cr, uid, line_ids, context=context)
         return super(commission_line, self).unlink(cr, uid, ids, context=context)
         
+    def _prov_amount(self, cr, uid, ids, field_name, arg, context=None):
+        res = dict.fromkeys(ids, 0.0)
+        for obj in self.browse(cr, uid, ids, context):
+            res[obj.id] = obj.amount * -1.0
+        return res
+    
     def _short_name(self, name):
         if name:
             return name.split("\n")[0]
@@ -64,7 +70,8 @@ class commission_line(osv.osv):
         "partner_id" : fields.many2one("res.partner","Provision Receiver", select=True),
         "invoiced_id" : fields.many2one("account.invoice","Invoiced", select=True, ondelete="set null"),
         "invoiced_line_ids" : fields.many2many("account.invoice.line", "commission_invoice_line_rel", "commission_line_id", "invoice_line_id", "Invoice Lines"),       
-        "price_sub" : fields.float("Subtotal", digits_compute=dp.get_precision("Account"))
+        "price_sub" : fields.float("Subtotal", digits_compute=dp.get_precision("Account")),
+        "prov_amount" : fields.function(_prov_amount, string="Commission", type="float", store=False, digits_compute=dp.get_precision("Account"))
     }
     _name = "commission.line"
     _inherits = {"account.analytic.line": "line_id"}

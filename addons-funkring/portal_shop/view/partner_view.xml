@@ -5,7 +5,7 @@
           <field name="name">portal_shop.form_partner</field>
           <field name="model">res.partner</field>
           <field name="priority" eval="25"/>
-          <field name="groups_id" eval="[(4, ref('portal_shop.group_sale_extern'))]"/>
+          <field name="groups_id" eval="[(4, ref('portal_shop.group_project_extern'))]"/>
           <field name="inherit_id" ref="project.view_task_partner_info_form"/>
           <field name="arch" type="xml">
                 <xpath expr="//div[@name='buttons']/button[@name='%(project.action_view_task)d']" position="after">
@@ -17,6 +17,33 @@
                 </xpath>
                 
           </field>
+        </record>
+    
+    
+        <record id="form_partner_buttons" model="ir.ui.view">
+            <field name="name">inred.form_partner_buttons</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="priority" eval="20"/>
+            <field name="groups_id" eval="[(4, ref('portal_shop.group_sale_extern'))]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='buttons']" position="inside">
+                    <button type="action" 
+                        class="oe_stat_button"
+                        id="invoice_button"
+                        icon="fa-pencil-square-o"
+                        name="%(account.action_invoice_refund_out_tree)d"
+                        attrs="{'invisible': [('customer', '=', False)]}" 
+                        context="{'search_default_partner_id': active_id,'default_partner_id': active_id}">
+                        <div><strong><field name="total_invoiced" widget="monetary"/></strong><br/>Invoiced</div>
+                    </button>                        
+                    <button class="oe_inline oe_stat_button" type="action" name="%(sale.act_res_partner_2_sale_order)d" 
+                        attrs="{'invisible': [('customer', '=', False)]}"
+                        icon="fa-strikethrough">
+                        <field string="Sales" name="sale_order_count" widget="statinfo"/>
+                    </button>                             
+                </xpath>
+            </field>
         </record>
     
   </data>

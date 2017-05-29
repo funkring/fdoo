@@ -10,6 +10,13 @@
         <field name="comment">Extern salesman which is not an employee</field>    
     </record>
     
+    <record id="group_project_extern" model="res.groups">
+        <field name="name">Extern Project</field>
+        <field name="category_id" ref="base.module_category_project_management"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_portal'))]"/>
+        <field name="comment">Extern project user which is not an employee</field>    
+    </record>
+    
     
     <!-- SALE ORDER -->
     
@@ -325,7 +332,7 @@
     <record id="rule_res_partner_sale_extern" model="ir.rule">
       <field name="name">res_partner/sale_extern</field>
       <field name="model_id" ref="base.model_res_partner"/>
-      <field name="domain_force">['|','|',('id','=',user.partner_id.id),('user_id','=',user.id),('section_id.member_ids','in',user.id)]</field>
+      <field name="domain_force">['|','|','|','|',('id','=',user.partner_id.id),('user_id','=',user.id),('section_id.member_ids','in',user.id),('commercial_partner_id.user_id','=',user.id),('commercial_partner_id.section_id.member_ids','in',user.id)]</field>
       <field name="groups" eval="[(4,ref('group_sale_extern'))]"/>
       <field name="perm_read" eval="True"/>
       <field name="perm_write" eval="True"/>

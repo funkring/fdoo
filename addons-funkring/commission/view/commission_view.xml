@@ -73,7 +73,7 @@
                 	<field name="unit_amount" sum="Total unit amount"/>
                 	<field name="price_sub" string="Volume of Amount" sum="Total subtotal"/>
                 	<field name="total_commission" avg="Average commission"/>
-                    <field name="amount" sum="Total amount"/>
+                    <field name="prov_amount" sum="Total amount"/>
                 	<field name="period_id" />
                     <field name="journal_id" />
                 </tree>

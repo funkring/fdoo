@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Language: de_DE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-12 18:49+0000\n"
-"PO-Revision-Date: 2017-02-12 19:51+0100\n"
+"POT-Creation-Date: 2017-05-29 22:43+0000\n"
+"PO-Revision-Date: 2017-05-30 00:44+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -98,6 +98,7 @@ msgstr ""
 
 #. module: commission
 #: view:commission.line:commission.form_commission_line
+#: field:commission.line,prov_amount:0
 #: view:product.product:commission.form_product_normal
 #: view:product.template:commission.form_product_template
 #: model:product.uom,name:commission.product_commission_uom
@@ -137,7 +138,7 @@ msgstr "Provision Typ"
 #. module: commission
 #: model:ir.ui.menu,name:commission.menu_commission_recalc_wizard
 msgid "Commission calculate"
-msgstr "Provision Berechnung"
+msgstr "Provision berechnen"
 
 #. module: commission
 #: code:addons/commission/commission_recalc_wizard.py:32
@@ -338,6 +339,11 @@ msgid "Partner"
 msgstr ""
 
 #. module: commission
+#: field:commission.line,percentage:0
+msgid "Percentage"
+msgstr "Prozent"
+
+#. module: commission
 #: view:commission.line:commission.search_commission_line
 #: field:commission.line,period_id:0
 msgid "Period"
@@ -358,7 +364,7 @@ msgstr ""
 #. module: commission
 #: field:commission.line,partner_id:0
 msgid "Provision Receiver"
-msgstr "Provision Empfänger"
+msgstr "Verkäufer"
 
 #. module: commission
 #: field:commission.line,unit_amount:0
