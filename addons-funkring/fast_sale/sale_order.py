@@ -26,16 +26,20 @@ class sale_order(models.Model):
     _inherit = "sale.order"
 
     @api.multi
-    def action_deliver_invoice(self):
+    def confirm_force_all(self):
         for order in self:
-            # if in draft confirm
-            if order.state == "draft":
+            # if in draft or sent confirm
+            if order.state in ("draft","sent"):
                 order.order_policy = "manual"
                 order.action_button_confirm()
             
             # do delivery
             for picking in order.picking_ids:
-                picking.force_assign()
-                picking.do_transfer()
-        
+                if picking.state != "done":
+                    picking.force_assign()
+                    picking.do_transfer()
+
+    @api.multi
+    def action_deliver_invoice(self):
+        self.confirm_force_all()        
         return self.manual_invoice()

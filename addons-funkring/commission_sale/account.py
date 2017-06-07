@@ -108,8 +108,7 @@ class account_invoice(osv.osv):
                             for salesman_id, order_id in cr.fetchall():
                                 salesman_user = user_obj.browse(cr, uid, salesman_id, context=context)
                                 order = order_obj.browse(cr, uid, order_id, context=context)     
-                                commission_date = order.date_order                      
-                                create_commission(salesman_user, name=order.name, commission_date=order.date_order, ref=order.name, pricelist=order.pricelist_id)
+                                create_commission(salesman_user, name=order.name, commission_date=invoice.date_invoice, ref=order.name, pricelist=order.pricelist_id)
                                 found_order = True
                                 break
                             
