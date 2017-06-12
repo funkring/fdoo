@@ -210,12 +210,36 @@ class chicken_log(models.Model):
         return self.write({"state":"valid"})
     
     @api.one
+    @api.depends("loss","loss_fix","loss_fix_amount")
+    def _compute_loss_total(self):
+        # add loss without fix
+        self._cr.execute("SELECT SUM(COALESCE(loss,0)) FROM farm_chicken_log l "
+                         " WHERE l.logbook_id = %s AND l.day <= %s AND NOT l.loss_fix ", (self.logbook_id.id, self.day) )
+        res = self._cr.fetchone()
+        loss_total = res and res[0] or 0
+        
+        # add loss with fix
+        self._cr.execute("SELECT SUM(COALESCE(loss_fix_amount,0)) FROM farm_chicken_log l "
+                         " WHERE l.logbook_id = %s AND l.day <= %s AND l.loss_fix ", (self.logbook_id.id, self.day) )
+        res = self._cr.fetchone()
+        loss_total += res and res[0] or 0
+        
+        self.loss_total = loss_total
+        
+    @api.one
     @api.depends("loss")
-    def _compute_chicken_count(self):
+    def _compute_loss_total_real(self):
         self._cr.execute("SELECT SUM(COALESCE(loss,0)) FROM farm_chicken_log l "
                          " WHERE l.logbook_id = %s AND l.day <= %s ", (self.logbook_id.id, self.day) )
         res = self._cr.fetchone()
-        self.chicken_count = self.logbook_id.chicken_count-(res and res[0] or 0)
+        loss_total = res and res[0] or 0
+        
+        self.loss_total_real = loss_total
+        
+    @api.one
+    @api.depends("loss_total_real")
+    def _compute_chicken_count(self):
+        self.chicken_count = self.logbook_id.chicken_count-self.loss_total_real
         
     @api.one
     @api.depends("eggs_total","eggs_removed")
@@ -375,7 +399,12 @@ class chicken_log(models.Model):
     day = fields.Date("Day", required=True, readonly=True, index=True, states={'draft': [('readonly', False)]},
                                  default=lambda self: util.currentDate())
     
-    loss = fields.Integer("Loss", readonly=True, states={'draft': [('readonly', False)]})    
+    loss = fields.Integer("Loss", readonly=True, states={'draft': [('readonly', False)]})
+    loss_fix = fields.Boolean("Loss Fix", readonly=True, states={'draft': [('readonly', False)]})
+    loss_fix_amount = fields.Integer("Loss Fix Amount", readonly=True, states={'draft': [('readonly', False)]})
+    loss_total = fields.Integer("Loss Total", readonly=True, compute="_compute_loss_total")
+    loss_total_real = fields.Integer("Real Loss", readonly=True, compute="_compute_loss_total_real")
+    
     weight = fields.Float("Weight [kg]", readonly=True, states={'draft': [('readonly', False)]})
     feed_manual = fields.Boolean("Manual Feed Input", readonly=True, states={'draft': [('readonly', False)]})
     feed = fields.Float("Feet [kg]", readonly=True, states={'draft': [('readonly', False)]})
@@ -384,6 +413,8 @@ class chicken_log(models.Model):
     temp = fields.Float("Temperature [°C]", readonly=True, states={'draft': [('readonly', False)]})
     humidity = fields.Float("Humidity [%]", readonly=True, states={'draft': [('readonly', False)]})
     eggs_total = fields.Integer("Eggs Total", readonly=True, states={'draft': [('readonly', False)]})
+    eggs_machine = fields.Integer("Eggs Machine", readonly=True, states={'draft': [('readonly', False)]})
+    
     eggs_nest = fields.Integer("Nest Eggs", readonly=True, states={'draft': [('readonly', False)]})
     eggs_top = fields.Integer("Eggs moved above", readonly=True, states={'draft': [('readonly', False)]})
     eggs_buttom = fields.Integer("Eggs laid down", readonly=True, states={'draft': [('readonly', False)]})    

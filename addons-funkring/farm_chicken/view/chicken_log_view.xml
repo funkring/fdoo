@@ -18,12 +18,18 @@
                         <field name="day"/>
                     </group>
                     <group string="Chicken">
-                        <field name="weight"/>
-                        <field name="loss"/>
-                        <field name="chicken_count" string="Chicken Count"/>
+                        <field name="weight"/>                        
+                        <field name="chicken_count" string="Chicken Count"/>                       
                         <field name="chicken_age" string="Chicken Age [Days]"/>
                         <field name="chicken_age_weeks" string="Chicken Age [Weeks]"/>
                         <field name="eggs_performance" string="Eggs Performance"/>
+                    </group>
+                    <group string="Chicken Loss">
+                        <field name="loss"/>
+                        <field name="loss_total_real"/>
+                        <field name="loss_total"/>
+                        <field name="loss_fix"/>
+                        <field name="loss_fix_amount" attrs="{'invisible': [('loss_fix','=',False)]}"/>
                     </group>
                     <group string="Resources">
                         <field name="feed_manual"/>                    
