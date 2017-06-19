@@ -892,6 +892,15 @@ class jdoc_jdoc(osv.AbstractModel):
             docs = bulk_get(cr, uid, [obj], options=options, context=context)
             return docs and docs[0] or None
         
+        # GET via ID
+        oid = data.get("id")
+        if oid:
+            obj = model_obj.browse(cr, uid, oid, context=context)
+            if not obj:
+                return False
+            docs = bulk_get(cr, uid, [obj], options=options, context=context)
+            return docs and docs[0] or None
+        
         # GET via DOMAIN
         domain = data.get("domain")
         if isinstance(domain,list):
