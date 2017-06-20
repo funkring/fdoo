@@ -31,7 +31,8 @@ class res_partner(osv.osv):
             relation='product.pricelist', 
             domain=[('type','=','sale')],
             string="Sale Pricelist", 
-            help="This pricelist will be used, instead of the default one, for sales to the current partner"),
+            help="This pricelist will be used, instead of the default one, for sales to the current partner",
+            export=True),
     }
 
     def _commercial_fields(self, cr, uid, context=None):

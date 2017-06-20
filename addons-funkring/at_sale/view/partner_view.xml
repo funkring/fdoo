@@ -11,7 +11,8 @@
             				<field name="invoice_partner_id"/>            			  
             			</group>
             			<group name="invoicing2">
-            				<field name="detailed_invoice" />
+            			    <field name="email_invoice" />
+            				<field name="detailed_invoice" />            				
             			</group>
             		</group>
             	</page>

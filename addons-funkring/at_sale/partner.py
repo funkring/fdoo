@@ -26,5 +26,6 @@ class res_partner(osv.osv):
     _inherit = "res.partner"
     _columns = {
         "detailed_invoice" : fields.boolean("Detailed Invoice"),
+        "email_invoice" : fields.boolean("E-Mail Invoice"),
         "invoice_partner_id" : fields.many2one("res.partner","Invoice Partner")
     }
