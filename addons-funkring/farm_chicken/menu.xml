@@ -1,9 +1,0 @@
-<openerp>
-  <data>
-    
-      <menuitem id="menu_farm_chicken"
-              name="Chicken Farm" parent="farm.menu_farm" sequence="1" 
-              groups="farm.group_manager"/>
-    
-  </data>
-</openerp>
