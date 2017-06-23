@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #############################################################################
 #
 #    Copyright (c) 2007 Martin Reisenhofer <martinr@funkring.net>
@@ -84,6 +85,58 @@ class product_category(osv.osv):
 
 
 class product_product(osv.osv):
+
+    def _product_overview(self, cr, uid, ids, context=None):
+        categories = {}
+        
+        products = self.browse(cr, uid, ids, context=context)
+        category_ids = list(set([p.categ_id.id for p in products]))
+        category_names = dict(self.pool["product.category"].name_get(cr, uid, category_ids, context=context))
+        
+        for product in products:
+            category = product.categ_id
+            pt = product.product_tmpl_id
+            
+            ncategory = categories.get(category.id)
+            if ncategory is None:
+                ncategory = {
+                    "name" : category_names.get(category.id, category.name),
+                    "category" : category,
+                    "templates" : {}                
+                }
+                categories[category.id] = ncategory
+                
+            templates = ncategory["templates"]
+            ntemplate = templates.get(pt.id)
+            if ntemplate is None:
+                ntemplate = {
+                    "name" : pt.name,
+                    "products" : []
+                }
+                templates[pt.id] = ntemplate
+                
+            name = product.name
+            att_names = [a.name for a in product.attribute_value_ids]
+            if att_names:
+                name = "%s (%s)" % (name, ", ".join(att_names))
+            
+            ntemplate["products"].append({
+                "product" : product,
+                "name" : name
+            })
+        
+        def getName(v):
+            return v["name"]
+        
+        categories = sorted(categories.values(), key=getName)
+        for category in categories:
+            templates = sorted(category["templates"].values(), key=getName)
+            category["templates"] = templates
+            for template in templates:
+                template["products"] = sorted(template["products"], key=getName)
+                
+        return categories
+
 
     def name_search(self, cr, user, name='', args=None, operator='ilike', context=None, limit=100):
         if not args:

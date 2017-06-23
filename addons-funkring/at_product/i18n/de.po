@@ -5,9 +5,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
+"Language: de_DE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-27 08:45+0000\n"
-"PO-Revision-Date: 2016-04-27 10:45+0100\n"
+"POT-Creation-Date: 2017-06-22 21:33+0000\n"
+"PO-Revision-Date: 2017-06-22 23:34+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -88,6 +89,12 @@ msgid "Created on"
 msgstr ""
 
 #. module: at_product
+#: field:at_product.category_view,display_name:0
+#: field:at_sale.product_change_wizard,display_name:0
+msgid "Display Name"
+msgstr ""
+
+#. module: at_product
 #: field:product.uom.categ,uom_ids:0
 msgid "Grouped UOMs"
 msgstr "Einheiten Gruppierung"
@@ -102,6 +109,12 @@ msgstr ""
 #: model:ir.model,name:at_product.model_product_supplierinfo
 msgid "Information about a product supplier"
 msgstr "Informationen zum Produktlieferanten"
+
+#. module: at_product
+#: field:at_product.category_view,__last_update:0
+#: field:at_sale.product_change_wizard,__last_update:0
+msgid "Last Modified on"
+msgstr ""
 
 #. module: at_product
 #: field:at_sale.product_change_wizard,write_uid:0
@@ -137,6 +150,7 @@ msgstr "Preislistenversion"
 
 #. module: at_product
 #: model:ir.model,name:at_product.model_product_product
+#: view:product.template:at_product.search_at_product
 msgid "Product"
 msgstr "Produkt"
 
@@ -152,6 +166,12 @@ msgstr "Produktkategorie"
 #: model:ir.ui.menu,name:at_product.menu_product_change
 msgid "Product Change"
 msgstr "Produktanpassung"
+
+#. module: at_product
+#: model:ir.actions.report.xml,name:at_product.report_product_list
+#: model:ir.actions.report.xml,name:at_product.report_product_list_tmpl
+msgid "Product List"
+msgstr "Produktliste"
 
 #. module: at_product
 #: model:ir.model,name:at_product.model_product_uom
@@ -170,7 +190,7 @@ msgid "Products"
 msgstr "Produkte"
 
 #. module: at_product
-#: view:product.product:at_product.search_at_product
+#: view:product.template:at_product.search_at_product
 msgid "Reference"
 msgstr "Referenz"
 

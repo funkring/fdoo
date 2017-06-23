@@ -1,0 +1,31 @@
+<openerp>
+  <data>
+    
+    <report id="report_product_list" 
+            string="Product List" 
+            name="product.product.list" 
+            auto="False" 
+            report_type="aeroo" 
+            model="product.product"
+            process_sep="False" 
+            in_format="oo-odt" 
+            out_format="oo-pdf" 
+            stylesheet="none" 
+            parser="at_product/report/product_list.py" 
+            rml="at_product/report/product_list.odt" />
+            
+     <report id="report_product_list_tmpl" 
+            string="Product List" 
+            name="product.product.list.tmpl" 
+            auto="False" 
+            report_type="aeroo" 
+            model="product.template"
+            process_sep="False" 
+            in_format="oo-odt" 
+            out_format="oo-pdf" 
+            stylesheet="none" 
+            parser="at_product/report/product_list.py" 
+            rml="at_product/report/product_list.odt" />
+    
+  </data>
+</openerp>

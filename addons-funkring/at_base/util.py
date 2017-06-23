@@ -599,6 +599,16 @@ def deepUpdate(d, u):
             d[k] = u[k]
     return d
 
+def calcEanCRC(val):
+    fact = (1,3)
+    crc = 0
+    for i,n in enumerate(val):
+        crc += int(n) * fact[i%2]
+    crc = crc % 10
+    if crc:
+        return val + str(10-crc)
+    return val + "0"
+
 if __name__ == '__main__':
     print dateEasterSunday(2013)-dateEasterSunday(2012)
 #     print password(32)

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #############################################################################
 #
 #    Copyright (c) 2007 Martin Reisenhofer <martinr@funkring.net>
@@ -34,6 +35,7 @@
               "menu.xml",
               "view/product_view.xml",
               "report/pricelist_report.xml",
+              "report/product_list.xml",
               "wizard/product_change_wizard.xml",              
               "data/uom.xml"],
     "auto_install" : False,

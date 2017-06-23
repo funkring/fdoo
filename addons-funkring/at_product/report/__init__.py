@@ -1,2 +1,1 @@
 import category_view
-import pricelist_report
