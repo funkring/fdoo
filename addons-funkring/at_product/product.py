@@ -103,7 +103,6 @@ class product_product(osv.osv):
                 ncategory = {
                     "name" : category_names.get(category.id, category.name),
                     "category" : category,
-                    "attributes" : {},      
                     "templates" : {}                
                 }
                 categories[category.id] = ncategory
@@ -123,25 +122,7 @@ class product_product(osv.osv):
                 "name" : product_names.get(product.id, product.name)
             }   
             ntemplate["products"].append(nprod)
-            
-            # add for attributes                       
-            att_names = ", ".join([a.name for a in product.attribute_value_ids])
-            att_name = ncategory["name"]
-            if att_names:
-                att_name = "%s [%s]" % (att_name, att_names)
-                
-            attributes = ncategory["attributes"]
-            nattributes = attributes.get(att_name)
-            if nattributes is None:
-                nattributes = {
-                    "name": att_name,
-                    "att_names": att_names,
-                    "products": []
-                }
-                attributes[att_name] = nattributes
 
-            nattributes["products"].append(nprod)   
-            
         def getName(v):
             return v["name"]
         
@@ -151,11 +132,6 @@ class product_product(osv.osv):
             category["templates"] = templates
             for template in templates:
                 template["products"] = sorted(template["products"], key=getName)
-            
-            attributes = sorted(category["attributes"].values(), key=getName)
-            category["attributes"] = attributes
-            for attribute in attributes:
-                attribute["products"] = sorted(attribute["products"], key=getName)
                 
         return categories
 

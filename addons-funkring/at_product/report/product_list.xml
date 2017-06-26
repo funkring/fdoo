@@ -26,59 +26,6 @@
             stylesheet="none" 
             parser="at_product/report/product_list.py" 
             rml="at_product/report/product_list.odt" />
-            
-    <report id="report_product_list_variant" 
-            string="Product List by Variant" 
-            name="product.product.list.variant" 
-            auto="False" 
-            report_type="aeroo" 
-            model="product.product"
-            process_sep="False" 
-            in_format="oo-odt" 
-            out_format="oo-pdf" 
-            stylesheet="none" 
-            parser="at_product/report/product_list.py" 
-            rml="at_product/report/product_list_attr.odt" />
-            
-    <report id="report_product_list_tmpl_variant" 
-            string="Product List by Variant" 
-            name="product.product.list.tmpl.variant" 
-            auto="False" 
-            report_type="aeroo" 
-            model="product.template"
-            process_sep="False" 
-            in_format="oo-odt" 
-            out_format="oo-pdf" 
-            stylesheet="none" 
-            parser="at_product/report/product_list.py" 
-            rml="at_product/report/product_list_attr.odt" />
-            
-    <report id="report_product_list_variant_odt" 
-            string="Product List by Variant (Editable)" 
-            name="product.product.list.variant.odt" 
-            auto="False" 
-            report_type="aeroo" 
-            model="product.product"
-            process_sep="False" 
-            in_format="oo-odt" 
-            out_format="oo-odt" 
-            stylesheet="none" 
-            parser="at_product/report/product_list.py" 
-            rml="at_product/report/product_list_attr.odt" />
-            
-    <report id="report_product_list_tmpl_variant_odt" 
-            string="Product List by Variant (Editable)" 
-            name="product.product.list.tmpl.variant.odt" 
-            auto="False" 
-            report_type="aeroo" 
-            model="product.template"
-            process_sep="False" 
-            in_format="oo-odt" 
-            out_format="oo-odt" 
-            stylesheet="none" 
-            parser="at_product/report/product_list.py" 
-            rml="at_product/report/product_list_attr.odt" />
-    
     
   </data>
 </openerp>
