@@ -66,6 +66,8 @@ class Parser(extreport.basic_parser):
             lines = invoice_line_obj.browse(self.cr, self.uid, ids[i], self.localcontext)
             invoice_lines.append(lines)
 
+        line_format = invoice_line_obj._line_format(self.cr, self.uid, ids, context=self.localcontext)
+        
         pos = 1
         for line in invoice_lines:
             res = {}
@@ -95,6 +97,8 @@ class Parser(extreport.basic_parser):
             res['pos'] = pos
             res['discount_amount'] = line.discount_amount or 0.00
             res['invoice_line'] = line
+            res["line_format"] = line_format.get(line.id, "")
+            
             pos += 1
             result.append(res)
         return result

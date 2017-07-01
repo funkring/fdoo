@@ -23,6 +23,11 @@ from openerp import models, fields, api, _
 class account_invoice_line(models.Model):
     _inherit = "account.invoice.line"
     
+    @api.multi
+    def _line_format(self):
+        res = dict.fromkeys(self.ids, "")
+        return res
+    
     @api.model
     def move_line_get(self, invoice_id):
         inv = self.env['account.invoice'].browse(invoice_id)
