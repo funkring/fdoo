@@ -65,6 +65,12 @@ class sale_order_edit_wizard(models.TransientModel):
                     res["order_id"] = order.id
                 if "date_order"  in fields_list:
                     res["date_order"] = order.date_order
+                if "partner_id" in fields_list:
+                    res["partner_id"] = order.partner_id.id
+                if "partner_invoice_id" in fields_list:
+                    res["partner_invoice_id"] = order.partner_invoice_id.id
+                if "partner_shipping_id" in fields_list:
+                    res["partner_shipping_id"] = order.partner_shipping_id.id
                 if "line_ids" in fields_list:
                     default_line_ids = []
                     res["line_ids"] = default_line_ids
@@ -85,7 +91,10 @@ class sale_order_edit_wizard(models.TransientModel):
         
     
     order_id = fields.Many2one("sale.order", "Order", required=True, readonly=True)
-    date_order = fields.Datetime("Date", required=True)    
+    date_order = fields.Datetime("Date", required=True)
+    partner_id = fields.Many2one("res.partner", "Partner", required=True)
+    partner_invoice_id = fields.Many2one("res.partner","Invoice Address", required=True)
+    partner_shipping_id = fields.Many2one("res.partner","Delivery Address", required=True)
     line_ids = fields.One2many("sale.order.edit.wizard.line", "wizard_id", "Lines")
     modify = fields.Boolean("Modify")
     
@@ -105,5 +114,8 @@ class sale_order_edit_wizard(models.TransientModel):
             # order modify
             if self.modify:
                 self.order_id.date_order = self.date_order
+                self.order_id.partner_id = self.partner_id
+                self.order_id.partner_invoice_id = self.partner_invoice_id
+                self.order_id.partner_shipping_id = self.partner_shipping_id
                 
         return True
