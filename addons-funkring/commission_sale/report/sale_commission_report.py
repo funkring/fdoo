@@ -30,11 +30,16 @@ class Parser(extreport.basic_parser):
         if line_count:
             avg_prov = avg_prov / line_count
         
+        prov = 0
+        if sum_netto:
+            prov = 100.0 / sum_netto * sum_prov
+        
         return [{
             "currency" : self.localcontext["company"].currency_id,
             "lines" : lines,
             "sum_netto" : sum_netto,
             "avg_prov" : avg_prov,
+            "prov" : prov,
             "sum_prov" : sum_prov
         }]
         
