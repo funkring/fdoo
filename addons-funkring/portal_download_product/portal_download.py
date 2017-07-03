@@ -19,6 +19,7 @@
 ##############################################################################
 
 from openerp import models, fields, api, _
+from pygments.lexer import _inherit
 
 class portal_download(models.Model):
     _inherit = "portal.download"
@@ -26,3 +27,23 @@ class portal_download(models.Model):
     
     product_id = fields.Many2one("product.product", "Product", ondelete="restrict", copy=True, index=True)
     
+    
+    @api.multi
+    def name_get(self):
+        names = []
+        
+        for obj in self:
+            product =  obj.product_id
+            name = obj.name
+            if product and product.default_code:
+                name = "[%s] %s" % (product.default_code, name)
+            names.append((obj.id, name))
+        
+        return names
+    
+    def _name_search(self, cr, user, name='', args=None, operator='ilike', context=None, limit=100, name_get_uid=None):
+        if not (name == '' and operator == 'ilike'):
+            if not args:
+                args = []
+            args  = ["|","|",("product_id.name", operator, name),("product_id.default_code", operator, name)] + args
+        return super(portal_download, self)._name_search(cr, user, name, args, operator, context, limit, name_get_uid)
