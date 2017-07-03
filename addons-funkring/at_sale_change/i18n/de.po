@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Language: de_DE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-31 07:59+0000\n"
-"PO-Revision-Date: 2017-01-31 08:59+0100\n"
+"POT-Creation-Date: 2017-07-03 11:09+0000\n"
+"PO-Revision-Date: 2017-07-03 13:09+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -40,6 +40,11 @@ msgid "Date"
 msgstr ""
 
 #. module: at_sale_change
+#: field:sale.order.edit.wizard,partner_shipping_id:0
+msgid "Delivery Address"
+msgstr "Lieferadresse"
+
+#. module: at_sale_change
 #: field:sale.order.edit.wizard.line,discount:0
 msgid "Discount"
 msgstr "Rabatt"
@@ -54,6 +59,11 @@ msgstr ""
 #: field:sale.order.edit.wizard,id:0 field:sale.order.edit.wizard.line,id:0
 msgid "ID"
 msgstr ""
+
+#. module: at_sale_change
+#: field:sale.order.edit.wizard,partner_invoice_id:0
+msgid "Invoice Address"
+msgstr "Rechnungsadresse"
 
 #. module: at_sale_change
 #: field:sale.order.edit.wizard,__last_update:0
@@ -118,6 +128,11 @@ msgid "Order"
 msgstr "Auftrag"
 
 #. module: at_sale_change
+#: field:sale.order.edit.wizard,partner_id:0
+msgid "Partner"
+msgstr ""
+
+#. module: at_sale_change
 #: field:sale.order.edit.wizard.line,price_unit:0
 msgid "Price"
 msgstr "Preis"
@@ -126,11 +141,6 @@ msgstr "Preis"
 #: field:sale.order.edit.wizard.line,qty:0
 msgid "Quantity"
 msgstr "Menge"
-
-#. module: at_sale_change
-#: model:ir.model,name:at_sale_change.model_sale_order
-msgid "Sales Order"
-msgstr "Verkaufsauftrag"
 
 #. module: at_sale_change
 #: field:sale.order.edit.wizard.line,price_subtotal:0
