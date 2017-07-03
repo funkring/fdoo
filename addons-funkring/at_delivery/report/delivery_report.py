@@ -25,3 +25,30 @@ class Parser(extreport.basic_parser):
     
     def __init__(self, cr, uid, name, context=None):
         super(Parser, self).__init__(cr, uid, name, context=context)
+        self.localcontext.update({
+            "prepare": self._prepare
+        })
+        
+    def _prepare(self, o):
+        carrier = {}
+
+        for picking in o.picking_ids:
+            if picking.carrier_id:
+                carrier_values = carrier.get(picking.carrier_id.id)
+                if carrier_values is None:
+                    carrier_values = {
+                        "name" : picking.carrier_id.name,
+                        "carrier" : picking.carrier_id,
+                        "pickings" : [],
+                        "packages" : 0,
+                        "weight" : 0.0                        
+                    }
+                    carrier[picking.carrier_id.id] = carrier_values
+
+                carrier_values["pickings"].append(picking)                
+                carrier_values["packages"] = carrier_values["packages"] + picking.number_of_packages
+                carrier_values["weight"] = carrier_values["weight"] +  picking.carrier_weight
+                
+        carrier = sorted(carrier.values(), key=lambda v: v["name"])
+        return carrier
+                
