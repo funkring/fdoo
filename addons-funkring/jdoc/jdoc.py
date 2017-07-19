@@ -38,12 +38,14 @@ META_ID = "_id"
 META_REV = "_rev"
 META_DELETE = "_deleted"
 META_NAME = "_name"
-META_MODEL  = "fdoo__ir_model"
+META_MODEL = "fdoo__ir_model"
+META_FILTERED = "fdoo__filtered"
 
 META_FIELDS = set([
  META_ID,
  META_MODEL,
  META_DELETE,
+ META_FILTERED,
  META_NAME,
  META_REV 
 ])
@@ -560,6 +562,8 @@ class jdoc_jdoc(osv.AbstractModel):
                     put_change(change,uuid2id_resolver=get_dependency)
                 except AccessError as e:
                     _logger.warning("Access Denied for write %s" % simplejson.dumps(doc))
+                    # RAISE CHANGE ERROR
+                    raise e
 
                 
             if actions:
@@ -746,7 +750,9 @@ class jdoc_jdoc(osv.AbstractModel):
             out_deleted_vals = mapping_obj.search_read(cr, uid, del_search_domain, 
                                                                 ["uuid", "write_date", "res_id"],                                                             
                                                                 order="write_date asc, res_id asc")
-            
+
+            deleted_uuids = set([v["uuid"] for v in out_deleted_vals])
+                        
             # read filtered which should be deleted
             if filter_ndomain or auto_del_ids:
                 # get filtered ids
@@ -783,16 +789,31 @@ class jdoc_jdoc(osv.AbstractModel):
                     
                     # uuid 
                     uuid = out_deleted_val["uuid"]
+                    filtered = not uuid in deleted_uuids
+                    
                     if res_doc:
-                        out_list.append({
+                        del_vals = {
                            "_id" : uuid,
-                           "_deleted" : True                                 
-                         })
+                           META_DELETE : True                                 
+                        }
+                        
+                        # check filtered
+                        if filtered:
+                            del_vals[META_FILTERED] = True
+                            
+                        out_list.append(del_vals)
+                        
                     else:
-                        out_list.append({
+                        del_vals = {
                            "id" : uuid,
-                           "deleted" : True                                 
-                         })
+                           "deleted" : True
+                        } 
+                        
+                        # check filtered
+                        if filtered:
+                            del_vals["filtered"] = True
+                        
+                        out_list.append(del_vals)
        
        
         # after sync check for deleted
@@ -830,7 +851,7 @@ class jdoc_jdoc(osv.AbstractModel):
         res =  {
            "model" : model,
            "lastsync" : lastsync,
-           "changes" : out_list,
+           "changes" : out_list
         }
         
         if errors:
@@ -989,25 +1010,29 @@ class jdoc_jdoc(osv.AbstractModel):
         
         # check for delete
         if doc.get(META_DELETE):
-            try:
-                with cr.savepoint():             
-                    mapping_obj.unlink_uuid(cr, uid, uuid, res_model=model, context=context)
-                    obj_id = False
-            except Exception as e:
-                if isinstance(e, AccessError):
-                    _logger.warning("Access Denied for delete %s/%s" % (model, uuid))
-                else:
-                    _logger.exception(e);
-                if not errors is None:
-                    errors.append({
-                       "model" : model,
-                       "id" : obj_id,
-                       "uuid" : uuid,
-                       "error" : e.message,
-                       "error_class" : e.__class__.__name__               
-                    })
-                else:
-                    raise e
+            # check filtered
+            if not doc.get(META_FILTERED):
+                obj_id = False
+            else:
+                try:
+                    with cr.savepoint():             
+                        mapping_obj.unlink_uuid(cr, uid, uuid, res_model=model, context=context)
+                        obj_id = False
+                except Exception as e:
+                    if isinstance(e, AccessError):
+                        _logger.warning("Access Denied for delete %s/%s" % (model, uuid))
+                    else:
+                        _logger.exception(e);
+                    if not errors is None:
+                        errors.append({
+                           "model" : model,
+                           "id" : obj_id,
+                           "uuid" : uuid,
+                           "error" : e.message,
+                           "error_class" : e.__class__.__name__               
+                        })
+                    else:
+                        raise e
         
         # otherwise update        
         else:
@@ -1326,6 +1351,14 @@ class jdoc_jdoc(osv.AbstractModel):
             # validate model for change
             def validateModel(change):
                 doc = change["doc"]
+                
+                # check if doc is valid
+                if not doc:
+                    return None
+                # check if it is a deleted filtered
+                if doc.get(META_FILTERED):
+                    return None
+
                 model = doc.get(META_MODEL)
                 if not model:
                     if doc.get(META_DELETE):
