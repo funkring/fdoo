@@ -11,7 +11,7 @@
                in_format="oo-odt"
                out_format="oo-pdf"
                groups="account.group_account_user" 
-               parser="at_account/report/payment_overview_report.py"
-               rml="at_account/report/payment_overview_report.odt"/>
+               parser="at_account/report/account_invoice_report.py"
+               rml="at_account/report/account_invoice_report.odt"/>
     </data>
 </openerp>
