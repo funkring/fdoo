@@ -23,10 +23,10 @@ from openerp.osv import fields, osv
 class stock_picking(osv.Model):
     _inherit = "stock.picking"
      
-    def action_carrier_label(self, cr, uid, ids, context=None):        
+    def action_carrier_label(self, cr, uid, ids, context=None, test=False):        
         for picking in self.browse(cr, uid, ids, context=context):
             if picking.carrier_api == "dpd":
-                return self.pool["delivery.carrier"]._dpd_label_get(cr, uid, picking, context=context)
+                return self.pool["delivery.carrier"]._dpd_label_get(cr, uid, picking, test=test, context=context)
         return super(stock_picking, self).action_carrier_label(cr, uid, ids, context=context)
     
     def action_carrier_cancel(self, cr, uid, ids, context=None):
@@ -34,3 +34,4 @@ class stock_picking(osv.Model):
             if picking.carrier_api == "dpd":
                 return self.pool["delivery.carrier"]._dpd_cancel(cr, uid, picking, context=context)
         return super(stock_picking, self).action_carrier_label(cr, uid, ids, context=context)
+

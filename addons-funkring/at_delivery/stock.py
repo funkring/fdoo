@@ -19,7 +19,8 @@
 ##############################################################################
 
 from openerp.osv import fields, osv
-
+from openerp.exceptions import Warning
+from openerp.tools.translate import _
 
 class stock_picking(osv.Model):
     _inherit = "stock.picking"
@@ -47,7 +48,16 @@ class stock_picking(osv.Model):
                 }
         return True
     
-    def action_carrier_label(self, cr, uid, ids, context=None):
+    def action_carrier_test(self, cr, uid, ids, context=None):
+        for picking in self.browse(cr, uid, ids, context=None):
+            if picking.carrier_api and not picking.carrier_status:
+                self.action_carrier_label(cr, uid, [picking.id], test=True, context=context)
+                carrier_error = self.read(cr, uid, picking.id, ["carrier_error"], context=context)["carrier_error"]
+                if carrier_error:
+                    raise Warning(_("Label Error:\n %s") % carrier_error)
+        return True
+    
+    def action_carrier_label(self, cr, uid, ids, context=None, test=False):
         return True
     
     def action_carrier_cancel(self, cr, uid, ids, context=None):

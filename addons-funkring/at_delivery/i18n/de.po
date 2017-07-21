@@ -1,20 +1,21 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* at_delivery
+# 	* at_delivery
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Language: de_DE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-17 05:01+0000\n"
-"PO-Revision-Date: 2017-05-17 05:01+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2017-07-21 13:01+0000\n"
+"PO-Revision-Date: 2017-07-21 15:02+0100\n"
+"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"X-Generator: Poedit 1.5.4\n"
 
 #. module: at_delivery
 #: field:delivery.carrier,api:0
@@ -134,6 +135,16 @@ msgid "ID"
 msgstr ""
 
 #. module: at_delivery
+#: code:addons/at_delivery/stock.py:57
+#, python-format
+msgid ""
+"Label Error:\n"
+" %s"
+msgstr ""
+"Fehler bei der Etiketten Generierung:\n"
+" %s"
+
+#. module: at_delivery
 #: field:delivery.order,__last_update:0
 msgid "Last Modified on"
 msgstr ""
@@ -210,4 +221,3 @@ msgstr "Gewicht Gesamt"
 #: field:delivery.order,user_id:0
 msgid "User"
 msgstr "Benutzer"
-

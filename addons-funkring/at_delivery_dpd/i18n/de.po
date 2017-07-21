@@ -1,21 +1,20 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* at_delivery_dpd
+#	* at_delivery_dpd
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Language: de_DE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 12:11+0000\n"
-"PO-Revision-Date: 2017-04-19 14:12+0100\n"
-"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
+"POT-Creation-Date: 2017-07-21 13:00+0000\n"
+"PO-Revision-Date: 2017-07-21 13:00+0000\n"
+"Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 1.5.4\n"
 
 #. module: at_delivery_dpd
 #: selection:delivery.carrier,dpd_type:0
@@ -26,12 +25,6 @@ msgstr "Paketshop Zustellung"
 #: selection:delivery.carrier,dpd_type:0
 msgid "B2C"
 msgstr ""
-
-#. module: at_delivery_dpd
-#: code:addons/at_delivery_dpd/delivery.py:264
-#, python-format
-msgid "Cancel not possible, call your carrier"
-msgstr "Abrechen ist nicht möglich, kontaktieren sie ihren Frachführer"
 
 #. module: at_delivery_dpd
 #: model:ir.model,name:at_delivery_dpd.model_delivery_carrier
@@ -112,6 +105,11 @@ msgid "DPD Return"
 msgstr ""
 
 #. module: at_delivery_dpd
+#: field:delivery.carrier,dpd_test_profile_id:0
+msgid "DPD Test Profile"
+msgstr "DPD Test Profil"
+
+#. module: at_delivery_dpd
 #: selection:delivery.carrier,dpd_product1:0
 msgid "DPD/B2C Normal"
 msgstr ""
@@ -122,7 +120,7 @@ msgid "DPD/B2C Small"
 msgstr "DPD/B2C Klein"
 
 #. module: at_delivery_dpd
-#: code:addons/at_delivery_dpd/delivery.py:237
+#: code:addons/at_delivery_dpd/delivery.py:301
 #, python-format
 msgid "Delivery could only canceled in state 'created'"
 msgstr "Lieferung kann nur im Status 'Erstellt' abgebrochen werden"
@@ -131,12 +129,6 @@ msgstr "Lieferung kann nur im Status 'Erstellt' abgebrochen werden"
 #: field:delivery.carrier.dpd,display_name:0
 msgid "Display Name"
 msgstr ""
-
-#. module: at_delivery_dpd
-#: code:addons/at_delivery_dpd/delivery.py:207
-#, python-format
-msgid "Error: %s"
-msgstr "Fehler: %s"
 
 #. module: at_delivery_dpd
 #. openerp-web
@@ -152,7 +144,7 @@ msgstr ""
 
 #. module: at_delivery_dpd
 #: code:addons/at_delivery_dpd/delivery.py:123
-#: code:addons/at_delivery_dpd/delivery.py:234
+#: code:addons/at_delivery_dpd/delivery.py:298
 #, python-format
 msgid "Invalid carrier type!"
 msgstr "Ungültiger Frachführer!"
@@ -179,19 +171,13 @@ msgstr ""
 
 #. module: at_delivery_dpd
 #: code:addons/at_delivery_dpd/delivery.py:127
-#: code:addons/at_delivery_dpd/delivery.py:244
+#: code:addons/at_delivery_dpd/delivery.py:305
 #, python-format
 msgid "No DPD Profile defined!"
 msgstr "Es ist kein DPD Profil definiert!"
 
 #. module: at_delivery_dpd
-#: code:addons/at_delivery_dpd/delivery.py:240
-#, python-format
-msgid "No tracking number!"
-msgstr "Keine Frachführer Referenz (TrackingNo) vorhanden!"
-
-#. module: at_delivery_dpd
-#: code:addons/at_delivery_dpd/delivery.py:163
+#: code:addons/at_delivery_dpd/delivery.py:208
 #, python-format
 msgid "No unit gramm found!"
 msgstr "Es wurde keine Einheit Gramm definiert"
@@ -305,6 +291,13 @@ msgid "Todo"
 msgstr ""
 
 #. module: at_delivery_dpd
+#: code:addons/at_delivery_dpd/delivery.py:322
+#, python-format
+msgid "Unable to cancel %s. Call DPD for manual cancel!"
+msgstr ""
+
+#. module: at_delivery_dpd
 #: field:delivery.carrier.dpd,user:0
 msgid "User"
 msgstr ""
+

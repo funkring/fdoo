@@ -5,11 +5,11 @@
     <record id="form_delivery" model="ir.ui.view">
       <field name="name">at_delivery_dpd.form_delivery</field>
       <field name="model">delivery.carrier</field>
-      <field name="inherit_id" ref="delivery.view_delivery_carrier_form"/>
+      <field name="inherit_id" ref="at_delivery.form_delivery"/>
       <field name="arch" type="xml">
-            <field name="product_id" position="after">
-                <field name="api"/>
+            <field name="api" position="after">
                 <field name="dpd_profile_id" attrs="{'invisible': [('api','!=','dpd')]}"/>
+                <field name="dpd_test_profile_id" attrs="{'invisible': [('api','!=','dpd')]}"/>
                 <field name="dpd_product1" attrs="{'invisible': [('api','!=','dpd')]}"/>
             </field>        
       </field>

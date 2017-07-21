@@ -117,8 +117,8 @@ class delivery_carrier(osv.Model):
             raise Warning(e.message)
         raise e
     
-    def _dpd_label_get(self, cr, uid, picking, context=None):
-        carrier = picking.carrier_id
+    def _dpd_label_get(self, cr, uid, picking, test=False, context=None):
+        carrier =  picking.carrier_id
         if not carrier or carrier.api != "dpd":
             raise Warning(_("Invalid carrier type!"))
         
@@ -126,6 +126,11 @@ class delivery_carrier(osv.Model):
         if not profile:
             raise Warning(_("No DPD Profile defined!"))
         
+        # check test profile
+        if test:
+            profile = carrier.dpd_test_profile_id
+            if not profile:
+                return True
         
         # check packages        
         pack_op_obj = self.pool["stock.pack.operation"]        
@@ -265,15 +270,20 @@ class delivery_carrier(osv.Model):
                     bufPdf.close()                
                 
             status = None
-            if not carrier_errors:
+            carrier_tracking_ref = None
+            
+            if not carrier_errors and not test:
                 status = "created"
+                
+            if not test:
+                carrier_tracking_ref = ", ".join(tracking_refs)
                 
             # write data
             picking_obj.write(cr, uid, picking.id, {
                 "carrier_label_name": carrier_label_name,
                 "carrier_label": carrier_label,
                 "carrier_error": "\n".join(carrier_errors),
-                "carrier_tracking_ref": ", ".join(tracking_refs),
+                "carrier_tracking_ref": carrier_tracking_ref,
                 "carrier_status" : status,
                 "number_of_packages" : package_count
             }, context=context)
@@ -328,6 +338,7 @@ class delivery_carrier(osv.Model):
     _columns = {
         "api" : fields.selection(_api_select, string="API"),
         "dpd_profile_id" : fields.many2one("delivery.carrier.dpd","DPD Profile"),
+        "dpd_test_profile_id" : fields.many2one("delivery.carrier.dpd","DPD Test Profile"),
         "dpd_type" : fields.selection([("DPD","DPD"),
                                        ("PT","Prime Time"),
                                        ("B2C","B2C"),

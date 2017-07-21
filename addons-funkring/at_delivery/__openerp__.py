@@ -36,6 +36,7 @@ Basic delivery API
               "view/stock_widget.xml",
               "view/stock_picking_view.xml",
               "view/delivery_order_view.xml",
+              "view/delivery_view.xml",
               "data/delivery_seq.xml",
               "report/delivery_report.xml"
             ],

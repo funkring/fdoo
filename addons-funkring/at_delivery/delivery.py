@@ -19,7 +19,7 @@
 ##############################################################################
 
 from openerp.osv import fields, osv
-
+from openerp import tools
 
 class delivery_carrier(osv.Model):
     _inherit = "delivery.carrier"
