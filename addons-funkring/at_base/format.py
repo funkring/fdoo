@@ -22,11 +22,15 @@
 
 from openerp.modules.registry import RegistryManager
 from openerp.osv.fields import float as float_class, function as function_class, datetime as datetime_field
+from openerp.tools import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT
 from datetime import datetime
 import time
 import util
 import math
 import openerp.tools
+
+def get_date_length(date_format=DEFAULT_SERVER_DATE_FORMAT):
+    return len((datetime.now()).strftime(date_format))
 
 class LangFormat(object):
     
@@ -154,32 +158,35 @@ class LangFormat(object):
         if isinstance(value, (str, unicode)) and not value:
             return ''
 
-        lang_dict = self._get_lang_dict()        
+        lang_dict = self._get_lang_dict()
+                        
         if date or date_time:
-            if not str(value):
+            if not value:
                 return ''
 
             date_format = lang_dict['date_format']
-            parse_format = util.DT_FORMAT
-            if date_time:                
-                value=value.split('.')[0]
+            parse_format = DEFAULT_SERVER_DATE_FORMAT
+            if date_time:
+                value = value.split('.')[0]
                 date_format = date_format + " " + lang_dict['time_format']
-                parse_format = util.DHM_FORMAT
-            if not isinstance(value, time.struct_time):
-                return time.strftime(date_format, time.strptime(value, parse_format))
+                parse_format = DEFAULT_SERVER_DATETIME_FORMAT
+            if isinstance(value, basestring):
+                # FIXME: the trimming is probably unreliable if format includes day/month names
+                #        and those would need to be translated anyway.
+                date = datetime.strptime(value[:get_date_length(parse_format)], parse_format)
+            elif isinstance(value, time.struct_time):
+                date = datetime(*value[:6])
             else:
                 date = datetime(*value.timetuple()[:6])
-            
             if date_time:
                 # Convert datetime values to the expected client/context timezone
                 date = datetime_field.context_timestamp(self.cr, self.uid,
                                                         timestamp=date,
                                                         context={"tz":self.tz})
-                
-            return date.strftime(date_format)
+            return date.strftime(date_format.encode('utf-8'))
         elif float_time:
             return self.floatTimeConvert(value)
-
+      
         if digits == 0:
             lang_dict['lang_obj'].format('%f', value, grouping=grouping, monetary=monetary)
         
