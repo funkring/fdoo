@@ -29,10 +29,15 @@ class account_dunning_wizard(osv.osv_memory):
     def create_reminders(self, cr, uid, ids, context=None):
         invoice_obj = self.pool.get("account.invoice")
         reminder_obj = self.pool.get("account.reminder")
-        profile_line_obj=self.pool.get("account.dunning_profile_line")
+        profile_line_obj = self.pool.get("account.dunning_profile_line")
+        profile_obj = self.pool.get("account.dunning_profile")
         partner_obj = self.pool.get("res.partner")
         reminder_line_obj = self.pool.get("account.reminder.line")
         user = self.pool.get("res.users").browse(cr, uid, uid)
+
+        # get profiles for shop
+        profile_vals = profile_obj.search_read(cr, uid, [("shop_id","!=",False)],["shop_id"])
+        shops = set([v["shop_id"][0] for v in profile_vals])
 
         for wizard in self.browse(cr, uid, ids):
             cr.execute("SELECT inv.partner_id FROM account_invoice inv WHERE inv.state='open' "
@@ -45,6 +50,11 @@ class account_dunning_wizard(osv.osv_memory):
             # check if there any partner ids
             if not partner_ids:
                 break
+            
+            # shop id    
+            shop_id = None    
+            if wizard.profile_id.shop_id:
+                shop_id = wizard.profile_id.shop_id.id
 
             customers = partner_obj.browse(cr,uid,partner_ids,context=context)
             for customer in customers:
@@ -67,7 +77,15 @@ class account_dunning_wizard(osv.osv_memory):
 
                         # check invoices
                         for inv in invoice_obj.browse(cr, uid, invoice_ids):
-                                                    
+                            # check if shop specific reminder defined
+                            if shops:
+                                # check profile is a general reminder 
+                                if not shop_id and inv.shop_id and inv.shop_id.id in shops:
+                                    continue
+                                # check if it is a shop specific reminder
+                                if shop_id and inv.shop_id.id != shop_id:
+                                    continue
+                                                 
                             if (user.company_id == inv.company_id) and inv.payment_term and not inv.noremind:
                                 reminder_line_id = reminder_line_obj.search_id(cr, uid, [("reminder_id","=",reminder_id),("invoice_id", "=", inv.id)])
                                 if inv.state == "open":

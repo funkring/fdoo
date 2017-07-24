@@ -25,13 +25,15 @@ from dateutil.relativedelta import relativedelta
 
 class dunning_profile(osv.Model):
     _name = "account.dunning_profile"
-    _rec_name ="company_id"
     _columns = {
+        "name": fields.char("Name", required=True),
         "line_ids" : fields.one2many("account.dunning_profile_line", "profile_id", "Profile lines"),
-        "company_id" : fields.many2one("res.company", "Company", required=True)
+        "company_id" : fields.many2one("res.company", "Company", required=True),
+        "shop_id" : fields.many2one("sale.shop", "Shop"),
+        "template_id" : fields.many2one("email.template","E-Mail Template")
     }
     _defaults = {
-        'company_id': lambda s, cr, uid, c: s.pool.get('res.company')._company_default_get(cr, uid, 'account.dunning_profile', context=c),
+        'company_id': lambda s, cr, uid, c: s.pool.get('res.company')._company_default_get(cr, uid, 'account.dunning_profile', context=c)        
     }
     
 class dunning_profile_line(osv.Model):

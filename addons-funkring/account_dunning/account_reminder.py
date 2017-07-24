@@ -22,6 +22,7 @@
 
 from openerp.osv import fields,osv
 from openerp.tools.translate import _
+from openerp.exceptions import Warning
 
 class mail_compose_message(osv.TransientModel):
 
@@ -41,17 +42,28 @@ class account_reminder(osv.Model):
     def send_reminder_mail(self, cr, uid, ids, context=None):
         model_data_obj = self.pool["ir.model.data"]
         template_id = model_data_obj.get_object_reference(cr, uid, "account_dunning", "email_to_customer_reminder")[1]
-        compose_form = model_data_obj.get_object_reference(cr, uid, "account_dunning", "email_compose_message_wizard_form_inherit")[1]
+        compose_form = model_data_obj.get_object_reference(cr, uid, "mail", "email_compose_message_wizard_form")[1]
 
         if ids and template_id and compose_form:
             composition_mode = len(ids) > 1 and "mass_mail" or "comment"
-
+            
             partner_ids = set()
+            profile_template_id = None
+            
             for reminder in self.browse(cr, uid, ids, context=context):
+                reminder_template = reminder.profile_id.template_id
+                if reminder_template:
+                    if not profile_template_id:
+                        profile_template_id = reminder_template.id
+                    elif profile_template_id != reminder_template.id:
+                        raise Warning(_("You cannot send mass e-mails with different dunning profiles"))
+                    
                 partner_ids.add(reminder.partner_id.id)
                 if reminder.state == ("sent"):
-                    raise osv.except_osv(_('Warning!'), _('The reminder was already sent to the customer. If you want to send a reminder again,'
+                    raise Warning(_('The reminder was already sent to the customer. If you want to send a reminder again,'
                                                           'you need to call the reminder wizard again!'))
+            if profile_template_id:
+                template_id = profile_template_id
 
             email_context = {
                 "active_ids" : ids,
@@ -86,6 +98,7 @@ class account_reminder(osv.Model):
         "date" : fields.date("Date", required=True),
         "partner_id" : fields.many2one("res.partner", "Partner", required=True),
         "profile_id" : fields.many2one("account.dunning_profile", "Profile", required=True),
+        "shop_id" : fields.related("profile_id", "shop_id", type="many2one", obj="sale.shop", string="Shop", readonly=True),
         "max_profile_line_id" : fields.many2one("account.dunning_profile_line", "Highest dunning level"),
         "line_ids" : fields.one2many("account.reminder.line", "reminder_id", string="Lines"),
         "state": fields.selection([('validated', 'Validated'), ('sent', 'Reminder sent'),], "State", readonly=True, copy=False),

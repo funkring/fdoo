@@ -5,10 +5,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
+"Language: de_DE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-04 15:58+0000\n"
-"PO-Revision-Date: 2015-08-04 17:59+0100\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2017-07-24 14:21+0000\n"
+"PO-Revision-Date: 2017-07-24 16:23+0100\n"
+"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -104,6 +105,7 @@ msgid "Created on"
 msgstr "Erstellt am"
 
 #. module: account_dunning
+#: view:account.reminder:account_dunning.search_account_reminder
 #: field:account.reminder,date:0
 msgid "Date"
 msgstr "Datum"
@@ -117,6 +119,15 @@ msgstr "Letzte Nachricht"
 #: field:account.dunning_profile_line,delay:0
 msgid "Days of delay"
 msgstr "Tage nach Fälligkeit"
+
+#. module: account_dunning
+#: field:account.dunning_profile,display_name:0
+#: field:account.dunning_profile_line,display_name:0
+#: field:account.dunning_wizard,display_name:0
+#: field:account.reminder,display_name:0
+#: field:account.reminder.line,display_name:0
+msgid "Display Name"
+msgstr ""
 
 #. module: account_dunning
 #: model:ir.ui.menu,name:account_dunning.menu_finance_dunning
@@ -195,6 +206,11 @@ msgstr "Verfolger des Dokuments und"
 
 #. module: account_dunning
 #: view:account.reminder:account_dunning.search_account_reminder
+msgid "Group By..."
+msgstr "Gruppier nach..."
+
+#. module: account_dunning
+#: view:account.reminder:account_dunning.search_account_reminder
 #: field:account.reminder,max_profile_line_id:0
 msgid "Highest dunning level"
 msgstr "Höchste Mahnstufe"
@@ -270,6 +286,15 @@ msgid "Last Message Date"
 msgstr "Letzte Nachricht"
 
 #. module: account_dunning
+#: field:account.dunning_profile,__last_update:0
+#: field:account.dunning_profile_line,__last_update:0
+#: field:account.dunning_wizard,__last_update:0
+#: field:account.reminder,__last_update:0
+#: field:account.reminder.line,__last_update:0
+msgid "Last Modified on"
+msgstr ""
+
+#. module: account_dunning
 #: field:account.dunning_profile,write_uid:0
 #: field:account.dunning_profile_line,write_uid:0
 #: field:account.dunning_wizard,write_uid:0 field:account.reminder,write_uid:0
@@ -302,8 +327,8 @@ msgid "Messages and communication history"
 msgstr "Nachrichten und Kommunikationshistorie"
 
 #. module: account_dunning
+#: field:account.dunning_profile,name:0
 #: field:account.dunning_profile_line,name:0
-#: view:account.reminder:account_dunning.search_account_reminder
 msgid "Name"
 msgstr ""
 
@@ -327,6 +352,7 @@ msgstr ""
 #. module: account_dunning
 #: field:account.dunning_profile_line,profile_id:0
 #: field:account.dunning_wizard,profile_id:0
+#: view:account.reminder:account_dunning.search_account_reminder
 #: field:account.reminder,profile_id:0
 msgid "Profile"
 msgstr "Mahnprofil"
@@ -375,7 +401,7 @@ msgstr "Mahnung versendet"
 
 #. module: account_dunning
 #: view:account.reminder:account_dunning.tree_account_reminder
-#: code:addons/account_dunning/wizard/dunning_wizard.py:124
+#: code:addons/account_dunning/wizard/dunning_wizard.py:160
 #: model:ir.actions.act_window,name:account_dunning.action_account_reminder
 #: model:ir.ui.menu,name:account_dunning.menu_account_reminder
 #, python-format
@@ -413,6 +439,12 @@ msgid "Sequence"
 msgstr "Sequenz"
 
 #. module: account_dunning
+#: field:account.dunning_profile,shop_id:0 field:account.reminder,shop_id:0
+msgid "Shop"
+msgstr "Vertriebsshop"
+
+#. module: account_dunning
+#: view:account.reminder:account_dunning.search_account_reminder
 #: field:account.reminder,state:0
 msgid "State"
 msgstr "Status"

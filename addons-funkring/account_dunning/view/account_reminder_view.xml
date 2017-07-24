@@ -8,10 +8,15 @@
                     <field name="date" filter_domain="[('date', 'ilike', self)]" string="Date" />
                     <field name="partner_id" filter_domain="[('partner_id', 'ilike', self)]" string="Partner"/>
                     <field name="max_profile_line_id" filter_domain="[('max_profile_line_id', 'ilike', self)]" string="Highest dunning level"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="State" context="{'group_by': 'state'}"/>
+                        <filter string="Profile" context="{'group_by': 'profile_id'}"/>
+                        <filter string="Partner" context="{'group_by': 'partner_id'}"/>
+                    </group>
                 </search>
             </field>
         </record>
-
+        
 		<record id="form_account_reminder" model="ir.ui.view">
 			<field name="name">account.form_account_reminder</field>
 			<field name="model">account.reminder</field>
@@ -62,9 +67,9 @@
 			<field name="arch" type="xml">
 				<tree string="Reminders">
 					<field name="date" />
-					<field name="partner_id" />
+					<field name="partner_id" />					
 					<field name="profile_id" />
-					<field name="max_profile_line_id" />
+					<field name="max_profile_line_id" />					
 					<field name="state" />
 				</tree>
 			</field>

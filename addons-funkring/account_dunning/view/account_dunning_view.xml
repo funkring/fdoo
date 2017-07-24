@@ -4,10 +4,17 @@
             <field name="name">account_dunning.form_account_dunning_profile</field>
             <field name="model">account.dunning_profile</field>
             <field name="arch" type="xml">
-                <form string="Dunning Profile" version="7.0">
+                <form string="Dunning Profile">
                 	<sheet>
                 		<group>
-                			<field name="company_id" widget="selection" />
+                		    <group>
+                		        <field name="name"/>
+                		    </group>
+                		    <group>
+                    			<field name="company_id" widget="selection" />
+                    			<field name="shop_id" widget="selection" />
+                    			<field name="template_id" domain="[('model_id.model','=','account.reminder')]"/>
+                    		</group>
                 		</group>
                 		<notebook>
                 		    <page string="Dunning Level">
@@ -16,7 +23,7 @@
                         				<field name="name" />
                         				<field name="delay" />
                         			</tree>
-                        			<form version="7.0">
+                        			<form>
                         				<group>
                         					<group>
         		                				<field name="name" />
@@ -53,7 +60,9 @@
             <field name="model">account.dunning_profile</field>
             <field name="arch" type="xml">
                 <tree string="Dunning Profile">
+                    <field name="name"/>
                 	<field name="company_id" />
+                	<field name="shop_id"/>
                 </tree>
             </field>
         </record>
