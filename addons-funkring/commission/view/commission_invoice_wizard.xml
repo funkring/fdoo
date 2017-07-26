@@ -10,7 +10,7 @@
                 <form string="Commission Invoice Wizard">
                     <group>
                         <field name="name"/>
-                        <field name="related_invoice" />
+                        <field name="detail_ref" />
                     </group>
                 	<footer>
                         <button  name="do_create" string="Create Invoices"  type="object" class="oe_highlight" />

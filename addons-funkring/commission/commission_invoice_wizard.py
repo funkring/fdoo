@@ -49,10 +49,22 @@ class commission_invoice_wizard(osv.osv_memory):
                 infos.append(f.formatLang(analytic_line.date,date=True))
             if analytic_line.ref:
                 infos.append(analytic_line.ref)
-            if wizard.related_invoice and analytic_line.invoice_id and analytic_line.invoice_id.number:
-                infos.append(analytic_line.invoice_id.number)
+            if wizard.detail_ref:
+                double_check_str = " ".join(infos)
+                if analytic_line.name:
+                    double_check_str = "%s %s" % (analytic_line.name, double_check_str)
+
+                # add invoice reference
+                if analytic_line.invoice_id and analytic_line.invoice_id.number and not analytic_line.invoice_id.number in double_check_str:
+                    infos.append(analytic_line.invoice_id.number)
+                
+                # add name
+                if analytic_line.sale_partner_id and not analytic_line.sale_partner_id.name in double_check_str:
+                    infos.append(analytic_line.sale_partner_id.name)
+                    
             if analytic_line.name:
                 infos.append(analytic_line.name)
+                
         return " / ".join(infos) or ""
       
     def _inv_line_note_get(self,cr,uid,wizard,analytic_line,context=None):
@@ -84,7 +96,7 @@ class commission_invoice_wizard(osv.osv_memory):
         account_position = None
         invoice_ids = []
         #        
-        line_ids = commission_line_obj.search(cr,uid,[("id","in",util.active_ids(context))],order="partner_id")        
+        line_ids = commission_line_obj.search(cr,uid,[("id","in",util.active_ids(context))],order="partner_id, date asc")        
         for line in commission_line_obj.browse(cr, uid, line_ids):
             # group partners
             if not partner or partner.id != line.partner_id.id:
@@ -194,7 +206,7 @@ class commission_invoice_wizard(osv.osv_memory):
 
     _columns = {
         "name" : fields.char("Description"),        
-        "related_invoice" : fields.boolean("Related Invoice", help="The related invoice will be displayed")
+        "detail_ref" : fields.boolean("Detailed Ref.", help="Detailed Reference is displayed")
     }
     _defaults = {
         "name" : _name_default
