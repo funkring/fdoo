@@ -190,7 +190,12 @@ class commission_line(osv.osv):
             amount = price*qty
             percent = 0.0
             if amount:
-                percent = netto/100.0*amount
+                percent = (100.0/netto)*amount
+                
+            # handle sign
+            # of commision ( could be a refund)
+            if netto < 0:
+                amount *= -1
             
             entry = {}
             if defaults:
@@ -200,7 +205,7 @@ class commission_line(osv.osv):
                 "date": date,
                 "name": _("Sales Commission: %s") % self._short_name(name),
                 "unit_amount": qty,
-                "amount": price*qty,
+                "amount": amount,
                 "base_commission" : percent,
                 "total_commission" : percent,
                 "product_id": prov_prod.id,
