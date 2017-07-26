@@ -116,10 +116,8 @@ class commission_invoice_wizard(osv.osv_memory):
                         _('There is no purchase journal defined for this company: "%s" (id:%d)') % (company.name, company.id))
 
                 
-                sign = -1
                 inv_type = "in_invoice"
                 if company.commission_refund:
-                    sign = 1
                     inv_type = "out_refund"
                 
                 inv_values = {
@@ -149,9 +147,10 @@ class commission_invoice_wizard(osv.osv_memory):
             taxes = product.taxes_id
             tax = fiscal_pos_obj.map_tax(cr, uid, account_position, taxes)
             
+            price_unit = line.amount*-1
             values = {
                 "invoice_id" : invoice_id,
-                "price_unit" : line.amount*sign,
+                "price_unit" : price_unit,
                 "quantity" : 1.0,
                 "invoice_line_tax_id" : tax,
                 "name" : line.name,                
@@ -170,15 +169,16 @@ class commission_invoice_wizard(osv.osv_memory):
                                                type=inv_values["type"],
                                                partner_id=inv_values["partner_id"],
                                                fposition_id=inv_values["fiscal_position"],
-                                               price_unit=values["price_unit"],
+                                               price_unit=price_unit,
                                                currency_id=inv_values["currency_id"],
                                                company_id=company.id,
                                                context=context)
             
-            chg_values=chg_values["value"]
+            chg_values=chg_values["value"]            
             chg_values["invoice_line_tax_id"]=chg_values["invoice_line_tax_id"] and [(6,0,chg_values["invoice_line_tax_id"])] or None 
             
-            values.update(chg_values)         
+            values.update(chg_values)
+            values["price_unit"] = price_unit
             values["name"] = self._inv_line_name_get(cr, uid, wizard, line, context)            
             values["note"] = self._inv_line_note_get(cr, uid, wizard, line, context)               
             invoice_line_id = invoice_line_obj.create(cr,uid,values,context=context)

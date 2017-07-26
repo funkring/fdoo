@@ -187,13 +187,13 @@ class commission_line(osv.osv):
             if pricelist:
                 price = pricelist_obj.price_get(cr, uid, [pricelist.id], prov_prod.id, qty, partner=partner, context=context)[pricelist.id]
             
-            amount = price*qty
+            # amount with correct sign
+            amount = price*qty*-1
             percent = 0.0
             if amount:
-                percent = (100.0/netto)*amount
+                percent = abs((100.0/netto)*amount)
                 
-            # handle sign
-            # of commision ( could be a refund)
+            # if customer refund than turn sign
             if netto < 0:
                 amount *= -1
             
