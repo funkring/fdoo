@@ -9,6 +9,7 @@
             	<xpath expr="//page[@string='Configuration']/group" position="inside"> 
             		<group string="Commission">
             			<field name="commission_type"/>
+            			<field name="commission_refund"/>
             		</group>
             	</xpath>
             </field>

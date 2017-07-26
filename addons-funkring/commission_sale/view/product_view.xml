@@ -10,6 +10,7 @@
                			<page name="commission" position="inside">
                			    <group>                   			        
                			        <field name="commission_percent"/>
+               			        <field name="commission_prod_id"/>
                			    </group>                   			   
                			</page>
                    </data>          
@@ -23,8 +24,13 @@
             <field name="arch" type="xml">
                   <data>
                         <page name="commission" position="inside">
-                            <group>                                     
-                                <field name="commission_percent"/>
+                            <group>        
+                                <group>                             
+                                    <field name="commission_percent"/>
+                                    <field name="commission_prod_id"/>
+                                </group>
+                                <group> 
+                                </group>                              
                             </group>                               
                         </page>
                    </data>          
@@ -40,6 +46,7 @@
                  <xpath expr="//group[@name='parent']" position="inside">
                      <group name="commission" string="Commission" colspan="2">
                         <field name="commission_percent"/>
+                        <field name="commission_prod_id"/>
                      </group>
                  </xpath>
           </field>

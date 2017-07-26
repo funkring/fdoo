@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Language: de_DE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-29 22:43+0000\n"
-"PO-Revision-Date: 2017-05-30 00:44+0100\n"
+"POT-Creation-Date: 2017-07-25 17:47+0000\n"
+"PO-Revision-Date: 2017-07-25 19:49+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -166,9 +166,19 @@ msgid "Create Invoices"
 msgstr "Erstelle Rechnungen"
 
 #. module: commission
+#: field:res.company,commission_refund:0
+msgid "Create Refund"
+msgstr "Erstelle Gutschrift"
+
+#. module: commission
 #: model:ir.model,name:commission.model_commission_commission_invoice_wizard
 msgid "Create invoice from commission"
 msgstr "Erstelle Rechnung von Provisionen"
+
+#. module: commission
+#: help:res.company,commission_refund:0
+msgid "Create refund instead of in-invoice for salesmen"
+msgstr "Erstelle Gutschrift für Verkäufer anstatt von Eingangsrechnung"
 
 #. module: commission
 #: field:commission.commission_invoice_wizard,create_uid:0
@@ -364,7 +374,7 @@ msgstr ""
 #. module: commission
 #: field:commission.line,partner_id:0
 msgid "Provision Receiver"
-msgstr "Verkäufer"
+msgstr "Provisions Empfänger"
 
 #. module: commission
 #: field:commission.line,unit_amount:0

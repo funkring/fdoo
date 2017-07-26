@@ -121,6 +121,11 @@ class commission_line(osv.osv):
         if not percent:
             percent = team.sales_commission
             
+        # provision product
+        prov_prod = product.commission_prod_id
+        if not prov_prod:
+            prov_prod = product.categ_id.commission_prod_id
+                    
         # search for rule                                                               
         rule = rule_obj._get_rule(cr, uid, team, product, context=context)
         if rule:
@@ -134,7 +139,6 @@ class commission_line(osv.osv):
                 prule = pricelist_item_obj.read(cr, uid, item_id, ["commission_active","commission"], context=context)
                 if prule.get("commission_active"):
                     percent = prule.get("commission",0.0) or 0.0
-                             
         
         if percent:
             factor = (percent / 100.0)*-1
@@ -170,6 +174,49 @@ class commission_line(osv.osv):
             })
             res.append(entry)
                 
+        if prov_prod:
+            period_id = period and period.id or None
+            if not period_id:
+                period_id = period_obj.find(cr, uid, dt=date, context=context)[0]
+            
+            journal = team.property_analytic_journal
+            
+            pricelist = partner.property_product_pricelist
+            price = prov_prod.lst_price
+            
+            if pricelist:
+                price = pricelist_obj.price_get(cr, uid, [pricelist.id], prov_prod.id, qty, partner=partner, context=context)[pricelist.id]
+            
+            amount = price*qty
+            percent = 0.0
+            if amount:
+                percent = netto/100.0*amount
+            
+            entry = {}
+            if defaults:
+                entry.update(defaults)
+                
+            entry.update({
+                "date": date,
+                "name": _("Sales Commission: %s") % self._short_name(name),
+                "unit_amount": qty,
+                "amount": price*qty,
+                "base_commission" : percent,
+                "total_commission" : percent,
+                "product_id": prov_prod.id,
+                "product_uom_id": prov_prod.uom_id.id,
+                "general_account_id": prov_prod.account_income_standard_id.id,
+                "journal_id": journal.id,
+                "partner_id" : partner.id,
+                "user_id" : uid,
+                "period_id" : period_id,
+                "price_sub" : netto,
+                "salesman_id" : user.id,
+                "sale_partner_id" : customer.id,
+                "sale_product_id" : product.id
+            })
+            res.append(entry)
+            
         return res
     
     _columns = {

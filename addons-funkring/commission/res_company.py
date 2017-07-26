@@ -26,7 +26,8 @@ class res_company(osv.osv):
     
     _inherit = "res.company"
     _columns = {
-        "commission_type" : fields.selection([("invoice", "Customer Invoice"), ("order","Sale Order")], "Commission Type")
+        "commission_type" : fields.selection([("invoice", "Customer Invoice"), ("order","Sale Order")], "Commission Type"),
+        "commission_refund" : fields.boolean("Create Refund", help="Create refund instead of in-invoice for salesmen")
     }
     _defaults = {
         "commission_type" : "invoice"

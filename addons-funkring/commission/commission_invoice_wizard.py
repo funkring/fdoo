@@ -99,9 +99,16 @@ class commission_invoice_wizard(osv.osv_memory):
                 if not journal_ids:
                     raise osv.except_osv(_("Warning!"),
                         _('There is no purchase journal defined for this company: "%s" (id:%d)') % (company.name, company.id))
+
+                
+                sign = -1
+                inv_type = "in_invoice"
+                if company.commission_refund:
+                    sign = 1
+                    inv_type = "out_refund"
                 
                 inv_values = {
-                  "type" : "in_invoice",
+                  "type" : inv_type,
                   "name" : wizard.name,
                   "reference" : wizard.name,
                   "origin" : wizard.name,
@@ -129,7 +136,7 @@ class commission_invoice_wizard(osv.osv_memory):
             
             values = {
                 "invoice_id" : invoice_id,
-                "price_unit" : line.amount*-1,
+                "price_unit" : line.amount*sign,
                 "quantity" : 1.0,
                 "invoice_line_tax_id" : tax,
                 "name" : line.name,                
@@ -176,7 +183,7 @@ class commission_invoice_wizard(osv.osv_memory):
             mod_ids = mod_obj.search(cr, uid, [("name", "=", "action_invoice_tree2")], context=context)[0]
             res_id = mod_obj.read(cr, uid, mod_ids, ["res_id"], context=context)["res_id"]
             act_win = act_obj.read(cr, uid, res_id, [], context=context)
-            act_win["domain"] = [("id","in",invoice_ids),("type","=","in_invoice")]            
+            act_win["domain"] = [("id","in",invoice_ids),("type","=",inv_type)]            
             return act_win
         
         #or nothing
