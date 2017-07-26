@@ -75,4 +75,4 @@ class commission_line(osv.osv):
     }
     _name = "commission.line"
     _inherits = {"account.analytic.line": "line_id"}
-    _order = "id"
+    _order = "date"
