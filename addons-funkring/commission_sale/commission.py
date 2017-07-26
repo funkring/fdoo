@@ -218,7 +218,8 @@ class commission_line(osv.osv):
                 "price_sub" : netto,
                 "salesman_id" : user.id,
                 "sale_partner_id" : customer.id,
-                "sale_product_id" : product.id
+                "sale_product_id" : product.id,
+                "val_based" : True
             })
             res.append(entry)
             

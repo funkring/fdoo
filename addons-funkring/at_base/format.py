@@ -145,7 +145,7 @@ class LangFormat(object):
         """
         if digits is None:
             if not dp:
-                dp  = self.dp            
+                dp = self.dp            
             if dp:
                 digits = self.get_digits(dp=dp)
             elif self.obj and self.f:

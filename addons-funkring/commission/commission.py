@@ -71,7 +71,8 @@ class commission_line(osv.osv):
         "invoiced_id" : fields.many2one("account.invoice","Invoiced", select=True, ondelete="set null"),
         "invoiced_line_ids" : fields.many2many("account.invoice.line", "commission_invoice_line_rel", "commission_line_id", "invoice_line_id", "Invoice Lines"),       
         "price_sub" : fields.float("Subtotal", digits_compute=dp.get_precision("Account")),
-        "prov_amount" : fields.function(_prov_amount, string="Commission", type="float", store=False, digits_compute=dp.get_precision("Account"))
+        "prov_amount" : fields.function(_prov_amount, string="Commission", type="float", store=False, digits_compute=dp.get_precision("Account")),
+        "val_based" : fields.boolean("No percent based Commission")
     }
     _name = "commission.line"
     _inherits = {"account.analytic.line": "line_id"}

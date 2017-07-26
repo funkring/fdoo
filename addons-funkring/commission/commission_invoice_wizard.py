@@ -72,13 +72,16 @@ class commission_invoice_wizard(osv.osv_memory):
         cur = analytic_line.currency_id.symbol or analytic_line.currency_id.name or ""
         
         if analytic_line.base_commission == analytic_line.total_commission:
-            return _("%s %% Commission from %s %s") % (analytic_line.base_commission,f.formatLang(analytic_line.price_sub, dp="Sale Price"),cur)
-        elif analytic_line.base_commission < analytic_line.total_commission:
-            return _("%s %% Commission +%s %% Bonus from %s %s") % (analytic_line.base_commission,
+            if analytic_line.val_based:
+                return None 
+            return _("%s %% Commission from %s %s") % (f.formatLang(analytic_line.base_commission),f.formatLang(analytic_line.price_sub, dp="Sale Price"),cur)
+        
+        if analytic_line.base_commission < analytic_line.total_commission:
+            return _("%s %% Commission +%s %% Bonus from %s %s") % (f.formatLang(analytic_line.base_commission),
                                                                                 analytic_line.total_commission-analytic_line.base_commission, 
                                                                                 f.formatLang(analytic_line.price_sub, dp="Sale Price"),cur)
         else:
-            return _("%s %% Commission -%s %% Malus from %s %s") % (analytic_line.base_commission,
+            return _("%s %% Commission -%s %% Malus from %s %s") % (f.formatLang(analytic_line.base_commission),
                                                                                 analytic_line.base_commission-analytic_line.total_commission, 
                                                                                 f.formatLang(analytic_line.price_sub, dp="Sale Price"),cur)
             
