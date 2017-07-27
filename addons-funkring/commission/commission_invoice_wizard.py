@@ -58,10 +58,7 @@ class commission_invoice_wizard(osv.osv_memory):
                 if analytic_line.invoice_id and analytic_line.invoice_id.number and not analytic_line.invoice_id.number in double_check_str:
                     infos.append(analytic_line.invoice_id.number)
                 
-                # add name
-                if analytic_line.sale_partner_id and not analytic_line.sale_partner_id.name in double_check_str:
-                    infos.append(analytic_line.sale_partner_id.name)
-                    
+                                   
             if analytic_line.name:
                 infos.append(analytic_line.name)
                 
@@ -94,11 +91,13 @@ class commission_invoice_wizard(osv.osv_memory):
         journal_obj = self.pool.get("account.journal")
         shop_obj = self.pool.get("sale.shop")
         wizard = self.browse(cr, uid, ids[0], context)        
-        #
+
         partner = None
         account_position = None
         invoice_ids = []
-        #        
+        detail = wizard.detail_ref
+        lineMap = {}
+
         line_ids = commission_line_obj.search(cr,uid,[("id","in",util.active_ids(context))],order="partner_id, date asc")        
         for line in commission_line_obj.browse(cr, uid, line_ids):
             # group partners
@@ -180,13 +179,51 @@ class commission_invoice_wizard(osv.osv_memory):
             values.update(chg_values)
             values["price_unit"] = price_unit
             values["name"] = self._inv_line_name_get(cr, uid, wizard, line, context)            
-            values["note"] = self._inv_line_note_get(cr, uid, wizard, line, context)               
-            invoice_line_id = invoice_line_obj.create(cr,uid,values,context=context)
-
-            commission_line_obj.write(cr,uid,line.id,{"invoiced_id" : invoice_id,
-                                                      "invoiced_line_ids" : [(4,invoice_line_id)]
-                                                      })
-        
+            values["note"] = self._inv_line_note_get(cr, uid, wizard, line, context)
+                    
+            if detail and line.sale_partner_id:
+                
+                sale_partner = line.sale_partner_id 
+                salePartnerDetail = lineMap.get(sale_partner.id)
+                
+                if salePartnerDetail is None:
+                    salePartnerDetail = {
+                        "name" : sale_partner.name,
+                        "invoice_id" : invoice_id,
+                        "lines" : []
+                    }
+                    lineMap[sale_partner.id] = salePartnerDetail
+                
+                salePartnerDetail["lines"].append((line,values))
+                
+            else:
+                invoice_line_id = invoice_line_obj.create(cr,uid,values,context=context)
+                commission_line_obj.write(cr,uid,line.id,{"invoiced_id" : invoice_id,
+                                                          "invoiced_line_ids" : [(4,invoice_line_id)]
+                                                        })
+               
+        # write detail
+        if lineMap:
+            # sort partners by name
+            salePartners = sorted(lineMap.values(), key=lambda v: v["name"])
+            for salePartner in salePartners:
+                # create header                
+                invoice_line_obj.create(cr, uid, {
+                    "invoice_id" : salePartner["invoice_id"],
+                    "price_unit" : 0.0,
+                    "quantity" : 0.0,
+                    "invoice_line_tax_id" : [(6,0,[])],
+                    "name" : salePartner["name"]                    
+                }, context=context)
+                
+                # create lines
+                for line, values in salePartner["lines"]:
+                    invoice_line_id = invoice_line_obj.create(cr, uid, values, context=context)
+                    commission_line_obj.write(cr, uid, line.id, {
+                        "invoiced_id" : salePartner["invoice_id"],
+                        "invoiced_line_ids" : [(4,invoice_line_id)]
+                    })
+                    
         # update invoices                       
         if invoice_ids:
             invoice_obj.button_compute(cr, uid, invoice_ids, set_total=True, context=context)

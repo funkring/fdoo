@@ -26,6 +26,9 @@ class account_invoice_line(models.Model):
     @api.multi
     def _line_format(self):
         res = dict.fromkeys(self.ids, "")
+        for line in self:
+            if not line.product_id and not line.price_unit and not line.quantity:
+                res[line.id] = "s"
         return res
     
     @api.model

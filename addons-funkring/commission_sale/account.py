@@ -80,6 +80,7 @@ class account_invoice(osv.osv):
                                                                  defaults=commission_defaults, 
                                                                  context=context)
                         
+                            commission_ids = []
                             for commisson_line in commission_lines:
                                 period_ids.add(commisson_line["period_id"])
                                 salesman_ids.add(commisson_line["salesman_id"])
@@ -91,10 +92,15 @@ class account_invoice(osv.osv):
                                 if commission_line_id:
                                     commission_line_obj.write(cr, uid, commission_line_id, commisson_line, context=context)                                
                                 else:
-                                    commission_line_obj.create(cr, uid, commisson_line, context=context)
+                                    commission_line_id = commission_line_obj.create(cr, uid, commisson_line, context=context)
+                                    
+                                commission_ids.append(commission_line_id)
+                                
+                            return commission_ids
                             
                         
                         # order based
+                        user_id = None
                         if sign > 0:
                             cr.execute("SELECT o.user_id, o.id FROM sale_order_line_invoice_rel rel  "
                                        " INNER JOIN sale_order_line sl ON sl.id = rel.order_line_id "
@@ -104,26 +110,37 @@ class account_invoice(osv.osv):
                                        "       AND  o.pricelist_id IS NOT NULL "
                                        " GROUP BY 1,2 ", (line.id,))
                            
-                            found_order = False
+                            # search order based
                             for salesman_id, order_id in cr.fetchall():
                                 salesman_user = user_obj.browse(cr, uid, salesman_id, context=context)
                                 order = order_obj.browse(cr, uid, order_id, context=context)     
-                                create_commission(salesman_user, name=order.name, commission_date=invoice.date_invoice, ref=order.name, pricelist=order.pricelist_id)
-                                found_order = True
-                                break
+                                if create_commission(salesman_user, name=order.name, commission_date=invoice.date_invoice, ref=order.name, pricelist=order.pricelist_id):
+                                    user_id = salesman_id
+                                    break
                             
-                            # invoice based
-                            if not found_order:
-                                create_commission(invoice.user_id, name=invoice.name, commission_date=invoice.date_invoice, ref=invoice.origin)
+                            # fallback invoice based
+                            if not user_id:
+                                if create_commission(invoice.user_id, name=invoice.name, commission_date=invoice.date_invoice, ref=invoice.origin):
+                                    user_id = invoice.user_id.id
                             
                         # invoice based (refund)
-                        else:
-                            create_commission(invoice.user_id, name=invoice.name, commission_date=invoice.date_invoice, ref=invoice.origin)
+                        else:                            
+                            # order based
+                            if analytic_account:
+                                order_ids = order_obj.search(cr, uid, [("project_id","=",analytic_account.id)], limit=2, context={"active_test":False})
+                                if len(order_ids) == 1:
+                                    order = order_obj.browse(cr, uid, order_ids[0], context=context)
+                                    if create_commission(order.user_id, name=order.name, commission_date=invoice.date_invoice, ref=order.name, pricelist=order.pricelist_id):
+                                        user_id = order.user_id.id
+                                        
+                            # fallback invoice based
+                            if not user_id and create_commission(invoice.user_id, name=invoice.name, commission_date=invoice.date_invoice, ref=invoice.origin):
+                                user_id = invoice.user_id.id
                             
                         # contract based
                         if analytic_account:
                             salesman_user = analytic_account.salesman_id
-                            if salesman_user and not line.sale_order_line_ids:
+                            if salesman_user and not line.sale_order_line_ids and (not user_id or user_id != salesman_user.id):
                                 create_commission(salesman_user)
         
         period_ids = list(period_ids)
