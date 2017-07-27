@@ -97,6 +97,9 @@ class commission_invoice_wizard(osv.osv_memory):
         invoice_ids = []
         detail = wizard.detail_ref
         lineMap = {}
+        
+        if context is None:
+            context = {}
 
         line_ids = commission_line_obj.search(cr,uid,[("id","in",util.active_ids(context))],order="partner_id, date asc")        
         for line in commission_line_obj.browse(cr, uid, line_ids):
@@ -119,6 +122,9 @@ class commission_invoice_wizard(osv.osv_memory):
                 if company.commission_refund:
                     inv_type = "out_refund"
                 
+                invContext = dict(context)
+                invContext["type"] = inv_type
+                
                 inv_values = {
                   "type" : inv_type,
                   "name" : wizard.name,
@@ -135,11 +141,11 @@ class commission_invoice_wizard(osv.osv_memory):
                 }
                 
                 if team:
-                    shop_id = shop_obj.search_id(cr, uid, [("team_id","=",team.id)], context=context)
+                    shop_id = shop_obj.search_id(cr, uid, [("team_id","=",team.id)], context=invContext)
                     if shop_id:
                         inv_values["shop_id"] = shop_id
                 
-                invoice_id = invoice_obj.create(cr,uid,inv_values,context=context)
+                invoice_id = invoice_obj.create(cr,uid,inv_values,context=invContext)
                 invoice_ids.append(invoice_id)
 
             product = line.product_id                    
@@ -171,15 +177,15 @@ class commission_invoice_wizard(osv.osv_memory):
                                                price_unit=price_unit,
                                                currency_id=inv_values["currency_id"],
                                                company_id=company.id,
-                                               context=context)
+                                               context=invContext)
             
             chg_values=chg_values["value"]            
             chg_values["invoice_line_tax_id"]=chg_values["invoice_line_tax_id"] and [(6,0,chg_values["invoice_line_tax_id"])] or None 
             
             values.update(chg_values)
             values["price_unit"] = price_unit
-            values["name"] = self._inv_line_name_get(cr, uid, wizard, line, context)            
-            values["note"] = self._inv_line_note_get(cr, uid, wizard, line, context)
+            values["name"] = self._inv_line_name_get(cr, uid, wizard, line, invContext)            
+            values["note"] = self._inv_line_note_get(cr, uid, wizard, line, invContext)
                     
             if detail and line.sale_partner_id:
                 
@@ -190,6 +196,7 @@ class commission_invoice_wizard(osv.osv_memory):
                     salePartnerDetail = {
                         "name" : sale_partner.name,
                         "invoice_id" : invoice_id,
+                        "context" : invContext,
                         "lines" : []
                     }
                     lineMap[sale_partner.id] = salePartnerDetail
@@ -197,7 +204,7 @@ class commission_invoice_wizard(osv.osv_memory):
                 salePartnerDetail["lines"].append((line,values))
                 
             else:
-                invoice_line_id = invoice_line_obj.create(cr,uid,values,context=context)
+                invoice_line_id = invoice_line_obj.create(cr, uid, values, context=invContext)
                 commission_line_obj.write(cr,uid,line.id,{"invoiced_id" : invoice_id,
                                                           "invoiced_line_ids" : [(4,invoice_line_id)]
                                                         })
@@ -207,18 +214,19 @@ class commission_invoice_wizard(osv.osv_memory):
             # sort partners by name
             salePartners = sorted(lineMap.values(), key=lambda v: v["name"])
             for salePartner in salePartners:
-                # create header                
+                # create header           
+                invContext = salePartner["context"]     
                 invoice_line_obj.create(cr, uid, {
                     "invoice_id" : salePartner["invoice_id"],
                     "price_unit" : 0.0,
                     "quantity" : 0.0,
                     "invoice_line_tax_id" : [(6,0,[])],
                     "name" : salePartner["name"]                    
-                }, context=context)
+                }, context=invContext)
                 
                 # create lines
                 for line, values in salePartner["lines"]:
-                    invoice_line_id = invoice_line_obj.create(cr, uid, values, context=context)
+                    invoice_line_id = invoice_line_obj.create(cr, uid, values, context=invContext)
                     commission_line_obj.write(cr, uid, line.id, {
                         "invoiced_id" : salePartner["invoice_id"],
                         "invoiced_line_ids" : [(4,invoice_line_id)]
