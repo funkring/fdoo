@@ -245,6 +245,8 @@ class jdoc_jdoc(osv.AbstractModel):
                 field_def["dtype"]="d"
             elif field_type == "datetime":
                 field_def["dtype"]="dt"
+            elif field_type == "binary":
+                field_def["dtype"]="bin"
             else:
                 continue
             

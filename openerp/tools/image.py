@@ -32,7 +32,7 @@ from random import randint
 # Image resizing
 # ----------------------------------------
 
-def image_resize_image(base64_source, size=(1024, 1024), encoding='base64', filetype=None, avoid_if_small=False):
+def image_resize_image(base64_source, size=(1024, 1024), encoding='base64', filetype=None, avoid_if_small=False, preserve_aspect_ratio=False):
     """ Function to resize an image. The image will be resized to the given
         size, while keeping the aspect ratios, and holes in the image will be
         filled with transparent background. The image will not be stretched if
@@ -84,11 +84,12 @@ def image_resize_image(base64_source, size=(1024, 1024), encoding='base64', file
     size = asked_width, asked_height
 
     # check image size: do not create a thumbnail if avoiding smaller images
-    if avoid_if_small and image.size[0] <= size[0] and image.size[1] <= size[1]:
+    no_resize = avoid_if_small and image.size[0] <= size[0] and image.size[1] <= size[1]
+    if no_resize and filetype == image.format:
         return base64_source
 
-    if image.size != size:
-        image = image_resize_and_sharpen(image, size)
+    if not no_resize and image.size != size:
+        image = image_resize_and_sharpen(image, size, preserve_aspect_ratio=preserve_aspect_ratio)
     if image.mode not in ["1", "L", "P", "RGB", "RGBA"]:
         image = image.convert("RGB")
 
