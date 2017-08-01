@@ -56,20 +56,51 @@ class res_mapping(osv.Model):
             
         return False
 
-    def get_uuid(self, cr, uid, res_model, res_id, uuid=None, name=None):
+    def get_uuid(self, cr, uid, res_model, res_id, uuid=None, name=None, locked=False):
         uuid_id = self.search_id(cr, uid, [("name","=",name),("res_model","=",res_model),("res_id","=",res_id)])
         if not uuid_id:
             if uuid:
-                uuid_id = self.create(cr, uid, {"name" : name, "res_model" : res_model, "res_id" : res_id, "uuid" : uuid})
+                uuid_id = self.create(cr, uid, {"name" : name, "res_model" : res_model, "res_id" : res_id, "uuid" : uuid, "locked" : locked})
             else:
-                uuid_id = self.create(cr, uid, {"name" : name, "res_model" : res_model, "res_id" : res_id})
-        return self.read(cr, uid, uuid_id, ["uuid"])["uuid"]
+                uuid_id = self.create(cr, uid, {"name" : name, "res_model" : res_model, "res_id" : res_id, "locked" : locked})
+        
+        # read again
+        values = self.read(cr, uid, uuid_id, ["uuid","locked"])
+        
+        # check update for locked state
+        if not values["locked"] and locked:
+            self.write(cr, uid, uuid_id, {"locked": True})
+            
+        return values["uuid"]
 
     def _get_uuid(self, cr, uid, obj, uuid=None, name=None):
         if not obj:
             return None
         return self.get_uuid(cr, uid, obj._model._name, obj.id, uuid, name)
 
+    def get_mapping(self, cr, uid, res_uuid, res_model=None, name=None):
+        uuid_id = False
+        if not res_model:
+            uuid_id = self.search_id(cr, uid, [("name","=",name),("uuid","=",res_uuid)])
+        else:
+            uuid_id = self.search_id(cr, uid, [("name","=",name),("res_model","=",res_model),("uuid","=",res_uuid)])
+            
+        if not uuid_id:
+            return {
+                "res_id": None, 
+                "res_model": res_model
+            }
+        
+        values = self.read(cr, uid, uuid_id, ["res_id", "res_model", "locked", "active"])
+        res_id = self.pool[res_model].search_id(cr, SUPERUSER_ID, [("id","=",values["res_id"])], context={"active_test":False})
+        if not res_id:
+            if values["active"]:
+                self.write(cr, SUPERUSER_ID, uuid_id, {"active" : False})
+            values["active"] = False
+            values[res_id] = False
+        
+        return values
+    
     def get_id(self, cr, uid, res_model, res_uuid, name=None):
         uuid_id = False
         if not res_model:
@@ -81,7 +112,7 @@ class res_mapping(osv.Model):
             return False
         
         res_id = self.read(cr, uid, uuid_id, ["res_id"])["res_id"]
-        res_id = self.pool[res_model].search_id(cr ,SUPERUSER_ID, [("id","=",res_id)], context={"active_test":False})
+        res_id = self.pool[res_model].search_id(cr, SUPERUSER_ID, [("id","=",res_id)], context={"active_test":False})
         if not res_id:
             self.write(cr, SUPERUSER_ID, uuid_id, {"active" : False})
         return res_id
@@ -162,7 +193,8 @@ class res_mapping(osv.Model):
         "res_model" : fields.char("Model", select=True),
         "res_id" : fields.integer("ID", select=True),
         "uuid" : fields.char("UUID", select=True),
-        "active" : fields.boolean("Active",select=True)
+        "active" : fields.boolean("Active", select=True),
+        "locked" : fields.boolean("Locked", select=True)
     }
 
     _defaults = {
