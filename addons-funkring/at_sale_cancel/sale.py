@@ -32,7 +32,7 @@ class sale_order(osv.Model):
         except Exception:
             return {
                 "type": "ir.actions.act_window",
-                "name": _("Cancel Order"),
+                "display_name": _("Cancel Order"),
                 "view_type": "form",
                 "view_mode": "form",
                 "res_model": "sale.order.cancel.wizard",         

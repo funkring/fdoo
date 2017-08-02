@@ -52,7 +52,7 @@ class bmd_export(osv.osv):
         ir_obj = self.pool.get("ir.model.data")
         wizard_view_id = ir_obj.get_object_reference(cr, uid, 'at_bmd', 'view_bmd_export_result')[1]
         return {
-               "name": "Export",
+               "display_name": "Export",
                "type": "ir.actions.act_window",
                "view_type": "form",
                "view_mode": "form",
@@ -259,7 +259,7 @@ class bmd_export(osv.osv):
                 "default_attachment_ids" : attachment_ids
                 })
             return {
-                "name": "Daten Übermittlung",
+                "display_name": "Daten Übermittlung",
                 "type": "ir.actions.act_window",
                 "view_type": "form",
                 "view_mode": "form",
