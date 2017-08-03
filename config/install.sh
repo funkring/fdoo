@@ -78,18 +78,22 @@ python -m pip install ofxparse
 # install pycrypt
 python -m pip install pycrypto
 
-#install pygal depends
+# install pygal depends
 apt-get -y install libffi-dev
 apt-get -y install python-cairosvg
 apt-get -y install python-cssselect
 python -m pip install tinycss
 
-#install printing depends
+# install printing depends
 #apt-get -y install wkhtmltopdf
 python -m pip install wkhtmltopdf
 
-#install saas depends
+# install saas depends
 gem install sass compass bootstrap-sass
 
 # install zeep for soap web services
 python -m pip install zeep
+
+# install other
+python -m pip install backports.functools_lru_cache
+python -m pip install pandas
