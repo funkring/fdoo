@@ -97,3 +97,4 @@ python -m pip install zeep
 # install other
 python -m pip install backports.functools_lru_cache
 python -m pip install pandas
+python -m pip install gdata

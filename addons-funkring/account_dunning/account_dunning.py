@@ -30,6 +30,7 @@ class dunning_profile(osv.Model):
         "line_ids" : fields.one2many("account.dunning_profile_line", "profile_id", "Profile lines"),
         "company_id" : fields.many2one("res.company", "Company", required=True),
         "shop_id" : fields.many2one("sale.shop", "Shop"),
+        "shop_ids" : fields.many2many("sale.shop", "account_dunning_profile_shop_rel", "profile_id", "shop_id", string="Shops"),
         "template_id" : fields.many2one("email.template","E-Mail Template")
     }
     _defaults = {

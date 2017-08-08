@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Language: de_DE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-24 14:21+0000\n"
-"PO-Revision-Date: 2017-07-24 16:23+0100\n"
+"POT-Creation-Date: 2017-08-08 05:36+0000\n"
+"PO-Revision-Date: 2017-08-08 07:37+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -26,9 +26,9 @@ msgid ""
 "color: #FFF; \">\n"
 "                    <p>${object.partner_id.mail_salutation} </p>\n"
 "                    <p>You received an invoice reminder from us.</p>\n"
-"                    <br/>\n"
+"                    <br>\n"
 "                    <p>Regards,</p>\n"
-"                    <p>${object.line_id.order_id.company_id.name}</p>\n"
+"                    <p>${object.profile_id.company_id.name}</p>\n"
 "                </div>\n"
 "            "
 msgstr ""
@@ -44,32 +44,6 @@ msgid "Account reminder report"
 msgstr "Mahnungsbericht"
 
 #. module: account_dunning
-#: view:mail.compose.message:account_dunning.email_compose_message_wizard_form_inherit
-msgid "Add contacts to notify..."
-msgstr "Kontakte als Empfänger hinzufügen"
-
-#. module: account_dunning
-#: view:mail.compose.message:account_dunning.email_compose_message_wizard_form_inherit
-msgid ""
-"All records matching your current search filter will be mailed,\n"
-"                                    not only the ids selected in the list "
-"view."
-msgstr ""
-"Alle Daten des aktuellen Suchfilters werden per E-Mail versendet,\n"
-"                                    nicht nur die Daten die Sie aktuell in "
-"der Ansicht ausgewählt haben."
-
-#. module: account_dunning
-#: view:mail.compose.message:account_dunning.email_compose_message_wizard_form_inherit
-msgid "Attach a file"
-msgstr "Eine Datei anhängen"
-
-#. module: account_dunning
-#: view:mail.compose.message:account_dunning.email_compose_message_wizard_form_inherit
-msgid "Cancel"
-msgstr "Abbrechen"
-
-#. module: account_dunning
 #: view:account.dunning_wizard:account_dunning.wizard_account_dunning
 msgid "Close"
 msgstr "Schließen"
@@ -80,8 +54,7 @@ msgid "Company"
 msgstr "Unternehmen"
 
 #. module: account_dunning
-#: code:addons/account_dunning/account_reminder.py:69
-#: view:mail.compose.message:account_dunning.email_compose_message_wizard_form_inherit
+#: code:addons/account_dunning/account_reminder.py:81
 #, python-format
 msgid "Compose Email"
 msgstr "E-Mail schreiben"
@@ -180,14 +153,14 @@ msgid "Dunning wizard"
 msgstr "Mahnen"
 
 #. module: account_dunning
+#: field:account.dunning_profile,template_id:0
+msgid "E-Mail Template"
+msgstr ""
+
+#. module: account_dunning
 #: model:ir.model,name:account_dunning.model_account_reminder
 msgid "Email Thread"
 msgstr "E-Mail Thread"
-
-#. module: account_dunning
-#: view:mail.compose.message:account_dunning.email_compose_message_wizard_form_inherit
-msgid "Email address to redirect replies..."
-msgstr "E-Mail Adress zur E-Mailweiterleitung"
 
 #. module: account_dunning
 #: model:ir.model,name:account_dunning.model_mail_compose_message
@@ -198,11 +171,6 @@ msgstr "E-Mail Assistent"
 #: field:account.reminder,message_follower_ids:0
 msgid "Followers"
 msgstr "Beobachter"
-
-#. module: account_dunning
-#: view:mail.compose.message:account_dunning.email_compose_message_wizard_form_inherit
-msgid "Followers of the document and"
-msgstr "Verfolger des Dokuments und"
 
 #. module: account_dunning
 #: view:account.reminder:account_dunning.search_account_reminder
@@ -251,15 +219,6 @@ msgid "If checked new messages require your attention."
 msgstr "Aktuell"
 
 #. module: account_dunning
-#: view:mail.compose.message:account_dunning.email_compose_message_wizard_form_inherit
-msgid ""
-"If you want to work only with selected ids, please uncheck the\n"
-"                                list header checkbox."
-msgstr ""
-"Wenn Sie nur mit ausgewählten ID's arbeiten möchten, deaktivieren Sie bitte "
-"die Checkbox in der Kopfzeile."
-
-#. module: account_dunning
 #: view:account.dunning_profile:account_dunning.form_account_dunning_profile
 msgid "In percent?"
 msgstr "In Prozent?"
@@ -269,6 +228,13 @@ msgstr "In Prozent?"
 #: model:ir.model,name:account_dunning.model_account_invoice
 msgid "Invoice"
 msgstr "Rechnung"
+
+#. module: account_dunning
+#: view:account.dunning_profile:account_dunning.form_account_dunning_profile
+msgid "Invoices of the assigned shops are used for this dunning profile"
+msgstr ""
+"Die Rechnung der angegebnen Vertriebshops werden mit diesem Mahnungsprofil "
+"gemahnt"
 
 #. module: account_dunning
 #: field:account.reminder,message_is_follower:0
@@ -363,11 +329,6 @@ msgid "Profile lines"
 msgstr "Mahnstufen"
 
 #. module: account_dunning
-#: view:mail.compose.message:account_dunning.email_compose_message_wizard_form_inherit
-msgid "Recipients"
-msgstr "Empfänger"
-
-#. module: account_dunning
 #: view:account.dunning_wizard:account_dunning.wizard_account_dunning
 msgid "Remind"
 msgstr "Mahnen"
@@ -401,7 +362,7 @@ msgstr "Mahnung versendet"
 
 #. module: account_dunning
 #: view:account.reminder:account_dunning.tree_account_reminder
-#: code:addons/account_dunning/wizard/dunning_wizard.py:160
+#: code:addons/account_dunning/wizard/dunning_wizard.py:162
 #: model:ir.actions.act_window,name:account_dunning.action_account_reminder
 #: model:ir.ui.menu,name:account_dunning.menu_account_reminder
 #, python-format
@@ -412,21 +373,6 @@ msgstr "Mahnungen"
 #: field:account.reminder.line,amount:0
 msgid "Residual"
 msgstr "Offen"
-
-#. module: account_dunning
-#: view:mail.compose.message:account_dunning.email_compose_message_wizard_form_inherit
-msgid "Save as a new template"
-msgstr "Als neue Vorlage speichern"
-
-#. module: account_dunning
-#: view:mail.compose.message:account_dunning.email_compose_message_wizard_form_inherit
-msgid "Save as new template"
-msgstr "Als neue Vorlage speichern"
-
-#. module: account_dunning
-#: view:mail.compose.message:account_dunning.email_compose_message_wizard_form_inherit
-msgid "Send"
-msgstr "Senden"
 
 #. module: account_dunning
 #: view:account.reminder:account_dunning.form_account_reminder
@@ -444,20 +390,30 @@ msgid "Shop"
 msgstr "Vertriebsshop"
 
 #. module: account_dunning
+#: view:account.dunning_profile:account_dunning.form_account_dunning_profile
+msgid "Shop which will be used by dunning"
+msgstr "Vertriebshop welcher bei der Mahnung verwendet wird"
+
+#. module: account_dunning
+#: field:account.dunning_profile,shop_ids:0
+msgid "Shops"
+msgstr "Vertriebshops"
+
+#. module: account_dunning
 #: view:account.reminder:account_dunning.search_account_reminder
 #: field:account.reminder,state:0
 msgid "State"
 msgstr "Status"
 
 #. module: account_dunning
-#: view:mail.compose.message:account_dunning.email_compose_message_wizard_form_inherit
-msgid "Subject..."
-msgstr "Betreff..."
-
-#. module: account_dunning
 #: field:account.reminder,message_summary:0
 msgid "Summary"
 msgstr "Zusammenfassung"
+
+#. module: account_dunning
+#: view:account.dunning_profile:account_dunning.form_account_dunning_profile
+msgid "Template"
+msgstr "Vorlage"
 
 #. module: account_dunning
 #: field:account.dunning_profile_line,description2:0
@@ -470,7 +426,7 @@ msgid "Text before"
 msgstr "Text vorher"
 
 #. module: account_dunning
-#: code:addons/account_dunning/account_reminder.py:53
+#: code:addons/account_dunning/account_reminder.py:63
 #, python-format
 msgid ""
 "The reminder was already sent to the customer. If you want to send a "
@@ -490,23 +446,18 @@ msgid "Unread Messages"
 msgstr "Ungelesene Nachrichten"
 
 #. module: account_dunning
-#: view:mail.compose.message:account_dunning.email_compose_message_wizard_form_inherit
-msgid "Use template"
-msgstr "Benutze Vorlage"
-
-#. module: account_dunning
 #: selection:account.reminder,state:0
 msgid "Validated"
 msgstr "Validiert"
 
 #. module: account_dunning
-#: code:addons/account_dunning/account_reminder.py:53
+#: code:addons/account_dunning/account_reminder.py:59
 #, python-format
-msgid "Warning!"
-msgstr "Warnung"
+msgid "You cannot send mass e-mails with different dunning profiles"
+msgstr ""
+"Es können keine E-Mails mit verschiedenen Mahnungsprofilen geschickt werden"
 
 #. module: account_dunning
 #: view:account.dunning_wizard:account_dunning.wizard_account_dunning
-#: view:mail.compose.message:account_dunning.email_compose_message_wizard_form_inherit
 msgid "or"
 msgstr "oder"

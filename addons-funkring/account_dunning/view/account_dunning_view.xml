@@ -12,7 +12,8 @@
                 		    </group>
                 		    <group>
                     			<field name="company_id" widget="selection" />
-                    			<field name="shop_id" widget="selection" />
+                    			<field name="shop_id" widget="selection" string="Template" help="Shop which will be used by dunning"/>
+                    			<field name="shop_ids" widget="many2many_tags" help="Invoices of the assigned shops are used for this dunning profile"/>
                     			<field name="template_id" domain="[('model_id.model','=','account.reminder')]"/>
                     		</group>
                 		</group>
