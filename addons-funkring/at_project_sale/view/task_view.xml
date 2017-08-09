@@ -1,7 +1,7 @@
 <openerp>
 	<data>
 			
-			<record id="form_task2" model="ir.ui.view">
+		<record id="form_task2" model="ir.ui.view">
             <field name="name">at_project_sale.form_task2</field>
             <field name="model">project.task</field>
             <field name="inherit_id" ref="project.view_task_form2"/>      
@@ -13,6 +13,20 @@
            		</data>     	      	    
             </field>
         </record>
+        
+        <record id="form_sale_service_task" model="ir.ui.view">
+          <field name="name">at_project_sale.form_sale_service_task</field>
+          <field name="model">project.task</field>
+          <field name="inherit_id" ref="sale_service.view_sale_service_inherit_form2"/>
+          <field name="type">form</field>
+          <field name="arch" type="xml">
+                <field name="sale_line_id" position="replace">
+                    <field name="analytic_account_id" string="Analytic Account" invisible="1"/>
+                    <field name="sale_line_id" string="Order Line" domain="[('order_id.project_id','=',analytic_account_id)]"/>
+                </field>
+          </field>
+        </record>
+
         
 	</data>
 </openerp>

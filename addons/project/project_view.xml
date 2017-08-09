@@ -408,6 +408,7 @@
                         <group>
                             <field name="date_deadline"/>
                             <field name="categ_ids" widget="many2many_tags"/>
+                            <field name="date_last_stage_update" groups="base.group_no_one"/>
                             <field name="progress" widget="progressbar"
                                 groups="project.group_time_work_estimation_tasks"/>
                         </group>
@@ -464,9 +465,6 @@
                                 <group string="Gantt View">
                                     <field name="date_start"/>
                                     <field name="date_end"/>
-                                </group>
-                                <group>
-                                    <field name="date_last_stage_update" groups="base.group_no_one"/>
                                 </group>
                             </group>
                         </page>

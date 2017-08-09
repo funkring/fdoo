@@ -19,6 +19,7 @@
 #
 ##############################################################################
 
+from openerp import api
 from openerp.osv import fields,osv
 from openerp.addons.at_base import util
 
@@ -33,7 +34,7 @@ class project_work(osv.osv):
         return {}
     
     _inherit = "project.task.work"
-
+    
 
 class project(osv.osv):
     
@@ -57,3 +58,24 @@ class project(osv.osv):
         return res   
     
     _inherit = "project.project"
+    
+    
+class task(osv.osv):
+    
+    @api.cr_uid_ids_context
+    def onchange_project(self, cr, uid, id, project_id, context=None):
+        res = super(task, self).onchange_project(cr, uid, id, project_id, context=context)
+        if project_id:
+            project = self.pool.get('project.project').browse(cr, uid, project_id, context=context)
+            if project:
+                value = res.get("value") or {}
+                value["analytic_account_id"] = project.analytic_account_id.id
+                res["value"] = value
+        return res
+    
+    _inherit = "project.task"
+    _columns = {
+        "analytic_account_id" : fields.related("project_id", "analytic_account_id", type="many2one", relation="account.analytic.account", readonly=True)
+    }
+
+    
