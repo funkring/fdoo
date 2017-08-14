@@ -31,6 +31,7 @@
                 <field name="carrier_error"/>
                 <field name="carrier_label_name" invisible="1"/>
                 <field name="carrier_label"/>
+                <field name="carrier_picking_id"/>
             </field>
             <field name="weight_net" position="after">
                 <field name="carrier_weight"/>
