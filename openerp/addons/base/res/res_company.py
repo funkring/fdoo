@@ -105,8 +105,8 @@ class res_company(osv.osv):
     def _get_logo_web(self, cr, uid, ids, _field_name, _args, context=None):
         result = dict.fromkeys(ids, False)
         for record in self.browse(cr, uid, ids, context=context):
-            size = (180, None)
-            result[record.id] = image_resize_image(record.partner_id.image, size)
+            size = (540, 162)
+            result[record.id] = image_resize_image(record.partner_id.image, size, avoid_if_small=True, preserve_aspect_ratio=True)
         return result
         
     def _get_companies_from_partner(self, cr, uid, ids, context=None):

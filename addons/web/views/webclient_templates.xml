@@ -151,7 +151,7 @@
         <template id="web.menu_secondary">
             <a class="oe_logo" t-att-href="'/web/?debug' if debug else '/web'">
                 <span class="oe_logo_edit">Edit Company data</span>
-                <img src='/web/binary/company_logo'/>
+                <img style="max-width:180px;" src='/web/binary/company_logo'/>
             </a>
             <div>
                 <div>
