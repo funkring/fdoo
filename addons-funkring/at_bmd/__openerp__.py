@@ -33,7 +33,8 @@ oerp.at BMD Export
     "category" : "Accounting & Finance/Export",
     "depends" : ["mail","at_account","at_base"],    
     "data" : ["security.xml",       
-              "wizard/bmd_export_wizard.xml",             
+              "wizard/bmd_export_wizard.xml",
+              "wizard/bmd_reconcile_wizard.xml",           
               "view/bmd_export.xml",
               "view/bmd_profil.xml",              
               "menu.xml"                    
