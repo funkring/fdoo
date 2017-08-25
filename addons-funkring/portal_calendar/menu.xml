@@ -1,0 +1,9 @@
+<openerp>
+  <data>
+        
+    <menuitem name="Calendar" id="portal_calendar" parent="portal.portal_messages" sequence="20" 
+                groups="portal_calendar.group_portal_calendar"
+                action="calendar.action_calendar_event"/>
+    
+  </data>
+</openerp>

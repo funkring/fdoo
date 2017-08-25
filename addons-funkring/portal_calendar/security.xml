@@ -1,0 +1,99 @@
+<openerp>
+  <data>
+    
+    <record id="group_portal_calendar" model="res.groups">
+      <field name="name">Portal Calendar</field>
+      <field name="implied_ids" eval="[(4, ref('base.group_portal'))]"/>
+    </record>
+
+    
+    <record id="access_calendar_contacts_portal_calendar" model="ir.model.access">
+      <field name="name">calendar_contacts/portal_calendar</field>
+      <field name="model_id" ref="calendar.model_calendar_contacts"/>
+      <field name="group_id" ref="group_portal_calendar"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_write" eval="True"/>
+    </record>
+    
+    <record id="rule_calendar_contacts_portal_calendar" model="ir.rule">
+      <field name="name">calendar_contacts/portal_calendar</field>
+      <field name="model_id" ref="calendar.model_calendar_contacts"/>
+      <field name="domain_force">[('user_id','=',user.id)]</field>
+      <field name="groups" eval="[(4,ref('portal_calendar.group_portal_calendar'))]"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_write" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_unlink" eval="True"/>
+    </record>
+
+
+    <!--
+    <record id="access_calendar_alarm_portal_calendar" model="ir.model.access">
+      <field name="name">calendar_alarm/portal_calendar</field>
+      <field name="model_id" ref="calendar.model_calendar_alarm"/>
+      <field name="group_id" ref="group_portal_calendar"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_write" eval="True"/>
+    </record>
+    
+    <record id="rule_calendar_alarm_portal_calendar" model="ir.rule">
+      <field name="name">calendar_alarm/portal_calendar</field>
+      <field name="model_id" ref="model_calendar_alarm"/>
+      <field name="domain_force">['|',('create_uid','=',user.id),('write_uid','=',user.id)]</field>
+      <field name="groups" eval="[(4,ref('group_portal_calendar'))]"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_write" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_unlink" eval="True"/>
+    </record> -->
+
+    
+    <record id="access_calendar_event_portal_calendar" model="ir.model.access">
+      <field name="name">calendar_event/portal_calendar</field>
+      <field name="model_id" ref="calendar.model_calendar_event"/>
+      <field name="group_id" ref="group_portal_calendar"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_write" eval="True"/>
+    </record>
+ 
+    <record id="rule_calendar_event_portal_calendar" model="ir.rule">
+      <field name="name">calendar_event/portal_calendar</field>
+      <field name="model_id" ref="calendar.model_calendar_event"/>
+      <field name="domain_force">[('user_id','=',user.id)]</field>
+      <field name="groups" eval="[(4,ref('portal_calendar.group_portal_calendar'))]"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_write" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_unlink" eval="True"/>
+    </record>
+    
+    
+    <record id="access_calendar_attendee_portal_calendar" model="ir.model.access">
+      <field name="name">calendar_attendee/portal_calendar</field>
+      <field name="model_id" ref="calendar.model_calendar_attendee"/>
+      <field name="group_id" ref="group_portal_calendar"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_write" eval="True"/>
+    </record>
+    
+    <record id="rule_calendar_attendee_portal_calendar" model="ir.rule">
+      <field name="name">calendar_attendee/portal_calendar</field>
+      <field name="model_id" ref="calendar.model_calendar_attendee"/>
+      <field name="domain_force">[('event_id.user_id','=',user.id)]</field>
+      <field name="groups" eval="[(4,ref('portal_calendar.group_portal_calendar'))]"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_write" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_unlink" eval="True"/>
+    </record>
+ 
+  </data>
+</openerp>
