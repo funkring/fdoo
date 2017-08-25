@@ -10,7 +10,6 @@
                  <field name="shop_id" type="row"/>
                  <field name="date" interval="month" type="col"/>
                  <field name="amount_untaxed" type="measure"/>
-                 <field name="post_calc" type="measure"/>
              </graph>
          </field>
     </record>
@@ -80,6 +79,6 @@
         <field name="help">This report performs analysis on your quotations and sales orders. Analysis check your sales revenues and sort it by different group criteria (salesman, partner, product, etc.) Use this report to perform analysis on sales not having invoiced yet. If you want to analyse your turnover, you should use the Invoice Analysis report in the Accounting application.</field>
     </record>
 
-    <menuitem action="action_sale_order_report" id="menu_sale_order_report2" parent="base.next_id_64" sequence="12"/>
+    <menuitem action="action_sale_order_report" id="menu_sale_order_report" parent="base.next_id_64" sequence="12" groups="base.group_sale_salesman"/>
 </data>
 </openerp>

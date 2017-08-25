@@ -75,7 +75,7 @@ class task(osv.osv):
     
     _inherit = "project.task"
     _columns = {
-        "analytic_account_id" : fields.related("project_id", "analytic_account_id", type="many2one", relation="account.analytic.account", readonly=True)
+        "analytic_account_id" : fields.related("project_id", "analytic_account_id", string="Analytic Account", type="many2one", relation="account.analytic.account", readonly=True)
     }
 
     

@@ -45,8 +45,7 @@ class sale_order_report(osv.osv):
         "analytic_account_id": fields.many2one("account.analytic.account", "Project", readonly=True),
         "section_id": fields.many2one("crm.case.section", "Sales Team", readonly=True),
         "root_analytic_id": fields.many2one("account.analytic.account", "Main Analytic Account", readonly=True),
-        "shop_id" : fields.many2one("sale.shop","Shop", readonly=True),
-        "post_calc" : fields.float("Post Calculation", readonly=True)
+        "shop_id" : fields.many2one("sale.shop","Shop", readonly=True)
     }
     _order = "date desc"
 
@@ -65,11 +64,7 @@ class sale_order_report(osv.osv):
                     ,o.pricelist_id as pricelist_id
                     ,o.project_id as analytic_account_id
                     ,o.section_id as section_id
-                    ,o.amount_untaxed AS amount_untaxed
-                    ,( SELECT SUM(al.amount) 
-                         FROM account_analytic_line al 
-                        WHERE al.account_id = o.project_id ) 
-                     AS post_calc
+                    ,SUM(o.amount_untaxed) AS amount_untaxed                    
         """
         return select_str
 
@@ -77,7 +72,6 @@ class sale_order_report(osv.osv):
         from_str = """
                 sale_order o
                 LEFT JOIN account_analytic_account ay ON ay.id = o.project_id 
-                LEFT JOIN account_analytic_line ayl ON ayl.account_id = ay.id  
         """
         return from_str
 
@@ -95,8 +89,7 @@ class sale_order_report(osv.osv):
                     o.state,
                     o.pricelist_id,
                     o.project_id,
-                    o.section_id,
-                    o.amount_untaxed
+                    o.section_id
         """
         return group_by_str
 

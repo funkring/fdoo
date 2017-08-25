@@ -1,20 +1,21 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* at_project_sale
+# 	* at_project_sale
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Language: de_DE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-05 17:59+0000\n"
-"PO-Revision-Date: 2017-02-05 17:59+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2017-08-25 11:53+0000\n"
+"PO-Revision-Date: 2017-08-25 13:54+0100\n"
+"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"X-Generator: Poedit 1.5.4\n"
 
 #. module: at_project_sale
 #: code:addons/at_project_sale/sale_order.py:412
@@ -24,6 +25,8 @@ msgstr "%s Stunde(n)"
 
 #. module: at_project_sale
 #: model:ir.model,name:at_project_sale.model_account_analytic_account
+#: view:project.task:at_project_sale.form_sale_service_task
+#: field:project.task,analytic_account_id:0
 #: field:res.partner,property_partner_analytic_account:0
 msgid "Analytic Account"
 msgstr "Kostenstelle"
@@ -177,8 +180,7 @@ msgid "Group By"
 msgstr "Gruppiert nach"
 
 #. module: at_project_sale
-#: field:at_project_sale.correct_time_wizard,id:0
-#: field:sale.order.report,id:0
+#: field:at_project_sale.correct_time_wizard,id:0 field:sale.order.report,id:0
 msgid "ID"
 msgstr ""
 
@@ -224,10 +226,14 @@ msgid "Offered Hours"
 msgstr "Angebotene Stunden"
 
 #. module: at_project_sale
-#: field:account.analytic.account,order_id:0
-#: field:project.project,order_id:0
+#: field:account.analytic.account,order_id:0 field:project.project,order_id:0
 msgid "Order"
 msgstr "Auftrag"
+
+#. module: at_project_sale
+#: view:project.task:at_project_sale.form_sale_service_task
+msgid "Order Line"
+msgstr "Auftragszeile"
 
 #. module: at_project_sale
 #: view:sale.order.report:at_project_sale.view_sale_order_report_search
@@ -265,11 +271,6 @@ msgstr ""
 #: field:product.template,planned_hours:0
 msgid "Planned Hours"
 msgstr "Geplante Stunden"
-
-#. module: at_project_sale
-#: field:sale.order.report,post_calc:0
-msgid "Post Calculation"
-msgstr "Nachkalkulation"
 
 #. module: at_project_sale
 #: field:sale.order,post_calc:0
@@ -333,7 +334,7 @@ msgstr "Projekte"
 #: field:account.analytic.account,root_account_id:0
 #: field:project.project,root_account_id:0
 msgid "Root"
-msgstr ""
+msgstr "Haupt"
 
 #. module: at_project_sale
 #: field:sale.order.report,order_id:0
@@ -358,7 +359,7 @@ msgstr "Verkaufsauftrag"
 
 #. module: at_project_sale
 #: model:ir.actions.act_window,name:at_project_sale.action_sale_order_report
-#: model:ir.ui.menu,name:at_project_sale.menu_sale_order_report2
+#: model:ir.ui.menu,name:at_project_sale.menu_sale_order_report
 msgid "Sales Order Analysis"
 msgstr "Statistik Verkaufsaufträge"
 
@@ -385,6 +386,7 @@ msgid "Salesperson"
 msgstr "Verkäufer"
 
 #. module: at_project_sale
+#: field:account.analytic.account,shop_id:0
 #: model:ir.model,name:at_project_sale.model_sale_shop
 #: view:sale.order.report:at_project_sale.view_sale_order_report_search
 #: field:sale.order.report,shop_id:0
@@ -398,6 +400,7 @@ msgstr ""
 
 #. module: at_project_sale
 #: field:at_project_sale.correct_time_wizard,task_id:0
+#: model:ir.model,name:at_project_sale.model_project_task
 msgid "Task"
 msgstr "Aufgabe"
 
@@ -413,8 +416,19 @@ msgstr "Dieses Jahr"
 
 #. module: at_project_sale
 #: model:ir.actions.act_window,help:at_project_sale.action_sale_order_report
-msgid "This report performs analysis on your quotations and sales orders. Analysis check your sales revenues and sort it by different group criteria (salesman, partner, product, etc.) Use this report to perform analysis on sales not having invoiced yet. If you want to analyse your turnover, you should use the Invoice Analysis report in the Accounting application."
-msgstr "Diese Auswertung analysiert Ihre Angebote und Verkaufsaufträge. Hierbei werden Ihre Verkaufsumsätze  ausgewertet und nach verschiedenen Kriterien gruppiert (Verkäufer, Partner, Produkt, etc). Benutzen Sie diese Auswertung außerdem, um noch nicht in Rechnung gestellte Verkaufsaufträge zu analysieren. Wenn Sie Ihren Umsatz analysieren möchten, nutzen Sie bitte die Statistik für die Umsatzerlöse in der Finanzbuchhaltung."
+msgid ""
+"This report performs analysis on your quotations and sales orders. Analysis "
+"check your sales revenues and sort it by different group criteria (salesman, "
+"partner, product, etc.) Use this report to perform analysis on sales not "
+"having invoiced yet. If you want to analyse your turnover, you should use "
+"the Invoice Analysis report in the Accounting application."
+msgstr ""
+"Diese Auswertung analysiert Ihre Angebote und Verkaufsaufträge. Hierbei "
+"werden Ihre Verkaufsumsätze  ausgewertet und nach verschiedenen Kriterien "
+"gruppiert (Verkäufer, Partner, Produkt, etc). Benutzen Sie diese Auswertung "
+"außerdem, um noch nicht in Rechnung gestellte Verkaufsaufträge zu "
+"analysieren. Wenn Sie Ihren Umsatz analysieren möchten, nutzen Sie bitte die "
+"Statistik für die Umsatzerlöse in der Finanzbuchhaltung."
 
 #. module: at_project_sale
 #: field:sale.order,timesheet_lines:0
@@ -436,4 +450,3 @@ msgstr "oder"
 #: view:at_project_sale.correct_time_wizard:at_project_sale.wizard_correct_time
 msgid "title"
 msgstr "Titel"
-
