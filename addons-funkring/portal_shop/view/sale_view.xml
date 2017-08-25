@@ -24,15 +24,32 @@
       <field name="groups_id" eval="[(4, ref('portal_shop.group_sale_extern'))]"/>
       <field name="arch" type="xml">
         <button name="invoice_recreate" position="after">
-            <button name="action_quotation_send" string="Send by Email" type="object" states="draft" class="oe_highlight"/>
-            <button name="action_quotation_send" string="Send by Email" type="object" states="sent,progress,manual"/>
-            <button name="print_quotation" string="Print" type="object" states="draft" class="oe_highlight"/>
-            <button name="print_quotation" string="Print" type="object" states="sent,progress,manual"/>
+        
+            <button name="action_quotation_send" string="Send by Email" type="object" class="oe_highlight"
+                    attrs="{'invisible': ['|',('writeable','=',False),('state','!=','draft')]}"/>
+                    
+            <button name="action_quotation_send" string="Send by Email" type="object" 
+                    attrs="{'invisible': ['|',('writeable','=',False),'!',('state','in',['sent','progress','manual'])]}"/>
+                    
+            <button name="print_quotation" string="Print" type="object" class="oe_highlight"
+                    attrs="{'invisible': ['|',('writeable','=',False),('state','!=','draft')]}"/>
+                    
+            <button name="print_quotation" string="Print" type="object" 
+                    attrs="{'invisible': ['|',('writeable','=',False),'!',('state','in',['sent','progress','manual'])]}"/>
+                    
             <button name="action_view_invoice" string="View Invoice" type="object" class="oe_highlight"
-                            attrs="{'invisible': [('invoice_exists', '=', False)]}"/>
-            <button name="copy_quotation" states="cancel" string="New Copy of Quotation" type="object"/>
-            <button name="cancel" states="draft,sent" string="Cancel"/>
+                    attrs="{'invisible': [('invoice_exists', '=', False)]}"/>
+                            
+            <button name="copy_quotation" states="cancel" string="New Copy of Quotation" type="object"
+                    attrs="{'invisible': ['|',('writeable','=',False),('state','!=','cancel')]}"/>
+                            
+            <button name="cancel" string="Cancel"
+                    attrs="{'invisible': ['|',('writeable','=',False),'!',('state','in',['draft','sent'])]}"/>
+            
         </button>
+        <field name="partner_id" position="after">
+            <field name="writeable"/>
+        </field>
       </field>
     </record>
     

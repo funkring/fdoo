@@ -286,7 +286,7 @@ class sale_order(osv.osv):
 
     def _post_calc(self, cr, uid, ids, field_name, arg, context=None):
         res = dict.fromkeys(ids)
-        for obj in self.browse(cr, uid, ids, context):
+        for obj in self.browse(cr, SUPERUSER_ID, ids, context):
             res[obj.id]= obj.project_id and obj.project_id.balance or 0.0
         return res
 
