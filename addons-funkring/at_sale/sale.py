@@ -37,7 +37,7 @@ class sale_shop(osv.osv):
     _name = "sale.shop"
     _description = "Shop"
     _columns = {
-        "name" : fields.char("Name",size=32,required=True,select=True),
+        "name" : fields.char("Name", required=True, select=True),
         "payment_default_id": fields.many2one("account.payment.term", "Payment Term", required=True, select=True),
         "warehouse_id": fields.many2one("stock.warehouse", "Warehouse"),
         "pricelist_id": fields.many2one("product.pricelist", "Pricelist"),
@@ -45,7 +45,7 @@ class sale_shop(osv.osv):
         "company_id": fields.many2one("res.company", "Company", required=False),
         "team_id": fields.many2one("crm.case.section", "Sales Team"),
         "note": fields.text("Note"),
-        "code": fields.char("Code", size=8),
+        "code": fields.char("Code"),
         "invoice_text" : fields.text("Sale Invoice Text"),
         "invoice_in_text" : fields.text("Purchase Invoice Text"),
         "refund_text" : fields.text("Customer Refund Text"),
@@ -54,11 +54,14 @@ class sale_shop(osv.osv):
         "stylesheet_id": fields.many2one("report.stylesheets", "Aeroo Global Stylesheet"),
         "stylesheet_landscape_id": fields.many2one("report.stylesheets", "Aeroo Global Landscape Stylesheet"),
         "stylesheet_intern_id" : fields.many2one("report.stylesheets", "Aeroo Intern Stylesheet"),
-        "stylesheet_intern_landscape_id" : fields.many2one("report.stylesheets", "Aeroo Intern Landscape Stylesheet")
+        "stylesheet_intern_landscape_id" : fields.many2one("report.stylesheets", "Aeroo Intern Landscape Stylesheet"),
+        "sequence": fields.integer("Sequence")
     }
     _defaults = {
         "company_id": lambda s, cr, uid, c: s.pool.get('res.company')._company_default_get(cr, uid, 'sale.shop', context=c),
+        "sequence": 10
     }
+    _order = "sequence, name"
 
 
 class sale_shop_report(osv.osv):

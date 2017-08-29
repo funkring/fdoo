@@ -179,7 +179,7 @@
                             <label for="company_id" class="oe_edit_only" groups="base.group_multi_company"/>
                             <field name="company_id" context="{'user_preference': 0}" groups="base.group_multi_company"/>
                             <group>
-                                <field name="partner_id" readonly="1" required="0" groups="base.group_no_one"
+                                <field name="partner_id" required="0" groups="base.group_no_one"
                                         attrs="{'invisible': [('id', '=', False)]}"/>
                                 <field name="active"/>
                             </group>

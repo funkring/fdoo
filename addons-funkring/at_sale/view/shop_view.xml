@@ -87,6 +87,7 @@
             <field name="model">sale.shop</field>
             <field name="arch" type="xml">
                 <tree string="Shops">
+                    <field name="sequence" widget="handle"/>
                     <field name="name"/>
                     <field groups="base.group_multi_company" name="company_id"/>
                 </tree>
