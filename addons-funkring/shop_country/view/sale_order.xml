@@ -12,7 +12,7 @@
             <field name="partner_id" position="after">
                 <field name="country_id" invisible="1"/>
                 <field name="shop_id" on_change="onchange_shop_id(shop_id, state, project_id, context)" 
-                     domain="['|',('id','=',shop_id),'|',('country_id','=',False),('country_id','=',country_id),'|',('company_id','=',company_id),('company_id','=',False)]" widget="selection" />     
+                     domain="['|',('id','=',shop_id),'|',('country_ids','=',False),('country_ids','=',country_id),'|',('company_id','=',company_id),('company_id','=',False)]" widget="selection" />     
             </field>
       </field>
     </record>

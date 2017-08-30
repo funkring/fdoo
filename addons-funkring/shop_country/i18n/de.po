@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Language: de_DE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-29 15:16+0000\n"
-"PO-Revision-Date: 2017-08-29 17:16+0100\n"
+"POT-Creation-Date: 2017-08-30 02:56+0000\n"
+"PO-Revision-Date: 2017-08-30 04:56+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,12 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 
 #. module: shop_country
-#: field:sale.order,country_id:0 field:sale.shop,country_id:0
+#: field:sale.shop,country_ids:0
+msgid "Countries"
+msgstr "Länder"
+
+#. module: shop_country
+#: field:sale.order,country_id:0
 msgid "Country"
 msgstr "Land"
 

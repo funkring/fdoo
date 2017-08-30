@@ -23,7 +23,7 @@ from openerp.osv import fields, osv
 class sale_shop(osv.Model):
     _inherit = "sale.shop"
     _columns = {
-        "country_id" : fields.many2one("res.country", "Country")
+        "country_ids" : fields.many2many("res.country", "sale_shop_country_rel", "shop_id", "country_id", "Countries")
     }
     
 
@@ -43,11 +43,11 @@ class sale_order(osv.Model):
                 # update country
                 value = res["value"]
                 value["country_id"] = country_id
-                
+                    
                 # determine shop for country
                 shop_obj = self.pool["sale.shop"]
-                if not shop_id or not shop_obj.search(cr, uid, [("id","=",shop_id),("country_id","=",country_id)], count=True):
-                    value["shop_id"] = shop_obj.search_id(cr, uid, [("country_id","=",country_id)]) or value.get("shop_id", shop_id)
+                if not shop_id or not shop_obj.search(cr, uid, [("id","=",shop_id),'|',("country_ids","=",False),("country_ids","=",country_id)], count=True):
+                    value["shop_id"] = shop_obj.search_id(cr, uid, ['|',("country_ids","=",False),("country_ids","in",country_id)]) or value.get("shop_id", shop_id)
                 
         return res
     
