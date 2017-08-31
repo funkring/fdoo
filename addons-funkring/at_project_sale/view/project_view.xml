@@ -7,9 +7,12 @@
       <field name="inherit_id" ref="project.view_project_project_filter"/>
       <field name="type">form</field>
       <field name="arch" type="xml">
-         <filter name="Parent" position="after">
+        <field name="name" position="after">
+            <field name="categ_ids"/>
+        </field>
+        <filter name="Parent" position="after">
             <filter string="Contract Template" name="contract_template" context="{'group_by':'template_id'}"/>
-         </filter>
+        </filter>
       </field>
     </record>
     
@@ -46,6 +49,8 @@
         
           <field name="parent_id" position="after">
             <field name="order_id" readonly="1"/>
+            <field name="categ_ids" widget="many2many_tags" attrs="{'invisible':[('order_id','=',False)]}"/>
+            <field name="section_id" attrs="{'invisible':[('order_id','=',False)]}"/>                   
           </field>
         
           <page string="Other Info" position="inside">

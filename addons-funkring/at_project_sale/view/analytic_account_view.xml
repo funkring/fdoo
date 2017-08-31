@@ -17,7 +17,7 @@
 	              <field name="recurring_prepaid"/>
 	          </field>
 	          <field name="parent_id" position="after">
-	               <field name="shop_id"/>
+	               <field name="shop_id"/>	            
 	          </field>
 	          <xpath expr='//div[@name="project"]' position='inside'>
                     <field name="is_contract"/>

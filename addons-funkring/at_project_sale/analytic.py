@@ -180,5 +180,8 @@ class account_analytic_account(osv.osv):
         "root_account_id" : fields.function(_root_account, type="many2one", obj="account.analytic.account", string="Root", select=True, store={
             "account.analytic.account" : (_relids_account, ["parent_id"], 10)
         }),
-        "is_contract": fields.boolean("Contract")
+        "is_contract": fields.boolean("Contract"),
+        "section_id": fields.related("order_id", "section_id", type="many2one", relation="crm.case.section", string="Sales Team"),
+        "categ_ids" : fields.related("order_id", "categ_ids", type="many2many", relation="crm.case.categ", string="Tags",
+                                     domain="['|', ('section_id', '=', section_id), ('section_id', '=', False), ('object_id.model', '=', 'crm.lead')]", context="{'object_name': 'crm.lead'}")
     }

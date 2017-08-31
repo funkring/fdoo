@@ -189,6 +189,7 @@ class sale_order(osv.osv):
                 if not analytic_id:
                     # create new or copy from template
                     project_vals["user_id"] = uid
+                    project_vals["state"] = "draft"
                     if shop.project_template_id:                        
                         proj_id = proj_obj.copy(cr, uid, template_id, project_vals, project_context)
                     else:
@@ -356,6 +357,18 @@ class sale_order(osv.osv):
             
             
         res = super(sale_order, self).copy_data(cr, uid, oid,  default=default, context=context)
+        return res
+    
+    def action_button_confirm(self, cr, uid, ids, context=None):
+        res = super(sale_order, self).action_button_confirm(cr, uid, ids, context=context)
+        
+        # open project after confirm
+        project_obj = self.pool["project.project"]
+        for order in self.browse(cr, uid, ids, context=context):
+            project = order.order_project_id
+            if project and project.state == "draft":
+                project_obj.set_open(cr, uid, [project.id], context=context)
+                
         return res
 
     _inherit = "sale.order"
