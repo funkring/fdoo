@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Language: de_DE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-25 11:53+0000\n"
-"PO-Revision-Date: 2017-08-25 13:54+0100\n"
+"POT-Creation-Date: 2017-08-31 15:11+0000\n"
+"PO-Revision-Date: 2017-08-31 17:11+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -72,25 +72,20 @@ msgid "By Team"
 msgstr "Nach Team"
 
 #. module: at_project_sale
-#: selection:sale.order.report,state:0
-msgid "Cancelled"
-msgstr "Abgebrochen"
-
-#. module: at_project_sale
 #: view:at_project_sale.correct_time_wizard:at_project_sale.wizard_correct_time
 msgid "Close"
 msgstr "Schließen"
 
 #. module: at_project_sale
 #: view:sale.order.report:at_project_sale.view_sale_order_report_search
-#: field:sale.order.report,company_id:0
 msgid "Company"
 msgstr "Unternehmen"
 
 #. module: at_project_sale
-#: selection:sale.order.report,state:0
-msgid "Confirmed"
-msgstr "Bestätigt"
+#: field:account.analytic.account,is_contract:0
+#: field:project.project,is_contract:0
+msgid "Contract"
+msgstr "Vertrag"
 
 #. module: at_project_sale
 #: view:project.project:at_project_sale.search_project
@@ -139,35 +134,9 @@ msgid "Customer"
 msgstr "Kunde"
 
 #. module: at_project_sale
-#: field:sale.order.report,date_confirm:0
-msgid "Date Confirm"
-msgstr "Bestätigungsdatum"
-
-#. module: at_project_sale
-#: field:sale.order.report,date:0
-msgid "Date Order"
-msgstr "Bestelldatum"
-
-#. module: at_project_sale
 #: field:at_project_sale.correct_time_wizard,display_name:0
-#: field:sale.order.report,display_name:0
 msgid "Display Name"
 msgstr ""
-
-#. module: at_project_sale
-#: selection:sale.order.report,state:0
-msgid "Done"
-msgstr "Erledigt"
-
-#. module: at_project_sale
-#: selection:sale.order.report,state:0
-msgid "Draft"
-msgstr "Entwurf"
-
-#. module: at_project_sale
-#: selection:sale.order.report,state:0
-msgid "Exception"
-msgstr "Fehler"
 
 #. module: at_project_sale
 #: view:sale.order.report:at_project_sale.view_sale_order_report_search
@@ -180,7 +149,7 @@ msgid "Group By"
 msgstr "Gruppiert nach"
 
 #. module: at_project_sale
-#: field:at_project_sale.correct_time_wizard,id:0 field:sale.order.report,id:0
+#: field:at_project_sale.correct_time_wizard,id:0
 msgid "ID"
 msgstr ""
 
@@ -191,7 +160,6 @@ msgstr "Statistik Rechnungen"
 
 #. module: at_project_sale
 #: field:at_project_sale.correct_time_wizard,__last_update:0
-#: field:sale.order.report,__last_update:0
 msgid "Last Modified on"
 msgstr ""
 
@@ -211,7 +179,6 @@ msgstr "Zuletzt aktualisiert am"
 #: view:analytic.entries.report:at_project_sale.search_analytic_entries_report
 #: field:analytic.entries.report,root_account_id:0
 #: view:sale.order.report:at_project_sale.view_sale_order_report_search
-#: field:sale.order.report,root_analytic_id:0
 msgid "Main Analytic Account"
 msgstr "Hauptkostenstelle"
 
@@ -226,7 +193,7 @@ msgid "Offered Hours"
 msgstr "Angebotene Stunden"
 
 #. module: at_project_sale
-#: field:account.analytic.account,order_id:0 field:project.project,order_id:0
+#: field:account.analytic.account,order_id:0
 msgid "Order"
 msgstr "Auftrag"
 
@@ -239,11 +206,6 @@ msgstr "Auftragszeile"
 #: view:sale.order.report:at_project_sale.view_sale_order_report_search
 msgid "Order Month"
 msgstr "Bestellmonat"
-
-#. module: at_project_sale
-#: field:sale.order.report,state:0
-msgid "Order Status"
-msgstr "Bestellstatus"
 
 #. module: at_project_sale
 #: model:ir.actions.act_window,name:at_project_sale.act_analytic_account_to_order
@@ -262,7 +224,6 @@ msgstr "Weitere Info"
 
 #. module: at_project_sale
 #: model:ir.model,name:at_project_sale.model_res_partner
-#: field:sale.order.report,partner_id:0
 msgid "Partner"
 msgstr ""
 
@@ -284,14 +245,8 @@ msgstr "Vorkalkulation"
 
 #. module: at_project_sale
 #: field:account.analytic.account,recurring_prepaid:0
-#: field:project.project,recurring_prepaid:0
 msgid "Prepaid"
 msgstr "Vorauszahlung"
-
-#. module: at_project_sale
-#: field:sale.order.report,pricelist_id:0
-msgid "Pricelist"
-msgstr "Preisliste"
 
 #. module: at_project_sale
 #: model:ir.model,name:at_project_sale.model_procurement_order
@@ -306,7 +261,6 @@ msgstr "Produktvorlage"
 #. module: at_project_sale
 #: model:ir.model,name:at_project_sale.model_project_project
 #: field:sale.order,order_project_id:0
-#: field:sale.order.report,analytic_account_id:0
 msgid "Project"
 msgstr "Projekt"
 
@@ -332,14 +286,8 @@ msgstr "Projekte"
 
 #. module: at_project_sale
 #: field:account.analytic.account,root_account_id:0
-#: field:project.project,root_account_id:0
 msgid "Root"
 msgstr "Haupt"
-
-#. module: at_project_sale
-#: field:sale.order.report,order_id:0
-msgid "Sale Order"
-msgstr "Verkaufsauftrag"
 
 #. module: at_project_sale
 #: view:sale.order.report:at_project_sale.view_sale_order_report_search
@@ -375,21 +323,17 @@ msgstr "Statistik Verkaufsaufträge"
 
 #. module: at_project_sale
 #: view:sale.order.report:at_project_sale.view_sale_order_report_search
-#: field:sale.order.report,section_id:0
 msgid "Sales Team"
 msgstr "Verkaufsteam"
 
 #. module: at_project_sale
 #: view:sale.order.report:at_project_sale.view_sale_order_report_search
-#: field:sale.order.report,user_id:0
 msgid "Salesperson"
 msgstr "Verkäufer"
 
 #. module: at_project_sale
 #: field:account.analytic.account,shop_id:0
-#: model:ir.model,name:at_project_sale.model_sale_shop
 #: view:sale.order.report:at_project_sale.view_sale_order_report_search
-#: field:sale.order.report,shop_id:0
 msgid "Shop"
 msgstr "Vertriebsshop"
 
@@ -435,11 +379,6 @@ msgstr ""
 #: field:sale.order,timesheet_lines_amount:0
 msgid "Timesheet Lines"
 msgstr "Zeiterfassungszeilen"
-
-#. module: at_project_sale
-#: field:sale.order.report,amount_untaxed:0
-msgid "Total"
-msgstr "Gesamt"
 
 #. module: at_project_sale
 #: view:at_project_sale.correct_time_wizard:at_project_sale.wizard_correct_time

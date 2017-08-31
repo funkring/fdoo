@@ -7,7 +7,7 @@
       <field name="inherit_id" ref="at_project_sale.graph_order_sale_report"/>
       <field name="type">form</field>
       <field name="arch" type="xml">
-         <field name="post_calc" position="after">
+         <field name="amount_untaxed" position="after">
             <field name="margin" type="measure"/>
             <field name="inv_out" type="measure"/>   
             <field name="inv_draft_out" type="measure"/>

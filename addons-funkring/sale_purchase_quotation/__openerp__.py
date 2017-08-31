@@ -44,7 +44,7 @@ oerp.at Sale Purchase Quotation
     "data": ["view/sale_view.xml",
              "data/email_template.xml",
              "view/quotation_widget.xml",
-             "view/sale_order_report_view.xml"],
+             "report/sale_order_report_view.xml"],
     "installable": True,
     "auto_install": False,
     "application": True,

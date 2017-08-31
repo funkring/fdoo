@@ -1,4 +1,4 @@
 import sale
 import procurement
 import purchase
-import sale_order_report
+import report

@@ -25,7 +25,6 @@ from openerp.addons.at_base import util
 
 from dateutil.relativedelta import relativedelta
 
-
 class account_analytic_account(osv.osv):    
     
     def name_get(self, cr, uid, ids, context=None):
@@ -175,10 +174,11 @@ class account_analytic_account(osv.osv):
     
     _inherit = "account.analytic.account"    
     _columns = {
-        "order_id" : fields.many2one("sale.order", "Order", ondelete="cascade", copy=False),
-        "shop_id" : fields.many2one("sale.shop", "Shop"),
+        "order_id" : fields.many2one("sale.order", "Order", ondelete="cascade", copy=False, select=True),
+        "shop_id" : fields.many2one("sale.shop", "Shop", select=True),
         "recurring_prepaid" : fields.boolean("Prepaid"),
         "root_account_id" : fields.function(_root_account, type="many2one", obj="account.analytic.account", string="Root", select=True, store={
             "account.analytic.account" : (_relids_account, ["parent_id"], 10)
-        })   
+        }),
+        "is_contract": fields.boolean("Contract")
     }

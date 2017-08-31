@@ -31,7 +31,7 @@ oerp.at Project + Sale
 
 
     """,
-    "version" : "1.0",
+    "version" : "1.1",
     "author" :  "funkring.net",
     "website": "http://www.funkring.net",
     "category" : "Sales Management/Project Management",
