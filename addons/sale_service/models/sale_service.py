@@ -76,18 +76,24 @@ class procurement_order(osv.osv):
         project_task = self.pool.get('project.task')
         project = self._get_project(cr, uid, procurement, context=context)
         planned_hours = self._convert_qty_company_hours(cr, uid, procurement, context=context)
-        task_id = project_task.create(cr, uid, {
+        # funkring.net - begin
+        sale_line = procurement.sale_line_id or None
+        values = {
             'name': '%s:%s' % (procurement.origin or '', procurement.product_id.name),
             'date_deadline': procurement.date_planned,
             'planned_hours': planned_hours,
             'remaining_hours': planned_hours,
-            'partner_id': procurement.sale_line_id and procurement.sale_line_id.order_id.partner_id.id or procurement.partner_dest_id.id,
+            'partner_id': sale_line and sale_line.order_id.partner_id.id or procurement.partner_dest_id.id,
             'user_id': procurement.product_id.product_manager.id,
             'procurement_id': procurement.id,
             'description': procurement.name + '\n',
             'project_id': project and project.id or False,
-            'company_id': procurement.company_id.id,
-        },context=context)
+            'company_id': procurement.company_id.id
+        }
+        if sale_line:
+            values['sequence'] =  sale_line.sequence
+        task_id = project_task.create(cr, uid, values, context=context)
+        # funkring.net - end
         self.write(cr, uid, [procurement.id], {'task_id': task_id}, context=context)
         self.project_task_create_note(cr, uid, [procurement.id], context=context)
         return task_id
