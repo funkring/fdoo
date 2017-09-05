@@ -48,10 +48,15 @@
       <field name="arch" type="xml">
         
           <field name="parent_id" position="after">
-            <field name="order_id" readonly="1"/>
-            <field name="categ_ids" widget="many2many_tags" attrs="{'invisible':[('order_id','=',False)]}"/>
-            <field name="section_id" attrs="{'invisible':[('order_id','=',False)]}"/>                   
+              <field name="order_id" readonly="1"/>
+              <field name="categ_ids" widget="many2many_tags" attrs="{'invisible':[('order_id','=',False)]}"/>
+              <field name="section_id" attrs="{'invisible':[('order_id','=',False)]}"/>                   
           </field>
+          
+          <xpath expr="//div[@name='options_active']" position="inside">
+              <field name="is_contract" class="oe_inline"/>
+              <label for="is_contract"/>
+          </xpath>
         
           <page string="Other Info" position="inside">
                 <group string="Cost Overview">

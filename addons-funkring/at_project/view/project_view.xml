@@ -1,5 +1,6 @@
 <openerp>
     <data>
+    
         <record id="search_project_task" model="ir.ui.view">
             <field name="name">project.search_project_task</field>
             <field name="model">project.task</field>
@@ -154,6 +155,7 @@
             <field name="view_id" ref="kanban_project_task_division"/>
             <field name="act_window_id" ref="action_project_task_division"/>
         </record>
+        
     </data>
 </openerp>
 

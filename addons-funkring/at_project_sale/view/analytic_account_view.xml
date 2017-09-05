@@ -33,7 +33,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="context">{'default_is_contract': True, 'default_type':'contract', 'search_default_open':1, 'search_default_pending':1, 'default_manager_id':uid}</field>
-            <field name="domain">[('type','=','contract'),('order_id','=',False),('is_contract','=',True)]</field>
+            <field name="domain">[('type','=','contract'),('is_contract','=',True)]</field>
             <field name="search_view_id" ref="account_analytic_analysis.view_account_analytic_account_overdue_search"/>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">

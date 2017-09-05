@@ -1,0 +1,27 @@
+<openerp>
+  <data>
+  
+        <record id="project.open_view_project_all" model="ir.actions.act_window">
+          <field name="view_id" ref="project.view_project"/>
+          <field name="context">{'search_default_Current': 1}</field>
+        </record>
+        
+        <record id="project.action_view_task" model="ir.actions.act_window">    
+          <field name="view_id" ref="project.view_task_tree2"/>
+          <field name="context">{'search_default_open': 1, 'search_default_mytasks': 1, 'search_default_unassigned': 1}</field>
+        </record>
+        
+        <record id="project.open_view_task_list_kanban" model="ir.actions.act_window.view">
+          <field name="sequence" eval="1"/>
+          <field name="view_mode">kanban</field>
+          <field name="act_window_id" ref="project.action_view_task"/>
+        </record>
+        
+        <record id="project.open_view_task_list_tree" model="ir.actions.act_window.view">
+          <field name="sequence" eval="0"/>
+          <field name="view_mode">tree</field>
+          <field name="act_window_id" ref="project.action_view_task"/>
+        </record>
+        
+  </data>
+</openerp>

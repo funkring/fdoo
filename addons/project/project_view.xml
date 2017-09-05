@@ -31,7 +31,7 @@
                     <field name="reviewer_id"/>
                     <field name="user_id"/>
                     <field name="stage_id"/>
-                    <filter string="My Tasks" domain="[('user_id','=',uid)]"/>
+                    <filter string="My Tasks" name="mytasks" domain="[('user_id','=',uid)]"/>
                     <filter string="Unassigned" name="unassigned" domain="[('user_id', '=', False)]"/>
                     <separator/>
                     <filter string="New" name="draft" domain="[('stage_id.sequence', '&lt;=', 1)]"/>
