@@ -45,12 +45,11 @@ class bmd_reconcile_wizard(models.TransientModel):
         wizard = self.ensure_one()
 
         csv_data = base64.decodestring(wizard.csv)
-        cvs_data = csv_data.decode("iso8859-15")
-        csv_data = csv_data.encode("UTF-8")
+        cvs_data = unicode(csv_data,"iso8859-15").encode("UTF-8")
         csv_data = StringIO.StringIO(csv_data)                
         
         date = None
-        date_pattern = re.compile("per ([0-9]{1,2})\\. ([A-Za-z]+) ([0-9]{4})")        
+        date_pattern = re.compile("per ([0-9]{1,2})\\. (\w+) ([0-9]{4})")        
         month_dict = {
             "Jänner":   "01",
             "Februar":  "02",
@@ -66,13 +65,13 @@ class bmd_reconcile_wizard(models.TransientModel):
             "Dezember": "12" 
         }
         
-        reader = csv.reader(csv_data,delimiter=',',quotechar=None)
-        
+        reader = csv.reader(csv_data,delimiter=';',quotechar=None)
         fields = {
             "Kto-Nr": None,
             "Rng-Nr": None,
             "Rng-Betrag": None,
-            "OP-Betrag" :None
+            "OP-Betrag": None,
+            "Text": None
         }
 
         initialized = False
@@ -85,6 +84,8 @@ class bmd_reconcile_wizard(models.TransientModel):
         def parseStr(val):
             if not val:
                 return ""
+            if not isinstance(val,basestring):
+                val = str(val)
             return val.strip()
         
         def parseFloat(val):
@@ -121,12 +122,18 @@ class bmd_reconcile_wizard(models.TransientModel):
                 
                 if len(row) <= last_col or not row[0] or not row[0].strip():
                     continue
-                
+                                
                 number = parseStr(row[fields["Rng-Nr"]])
                 if not number:
                     Warning("Rechnungsnummer in Zeile %s ist leer" % row_n)
                     
-                numbers.append(number)
+                text = parseStr(row[fields["Text"]])
+                if not text:
+                    Warning("Text in Zeile %s ist leer" % row_n)
+                
+                # check if has the right number
+                if text.find(number) >= 0 and len(number) > 3:
+                  numbers.append(number)
                 
                 #partner_ref = parseStr(row[fields["Kto-Nr"]])
                 #amount = parseFloat(row[fields["Rng-Betrag"]])
@@ -148,7 +155,8 @@ class bmd_reconcile_wizard(models.TransientModel):
             domain.append(("number","not in",numbers))
             found_invoice_count = invoice_obj.search([("company_id","=",company_id),("date_invoice","<",date),("type","=",inv_type),("number","in",numbers)], count=True)
             if found_invoice_count != len(numbers):
-                raise Warning("Es konnten nicht alle Rechnungen gefunden werden")
+                found_invoice_vals = invoice_obj.search_read([("company_id","=",company_id),("date_invoice","<",date),("type","=",inv_type),("number","in",numbers)], ["number"], limit=10)
+                raise Warning("Es konnten nicht alle Rechnungen gefunden werden:\n %s" % ", ".join(v["number"] for v in found_invoice_vals))
             
             _logger.info("found open invoices %s" % found_invoice_count)
             
