@@ -71,7 +71,8 @@ class bmd_reconcile_wizard(models.TransientModel):
             "Rng-Nr": None,
             "Rng-Betrag": None,
             "OP-Betrag": None,
-            "Text": None
+            "Text": None,
+            "BS": None
         }
 
         initialized = False
@@ -122,7 +123,12 @@ class bmd_reconcile_wizard(models.TransientModel):
                 
                 if len(row) <= last_col or not row[0] or not row[0].strip():
                     continue
-                                
+                 
+                
+                bs = parseStr(row[fields["BS"]])
+                if bs != "AR":
+                  continue
+                
                 number = parseStr(row[fields["Rng-Nr"]])
                 if not number:
                     Warning("Rechnungsnummer in Zeile %s ist leer" % row_n)
@@ -153,10 +159,22 @@ class bmd_reconcile_wizard(models.TransientModel):
         domain = [("company_id","=",company_id),("date_invoice","<",date),("type","=",inv_type),("state","=","open")]
         if numbers:
             domain.append(("number","not in",numbers))
-            found_invoice_count = invoice_obj.search([("company_id","=",company_id),("date_invoice","<",date),("type","=",inv_type),("number","in",numbers)], count=True)
+            check_domain = [("company_id","=",company_id),("type","=",inv_type),("number","in",numbers)]
+            found_invoice_count = invoice_obj.search(check_domain, count=True)
             if found_invoice_count != len(numbers):
-                found_invoice_vals = invoice_obj.search_read([("company_id","=",company_id),("date_invoice","<",date),("type","=",inv_type),("number","in",numbers)], ["number"], limit=10)
-                raise Warning("Es konnten nicht alle Rechnungen gefunden werden:\n %s" % ", ".join(v["number"] for v in found_invoice_vals))
+                found_invoice_vals = invoice_obj.search_read(check_domain, ["number"])
+                found_invoice_numbers = set([v["number"] for v in found_invoice_vals])
+                not_found_numbers = list(set(numbers).difference(found_invoice_numbers))
+                like_found_numbers = set()
+                for notfound_num in not_found_numbers:
+                  notfound_vals = invoice_obj.search_read([("number","like",notfound_num)],["number"])
+                  for notfound_val in notfound_vals:
+                    numbers.append(notfound_val["number"])
+                    like_found_numbers.add(notfound_num)
+                  
+                not_found_numbers = list(set(not_found_numbers) - like_found_numbers)
+                if not_found_numbers:
+                  raise Warning("Es konnten nicht alle Rechnungen gefunden werden:\n %s" % ", ".join(not_found_numbers))
             
             _logger.info("found open invoices %s" % found_invoice_count)
             
