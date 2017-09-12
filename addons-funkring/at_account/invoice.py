@@ -24,6 +24,8 @@ import time
 from openerp.osv import osv,fields
 from openerp.tools.translate import _
 import openerp.addons.decimal_precision as dp
+from openerp.tools.float_utils import float_is_zero
+from functools import partial
 
 import qrcode
 import qrcode.image.svg 
@@ -244,11 +246,28 @@ class account_invoice(osv.osv):
                             "property_account_payable", context=context)
         return super(account_invoice, self).action_date_assign(cr, uid, ids, context=context)
 
+
     def invoice_validate(self, cr, uid, ids, context=None):
-        self.write(cr, uid, ids, {'state':'open'}, context=context)
+        res = self.write(cr, uid, ids, {'state':'open'}, context=context)
 
         attachment_obj = self.pool.get("ir.attachment")
         attachment_wizard_obj  = self.pool.get("account.invoice.attachment.wizard")
+        move_line_obj = self.pool["account.move.line"]
+        precision = self.pool["decimal.precision"].precision_get(cr, uid, "Account")
+        
+        # check if zero
+        is_zero = partial(float_is_zero, precision_digits=precision)
+        for invoice in self.browse(cr, uid, ids, context=context):
+            if is_zero(invoice.amount_total):
+                account = invoice.account_id.id
+                # search the payable / receivable lines
+                lines = [line for line in invoice.move_id.line_id
+                         if line.account_id.id == account]
+                # reconcile the lines with a zero balance
+                if is_zero(sum(line.debit - line.credit for line in lines)):
+                    move_line_obj.reconcile(cr, uid,
+                                            [line.id for line in lines],
+                                            context=context)
 
         # reimport first attachment as receipt if it is an pdf
         invoice_ids = self.search(cr, uid, [("id","in",ids),("type","in",["in_invoice","in_refund"])])
@@ -269,7 +288,7 @@ class account_invoice(osv.osv):
                         # clean up
                         attachment.unlink()
                         attachment_wizard_obj.unlink(cr, uid, [wizard_id])
-        return True
+        return res
 
     def _tax_amount(self,cr,uid,sid,context=None):
         """
