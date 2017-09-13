@@ -20,6 +20,7 @@
 
 from openerp import models, fields, api, _
 from openerp.exceptions import Warning
+from openerp.addons.at_base import util
 
 import csv
 import base64
@@ -27,6 +28,7 @@ import StringIO
 import re
 
 import logging
+import datetime
 _logger = logging.getLogger(__name__)
 
 class bmd_reconcile_wizard(models.TransientModel):
@@ -49,6 +51,7 @@ class bmd_reconcile_wizard(models.TransientModel):
         csv_data = StringIO.StringIO(csv_data)                
         
         date = None
+        open_date = None
         date_pattern = re.compile("per ([0-9]{1,2})\\. (\w+) ([0-9]{4})")        
         month_dict = {
             "Jänner":   "01",
@@ -72,7 +75,8 @@ class bmd_reconcile_wizard(models.TransientModel):
             "Rng-Betrag": None,
             "OP-Betrag": None,
             "Text": None,
-            "BS": None
+            "BS": None,
+            "Rng-Dat": None
         }
 
         initialized = False
@@ -140,11 +144,24 @@ class bmd_reconcile_wizard(models.TransientModel):
                 # check if has the right number
                 if text.find(number) >= 0 and len(number) > 3:
                   numbers.append(number)
+                  
+                # parse date
+                invoice_date = parseStr(row[fields["Rng-Dat"]])
+                if invoice_date:
+                  invoice_date = datetime.datetime.strptime(invoice_date,"%y/%m/%d").strftime("%Y-%m-%d")
+                  if invoice_date:
+                    if not open_date:
+                      open_date = invoice_date
+                    else:
+                      open_date = max(invoice_date, open_date)
                 
                 #partner_ref = parseStr(row[fields["Kto-Nr"]])
                 #amount = parseFloat(row[fields["Rng-Betrag"]])
                 #balance =  parseFloat(row[fields["OP-Betrag"]])
                 
+        
+        if date and open_date:
+          date = min(date, util.getNextDayDate(open_date))
         
         if not date:
             raise Warning("Es wurde kein Datum gefunden!")
