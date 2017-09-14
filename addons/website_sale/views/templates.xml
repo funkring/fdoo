@@ -1059,7 +1059,7 @@
                              }'/>
                           </td>
                           <td>
-                             <div t-esc="line.product_uom_qty"/>
+                             <span t-field="line.product_uom_qty"/>
                           </td>
                       </tr>
                   </tbody>
