@@ -130,8 +130,8 @@ class bmd_reconcile_wizard(models.TransientModel):
                  
                 
                 bs = parseStr(row[fields["BS"]])
-                if bs != "AR":
-                  continue
+                #if bs != "AR":
+                #  continue
                 
                 number = parseStr(row[fields["Rng-Nr"]])
                 if not number:
