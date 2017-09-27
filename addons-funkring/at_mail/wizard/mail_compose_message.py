@@ -40,6 +40,21 @@ class mail_compose_message(osv.TransientModel):
         else:
             res_ids = [wizard.res_id]
         return res_ids
+      
+    def onchange_template_id(self, cr, uid, ids, template_id, composition_mode, model, res_id, context=None):
+        res = super(mail_compose_message, self).onchange_template_id(cr, uid, ids, template_id, composition_mode, model, res_id, context=context)
+        if context:
+          att_ids = context.get("attachment_ids")
+          if att_ids:
+            attachment_ids = res["value"].get("attachment_ids") or []
+            for att_id in att_ids:
+              if not att_id in attachment_ids:
+                attachment_ids.append(att_id)
+                
+            if attachment_ids:
+              res["value"]["attachment_ids"] = attachment_ids
+              
+        return res
     
     
     _inherit = "mail.compose.message"
