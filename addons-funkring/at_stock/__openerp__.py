@@ -36,7 +36,8 @@ oerp.at Stock Base Module
     "category" : "Warehouse",
     "depends" : ["at_base", "stock", "delivery", "stock_account"],
     "data" : ["security.xml",
-              "report/stock_picking_report.xml"],
+              "report/stock_picking_report.xml",
+              "view/picking_view.xml"],
     "auto_install": False,
     "installable": True
 }

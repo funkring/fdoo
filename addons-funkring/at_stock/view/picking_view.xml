@@ -1,5 +1,7 @@
 <openerp>
 	<data>
+	
+	 <!--
 		<record id="form_picking" model="ir.ui.view">
 			<field name="name">at_stock.form_picking</field>
 			<field name="model">stock.picking</field>
@@ -9,6 +11,18 @@
 					<attribute name="groups">at_stock.group_stock_invoice</attribute>
 				</button>
 			</field>
+		</record> -->
+		
+		<record id="tree_picking" model="ir.ui.view">
+		  <field name="name">at_stock.tree_picking</field>
+		  <field name="model">stock.picking</field>
+		  <field name="inherit_id" ref="stock.vpicktree"/>
+		  <field name="arch" type="xml">
+		     <field name="min_date" position="replace">
+		        <field name="min_date"/>
+		     </field>
+		  </field>
 		</record>
+		
 	</data>
 </openerp>
