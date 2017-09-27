@@ -19,27 +19,17 @@
 ##############################################################################
 
 {
-    "name" : "oerp.at Account Dunning",
+    "name" : "Account Dunning Invoice",
     "description":"""
-oerp.at Account Dunning
+Account Dunning Invoice
 =======================
-
-  * This module allows to completly handle the reminders
-  * Single/multiple reminder (re)print
-    """,
-    "version" : "1.2",
-    "author" :  "funkring.net",
+* Add invoice to reminder
+""",
+    "version" : "1.0",
+    "author" :  "oerp.at",
     "category" : "Accounting",
-    "depends" : ["at_account","account","at_sale"],
-    "data" : ["view/account_dunning_view.xml",
-              "view/account_reminder_view.xml",
-              "view/account_invoice_view.xml",
-              "view/partner_view.xml",
-              "report/account_reminder_report.xml",
-              "wizard/dunning_wizard.xml",
-              "data/email_template.xml",
-              "menu.xml",
-              "security.xml"],
+    "depends" : ["account_dunning"],
+    "data" : [],
     "auto_install" : False,
     "installable": True
 }

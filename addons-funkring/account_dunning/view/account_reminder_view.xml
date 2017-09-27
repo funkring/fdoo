@@ -23,9 +23,9 @@
 			<field name="arch" type="xml">
 				<form string="Reminder">
 				    <header>
-                        <button name="send_reminder_mail" string="Send by Email" type="object" states="validated" class="oe_highlight" groups="base.group_user" />
-                        <field name="state" widget="statusbar" statusbar_visible="validated,sent"/>
-                    </header>
+                <button name="send_reminder_mail" string="Send by Email" type="object" states="validated" class="oe_highlight" groups="base.group_user" />
+                <field name="state" widget="statusbar" statusbar_visible="validated,sent"/>
+            </header>
 					<sheet>
 						<group>
 							<group>

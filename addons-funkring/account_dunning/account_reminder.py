@@ -73,8 +73,7 @@ class account_reminder(osv.Model):
                 "default_res_id" : ids[0],
                 "default_composition_mode" : composition_mode,
                 "default_template_id" : template_id,
-                "default_use_template" : bool(template_id),
-                "mark_quotation_send" : True
+                "default_use_template" : bool(template_id)
             }
 
             return {
