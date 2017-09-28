@@ -422,7 +422,7 @@ class sale_order_line(osv.osv):
                             work_line.append(f.formatLang(util.timeToDateStr(work.date), date=True))
                        
                         # append time
-                        work_line.append(_("%s Hour(s)") % f.formatLang(work.hours, float_time=True))
+                        work_line.append(_("%s Hour(s)") % f.formatLang(hours, float_time=True))
                              
                         # append name
                         if work.name:
