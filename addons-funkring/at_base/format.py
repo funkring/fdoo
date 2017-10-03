@@ -24,6 +24,8 @@ from openerp.modules.registry import RegistryManager
 from openerp.osv.fields import float as float_class, function as function_class, datetime as datetime_field
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT
 from datetime import datetime
+
+import helper
 import time
 import util
 import math
@@ -50,6 +52,8 @@ class LangFormat(object):
         self.obj = obj
         self.f = f
         self.evalContext = None
+        self.months = None
+        self.days = None
         
         if not self.lang:
             self.lang = self.user.company_id.partner_id.lang or openerp.tools.config.defaultLang
@@ -134,6 +138,24 @@ class LangFormat(object):
             return value % self.evalContext
 
         return value
+    
+    def getDayName(self, value, context=None):
+      if not self.days:
+        self.days = helper.getDayNames(self.cr, self.uid, context=context)
+      dt = util.strToDate(value)
+      return self.days[dt.weekday()][0] 
+    
+    def getDayShortName(self, value, context=None):
+      if not self.days:
+        self.days = helper.getDayNames(self.cr, self.uid, context=context)
+      dt = util.strToDate(value)
+      return self.days[dt.weekday()][1]     
+    
+    def getMonthName(self, value, context=None):
+      if not self.months:
+        self.months = helper.getMonthNames(self.cr, self.uid, context=context)
+      dt = util.strToDate(value)
+      return self.months[dt.month-1]
     
     def formatLang(self, value, digits=None, date=False, date_time=False, grouping=True, monetary=False, dp=False, float_time=False):
         """

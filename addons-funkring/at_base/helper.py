@@ -31,8 +31,8 @@ from openerp.tools.translate import _
 from format import LangFormat
 from openerp import SUPERUSER_ID
 
-def getMonthName(cr,uid,month,context=None):
-    month_names = [
+def getMonthNames(cr, uid, context=None):
+    return [
       _("January"),
       _("February"),
       _("March"),
@@ -46,14 +46,27 @@ def getMonthName(cr,uid,month,context=None):
       _("November"),
       _("December")
     ]
-    return month_names[month-1]
+    
+def getDayNames(cr, uid, context=None):
+    return [
+      (_("Monday"),   _("Mon")),
+      (_("Tuesday"),  _("Tue")),
+      (_("Wednesday"),_("Wed")),
+      (_("Thursday"), _("Thu")),
+      (_("Friday"),   _("Fri")),
+      (_("Saturday"), _("Sat")),
+      (_("Sunday"),   _("Sun")),
+    ]
+
+def getMonthName(cr, uid, month, context=None):
+    return getMonthNames(cr, uid, context=context)[month-1]
 
 def getRangeName(cr,uid,start_date,end_date,context):
     if not start_date or not end_date:
         return ""
     if start_date == end_date:
         f = LangFormat(cr, uid, context=context)
-        return f.formatLang(start_date, date=True)
+        return "%s, %s" % (f.formatLang(start_date, date=True), f.getDayShortName(start_date))
     else:
         start = util.strToDate(start_date)
         end = util.strToDate(end_date)
