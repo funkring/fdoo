@@ -412,8 +412,10 @@ class sale_order_line(osv.osv):
                         work_minutes = round(work.hours * 60)
                         work_minutes_rest = work_minutes % 15
                         if work_minutes_rest:
-                            work_minutes = work_minutes + (15 - work_minutes_rest)                        
-                        hours+=float(work_minutes) / 60.0
+                            work_minutes = work_minutes + (15 - work_minutes_rest)
+                        
+                        task_hours = float(work_minutes) / 60.0                
+                        hours+=task_hours
                                                 
                         work_line = []
                         
@@ -422,7 +424,7 @@ class sale_order_line(osv.osv):
                             work_line.append(f.formatLang(util.timeToDateStr(work.date), date=True))
                        
                         # append time
-                        work_line.append(_("%s Hour(s)") % f.formatLang(hours, float_time=True))
+                        work_line.append(_("%s Hour(s)") % f.formatLang(task_hours, float_time=True))
                              
                         # append name
                         if work.name:
