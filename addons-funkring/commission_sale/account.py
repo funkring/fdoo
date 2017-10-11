@@ -171,8 +171,8 @@ class account_invoice(osv.osv):
         commission_line_obj._update_bonus(cr, uid, salesman_ids, period_ids, context=context)
         return res
         
-    def action_move_create(self, cr, uid, ids, context=None):
-        res = super(account_invoice, self).action_move_create(cr, uid, ids, context=context)
+    def confirm_paid(self, cr, uid, ids, context=None):
+        res = super(account_invoice, self).confirm_paid(cr, uid, ids, context=context)
         self._calc_sale_commission(cr, uid, ids, context=context)
         return res
   
