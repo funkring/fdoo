@@ -9,6 +9,7 @@
           <group>
             <field name="company_id" groups="base.group_multi_company"/>
             <field name="journal_id" domain="[('company_id','=',company_id)]"/>
+            <field name="exclude"/>
             <field name="csv"/>            
           </group>
           <footer>

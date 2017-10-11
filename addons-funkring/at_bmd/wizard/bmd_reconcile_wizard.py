@@ -39,6 +39,7 @@ class bmd_reconcile_wizard(models.TransientModel):
                                  default=lambda self: self.env['res.company']._company_default_get('bmd.reconcile.wizard'))
     
     journal_id = fields.Many2one("account.journal","Journal", required=True)
+    exclude = fields.Char("Ignoriere Kennzeichen", help="Ignoriere Kennzeigen beim Import mit Beistrich getrennt")
     csv = fields.Binary("Offene Postenliste (CSV)", required=True)
     
     
@@ -85,6 +86,9 @@ class bmd_reconcile_wizard(models.TransientModel):
         
         numbers = []
         invoice_obj = self.env["account.invoice"]
+        
+        exclude = wizard.exclude or ""
+        exclude = set(exclude.split(","))
                  
         def parseStr(val):
             if not val:
@@ -127,12 +131,11 @@ class bmd_reconcile_wizard(models.TransientModel):
                 
                 if len(row) <= last_col or not row[0] or not row[0].strip():
                     continue
-                 
                 
                 bs = parseStr(row[fields["BS"]])
-                #if bs != "AR":
-                #  continue
-                
+                if bs in exclude:
+                  continue
+
                 number = parseStr(row[fields["Rng-Nr"]])
                 if not number:
                     Warning("Rechnungsnummer in Zeile %s ist leer" % row_n)
