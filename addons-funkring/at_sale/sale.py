@@ -191,6 +191,10 @@ class sale_order(osv.osv):
             if not payment_term and shop_id:
                 shop = self.pool.get("sale.shop").browse(cr,uid,shop_id)
                 value["payment_term"]=shop.payment_default_id and shop.payment_default_id.id or None
+            if part:
+              partner = self.pool["res.partner"].browse(cr, uid, part, context=context)
+              if partner.invoice_partner_id:
+                value["partner_invoice_id"] = partner.invoice_partner_id.id
         return res
 
     def onchange_shop_id(self, cr, uid, ids, shop_id, state, project_id, context=None):
