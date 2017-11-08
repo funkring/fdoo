@@ -98,3 +98,4 @@ python -m pip install zeep
 python -m pip install backports.functools_lru_cache
 python -m pip install pandas
 python -m pip install gdata
+python -m pip install woocommerce
