@@ -173,6 +173,13 @@ def mergeTimeStr(inTime1,inTime2):
 def formatToMonthDate(inDate):
     return datetime.strftime(strToDate(inDate),"%m.%Y")
 
+def getNextSecond(inTime):
+    return timeToStr(strToTime(inTime)+relativedelta(seconds=1))
+
+def getNextMinute(inTime):
+    t = strToTime(inTime)
+    return timeToStr(t+relativedelta(minutes=1,seconds=-t.second))
+
 def getNextDayOfMonthDate(inDate,inDay=-1,inMonth=1):
     if inDay >= 1:
         inDay -= 1
