@@ -1,0 +1,30 @@
+<openerp>
+  <data>
+    
+    <record id="search_mrp_bom" model="ir.ui.view">
+      <field name="name">at_mrp.search_mrp_bom</field>
+      <field name="model">mrp.bom</field>
+      <field name="inherit_id" ref="mrp.view_mrp_bom_filter"/>
+      <field name="arch" type="xml">
+         <field name="product_id" position="after">
+            <field name="product_categ_id"/>            
+         </field>
+         <filter string="Product" position="after">
+            <filter string="Category" context="{'group_by':'product_categ_id'}"/>
+         </filter>
+      </field>
+    </record>
+
+    <record id="tree_mrp_bom" model="ir.ui.view">
+      <field name="name">at_mrp.tree_mrp_bom</field>
+      <field name="model">mrp.bom</field>      
+      <field name="arch" type="xml">
+         <tree string="BOM">
+            <field name="name"/>
+            <field name="product_categ_id"/>
+         </tree>
+      </field>
+    </record>
+
+  </data>
+</openerp>

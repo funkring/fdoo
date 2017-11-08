@@ -18,14 +18,24 @@
 #
 ##############################################################################
 
-{
-    "name" : "oerp.at MRP",
-    "description":"Funkring.net MRP Extensions",
-    "version" : "1.0",
-    "author" :  "funkring.net",
-    "category" : "Manufacturing",
-    "depends" : ["at_base","mrp"],
-    "data" : ["view/mrp_view.xml"],
-    "auto_install" : False,
-    "installable": True
-}
+from openerp.osv import fields, osv
+
+class mrp_bom(osv.Model):
+  
+  def _product_categ_id(self, cr, uid, ids, field_name, arg, context=None):
+    res = dict.fromkeys(ids)
+    for obj in self.browse(cr, uid, ids, context):
+      res[obj.id] = obj.product_tmpl_id.categ_id.id    
+    return res
+  
+  def _relids_product_template(self, cr, uid, ids, context=None):
+    cr.execute("SELECT id FROM mrp_bom WHERE product_tmpl_id IN %s", (tuple(ids),))
+    return [r[0] for r in cr.fetchall()]
+  
+  _inherit = "mrp.bom"
+  _columns = {
+    "product_categ_id" : fields.function(_product_categ_id, string="Product Category", type="many2one", obj="product.category", store={
+      "product.template" : (_relids_product_template,["categ_id"], 10),
+      "mrp.bom": (lambda self, cr, uid, ids, context=None: ids, ["product_tmpl_id"], 10)
+    })
+  }
