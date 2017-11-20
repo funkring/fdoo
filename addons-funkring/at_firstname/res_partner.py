@@ -36,5 +36,8 @@ class res_partner(osv.osv):
         return res
     
     _inherit = "res.partner"
+    _columns = {
+      "is_person": fields.boolean("Person")
+    }
 
 

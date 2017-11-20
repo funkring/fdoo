@@ -224,6 +224,9 @@ class sale_order_line(osv.osv):
         'number_packages': fields.function(_number_packages, type='integer', string='Number Packages'),
         'route_id': fields.many2one('stock.location.route', 'Route', domain=[('sale_selectable', '=', True)]),
         'product_tmpl_id': fields.related('product_id', 'product_tmpl_id', type='many2one', relation='product.template', string='Product Template'),
+        # funkring.net - begin
+        'price_nocalc': fields.boolean('No Price Calculation', copy=False)
+        # funkrnig.net - end
     }
 
     _defaults = {
@@ -332,6 +335,7 @@ class sale_order_line(osv.osv):
                     break             
         return is_available
     
+    # funkring.net - begin
     def product_id_change_with_wh(self, cr, uid, ids, pricelist, product, qty=0,
             uom=False, qty_uos=0, uos=False, name='', partner_id=False,
             lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False, warehouse_id=False, route_id=False, context=None):
@@ -394,7 +398,18 @@ class sale_order_line(osv.osv):
                     }
         res.update({'warning': warning})
         return res
-    # funkrnig.net - end
+      
+    def product_id_change_with_wh_price(self, cr, uid, ids, pricelist, product, qty=0,
+            uom=False, qty_uos=0, uos=False, name='', partner_id=False,
+            lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False, warehouse_id=False, route_id=False, price_unit=None, price_nocalc=False, context=None):
+      res = self.product_id_change_with_wh(cr, uid, ids, pricelist, product, qty=qty,
+            uom=uom, qty_uos=qty_uos, uos=uos, name=name, partner_id=partner_id,
+            lang=lang, update_tax=update_tax, date_order=date_order, packaging=packaging, fiscal_position=fiscal_position, flag=flag, warehouse_id=warehouse_id, route_id=route_id, context=context)
+      
+      if price_nocalc and not price_unit is None:
+        res["value"]["price_unit"] = price_unit
+       
+    # funkring.net - end
     
     def button_cancel(self, cr, uid, ids, context=None):
         lines = self.browse(cr, uid, ids, context=context)

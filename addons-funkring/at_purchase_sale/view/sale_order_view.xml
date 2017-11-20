@@ -53,7 +53,7 @@
                -->                    
                <xpath expr="//field[@name='order_line']/tree/field[@name='route_id']" position="after">
                    <field name="available" groups="at_purchase_sale.group_available_status" string="" 
-                        on_change="product_id_change_with_wh(parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, False, False, parent.date_order, product_packaging, parent.fiscal_position, True, parent.warehouse_id, route_id, context)"/>
+                        on_change="product_id_change_with_wh_price(parent.pricelist_id, product_id, product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, False, False, parent.date_order, product_packaging, parent.fiscal_position, True, parent.warehouse_id, route_id, price_unit, price_nocalc, context)"/>
                    <button name="action_available" type="object" icon="STOCK_NO" attrs="{'invisible': [('available','=',True)]}" groups="at_purchase_sale.group_available_status"/>                   
                </xpath>             
           </field>

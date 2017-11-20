@@ -265,6 +265,27 @@ class sale_order(osv.osv):
 
 
 class sale_order_line(osv.osv):
+  
+    def _price_unit_norecalc(self, cr, uid, ids, product_id, context=None):
+      prod_vals = self.pool["product.product"].read(cr, uid, product_id, ["list_price"], context=context)
+      if prod_vals.get("list_price"):
+        return True
+      return False
+
+    def product_id_change_with_wh_price(self, cr, uid, ids, pricelist, product, qty=0,
+            uom=False, qty_uos=0, uos=False, name='', partner_id=False,
+            lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False, warehouse_id=False, route_id=False, price_unit=None, price_nocalc=False, context=None):
+          
+      if self._price_unit_norecalc(cr, uid, ids, product, context=context):
+        price_nocalc = True
+          
+      res = super(sale_order_line, self).product_id_change_with_wh_price(cr, uid, ids, pricelist, product, qty=qty,
+            uom=uom, qty_uos=qty_uos, uos=uos, name=name, partner_id=partner_id,
+            lang=lang, update_tax=update_tax, date_order=date_order, packaging=packaging, 
+            fiscal_position=fiscal_position, flag=flag, warehouse_id=warehouse_id, 
+            route_id=route_id, price_unit=price_unit, price_nocalc=price_nocalc, context=context)
+
+      return res
 
     def _amount_line_taxed(self, cr, uid, ids, field_name, arg, context=None):
         tax_obj = self.pool.get('account.tax')
@@ -328,7 +349,8 @@ class sale_order_line(osv.osv):
 
     _inherit = "sale.order.line"
     _columns = {
-        "price_subtotal_taxed" : fields.function(_amount_line_taxed,string="Subtotal (Brutto)",digits_compute= dp.get_precision("Sale Price")),
-        "price_unit_untaxed" : fields.function(_price_unit_untaxed,string="Price Untaxed",digits_compute= dp.get_precision("Sale Price"))
+        "price_subtotal_taxed": fields.function(_amount_line_taxed,string="Subtotal (Brutto)",digits_compute= dp.get_precision("Sale Price")),
+        "price_unit_untaxed": fields.function(_price_unit_untaxed,string="Price Untaxed",digits_compute= dp.get_precision("Sale Price")),
+        "price_nocalc": fields.boolean("No Price Calculation", readonly=True, copy=False)
     }
 

@@ -71,7 +71,8 @@ class project_task_type(osv.Model):
         "active" : fields.boolean("Active")
     }
     _defaults = {
-        "active" : True
+        "active" : True,
+        "sequence": 10
     }
 
 
