@@ -408,6 +408,8 @@ class sale_order_line(osv.osv):
       
       if price_nocalc and not price_unit is None:
         res["value"]["price_unit"] = price_unit
+        
+      return res
        
     # funkring.net - end
     

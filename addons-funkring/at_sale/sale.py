@@ -267,9 +267,10 @@ class sale_order(osv.osv):
 class sale_order_line(osv.osv):
   
     def _price_unit_norecalc(self, cr, uid, ids, product_id, context=None):
-      prod_vals = self.pool["product.product"].read(cr, uid, product_id, ["list_price"], context=context)
-      if prod_vals.get("list_price"):
-        return True
+      if product_id:
+        prod_vals = self.pool["product.product"].read(cr, uid, product_id, ["list_price"], context=context)
+        if prod_vals and not prod_vals.get("list_price"):
+          return True
       return False
 
     def product_id_change_with_wh_price(self, cr, uid, ids, pricelist, product, qty=0,
