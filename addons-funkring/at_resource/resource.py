@@ -29,7 +29,7 @@ import math
 
 class resource_calendar(osv.osv):
           
-    def get_leave_intervals(self, cr, uid, oid, resource_id=None,
+    def get_leave_intervals(self, cr, uid, id, resource_id=None,
                             start_datetime=None, end_datetime=None,
                             context=None):
         """Get the leaves of the calendar. Leaves can be filtered on the resource,
@@ -50,7 +50,7 @@ class resource_calendar(osv.osv):
         resource_cal_leaves = self.pool.get('resource.calendar.leaves')
         dt_leave = []
 
-        query = "SELECT id FROM resource_calendar_leaves AS l WHERE ( l.calendar_id IS NULL OR calendar_id=%s )" % (str(oid),)        
+        query = "SELECT id FROM resource_calendar_leaves AS l WHERE ( l.calendar_id IS NULL OR calendar_id=%s )" % (str(id),)        
         if resource_id:
             query += " AND ( l.resource_id IS NULL OR l.resource_id = %s )" % (str(resource_id),)
         else:
@@ -121,15 +121,15 @@ class resource_calendar(osv.osv):
             dt_from +=  step
         return non_working_days
                 
-    def passed_range(self, cr, uid, oid, dt_from ,working_days, resource=False, context=None):
-        if not oid:
+    def passed_range(self, cr, uid, id, dt_from ,working_days, resource=False, context=None):
+        if not id:
             return None
         
         dt_cur = util.timeToDate(dt_from)
         step = relativedelta(days=1)
         
         attent_obj = self.pool.get("resource.calendar.attendance")
-        leaves =  self.get_leave_intervals(cr, uid, oid, resource, dt_from, context=context)            
+        leaves =  self.get_leave_intervals(cr, uid, id, resource, dt_from, context=context)            
                 
         res_dt_from = None
         res_dt_to = None
@@ -139,7 +139,7 @@ class resource_calendar(osv.osv):
         while (days_left > 0):
             cur_date = util.dateToStr(dt_cur)            
             if not cur_date in leaves:
-                attent_ids = attent_obj.search(cr,uid,[('dayofweek','=',str(dt_cur.weekday())),('calendar_id','=',oid)])                
+                attent_ids = attent_obj.search(cr,uid,[('dayofweek','=',str(dt_cur.weekday())),('calendar_id','=',id)])                
                 if attent_ids:                                                           
                     dt_first = None
                     dt_last = None

@@ -27,16 +27,16 @@ from openerp.tools.translate import _
 
 class account_btakeover(osv.osv):
     
-    def copy_data(self, cr, uid, oid, default=None, context=None):                
+    def copy_data(self, cr, uid, id, default=None, context=None):                
         if not default:
             default = {}      
-        btakeover = self.browse(cr, uid, oid)
+        btakeover = self.browse(cr, uid, id)
         default.update({
             "state" : "draft",
             "name" : btakeover.name+_(" copy")
         })
         
-        res = super(account_btakeover,self).copy_data(cr,uid,oid,default,context)
+        res = super(account_btakeover,self).copy_data(cr,uid,id,default,context)
         return res
     
     def do_draft(self, cr, uid, ids, context):
@@ -125,7 +125,7 @@ class account_btakeover(osv.osv):
 
 class account_btakeover_line(osv.osv):
     
-    def copy_data(self, cr, uid, oid, default=None, context=None):                
+    def copy_data(self, cr, uid, id, default=None, context=None):                
         if not default:
             default = {}      
             
@@ -139,7 +139,7 @@ class account_btakeover_line(osv.osv):
         if not default.has_key("move_id"):
             default["move_id"]=None
         
-        res = super(account_btakeover_line,self).copy_data(cr,uid,oid,default,context)
+        res = super(account_btakeover_line,self).copy_data(cr,uid,id,default,context)
         return res
     
     def _balance_is(self, cr, uid, ids, field_name, args, context=None):

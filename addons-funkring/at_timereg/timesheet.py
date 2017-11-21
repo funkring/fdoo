@@ -254,11 +254,11 @@ class hr_timesheet_sheet(osv.osv):
         res["total_saldo"] = total_saldo
         return res
 
-    def get_timesheet_data(self, cr, uid, oid, context=None):
-        days = super(hr_timesheet_sheet,self).get_timesheet_data(cr, uid, oid, context=context)
+    def get_timesheet_data(self, cr, uid, id, context=None):
+        days = super(hr_timesheet_sheet,self).get_timesheet_data(cr, uid, id, context=context)
         working_hour_obj = self.pool.get("resource.calendar")
         employee_obj = self.pool.get("hr.employee")
-        sheet = self.browse(cr, uid, oid, context)
+        sheet = self.browse(cr, uid, id, context)
         for key,value in days.items():
             contract = employee_obj._get_contract(cr, uid, sheet.employee_id.id, date_from=key, date_to=key, context=context)
             if contract:

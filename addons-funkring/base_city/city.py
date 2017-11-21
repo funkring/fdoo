@@ -30,10 +30,10 @@ class City(osv.Model):
             res[row[0]]=row[2] or row[1] or None 
         return res
     
-    def _country_id_set(self, cr, uid, oid, field_name, field_value, arg, context=None):
-        state_id = self.read(cr, uid, oid, ["state_id"], context=context)["state_id"]
-        if not state_id and oid:
-            cr.execute("UPDATE res_city SET country_id = %s WHERE id = %s", (field_value,oid)) 
+    def _country_id_set(self, cr, uid, id, field_name, field_value, arg, context=None):
+        state_id = self.read(cr, uid, id, ["state_id"], context=context)["state_id"]
+        if not state_id and id:
+            cr.execute("UPDATE res_city SET country_id = %s WHERE id = %s", (field_value,id)) 
         
     def name_get(self, cr, user, ids, context=None):
         res = []

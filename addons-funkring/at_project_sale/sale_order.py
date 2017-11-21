@@ -344,8 +344,8 @@ class sale_order(osv.osv):
             res[project.order_id.id] = project.id
         return res
     
-    def copy_data(self, cr, uid, oid, default=None, context=None):
-        order = self.browse(cr, uid, oid, context=context)
+    def copy_data(self, cr, uid, id, default=None, context=None):
+        order = self.browse(cr, uid, id, context=context)
         
         # don't copy if auto create is enabled        
         if (default is None or not "project_id" in default) and order.shop_id.autocreate_order_analytic_account:
@@ -356,7 +356,7 @@ class sale_order(osv.osv):
             default["project_id"] = None
             
             
-        res = super(sale_order, self).copy_data(cr, uid, oid,  default=default, context=context)
+        res = super(sale_order, self).copy_data(cr, uid, id, default=default, context=context)
         return res
     
     def action_button_confirm(self, cr, uid, ids, context=None):

@@ -136,14 +136,14 @@ class sale_order(osv.osv):
                 res[obj.id]=sql_res[0]
         return res
 
-    def _tax_amount(self,cr,uid,oid,context=None):
+    def _tax_amount(self,cr,uid,id,context=None):
         """
         RETURN: {
                 tax.id: 0.0
             }
         """
         res = {}
-        order_rec = self.browse(cr, uid, oid, context)
+        order_rec = self.browse(cr, uid, id, context)
         for line_rec in order_rec.order_line:
             tax_calc = self.pool.get("account.tax").compute_all(cr, uid, line_rec.tax_id,
                                             line_rec.price_unit * (1-(line_rec.discount or 0.0)/100.0), line_rec.product_uom_qty,
@@ -156,13 +156,13 @@ class sale_order(osv.osv):
                 res[tax_id] = amount
         return res
 
-    def copy(self, cr, uid, oid, default=None, context=None):
+    def copy(self, cr, uid, id, default=None, context=None):
         if not default:
             default = {}
 
         client_order_ref = default.get("client_order_ref",None)
         if not client_order_ref:
-            order = self.browse(cr, uid, oid, context)
+            order = self.browse(cr, uid, id, context)
             client_order_ref = order.client_order_ref
             if client_order_ref:
                 client_order_ref = client_order_ref + " " + _("Copy")
@@ -172,7 +172,7 @@ class sale_order(osv.osv):
         default.update({
             "client_order_ref": client_order_ref
         })
-        return super(sale_order, self).copy(cr, uid, oid, default=default, context=context)
+        return super(sale_order, self).copy(cr, uid, id, default=default, context=context)
 
     def default_get(self, cr, uid, fields_list, context=None):
         res = super(sale_order,self).default_get(cr,uid,fields_list,context)

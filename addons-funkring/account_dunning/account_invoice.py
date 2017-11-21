@@ -22,14 +22,14 @@ from openerp.osv import fields, osv
 
 class account_invoice(osv.osv):
     
-    def copy(self, cr, uid, oid, default=None, context=None):
+    def copy(self, cr, uid, id, default=None, context=None):
         if not default:
             default = {}        
         if not default.has_key("profile_line_id"):        
             default["profile_line_id"]=None
         if not default.has_key("dunning_date"):        
             default["dunning_date"]=None
-        copy_id =  super(account_invoice,self).copy(cr,uid,oid,default,context)
+        copy_id =  super(account_invoice,self).copy(cr, uid ,id, default, context)
         return copy_id        
 
     def _get_followup_line(self, cr, uid, ids, field_name, args, context=None):

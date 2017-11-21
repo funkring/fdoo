@@ -151,7 +151,7 @@ class res_group(osv.Model):
 
 class res_user(osv.Model):
     
-    def copy_data(self, cr, uid, oid, default=None, context=None):
+    def copy_data(self, cr, uid, id, default=None, context=None):
         if not default:
             default = {}
         
@@ -160,7 +160,7 @@ class res_user(osv.Model):
         if not default.has_key("posix_alias_ids"):
             default["posix_alias_ids"]=None
             
-        res = super(res_user, self).copy_data(cr, uid, oid, default, context)
+        res = super(res_user, self).copy_data(cr, uid, id, default, context)
         
         return res
     

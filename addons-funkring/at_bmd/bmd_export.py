@@ -26,14 +26,14 @@ import base64
 
 class bmd_export(osv.osv):
         
-    def _create_or_replace_attachment(self,cr,uid,oid,name,file_name,data=None,datas=None,context=None):
+    def _create_or_replace_attachment(self,cr,uid,id,name,file_name,data=None,datas=None,context=None):
         attachment_obj = self.pool.get('ir.attachment')
-        attachment_id = attachment_obj.search_id(cr, uid, [("datas_fname","=",file_name),("res_model","=","bmd.export"),("res_id","=",oid)])
+        attachment_id = attachment_obj.search_id(cr, uid, [("datas_fname","=",file_name),("res_model","=","bmd.export"),("res_id","=",id)])
         vals = {   "name": name,
                    "datas": data and base64.encodestring(data) or datas,
                    "datas_fname": file_name,
                    "res_model" : "bmd.export",
-                   "res_id" : oid }
+                   "res_id" : id }
         
         if attachment_id:            
             attachment_obj.write(cr, uid, attachment_id, vals, context=context)
