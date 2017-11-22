@@ -1373,6 +1373,11 @@ class Root(object):
             httprequest.session.context["lang"] = lang
 
     def get_request(self, httprequest):
+        # funkring.net - begin
+        # http override
+        if httprequest.path.startswith("/http/"):
+          return HttpRequest(httprequest)
+        # funkring.net - end
         # deduce type of request
         if httprequest.args.get('jsonp'):
             return JsonRequest(httprequest)
