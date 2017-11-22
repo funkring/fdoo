@@ -20,6 +20,29 @@
 
 from openerp import models, fields, api, _
 
+class account_invoice(models.Model):
+    _inherit = "account.invoice"
+    
+    @api.multi
+    def invoice_send(self, force=False):
+      # get template
+      template = self.env.ref('account.email_template_edi_invoice', False)
+      message_obj = self.env["mail.compose.message"]
+      # send all unsent
+      for inv in self:
+        if not inv.sent or force:
+          message = message_obj.with_context(
+            default_template_id=template.id,                                        
+            default_model="account.invoice",
+            default_res_id=inv.id,
+            mark_invoice_as_sent=True,
+            default_partner_ids=[inv.partner_id.id],
+            default_composition_mode="comment",
+            default_notify=True).create({})
+          # finally sent
+          message.send_mail()
+      
+    
 class account_invoice_line(models.Model):
     _inherit = "account.invoice.line"
     

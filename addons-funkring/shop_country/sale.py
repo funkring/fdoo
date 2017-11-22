@@ -47,7 +47,7 @@ class sale_order(osv.Model):
                 # determine shop for country
                 shop_obj = self.pool["sale.shop"]
                 if not shop_id or not shop_obj.search(cr, uid, [("id","=",shop_id),'|',("country_ids","=",False),("country_ids","=",country_id)], count=True):
-                    value["shop_id"] = shop_obj.search_id(cr, uid, ['|',("country_ids","=",False),("country_ids","in",country_id)]) or value.get("shop_id", shop_id)
+                  value["shop_id"] = shop_obj.search_id(cr, uid, ['|',("country_ids","=",False),("country_ids","=",country_id)]) or value.get("shop_id", shop_id)
                 
         return res
     

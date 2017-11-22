@@ -29,6 +29,7 @@ from functools import partial
 
 import qrcode
 import qrcode.image.svg 
+from openerp import api
 
 try:
     import cStringIO as StringIO
@@ -36,6 +37,45 @@ except ImportError:
     import StringIO
 
 class account_invoice(osv.osv):
+     
+    def create_voucher(self, cr, uid, id, journal_id, context=None):
+      if context is None:
+        context = {}
+      
+      inv = self.browse(cr, uid, id, context=context)
+      
+      voucher_obj = self.pool["account.voucher"]
+      res = inv.invoice_pay_customer()
+      
+      voucher_ctx = dict(context)
+      voucher_ctx.update(res["context"])
+      
+      partner_id = voucher_ctx["default_partner_id"]
+      amount = voucher_ctx["default_amount"]
+      voucher_type = voucher_ctx["type"]
+      
+      res = voucher_obj.onchange_journal_voucher(cr, uid, [],
+                                          partner_id=partner_id,
+                                          price=amount,
+                                          journal_id=journal_id,
+                                          ttype=voucher_type,
+                                          company_id=inv.company_id.id,
+                                          context=voucher_ctx)
+      
+              
+      values = res["value"]
+      values["journal_id"] = journal_id
+      
+      def conv_ids(name):                
+          if name in values:
+              values[name] = [(0,0,v) for v in values[name]]
+         
+      conv_ids("line_cr_ids")
+      conv_ids("line_dr_ids")     
+                          
+      voucher_id = voucher_obj.create(cr, uid, values, context=voucher_ctx)
+      voucher_obj.button_proforma_voucher(cr, uid, [voucher_id], context=voucher_ctx)
+      return voucher_id
 
     def _create_payment(self, cr, uid, invoice_id, journal_id,
                         compensation_id=None,
