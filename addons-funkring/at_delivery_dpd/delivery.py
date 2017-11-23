@@ -169,10 +169,15 @@ class delivery_carrier(osv.Model):
                 parts["password"] = md5(profile.password).hexdigest()
                 parts["mandant"] = profile.client
                 parts["kdnr"] = partner.ref or ""
-                              
-                name = partner.name or ""
-                zusatz = ""
+
+                name = partner.name.strip()
+                bezugsp = partner.street2 and partner.street2.strip() or ""             
+                parent_partner = partner.parent_id              
+                if not partner.mail_without_company and parent_partner:
+                  name = parent_partner.name
+                  bezugsp = partner.name.strip()
                 
+                zusatz = ""                
                 if len(name) > 48:
                     shortName = name[:48]
                     lastSpacePos = shortName.rfind(" ")
@@ -192,7 +197,7 @@ class delivery_carrier(osv.Model):
                 parts["ort"] = partner.city and partner.city.strip() or ""
                 parts["land"] = partner.country_id and partner.country_id.code or "AT"
                  
-                parts["bezugsp"] = partner.street2 and partner.street2.strip() or ""
+                parts["bezugsp"] = bezugsp
                 parts["tel"] = partner.phone or partner.mobile or ""
                 parts["mail"] = partner.email or ""
                 parts["liefernr"] = picking.name or ""
