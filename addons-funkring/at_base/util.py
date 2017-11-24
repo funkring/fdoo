@@ -158,7 +158,7 @@ def currentUTCDateTime():
     return datetime.utcnow().strftime(DHM_FORMAT)
 
 def nextMinute():
-    return timeToStr(datetime.now()+relativedelta(minute=1))
+    return timeToStr(datetime.now()+relativedelta(minutes=1))
 
 def mergeTime(inTime1,inTime2):
     inTime1 = strToTime(inTime1)
