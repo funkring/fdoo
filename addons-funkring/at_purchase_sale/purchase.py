@@ -30,10 +30,16 @@ class purchase_order(osv.osv):
 #                 raise osv.except_osv(_("Error"), _("A purchase order linked with an sale order cannot be merged!"))
 #         return super(purchase_order, self).do_merge(cr, uid, ids, context=context)
     
+    
     def _prepare_order_line_move(self, cr, uid, order, order_line, picking_id, group_id, context=None):
         ''' prepare the stock move data from the PO line. This function returns a list of dictionary ready to be used in stock.move's create()
             inherited from purchase/purchase.py
         '''
+        
+        # override group_id if sale order and a procurement group exist
+        if order.sale_order_id and order.sale_order_id.procurement_group_id:
+          group_id = order.sale_order_id.procurement_group_id.id
+      
         product_uom = self.pool.get('product.uom')
         price_unit = order_line.price_unit
         if order_line.product_uom.id != order_line.product_id.uom_id.id:
@@ -111,7 +117,7 @@ class purchase_order(osv.osv):
             move_template['product_uos_qty'] = diff_quantity
             res.append(move_template)
         return res
-    
+
     _inherit = "purchase.order"
     _columns = {    
         "sale_order_id" : fields.many2one("sale.order","Sale Order", states={"confirmed":[("readonly",True)], "approved":[("readonly",True)],"done":[("readonly",True)]}, ondelete="set null", copy=False),

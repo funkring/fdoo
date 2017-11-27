@@ -30,7 +30,7 @@ Sale Change
     "author" :  "oerp.at",
     "website" : "http://oerp.at",
     "category" : "Sales",
-    "depends" : ["at_sale","sale"],
+    "depends" : ["at_sale","sale","at_purchase_sale"],
     "data" : ["wizard/sale_order_edit_wizard.xml",
               "view/sale_order.xml"],
     "auto_install" : False,

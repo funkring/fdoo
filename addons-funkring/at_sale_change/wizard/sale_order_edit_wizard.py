@@ -30,11 +30,12 @@ class sale_order_edit_wizard_line(models.TransientModel):
     discount = fields.Float("Discount")
     price_unit = fields.Float("Price")
     qty = fields.Float("Quantity")
-    price_subtotal = fields.Float("Total", readonly=True)    
+    price_subtotal = fields.Float("Total", readonly=True)   
+    route_id = fields.Many2one("stock.location.route", "Route", domain=[("sale_selectable", "=", True)])
     modify = fields.Boolean("Modify")
     
     @api.multi
-    def onchange_line(self, line_id, name, discount, price_unit, qty, modify):
+    def onchange_line(self, line_id, name, discount, price_unit, qty, route_id, modify):
         value = {}
         res = {"value": value}
         
@@ -82,6 +83,7 @@ class sale_order_edit_wizard(models.TransientModel):
                             "price_unit" : line.price_unit,
                             "price_subtotal" : line.price_subtotal,
                             "qty" : line.product_uom_qty,
+                            "route_id": line.route_id.id,
                             "modify" : False
                         }))     
                 
@@ -104,11 +106,18 @@ class sale_order_edit_wizard(models.TransientModel):
             # line modify
             for line in self.line_ids:
                 if line.modify:
+                    new_route = line.line_id.route_id
+                    cur_route = line.route_id
+                    # check modify route
+                    if new_route.id != cur_route.id:
+                      pass
+                    
                     line.line_id.write({
                         "name" : line.name,
                         "discount" : line.discount,
                         "price_unit" : line.price_unit,
-                        "product_uom_qty" : line.qty
+                        "product_uom_qty" : line.qty,
+                        "route_id": line.route_id.id
                     })
                     
             # order modify

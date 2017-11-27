@@ -23,12 +23,13 @@
            <field name="line_ids">
              <tree editable="buttom">
                  <field name="line_id"/>
-                 <field name="name" on_change="onchange_line(line_id, name, discount, price_unit, qty, modify)"/>
-                 <field name="qty"  on_change="onchange_line(line_id, name, discount, price_unit, qty, modify)" />
-                 <field name="discount" on_change="onchange_line(line_id, name, discount, price_unit, qty, modify)"/>
-                 <field name="price_unit" on_change="onchange_line(line_id, name, discount, price_unit, qty, modify)"/>
-                 <field name="price_subtotal" on_change="onchange_line(line_id, name, discount, price_unit, qty, modify)"/>
-                 <field name="modify" on_change="onchange_line(line_id, name, discount, price_unit, qty, modify)"/>
+                 <field name="name" on_change="onchange_line(line_id, name, discount, price_unit, qty, route_id, modify)"/>
+                 <field name="qty"  on_change="onchange_line(line_id, name, discount, price_unit, qty, route_id, modify)" />
+                 <field name="discount" on_change="onchange_line(line_id, name, discount, price_unit, qty, route_id, modify)"/>
+                 <field name="price_unit" on_change="onchange_line(line_id, name, discount, price_unit, qty, route_id, modify)"/>
+                 <field name="price_subtotal" on_change="onchange_line(line_id, name, discount, price_unit, qty, route_id, modify)"/>
+                 <field name="route_id" on_change="onchange_line(line_id, name, discount, price_unit, qty, route_id, modify)"/>
+                 <field name="modify" on_change="onchange_line(line_id, name, discount, price_unit, qty, route_id, modify)"/>
              </tree>
            </field>
           </div>         
