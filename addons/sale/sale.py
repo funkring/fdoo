@@ -949,7 +949,9 @@ class sale_order_line(osv.osv):
                     \n* The \'Exception\' status is set when the related sales order is set as exception. \
                     \n* The \'Done\' status is set when the sales order line has been picked. \
                     \n* The \'Cancelled\' status is set when a user cancel the sales order related.'),
-        'order_partner_id': fields.related('order_id', 'partner_id', type='many2one', relation='res.partner', store=True, string='Customer'),
+        # funkring.net - begin
+        'order_partner_id': fields.related('order_id', 'partner_id', type='many2one', relation='res.partner', store=True, string='Customer', readonly=True),
+        # funkring.net - end
         'salesman_id':fields.related('order_id', 'user_id', type='many2one', relation='res.users', store=True, string='Salesperson'),
         'company_id': fields.related('order_id', 'company_id', type='many2one', relation='res.company', string='Company', store={
             'sale.order': (_get_sale_order, ['company_id'], 20),
