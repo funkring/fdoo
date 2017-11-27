@@ -5,8 +5,8 @@
             <field name="model">account.reminder</field>
             <field name="arch" type="xml">
                 <search string="Account reminder">
-                    <field name="date" filter_domain="[('date', 'ilike', self)]" string="Date" />
-                    <field name="partner_id" filter_domain="[('partner_id', 'ilike', self)]" string="Partner"/>
+                    <field name="partner_id" filter_domain="['|','|',('partner_id', 'ilike', self),('partner_id.property_account_receivable','ilike',self),('partner_id.property_account_position','ilike',self)]" string="Partner"/>
+                    <field name="date" filter_domain="[('date','ilike',self)]"/>                    
                     <field name="max_profile_line_id" filter_domain="[('max_profile_line_id', 'ilike', self)]" string="Highest dunning level"/>
                     <group expand="0" string="Group By...">
                         <filter string="State" context="{'group_by': 'state'}"/>
