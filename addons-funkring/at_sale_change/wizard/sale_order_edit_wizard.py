@@ -19,6 +19,7 @@
 ##############################################################################
 
 from openerp import models, fields, api, _
+from openerp.exceptions import Warning
 
 class sale_order_edit_wizard_line(models.TransientModel):
     _name = "sale.order.edit.wizard.line"
@@ -102,23 +103,77 @@ class sale_order_edit_wizard(models.TransientModel):
     
     @api.multi
     def action_modify(self):
+      procurement_obj = self.env["procurement.order"]
+      for modify_wizard in self:
         if self.env.user.has_group("base.group_sale_manager"):
             # line modify
-            for line in self.line_ids:
-                if line.modify:
-                    new_route = line.line_id.route_id
-                    cur_route = line.route_id
-                    # check modify route
-                    if new_route.id != cur_route.id:
-                      pass
+            for line in modify_wizard.line_ids:
+                if modify_wizard.modify:
+                  
+                    order = self.order_id
+                    sale_line = line.line_id
+                  
+                    new_route = line.route_id
+                    cur_route = sale_line.route_id
                     
-                    line.line_id.write({
+                    values = {
                         "name" : line.name,
                         "discount" : line.discount,
                         "price_unit" : line.price_unit,
-                        "product_uom_qty" : line.qty,
-                        "route_id": line.route_id.id
-                    })
+                        "product_uom_qty" : line.qty                    
+                    }
+                    
+                    # get line values
+                    line_values = sale_line.product_id_change_with_wh_price(order.pricelist_id.id, sale_line.product_id.id, qty=line.qty,
+                                                    uom=sale_line.product_uom.id, name=line.name, partner_id=order.partner_id.id,
+                                                    update_tax=False, date_order=order.date_order, flag=True, 
+                                                    warehouse_id=order.warehouse_id.id, 
+                                                    route_id=line.route_id.id, 
+                                                    price_unit=line.price_unit, price_nocalc=True)["value"]
+                                                    
+                    values["product_uos_qty"] = line_values.get("product_uos_qty")
+                    values["product_uos"] = line_values.get("product_uos") 
+                    
+                    # check modify route
+                    # only if procurement is needed
+                    if new_route.id != cur_route.id and sale_line.need_procurement():
+                      procurements = procurement_obj.search([("sale_line_id","=",sale_line.id)])
+                      procurements.cancel()
+                      
+                      # update values
+                      values["route_id"] = new_route.id
+                      sale_line.write(values)
+                      
+                      # get procurement vals
+                      procurement_vals = order._prepare_order_line_procurement(order, sale_line, group_id=order.procurement_group_id.id)
+                      # create new procurement
+                      procurement = procurement_obj.with_context({
+                        "procurement_autorun_defer": True
+                      }).create(procurement_vals)
+                       
+                      # run and check procurement 
+                      procurement.run()
+                      procurement.check()              
+                      
+                      # cleanup lines
+                      for picking in order.picking_ids:
+                        if not picking.state in ("done","cancel"):
+                          moves = picking.move_lines
+                          deleted_moves = 0
+                          for move in moves:
+                            # delete line if canceled
+                            if move.state == "cancel":
+                              move.unlink()
+                              deleted_moves+=1
+                              
+                          # delete picking if empty
+                          if deleted_moves == len(moves):
+                            picking.unlink()
+                    
+                    else:
+                      
+                      # update values without procurement modify
+                      sale_line.write(values)
                     
             # order modify
             if self.modify:
@@ -127,4 +182,4 @@ class sale_order_edit_wizard(models.TransientModel):
                 self.order_id.partner_invoice_id = self.partner_invoice_id
                 self.order_id.partner_shipping_id = self.partner_shipping_id
                 
-        return True
+      return True
