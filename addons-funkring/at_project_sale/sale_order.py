@@ -445,7 +445,7 @@ class sale_order_line(osv.osv):
                 effective_hours += add_task(task)
                 
             # get quantity
-            res["quantity"] = max(effective_hours, res["quantity"])
+            res["quantity"] = effective_hours
             # set new work info
             if work_info:
                 res["name"] = "%s\n%s" % (res["name"], "\n".join(work_info))
