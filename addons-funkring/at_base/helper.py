@@ -204,3 +204,19 @@ def strTimeToUTCTimeStr(cr, uid, timestamp, context):
     l_timestamp = tz.localize(util.strToTime(timestamp))
     l_timestamp = l_timestamp.astimezone(pytz.utc)
     return util.timeToStr(l_timestamp)
+  
+  
+def onChangeValuesEnv(line_obj, values, onchange_values):
+    if onchange_values:
+      update_values = onchange_values.get("value")
+      if update_values:
+        fields = update_values.keys()
+        field_defs = line_obj.fields_get(allfields=fields)
+        for field, update_value in update_values.iteritems():
+          if field_defs[field]["type"] == "many2many":
+            values[field] = [(6,0, update_value or [])]
+          else:
+            values[field] = update_value
+    return values
+      
+      
