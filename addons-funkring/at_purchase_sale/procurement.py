@@ -35,13 +35,18 @@ class procurement_order(osv.osv):
         if sale_line:
             po_vals["sale_order_id"]=sale_line.order_id.id            
         return super(procurement_order,self).create_procurement_purchase_order(cr, uid, procurement, po_vals, line_vals, context=context)
-                
+       
     def _get_po_line_values_from_proc(self, cr, uid, procurement, partner, company, schedule_date, context=None):
         res = super(procurement_order, self)._get_po_line_values_from_proc(cr, uid, procurement, partner, company, schedule_date, context=context)
         sale_line = procurement.sale_line_id
         if sale_line:
             # set sale line 
             res["sale_line_id"] = sale_line.id
+            
+            # set name from sale line 
+            # if it is no a stockable product
+            if procurement.product_id.type != "product":
+              res["name"] = sale_line.name
                
             # procurement info note NOT added
             # because for example sale_purchase_quotation add procurement
