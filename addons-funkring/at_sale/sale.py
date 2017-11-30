@@ -183,6 +183,10 @@ class sale_order(osv.osv):
             res["payment_term"]=shop.payment_default_id and shop.payment_default_id.id or None
         return res
 
+    def onchange_delivery_id(self, cr, uid, ids, company_id, partner_id, delivery_id, fiscal_position, context=None):
+      """ ignore onchange_delivery_id for determining fiscal position """
+      return {"value": {}}
+
     def onchange_partner_id(self, cr, uid, ids, part, context=None, shop_id=None):
         res = super(sale_order,self).onchange_partner_id(cr,uid,ids,part,context=context)
         value = res.get("value")
@@ -195,7 +199,23 @@ class sale_order(osv.osv):
               partner = self.pool["res.partner"].browse(cr, uid, part, context=context)
               if partner.invoice_partner_id:
                 value["partner_invoice_id"] = partner.invoice_partner_id.id
+                
+            # update fiscal position
+            partner_invoice_id = value.get("partner_invoice_id")
+            if partner_invoice_id:
+              delivery_onchange = self.onchange_invoice_partner_id(cr, uid, ids, False, part, partner_invoice_id, False, context=context)
+              value.update(delivery_onchange["value"])
+              
         return res
+      
+    def onchange_invoice_partner_id(self, cr, uid, ids, company_id, partner_id, invoice_partner_id, fiscal_position, context=None):
+        r = {"value": {}}
+        if not company_id:
+            company_id = self._get_default_company(cr, uid, context=context)
+        fiscal_position = self.pool["account.fiscal.position"].get_fiscal_position(cr, uid, company_id, partner_id, invoice_partner_id, context=context)
+        if fiscal_position:
+            r["value"]["fiscal_position"] = fiscal_position        
+        return r
 
     def onchange_shop_id(self, cr, uid, ids, shop_id, state, project_id, context=None):
         value = {}

@@ -17,6 +17,11 @@
     						options='{"always_reload": True}' />
     				</field>
     				
+    				<field name="partner_invoice_id" position="replace">
+    				  <field name="partner_invoice_id" groups="sale.group_delivery_invoice_address" context="{'default_type':'invoice'}" 
+    				      on_change="onchange_invoice_partner_id(company_id, partner_id, partner_invoice_id, fiscal_position)"/>
+    				</field>
+    				
     				<!-- 
     				<field name="company_id" position="replace">
     				    <field name="company_id" attrs="{'readonly':[('state','!=','draft')]}"/>
