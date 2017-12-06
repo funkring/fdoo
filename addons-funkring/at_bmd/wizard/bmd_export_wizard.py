@@ -633,7 +633,7 @@ class bmd_export_result(osv.TransientModel):
                     f.adds("9-postfach","",20,177,196)
                     f.adds("10-postfach-plz","",12,197,208)
                     f.adds("59-strassenkz","",4,209,212)
-                    f.adds("12-staat",(foreigner and country_code) or "",3,213,215)                        
+                    f.adds("12-staat",country_code,3,213,215)                        
                     f.adds("13-kontaktperson",partner.name or "",30,216,245)
                     f.adds("14-telefonnummer",partner.phone or "",18,246,263)
                     f.adds("15-telefax",partner.fax or "",18,264,281)
