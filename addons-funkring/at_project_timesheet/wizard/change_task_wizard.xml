@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+  
+    <record id="wizard_change_task" model="ir.ui.view">
+      <field name="name">at_project_timesheet.wizard_change_task</field>
+      <field name="model">at_project_timesheet.change_task_wizard</field>
+      <field name="arch" type="xml">
+        <form string="Change Task">
+          <group>
+            <group>
+              <field name="name"/>
+              <field name="line_id" invisible="1"/>
+              <field name="project_id" on_change="onchange_project(project_id, task_id)"/>
+              <field name="task_id" domain="[('project_id','=',project_id)]"/>
+            </group>
+          </group>
+          <footer>
+            <button name="action_change" string="Modify" type="object" class="oe_highlight" />
+            <button name="action_delete" string="Delete" type="object"/>
+            or
+            <button special="cancel" string="Close" class="oe_link" />
+          </footer>
+        </form>
+      </field>
+    </record>
+    
+    <record id="action_change_task_wizard" model="ir.actions.act_window">
+      <field name="name">Change Task</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">at_project_timesheet.change_task_wizard</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+    </record>    
+
+  </data>
+</openerp>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+ <data>
+
+    <record id="form_hr_timesheet" model="ir.ui.view">
+      <field name="name">at_project_timesheet.form_hr_timesheet</field>
+      <field name="model">hr_timesheet_sheet.sheet</field>
+      <field name="inherit_id" ref="hr_timesheet_sheet.hr_timesheet_sheet_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//notebook/page[@string='Details']/field[@name='timesheet_ids']/tree/field[@name='to_invoice']" position="after">
+          <field name="is_project_task" invisible="1"/>
+          <button name="%(action_change_task_wizard)d" type="action" icon="STOCK_NO" attrs="{'invisible': ['|',('is_project_task','!=',False),('to_invoice','!=',False)]}"/>
+          <button name="%(action_change_task_wizard)d" type="action" icon="STOCK_YES" attrs="{'invisible': [('is_project_task','=',False),('to_invoice','=',False)]}"/>                    
+        </xpath>
+      </field>
+    </record>
+      
+  </data>
+</openerp>
