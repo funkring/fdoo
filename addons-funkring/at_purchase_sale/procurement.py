@@ -43,10 +43,8 @@ class procurement_order(osv.osv):
             # set sale line 
             res["sale_line_id"] = sale_line.id
             
-            # set name from sale line 
-            # if it is no a stockable product
-            if procurement.product_id.type != "product":
-              res["name"] = sale_line.name
+            # TODO is not for all a good solution
+            # res["name"] = sale_line.name
                
             # procurement info note NOT added
             # because for example sale_purchase_quotation add procurement
