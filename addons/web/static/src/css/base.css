@@ -2943,9 +2943,6 @@
   font-size: 95%;
   line-height: 1.2em;
 }
-.openerp .dropdown-menu {
-  left: 100px;
-}
 .openerp .oe_navbar .dropdown-menu {
   font-size: 13px;
   padding: 4px 0;
