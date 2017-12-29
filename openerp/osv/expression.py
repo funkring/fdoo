@@ -862,7 +862,18 @@ class expression(object):
                 raise NotImplementedError('_auto_join attribute not supported on many2many column %s' % left)
 
             elif len(path) > 1 and column and column._type == 'many2one':
-                right_ids = comodel.search(cr, uid, [(path[1], operator, right)], context=context)
+                # funkring.net - begin
+                if context is None:
+                  search_context = {}
+                else:
+                  search_context = context.copy()
+                search_context['active_test'] = False
+                right_ids = comodel.search(cr, uid, [(path[1], operator, right)], context=search_context)
+                # TEST RELEVANCE
+                #right_ids_prev = comodel.search(cr, uid, [(path[1], operator, right)], context=context)
+                #if set(right_ids) != set(right_ids_prev):
+                #  _logger.warn("SEARCH IS NOT THE SAME should: %s is %s" % (right_ids_prev, right_ids))
+                # funkring.net - end
                 leaf.leaf = (path[0], 'in', right_ids)
                 push(leaf)
 
