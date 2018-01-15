@@ -1,39 +1,42 @@
 <openerp>
-	<data>
-		<record id="wizard_commission_recalc" model="ir.ui.view">
-			<field name="name">commission.recalc_wizard</field>
-			<field name="model">commission.recalc_wizard</field>
-			<field name="arch" type="xml">
-				<form string="Calculate Commissions">
-					<group>
-					    <group string="Range">
-					       <field name="company_id" invisible="1"/>
-    					   <field name="date_from"/>
-                           <field name="date_to"/>
+    <data>
+        <record id="wizard_commission_recalc" model="ir.ui.view">
+            <field name="name">commission.recalc_wizard</field>
+            <field name="model">commission.recalc_wizard</field>
+            <field name="arch" type="xml">
+                <form string="Calculate Commissions">
+                    <group>
+                        <group string="Range">
+                            <field groups="base.group_multi_company" name="company_id"/>                            
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                            <field name="user_id"/>
                         </group>
                         <group string="Options">
-                           <field name="remove_existing"/>  
+                            <field name="remove_existing"/>
                         </group>
-					</group>
-					<footer>
-					    <button  name="action_calc" string="Recalculate"  type="object" class="oe_highlight" />
+                    </group>
+                    <footer>
+                        <button class="oe_highlight" name="action_calc"
+                            string="Recalculate"
+                            type="object"/>
                         or
-                        <button special="cancel" string="Close" class="oe_link"/>
-					</footer>				
-				</form>
-			</field>
-		</record>
-
-        <record id="action_commission_recalc" model="ir.actions.act_window">
-          <field name="name">Recalculate Commissions</field>
-          <field name="type">ir.actions.act_window</field>
-          <field name="res_model">commission.recalc_wizard</field>
-          <field name="view_type">form</field>
-          <field name="view_mode">form</field>
-          <field name="target">new</field>
+                        <button
+                            class="oe_link" special="cancel" string="Close"/>
+                    </footer>
+                </form>
+            </field>
         </record>
-
-		<menuitem id="menu_commission_recalc_wizard" name="Commission calculate" parent="menu_commission" sequence="3" action="action_commission_recalc" />
-		
-	</data>
+        <record id="action_commission_recalc" model="ir.actions.act_window">
+            <field name="name">Recalculate Commissions</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">commission.recalc_wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <menuitem action="action_commission_recalc"
+            id="menu_commission_recalc_wizard"
+            name="Commission calculate" parent="menu_commission" sequence="3"/>
+    </data>
 </openerp>

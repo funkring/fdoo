@@ -42,6 +42,8 @@ class commission_recalc_wizard(osv.osv_memory):
                     domain.append(("date",">=",wizard.date_from))
                 if wizard.date_to:
                     domain.append(("date","<=",wizard.date_to))
+                if wizard.user_id:
+                    domain.append(("partner_id.user_ids","in",[wizard.user_id.id]))
                 # search and remove old commissoin lines
                 old_commission_ids = commission_obj.search(cr, uid, domain, context=context)
                 commission_obj.unlink(cr, uid, old_commission_ids, context=context)
@@ -63,6 +65,7 @@ class commission_recalc_wizard(osv.osv_memory):
     _description = "Recalculate Commissions"
     _columns = {
         "company_id" : fields.many2one("res.company", "Company", required=True),
+        "user_id": fields.many2one("res.users","Salesman"),
         "date_from" : fields.date("Date from", help="The date which you entered is involved!"),
         "date_to" : fields.date("Date to", help="The date which you entered is involved!"),
         "remove_existing" : fields.boolean("Remove existing")

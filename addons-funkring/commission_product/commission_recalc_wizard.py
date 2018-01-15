@@ -28,27 +28,31 @@ class commission_recalc_wizard(osv.osv_memory):
         res = super(commission_recalc_wizard, self).do_recalc(cr, uid, ids, context)
         invoice_obj = self.pool.get("account.invoice")
         order_obj = self.pool.get("sale.order")
+        
         for wizard in self.browse(cr, uid, ids):
-            if wizard.date_from and wizard.date_to:
-                order_ids = order_obj.search(cr, uid, [("state", "not in", ["draft","cancel","sent"]), 
-                                                           ("date_order", ">=", wizard.date_from), ("date_order", "<=", wizard.date_to)])
-                invoice_ids = invoice_obj.search(cr, uid, [("state", "!=", "draft"), ("state", "!=", "cancel"), 
-                                                           ("date_invoice", ">=", wizard.date_from), ("date_invoice", "<=", wizard.date_to)])
-                
-            elif not wizard.date_from and not wizard.date_to:
-                order_ids = order_obj.search(cr, uid, [("state", "not in", ["draft","cancel","sent"])])
-                invoice_ids = invoice_obj.search(cr, uid, [("state", "!=", "draft"), ("state", "!=", "cancel")])
-                
-            elif not wizard.date_from and wizard.date_to:
-                order_ids = order_obj.search(cr, uid, [("state", "not in", ["draft","cancel","sent"]), ("date_order", "<=", wizard.date_to)])
-                invoice_ids = invoice_obj.search(cr, uid, [("state", "!=", "draft"), ("state", "!=", "cancel"), ("date_invoice", "<=", wizard.date_to)])
+          order_domain = [("state", "not in", ["draft","cancel","sent"])]
+          invoice_domain = [("state", "!=", "draft"),("state", "!=", "cancel")]
+        
+          if wizard.user_id:
+            invoice_domain.append(("user_id","=",wizard.user_id.id))
+            order_domain.append(("user_id","=",wizard.user_id.id))
+                           
+          if wizard.date_from: 
+            order_domain.append(("date_order", ">=", wizard.date_from))
+            invoice_domain.append(("date_invoice", ">=", wizard.date_from))
             
-            else:
-                order_ids = order_obj.search(cr, uid, [("state", "not in", ["draft","cancel","sent"]), ("date_order", ">=", wizard.date_from)])
-                invoice_ids = invoice_obj.search(cr, uid, [("state", "!=", "draft"), ("state", "!=", "cancel"), ("date_invoice", ">=", wizard.date_from)])
-                
-        order_obj._calc_product_commission(cr, uid, order_ids, force=True, context=context)
-        invoice_obj._calc_product_commission(cr, uid, invoice_ids, force=True, context=context)
+          if wizard.date_to:
+            order_domain.append(("date_order", "<=", wizard.date_to))              
+            invoice_domain.append(("date_invoice", "<=", wizard.date_to))
+                 
+          # search
+          order_ids = order_obj.search(cr, uid, order_domain)
+          invoice_ids = invoice_obj.search(cr, uid, invoice_domain)
+          
+          # recalc
+          order_obj._calc_product_commission(cr, uid, order_ids, force=True, context=context)
+          invoice_obj._calc_product_commission(cr, uid, invoice_ids, force=True, context=context)
+          
         return res
     
     _inherit = "commission.recalc_wizard"
