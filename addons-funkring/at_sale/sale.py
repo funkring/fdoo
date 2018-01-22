@@ -364,6 +364,38 @@ class sale_order_line(osv.osv):
         res["amount_taxes"] = amount_taxes
         res["taxes"] = taxes
         return res
+        
+    def _line_sum_nodisc(self, cr, uid, ids, context=None):
+        """
+        RETURN: {
+                'total': 0.0,                # Total without taxes and without discount
+                'total_included: 0.0,        # Total with taxes without discount
+                'amount_taxes' : 0.0,        # Taxes Amount without discount
+                'taxes': [{
+                     {'name':'', 'amount':0.0, 'account_collected_id':1, 'account_paid_id':2}
+                }]  # List of taxes, see compute for the format
+            }
+        """
+        res = {}
+        total = 0.0
+        amount_taxes = 0.0
+        taxes = []
+
+        for line in self.browse(cr, uid, ids):
+            total += line.price_subtotal
+            tax_id = line.tax_id
+            for tax in (self.pool.get('account.tax').compute_all(cr, uid, tax_id,
+                                                               line.price_unit,
+                                                               line.product_uom_qty,
+                                                               line.product_id.id, line.order_id.partner_id.id)['taxes']):
+                amount_taxes += tax.get('amount', 0.0)
+                taxes.append(tax)
+
+        res["total_included"] = total + amount_taxes
+        res["total"] = total
+        res["amount_taxes"] = amount_taxes
+        res["taxes"] = taxes
+        return res
     
     def _extra_cost(self, cr, uid, line, context=None):
         return 0.0
