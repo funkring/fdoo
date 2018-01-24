@@ -206,13 +206,15 @@ def strTimeToUTCTimeStr(cr, uid, timestamp, context):
     return util.timeToStr(l_timestamp)
   
   
-def onChangeValuesEnv(line_obj, values, onchange_values):
+def onChangeValuesEnv(line_obj, values, onchange_values, force=False):
     if onchange_values:
       update_values = onchange_values.get("value")
       if update_values:
         fields = update_values.keys()
-        field_defs = line_obj.fields_get(allfields=fields)
+        field_defs = line_obj.fields_get(allfields=fields)        
         for field, update_value in update_values.iteritems():
+          if not force and not update_value:
+            continue
           if field_defs[field]["type"] == "many2many":
             values[field] = [(6,0, update_value or [])]
           else:

@@ -507,7 +507,7 @@ class Home(http.Controller):
             values['databases'] = None
 
         #funkring.net - begin
-        values['disable_database_manager'] = config.get("disable_database_manager",False) 
+        values['database_manager_enabled'] = not config.get("disable_database_manager", True) 
         #funkring.net - end
             
         if request.httprequest.method == 'POST':
