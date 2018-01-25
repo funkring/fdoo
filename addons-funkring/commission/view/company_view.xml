@@ -2,18 +2,20 @@
 	<data>		
 		
 		<record id="form_res_company" model="ir.ui.view">
-            <field name="name">base.form_res_company</field>
-            <field name="model">res.company</field>
-            <field name="inherit_id" ref="base.view_company_form"/>
-            <field name="arch" type="xml">
-            	<xpath expr="//page[@string='Configuration']/group" position="inside"> 
-            		<group string="Commission">
-            			<field name="commission_type"/>
-            			<field name="commission_refund"/>
-            		</group>
-            	</xpath>
-            </field>
-        </record>
-        
+      <field name="name">base.form_res_company</field>
+      <field name="model">res.company</field>
+      <field name="inherit_id" ref="base.view_company_form"/>
+      <field name="arch" type="xml">
+      	<xpath expr="//page[@string='Configuration']/group" position="inside"> 
+      		<group string="Commission">
+      			<field name="commission_type"/>
+      			<field name="commission_refund"/>
+      			<field name="commission_novat_fp"/>
+      			<field name="commission_text"/>
+      		</group>
+      	</xpath>
+      </field>
+    </record>
+    
 	</data>
 </openerp>

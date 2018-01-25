@@ -93,51 +93,43 @@ class commission_invoice_wizard(osv.osv_memory):
         wizard = self.browse(cr, uid, ids[0], context)        
 
         partner = None
-        account_position = None
         invoice_ids = []
         detail = wizard.detail_ref
         lineMap = {}
         
         if context is None:
             context = {}
-
-        line_ids = commission_line_obj.search(cr,uid,[("id","in",util.active_ids(context))],order="partner_id, date asc")        
+       
+        line_ids = commission_line_obj.search(cr,uid,[("id","in",util.active_ids(context))],order="partner_id, date asc")
         for line in commission_line_obj.browse(cr, uid, line_ids):
             # group partners
             if not partner or partner.id != line.partner_id.id:
+                # reset
+                sequence = 100
+              
+                # get objects
                 partner = line.partner_id
                 salesman = line.salesman_id                
                 team = salesman and salesman.default_section_id or None
-                                     
-                account_position = partner.property_account_position
                 company = line.company_id
 
-                journal_ids = journal_obj.search(cr, uid, [('type', '=','purchase'),('company_id', '=', company.id)], limit=1)
-                if not journal_ids:
-                    raise osv.except_osv(_("Warning!"),
-                        _('There is no purchase journal defined for this company: "%s" (id:%d)') % (company.name, company.id))
-
-                
+                # prepare context
                 inv_type = "in_invoice"
                 if company.commission_refund:
-                    inv_type = "out_refund"
+                  inv_type = "out_refund"
                 
                 invContext = dict(context)
                 invContext["type"] = inv_type
                 
+                # get values                
                 inv_values = {
                   "type" : inv_type,
                   "name" : wizard.name,
                   "reference" : wizard.name,
                   "origin" : wizard.name,
                   "partner_id" : partner.id,
-                  "payment_term" : partner.property_payment_term.id or False,
-                  "journal_id" : journal_ids[0],
-                  "account_id" : partner.property_account_receivable.id,
-                  "currency_id" : line.currency_id.id or company.currency_id.id or None,
-                  "payment_term" : partner.property_payment_term and partner.property_payment_term.id or False,
                   "company_id" : company.id,
-                  "fiscal_position" : account_position.id
+                  "currency_id": company.currency_id.id
                 }
                 
                 if team:
@@ -145,44 +137,57 @@ class commission_invoice_wizard(osv.osv_memory):
                     if shop_id:
                         inv_values["shop_id"] = shop_id
                 
-                invoice_id = invoice_obj.create(cr,uid,inv_values,context=invContext)
+                helper.onChangeValuesPool(cr, uid, invoice_obj, inv_values, 
+                                invoice_obj.onchange_company_id(cr, uid, [], company.id, partner.id, inv_type, None, inv_values["currency_id"], context=invContext), context=context)
+                                
+                helper.onChangeValuesPool(cr, uid, invoice_obj, inv_values, 
+                                invoice_obj.onchange_partner_id(cr, uid, [], inv_type, partner.id, company_id=company.id, context=invContext), context=context)
+                
+                helper.onChangeValuesPool(cr, uid, invoice_obj, inv_values,
+                                invoice_obj.onchange_journal_id(cr, uid, [], inv_values["journal_id"], context=invContext), context=context)
+
+                # check for fiscal position override
+                if company.commission_novat_fp and not partner.vat:
+                  inv_values["fiscal_position"] = company.commission_novat_fp.id
+                  
+                # check for commission text
+                if company.commission_text:
+                  inv_values["comment"] = company.commission_text
+                                
+                invoice_id = invoice_obj.create(cr, uid, inv_values, context=invContext)
                 invoice_ids.append(invoice_id)
 
-            product = line.product_id                    
-            taxes = product.taxes_id
-            tax = fiscal_pos_obj.map_tax(cr, uid, account_position, taxes)
-            
+            product = line.product_id
             price_unit = line.amount*-1
+            sequence += 1
+            
             values = {
                 "invoice_id" : invoice_id,
                 "price_unit" : price_unit,
                 "quantity" : 1.0,
-                "invoice_line_tax_id" : tax,
                 "name" : line.name,                
                 "product_id" : product.id,               
                 "uos_id" : line.product_uom_id.id,
                 "account_id" : line.general_account_id.id,
                 "account_analytic_id" : line.account_id.id,
-                "origin" : line.ref
+                "origin" : line.ref,
+                "sequence": sequence
             }
             
-            chg_values = invoice_line_obj.product_id_change(cr, uid, [],
+            helper.onChangeValuesPool(cr, uid, invoice_line_obj, values, 
+                     invoice_line_obj.product_id_change(cr, uid, [],
                                                values["product_id"],
                                                values["uos_id"],
                                                values["quantity"],
                                                values["name"],
                                                type=inv_values["type"],
                                                partner_id=inv_values["partner_id"],
-                                               fposition_id=inv_values["fiscal_position"],
+                                               fposition_id=inv_values.get("fiscal_position"),
                                                price_unit=price_unit,
                                                currency_id=inv_values["currency_id"],
                                                company_id=company.id,
-                                               context=invContext)
-            
-            chg_values=chg_values["value"]            
-            chg_values["invoice_line_tax_id"]=chg_values["invoice_line_tax_id"] and [(6,0,chg_values["invoice_line_tax_id"])] or None 
-            
-            values.update(chg_values)
+                                               context=invContext), context=context)
+
             values["price_unit"] = price_unit
             values["name"] = self._inv_line_name_get(cr, uid, wizard, line, invContext)            
             values["note"] = self._inv_line_note_get(cr, uid, wizard, line, invContext)
@@ -197,8 +202,14 @@ class commission_invoice_wizard(osv.osv_memory):
                         "name" : sale_partner.name,
                         "invoice_id" : invoice_id,
                         "context" : invContext,
+                        "sequence" : values["sequence"],
                         "lines" : []
                     }
+                    
+                    # update sequence
+                    sequence += 1
+                    values["sequence"] = sequence
+                    
                     lineMap[sale_partner.id] = salePartnerDetail
                 
                 salePartnerDetail["lines"].append((line,values))
@@ -221,7 +232,8 @@ class commission_invoice_wizard(osv.osv_memory):
                     "price_unit" : 0.0,
                     "quantity" : 0.0,
                     "invoice_line_tax_id" : [(6,0,[])],
-                    "name" : salePartner["name"]                    
+                    "name" : salePartner["name"],
+                    "sequence": salePartner["sequence"]                    
                 }, context=invContext)
                 
                 # create lines
@@ -240,7 +252,11 @@ class commission_invoice_wizard(osv.osv_memory):
             mod_obj = self.pool.get("ir.model.data")
             act_obj = self.pool.get("ir.actions.act_window")
 
-            mod_ids = mod_obj.search(cr, uid, [("name", "=", "action_invoice_tree2")], context=context)[0]
+            view_id = "action_invoice_tree2"
+            if inv_type == "out_refund":
+              view_id = "action_invoice_tree3"
+              
+            mod_ids = mod_obj.search(cr, uid, [("name", "=", view_id)], context=context)[0]
             res_id = mod_obj.read(cr, uid, mod_ids, ["res_id"], context=context)["res_id"]
             act_win = act_obj.read(cr, uid, res_id, [], context=context)
             act_win["domain"] = [("id","in",invoice_ids),("type","=",inv_type)]            
