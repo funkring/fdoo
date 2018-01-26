@@ -67,29 +67,29 @@ class Parser(report_sxw.rml_parse):
         inv_report_context = None
         
         def addImage(image_data, pos):
-            im = Image(blob=image_data, resolution=A4_RES)
-            bk = Color("white")
-            for i, page in enumerate(im.sequence):                
-                with Image(page) as page_image:
-                    _logger.info("Add Page %s to statement [size=%sx%s]" % (i, page_image.width, page_image.height))
-                    page_image.format = "png"
-                    page_image.background_color = bk
-                    page_image.alpha_channel = False
-                    if page_image.width > page_image.height:
-                        page_image.rotate(90)
-                        
-                    if page_image.height > A4_HEIGHT_PX:
-                      new_height = A4_HEIGHT_PX
-                      new_width = A4_HEIGHT_PX * (page_image.width / page_image.height)
-                      page_image.resize(new_width, new_height)
-                        
-                    buf = StringIO()
-                    page_image.save(buf)
-                    
-                    if buf:
-                        image_datas = base64.encodestring(buf.getvalue())
-                        images.append({"pos" : pos, 
-                                       "image" : image_datas})
+            with Image(blob=image_data, resolution=A4_RES) as im:
+              bk = Color("white")
+              for i, page in enumerate(im.sequence):                
+                  with Image(page) as page_image:
+                      _logger.info("Add Page %s to statement [size=%sx%s]" % (i, page_image.width, page_image.height))
+                      page_image.format = "png"
+                      page_image.background_color = bk
+                      page_image.alpha_channel = False
+                      if page_image.width > page_image.height:
+                          page_image.rotate(90)
+                          
+                      if page_image.height > A4_HEIGHT_PX:
+                        new_height = A4_HEIGHT_PX
+                        new_width = int(A4_HEIGHT_PX * (float(page_image.width) / float(page_image.height)))
+                        page_image.resize(new_width, new_height)
+                          
+                      buf = StringIO()
+                      page_image.save(buf)
+                      
+                      if buf:
+                          image_datas = base64.encodestring(buf.getvalue())
+                          images.append({"pos" : pos, 
+                                         "image" : image_datas})
         
         # ADD ATTACHMENT FUNCTION
         def addAttachments(obj, pos):
