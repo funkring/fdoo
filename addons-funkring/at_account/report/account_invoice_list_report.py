@@ -22,32 +22,20 @@
 
 from openerp.report import report_sxw
 from openerp.tools.translate import _
+from openerp.addons.at_base import extreport
 
-class Parser(report_sxw.rml_parse):
+class Parser(extreport.basic_parser):
     
     def __init__(self, cr, uid, name, context):
         super(Parser, self).__init__(cr, uid, name, context=context)
         
-        invoice_fields = self.pool.get("account.invoice").fields_get(cr,uid,allfields=["state"])        
+        invoice_fields = self.pool.get("account.invoice").fields_get(cr, uid, allfields=["state"], context=context)        
         self.localcontext.update({
             "last_payment" : self._last_payment,
-            "date_str" : _("Date"),
-            "number_str" : _("Invoice number"),
-            "partner_str" : _("Partner"),
-            "description_str" : _("Description"),
-            "date_due_str" : _("Date due"),
-            "residual_str" : _("Residual"),
-            "amount_untaxed_str" : _("Amount untaxed"),
-            "amount_total_str" : _("Amount total"),
-            "state_str" : _("State"),
-            "followup_str" :_("Reminder"),         
-            "last_payment_str" : _("Payment"),
-            "last_payment_journal_str" : _("Journal"),
-            "reference_str" : _("Reference"),
-            "taxes_str" : _("Taxes"),
             "state_dict" : dict(invoice_fields["state"]["selection"]),
             "short_name" : self._short_name,
             "accounts" : self._accounts,
+            "stat" : self._stat
         })        
         self.localcontext["report_title"] = context.get("report_title",_("Invoice overview"))        
         
@@ -88,3 +76,24 @@ class Parser(report_sxw.rml_parse):
                     res.append(value)
             
         return res
+      
+    def _stat(self, invoices):
+      residual = 0.0
+      total = 0.0
+      total_untaxed = 0.0
+      
+      self.uid
+           
+      for inv in invoices:
+        residual += inv.residual
+        total_untaxed += inv.amount_untaxed
+        total += inv.amount_total
+      
+      return [{
+        "residual": residual,
+        "total": total,
+        "total_tax":  total - total_untaxed,
+        "total_untaxed": total_untaxed,
+        "count": len(invoices)        
+      }]
+      

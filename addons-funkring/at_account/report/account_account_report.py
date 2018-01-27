@@ -22,10 +22,11 @@
 
 
 from openerp.addons.at_base import util
+from openerp.addons.at_base import extreport
 from openerp.report import report_sxw
 from openerp.tools.translate import _
 
-class Parser(report_sxw.rml_parse):
+class Parser(extreport.basic_parser):
     
     def __init__(self, cr, uid, name, context):
         super(Parser, self).__init__(cr, uid, name, context)
