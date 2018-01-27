@@ -29,11 +29,18 @@ from wand.image import Image
 from wand.color import Color
 import os
 import base64
+from StringIO import StringIO
+# 
+# try:
+#     from cStringIO import StringIO
+# except ImportError:
+#     from StringIO import StringIO
+    
+import logging
+_logger = logging.getLogger(__name__)
 
-try:
-    from cStringIO import StringIO
-except ImportError:
-    from StringIO import StringIO
+A4_RES = 150
+A4_HEIGHT_PX = 1754
 
 class Parser(report_sxw.rml_parse):
     
@@ -61,23 +68,29 @@ class Parser(report_sxw.rml_parse):
         inv_report_context = None
         
         def addImage(image_data, pos):
-            im = Image(blob=image_data, resolution=150)
-            bk = Color("white")
-            for i, page in enumerate(im.sequence):
-                with Image(page) as page_image:
-                    page_image.format = "png"
-                    page_image.background_color = bk
-                    page_image.alpha_channel = False
-                    if page_image.width > page_image.height:
-                        page_image.rotate(90)
-                        
-                    buf = StringIO()
-                    page_image.save(buf)
-                    
-                    if buf:
-                        image_datas = base64.encodestring(buf.getvalue())
-                        images.append({"pos" : pos, 
-                                       "image" : image_datas})
+            with Image(blob=image_data, resolution=A4_RES) as im:
+              bk = Color("white")
+              for i, page in enumerate(im.sequence):                
+                with Image(width=page.width, height=page.height, background=bk, format="png", resolution=A4_RES) as page_image:
+                  page_image.format = "png"
+                  page_image.background = bk
+                  # draw page on white background
+                  page_image.composite(page, 0, 0)
+                  # rotate if needed
+                  if page_image.width > page_image.height:
+                      page_image.rotate(90)
+                  # resize if needed
+                  if page_image.height > A4_HEIGHT_PX:
+                    new_height = A4_HEIGHT_PX
+                    new_width = int(A4_HEIGHT_PX * (float(page_image.width) / float(page_image.height)))
+                    page_image.resize(new_width, new_height)
+                  # save image
+                  buf = StringIO()
+                  page_image.save(file=buf)                                                                        
+                  if buf.len:                          
+                      image_datas = base64.encodestring(buf.getvalue())
+                      images.append({"pos" : pos, 
+                                     "image" : image_datas})
         
         # ADD ATTACHMENT FUNCTION
         def addAttachments(obj, pos):
@@ -147,7 +160,8 @@ class Parser(report_sxw.rml_parse):
                             if inv_report:
                                 (report_data,report_ext) = inv_report.create(self.cr, self.uid, [inv.id], {"model":"account.invoice"}, report_context)
                                 if report_data:
-                                    addImage(report_data, pos)
+                                  _logger.info("Add invoice[%s] to report" % inv.id)
+                                  addImage(report_data, pos)
                                     
                                 report_data = None
                                 report_ext = None
