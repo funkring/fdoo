@@ -87,7 +87,7 @@ class Parser(report_sxw.rml_parse):
                     page_image.resize(new_width, new_height)
                   # save image
                   buf = StringIO()
-                  page_image.format = "png"
+                  page_image.save(file=buf)                                                                        
                   if buf.len:                          
                       image_datas = base64.encodestring(buf.getvalue())
                       images.append({"pos" : pos, 
