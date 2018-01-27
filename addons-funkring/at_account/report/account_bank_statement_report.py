@@ -91,6 +91,7 @@ class Parser(report_sxw.rml_parse):
                       image_datas = base64.encodestring(buf.getvalue())
                       images.append({"pos" : pos, 
                                      "image" : image_datas})
+                page.destroy()
         
         # ADD ATTACHMENT FUNCTION
         def addAttachments(obj, pos):
