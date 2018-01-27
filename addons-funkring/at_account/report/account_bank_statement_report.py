@@ -71,7 +71,10 @@ class Parser(report_sxw.rml_parse):
             with Image(blob=image_data, resolution=A4_RES) as im:
               bk = Color("white")
               for i, page in enumerate(im.sequence):                
-                with Image(width=page.width, height=page.height, background=bk, format="png") as page_image:
+                with Image(width=page.width, height=page.height) as page_image:
+                  page_image.format = "png"
+                  page_image.background_color = bk
+                  page_image.alpha_channel = False
                   # draw page on white background
                   page_image.composite(page, 0, 0)
                   # rotate if needed
@@ -85,7 +88,6 @@ class Parser(report_sxw.rml_parse):
                   # save image
                   buf = StringIO()
                   page_image.format = "png"
-                  page_image.save(file=buf)                                                                        
                   if buf.len:                          
                       image_datas = base64.encodestring(buf.getvalue())
                       images.append({"pos" : pos, 
