@@ -30,11 +30,11 @@ from wand.color import Color
 import os
 import base64
 from StringIO import StringIO
-# 
-# try:
-#     from cStringIO import StringIO
-# except ImportError:
-#     from StringIO import StringIO
+ 
+try:
+    from cStringIO import StringIO
+except ImportError:
+    from StringIO import StringIO
     
 import logging
 _logger = logging.getLogger(__name__)
@@ -71,7 +71,7 @@ class Parser(report_sxw.rml_parse):
             with Image(blob=image_data, resolution=A4_RES) as im:
               bk = Color("white")
               for i, page in enumerate(im.sequence):                
-                with Image(width=page.width, height=page.height, background=bk, format="png", resolution=A4_RES) as page_image:
+                with Image(width=page.width, height=page.height, background=bk) as page_image:
                   page_image.format = "png"
                   page_image.background = bk
                   # draw page on white background
@@ -85,10 +85,9 @@ class Parser(report_sxw.rml_parse):
                     new_width = int(A4_HEIGHT_PX * (float(page_image.width) / float(page_image.height)))
                     page_image.resize(new_width, new_height)
                   # save image
-                  buf = StringIO()
-                  page_image.save(file=buf)                                                                        
-                  if buf.len:                          
-                      image_datas = base64.encodestring(buf.getvalue())
+                  value = page_image.make_blob("png")
+                  if value:                          
+                      image_datas = base64.encodestring(value)
                       images.append({"pos" : pos, 
                                      "image" : image_datas})
                 page.destroy()

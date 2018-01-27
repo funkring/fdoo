@@ -43,7 +43,6 @@ apt-get -y install python-libxml2
 apt-get -y install python-pyparsing
 apt-get -y install python-serial
 apt-get -y install python-dev
-apt-get -y install python-wand
 apt-get -y install python-qrcode
 apt-get -y install python-pycryptopp
 
@@ -99,3 +98,4 @@ python -m pip install backports.functools_lru_cache
 python -m pip install pandas
 python -m pip install gdata
 python -m pip install woocommerce
+pyhton -m pip install wand
