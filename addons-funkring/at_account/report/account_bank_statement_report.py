@@ -72,8 +72,10 @@ class Parser(report_sxw.rml_parse):
               bk = Color("white")
               for i, page in enumerate(im.sequence):                
                 with Image(width=page.width, height=page.height, background=bk, format="png") as page_image:
+                  page_image.format = "png"
+                  page_image.background = bk
                   # draw page on white background
-                  page_image.composite(page, 0, 0, operator="copy")
+                  page_image.composite(page, 0, 0)
                   # rotate if needed
                   if page_image.width > page_image.height:
                       page_image.rotate(90)
@@ -84,7 +86,6 @@ class Parser(report_sxw.rml_parse):
                     page_image.resize(new_width, new_height)
                   # save image
                   buf = StringIO()
-                  page_image.format = "png"
                   page_image.save(file=buf)                                                                        
                   if buf.len:                          
                       image_datas = base64.encodestring(buf.getvalue())
