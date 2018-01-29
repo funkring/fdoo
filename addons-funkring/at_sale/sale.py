@@ -38,6 +38,7 @@ class sale_shop(osv.osv):
     _description = "Shop"
     _columns = {
         "name" : fields.char("Name", required=True, select=True),
+        "active": fields.boolean("Active", select=True),
         "payment_default_id": fields.many2one("account.payment.term", "Payment Term", required=True, select=True),
         "warehouse_id": fields.many2one("stock.warehouse", "Warehouse"),
         "pricelist_id": fields.many2one("product.pricelist", "Pricelist"),
@@ -59,7 +60,8 @@ class sale_shop(osv.osv):
     }
     _defaults = {
         "company_id": lambda s, cr, uid, c: s.pool.get('res.company')._company_default_get(cr, uid, 'sale.shop', context=c),
-        "sequence": 10
+        "sequence": 10,
+        "active": True
     }
     _order = "sequence, name"
 

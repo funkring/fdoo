@@ -96,14 +96,24 @@ class project_project(osv.Model):
 class project_task(osv.Model):
     
     def _relids_project(self, cr, uid, ids, context=None):
-        return self.pool["project.task"].search(cr, SUPERUSER_ID, [("project_id","in",ids)], context={"active_test" : False})
+      return self.pool["project.task"].search(cr, SUPERUSER_ID, [("project_id","in",ids)], context={"active_test" : False})
+      
+    def _relids_sale_order(self, cr, uid, ids, context=None):
+      cr.execute("SELECT t.id FROM sale_order o "  
+                 " INNER JOIN project_project p ON p.analytic_account_id = o.project_id " 
+                 " INNER JOIN project_task t ON t.project_id = p.id " 
+                 " WHERE o.id IN %s "
+                 " GROUP BY 1  ", (tuple(ids),))      
+      task_ids = [r[0] for r in cr.fetchall()]
+      return task_ids
     
     _inherit = "project.task"
     _columns = {
         "shop_id" : fields.related("project_id", "shop_id", type="many2one", relation="sale.shop", string="Shop",
                                    store={
-                                       "project.project" : (_relids_project,["shop_id","user_shop_id"],10),
-                                       "project.task": (lambda self, cr, uid, ids, context=None: ids, ["project_id"],10)
+                                      "sale.order": (_relids_sale_order,["shop_id"], 10),
+                                      "project.project" : (_relids_project,["shop_id","user_shop_id"],10),
+                                      "project.task": (lambda self, cr, uid, ids, context=None: ids, ["project_id"],10)
                                    })  
     }
     

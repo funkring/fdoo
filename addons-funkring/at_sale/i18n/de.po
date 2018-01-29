@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Language: de_DE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-20 00:11+0000\n"
-"PO-Revision-Date: 2017-06-20 02:12+0100\n"
+"POT-Creation-Date: 2018-01-29 15:18+0000\n"
+"PO-Revision-Date: 2018-01-29 16:22+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -33,6 +33,11 @@ msgid ""
 "              </p>\n"
 "            "
 msgstr ""
+
+#. module: at_sale
+#: field:sale.shop,active:0
+msgid "Active"
+msgstr "Aktiv"
 
 #. module: at_sale
 #: field:sale.shop,stylesheet_landscape_id:0
@@ -65,47 +70,27 @@ msgid "Analytic Accounting"
 msgstr "Kostenstellen Konten"
 
 #. module: at_sale
-#: field:product.product,available_in_pos:0
-msgid "Available in the Point of Sale"
-msgstr ""
-
-#. module: at_sale
 #: field:product.product,brutto_price:0 field:product.template,brutto_price:0
 msgid "Brutto Price"
 msgstr "Bruttopreis"
 
 #. module: at_sale
-#: help:product.product,to_weight:0
-msgid ""
-"Check if the product should be weighted using the hardware scale integration"
-msgstr ""
+#: selection:sale.order.report,state:0
+msgid "Cancelled"
+msgstr "Abgebrochen"
 
 #. module: at_sale
-#: help:product.product,available_in_pos:0
-msgid "Check if you want this product to appear in the Point of Sale"
-msgstr ""
+#: model:ir.model,name:at_sale.model_crm_case_categ
+msgid "Category of Case"
+msgstr "Vorgangskategorie"
 
 #. module: at_sale
-#: help:product.product,income_pdt:0
-msgid ""
-"Check if, this is a product you can use to put cash into a statement for the "
-"point of sale backend."
-msgstr ""
-
-#. module: at_sale
-#: help:product.product,expense_pdt:0
-msgid ""
-"Check if, this is a product you can use to take cash from a statement for "
-"the point of sale backend, example: money lost, transfer to bank, etc."
-msgstr ""
-
-#. module: at_sale
-#: field:sale.shop,code:0
+#: field:crm.case.categ,code:0 field:sale.shop,code:0
 msgid "Code"
 msgstr "Kurzbez."
 
 #. module: at_sale
-#: field:sale.shop,company_id:0
+#: field:sale.order.report,company_id:0 field:sale.shop,company_id:0
 msgid "Company"
 msgstr "Unternehmen"
 
@@ -115,7 +100,12 @@ msgid "Conditions"
 msgstr "Konditionen"
 
 #. module: at_sale
-#: code:addons/at_sale/sale.py:165 code:addons/at_sale/sale.py:167
+#: selection:sale.order.report,state:0
+msgid "Confirmed"
+msgstr "Bestätigt"
+
+#. module: at_sale
+#: code:addons/at_sale/sale.py:170 code:addons/at_sale/sale.py:172
 #, python-format
 msgid "Copy"
 msgstr "Kopieren"
@@ -136,6 +126,16 @@ msgid "Customer Refund Text"
 msgstr "Kundengutschriftstext"
 
 #. module: at_sale
+#: field:sale.order.report,date_confirm:0
+msgid "Date Confirm"
+msgstr "Bestätigungsdatum"
+
+#. module: at_sale
+#: field:sale.order.report,date:0
+msgid "Date Order"
+msgstr "Bestelldatum"
+
+#. module: at_sale
 #: field:sale.shop.report,dest_report_id:0
 msgid "Destination Report"
 msgstr "Zielbericht"
@@ -146,9 +146,20 @@ msgid "Detailed Invoice"
 msgstr "Detaillierte Rechnung"
 
 #. module: at_sale
-#: field:sale.shop,display_name:0 field:sale.shop.report,display_name:0
+#: field:sale.order.report,display_name:0 field:sale.shop,display_name:0
+#: field:sale.shop.report,display_name:0
 msgid "Display Name"
 msgstr ""
+
+#. module: at_sale
+#: selection:sale.order.report,state:0
+msgid "Done"
+msgstr "Erledigt"
+
+#. module: at_sale
+#: selection:sale.order.report,state:0
+msgid "Draft"
+msgstr "Entwurf"
 
 #. module: at_sale
 #: field:res.partner,email_invoice:0
@@ -156,12 +167,18 @@ msgid "E-Mail Invoice"
 msgstr "Rechnung per E-Mail"
 
 #. module: at_sale
+#: selection:sale.order.report,state:0
+msgid "Exception"
+msgstr "Fehler"
+
+#. module: at_sale
 #: view:sale.shop:at_sale.form_sale_shop
 msgid "General"
 msgstr "Allgemein"
 
 #. module: at_sale
-#: field:sale.shop,id:0 field:sale.shop.report,id:0
+#: field:sale.order.report,id:0 field:sale.shop,id:0
+#: field:sale.shop.report,id:0
 msgid "ID"
 msgstr ""
 
@@ -173,7 +190,7 @@ msgstr "Rechnung"
 #. module: at_sale
 #: model:ir.model,name:at_sale.model_account_invoice_line
 msgid "Invoice Line"
-msgstr "Rechnungszeile"
+msgstr "Rechungsposition"
 
 #. module: at_sale
 #: field:res.partner,invoice_partner_id:0
@@ -191,7 +208,8 @@ msgid "Last Invoice"
 msgstr "Rechnung öffnen"
 
 #. module: at_sale
-#: field:sale.shop,__last_update:0 field:sale.shop.report,__last_update:0
+#: field:sale.order.report,__last_update:0 field:sale.shop,__last_update:0
+#: field:sale.shop.report,__last_update:0
 msgid "Last Modified on"
 msgstr ""
 
@@ -204,6 +222,11 @@ msgstr "Zuletzt aktualisiert von"
 #: field:sale.shop,write_date:0 field:sale.shop.report,write_date:0
 msgid "Last Updated on"
 msgstr "Zuletzt aktualisiert am"
+
+#. module: at_sale
+#: field:sale.order.report,root_analytic_id:0
+msgid "Main Analytic Account"
+msgstr "Hauptkostenstelle"
 
 #. module: at_sale
 #: field:sale.shop,name:0 field:sale.shop.report,name:0
@@ -226,12 +249,18 @@ msgid "Order Info"
 msgstr "Auftragsinfo"
 
 #. module: at_sale
+#: field:sale.order.report,state:0
+msgid "Order Status"
+msgstr "Bestellstatus"
+
+#. module: at_sale
 #: field:account.invoice,sale_order_ids:0
 msgid "Orders"
 msgstr "Aufträge"
 
 #. module: at_sale
 #: model:ir.model,name:at_sale.model_res_partner
+#: field:sale.order.report,partner_id:0
 msgid "Partner"
 msgstr ""
 
@@ -243,22 +272,7 @@ msgstr "Zahlungskondition"
 #. module: at_sale
 #: model:ir.model,name:at_sale.model_stock_picking
 msgid "Picking List"
-msgstr "Lieferauftrag"
-
-#. module: at_sale
-#: field:product.product,income_pdt:0
-msgid "Point of Sale Cash In"
-msgstr ""
-
-#. module: at_sale
-#: field:product.product,expense_pdt:0
-msgid "Point of Sale Cash Out"
-msgstr ""
-
-#. module: at_sale
-#: field:product.product,pos_categ_id:0
-msgid "Point of Sale Category"
-msgstr ""
+msgstr "Pickliste"
 
 #. module: at_sale
 #: field:sale.order.line,price_unit_untaxed:0
@@ -266,7 +280,7 @@ msgid "Price Untaxed"
 msgstr "Preis (ohne Steuer)"
 
 #. module: at_sale
-#: field:sale.shop,pricelist_id:0
+#: field:sale.order.report,pricelist_id:0 field:sale.shop,pricelist_id:0
 msgid "Pricelist"
 msgstr "Preisliste"
 
@@ -286,9 +300,19 @@ msgid "Product"
 msgstr "Produkt"
 
 #. module: at_sale
+#: field:sale.order,shop_category_ids:0 field:sale.shop,product_category_ids:0
+msgid "Product Categories"
+msgstr "Produkt Kategorien"
+
+#. module: at_sale
 #: model:ir.model,name:at_sale.model_product_template
 msgid "Product Template"
 msgstr "Produktvorlage"
+
+#. module: at_sale
+#: field:sale.order.report,analytic_account_id:0
+msgid "Project"
+msgstr "Projekt"
 
 #. module: at_sale
 #: field:sale.shop,invoice_in_text:0
@@ -306,14 +330,29 @@ msgid "Sale Invoice Text"
 msgstr "Ausgangsrechnungstext"
 
 #. module: at_sale
+#: field:sale.order.report,order_id:0
+msgid "Sale Order"
+msgstr "Verkaufsauftrag"
+
+#. module: at_sale
 #: field:account.invoice.line,sale_order_line_ids:0
 msgid "Sale Order Lines"
 msgstr "Verkaufszeilen"
 
 #. module: at_sale
+#: model:ir.model,name:at_sale.model_sale_order_line_make_invoice
+msgid "Sale OrderLine Make_invoice"
+msgstr "Abrechnung einer einzelnen Auftragsposition"
+
+#. module: at_sale
 #: field:stock.picking,shop_id:0
 msgid "Sale Shop"
-msgstr "Vertriebshop"
+msgstr "Vertriebsshop"
+
+#. module: at_sale
+#: model:ir.model,name:at_sale.model_sale_shop_report
+msgid "Sale shop report"
+msgstr "Vertriebsshop Bericht"
 
 #. module: at_sale
 #: view:res.partner:at_sale.form_partner_view
@@ -332,24 +371,39 @@ msgid "Sales Order Line"
 msgstr "Auftragsposition"
 
 #. module: at_sale
-#: field:sale.shop,team_id:0
+#: model:ir.model,name:at_sale.model_sale_order_report
+msgid "Sales Order Statistics"
+msgstr "Statistik Verkaufsaufträge"
+
+#. module: at_sale
+#: model:ir.model,name:at_sale.model_sale_report
+msgid "Sales Orders Statistics"
+msgstr "Statistik Verkaufsauftrag"
+
+#. module: at_sale
+#: field:sale.order.report,section_id:0 field:sale.shop,team_id:0
 msgid "Sales Team"
 msgstr "Verkaufsteam"
 
 #. module: at_sale
+#: field:sale.order.report,user_id:0
+msgid "Salesperson"
+msgstr "Verkäufer"
+
+#. module: at_sale
+#: field:sale.shop,sequence:0
+msgid "Sequence"
+msgstr "Sequenz"
+
+#. module: at_sale
 #: field:account.invoice,shop_id:0
 #: model:ir.actions.act_window,name:at_sale.action_sale_shop
-#: model:ir.model,name:at_sale.model_sale_shop
 #: model:ir.ui.menu,name:at_sale.menu_sale_shop field:sale.order,shop_id:0
-#: view:sale.shop:at_sale.form_sale_shop field:sale.shop.report,shop_id:0
+#: field:sale.order.report,shop_id:0 view:sale.shop:at_sale.form_sale_shop
+#: field:sale.shop.report,shop_id:0
 #: view:stock.picking:at_sale.search_picking_internal
 msgid "Shop"
 msgstr "Vertriebsshop"
-
-#. module: at_sale
-#: model:ir.model,name:at_sale.model_sale_shop_report
-msgid "Shop Report"
-msgstr ""
 
 #. module: at_sale
 #: view:sale.shop:at_sale.tree_sale_shop
@@ -382,14 +436,9 @@ msgid "The netto price without tax."
 msgstr "Nettopreis, ohne Steuer"
 
 #. module: at_sale
-#: help:product.product,pos_categ_id:0
-msgid "Those categories are used to group similar products for point of sale."
-msgstr ""
-
-#. module: at_sale
-#: field:product.product,to_weight:0
-msgid "To Weigh With Scale"
-msgstr ""
+#: field:sale.order.report,amount_untaxed:0
+msgid "Total"
+msgstr "Gesamt"
 
 #. module: at_sale
 #: field:sale.shop,warehouse_id:0

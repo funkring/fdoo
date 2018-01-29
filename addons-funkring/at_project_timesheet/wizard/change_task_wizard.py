@@ -19,6 +19,7 @@
 ##############################################################################
 
 from openerp import models, fields, api, _
+from openerp import SUPERUSER_ID
 
 class ChangeTaskWizard(models.TransientModel):
   _name = "at_project_timesheet.change_task_wizard"
@@ -94,9 +95,13 @@ class ChangeTaskWizard(models.TransientModel):
   
   @api.multi
   def action_change(self):
-    for wizard in self:
+    for wizard in self:      
       # work values
       line = wizard.line_id
+      work = line.project_work_id
+      if work:
+        old_task = work.task_id
+      
       work_values = {
           "name": wizard.name, 
           "date": line.date,
@@ -120,7 +125,12 @@ class ChangeTaskWizard(models.TransientModel):
         work = self.env["project.task.work"].with_context(no_analytic_entry=True).create(work_values)
         # write for update
         work.write(work_values)
-
+        
+      # update time, to trigger recalc   
+      wizard.task_id.write({"planned_hours": wizard.task_id.planned_hours})
+      if old_task and old_task.id != wizard.task_id.id:
+        old_task.write({"planned_hours": old_task.planned_hours})
+        
     return True
   
   @api.multi
