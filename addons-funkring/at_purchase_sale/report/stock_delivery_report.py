@@ -230,6 +230,7 @@ class Parser(report_sxw.rml_parse):
         move_lines = []
         move_lines_other = []
         origin = []
+        client_order_ref = []
 
         def addOrigin(origin, inOrigin):
             if inOrigin:
@@ -237,10 +238,17 @@ class Parser(report_sxw.rml_parse):
                     if not originToken in origin:
                         origin.append(originToken)
          
+        def addClientRef(ref):
+          if ref and not ref in client_order_ref:
+            client_order_ref.append(ref)
+         
         # base origin               
         addOrigin(origin, picking.origin)
         if picking.sale_id:
             addOrigin(origin, picking.sale_id.name)
+            # add client ref only if it is for client
+            if picking.simple_type in ("outgoing","dropshipment"):
+              addClientRef(picking.sale_id.client_order_ref)
 
         total = 0.0
         uom = None
@@ -351,6 +359,7 @@ class Parser(report_sxw.rml_parse):
           "address_name" : address_name,
           "address2_id" : address2_id,
           "address2_name" : address2_name,
+          "client_order_ref": "\n".join(client_order_ref),
           "weight" : weight,
           "origin" : ":".join(origin),
           "packages" : packages,
