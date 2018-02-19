@@ -19,7 +19,6 @@
 ##############################################################################
 
 from openerp.osv import fields, osv
-from pygments.lexer import _inherit
 
 class SaleLayoutCategory(osv.Model):
     _inherit = "sale_layout.category"
