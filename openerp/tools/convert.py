@@ -399,7 +399,7 @@ form: module.record_id""" % (xml_id,)
             full_xml_id = "%s.%s" % (self.module, xml_id)
         
         report_rec = self.pool['ir.model.data'].xmlid_to_object(cr, self.uid, full_xml_id, raise_if_not_found=False)
-        if report_rec and report_rec.report_type in ("qweb-pdf","aeroo") and report_rec.user_defined:
+        if report_rec and report_rec.report_type in ("qweb-pdf","aeroo") and hasattr(report_rec,"user_defined") and report_rec.user_defined:
             res["tml_source"] = report_rec.tml_source
             res["parser_state"] = report_rec.parser_state
             if report_rec.styles_mode == "specified":
