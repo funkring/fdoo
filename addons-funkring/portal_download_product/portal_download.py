@@ -19,7 +19,6 @@
 ##############################################################################
 
 from openerp import models, fields, api, _
-from pygments.lexer import _inherit
 
 class portal_download(models.Model):
     _inherit = "portal.download"
