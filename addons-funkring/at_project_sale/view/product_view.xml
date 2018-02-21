@@ -7,10 +7,27 @@
       <field name="model">product.template</field>
       <field name="inherit_id" ref="sale_service.view_product_task_form"/>
       <field name="arch" type="xml">
-        <field name="auto_create_task" position="after">
-            <field name="billed_at_cost" attrs="{'invisible':[('auto_create_task','!=',True)]}"/>
-            <field name="planned_hours" attrs="{'invisible':[('auto_create_task','!=',True)]}"/>
-        </field>
+        <group string="Project Management Information" position="replace">            
+          <group string="Project Management Information" attrs="{'invisible': [('type', '!=', 'service')]}">
+              <group>
+                <!-- basic auto creation -->
+                <field name="auto_create_task" attrs="{'invisible':[('recurring_invoices', '=', True)]}"/>                
+                <!-- billed at cost? -->
+                <field name="billed_at_cost" attrs="{'invisible':[('auto_create_task','!=',True),('recurring_invoices','!=',True)]}"/>
+                <field name="planned_hours" attrs="{'invisible':[('auto_create_task','!=',True),('recurring_invoices','!=',True)]}"/>
+              </group>
+              <group>
+                <field name="project_id" attrs="{'invisible':['|',('type', '!=', 'service'), ('auto_create_task', '=', False)]}"/>
+                <field name="recurring_invoices" attrs="{'invisible':[('auto_create_task','=',True)]}"/>  
+                <field name="recurring_tmpl_id" attrs="{'invisible':[('recurring_invoices','!=',True)]}" domain="[('type','=','template')]"  groups="analytic.group_analytic_accounting"/>                              
+                <label for="recurring_interval" attrs="{'invisible':['|',('recurring_invoices','!=',True),('recurring_tmpl_id','!=',False)]}"/>         
+                <div attrs="{'invisible':['|',('recurring_invoices','!=',True),('recurring_tmpl_id','!=',False)]}">
+                  <field name="recurring_interval" class="oe_inline" attrs="{'required': [('recurring_invoices','=',True),('recurring_tmpl_id','=',False)]}"/>
+                  <field name="recurring_rule_type" class="oe_inline" attrs="{'required': [('recurring_invoices','=',True),('recurring_tmpl_id','=',False)]}"/>
+                </div>                
+              </group>                                
+          </group>
+        </group>    
       </field>
     </record>
     

@@ -83,6 +83,17 @@ class account_analytic_account(osv.osv):
                 res["value"]["recurring_prepaid"] = template.recurring_prepaid
 
         return res
+      
+    def unlink(self, cr, uid, ids, context=None):
+        # unlink project if it is contract
+        project_obj = self.pool.get('project.project')
+        for account in self.browse(cr, uid, ids, context=context):
+          if account.is_contract:            
+            project_ids = project_obj.search(cr, uid, [('analytic_account_id','in',ids)])
+            if project_ids:
+              project_obj.unlink(cr, uid, project_ids, context=context)
+        return super(account_analytic_account, self).unlink(cr, uid, ids, context=context)
+
     
     def _prepare_invoice_data(self, cr, uid, contract, context=None):
         invoice = super(account_analytic_account, self)._prepare_invoice_data(cr, uid, contract, context=context)
@@ -171,6 +182,7 @@ class account_analytic_account(osv.osv):
     def _relids_account(self, cr, uid, ids, context=None):
         res = self.search(cr, uid, [("id","child_of",ids)], context=context)
         return res
+    
     
     _inherit = "account.analytic.account"    
     _columns = {

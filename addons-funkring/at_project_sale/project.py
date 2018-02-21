@@ -55,7 +55,7 @@ class project(osv.osv):
             project_ids = self.search(cr, uid, [("partner_id.name", operator, name)], limit=limit, context=context)
             if project_ids:
                 return self.name_get(cr, uid, project_ids, context=context)
-        return res   
+        return res
     
     _inherit = "project.project"
     
