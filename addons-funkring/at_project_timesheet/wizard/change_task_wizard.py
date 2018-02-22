@@ -127,11 +127,9 @@ class ChangeTaskWizard(models.TransientModel):
         work.write(work_values)
         
       # recalc remaining time
-      sudo_task = wizard.task_id.sudo()
-      sudo_task.write({"remaining_hours": sudo_task.planned_hours-sudo_task.effective_hours})
+      wizard.task_id.write({"remaining_hours": wizard.task_id.planned_hours-wizard.task_id.effective_hours})
       if old_task and old_task.id != wizard.task_id.id:
-        sudo_old_task = old_task.sudo()
-        sudo_old_task.write({"remaining_hours": sudo_old_task.planned_hours-sudo_old_task.effective_hours})
+        old_task.write({"remaining_hours": old_task.planned_hours-old_task.effective_hours})
         
     return True
   
