@@ -25,7 +25,7 @@ class product_template(osv.osv):
     _columns = {
         "billed_at_cost" : fields.boolean("Billed at Cost"),
         "planned_hours" : fields.float("Planned Hours"),
-        "recurring_invoices" : fields.boolean("Recurring Invoices"),
+        "recurring_invoices" : fields.boolean("Recurring Invoice or Task"),
         
         "recurring_rule_type" : fields.selection([("daily", "Day(s)"),
                                                   ("weekly", "Week(s)"),

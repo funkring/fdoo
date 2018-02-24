@@ -387,6 +387,13 @@ def getMonths(inFromDate, inToDate):
 def getWeek(str_date):
     dt = strToDate(str_date)
     return dt.isocalendar()[1]
+  
+def getYear(str_date):
+    dt = strToDate(str_date)
+    return dt.year
+  
+def getYearStr(str_date):
+    return "%s" % getYear(str_date)
 
 def cleanFileName(inName):
     repl_map = {

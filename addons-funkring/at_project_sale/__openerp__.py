@@ -57,7 +57,8 @@ oerp.at Project + Sale
                 "report/sale_order_report.xml",
                 "report/account_invoice_report.xml",
                 "report/account_analytic_entries_report.xml",
-                "data/properties.xml"
+                "data/properties.xml",
+                "data/recurring_task_cron.xml"
                 ],
     "auto_install": False,
     "installable": True

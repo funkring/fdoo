@@ -480,6 +480,11 @@ class sale_order_line(osv.osv):
         return product.recurring_invoices
       return False
     
+    def _is_task_product(self, cr, uid, product, context=None):
+      if product and product.type == "service" and product.auto_create_task:
+        return True
+      return False
+    
     def product_id_change_with_wh_price(self, cr, uid, ids, pricelist, product, qty=0,
             uom=False, qty_uos=0, uos=False, name='', partner_id=False,
             lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False, warehouse_id=False, route_id=False, price_unit=None, price_nocalc=False, context=None):
@@ -493,6 +498,7 @@ class sale_order_line(osv.osv):
       if product:
         product = self.pool["product.product"].browse(cr, uid, product, context=context)
         res["value"]["is_contract"] = self._is_contract_product(cr, uid, product, context=context)
+        res["value"]["is_task"] = self._is_task_product(cr, uid, product, context=context)
       
       return res
     
@@ -500,6 +506,12 @@ class sale_order_line(osv.osv):
       res = dict.fromkeys(ids, False)
       for line in self.browse(cr, uid, ids, context):
         res[line.id] = self._is_contract_product(cr, uid, line.product_id, context=context)
+      return res
+    
+    def _is_task(self, cr, uid, ids, field_name, arg, context=None):
+      res = dict.fromkeys(ids, False)
+      for line in self.browse(cr, uid, ids, context):
+        res[line.id] = self._is_task_product(cr, uid, line.product_id, context=context)
       return res
     
     def _prepare_contract(self, cr, uid, line, context=None):
@@ -515,11 +527,58 @@ class sale_order_line(osv.osv):
         "is_contract": True,
         "use_issues": True,
         "use_tasks": True,
-        "use_timesheets": True,
-        "recurring_invoices": True
+        "use_timesheets": True
       }
-    
+      
+    def _prepare_task(self, cr, uid, line, context):
+      order = line.order_id
+      company = order.company_id
+      product = line.product_id
+      
+      hr_uom = company.project_time_mode_id
+      if line.product_uos_qty:
+        line_qty = line.product_uos_qty
+        line_uom = line.product_uos
+      else:
+        line_qty = line.product_uom_qty
+        line_uom = line.product_uom
+      # get planned hour from line or product
+      if line_uom.id == hr_uom.id:
+        planned_hours = line_qty
+      else:
+        planned_hours = product.planned_hours
+      
+      # only one line name for short task names
+      name = line.name.split("\n")[0]
+      values = {
+        "product_id": product.id,
+        "name": name,
+        "partner_id": line.order_id.partner_id.id,
+        "sequence": line.sequence,
+        "description": line.procurement_note,
+        "planned_hours": planned_hours,
+        "remaining_hours": planned_hours,
+        "company_id": company.id
+      }
+      return values
+      
+    def action_create_task(self, cr, uid, ids, context=None):
+      task_obj = self.pool["project.task"]
+      line_obj = self.pool["sale.order.line"]
+      for line in self.browse(cr, uid, ids, context=context):
+        order = line.order_id
+        project = order.order_project_id
+        if project:
+          task_values = self._prepare_task(cr, uid, line, context)
+          task_values["project_id"] = project.id
+          task_id = task_obj.create(cr, uid, task_values, context=context)
+          line_obj.write(cr, uid, line.id, {"pre_task_id": task_id}, context=context)
+      return True
+        
     def action_create_contract(self, cr, uid, ids, context=None):
+      account_obj = self.pool["account.analytic.account"]
+      project_obj = self.pool["project.project"]
+      
       for line in self.browse(cr, uid, ids, context=context):
         if line.is_contract and not line.contract_id:
           
@@ -531,8 +590,7 @@ class sale_order_line(osv.osv):
           values = self._prepare_contract(cr, uid, line, context=context)
           if not values:
             continue
-          
-          account_obj = self.pool["account.analytic.account"]
+                    
           product = line.product_id
           recurring_tmpl = product.recurring_tmpl_id
        
@@ -552,20 +610,46 @@ class sale_order_line(osv.osv):
             
             # build with product
             values["recurring_interval"] = product.recurring_interval
-            values["recurring_rule_type"] = product.recurring_rule_type
-            values["recurring_invoice_line_ids"] = [(0, 0, {
-              "product_id": product.id,
-              "uom_id": line.product_uom.id,
-              "name": line.name,
-              "quantity": line.product_uom_qty,
-              "price_unit": line.price_unit
-            })]
+            values["recurring_rule_type"] = product.recurring_rule_type            
+        
+            # check if task should crated automatically
+            if product.auto_create_task:
+              values["recurring_task"] = True
+              
+              # prepare task
+              task_values = self._prepare_task(cr, uid, line, context)
+              values["recurring_task_ids"] = [(0, 0, task_values)]
+                            
+            # billed at cost task
+            if product.auto_create_task and product.billed_at_cost:
+              values["invoice_on_timesheets"] = True
+              
+              # enable invoice on timesheets
+              helper.onChangeValuesPool(cr, uid, account_obj, values, 
+                                         account_obj.onchange_invoice_on_timesheets(cr, uid, [], True, context=context), 
+                                         context=context)
+              
+            else:
+              values["recurring_invoices"] = True
+              # only create invoice if it isn't a billed at cost task
+              values["recurring_invoice_line_ids"] = [(0, 0, {
+                "product_id": product.id,
+                "uom_id": line.product_uom.id,
+                "name": line.name,
+                "quantity": line.product_uom_qty,
+                "price_unit": line.price_unit
+              })]
           
-          
-          # create          
-          
-          account_id = account_obj.create(cr, uid, values, context=context)
-          self.write(cr, uid, line.id, {"contract_id": account_id}, context=context)
+          # create
+          shop = line.order_id.shop_id
+          project_template = shop.project_template_id
+          if project_template:
+            project_id = project_obj.copy(cr, uid, project_template.id, values, context=context)
+            account_id = project_obj.browse(cr, uid, project_id, context=context).analytic_account_id.id
+            self.write(cr, uid, line.id, {"contract_id": account_id}, context=context)            
+          else:
+            account_id = account_obj.create(cr, uid, values, context=context)
+            self.write(cr, uid, line.id, {"contract_id": account_id}, context=context)
           
       return True
     
@@ -576,7 +660,9 @@ class sale_order_line(osv.osv):
     
     _inherit = "sale.order.line"
     _columns = {
+      "is_task": fields.function(_is_task, type="boolean", string="Is Task"),
       "is_contract": fields.function(_is_contract, type="boolean", string="Is Contract"),
+      "pre_task_id": fields.many2one("project.task", "Created Task", help="Pre created Task before order was confirmed", readonly=True, copy=False),
       "contract_start": fields.date("Contract Start", readonly=True, copy=False),
       "contract_name": fields.char("Contract Name", readonly=True, copy=False),
       "contract_id" : fields.many2one("account.analytic.account", "Contract", readonly=True, copy=False, ondelete="set null")

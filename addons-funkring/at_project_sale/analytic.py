@@ -21,9 +21,16 @@
 ##############################################################################
 
 from openerp.osv import osv,fields
+from openerp.exceptions import Warning
 from openerp.addons.at_base import util
+from openerp.addons.at_base import format
+from openerp.addons.at_base import helper
+from openerp.tools.translate import _
 
 from dateutil.relativedelta import relativedelta
+import logging
+
+_logger = logging.getLogger(__name__)
 
 class account_analytic_account(osv.osv):    
     
@@ -80,7 +87,21 @@ class account_analytic_account(osv.osv):
         if template_id:
             template = self.browse(cr, uid, template_id, context=context)
             if not ids:
+                # overtake prepaid
                 res["value"]["recurring_prepaid"] = template.recurring_prepaid
+                recurring_task_obj = self.pool("account.analytic.recurring.task")
+                
+                # overtake recurring task values
+                recurring_task_vals = []
+                for recurring_task in template.recurring_task_ids:
+                  recurring_task_copy = recurring_task_obj.copy_data(cr, uid, recurring_task.id, context=context)
+                  del recurring_task_copy["analytic_account_id"]
+                  recurring_task_vals.append((0, 0, recurring_task_copy))
+                  
+                res["value"]["recurring_task"] = template.recurring_task
+                res["value"]["recurring_task_interval"] = template.recurring_task_interval
+                res["value"]["recurring_rule"] = template.recurring_rule
+                res["value"]["recurring_task_ids"] = recurring_task_vals
 
         return res
       
@@ -183,6 +204,109 @@ class account_analytic_account(osv.osv):
         res = self.search(cr, uid, [("id","child_of",ids)], context=context)
         return res
     
+    def onchange_recurring_task(self, cr, uid, ids, recurring_task, date_start=False, context=None):
+        if date_start and recurring_task:
+            return {'value': {'recurring_task_next': date_start}}
+        return {}
+    
+    def recurring_task_create(self, cr, uid, ids, context=None):
+        return self._recurring_task_create(cr, uid, ids, context=context)
+   
+    def _cron_recurring_task_create(self, cr, uid, context=None):
+        return self._recurring_task_create(cr, uid, [], automatic=True, context=context)
+
+    def _recurring_task_prepare(self, cr, uid, project, recurring_task, interval_name, next_date, context=None):
+        name = "%s %s" % (recurring_task.name, interval_name)
+        values = {
+          "name": name,
+          "description": recurring_task.description,
+          "project_id": project.id,
+          "planned_hours": recurring_task.planned_hours,
+          "sequence": recurring_task.sequence,
+          "date_deadline": util.getPrevDayDate(next_date)
+        }
+        product = recurring_task.product_id
+        if product:
+          values["inv_product_id"] = product.id
+        return values
+
+    def _recurring_task_create(self, cr, uid, ids, automatic=False, context=None):
+        if context is None:
+          context = {}
+          
+        task_ids = []
+        
+        current_date =  util.currentDate()
+        if ids:
+            contract_ids = ids
+        else:
+            contract_ids = self.search(cr, uid, [("use_tasks","=",True), ("recurring_task_next","<=", current_date), ("state","=", "open"), ("recurring_task","=", True), ("type", "=", "contract")])
+        if contract_ids:
+            
+            task_obj = self.pool["project.task"]
+            project_obj = self.pool["project.project"]
+            f = format.LangFormat(cr, uid, context)
+            
+            cr.execute("SELECT company_id, array_agg(id) as ids FROM account_analytic_account WHERE id IN %s GROUP BY company_id", (tuple(contract_ids),))
+            for company_id, ids in cr.fetchall():
+                context_contract = dict(context, company_id=company_id, force_company=company_id)
+                for contract in self.browse(cr, uid, ids, context=context_contract):
+                    
+                    project_ids = project_obj.search(cr, uid, [("analytic_account_id","=",contract.id)], context=context_contract)
+                    if not project_ids:
+                      raise Warning(_("No Project for generating tasks of contract %s found") % contract.name)
+                    
+                    project = project_obj.browse(cr, uid, project_ids[0], context=context_contract)
+                    
+                    try:
+                      
+                        # get interval
+                        interval = contract.recurring_task_interval
+                        rule = contract.recurring_rule_type      
+                        next_date = contract.recurring_task_next or current_date                
+                        if contract.recurring_task_rule == "daily":
+                          # daily
+                          dt_interval = relativedelta(days=interval)
+                          interval_name = f.formatLang(next_date, date=True)
+                        elif contract.recurring_task_rule == "weekly":
+                          # weekly
+                          dt_interval = relativedelta(weeks=interval)
+                          interval_name = _("%s WE%s") % (util.getYearStr(next_date), util.getWeek(next_date))
+                        elif contract.recurring_task_rule == "monthly":
+                          # monthly
+                          dt_interval = relativedelta(months=interval)
+                          interval_name = helper.getMonthYear(cr, uid, next_date, context=context)
+                        else:
+                          # yearly
+                          interval_name = util.getYearStr(next_date)
+                          dt_interval = relativedelta(years=interval)
+                        
+                        # next date
+                        next_date = util.dateToStr(util.strToDate(next_date) + dt_interval)
+                        
+                        # execute task
+                        for recurring_task in contract.recurring_task_ids:
+                          task_values = self._recurring_task_prepare(cr, uid, project, recurring_task, interval_name, next_date, context=context_contract)
+                          if task_values:
+                            task_ids.append(task_obj.create(cr, uid, task_values, context=context_contract))
+
+                        # write next date
+                        self.write(cr, uid, [contract.id], {"recurring_task_next": next_date}, context=context)
+                        
+                        # commit if automatic 
+                        if automatic:
+                            cr.commit()
+                            
+                    except Exception:
+                        # log error if automatic
+                        if automatic:
+                            cr.rollback()
+                            _logger.exception("Fail to create recurring task for contract %s [%s]", (contract.name, contract.code))
+                        else:
+                            raise
+                          
+        return task_ids
+
     
     _inherit = "account.analytic.account"    
     _columns = {
@@ -195,5 +319,49 @@ class account_analytic_account(osv.osv):
         "is_contract": fields.boolean("Contract"),
         "section_id": fields.related("order_id", "section_id", type="many2one", relation="crm.case.section", string="Sales Team"),
         "categ_ids" : fields.related("order_id", "categ_ids", type="many2many", relation="crm.case.categ", string="Tags",
-                                     domain="['|', ('section_id', '=', section_id), ('section_id', '=', False), ('object_id.model', '=', 'crm.lead')]", context="{'object_name': 'crm.lead'}")
+                                     domain="['|', ('section_id', '=', section_id), ('section_id', '=', False), ('object_id.model', '=', 'crm.lead')]", context="{'object_name': 'crm.lead'}"),
+               
+        "recurring_task": fields.boolean("Recurring Tasks"),
+        "recurring_task_ids": fields.one2many("account.analytic.recurring.task", "analytic_account_id", "Recurring Tasks", copy=True),
+        "recurring_task_rule": fields.selection([
+              ("daily", "Day(s)"),
+              ("weekly", "Week(s)"),
+              ("monthly", "Month(s)"),
+              ("yearly", "Year(s)")], "Task Recurrency", help="Task automatically repeat at specified interval"),
+        "recurring_task_interval": fields.integer("Repeat Task Every", help="Repeat every (Days/Week/Month/Year)"),
+        "recurring_task_next":  fields.date("Date of Next Task(s)")
     }
+    _defaults = {
+        "recurring_task_interval": 1,
+        "recurring_task_next": lambda *a: util.currentDate(),
+        "recurring_task_rule": "monthly"
+    }
+    
+    
+class analytic_recurring_task(osv.osv):
+    _name = "account.analytic.recurring.task"
+    _description = "Recurring Task"
+    _columns = {
+      "analytic_account_id": fields.many2one("account.analytic.account", "Analytic Account", required=True),
+      "name": fields.char("Name"),
+      "description": fields.text("Description"),
+      "planned_hours": fields.float("Planned Hours"),
+      "product_id": fields.many2one("product.product", "Product", help="Product for invoicing"),
+      "sequence": fields.integer("Sequence")
+    }
+    _defaults = {
+      "sequence": 10
+    }
+        
+    def onchange_product(self, cr, uid, ids, product_id, company_id, context=None):
+      values = {}
+      if product_id:
+        product = self.browse(cr, uid, product_id, context=context)
+        if product:
+          values["name"] = product.name
+          values["planned_hours"] = product.planned_hours
+          description = product.description_sale
+          if description:
+            values["description"] = description
+      return  {"value": values}
+

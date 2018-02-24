@@ -28,3 +28,28 @@ class procurement_order(osv.Model):
         if product.planned_hours:
             return product.planned_hours
         return super(procurement_order, self)._convert_qty_company_hours(cr, uid, procurement, context=context)
+
+    def _is_procurement_task(self, cr, uid, procurement, context=None):      
+      is_procurement_task = super(procurement_order, self)._is_procurement_task(cr, uid, procurement, context=context)
+      if is_procurement_task:
+        sale_line = procurement.sale_line_id
+        if sale_line and sale_line.is_contract:
+          return False
+      return is_procurement_task
+    
+    def _create_service_task(self, cr, uid, procurement, context=None):
+        sale_line = procurement.sale_line_id or None
+        if sale_line:
+          task_obj = self.pool["project.task"]
+          task = sale_line.pre_task_id
+          
+          # update task only, if it already exist
+          if task:
+            task_obj.write(cr, uid, task.id, {
+              "procurement_id": procurement.id
+            })
+            self.write(cr, uid, [procurement.id], {'task_id': task.id}, context=context)
+            self.project_task_create_note(cr, uid, [procurement.id], context=context)
+            return task.id
+        
+        return super(procurement_order, self)._create_service_task(cr, uid, procurement, context=context)

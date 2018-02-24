@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Language: de_DE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-21 22:18+0000\n"
-"PO-Revision-Date: 2018-02-21 23:19+0100\n"
+"POT-Creation-Date: 2018-02-24 22:36+0000\n"
+"PO-Revision-Date: 2018-02-24 23:37+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,13 @@ msgid "%s Hour(s)"
 msgstr "%s Stunde(n)"
 
 #. module: at_project_sale
+#: code:addons/at_project_sale/analytic.py:274
+#, python-format
+msgid "%s WE%s"
+msgstr "%s KW%s"
+
+#. module: at_project_sale
+#: field:account.analytic.recurring.task,analytic_account_id:0
 #: model:ir.model,name:at_project_sale.model_account_analytic_account
 #: view:project.task:at_project_sale.form_sale_service_task
 #: field:project.task,analytic_account_id:0
@@ -134,11 +141,23 @@ msgid "Create Contract"
 msgstr "Erstelle Vertrag"
 
 #. module: at_project_sale
+#: view:sale.order:at_project_sale.form_sale_order2
+msgid "Create Task"
+msgstr "Erstelle Aufgabe"
+
+#. module: at_project_sale
+#: field:sale.order.line,pre_task_id:0
+msgid "Created Task"
+msgstr "Erstellte Aufgabe"
+
+#. module: at_project_sale
+#: field:account.analytic.recurring.task,create_uid:0
 #: field:at_project_sale.correct_time_wizard,create_uid:0
 msgid "Created by"
 msgstr "Erstellt von"
 
 #. module: at_project_sale
+#: field:account.analytic.recurring.task,create_date:0
 #: field:at_project_sale.correct_time_wizard,create_date:0
 msgid "Created on"
 msgstr "Erstellt am"
@@ -149,11 +168,24 @@ msgid "Customer"
 msgstr "Kunde"
 
 #. module: at_project_sale
+#: field:account.analytic.account,recurring_task_next:0
+#: field:project.project,recurring_task_next:0
+msgid "Date of Next Task(s)"
+msgstr "Datum der nächsten Aufgaben"
+
+#. module: at_project_sale
+#: selection:account.analytic.account,recurring_task_rule:0
 #: selection:product.template,recurring_rule_type:0
 msgid "Day(s)"
 msgstr "Tag(e)"
 
 #. module: at_project_sale
+#: field:account.analytic.recurring.task,description:0
+msgid "Description"
+msgstr "Beschreibung"
+
+#. module: at_project_sale
+#: field:account.analytic.recurring.task,display_name:0
 #: field:at_project_sale.correct_time_wizard,display_name:0
 msgid "Display Name"
 msgstr ""
@@ -169,9 +201,15 @@ msgid "Group By"
 msgstr "Gruppiert nach"
 
 #. module: at_project_sale
+#: field:account.analytic.recurring.task,id:0
 #: field:at_project_sale.correct_time_wizard,id:0
 msgid "ID"
 msgstr ""
+
+#. module: at_project_sale
+#: field:project.task,inv_product_id:0
+msgid "Invoice Product"
+msgstr "Verrechnungsprodukt"
 
 #. module: at_project_sale
 #: help:product.template,recurring_rule_type:0
@@ -189,16 +227,24 @@ msgid "Is Contract"
 msgstr "Ist ein Vertrag"
 
 #. module: at_project_sale
+#: field:sale.order.line,is_task:0
+msgid "Is Task"
+msgstr ""
+
+#. module: at_project_sale
+#: field:account.analytic.recurring.task,__last_update:0
 #: field:at_project_sale.correct_time_wizard,__last_update:0
 msgid "Last Modified on"
 msgstr ""
 
 #. module: at_project_sale
+#: field:account.analytic.recurring.task,write_uid:0
 #: field:at_project_sale.correct_time_wizard,write_uid:0
 msgid "Last Updated by"
 msgstr "Zuletzt aktualisiert von"
 
 #. module: at_project_sale
+#: field:account.analytic.recurring.task,write_date:0
 #: field:at_project_sale.correct_time_wizard,write_date:0
 msgid "Last Updated on"
 msgstr "Zuletzt aktualisiert am"
@@ -213,6 +259,7 @@ msgid "Main Analytic Account"
 msgstr "Hauptkostenstelle"
 
 #. module: at_project_sale
+#: selection:account.analytic.account,recurring_task_rule:0
 #: selection:product.template,recurring_rule_type:0
 msgid "Month(s)"
 msgstr "Monat(e)"
@@ -223,7 +270,19 @@ msgid "My Sales"
 msgstr "Meine Verkäufe"
 
 #. module: at_project_sale
-#: code:addons/at_project_sale/sale_order.py:528
+#: field:account.analytic.recurring.task,name:0
+msgid "Name"
+msgstr ""
+
+#. module: at_project_sale
+#: code:addons/at_project_sale/analytic.py:257
+#, python-format
+msgid "No Project for generating tasks of contract %s found"
+msgstr ""
+"Es wurde kein Projekt für die zu erstellenden Aufgaben gefunden (Vertrag %s)"
+
+#. module: at_project_sale
+#: code:addons/at_project_sale/sale_order.py:585
 #, python-format
 msgid "No contract name or start date for %s"
 msgstr "Vertragsname oder Vertragsstart nicht angegeben für %s"
@@ -269,6 +328,7 @@ msgid "Partner"
 msgstr ""
 
 #. module: at_project_sale
+#: field:account.analytic.recurring.task,planned_hours:0
 #: field:at_project_sale.correct_time_wizard,planned_hours:0
 #: field:product.template,planned_hours:0
 msgid "Planned Hours"
@@ -285,6 +345,11 @@ msgid "Pre Calculation (Netto)"
 msgstr "Vorkalkulation"
 
 #. module: at_project_sale
+#: help:sale.order.line,pre_task_id:0
+msgid "Pre created Task before order was confirmed"
+msgstr "Erstellte Aufgabe bevor der Vertrag bestätigt wurde"
+
+#. module: at_project_sale
 #: field:account.analytic.account,recurring_prepaid:0
 msgid "Prepaid"
 msgstr "Vorauszahlung"
@@ -295,9 +360,19 @@ msgid "Procurement"
 msgstr "Beschaffung"
 
 #. module: at_project_sale
+#: field:account.analytic.recurring.task,product_id:0
+msgid "Product"
+msgstr "Produkt"
+
+#. module: at_project_sale
 #: model:ir.model,name:at_project_sale.model_product_template
 msgid "Product Template"
 msgstr "Produktvorlage"
+
+#. module: at_project_sale
+#: help:account.analytic.recurring.task,product_id:0
+msgid "Product for invoicing"
+msgstr "Produkt für Verrechnung von Regieaufgaben"
 
 #. module: at_project_sale
 #: model:ir.model,name:at_project_sale.model_project_project
@@ -337,8 +412,22 @@ msgstr "Wiederholung"
 
 #. module: at_project_sale
 #: field:product.template,recurring_invoices:0
-msgid "Recurring Invoices"
-msgstr "Vertrag mit wiederkehrender Rechnung"
+msgid "Recurring Invoice or Task"
+msgstr "Wiederkehrende Rechnung oder Aufgabe"
+
+#. module: at_project_sale
+#: model:ir.model,name:at_project_sale.model_account_analytic_recurring_task
+msgid "Recurring Task"
+msgstr "Periodische Aufgabe"
+
+#. module: at_project_sale
+#: view:account.analytic.account:at_project_sale.form_account_analytic_account
+#: field:account.analytic.account,recurring_task:0
+#: field:account.analytic.account,recurring_task_ids:0
+#: field:project.project,recurring_task:0
+#: field:project.project,recurring_task_ids:0
+msgid "Recurring Tasks"
+msgstr "Periodische Aufgaben"
 
 #. module: at_project_sale
 #: field:product.template,recurring_interval:0
@@ -346,7 +435,15 @@ msgid "Repeat Every"
 msgstr "Wiederhole alle"
 
 #. module: at_project_sale
+#: field:account.analytic.account,recurring_task_interval:0
+#: field:project.project,recurring_task_interval:0
+msgid "Repeat Task Every"
+msgstr "Wiederhole Aufgabe jede(s)"
+
+#. module: at_project_sale
+#: help:account.analytic.account,recurring_task_interval:0
 #: help:product.template,recurring_interval:0
+#: help:project.project,recurring_task_interval:0
 msgid "Repeat every (Days/Week/Month/Year)"
 msgstr "Wiederhole alle (Tage/Wochen/Monate/Jahre)"
 
@@ -400,6 +497,11 @@ msgid "Salesperson"
 msgstr "Verkäufer"
 
 #. module: at_project_sale
+#: field:account.analytic.recurring.task,sequence:0
+msgid "Sequence"
+msgstr "Sequenz"
+
+#. module: at_project_sale
 #: field:account.analytic.account,shop_id:0
 #: view:sale.order.report:at_project_sale.view_sale_order_report_search
 msgid "Shop"
@@ -426,6 +528,18 @@ msgstr "Aufgabe"
 #: field:at_project_sale.correct_time_wizard,task_hours:0
 msgid "Task Hours Correction"
 msgstr "Stunden Korrektur"
+
+#. module: at_project_sale
+#: field:account.analytic.account,recurring_task_rule:0
+#: field:project.project,recurring_task_rule:0
+msgid "Task Recurrency"
+msgstr "Aufgaben Wiederholung"
+
+#. module: at_project_sale
+#: help:account.analytic.account,recurring_task_rule:0
+#: help:project.project,recurring_task_rule:0
+msgid "Task automatically repeat at specified interval"
+msgstr "Die Aufgaben werden automatisch mit dem angegeben Interval wiederholt"
 
 #. module: at_project_sale
 #: field:product.template,recurring_tmpl_id:0
@@ -460,11 +574,13 @@ msgid "Timesheet Lines"
 msgstr "Zeiterfassungszeilen"
 
 #. module: at_project_sale
+#: selection:account.analytic.account,recurring_task_rule:0
 #: selection:product.template,recurring_rule_type:0
 msgid "Week(s)"
 msgstr "Woche(n)"
 
 #. module: at_project_sale
+#: selection:account.analytic.account,recurring_task_rule:0
 #: selection:product.template,recurring_rule_type:0
 msgid "Year(s)"
 msgstr "Jahr(e)"
@@ -478,3 +594,8 @@ msgstr "oder"
 #: view:at_project_sale.correct_time_wizard:at_project_sale.wizard_correct_time
 msgid "title"
 msgstr "Titel"
+
+#. module: at_project_sale
+#: view:account.analytic.account:at_project_sale.form_account_analytic_account
+msgid "⇒ create tasks"
+msgstr "⇒ Erstelle Aufgaben"
