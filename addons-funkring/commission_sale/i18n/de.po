@@ -8,7 +8,7 @@ msgstr ""
 "Language: de_DE\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-25 13:15+0000\n"
-"PO-Revision-Date: 2018-02-25 14:15+0100\n"
+"PO-Revision-Date: 2018-02-25 16:17+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -57,7 +57,7 @@ msgstr "Provision"
 #: field:product.template,commission_percent:0
 #: field:sale.order.line,commission:0
 msgid "Commission %"
-msgstr "Provision %"
+msgstr "Prov. (%)"
 
 #. module: commission_sale
 #: field:product.pricelist.item,commission_active:0
@@ -109,7 +109,7 @@ msgstr "Eigene Provision"
 #. module: commission_sale
 #: field:sale.order.line,commission_custom:0
 msgid "Custom Commission %"
-msgstr "Eigene Provision %"
+msgstr "Eig. Prov. (%)"
 
 #. module: commission_sale
 #: model:res.groups,comment:commission_sale.group_commission_custom

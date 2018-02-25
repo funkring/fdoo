@@ -130,7 +130,7 @@ class sale_order_line(osv.osv):
             
             for c in commissions:
               commission_amount += c["amount"]
-              commission += c["total_commission"]
+              commission_total += c["total_commission"]
             
           
         res[line.id] = {
