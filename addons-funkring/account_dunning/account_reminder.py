@@ -62,6 +62,23 @@ class account_reminder(osv.Model):
                 if reminder.state == ("sent"):
                     raise Warning(_('The reminder was already sent to the customer. If you want to send a reminder again,'
                                                           'you need to call the reminder wizard again!'))
+                    
+            
+            # check if partner has email
+            
+            partner_ids = list(partner_ids)
+            partner_obj = self.pool["res.partner"]
+            partner_noemail_ids = partner_obj.search(cr, uid, [("id","in",partner_ids),("email","=",False)], context=context)
+            
+            if partner_noemail_ids:
+              partner_noemail_ids = partner_noemail_ids[:10]
+              partner_names = []
+              for partner in partner_obj.browse(cr, uid, partner_noemail_ids, context=context):
+                partner_names.append(partner.name)
+              raise Warning(_('Partner(s) %s has no email address') % ", ".join(partner_names))
+            
+            # show wizard for sending
+            
             if profile_template_id:
                 template_id = profile_template_id
 
