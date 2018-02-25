@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-# -*- encoding: utf-8 -*-
-
 #############################################################################
 #
 #    Copyright (c) 2007 Martin Reisenhofer <martin.reisenhofer@funkring.net>
@@ -21,30 +19,20 @@
 ##############################################################################
 
 {
-    "name" : "oerp.at Sale Commission",
+    "name" : "oerp.at Sale Change Commission",
+    "summary" : "Regenerate Commission after sale edit",
     "description":"""
-Commission based on Sale
-========================
-
-* creates commission based on sales
-* creates commission based on contracts
-
-""",
+Sale Change Commission
+======================
+* Regenerate Commision after edit
+    """,
     "version" : "1.0",
     "author" :  "oerp.at",
-    "category" : "Commission",
-    "depends" : ["at_base","at_sale","commission","sales_team","product"],
-    "data" : ["security.xml",
-              "data/analytic_journals.xml",
-              "data/products.xml",
-              "data/properties.xml",
-              "view/pricelist_item_view.xml",
-              "view/crm_section_view.xml",
-              "view/bonus_view.xml",
-              "view/product_view.xml",
-              "view/sale_view.xml",
-              "report/sale_commission_report.xml"
-              ],
+    "website" : "http://oerp.at",
+    "category" : "Sales",
+    "depends" : ["at_sale_change", 
+                 "commission_sale"],
+    "data" : ["wizard/sale_order_edit_wizard.xml"],
     "auto_install" : False,
     "installable": True
 }

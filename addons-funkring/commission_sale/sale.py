@@ -53,7 +53,9 @@ class sale_order(osv.osv):
                                                                     "account_id": analytic_account.id,
                                                                     "sale_partner_id": order.partner_id.id,
                                                                     "sale_product_id": line.product_id.id
-                                                                 }, context=context)
+                                                                 }, 
+                                                                 commission_custom=line.commission_custom or None,                    
+                                                                 context=context)
                         
                         for commisson_line in commission_lines:
                             period_ids.add(commisson_line["period_id"])
@@ -77,26 +79,81 @@ class sale_order(osv.osv):
     
 class sale_order_line(osv.osv):    
     _inherit = "sale.order.line"
+    
+    def _commission_fields(self, cr, uid, ids, field_names, arg, context=None):
+      res = dict.fromkeys(ids)
+      commission_line_obj = self.pool("commission.line")
+      
+      for line in self.browse(cr, uid, ids, context):
         
-    def _product_margin_extra(self, cr, uid, line, context=None):
-        res = super(sale_order_line, self)._product_margin_extra(cr, uid, line, context=context)
-        product = line.product_id        
-        if product:
-            order = line.order_id
-            commissionEntries = self.pool("commission.line")._get_sale_commission(cr, uid, 
-                                      line.name, 
-                                      order.user_id, 
-                                      order.partner_id, 
-                                      product, 
-                                      line.product_uos_qty, 
-                                      line.price_subtotal, 
-                                      date=order.date_order, 
-                                      pricelist=order.pricelist_id, 
-                                      context=context)
+        commission_amount = 0.0
+        commission = 0.0
+        commission_total = 0.0
+        
+        if line.product_id:
+          order = line.order_id
+          product = line.product_id
+          
+          # calc without commission custom
+          commissions = commission_line_obj._get_sale_commission(cr, uid, 
+                                   line.name, 
+                                   order.user_id, 
+                                   order.partner_id, 
+                                   product, 
+                                   line.product_uos_qty, 
+                                   line.price_subtotal, 
+                                   date=order.date_order, 
+                                   pricelist=order.pricelist_id, 
+                                   context=context)
+          
+          for c in commissions:
+            commission_amount += c["amount"]
+            commission += c["total_commission"]
             
-            for commissionEntry in commissionEntries:
-                res+=commissionEntry["amount"]
-        return res
+          # calc with commission custom
+          commission_total = commission
+          if line.commission_custom:
+            commission_amount = 0.0
+            commission_total = 0.0
+            
+            commissions = commission_line_obj._get_sale_commission(cr, uid, 
+                                   line.name, 
+                                   order.user_id, 
+                                   order.partner_id, 
+                                   product, 
+                                   line.product_uos_qty, 
+                                   line.price_subtotal, 
+                                   date=order.date_order, 
+                                   pricelist=order.pricelist_id, 
+                                   commission_custom = line.commission_custom,
+                                   context=context)
+            
+            for c in commissions:
+              commission_amount += c["amount"]
+              commission += c["total_commission"]
+            
+          
+        res[line.id] = {
+          "commission": commission,
+          "commission_amount": commission_amount,
+          "commission_total": commission_total
+        }
+        
+      return res
+    
+    
+    _columns = {
+      "commission": fields.function(_commission_fields, type="float", string="Commission %", multi="_commission_fields", readonly=True),
+      "commission_custom": fields.float("Custom Commission %", readonly=True, states={"draft": [("readonly", False)], "sent": [("readonly", False)]}),
+      "commission_amount": fields.function(_commission_fields, type="float", string="Commission Amount", multi="_commission_fields", readonly=True),
+      "commission_total": fields.function(_commission_fields, type="float", string="Commission Amount", multi="_commission_fields", readonly=True)      
+    }
+    
+    
+    def _product_margin_extra(self, cr, uid, line, context=None):
+      res = super(sale_order_line, self)._product_margin_extra(cr, uid, line, context=context)
+      res += line.commission_amount        
+      return res
     
 
     

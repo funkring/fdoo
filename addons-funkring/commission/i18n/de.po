@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Language: de_DE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-25 10:00+0000\n"
-"PO-Revision-Date: 2018-01-25 11:02+0100\n"
+"POT-Creation-Date: 2018-02-25 15:05+0000\n"
+"PO-Revision-Date: 2018-02-25 16:06+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -143,7 +143,7 @@ msgstr "Provision Typ"
 #. module: commission
 #: model:ir.ui.menu,name:commission.menu_commission_recalc_wizard
 msgid "Commission calculate"
-msgstr "Provision Berechnung"
+msgstr "Provision berechnen"
 
 #. module: commission
 #: code:addons/commission/commission_recalc_wizard.py:32
@@ -413,7 +413,6 @@ msgstr "Neuberechnen"
 
 #. module: commission
 #: model:ir.actions.act_window,name:commission.action_commission_recalc
-#: model:ir.model,name:commission.model_commission_recalc_wizard
 msgid "Recalculate Commissions"
 msgstr "Provisionen Neuberechnung"
 
@@ -435,6 +434,11 @@ msgstr "Verkauf"
 #. module: commission
 #: selection:res.company,commission_type:0
 msgid "Sale Order"
+msgstr "Verkaufsauftrag"
+
+#. module: commission
+#: model:ir.model,name:commission.model_sale_order
+msgid "Sales Order"
 msgstr "Verkaufsauftrag"
 
 #. module: commission
@@ -508,6 +512,11 @@ msgstr "Benutzer"
 #: view:commission.line:commission.tree_commission_line
 msgid "Volume of Amount"
 msgstr "Provisions Basis"
+
+#. module: commission
+#: model:ir.model,name:commission.model_commission_recalc_wizard
+msgid "Wizard to recalculate the commissions"
+msgstr "Assistent für Neuberechnung"
 
 #. module: commission
 #: view:commission.commission_invoice_wizard:commission.wizard_commission_invoice
