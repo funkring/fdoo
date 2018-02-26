@@ -55,6 +55,29 @@ class commission_line(osv.osv):
             value["amount"] = price_sub * (total_commission / 100.0) * sign
               
         return res
+      
+    def _tax_ids(self, cr, uid, ids, field_name, arg, context=None):
+        res = dict.fromkeys(ids)
+        
+        cr.execute("SELECT l.id, it.tax_id, st.tax_id FROM commission_line l "
+                   " LEFT JOIN account_invoice_line_tax it ON it.invoice_line_id = l.id "
+                   " LEFT JOIN sale_order_tax st ON st.order_line_id = l.order_line_id "
+                   " WHERE l.id IN %s ", (tuple(ids),))
+        
+        for oid, inv_tax_id, sale_tax_id in cr.fetchall():
+          # tax collection
+          tax_ids = res[oid]
+          if not tax_ids:
+            tax_ids = []
+            res[oid] = tax_ids
+            
+          # fill tax collection
+          if inv_tax_id and inv_tax_id not in tax_ids:
+            tax_ids.append(inv_tax_id)
+          elif sale_tax_id and sale_tax_id not in tax_ids:
+            tax_ids.append(inv_tax_id)
+            
+        return res
     
     _columns = {
         "line_id": fields.many2one("account.analytic.line", "Analytic line", ondelete="cascade", required=True),        
@@ -72,7 +95,8 @@ class commission_line(osv.osv):
         "invoiced_line_ids" : fields.many2many("account.invoice.line", "commission_invoice_line_rel", "commission_line_id", "invoice_line_id", "Invoice Lines"),       
         "price_sub" : fields.float("Subtotal", digits_compute=dp.get_precision("Account")),
         "prov_amount" : fields.function(_prov_amount, string="Commission", type="float", store=False, digits_compute=dp.get_precision("Account")),
-        "val_based" : fields.boolean("No percent based Commission")
+        "val_based" : fields.boolean("No percent based Commission"),
+        "tax_ids": fields.function(_tax_ids, string="Tax", type="many2many", obj="account.tax", readonly=True)
     }
     _name = "commission.line"
     _inherits = {"account.analytic.line": "line_id"}
