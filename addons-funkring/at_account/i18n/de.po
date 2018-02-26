@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Language: de_DE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-14 14:27+0000\n"
-"PO-Revision-Date: 2017-01-14 15:29+0100\n"
+"POT-Creation-Date: 2018-02-26 00:04+0000\n"
+"PO-Revision-Date: 2018-02-26 01:05+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -44,18 +44,6 @@ msgid "Amount"
 msgstr "Betrag"
 
 #. module: at_account
-#: code:addons/at_account/report/account_invoice_list_report.py:41
-#, python-format
-msgid "Amount total"
-msgstr "Bruttobetrag"
-
-#. module: at_account
-#: code:addons/at_account/report/account_invoice_list_report.py:40
-#, python-format
-msgid "Amount untaxed"
-msgstr "Nettobetrag"
-
-#. module: at_account
 #: field:res.company,fiscal_auto_year:0
 msgid "Auto fiscal year"
 msgstr "Finanzjahr automatisch anlegen"
@@ -66,7 +54,7 @@ msgid "Auto fiscal year sequence"
 msgstr "Belegnummern automatisch zurücksetzen"
 
 #. module: at_account
-#: code:addons/at_account/report/account_account_report.py:90
+#: code:addons/at_account/report/account_account_report.py:91
 #, python-format
 msgid "Balance"
 msgstr "Saldo"
@@ -77,7 +65,7 @@ msgid "Balance Report"
 msgstr "Saldenbericht"
 
 #. module: at_account
-#: code:addons/at_account/report/account_account_report.py:42
+#: code:addons/at_account/report/account_account_report.py:43
 #, python-format
 msgid "Balance list"
 msgstr "Saldenliste"
@@ -118,7 +106,7 @@ msgid "Cancel the invoice"
 msgstr "Rechnung abbrechen"
 
 #. module: at_account
-#: code:addons/at_account/invoice.py:333
+#: code:addons/at_account/invoice.py:395
 #, python-format
 msgid "Cancellation"
 msgstr "Storno"
@@ -146,7 +134,7 @@ msgid "Close"
 msgstr "Schließen"
 
 #. module: at_account
-#: code:addons/at_account/report/account_account_report.py:78
+#: code:addons/at_account/report/account_account_report.py:79
 #: field:res.company,code:0
 #, python-format
 msgid "Code"
@@ -172,7 +160,7 @@ msgid "Created on"
 msgstr "Erstellt am"
 
 #. module: at_account
-#: code:addons/at_account/report/account_account_report.py:87
+#: code:addons/at_account/report/account_account_report.py:88
 #, python-format
 msgid "Credit"
 msgstr "Haben"
@@ -181,11 +169,6 @@ msgstr "Haben"
 #: field:res.company,account_customer_seq_id:0
 msgid "Customer Account Sequence"
 msgstr "Kundenkonto Nummernkreis"
-
-#. module: at_account
-#: field:res.company,account_customer_tmpl_id:0
-msgid "Customer Account Template"
-msgstr "Kundenkonto Vorlage"
 
 #. module: at_account
 #: view:res.company:at_account.form_company field:res.company,refund_text:0
@@ -198,29 +181,16 @@ msgid "Customer/Supplier Account"
 msgstr "Kunden/Lieferanten Konto"
 
 #. module: at_account
-#: code:addons/at_account/report/account_invoice_list_report.py:34
 #: code:addons/at_account/report/account_voucher_list_report.py:65
 #, python-format
 msgid "Date"
 msgstr "Datum"
 
 #. module: at_account
-#: code:addons/at_account/report/account_invoice_list_report.py:38
-#, python-format
-msgid "Date due"
-msgstr "Fälligkeit"
-
-#. module: at_account
-#: code:addons/at_account/report/account_account_report.py:84
+#: code:addons/at_account/report/account_account_report.py:85
 #, python-format
 msgid "Debit"
 msgstr "Soll"
-
-#. module: at_account
-#: code:addons/at_account/report/account_invoice_list_report.py:37
-#, python-format
-msgid "Description"
-msgstr "Buchungstext"
 
 #. module: at_account
 #: field:account.invoice.line,discount_amount:0
@@ -304,8 +274,8 @@ msgstr "Importiere OFX Datei"
 
 #. module: at_account
 #: view:account.invoice:at_account.search_invoice
-#: code:addons/at_account/invoice.py:327
-#: code:addons/at_account/report/account_bank_statement_report.py:146
+#: code:addons/at_account/invoice.py:389
+#: code:addons/at_account/report/account_bank_statement_report.py:159
 #: model:ir.model,name:at_account.model_account_invoice
 #, python-format
 msgid "Invoice"
@@ -325,7 +295,12 @@ msgstr "Assistent für das Abbrechen von Rechnungen"
 #. module: at_account
 #: model:ir.model,name:at_account.model_account_invoice_line
 msgid "Invoice Line"
-msgstr "Rechnungszeile"
+msgstr "Rechungsposition"
+
+#. module: at_account
+#: model:ir.model,name:at_account.model_account_invoice_refund
+msgid "Invoice Refund"
+msgstr "Rechnungsgutschrift"
 
 #. module: at_account
 #: field:account.invoice,invoice_text:0
@@ -338,13 +313,7 @@ msgid "Invoice list"
 msgstr "Rechnungsliste"
 
 #. module: at_account
-#: code:addons/at_account/report/account_invoice_list_report.py:35
-#, python-format
-msgid "Invoice number"
-msgstr "Nummer"
-
-#. module: at_account
-#: code:addons/at_account/report/account_invoice_list_report.py:52
+#: code:addons/at_account/report/account_invoice_list_report.py:40
 #, python-format
 msgid "Invoice overview"
 msgstr "Rechnungsübersicht"
@@ -355,7 +324,6 @@ msgid "Invoice/Refund Text"
 msgstr "Rechnung / Gutschrift Text"
 
 #. module: at_account
-#: code:addons/at_account/report/account_invoice_list_report.py:45
 #: code:addons/at_account/report/account_voucher_list_report.py:68
 #: model:ir.model,name:at_account.model_account_journal
 #, python-format
@@ -384,7 +352,7 @@ msgid "Last Updated on"
 msgstr "Aktualisiert am"
 
 #. module: at_account
-#: code:addons/at_account/report/account_account_report.py:81
+#: code:addons/at_account/report/account_account_report.py:82
 #, python-format
 msgid "Name"
 msgstr ""
@@ -433,17 +401,10 @@ msgid "PDF is corrupted and unable to fix!"
 msgstr "PDF ist Fehlerhaft . Die Fehler können nicht korrigiert werden!"
 
 #. module: at_account
-#: code:addons/at_account/report/account_invoice_list_report.py:36
 #: code:addons/at_account/report/account_voucher_list_report.py:77
 #, python-format
 msgid "Partner"
 msgstr ""
-
-#. module: at_account
-#: code:addons/at_account/report/account_invoice_list_report.py:44
-#, python-format
-msgid "Payment"
-msgstr "Zahlung"
 
 #. module: at_account
 #: model:ir.actions.report.xml,name:at_account.report_payment_overview_pdf
@@ -471,7 +432,7 @@ msgid "Price Unit (Netto)"
 msgstr "Preis/Einheit (Netto)"
 
 #. module: at_account
-#: code:addons/at_account/invoice.py:329
+#: code:addons/at_account/invoice.py:391
 #, python-format
 msgid "Pro-forma"
 msgstr "Proforma"
@@ -487,7 +448,7 @@ msgid "Product Template"
 msgstr "Produktvorlage"
 
 #. module: at_account
-#: code:addons/at_account/invoice.py:331
+#: code:addons/at_account/invoice.py:393
 #, python-format
 msgid "Proposal"
 msgstr "Vorschlag"
@@ -504,29 +465,22 @@ msgid "QR Code"
 msgstr ""
 
 #. module: at_account
-#: code:addons/at_account/report/account_invoice_list_report.py:46
 #: code:addons/at_account/report/account_voucher_list_report.py:74
 #, python-format
 msgid "Reference"
 msgstr "Referenz"
 
 #. module: at_account
-#: code:addons/at_account/invoice.py:335
+#: code:addons/at_account/invoice.py:397
 #, python-format
 msgid "Refund"
 msgstr "Gutschrift"
 
 #. module: at_account
-#: code:addons/at_account/report/account_invoice_list_report.py:43
+#: code:addons/at_account/wizard/invoice_refund_wizard.py:32
 #, python-format
-msgid "Reminder"
-msgstr "Erinnerung"
-
-#. module: at_account
-#: code:addons/at_account/report/account_invoice_list_report.py:39
-#, python-format
-msgid "Residual"
-msgstr "Restwert"
+msgid "Refund %s"
+msgstr "Gutschrift zu %s"
 
 #. module: at_account
 #: view:res.company:at_account.form_company field:res.company,invoice_text:0
@@ -549,11 +503,9 @@ msgid "Start"
 msgstr "Beginn"
 
 #. module: at_account
-#: code:addons/at_account/report/account_invoice_list_report.py:42
 #: view:res.company:at_account.form_company
-#, python-format
 msgid "State"
-msgstr "Status"
+msgstr "Bundesland"
 
 #. module: at_account
 #: field:account.ofx.import.wizard,statement_id:0
@@ -576,18 +528,13 @@ msgid "Supplier Account Sequence"
 msgstr "Lieferantenkonto Nummernkreis"
 
 #. module: at_account
-#: field:res.company,account_supplier_tmpl_id:0
-msgid "Supplier Account Template"
-msgstr "Lieferantenkonto Vorlage"
-
-#. module: at_account
-#: code:addons/at_account/invoice.py:339
+#: code:addons/at_account/invoice.py:401
 #, python-format
 msgid "Supplier Invoice"
 msgstr "Eingangsrechnung"
 
 #. module: at_account
-#: code:addons/at_account/invoice.py:337
+#: code:addons/at_account/invoice.py:399
 #, python-format
 msgid "Supplier Refund"
 msgstr "Gutschrift Lieferant"
@@ -600,12 +547,6 @@ msgstr "Lieferantengutschriftstext"
 #. module: at_account
 #: model:ir.model,name:at_account.model_account_tax
 msgid "Tax"
-msgstr "Steuer"
-
-#. module: at_account
-#: code:addons/at_account/report/account_invoice_list_report.py:47
-#, python-format
-msgid "Taxes"
 msgstr "Steuer"
 
 #. module: at_account
@@ -626,7 +567,7 @@ msgid "Voucher overview"
 msgstr "Zahlungsübersicht"
 
 #. module: at_account
-#: code:addons/at_account/invoice.py:109
+#: code:addons/at_account/invoice.py:151
 #, python-format
 msgid "Write-Off"
 msgstr "Abschreibung"
