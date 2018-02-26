@@ -100,7 +100,7 @@ class account_analytic_account(osv.osv):
                   
                 res["value"]["recurring_task"] = template.recurring_task
                 res["value"]["recurring_task_interval"] = template.recurring_task_interval
-                res["value"]["recurring_rule"] = template.recurring_rule
+                res["value"]["recurring_task_rule"] = template.recurring_task_rule
                 res["value"]["recurring_task_ids"] = recurring_task_vals
 
         return res
