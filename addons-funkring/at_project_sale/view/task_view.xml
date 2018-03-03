@@ -23,6 +23,7 @@
                 <field name="sale_line_id" position="replace">
                     <field name="analytic_account_id" string="Analytic Account" invisible="1"/>
                     <field name="sale_line_id" string="Order Line" domain="[('order_id.project_id','=',analytic_account_id)]"/>
+                    <field name="inv_product_id" string="Invoice Product"/>
                 </field>
           </field>
         </record>

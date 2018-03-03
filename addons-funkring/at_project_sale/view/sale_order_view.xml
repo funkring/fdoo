@@ -31,6 +31,7 @@
                   <field name="is_contract" invisible="1"/>
                   <field name="contract_name" attrs="{'readonly':[('contract_id','!=',False)], 'required':[('is_contract','=',True)]}"/>                  
                   <field name="contract_start" attrs="{'readonly':[('contract_id','!=',False)]}"/>
+                  <field name="contract_start_task" attrs="{'readonly':[('contract_id','!=',False)], 'invisible':[('is_task','=',False)]}"/>
                 </group>                  
                 <group>
                   <field name="contract_id"/>

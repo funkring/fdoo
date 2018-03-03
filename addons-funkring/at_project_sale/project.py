@@ -76,7 +76,7 @@ class task(osv.osv):
     _inherit = "project.task"
     _columns = {
         "analytic_account_id" : fields.related("project_id", "analytic_account_id", string="Analytic Account", type="many2one", relation="account.analytic.account", readonly=True),
-        "inv_product_id": fields.many2one("product.product", "Invoice Product")
+        "inv_product_id": fields.many2one("product.product", "Invoice Product", help="The product which will be used for timesheet based invoices")
     }
 
     

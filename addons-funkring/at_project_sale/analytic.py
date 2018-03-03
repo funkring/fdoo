@@ -223,7 +223,7 @@ class account_analytic_account(osv.osv):
           "project_id": project.id,
           "planned_hours": recurring_task.planned_hours,
           "sequence": recurring_task.sequence,
-          "date_deadline": util.getPrevDayDate(next_date)
+          "date_deadline": util.getPrevDayDate(next_date),          
         }
         product = recurring_task.product_id
         if product:
@@ -244,6 +244,7 @@ class account_analytic_account(osv.osv):
         if contract_ids:
             
             task_obj = self.pool["project.task"]
+            recurring_task_obj = self.pool["account.analytic.recurring.task"]
             project_obj = self.pool["project.project"]
             f = format.LangFormat(cr, uid, context)
             
@@ -285,13 +286,33 @@ class account_analytic_account(osv.osv):
                         next_date = util.dateToStr(util.strToDate(next_date) + dt_interval)
                         
                         # execute task
+                        processed_tasks = 0
+                        finished_tasks = 0
                         for recurring_task in contract.recurring_task_ids:
+                          
                           task_values = self._recurring_task_prepare(cr, uid, project, recurring_task, interval_name, next_date, context=context_contract)
                           if task_values:
-                            task_ids.append(task_obj.create(cr, uid, task_values, context=context_contract))
+                            
+                            processed_tasks += 1
+                            
+                            # execute task if it is not finished
+                            task_count = recurring_task.count
+                            if not recurring_task.repeat or task_count < recurring_task.repeat:
+                              task_count = recurring_task.count + 1                          
+                              task_ids.append(task_obj.create(cr, uid, task_values, context=context_contract))
+                              recurring_task_obj.write(cr, uid, [recurring_task.id], {"count": task_count}, context=context_contract)
+                              
+                            # check if task is finished
+                            if recurring_task.repeat and task_count >= recurring_task.repeat:
+                              finished_tasks += 1                      
+                          
+                        # check if all tasks are finished  
+                        if finished_tasks and finished_tasks == processed_tasks:
+                          values["recurring_task"] = False
 
-                        # write next date
-                        self.write(cr, uid, [contract.id], {"recurring_task_next": next_date}, context=context)
+                        # update contract
+                        values = {"recurring_task_next": next_date}
+                        self.write(cr, uid, [contract.id], values, context=context)
                         
                         # commit if automatic 
                         if automatic:
@@ -329,13 +350,51 @@ class account_analytic_account(osv.osv):
               ("monthly", "Month(s)"),
               ("yearly", "Year(s)")], "Task Recurrency", help="Task automatically repeat at specified interval"),
         "recurring_task_interval": fields.integer("Repeat Task Every", help="Repeat every (Days/Week/Month/Year)"),
-        "recurring_task_next":  fields.date("Date of Next Task(s)")
+        "recurring_task_next":  fields.date("Date of Next Task(s)"),
     }
     _defaults = {
         "recurring_task_interval": 1,
         "recurring_task_next": lambda *a: util.currentDate(),
         "recurring_task_rule": "monthly"
     }
+    
+  
+class account_analytic_line(osv.osv):
+    _inherit = 'account.analytic.line'
+    
+    def invoice_cost_create(self, cr, uid, ids, data=None, context=None):      
+      if not data or (not data.get("product_id") and not data.get("inv_task_product_group")):
+        inv_ids = []
+        
+        if data is None:
+          data = {}
+        
+        cr.execute(""" SELECT l.id, t.inv_product_id  FROM account_analytic_line l 
+                       LEFT JOIN hr_analytic_timesheet hr ON hr.line_id = l.id
+                       LEFT JOIN project_task_work w ON w.hr_analytic_timesheet_id = hr.id 
+                       LEFT JOIN project_task t ON t.id = w.task_id  
+                       WHERE l.id IN %s """, (tuple(ids),))
+        
+        # group
+        byProduct = {}
+        for line_id, inv_product_id in cr.fetchall():
+          line_ids = byProduct.get(inv_product_id, None)
+          if line_ids is None:
+            line_ids = []
+            byProduct[inv_product_id or 0] = line_ids
+          line_ids.append(line_id)
+          
+        # create invoices
+        for inv_product_id, line_ids in byProduct.iteritems():
+          inv_data = dict(data)
+          inv_data["inv_task_product_group"] = True
+          if inv_product_id:
+            inv_data["product"] = inv_product_id
+          inv_ids.extend(self.invoice_cost_create(cr, uid, line_ids, inv_data, context=context))
+                  
+        return inv_ids
+        
+      return super(account_analytic_line, self).invoice_cost_create(cr, uid, ids, data=data, context=context)
     
     
 class analytic_recurring_task(osv.osv):
@@ -347,7 +406,9 @@ class analytic_recurring_task(osv.osv):
       "description": fields.text("Description"),
       "planned_hours": fields.float("Planned Hours"),
       "product_id": fields.many2one("product.product", "Product", help="Product for invoicing"),
-      "sequence": fields.integer("Sequence")
+      "sequence": fields.integer("Sequence"),
+      "repeat": fields.integer("Repeat", help="0 for repeat infinitely, 1 for create task only once, 2 for create task only twice, ..."),
+      "count": fields.integer("Count", readonly=True, copy=False, help="Amount of created task by this rule")      
     }
     _defaults = {
       "sequence": 10
@@ -356,7 +417,7 @@ class analytic_recurring_task(osv.osv):
     def onchange_product(self, cr, uid, ids, product_id, company_id, context=None):
       values = {}
       if product_id:
-        product = self.browse(cr, uid, product_id, context=context)
+        product = self.pool["product.product"].browse(cr, uid, product_id, context=context)
         if product:
           values["name"] = product.name
           values["planned_hours"] = product.planned_hours

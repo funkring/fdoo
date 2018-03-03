@@ -34,7 +34,7 @@ class project_task_checklist(osv.osv):
     _description = "Checklist"    
     _columns = {
             
-        "name" : fields.char("Name", size=128),
+        "name" : fields.char("Name"),
         "task_id" : fields.many2one("project.task","Project Task"),       
         "check" : fields.boolean("Check"),
         "sequence" : fields.integer("Sequence")

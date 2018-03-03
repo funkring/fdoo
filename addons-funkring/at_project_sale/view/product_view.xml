@@ -18,13 +18,13 @@
               </group>
               <group>
                 <field name="project_id" attrs="{'invisible':['|','|',('type','!=','service'),('auto_create_task','=',False),('recurring_invoices','=',True)]}"/>
-                <field name="recurring_invoices"/>  
-                <field name="recurring_tmpl_id" attrs="{'invisible':[('recurring_invoices','!=',True)]}" domain="[('type','=','template')]"  groups="analytic.group_analytic_accounting"/>                              
+                <field name="recurring_invoices"/>
+                 <field name="recurring_tmpl_id" attrs="{'invisible':[('recurring_invoices','!=',True)]}" domain="[('type','=','template')]"  groups="analytic.group_analytic_accounting"/>                              
                 <label for="recurring_interval" attrs="{'invisible':['|',('recurring_invoices','!=',True),('recurring_tmpl_id','!=',False)]}"/>         
                 <div attrs="{'invisible':['|',('recurring_invoices','!=',True),('recurring_tmpl_id','!=',False)]}">
                   <field name="recurring_interval" class="oe_inline" attrs="{'required': [('recurring_invoices','=',True),('recurring_tmpl_id','=',False)]}"/>
                   <field name="recurring_rule_type" class="oe_inline" attrs="{'required': [('recurring_invoices','=',True),('recurring_tmpl_id','=',False)]}"/>
-                </div>                
+                </div>
               </group>                                
           </group>
         </group>    

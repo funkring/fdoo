@@ -8,19 +8,9 @@
 			<field name="arch" type="xml">	
 				<xpath expr="//notebook" position="inside">               
 					<page string="Checkpoints">
-						<field name="checkpoint_ids" >
-							<form string="Checkpoint" version="7.0" >
-								<group>
-									<label for="check" string="Checkpoint"/>
-									<div class="checkpoint_format">										
-										<field name="name" style="width: 88%%"/>
-										<field name="check" style="width: 8%%"/>
-									</div>
-									<field name="sequence" invisible="1"/>
-								</group>
-							</form>
-							<tree string="Checkpoints" editable="top">
-								<field name="sequence" invisible="1" />								
+						<field name="checkpoint_ids" >							
+							<tree string="Checkpoints" editable="bottom">
+								<field name="sequence" widget="handle"/>								
 								<field name="name" />
 								<field name="check"/>
 							</tree>

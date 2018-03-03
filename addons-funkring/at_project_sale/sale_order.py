@@ -498,7 +498,7 @@ class sale_order_line(osv.osv):
       if product:
         product = self.pool["product.product"].browse(cr, uid, product, context=context)
         res["value"]["is_contract"] = self._is_contract_product(cr, uid, product, context=context)
-        res["value"]["is_task"] = self._is_task_product(cr, uid, product, context=context)
+        res["value"]["is_task"] = self._is_task_product(cr, uid, product, context=context) or product.recurring_tmpl_id.recurring_task
       
       return res
     
@@ -511,7 +511,7 @@ class sale_order_line(osv.osv):
     def _is_task(self, cr, uid, ids, field_name, arg, context=None):
       res = dict.fromkeys(ids, False)
       for line in self.browse(cr, uid, ids, context):
-        res[line.id] = self._is_task_product(cr, uid, line.product_id, context=context)
+        res[line.id] = self._is_task_product(cr, uid, line.product_id, context=context) or line.product_id.recurring_tmpl_id.recurring_task
       return res
     
     def _prepare_contract(self, cr, uid, line, context=None):
@@ -575,6 +575,14 @@ class sale_order_line(osv.osv):
           line_obj.write(cr, uid, line.id, {"pre_task_id": task_id}, context=context)
       return True
         
+    def _calc_contract(self, cr, uid, line, values, context=None):
+      # set task start    
+      if values.get("recurring_task"):
+        values["recurring_task_next"] = line.contract_start_task
+      # set invoice start
+      if values.get("recurring_invoices"):
+        values["recurring_next_date"] = line.contract_start      
+        
     def action_create_contract(self, cr, uid, ids, context=None):
       account_obj = self.pool["account.analytic.account"]
       project_obj = self.pool["project.project"]
@@ -585,7 +593,17 @@ class sale_order_line(osv.osv):
           # check
           if not line.contract_name or not line.contract_start:
             raise Warning(_("No contract name or start date for %s") % line.name)
-           
+          if line.contract_start < util.currentDate():
+            raise Warning(_("Contract start date is before current date for %s") % line.name)
+          
+          # check task specific
+          if line.is_task:
+            if not line.contract_start_task:
+              raise Warning(_("No task start date for %s") % line.name)
+            if line.contract_start_task < util.currentDate():
+              raise Warning(_("Task start date is before current date for %s") % line.name)
+              
+        
           # get values
           values = self._prepare_contract(cr, uid, line, context=context)
           if not values:
@@ -593,7 +611,8 @@ class sale_order_line(osv.osv):
                     
           product = line.product_id
           recurring_tmpl = product.recurring_tmpl_id
-       
+          recurring_task = False
+          
           # partner values
           helper.onChangeValuesPool(cr, uid, account_obj, values, 
             account_obj.on_change_partner_id(cr, uid, [], values.get("partner_id"), name=values.get("name"), context=context), 
@@ -607,19 +626,23 @@ class sale_order_line(osv.osv):
               context=context)
             
           else:
+            # build on product
             
-            # build with product
-            values["recurring_interval"] = product.recurring_interval
-            values["recurring_rule_type"] = product.recurring_rule_type            
-        
-            # check if task should crated automatically
+            # check if task should created automatically
             if product.auto_create_task:
               values["recurring_task"] = True
+              values["recurring_interval"] = product.recurring_interval
+              values["recurring_task_rule"] = product.recurring_rule_type
+              values["recurring_task_next"] = line.contract_start_task
               
-              # prepare task
-              task_values = self._prepare_task(cr, uid, line, context)
-              values["recurring_task_ids"] = [(0, 0, task_values)]
-                            
+              # prepare recurrent task template
+              values["recurring_task_ids"] = [(0, 0, {
+                "name": line.name.split("\n")[0],
+                "product_id": line.product_id.id, 
+                "description": line.procurement_note,
+                "planned_hours": product.planned_hours                
+              })]
+                
             # billed at cost task
             if product.auto_create_task and product.billed_at_cost:
               values["invoice_on_timesheets"] = True
@@ -631,6 +654,9 @@ class sale_order_line(osv.osv):
               
             else:
               values["recurring_invoices"] = True
+              values["recurring_interval"] = product.recurring_interval
+              values["recurring_rule_type"] = product.recurring_rule_type
+        
               # only create invoice if it isn't a billed at cost task
               values["recurring_invoice_line_ids"] = [(0, 0, {
                 "product_id": product.id,
@@ -639,6 +665,10 @@ class sale_order_line(osv.osv):
                 "quantity": line.product_uom_qty,
                 "price_unit": line.price_unit
               })]
+          
+          
+          # calc contract
+          self._calc_contract(cr, uid, line, values, context)            
           
           # create
           shop = line.order_id.shop_id
@@ -664,6 +694,7 @@ class sale_order_line(osv.osv):
       "is_contract": fields.function(_is_contract, type="boolean", string="Is Contract"),
       "pre_task_id": fields.many2one("project.task", "Created Task", help="Pre created Task before order was confirmed", readonly=True, copy=False),
       "contract_start": fields.date("Contract Start", readonly=True, copy=False),
+      "contract_start_task" : fields.date("Task Start", help="Start of first task", readonly=True, copy=False),
       "contract_name": fields.char("Contract Name", readonly=True, copy=False),
       "contract_id" : fields.many2one("account.analytic.account", "Contract", readonly=True, copy=False, ondelete="set null")
     }

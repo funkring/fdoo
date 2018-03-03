@@ -26,7 +26,7 @@ class product_template(osv.osv):
         "billed_at_cost" : fields.boolean("Billed at Cost"),
         "planned_hours" : fields.float("Planned Hours"),
         "recurring_invoices" : fields.boolean("Recurring Invoice or Task"),
-        
+           
         "recurring_rule_type" : fields.selection([("daily", "Day(s)"),
                                                   ("weekly", "Week(s)"),
                                                   ("monthly", "Month(s)"),
@@ -34,7 +34,7 @@ class product_template(osv.osv):
                                 string="Recurrency", help="Invoice automatically repeat at specified interval"),
                 
         "recurring_interval": fields.integer("Repeat Every", help="Repeat every (Days/Week/Month/Year)"),
-        "recurring_tmpl_id": fields.many2one("account.analytic.account", "Template of Contract")        
+        "recurring_tmpl_id": fields.many2one("account.analytic.account", "Template of Contract")
     }
     
     _defaults = {
