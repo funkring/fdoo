@@ -9,6 +9,8 @@
                 		<group>
                 		    <group>
                 		        <field name="name"/>
+                		        <field name="norefund"/>
+                		        <field name="ininvoices"/>
                 		    </group>
                 		    <group>
                     			<field name="company_id" widget="selection" />
