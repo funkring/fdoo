@@ -378,10 +378,11 @@ class account_analytic_line(osv.osv):
         # group
         byProduct = {}
         for line_id, inv_product_id in cr.fetchall():
+          inv_product_id = inv_product_id or 0
           line_ids = byProduct.get(inv_product_id, None)
           if line_ids is None:
             line_ids = []
-            byProduct[inv_product_id or 0] = line_ids
+            byProduct[inv_product_id] = line_ids
           line_ids.append(line_id)
           
         # create invoices
@@ -391,7 +392,7 @@ class account_analytic_line(osv.osv):
           if inv_product_id:
             inv_data["product"] = inv_product_id
           inv_ids.extend(self.invoice_cost_create(cr, uid, line_ids, inv_data, context=context))
-                  
+          
         return inv_ids
         
       return super(account_analytic_line, self).invoice_cost_create(cr, uid, ids, data=data, context=context)
