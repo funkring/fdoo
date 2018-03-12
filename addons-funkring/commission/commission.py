@@ -60,7 +60,7 @@ class commission_line(osv.osv):
         res = dict.fromkeys(ids)
         
         cr.execute("SELECT l.id, it.tax_id, st.tax_id FROM commission_line l "
-                   " LEFT JOIN account_invoice_line_tax it ON it.invoice_line_id = l.id "
+                   " LEFT JOIN account_invoice_line_tax it ON it.invoice_line_id = l.invoice_line_id "
                    " LEFT JOIN sale_order_tax st ON st.order_line_id = l.order_line_id "
                    " WHERE l.id IN %s ", (tuple(ids),))
         
@@ -75,7 +75,7 @@ class commission_line(osv.osv):
           if inv_tax_id and inv_tax_id not in tax_ids:
             tax_ids.append(inv_tax_id)
           elif sale_tax_id and sale_tax_id not in tax_ids:
-            tax_ids.append(inv_tax_id)
+            tax_ids.append(sale_tax_id)
             
         return res
     
