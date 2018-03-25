@@ -30,6 +30,8 @@ class sale_order_edit_wizard_line(models.TransientModel):
 class sale_order_edit_wizard(models.TransientModel):
     _inherit = "sale.order.edit.wizard"
     
+    recalc_commission = fields.Boolean("Recalc Commission")
+    
     @api.model
     def _get_line_default(self, line):
       res = super(sale_order_edit_wizard, self)._get_line_default(line)
@@ -45,4 +47,5 @@ class sale_order_edit_wizard(models.TransientModel):
     def _after_modified(self):
       super(sale_order_edit_wizard, self)._after_modified()
       # recalc commission
-      self.order_id._calc_sale_commission(force=True)
+      if self.recalc_commission:
+        self.order_id._calc_sale_commission(force=True)

@@ -7,6 +7,9 @@
      <field name="model">sale.order.edit.wizard</field>
      <field name="inherit_id" ref="at_sale_change.wizard_sale_order_edit"/>
      <field name="arch" type="xml">
+        <xpath expr="//group/field[@name='modify']" position="after">
+          <field name="recalc_commission"/>
+        </xpath>
         <xpath expr="//field[@name='line_ids']/tree/field[@name='modify']" position="before">
           <field name="commission_custom" on_change="onchange_line(line_id, name, discount, price_unit, qty, route_id, modify)"/>
         </xpath>

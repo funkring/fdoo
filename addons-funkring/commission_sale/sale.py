@@ -24,6 +24,8 @@ from openerp.osv import fields, osv
 from openerp.tools.translate import _
 from openerp.addons.at_base import util
 
+from openerp.exceptions import Warning
+
 class sale_order(osv.osv):
         
     def _calc_sale_commission(self, cr, uid, ids, force=False, context=None):
@@ -61,9 +63,18 @@ class sale_order(osv.osv):
                             period_ids.add(commisson_line["period_id"])
                             salesman_ids.add(commisson_line["salesman_id"])
                             
-                            commission_line_id = commission_line_obj.search_id(cr, uid, [("order_line_id", "=", commisson_line["order_line_id"]),
+                            commission_rec = commission_line_obj.search_read(cr, uid, [("order_line_id", "=", commisson_line["order_line_id"]),
                                                                                        ("partner_id", "=", commisson_line["partner_id"]),
-                                                                                       ("product_id","=", commisson_line["product_id"])], context=context)
+                                                                                       ("product_id","=", commisson_line["product_id"])], ["invoiced_id"], context=context)
+                            if commission_rec:
+                              if len(commission_rec) > 1:
+                                assert len(commission_recs) == 1, "There should be only one generated invoice line for %s/%s" % (order.name, line.name)
+                              commission_rec  = commission_rec[0]      
+                              # only generate if there is no invoice generated or force
+                              commission_line_id = commission_rec["id"]                        
+                              if commission_rec["invoiced_id"]:
+                                raise Warning(_("Commission for %s/%s was already invoiced in %s and could not be regenerated") % (order.name, line.name, commission_rec["invoiced_id"][1]))
+                                                                                     
                             if commission_line_id:
                                 commission_line_obj.write(cr, uid, commission_line_id, commisson_line, context=context)                                
                             else:

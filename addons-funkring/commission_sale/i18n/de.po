@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Language: de_DE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-25 13:15+0000\n"
-"PO-Revision-Date: 2018-02-25 16:17+0100\n"
+"POT-Creation-Date: 2018-03-25 16:09+0000\n"
+"PO-Revision-Date: 2018-03-25 18:10+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -57,7 +57,7 @@ msgstr "Provision"
 #: field:product.template,commission_percent:0
 #: field:sale.order.line,commission:0
 msgid "Commission %"
-msgstr "Prov. (%)"
+msgstr "Provision %"
 
 #. module: commission_sale
 #: field:product.pricelist.item,commission_active:0
@@ -86,6 +86,15 @@ msgstr "Provisionsprodukt"
 #: field:crm.case.section,commission_rule_ids:0
 msgid "Commission Rules"
 msgstr "Provision Regeln"
+
+#. module: commission_sale
+#: code:addons/commission_sale/sale.py:76
+#, python-format
+msgid ""
+"Commission for %s/%s was already invoiced in %s and could not be regenerated"
+msgstr ""
+"Die Provision %s/%s wurde bereits mit Rechnung '%s' abgerechnet, und kann "
+"deswegen nicht neu generiert werden"
 
 #. module: commission_sale
 #: field:commission_sale.bonus,create_uid:0
