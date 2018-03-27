@@ -249,7 +249,8 @@ def getFirstOfNextWeek(inDate):
     if not inDate:
         return inDate
     inDate = strToDate(inDate)
-    inDate += relativedelta(days=(7-inDate.weekday()))
+    inDate -= relativedelta(days=inDate.weekday())
+    inDate += relativedelta(days=7)
     return dateToStr(inDate)
 
 def getNextDayDate(inDate):
