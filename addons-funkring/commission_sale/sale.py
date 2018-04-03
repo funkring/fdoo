@@ -66,6 +66,8 @@ class sale_order(osv.osv):
                             commission_rec = commission_line_obj.search_read(cr, uid, [("order_line_id", "=", commisson_line["order_line_id"]),
                                                                                        ("partner_id", "=", commisson_line["partner_id"]),
                                                                                        ("product_id","=", commisson_line["product_id"])], ["invoiced_id"], context=context)
+                            
+                            commission_line_id = None
                             if commission_rec:
                               if len(commission_rec) > 1:
                                 assert len(commission_recs) == 1, "There should be only one generated invoice line for %s/%s" % (order.name, line.name)
