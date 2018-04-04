@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+  
+    <record id="wizard_check_avail" model="ir.ui.view">
+      <field name="name">at_stock.wizard_check_avail</field>
+      <field name="model">stock.check.avail.wizard</field>
+      <field name="arch" type="xml">
+        <form string="Check Availability">
+          <group>
+            <p>
+              Check availability of all outgoing deliveries
+            </p>
+          </group>
+          <footer>
+            <button name="action_check_avail" string="Check Availability"  type="object" class="oe_highlight" />
+            or
+            <button special="cancel" string="Close" class="oe_link" />
+          </footer>
+        </form>
+      </field>
+    </record>
+    
+    <record id="action_check_avail_wizard" model="ir.actions.act_window">
+      <field name="name">Check Availability</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">stock.check.avail.wizard</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_check_avail_wizard" name="Check Availability" parent="stock.menu_stock_warehouse_mgmt"
+          action="action_check_avail_wizard" sequence="23"/>
+              
+  </data>
+</openerp>
