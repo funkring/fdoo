@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+  
+    <record id="form_task_stage" model="ir.ui.view">
+      <field name="name">automation.form_task_stage</field>
+      <field name="model">automation.task.stage</field>
+      <field name="arch" type="xml">
+        <form string="Stage" create="false" delete="false">
+          <group>
+            <group>
+              <field name="name"/>
+              <field name="parent_id"/>
+              <field name="task_id"/>                  
+            </group>
+            <group>
+              <field name="complete_progress" widget="progressbar"/>
+            </group>
+          </group>
+        </form>
+      </field>
+    </record>
+
+    <record id="tree_task_stage" model="ir.ui.view">
+      <field name="name">automation.tree_task_stage</field>
+      <field name="model">automation.task.stage</field>
+      <field name="arch" type="xml">
+        <tree string="Stages" create="false" delete="false">
+          <field name="complete_name"/>
+          <field name="task_id"/>
+          <field name="status"/>
+          <field name="complete_progress" widget="progressbar"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="search_task_stage" model="ir.ui.view">
+      <field name="name">automation.search_task_stage</field>
+      <field name="model">automation.task.stage</field>
+      <field name="arch" type="xml">
+        <search string="Stage">
+          <field name="name"/>
+          <field name="task_id"/>
+          <group expand="0" string="Group By...">
+            <filter string="Task" name="group_task" context="{'group_by': 'task_id'}"/>
+            <filter string="Parent Stage" name="group_parent" context="{'group_by': 'parent_id'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
+
+    <record id="action_task_stage" model="ir.actions.act_window">
+      <field name="name">Stage</field>
+      <field name="res_model">automation.task.stage</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+  </data>
+</openerp>

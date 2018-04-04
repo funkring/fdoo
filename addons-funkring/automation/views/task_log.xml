@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+  
+    <record id="form_task_log" model="ir.ui.view">
+      <field name="name">automation.form_task_log</field>
+      <field name="model">automation.task.log</field>
+      <field name="arch" type="xml">
+        <form string="Log" create="false" delete="false">
+          <group>
+            <group>
+              <field name="task_id"/>
+              <field name="stage_id"/>
+              <field name="pri"/>
+            </group>
+            <group>
+              <field name="message" colspan="4" nolabel="1"/>
+            </group>
+          </group>
+        </form>
+      </field>
+    </record>
+
+    <record id="tree_task_log" model="ir.ui.view">
+      <field name="name">automation.tree_task_log</field>
+      <field name="model">automation.task.log</field>
+      <field name="arch" type="xml">
+        <tree string="Logs" create="false" delete="false" colors="blue:pri == 'n';gray:pri == 'd';red:pri in ['x','a','e'];orange:pri == 'w'"> 
+          <field name="create_date"/>
+          <field name="task_id"/>
+          <field name="stage_id"/>
+          <field name="pri"/>
+          <field name="message"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="search_task_log" model="ir.ui.view">
+      <field name="name">automation.search_task_log</field>
+      <field name="model">automation.task.log</field>
+      <field name="arch" type="xml">
+        <search string="Log">
+          <field name="message"/>
+          <field name="task_id"/>
+          <field name="stage_id"/>
+          <group expand="0" string="Group By...">
+            <filter string="Task" context="{'group_by': 'task_id'}"/>
+            <filter string="Stage" context="{'group_by': 'stage_id'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
+
+    <record id="action_task_log" model="ir.actions.act_window">
+      <field name="name">Log</field>
+      <field name="res_model">automation.task.log</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+  </data>
+</openerp>
+

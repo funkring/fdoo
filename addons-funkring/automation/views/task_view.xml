@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+  
+    <record id="form_automation_task" model="ir.ui.view">
+      <field name="name">automation.form_automation_task</field>
+      <field name="model">automation.task</field>
+      <field name="arch" type="xml">
+        <form string="Task">
+          <header>
+            <button type="object" name="action_queue" string="Start" class="oe_highlight" states="draft"/>
+            <button type="object" name="action_queue" string="Restart" states="cancel,failed,done"/>
+            <button type="object" name="action_cancel" string="Cancel" states="queued"/>
+            <field name="state" widget="statusbar" statusbar_visible="draft,queued,run,done" statusbar_colors='{"draft":"blue"}'/>   
+          </header>
+          <sheet>
+            <div class="oetitle oe_left">
+              <div class="oe_edit_only">
+                <label for="name"/>
+              </div>
+              <h1>
+                <field name="name" default_focus="1" placeholder="Name"/>
+              </h1>
+            </div>
+            <div class="oe_right oe_button_box" name="buttons"> 
+              <button type="action" 
+                      class="oe_stat_button"
+                      id="stage_button"
+                      icon="fa-bar-chart-o"
+                      name="%(automation.action_task_stage)d"
+                      context="{'search_default_task_id': active_id, 'default_task_id': active_id}">
+                      <div><strong><field name="total_stages"/></strong><br/>Stages</div>
+              </button>
+              <button type="action" 
+                      class="oe_stat_button"
+                      id="log_button"
+                      icon="fa-bars"
+                      name="%(automation.action_task_log)d"
+                      context="{'search_default_task_id': active_id, 'default_task_id': active_id}">
+                      <div><strong><field name="total_logs"/></strong><br/>Logs</div>
+              </button>
+            </div>
+            <group>
+              <group>
+                <field name="owner_id"/>
+                <field name="res_model"/>
+                <field name="res_id"/>
+              </group>
+              <group>
+                <field name="progress" widget="progressbar"/>
+                <field name="state_change"/>
+                <field name="cron_id"/> 
+              </group>
+            </group>
+            <notebook>
+              <page string="Error">
+                <field name="error"/>
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="tree_automation_task" model="ir.ui.view">
+      <field name="name">automation.tree_automation_task</field>
+      <field name="model">automation.task</field>
+      <field name="arch" type="xml">
+        <tree string="Tasks" colors="blue:state == 'draft';gray:state == 'cancel';green:state == 'queued';orange:state == 'run';red:state == 'failed'">
+          <field name="name"/>
+          <field name="owner_id"/>
+          <field name="res_model"/>
+          <field name="res_id"/>
+          <field name="progress" widget="progressbar"/>
+          <field name="state_change"/>
+          <field name="state"/>                          
+        </tree>
+      </field>
+    </record>
+
+    <record id="search_automation_task" model="ir.ui.view">
+      <field name="name">automation.search_automation_task</field>
+      <field name="model">automation.task</field>
+      <field name="arch" type="xml">
+        <search string="Automation Task">
+          <field name="name"/>
+          <field name="owner_id"/>
+          <field name="res_model"/>
+          <field name="res_id"/>
+          <group expand="0" string="Group By...">
+            <filter string="Owner" context="{'group_by': 'owner_id'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
+
+    <record id="action_automation_task" model="ir.actions.act_window">
+      <field name="name">Automation Task</field>
+      <field name="res_model">automation.task</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_automation_task" name="Automation Task" parent="base.menu_automation"
+      sequence="50"
+      action="action_automation_task"/>
+      
+  </data>
+</openerp>

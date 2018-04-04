@@ -1,0 +1,312 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* automation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Language: de_DE\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-03 10:53+0000\n"
+"PO-Revision-Date: 2018-04-03 10:53+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: automation
+#: field:automation.task.stage,active:0
+msgid "Active"
+msgstr "Aktiv"
+
+#. module: automation
+#: selection:automation.task.log,pri:0
+msgid "Alert"
+msgstr "Störung"
+
+#. module: automation
+#: model:ir.module.category,name:automation.module_category_automation
+msgid "Automation"
+msgstr "Automatisierung"
+
+#. module: automation
+#: model:res.groups,name:automation.group_automation_manager
+msgid "Automation Manager"
+msgstr "Autom. Manager"
+
+#. module: automation
+#: view:automation.task:automation.search_automation_task
+#: model:ir.actions.act_window,name:automation.action_automation_task
+#: model:ir.model,name:automation.model_automation_task
+#: model:ir.ui.menu,name:automation.menu_automation_task
+msgid "Automation Task"
+msgstr "Prozess"
+
+#. module: automation
+#: view:automation.task:automation.form_automation_task
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#. module: automation
+#: selection:automation.task,state:0
+msgid "Canceled"
+msgstr "Abgebrochen"
+
+#. module: automation
+#: field:automation.task,create_uid:0
+#: field:automation.task.log,create_uid:0
+#: field:automation.task.stage,create_uid:0
+msgid "Created by"
+msgstr "Ersteller"
+
+#. module: automation
+#: field:automation.task,create_date:0
+#: field:automation.task.log,create_date:0
+#: field:automation.task.stage,create_date:0
+msgid "Created on"
+msgstr "Erstellt"
+
+#. module: automation
+#: selection:automation.task.log,pri:0
+msgid "Debug"
+msgstr ""
+
+#. module: automation
+#: field:automation.task,display_name:0
+#: field:automation.task.log,display_name:0
+#: field:automation.task.stage,display_name:0
+msgid "Display Name"
+msgstr "Anzeige Name"
+
+#. module: automation
+#: selection:automation.task,state:0
+msgid "Done"
+msgstr "Erledigt"
+
+#. module: automation
+#: selection:automation.task,state:0
+msgid "Draft"
+msgstr "Entwurf"
+
+#. module: automation
+#: selection:automation.task.log,pri:0
+msgid "Emergency"
+msgstr "Notfall"
+
+#. module: automation
+#: view:automation.task:automation.form_automation_task
+#: field:automation.task,error:0
+#: selection:automation.task.log,pri:0
+msgid "Error"
+msgstr "Fehler"
+
+#. module: automation
+#: selection:automation.task,state:0
+msgid "Failed"
+msgstr "Fehlgeschlagen"
+
+#. module: automation
+#: view:automation.task:automation.search_automation_task
+#: view:automation.task.log:automation.search_task_log
+#: view:automation.task.stage:automation.search_task_stage
+msgid "Group By..."
+msgstr "Gruppiert nach..."
+
+#. module: automation
+#: field:automation.task,id:0
+#: field:automation.task.log,id:0
+#: field:automation.task.stage,id:0
+msgid "ID"
+msgstr ""
+
+#. module: automation
+#: selection:automation.task.log,pri:0
+msgid "Info"
+msgstr ""
+
+#. module: automation
+#: field:automation.task,__last_update:0
+#: field:automation.task.log,__last_update:0
+#: field:automation.task.stage,__last_update:0
+msgid "Last Modified on"
+msgstr "Bearbeitet"
+
+#. module: automation
+#: field:automation.task,write_uid:0
+#: field:automation.task.log,write_uid:0
+#: field:automation.task.stage,write_uid:0
+msgid "Last Updated by"
+msgstr "Bearbeiter"
+
+#. module: automation
+#: field:automation.task,write_date:0
+#: field:automation.task.log,write_date:0
+#: field:automation.task.stage,write_date:0
+msgid "Last Updated on"
+msgstr "Aktualisiert"
+
+#. module: automation
+#: view:automation.task.log:automation.form_task_log
+#: view:automation.task.log:automation.search_task_log
+#: model:ir.actions.act_window,name:automation.action_task_log
+msgid "Log"
+msgstr "Protokoll Eintrag"
+
+#. module: automation
+#: view:automation.task:automation.form_automation_task
+#: view:automation.task.log:automation.tree_task_log
+msgid "Logs"
+msgstr "Protokoll Einträge"
+
+#. module: automation
+#: field:automation.task.log,message:0
+msgid "Message"
+msgstr "Nachricht"
+
+#. module: automation
+#: view:automation.task:automation.form_automation_task
+#: field:automation.task,name:0
+#: field:automation.task.stage,name:0
+msgid "Name"
+msgstr ""
+
+#. module: automation
+#: code:addons/automation/automation.py:97
+#, python-format
+msgid "Not allowed to start task. You be the owner or an automation manager"
+msgstr "Nur Eigentümer, Autom. Manager und Administratoren dürfen den Prozess starten"
+
+#. module: automation
+#: selection:automation.task.log,pri:0
+msgid "Notice"
+msgstr "Notiz"
+
+#. module: automation
+#: view:automation.task:automation.search_automation_task
+#: field:automation.task,owner_id:0
+msgid "Owner"
+msgstr "Eigentümer"
+
+#. module: automation
+#: view:automation.task.stage:automation.search_task_stage
+#: field:automation.task.stage,parent_id:0
+msgid "Parent Stage"
+msgstr "Übergeordneter Abschn."
+
+#. module: automation
+#: field:automation.task.log,pri:0
+msgid "Priority"
+msgstr "Priorität"
+
+#. module: automation
+#: field:automation.task,progress:0
+msgid "Progress"
+msgstr "Fortschritt"
+
+#. module: automation
+#: field:automation.task.stage,progress:0
+msgid "Progress %"
+msgstr "Fortschritt %"
+
+#. module: automation
+#: selection:automation.task,state:0
+msgid "Queued"
+msgstr "Gereiht"
+
+#. module: automation
+#: field:automation.task,res_id:0
+msgid "Resource ID"
+msgstr "Ressource ID"
+
+#. module: automation
+#: field:automation.task,res_model:0
+msgid "Resource Model"
+msgstr "Ressource Modell"
+
+#. module: automation
+#: view:automation.task:automation.form_automation_task
+msgid "Restart"
+msgstr "Neustarten"
+
+#. module: automation
+#: selection:automation.task,state:0
+msgid "Running"
+msgstr "Läuft"
+
+#. module: automation
+#: field:automation.task,cron_id:0
+msgid "Scheduled Job"
+msgstr "Geplante Ausführung"
+
+#. module: automation
+#: view:automation.task.log:automation.search_task_log
+#: field:automation.task.log,stage_id:0
+#: view:automation.task.stage:automation.form_task_stage
+#: view:automation.task.stage:automation.search_task_stage
+#: model:ir.actions.act_window,name:automation.action_task_stage
+msgid "Stage"
+msgstr "Abschnitt"
+
+#. module: automation
+#: view:automation.task:automation.form_automation_task
+#: field:automation.task,stage_ids:0
+#: view:automation.task.stage:automation.tree_task_stage
+msgid "Stages"
+msgstr "Abschnitte"
+
+#. module: automation
+#: view:automation.task:automation.form_automation_task
+msgid "Start"
+msgstr ""
+
+#. module: automation
+#: field:automation.task,state:0
+msgid "State"
+msgstr "Status"
+
+#. module: automation
+#: field:automation.task,state_change:0
+msgid "State Change"
+msgstr "Status Änderung"
+
+#. module: automation
+#: view:automation.task:automation.form_automation_task
+#: view:automation.task.log:automation.search_task_log
+#: field:automation.task.log,task_id:0
+#: view:automation.task.stage:automation.search_task_stage
+#: field:automation.task.stage,task_id:0
+msgid "Task"
+msgstr "Prozess"
+
+#. module: automation
+#: model:ir.model,name:automation.model_automation_task_log
+msgid "Task Log"
+msgstr "Prozess Protokoll"
+
+#. module: automation
+#: model:ir.model,name:automation.model_automation_task_stage
+msgid "Task Stage"
+msgstr "Prozess Abschnitt"
+
+#. module: automation
+#: view:automation.task:automation.tree_automation_task
+msgid "Tasks"
+msgstr "Prozesse"
+
+#. module: automation
+#: field:automation.task,total_logs:0
+msgid "Total Logs"
+msgstr "Log Einträge"
+
+#. module: automation
+#: field:automation.task,total_stages:0
+msgid "Total Stages"
+msgstr "Abschnitte"
+
+#. module: automation
+#: selection:automation.task.log,pri:0
+msgid "Warning"
+msgstr "Warnung"
+
