@@ -273,6 +273,7 @@ class commission_invoice_wizard(osv.osv_memory):
         "detail_ref" : fields.boolean("Detailed Ref.", help="Detailed Reference is displayed")
     }
     _defaults = {
-        "name" : _name_default
+        "name" : _name_default,
+        "detail_ref": True
     }
 

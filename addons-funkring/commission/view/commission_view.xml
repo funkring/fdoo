@@ -35,11 +35,11 @@
                     <group>
                         <group string="General">
                            <field name="date" />
-                           <field name="name" />
-                           <field name="ref" />
-                           <field name="invoice_id"/>
+                           <field name="name" />                               
+                           <field name="ref" />                           
+                           <field name="invoice_id"/>                           
                            <field name="order_id" />
-                           <field name="partner_id" />
+                           <field name="partner_id" />                           
                            <field name="product_id" string="Invoicing"/>
                            <field name="journal_id" />
                            <field name="account_id" />
@@ -47,6 +47,7 @@
                         <group string="Sale">
                            <field name="sale_partner_id"/>                
                            <field name="sale_product_id"/>
+                           <field name="tax_ids"/>                             
                            <field name="unit_amount"/>
                            <field name="price_sub" on_change="onchange_commission(total_commission, amount, price_sub)"/>
                         </group>
@@ -69,13 +70,14 @@
                 	<field name="ref" />
                 	<field name="sale_partner_id" />
                 	<field name="sale_product_id" />
-                	<field name="name" />
+                	<field name="tax_ids"/>                  	
+                	<field name="name" />                	
                 	<field name="unit_amount" sum="Total unit amount"/>
                 	<field name="price_sub" string="Volume of Amount" sum="Total subtotal"/>
                 	<field name="total_commission" avg="Average commission"/>
-                    <field name="prov_amount" sum="Total amount"/>
+                  <field name="prov_amount" sum="Total amount"/>
                 	<field name="period_id" />
-                    <field name="journal_id" />
+                  <field name="journal_id" />                                  
                 </tree>
             </field>
         </record>

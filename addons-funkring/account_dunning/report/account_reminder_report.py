@@ -78,20 +78,29 @@ class Parser(extreport.basic_parser):
                           
             
         # calc refunds and out invoices
-        invoice_ids = invoice_obj.search(self.cr, self.uid, [("partner_id","=",commercial_partner.id),("state","=","open"),("type","in", ["out_refund"])])
+                
+        inv_types = []
+        if profile.ininvoices:
+          inv_types.append("in_invoice")
+        if not profile.norefund:
+          inv_types.append("out_refund")
+        
         invoices = []
-        for invoice in invoice_obj.browse(self.cr, self.uid, invoice_ids, context=self.localcontext):
-            if invoice.residual:
-                invoice_amount = 0.0
-                if invoice.type in ("out_refund","in_invoice"):
-                    invoice_amount=-invoice.residual
-                else:
-                    invoice_amount=invoice.residual
-                invoices.append({
-                    "inv" : invoice,
-                    "amount" : invoice_amount
-                })
-                amount += invoice_amount
+        
+        if inv_types:
+          invoice_ids = invoice_obj.search(self.cr, self.uid, [("partner_id","=",commercial_partner.id),("state","=","open"),("type","in", inv_types)])          
+          for invoice in invoice_obj.browse(self.cr, self.uid, invoice_ids, context=self.localcontext):
+              if invoice.residual:
+                  invoice_amount = 0.0
+                  if invoice.type in ("out_refund","in_invoice"):
+                      invoice_amount=-invoice.residual
+                  else:
+                      invoice_amount=invoice.residual
+                  invoices.append({
+                      "inv" : invoice,
+                      "amount" : invoice_amount
+                  })
+                  amount += invoice_amount
                              
             
         if max_profile_line_id.dunning_fee_percent:

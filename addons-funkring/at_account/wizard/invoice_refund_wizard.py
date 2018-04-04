@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-# -*- encoding: utf-8 -*-
-
 #############################################################################
 #
 #    Copyright (c) 2007 Martin Reisenhofer <martin.reisenhofer@funkring.net>
@@ -21,25 +19,20 @@
 ##############################################################################
 
 from openerp.osv import fields, osv
+from openerp.tools.translate import _
 
-class project_task(osv.osv):
-    _inherit = "project.task"
-    _columns = {
-        "checkpoint_ids" : fields.one2many("project.task_checklist","task_id","Checkpoints"),
-    }
+class account_invoice_refund(osv.osv_memory):
+  _inherit = "account.invoice.refund"
 
-class project_task_checklist(osv.osv):
-        
-    _name = "project.task_checklist"
-    _description = "Checklist"    
-    _columns = {
-            
-        "name" : fields.char("Name"),
-        "task_id" : fields.many2one("project.task","Project Task"),       
-        "check" : fields.boolean("Check"),
-        "sequence" : fields.integer("Sequence")
-    }
-    _defaults = {
-        "sequence" : 10
-    }
-    _order = "sequence asc"
+  def _get_reason(self, cr, uid, context=None):
+    active_id = context and context.get('active_id', False)
+    if active_id:
+        inv = self.pool.get('account.invoice').browse(cr, uid, active_id, context=context)
+        refund_reason = inv.number or inv.internal_number or inv.name or ''
+        if refund_reason:
+          return _("Refund %s") % refund_reason
+    return ''
+  
+  _defaults = {
+    "description": _get_reason
+  }

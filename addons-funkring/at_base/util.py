@@ -249,7 +249,8 @@ def getFirstOfNextWeek(inDate):
     if not inDate:
         return inDate
     inDate = strToDate(inDate)
-    inDate += relativedelta(days=(7-inDate.weekday()))
+    inDate -= relativedelta(days=inDate.weekday())
+    inDate += relativedelta(days=7)
     return dateToStr(inDate)
 
 def getNextDayDate(inDate):
@@ -387,6 +388,13 @@ def getMonths(inFromDate, inToDate):
 def getWeek(str_date):
     dt = strToDate(str_date)
     return dt.isocalendar()[1]
+  
+def getYear(str_date):
+    dt = strToDate(str_date)
+    return dt.year
+  
+def getYearStr(str_date):
+    return "%s" % getYear(str_date)
 
 def cleanFileName(inName):
     repl_map = {

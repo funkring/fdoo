@@ -28,7 +28,7 @@
             </field>
         </record>
         <record id="action_commission_recalc" model="ir.actions.act_window">
-            <field name="name">Recalculate Commissions</field>
+            <field name="name">Commission Calculation</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">commission.recalc_wizard</field>
             <field name="view_type">form</field>

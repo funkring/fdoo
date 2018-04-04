@@ -42,6 +42,7 @@ Commission based on Sale
               "view/crm_section_view.xml",
               "view/bonus_view.xml",
               "view/product_view.xml",
+              "view/sale_view.xml",
               "report/sale_commission_report.xml"
               ],
     "auto_install" : False,

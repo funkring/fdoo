@@ -13,16 +13,48 @@
 	      <field name="model">account.analytic.account</field>
 	      <field name="inherit_id" ref="account_analytic_analysis.account_analytic_account_form_form"/>
 	      <field name="arch" type="xml">
-	          <field name="recurring_next_date" position="after">
-	              <field name="recurring_prepaid"/>
-	          </field>
-	          <field name="parent_id" position="after">
-	               <field name="shop_id"/>	            
-	          </field>
-	          <xpath expr='//div[@name="project"]' position='inside'>
-                    <field name="is_contract"/>
-                    <label for="is_contract"/>
-              </xpath>
+          <field name="recurring_next_date" position="after">
+              <field name="recurring_prepaid"/>
+          </field>
+          <field name="parent_id" position="after">
+               <field name="shop_id"/>	            
+          </field>
+          <xpath expr='//div[@name="project"]' position="inside">
+                  <field name="is_contract"/>
+                  <label for="is_contract"/>
+          </xpath>
+          <xpath expr='//separator[@name="description"]' position='before'>
+            <separator string="Recurring Tasks" attrs="{'invisible': [('recurring_task','!=',True)]}"/>
+            <div>
+                <div attrs="{'invisible': [('type','!=','template'),('type','!=','contract'),('recurring_task','=',False)]}">
+                    <field name="recurring_task" on_change="onchange_recurring_task(recurring_task, date_start)" class="oe_inline" />
+                    <label for="recurring_task" />
+                </div>
+                <button class="oe_link" name="recurring_task_create" attrs="{'invisible': [('recurring_task','!=',True)]}" string="⇒ create tasks" type="object" groups="base.group_no_one"/>
+            </div>
+            <group attrs="{'invisible': [('recurring_task','!=',True)]}">
+                <label for="recurring_task_interval"/>
+                <div>
+                    <field name="recurring_task_interval" class="oe_inline" attrs="{'required': [('recurring_task','=',True)]}"/>
+                    <field name="recurring_task_rule" class="oe_inline" attrs="{'required': [('recurring_task','=',True)]}"/>                    
+                </div>
+                <field name="recurring_task_next"/>             
+            </group>
+            <label for="recurring_task_ids" attrs="{'invisible': [('recurring_task','=',False)]}"/>
+            <div attrs="{'invisible': [('recurring_task','=',False)]}">
+                <field name="recurring_task_ids">
+                    <tree string="Recurring Tasks" editable="bottom">
+                        <field name="sequence" widget="handle"/>
+                        <field name="product_id" on_change="onchange_product(product_id, parent.company_id, context)"/>
+                        <field name="name"/>
+                        <field name="description"/>
+                        <field name="planned_hours"/>
+                        <field name="repeat"/>
+                        <field name="count"/>
+                    </tree>
+                </field>
+            </div>
+          </xpath>
 	      </field>
 	    </record>
 	    

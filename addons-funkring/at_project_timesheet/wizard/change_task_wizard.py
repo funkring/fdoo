@@ -126,10 +126,10 @@ class ChangeTaskWizard(models.TransientModel):
         # write for update
         work.write(work_values)
         
-      # update time, to trigger recalc   
-      wizard.task_id.write({"planned_hours": wizard.task_id.planned_hours})
+      # recalc remaining time
+      wizard.task_id.write({"remaining_hours": wizard.task_id.planned_hours-wizard.task_id.effective_hours})
       if old_task and old_task.id != wizard.task_id.id:
-        old_task.write({"planned_hours": old_task.planned_hours})
+        old_task.write({"remaining_hours": old_task.planned_hours-old_task.effective_hours})
         
     return True
   

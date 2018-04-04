@@ -55,7 +55,7 @@ class project(osv.osv):
             project_ids = self.search(cr, uid, [("partner_id.name", operator, name)], limit=limit, context=context)
             if project_ids:
                 return self.name_get(cr, uid, project_ids, context=context)
-        return res   
+        return res
     
     _inherit = "project.project"
     
@@ -75,7 +75,8 @@ class task(osv.osv):
     
     _inherit = "project.task"
     _columns = {
-        "analytic_account_id" : fields.related("project_id", "analytic_account_id", string="Analytic Account", type="many2one", relation="account.analytic.account", readonly=True)
+        "analytic_account_id" : fields.related("project_id", "analytic_account_id", string="Analytic Account", type="many2one", relation="account.analytic.account", readonly=True),
+        "inv_product_id": fields.many2one("product.product", "Invoice Product", help="The product which will be used for timesheet based invoices")
     }
 
     

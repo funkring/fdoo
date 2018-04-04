@@ -31,7 +31,9 @@ class dunning_profile(osv.Model):
         "company_id" : fields.many2one("res.company", "Company", required=True),
         "shop_id" : fields.many2one("sale.shop", "Shop"),
         "shop_ids" : fields.many2many("sale.shop", "account_dunning_profile_shop_rel", "profile_id", "shop_id", string="Shops"),
-        "template_id" : fields.many2one("email.template","E-Mail Template")
+        "template_id" : fields.many2one("email.template","E-Mail Template"),
+        "norefund": fields.boolean("No Refunds", help="Include no refunds on reminder"),
+        "ininvoices": fields.boolean("Include Ininvoices", help="Include ininvoices on reminder")
     }
     _defaults = {
         'company_id': lambda s, cr, uid, c: s.pool.get('res.company')._company_default_get(cr, uid, 'account.dunning_profile', context=c)        

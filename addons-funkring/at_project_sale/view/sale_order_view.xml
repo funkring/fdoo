@@ -1,21 +1,49 @@
 <openerp>
 	<data>
 
-        <record id="form_sale_order2" model="ir.ui.view">
-          <field name="name">at_project_sale.form_sale_order2</field>
-          <field name="model">sale.order</field>
-          <field name="inherit_id" ref="sale.view_order_form"/>
-          <field name="arch" type="xml">
-                <field name="project_id" position="replace">
-                    <field name="project_id" 
-                        attrs="{'invisible':[('order_project_id','!=',False)]}"  
-                        context="{'partner_id':partner_invoice_id, 'manager_id': user_id, 'default_pricelist_id':pricelist_id, 'default_name':name, 'default_type': 'contract'}" groups="sale.group_analytic_accounting" domain="[('type','in',['view','normal','contract'])]"/>
-                    <field name="order_project_id" groups="project.group_project_manager,project.group_project_user" 
-                          attrs="{'invisible':[('order_project_id','=',False)]}" />
-                </field>
-          </field>
-        </record>
-
+    <record id="form_sale_order2" model="ir.ui.view">
+      <field name="name">at_project_sale.form_sale_order2</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_order_form"/>
+      <field name="arch" type="xml">
+            <field name="project_id" position="replace">
+                <field name="project_id" 
+                    attrs="{'invisible':[('order_project_id','!=',False)]}"  
+                    context="{'partner_id':partner_invoice_id, 'manager_id': user_id, 'default_pricelist_id':pricelist_id, 'default_name':name, 'default_type': 'contract'}" groups="sale.group_analytic_accounting" domain="[('type','in',['view','normal','contract'])]"/>
+                <field name="order_project_id" groups="project.group_project_manager,project.group_project_user" 
+                      attrs="{'invisible':[('order_project_id','=',False)]}" />
+            </field>
+            <xpath expr="//notebook/page/field/form[@string='Sales Order Lines']/label[@for='name']" position="before">
+              <group attrs="{'invisible':['|','|',('is_task','=',False),('is_contract','=',True),('state','!=','draft')]}">
+                <group> 
+                  <field name="is_task" invisible="1"/>
+                  <field name="pre_task_id"/>                  
+                </group>
+                <group>                  
+                 <div>
+                     <button name="action_create_task" type="object" string="Create Task" 
+                          attrs="{'invisible':[('pre_task_id','!=',False)]}"/>
+                  </div>
+                </group>
+              </group>
+              <group attrs="{'invisible':[('is_contract','=',False)]}">
+                <group>
+                  <field name="is_contract" invisible="1"/>
+                  <field name="contract_name" attrs="{'readonly':[('contract_id','!=',False)], 'required':[('is_contract','=',True)]}"/>                  
+                  <field name="contract_start" attrs="{'readonly':[('contract_id','!=',False)]}"/>
+                  <field name="contract_start_task" attrs="{'readonly':[('contract_id','!=',False)], 'invisible':[('is_task','=',False)]}"/>
+                </group>                  
+                <group>
+                  <field name="contract_id"/>
+                  <div>
+                    <button name="action_create_contract" type="object" string="Create Contract" 
+                        attrs="{'invisible':[('contract_id','!=',False)]}"/>
+                  </div>
+                </group>                  
+              </group>
+             </xpath>
+      </field>
+    </record>
 
 		<record id="form_sale_order" model="ir.ui.view">
 			<field name="name">at_project_sale.form_sale_order</field>

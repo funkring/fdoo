@@ -43,7 +43,8 @@ oerp.at Project + Sale
                  "project_timesheet",
                  "sale_margin",                 
                  "at_hr",
-                 "sale_service"],
+                 "sale_service",
+                 "hr_timesheet_invoice"],
     "data" : [ 
                 "security.xml",
                 "view/analytic_account_view.xml",
@@ -57,7 +58,8 @@ oerp.at Project + Sale
                 "report/sale_order_report.xml",
                 "report/account_invoice_report.xml",
                 "report/account_analytic_entries_report.xml",
-                "data/properties.xml"
+                "data/properties.xml",
+                "data/recurring_task_cron.xml"
                 ],
     "auto_install": False,
     "installable": True

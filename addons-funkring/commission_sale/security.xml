@@ -1,5 +1,18 @@
 <openerp>
 	<data>
+	
+	  <!-- roles -->
+	  
+	  <record id="group_commission_custom" model="res.groups">
+        <field name="name">Custom Commission</field>
+        <field name="category_id" ref="base.module_category_sales_management"/>
+        <field name="comment">Custom commission in sale order</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_sale_manager'))]"/>
+    </record>
+    
+	  
+	  <!-- data access -->
+	
 		<record id="access_commission_sale_bonus_account_invoice" model="ir.model.access">
 			<field name="name">commission_sale_bonus/account_invoice</field>
 			<field name="model_id" ref="model_commission_sale_bonus"/>

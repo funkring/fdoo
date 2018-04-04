@@ -99,7 +99,7 @@ class commission_line(osv.osv):
                     
         return True
     
-    def _get_sale_commission(self, cr, uid, name, user, customer, product, qty, netto, date, pricelist=None, defaults=None, period=None, context=None):
+    def _get_sale_commission(self, cr, uid, name, user, customer, product, qty, netto, date, pricelist=None, defaults=None, period=None, commission_custom=None, context=None):
         res = []
         
         period_obj = self.pool["account.period"]        
@@ -114,31 +114,39 @@ class commission_line(osv.osv):
         if not partner or not team:
             return res
         
-        # get percent
-        percent = product.commission_percent
-        if not percent:
-            percent = product.categ_id.commission_percent
-        if not percent:
-            percent = team.sales_commission
-            
-        # provision product
-        prov_prod = product.commission_prod_id
-        if not prov_prod:
-            prov_prod = product.categ_id.commission_prod_id
-                    
-        # search for rule                                                               
-        rule = rule_obj._get_rule(cr, uid, team, product, context=context)
-        if rule:
-            percent = rule.get("commission",0.0) or 0.0
-        elif pricelist:
-            # search for pricelist rule
-            item_id = pricelist_obj.price_rule_get(cr, uid, [pricelist.id], product.id, qty,
-                                partner=customer.id,context=context)[pricelist.id][1]
-            
-            if item_id:
-                prule = pricelist_item_obj.read(cr, uid, item_id, ["commission_active","commission"], context=context)
-                if prule.get("commission_active"):
-                    percent = prule.get("commission",0.0) or 0.0
+        prov_prod = None
+        percent = 0.0
+        
+        # determine percent of not passed
+        if commission_custom is None: 
+          percent = product.commission_percent
+          if not percent:
+              percent = product.categ_id.commission_percent
+          if not percent:
+              percent = team.sales_commission
+              
+          # provision product
+          prov_prod = product.commission_prod_id
+          if not prov_prod:
+              prov_prod = product.categ_id.commission_prod_id
+                      
+          # search for rule                                                               
+          rule = rule_obj._get_rule(cr, uid, team, product, context=context)
+          if rule:
+              percent = rule.get("commission",0.0) or 0.0
+          elif pricelist:
+              # search for pricelist rule
+              item_id = pricelist_obj.price_rule_get(cr, uid, [pricelist.id], product.id, qty,
+                                  partner=customer.id,context=context)[pricelist.id][1]
+              
+              if item_id:
+                  prule = pricelist_item_obj.read(cr, uid, item_id, ["commission_active","commission"], context=context)
+                  if prule.get("commission_active"):
+                      percent = prule.get("commission",0.0) or 0.0
+        
+        # otherwise use custom commission
+        else:
+          percent = commission_custom
         
         if percent:
             factor = (percent / 100.0)*-1

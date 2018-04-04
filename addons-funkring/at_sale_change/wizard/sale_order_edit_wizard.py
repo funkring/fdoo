@@ -53,6 +53,27 @@ class sale_order_edit_wizard_line(models.TransientModel):
 class sale_order_edit_wizard(models.TransientModel):
     _name = "sale.order.edit.wizard"
     _description = "Modify Wizard"
+  
+    order_id = fields.Many2one("sale.order", "Order", required=True, readonly=True)
+    date_order = fields.Datetime("Date", required=True)
+    partner_id = fields.Many2one("res.partner", "Partner", required=True)
+    partner_invoice_id = fields.Many2one("res.partner","Invoice Address", required=True)
+    partner_shipping_id = fields.Many2one("res.partner","Delivery Address", required=True)
+    line_ids = fields.One2many("sale.order.edit.wizard.line", "wizard_id", "Lines")
+    modify = fields.Boolean("Modify")
+  
+    @api.model
+    def _get_line_default(self, line):
+      return {
+        "line_id" : line.id,
+        "name" : line.name,
+        "discount" : line.discount,
+        "price_unit" : line.price_unit,
+        "price_subtotal" : line.price_subtotal,
+        "qty" : line.product_uom_qty,
+        "route_id": line.route_id.id,
+        "modify" : False
+      }
     
     @api.model
     def default_get(self, fields_list):
@@ -76,52 +97,45 @@ class sale_order_edit_wizard(models.TransientModel):
                 if "line_ids" in fields_list:
                     default_line_ids = []
                     res["line_ids"] = default_line_ids
-                    for line in order.order_line:                    
-                        default_line_ids.append((0,0,{
-                            "line_id" : line.id,
-                            "name" : line.name,
-                            "discount" : line.discount,
-                            "price_unit" : line.price_unit,
-                            "price_subtotal" : line.price_subtotal,
-                            "qty" : line.product_uom_qty,
-                            "route_id": line.route_id.id,
-                            "modify" : False
-                        }))     
-                
+                    for line in order.order_line:
+                      line_values = self._get_line_default(line)
+                      if line_values:
+                        default_line_ids.append((0,0,line_values))     
         
         return res
         
-        
+    def _prepare_line_modification(self, line_modify):
+      return  {
+          "name" : line_modify.name,
+          "discount" : line_modify.discount,
+          "price_unit" : line_modify.price_unit,
+          "product_uom_qty" : line_modify.qty                    
+      }
     
-    order_id = fields.Many2one("sale.order", "Order", required=True, readonly=True)
-    date_order = fields.Datetime("Date", required=True)
-    partner_id = fields.Many2one("res.partner", "Partner", required=True)
-    partner_invoice_id = fields.Many2one("res.partner","Invoice Address", required=True)
-    partner_shipping_id = fields.Many2one("res.partner","Delivery Address", required=True)
-    line_ids = fields.One2many("sale.order.edit.wizard.line", "wizard_id", "Lines")
-    modify = fields.Boolean("Modify")
+    @api.one
+    def _after_modified(self):
+      pass
     
     @api.multi
     def action_modify(self):
       procurement_obj = self.env["procurement.order"]
       for modify_wizard in self:
+        
+        modified = False
+        
         if self.env.user.has_group("base.group_sale_manager"):
             # line modify
             for line in modify_wizard.line_ids:
                 if modify_wizard.modify:
-                  
-                    order = self.order_id
+                    modified = True
+                    
+                    order = modify_wizard.order_id
                     sale_line = line.line_id
                   
                     new_route = line.route_id
                     cur_route = sale_line.route_id
                     
-                    values = {
-                        "name" : line.name,
-                        "discount" : line.discount,
-                        "price_unit" : line.price_unit,
-                        "product_uom_qty" : line.qty                    
-                    }
+                    values = modify_wizard._prepare_line_modification(line)
                     
                     # get line values
                     line_values = sale_line.product_id_change_with_wh_price(order.pricelist_id.id, sale_line.product_id.id, qty=line.qty,
@@ -142,7 +156,7 @@ class sale_order_edit_wizard(models.TransientModel):
                       
                       # update values
                       values["route_id"] = new_route.id
-                      sale_line.write(values)
+                      order.write({"order_line": [(1,sale_line.id,values)]})
                       
                       # get procurement vals
                       procurement_vals = order._prepare_order_line_procurement(order, sale_line, group_id=order.procurement_group_id.id)
@@ -173,13 +187,19 @@ class sale_order_edit_wizard(models.TransientModel):
                     else:
                       
                       # update values without procurement modify
-                      sale_line.write(values)
+                      order.write({"order_line": [(1,sale_line.id,values)]})
                     
             # order modify
-            if self.modify:
-                self.order_id.date_order = self.date_order
-                self.order_id.partner_id = self.partner_id
-                self.order_id.partner_invoice_id = self.partner_invoice_id
-                self.order_id.partner_shipping_id = self.partner_shipping_id
+            if modify_wizard.modify:
+                modified = True
+                modify_wizard.order_id.date_order = self.date_order
+                modify_wizard.order_id.partner_id = self.partner_id
+                modify_wizard.order_id.partner_invoice_id = self.partner_invoice_id
+                modify_wizard.order_id.partner_shipping_id = self.partner_shipping_id
+                
+            # call after modification
+            if modified:
+              modify_wizard._after_modified()
+            
                 
       return True
