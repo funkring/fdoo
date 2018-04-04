@@ -14,6 +14,7 @@
               <field name="pri"/>
             </group>
             <group>
+              <field name="ref"/>
               <field name="message" colspan="4" nolabel="1"/>
             </group>
           </group>
@@ -31,6 +32,7 @@
           <field name="stage_id"/>
           <field name="pri"/>
           <field name="message"/>
+          <field name="ref"/>
         </tree>
       </field>
     </record>

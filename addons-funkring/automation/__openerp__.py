@@ -36,6 +36,7 @@ Automation
     "category" : "System",
     "depends" : ["at_base"],
     "data" : ["security.xml",
+              "data/cleanup_cron.xml",
               "views/task_log.xml",
               "views/stage_view.xml",
               "views/task_view.xml"],

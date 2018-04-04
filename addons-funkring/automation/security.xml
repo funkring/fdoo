@@ -41,9 +41,9 @@
       <field name="model_id" ref="model_automation_task"/>
       <field name="group_id" ref="group_automation_manager"/>
       <field name="perm_read" eval="True"/>
-      <field name="perm_unlink" eval="True"/>
-      <field name="perm_create" eval="True"/>
-      <field name="perm_write" eval="True"/>
+      <field name="perm_unlink" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_write" eval="False"/>
     </record>
     
     <record id="access_automation_task_system" model="ir.model.access">
@@ -85,9 +85,9 @@
       <field name="model_id" ref="model_automation_task_stage"/>
       <field name="group_id" ref="group_automation_manager"/>
       <field name="perm_read" eval="True"/>
-      <field name="perm_unlink" eval="True"/>
-      <field name="perm_create" eval="True"/>
-      <field name="perm_write" eval="True"/>
+      <field name="perm_unlink" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_write" eval="False"/>
     </record>
     
     <record id="access_automation_task_stage_system" model="ir.model.access">
@@ -130,9 +130,9 @@
       <field name="model_id" ref="model_automation_task_log"/>
       <field name="group_id" ref="group_automation_manager"/>
       <field name="perm_read" eval="True"/>
-      <field name="perm_unlink" eval="True"/>
-      <field name="perm_create" eval="True"/>
-      <field name="perm_write" eval="True"/>
+      <field name="perm_unlink" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_write" eval="False"/>
     </record>
     
     <record id="access_automation_task_log_system" model="ir.model.access">

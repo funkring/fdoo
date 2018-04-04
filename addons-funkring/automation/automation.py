@@ -28,6 +28,10 @@ import uuid
 import json
 import time
 
+def _list_all_models(self):
+    self._cr.execute("SELECT model, name FROM ir_model ORDER BY name")
+    return self._cr.fetchall()
+
 class TaskStatus(object):
     
   def __init__(self, task):
@@ -62,32 +66,36 @@ class TaskStatus(object):
     self.last_status = None
     
     
-  def log(self, message, pri="i"):
+  def log(self, message, pri="i", obj=None, ref=None):
     values = {
       "stage_id": self.stage_id,
       "pri": pri,
       "message": message
     }
+    if obj:
+      ref = "%s,%s" % (obj._name, obj.id)
+    if ref:
+      values["ref"] = ref      
     res = requests.post(self.log_path, data=values)
     res.raise_for_status()
     
-  def loge(self, message, pri="e"):
-    self.log(message, pri=pri)
+  def loge(self, message, pri="e", **kwargs):
+    self.log(message, pri=pri, **kwargs)
   
-  def logw(self, message, pri="w"):
-    self.log(message, pri=pri)
+  def logw(self, message, pri="w", **kwargs):
+    self.log(message, pri=pri, **kwargs)
     
-  def logd(self, message, pri="d"):
-    self.log(message, pri=pri)
+  def logd(self, message, pri="d", **kwargs):
+    self.log(message, pri=pri, **kwargs)
     
-  def logn(self, message, pri="n"):
-    self.log(message, pri=pri)
+  def logn(self, message, pri="n", **kwargs):
+    self.log(message, pri=pri, **kwargs)
     
-  def loga(self, message, pri="a"):
-    self.log(message, pri=pri)
+  def loga(self, message, pri="a", **kwargs):
+    self.log(message, pri=pri, **kwargs)
   
-  def logx(self, message, pri="x"):
-    self.log(message, pri=pri)
+  def logx(self, message, pri="x", **kwargs):
+    self.log(message, pri=pri, **kwargs)
   
   def progress(self, status, progress):    
     values = {
@@ -105,20 +113,26 @@ class TaskStatus(object):
     res.raise_for_status()
     return int(res.text)
   
-  def stage(self, subject):
-    self.stage_id = self._create_stage({
+  def stage(self, subject, total=None):
+    values = {
       "parent_id": self.parent_stage_id,
       "name": subject
-    })                                   
+    }
+    if total:
+      values["total"] = total
+    self.stage_id = self._create_stage(values)                                   
     self.stage_stack.append((self.parent_stage_id, self.stage_id))
   
-  def substage(self, subject):
-    self.stage_stack.append((self.parent_stage_id, self.stage_id))
-    self.parent_stage_id = self.stage_id
-    self.stage_id = self._create_stage({
+  def substage(self, subject, total=None):
+    values = {
       "parent_id": self.stage_id,
       "name": subject
-    })    
+    }
+    if total:
+      values["total"] = total
+    self.stage_stack.append((self.parent_stage_id, self.stage_id))
+    self.parent_stage_id = self.stage_id
+    self.stage_id = self._create_stage(values)    
   
   def done(self):
     self.progress(_("Done"), 100.0)
@@ -150,15 +164,22 @@ class automation_task(models.Model):
       ("failed","Failed"),
       ("done","Done")
     ], required=True, index=True, readonly=True, default="draft")
-    
+        
   progress = fields.Float("Progress", readonly=True, compute="_progress")  
   error = fields.Text("Error", readonly=True)
   owner_id = fields.Many2one("res.users","Owner", required=True, default=lambda self: self._uid, index=True, readonly=True)
-  res_model = fields.Char("Resource Model", required=True, index=True, readonly=True, states={'draft': [('readonly', False)]})
-  res_id = fields.Integer("Resource ID", required=True, index=True, readonly=True, states={'draft': [('readonly', False)]})
+  res_model = fields.Char("Resource Model", index=True, readonly=True)
+  res_id = fields.Integer("Resource ID", index=True, readonly=True)
+  res_ref = fields.Reference(_list_all_models, string="Resource", compute="_res_ref", readonly=True)
   cron_id = fields.Many2one("ir.cron","Scheduled Job", index=True, ondelete="set null", copy=False, readonly=True)  
   total_logs = fields.Integer("Total Logs", compute="_total_logs")
   total_stages = fields.Integer("Total Stages", compute="_total_stages")
+  
+  task_id = fields.Many2one("automation.task", "Task", compute="_task_id")
+  
+  @api.one
+  def _task_id(self):
+    self.task_id = self
 
   @api.multi
   def _progress(self):
@@ -177,6 +198,17 @@ class automation_task(models.Model):
     # assign
     for r in self:
       r.progress = res[r.id]
+      
+  @api.one
+  def _res_ref(self):
+    if self.res_model and self.res_id:
+      res = self.env[self.res_model].search_count([("id","=",self.res_id)])
+      if res:      
+        self.res_ref = "%s,%s" % (self.res_model, self.res_id)
+      else:
+        self.res_ref = None
+    else:
+      self.res_ref = None
 
   @api.multi
   def _total_logs(self):
@@ -275,6 +307,12 @@ class automation_task(models.Model):
           })
         
     return True
+  
+  @api.model
+  def _cleanup_tasks(self):
+    # clean up cron tasks
+    self._cr.execute("DELETE FROM ir_cron WHERE id IN (SELECT cron_id FROM automation_task WHERE cron_id IS NOT NULL AND state NOT IN ('run','queued') )")
+    return True
         
   @api.model
   def _process_task(self, task_id):
@@ -291,8 +329,11 @@ class automation_task(models.Model):
         self._cr.commit()
         
         # get resource
-        model_obj = self.env[task.res_model]
-        resource = model_obj.browse(task.res_id)
+        if task.res_model and task.res_id:
+          model_obj = self.env[task.res_model]
+          resource = model_obj.browse(task.res_id)
+        else:
+          resource = task
                 
         # run task
         taskc = TaskStatus(task)        
@@ -324,6 +365,10 @@ class automation_task(models.Model):
          
     return True
   
+  def unlink(self, cr, uid, ids, context=None):
+    cr.execute("DELETE FROM ir_cron WHERE id IN (SELECT cron_id FROM automation_task WHERE id IN %s)", (tuple(ids),))
+    return super(automation_task, self).unlink(cr, uid, ids, context=context)
+  
   
 class automation_task_stage(models.Model):
   _name = "automation.task.stage"
@@ -338,7 +383,7 @@ class automation_task_stage(models.Model):
   progress = fields.Float("Progress %", readonly=True)
   status = fields.Char("Status")
   
-  task_id = fields.Many2one("automation.task", "Task", readonly=True, index=True, required=True)
+  task_id = fields.Many2one("automation.task", "Task", readonly=True, index=True, required=True, ondelete="cascade")
   parent_id = fields.Many2one("automation.task.stage", "Parent Stage", readonly=True, index=True)
   total = fields.Integer("Total", readonly=True)
   
@@ -395,6 +440,7 @@ class automation_task_log(models.Model):
                           readonly=True)
   
   message = fields.Text("Message", readonly=True)
+  ref = fields.Reference(_list_all_models, string="Reference", readonly=True)
   
   
 class task_secret(models.Model):
