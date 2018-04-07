@@ -34,7 +34,7 @@ def _list_all_models(self):
 
 class TaskStatus(object):
     
-  def __init__(self, task):
+  def __init__(self, task, total=1):
     self.task = task
     secret = self.task.env["automation.task.secret"].search([("task_id","=",task.id)])
     if not secret:
@@ -54,7 +54,7 @@ class TaskStatus(object):
     
     # setup root stage
     self.root_stage_id = self._create_stage({"name": task.name,
-                                             "total": self.task._stage_count() })
+                                             "total": total })
     self.parent_stage_id = self.root_stage_id
     self.stage_id = self.root_stage_id
     
@@ -120,8 +120,8 @@ class TaskStatus(object):
     }
     if total:
       values["total"] = total
-    self.stage_id = self._create_stage(values)                                   
     self.stage_stack.append((self.parent_stage_id, self.stage_id))
+    self.stage_id = self._create_stage(values)
   
   def substage(self, subject, total=None):
     values = {
@@ -155,7 +155,7 @@ class automation_task(models.Model):
   
   name = fields.Char("Name", required=True, readonly=True, states={'draft': [('readonly', False)]})
   
-  state_change = fields.Datetime("State Change", default=lambda self: util.currentDateTime(), required=True, readonly=True)
+  state_change = fields.Datetime("State Change", default=lambda self: util.currentDateTime(), required=True, readonly=True, copy=False)
   state = fields.Selection([
       ("draft","Draft"),
       ("queued","Queued"),
@@ -163,10 +163,10 @@ class automation_task(models.Model):
       ("cancel","Canceled"),
       ("failed","Failed"),
       ("done","Done")
-    ], required=True, index=True, readonly=True, default="draft")
+    ], required=True, index=True, readonly=True, default="draft", copy=False)
         
   progress = fields.Float("Progress", readonly=True, compute="_progress")  
-  error = fields.Text("Error", readonly=True)
+  error = fields.Text("Error", readonly=True, copy=False)
   owner_id = fields.Many2one("res.users","Owner", required=True, default=lambda self: self._uid, index=True, readonly=True)
   res_model = fields.Char("Resource Model", index=True, readonly=True)
   res_id = fields.Integer("Resource ID", index=True, readonly=True)
@@ -336,7 +336,8 @@ class automation_task(models.Model):
           resource = task
                 
         # run task
-        taskc = TaskStatus(task)        
+        stage_count = resource._stage_count()
+        taskc = TaskStatus(task, stage_count)        
         with self._cr.savepoint():
           resource._run(taskc)
           
@@ -350,7 +351,7 @@ class automation_task(models.Model):
           "error": None        
         })
         
-      except Exception as e:        
+      except Exception as e:
         if hasattr(e, "message"):
           error = e.message
         else:

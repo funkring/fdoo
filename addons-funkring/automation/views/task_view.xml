@@ -44,7 +44,7 @@
               <group>
                 <field name="owner_id"/>
                 <field name="res_ref"/>
-                <field name="task_id" invisible="1"/>
+                <field name="task_id" invisible="1" required="0"/>
               </group>
               <group>
                 <field name="progress" widget="progressbar"/>
