@@ -39,7 +39,8 @@ Automation
               "data/cleanup_cron.xml",
               "views/task_log.xml",
               "views/stage_view.xml",
-              "views/task_view.xml"],
+              "views/task_view.xml",
+              "views/cron_view.xml"],
     "auto_install" : False,
     "installable": True
 }

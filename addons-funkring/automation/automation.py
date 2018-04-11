@@ -28,6 +28,9 @@ import uuid
 import json
 import time
 
+import logging
+_logger = logging.getLogger(__name__)
+
 def _list_all_models(self):
     self._cr.execute("SELECT model, name FROM ir_model ORDER BY name")
     return self._cr.fetchall()
@@ -66,12 +69,14 @@ class TaskStatus(object):
     self.last_status = None
     
     
-  def log(self, message, pri="i", obj=None, ref=None):
+  def log(self, message, pri="i", obj=None, ref=None, progress=None):
     values = {
       "stage_id": self.stage_id,
       "pri": pri,
       "message": message
     }
+    if progress:
+      values["progress"] = progress
     if obj:
       ref = "%s,%s" % (obj._name, obj.id)
     if ref:
@@ -260,6 +265,25 @@ class automation_task(models.Model):
       task._check_execution_rights()
       if task.state == "queued":
         task.state = "cancel"
+
+  @api.multi
+  def _get_cron_values(self):
+    self.ensure_one()
+    # new cron entry
+    return {
+      "name": "Task: %s" % self.name,
+      "user_id": SUPERUSER_ID,
+      "interval_type": "minutes",
+      "interval_number": 1,
+      "nextcall": util.currentDateTime(),
+      "numbercall": 1,
+      "model": self._name,
+      "function": "_process_task",
+      "args": "(%s,)" % self.id,
+      "active": True,
+      "priority": 1000 + self.id,
+      "task_id": self.id 
+    }
   
   @api.multi
   def action_queue(self):
@@ -268,28 +292,15 @@ class automation_task(models.Model):
       # check rights
       task._check_execution_rights()
       if task.state in ("draft", "cancel", "failed", "done"):
+        # sudo task
+        sudo_task = task.sudo()
         
-        # new cron entry
-        cron_values =  {
-          "name": "Task: %s" % task.name,
-          "user_id": SUPERUSER_ID,
-          "interval_type": "minutes",
-          "interval_number": 1,
-          "nextcall": util.currentDateTime(),
-          "numbercall": 1,
-          "model": self._name,
-          "function": "_process_task",
-          "args": "(%s,)" % self.id,
-          "active": True,
-          "priority": 1000 + task.id      
-        }
-        
-        sudo_task = task.sudo() 
+        # add cron entry 
         sudo_cron = sudo_task.cron_id
         if not sudo_cron:
-          sudo_cron = self.env["ir.cron"].sudo().create(cron_values)
+          sudo_cron = self.env["ir.cron"].sudo().create(sudo_task._get_cron_values())
         else:
-          sudo_cron.write(cron_values)
+          sudo_cron.write(sudo_task._get_cron_values())
         
         # set stages inactive
         self._cr.execute("DELETE FROM automation_task_stage WHERE task_id=%s",(sudo_task.id,))
@@ -311,7 +322,7 @@ class automation_task(models.Model):
   @api.model
   def _cleanup_tasks(self):
     # clean up cron tasks
-    self._cr.execute("DELETE FROM ir_cron WHERE id IN (SELECT cron_id FROM automation_task WHERE cron_id IS NOT NULL AND state NOT IN ('run','queued') )")
+    self._cr.execute("DELETE FROM ir_cron WHERE task_id IS NOT NULL AND NOT active")
     return True
         
   @api.model
@@ -319,6 +330,41 @@ class automation_task(models.Model):
     task = self.browse(task_id)
     if task and task.state == "queued":      
       try:
+        # get options
+        if task.res_model and task.res_id:
+          model_obj = self.env[task.res_model]
+          resource = model_obj.browse(task.res_id)
+        else:
+          resource = task
+        
+        
+        # options
+        
+        options = {
+          "stages": 1,
+          "resource": resource
+        }
+        
+        # get custom options
+        
+        if hasattr(resource, "_run_options"):
+          res_options = getattr(resource, "_run_options")
+          if callable(res_options):
+            res_options = resource._run_options()
+          options.update(res_options)
+
+        stage_count = options["stages"]
+        
+        # check if it is a singleton task
+        # if already another task run, requeue
+        # don't process this task
+        if options.get("singleton"):          
+          same_tasks = self.search([("res_model","=",resource._model._name),("res_id","!=",resource.id),("state","in",["queue","run"])])
+          if same_tasks and min(same_tasks.ids) < task_id:
+            # requeue
+            task.cron_id = self.env["ir.cron"].create(task._get_cron_values())
+            return True
+        
         # change task state 
         # and commit                
         task.write({
@@ -328,15 +374,7 @@ class automation_task(models.Model):
         })
         self._cr.commit()
         
-        # get resource
-        if task.res_model and task.res_id:
-          model_obj = self.env[task.res_model]
-          resource = model_obj.browse(task.res_id)
-        else:
-          resource = task
-                
         # run task
-        stage_count = resource._stage_count()
         taskc = TaskStatus(task, stage_count)        
         with self._cr.savepoint():
           resource._run(taskc)
@@ -352,11 +390,13 @@ class automation_task(models.Model):
         })
         
       except Exception as e:
+        _logger.exception("Task execution failed")
+        
         if hasattr(e, "message"):
           error = e.message
         else:
           error = str(e)
-          
+        
         # write error
         task.write({
           "state_change": util.currentDateTime(),
@@ -365,10 +405,6 @@ class automation_task(models.Model):
         })
          
     return True
-  
-  def unlink(self, cr, uid, ids, context=None):
-    cr.execute("DELETE FROM ir_cron WHERE id IN (SELECT cron_id FROM automation_task WHERE id IN %s)", (tuple(ids),))
-    return super(automation_task, self).unlink(cr, uid, ids, context=context)
   
   
 class automation_task_stage(models.Model):

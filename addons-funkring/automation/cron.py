@@ -23,3 +23,6 @@ from openerp.osv import fields, osv
 class ir_cron(osv.Model):
   _inherit = "ir.cron"
   _order = "priority, name"
+  _columns = {
+    "task_id": fields.many2one("automation.task", "Task", ondelete="cascade")      
+  }
