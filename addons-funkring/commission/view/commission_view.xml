@@ -47,7 +47,7 @@
                         <group string="Sale">
                            <field name="sale_partner_id"/>                
                            <field name="sale_product_id"/>
-                           <field name="tax_ids"/>                             
+                           <field name="tax_ids" widget="many2many_tags"/>                             
                            <field name="unit_amount"/>
                            <field name="price_sub" on_change="onchange_commission(total_commission, amount, price_sub)"/>
                         </group>

@@ -44,23 +44,31 @@ class commission_invoice_wizard(osv.osv_memory):
     def _inv_line_name_get(self,cr,uid,wizard,analytic_line,context=None):
         f = LangFormat(cr, uid, context=context)
         infos = []
+        
+        def addInfo(val):
+          if not val:
+            return
+          val = val.strip()
+          if not val:
+            return
+          for info in infos:
+            if val in info:
+              return
+          infos.append(val)
+        
         if analytic_line:
+            # add date
             if analytic_line.date:
-                infos.append(f.formatLang(analytic_line.date,date=True))
-            if analytic_line.ref:
-                infos.append(analytic_line.ref)
+              addInfo(f.formatLang(analytic_line.date,date=True))
+            # add standard line info
+            addInfo(analytic_line.ref)
+            addInfo(analytic_line.name)
+            # add detailed invoice info
             if wizard.detail_ref:
-                double_check_str = " ".join(infos)
-                if analytic_line.name:
-                    double_check_str = "%s %s" % (analytic_line.name, double_check_str)
-
-                # add invoice reference
-                if analytic_line.invoice_id and analytic_line.invoice_id.number and not analytic_line.invoice_id.number in double_check_str:
-                    infos.append(analytic_line.invoice_id.number)
-                
-                                   
-            if analytic_line.name:
-                infos.append(analytic_line.name)
+              invoice = analytic_line.invoice_id
+              if invoice:
+                addInfo(invoice.number)
+                addInfo(invoice.name)
                 
         return " / ".join(infos) or ""
       
@@ -199,7 +207,7 @@ class commission_invoice_wizard(osv.osv_memory):
                 
                 if salePartnerDetail is None:
                     salePartnerDetail = {
-                        "name" : sale_partner.name,
+                        "name" : sale_partner.name_get()[0][1],
                         "invoice_id" : invoice_id,
                         "context" : invContext,
                         "sequence" : values["sequence"],

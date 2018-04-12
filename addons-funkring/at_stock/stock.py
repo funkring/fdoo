@@ -74,4 +74,11 @@ class stock_picking(osv.osv):
                     res["name"] = group.name
         return res
     
+    def _check_avail(self, cr, uid, context=None):
+      waiting_ids = self.search(cr, uid, [("state","in",["confirmed","partially_available"]),("picking_type_code","=","outgoing")], order="date asc")
+      return self.action_assign(cr, uid, waiting_ids, context=context)        
+    
     _inherit = 'stock.picking'
+    _columns = {
+      "product_categ_id": fields.related("product_id", "categ_id", type="many2one", relation="product.category", string="Product Category")
+    }

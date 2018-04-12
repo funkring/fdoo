@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-# -*- encoding: utf-8 -*-
-
 #############################################################################
 #
 #    Copyright (c) 2007 Martin Reisenhofer <martin.reisenhofer@funkring.net>
@@ -20,25 +18,11 @@
 #
 ##############################################################################
 
-{
-    "name" : "oerp.at Stock",
-    "description":"""
-oerp.at Stock Base Module
-=========================
+from openerp.osv import fields, osv
 
-* additional functions
-* access rights for invoice creation
+class check_avail_wizard(osv.TransientModel):
+  _name = "stock.check.avail.wizard"
+  _description = "Check Availability"
 
-""",
-    "version" : "1.1",
-    "author" :  "funkring.net",
-    "website": "http://www.funkring.net",
-    "category" : "Warehouse",
-    "depends" : ["at_base", "stock", "delivery", "stock_account"],
-    "data" : ["security.xml",
-              "report/stock_picking_report.xml",
-              "view/picking_view.xml",
-              "wizard/check_avail_wizard.xml"],
-    "auto_install": False,
-    "installable": True
-}
+  def action_check_avail(self, cr, uid, ids, context=None):
+    return self.pool["stock.picking"]._check_avail(cr, uid, context=context)
