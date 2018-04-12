@@ -265,6 +265,15 @@ class automation_task(models.Model):
       task._check_execution_rights()
       if task.state == "queued":
         task.state = "cancel"
+    return True
+        
+  @api.multi
+  def action_refresh(self):
+    return True
+  
+  @api.multi
+  def action_reset(self):
+    return True
 
   @api.multi
   def _get_cron_values(self):

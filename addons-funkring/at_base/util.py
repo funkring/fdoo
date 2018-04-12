@@ -387,14 +387,33 @@ def getMonths(inFromDate, inToDate):
 
 def getWeek(str_date):
     dt = strToDate(str_date)
-    return dt.isocalendar()[1]
+    if dt:
+      return dt.isocalendar()[1]
+    return None
+  
+def getYearWeek(str_date):
+    dt = strToDate(str_date)
+    if dt:  
+      return "%s-W%s" % (dt.year, dt.isocalendar()[1])
+    return None
+  
+def getYearMonth(str_date):
+    dt = strToDate(str_date)
+    if dt:    
+      return "%s-%s" % (dt.year, dt.month)
+    return None
   
 def getYear(str_date):
     dt = strToDate(str_date)
-    return dt.year
+    if dt:
+      return dt.year
+    return None
   
 def getYearStr(str_date):
-    return "%s" % getYear(str_date)
+    year = getYear(str_date)
+    if year:
+      return "%s" % year
+    return None
 
 def cleanFileName(inName):
     repl_map = {

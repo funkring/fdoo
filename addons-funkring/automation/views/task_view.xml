@@ -20,10 +20,15 @@
               </div>
               <h1>
                 <field name="name" default_focus="1" placeholder="Name"/>
-              </h1>
+              </h1>                              
+            </div>
+            <div class="oe_right">
+              <button type="object" icon="gtk-normal" name="action_refresh" class="oe_inline" attrs="{'invisible':['|',('state','=','failed'),('state','=','done')]}"/>
+              <button type="object" icon="gtk-no" name="action_refresh"  class="oe_inline" attrs="{'invisible':[('state','!=','failed')]}"/>
+              <button type="object" icon="gtk-yes" name="action_refresh"  class="oe_inline" attrs="{'invisible':[('state','!=','done')]}"/>
             </div>
             <div class="oe_right oe_button_box" name="buttons"> 
-              <button type="action" 
+                <button type="action" 
                       class="oe_stat_button"
                       id="stage_button"
                       icon="fa-tasks"
