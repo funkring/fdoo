@@ -43,9 +43,7 @@ class Svg(object):
         if not graph.no_prefix:
             self.id = '#chart-%s ' % graph.uuid
         else:
-            self.id = ''
-        self.processing_instructions = [
-            etree.PI(u('xml'), u("version='1.0' encoding='utf-8'"))]
+            self.id = ''        
         self.root = etree.Element(
             "{%s}svg" % self.ns,
             nsmap={
