@@ -194,7 +194,7 @@ class account_analytic_account(osv.osv):
         'partner_id': fields.many2one('res.partner', 'Customer'),
         'user_id': fields.many2one('res.users', 'Project Manager', track_visibility='onchange'),
         'manager_id': fields.many2one('res.users', 'Account Manager', track_visibility='onchange'),
-        'date_start': fields.date('Start Date'),
+        'date_start': fields.date('Start Date', select=True, track_visibility='onchange'),
         'date': fields.date('Expiration Date', select=True, track_visibility='onchange'),
         'company_id': fields.many2one('res.company', 'Company', required=False), #not required because we want to allow different companies to use the same chart of account, except for leaf accounts.
         'state': fields.selection([('template', 'Template'),

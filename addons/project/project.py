@@ -744,13 +744,13 @@ class task(osv.osv):
         'write_date': fields.datetime('Last Modification Date', readonly=True, select=True), #not displayed in the view but it might be useful with base_action_rule module (and it needs to be defined first for that)
         'date_start': fields.datetime('Starting Date', select=True, copy=False),
         'date_end': fields.datetime('Ending Date', select=True, copy=False),
-        'date_deadline': fields.date('Deadline', select=True, copy=False),
+        'date_deadline': fields.date('Deadline', select=True, track_visibility='onchange', copy=False),
         'date_last_stage_update': fields.datetime('Last Stage Update', select=True, copy=False),
         'project_id': fields.many2one('project.project', 'Project', ondelete='set null', select=True, track_visibility='onchange', change_default=True),
         'parent_ids': fields.many2many('project.task', 'project_task_parent_rel', 'task_id', 'parent_id', 'Parent Tasks'),
         'child_ids': fields.many2many('project.task', 'project_task_parent_rel', 'parent_id', 'task_id', 'Delegated Tasks'),
         'notes': fields.text('Notes'),
-        'planned_hours': fields.float('Initially Planned Hours', help='Estimated time to do the task, usually set by the project manager when the task is in draft state.'),
+        'planned_hours': fields.float('Initially Planned Hours', track_visibility='onchange', help='Estimated time to do the task, usually set by the project manager when the task is in draft state.'),
         'effective_hours': fields.function(_hours_get, string='Hours Spent', multi='hours', help="Computed using the sum of the task work done.",
             store = {
                 'project.task': (lambda self, cr, uid, ids, c={}: ids, ['work_ids', 'remaining_hours', 'planned_hours'], 10),
