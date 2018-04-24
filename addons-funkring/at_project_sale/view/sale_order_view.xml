@@ -16,13 +16,16 @@
             <xpath expr="//notebook/page/field/form[@string='Sales Order Lines']/label[@for='name']" position="before">
               <group attrs="{'invisible':['|','|',('is_task','=',False),('is_contract','=',True),('state','!=','draft')]}">
                 <group> 
-                  <field name="is_task" invisible="1"/>
-                  <field name="pre_task_id"/>                  
+                  <field name="is_task" invisible="1"/>                  
+                  <field name="pre_task_id" attrs="{'invisible':[('pre_task_id','=',False)]}"/>          
+                  <field name="task_deadline"/>        
                 </group>
                 <group>                  
                  <div>
-                     <button name="action_create_task" type="object" string="Create Task" 
-                          attrs="{'invisible':[('pre_task_id','!=',False)]}"/>
+                    <button name="action_create_task" type="object" string="Create Task" 
+                          attrs="{'invisible':[('pre_task_id','!=',False)]}" groups="at_project_sale.group_sale_create_task_contract"/>
+                    <button name="action_create_task" type="object" string="Update Task" 
+                          attrs="{'invisible':['|',('pre_task_id','=',False),('state','!=','draft')]}"/>
                   </div>
                 </group>
               </group>
@@ -31,13 +34,16 @@
                   <field name="is_contract" invisible="1"/>
                   <field name="contract_name" attrs="{'readonly':[('contract_id','!=',False)], 'required':[('is_contract','=',True)]}"/>                  
                   <field name="contract_start" attrs="{'readonly':[('contract_id','!=',False)]}"/>
+                  <field name="contract_end" attrs="{'readonly':[('contract_id','!=',False)]}"/>
                   <field name="contract_start_task" attrs="{'readonly':[('contract_id','!=',False)], 'invisible':[('is_task','=',False)]}"/>
                 </group>                  
                 <group>
                   <field name="contract_id"/>
                   <div>
                     <button name="action_create_contract" type="object" string="Create Contract" 
-                        attrs="{'invisible':[('contract_id','!=',False)]}"/>
+                        attrs="{'invisible':[('contract_id','!=',False)]}" groups="at_project_sale.group_sale_create_task_contract"/>
+                    <button name="action_create_contract" type="object" string="Update Contract" 
+                        attrs="{'invisible':['|',('contract_id','=',False),('state','!=','draft')]}"/>
                   </div>
                 </group>                  
               </group>

@@ -86,9 +86,15 @@ class account_analytic_account(osv.osv):
         
         if template_id:
             template = self.browse(cr, uid, template_id, context=context)
+            values = res["value"]
             if not ids:
+                # take shop
+                shop = template.shop_id
+                if shop:
+                  values["shop_id"] = shop.id
+              
                 # overtake prepaid
-                res["value"]["recurring_prepaid"] = template.recurring_prepaid
+                values["recurring_prepaid"] = template.recurring_prepaid
                 recurring_task_obj = self.pool("account.analytic.recurring.task")
                 
                 # overtake recurring task values
@@ -98,10 +104,10 @@ class account_analytic_account(osv.osv):
                   del recurring_task_copy["analytic_account_id"]
                   recurring_task_vals.append((0, 0, recurring_task_copy))
                   
-                res["value"]["recurring_task"] = template.recurring_task
-                res["value"]["recurring_task_interval"] = template.recurring_task_interval
-                res["value"]["recurring_task_rule"] = template.recurring_task_rule
-                res["value"]["recurring_task_ids"] = recurring_task_vals
+                values["recurring_task"] = template.recurring_task
+                values["recurring_task_interval"] = template.recurring_task_interval
+                values["recurring_task_rule"] = template.recurring_task_rule
+                values["recurring_task_ids"] = recurring_task_vals
 
         return res
       

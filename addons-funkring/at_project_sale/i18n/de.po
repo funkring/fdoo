@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Language: de_DE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-03 21:06+0000\n"
-"PO-Revision-Date: 2018-03-03 22:07+0100\n"
+"POT-Creation-Date: 2018-04-24 21:51+0000\n"
+"PO-Revision-Date: 2018-04-24 23:52+0100\n"
 "Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgid "%s Hour(s)"
 msgstr "%s Stunde(n)"
 
 #. module: at_project_sale
-#: code:addons/at_project_sale/analytic.py:275
+#: code:addons/at_project_sale/analytic.py:281
 #, python-format
 msgid "%s WE%s"
 msgstr "%s KW%s"
@@ -37,6 +37,12 @@ msgid ""
 msgstr ""
 "0 für keine Einschränkung, 1 um die Aufgabe einmal zu wiederholen, 2 um die "
 "Aufgabe zweimal zu wiederholen, ..."
+
+#. module: at_project_sale
+#: model:res.groups,name:at_project_sale.group_sale_create_task_contract
+msgid "Allow create task or contract before order confirm"
+msgstr ""
+"Erlaube das erstellen von Aufgaben und Verträgen vor der Auftragsbestätigung"
 
 #. module: at_project_sale
 #: help:account.analytic.recurring.task,count:0
@@ -114,6 +120,11 @@ msgid "Contract"
 msgstr "Vertrag"
 
 #. module: at_project_sale
+#: field:sale.order.line,contract_end:0
+msgid "Contract End"
+msgstr "Vertrag Ende"
+
+#. module: at_project_sale
 #: field:sale.order.line,contract_name:0
 msgid "Contract Name"
 msgstr "Vertragsname"
@@ -129,7 +140,13 @@ msgid "Contract Template"
 msgstr "Vertragsvorlage"
 
 #. module: at_project_sale
-#: code:addons/at_project_sale/sale_order.py:593
+#: code:addons/at_project_sale/sale_order.py:653
+#, python-format
+msgid "Contract end date is before contract start date %s"
+msgstr "Vertragsende ist vor dem Vertragsstart: %s"
+
+#. module: at_project_sale
+#: code:addons/at_project_sale/sale_order.py:651
 #, python-format
 msgid "Contract start date is before current date for %s"
 msgstr "Vertragsstartdatum liegt in der Vergangenheit für Zeile %s"
@@ -208,6 +225,11 @@ msgstr "Datum der nächsten Aufgaben"
 #: selection:product.template,recurring_rule_type:0
 msgid "Day(s)"
 msgstr "Tag(e)"
+
+#. module: at_project_sale
+#: field:sale.order.line,task_deadline:0
+msgid "Deadline"
+msgstr "Frist"
 
 #. module: at_project_sale
 #: field:account.analytic.recurring.task,description:0
@@ -306,20 +328,20 @@ msgid "Name"
 msgstr ""
 
 #. module: at_project_sale
-#: code:addons/at_project_sale/analytic.py:258
+#: code:addons/at_project_sale/analytic.py:264
 #, python-format
 msgid "No Project for generating tasks of contract %s found"
 msgstr ""
 "Es wurde kein Projekt für die zu erstellenden Aufgaben gefunden (Vertrag %s)"
 
 #. module: at_project_sale
-#: code:addons/at_project_sale/sale_order.py:591
+#: code:addons/at_project_sale/sale_order.py:649
 #, python-format
 msgid "No contract name or start date for %s"
 msgstr "Vertragsname oder Vertragsstart nicht angegeben für %s"
 
 #. module: at_project_sale
-#: code:addons/at_project_sale/sale_order.py:626
+#: code:addons/at_project_sale/sale_order.py:658
 #, python-format
 msgid "No task start date for %s"
 msgstr "Kein Aufgaben Startdatum für %s"
@@ -594,7 +616,7 @@ msgid "Task automatically repeat at specified interval"
 msgstr "Die Aufgaben werden automatisch mit dem angegeben Interval wiederholt"
 
 #. module: at_project_sale
-#: code:addons/at_project_sale/sale_order.py:628
+#: code:addons/at_project_sale/sale_order.py:660
 #, python-format
 msgid "Task start date is before current date for %s"
 msgstr "Der Aufgabenstart liegt in der Vergangenheit für Zeile %s"
@@ -637,6 +659,16 @@ msgstr ""
 #: field:sale.order,timesheet_lines_amount:0
 msgid "Timesheet Lines"
 msgstr "Zeiterfassungszeilen"
+
+#. module: at_project_sale
+#: view:sale.order:at_project_sale.form_sale_order2
+msgid "Update Contract"
+msgstr "Aktualisiere Vertrag"
+
+#. module: at_project_sale
+#: view:sale.order:at_project_sale.form_sale_order2
+msgid "Update Task"
+msgstr "Aktualisiere Aufgabe"
 
 #. module: at_project_sale
 #: selection:account.analytic.account,recurring_task_rule:0
