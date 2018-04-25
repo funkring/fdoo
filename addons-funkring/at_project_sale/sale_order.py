@@ -597,37 +597,21 @@ class sale_order_line(osv.osv):
         values["recurring_next_date"] = line.contract_start   
         
       # if template is used, update 
-      # quantity and price of the same product
+      # quantity and price of the same product       
       product = line.product_id
-      recurring_tmpl = product.recurring_tmpl_id
-      if recurring_tmpl:
-        contract = line.contract_id
-        recurring_lines = values.get("recurring_invoice_line_ids") or []
-        if contract:
-          # update same product
-          for rec_line in contract.recurring_invoice_line_ids:
-            if rec_line.product_id.id == product.id:
-              recurring_lines.append((1, rec_line.id, {
-                "product_id": product.id,
-                "uom_id": line.product_uom.id,
-                "name": line.name,
-                "quantity": line.product_uom_qty,
-                "price_unit": line.price_unit
-              }))              
-        elif recurring_lines:
-          # search for same product
-          for rec_line_update in recurring_lines:
-            if len(rec_line_update) == 3 and rec_line_update[2].get("product_id") == product.id:
-              rec_line_update[2].update({
-                "product_id": product.id,
-                "uom_id": line.product_uom.id,
-                "name": line.name,
-                "quantity": line.product_uom_qty,
-                "price_unit": line.price_unit
-              })
-              
-        if recurring_lines:
-          values["recurring_invoice_line_ids"] = recurring_lines
+      recurring_lines = values.get("recurring_invoice_line_ids")
+      if recurring_lines:
+        # search for same product
+        for rec_line_update in recurring_lines:
+          if len(rec_line_update) == 3 and rec_line_update[2].get("product_id") == product.id:
+            rec_line_update[2].update({
+              "product_id": product.id,
+              "uom_id": line.product_uom.id,
+              "name": line.name,
+              "quantity": line.product_uom_qty,
+              "price_unit": line.price_unit
+            })
+        
           
     def action_create_contract(self, cr, uid, ids, context=None):
       account_obj = self.pool["account.analytic.account"]
@@ -682,6 +666,34 @@ class sale_order_line(osv.osv):
               account_obj.on_change_template(cr, uid, contract_ids, recurring_tmpl.id, date_start=values.get("date_start"), context=context), 
               context=context)
             
+            # check if tonract already exist
+            if contract:
+              # recurring task update
+              if not values.get("recurring_task_ids") and contract.recurring_task_ids:
+                recurring_task_update = []
+                for rec_task in contract.recurring_task_ids:
+                  recurring_task_update.append((1,rec_task.id, {
+                    "name": rec_task.name,
+                    "product_id": rec_task.product_id.id, 
+                    "description": rec_task.description,
+                    "planned_hours": rec_task.planned_hours,
+                    "repeat": rec_task.repeat
+                  }))
+                values["recurring_task_ids"] = recurring_task_update
+                
+              # recurring invoice update
+              if not values.get("recurring_invoice_line_ids") and contract.recurring_invoice_line_ids:
+                recurring_inv_update = []
+                for rec_inv in contract.recurring_invoice_line_ids:
+                  recurring_inv_update.append((1, rec_inv.id, {
+                    "product_id": rec_inv.product_id.id,
+                    "uom_id": rec_inv.uom_id.id,
+                    "name": rec_inv.name,
+                    "quantity": rec_inv.quantity,
+                    "price_unit": rec_inv.price_unit
+                  }))
+                  values["recurring_invoice_line_ids"] = recurring_inv_update
+            
           else:
             # build on product
             
@@ -695,9 +707,10 @@ class sale_order_line(osv.osv):
               # check for existing task line
               recurring_task_id = 0
               recurring_found = 0
-              for recurring_task in  contract.recurring_task_ids:
-                recurring_task_id = recurring_task.id
-                recurring_found = 1 
+              if contract:
+                for recurring_task in contract.recurring_task_ids:
+                  recurring_task_id = recurring_task.id
+                  recurring_found = 1 
               
               # prepare recurrent task template
               values["recurring_task_ids"] = [(recurring_found, recurring_task_id, {
@@ -769,9 +782,9 @@ class sale_order_line(osv.osv):
       "is_contract": fields.function(_is_contract, type="boolean", string="Is Contract"),
       "pre_task_id": fields.many2one("project.task", "Created Task", help="Pre created Task before order was confirmed", readonly=True, copy=False),
       "task_deadline": fields.date("Deadline", states={'draft': [('readonly', False)]}, readonly=True, copy=False),
-      "contract_start": fields.date("Contract Start", readonly=True, copy=False),
-      "contract_end": fields.date("Contract End", readonly=True, copy=False),
-      "contract_start_task" : fields.date("Task Start", help="Start of first task", readonly=True, copy=False),
-      "contract_name": fields.char("Contract Name", readonly=True, copy=False),
+      "contract_start": fields.date("Contract Start",  states={'draft': [('readonly', False)]}, readonly=True, copy=False),
+      "contract_end": fields.date("Contract End",  states={'draft': [('readonly', False)]}, readonly=True, copy=False),
+      "contract_start_task" : fields.date("Task Start",  states={'draft': [('readonly', False)]}, help="Start of first task", readonly=True, copy=False),
+      "contract_name": fields.char("Contract Name",  states={'draft': [('readonly', False)]}, readonly=True, copy=False),
       "contract_id" : fields.many2one("account.analytic.account", "Contract", readonly=True, copy=False, ondelete="set null")
     }
