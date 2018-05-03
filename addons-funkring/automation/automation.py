@@ -381,12 +381,12 @@ class automation_task(models.Model):
           "state": "run",
           "error": None        
         })
+        # commit after start
         self._cr.commit()
         
         # run task
         taskc = TaskStatus(task, stage_count)        
-        with self._cr.savepoint():
-          resource._run(taskc)
+        resource._run(taskc)
           
         # close
         taskc.close()
@@ -397,8 +397,13 @@ class automation_task(models.Model):
           "state": "done",
           "error": None        
         })
+
+        # commit after finish        
+        self._cr.commit()
         
       except Exception as e:
+        # rollback on error
+        self._cr.rollback()
         _logger.exception("Task execution failed")
         
         if hasattr(e, "message"):
@@ -406,12 +411,16 @@ class automation_task(models.Model):
         else:
           error = str(e)
         
+        if not error:
+          error = "Unexpected error, see logs"
+        
         # write error
         task.write({
           "state_change": util.currentDateTime(),
           "state": "failed",
           "error": error        
         })
+        self._cr.commit()
          
     return True
   
