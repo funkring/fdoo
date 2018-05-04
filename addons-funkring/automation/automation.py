@@ -367,9 +367,13 @@ class automation_task(models.Model):
         # check if it is a singleton task
         # if already another task run, requeue
         # don't process this task
-        if options.get("singleton"):          
-          same_tasks = self.search([("res_model","=",resource._model._name),("res_id","!=",resource.id),("state","in",["queue","run"])])
-          if same_tasks and min(same_tasks.ids) < task_id:
+        if options.get("singleton"):
+          # cleanup 
+          self._cr.execute("DELETE FROM ir_cron WHERE task_id=%s AND id!=%s AND NOT active", (task.id, task.cron_id.id))
+          # check concurrent 
+          self._cr.execute("SELECT MIN(id) FROM automation_task WHERE res_model=%s AND state IN ('queued','run')", (resource._model._name,))
+          active_task_id = self._cr.fetchone()[0]
+          if active_task_id and active_task_id < task_id:
             # requeue
             task.cron_id = self.env["ir.cron"].create(task._get_cron_values())
             return True
