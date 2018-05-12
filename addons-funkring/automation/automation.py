@@ -179,6 +179,7 @@ class automation_task(models.Model):
   cron_id = fields.Many2one("ir.cron","Scheduled Job", index=True, ondelete="set null", copy=False, readonly=True)  
   total_logs = fields.Integer("Total Logs", compute="_total_logs")
   total_stages = fields.Integer("Total Stages", compute="_total_stages")
+  total_warnings = fields.Integer("Total Warnings", compute="_total_warnings")
   
   task_id = fields.Many2one("automation.task", "Task", compute="_task_id")
   
@@ -224,6 +225,16 @@ class automation_task(models.Model):
       res[task_id] = log_count
     for r in self:
       r.total_logs = res[r.id]
+      
+  @api.multi
+  def _total_warnings(self):
+    res = dict.fromkeys(self.ids, 0)
+    cr = self._cr
+    cr.execute("SELECT task_id, COUNT(*) FROM automation_task_log WHERE pri IN ('a','e','w','x') AND task_id IN %s GROUP BY 1", (tuple(self.ids),))
+    for task_id, log_count in cr.fetchall():
+      res[task_id] = log_count
+    for r in self:
+      r.total_warnings = res[r.id]
   
   @api.multi
   def _total_stages(self):

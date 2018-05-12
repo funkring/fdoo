@@ -44,6 +44,14 @@
                       context="{'search_default_task_id': task_id, 'default_task_id': task_id}">
                       <div><strong><field name="total_logs"/></strong><br/>Logs</div>
               </button>
+              <button type="action" 
+                      class="oe_stat_button"
+                      id="error_button"
+                      icon="fa-exclamation-triangle"
+                      name="%(automation.action_task_log)d"
+                      context="{'search_default_task_id': task_id, 'default_task_id': task_id, 'search_default_warning': 1}">
+                      <div><strong><field name="total_warnings"/></strong><br/>Warnings</div>
+              </button>
             </div>
             <group>
               <group>
@@ -90,7 +98,7 @@
           <field name="name"/>
           <field name="owner_id"/>
           <field name="res_model"/>
-          <field name="res_id"/>
+          <field name="res_id"/>          
           <group expand="0" string="Group By...">
             <filter string="Owner" context="{'group_by': 'owner_id'}"/>
           </group>

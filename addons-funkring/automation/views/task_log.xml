@@ -45,9 +45,13 @@
           <field name="message"/>
           <field name="task_id"/>
           <field name="stage_id"/>
+          <filter string="Warning" name="warning" domain="[('pri','in',['a','e','w','x'])]"/>
+          <filter string="Info" name="info" domain="[('pri','in',['n','i'])]"/>
+          <filter string="Debug" name="debug" domain="[('pri','=','d')]"/>
           <group expand="0" string="Group By...">
             <filter string="Task" context="{'group_by': 'task_id'}"/>
             <filter string="Stage" context="{'group_by': 'stage_id'}"/>
+            <filter string="Priority" context="{'group_by': 'pri'}"/>
           </group>
         </search>
       </field>
