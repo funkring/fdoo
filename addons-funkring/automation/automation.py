@@ -179,6 +179,7 @@ class automation_task(models.Model):
   cron_id = fields.Many2one("ir.cron","Scheduled Job", index=True, ondelete="set null", copy=False, readonly=True)  
   total_logs = fields.Integer("Total Logs", compute="_total_logs")
   total_stages = fields.Integer("Total Stages", compute="_total_stages")
+  total_warnings = fields.Integer("Total Warnings", compute="_total_warnings")
   
   task_id = fields.Many2one("automation.task", "Task", compute="_task_id")
   
@@ -224,6 +225,16 @@ class automation_task(models.Model):
       res[task_id] = log_count
     for r in self:
       r.total_logs = res[r.id]
+      
+  @api.multi
+  def _total_warnings(self):
+    res = dict.fromkeys(self.ids, 0)
+    cr = self._cr
+    cr.execute("SELECT task_id, COUNT(*) FROM automation_task_log WHERE pri IN ('a','e','w','x') AND task_id IN %s GROUP BY 1", (tuple(self.ids),))
+    for task_id, log_count in cr.fetchall():
+      res[task_id] = log_count
+    for r in self:
+      r.total_warnings = res[r.id]
   
   @api.multi
   def _total_stages(self):
@@ -367,9 +378,13 @@ class automation_task(models.Model):
         # check if it is a singleton task
         # if already another task run, requeue
         # don't process this task
-        if options.get("singleton"):          
-          same_tasks = self.search([("res_model","=",resource._model._name),("res_id","!=",resource.id),("state","in",["queue","run"])])
-          if same_tasks and min(same_tasks.ids) < task_id:
+        if options.get("singleton"):
+          # cleanup 
+          self._cr.execute("DELETE FROM ir_cron WHERE task_id=%s AND id!=%s AND NOT active", (task.id, task.cron_id.id))
+          # check concurrent 
+          self._cr.execute("SELECT MIN(id) FROM automation_task WHERE res_model=%s AND state IN ('queued','run')", (resource._model._name,))
+          active_task_id = self._cr.fetchone()[0]
+          if active_task_id and active_task_id < task_id:
             # requeue
             task.cron_id = self.env["ir.cron"].create(task._get_cron_values())
             return True
@@ -381,12 +396,12 @@ class automation_task(models.Model):
           "state": "run",
           "error": None        
         })
+        # commit after start
         self._cr.commit()
         
         # run task
         taskc = TaskStatus(task, stage_count)        
-        with self._cr.savepoint():
-          resource._run(taskc)
+        resource._run(taskc)
           
         # close
         taskc.close()
@@ -397,14 +412,24 @@ class automation_task(models.Model):
           "state": "done",
           "error": None        
         })
+
+        # commit after finish        
+        self._cr.commit()
         
       except Exception as e:
+        # rollback on error
+        self._cr.rollback()
         _logger.exception("Task execution failed")
         
+        error = None
         if hasattr(e, "message"):
           error = e.message
-        else:
+        
+        if not error:
           error = str(e)
+        
+        if not error:
+          error = "Unexpected error, see logs"
         
         # write error
         task.write({
@@ -412,6 +437,7 @@ class automation_task(models.Model):
           "state": "failed",
           "error": error        
         })
+        self._cr.commit()
          
     return True
   
