@@ -90,6 +90,7 @@ class commission_line(osv.osv):
         "period_id" : fields.many2one("account.period", string="Period", readonly=True, select=True, store=True, required=True),
         "sale_partner_id" : fields.many2one("res.partner", string="Customer", readonly=True, select=True, store=True),
         "sale_product_id" : fields.many2one("product.product", string="Product", readonly=True, select=True, store=True),
+        "sale_product_categ_id": fields.related("sale_product_id", "categ_id", type="many2one", obj="product.category", string="Category", store=True),
         "partner_id" : fields.many2one("res.partner","Provision Receiver", select=True),
         "invoiced_id" : fields.many2one("account.invoice","Invoiced", select=True, ondelete="set null"),
         "invoiced_line_ids" : fields.many2many("account.invoice.line", "commission_invoice_line_rel", "commission_line_id", "invoice_line_id", "Invoice Lines"),       

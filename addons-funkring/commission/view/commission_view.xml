@@ -11,6 +11,7 @@
                     <field name="ref" />
                     <field name="sale_partner_id" />
                     <field name="sale_product_id" /> 
+                    <field name="sale_product_categ_id"/>
                     <field name="name"/>	                    
                     <field name="date" />     
                     <field name="period_id" />
@@ -19,7 +20,8 @@
                     <group expand="0" string="Group By...">
                         <filter string="Salesman" context="{'group_by' : 'partner_id'}"/>
                         <filter string="Partner" context="{'group_by' : 'sale_partner_id'}"/>
-                        <filter string="Product" context="{'group_by' : 'sale_product_id'}"/>                        
+                        <filter string="Product" context="{'group_by' : 'sale_product_id'}"/>
+                        <filter string="Product Category" context="{'group_by' : 'sale_product_categ_id'}"/>                        
                         <filter string="Period" context="{'group_by' : 'period_id'}"/>
                         <filter string="Journal" context="{'group_by' : 'journal_id'}"/>
                     </group>
@@ -40,13 +42,14 @@
                            <field name="invoice_id"/>                           
                            <field name="order_id" />
                            <field name="partner_id" />                           
-                           <field name="product_id" string="Invoicing"/>
+                           <field name="product_id" string="Invoicing"/>                           
                            <field name="journal_id" />
                            <field name="account_id" />
                         </group>
                         <group string="Sale">
                            <field name="sale_partner_id"/>                
                            <field name="sale_product_id"/>
+                           <field name="sale_product_categ_id"/>
                            <field name="tax_ids" widget="many2many_tags"/>                             
                            <field name="unit_amount"/>
                            <field name="price_sub" on_change="onchange_commission(total_commission, amount, price_sub)"/>
@@ -70,6 +73,7 @@
                 	<field name="ref" />
                 	<field name="sale_partner_id" />
                 	<field name="sale_product_id" />
+                	<field name="sale_product_categ_id"/>
                 	<field name="tax_ids"/>                  	
                 	<field name="name" />                	
                 	<field name="unit_amount" sum="Total unit amount"/>

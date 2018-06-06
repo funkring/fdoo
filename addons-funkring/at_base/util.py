@@ -180,6 +180,14 @@ def getNextMinute(inTime):
     t = strToTime(inTime)
     return timeToStr(t+relativedelta(minutes=1,seconds=-t.second))
 
+def getDate(inDate=None, days=0):
+    if not inDate:
+      inDate = currentDate()
+    d = strToDate(inDate)
+    if days:
+      d += relativedelta(days=days)
+    return dateToStr(d)
+
 def getNextDayOfMonthDate(inDate,inDay=-1,inMonth=1):
     if inDay >= 1:
         inDay -= 1
