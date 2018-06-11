@@ -483,10 +483,19 @@ class Aeroo_report(report_sxw):
             context['model'] = data['model']
             context['ids'] = ids
 
+        # create parser
         oo_parser = self.parser(cr, uid, self.name2, context=context)
         objects = not context.get('no_objects', False) and self.getObjects_mod(cr, uid, ids, report_xml, context, parser=oo_parser) or []
         report_obj = pool.get("ir.actions.report.xml")
         
+        # check for report forward
+        if hasattr(oo_parser,"_report_forward"):          
+          report_forward = oo_parser._report_forward(objects)
+          if report_forward:
+            report_forward_inst = report_obj._lookup_report(cr, report_forward["name"])
+            forward_report_data, forward_report_format = report_forward_inst.create(cr, uid, report_forward["ids"], data, context)
+            return self._onResult(cr, uid, objects, (forward_report_data, forward_report_format), context=context)
+          
         # report replacement
         if objects and len(objects) == 1:            
             # get replacement

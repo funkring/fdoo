@@ -41,8 +41,8 @@ class TaskLogger():
   def __init__(self, name):    
     self.logger = logging.getLogger(name)
     self.name = name
-    self.status = None
-    self.progress = 0
+    self._status = None
+    self._progress = 0
   
   def log(self, message, pri="i", obj=None, ref=None, progress=None):
     if pri=="i":
@@ -80,10 +80,10 @@ class TaskLogger():
     progress = min(round(progress),100)
     if not status:
       status = "Progress"
-    if self.status != status or self.progress != progress:
-      self.status = status
-      self.progress = progress
-      self.log("%s: %s" % (self.status, self.progress))
+    if self._status != status or self._progress != progress:
+      self._status = status
+      self._progress = progress
+      self.log("%s: %s" % (self._status, self._progress))
    
   def stage(self, subject, total=None):
     self.log("= %s" % subject)
