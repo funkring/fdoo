@@ -143,7 +143,7 @@ class res_partner(osv.osv):
                 res[obj.id]=name
         return res
 
-    def _build_address_text(self, cr, uid, address, without_company=None, address_type=False, context=None):
+    def _build_address_text(self, cr, uid, address, without_company=None, address_type=False, without_name=False, context=None):
         """
         The purpose of this function is to build and return an address formatted accordingly to the
         standards of the _country where it belongs.
@@ -167,20 +167,21 @@ class res_partner(osv.osv):
         _name_address = not without_company and address.parent_id or address
 
         #check if it is for mail
-        if address_type == "mail":
-            #build name
-            title = _name_address.title
-            _lines.append(title and "\n".join((title.name,_name_address.name)) or _name_address.name)
-            #build co
-            if _name_address.id != address.id:
-                co_salutation = address.co_salutation
-                if co_salutation:
-                    _lines.append(co_salutation)
-        #check with company
-        elif _name_address.id != address.id:
-            _lines.append(_name_address.name)
-        elif _mail_address:
-            _lines.append(_mail_address.name)
+        if not without_name:
+          if address_type == "mail":
+              #build name
+              title = _name_address.title
+              _lines.append(title and "\n".join((title.name,_name_address.name)) or _name_address.name)
+              #build co
+              if _name_address.id != address.id:
+                  co_salutation = address.co_salutation
+                  if co_salutation:
+                      _lines.append(co_salutation)
+          #check with company
+          elif _name_address.id != address.id:
+              _lines.append(_name_address.name)
+          elif _mail_address:
+              _lines.append(_mail_address.name)
 
         _street = _mail_address.street
         _street2 = _mail_address.street2
