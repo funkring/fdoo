@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 # Copyright (c) 2009-2011 SIA "KN dati". (http://www.alistek.com) All Rights Reserved.
@@ -39,8 +40,25 @@ import time
 import zipimport
 import logging
 from openerp.tools.config import config
+import re
 
 _logger = logging.getLogger(__name__)
+
+def cleanFileName(inName):
+    repl_map = {
+            "Ö" : "Oe",
+            "Ü" : "Ue",
+            "Ä" : "Ae",
+            "ö" : "oe",
+            "ü" : "ue",
+            "ä" : "ae"
+    }
+    for key,value in repl_map.iteritems():
+        inName = inName.replace(key,value)
+    inName = inName.replace(", ","_")
+    inName = inName.replace(" ","_")
+    inName = re.sub("[^a-zA-Z0-9\-_ ,]","",inName)
+    return inName
 
 class report_stylesheets(osv.osv):
     '''
@@ -49,9 +67,16 @@ class report_stylesheets(osv.osv):
     _name = 'report.stylesheets'
     _description = 'Report Stylesheets'
 
+    def _report_styles_fname(self, cr, uid, ids, field_name, arg, context=None):
+      res = dict.fromkeys(ids)
+      for obj in self.browse(cr, uid, ids, context):
+        res[obj.id] = "%s.odt" % cleanFileName(obj.name)
+      return res
+
     _columns = {
         'name':fields.char('Name', size=64, required=True),
         'report_styles' : fields.binary('Template Stylesheet', help='OpenOffice.org stylesheet (.odt)'),
+        'report_styles_fname': fields.function(_report_styles_fname, type="char", string="Report Filename", store=False, readonly=True)
 
     }
 

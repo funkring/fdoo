@@ -134,8 +134,9 @@
 				            <field name="name"/>
 				        </group>
 				        <group>
-                            <field name="report_styles"/>
-                        </group>
+				            <field name="report_styles_fname" invisible="1"/>
+                    <field name="report_styles" filename="report_styles_fname"/>
+                </group>
 				    </group>
 				</form>
 			</field>
