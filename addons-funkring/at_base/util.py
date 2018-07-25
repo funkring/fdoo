@@ -32,6 +32,7 @@ import tempfile
 import random
 import crypt
 import string
+import pytz
 
 DT_FORMAT = '%Y-%m-%d'
 DHM_FORMAT = '%Y-%m-%d %H:%M:%S'
@@ -653,6 +654,22 @@ def calcEanCRC(val):
     if crc:
         return val + str(10-crc)
     return val + "0"
+  
+def getTimeContext(time=None, context=None):
+    if context is None:
+        context = {}
+
+    if not time:        
+      time = datetime.now(pytz.timezone(context.get('tz') or 'UTC'))
+    elif isinstance(time, basestring):
+      time = strToDate(time)
+
+    sequences = {
+        'year': '%Y', 'month': '%m', 'day': '%d', 'y': '%y', 'doy': '%j', 'woy': '%W',
+        'weekday': '%w', 'h24': '%H', 'h12': '%I', 'min': '%M', 'sec': '%S'
+    }
+    return {key: time.strftime(sequence) for key, sequence in sequences.iteritems()}
+
 
 if __name__ == '__main__':
     print dateEasterSunday(2013)-dateEasterSunday(2012)
