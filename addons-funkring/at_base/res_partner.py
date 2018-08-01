@@ -197,17 +197,23 @@ class res_partner(osv.osv):
             _lines.append(_street2)
 
         _values = []
-        if _country and _country.code:
-            _values.append(_country.code)
+        #if _country and _country.code:
+        #    _values.append(_country.code)
         if _zip:
-            _values.append(_zip)
+            if _country and _country.code:
+              _values.append("%s-%s" % (_country.code, _zip))
+            else:
+              _values.append(_zip)
         if _city:
             _values.append(_city)
         if _values:
             _lines.append(" ".join(_values))
 
-        if _country and _country.name:
-            _lines.append(_country.name)
+        #if _country and _country.name:
+        #    _lines.append(_country.name)
+
+        if _state:
+          _lines.append(_state.name)
 
         return _lines
 
