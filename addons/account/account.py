@@ -1847,17 +1847,24 @@ class account_tax(osv.osv):
             return result in the context
             Ex: result=round(price_unit*0.21,4)
     """
-    def copy_data(self, cr, uid, id, default=None, context=None):
-        if default is None:
-            default = {}
-        this = self.browse(cr, uid, id, context=context)
-        tmp_default = dict(default, name=_("%s (Copy)") % this.name)
-        return super(account_tax, self).copy_data(cr, uid, id, default=tmp_default, context=context)
+    def copy(self, cr, uid, id, default=None, context=None):
+      if not context:
+        context = {}
+      else:
+        context = dict(context)
+      
+      this = self.browse(cr, uid, id, context=context)
+      name = ("%s (Copy)") % this.name
+      if default and "name" in default:
+        name = default.get("name")
+      
+      context["default_name"] = name
+      return super(account_tax, self).copy(cr, uid, id, default=default, context=context)
 
     _name = 'account.tax'
     _description = 'Tax'
     _columns = {
-        'name': fields.char('Tax Name', required=True, translate=True, help="This name will be displayed on reports"),
+        'name': fields.char('Tax Name', required=True, translate=True, copy=False, help="This name will be displayed on reports"),
         'sequence': fields.integer('Sequence', required=True, help="The sequence field is used to order the tax lines from the lowest sequences to the higher ones. The order is important if you have a tax with several tax children. In this case, the evaluation order is important."),
         'amount': fields.float('Amount', required=True, digits_compute=get_precision_tax(), help="For taxes of type percentage, enter % ratio between 0-1."),
         'active': fields.boolean('Active', help="If the active field is set to False, it will allow you to hide the tax without removing it."),

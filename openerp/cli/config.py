@@ -694,3 +694,20 @@ class RemoveTestData(ConfigCommand):
     
     def run_config(self):
         self.setup_env()
+        
+        
+class Console(ConfigCommand):
+  
+    def run_config_env(self):
+      pass
+
+    def run_config(self):
+      pass
+    
+    def open(self):
+      self.pool =  RegistryManager.get(self.params.database)
+      self.cr = self.pool.cursor()
+      #api.Environment.manage()
+      
+    def close(self):
+      pass

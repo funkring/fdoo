@@ -6,8 +6,8 @@
             <field name="model">res.company</field>
             <field name="inherit_id" ref="base.view_company_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//group[@name='account_grp']" position="after">
-                    <group string="LDAP Parameters">
+                <notebook position="inside">
+                    <page string="LDAP Parameters">
                         <field name="ldaps" nolabel="1" colspan="4">
                             <form string="LDAP Configuration">
                                 <group col="4">
@@ -31,8 +31,8 @@
                                 <field name="ldap_base"/>
                             </tree>
                         </field>
-                    </group>
-                </xpath>
+                    </page>
+                </notebook>
             </field>
         </record>
     </data>

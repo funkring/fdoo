@@ -35,6 +35,69 @@ def _list_all_models(self):
     self._cr.execute("SELECT model, name FROM ir_model ORDER BY name")
     return self._cr.fetchall()
 
+
+class TaskLogger():
+  
+  def __init__(self, name):    
+    self.logger = logging.getLogger(name)
+    self.name = name
+    self._status = None
+    self._progress = 0
+  
+  def log(self, message, pri="i", obj=None, ref=None, progress=None):
+    if pri=="i":
+      self.logger.info(message)
+    elif pri=="e":
+      self.logger.error(message)
+    elif pri=="w":
+      self.logger.warning(message)
+    elif pri=="d":
+      self.logger.debug(message)
+    elif pri=="x":
+      self.logger.fatal(message)      
+    elif pri=="a":
+      self.logger.critical(message)
+    
+  def loge(self, message, pri="e", **kwargs):
+    self.log(message, pri=pri, **kwargs)
+  
+  def logw(self, message, pri="w", **kwargs):
+    self.log(message, pri=pri, **kwargs)
+    
+  def logd(self, message, pri="d", **kwargs):
+    self.log(message, pri=pri, **kwargs)
+    
+  def logn(self, message, pri="n", **kwargs):
+    self.log(message, pri=pri, **kwargs)
+    
+  def loga(self, message, pri="a", **kwargs):
+    self.log(message, pri=pri, **kwargs)
+  
+  def logx(self, message, pri="x", **kwargs):
+    self.log(message, pri=pri, **kwargs)
+  
+  def progress(self, status, progress):
+    progress = min(round(progress),100)
+    if not status:
+      status = "Progress"
+    if self._status != status or self._progress != progress:
+      self._status = status
+      self._progress = progress
+      self.log("%s: %s" % (self._status, self._progress))
+   
+  def stage(self, subject, total=None):
+    self.log("= %s" % subject)
+  
+  def substage(self, subject, total=None):
+    self.log("== %s" % subject)
+  
+  def done(self):
+    self.progress("Done", 100.0)
+      
+  def close(self):
+    pass
+
+
 class TaskStatus(object):
     
   def __init__(self, task, total=1):

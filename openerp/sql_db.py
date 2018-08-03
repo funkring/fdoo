@@ -712,9 +712,11 @@ def dsn(db_or_uri):
 
     _dsn = ''
     for p in ('host', 'port', 'user', 'password'):
-        cfg = tools.config['db_' + p]
+        cfg = tools.config['db_' + p]        
         if cfg:
-            _dsn += '%s=%s ' % (p, cfg.replace("\\","\\\\"))
+            if isinstance(cfg, basestring):
+              cfg = cfg.replace("\\","\\\\")
+            _dsn += '%s=%s ' % (p, cfg)
 
     return db_or_uri, '%sdbname=%s' % (_dsn, db_or_uri)
 
