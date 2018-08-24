@@ -41,6 +41,13 @@ class account_invoice(models.Model):
             default_notify=True).create({})
           # finally sent
           message.send_mail()
+          
+    @api.model
+    def send_all_draft(self, inv_type="out_invoice"):
+      for invoice in self.search([("state","=","draft"),("type","=",inv_type)]):
+        invoice.signal_workflow('invoice_open')
+        invoice.invoice_send()
+      return True
       
     
 class account_invoice_line(models.Model):
