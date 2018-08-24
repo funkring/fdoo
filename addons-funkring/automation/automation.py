@@ -245,6 +245,8 @@ class automation_task(models.Model):
   total_warnings = fields.Integer("Total Warnings", compute="_total_warnings")
   
   task_id = fields.Many2one("automation.task", "Task", compute="_task_id")
+  after_once_task_id = fields.Many2one("automation.task", "Task After (Once)", 
+                                       help="Start this task after that task has finished successfully only once", readonly=True, ondelete="restrict")
   
   @api.one
   def _task_id(self):
@@ -452,12 +454,14 @@ class automation_task(models.Model):
             task.cron_id = self.env["ir.cron"].create(task._get_cron_values())
             return True
         
+        task_after_once = task.after_once_task_id
+        
         # change task state 
         # and commit                
         task.write({
           "state_change": util.currentDateTime(),
           "state": "run",
-          "error": None        
+          "error": None          
         })
         # commit after start
         self._cr.commit()
@@ -468,16 +472,24 @@ class automation_task(models.Model):
           
         # close
         taskc.close()
-          
+        
         # update status
         task.write({
           "state_change": util.currentDateTime(),
           "state": "done",
-          "error": None        
+          "error": None,
+          "after_once_task_id": None 
         })
 
         # commit after finish        
         self._cr.commit()
+        
+        # queue task after
+        if task_after_once:
+          task_after_ref = task_after_once.res_ref
+          if task_after_ref:
+            task_after_ref.action_queue()
+         
         
       except Exception as e:
         # rollback on error

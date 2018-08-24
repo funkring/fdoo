@@ -63,6 +63,7 @@
                 <field name="progress" widget="progressbar"/>
                 <field name="state_change"/>
                 <field name="cron_id"/> 
+                <field name="after_once_task_id" attrs="{'invisible':[('after_once_task_id','=',False)]}"/>
               </group>
             </group>
             <notebook>
