@@ -27,6 +27,7 @@ import os
 from openerp import tools
 from openerp import api
 from openerp.tools.config import config
+from openerp.tools.translate import TinyPoFile
 from openerp.modules.registry import RegistryManager
 from . import Command
 
@@ -225,6 +226,7 @@ class Po_Export(ConfigCommand):
             tools.trans_export(self.lang, [self.params.module], export_f, "po", self.cr)
         finally:
             export_f.close()
+
         
 class Po_Import(Po_Export):
     """ Import *.po File """
@@ -251,6 +253,44 @@ class Po_Import(Po_Export):
             _logger.info("Overwrite existing translations for %s/%s", self.params.module, self.lang)
         openerp.tools.trans_load(self.cr, import_filename, self.lang, module_name=self.params.module, context=context)  
 
+
+class Po_Cleanup(Po_Export):
+    """ Import *.po File """
+    
+    def __init__(self):
+        super(Po_Cleanup, self).__init__()
+        self.parser.add_argument("--overwrite", action="store_true", default=True, help="Override existing translations")
+    
+    def run_config_env(self):
+        # check module installed
+        self.model_obj = self.pool["ir.module.module"]
+        if not self.model_obj.search_id(self.cr, 1, [("state","=","installed"),("name","=",self.params.module)]):
+            _logger.error("No module %s installed!" % self.params.module)
+            return 
+        
+        import_filename = os.path.join(self.langdir, self.langfile)
+        if not os.path.exists(import_filename):
+            _logger.error("File %s does not exist!" % import_filename)
+            return 
+        
+        cr = self.cr
+        with open(import_filename) as f:
+          tf = TinyPoFile(f)
+          for trans_type, name, res_id, source, trad, comments in tf:
+            if not trad:
+              _logger.info("DELETE %s,%s" % (source, self.lang))
+              
+              cr.execute("""DELETE FROM ir_translation WHERE src=%s 
+                              AND lang=%s 
+                              AND module IS NULL 
+                              AND type='code' 
+                              AND value IS NOT NULL""", (source, self.lang))
+              
+              cr.execute("""DELETE FROM ir_translation WHERE src=%s 
+                              AND lang=%s 
+                              AND module IS NULL 
+                              AND value=%s""", (source, self.lang, source))
+          
         
 class CleanUp(ConfigCommand):
     """ CleanUp Database """
