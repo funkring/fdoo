@@ -355,8 +355,14 @@ class account_analytic_account(osv.osv):
               ("weekly", "Week(s)"),
               ("monthly", "Month(s)"),
               ("yearly", "Year(s)")], "Task Recurrency", help="Task automatically repeat at specified interval"),
-        "recurring_task_interval": fields.integer("Repeat Task Every", help="Repeat every (Days/Week/Month/Year)"),
+        "recurring_task_interval": fields.integer("Repeat Task Every", help="Repeat every (Days/Week/Month/Year)"),        
         "recurring_task_next":  fields.date("Date of Next Task(s)"),
+        
+        "src_order_id" : fields.many2one("sale.order", "Source Order", ondelete="set null", copy=False, select=True),
+        "src_section_id": fields.related("src_order_id", "section_id", type="many2one", relation="crm.case.section", string="Source Sales Team"),
+        "src_categ_ids" : fields.related("src_order_id", "categ_ids", type="many2many", relation="crm.case.categ", string="Source Tags",
+                                     domain="['|', ('section_id', '=', src_section_id), ('section_id', '=', False), ('object_id.model', '=', 'crm.lead')]", context="{'object_name': 'crm.lead'}")
+        
     }
     _defaults = {
         "recurring_task_interval": 1,

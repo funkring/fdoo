@@ -8,7 +8,7 @@
       <field name="type">form</field>
       <field name="arch" type="xml">
         <field name="name" position="after">
-            <field name="categ_ids"/>
+            <field name="categ_ids" filter_domain="['|',('categ_ids','ilike',self),('src_categ_ids','ilike',self)]"/>
         </field>
         <filter name="Parent" position="after">
             <filter string="Contract Template" name="contract_template" context="{'group_by':'template_id'}"/>
@@ -48,9 +48,10 @@
       <field name="arch" type="xml">
         
           <field name="parent_id" position="after">
-              <field name="order_id" readonly="1"/>
+              <field name="order_id" readonly="1" attrs="{'invisible':[('order_id','=',False)]}"/>
               <field name="categ_ids" widget="many2many_tags" attrs="{'invisible':[('order_id','=',False)]}"/>
-              <field name="section_id" attrs="{'invisible':[('order_id','=',False)]}"/>                   
+              <field name="src_order_id"/>
+              <field name="src_categ_ids" widget="many2many_tags" attrs="{'invisible':[('src_order_id','=',False)]}"/>
           </field>
           
           <xpath expr="//div[@name='options_active']" position="inside">

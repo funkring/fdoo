@@ -525,6 +525,7 @@ class sale_order_line(osv.osv):
         "date_start": line.contract_start,
         "date": line.contract_end,
         "shop_id": order.shop_id.id,
+        "src_order_id": order.id,
         "is_contract": True,
         "use_issues": True,
         "use_tasks": True,
