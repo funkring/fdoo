@@ -29,7 +29,7 @@ import openerp
 import uuid
 import couchdb
 import hashlib
-
+import socket
 import re
 
 PATTERN_REV = re.compile("^([0-9]+)-(.*)$")
@@ -1414,23 +1414,38 @@ class jdoc_jdoc(osv.AbstractModel):
                 o_changes = sync_res["changes"]
                 o_conflicts = []
 
+                # add a conflict if change and doc not match
+                def addConflict(o_change, doc):
+                  o_change["_rev"] = doc["_rev"]
+                  new_doc = simplejson.dumps(o_change,sort_keys=True)
+                  cur_doc = simplejson.dumps(doc,sort_keys=True)
+                  if new_doc != cur_doc:
+                    o_conflicts.append(o_change)
+                
                 # SYNC BACK CHANGES
-                for i, update_res in enumerate(db.update(o_changes)):
-                    if update_res[0]:
-                        changed_revs.add((update_res[1], update_res[2]))
+                try:
+                  for i, update_res in enumerate(db.update(o_changes)):
+                      if update_res[0]:
+                          changed_revs.add((update_res[1], update_res[2]))
+                      else:
+                          o_change = o_changes[i]
+                          uuid = o_change.get("_id")
+                          if uuid and uuid == update_res[1]:
+                              doc = db.get(uuid)
+                              if doc:
+                                addConflict(o_change, doc)
+                          else:
+                              _logger.error("Sync Conflict %s -> %s " % (update_res[1],update_res[2]))
+                              
+                except socket.error as e:
+                  if str(e) != "104":
+                    raise e
+                  for o_change in o_changes:
+                    doc = db.get(o_change["_id"])
+                    if not doc:
+                      _logger.warn("Try to change %s, but not exist in database" % o_change["_id"])
                     else:
-                        o_change = o_changes[i]
-                        uuid = o_change.get("_id")
-                        if uuid and uuid == update_res[1]:
-                            doc = db.get(uuid)
-                            if doc:
-                                o_change["_rev"] = doc["_rev"]
-                                new_doc = simplejson.dumps(o_change,sort_keys=True)
-                                cur_doc = simplejson.dumps(doc,sort_keys=True)
-                                if new_doc != cur_doc:
-                                    o_conflicts.append(o_change)
-                        else:
-                            _logger.error("Sync Conflict %s -> %s " % (update_res[1],update_res[2]))
+                      addConflict(o_change, doc)
 
                 # SYNC CONFLICTS
                 for update_res in db.update(o_conflicts):
