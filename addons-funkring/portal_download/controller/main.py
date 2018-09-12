@@ -52,10 +52,13 @@ class portal_download_ctrl(http.Controller):
                 if not uid:
                     return request.not_found()
         
-        download_obj = request.registry["portal.download"]                
-        download = download_obj.browse(cr, uid, download_id, context=context)
-        if not download or not download.active:
-            return request.not_found()
+        try:
+          download_obj = request.registry["portal.download"]                
+          download = download_obj.browse(cr, uid, download_id, context=context)
+          if not download or not download.active:
+              return request.not_found()
+        except:
+          return request.not_found()
         
         att_obj = request.registry["ir.attachment"]
         att_ids = att_obj.search(cr, uid, [("res_model","=","portal.download"),("res_id","=",download.id)], limit=1)
