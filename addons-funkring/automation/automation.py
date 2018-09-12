@@ -43,6 +43,8 @@ class TaskLogger():
     self.name = name
     self._status = None
     self._progress = 0
+    self._loopInc = 0.0
+    self._loopProgress = 0.0
   
   def log(self, message, pri="i", obj=None, ref=None, progress=None):
     if pri=="i":
@@ -75,6 +77,20 @@ class TaskLogger():
   
   def logx(self, message, pri="x", **kwargs):
     self.log(message, pri=pri, **kwargs)
+  
+  def initLoop(loopCount, status=None):
+    self._loopProgress = 0.0
+    if not loopCount:
+      self._loopProgress = 100.0
+      self._loopInc = 0.0
+    else:
+      self._loopInc = 100.0 / loopCount
+      self._loopProgress = 0.0
+    self.progress(status, self._loopProgress)
+      
+  def nextLoop(self, status=None):
+      self._loopProgress += self._loopInc
+      self.progress(status, self._loopProgress)
   
   def progress(self, status, progress):
     progress = min(round(progress),100)
@@ -131,6 +147,9 @@ class TaskStatus(object):
     self.stage_stack = []
     self.last_status = None
     
+    # loop
+    self._loopInc = 0.0
+    self._loopProgress = 0.0
     
   def log(self, message, pri="i", obj=None, ref=None, progress=None):
     values = {
@@ -164,6 +183,20 @@ class TaskStatus(object):
   
   def logx(self, message, pri="x", **kwargs):
     self.log(message, pri=pri, **kwargs)
+    
+  def initLoop(loopCount, status=None):
+    self._loopProgress = 0.0
+    if not loopCount:
+      self._loopProgress = 100.0
+      self._loopInc = 0.0
+    else:
+      self._loopInc = 100.0 / loopCount
+      self._loopProgress = 0.0
+    self.progress(status, self._loopProgress)
+      
+  def nextLoop(self, status=None):
+      self._loopProgress += self._loopInc
+      self.progress(status, self._loopProgress)
   
   def progress(self, status, progress):    
     values = {
