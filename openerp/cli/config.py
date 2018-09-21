@@ -259,7 +259,6 @@ class Po_Cleanup(Po_Export):
     
     def __init__(self):
         super(Po_Cleanup, self).__init__()
-        self.parser.add_argument("--overwrite", action="store_true", default=True, help="Override existing translations")
     
     def run_config_env(self):
         # check module installed

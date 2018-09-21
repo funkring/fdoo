@@ -78,7 +78,7 @@ class TaskLogger():
   def logx(self, message, pri="x", **kwargs):
     self.log(message, pri=pri, **kwargs)
   
-  def initLoop(loopCount, status=None):
+  def initLoop(self, loopCount, status=None):
     self._loopProgress = 0.0
     if not loopCount:
       self._loopProgress = 100.0
@@ -184,7 +184,7 @@ class TaskStatus(object):
   def logx(self, message, pri="x", **kwargs):
     self.log(message, pri=pri, **kwargs)
     
-  def initLoop(loopCount, status=None):
+  def initLoop(self, loopCount, status=None):
     self._loopProgress = 0.0
     if not loopCount:
       self._loopProgress = 100.0
