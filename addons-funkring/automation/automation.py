@@ -45,13 +45,17 @@ class TaskLogger():
     self._progress = 0
     self._loopInc = 0.0
     self._loopProgress = 0.0
+    self.errors = 0
+    self.warnings = 0
   
   def log(self, message, pri="i", obj=None, ref=None, progress=None):
     if pri=="i":
       self.logger.info(message)
     elif pri=="e":
+      self.errors += 1
       self.logger.error(message)
     elif pri=="w":
+      self.warnings += 1
       self.logger.warning(message)
     elif pri=="d":
       self.logger.debug(message)
@@ -60,11 +64,11 @@ class TaskLogger():
     elif pri=="a":
       self.logger.critical(message)
     
-  def loge(self, message, pri="e", **kwargs):
+  def loge(self, message, pri="e", **kwargs):   
     self.log(message, pri=pri, **kwargs)
   
   def logw(self, message, pri="w", **kwargs):
-    self.log(message, pri=pri, **kwargs)
+    self.log(message, pri=pri, **kwargs)    
     
   def logd(self, message, pri="d", **kwargs):
     self.log(message, pri=pri, **kwargs)
@@ -146,12 +150,19 @@ class TaskStatus(object):
     # stack
     self.stage_stack = []
     self.last_status = None
+    self.errors = 0
+    self.warnings = 0
     
     # loop
     self._loopInc = 0.0
     self._loopProgress = 0.0
     
   def log(self, message, pri="i", obj=None, ref=None, progress=None):
+    if pri == "e":
+      self.errors += 1
+    elif pri == "w":
+      self.warnings += 1
+      
     values = {
       "stage_id": self.stage_id,
       "pri": pri,
@@ -502,6 +513,11 @@ class automation_task(models.Model):
         # run task
         taskc = TaskStatus(task, stage_count)        
         resource._run(taskc)
+          
+        # check fail on errors
+        if options.get("fail_on_errors"):
+          if taskc.errors:
+             raise Warning("Task finished with errors")
           
         # close
         taskc.close()
