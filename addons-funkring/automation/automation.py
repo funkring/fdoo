@@ -545,12 +545,9 @@ class automation_task(models.Model):
         self._cr.rollback()
         _logger.exception("Task execution failed")
         
-        error = None
-        if hasattr(e, "message"):
+        error = str(e)
+        if not error and hasattr(e, "message"):
           error = e.message
-        
-        if not error:
-          error = str(e)
         
         if not error:
           error = "Unexpected error, see logs"
