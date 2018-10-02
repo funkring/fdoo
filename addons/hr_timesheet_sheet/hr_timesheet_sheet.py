@@ -256,7 +256,7 @@ class hr_timesheet_sheet(osv.osv):
         if isinstance(ids, (long, int)):
             ids = [ids]
         # funkring.net - begin
-        return [(r['id'], _('Week ')+str(int(datetime.strptime(r['date_from'], '%Y-%m-%d').strftime('%W') or '0')+1)) \
+        return [(r['id'], _('Week ')+str(datetime.strptime(r['date_from'], '%Y-%m-%d').isocalendar()[1] or 0)) \
                 for r in self.read(cr, uid, ids, ['date_from'],
                     context=context, load='_classic_write')]
         # funkrnig.net
