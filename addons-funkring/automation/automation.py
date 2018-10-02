@@ -633,7 +633,7 @@ class automation_task_log(models.Model):
                           readonly=True)
   
   message = fields.Text("Message", readonly=True)
-  ref = fields.Reference(_list_all_models, string="Reference", readonly=True)
+  ref = fields.Reference(_list_all_models, string="Reference", readonly=True, index=True)
   
   
 class task_secret(models.Model):
