@@ -497,12 +497,15 @@ class Aeroo_report(report_sxw):
             return self._onResult(cr, uid, objects, (forward_report_data, forward_report_format), context=context)
           
         # report replacement
+        file_data = None
         if objects and len(objects) == 1:            
             # get replacement
             repl_report_xml, style_io = report_obj._get_replacement(cr, uid, objects[0], report_xml, context=context)
             if repl_report_xml:
+              if isinstance(repl_report_xml, basestring):
+                file_data = base64.decodestring(repl_report_xml)
+              elif repl_report_xml.id != report_xml.id:
                 return self.create_aeroo_report(cr, uid, ids, data, repl_report_xml, context=context, output=output, style_io=style_io)
-
 
         oo_parser.objects = objects
         self.set_xml_data_fields(objects, oo_parser) # Get/Set XML
@@ -520,10 +523,13 @@ class Aeroo_report(report_sxw):
             style_io=self.get_styles_file(cr, uid, report_xml, context)
         
         # get template
-        if report_xml.tml_source in ('file', 'database'):
-            file_data = base64.decodestring(report_xml.report_sxw_content)
-        else:
-            file_data = self.get_other_template(cr, uid, data, oo_parser)
+        if not file_data:
+          if report_xml.tml_source in ('file', 'database'):
+              file_data = base64.decodestring(report_xml.report_sxw_content)
+          else:
+              file_data = self.get_other_template(cr, uid, data, oo_parser)
+              
+        # process template
         if not file_data and not report_xml.report_sxw_content:
             return False, output
         else:
