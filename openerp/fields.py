@@ -1176,7 +1176,7 @@ class Json(_String):
     """ Json field. Is for json documents """
     type = "json"
     
-    def convert_to_cache(self, value, env):
+    def convert_to_cache(self, value, env, validate=True):
         if value is None or value is False:
             return False
         return ustr(value)
