@@ -91,7 +91,7 @@ def getMonth(cr, uid, str_date, context=None):
 
 def getMonthYear(cr, uid, str_date, context=None):
     d_date = util.strToDate(str_date)
-    str_pattern = getMonthName(cr,uid,d_date.month) + " %Y"
+    str_pattern = getMonthName(cr, uid, d_date.month, context=context) + " %Y"
     return d_date.strftime(str_pattern)
 
 def getMonthYearRange(cr, uid, str_from, str_to, context=None):
