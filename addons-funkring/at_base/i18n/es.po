@@ -55,7 +55,7 @@ msgstr "Dirección"
 #. module: at_base
 #, python-format
 msgid "April"
-msgstr "abril"
+msgstr "Abril"
 
 #: model:ir.model,name:at_base.model_attachment_import
 #. module: at_base
@@ -71,7 +71,7 @@ msgstr "Importación de adjuntos"
 #. module: at_base
 #, python-format
 msgid "August"
-msgstr "agosto"
+msgstr "Agosto"
 
 #: model:ir.model,name:at_base.model_log_basic
 #. module: at_base
@@ -87,7 +87,7 @@ msgstr "Cumpleaños"
 #: field:res.partner.title,co_salutation:0
 #. module: at_base
 msgid "C/O Salutation"
-msgstr "Saludo C / O"
+msgstr "C/O Saludo"
 
 #: view:at_base.info_wizard:at_base.wizard_info
 #. module: at_base
@@ -134,7 +134,7 @@ msgstr "Creado en"
 #. module: at_base
 #, python-format
 msgid "December"
-msgstr "diciembre"
+msgstr "Diciembre"
 
 #: field:log.basic,detail:0
 #: field:log.temp,detail:0
@@ -178,7 +178,7 @@ msgstr "Fax normalizado"
 #. module: at_base
 #, python-format
 msgid "February"
-msgstr "febrero"
+msgstr "Febrero"
 
 #: field:res.partner,firstname:0
 #. module: at_base
@@ -201,7 +201,7 @@ msgstr "Vie"
 #. module: at_base
 #, python-format
 msgid "Friday"
-msgstr "viernes"
+msgstr "Viernes"
 
 #: view:res.partner:at_base.search_res_partner
 #. module: at_base
@@ -238,19 +238,19 @@ msgstr ""
 #. module: at_base
 #, python-format
 msgid "January"
-msgstr "enero"
+msgstr "Enero"
 
 #: code:addons/at_base/helper.py:42
 #. module: at_base
 #, python-format
 msgid "July"
-msgstr "julio"
+msgstr "Julio"
 
 #: code:addons/at_base/helper.py:41
 #. module: at_base
 #, python-format
 msgid "June"
-msgstr "junio"
+msgstr "Junio"
 
 #: field:at_base.info_wizard,__last_update:0
 #: field:attachment.export,__last_update:0
@@ -286,7 +286,7 @@ msgstr "Última actualización por"
 #: field:res.mapping,write_date:0
 #. module: at_base
 msgid "Last Updated on"
-msgstr "ultima actualizacion en"
+msgstr "Ultima actualizacion en"
 
 #: field:res.mapping,locked:0
 #. module: at_base
@@ -330,7 +330,7 @@ msgstr "Saludo al correo"
 #. module: at_base
 #, python-format
 msgid "March"
-msgstr "marzo"
+msgstr "Marzo"
 
 #: code:addons/at_base/helper.py:40
 #. module: at_base
@@ -369,7 +369,7 @@ msgstr "Lun"
 #. module: at_base
 #, python-format
 msgid "Monday"
-msgstr "lunes"
+msgstr "Lunes"
 
 #: code:addons/at_base/mapping.py:46
 #: code:addons/at_base/mapping.py:50
@@ -382,13 +382,13 @@ msgstr "No se ha encontrado ningún modelo para uuid %s."
 #. module: at_base
 #, python-format
 msgid "November"
-msgstr "noviembre"
+msgstr "Noviembre"
 
 #: code:addons/at_base/helper.py:45
 #. module: at_base
 #, python-format
 msgid "October"
-msgstr "octubre"
+msgstr "Octubre"
 
 #: field:ir.attachment,origin:0
 #. module: at_base
@@ -425,13 +425,13 @@ msgstr "Sab"
 #. module: at_base
 #, python-format
 msgid "Saturday"
-msgstr "sábado"
+msgstr "Sábado"
 
 #: code:addons/at_base/helper.py:44
 #. module: at_base
 #, python-format
 msgid "September"
-msgstr "septiembre"
+msgstr "Septiembre"
 
 #: field:log.basic,severity:0
 #: field:log.temp,severity:0
@@ -442,7 +442,7 @@ msgstr "Gravedad"
 #: view:res.partner:at_base.form_partner_view
 #. module: at_base
 msgid "State"
-msgstr "estado"
+msgstr "Estado"
 
 #: view:res.partner:at_base.search_res_partner
 #. module: at_base
@@ -459,7 +459,7 @@ msgstr "Dom"
 #. module: at_base
 #, python-format
 msgid "Sunday"
-msgstr "domingo"
+msgstr "Domingo"
 
 #: model:ir.model,name:at_base.model_log_temp
 #. module: at_base
@@ -488,7 +488,7 @@ msgstr "Mar"
 #. module: at_base
 #, python-format
 msgid "Tuesday"
-msgstr "martes"
+msgstr "Martes"
 
 #: field:res.mapping,name:0
 #. module: at_base
@@ -510,23 +510,23 @@ msgstr "Advertencia"
 #. module: at_base
 #, python-format
 msgid "Wed"
-msgstr "mié"
+msgstr "Mie"
 
 #: code:addons/at_base/helper.py:54
 #. module: at_base
 #, python-format
 msgid "Wednesday"
-msgstr "miércoles"
+msgstr "Miércoles"
 
 #: view:res.partner:at_base.form_partner_view
 #. module: at_base
 msgid "ZIP"
-msgstr "código postal"
+msgstr "Código postal"
 
 #: view:res.partner:at_base.search_res_partner
 #. module: at_base
 msgid "Zip"
-msgstr "código postal"
+msgstr "Código postal"
 
 #: view:at_base.info_wizard:at_base.wizard_info
 #. module: at_base
