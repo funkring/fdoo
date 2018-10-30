@@ -157,7 +157,17 @@ class LangFormat(object):
       dt = util.strToDate(value)
       return self.months[dt.month-1]
     
-    def formatLang(self, value, digits=None, date=False, date_time=False, grouping=True, monetary=False, dp=False, float_time=False):
+    def formatLang(self, value, 
+                   digits=None, 
+                   date=False, 
+                   date_time=False, 
+                   grouping=True, 
+                   monetary=False, 
+                   dp=False, 
+                   float_time=False, 
+                   minute=False,
+                   timespan=False,
+                   range=False):
         """
             Assuming 'Account' decimal.precision=3:
                 formatLang(value) -> digits=2 (default)
@@ -190,7 +200,10 @@ class LangFormat(object):
             parse_format = DEFAULT_SERVER_DATE_FORMAT
             if date_time:
                 value = value.split('.')[0]
-                date_format = date_format + " " + lang_dict['time_format']
+                if minute:
+                  date_format = date_format + ' %H:%M'
+                else:
+                  date_format = date_format + ' ' + lang_dict['time_format']
                 parse_format = DEFAULT_SERVER_DATETIME_FORMAT
             if isinstance(value, basestring):
                 # FIXME: the trimming is probably unreliable if format includes day/month names
@@ -206,8 +219,35 @@ class LangFormat(object):
                                                         timestamp=date,
                                                         context={"tz":self.tz})
             return date.strftime(date_format.encode('utf-8'))
+       
         elif float_time:
             return self.floatTimeConvert(value)
+          
+        elif timespan:
+            if isinstance(value, tuple) and len(value) == 2:
+              value_from, value_to = value
+              if not value_from and not value_to:
+                return ''
+              elif value_from and not value_to:
+                return self.formatLang(value_from, date_time=True, minute=minute) 
+              else:
+                return '%s - %s' % (self.formatLang(value_from, date_time=True, minute=minute),
+                                  self.formatLang(value_to, date_time=True, minute=minute))
+            else:
+              return ''
+            
+        elif range:
+            if isinstance(value, tuple) and len(value) == 2:
+              value_from, value_to = value
+              if not value_from and not value_to:
+                return ''
+              elif value_from and not value_to:
+                return self.formatLang(value_from, date=True)
+              else:                
+                return helper.getRangeName(self.cr, self.uid, value_from, value_to, context={"tz":self.tz,
+                                                                                             "lang": self.lang})
+            else:
+              return ''
       
         if digits == 0:
             lang_dict['lang_obj'].format('%f', value, grouping=grouping, monetary=monetary)

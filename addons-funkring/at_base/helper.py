@@ -61,7 +61,7 @@ def getDayNames(cr, uid, context=None):
 def getMonthName(cr, uid, month, context=None):
     return getMonthNames(cr, uid, context=context)[month-1]
 
-def getRangeName(cr,uid,start_date,end_date,context):
+def getRangeName(cr, uid, start_date, end_date, context):
     if not start_date or not end_date:
         return ""
     if start_date == end_date:
@@ -85,17 +85,16 @@ def getRangeName(cr,uid,start_date,end_date,context):
                 f = LangFormat(cr, uid, context=context)
                 return "%s - %s" % (f.formatLang(start_date, date=True),f.formatLang(end_date, date=True))
 
-
-def getMonth(cr,uid,str_date,context=None):
+def getMonth(cr, uid, str_date, context=None):
     d_date = util.strToDate(str_date)
     return getMonthName(cr,uid,d_date.month)
 
-def getMonthYear(cr,uid,str_date,context=None):
+def getMonthYear(cr, uid, str_date, context=None):
     d_date = util.strToDate(str_date)
     str_pattern = getMonthName(cr,uid,d_date.month) + " %Y"
     return d_date.strftime(str_pattern)
 
-def getMonthYearRange(cr,uid,str_from,str_to,context=None):
+def getMonthYearRange(cr, uid, str_from, str_to, context=None):
     if str_from and str_to:
         res_from = getMonthYear(cr,uid,str_from,context)
         res_to = getMonthYear(cr,uid,str_to,context)
@@ -108,7 +107,7 @@ def getMonthYearRange(cr,uid,str_from,str_to,context=None):
         return getMonthYear(cr,uid,str_to,context)
     return ""
 
-def printReport(cr,uid,report,model,ids,printer=None,context=None):
+def printReport(cr, uid, report,model, ids, printer=None, context=None):
     report_obj = netsvc.LocalService("report."+report)
     data, format = report_obj.create(cr, uid, ids, {"model" : model }, context)
 
@@ -124,7 +123,7 @@ def printReport(cr,uid,report,model,ids,printer=None,context=None):
     return True
 
 
-def printRaw(cr,uid,data,printer=None,context=None):
+def printRaw(cr, uid, data, printer=None, context=None):
     fd = None
     if printer:
         fd = os.popen("lp -o raw -d " + printer,"wb")
@@ -138,7 +137,7 @@ def printRaw(cr,uid,data,printer=None,context=None):
     return True
 
 
-def printText(cr,uid,data,printer=None,context=None):
+def printText(cr, uid, data, printer=None, context=None):
     fd = None
     if printer:
         fd = os.popen("lp -d " + printer,"wb")

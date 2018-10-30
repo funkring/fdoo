@@ -1,0 +1,535 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* at_base
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Language: es\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-10-30 08:31+0000\n"
+"PO-Revision-Date: 2018-10-30 08:31+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#: code:addons/at_base/helper.py:74
+#. module: at_base
+#, python-format
+msgid "1st Quarter %s"
+msgstr "1er cuarto %s"
+
+#: code:addons/at_base/helper.py:76
+#. module: at_base
+#, python-format
+msgid "2nd Quarter %s"
+msgstr "2do trimestre %s"
+
+#: code:addons/at_base/helper.py:78
+#. module: at_base
+#, python-format
+msgid "3rd Quarter %s"
+msgstr "3er trimestre %s"
+
+#: code:addons/at_base/helper.py:80
+#. module: at_base
+#, python-format
+msgid "4th Quarter %s"
+msgstr "Cuarto trimestre %s"
+
+#: field:res.mapping,active:0
+#: field:res.partner.title,active:0
+#. module: at_base
+msgid "Active"
+msgstr "Activo"
+
+#: field:res.partner,display_address:0
+#. module: at_base
+msgid "Address"
+msgstr "Dirección"
+
+#: code:addons/at_base/helper.py:39
+#. module: at_base
+#, python-format
+msgid "April"
+msgstr "abril"
+
+#: model:ir.model,name:at_base.model_attachment_import
+#. module: at_base
+msgid "Attachment Export"
+msgstr "Exportación de archivos adjuntos"
+
+#: model:ir.model,name:at_base.model_attachment_export
+#. module: at_base
+msgid "Attachment Import"
+msgstr "Importación de adjuntos"
+
+#: code:addons/at_base/helper.py:43
+#. module: at_base
+#, python-format
+msgid "August"
+msgstr "agosto"
+
+#: model:ir.model,name:at_base.model_log_basic
+#. module: at_base
+msgid "Basic Log"
+msgstr "Registro básico"
+
+#: field:res.partner,birthday:0
+#. module: at_base
+msgid "Birthday"
+msgstr "Cumpleaños"
+
+#: field:res.partner,co_salutation:0
+#: field:res.partner.title,co_salutation:0
+#. module: at_base
+msgid "C/O Salutation"
+msgstr "Saludo C / O"
+
+#: view:at_base.info_wizard:at_base.wizard_info
+#. module: at_base
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: view:res.partner:at_base.form_partner_view
+#: view:res.partner:at_base.search_res_partner
+#. module: at_base
+msgid "City"
+msgstr "Ciudad"
+
+#: view:log.temp.wizard:at_base.wizard_log_temp
+#. module: at_base
+msgid "Close"
+msgstr "Cerrar"
+
+#: field:res.partner,contact_info:0
+#. module: at_base
+msgid "Contact Info"
+msgstr "Datos de contacto"
+
+#: field:at_base.info_wizard,create_uid:0
+#: field:attachment.export,create_uid:0
+#: field:attachment.import,create_uid:0
+#: field:log.temp,create_uid:0
+#: field:log.temp.wizard,create_uid:0
+#: field:res.mapping,create_uid:0
+#. module: at_base
+msgid "Created by"
+msgstr "Datos de contacto"
+
+#: field:at_base.info_wizard,create_date:0
+#: field:attachment.export,create_date:0
+#: field:attachment.import,create_date:0
+#: field:log.temp,create_date:0
+#: field:log.temp.wizard,create_date:0
+#: field:res.mapping,create_date:0
+#. module: at_base
+msgid "Created on"
+msgstr "Creado en"
+
+#: code:addons/at_base/helper.py:47
+#. module: at_base
+#, python-format
+msgid "December"
+msgstr "diciembre"
+
+#: field:log.basic,detail:0
+#: field:log.temp,detail:0
+#. module: at_base
+msgid "Detail"
+msgstr "Detalle"
+
+#: field:at_base.info_wizard,display_name:0
+#: field:attachment.export,display_name:0
+#: field:attachment.import,display_name:0
+#: field:log.basic,display_name:0
+#: field:log.temp,display_name:0
+#: field:log.temp.wizard,display_name:0
+#: field:res.mapping,display_name:0
+#. module: at_base
+msgid "Display Name"
+msgstr "Nombre para mostrar"
+
+#: code:addons/at_base/mapping.py:46
+#: code:addons/at_base/mapping.py:50
+#: code:addons/at_base/proxy.py:46
+#: code:addons/at_base/proxy.py:70
+#: selection:log.basic,severity:0
+#: selection:log.temp,severity:0
+#. module: at_base
+#, python-format
+msgid "Error"
+msgstr ""
+
+#: view:res.partner:at_base.search_res_partner
+#. module: at_base
+msgid "Fax"
+msgstr ""
+
+#: field:res.partner,fax_n:0
+#. module: at_base
+msgid "Fax normalized"
+msgstr "Fax normalizado"
+
+#: code:addons/at_base/helper.py:37
+#. module: at_base
+#, python-format
+msgid "February"
+msgstr "febrero"
+
+#: field:res.partner,firstname:0
+#. module: at_base
+msgid "First Name"
+msgstr "Nombre de pila"
+
+#: field:attachment.export,folder:0
+#: field:attachment.import,folder:0
+#. module: at_base
+msgid "Folder"
+msgstr "Carpeta"
+
+#: code:addons/at_base/helper.py:56
+#. module: at_base
+#, python-format
+msgid "Fri"
+msgstr "Vie"
+
+#: code:addons/at_base/helper.py:56
+#. module: at_base
+#, python-format
+msgid "Friday"
+msgstr "viernes"
+
+#: view:res.partner:at_base.search_res_partner
+#. module: at_base
+msgid "Group By"
+msgstr "Agrupar por"
+
+#: field:at_base.info_wizard,id:0
+#: field:attachment.export,id:0
+#: field:attachment.import,id:0
+#: field:log.basic,id:0
+#: field:log.temp,id:0
+#: field:log.temp.wizard,id:0
+#: field:res.mapping,id:0
+#: field:res.mapping,res_id:0
+#. module: at_base
+msgid "ID"
+msgstr ""
+
+#: view:at_base.info_wizard:at_base.wizard_info
+#: field:at_base.info_wizard,info:0
+#: model:ir.actions.act_window,name:at_base.action_info_wizard
+#: selection:log.basic,severity:0
+#: selection:log.temp,severity:0
+#. module: at_base
+msgid "Info"
+msgstr ""
+
+#: model:ir.model,name:at_base.model_at_base_info_wizard
+#. module: at_base
+msgid "Info Wizard"
+msgstr ""
+
+#: code:addons/at_base/helper.py:36
+#. module: at_base
+#, python-format
+msgid "January"
+msgstr "enero"
+
+#: code:addons/at_base/helper.py:42
+#. module: at_base
+#, python-format
+msgid "July"
+msgstr "julio"
+
+#: code:addons/at_base/helper.py:41
+#. module: at_base
+#, python-format
+msgid "June"
+msgstr "junio"
+
+#: field:at_base.info_wizard,__last_update:0
+#: field:attachment.export,__last_update:0
+#: field:attachment.import,__last_update:0
+#: field:log.basic,__last_update:0
+#: field:log.temp,__last_update:0
+#: field:log.temp.wizard,__last_update:0
+#: field:res.mapping,__last_update:0
+#. module: at_base
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#: field:res.partner,surname:0
+#. module: at_base
+msgid "Last Name"
+msgstr "Apellido"
+
+#: field:at_base.info_wizard,write_uid:0
+#: field:attachment.export,write_uid:0
+#: field:attachment.import,write_uid:0
+#: field:log.temp,write_uid:0
+#: field:log.temp.wizard,write_uid:0
+#: field:res.mapping,write_uid:0
+#. module: at_base
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#: field:at_base.info_wizard,write_date:0
+#: field:attachment.export,write_date:0
+#: field:attachment.import,write_date:0
+#: field:log.temp,write_date:0
+#: field:log.temp.wizard,write_date:0
+#: field:res.mapping,write_date:0
+#. module: at_base
+msgid "Last Updated on"
+msgstr "ultima actualizacion en"
+
+#: field:res.mapping,locked:0
+#. module: at_base
+msgid "Locked"
+msgstr "Bloqueado"
+
+#: view:log.temp:at_base.form_log_temp
+#. module: at_base
+msgid "Log"
+msgstr "Iniciar sesión"
+
+#: field:res.partner,login_id:0
+#. module: at_base
+msgid "Login"
+msgstr "Iniciar sesión"
+
+#: model:ir.model,name:at_base.model_log_temp_wizard
+#: view:log.temp.wizard:at_base.wizard_log_temp
+#: field:log.temp.wizard,log_ids:0
+#. module: at_base
+msgid "Logs"
+msgstr "Troncos"
+
+#: field:res.partner,mail_address:0
+#. module: at_base
+msgid "Mail Address"
+msgstr "Correo Electronico"
+
+#: field:res.partner,mail_without_company:0
+#. module: at_base
+msgid "Mail Address without company"
+msgstr "Dirección de correo sin compañía"
+
+#: field:res.partner,mail_salutation:0
+#: field:res.partner.title,mail_salutation:0
+#. module: at_base
+msgid "Mail Salutation"
+msgstr "Saludo al correo"
+
+#: code:addons/at_base/helper.py:38
+#. module: at_base
+#, python-format
+msgid "March"
+msgstr "marzo"
+
+#: code:addons/at_base/helper.py:40
+#. module: at_base
+#, python-format
+msgid "May"
+msgstr "Mayo"
+
+#: field:log.basic,name:0
+#: field:log.temp,name:0
+#. module: at_base
+msgid "Message"
+msgstr "Mensaje"
+
+#: view:res.partner:at_base.search_res_partner
+#. module: at_base
+msgid "Mobile"
+msgstr "Móvil"
+
+#: field:res.partner,mobile_n:0
+#. module: at_base
+msgid "Mobile normalized"
+msgstr "Móvil normalizado"
+
+#: field:res.mapping,res_model:0
+#. module: at_base
+msgid "Model"
+msgstr "Modelo"
+
+#: code:addons/at_base/helper.py:52
+#. module: at_base
+#, python-format
+msgid "Mon"
+msgstr "Lun"
+
+#: code:addons/at_base/helper.py:52
+#. module: at_base
+#, python-format
+msgid "Monday"
+msgstr "lunes"
+
+#: code:addons/at_base/mapping.py:46
+#: code:addons/at_base/mapping.py:50
+#. module: at_base
+#, python-format
+msgid "No model found for uuid %s"
+msgstr "No se ha encontrado ningún modelo para uuid %s."
+
+#: code:addons/at_base/helper.py:46
+#. module: at_base
+#, python-format
+msgid "November"
+msgstr "noviembre"
+
+#: code:addons/at_base/helper.py:45
+#. module: at_base
+#, python-format
+msgid "October"
+msgstr "octubre"
+
+#: field:ir.attachment,origin:0
+#. module: at_base
+msgid "Origin"
+msgstr "Origen"
+
+#: model:ir.model,name:at_base.model_res_partner
+#. module: at_base
+msgid "Partner"
+msgstr "Compañero"
+
+#: view:res.partner:at_base.search_res_partner
+#. module: at_base
+msgid "Phone"
+msgstr "Teléfono"
+
+#: field:res.partner,phone_n:0
+#. module: at_base
+msgid "Phone normalized"
+msgstr "Teléfono normalizado"
+
+#: view:log.temp:at_base.tree_log_temp
+#. module: at_base
+msgid "Result"
+msgstr "Resultado"
+
+#: code:addons/at_base/helper.py:57
+#. module: at_base
+#, python-format
+msgid "Sat"
+msgstr "Sab"
+
+#: code:addons/at_base/helper.py:57
+#. module: at_base
+#, python-format
+msgid "Saturday"
+msgstr "sábado"
+
+#: code:addons/at_base/helper.py:44
+#. module: at_base
+#, python-format
+msgid "September"
+msgstr "septiembre"
+
+#: field:log.basic,severity:0
+#: field:log.temp,severity:0
+#. module: at_base
+msgid "Severity"
+msgstr "Gravedad"
+
+#: view:res.partner:at_base.form_partner_view
+#. module: at_base
+msgid "State"
+msgstr "estado"
+
+#: view:res.partner:at_base.search_res_partner
+#. module: at_base
+msgid "Street"
+msgstr "Calle"
+
+#: code:addons/at_base/helper.py:58
+#. module: at_base
+#, python-format
+msgid "Sun"
+msgstr "Dom"
+
+#: code:addons/at_base/helper.py:58
+#. module: at_base
+#, python-format
+msgid "Sunday"
+msgstr "domingo"
+
+#: model:ir.model,name:at_base.model_log_temp
+#. module: at_base
+msgid "Temporary Log"
+msgstr "Registro temporal"
+
+#: code:addons/at_base/helper.py:55
+#. module: at_base
+#, python-format
+msgid "Thu"
+msgstr "Jue"
+
+#: code:addons/at_base/helper.py:55
+#. module: at_base
+#, python-format
+msgid "Thursday"
+msgstr "jueves"
+
+#: code:addons/at_base/helper.py:53
+#. module: at_base
+#, python-format
+msgid "Tue"
+msgstr "Mar"
+
+#: code:addons/at_base/helper.py:53
+#. module: at_base
+#, python-format
+msgid "Tuesday"
+msgstr "martes"
+
+#: field:res.mapping,name:0
+#. module: at_base
+msgid "Type"
+msgstr "Tipo"
+
+#: field:res.mapping,uuid:0
+#. module: at_base
+msgid "UUID"
+msgstr ""
+
+#: selection:log.basic,severity:0
+#: selection:log.temp,severity:0
+#. module: at_base
+msgid "Warning"
+msgstr "Advertencia"
+
+#: code:addons/at_base/helper.py:54
+#. module: at_base
+#, python-format
+msgid "Wed"
+msgstr "mié"
+
+#: code:addons/at_base/helper.py:54
+#. module: at_base
+#, python-format
+msgid "Wednesday"
+msgstr "miércoles"
+
+#: view:res.partner:at_base.form_partner_view
+#. module: at_base
+msgid "ZIP"
+msgstr "código postal"
+
+#: view:res.partner:at_base.search_res_partner
+#. module: at_base
+msgid "Zip"
+msgstr "código postal"
+
+#: view:at_base.info_wizard:at_base.wizard_info
+#. module: at_base
+msgid "or"
+msgstr "o"
+
