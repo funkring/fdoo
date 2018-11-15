@@ -82,6 +82,8 @@ def getCmd(args,opt=None):
     if opt.db_user:
         args.append("--db_user")
         args.append(opt.db_user)
+    if opt.test:
+        args.append("--test-enable")
     return args
 
 
@@ -354,6 +356,12 @@ if __name__ == "__main__":
     parser.add_option("--db_password",dest="db_password",default=defaults.get("db_password"),help="Database Password")
     parser.add_option("--db_user",dest="db_user",default=defaults.get("db_user"),help="Database User")
     parser.add_option("--list",dest="list",default=None, help="List Databases")
+    parser.add_option("--full-delete", dest="full_delete_modules", help="Delete Modules with all data")
+    parser.add_option("--delete", dest="delete_modules", help="Delete Modules only (data will be held)")
+    parser.add_option("--delete-lower", action="store_true", help="Delete Lower Translation")
+    parser.add_option("--delete-higher", action="store_true", help="Delete Higher Translation")
+    parser.add_option("--reinit", dest="reinit", help="(Re)Init Views no or full")
+    parser.add_option("--test", action="store_true", help="Test")
     opt, args = parser.parse_args()
 
     # ####################################################################

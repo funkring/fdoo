@@ -99,6 +99,12 @@ class ConfigCommand(Command):
         
         self.parser.add_argument("--lang", required=False, 
                                  help="Language (Default is %s)" % config.defaultLang)
+        
+        self.parser.add_argument("--reinit", metavar="REINIT", default=False,
+                            help="(Re)Init Views no or full")
+        
+        self.parser.add_argument("--test-enable", action="store_true",
+                            help="Run Tests")
     
     def run(self, args):  
         params = self.parser.parse_args(args)
@@ -144,6 +150,18 @@ class ConfigCommand(Command):
         if params.lang:
             config_args.append("--lang")
             config_args.append(params.lang)
+            
+        if params.config:
+            config_args.append("--config")
+            config_args.append(params.config)
+            
+        if params.test_enable:
+            config_args.append("--test-enable")
+            
+        config.parse_config(config_args)
+        
+        if params.reinit:
+            config["reinit"] = params.reinit  
         
         config.parse_config(config_args)
         self.params = params
