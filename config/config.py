@@ -40,6 +40,7 @@ def getDirs(inDir):
 
     return res
 
+
 def listDir(inDir):
     res = []
     for item in os.listdir(inDir):
@@ -66,6 +67,7 @@ def getMaintainedModules():
                         addons.append(curAddon)
 
     return addons
+
 
 def getCmd(args,opt=None):
     if not opt:
@@ -100,9 +102,50 @@ def update(database=None, module=None, override=False, opt=None):
     if module:
         cmdList.append("--module")
         cmdList.append(module)
+    if override:
+        cmdList.append("--override")
     subprocess.call(cmdList)
 
-def cleanup(database=None, fix=False, full=False, opt=None):
+
+def console(database=None, opt=None):
+    if not database:
+        return
+    prog = os.path.join(DIR_SERVER,"run.py")
+    cmdList = getCmd(["python","-i",str(prog),"console","--addons-path", str(DIR_DIST_ADDONS),"--database",database], opt)
+    subprocess.call(cmdList)
+
+    
+def po_export(database, opt):
+    if not database:
+        return
+
+    log.info("Translation Export on Database %s" % database)
+    log.info("Translation Export on Modules: %s" % opt.module)
+
+    prog = os.path.join(DIR_SERVER,"run.py")
+    cmdList = getCmd([str(prog),"po_export","--addons-path", str(DIR_DIST_ADDONS),"--database",database,"--module",opt.module], opt)
+    if opt.lang:
+      cmdList.append("--lang")
+      cmdList.append(opt.lang)
+    subprocess.call(cmdList)
+
+    
+def po_import(database, opt):
+    if not database:
+        return
+
+    log.info("Translation Import on Database %s" % database)
+    log.info("Translation Import on Modules: %s" % opt.module)
+
+    prog = os.path.join(DIR_SERVER,"run.py")
+    cmdList = getCmd([str(prog),"po_import","--addons-path", str(DIR_DIST_ADDONS),"--database",database,"--module",opt.module], opt)
+    if opt.lang:
+      cmdList.append("--lang")
+      cmdList.append(opt.lang)
+    subprocess.call(cmdList)
+
+
+def cleanup(database=None, fix=False, full=False, opt=None, delete_modules=None, delete_modules_full=None, delete_lower=False, delete_higher=False):
     if not database:
         return
 
@@ -124,9 +167,11 @@ def findFile(directory, pattern):
                 filename = os.path.join(root, basename)
                 yield filename
 
+
 def cleanupPython(directory):
     for fileName in findFile(directory,"*.pyc"):
         os.remove(fileName)
+        
 
 def setup(onlyLinks=False):
 
@@ -158,9 +203,10 @@ def setup(onlyLinks=False):
     includeAddons = ADDONS_INCLUDED
     merged = []
     updateFailed = []
-
-    log.info("Cleanup all *.pyc Files")
-    cleanupPython(dirWorkspace)
+    
+    if not onlyLinks:
+      log.info("Cleanup all *.pyc Files")
+      cleanupPython(dirWorkspace)
 
     if not os.path.exists(dirEnabledAddons):
         log.info("Create directory %s" % str(dirEnabledAddons))
@@ -296,6 +342,7 @@ def getConnection(opt, db="postgres"):
     params = " ".join(params)
     return psycopg2.connect(params)
 
+
 def getDatabases(name, opt):
     if "*" in name:        
         p = re.compile("^" + name.replace("*",".*") + "$") 
@@ -311,6 +358,7 @@ def getDatabases(name, opt):
             con.close()
     else:
         return [name]
+
 
 if __name__ == "__main__":
     import optparse
@@ -345,6 +393,10 @@ if __name__ == "__main__":
     parser.add_option("--fix", dest="fix", help="Fix fixable automatically", action="store_true", default=False)
     parser.add_option("--full", dest="full", help="Enable full cleanup", action="store_true", default=False)
     parser.add_option("--update",dest="update",default=None,help="Update Database")
+    parser.add_option("--po-export",dest="po_export",default=None,help="Export Translations")
+    parser.add_option("--po-import",dest="po_import",default=None,help="Import Translations")
+    parser.add_option("--lang",dest="lang",default=None,help="Language")
+    parser.add_option("--console",dest="console",default=None,help="Start Console")
     parser.add_option("--copy",dest="copy",default=None,help="Copy Database")
     parser.add_option("--dest",dest="dest",default=None,help="Destination Database")
     parser.add_option("--threads",dest="threads",type="int",default=0,help="Threads for parallel processing")
@@ -390,6 +442,12 @@ if __name__ == "__main__":
     elif opt.update:
         db_func = db_update
         databases = getDatabases(opt.update, opt)
+    elif opt.po_export:
+        po_export(opt.po_export, opt)
+    elif opt.po_import:
+        po_import(opt.po_import, opt)
+    elif opt.console:
+        console(opt.console, opt)
     elif opt.cleanup:
         db_func = db_cleanup
         databases = getDatabases(opt.cleanup, opt)
