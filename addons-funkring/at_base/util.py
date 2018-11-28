@@ -33,11 +33,14 @@ import random
 import crypt
 import string
 import pytz
+import dateutil.parser
 
 DT_FORMAT = '%Y-%m-%d'
 DHM_FORMAT = '%Y-%m-%d %H:%M:%S'
 HM_FORMAT = '%H:%M:%S'
 HM_FORMAT_SHORT = '%H:%M'
+
+ISO_FORMAT_UTC = '%Y-%m-%dT%H:%M:%SZ'
 
 SEVERITY = [('0','Normal'),('1','Warning'),('2','Blocker')]
 PRIORITY = [('0','Not urgent'),('1','Normal'),('2','Urgent'),('3','Very Urgent')]
@@ -670,6 +673,20 @@ def getTimeContext(time=None, context=None):
     }
     return {key: time.strftime(sequence) for key, sequence in sequences.iteritems()}
 
+def strToIsoTime(time):
+    if not time:
+      return None
+    time = strToTime(time)    
+    return time.strftime(ISO_FORMAT_UTC)
+
+def isoToStrTime(time):
+    if not time:
+      return None
+    val = dateutil.parser.parse(time)
+    if not val.tzinfo:
+        val = pytz.utc.localize(val)
+    val = val.astimezone(pytz.utc).replace(tzinfo=None)
+    return timeToStr(val)    
 
 if __name__ == '__main__':
     print dateEasterSunday(2013)-dateEasterSunday(2012)
