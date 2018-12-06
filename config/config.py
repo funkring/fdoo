@@ -145,7 +145,7 @@ def po_import(database, opt):
     subprocess.call(cmdList)
 
 
-def cleanup(database=None, fix=False, full=False, opt=None, delete_modules=None, delete_modules_full=None, delete_lower=False, delete_higher=False):
+def cleanup(database=None, fix=False, full=False, opt=None, delete_modules=None, delete_modules_full=None, delete_lower=False, delete_higher=False, only_models=False):
     if not database:
         return
 
@@ -157,6 +157,18 @@ def cleanup(database=None, fix=False, full=False, opt=None, delete_modules=None,
         cmdList.append("--fix")
     if full:
         cmdList.append("--full")
+    if delete_modules:
+        cmdList.append("--delete")
+        cmdList.append(delete_modules)
+    if delete_modules_full:
+        cmdList.append("--full-delete")
+        cmdList.append(delete_modules_full)
+    if delete_lower:
+        cmdList.append("--delete-lower")
+    if delete_higher:
+        cmdList.append("--delete-higher")
+    if only_models:
+        cmdList.append("--only-models")
     subprocess.call(cmdList)
 
 
@@ -407,6 +419,7 @@ if __name__ == "__main__":
     parser.add_option("--db_port",dest="db_port",default=defaults.get("db_port"),help="Database Port")
     parser.add_option("--db_password",dest="db_password",default=defaults.get("db_password"),help="Database Password")
     parser.add_option("--db_user",dest="db_user",default=defaults.get("db_user"),help="Database User")
+    parser.add_option("--only-models",dest="only_models",action="store_true",help="Cleanup unused Models")
     parser.add_option("--list",dest="list",default=None, help="List Databases")
     parser.add_option("--full-delete", dest="full_delete_modules", help="Delete Modules with all data")
     parser.add_option("--delete", dest="delete_modules", help="Delete Modules only (data will be held)")
@@ -430,7 +443,11 @@ if __name__ == "__main__":
         
     # cleanup
     def db_cleanup(db):
-        cleanup(database=db, fix=opt.fix, full=opt.full, opt=opt)
+        cleanup(database=db, fix=opt.fix, full=opt.full, opt=opt, delete_modules=opt.delete_modules, 
+                delete_modules_full=opt.full_delete_modules,
+                delete_lower=opt.delete_lower,
+                delete_higher=opt.delete_higher,
+                only_models=opt.only_models)
   
         
     # ####################################################################

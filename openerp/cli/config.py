@@ -316,6 +316,11 @@ class CleanUp(ConfigCommand):
         super(CleanUp, self).__init__()
         self.parser.add_argument("--fix", action="store_true", help="Do/Fix all offered cleanup")
         self.parser.add_argument("--full", action="store_true", help="Intensive cleanup")
+        self.parser.add_argument("--full-delete", dest="full_delete_modules", help="Delete Modules with all data")
+        self.parser.add_argument("--delete", dest="delete_modules", help="Delete Modules only (data will be held)")
+        self.parser.add_argument("--delete-lower", action="store_true", help="Delete Lower Translation")
+        self.parser.add_argument("--delete-higher", action="store_true", help="Delete Higher Translation")
+        self.parser.add_argument("--only-models", action="store_true", help="Delete unused Models")
         self.clean=True
     
     def fixable(self, msg):
@@ -518,7 +523,7 @@ class CleanUp(ConfigCommand):
         self.deleted_models = {}
         
         # check full cleanup
-        if self.params.full:
+        if self.params.full or self.params.only_models:
             
             # create registry
             self.pool = RegistryManager.get(self.params.database, update_module=True)
@@ -529,14 +534,17 @@ class CleanUp(ConfigCommand):
             try:
                 
                 # create environment
-                with api.Environment.manage():                    
-                    self.cleanup_models()
-                    self.cleanup_modules()
-                    self.cleanup_model_data()    
-                    self.cleanup_translation()            
-                    
-                    if self.params.fix:
-                        self.cr.commit()
+                with api.Environment.manage():      
+                    if self.params.only_models:
+                      self.cleanup_models()
+                    else:              
+                      self.cleanup_models()
+                      self.cleanup_modules()
+                      self.cleanup_model_data()    
+                      self.cleanup_translation()            
+                      
+                      if self.params.fix:
+                          self.cr.commit()
                         
             except Exception, e:
                 _logger.error(e)
@@ -545,28 +553,29 @@ class CleanUp(ConfigCommand):
                 self.cr.rollback()
                 self.cr.close()
         
-        # open database
-        db = openerp.sql_db.db_connect(self.params.database)
-        
-        # basic cleanup's
-        self.cr = db.cursor()
-        self.cr.autocommit(False)
-        try:         
-            self.cleanup_double_translation()            
-            if self.params.fix:
-                self.cr.commit()
-        except Exception, e:
-            _logger.error(e)
-            return
-        finally:
-            self.cr.rollback()
-            self.cr.close()
-            self.cr = None
-            
-        if self.clean:
-            _logger.info("Everything is CLEAN!")
-        else:
-            _logger.warning("Cleanup necessary")
+        if not self.params.only_models:
+          # open database
+          db = openerp.sql_db.db_connect(self.params.database)
+          
+          # basic cleanup's
+          self.cr = db.cursor()
+          self.cr.autocommit(False)
+          try:         
+              self.cleanup_double_translation()            
+              if self.params.fix:
+                  self.cr.commit()
+          except Exception, e:
+              _logger.error(e)
+              return
+          finally:
+              self.cr.rollback()
+              self.cr.close()
+              self.cr = None
+              
+          if self.clean:
+              _logger.info("Everything is CLEAN!")
+          else:
+              _logger.warning("Cleanup necessary")
             
             
 class RemoveTestData(ConfigCommand):
