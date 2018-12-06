@@ -543,8 +543,8 @@ class CleanUp(ConfigCommand):
                       self.cleanup_model_data()    
                       self.cleanup_translation()            
                       
-                      if self.params.fix:
-                          self.cr.commit()
+                    if self.params.fix:
+                      self.cr.commit()
                         
             except Exception, e:
                 _logger.error(e)
