@@ -288,7 +288,7 @@ class res_partner(osv.osv):
     def name_search(self, cr, uid, name, args=None, operator='ilike', context=None, limit=100):
         res = super(res_partner,self).name_search(cr, uid, name, args=args, operator=operator, context=context, limit=limit)
         if not res:
-            ids = self.search(cr, uid, [("ref",operator,name)], limit=limit, context=context)
+            ids = self.search(cr, uid, ['|',("ref",operator,name),("category_id.name",operator,name)], limit=limit, context=context)
             if ids:
                 return self.name_get(cr, uid, ids, context=context)                
         return res
