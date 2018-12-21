@@ -97,11 +97,16 @@
       <field name="arch" type="xml">
         <search string="Automation Task">
           <field name="name"/>
+          <field name="state"/>
           <field name="owner_id"/>
           <field name="res_model"/>
-          <field name="res_id"/>          
+          <field name="res_id"/>
+          <filter name="task_running" string="Running" domain="[('state','in',['run','queued'])]"/>  
+          <filter name="task_failed" string="Failed" domain="[('state','=','failed')]"/>
+          <filter name="task_done" string="Done" domain="[('state','=','done')]"/>
           <group expand="0" string="Group By...">
             <filter string="Owner" context="{'group_by': 'owner_id'}"/>
+            <filter string="State" context="{'group_by': 'state'}"/>
           </group>
         </search>
       </field>

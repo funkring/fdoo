@@ -120,29 +120,50 @@ class TaskLogger():
 
 class TaskStatus(object):
     
-  def __init__(self, task, total=1):
+  def __init__(self, task, total=1, local=False, logger=None, logging=False):    
     self.task = task
-    secret = self.task.env["automation.task.secret"].search([("task_id","=",task.id)])
-    if not secret:
-      raise Warning(_("No scecret for task %s [%s] was generated") % (self.task, self.task.id))
+    
+    self.logger = logger
+    if not self.logger and logging:
+      self.logger = _logger
+    
+    self.local = local
+        
+    if self.local:
+      self.stage_obj = self.task.env["automation.task.stage"]
+      self.log_obj = self.task.env["automation.task.log"]
+      self.log_obj.search([("task_id","=", self.task.id)]).unlink()
+      self.stage_obj.search([("task_id","=", self.task.id)]).unlink()
+      
+      self.log_path = ""
+      self.stage_path = ""
+      self.progress_path = ""
+      
     else:
-      secret = secret[0].secret
-    
-    baseurl = self.task.env["ir.config_parameter"].get_param("web.base.url")
-    if not baseurl:
-      raise Warning(_("Cannot determine base url"))
-    
-    
-    # init path
-    self.log_path = urlparse.urljoin(baseurl,  "http/log/%s/%s" % (task.id, secret))
-    self.stage_path = urlparse.urljoin(baseurl,  "http/stage/%s/%s" % (task.id, secret))
-    self.progress_path = urlparse.urljoin(baseurl,  "http/progress/%s/%s" % (task.id, secret))
+      secret = self.task.env["automation.task.secret"].search([("task_id","=",task.id)])
+      if not secret:
+        raise Warning(_("No scecret for task %s [%s] was generated") % (self.task, self.task.id))
+      else:
+        secret = secret[0].secret
+      
+      baseurl = self.task.env["ir.config_parameter"].get_param("web.base.url")
+      if not baseurl:
+        raise Warning(_("Cannot determine base url"))
+      
+      
+      # init path
+      self.log_path = urlparse.urljoin(baseurl,  "http/log/%s/%s" % (task.id, secret))
+      self.stage_path = urlparse.urljoin(baseurl,  "http/stage/%s/%s" % (task.id, secret))
+      self.progress_path = urlparse.urljoin(baseurl,  "http/progress/%s/%s" % (task.id, secret))
     
     # setup root stage
     self.root_stage_id = self._create_stage({"name": task.name,
                                              "total": total })
     self.parent_stage_id = self.root_stage_id
     self.stage_id = self.root_stage_id
+    
+    self.parent_stage_name = ""
+    self.stage_name = task.name
     
     # first log
     self.log(_("Started"))
@@ -156,6 +177,54 @@ class TaskStatus(object):
     # loop
     self._loopInc = 0.0
     self._loopProgress = 0.0
+    
+  def _post_progress(self, data):
+    if self.local:      
+      self.stage_obj.browse(data["stage_id"]).write({    
+        "task_id": self.task.id,   
+        "status": data["status"],
+        "progress": data["progress"]
+      })
+    else:
+      res = requests.post(self.progress_path, data)
+      res.raise_for_status()
+    
+  def _post_stage(self, data):
+    if self.logger:
+      self.logger.info("= Stage %s" % data["name"])
+    if self.local:
+      data["task_id"] = self.task.id      
+      return self.stage_obj.create(data).id
+    else:
+      res = requests.post(self.stage_path, data=data)
+      res.raise_for_status()
+      return int(res.text)
+  
+  def _post_log(self, data):
+    if self.logger:      
+      pri = data["pri"]
+      message = data["message"]
+      if pri=="i":
+        self.logger.info(message)
+      elif pri=="e":
+        self.errors += 1
+        self.logger.error(message)
+      elif pri=="w":
+        self.warnings += 1
+        self.logger.warning(message)
+      elif pri=="d":
+        self.logger.debug(message)
+      elif pri=="x":
+        self.logger.fatal(message)      
+      elif pri=="a":
+        self.logger.critical(message)
+    
+    if self.local:
+      data["task_id"] = self.task.id
+      self.log_obj.create(data)
+    else:
+      res = requests.post(self.log_path, data=data)
+      res.raise_for_status()
     
   def log(self, message, pri="i", obj=None, ref=None, progress=None):
     if pri == "e":
@@ -174,8 +243,8 @@ class TaskStatus(object):
       ref = "%s,%s" % (obj._name, obj.id)
     if ref:
       values["ref"] = ref      
-    res = requests.post(self.log_path, data=values)
-    res.raise_for_status()
+
+    self._post_log(values)
     
   def loge(self, message, pri="e", **kwargs):
     self.log(message, pri=pri, **kwargs)
@@ -217,13 +286,10 @@ class TaskStatus(object):
     }
     if self.last_status is None or self.last_status != values:
       self.last_status = values
-      res = requests.post(self.progress_path, data=values)
-      res.raise_for_status()
+      self._post_progress(values)
   
   def _create_stage(self, values):
-    res = requests.post(self.stage_path, data=values)
-    res.raise_for_status()
-    return int(res.text)
+    return self._post_stage(values)
   
   def stage(self, subject, total=None):
     values = {
@@ -252,12 +318,11 @@ class TaskStatus(object):
       self.parent_stage_id, self.stage_id = self.stage_stack.pop()
       
   def close(self):
-    res = requests.post(self.progress_path, data={
+    self._post_progress({
       "stage_id": self.root_stage_id,
       "status": _("Done"),
       "progress": 100.0
     })
-    res.raise_for_status()
  
   
 class automation_task(models.Model):
