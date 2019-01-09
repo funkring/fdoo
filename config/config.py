@@ -84,7 +84,7 @@ def getCmd(args,opt=None):
     if opt.db_user:
         args.append("--db_user")
         args.append(opt.db_user)
-    if opt.test:
+    if opt.test_enable:
         args.append("--test-enable")
     return args
 
@@ -99,6 +99,10 @@ def update(database=None, module=None, override=False, opt=None):
     #translation export --module sale --lang de_DE --addons ${workspace_loc}/dist/addons --database openerp7_demo
     prog = os.path.join(DIR_SERVER,"run.py")
     cmdList = getCmd([str(prog),"update","--addons-path", str(DIR_DIST_ADDONS),"--database",database], opt)
+    if opt:
+      if opt.reinit:
+        cmdList.append("--reinit")
+        cmdList.append(opt.reinit)
     if module:
         cmdList.append("--module")
         cmdList.append(module)
@@ -142,6 +146,24 @@ def po_import(database, opt):
     if opt.lang:
       cmdList.append("--lang")
       cmdList.append(opt.lang)
+    subprocess.call(cmdList)
+
+
+def unit_test(database, opt):
+    if not database:
+        return
+
+    prog = os.path.join(DIR_SERVER,"run.py")
+    cmdList = getCmd([str(prog),"test","--addons-path", str(DIR_DIST_ADDONS),"--database",database], opt)
+    if opt.module:
+      cmdList.append("--module")
+      cmdList.append(opt.module)
+    if opt.test_prefix:
+      cmdList.append("--test-prefix")
+      cmdList.append(opt.test_prefix)
+    if opt.test_case:
+      cmdList.append("--test-case")
+      cmdList.append(opt.test_case)
     subprocess.call(cmdList)
 
 
@@ -426,7 +448,10 @@ if __name__ == "__main__":
     parser.add_option("--delete-lower", action="store_true", help="Delete Lower Translation")
     parser.add_option("--delete-higher", action="store_true", help="Delete Higher Translation")
     parser.add_option("--reinit", dest="reinit", help="(Re)Init Views no or full")
-    parser.add_option("--test", action="store_true", help="Test")
+    parser.add_option("--test-enable", action="store_true", help="Enable Test")
+    parser.add_option("--test", dest="test", help="Run unit tests for database")
+    parser.add_option("--test-prefix", dest="test_prefix", help="Only run tests which start with the passed prefix")
+    parser.add_option("--test-case", dest="test_case", help="Only run test with the passed simple class name")
     opt, args = parser.parse_args()
 
     # ####################################################################
@@ -448,6 +473,10 @@ if __name__ == "__main__":
                 delete_lower=opt.delete_lower,
                 delete_higher=opt.delete_higher,
                 only_models=opt.only_models)
+
+    # test
+    def db_test(db):
+        unit_test(db, opt)
   
         
     # ####################################################################
@@ -459,6 +488,9 @@ if __name__ == "__main__":
     elif opt.update:
         db_func = db_update
         databases = getDatabases(opt.update, opt)
+    elif opt.test:
+        db_func = db_test
+        databases = getDatabases(opt.test, opt)
     elif opt.po_export:
         po_export(opt.po_export, opt)
     elif opt.po_import:
@@ -468,8 +500,8 @@ if __name__ == "__main__":
     elif opt.cleanup:
         db_func = db_cleanup
         databases = getDatabases(opt.cleanup, opt)
-    elif opt.copy:
-        copyDatabase(database=opt.copy, dest=opt.dest)
+    elif opt.copy:      
+        copyDatabase(database=opt.copy, dest=opt.dest)   
     elif opt.list:
         for db in getDatabases(opt.list, opt):
             print db

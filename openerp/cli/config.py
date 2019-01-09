@@ -23,13 +23,24 @@ import logging
 import openerp
 import argparse
 import os
+import re
 
 from openerp import tools
+from openerp.tools import misc
 from openerp import api
 from openerp.tools.config import config
 from openerp.tools.translate import TinyPoFile
 from openerp.modules.registry import RegistryManager
 from . import Command
+
+from openerp.modules.module import get_test_modules
+from openerp.modules.module import TestStream
+import threading
+import time
+import unittest
+import unittest2
+import itertools
+
 
 # Also use the `openerp` logger for the main script.
 
@@ -94,6 +105,8 @@ class ConfigCommand(Command):
                              help="specify the database port", type=int)
         self.parser.add_argument("--db_user", metavar="DB_USER", default=False,
                             help="specify the database user")
+        self.parser.add_argument("--config", metavar="CONFIG", default=False,
+                            help="specify the configuration")
         
         self.parser.add_argument("--debug", action="store_true")
         
@@ -163,7 +176,6 @@ class ConfigCommand(Command):
         if params.reinit:
             config["reinit"] = params.reinit  
         
-        config.parse_config(config_args)
         self.params = params
         self.run_config()
         
@@ -173,7 +185,7 @@ class ConfigCommand(Command):
     def run_config_env(self):
         _logger.info("Nothing to do!")
          
-    def setup_env(self):
+    def setup_env(self, fct=None):
         # setup pool    
         self.pool = RegistryManager.get(self.params.database)
         self.cr = self.pool.cursor()
@@ -181,7 +193,10 @@ class ConfigCommand(Command):
             # create environment
             with api.Environment.manage():
                 self.env = openerp.api.Environment(self.cr, 1, {})
-                self.run_config_env()
+                if fct:
+                  fct(self.env)
+                else:
+                  self.run_config_env()
                     
             self.cr.commit()    
         except Exception, e:
@@ -202,7 +217,25 @@ class Update(ConfigCommand):
             config["update"][self.params.module]=1
         else:
             config["update"]["all"]=1
-        RegistryManager.get(self.params.database, update_module=True)
+            
+        registry = RegistryManager.get(self.params.database, update_module=True)
+        
+        # refresh
+        try:
+          if config["reinit"] == "full":
+            cr = registry.cursor()
+            try:            
+                cr.execute("select matviewname from pg_matviews")
+                for (matview,) in cr.fetchall():
+                  _logger.info("refresh MATERIALIZED VIEW %s ..." % matview)
+                  cr.execute("REFRESH MATERIALIZED VIEW %s" % matview)
+                cr.commit()
+                _logger.info("finished refreshing views")
+            finally:
+                cr.close()
+           
+        except KeyError:
+          pass
         
         
 class Po_Export(ConfigCommand):
@@ -240,8 +273,18 @@ class Po_Export(ConfigCommand):
         export_filename = os.path.join(self.langdir, self.langfile)
         export_f = file(export_filename,"w")
         try:
+            ignore = None
+            ignore_filename = "%s.ignore" % export_filename
+            if os.path.exists(ignore_filename):
+              ignore=set()
+              fileobj = misc.file_open(ignore_filename)
+              reader = tools.TinyPoFile(fileobj)
+              for row in reader:
+                if not row[4]:
+                  ignore.add(row)
+            
             _logger.info('Writing %s', export_filename)
-            tools.trans_export(self.lang, [self.params.module], export_f, "po", self.cr)
+            tools.trans_export(self.lang, [self.params.module], export_f, "po", self.cr, ignore=ignore)
         finally:
             export_f.close()
 
@@ -307,7 +350,102 @@ class Po_Cleanup(Po_Export):
                               AND lang=%s 
                               AND module IS NULL 
                               AND value=%s""", (source, self.lang, source))
-          
+      
+class Test(ConfigCommand):
+    """ Import *.po File """
+    
+    def __init__(self):
+      super(Test, self).__init__()
+      self.parser.add_argument("--test-prefix", metavar="TEST_PREFIX", required=False, help="Specify the prefix of the method for filtering")
+      self.parser.add_argument("--test-case", metavar="TEST_CASE", required=False, help="Specify the test case")
+    
+    def run_config(self):
+      # run with env
+      self.setup_env()
+    
+    #for model in self.models.itervalues():
+    def run_test(self, module_name, test_prefix=None, test_case=None):
+      global current_test
+      current_test = module_name
+       
+      def unwrap_suite(test):
+        """
+        Attempts to unpack testsuites (holding suites or cases) in order to
+        generate a single stream of terminals (either test cases or customized
+        test suites). These can then be checked for run/skip attributes
+        individually.
+    
+        An alternative would be to use a variant of @unittest2.skipIf with a state
+        flag of some sort e.g. @unittest2.skipIf(common.runstate != 'at_install'),
+        but then things become weird with post_install as tests should *not* run
+        by default there
+        """
+        if isinstance(test, unittest.TestCase):
+            yield test
+            return
+    
+        subtests = list(test)
+        # custom test suite (no test cases)
+        if not len(subtests):
+            yield test
+            return
+    
+        for item in itertools.chain.from_iterable(
+                itertools.imap(unwrap_suite, subtests)):
+            yield item
+      
+      def runnable(test):
+        if not test_prefix or not isinstance(test, unittest.TestCase):
+          if not test_case:
+            return True 
+          return type(test).__name__ == test_case
+        return test._testMethodName.startswith(test_prefix)
+      
+      mods = get_test_modules(current_test)
+      threading.currentThread().testing = True
+      r = True
+      for m in mods:
+          tests = unwrap_suite(unittest2.TestLoader().loadTestsFromModule(m))
+          suite = unittest2.TestSuite(itertools.ifilter(runnable, tests))
+  
+          if suite.countTestCases():
+              t0 = time.time()
+              t0_sql = openerp.sql_db.sql_counter
+              _logger.info('%s running tests.', m.__name__)
+              result = unittest2.TextTestRunner(verbosity=2, stream=TestStream(m.__name__)).run(suite)
+              if time.time() - t0 > 5:
+                  _logger.log(25, "%s tested in %.2fs, %s queries", m.__name__, time.time() - t0, openerp.sql_db.sql_counter - t0_sql)
+              if not result.wasSuccessful():
+                  r = False
+                  _logger.error("Module %s: %d failures, %d errors", module_name, len(result.failures), len(result.errors))
+  
+      current_test = None
+      threading.currentThread().testing = False
+      return r
+    
+    def run_config_env(self):
+      module_name = self.params.module
+      test_prefix = self.params.test_prefix
+      test_case = self.params.test_case
+      cr = self.cr
+      
+      if self.params.module:
+        modules = [self.params.module]
+      else:
+        cr.execute("SELECT name from ir_module_module WHERE state = 'installed' ")
+        modules = [name for (name,) in cr.fetchall()]
+        
+      if modules:
+        ok = True
+        for module_name in modules:
+          ok = self.run_test(module_name, test_prefix, test_case) and ok
+        if ok:
+          _logger.info("Finished!")
+        else:
+          _logger.info("Failed!")
+      else:
+        _logger.warning("No Tests!")
+
         
 class CleanUp(ConfigCommand):
     """ CleanUp Database """
@@ -401,8 +539,17 @@ class CleanUp(ConfigCommand):
         first_id = None
         for row in self.cr.fetchall():
             key = row[1:]
-            if last_key and cmp(key,last_key) == 0:                
-                self.notfixable("Double Translation %s for ID %s" % (repr(row), first_id))
+            if last_key and cmp(key,last_key) == 0:
+                if self.params.delete_lower and first_id < row[0]:
+                  self.fixable("Double Translation %s for ID %s" % (repr(row), first_id))
+                  self.cr.execute("DELETE FROM ir_translation WHERE id=%s", (first_id,))
+                  first_id = row[0]
+                elif self.params.delete_higher and first_id > row[0]:
+                  self.fixable("Double Translation %s for ID %s" % (repr(row), first_id))
+                  self.cr.execute("DELETE FROM ir_translation WHERE id=%s", (first_id,))
+                  first_id = row[0]
+                else:
+                  self.notfixable("Double Translation %s for ID %s" % (repr(row), first_id))
             else:
                 first_id = row[0]
             last_key = key
@@ -452,21 +599,22 @@ class CleanUp(ConfigCommand):
     def delete_model_data(self, model_data):
         self.fixable("Delete model_data %s,%s,%s,%s" % (model_data.name,model_data.id,model_data.model,model_data.res_id))
         model_obj = self.pool.get(model_data.model)
-        if model_obj:
+        if model_obj and model_obj._name != "ir.model":
             self.fixable("Delete %s,%s" % (model_obj._name,model_data.res_id))
             model_obj.unlink(self.cr, SUPERUSER_ID, [model_data.res_id])
         model_data.unlink()
             
-    def delete_module(self, module):
+    def delete_module(self, module, full=False):
         self.deleted_modules[module.id]=module.name
         self.fixable("Delete module %s,%s" % (module.name,module.id))
         self.cr.execute("UPDATE ir_module_module SET state='uninstalled' WHERE id=%s", (module.id,))
         
-        model_data_obj = self.pool["ir.model.data"]
-        model_data_ids = model_data_obj.search(self.cr, SUPERUSER_ID, [("module","=",module.name)])
-        
-        for model_data in model_data_obj.browse(self.cr, SUPERUSER_ID, model_data_ids):            
-            self.delete_model_data(model_data)
+        if full:
+          model_data_obj = self.pool["ir.model.data"]
+          model_data_ids = model_data_obj.search(self.cr, SUPERUSER_ID, [("module","=",module.name)])
+          
+          for model_data in model_data_obj.browse(self.cr, SUPERUSER_ID, model_data_ids):            
+              self.delete_model_data(model_data)
             
         self.cr.execute("DELETE FROM ir_module_module_dependency WHERE name=%s OR module_id=%s", (module.name, module.id))
         self.cr.execute("DELETE FROM ir_module_module WHERE id=%s", (module.id,))
@@ -493,12 +641,28 @@ class CleanUp(ConfigCommand):
                 self.cr.execute("DELETE FROM ir_model_data WHERE id=%s" % oid)
         
     def cleanup_modules(self):
+
+        def getSet(value):
+          if not value:
+            return set()
+          return set(re.split("[,|; ]+", value))
+      
+        mod_full_delete_set = getSet(self.params.full_delete_modules)
+        mod_delete_set = getSet(self.params.delete_modules)
+      
         module_obj = self.pool["ir.module.module"]
         module_ids = module_obj.search(self.cr, SUPERUSER_ID, [])
         for module in module_obj.browse(self.cr, SUPERUSER_ID, module_ids):
             info = openerp.modules.module.load_information_from_description_file(module.name)
-            if not info:
-                self.delete_module(module)
+            if not info:             
+              mod_full_delete = module.name in mod_full_delete_set
+              mod_delete = module.name in mod_delete_set
+              if mod_delete or mod_full_delete:
+                self.delete_module(module, mod_full_delete)
+              else:
+                self.notfixable("Delete module %s dependencies and set uninstalled, but module is left in db" % module.name)
+                self.cr.execute("UPDATE ir_module_module SET state='uninstalled' WHERE id=%s", (module.id,))
+                self.cr.execute("DELETE FROM ir_module_module_dependency WHERE name=%s OR module_id=%s", (module.name, module.id))
 
         # check invalid module data
         self.cr.execute("SELECT id, res_id, name FROM ir_model_data WHERE model='ir.module.module' AND res_id > 0")
@@ -514,7 +678,7 @@ class CleanUp(ConfigCommand):
     def cleanup_models(self):
         model_obj = self.pool["ir.model"]        
         model_ids = model_obj.search(self.cr, SUPERUSER_ID, [])
-        for model in model_obj.browse(self.cr,1, model_ids):
+        for model in model_obj.browse(self.cr,1, model_ids):          
             if not self.pool.get(model.model):
                 self.delete_model(model)
         
