@@ -469,7 +469,7 @@ class TinyPoFile(object):
 
 # Methods to export the translation file
 
-def trans_export(lang, modules, buffer, format, cr):
+def trans_export(lang, modules, buffer, format, cr, ignore=None):
 
     def _process(format, modules, rows, buffer, lang):
         if format == 'csv':
@@ -504,7 +504,22 @@ def trans_export(lang, modules, buffer, format, cr):
                     else:
                     # funkring.net end
                         row['translation'] = src
-                writer.write(row['modules'], row['tnrs'], src, row['translation'], row['comments'])
+                
+                # check if translations should ignored
+                write_translation = True                
+                if ignore:
+                  for tnr in row["tnrs"]:
+                    comments = row['comments']
+                    if not comments:
+                      comments = ['']
+                    for comment in comments:
+                      key = (tnr[0], tnr[1], str(tnr[2]), src, row['translation'], comment)
+                      if key in ignore:
+                        write_translation = False
+                
+                # write if enabled
+                if write_translation:
+                  writer.write(row['modules'], row['tnrs'], src, row['translation'], row['comments'])
 
         elif format == 'tgz':
             rows_by_module = {}
