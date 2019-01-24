@@ -26,7 +26,7 @@ import logging
 
 _logger = logging.getLogger(__file__)
 
-def translate(f,data,indent="",default_indent="    "):
+def translate(f, data, indent="", default_indent="    "):
     if not data:
         return
     
@@ -78,7 +78,7 @@ def translate(f,data,indent="",default_indent="    "):
         f.write(">\n")
         return f
     except Exception,e:
-        _logger.error("Error by tag %s" % tag)        
+        _logger.exception("Error by tag %s" % (tag,))        
         raise e
     
 
