@@ -96,6 +96,9 @@ def strToTime(inTime):
         return inTime
     if isinstance(inTime,datetime):
         return inTime
+    pos = inTime.find(".")
+    if pos > 0:
+      inTime = inTime[:pos]
     return datetime.strptime(inTime,DHM_FORMAT)
 
 def timeToStr(inTime):
