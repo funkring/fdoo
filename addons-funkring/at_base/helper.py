@@ -30,6 +30,7 @@ from openerp.osv.fields import datetime as datetime_field
 from openerp.tools.translate import _
 from format import LangFormat
 from openerp import SUPERUSER_ID
+from openerp import tools
 
 def getMonthNames(cr, uid, context=None):
     return [
@@ -234,4 +235,35 @@ def onChangeValuesPool(cr, uid, line_obj, values, onchange_values, force=False, 
           else:
             values[field] = update_value
     return values
-      
+  
+def renderReportEnv(obj, report_name, base64=False):
+    cr = obj._cr
+    uid = obj._uid
+    report_context = dict(obj._context)
+    report_obj = obj.env.registry["ir.actions.report.xml"]
+    report = report_obj._lookup_report(cr, report_name)
+    
+    if report:
+      values = {}      
+      (report_data, report_ext) = report.create(cr, uid, obj.ids, values, context=report_context)
+      name = "%s_%s.%s" % (util.cleanFileName(report_name), obj.id, report_ext)
+      if base64:
+        report_data = base64.b64encode(report_data)
+      return (report_data, report_ext, name)
+    return (None, None, None)
+  
+def downloadTestReportEnv(objects, report_name, file_name=None):
+    test_download = tools.config.get("test_download")
+    res = []
+    if test_download:
+      for obj in objects:
+        (report_data, report_ext, report_file) = renderReportEnv(obj, report_name)
+      if file_name:
+        report_file = file_name
+      if report_data:
+        download_path = os.path.join(test_download, report_file)
+        with open(download_path, "wb") as f:
+          f.write(report_data)
+        res.append(download_path)
+
+    return res

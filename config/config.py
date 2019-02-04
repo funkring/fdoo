@@ -164,6 +164,9 @@ def unit_test(database, opt):
     if opt.test_case:
       cmdList.append("--test-case")
       cmdList.append(opt.test_case)
+    if opt.test_download:
+      cmdList.append("--test-download")
+      cmdList.append(opt.test_download)
     subprocess.call(cmdList)
 
 
@@ -452,6 +455,7 @@ if __name__ == "__main__":
     parser.add_option("--test", dest="test", help="Run unit tests for database")
     parser.add_option("--test-prefix", dest="test_prefix", help="Only run tests which start with the passed prefix")
     parser.add_option("--test-case", dest="test_case", help="Only run test with the passed simple class name")
+    parser.add_option("--test-download", dest="test_download", help="Add directory for test downloads (e.g. Reports)")
     opt, args = parser.parse_args()
 
     # ####################################################################
