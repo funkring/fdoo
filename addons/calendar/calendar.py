@@ -1684,7 +1684,10 @@ class calendar_event(osv.Model):
         real_data = dict(zip([x['id'] for x in real_data], real_data))
 
         for calendar_id, real_id in select:
-            res = real_data[real_id].copy()
+            values = real_data.get(real_id)
+            if not values:
+              continue
+            res = values.copy()
             ls = calendar_id2real_id(calendar_id, with_date=res and res.get('duration', 0) > 0 and res.get('duration') or 1)
             if not isinstance(ls, (basestring, int, long)) and len(ls) >= 2:
                 res['start'] = ls[1]
