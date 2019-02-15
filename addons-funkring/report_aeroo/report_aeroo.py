@@ -700,7 +700,6 @@ class Aeroo_report(report_sxw):
                                 'res_model': self.table,
                                 'res_id': obj.id,
                                 }) # no context to prevent wrong default values
-                            cr.commit()
                     except Exception,e:
                          tb_s = reduce(lambda x, y: x+y, traceback.format_exception(sys.exc_type, sys.exc_value, sys.exc_traceback))
                          logger.error(str(e))
@@ -769,7 +768,6 @@ class Aeroo_report(report_sxw):
                             'res_id': obj.id,
                             }, context=context
                         )
-                        cr.commit()
                 except Exception,e:
                     logger.error(str(e))
                 results.append(result)

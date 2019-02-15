@@ -358,8 +358,11 @@ class Test(ConfigCommand):
       super(Test, self).__init__()
       self.parser.add_argument("--test-prefix", metavar="TEST_PREFIX", required=False, help="Specify the prefix of the method for filtering")
       self.parser.add_argument("--test-case", metavar="TEST_CASE", required=False, help="Specify the test case")
+      self.parser.add_argument("--test-download", metavar="TEST_DOWNLOAD", required=False, help="Specify test download diretory (e.g. for reports)")
     
-    def run_config(self):
+    def run_config(self):      
+      if self.params.test_download:
+        config["test_download"] = self.params.test_download
       # run with env
       self.setup_env()
     
