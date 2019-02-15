@@ -31,6 +31,7 @@ from openerp.tools.translate import _
 from format import LangFormat
 from openerp import SUPERUSER_ID
 from openerp import tools
+import base64
 
 def getMonthNames(cr, uid, context=None):
     return [
@@ -236,19 +237,24 @@ def onChangeValuesPool(cr, uid, line_obj, values, onchange_values, force=False, 
             values[field] = update_value
     return values
   
-def renderReportEnv(obj, report_name, base64=False):
+def renderReportEnv(obj, report_name, encode=False):
     cr = obj._cr
     uid = obj._uid
     report_context = dict(obj._context)
     report_obj = obj.env.registry["ir.actions.report.xml"]
     report = report_obj._lookup_report(cr, report_name)
-    
     if report:
       values = {}      
       (report_data, report_ext) = report.create(cr, uid, obj.ids, values, context=report_context)
-      name = "%s_%s.%s" % (util.cleanFileName(report_name), obj.id, report_ext)
-      if base64:
-        report_data = base64.b64encode(report_data)
+      if len(obj.ids) > 1:
+        name_first = obj[0].name_get()[0][1]
+        name_last = obj[-1].name_get()[0][1]
+        name = "%s-%s.%s" % (util.cleanFileName(name_first), util.cleanFileName(name_last), report_ext)        
+      else:
+        name_first = obj.name_get()[0][1]
+        name = "%s.%s" % (util.cleanFileName(name_first), report_ext)
+      if encode:
+        report_data = report_data and base64.encodestring(report_data) or None
       return (report_data, report_ext, name)
     return (None, None, None)
   
