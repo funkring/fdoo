@@ -25,7 +25,7 @@
     "author" :  "funkring.net",
     "category" : "Base",
     "depends" : ["at_base","mail","email_template"],
-    "data" : [],
+    "data" : ["view/email_template_view.xml"],
     "auto_install" : False,
     "installable": True
 }
