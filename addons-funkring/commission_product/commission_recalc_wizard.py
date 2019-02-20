@@ -34,8 +34,9 @@ class commission_recalc_wizard(osv.osv_memory):
           invoice_domain = [("state", "!=", "draft"),("state", "!=", "cancel")]
         
           if wizard.user_id:
-            invoice_domain.append(("user_id","=",wizard.user_id.id))
-            order_domain.append(("user_id","=",wizard.user_id.id))
+            partner_id = wizard.user_id.partner_id.id
+            invoice_domain.append(("invoice_line.product_id.commission_ids.partner_id","=",partner_id))
+            order_domain.append(("order_line.product_id.commission_ids.partner_id","=",partner_id))
                            
           if wizard.date_from: 
             order_domain.append(("date_order", ">=", wizard.date_from))
