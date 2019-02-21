@@ -30,3 +30,6 @@ class email_template(osv.osv):
         return variables
 
     _inherit = "email.template"
+    _columns = {
+      "body_html_sample": fields.html("Sample", translate=True, sanitize=False),  
+    }

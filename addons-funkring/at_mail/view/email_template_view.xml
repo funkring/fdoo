@@ -8,7 +8,12 @@
       <field name="arch" type="xml">
         <field name="body_html" position="replace"> 
            <field name="body_html" widget="text"/>
-        </field>                
+        </field>   
+        <notebook position="inside">
+          <page string="Sample">
+            <field name="body_html_sample"/>
+          </page>
+        </notebook>             
       </field>
     </record>
   </data>
