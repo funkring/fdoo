@@ -1,0 +1,93 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * commission
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Language: de_DE\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-02-27 07:27+0000\n"
+"PO-Revision-Date: 2019-02-27 07:27+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: commission
+#: field:commission.line,code:0
+msgid "Code"
+msgstr ""
+
+#. module: commission
+#: field:commission.commission_invoice_wizard,create_uid:0
+#: field:commission.line,create_uid:0
+#: field:commission.recalc_wizard,create_uid:0
+msgid "Created by"
+msgstr ""
+
+#. module: commission
+#: field:commission.commission_invoice_wizard,create_date:0
+#: field:commission.line,create_date:0
+#: field:commission.recalc_wizard,create_date:0
+msgid "Created on"
+msgstr ""
+
+#. module: commission
+#: field:product.category,delivery_cost:0
+msgid "Deliver Costs"
+msgstr ""
+
+#. module: commission
+#: field:commission.commission_invoice_wizard,id:0 field:commission.line,id:0
+#: field:commission.recalc_wizard,id:0
+msgid "ID"
+msgstr ""
+
+#. module: commission
+#: view:commission.line:commission.search_commission_line
+msgid "Journal"
+msgstr ""
+
+#. module: commission
+#: field:commission.commission_invoice_wizard,__last_update:0
+#: field:commission.line,__last_update:0
+#: field:commission.recalc_wizard,__last_update:0
+msgid "Last Modified on"
+msgstr ""
+
+#. module: commission
+#: field:commission.commission_invoice_wizard,write_uid:0
+#: field:commission.line,write_uid:0 field:commission.recalc_wizard,write_uid:0
+msgid "Last Updated by"
+msgstr ""
+
+#. module: commission
+#: field:commission.commission_invoice_wizard,write_date:0
+#: field:commission.line,write_date:0
+#: field:commission.recalc_wizard,write_date:0
+msgid "Last Updated on"
+msgstr ""
+
+#. module: commission
+#: view:commission.line:commission.search_commission_line
+msgid "Partner"
+msgstr ""
+
+#. module: commission
+#: code:addons/commission/commission_invoice_wizard.py:42
+#, python-format
+msgid "Provision %s"
+msgstr ""
+
+#. module: commission
+#: field:commission.line,ref:0
+msgid "Ref."
+msgstr ""
+
+#. module: commission
+#: help:commission.line,to_invoice:0
+msgid "It allows to set the discount while making invoice, keep empty if the activities should not be invoiced."
+msgstr ""

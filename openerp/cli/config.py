@@ -276,6 +276,7 @@ class Po_Export(ConfigCommand):
             ignore = None
             ignore_filename = "%s.ignore" % export_filename
             if os.path.exists(ignore_filename):
+              _logger.info("Load ignore file %s" % ignore_filename)
               ignore=set()
               fileobj = misc.file_open(ignore_filename)
               reader = tools.TinyPoFile(fileobj)

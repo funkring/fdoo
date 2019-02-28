@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+  
+    <record id="wizard_sale_discount" model="ir.ui.view">
+      <field name="name">sale_discountcalc.wizard_sale_discount</field>
+      <field name="model">sale.discount.wizard</field>
+      <field name="arch" type="xml">
+        <form string="Discount Wizard">
+          <group>
+            <group>
+              <field name="order_id" invisible="1"/>
+              <field name="total" readonly="1"/>              
+              <field name="type"/>
+              <field name="amount" attrs="{'invisible':[('type','=','reset')],'required':[('type','!=','reset')]}"/>
+            </group>
+          </group>
+          <footer>
+            <button name="action_apply" string="Apply" type="object" class="oe_highlight" />
+            or
+            <button special="cancel" string="Close" class="oe_link" />
+          </footer>
+        </form>
+      </field>
+    </record>
+    
+    
+    <record id="action_sale_discount_wizard" model="ir.actions.act_window">
+      <field name="name">Discount Wizard</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">sale.discount.wizard</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+    </record>
+
+  </data>
+</openerp>

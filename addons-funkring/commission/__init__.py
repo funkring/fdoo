@@ -4,3 +4,4 @@ import commission
 import res_company
 import commission_recalc_wizard
 import account_analytic
+import product

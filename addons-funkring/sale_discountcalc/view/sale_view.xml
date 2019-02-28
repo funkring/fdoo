@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+ <data>
+ 
+    <record id="form_sale_order" model="ir.ui.view">
+      <field name="name">sale_discountcalc.form_sale_order</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_order_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//header/field[@name='state']" position="before">
+          <button name="%(action_sale_discount_wizard)d" type="action" string="Discount" states="draft,progress,manual" groups="sale.group_discount_per_so_line"/>
+        </xpath>
+        <xpath expr="//field[@name='order_line']/tree/field[@name='discount']" position="replace">
+          <field name="discount_calc" groups="sale.group_discount_per_so_line"/>
+          <field name="discount" groups="sale.group_discount_per_so_line" invisible="1"/>          
+        </xpath>
+        <xpath expr="//group[@name='sale_total']" position="after">
+          <group name="discountcalc">
+            <field name="amount_discount_taxed"/>
+          </group>
+        </xpath>
+      </field>
+    </record>
+       
+  </data>
+</openerp>

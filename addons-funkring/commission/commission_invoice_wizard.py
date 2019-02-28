@@ -93,10 +93,7 @@ class commission_invoice_wizard(osv.osv_memory):
     def do_create(self,cr,uid,ids,context=None):
         invoice_line_obj = self.pool.get("account.invoice.line")
         invoice_obj = self.pool.get("account.invoice")
-        fiscal_pos_obj = self.pool.get("account.fiscal.position")
-        partner_obj = self.pool.get("res.partner")
         commission_line_obj = self.pool.get("commission.line")
-        journal_obj = self.pool.get("account.journal")
         shop_obj = self.pool.get("sale.shop")
         wizard = self.browse(cr, uid, ids[0], context)        
 

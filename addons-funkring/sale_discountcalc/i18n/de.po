@@ -1,0 +1,162 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_discountcalc
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Language: de_DE\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-02-28 09:21+0000\n"
+"PO-Revision-Date: 2019-02-28 10:22+0100\n"
+"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 2.0.6\n"
+
+#. module: sale_discountcalc
+#: field:sale.discount.wizard,amount:0
+msgid "Amount"
+msgstr "Betrag"
+
+#. module: sale_discountcalc
+#: field:sale.order,amount_discount_taxed:0
+msgid "Amount Discount"
+msgstr "Rabatt"
+
+#. module: sale_discountcalc
+#: field:sale.order,amount_discount_untaxed:0
+msgid "Amount Discount (untaxed)"
+msgstr "Rabatt (ohne Steuer)"
+
+#. module: sale_discountcalc
+#: view:sale.discount.wizard:sale_discountcalc.wizard_sale_discount
+msgid "Apply"
+msgstr "Anwenden"
+
+#. module: sale_discountcalc
+#: view:sale.discount.wizard:sale_discountcalc.wizard_sale_discount
+msgid "Close"
+msgstr "Schließen"
+
+#. module: sale_discountcalc
+#: field:sale.discount.wizard,create_uid:0
+msgid "Created by"
+msgstr "Erstellt von"
+
+#. module: sale_discountcalc
+#: field:sale.discount.wizard,create_date:0
+msgid "Created on"
+msgstr "Erstellt am"
+
+#. module: sale_discountcalc
+#: selection:sale.discount.wizard,type:0
+#: view:sale.order:sale_discountcalc.form_sale_order
+#: field:sale.order.line,discount_calc:0
+msgid "Discount"
+msgstr "Rabatt"
+
+#. module: sale_discountcalc
+#: selection:sale.discount.wizard,type:0
+msgid "Discount %"
+msgstr "Rabatt %"
+
+#. module: sale_discountcalc
+#: field:sale.discount.wizard,type:0
+msgid "Discount Type"
+msgstr "Rabattart"
+
+#. module: sale_discountcalc
+#: model:ir.actions.act_window,name:sale_discountcalc.action_sale_discount_wizard
+#: view:sale.discount.wizard:sale_discountcalc.wizard_sale_discount
+msgid "Discount Wizard"
+msgstr "Rabatt Assistent"
+
+#. module: sale_discountcalc
+#: field:sale.discount.wizard,display_name:0
+msgid "Display Name"
+msgstr "Anzeigename"
+
+#. module: sale_discountcalc
+#: field:sale.discount.wizard,id:0
+msgid "ID"
+msgstr ""
+
+#. module: sale_discountcalc
+#: field:sale.discount.wizard,__last_update:0
+msgid "Last Modified on"
+msgstr "Letzte Änderung am"
+
+#. module: sale_discountcalc
+#: field:sale.discount.wizard,write_uid:0
+msgid "Last Updated by"
+msgstr "Letzte Änderung von"
+
+#. module: sale_discountcalc
+#: field:sale.discount.wizard,write_date:0
+msgid "Last Updated on"
+msgstr "Letzte Aktualisierung am"
+
+#. module: sale_discountcalc
+#: field:sale.discount.wizard,order_id:0
+msgid "Order"
+msgstr "Auftrag"
+
+#. module: sale_discountcalc
+#: field:sale.order.line,discount_price:0
+msgid "Price with Discount"
+msgstr "Rabattpreis"
+
+#. module: sale_discountcalc
+#: selection:sale.discount.wizard,type:0
+msgid "Reset"
+msgstr "Zurücksetzen"
+
+#. module: sale_discountcalc
+#: model:ir.model,name:sale_discountcalc.model_sale_discount_wizard
+msgid "Sale Discount Wizard"
+msgstr "Rabatt Assistent"
+
+#. module: sale_discountcalc
+#: model:ir.model,name:sale_discountcalc.model_sale_order
+msgid "Sales Order"
+msgstr "Verkaufsauftrag"
+
+#. module: sale_discountcalc
+#: model:ir.model,name:sale_discountcalc.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Auftragsposition"
+
+#. module: sale_discountcalc
+#: field:sale.order,amount_wo_discount_taxed:0
+msgid "Subtotal w/o Discount"
+msgstr "Gesamt ohne Rabatt"
+
+#. module: sale_discountcalc
+#: field:sale.order,amount_wo_discount_untaxed:0
+msgid "Subtotal w/o Discount (untaxed)"
+msgstr "Gesamt ohne Rabatt (ohne Steuer)"
+
+#. module: sale_discountcalc
+#: field:sale.discount.wizard,total:0
+msgid "Total"
+msgstr "Gesamt"
+
+#. module: sale_discountcalc
+#: selection:sale.discount.wizard,type:0
+msgid "Total Price"
+msgstr "Gesamtpreis"
+
+#. module: sale_discountcalc
+#: code:addons/sale_discountcalc/wizard/sale_discount_wizard.py:79
+#, python-format
+msgid "Unable to apply overall discount for amount %s and lines %s"
+msgstr "Der Betrag %s für %s Zeilen ist null, deswegen kann auch kein Rabatt angewendet werden"
+
+#. module: sale_discountcalc
+#: view:sale.discount.wizard:sale_discountcalc.wizard_sale_discount
+msgid "or"
+msgstr "oder"

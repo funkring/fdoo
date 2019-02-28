@@ -26,8 +26,6 @@ from openerp.tools.translate import _
 class account_invoice(osv.osv):
 
     def _calc_product_commission(self, cr, uid, ids, force=False, context=None):
-        commission_obj = self.pool.get("commission_product.commission")
-        invoice_obj = self.pool.get("account.invoice")
         commission_line_obj = self.pool.get("commission.line")
         for invoice in self.browse(cr, uid, ids, context=context):
             """ Create Analytic lines for invoice """
