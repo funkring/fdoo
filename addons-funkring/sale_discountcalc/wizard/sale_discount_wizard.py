@@ -50,6 +50,7 @@ class sale_discount_wizard(models.TransientModel):
                   
   order_id = fields.Many2one("sale.order", "Order", required=True, default=lambda self: util.active_id(self._context, "sale.order"))
   
+  is_action = fields.Boolean("Action")
                         
   @api.multi                 
   def action_apply(self):
@@ -59,7 +60,6 @@ class sale_discount_wizard(models.TransientModel):
           if not line.discount_price:
             line.discount = 0.0            
       else:
-        tax_obj = self.pool["account.tax"]
         total = 0.0
         discount_price = 0.0
         apply_to_lines = []
@@ -86,7 +86,8 @@ class sale_discount_wizard(models.TransientModel):
           discount = wizard.amount
         
         for line in apply_to_lines:
-          line.discount = discount   
+          line.discount = discount
+          line.discount_action = wizard.is_action
         
     return True
          

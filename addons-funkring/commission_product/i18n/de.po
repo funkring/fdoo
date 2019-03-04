@@ -1,26 +1,25 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* commission_product
+#	* commission_product
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Language: de_DE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-22 10:44+0000\n"
-"PO-Revision-Date: 2017-01-22 11:45+0100\n"
-"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
+"POT-Creation-Date: 2019-03-03 08:36+0000\n"
+"PO-Revision-Date: 2019-03-03 08:36+0000\n"
+"Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 1.5.4\n"
 
 #. module: commission_product
 #: field:product.product,billed_at_cost:0
 msgid "Billed at Cost"
-msgstr ""
+msgstr "Verrechnung nach Aufwand"
 
 #. module: commission_product
 #: model:ir.model,name:commission_product.model_commission_product_commission
@@ -43,6 +42,11 @@ msgid "Commission Journal"
 msgstr "Provision Journal"
 
 #. module: commission_product
+#: model:ir.model,name:commission_product.model_commission_task
+msgid "Commission Task"
+msgstr "Provision Verrechnung"
+
+#. module: commission_product
 #: view:product.product:commission_product.form_product_normal
 #: view:product.template:commission_product.form_product_template
 #: view:res.partner:commission_product.form_partner
@@ -52,12 +56,12 @@ msgstr "Provisionen"
 #. module: commission_product
 #: field:commission_product.commission,create_uid:0
 msgid "Created by"
-msgstr ""
+msgstr "Erstellt von"
 
 #. module: commission_product
 #: field:commission_product.commission,create_date:0
 msgid "Created on"
-msgstr ""
+msgstr "Erstellt am"
 
 #. module: commission_product
 #: field:commission_product.commission,display_name:0
@@ -67,7 +71,7 @@ msgstr "Anzeigename"
 #. module: commission_product
 #: view:commission_product.commission:commission_product.search_product_commission
 msgid "Group By..."
-msgstr ""
+msgstr "Gruppiert nach..."
 
 #. module: commission_product
 #: field:commission_product.commission,id:0
@@ -85,19 +89,31 @@ msgid "Invoice Product"
 msgstr "Produkt für die Verrechnung"
 
 #. module: commission_product
+#: code:addons/commission_product/commission_task.py:40
+#, python-format
+msgid "Invoice based"
+msgstr "Rechnungsbasierend"
+
+#. module: commission_product
 #: field:commission_product.commission,__last_update:0
 msgid "Last Modified on"
-msgstr ""
+msgstr "Letzte Änderung am"
 
 #. module: commission_product
 #: field:commission_product.commission,write_uid:0
 msgid "Last Updated by"
-msgstr ""
+msgstr "Letzte Änderung von"
 
 #. module: commission_product
 #: field:commission_product.commission,write_date:0
 msgid "Last Updated on"
-msgstr ""
+msgstr "Letzte Aktualisierung am"
+
+#. module: commission_product
+#: code:addons/commission_product/commission_task.py:36
+#, python-format
+msgid "Order based"
+msgstr "Auftragsbasierend"
 
 #. module: commission_product
 #: view:commission_product.commission:commission_product.search_product_commission
@@ -109,7 +125,7 @@ msgstr ""
 #. module: commission_product
 #: field:product.product,planned_hours:0
 msgid "Planned Hours"
-msgstr ""
+msgstr "Geplante Stunden"
 
 #. module: commission_product
 #: view:commission_product.commission:commission_product.search_product_commission
@@ -128,7 +144,7 @@ msgid "Product Commission"
 msgstr "Produkt Provision"
 
 #. module: commission_product
-#: code:addons/commission_product/commission.py:42
+#: code:addons/commission_product/commission.py:46
 #, python-format
 msgid "Product Commission: %s"
 msgstr "Produkt Provision: %s"
@@ -146,11 +162,26 @@ msgid "Product Template"
 msgstr "Produktvorlage"
 
 #. module: commission_product
+#: code:addons/commission_product/commission_task.py:96
+#: code:addons/commission_product/commission_task.py:163
+#, python-format
+msgid "Product commission was already invoiced and cannot be regenerated"
+msgstr ""
+
+#. module: commission_product
 #: model:ir.model,name:commission_product.model_sale_order
 msgid "Sales Order"
 msgstr "Verkaufsauftrag"
 
 #. module: commission_product
-#: model:ir.model,name:commission_product.model_commission_recalc_wizard
-msgid "Wizard to recalculate the commissions"
-msgstr "Assistent für Neuberechnung"
+#: model:ir.model,name:commission_product.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Auftragsposition"
+
+#. module: commission_product
+#: code:addons/commission_product/commission_task.py:93
+#: code:addons/commission_product/commission_task.py:160
+#, python-format
+msgid "Unable to update product commission! There exist more commissions of same type"
+msgstr ""
+

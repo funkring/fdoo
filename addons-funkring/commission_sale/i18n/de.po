@@ -1,21 +1,20 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* commission_sale
+#	* commission_sale
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Language: de_DE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-25 16:09+0000\n"
-"PO-Revision-Date: 2018-03-25 18:10+0100\n"
-"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
+"POT-Creation-Date: 2019-03-03 08:36+0000\n"
+"PO-Revision-Date: 2019-03-03 08:36+0000\n"
+"Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 1.5.4\n"
 
 #. module: commission_sale
 #: view:crm.case.section:commission_sale.form_crm_section
@@ -66,7 +65,6 @@ msgstr "Provision aktiv"
 
 #. module: commission_sale
 #: field:sale.order.line,commission_amount:0
-#: field:sale.order.line,commission_total:0
 msgid "Commission Amount"
 msgstr "Provisionsbetrag"
 
@@ -88,13 +86,16 @@ msgid "Commission Rules"
 msgstr "Provision Regeln"
 
 #. module: commission_sale
-#: code:addons/commission_sale/sale.py:76
+#: model:ir.model,name:commission_sale.model_commission_task
+msgid "Commission Task"
+msgstr "Provision Verrechnung"
+
+#. module: commission_sale
+#: code:addons/commission_sale/commission_task.py:117
+#: code:addons/commission_sale/commission_task.py:206
 #, python-format
-msgid ""
-"Commission for %s/%s was already invoiced in %s and could not be regenerated"
+msgid "Commission was already invoiced and cannot be regenerated"
 msgstr ""
-"Die Provision %s/%s wurde bereits mit Rechnung '%s' abgerechnet, und kann "
-"deswegen nicht neu generiert werden"
 
 #. module: commission_sale
 #: field:commission_sale.bonus,create_uid:0
@@ -138,7 +139,8 @@ msgid "General"
 msgstr "Allgemein"
 
 #. module: commission_sale
-#: field:commission_sale.bonus,id:0 field:commission_sale.bonus_line,id:0
+#: field:commission_sale.bonus,id:0
+#: field:commission_sale.bonus_line,id:0
 #: field:commission_sale.rule,id:0
 msgid "ID"
 msgstr ""
@@ -152,6 +154,12 @@ msgstr "Rechnung"
 #: field:crm.case.section,property_commission_product:0
 msgid "Invoice Product"
 msgstr "Produkt für die Verrechnung"
+
+#. module: commission_sale
+#: code:addons/commission_sale/commission_task.py:40
+#, python-format
+msgid "Invoice based"
+msgstr ""
 
 #. module: commission_sale
 #: field:commission_sale.bonus,__last_update:0
@@ -185,15 +193,22 @@ msgid "Lines"
 msgstr "Zeilen"
 
 #. module: commission_sale
-#: field:commission_sale.bonus,name:0 field:commission_sale.bonus_line,name:0
+#: field:commission_sale.bonus,name:0
+#: field:commission_sale.bonus_line,name:0
 msgid "Name"
 msgstr ""
 
 #. module: commission_sale
-#: code:addons/commission_sale/account.py:59
+#: code:addons/commission_sale/commission_task.py:169
 #, python-format
 msgid "No analytic account for commission found!"
-msgstr "Es wurde kein analytisches Konto für die Provision gefunden!"
+msgstr ""
+
+#. module: commission_sale
+#: code:addons/commission_sale/commission_task.py:36
+#, python-format
+msgid "Order based"
+msgstr ""
 
 #. module: commission_sale
 #: model:ir.model,name:commission_sale.model_product_pricelist_item
@@ -249,8 +264,8 @@ msgid "Sales Commission"
 msgstr "Verkaufsprovision"
 
 #. module: commission_sale
-#: code:addons/commission_sale/commission.py:166
-#: code:addons/commission_sale/commission.py:214
+#: code:addons/commission_sale/commission.py:168
+#: code:addons/commission_sale/commission.py:216
 #, python-format
 msgid "Sales Commission: %s"
 msgstr "Verkaufsprovision: %s"
@@ -286,11 +301,19 @@ msgid "Sequence"
 msgstr "Sequenz"
 
 #. module: commission_sale
+#: code:addons/commission_sale/commission_task.py:114
+#, python-format
+msgid "Unable to update commission! There exist more commissions of same type"
+msgstr ""
+
+#. module: commission_sale
+#: code:addons/commission_sale/commission_task.py:203
+#, python-format
+msgid "Unable to update commission! There exist to commissions of same type"
+msgstr ""
+
+#. module: commission_sale
 #: field:commission_sale.bonus_line,volume_of_sales:0
 msgid "Volume of Sales"
 msgstr "Verkaufsvolumen"
 
-#. module: commission_sale
-#: model:ir.model,name:commission_sale.model_commission_recalc_wizard
-msgid "Wizard to recalculate the commissions"
-msgstr "Assistent für Neuberechnung"

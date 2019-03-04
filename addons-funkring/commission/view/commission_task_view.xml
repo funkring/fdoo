@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record id="form_commission_task" model="ir.ui.view">
+      <field name="name">commission.form_commission_task</field>
+      <field name="model">commission.task</field>
+      <field name="inherit_id" ref="automation.form_automation_task"/>
+      <field name="mode">primary</field>
+      <field name="arch" type="xml">
+        <div name="buttons" position="inside">
+          <button type="action" 
+                  class="oe_stat_button"
+                  id="stage_button"
+                  icon="fa-dollar"
+                  name="%(action_commission_line)d"
+                  context="{'search_default_task_id': active_id}">
+                  <div><strong><field name="commission_count"/></strong><br/>Commissions</div>
+          </button>
+        </div>
+        <group name="task_specific" position="after">
+          <group>
+            <group>
+              <field name="company_id" groups="base.group_multi_company"/>
+              <field name="date_from"/>
+              <field name="date_to"/>
+            </group>
+            <group>
+              <field name="remove_existing"/>
+              <field name="user_id"/>
+            </group>
+          </group>
+        </group>
+      </field>
+    </record>
+
+    <record id="tree_commission_task" model="ir.ui.view">
+      <field name="name">commission.tree_commission_task</field>
+      <field name="model">commission.task</field>
+      <field name="mode">primary</field>
+      <field name="inherit_id" ref="automation.tree_automation_task"/>
+      <field name="arch" type="xml">
+        <field name="name" position="after">          
+          <field name="date_from"/>
+          <field name="date_to"/>
+          <field name="user_id"/>
+          <field name="remove_existing"/>
+        </field>
+      </field>
+    </record>
+
+    <record id="search_commission_task" model="ir.ui.view">
+      <field name="name">commission.search_commission_task</field>
+      <field name="model">commission.task</field>
+      <field name="inherit_id" ref="automation.search_automation_task"/>
+      <field name="arch" type="xml">
+        <field name="name" position="after">
+          <field name="user_id"/>
+        </field>
+      </field>
+    </record>
+
+    <record id="action_commission_task" model="ir.actions.act_window">
+      <field name="name">Commission Task</field>
+      <field name="res_model">commission.task</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    
+     <menuitem action="action_commission_task"
+            id="menu_commission_task"
+            name="Commission Task" parent="menu_commission" sequence="4"/>
+
+  </data>
+</openerp>

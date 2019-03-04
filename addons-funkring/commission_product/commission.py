@@ -18,12 +18,18 @@
 #
 ##############################################################################
 
-from openerp.osv import fields, osv
+from openerp.osv import osv
+from openerp import api
 from openerp.tools.translate import _
 
 class commission_line(osv.Model):
     
-    def _get_product_commission(self, cr, uid, name, product, qty, netto, date, defaults=None, period=None, context=None):
+    @api.cr_uid_context
+    def _validate_product_commission(self, cr, uid, values, obj=None, company=None, context=None):
+      return values
+    
+    @api.cr_uid_context
+    def _get_product_commission(self, cr, uid, name, product, qty, netto, date, defaults=None, obj=None, company=None, period=None, context=None):
         res = []
         commission_obj = self.pool["commission_product.commission"]
         period_obj = self.pool["account.period"]
@@ -55,7 +61,9 @@ class commission_line(osv.Model):
                     "period_id" : period_id,
                     "price_sub" : netto
                 })
-                res.append(entry)
+                entry = self._validate_product_commission(self, cr, uid, entry, obj=obj, company=company, context=context)
+                if entry:
+                  res.append(entry)
                 
         return res
     

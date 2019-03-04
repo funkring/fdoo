@@ -1,36 +1,31 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* sale_discountcalc
+#	* sale_discountcalc
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Language: de_DE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-28 09:21+0000\n"
-"PO-Revision-Date: 2019-02-28 10:22+0100\n"
-"Last-Translator: Martin Reisenhofer <martin.reisenhofer@funkring.net>\n"
+"POT-Creation-Date: 2019-03-03 08:35+0000\n"
+"PO-Revision-Date: 2019-03-03 08:35+0000\n"
+"Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 2.0.6\n"
+
+#. module: sale_discountcalc
+#: field:sale.discount.wizard,is_action:0
+#: field:sale.order.line,discount_action:0
+msgid "Action"
+msgstr "Aktion"
 
 #. module: sale_discountcalc
 #: field:sale.discount.wizard,amount:0
 msgid "Amount"
 msgstr "Betrag"
-
-#. module: sale_discountcalc
-#: field:sale.order,amount_discount_taxed:0
-msgid "Amount Discount"
-msgstr "Rabatt"
-
-#. module: sale_discountcalc
-#: field:sale.order,amount_discount_untaxed:0
-msgid "Amount Discount (untaxed)"
-msgstr "Rabatt (ohne Steuer)"
 
 #. module: sale_discountcalc
 #: view:sale.discount.wizard:sale_discountcalc.wizard_sale_discount
@@ -111,6 +106,30 @@ msgid "Price with Discount"
 msgstr "Rabattpreis"
 
 #. module: sale_discountcalc
+#: help:sale.order.line,discount_calc:0
+msgid "Rabatt Functions\n"
+"\n"
+"! action, could be always prefixed\n"
+"= total price\n"
+"* unit price\n"
+"- rabatt\n"
+"*- unit rabatt\n"
+"\n"
+"if no sign is prefixed or % is used at the end, then it is percentage value\n"
+"                                    \n"
+""
+msgstr "Rabatt Funktionen\n"
+"\n"
+"! Aktion, kann immer Vorangestellt werden\n"
+"= Gesamtpreis, der Preis soll diesen Preis entsprechen\n"
+"* Einzelpreis, der Einzelpreis soll diesen Preis entsprechen\n"
+"- Rabattabzug vom Gesamtpreis\n"
+"*- Rabattabzug vom Einzelpreis\n"
+"\n"
+"Wenn kein zusätzliches Zeichen vorangestellt wird, dann wird der Wert als Prozent übernommen\n"
+""
+
+#. module: sale_discountcalc
 #: selection:sale.discount.wizard,type:0
 msgid "Reset"
 msgstr "Zurücksetzen"
@@ -131,16 +150,6 @@ msgid "Sales Order Line"
 msgstr "Auftragsposition"
 
 #. module: sale_discountcalc
-#: field:sale.order,amount_wo_discount_taxed:0
-msgid "Subtotal w/o Discount"
-msgstr "Gesamt ohne Rabatt"
-
-#. module: sale_discountcalc
-#: field:sale.order,amount_wo_discount_untaxed:0
-msgid "Subtotal w/o Discount (untaxed)"
-msgstr "Gesamt ohne Rabatt (ohne Steuer)"
-
-#. module: sale_discountcalc
 #: field:sale.discount.wizard,total:0
 msgid "Total"
 msgstr "Gesamt"
@@ -157,6 +166,12 @@ msgid "Unable to apply overall discount for amount %s and lines %s"
 msgstr "Der Betrag %s für %s Zeilen ist null, deswegen kann auch kein Rabatt angewendet werden"
 
 #. module: sale_discountcalc
+#: field:sale.order.line,discount_unit:0
+msgid "Unit Discount"
+msgstr "Einzelpreis Rabatt"
+
+#. module: sale_discountcalc
 #: view:sale.discount.wizard:sale_discountcalc.wizard_sale_discount
 msgid "or"
 msgstr "oder"
+

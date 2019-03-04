@@ -20,13 +20,22 @@
 #
 ##############################################################################
 
-from openerp.osv import osv
+{
+    "name" : "Commission Discount Calculation",
+    "description":"""
+Commission Discount Calculation
+===============================
 
-class account_invoice(osv.osv):
+* Add rules to handle discounts within calculation
 
-    def action_move_create(self, cr, uid, ids, context=None):
-      res = super(account_invoice, self).action_move_create(cr, uid, ids, context=context)
-      self.pool["commission.task"]._recalc_invoices(cr, uid, [("id","in",ids)], context=context)
-      return res
-
-    _inherit = "account.invoice"
+""",
+    "version" : "1.0",
+    "author" :  "funkring.net",
+    "category" : "Commission",
+    "depends" : ["commission",
+                 "commission_sale",
+                 "sale_discountcalc"],
+    "data" : ["view/company_view.xml"],
+    "auto_install" : False,
+    "installable": True
+}

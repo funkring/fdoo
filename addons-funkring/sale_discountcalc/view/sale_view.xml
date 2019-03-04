@@ -14,11 +14,6 @@
           <field name="discount_calc" groups="sale.group_discount_per_so_line"/>
           <field name="discount" groups="sale.group_discount_per_so_line" invisible="1"/>          
         </xpath>
-        <xpath expr="//group[@name='sale_total']" position="after">
-          <group name="discountcalc">
-            <field name="amount_discount_taxed"/>
-          </group>
-        </xpath>
       </field>
     </record>
        

@@ -16,6 +16,7 @@
                     <field name="date" />     
                     <field name="period_id" />
                     <field name="journal_id" />
+                    <field name="task_id"/>
                     <filter name="invoiced_id" string="To Invoice" domain="[('invoiced_id','=',False)]"/>
                     <group expand="0" string="Group By...">
                         <filter string="Salesman" context="{'group_by' : 'partner_id'}"/>
@@ -24,6 +25,7 @@
                         <filter string="Product Category" context="{'group_by' : 'sale_product_categ_id'}"/>                        
                         <filter string="Period" context="{'group_by' : 'period_id'}"/>
                         <filter string="Journal" context="{'group_by' : 'journal_id'}"/>
+                        <filter string="Task" context="{'group_by': 'task_id'}"/>
                     </group>
                </search>
             </field>
@@ -81,7 +83,7 @@
                 	<field name="total_commission" avg="Average commission"/>
                   <field name="prov_amount" sum="Total amount"/>
                 	<field name="period_id" />
-                  <field name="journal_id" />                                  
+                  <field name="journal_id" />                                                
                 </tree>
             </field>
         </record>

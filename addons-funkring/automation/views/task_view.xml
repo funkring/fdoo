@@ -53,7 +53,7 @@
                       <div><strong><field name="total_warnings"/></strong><br/>Warnings</div>
               </button>
             </div>
-            <group>
+            <group name="task_specific">
               <group>
                 <field name="owner_id"/>
                 <field name="res_ref"/>

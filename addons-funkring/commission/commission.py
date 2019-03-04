@@ -86,7 +86,7 @@ class commission_line(osv.osv):
         "invoice_line_id" : fields.many2one("account.invoice.line","Invoice Line", select=True),
         "invoice_id" : fields.related("invoice_line_id", "invoice_id", type="many2one", obj="account.invoice", string="Invoice", readonly=True, select=True, store=True),
         "order_line_id" : fields.many2one("sale.order.line", "Order Line" , select=True),
-        "order_id" : fields.related("order_line_id", "order_id", type="many2one", obj="sale.order", string="Order", readonly=True, select=True, store=True),
+        "order_id" : fields.many2one("sale.order", "Order", select=True),
         "period_id" : fields.many2one("account.period", string="Period", readonly=True, select=True, store=True, required=True),
         "sale_partner_id" : fields.many2one("res.partner", string="Customer", readonly=True, select=True, store=True),
         "sale_product_id" : fields.many2one("product.product", string="Product", readonly=True, select=True, store=True),
@@ -97,7 +97,8 @@ class commission_line(osv.osv):
         "price_sub" : fields.float("Subtotal", digits_compute=dp.get_precision("Account")),
         "prov_amount" : fields.function(_prov_amount, string="Commission", type="float", store=False, digits_compute=dp.get_precision("Account")),
         "val_based" : fields.boolean("No percent based Commission"),
-        "tax_ids": fields.function(_tax_ids, string="Tax", type="many2many", obj="account.tax", readonly=True)
+        "tax_ids": fields.function(_tax_ids, string="Tax", type="many2many", obj="account.tax", readonly=True),
+        "task_id": fields.many2one("commission.task", "Task", ondelete="set null", readonly=True)
     }
     _name = "commission.line"
     _inherits = {"account.analytic.line": "line_id"}

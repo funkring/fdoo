@@ -13,6 +13,7 @@
               <field name="total" readonly="1"/>              
               <field name="type"/>
               <field name="amount" attrs="{'invisible':[('type','=','reset')],'required':[('type','!=','reset')]}"/>
+              <field name="is_action"/>              
             </group>
           </group>
           <footer>

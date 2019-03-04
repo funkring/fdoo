@@ -22,9 +22,11 @@
 
 from openerp.osv import fields, osv
 from openerp.tools.translate import _
+from openerp import api
 
 class commission_line(osv.osv):
     
+    @api.cr_uid_context    
     def _update_bonus(self, cr, uid, salesman_ids, period_ids, context=None):
         if not salesman_ids or not period_ids:
             return 
@@ -99,7 +101,12 @@ class commission_line(osv.osv):
                     
         return True
     
-    def _get_sale_commission(self, cr, uid, name, user, customer, product, qty, netto, date, pricelist=None, defaults=None, period=None, commission_custom=None, context=None):
+    @api.cr_uid_context
+    def _validate_sale_commission(self, cr, uid, values, obj=None, company=None, context=None):
+      return values
+    
+    @api.cr_uid_context
+    def _get_sale_commission(self, cr, uid, name, user, customer, product, qty, netto, date, pricelist=None, defaults=None, obj=None, company=None, period=None, commission_custom=None, context=None):
         res = []
         
         period_obj = self.pool["account.period"]        
@@ -180,7 +187,9 @@ class commission_line(osv.osv):
                 "sale_partner_id" : customer.id,
                 "sale_product_id" : product.id
             })
-            res.append(entry)
+            entry = self._validate_sale_commission(cr, uid, entry, obj=obj, company=company, context=context)
+            if entry:
+              res.append(entry)
                 
         if prov_prod:
             period_id = period and period.id or None
@@ -193,7 +202,7 @@ class commission_line(osv.osv):
             price = prov_prod.lst_price
             
             if pricelist:
-                price = pricelist_obj.price_get(cr, uid, [pricelist.id], prov_prod.id, qty, partner=partner, context=context)[pricelist.id]
+              price = pricelist_obj.price_get(cr, uid, [pricelist.id], prov_prod.id, qty, partner=partner, context=context)[pricelist.id]
             
             # amount with correct sign
             amount = price*qty*-1
@@ -229,8 +238,10 @@ class commission_line(osv.osv):
                 "sale_product_id" : product.id,
                 "val_based" : True
             })
-            res.append(entry)
-            
+            entry = self._validate_sale_commission(cr, uid, entry, obj=obj, company=company, context=context)
+            if entry:
+              res.append(entry)
+
         return res
     
     _columns = {

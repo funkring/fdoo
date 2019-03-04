@@ -582,7 +582,7 @@ class automation_task(models.Model):
         # check fail on errors
         if options.get("fail_on_errors"):
           if taskc.errors:
-             raise Warning("Task finished with errors")
+            raise Warning("Task finished with errors")
           
         # close
         taskc.close()

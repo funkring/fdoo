@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-# -*- encoding: utf-8 -*-
-
 #############################################################################
 #
 #    Copyright (c) 2007 Martin Reisenhofer <martin.reisenhofer@funkring.net>
@@ -20,13 +18,13 @@
 #
 ##############################################################################
 
-from openerp.osv import osv
+from openerp.tests.common import TransactionCase
 
-class account_invoice(osv.osv):
-
-    def action_move_create(self, cr, uid, ids, context=None):
-      res = super(account_invoice, self).action_move_create(cr, uid, ids, context=context)
-      self.pool["commission.task"]._recalc_invoices(cr, uid, [("id","in",ids)], context=context)
-      return res
-
-    _inherit = "account.invoice"
+class TestEcho(TransactionCase):
+  """Test Description"""
+  
+  def setUp(self):
+    super(TestEcho, self).setUp()
+  
+  def test_echo(self):
+    self.assertEqual(10, 10, "Test Sample")
