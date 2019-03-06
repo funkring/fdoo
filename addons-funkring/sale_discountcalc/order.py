@@ -132,7 +132,7 @@ class sale_order_line(osv.Model):
   _columns = {
     "discount_unit": fields.boolean("Unit Discount", readonly=True, states={"draft": [("readonly", False)]}),
     "discount_action": fields.boolean("Action", states={"draft": [("readonly", False)]}),
-    "discount_price": fields.float("Price with Discount", required=True, digits_compute=dp.get_precision("Product Price"), readonly=True, states={"draft": [("readonly", False)]}),
+    "discount_price": fields.float("Price with Discount", digits_compute=dp.get_precision("Product Price"), readonly=True, states={"draft": [("readonly", False)]}),
     "discount_calc" : fields.function(_discount_calc_get, fnct_inv=_discount_calc_set, type="char", string="Discount", readonly=True, states={"draft": [("readonly", False)]},
                                       help="""Rabatt Functions
 
