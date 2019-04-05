@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import os
+from os.path import expanduser
 import fnmatch
 import logging as log
 import glob
@@ -164,9 +165,21 @@ def unit_test(database, opt):
     if opt.test_case:
       cmdList.append("--test-case")
       cmdList.append(opt.test_case)
+    
+    # check test directory
+    cmdList.append("--test-download")
     if opt.test_download:
-      cmdList.append("--test-download")
-      cmdList.append(opt.test_download)
+      testdir = opt.test_download     
+    else:
+      testdir = "~/.odoo-unit-test"
+      
+    testdir = expanduser(testdir)
+    if not os.path.exists(testdir):
+      os.mkdir(testdir)
+    log.info("Test directory: %s" % testdir)
+    cmdList.append(testdir)
+    
+    # call
     subprocess.call(cmdList)
 
 
