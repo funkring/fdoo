@@ -89,7 +89,7 @@ def getRangeName(cr, uid, start_date, end_date, context):
 
 def getMonth(cr, uid, str_date, context=None):
     d_date = util.strToDate(str_date)
-    return getMonthName(cr,uid,d_date.month)
+    return getMonthName(cr, uid, d_date.month, context=context)
 
 def getMonthYear(cr, uid, str_date, context=None):
     d_date = util.strToDate(str_date)
