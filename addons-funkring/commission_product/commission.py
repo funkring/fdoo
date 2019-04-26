@@ -34,6 +34,12 @@ class commission_line(osv.Model):
         commission_obj = self.pool["commission_product.commission"]
         period_obj = self.pool["account.period"]
         commission_ids = commission_obj.search(cr, uid, [("product_id", "=", product.id)], context=context)
+        
+        # exclude delivery cost
+        delivery_cost = product.delivery_cost_co
+        if delivery_cost:
+          netto -= (qty*delivery_cost)
+        
         for commission in commission_obj.browse(cr, uid, commission_ids, context=context):
             factor = (commission.commission_percent / 100.0)*-1
             

@@ -74,7 +74,7 @@ class commission_task(models.Model):
                                                    commission_custom=line.commission_custom or None,                    
                                                    context=context)
           res.extend(commission_lines)
-      return res
+    return res
 
 
   def _calc_sale_commission_order(self, taskc):
