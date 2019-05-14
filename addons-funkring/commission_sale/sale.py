@@ -47,7 +47,9 @@ class sale_order_line(osv.osv):
         
         for c in commission_dict[line.id]:
           commission_amount += c["amount"]
-          commission += c["total_commission"]
+          
+        if line.price_subtotal:
+          commission = 100 / line.price_subtotal * (commission_amount*-1.0)
         
         res[line.id] = {
           "commission_amount": commission_amount,
