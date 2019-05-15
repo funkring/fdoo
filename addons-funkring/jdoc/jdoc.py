@@ -877,7 +877,7 @@ class jdoc_jdoc(osv.AbstractModel):
             return False
         return self._jdoc_get(cr, uid, obj, refonly=refonly, options=options, context=context)
 
-    def jdoc_load(self, cr, uid, data, context=None, name=None):
+    def jdoc_load(self, cr, uid, data, context=None):
         model = data["model"]
         model_obj = self.pool[model]
 
@@ -911,7 +911,7 @@ class jdoc_jdoc(osv.AbstractModel):
         # GET via UUID
         uuid = data.get("uuid")
         if uuid:
-            obj = mapping_obj._browse_mapped(cr, uid, uuid, res_model=model, name=name, context=context)
+            obj = mapping_obj._browse_mapped(cr, uid, uuid, res_model=model, context=context)
             if not obj:
                 return False
             docs = bulk_get(cr, uid, [obj], options=options, context=context)

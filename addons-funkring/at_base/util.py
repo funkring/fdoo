@@ -182,6 +182,9 @@ def formatToMonthDate(inDate):
 
 def getNextSecond(inTime):
     return timeToStr(strToTime(inTime)+relativedelta(seconds=1))
+  
+def getPrevSecond(inTime):
+    return timeToStr(strToTime(inTime)-relativedelta(seconds=1))
 
 def getNextMinute(inTime):
     t = strToTime(inTime)
