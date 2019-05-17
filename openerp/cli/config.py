@@ -361,7 +361,8 @@ class Test(ConfigCommand):
       self.parser.add_argument("--test-case", metavar="TEST_CASE", required=False, help="Specify the test case")
       self.parser.add_argument("--test-download", metavar="TEST_DOWNLOAD", required=False, help="Specify test download diretory (e.g. for reports)")
     
-    def run_config(self):      
+    def run_config(self):
+      config["testing"] = True
       if self.params.test_download:
         config["test_download"] = self.params.test_download
       # run with env
