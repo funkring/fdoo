@@ -22,16 +22,18 @@ from openerp.osv import fields, osv
 
 class project_division(osv.Model):
     _name = "project.task.division"
-    _description = "Task Division"
+    _description = "Sprint"
     _columns =  {
         "name" : fields.char("Name",translate=True),
         "sequence" : fields.integer("Sequence"),
+        "active": fields.boolean("Active"),
         "fold" : fields.boolean("Folded in Kanban View",
                                 help="Is this division folded in kanban view when der are no records in division")
     }
     _order = "sequence"
     _defaults = {
-        "sequence" : 10
+        "sequence" : 10,
+        "active": True
     }
 
 
@@ -57,7 +59,8 @@ class project_task(osv.Model):
 
     _inherit = "project.task"
     _columns = {
-        "division_id" : fields.many2one("project.task.division","Division",select=True)
+        "division_id" : fields.many2one("project.task.division","Division",select=True),
+        "done": fields.related("stage_id","done", string="Done", type="boolean")
     }
     _group_by_full = {
         "division_id" : _read_group_division_ids
@@ -68,11 +71,13 @@ class project_task_type(osv.Model):
 
     _inherit = "project.task.type"
     _columns = {
-        "active" : fields.boolean("Active")
+        "active" : fields.boolean("Active"),
+        "done": fields.boolean("Done", help="Tasks in this stage are done")
     }
     _defaults = {
         "active" : True,
-        "sequence": 10
+        "sequence": 10,
+        "done": False
     }
 
 
@@ -121,7 +126,7 @@ class project_issue(osv.Model):
         res = []
         for values in reads:
             oid = values["id"]
-            name = "[Ticket#%s] %s" % (oid,values['name'])
+            name = "%s %s" % (oid, values['name'])
             res.append((oid, name))
         return res
       
