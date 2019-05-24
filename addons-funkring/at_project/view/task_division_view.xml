@@ -31,7 +31,7 @@
             <field name="name">Sprint</field>
             <field name="res_model">project.task.division</field>            
             <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form</field>           
         </record>
 				
 				<menuitem id="menu_task_division2" name="Sprints" parent="base.menu_definitions" groups="base.group_no_one" 
