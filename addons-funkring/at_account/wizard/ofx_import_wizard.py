@@ -31,24 +31,22 @@ except ImportError:
 
 
 class ofx_import_wizard(osv.TransientModel):
-    
-    def _default_statement_id(self, cr, uid, context):
-        return util.active_id(context,"account.bank.statement")
-    
+
     _name = "account.ofx.import.wizard"
     _description = "OFX Import Wizard"
     _columns = {
-        "statement_id" : fields.many2one("account.bank.statement", "Statement", required=True),
         "ofx_datas" : fields.binary("OFX Data", required=True)
-    }
-    _defaults = {
-        "statement_id" : _default_statement_id
     }
     
     def _import_ofx(self, cr, uid, wizard, context=None):        
         statement_obj = self.pool["account.bank.statement"]
         line_obj = self.pool["account.bank.statement.line"]
-        stat = wizard.statement_id
+        
+        stat_id = util.active_ids(context, "account.bank.statement")
+        if not stat_id:
+            return False
+          
+        stat = statement_obj.browse(cr, uid, stat_id, context=context)
         
         datas = wizard.ofx_datas
         if not datas:
