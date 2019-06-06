@@ -48,7 +48,7 @@ class TaskLogger():
     self.errors = 0
     self.warnings = 0
   
-  def log(self, message, pri="i", obj=None, ref=None, progress=None):
+  def log(self, message, pri="i", obj=None, ref=None, progress=None, code=None):
     if pri=="i":
       self.logger.info(message)
     elif pri=="e":
@@ -201,6 +201,26 @@ class TaskStatus(object):
       return int(res.text)
   
   def _post_log(self, data):
+    # check for local logging
+    if self.local:
+      
+      ref = data.get("ref")
+      if ref:
+        ref_parts = ref.split(",")
+        ref_obj = ref_parts[0]
+        ref_id = long(ref_parts[1])
+        name = self.log_obj.env[ref_obj].browse(ref_id).name_get()[0]
+        data["message"]  = "%s (%s,'%s')" % (data["message"], name[0], name[1])
+        
+      data["task_id"] = self.task.id
+      self.log_obj.create(data)
+      
+    # otherwise forward log to server
+    else:
+      res = requests.post(self.log_path, data=data)
+      res.raise_for_status()
+      
+    # log message
     if self.logger:      
       pri = data["pri"]
       message = data["message"]
@@ -219,14 +239,7 @@ class TaskStatus(object):
       elif pri=="a":
         self.logger.critical(message)
     
-    if self.local:
-      data["task_id"] = self.task.id
-      self.log_obj.create(data)
-    else:
-      res = requests.post(self.log_path, data=data)
-      res.raise_for_status()
-    
-  def log(self, message, pri="i", obj=None, ref=None, progress=None):
+  def log(self, message, pri="i", obj=None, ref=None, progress=None, code=None):
     if pri == "e":
       self.errors += 1
     elif pri == "w":
@@ -235,7 +248,8 @@ class TaskStatus(object):
     values = {
       "stage_id": self.stage_id,
       "pri": pri,
-      "message": message
+      "message": message,
+      "code": code
     }
     if progress:
       values["progress"] = progress
@@ -699,6 +713,7 @@ class automation_task_log(models.Model):
   
   message = fields.Text("Message", readonly=True)
   ref = fields.Reference(_list_all_models, string="Reference", readonly=True, index=True)
+  code = fields.Char("Code", index=True)
   
   
 class task_secret(models.Model):
