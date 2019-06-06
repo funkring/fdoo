@@ -9,7 +9,6 @@
         <form string="ofx_import">
           <group>
             <group>
-              <field name="statement_id"/>
               <field name="ofx_datas"/>
             </group>
           </group>
