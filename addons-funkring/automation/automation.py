@@ -48,7 +48,7 @@ class TaskLogger():
     self.errors = 0
     self.warnings = 0
   
-  def log(self, message, pri="i", obj=None, ref=None, progress=None, code=None):
+  def log(self, message, pri="i", obj=None, ref=None, progress=None, code=None, data=None):
     if pri=="i":
       self.logger.info(message)
     elif pri=="e":
@@ -239,17 +239,21 @@ class TaskStatus(object):
       elif pri=="a":
         self.logger.critical(message)
     
-  def log(self, message, pri="i", obj=None, ref=None, progress=None, code=None):
+  def log(self, message, pri="i", obj=None, ref=None, progress=None, code=None, data=None):
     if pri == "e":
       self.errors += 1
     elif pri == "w":
       self.warnings += 1
       
+    if not data is None and not isinstance(data, basestring):
+      data = json.dumps(data)
+      
     values = {
       "stage_id": self.stage_id,
       "pri": pri,
       "message": message,
-      "code": code
+      "code": code,
+      "data": data
     }
     if progress:
       values["progress"] = progress
@@ -714,6 +718,7 @@ class automation_task_log(models.Model):
   message = fields.Text("Message", readonly=True)
   ref = fields.Reference(_list_all_models, string="Reference", readonly=True, index=True)
   code = fields.Char("Code", index=True)
+  data = fields.Json("Data")
   
   
 class task_secret(models.Model):
