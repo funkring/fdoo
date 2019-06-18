@@ -45,11 +45,15 @@ class sale_order_line(osv.osv):
         commission_amount = 0.0
         commission = 0.0
         
+        price_subtotal = 0.0
         for c in commission_dict[line.id]:
           commission_amount += c["amount"]
+          price_subtotal = max(c["price_sub"], price_subtotal)
           
-        if line.price_subtotal:
-          commission = 100 / line.price_subtotal * (commission_amount*-1.0)
+        price_subtotal = max(price_subtotal, line.price_subtotal)
+        if price_subtotal:
+          commission = 100 / price_subtotal * (commission_amount*-1.0)
+        
         
         res[line.id] = {
           "commission_amount": commission_amount,

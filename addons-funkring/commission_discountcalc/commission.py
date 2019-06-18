@@ -44,10 +44,11 @@ class commission_line(osv.Model):
       percent = commission.get("base_commission", 0.0)
       if percent:
         # deduct 100% discount
-        if percent >= 100.0:
-          commission["base_commission"] = -100.0
-          commission["total_commission"] = -100.0
-          commission["amount"] = commission["price_sub"]
+        if obj.discount >= 100.0:
+          commission["base_commission"] = 100.0
+          commission["total_commission"] = 100.0
+          commission["amount"] = obj.price_subtotal_nodisc
+          commission["price_sub"]  = obj.price_subtotal_nodisc
         else:
           # deduct discount
           taxes = self.pool["account.tax"].compute_all(cr, uid, obj.tax_id, obj.price_unit, obj.product_uom_qty,
