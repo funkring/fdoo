@@ -45,9 +45,10 @@ class commission_line(osv.Model):
       if percent:
         # deduct 100% discount
         if obj.discount >= 100.0:
-          commission["base_commission"] = 100.0
-          commission["total_commission"] = 100.0
-          commission["amount"] = obj.price_subtotal_nodisc
+          # 90 € - 45 €          
+          commission["base_commission"] = 50.0
+          commission["total_commission"] = 50.0
+          commission["amount"] = obj.price_subtotal_nodisc/2.0
           commission["price_sub"]  = obj.price_subtotal_nodisc
         else:
           # deduct discount
