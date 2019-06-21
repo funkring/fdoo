@@ -23,6 +23,35 @@
 from openerp.osv import fields, osv
 from collections import defaultdict
    
+class sale_order(osv.osv):
+    _inherit = "sale.order"
+    
+    def _commission_fields(self, cr, uid, ids, field_names, arg, context=None):
+      res = {}
+      for order in self.browse(cr, uid, ids, context=context):
+        commission_avg = 0.0
+        commission_amount = 0.0
+        commission_base = 0.0
+        
+        for line in order.order_line:
+          commission_amount += line.commission_amount
+          commission_base += line.commission_base
+        
+        commission_amount *= -1.0
+        if commission_base and commission_amount:
+          commission_avg = 100.0 / commission_base * commission_amount 
+        
+        res[order.id] = {
+          "commission_avg": commission_avg,
+          "commission_amount": commission_amount
+        }
+      
+      return res
+      
+    _columns = {
+      "commission_avg": fields.function(_commission_fields, type="float", string="Commission Average %", multi="_commission_fields", readonly=True),
+      "commission_amount": fields.function(_commission_fields, type="float", string="Commission", multi="_commission_fields", readonly=True)      
+    }
 
 class sale_order_line(osv.osv):    
     _inherit = "sale.order.line"
@@ -57,7 +86,8 @@ class sale_order_line(osv.osv):
         
         res[line.id] = {
           "commission_amount": commission_amount,
-          "commission": commission
+          "commission": commission,
+          "commission_base": price_subtotal
         }
 
       return res
@@ -66,7 +96,8 @@ class sale_order_line(osv.osv):
     _columns = {
       "commission": fields.function(_commission_fields, type="float", string="Commission %", multi="_commission_fields", readonly=True),
       "commission_custom": fields.float("Custom Commission %", readonly=True, states={"draft": [("readonly", False)], "sent": [("readonly", False)]}),
-      "commission_amount": fields.function(_commission_fields, type="float", string="Commission Amount", multi="_commission_fields", readonly=True)
+      "commission_amount": fields.function(_commission_fields, type="float", string="Commission Amount", multi="_commission_fields", readonly=True),
+      "commission_base": fields.function(_commission_fields, type="float", string="Commission Base", multi="_commission_fields", readonly=True)
     }
     
     

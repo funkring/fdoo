@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Language: de_DE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-03 08:36+0000\n"
-"PO-Revision-Date: 2019-03-03 08:36+0000\n"
+"POT-Creation-Date: 2019-06-21 06:54+0000\n"
+"PO-Revision-Date: 2019-06-21 06:54+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -45,6 +45,7 @@ msgstr "Kategorie"
 #: view:crm.case.section:commission_sale.form_crm_section
 #: view:product.category:commission_sale.form_product_category
 #: field:product.pricelist.item,commission:0
+#: field:sale.order,commission_amount:0
 msgid "Commission"
 msgstr "Provision"
 
@@ -69,6 +70,16 @@ msgid "Commission Amount"
 msgstr "Provisionsbetrag"
 
 #. module: commission_sale
+#: field:sale.order,commission_avg:0
+msgid "Commission Average %"
+msgstr "Provision Durchschnitt %"
+
+#. module: commission_sale
+#: field:sale.order.line,commission_base:0
+msgid "Commission Base"
+msgstr "Provision Basis"
+
+#. module: commission_sale
 #: field:crm.case.section,property_analytic_journal:0
 msgid "Commission Journal"
 msgstr "Provision Journal"
@@ -91,25 +102,25 @@ msgid "Commission Task"
 msgstr "Provision Verrechnung"
 
 #. module: commission_sale
-#: code:addons/commission_sale/commission_task.py:117
-#: code:addons/commission_sale/commission_task.py:206
+#: code:addons/commission_sale/commission_task.py:123
+#: code:addons/commission_sale/commission_task.py:215
 #, python-format
 msgid "Commission was already invoiced and cannot be regenerated"
-msgstr ""
+msgstr "Die Provision wurde bereits verrechnet und kann nicht nochmal erstellt werden"
 
 #. module: commission_sale
 #: field:commission_sale.bonus,create_uid:0
 #: field:commission_sale.bonus_line,create_uid:0
 #: field:commission_sale.rule,create_uid:0
 msgid "Created by"
-msgstr ""
+msgstr "Erstellt von"
 
 #. module: commission_sale
 #: field:commission_sale.bonus,create_date:0
 #: field:commission_sale.bonus_line,create_date:0
 #: field:commission_sale.rule,create_date:0
 msgid "Created on"
-msgstr ""
+msgstr "Erstellt am"
 
 #. module: commission_sale
 #: model:res.groups,name:commission_sale.group_commission_custom
@@ -159,28 +170,28 @@ msgstr "Produkt für die Verrechnung"
 #: code:addons/commission_sale/commission_task.py:40
 #, python-format
 msgid "Invoice based"
-msgstr ""
+msgstr "Rechnungsbasierend"
 
 #. module: commission_sale
 #: field:commission_sale.bonus,__last_update:0
 #: field:commission_sale.bonus_line,__last_update:0
 #: field:commission_sale.rule,__last_update:0
 msgid "Last Modified on"
-msgstr ""
+msgstr "Letzte Änderung am"
 
 #. module: commission_sale
 #: field:commission_sale.bonus,write_uid:0
 #: field:commission_sale.bonus_line,write_uid:0
 #: field:commission_sale.rule,write_uid:0
 msgid "Last Updated by"
-msgstr ""
+msgstr "Zuletzt aktualisiert von"
 
 #. module: commission_sale
 #: field:commission_sale.bonus,write_date:0
 #: field:commission_sale.bonus_line,write_date:0
 #: field:commission_sale.rule,write_date:0
 msgid "Last Updated on"
-msgstr ""
+msgstr "Zuletzt aktualisiert am"
 
 #. module: commission_sale
 #: view:commission_sale.bonus:commission_sale.form_bonus
@@ -199,16 +210,16 @@ msgid "Name"
 msgstr ""
 
 #. module: commission_sale
-#: code:addons/commission_sale/commission_task.py:169
+#: code:addons/commission_sale/commission_task.py:175
 #, python-format
 msgid "No analytic account for commission found!"
-msgstr ""
+msgstr "Es wurde kein analytisches Konto für die Kostenstelle gefunden!"
 
 #. module: commission_sale
 #: code:addons/commission_sale/commission_task.py:36
 #, python-format
 msgid "Order based"
-msgstr ""
+msgstr "Auftragsbasierend"
 
 #. module: commission_sale
 #: model:ir.model,name:commission_sale.model_product_pricelist_item
@@ -264,8 +275,8 @@ msgid "Sales Commission"
 msgstr "Verkaufsprovision"
 
 #. module: commission_sale
-#: code:addons/commission_sale/commission.py:168
-#: code:addons/commission_sale/commission.py:216
+#: code:addons/commission_sale/commission.py:178
+#: code:addons/commission_sale/commission.py:228
 #, python-format
 msgid "Sales Commission: %s"
 msgstr "Verkaufsprovision: %s"
@@ -301,16 +312,11 @@ msgid "Sequence"
 msgstr "Sequenz"
 
 #. module: commission_sale
-#: code:addons/commission_sale/commission_task.py:114
+#: code:addons/commission_sale/commission_task.py:120
+#: code:addons/commission_sale/commission_task.py:212
 #, python-format
 msgid "Unable to update commission! There exist more commissions of same type"
-msgstr ""
-
-#. module: commission_sale
-#: code:addons/commission_sale/commission_task.py:203
-#, python-format
-msgid "Unable to update commission! There exist to commissions of same type"
-msgstr ""
+msgstr "Die Provision kann nicht aktualisiert werden! Es existieren schon mehrere Provisionen vom selben Typ"
 
 #. module: commission_sale
 #: field:commission_sale.bonus_line,volume_of_sales:0

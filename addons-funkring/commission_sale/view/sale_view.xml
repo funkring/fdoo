@@ -16,5 +16,20 @@
       </field>
     </record>
     
+    <record id="form_sale_order_margin" model="ir.ui.view">
+      <field name="name">at_sale.form_sale_order_margin</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale_margin.sale_margin_sale_order"/>
+      <field name="groups_id" eval="[(4, ref('commission_sale.group_commission_custom'))]"/>
+      <field name="priority">20</field>
+      <field name="arch" type="xml">
+         <group name="sale_margin_grp" position="inside" >
+          <field name="commission_amount" attrs="{'invisible':[('commission_amount','=',0)]}"/>
+          <field name="commission_avg" attrs="{'invisible':[('commission_avg','=',0)]}"/>
+         </group>
+      </field>
+    </record>
+
+    
   </data>
 </openerp>

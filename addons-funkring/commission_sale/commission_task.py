@@ -209,7 +209,7 @@ class commission_task(models.Model):
           
                           if commission:
                             if len(commission) > 1:
-                              taskc.loge(_("Unable to update commission! There exist to commissions of same type"), ref="account.invoice.line,%s" % commission_line["invoice_line_id"])
+                              taskc.loge(_("Unable to update commission! There exist more commissions of same type"), ref="account.invoice.line,%s" % commission_line["invoice_line_id"])
                               continue
                             if commission.invoice_id:
                               taskc.loge(_("Commission was already invoiced and cannot be regenerated"), ref="account.invoice.line,%s" % commission_line["invoice_line_id"])
