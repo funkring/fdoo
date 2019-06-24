@@ -334,6 +334,25 @@ class sale_order_line(osv.osv):
             divisor = line.product_uom_qty or 1.0
             res[line.id] = cur_obj.round(cr, uid, cur, taxes['total'] / divisor)
         return res
+      
+    def _calc_line_base_price_nodisc(self, cr, uid, line, context=None):
+        return line.price_unit
+
+    def _amount_line_nodisc(self, cr, uid, ids, field_name, arg, context=None):
+        tax_obj = self.pool.get('account.tax')
+        cur_obj = self.pool.get('res.currency')
+        res = {}
+        if context is None:
+            context = {}
+        for line in self.browse(cr, uid, ids, context=context):
+            price = self._calc_line_base_price_nodisc(cr, uid, line, context=context)
+            qty = self._calc_line_quantity(cr, uid, line, context=context)
+            taxes = tax_obj.compute_all(cr, uid, line.tax_id, price, qty,
+                                        line.product_id,
+                                        line.order_id.partner_id)
+            cur = line.order_id.pricelist_id.currency_id
+            res[line.id] = cur_obj.round(cr, uid, cur, taxes['total'])
+        return res
 
     def _line_sum(self, cr, uid, ids, context=None):
         """
@@ -404,8 +423,9 @@ class sale_order_line(osv.osv):
 
     _inherit = "sale.order.line"
     _columns = {
-        "price_subtotal_taxed": fields.function(_amount_line_taxed,string="Subtotal (Brutto)",digits_compute= dp.get_precision("Sale Price")),
-        "price_unit_untaxed": fields.function(_price_unit_untaxed,string="Price Untaxed",digits_compute= dp.get_precision("Sale Price")),
-        "price_nocalc": fields.boolean("No Price Calculation", readonly=True, copy=False)
+        "price_subtotal_taxed": fields.function(_amount_line_taxed,string="Subtotal (Brutto)",digits_compute=dp.get_precision("Sale Price")),
+        "price_unit_untaxed": fields.function(_price_unit_untaxed,string="Price Untaxed",digits_compute=dp.get_precision("Sale Price")),
+        "price_nocalc": fields.boolean("No Price Calculation", readonly=True, copy=False),
+        "price_subtotal_nodisc": fields.function(_amount_line_nodisc, string="Subtotal w/o Disc.", digits_compute=dp.get_precision("Sale Price"))
     }
 
