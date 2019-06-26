@@ -92,8 +92,8 @@ class TaskLogger():
       self._loopProgress = 0.0
     self.progress(status, self._loopProgress)
       
-  def nextLoop(self, status=None):
-      self._loopProgress += self._loopInc
+  def nextLoop(self, status=None, step=1):
+      self._loopProgress += (self._loopInc*step)
       self.progress(status, self._loopProgress)
   
   def progress(self, status, progress):
@@ -292,8 +292,8 @@ class TaskStatus(object):
       self._loopProgress = 0.0
     self.progress(status, self._loopProgress)
       
-  def nextLoop(self, status=None):
-      self._loopProgress += self._loopInc
+  def nextLoop(self, status=None, step=1):
+      self._loopProgress += (self._loopInc*step)
       self.progress(status, self._loopProgress)
   
   def progress(self, status, progress):    
