@@ -30,8 +30,8 @@ class account_invoice(models.Model):
     @api.one
     def _calc_discount(self):
       discount_amount = 0.0      
-      for line in invoice_line:
-        discount_amount+=discount_amount
+      for line in self.invoice_line:
+        discount_amount+=line.discount_amount
 
       if not discount_amount:
         self.discount = 0.0
