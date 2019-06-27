@@ -211,7 +211,12 @@ class TaskStatus(object):
         ref_id = long(ref_parts[1])
         name = self.log_obj.env[ref_obj].browse(ref_id).name_get()[0]
         data["message"]  = "%s (%s,'%s')" % (data["message"], name[0], name[1])
-        
+              
+      # add progress
+      if "progress" in data:
+        progress = data.pop("progress", 0.0)
+        self.task.env["automation.task.stage"].browse(self.stage_id).write({"progress": progress})
+              
       data["task_id"] = self.task.id
       self.log_obj.create(data)
       
