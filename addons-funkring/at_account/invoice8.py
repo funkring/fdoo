@@ -19,9 +19,27 @@
 ##############################################################################
 
 from openerp import models, fields, api, _
+import openerp.addons.decimal_precision as dp
 
 class account_invoice(models.Model):
     _inherit = "account.invoice"
+    
+    discount = fields.Float("Discount %", compute="_calc_discount", store=False, digits_compute=dp.get_precision("Discount"))
+    discount_amount = fields.Float("Discount", compute="_calc_discount", store=False, digits_compute=dp.get_precision("Account"))
+    
+    @api.one
+    def _calc_discount(self):
+      discount_amount = 0.0      
+      for line in self.invoice_line:
+        discount_amount+=line.discount_amount
+
+      if not discount_amount:
+        self.discount = 0.0
+        self.discount_amount = 0.0
+      else:
+        total_nodisc = self.amount_untaxed + discount_amount
+        self.discount_amount = discount_amount 
+        self.discount = 100.0 / total_nodisc * discount_amount
     
     @api.multi
     def invoice_send(self, force=False):
@@ -48,6 +66,8 @@ class account_invoice(models.Model):
         invoice.signal_workflow('invoice_open')
         invoice.invoice_send()
       return True
+    
+    
       
     
 class account_invoice_line(models.Model):

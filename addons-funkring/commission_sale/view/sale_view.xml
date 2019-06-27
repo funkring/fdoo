@@ -24,8 +24,10 @@
       <field name="priority">20</field>
       <field name="arch" type="xml">
          <group name="sale_margin_grp" position="inside" >
-          <field name="commission_amount" attrs="{'invisible':[('commission_amount','=',0)]}"/>
-          <field name="commission_avg" attrs="{'invisible':[('commission_avg','=',0)]}"/>
+          <field name="commission_amount" attrs="{'invisible':[('commission_amount','=',0)]}" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+          <field name="commission_avg" attrs="{'invisible':[('commission_avg','=',0)]}"/>         
+          <field name="discount_amount" attrs="{'invisible':[('discount_amount','=',0)]}" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+          <field name="discount" attrs="{'invisible':[('discount','=',0)]}"/>
          </group>
       </field>
     </record>

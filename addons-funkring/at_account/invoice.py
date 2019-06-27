@@ -539,8 +539,8 @@ class account_invoice_line(osv.osv):
 
     _inherit = "account.invoice.line"
     _columns = {
-            "price_subtotal_taxed" : fields.function(_amount_line_taxed,string="Subtotal (Brutto)",digits_compute= dp.get_precision('Account')),
-            "price_unit_untaxed" : fields.function(_price_unit_untaxed,string="Price Unit (Netto)",digits_compute= dp.get_precision('Account')),
+            "price_subtotal_taxed" : fields.function(_amount_line_taxed,string="Subtotal (Brutto)",digits_compute=dp.get_precision('Account')),
+            "price_unit_untaxed" : fields.function(_price_unit_untaxed,string="Price Unit (Netto)",digits_compute=dp.get_precision('Account')),
             "product_tax_ids" : fields.function(_product_tax_ids,type="many2many",obj="account.tax",string="Product Taxes",help="Original Product Taxes without fiscal position"),
             "discount_amount" : fields.function(_discount_amount, type="float", string="Discount Amount", readonly=True),
             "note" : fields.text("Note")

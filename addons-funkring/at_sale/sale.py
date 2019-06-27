@@ -275,11 +275,34 @@ class sale_order(osv.osv):
             if not res:
                 res = shop_obj.search_id(cr, uid, [("company_id","=",False)],context=context)
         return res
+      
+    def _calc_discount(self, cr, uid, ids, field_names, arg, context=None):
+      res = {}
+      for obj in self.browse(cr, uid, ids, context):
+        discount_amount = 0.0
+        for line in obj.order_line:
+          discount_amount += line.discount_amount
+          
+        if not discount_amount:
+          res[obj.id] = {
+            "discount": 0.0,
+            "discount_amount": 0.0
+          }
+        else:
+          amount_nodisc = obj.amount_untaxed+discount_amount
+          discount = 100.0 / amount_nodisc * discount_amount
+          res[obj.id] = {
+            "discount": discount,
+            "discount_amount": discount_amount
+          }
+      return res
 
     _inherit = "sale.order"
     _columns = {
         "shop_id" : fields.many2one("sale.shop", "Shop", type="many2one", select=True, required=True, readonly=True, states={'draft': [('readonly', False)]}),
-        "last_invoice_id" : fields.function(_last_invoice, string="Last Invoice", readonly=True, type='many2one', relation="account.invoice")
+        "last_invoice_id" : fields.function(_last_invoice, string="Last Invoice", readonly=True, type='many2one', relation="account.invoice"),
+        "discount": fields.function(_calc_discount, string="Discount %", multi="_calc_discount", digits_compute=dp.get_precision("Discount")),
+        "discount_amount": fields.function(_calc_discount, string="Discount", multi="_calc_discount", digits_compute=dp.get_precision("Sale Price"))
     }
     _defaults = {
         "shop_id" : _default_shop_id,
@@ -338,7 +361,7 @@ class sale_order_line(osv.osv):
     def _calc_line_base_price_nodisc(self, cr, uid, line, context=None):
         return line.price_unit
 
-    def _amount_line_nodisc(self, cr, uid, ids, field_name, arg, context=None):
+    def _amount_line_nodisc(self, cr, uid, ids, field_names, arg, context=None):
         tax_obj = self.pool.get('account.tax')
         cur_obj = self.pool.get('res.currency')
         res = {}
@@ -351,7 +374,11 @@ class sale_order_line(osv.osv):
                                         line.product_id,
                                         line.order_id.partner_id)
             cur = line.order_id.pricelist_id.currency_id
-            res[line.id] = cur_obj.round(cr, uid, cur, taxes['total'])
+            price_subtotal_nodisc = cur_obj.round(cr, uid, cur, taxes['total'])
+            res[line.id] = {
+              "price_subtotal_nodisc": price_subtotal_nodisc,
+              "discount_amount": price_subtotal_nodisc-line.price_subtotal
+            }
         return res
 
     def _line_sum(self, cr, uid, ids, context=None):
@@ -426,6 +453,7 @@ class sale_order_line(osv.osv):
         "price_subtotal_taxed": fields.function(_amount_line_taxed,string="Subtotal (Brutto)",digits_compute=dp.get_precision("Sale Price")),
         "price_unit_untaxed": fields.function(_price_unit_untaxed,string="Price Untaxed",digits_compute=dp.get_precision("Sale Price")),
         "price_nocalc": fields.boolean("No Price Calculation", readonly=True, copy=False),
-        "price_subtotal_nodisc": fields.function(_amount_line_nodisc, string="Subtotal w/o Disc.", digits_compute=dp.get_precision("Sale Price"))
+        "price_subtotal_nodisc": fields.function(_amount_line_nodisc, string="Subtotal w/o Disc.", digits_compute=dp.get_precision("Sale Price"), multi="_amount_line_nodisc"),
+        "discount_amount": fields.function(_amount_line_nodisc, string="Discount", digits_compute=dp.get_precision("Sale Price"), multi="_amount_line_nodisc")
     }
 
