@@ -35,9 +35,11 @@ Commission based on Sale
     "category" : "Commission",
     "depends" : ["at_base",
                  "at_sale",
+                 "at_account",
                  "commission",
                  "sales_team",
-                 "product"],
+                 "product",
+                 "account"],
     "data" : ["security.xml",
               "data/analytic_journals.xml",
               "data/products.xml",
@@ -47,7 +49,8 @@ Commission based on Sale
               "view/bonus_view.xml",
               "view/product_view.xml",
               "view/sale_view.xml",
-              "report/sale_commission_report.xml"
+              "view/invoice_view.xml",
+              "report/sale_commission_report.xml"             
               ],
     "auto_install" : False,
     "installable": True

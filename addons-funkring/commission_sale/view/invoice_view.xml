@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+ <data>
+    <record id="form_account_invoice" model="ir.ui.view">
+      <field name="name">commission_sale.form_account_invoice</field>
+      <field name="model">account.invoice</field>
+      <field name="groups_id" eval="[(4, ref('commission_sale.group_commission_custom'))]"/>
+      <field name="priority">20</field>
+      <field name="inherit_id" ref="account.invoice_form"/>
+      <field name="arch" type="xml">
+        <field name="payment_term" position="after">
+          <field name="discount_amount" attrs="{'invisible':[('discount_amount','=',0)]}" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+          <field name="discount" attrs="{'invisible':[('discount','=',0)]}"/>
+        </field>
+      </field>
+    </record>
+  </data>
+</openerp>
