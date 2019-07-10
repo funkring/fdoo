@@ -29,6 +29,7 @@ from types import NoneType
 import logging
 import pytz
 import xmlrpclib
+import json
 
 from openerp.sql_db import LazyCursor
 from openerp.tools import float_round, frozendict, html_sanitize, ustr, OrderedSet
@@ -1179,7 +1180,28 @@ class Json(_String):
     def convert_to_cache(self, value, env, validate=True):
         if value is None or value is False:
             return False
-        return ustr(value)
+        return value
+    
+    def convert_to_export(self, value, env):
+        if not value:
+          return ""
+        if isinstance(value, basestring):
+          return value
+        return json.dumps(value)
+      
+    def convert_to_read(self, value, use_name_get=True):
+        if not value:
+          return ""
+        if isinstance(value, basestring):
+          return value
+        return json.dumps(value, indent=4)
+
+    def convert_to_display_name(self, value, record=None):
+        if not value:
+          return ""
+        if isinstance(value, basestring):
+          return value
+        return json.dumps(value)
 
 class Html(_String):
     type = 'html'

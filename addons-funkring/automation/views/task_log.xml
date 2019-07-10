@@ -19,6 +19,11 @@
               <field name="message" colspan="4" nolabel="1"/>
             </group>
           </group>
+          <notebook>
+            <page string="Data" attrs="{'invisible':[('data','=',False)]}">
+              <field name="data" widget="text"/>
+            </page>
+          </notebook>
         </form>
       </field>
     </record>
