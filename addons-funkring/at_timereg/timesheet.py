@@ -45,7 +45,7 @@ class hr_timesheet_sheet_sheet_day(osv.osv):
             date_to = util.dateToStr(util.getLastTimeOfDay(util.strToDate(date_from)))
             contract = employee_obj._get_contract(cr, uid, sheet.employee_id.id, date_from=date_from, date_to=date_to, context=context)
             if contract:               
-                res[sheet.id] = working_hour_obj.interval_hours_without_leaves(cr,uid,contract["working_hours"],
+                res[sheet.id] = working_hour_obj.interval_hours_without_leaves(cr,uid,contract["working_hours"].id,
                                                                         util.strToDate(contract["date_from"]),
                                                                         util.strToDate(contract["date_to"]),
                                                                         sheet.employee_id.resource_id.id)
