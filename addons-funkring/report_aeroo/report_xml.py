@@ -141,7 +141,11 @@ class report_xml(osv.osv):
             if os.path.lexists(mod_path+os.path.sep+path.split(os.path.sep)[0]):
                 filepath=mod_path+os.path.sep+path
                 filepath = os.path.normpath(filepath)
-                sys.path.append(os.path.dirname(filepath))
+                
+                python_path = os.path.dirname(filepath)
+                if not python_path in sys.path:
+                  sys.path.append(python_path)
+                  
                 mod_name,file_ext = os.path.splitext(os.path.split(filepath)[-1])
                 mod_name = '%s_%s_%s' % (dbname,mod_name,key)
 

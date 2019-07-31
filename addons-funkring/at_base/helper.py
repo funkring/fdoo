@@ -24,6 +24,9 @@ import os
 import util
 import openerp
 import pytz
+import sys
+import zipimport
+import imp
 
 from openerp import netsvc
 from openerp.osv.fields import datetime as datetime_field
@@ -273,3 +276,61 @@ def downloadTestReportEnv(objects, report_name, file_name=None):
         res.append(download_path)
 
     return res
+
+def getResource(path):
+    ad = os.path.abspath(os.path.join(tools.ustr(tools.config["root_path"]), u"addons"))
+    mod_path_list = map(lambda m: os.path.abspath(tools.ustr(m.strip())), tools.config["addons_path"].split(','))
+    mod_path_list.append(ad)
+    for mod_path in mod_path_list:
+      module_path = mod_path+os.path.sep+path.split(os.path.sep)[0]
+      
+      if os.path.lexists(module_path):
+        filepath = mod_path+os.path.sep+path
+        filepath = os.path.normpath(filepath)
+        
+        python_path = os.path.dirname(filepath)
+        if not python_path in sys.path:
+          sys.path.append(python_path)
+                   
+        return {
+          "module": module_path,
+          "path": filepath,
+          "zip": False
+        }
+                
+      else:
+        zip_path = module_path+'.zip'
+        if os.path.lexists(zip_path):
+          return {
+            "module": path.split(os.path.sep)[0],
+            "path": zip_path,
+            "zip": True
+          }
+        
+def loadClassFromFile(env, path, clazz, key="1"):
+    res = getResource(path)
+    if not res:
+      return None
+    
+    if res.get("zip"):
+      zimp = zipimport.zipimporter(res["path"])
+      return getattr(zimp.load_module(res["module"]).parser, clazz)
+    
+    else:
+      dbname = env.cr.dbname
+      filepath = res["path"]
+      
+      mod_name, file_ext = os.path.splitext(os.path.split(res["path"])[-1])
+      mod_name = '%s_%s_%s' % (dbname, mod_name, key)
+      
+      if file_ext.lower() == '.py':
+        py_mod = imp.load_source(mod_name, filepath)
+  
+      elif file_ext.lower() == '.pyc':
+          py_mod = imp.load_compiled(mod_name, filepath)
+  
+      if clazz in dir(py_mod):
+        return getattr(py_mod, clazz)
+      
+    return None
+        
