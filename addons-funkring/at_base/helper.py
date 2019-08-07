@@ -274,7 +274,18 @@ def downloadTestReportEnv(objects, report_name, file_name=None):
         with open(download_path, "wb") as f:
           f.write(report_data)
         res.append(download_path)
-
+    return res
+  
+def downloadTestAttachmentEnv(obj):
+    test_download = tools.config.get("test_download")
+    res = []
+    if test_download:
+      att_obj = obj.env["ir.attachment"]
+      for att in att_obj.search([("res_model","=", obj._model._name), ("res_id","=", obj.id)]):
+        download_path = os.path.join(test_download, att.datas_fname)
+        with open(download_path, "wb") as f:
+          f.write(base64.decodestring(att.datas))
+        res.append(download_path)
     return res
 
 def getResource(path):
