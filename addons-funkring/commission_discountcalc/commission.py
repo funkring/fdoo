@@ -29,7 +29,7 @@ class commission_line(osv.Model):
     commission = super(commission_line, self)._validate_sale_commission(cr, uid, values, obj=obj, context=context)
     if company:
       rule = company.cdisc_rule
-      if rule and not company.cdisc_date or company.cdisc_date >= values["date"]:
+      if rule and not company.cdisc_date or company.cdisc_date <= values["date"]:
         if rule == "mhalf":
           commission = self._cdisc_rule_mhalf(cr, uid, values, obj=obj, company=company, context=context)
           #commission = getattr(self, rule)(cr, uid, values, obj=obj, context=context)

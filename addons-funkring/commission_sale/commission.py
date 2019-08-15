@@ -109,10 +109,11 @@ class commission_line(osv.osv):
     def _get_sale_commission(self, cr, uid, name, user, customer, product, qty, netto, date, pricelist=None, defaults=None, obj=None, company=None, period=None, commission_custom=None, context=None):
         res = []
         
-        # exclude delivery cost
-        delivery_cost = product.delivery_cost_co
-        if delivery_cost:
-          netto -= (qty*delivery_cost)
+        # exclude delivery cost (check discount start date)
+        if not company or not company.cdisc_date or company.cdisc_date <= date:
+          delivery_cost = product.delivery_cost_co
+          if delivery_cost:
+            netto -= (qty*delivery_cost)
         
         period_obj = self.pool["account.period"]        
         pricelist_obj = self.pool.get("product.pricelist")
