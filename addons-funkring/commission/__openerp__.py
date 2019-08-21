@@ -29,7 +29,7 @@ Commission Base Module
 Basic module for commission management
 
 """,
-    "version" : "1.1",
+    "version" : "1.2",
     "author" :  "oerp.at",
     "category" : "Commission",
     "depends" : ["at_base",

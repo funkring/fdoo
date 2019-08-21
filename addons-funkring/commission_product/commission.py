@@ -67,7 +67,7 @@ class commission_line(osv.Model):
                     "period_id" : period_id,
                     "price_sub" : netto
                 })
-                entry = self._validate_product_commission(self, cr, uid, entry, obj=obj, company=company, context=context)
+                entry = self._validate_product_commission(cr, uid, entry, obj=obj, company=company, context=context)
                 if entry:
                   res.append(entry)
                 

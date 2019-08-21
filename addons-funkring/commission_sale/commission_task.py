@@ -31,18 +31,19 @@ class commission_task(models.Model):
   
   @api.one  
   def _run(self, taskc):
-    taskc.substage("Sale Commission")
+    super(commission_task, self)._run(taskc)
+    taskc.stage("Sale Commission", total=2)
     
-    taskc.stage(_("Order based"))
+    taskc.substage(_("Order based"))
     self._calc_sale_commission_order(taskc)    
     taskc.done()
     
-    taskc.stage(_("Invoice based"))
+    taskc.substage(_("Invoice based"))
     self._calc_sale_commission_invoice(taskc)    
     taskc.done()
     
     taskc.done()
-  
+    
   @api.model
   def _commission_sale(self, order, context=None):
     res = []
@@ -79,8 +80,10 @@ class commission_task(models.Model):
 
   def _calc_sale_commission_order(self, taskc):
     domain = [("state", "not in", ["draft","cancel","sent"])]
-    if self.user_id:
-      domain.append(("user_id","=",self.user_id.id))
+    if self.partner_id:
+      users = self.partner_id.user_ids
+      if users:
+        domain.append(("user_id","in",[users.ids]))
                      
     if self.date_from: 
       domain.append(("date_order", ">=", self.date_from))
@@ -99,7 +102,6 @@ class commission_task(models.Model):
     
     for order in orders:
       taskc.nextLoop()
-      
       company = order.company_id 
       analytic_account = order.project_id
       
@@ -136,7 +138,8 @@ class commission_task(models.Model):
     commission_obj._update_bonus(salesman_ids, period_ids)
   
   @api.model  
-  def _recalc_invoices(self, domain, force=False, taskc=None):
+  def _recalc_invoices(self, domain, force=False, taskc=None, **kwargs):
+    super(commission_task, self)._recalc_invoices(domain, force=force, taskc=taskc, **kwargs)
     if not taskc:
       taskc = TaskLogger(__name__)
     
@@ -154,6 +157,8 @@ class commission_task(models.Model):
     taskc.initLoop(len(invoices))  
              
     for invoice in invoices:
+      taskc.nextLoop()
+      
       company = invoice.company_id
       if company.commission_type == "invoice" or (force and invoice.type in ("out_refund","in_invoice")):
     
@@ -270,18 +275,24 @@ class commission_task(models.Model):
         
     taskc.done()
     
-    taskc.log("Update bonus")
+    
+    taskc.substage("Update bonus")
+    
     period_ids = list(period_ids)
     salesman_ids = list(salesman_ids)        
     commission_obj._update_bonus(salesman_ids, period_ids)
+    
+    taskc.done()
   
   def _calc_sale_commission_invoice(self, taskc=None):
     if not taskc:
       taskc = TaskLogger(__name__)
     
-    domain = [("state", "!=", "draft"),("state", "!=", "cancel")]  
-    if self.user_id:
-      domain.append(("user_id","=",self.user_id.id))
+    domain = [("state", "!=", "draft"),("state", "!=", "cancel")]      
+    if self.partner_id:
+      users = self.partner_id.user_ids
+      if users:
+        domain.append(("user_id","in",[users.ids]))
                      
     if self.date_from: 
       domain.append(("date_invoice", ">=", self.date_from))
