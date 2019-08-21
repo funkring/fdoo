@@ -72,11 +72,6 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: commission
-#: view:commission.line:commission.search_commission_line
-msgid "Partner"
-msgstr ""
-
-#. module: commission
 #: code:addons/commission/commission_invoice_wizard.py:42
 #, python-format
 msgid "Provision %s"
