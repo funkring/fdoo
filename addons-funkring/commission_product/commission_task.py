@@ -38,7 +38,7 @@ class commission_task(models.Model):
     if self.date_to:
       domain.append(("date_invoice", "<=", self.date_to))              
       
-    self._recalc_invoices(domain, force=True, taskc=taskc, partner=self.partner_id)
+    self._recalc_product_commission_invoice(domain, force=True, taskc=taskc, partner=self.partner_id)
 
   
   @api.one  
@@ -123,15 +123,18 @@ class commission_task(models.Model):
     taskc.done()
                 
   @api.model  
-  def _recalc_invoices(self, domain, force=False, taskc=None, **kwargs):
-    super(commission_task, self)._recalc_invoices(domain, force=force, taskc=taskc, **kwargs)
+  def _recalc_invoices(self, domain, force=False, taskc=None):
+    super(commission_task, self)._recalc_invoices(domain, force=force, taskc=taskc)
+    self._recalc_product_commission_invoice(domain, force=force, taskc=taskc)
+    
+  @api.model
+  def _recalc_product_commission_invoice(self,  domain, force=False, taskc=None, partner=None):
     if not taskc:
       taskc = TaskLogger(__name__)
     
     commission_obj = self.env["commission.line"]
 
     invoices = self.env["account.invoice"].search(domain)    
-    partner = kwargs.get("partner")
     
     taskc.substage("(Re)Calc invoices")
     taskc.initLoop(len(invoices))    

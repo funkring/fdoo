@@ -116,7 +116,7 @@ class commission_task(models.Model):
     taskc.done()
     
   @api.model  
-  def _recalc_invoices(self, domain, force=False, taskc=None, **kwargs):
+  def _recalc_invoices(self, domain, force=False, taskc=None):
     pass
     
     

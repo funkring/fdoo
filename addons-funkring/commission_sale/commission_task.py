@@ -81,9 +81,7 @@ class commission_task(models.Model):
   def _calc_sale_commission_order(self, taskc):
     domain = [("state", "not in", ["draft","cancel","sent"])]
     if self.partner_id:
-      users = self.partner_id.user_ids
-      if users:
-        domain.append(("user_id","in",[users.ids]))
+      domain.append(("user_id.partner_id","=",self.partner_id.id))
                      
     if self.date_from: 
       domain.append(("date_order", ">=", self.date_from))
@@ -138,8 +136,12 @@ class commission_task(models.Model):
     commission_obj._update_bonus(salesman_ids, period_ids)
   
   @api.model  
-  def _recalc_invoices(self, domain, force=False, taskc=None, **kwargs):
-    super(commission_task, self)._recalc_invoices(domain, force=force, taskc=taskc, **kwargs)
+  def _recalc_invoices(self, domain, force=False, taskc=None):
+    super(commission_task, self)._recalc_invoices(domain, force=force, taskc=taskc)
+    self._recalc_sale_commission_invoice(domain, force=force, taskc=taskc)
+  
+  @api.model  
+  def _recalc_sale_commission_invoice(self, domain, force=False, taskc=None):
     if not taskc:
       taskc = TaskLogger(__name__)
     
@@ -290,9 +292,7 @@ class commission_task(models.Model):
     
     domain = [("state", "!=", "draft"),("state", "!=", "cancel")]      
     if self.partner_id:
-      users = self.partner_id.user_ids
-      if users:
-        domain.append(("user_id","in",[users.ids]))
+      domain.append(("user_id.partner_id","=",self.partner_id.id))
                      
     if self.date_from: 
       domain.append(("date_invoice", ">=", self.date_from))
@@ -300,5 +300,5 @@ class commission_task(models.Model):
     if self.date_to:
       domain.append(("date_invoice", "<=", self.date_to))              
       
-    self._recalc_invoices(domain, taskc=taskc, force=True)
+    self._recalc_sale_commission_invoice(domain, taskc=taskc, force=True)
    
