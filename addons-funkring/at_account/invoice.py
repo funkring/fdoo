@@ -20,16 +20,13 @@
 #
 ##############################################################################
 
-import time
 from openerp.osv import osv,fields
 from openerp.tools.translate import _
 import openerp.addons.decimal_precision as dp
 from openerp.tools.float_utils import float_is_zero
 from functools import partial
 
-import qrcode
 import qrcode.image.svg 
-from openerp import api
 
 try:
     import cStringIO as StringIO
@@ -173,13 +170,13 @@ class account_invoice(osv.osv):
             sign=-1.0
 
         if len(line_datas) == 1:
-             line_datas[0]["amount"]=amount
-             # compensation
-             if compensation_id:
-                 compensation = compensation_obj.browse(cr,uid,compensation_id,context=context)
-                 data["payment_option"]="with_writeoff"
-                 data["writeoff_acc_id"]=compensation.account_id.id
-                 data["comment"]=compensation.name
+            line_datas[0]["amount"]=amount
+            # compensation
+            if compensation_id:
+                compensation = compensation_obj.browse(cr,uid,compensation_id,context=context)
+                data["payment_option"]="with_writeoff"
+                data["writeoff_acc_id"]=compensation.account_id.id
+                data["comment"]=compensation.name
 
 
         if line_datas:
