@@ -83,8 +83,18 @@ class Parser(extreport.basic_parser):
             if line.note:
                 notes.extend(line.note.split("\n"))
             line_notes = "\n".join(notes)
-
-            res['tax_id'] = ', '.join(map(lambda x: x.name, line.invoice_line_tax_id)) or ''
+            
+            taxes = line.invoice_line_tax_id
+            tax_percent = 0.0
+            tax_name = ""
+            if taxes:
+              tax = taxes[0]
+              tax_percent = tax.amount * 100.0
+              tax_name = tax.name
+              
+            res['tax_percent'] = tax_percent            
+            res['tax_name'] = tax_name
+            res['tax_id'] = ', '.join(map(lambda x: x.name, taxes)) or ''
             res['name'] = line_name
             res['product_uom_qty'] = line.quantity or 0.00
             res['product_uom'] = line.uos_id and line.uos_id.name or ''

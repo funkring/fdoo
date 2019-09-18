@@ -93,6 +93,7 @@ class Parser(extreport.basic_parser):
             res['currency'] = sale_order.pricelist_id.currency_id.symbol
             res['pos'] = str(pos)
             res['id'] = line.id
+            res['price_subtotal_nodisc'] = line.price_subtotal_nodisc or 0.00
             pos += 1
             prepared_lines.append(res)
             

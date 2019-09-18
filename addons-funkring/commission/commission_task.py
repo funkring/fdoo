@@ -40,8 +40,7 @@ class commission_task(models.Model):
   date_from = fields.Date("From", default=lambda self: util.getFirstOfLastMonth())
   date_to = fields.Date("To", default=lambda self: util.getEndOfMonth(util.getFirstOfLastMonth()))
   remove_existing = fields.Boolean("Remove Existing", default=True)
-  user_id = fields.Many2one("res.users","Salesman")
-  
+  partner_id = fields.Many2one("res.partner", "Partner")  
   commission_count = fields.Integer("Commission Count", compute="_commission_count")
   
   
@@ -102,8 +101,8 @@ class commission_task(models.Model):
           domain.append(("date",">=",self.date_from))
       if self.date_to:
           domain.append(("date","<=",self.date_to))
-      if self.user_id:
-          domain.append(("partner_id.user_ids","in",[self.user_id.id]))
+      if self.partner_id:
+          domain.append(("partner_id","=",self.partner_id.id))
       
       # search and remove old commission lines
       commissions = commission_obj.search(domain)
@@ -113,8 +112,12 @@ class commission_task(models.Model):
       
     else:
       taskc.log(_("Remove existing is deactivated!"))
-      
+    
     taskc.done()
+    
+  @api.model  
+  def _recalc_invoices(self, domain, force=False, taskc=None):
+    pass
     
     
     

@@ -25,8 +25,8 @@
               <field name="date_to"/>
             </group>
             <group>
-              <field name="remove_existing"/>
-              <field name="user_id"/>
+              <field name="remove_existing"/>                            
+              <field name="partner_id"/>
             </group>
           </group>
         </group>
@@ -42,7 +42,7 @@
         <field name="name" position="after">          
           <field name="date_from"/>
           <field name="date_to"/>
-          <field name="user_id"/>
+          <field name="partner_id"/>
           <field name="remove_existing"/>
         </field>
       </field>
@@ -54,7 +54,7 @@
       <field name="inherit_id" ref="automation.search_automation_task"/>
       <field name="arch" type="xml">
         <field name="name" position="after">
-          <field name="user_id"/>
+          <field name="partner_id"/>
         </field>
       </field>
     </record>

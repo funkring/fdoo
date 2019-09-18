@@ -26,7 +26,7 @@ class account_invoice(osv.osv):
 
     def action_move_create(self, cr, uid, ids, context=None):
       res = super(account_invoice, self).action_move_create(cr, uid, ids, context=context)
-      self.pool["commission.task"]._recalc_invoices(cr, uid, [("id","in",ids)], context=context)
+      self.pool["commission.task"]._recalc_product_commission_invoice(cr, uid, [("id","in",ids)], context=context)
       return res
 
     _inherit = "account.invoice"

@@ -29,31 +29,44 @@ class commission_task(models.Model):
     res["stages"] += 1
     return res
   
+  def _calc_product_commission_invoice(self, taskc):
+    domain = [("state", "not in", ["draft","cancel","sent"])]    
+                     
+    if self.date_from: 
+      domain.append(("date_invoice", ">=", self.date_from))
+      
+    if self.date_to:
+      domain.append(("date_invoice", "<=", self.date_to))              
+      
+    self._recalc_product_commission_invoice(domain, force=True, taskc=taskc, partner=self.partner_id)
+
+  
   @api.one  
   def _run(self, taskc):
-    taskc.substage("Product Commission")
+    super(commission_task, self)._run(taskc)
+    taskc.stage("Product Commission", total=2)
     
-    taskc.stage(_("Order based"))
+    taskc.substage(_("Order based"))
     self._calc_product_commission_order(taskc)    
     taskc.done()
     
-    taskc.stage(_("Invoice based"))
+    taskc.substage(_("Invoice based"))
     self._calc_product_commission_invoice(taskc)    
     taskc.done()
     
     taskc.done()
     
+    
   def _calc_product_commission_order(self, taskc):
     domain = [("state", "not in", ["draft","cancel","sent"])]    
-    if self.user_id:
-      domain.append(("user_id","=",self.user_id.id))
-                     
+
     if self.date_from: 
       domain.append(("date_order", ">=", self.date_from))
       
     if self.date_to:
       domain.append(("date_order", "<=", self.date_to))              
       
+    partner = self.partner_id
     orders = self.env["sale.order"].search(domain)
     
     commission_obj = self.env["commission.line"]
@@ -63,7 +76,6 @@ class commission_task(models.Model):
     
     for order in orders:
       taskc.nextLoop()
-      
       company = order.company_id 
       analytic_account = order.project_id
       if company.commission_type == "order" and analytic_account:
@@ -87,11 +99,15 @@ class commission_task(models.Model):
                                          company=company)  
             
             for commission_line in commission_lines:
+              # partner filter
+              if partner and partner.id != commission_line["partner_id"]:
+                  continue
+                
               commission = commission_obj.search([("order_line_id", "=", line.id), 
                                                   ("product_id", "=", commission_line["product_id"]),
                                                   ("partner_id", "=", commission_line["partner_id"])])
               
-              if commission:
+              if commission:                
                 if len(commission) > 1:
                   taskc.loge(_("Unable to update product commission! There exist more commissions of same type"), ref="sale.order.line,%s" % commission_line["order_line_id"])
                   continue
@@ -103,88 +119,84 @@ class commission_task(models.Model):
               else:
                 # create new
                 commission.create(commission_line)
+    
+    taskc.done()
                 
-      taskc.done()
-                
-    @api.model  
-    def _recalc_invoices(self, domain, force=False, taskc=None):
-      if not taskc:
-        taskc = TaskLogger(__name__)
-      
-      commission_obj = self.env["commission.line"]
+  @api.model  
+  def _recalc_invoices(self, domain, force=False, taskc=None):
+    super(commission_task, self)._recalc_invoices(domain, force=force, taskc=taskc)
+    self._recalc_product_commission_invoice(domain, force=force, taskc=taskc)
+    
+  @api.model
+  def _recalc_product_commission_invoice(self,  domain, force=False, taskc=None, partner=None):
+    if not taskc:
+      taskc = TaskLogger(__name__)
+    
+    commission_obj = self.env["commission.line"]
 
-      invoices = self.env["account.invoice"].search(domain)    
-      
-      taskc.substage("(Re)Calc invoices")
-      taskc.initLoop(len(orders))    
-      
-      for invoice in invoices:
-        taskc.nextLoop()
-        
-        company = invoice.company_id
-        if company.commission_type == "invoice" or (force and invoice.type in ("out_refund","in_invoice")):
+    invoices = self.env["account.invoice"].search(domain)    
+    
+    taskc.substage("(Re)Calc invoices")
+    taskc.initLoop(len(invoices))    
+    
+    for invoice in invoices:
+      taskc.nextLoop()   
+      company = invoice.company_id
+      if company.commission_type == "invoice" or (force and invoice.type in ("out_refund","in_invoice")):
+          
+          sign = 1
+          # change sign on in invoice or out refund
+          if invoice.type in ("in_invoice", "out_refund"):
+              sign = -1
+              
+          for line in invoice.invoice_line:
+              product = line.product_id
+              analytic_account = line.account_analytic_id
+              if analytic_account and product:
+                  ref = invoice.number
+                  orders = [l.order_id for l in line.sale_order_line_ids]
+                  order_names = [o.name for o in orders]
+                  order_date =  orders and min([o.date_order for o in orders]) or None
+                  commission_date = order_date or invoice.date_invoice
+                  price_subtotal = line.price_subtotal*sign
+                      
+                  commission_lines = commission_obj._get_product_commission(line.name, 
+                                         product,
+                                         line.quantity,
+                                         price_subtotal,
+                                         commission_date,
+                                         defaults={
+                                           "account_id" : analytic_account.id,
+                                           "invoice_line_id" : line.id,
+                                           "ref": ":".join(order_names) or ref or None,
+                                           "sale_partner_id" : invoice.partner_id.id,
+                                           "sale_product_id" : line.product_id.id,
+                                           "task_id": self.id
+                                         },
+                                         obj=line,
+                                         company=company)
+                  
+                  for commission_line in commission_lines:
+                      # partner filter
+                      if partner and partner.id != commission_line["partner_id"]:
+                        continue
+                      
+                      commission = commission_obj.search([("invoice_line_id", "=", line.id), 
+                                                          ("partner_id", "=", commission_line["partner_id"]),
+                                                          ("product_id", "=", commission_line["product_id"])])
+                      
+                      if commission:
+                        if len(commission) > 1:
+                          taskc.loge(_("Unable to update product commission! There exist more commissions of same type"), ref="account.invoice.line,%s" % commission_line["invoice_line_id"])
+                          continue
+                        if commission.invoice_id:
+                          taskc.loge(_("Product commission was already invoiced and cannot be regenerated"), ref="account.invoice.line,%s" % commission_line["invoice_line_id"])
+                          continue
+                        # update commission
+                        commission.write(commission_line)
+                      else:
+                        # create new
+                        commission.create(commission_line)
+    
+    taskc.done()
             
-            sign = 1
-            # change sign on in invoice or out refund
-            if invoice.type in ("in_invoice", "out_refund"):
-                sign = -1
-                
-            for line in invoice.invoice_line:
-                product = line.product_id
-                analytic_account = line.account_analytic_id
-                if analytic_account and product:
-                    ref = invoice.number
-                    orders = [l.order_id for l in line.sale_order_line_ids]
-                    order_names = [o.name for o in orders]
-                    order_date =  orders and min([o.date_order for o in orders]) or None
-                    commission_date = order_date or invoice.date_invoice
-                    price_subtotal = line.price_subtotal*sign
-                        
-                    commission_lines = commission_obj._get_product_commission(line.name, 
-                                           product,
-                                           line.quantity,
-                                           price_subtotal,
-                                           commission_date,
-                                           defaults={
-                                             "account_id" : analytic_account.id,
-                                             "invoice_line_id" : line.id,
-                                             "ref": ":".join(order_names) or ref or None,
-                                             "sale_partner_id" : invoice.partner_id.id,
-                                             "sale_product_id" : line.product_id.id,
-                                             "task_id": self.id
-                                           },
-                                           obj=line,
-                                           company=company)
-                    
-                    for commission_line in commission_lines:
-                        commission = commission_obj.search([("invoice_line_id", "=", line.id), 
-                                                            ("partner_id", "=", commission_line["partner_id"]),
-                                                            ("product_id", "=", commission_line["product_id"])])
-                        
-                        if commission:
-                          if len(commission) > 1:
-                            taskc.loge(_("Unable to update product commission! There exist more commissions of same type"), ref="account.invoice.line,%s" % commission_line["invoice_line_id"])
-                            continue
-                          if commission.invoice_id:
-                            taskc.loge(_("Product commission was already invoiced and cannot be regenerated"), ref="account.invoice.line,%s" % commission_line["invoice_line_id"])
-                            continue
-                          # update commission
-                          commission.write(commission_line)
-                        else:
-                          # create new
-                          commission.create(commission_line)
-        
-      taskc.done()
-            
-    def _calc_product_commission_invoice(self, taskc):
-      domain = [("state", "not in", ["draft","cancel","sent"])]    
-      if self.user_id:
-        domain.append(("user_id","=",self.user_id.id))
-                       
-      if self.date_from: 
-        domain.append(("date_invoice", ">=", self.date_from))
-        
-      if self.date_to:
-        domain.append(("date_invoice", "<=", self.date_to))              
-        
-      self._recalc_invoices(domain, force=True, taskc=taskc)

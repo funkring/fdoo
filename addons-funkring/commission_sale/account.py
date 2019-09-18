@@ -49,7 +49,7 @@ class account_invoice(osv.osv):
         
     def confirm_paid(self, cr, uid, ids, context=None):
         res = super(account_invoice, self).confirm_paid(cr, uid, ids, context=context)        
-        self.pool["commission.task"]._recalc_invoices(cr, uid, domain=[("id","in",ids)], context=context)
+        self.pool["commission.task"]._recalc_sale_commission_invoice(cr, uid, domain=[("id","in",ids)], context=context)
         return res
   
     
