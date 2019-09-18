@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+  
+    <record id="form_email_template_gen" model="ir.ui.view">
+      <field name="name">at_mail.form_email_template_gen</field>
+      <field name="model">email.template.gen</field>
+      <field name="arch" type="xml">
+        <form string="E-Mail Template Generator">
+          <header>
+            <button name="action_validate" class="oe_highlight" type="object" string="Validate" states="draft"/>
+            <button name="action_reset" type="object" string="Reset" states="valid"/>
+            <field name="state" widget="statusbar" nolabel="1" statusbar_visible="draft,valid" statusbar_colors="{'draft':'blue'}"/>            
+          </header>
+          <group>
+            <group>
+              <field name="name"/>
+              <field name="header_id"/>
+            </group>
+            <group>              
+              <field name="template_id"/>
+              <field name="active"/>
+            </group>
+          </group>
+          <group>
+            <label for="subject"/>
+            <div>
+              <field name="subject"/>  
+            </div>
+          </group>
+          <notebook>
+            <page string="Body">
+              <field name="body_html"/>
+            </page>            
+          </notebook>
+        </form>
+      </field>
+    </record>
+
+    <record id="tree_email_template_gen" model="ir.ui.view">
+      <field name="name">at_mail.tree_email_template_gen</field>
+      <field name="model">email.template.gen</field>
+      <field name="arch" type="xml">
+        <tree string="E-Mail Template Generator" colors="blue:state == 'draft';black:state == 'valid'">
+          <field name="name"/>
+          <field name="header_id"/>
+          <field name="partner_id"/>
+          <field name="template_id"/>
+          <field name="state"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="search_email_template_gen" model="ir.ui.view">
+      <field name="name">at_mail.search_email_template_gen</field>
+      <field name="model">email.template.gen</field>
+      <field name="arch" type="xml">
+        <search string="E-Mail Template Generator">
+          <field name="name"/>
+          <field name="header_id"/>
+          <field name="template_id"/>
+          <field name="partner_id"/>
+          <group expand="0" string="Group By...">
+            <filter string="Status" context="{'group_by': 'state'}"/>
+            <filter string="Header" context="{'group_by': 'header_id'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
+
+    <record id="action_email_template_gen" model="ir.actions.act_window">
+      <field name="name">E-Mail Template Generator</field>
+      <field name="res_model">email.template.gen</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_email_template_gen" name="Generator" parent="base.menu_email"
+      sequence="101"
+      action="action_email_template_gen"/>
+      
+  </data>
+</openerp>

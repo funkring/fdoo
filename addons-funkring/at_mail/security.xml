@@ -1,0 +1,25 @@
+<openerp>
+  <data>
+    
+    <record id="access_email_template_gen_system" model="ir.model.access">
+      <field name="name">email_template_gen/system</field>
+      <field name="model_id" ref="model_email_template_gen"/>
+      <field name="group_id" ref="base.group_system"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_write" eval="True"/>
+    </record>
+    
+    <record id="access_email_template_header_system" model="ir.model.access">
+      <field name="name">email_template_header/system</field>
+      <field name="model_id" ref="model_email_template_header"/>
+      <field name="group_id" ref="base.group_system"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_unlink" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_write" eval="True"/>
+    </record>
+        
+  </data>
+</openerp>
