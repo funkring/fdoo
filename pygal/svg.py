@@ -61,6 +61,7 @@ class Svg(object):
         self.defs = self.node(tag='defs')
         self.title = self.node(tag='title')
         self.title.text = graph.title or 'Pygal'
+        self.processing_instructions = []
 
     def add_styles(self):
         """Add the css to the svg"""
