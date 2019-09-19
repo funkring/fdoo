@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+  
+    <record id="form_email_template_header" model="ir.ui.view">
+      <field name="name">at_mail.form_email_template_header</field>
+      <field name="model">email.template.header</field>
+      <field name="arch" type="xml">
+        <form string="E-Mail Template Header">
+           <header>
+            <button name="action_validate" class="oe_highlight" type="object" string="Validate" states="draft"/>
+            <button name="action_reset" type="object" string="Reset" states="valid"/>
+            <field name="state" widget="statusbar" nolabel="1" statusbar_visible="draft,valid" statusbar_colors="{'draft':'blue'}"/>            
+          </header>
+          <group>
+            <group>
+              <field name="name"/>              
+            </group>
+            <group>
+              <field name="partner_id"/>
+            </group>
+          </group>
+          <notebook>
+            <page string="Header">  
+              <field name="header_html"/>
+            </page>
+            <page string="Footer">  
+              <field name="footer_html"/>
+            </page>
+          </notebook>
+        </form>
+      </field>
+    </record>
+
+    <record id="tree_email_template_header" model="ir.ui.view">
+      <field name="name">at_mail.tree_email_template_header</field>
+      <field name="model">email.template.header</field>
+      <field name="arch" type="xml">
+        <tree string="E-Mail Template Header" colors="blue:state == 'draft';black:state == 'valid'">          
+          <field name="name"/>
+          <field name="partner_id"/>
+          <field name="state"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="search_email_template_header" model="ir.ui.view">
+      <field name="name">at_mail.search_email_template_header</field>
+      <field name="model">email.template.header</field>
+      <field name="arch" type="xml">
+        <search string="E-Mail Template Header">
+          <field name="name"/>
+          <field name="partner_id"/>
+          <group expand="0" string="Group By...">
+            <filter string="Status" context="{'group_by': 'state'}"/>
+            <filter string="Partner" context="{'group_by': 'partner_id'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
+
+    <record id="action_email_template_header" model="ir.actions.act_window">
+      <field name="name">E-Mail Template Header</field>
+      <field name="res_model">email.template.header</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_email_template_header" name="Header/Footer" parent="base.menu_email"
+      sequence="100"
+      action="action_email_template_header"/>
+      
+  </data>
+</openerp>
