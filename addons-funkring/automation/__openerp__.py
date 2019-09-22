@@ -33,7 +33,7 @@ Automation
     "version" : "1.0",
     "author" :  "oerp.at",
     "website" : "http://oerp.at",
-    "category" : "System",
+    "category" : "Automation",
     "depends" : ["at_base"],
     "data" : ["security.xml",
               "data/cleanup_cron.xml",
