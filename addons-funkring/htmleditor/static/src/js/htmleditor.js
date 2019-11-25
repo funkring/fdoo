@@ -34,8 +34,7 @@ openerp.htmleditor = function(instance, local) {
                             });
                         }
                     },
-                    urlconverter_callback: function(url, node, on_save, name) {
-                        debugger;
+                    urlconverter_callback: function(url, node, on_save, name) {                        
                         return url;
                     }
                            
