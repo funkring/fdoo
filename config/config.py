@@ -71,6 +71,9 @@ def getMaintainedModules():
 
 
 def getCmd(args,opt=None):
+    if opt.pipenv:
+        log.info("Use pipenv")
+        args = ["pipenv","run", "python2"] + args
     if not opt:
         return args
     if opt.db_host:
@@ -469,6 +472,7 @@ if __name__ == "__main__":
     parser.add_option("--test-prefix", dest="test_prefix", help="Only run tests which start with the passed prefix")
     parser.add_option("--test-case", dest="test_case", help="Only run test with the passed simple class name")
     parser.add_option("--test-download", dest="test_download", help="Add directory for test downloads (e.g. Reports)")
+    parser.add_option("--pipenv", dest="pipenv", action="store_true", default=False, help="Start with pipenv")
     opt, args = parser.parse_args()
 
     # ####################################################################
