@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "10054e3f8082951361a289ac7afeb057c09c48c94d079241da92f60330747ffe"
+            "sha256": "3b3ee0f04449a13008f1c2e1079f62df5ecd78b9ab013fd00bf4fc2e9b04faba"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -354,13 +354,6 @@
             ],
             "index": "pypi",
             "version": "==1.2.2"
-        },
-        "gnupg": {
-            "hashes": [
-                "sha256:8db5a05c369dbc231dab4c98515ce828f2dffdc14f1534441a6c59b71c6d2031"
-            ],
-            "index": "pypi",
-            "version": "==2.3.1"
         },
         "greenlet": {
             "hashes": [
@@ -869,6 +862,14 @@
             ],
             "index": "pypi",
             "version": "==2.8.1"
+        },
+        "python-gnupg": {
+            "hashes": [
+                "sha256:3353e59949cd2c15efbf1fca45e347d8a22f4bed0d93e9b89b2657bda19cec05",
+                "sha256:c095a41f310ad7a4fd393406660ac9bd6c175ccaa0f072f9c18f33be8130a27a"
+            ],
+            "index": "pypi",
+            "version": "==0.4.5"
         },
         "python-ldap": {
             "hashes": [
