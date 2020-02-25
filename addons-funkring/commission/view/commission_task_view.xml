@@ -51,11 +51,15 @@
     <record id="search_commission_task" model="ir.ui.view">
       <field name="name">commission.search_commission_task</field>
       <field name="model">commission.task</field>
+      <field name="mode">primary</field>
       <field name="inherit_id" ref="automation.search_automation_task"/>
       <field name="arch" type="xml">
         <field name="name" position="after">
           <field name="partner_id"/>
         </field>
+        <group position="inside">
+          <filter string="Partner" context="{'group_by': 'partner_id'}"/>    
+        </group>
       </field>
     </record>
 
