@@ -49,10 +49,15 @@ class crm_lead(models.Model):
     self._move_attachments(obj)
     
   def _create_order(self, values=None):
+    self.ensure_one()
+    
     if values is None:
       values = {}
     else:
       values = values.copy()
+      
+    if not "client_order_ref" in values:
+      values["client_order_ref"] = self.name
       
     order_obj = self.env["sale.order"]
     
