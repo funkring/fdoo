@@ -377,8 +377,12 @@ class automation_task(models.Model):
   total_warnings = fields.Integer("Total Warnings", compute="_total_warnings")
   
   task_id = fields.Many2one("automation.task", "Task", compute="_task_id")
+  
   after_once_task_id = fields.Many2one("automation.task", "Task After (Once)", 
                                        help="Start this task after that task has finished successfully only once", readonly=True, ondelete="restrict")
+  
+  start_after = fields.Datetime("Start After",
+                      help="Start *this* task after the specified date/time")
   
   @api.one
   def _task_id(self):
@@ -456,10 +460,37 @@ class automation_task(models.Model):
                 
       taskc.done()
   
-  @api.multi
   def _stage_count(self):
     self.ensure_one()
     return 10
+  
+  def _task_get_list(self):
+    self.ensure_one()
+    res = []
+    task = self
+    while task:
+      res.append(task.id)
+      task = task.after_once_task_id
+    return self.browse(res)
+  
+  def _task_add_after_last(self, task):
+    """ Add task after this """    
+    if task:      
+      self.ensure_one()
+      
+      last_task = self
+      while last_task.after_once_task_id:
+        last_task = last_task.after_once_task_id
+
+      last_task.write({"after_once_task_id": task.id})
+    
+  def _task_insert_after(self, task):
+    """ Insert task after this"""
+    if task:
+      self.ensure_one()
+      task_after = self.after_once_task_id
+      self.write({"after_once_task_id": task.id})
+      task._add_after_last(task_after)
   
   def _check_execution_rights(self):
     # check rights 
@@ -482,25 +513,6 @@ class automation_task(models.Model):
   @api.multi
   def action_reset(self):
     return True
-
-  @api.multi
-  def _get_cron_values(self):
-    self.ensure_one()
-    # new cron entry
-    return {
-      "name": "Task: %s" % self.name,
-      "user_id": SUPERUSER_ID,
-      "interval_type": "minutes",
-      "interval_number": 1,
-      "nextcall": util.currentDateTime(),
-      "numbercall": 1,
-      "model": self._name,
-      "function": "_process_task",
-      "args": "(%s,)" % self.id,
-      "active": True,
-      "priority": 1000 + self.id,
-      "task_id": self.id 
-    }
   
   @api.multi
   def action_queue(self):
@@ -535,6 +547,31 @@ class automation_task(models.Model):
           })
         
     return True
+  
+  def _get_cron_values(self):
+    self.ensure_one()
+    
+    # start after is set
+    # use start_after date instead of next call
+    nextcall = util.currentDateTime()
+    if nextcall < self.start_after:
+      nextcall = self.start_after
+      
+    # new cron entry
+    return {
+      "name": "Task: %s" % self.name,
+      "user_id": SUPERUSER_ID,
+      "interval_type": "minutes",
+      "interval_number": 1,
+      "nextcall": nextcall,
+      "numbercall": 1,
+      "model": self._name,
+      "function": "_process_task",
+      "args": "(%s,)" % self.id,
+      "active": True,
+      "priority": 1000 + self.id,
+      "task_id": self.id 
+    }
   
   @api.model
   def _cleanup_tasks(self):
