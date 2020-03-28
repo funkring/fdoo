@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-# -*- encoding: utf-8 -*-
-
 #############################################################################
 #
 #    Copyright (c) 2007 Martin Reisenhofer <martin.reisenhofer@funkring.net>
@@ -20,31 +18,24 @@
 #
 ##############################################################################
 
-{
-    "name" : "BMD Export",
-    "description":"""
-BMD Export
-==========
+from openerp import models, fields, api, _
 
-* Export for accounting software BMD
+class bmd_reconcil_profile(models.Model):
+    _name = "bmd.reconcil.profile"
+    _description = "BMD Reconciliation Profile"
+        
+    name = fields.Char("Name", required=True)
+    company_id = fields.Many2one("res.company", "Company", required=True, 
+         default=lambda self: self.env['res.company']._company_default_get('bmd.reconcil.profile'))
+    
+    journal_id = fields.Many2one("account.journal" "Journal", required=True)
+    exclude = fields.Char("Exclude Flag")
+    
 
-""",
-    "version" : "1.0",
-    "author" :  "oerp.at",
-    "website": "http://www.oerp.at",
-    "category" : "Accounting & Finance/Export",
-    "depends" : ["mail",
-                 "at_account",
-                 "at_base",
-                 "util_time",
-                 "util_report"],
-    "data" : ["security/security.xml",       
-              "wizard/bmd_reconcile_wizard.xml",
-              "view/bmd_export_line_view.xml",     
-              "view/bmd_export.xml",
-              "view/bmd_profil.xml",
-              "menu.xml"
-             ],
-    "auto_install": False,
-    "installable": True
-}
+class bmd_reconcil(models.Model):
+    _name = "bmd.reconcil"
+    _description = "BMD Reconciliation"
+    
+    name = fields.Char("Name", required=True)
+    profile_id = fields.Many2one("bmd.reconcil.profile", "Profile", required=True)
+    

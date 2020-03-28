@@ -21,30 +21,20 @@
 ##############################################################################
 
 {
-    "name" : "BMD Export",
-    "description":"""
-BMD Export
-==========
+    "name" : "Report Utilities",
+    "summary":"""
+Report Utilities
+================
 
-* Export for accounting software BMD
+* Helper functions for reports
 
-""",
-    "version" : "1.0",
+    """,
+    "version" : "8.0.1.0.0",
     "author" :  "oerp.at",
     "website": "http://www.oerp.at",
-    "category" : "Accounting & Finance/Export",
-    "depends" : ["mail",
-                 "at_account",
-                 "at_base",
-                 "util_time",
-                 "util_report"],
-    "data" : ["security/security.xml",       
-              "wizard/bmd_reconcile_wizard.xml",
-              "view/bmd_export_line_view.xml",     
-              "view/bmd_export.xml",
-              "view/bmd_profil.xml",
-              "menu.xml"
-             ],
+    "category" : "Base",
+    "depends" : [],    
+    "data" : [],
     "auto_install": False,
     "installable": True
 }

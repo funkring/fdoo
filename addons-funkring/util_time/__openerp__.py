@@ -21,30 +21,20 @@
 ##############################################################################
 
 {
-    "name" : "BMD Export",
-    "description":"""
-BMD Export
-==========
+    "name" : "Time Utilities",
+    "summary":"""
+Time Utilities
+==============
 
-* Export for accounting software BMD
+* Helper functions for date/time
 
-""",
-    "version" : "1.0",
-    "author" :  "oerp.at",
-    "website": "http://www.oerp.at",
-    "category" : "Accounting & Finance/Export",
-    "depends" : ["mail",
-                 "at_account",
-                 "at_base",
-                 "util_time",
-                 "util_report"],
-    "data" : ["security/security.xml",       
-              "wizard/bmd_reconcile_wizard.xml",
-              "view/bmd_export_line_view.xml",     
-              "view/bmd_export.xml",
-              "view/bmd_profil.xml",
-              "menu.xml"
-             ],
+    """,
+    "version" : "8.0.1.0.0",
+    "author" :  "funkring.net",
+    "website": "http://www.funkring.net",
+    "category" : "Base",
+    "depends" : [],    
+    "data" : [],
     "auto_install": False,
     "installable": True
 }

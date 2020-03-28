@@ -2,29 +2,29 @@
 	<data>
 	
 		<record id="form_bmd_export_profile" model="ir.ui.view">
-			<field name="name">BMD Export Profile</field>
+			<field name="name">at_bmd.form_bmd_export_profile</field>
 			<field name="model">bmd.export.profile</field>
 			<field name="arch" type="xml">
-				<form string="BMD Export Profile" version="7.0">
+				<form string="BMD Export Profil">
 					<group string="Profil">
 						<group>
+						    <field name="company_id" groups="base.group_multi_company"/>
 							<field name="name" />
 							<field name="cession_code" />
 						</group>
 						<group>
 							<field name="active" />
-							<field name="export_asset_accounts" />
 							<field name="partner_name_as_matchcode" />
 							<field name="receipt_primary" />
 						</group>
 					</group>
 					<group>
-						<group string="Journale">
+						<group string="Journals">
 							<div>
 								<field name="journal_ids"/>
 							</div>
 						</group>
-						<group string="Anhänge">
+						<group string="Reports">
 							<field name="send_affected_statements"/>
 							<field name="send_statements"/>
 							<field name="send_balance_list"/>
@@ -39,7 +39,7 @@
 		</record>
 
 		<record id="tree_bmd_export_profile" model="ir.ui.view">
-			<field name="name">BMD Export Profile</field>
+			<field name="name">at_bmd.tree_bmd_export_profile</field>
 			<field name="model">bmd.export.profile</field>
 			<field name="arch" type="xml">
 				<tree string="BMD Export Profile">
@@ -55,6 +55,9 @@
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
 		</record>
+		
+		<menuitem id="menu_bmd_export_profile" parent="at_account.menu_account_eximport_configuration"
+              action="action_bmd_export_profile" sequence="100" />
 		
 	</data>
 </openerp>
