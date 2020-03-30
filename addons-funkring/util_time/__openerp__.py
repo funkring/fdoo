@@ -22,16 +22,16 @@
 
 {
     "name" : "Time Utilities",
-    "summary":"""
+    "description":"""
 Time Utilities
 ==============
 
 * Helper functions for date/time
 
-    """,
+""",
     "version" : "8.0.1.0.0",
-    "author" :  "funkring.net",
-    "website": "http://www.funkring.net",
+    "author" :  "oerp.at",
+    "website": "http://www.oerp.at",
     "category" : "Base",
     "depends" : [],    
     "data" : [],

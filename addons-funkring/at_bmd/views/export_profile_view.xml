@@ -49,15 +49,16 @@
 		</record>
 
 		<record id="action_bmd_export_profile" model="ir.actions.act_window">
-			<field name="name">BMD Export Profile</field>
+			<field name="name">Export Profile</field>
 			<field name="type">ir.actions.act_window</field>
 			<field name="res_model">bmd.export.profile</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
 		</record>
 		
-		<menuitem id="menu_bmd_export_profile" parent="at_account.menu_account_eximport_configuration"
+		<menuitem id="menu_bmd_export_profile" parent="bmd_config"
               action="action_bmd_export_profile" sequence="100" />
+              
 		
 	</data>
 </openerp>

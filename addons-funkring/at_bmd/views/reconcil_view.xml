@@ -1,73 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
-  <data>
-    <record id="form_bmd_reconcil" model="ir.ui.view">
-      <field name="name">at_bmd.form_bmd_reconcil</field>
-      <field name="model">bmd.reconcil</field>
-      <field name="inherit_id" ref="automation.form_automation_task"/>
-      <field name="mode">primary</field>
-      <field name="arch" type="xml">
-        <div name="buttons" position="inside">
-          <button type="object" 
-                  class="oe_stat_button"
-                  id="stage_button"
-                  icon="fa-list"
-                  name="action_export_lines">
-                  <div><strong><field name="export_line_count"/></strong><br/>Lines</div>
-          </button>
-        </div>
-        <group name="task_specific" position="after">
-          <group>
-            <group>
-              <field name="name"/>              
-            </group>
-            <group>
-              <field name="profile_id"/>
-            </group>
-          </group>
-        </group>
-      </field>
-    </record>
-
-    <record id="tree_bmd_reconcil" model="ir.ui.view">
-      <field name="name">at_bmd.tree_bmd_reconcil</field>
-      <field name="model">bmd.reconcil</field>
-      <field name="mode">primary</field>
-      <field name="inherit_id" ref="automation.tree_automation_task"/>
-      <field name="arch" type="xml">
-        <field name="name" position="after">          
-          <field name="profile_id"/>
-          <field name="name"/>
-        </field>
-      </field>
-    </record>
-
-    <record id="search_bmd_reconcil" model="ir.ui.view">
-      <field name="name">at_bmd.search_bmd_reconcil</field>
-      <field name="model">bmd.reconcil</field>
-      <field name="mode">primary</field>
-      <field name="inherit_id" ref="automation.search_automation_task"/>
-      <field name="arch" type="xml">
-        <field name="name" position="after">
-          <field name="profile_id"/>
-        </field>
-        <group position="inside">
-          <filter string="Profile" context="{'group_by': 'profile_id'}"/>
-        </group>
-      </field>
-    </record>
-
-    <record id="action_bmd_reconcil" model="ir.actions.act_window">
-      <field name="name">BMD Reconciliation</field>
-      <field name="res_model">bmd.reconcil</field>
-      <field name="view_type">form</field>
-      <field name="view_mode">tree,form</field>
-    </record>
+    <data>
     
-    <menuitem id="menu_bmd_reconcil" 
-      parent="at_account.menu_account_eximport"
-      action="action_bmd_reconcil" 
-      sequence="100" />
-    
-  </data>
+        <record id="form_bmd_reconcil" model="ir.ui.view">
+            <field name="name">at_bmd.form_bmd_reconcil</field>
+            <field name="model">bmd.reconcil</field>
+            <field name="inherit_id" ref="automation.form_automation_task"/>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <div name="buttons" position="inside">
+                    <button class="oe_stat_button" icon="fa-list"
+                        id="stage_button" name="action_export_lines" type="object">
+                        <div>
+                            <strong>
+                                <field name="reconciled"/>
+                            </strong>
+                            <br/>Ausgeglichen</div>
+                    </button>
+                </div>
+                <group name="task_specific" position="after">
+                    <group>
+                        <group>
+                            <field name="profile_id"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                    <div>
+                        <field invisible="1" name="csv_data_fname"/>
+                        <label for="csv_data"/>
+                        <field filename="csv_data_fname" name="csv_data"/>
+                    </div>
+                </group>
+            </field>
+        </record>
+        
+        <record id="tree_bmd_reconcil" model="ir.ui.view">
+            <field name="name">at_bmd.tree_bmd_reconcil</field>
+            <field name="model">bmd.reconcil</field>
+            <field name="mode">primary</field>
+            <field name="inherit_id" ref="automation.tree_automation_task"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="profile_id"/>
+                </field>
+            </field>
+        </record>
+        
+        <record id="search_bmd_reconcil" model="ir.ui.view">
+            <field name="name">at_bmd.search_bmd_reconcil</field>
+            <field name="model">bmd.reconcil</field>
+            <field name="mode">primary</field>
+            <field name="inherit_id" ref="automation.search_automation_task"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="profile_id"/>
+                </field>
+                <group position="inside">
+                    <filter context="{'group_by': 'profile_id'}" string="Profile"/>
+                </group>
+            </field>
+        </record>
+        
+        <record id="action_bmd_reconcil" model="ir.actions.act_window">
+            <field name="name">BMD OP. Ausgleich</field>
+            <field name="res_model">bmd.reconcil</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem action="action_bmd_reconcil" id="menu_bmd_reconcil"
+            parent="account.periodical_processing_reconciliation" sequence="100"/>
+            
+    </data>
 </openerp>

@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-# -*- encoding: utf-8 -*-
-
 #############################################################################
 #
 #    Copyright (c) 2007 Martin Reisenhofer <martin.reisenhofer@funkring.net>
@@ -20,21 +18,10 @@
 #
 ##############################################################################
 
-{
-    "name" : "Report Utilities",
-    "description":"""
-Report Utilities
-================
+from openerp import models, fields, api, _
 
-* Helper functions for reports
-
-""",
-    "version" : "8.0.1.0.0",
-    "author" :  "oerp.at",
-    "website": "http://www.oerp.at",
-    "category" : "Base",
-    "depends" : [],    
-    "data" : [],
-    "auto_install": False,
-    "installable": True
-}
+class account_nvoice(models.Model):
+    _inherit = "account.invoice"
+    
+    bmd_reconcil_id = fields.Many2one("bmd.reconcil", "BMD OP. Ausgleich", 
+                                        index=True)

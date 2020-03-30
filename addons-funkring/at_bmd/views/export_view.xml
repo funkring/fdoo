@@ -1,77 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
-  <data>
-    <record id="form_bmd_export" model="ir.ui.view">
-      <field name="name">at_bmd.form_bmd_export</field>
-      <field name="model">bmd.export</field>
-      <field name="inherit_id" ref="automation.form_automation_task"/>
-      <field name="mode">primary</field>
-      <field name="arch" type="xml">
-        <div name="buttons" position="inside">
-          <button type="object" 
-                  class="oe_stat_button"
-                  id="stage_button"
-                  icon="fa-list"
-                  name="action_export_lines">
-                  <div><strong><field name="export_line_count"/></strong><br/>Lines</div>
-          </button>
-        </div>
-        <group name="task_specific" position="after">
-          <group>
-            <group>
-              <field name="name"/>              
-            </group>
-            <group>
-              <field name="profile_id"/>
-              <field naem="period_id"/>
-            </group>
-          </group>
-        </group>
-      </field>
-    </record>
-
-    <record id="tree_bmd_export" model="ir.ui.view">
-      <field name="name">at_bmd.tree_bmd_export</field>
-      <field name="model">bmd.export</field>
-      <field name="mode">primary</field>
-      <field name="inherit_id" ref="automation.tree_automation_task"/>
-      <field name="arch" type="xml">
-        <field name="name" position="after">          
-          <field name="period_id"/>
-          <field name="profile_id"/>
-          <field name="name"/>
-        </field>
-      </field>
-    </record>
-
-    <record id="search_bmd_export" model="ir.ui.view">
-      <field name="name">at_bmd.search_bmd_export</field>
-      <field name="model">bmd.export</field>
-      <field name="mode">primary</field>
-      <field name="inherit_id" ref="automation.search_automation_task"/>
-      <field name="arch" type="xml">
-        <field name="name" position="after">
-          <field name="profile_id"/>
-          <field name="period_id"/>
-        </field>
-        <group position="inside">
-          <filter string="Profile" context="{'group_by': 'profile_id'}"/>
-          <filter string="Period" context="{'group_by': 'period_id'}"/>    
-        </group>
-      </field>
-    </record>
-
-    <record id="action_bmd_export" model="ir.actions.act_window">
-      <field name="name">BMD Export</field>
-      <field name="res_model">bmd.export</field>
-      <field name="view_type">form</field>
-      <field name="view_mode">tree,form</field>
-    </record>
+    <data>
     
-    <menuitem id="menu_bmd_export" 
-      parent="at_account.menu_account_eximport"
-      action="action_bmd_export" 
-      sequence="99" />
-    
-  </data>
+        <record id="form_bmd_export" model="ir.ui.view">
+            <field name="name">at_bmd.form_bmd_export</field>
+            <field name="model">bmd.export</field>
+            <field name="inherit_id" ref="automation.form_automation_task"/>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml"> 
+                <header position="inside">
+                    <button name="action_send_email" 
+                            string="Sende E-Mail"
+                            type="object"/>
+                </header>               
+                <div name="buttons" position="inside">
+                    <button class="oe_stat_button"
+                        context="{'search_default_bmd_export_id': active_id}"
+                        icon="fa-list" id="stage_button"
+                        name="%(action_bmd_export_line)d">
+                        <div>
+                            <strong>
+                                <field name="export_lines"/>
+                            </strong>
+                            <br/>Zeilen</div>
+                    </button>
+                </div>
+                <group name="task_specific" position="after">
+                    <group>
+                        <group>
+                            <field name="profile_id"/>
+                        </group>
+                        <group>
+                            <field name="period_id"/>
+                        </group>
+                    </group>
+                </group>
+                <notebook position="inside">
+                    <page string="Export Datei(en)">
+                        <field name="export_file_ids">
+                            <tree string="Datei(en)" readonly="1">
+                                <field name="export_name"/>
+                                <field name="datas_fname" invisible="1"/>
+                                <field name="datas"/>
+                            </tree>
+                            <form>
+                                <group>
+                                    <group>
+                                        <field name="export_name"/>
+                                    </group>
+                                    <group>
+                                        <field name="datas_fname" invisible="1"/>
+                                        <field name="datas"/> 
+                                    </group>
+                                </group>
+                            </form>
+                        </field>
+                    </page>
+                </notebook>
+                <sheet position="after">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </sheet>
+            </field>
+        </record>
+        
+        <record id="tree_bmd_export" model="ir.ui.view">
+            <field name="name">at_bmd.tree_bmd_export</field>
+            <field name="model">bmd.export</field>
+            <field name="mode">primary</field>
+            <field name="inherit_id" ref="automation.tree_automation_task"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="period_id"/>
+                    <field name="profile_id"/>
+                    <field name="name"/>
+                </field>
+            </field>
+        </record>
+        
+        <record id="search_bmd_export" model="ir.ui.view">
+            <field name="name">at_bmd.search_bmd_export</field>
+            <field name="model">bmd.export</field>
+            <field name="mode">primary</field>
+            <field name="inherit_id" ref="automation.search_automation_task"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="profile_id"/>
+                    <field name="period_id"/>
+                </field>
+                <group position="inside">
+                    <filter context="{'group_by': 'profile_id'}" string="Profile"/>
+                    <filter context="{'group_by': 'period_id'}" string="Period"/>
+                </group>
+            </field>
+        </record>
+        
+        <record id="action_bmd_export" model="ir.actions.act_window">
+            <field name="name">BMD Export</field>
+            <field name="res_model">bmd.export</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem action="action_bmd_export" id="menu_bmd_export"
+            parent="account.menu_finance_periodical_processing" sequence="100"/>
+            
+    </data>
 </openerp>

@@ -1,0 +1,8 @@
+<openerp>
+  <data>
+    
+    <menuitem id="bmd_config" 
+            parent="account.menu_finance_configuration" name="BMD Configuration" sequence="69"/>
+    
+  </data>
+</openerp>

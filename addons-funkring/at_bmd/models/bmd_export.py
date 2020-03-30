@@ -28,7 +28,6 @@ from datetime import date
 from openerp import models, fields, api, _
 from openerp.addons.at_base import util
 from openerp.exceptions import Warning
-from openerp.addons.at_bmd.models.bmd_export import ExporterException
 
 
 class ExporterException(Exception):
@@ -132,13 +131,12 @@ class FixLenExport(Exporter):
 
 class BmdExportFile(models.BaseModel):
     _name = "bmd.export.file"
-    _inherit = ["ir.attachment"]
     _inherits = {"ir.attachment": "attachment_id"}
     _rec_name = "export_name"
 
     export_name = fields.Char("Export Name", required=True, index=True)
-    export_id = fields.One2many("bmd.export", "Export", required=True, index=True)
-    attachment_id = fields.One2many(
+    bmd_export_id = fields.Many2one("bmd.export", "Export", required=True, index=True)
+    attachment_id = fields.Many2one(
         "ir.attachment", "Attachment", required=True, index=True, ondelete="cascade"
     )
 
@@ -150,15 +148,114 @@ class BmdExport(models.BaseModel):
     _description = "BMD Export"
     _inherits = {"automation.task": "task_id"}
 
-    name = fields.Char("Name", required=True,)
-    period_id = fields.Many2one("account.period", "Periode", required=True,)
-    profile_id = fields.Many2one(
-        "bmd.export.profile", "Profil", ondelete="restrict", required=True,
-    )
-    line_ids = fields.One2Many("bmd.export_line", "bmd_export_id", "BMD Export Zeilen",)
+    @api.model
+    def _default_profile(self):
+        company_id = self.env['res.company']._company_default_get("bmd.export.profile")
+        return self.env["bmd.export.profile"].search([("company_id","=",company_id)], limit=1)
+    
+    @api.model
+    def _default_period(self):
+        period_start = self._firstOfLastMonth()
+        period_obj = self.env["account.period"]
+        
+        period = period_obj.search([("date_start","=",period_start)], limit=1)
+        if not period:
+            period = period_obj.search([], limit=1, order="date_start desc")
+        
+        return period
+    
+    @api.onchange("period_id", "profile_id")
+    def _onchange_period_profile(self):
+        name = []
+        if self.period_id:
+            name.append(self.period_id.name)
+        if self.profile_id:
+            name.append(self.profile_id.name)
+        name = " ".join(name)
+        self.name = name
+        
+
     task_id = fields.Many2one(
         "automation.task", "Task", required=True, index=True, ondelete="cascade"
     )
+    period_id = fields.Many2one("account.period", "Periode", required=True,
+                                ondelete="restrict",
+                                default=_default_period)
+    
+    profile_id = fields.Many2one("bmd.export.profile", "Profil", 
+        ondelete="restrict", required=True, default=_default_profile
+    )
+
+    line_ids = fields.One2many("bmd.export.line", "bmd_export_id", "BMD Export Zeilen")
+    export_lines = fields.Integer(
+        "Export Zeilen", compute="_compute_export_lines", store=False
+    )
+    
+    export_file_ids = fields.One2many("bmd.export.file", "bmd_export_id", "Export Datei(en)")
+
+    @api.model
+    @api.returns("self", lambda self: self.id)
+    def create(self, vals):
+        res = super(commission_task, self).create(vals)
+        res.res_model = self._name
+        res.res_id = res.id
+        return res
+
+    @api.multi
+    def action_queue(self):
+        return self.task_id.action_queue()
+
+    @api.multi
+    def action_cancel(self):
+        return self.task_id.action_cancel()
+
+    @api.multi
+    def action_refresh(self):
+        return self.task_id.action_refresh()
+
+    @api.multi
+    def action_reset(self):
+        return self.task_id.action_reset()
+
+    @api.multi
+    def unlink(self):
+        cr = self._cr
+        ids = self.ids
+        cr.execute(
+            "SELECT task_id FROM %s WHERE id IN %%s AND task_id IS NOT NULL"
+            % self._table,
+            (tuple(ids),),
+        )
+        task_ids = [r[0] for r in cr.fetchall()]
+        res = super(commission_task, self).unlink()
+        self.env["automation.task"].browse(task_ids).unlink()
+        return res
+
+    def _run_options(self):
+        return {"stages": 3, "singleton": True}
+
+    def _run(self, taskc):
+        taskc.stage("Vorbereitung")
+        self._create_lines(taskc)
+        taskc.done()
+
+        if self.profile_id.version == "ntcs":
+            taskc.stage("NTCS Export")
+            self._export_ntcs(taskc)
+            taskc.done()
+        else:
+            taskc.stage("BMD55 Export")
+            self._export_bmd5(taskc)
+            taskc.done()
+
+        taskc.stage("Berichte")
+        self._create_reports(taskc)
+        taskc.done()
+
+    @api.multi
+    def _compute_export_lines(self):
+        for obj in self.objects:
+            obj.export_line_count = len(obj.line_ids)
 
     def _export_file(self, taskc, export_name, file_name, data=None, datas=None):
         export_obj = self.env["bmd.export.file"]
@@ -271,7 +368,7 @@ class BmdExport(models.BaseModel):
                         )
                     else:
                         country_code = country.code
-                        if company_country:
+                        if country:
                             foreigner = country.id != company_country.id
 
                     discount_days = 0
@@ -439,7 +536,7 @@ class BmdExport(models.BaseModel):
             account_receivable = invoice.partner_id.property_account_receivable
             country = invoice.partner_id.country_id
             country_code = country and country.code or ""
-            foreigner = country_code and "AT" != country.code
+            foreigner = country and company.country_id != country.id
             european_union = False
 
             if foreigner and invoice.partner_id.vat:
@@ -611,150 +708,157 @@ class BmdExport(models.BaseModel):
             for account_data in accounts.values():
                 addExportLine(account_data)
 
-    def exportMove(move):
-        move_lines = move.line_id
-        group_credit = 0.0
-        group_debit = 0.0
-        group_lines = []
-        group = [group_lines]
+        def exportMove(move):
+            move_lines = move.line_id
+            group_credit = 0.0
+            group_debit = 0.0
+            group_lines = []
+            group = [group_lines]
 
-        # group lines
-        for line in move_lines:
-            group_lines.append(line)
-            if line.credit:
-                group_credit += line.credit
-            else:
-                group_debit += line.debit
-            # group if balanced
-            if group_credit == group_debit and group_debit > 0:
-                group_lines = []
-                group.append(group_lines)
-
-        for group_lines in group:
-            debit = []
-            credit = []
-            reconcile_ids = []
-            partner = None
-
-            for line in group_lines:
-                if not partner:
-                    partner = line.partner_id
-                #
+            # group lines
+            for line in move_lines:
+                group_lines.append(line)
                 if line.credit:
-                    credit.append({"line": line, "amount": line.credit})
+                    group_credit += line.credit
                 else:
-                    debit.append({"line": line, "amount": line.debit})
+                    group_debit += line.debit
+                # group if balanced
+                if group_credit == group_debit and group_debit > 0:
+                    group_lines = []
+                    group.append(group_lines)
 
-                reconcile_id = line.reconcile_id or line.reconcile_partial_id or None
-                if reconcile_id:
-                    reconcile_ids.append(reconcile_id.id)
+            for group_lines in group:
+                debit = []
+                credit = []
+                reconcile_ids = []
+                partner = None
 
-            if not debit or not credit:
-                continue
+                for line in group_lines:
+                    if not partner:
+                        partner = line.partner_id
+                    #
+                    if line.credit:
+                        credit.append({"line": line, "amount": line.credit})
+                    else:
+                        debit.append({"line": line, "amount": line.debit})
 
-            invoice = None
-            if reconcile_ids:
-                cr.execute(
-                    "SELECT inv.id FROM account_invoice inv "
-                    " INNER JOIN account_move_line l ON l.move_id = inv.move_id "
-                    " INNER JOIN account_move_reconcile r ON (r.id IN %s) AND (r.id = l.reconcile_id OR r.id = l.reconcile_partial_id) "
-                    " GROUP BY 1 ",
-                    (tuple(reconcile_ids),),
-                )
+                    reconcile_id = (
+                        line.reconcile_id or line.reconcile_partial_id or None
+                    )
+                    if reconcile_id:
+                        reconcile_ids.append(reconcile_id.id)
 
-                invoice_ids = [r[0] for r in cr.fetchall()]
-                invoice = invoice_ids and invoice_obj.browse(invoice_ids[0]) or None
+                if not debit or not credit:
+                    continue
 
-                if not partner:
-                    partner = invoice.partner_id
+                invoice = None
+                if reconcile_ids:
+                    cr.execute(
+                        "SELECT inv.id FROM account_invoice inv "
+                        " INNER JOIN account_move_line l ON l.move_id = inv.move_id "
+                        " INNER JOIN account_move_reconcile r ON (r.id IN %s) AND (r.id = l.reconcile_id OR r.id = l.reconcile_partial_id) "
+                        " GROUP BY 1 ",
+                        (tuple(reconcile_ids),),
+                    )
 
-            bucod = None
-            main = None
-            lines = None
-            sign = 1.0
+                    invoice_ids = [r[0] for r in cr.fetchall()]
+                    invoice = invoice_ids and invoice_obj.browse(invoice_ids[0]) or None
 
-            if len(debit) == 1 and not (
-                len(credit) == 1 and credit[0]["line"].name == "/"
-            ):
-                bucod = "1"
-                main = debit[0]
-                lines = credit
-            elif len(credit) == 1:
-                bucod = "2"
-                sign = -1.0
-                main = credit[0]
-                lines = debit
-            else:
-                taskc.logw(
-                    "Buchung %s kann nicht exportiert werden (mehr als eine Haben oder Soll Buchung)"
-                    % move.name,
-                    ref="account.move,%s" % move.id,
-                )
-                raise Warning(
-                    "Buchung %s kann nicht exportiert werden (mehr als eine Haben oder Soll Buchung)"
-                )
+                    if not partner:
+                        partner = invoice.partner_id
 
-            line = main["line"]
-            bmd_line_pattern = {
-                "satzart": "0",
-                "partner_id": partner and partner.id or None,
-                "konto": line.account_id.code,
-                "account_id": line.account_id.id,
-                "buchdat": move.date,
-                "belegdat": move.date,
-                "belegnr": self.belegnr_get(move.name),
-                "bucod": bucod,
-                "mwst": 0,
-                "steuer": 0.0,
-                "symbol": journal and journal.code or "",
-                "gegenbuchkz": "E",
-                "verbuchkz": "A",
-                "kost": invoice and self.belegnr_get(invoice.number) or None,
-                "invoice_id": invoice and invoice.id or None,
-                "zziel": "0",
-            }
+                bucod = None
+                main = None
+                lines = None
+                sign = 1.0
 
-            for line_data in lines:
-                line = line_data["line"]
-                bmd_line = bmd_line_pattern.copy()
-                bmd_line.update(
-                    {
-                        "export_id": self.id,
-                        "betrag": line_data["amount"] * sign,
-                        "text": line.name,
-                        "gkto": line.account_id.code,
-                        "account_contra_id": line.account_id.id,
-                        "move_line_id": line.id,
-                    }
-                )
-                line_obj.create(bmd_line)
+                if len(debit) == 1 and not (
+                    len(credit) == 1 and credit[0]["line"].name == "/"
+                ):
+                    bucod = "1"
+                    main = debit[0]
+                    lines = credit
+                elif len(credit) == 1:
+                    bucod = "2"
+                    sign = -1.0
+                    main = credit[0]
+                    lines = debit
+                else:
+                    taskc.logw(
+                        "Buchung %s kann nicht exportiert werden (mehr als eine Haben oder Soll Buchung)"
+                        % move.name,
+                        ref="account.move,%s" % move.id,
+                    )
+                    raise Warning(
+                        "Buchung %s kann nicht exportiert werden (mehr als eine Haben oder Soll Buchung)"
+                    )
 
-    if period_id and journal_ids:
-        for journal in journal_obj.browse(journal_ids):
-            if journal.type in ("sale", "sale_refund", "purchase", "purchase_refund"):
+                line = main["line"]
+                bmd_line_pattern = {
+                    "satzart": "0",
+                    "partner_id": partner and partner.id or None,
+                    "konto": line.account_id.code,
+                    "account_id": line.account_id.id,
+                    "buchdat": move.date,
+                    "belegdat": move.date,
+                    "belegnr": self.belegnr_get(move.name),
+                    "bucod": bucod,
+                    "mwst": 0,
+                    "steuer": 0.0,
+                    "symbol": journal and journal.code or "",
+                    "gegenbuchkz": "E",
+                    "verbuchkz": "A",
+                    "kost": invoice and self.belegnr_get(invoice.number) or None,
+                    "invoice_id": invoice and invoice.id or None,
+                    "zziel": "0",
+                }
 
-                inv_domain = [
-                    ("period_id", "=", period_id),
-                    ("journal_id", "=", journal.id),
-                    ("state", "in", ("open", "paid")),
-                ]
-                if obj.number_from:
-                    inv_domain.append(("number", ">=", obj.number_from))
+                for line_data in lines:
+                    line = line_data["line"]
+                    bmd_line = bmd_line_pattern.copy()
+                    bmd_line.update(
+                        {
+                            "export_id": self.id,
+                            "betrag": line_data["amount"] * sign,
+                            "text": line.name,
+                            "gkto": line.account_id.code,
+                            "account_contra_id": line.account_id.id,
+                            "move_line_id": line.id,
+                        }
+                    )
+                    line_obj.create(bmd_line)
 
-                for invoice in invoice_obj.search(inv_domain):
-                    exportInvoice(invoice)
+        if period_id and journal_ids:
+            for journal in journal_obj.browse(journal_ids):
+                if journal.type in (
+                    "sale",
+                    "sale_refund",
+                    "purchase",
+                    "purchase_refund",
+                ):
 
-            elif journal.type in ("bank", "cash"):
+                    inv_domain = [
+                        ("period_id", "=", period_id),
+                        ("journal_id", "=", journal.id),
+                        ("state", "in", ("open", "paid")),
+                    ]
+                    if obj.number_from:
+                        inv_domain.append(("number", ">=", obj.number_from))
 
-                move_domain = [
-                    ("period_id", "=", period_id),
-                    ("journal_id", "=", journal.id),
-                    ("state", "=", "posted"),
-                ]
-                if obj.number_from:
-                    move_domain.append(("name", ">=", obj.number_from))
-                for move in move_obj.search(move_domain):
-                    exportMove(move)
+                    for invoice in invoice_obj.search(inv_domain):
+                        exportInvoice(invoice)
+
+                elif journal.type in ("bank", "cash"):
+
+                    move_domain = [
+                        ("period_id", "=", period_id),
+                        ("journal_id", "=", journal.id),
+                        ("state", "=", "posted"),
+                    ]
+                    if obj.number_from:
+                        move_domain.append(("name", ">=", obj.number_from))
+                    for move in move_obj.search(move_domain):
+                        exportMove(move)
 
     def _create_reports(self, taskc):
         if not context:
@@ -976,23 +1080,30 @@ class BmdExport(models.BaseModel):
                     "%s-invoices" % invoice_type,
                     title="%s %s" % (inv_desc, period_name),
                 )
-
-    def _run_options(self):
-        return {"stages": 3}
-
-    def _run(self, taskc):
-        taskc.stage("Vorbereitung")
-        self._create_lines(taskc)
-
-        if self.profile_id.version == "ntcs":
-            taskc.stage("NTCS Export")
-            self._export_ntcs(taskc)
-        else:
-            taskc.stage("BMD55 Export")
-            self._export_bmd5(taskc)
-
-        taskc.stage("Berichte")
-        self._create_reports(taskc)
+                
+    @api.multi
+    def action_send_email(self):
+        self.ensure_one()
+        
+        attachment_ids = self.export_file_ids.mapped("attachment_id").ids
+        
+        wizard_form = self.env.ref("mail.email_compose_message_wizard_form")
+        wizard_context = {
+            "default_model": "bmd_export",
+            "default_res_id": self.id,
+            "default_composition_mode": "comment",
+            "default_attachment_ids": attachment_ids            
+        }
+        return {
+            "type": "ir.actions.act_window",
+            "view_type": "form",
+            "view_mode": "form",
+            "res_model": "mail.compose.message",
+            "views": [(wizard_form.id, "form")],
+            "view_id": wizard_form.id,
+            "target": "new",
+            "context": wizard_context,
+        }
 
 
 class BmdExportLine(models.BaseModel):
@@ -1006,7 +1117,7 @@ class BmdExportLine(models.BaseModel):
     invoice_id = fields.Many2one("account.invoice", "Rechnung")
     partner_id = fields.Many2one("res.partner", "Partner")
     account_id = fields.Many2one("account.account", "Konto")
-    account_contra_id = fields.many2one("account.account", "Gegenkonto")
+    account_contra_id = fields.Many2one("account.account", "Gegenkonto")
 
     satzart = fields.Selection(
         [
@@ -1090,7 +1201,7 @@ class BmdExportLine(models.BaseModel):
     )
 
 
-class BmdExportProfile(osv.Model):
+class BmdExportProfile(models.BaseModel):
     _name = "bmd.export.profile"
     _order = "name"
 
@@ -1101,9 +1212,15 @@ class BmdExportProfile(osv.Model):
         [("bmd55", "5.5"), ("ntcs", "NTCS")], "Version", default="bmd55"
     )
 
-    company_id = fields.Many2one("res.company", "Company", required=True,
-        default=lambda self: self.env['res.company']._company_default_get('bmd.export.profile'))
-    
+    company_id = fields.Many2one(
+        "res.company",
+        "Firma",
+        required=True,
+        default=lambda self: self.env["res.company"]._company_default_get(
+            "bmd.export.profile"
+        ),
+    )
+
     partner_name_as_matchcode = fields.Boolean("Partner als Matchcode")
     cession_code = fields.Char("Zession Code")
     receipt_primary = fields.Boolean("Erlöskonto Buchungen")
@@ -1120,5 +1237,5 @@ class BmdExportProfile(osv.Model):
         "bmd_export_profile_journal_rel",
         "profile_id",
         "journal_id",
-        string="Journals"
+        string="Journals",
     )
