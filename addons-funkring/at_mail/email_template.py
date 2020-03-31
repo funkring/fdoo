@@ -22,6 +22,7 @@ import base64
 
 import openerp.report
 from openerp import tools, api
+from openerp import SUPERUSER_ID
 
 from openerp.osv import fields, osv
 from openerp.addons.at_base.format import LangFormat
@@ -81,7 +82,7 @@ class email_template(osv.osv):
         results = dict()
         for template, template_res_ids in templates_to_res_ids.iteritems():
             # generate fields value for all res_ids linked to the current template
-            no_sanitize = template_gen_obj.search(cr, uid, 
+            no_sanitize = template_gen_obj.search(cr, SUPERUSER_ID, 
                                         [("template_id","=",template.id),
                                          ("active","=",True),
                                           ("state","=","valid"),
