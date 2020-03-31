@@ -10,11 +10,11 @@
         <field name="body_html" position="after">    
           <field name="is_generated" invisible="1"/>
         </field>
-        <field name="body_html" position="attribute">
-          <attribute name="attrs">{'readonly':[('is_generated','=',False)]}</attribute>
+        <field name="body_html" position="attributes">
+          <attribute name="attrs">{'readonly':[('is_generated','=',True)]}</attribute>
         </field>
-        <field name="subject" position="attribute">
-          <attribute name="attrs">{'readonly':[('is_generated','=',False)]}</attribute>
+        <field name="subject" position="attributes">
+          <attribute name="attrs">{'readonly':[('is_generated','=',True)]}</attribute>
         </field>
       </field>
     </record>

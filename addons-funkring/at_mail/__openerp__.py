@@ -27,7 +27,9 @@
     "depends" : ["at_base","mail","email_template"],
     "data" : ["security.xml",
               "view/email_template_header_view.xml",
-              "view/email_template_gen_view.xml"],
+              "view/email_template_gen_view.xml",
+              "view/email_template_view.xml"
+              ],
     "auto_install" : False,
     "installable": True
 }
