@@ -1,20 +1,21 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* at_mail
+# 	* at_mail
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Language: de_DE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-18 12:46+0000\n"
-"PO-Revision-Date: 2019-09-18 12:46+0000\n"
+"POT-Creation-Date: 2020-03-31 13:20+0000\n"
+"PO-Revision-Date: 2020-03-31 15:29+0200\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"X-Generator: Poedit 2.0.6\n"
 
 #. module: at_mail
 #: field:email.template.gen,active:0
@@ -29,15 +30,13 @@ msgstr "Inhalt"
 
 #. module: at_mail
 #: field:email.template.gen,create_uid:0
-#: field:email.template.header,create_uid:0
-#: field:mail.thread,create_uid:0
+#: field:email.template.header,create_uid:0 field:mail.thread,create_uid:0
 msgid "Created by"
 msgstr "Erstellt von"
 
 #. module: at_mail
 #: field:email.template.gen,create_date:0
-#: field:email.template.header,create_date:0
-#: field:mail.thread,create_date:0
+#: field:email.template.header,create_date:0 field:mail.thread,create_date:0
 msgid "Created on"
 msgstr "Erstellt am"
 
@@ -48,10 +47,19 @@ msgid "Display Name"
 msgstr "Anzeige Name"
 
 #. module: at_mail
-#: selection:email.template.gen,state:0
-#: selection:email.template.header,state:0
+#: help:email.template.gen,no_sanitize:0
+msgid "Don't filter out unsecure elements"
+msgstr "Filtere unsichere Element nicht raus"
+
+#. module: at_mail
+#: selection:email.template.gen,state:0 selection:email.template.header,state:0
 msgid "Draft"
 msgstr "Entwurf"
+
+#. module: at_mail
+#: model:ir.module.category,name:at_mail.category_email_template
+msgid "E-Mail Template"
+msgstr "E-Mail Vorlage"
 
 #. module: at_mail
 #: view:email.template.gen:at_mail.form_email_template_gen
@@ -118,16 +126,14 @@ msgid "Last Modified on"
 msgstr "zuletzt Geändert am"
 
 #. module: at_mail
-#: field:email.template.gen,write_uid:0
-#: field:email.template.header,write_uid:0
+#: field:email.template.gen,write_uid:0 field:email.template.header,write_uid:0
 #: field:mail.thread,write_uid:0
 msgid "Last Updated by"
 msgstr "zuletzt aktualisiert von"
 
 #. module: at_mail
 #: field:email.template.gen,write_date:0
-#: field:email.template.header,write_date:0
-#: field:mail.thread,write_date:0
+#: field:email.template.header,write_date:0 field:mail.thread,write_date:0
 msgid "Last Updated on"
 msgstr "zuletzt aktualisiert am"
 
@@ -135,6 +141,11 @@ msgstr "zuletzt aktualisiert am"
 #: model:ir.model,name:at_mail.model_mail_message
 msgid "Message"
 msgstr "Nachricht"
+
+#. module: at_mail
+#: field:email.template.gen,no_sanitize:0
+msgid "No Sanitize"
+msgstr "Keine Säuberung"
 
 #. module: at_mail
 #: help:mail.message,origin_id:0
@@ -153,8 +164,7 @@ msgid "Reset"
 msgstr "Zurücksetzen"
 
 #. module: at_mail
-#: field:email.template.gen,state:0
-#: field:email.template.header,state:0
+#: field:email.template.gen,state:0 field:email.template.header,state:0
 msgid "State"
 msgstr "Status"
 
@@ -169,14 +179,22 @@ msgid "Template"
 msgstr "Vorlage"
 
 #. module: at_mail
+#: model:res.groups,name:at_mail.group_template_admin
+msgid "Template Admin"
+msgstr "Vorlagen Administrator"
+
+#. module: at_mail
+#: field:email.template,template_gen_ids:0
+msgid "Template Generators"
+msgstr "Vorlagen Generator"
+
+#. module: at_mail
 #: view:email.template.gen:at_mail.form_email_template_gen
 #: view:email.template.header:at_mail.form_email_template_header
 msgid "Validate"
 msgstr "Validieren"
 
 #. module: at_mail
-#: selection:email.template.gen,state:0
-#: selection:email.template.header,state:0
+#: selection:email.template.gen,state:0 selection:email.template.header,state:0
 msgid "Validated"
 msgstr "Validiert"
-

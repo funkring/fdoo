@@ -1,10 +1,42 @@
 <openerp>
   <data>
     
+    <record model="ir.module.category" id="category_email_template">
+      <field name="name">E-Mail Template</field>
+      <field name="sequence">150</field>
+    </record>
+    
+    <record id="group_template_admin" model="res.groups">
+      <field name="name">Template Admin</field>
+      <field name="category_id" ref="category_email_template"/>
+    </record>
+
+    <record id="rule_email_template_nochange" model="ir.rule">
+      <field name="name">email_template/nochange</field>
+      <field name="model_id" ref="email_template.model_email_template"/>
+      <field name="domain_force">[]</field>
+      <field name="groups" eval="[(4,ref('base.group_user'))]"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_write" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_unlink" eval="False"/>
+    </record>
+    
+    <record id="rule_email_template_admin" model="ir.rule">
+      <field name="name">email_template/admin</field>
+      <field name="model_id" ref="email_template.model_email_template"/>
+      <field name="domain_force">[]</field>
+      <field name="groups" eval="[(4,ref('at_mail.group_template_admin'))]"/>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_write" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_unlink" eval="False"/>
+    </record>
+    
     <record id="access_email_template_gen_system" model="ir.model.access">
       <field name="name">email_template_gen/system</field>
       <field name="model_id" ref="model_email_template_gen"/>
-      <field name="group_id" ref="base.group_system"/>
+      <field name="group_id" ref="group_template_admin"/>
       <field name="perm_read" eval="True"/>
       <field name="perm_unlink" eval="True"/>
       <field name="perm_create" eval="True"/>
@@ -14,7 +46,7 @@
     <record id="access_email_template_header_system" model="ir.model.access">
       <field name="name">email_template_header/system</field>
       <field name="model_id" ref="model_email_template_header"/>
-      <field name="group_id" ref="base.group_system"/>
+      <field name="group_id" ref="group_template_admin"/>
       <field name="perm_read" eval="True"/>
       <field name="perm_unlink" eval="True"/>
       <field name="perm_create" eval="True"/>

@@ -119,7 +119,7 @@ def console(database=None, opt=None):
     if not database:
         return
     prog = os.path.join(DIR_SERVER,"run.py")
-    cmdList = getCmd(["python","-i",str(prog),"console","--addons-path", str(DIR_DIST_ADDONS),"--database",database], opt)
+    cmdList = getCmd(["-i",str(prog),"console","--addons-path", str(DIR_DIST_ADDONS),"--database",database], opt)
     subprocess.call(cmdList)
 
     
