@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+ <data>
+ 
+    <record id="form_email_template" model="ir.ui.view">
+      <field name="name">at_mail.form_email_template</field>
+      <field name="model">email.template</field>
+      <field name="inherit_id" ref="email_template.email_template_form"/>
+      <field name="arch" type="xml">
+        <field name="body_html" position="after">    
+          <field name="is_generated" invisible="1"/>
+        </field>
+        <field name="body_html" position="attribute">
+          <attribute name="attrs">{'readonly':[('is_generated','=',False)]}</attribute>
+        </field>
+        <field name="subject" position="attribute">
+          <attribute name="attrs">{'readonly':[('is_generated','=',False)]}</attribute>
+        </field>
+      </field>
+    </record>
+    
+  </data>
+</openerp>
