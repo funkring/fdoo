@@ -40,11 +40,11 @@ BMD Export
                  "at_account"],
     "data" : ["security/security.xml",
               "views/bmd_config_menu.xml",
-              "views/export_profile_view.xml",
-              "views/reconcil_profile_view.xml",
-              "views/reconcil_view.xml",
-              "views/export_line_view.xml",
-              "views/export_view.xml"              
+              "views/bmd_export_profile_view.xml",
+              "views/bmd_reconcil_profile_view.xml",
+              "views/bmd_reconcil_view.xml",
+              "views/bmd_export_line_view.xml",
+              "views/bmd_export_view.xml"              
              ],
     "demo": [
         "demo/bmd_export_demo.xml",

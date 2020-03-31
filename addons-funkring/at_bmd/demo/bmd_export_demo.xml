@@ -1,7 +1,7 @@
 <openerp>
   <data>
     
-    <record id="demo_bmd_export_profile" model="bmd.export.profile">
+    <record id="demo_bmd_export_profiled" model="bmd.export.profile">
         <field name="name">Test Profile</field>
         <field name="version">bmd55</field>
         <field name="send_affected_statements" eval="True"/>
@@ -12,6 +12,7 @@
         <field name="send_invoice_list" eval="True"/>
         <field name="send_invoices" eval="True"/>
         <field name="journal_ids" eval="[(6,0,[ref('account.sales_journal')])]"/>
+        <field name="company_id" ref="base.main_company"/>
     </record>
     
     <record id="demo_bmd_export" model="bmd.export">

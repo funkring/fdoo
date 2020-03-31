@@ -39,7 +39,10 @@ class UtilFile(models.AbstractModel):
         for key,value in repl_map.iteritems():
             name = name.replace(key,value)
     
-        name = name.replace(", ","_")
-        name = name.replace(" ","_")
+        name = name.replace(", ","_")        
+        name = name.replace(" ","_")        
         name = re.sub("[^a-zA-Z0-9\-_ ,]","",name)
+        name = name.replace("_-_","-")
+        name = name.replace("-_","-")
+        name = name.replace("_-","-")
         return name

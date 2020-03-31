@@ -8,11 +8,12 @@
             <field name="inherit_id" ref="automation.form_automation_task"/>
             <field name="mode">primary</field>
             <field name="arch" type="xml"> 
-                <header position="inside">
+                <button name="action_cancel" position="after">
                     <button name="action_send_email" 
                             string="Sende E-Mail"
-                            type="object"/>
-                </header>               
+                            type="object" 
+                            states="done"/>
+                </button>               
                 <div name="buttons" position="inside">
                     <button class="oe_stat_button"
                         context="{'search_default_bmd_export_id': active_id}"
@@ -37,13 +38,13 @@
                         </group>
                     </group>
                 </group>
-                <notebook position="inside">
+                <page string="Error" position="before">
                     <page string="Export Datei(en)">
                         <field name="export_file_ids">
                             <tree string="Datei(en)" readonly="1">
                                 <field name="export_name"/>
                                 <field name="datas_fname" invisible="1"/>
-                                <field name="datas"/>
+                                <field name="datas" filename="datas_fname"/>
                             </tree>
                             <form>
                                 <group>
@@ -52,13 +53,13 @@
                                     </group>
                                     <group>
                                         <field name="datas_fname" invisible="1"/>
-                                        <field name="datas"/> 
+                                        <field name="datas" filename="datas_fname"/> 
                                     </group>
                                 </group>
                             </form>
                         </field>
                     </page>
-                </notebook>
+                </page>
                 <sheet position="after">
                     <div class="oe_chatter">
                         <field name="message_follower_ids" widget="mail_followers"/>

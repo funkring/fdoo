@@ -179,6 +179,8 @@ class BmdExport(models.BaseModel):
             name.append(self.profile_id.name)
         name = " ".join(name)
         self.name = name
+        if self.profile_id:
+            self.company_id = self.profile_id.company_id
         
 
     task_id = fields.Many2one(
@@ -264,7 +266,7 @@ class BmdExport(models.BaseModel):
 
     @api.multi
     def _compute_export_lines(self):
-        for obj in self.objects:
+        for obj in self:
             obj.export_line_count = len(obj.line_ids)
 
     
