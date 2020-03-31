@@ -46,7 +46,7 @@ class UtilTime(models.AbstractModel):
             return time_str
         pos = time_str.find(".")
         if pos > 0:
-            inTime = time_str[:pos]
+            time_str = time_str[:pos]
         return datetime.strptime(time_str, DHM_FORMAT)
 
     def _timeToStr(self, time_dt):
@@ -76,13 +76,13 @@ class UtilTime(models.AbstractModel):
     def _toDateTimeUser(self, time_str):
         user_tz = pytz.timezone(self.env.user.tz or pytz.utc)
         return datetime.strftime(pytz.utc.localize(datetime.strptime(time_str,
-            DHM_FORMAT)).astimezone(local),DHM_FORMAT)
+            DHM_FORMAT)).astimezone(user_tz),DHM_FORMAT)
    
     def _toDateUser(self, time_str):
         time_str = self._dateToStr(time_str)
         user_tz = pytz.timezone(self.env.user.tz or pytz.utc)
         return datetime.strftime(pytz.utc.localize(datetime.strptime(time_str,
-            DHM_FORMAT)).astimezone(local),DT_FORMAT)
+            DHM_FORMAT)).astimezone(user_tz),DT_FORMAT)
         
     def _toDateTimeUTC(self, time_str):
         user_tz = pytz.timezone(self.env.user.tz or pytz.utc)

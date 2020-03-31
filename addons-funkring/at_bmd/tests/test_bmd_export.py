@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-# -*- encoding: utf-8 -*-
-
 #############################################################################
 #
 #    Copyright (c) 2007 Martin Reisenhofer <martin.reisenhofer@funkring.net>
@@ -20,21 +18,13 @@
 #
 ##############################################################################
 
-{
-    "name" : "Report Utilities",
-    "description":"""
-Report Utilities
-================
+from openerp.tests.common import TransactionCase
+from openerp.addons.automation.automation import TaskLogger
 
-* Helper functions for reports
-
-""",
-    "version" : "8.0.1.0.0",
-    "author" :  "oerp.at",
-    "website": "http://www.oerp.at",
-    "category" : "Base",
-    "depends" : ["util_file"],    
-    "data" : [],
-    "auto_install": False,
-    "installable": True
-}
+class TestBmdExport(TransactionCase):
+    """Test BMD Export"""
+  
+    def test_bmd_export(self):
+        taskc = TaskLogger("test_bmd_export")
+        export = self.env.ref("at_bmd.demo_bmd_export")
+        export._run(taskc)

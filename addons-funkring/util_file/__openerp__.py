@@ -21,19 +21,20 @@
 ##############################################################################
 
 {
-    "name" : "Report Utilities",
+    "name" : "File Utilities",
     "description":"""
-Report Utilities
-================
+File Utilities
+==============
 
-* Helper functions for reports
+* Utils for file names
+* Utils for finding files and resources
 
 """,
     "version" : "8.0.1.0.0",
     "author" :  "oerp.at",
     "website": "http://www.oerp.at",
     "category" : "Base",
-    "depends" : ["util_file"],    
+    "depends" : [],    
     "data" : [],
     "auto_install": False,
     "installable": True

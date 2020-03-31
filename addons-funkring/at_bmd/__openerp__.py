@@ -36,7 +36,8 @@ BMD Export
     "depends" : ["mail",
                  "util_time",
                  "util_report",
-                 "automation"],
+                 "automation",
+                 "at_account"],
     "data" : ["security/security.xml",
               "views/bmd_config_menu.xml",
               "views/export_profile_view.xml",
@@ -45,6 +46,9 @@ BMD Export
               "views/export_line_view.xml",
               "views/export_view.xml"              
              ],
+    "demo": [
+        "demo/bmd_export_demo.xml",
+    ],
     "auto_install": False,
     "installable": True
 }

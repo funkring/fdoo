@@ -10,6 +10,7 @@
 						<group>
 						    <field name="company_id" groups="base.group_multi_company"/>
 							<field name="name" />
+							<field name="version"/>
 							<field name="cession_code" />
 						</group>
 						<group>

@@ -18,25 +18,26 @@
 #
 ##############################################################################
 
-from dateutil.relativedelta import relativedelta
+import base64
 
 from openerp import models, fields, api, _
 
 
 class UtilReport(models.AbstractModel):
     _name = "util.report"
+    _inherit = "util.file"
 
-    def _getReportAttachment(self, report_name, object=None):
-        if not object:
-            object = self
-
-        attachment_id = self.env["ir.actions.report.xml"]._get_attachment_id(
-            self._cr, self._uid, report_name, object, context=self._context
-        )
-
-        if not attachment_id:
-            return None
-        return self.env["ir.attachment"].browse(attachment_id)
+    def _getReportAttachment(self, report_name, obj=None):
+        if not obj:
+            obj = self
+        
+        report_obj = self.env["ir.actions.report.xml"]
+        report = report_obj.search([("report_name","=",report_name)], limit=1)
+        if report:
+            attachment_id = report_obj._get_attachment_id(report, obj)
+            if attachment_id:
+                return self.env["ir.attachment"].browse(attachment_id)
+        return None
 
     def _renderReport(
         self,
@@ -44,8 +45,7 @@ class UtilReport(models.AbstractModel):
         objects=None,
         encode=False,
         add_pdf_attachments=False,
-        report_title=None,
-    ):
+        report_title=None):
 
         if not objects:
             objects = self
@@ -54,7 +54,7 @@ class UtilReport(models.AbstractModel):
         uid = objects._uid
 
         report_context = dict(self._context)
-        if add_pdf:
+        if add_pdf_attachments:
             report_context["add_pdf_attachments"] = add_pdf_attachments
         if report_title:
             report_context["report_title"] = report_title
@@ -64,19 +64,19 @@ class UtilReport(models.AbstractModel):
         if report:
             values = {}
             (report_data, report_ext) = report.create(
-                cr, uid, obj.ids, values, context=report_context
+                cr, uid, objects.ids, values, context=report_context
             )
-            if len(obj.ids) > 1:
-                name_first = obj[0].name_get()[0][1]
-                name_last = obj[-1].name_get()[0][1]
+            if len(objects.ids) > 1:
+                name_first = objects[0].name_get()[0][1]
+                name_last = objects[-1].name_get()[0][1]
                 name = "%s-%s.%s" % (
-                    util.cleanFileName(name_first),
-                    util.cleanFileName(name_last),
+                    self._cleanFileName(name_first),
+                    self._cleanFileName(name_last),
                     report_ext,
                 )
             else:
-                name_first = obj.name_get()[0][1]
-                name = "%s.%s" % (util.cleanFileName(name_first), report_ext)
+                name_first = objects.name_get()[0][1]
+                name = "%s.%s" % (self._cleanFileName(name_first), report_ext)
             if encode:
                 report_data = report_data and base64.encodestring(report_data) or None
             return (report_data, report_ext, name)

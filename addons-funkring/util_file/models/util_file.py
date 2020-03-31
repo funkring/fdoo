@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-# -*- encoding: utf-8 -*-
-
 #############################################################################
 #
 #    Copyright (c) 2007 Martin Reisenhofer <martin.reisenhofer@funkring.net>
@@ -20,21 +18,28 @@
 #
 ##############################################################################
 
-{
-    "name" : "Report Utilities",
-    "description":"""
-Report Utilities
-================
+import re
+from openerp import models, fields, api, _
 
-* Helper functions for reports
 
-""",
-    "version" : "8.0.1.0.0",
-    "author" :  "oerp.at",
-    "website": "http://www.oerp.at",
-    "category" : "Base",
-    "depends" : ["util_file"],    
-    "data" : [],
-    "auto_install": False,
-    "installable": True
-}
+class UtilFile(models.AbstractModel):
+    _name = "util.file"
+
+    def _cleanFileName(self, name):
+        repl_map = {
+                "Ö" : "Oe",
+                "Ü" : "Ue",
+                "Ä" : "Ae",
+                "ö" : "oe",
+                "ü" : "ue",
+                "ä" : "ae"
+        }
+    
+    
+        for key,value in repl_map.iteritems():
+            name = name.replace(key,value)
+    
+        name = name.replace(", ","_")
+        name = name.replace(" ","_")
+        name = re.sub("[^a-zA-Z0-9\-_ ,]","",name)
+        return name
