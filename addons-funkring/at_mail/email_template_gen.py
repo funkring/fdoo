@@ -133,8 +133,7 @@ class email_template_gen(models.Model):
         "No Sanitize",
         help="Don't filter out unsecure elements",
         readonly=True,
-        states={"draft": [("readonly", False)]},
-        default="draft",
+        states={"draft": [("readonly", False)]}
     )
 
     def _assemble(self):

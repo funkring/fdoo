@@ -150,8 +150,8 @@ class email_template(osv.osv):
                 if values.get("body_html"):
                     if no_sanitize:
                         values["body"] = values["body_html"]
-                        body_text = tools.html2plaintext(tools.html_sanitize(values["body_html"]))
-                        values["body_alternative"] = body_text
+                        #body_text = tools.html2plaintext(tools.html_sanitize(values["body_html"]))
+                        #values["body_alternative"] = body_text
                     else:
                         values["body"] = tools.html_sanitize(values["body_html"])
 
