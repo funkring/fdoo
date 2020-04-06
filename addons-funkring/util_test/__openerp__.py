@@ -21,37 +21,20 @@
 ##############################################################################
 
 {
-    "name" : "BMD Export",
+    "name" : "Test Utilities",
     "description":"""
-BMD Export
-==========
+Test Utilities
+==============
 
-* Export for accounting software BMD
+* Attachment download
 
 """,
-    "version" : "8.0.1.0.5",
+    "version" : "8.0.1.0.0",
     "author" :  "oerp.at",
     "website": "http://www.oerp.at",
-    "category" : "Accounting",
-    "depends" : ["mail",
-                 "util_time",
-                 "util_report",
-                 "util_test",
-                 "automation",
-                 "at_account"],
-    "data" : ["security/security.xml",
-              "views/bmd_config_menu.xml",
-              "views/bmd_export_profile_view.xml",
-              "views/bmd_reconcil_profile_view.xml",
-              "views/bmd_reconcil_view.xml",
-              "views/bmd_export_line_view.xml",
-              "views/bmd_export_view.xml",
-              "views/account_tax_view.xml",
-              "views/account_invoice_view.xml"
-             ],
-    "demo": [
-        "demo/bmd_export_demo.xml",
-    ],
+    "category" : "Base",
+    "depends" : ["util_file"],    
+    "data" : [],
     "auto_install": False,
     "installable": True
 }

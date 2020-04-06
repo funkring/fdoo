@@ -1,7 +1,7 @@
 <openerp>
-  <data>
+  <data noupdate="0">
     
-    <record id="demo_bmd_export_profiled" model="bmd.export.profile">
+    <record id="demo_bmd_export_profile" model="bmd.export.profile">
         <field name="name">Test Profile</field>
         <field name="version">bmd55</field>
         <field name="send_affected_statements" eval="True"/>

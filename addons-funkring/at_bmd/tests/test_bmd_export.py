@@ -24,7 +24,63 @@ from openerp.addons.automation.automation import TaskLogger
 class TestBmdExport(TransactionCase):
     """Test BMD Export"""
   
-    def test_bmd_export(self):
+    def test_bmd_export_bmd55(self):
         taskc = TaskLogger("test_bmd_export")
         export = self.env.ref("at_bmd.demo_bmd_export")
         export._run(taskc)
+        
+        lines = export.line_ids
+        self.assertEqual(len(lines), 7, "Check exported lines")
+        
+        buerf = self.env["bmd.export.file"].search([("bmd_export_id","=",export.id),
+                                            ("export_name","=","buerf")], limit=1)
+        
+        self.assertTrue(buerf, "Check if buerf file was created")
+        
+        stamerf = self.env["bmd.export.file"].search([("bmd_export_id","=",export.id),
+                                            ("export_name","=","stamerf")], limit=1)
+        
+        self.assertTrue(stamerf, "Check if stamerf file was created")
+        
+        self.env["util.test"]._testDownloadAttachments(export)
+        
+    def test_bmd_export_ntsc(self):
+        taskc = TaskLogger("test_bmd_export")        
+        export = self.env.ref("at_bmd.demo_bmd_export")
+        export.profile_id.version = "ntcs"
+        export._run(taskc)
+        
+        lines = export.line_ids
+        self.assertEqual(len(lines), 7, "Check exported lines")
+        
+        buerf = self.env["bmd.export.file"].search([("bmd_export_id","=",export.id),
+                                            ("export_name","=","buerf")], limit=1)
+        
+        self.assertTrue(buerf, "Check if buerf file was created")
+        
+        stamerf = self.env["bmd.export.file"].search([("bmd_export_id","=",export.id),
+                                            ("export_name","=","stamerf")], limit=1)
+        
+        self.assertTrue(stamerf, "Check if stamerf file was created")
+        
+        self.env["util.test"]._testDownloadAttachments(export, prefix="ntcs-")
+        
+    def test_dist_export(self):
+        taskc = TaskLogger("test_bmd_export")        
+        export = self.env["bmd.export"].search([], limit=1)
+        if not export:
+            return
+        
+        export._run(taskc)        
+        buerf = self.env["bmd.export.file"].search([("bmd_export_id","=",export.id),
+                                            ("export_name","=","buerf")], limit=1)
+        
+        self.assertTrue(buerf, "Check if buerf file was created")
+        
+        stamerf = self.env["bmd.export.file"].search([("bmd_export_id","=",export.id),
+                                            ("export_name","=","stamerf")], limit=1)
+        
+        self.assertTrue(stamerf, "Check if stamerf file was created")
+        
+        self.env["util.test"]._testDownloadAttachments(export)
+        

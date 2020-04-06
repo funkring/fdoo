@@ -122,3 +122,9 @@ class UtilTime(models.AbstractModel):
 
     def _firstOfLastMonth(self):
         return self._firstOfMonth(self._lastMonth(self._currentDate()))
+    
+    def _nextDay(self, date_str):
+        dt = self._strToDate(date_str)
+        dt_next =  date(dt.year, dt.month, dt.day);
+        dt_next += relativedelta(days=1)
+        return self._dateToStr(dt_next)

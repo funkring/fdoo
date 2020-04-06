@@ -10,14 +10,14 @@
                     <group>
                         <group>
                             <field name="bmd_export_id"/>
-                            <field
-                                attrs="{'invisible':[('move_line_id','=',False)]}" name="move_line_id"/>
-                            <field
-                                attrs="{'invisible':[('partner_id','=',False)]}" name="partner_id"/>
+                            <field name="move_line_id"  attrs="{'invisible':[('move_line_id','=',False)]}"/>
+                            <field name="invoice_id"  attrs="{'invisible':[('invoice_id','=',False)]}"/>
                         </group>
                         <group>
                             <field name="account_id"/>
                             <field name="account_contra_id"/>
+                            <field name="steucod"/>
+                            <field name="steucod_tax"/>                                                        
                         </group>
                     </group>
                     <group>
@@ -72,11 +72,12 @@
             <field name="model">bmd.export.line</field>
             <field name="arch" type="xml">
                 <search string="BMD Position">
-                    <field name="belegdat"/>
-                    <field name="belegnr"/>
                     <field name="partner_id"/>
                     <field name="account_id"/>
                     <field name="account_contra_id"/>
+                    <field name="bmd_export_id"/>
+                    <field name="belegdat"/>
+                    <field name="belegnr"/>                    
                     <field name="text"/>
                     <field name="satzart"/>
                     <field name="symbol"/>
@@ -84,16 +85,14 @@
                     <field name="buchdat"/>
                     <field name="gkto"/>
                     <field name="bucod"/>
-                    <field name="betrag" sum="Summe Beträge"/>
                     <field name="kost"/>
-                    <field name="mwst"/>
-                    <field name="steuer" sum="Summe Steuer"/>
                     <field name="bereich"/>
                     <group expand="0" string="Group By...">
                         <filter context="{'group_by': 'bmd_export_id'}" string="Export"/>
-                        <filter context="{'group_by': 'account_id'}" string="Account"/>
-                        <filter
-                            context="{'group_by': 'account_contra_id'}" string="Contra Account"/>
+                        <filter context="{'group_by': 'account_id'}" string="Konto"/>
+                        <filter context="{'group_by': 'account_contra_id'}" string="Gegenkonto"/>
+                        <filter context="{'group_by': 'steucod'}" string="Steuer Code"/>
+                        <filter context="{'group_by': 'steucod_tax'}" string="Steuer Code (Definiert)"/>
                         <filter context="{'group_by': 'belegdat'}" string="Date"/>
                     </group>
                 </search>

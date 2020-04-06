@@ -9,8 +9,11 @@
             <field name="mode">primary</field>
             <field name="arch" type="xml">
                 <div name="buttons" position="inside">
-                    <button class="oe_stat_button" icon="fa-list"
-                        id="stage_button" name="action_export_lines" type="object">
+                    <button class="oe_stat_button" icon="fa-list" 
+                        name="%(account.action_invoice_tree)d" 
+                        type="action"
+                        context="{'search_default_bmd_reconcil_id': active_id}"
+                        >
                         <div>
                             <strong>
                                 <field name="reconciled"/>
@@ -24,13 +27,10 @@
                             <field name="profile_id"/>
                         </group>
                         <group>
+                            <field invisible="1" name="csv_data_fname"/>
+                            <field filename="csv_data_fname" name="csv_data"/>
                         </group>
                     </group>
-                    <div>
-                        <field invisible="1" name="csv_data_fname"/>
-                        <label for="csv_data"/>
-                        <field filename="csv_data_fname" name="csv_data"/>
-                    </div>
                 </group>
             </field>
         </record>

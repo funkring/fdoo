@@ -69,14 +69,11 @@ class UtilReport(models.AbstractModel):
             if len(objects.ids) > 1:
                 name_first = objects[0].name_get()[0][1]
                 name_last = objects[-1].name_get()[0][1]
-                name = "%s-%s.%s" % (
-                    self._cleanFileName(name_first),
-                    self._cleanFileName(name_last),
-                    report_ext,
-                )
+                name = "%s-%s" % (name_first, name_last)                
             else:
-                name_first = objects.name_get()[0][1]
-                name = "%s.%s" % (self._cleanFileName(name_first), report_ext)
+                name = objects.name_get()[0][1]                
+            
+            name = "%s.%s" % (self._cleanFileName(name), report_ext)
             if encode:
                 report_data = report_data and base64.encodestring(report_data) or None
             return (report_data, report_ext, name)
