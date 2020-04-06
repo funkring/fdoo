@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+	
+	    <!-- BMD Export -->
+	    
+		<record id="access_bmd_export_account_user" model="ir.model.access">
+			<field name="name">bmd_export/account_user</field>
+			<field name="model_id" ref="model_bmd_export"/>
+			<field name="group_id" ref="account.group_account_user"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		<record id="access_bmd_export_file_account_user" model="ir.model.access">
+		  <field name="name">bmd_export_file/account_user</field>
+		  <field name="model_id" ref="model_bmd_export_file"/>
+		  <field name="group_id" ref="account.group_account_user"/>
+		  <field name="perm_read" eval="True"/>
+		  <field name="perm_unlink" eval="True"/>
+		  <field name="perm_create" eval="True"/>
+		  <field name="perm_write" eval="True"/>
+		</record>
+
+								
+		<record id="access_bmd_export_line_account_user" model="ir.model.access">
+			<field name="name">bmd_export/account_user</field>
+			<field name="model_id" ref="model_bmd_export_line"/>
+			<field name="group_id" ref="account.group_account_user"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		<record id="access_bmd_export_profile_account_user" model="ir.model.access">
+			<field name="name">bmd_export_profile/account_user</field>
+			<field name="model_id" ref="model_bmd_export_profile"/>
+			<field name="group_id" ref="account.group_account_user"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="False"/>
+			<field name="perm_create" eval="False"/>
+			<field name="perm_write" eval="False"/>
+		</record>
+		
+		<record id="access_bmd_export_profile_account_manager" model="ir.model.access">
+			<field name="name">bmd_export_profile/account_manager</field>
+			<field name="model_id" ref="model_bmd_export_profile"/>
+			<field name="group_id" ref="account.group_account_manager"/>
+			<field name="perm_read" eval="True"/>			
+			<field name="perm_unlink" eval="True"/>
+			<field name="perm_create" eval="True"/>
+			<field name="perm_write" eval="True"/>
+		</record>
+		
+		
+        <!-- BMD Reconcile -->
+        
+        <record id="access_bmd_reconcil_account_user" model="ir.model.access">
+            <field name="name">bmd_reconcil/account_user</field>
+            <field name="model_id" ref="model_bmd_reconcil"/>
+            <field name="group_id" ref="account.group_account_user"/>
+            <field name="perm_read" eval="True"/>           
+            <field name="perm_unlink" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_write" eval="True"/>
+        </record>
+                
+        <record id="access_bmd_reconcil_profile_account_user" model="ir.model.access">
+            <field name="name">bmd_reconcil/account_user</field>
+            <field name="model_id" ref="model_bmd_reconcil"/>
+            <field name="group_id" ref="account.group_account_user"/>
+            <field name="perm_read" eval="True"/>           
+            <field name="perm_unlink" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_write" eval="False"/>
+        </record>
+        
+        <record id="access_bmd_reconcil_profile_account_manager" model="ir.model.access">
+            <field name="name">bmd_reconcil/account_manager</field>
+            <field name="model_id" ref="model_bmd_reconcil_profile"/>
+            <field name="group_id" ref="account.group_account_manager"/>
+            <field name="perm_read" eval="True"/>           
+            <field name="perm_unlink" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_write" eval="True"/>
+        </record>
+		
+	</data>
+</openerp>

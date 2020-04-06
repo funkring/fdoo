@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+  
+    <record id="form_reconcil_profil" model="ir.ui.view">
+      <field name="name">at_bmd.form_reconcil_profil</field>
+      <field name="model">bmd.reconcil.profile</field>
+      <field name="arch" type="xml">
+        <form string="OP. Profile">
+          <group>
+            <group>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="name"/>
+            </group>
+            <group>
+                <field name="journal_id" domain="[('company_id','=',company_id)]"/>
+                <field name="exclude"/>
+            </group>
+          </group>
+        </form>
+      </field>
+    </record>
+
+    <record id="tree_reconcil_profil" model="ir.ui.view">
+      <field name="name">at_bmd.tree_reconcil_profil</field>
+      <field name="model">bmd.reconcil.profile</field>
+      <field name="arch" type="xml">
+        <tree string="OP. Profile">
+            <field name="company_id" groups="base.group_multi_company"/>
+            <field name="name"/>
+            <field name="journal_id"/>
+            <field name="exclude"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="search_reconcil_profil" model="ir.ui.view">
+      <field name="name">at_bmd.search_reconcil_profil</field>
+      <field name="model">bmd.reconcil.profile</field>
+      <field name="arch" type="xml">
+        <search string="OP. Profil">
+            <field name="name"/>
+            <field name="journal_id"/>
+            <field name="company_id"/>
+            <group expand="0" string="Group By...">
+                <filter string="Company" context="{'group_by': 'company_id'}"/>
+                <filter string="Journal" context="{'group_by': 'journal_id'}"/>
+            </group>
+          
+        </search>
+      </field>
+    </record>
+
+    <record id="action_reconcil_profil" model="ir.actions.act_window">
+      <field name="name">OP. Profile</field>
+      <field name="res_model">bmd.reconcil.profile</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_reconcil_profil" name="OP. Profile" 
+        parent="bmd_config"
+      sequence="101"
+      action="action_reconcil_profil"/>
+      
+  </data>
+</openerp>

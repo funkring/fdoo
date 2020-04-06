@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    
+        <record id="form_bmd_export_line" model="ir.ui.view">
+            <field name="name">at_bmd.form_bmd_export_line</field>
+            <field name="model">bmd.export.line</field>
+            <field name="arch" type="xml">
+                <form string="BMD Position">
+                    <group>
+                        <group>
+                            <field name="bmd_export_id"/>
+                            <field name="move_line_id"  attrs="{'invisible':[('move_line_id','=',False)]}"/>
+                            <field name="invoice_id"  attrs="{'invisible':[('invoice_id','=',False)]}"/>
+                        </group>
+                        <group>
+                            <field name="account_id"/>
+                            <field name="account_contra_id"/>
+                            <field name="steucod"/>
+                            <field name="steucod_tax"/>                                                        
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="belegdat"/>
+                            <field name="belegnr"/>
+                            <field name="text"/>
+                            <field name="satzart"/>
+                            <field name="symbol"/>
+                            <field name="konto"/>
+                            <field name="buchdat"/>
+                        </group>
+                        <group>
+                            <field name="gkto"/>
+                            <field name="bucod"/>
+                            <field name="betrag" sum="Summe Beträge"/>
+                            <field name="kost"/>
+                            <field name="mwst"/>
+                            <field name="steuer" sum="Summe Steuer"/>
+                            <field name="bereich"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+        
+        <record id="tree_bmd_export_line" model="ir.ui.view">
+            <field name="name">at_bmd.tree_bmd_export_line</field>
+            <field name="model">bmd.export.line</field>
+            <field name="arch" type="xml">
+                <tree string="BMD Positionen">
+                    <field name="belegdat"/>
+                    <field name="belegnr"/>
+                    <field name="text"/>
+                    <field name="satzart"/>
+                    <field name="symbol"/>
+                    <field name="konto"/>
+                    <field name="buchdat"/>
+                    <field name="gkto"/>
+                    <field name="bucod"/>
+                    <field name="betrag" sum="Summe Beträge"/>
+                    <field name="kost"/>
+                    <field name="mwst"/>
+                    <field name="steuer" sum="Summe Steuer"/>
+                    <field name="bereich"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="search_bmd_export_line" model="ir.ui.view">
+            <field name="name">at_bmd.search_bmd_export_line</field>
+            <field name="model">bmd.export.line</field>
+            <field name="arch" type="xml">
+                <search string="BMD Position">
+                    <field name="partner_id"/>
+                    <field name="account_id"/>
+                    <field name="account_contra_id"/>
+                    <field name="bmd_export_id"/>
+                    <field name="belegdat"/>
+                    <field name="belegnr"/>                    
+                    <field name="text"/>
+                    <field name="satzart"/>
+                    <field name="symbol"/>
+                    <field name="konto"/>
+                    <field name="buchdat"/>
+                    <field name="gkto"/>
+                    <field name="bucod"/>
+                    <field name="kost"/>
+                    <field name="bereich"/>
+                    <group expand="0" string="Group By...">
+                        <filter context="{'group_by': 'bmd_export_id'}" string="Export"/>
+                        <filter context="{'group_by': 'account_id'}" string="Konto"/>
+                        <filter context="{'group_by': 'account_contra_id'}" string="Gegenkonto"/>
+                        <filter context="{'group_by': 'steucod'}" string="Steuer Code"/>
+                        <filter context="{'group_by': 'steucod_tax'}" string="Steuer Code (Definiert)"/>
+                        <filter context="{'group_by': 'belegdat'}" string="Date"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record id="action_bmd_export_line" model="ir.actions.act_window">
+            <field name="name">BMD Position</field>
+            <field name="res_model">bmd.export.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+    </data>
+</openerp>
