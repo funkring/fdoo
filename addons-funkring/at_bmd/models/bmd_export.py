@@ -661,6 +661,7 @@ class BmdExport(models.Model):
                 "gegenbuchkz": "E",
                 "verbuchkz": "A",
                 "symbol": (invoice.journal_id and invoice.journal_id.code) or "",
+                "journal_id": invoice.journal_id.id
             }
 
             sign = 1.0
@@ -854,7 +855,7 @@ class BmdExport(models.Model):
                     invoice_ids = [r[0] for r in cr.fetchall()]
                     invoice = invoice_ids and invoice_obj.browse(invoice_ids[0]) or None
 
-                    if not partner:
+                    if not partner and invoice:
                         partner = invoice.partner_id
 
                 bucod = None
@@ -901,6 +902,7 @@ class BmdExport(models.Model):
                     "kost": invoice and self._sanitize_belegnr(invoice.number) or None,
                     "invoice_id": invoice and invoice.id or None,
                     "zziel": "0",
+                    "journal_id": journal.id
                 }
 
                 for line_data in lines:
@@ -908,7 +910,7 @@ class BmdExport(models.Model):
                     bmd_line = bmd_line_pattern.copy()
                     bmd_line.update(
                         {
-                            "export_id": self.id,
+                            "bmd_export_id": self.id,
                             "betrag": line_data["amount"] * sign,
                             "text": line.name,
                             "gkto": line.account_id.code,
@@ -1193,12 +1195,13 @@ class BmdExportLine(models.Model):
     _order = "belegnr"
     _name_rec = "belegnr"
 
-    bmd_export_id = fields.Many2one("bmd.export", "BMD Export", index=True)
+    bmd_export_id = fields.Many2one("bmd.export", "BMD Export", index=True, required=True)
     move_line_id = fields.Many2one("account.move.line", "Buchungszeile", readonly=True)
     invoice_id = fields.Many2one("account.invoice", "Rechnung", readonly=True)
     partner_id = fields.Many2one("res.partner", "Partner")
     account_id = fields.Many2one("account.account", "Konto")
     account_contra_id = fields.Many2one("account.account", "Gegenkonto")
+    journal_id = fields.Many2one("account.journal", "Journal", index=True)
 
     satzart = fields.Selection(
         [
@@ -1220,7 +1223,7 @@ class BmdExportLine(models.Model):
     komengenr = fields.Char("Kosten-Menge-Kz")
     kovariator = fields.Float("Kosten-Variator")
     koperiode = fields.Date("Kosten-Periode")
-    mwst = fields.Integer("Steuerprozentsatz")
+    mwst = fields.Integer("Steuerprozentsatz", index=True)
     steuer = fields.Float("Steuer")
     steucod = fields.Selection(
         [
@@ -1247,8 +1250,9 @@ class BmdExportLine(models.Model):
             ("79", "Aufwände Son.Leistungen EU mit VSt-Abzug"),
         ],
         "Steuer Code",
+        index=True
     )
-    steucod_tax = fields.Char("Steuer Code (Definiert)")
+    steucod_tax = fields.Char("Steuer Code (Definiert)", index=True)
 
     bucod = fields.Selection(
         [("1", "Soll-Buchung"), ("2", "Haben-Buchung")], "Soll/Haben"

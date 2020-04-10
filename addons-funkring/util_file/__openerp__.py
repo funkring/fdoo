@@ -31,8 +31,8 @@ File Utilities
 
 """,
     "version" : "8.0.1.0.0",
-    "author" :  "oerp.at",
-    "website": "http://www.oerp.at",
+    "author" :  "funkring.net",
+    "website": "https://github.com/o-erp",
     "category" : "Base",
     "depends" : [],    
     "data" : [],

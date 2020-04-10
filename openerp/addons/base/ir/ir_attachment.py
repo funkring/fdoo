@@ -130,7 +130,12 @@ class ir_attachment(osv.osv):
         r = ''
         try:
             if bin_size:
-                r = os.path.getsize(full_path)
+                # funkring.net - begin
+                try:
+                    r = os.path.getsize(full_path)
+                except OSError:
+                    r = 0
+                # funkring.net - end
             else:
                 r = open(full_path,'rb').read().encode('base64')
         except IOError:
