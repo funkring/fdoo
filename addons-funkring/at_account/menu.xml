@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
 	<data>			
-		<menuitem id="menu_account_eximport_configuration" parent="account.menu_finance_configuration" name="Export/Import" sequence="69"/>		
-		<menuitem id="menu_account_eximport" parent="account.menu_finance" name="Export/Import" sequence="13"/>
+		
+		<menuitem id="account.menu_account_end_year_treatments"
+            name="End of Year" parent="account.menu_finance_periodical_processing"
+            sequence="25"/>
+            
+        
 	</data>
 </openerp>
