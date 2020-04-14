@@ -429,9 +429,11 @@ class AccountPeriodTask(models.Model):
             amount_base = 0.0
             amount_tax = 0.0
             
+            entry_ids = set()
+            
             # base for taxes to pay
             cr.execute("""SELECT 
-                COALESCE(SUM(amount_net),0.0)
+                COALESCE(SUM(amount_net),0.0), ARRAY_AGG(e.id)
             FROM account_period_entry e
             INNER JOIN account_tax t ON t.id = e.tax_id
             INNER JOIN account_tax_code tc ON tc.id = t.base_code_id
@@ -440,12 +442,14 @@ class AccountPeriodTask(models.Model):
               AND amount_net > 0
             """, (self.id, tax_code.id))
             
-            for (amount_base_entries,) in cr.fetchall():
+            for (amount_base_entries, new_entry_ids) in cr.fetchall():
                 amount_base += amount_base_entries
+                if new_entry_ids:
+                    entry_ids |= set(new_entry_ids)
             
             # base for taxes refund
             cr.execute("""SELECT 
-                COALESCE(SUM(amount_net),0.0)
+                COALESCE(SUM(amount_net),0.0), ARRAY_AGG(e.id)
             FROM account_period_entry e
             INNER JOIN account_tax t ON t.id = e.tax_id
             INNER JOIN account_tax_code tc ON tc.id = t.ref_base_code_id
@@ -454,12 +458,14 @@ class AccountPeriodTask(models.Model):
               AND amount_net < 0
             """, (self.id, tax_code.id))
             
-            for (amount_base_entries,) in cr.fetchall():
+            for (amount_base_entries, new_entry_ids) in cr.fetchall():
                 amount_base += amount_base_entries
+                if new_entry_ids:
+                    entry_ids |= set(new_entry_ids)
             
             # amount for taxes to pay
             cr.execute("""SELECT 
-                COALESCE(SUM(amount_net),0.0)
+                COALESCE(SUM(amount_net),0.0), ARRAY_AGG(e.id)
             FROM account_period_entry e
             INNER JOIN account_tax t ON t.id = e.tax_id
             INNER JOIN account_tax_code tc ON tc.id = t.tax_code_id
@@ -468,12 +474,14 @@ class AccountPeriodTask(models.Model):
               AND amount_net > 0
             """, (self.id, tax_code.id))
             
-            for (amount_tax_entries,) in cr.fetchall():
+            for (amount_tax_entries, new_entry_ids) in cr.fetchall():
                 amount_base += amount_tax_entries
+                if new_entry_ids:
+                    entry_ids |= set(new_entry_ids)
             
             # amount for taxes refund
             cr.execute("""SELECT 
-                COALESCE(SUM(amount_net),0.0)
+                COALESCE(SUM(amount_net),0.0), ARRAY_AGG(e.id)
             FROM account_period_entry e
             INNER JOIN account_tax t ON t.id = e.tax_id
             INNER JOIN account_tax_code tc ON tc.id = t.ref_tax_code_id
@@ -482,8 +490,10 @@ class AccountPeriodTask(models.Model):
               AND amount_net < 0
             """, (self.id, tax_code.id))
             
-            for (amount_tax_entries,) in cr.fetchall():
+            for (amount_tax_entries, new_entry_ids) in cr.fetchall():
                 amount_tax += amount_tax_entries
+                if new_entry_ids:
+                    entry_ids |= set(new_entry_ids)
             
             period_tax = period_tax_obj.create({
                 "task_id": self.id,
@@ -492,7 +502,8 @@ class AccountPeriodTask(models.Model):
                 "code": tax_code.code,
                 "amount_base": amount_base,
                 "amount_tax": amount_tax,
-                "parent_id": parent_id                
+                "parent_id": parent_id,
+                "entry_ids": [(6,0,list(entry_ids))]             
             })
             
             # process child
@@ -516,11 +527,13 @@ class AccountPeriodTask(models.Model):
             
             
             
-        
+        tax_total = 0.0
         for tax_code in tax_code_obj.search([("company_id","=",self.company_id.id),
                                              ("parent_id","=",False)]):
-            calcTax(tax_code)
-            
+            (amount_base, amount_tax) = calcTax(tax_code)
+            tax_total += amount_tax
+        
+        self.tax_total = tax_total            
         taskc.done()
             
             
@@ -653,7 +666,7 @@ class AccountPeriodTax(models.Model):
     @api.multi
     def _compute_entry_count(self):
         for task in self:
-            self.entry_count = len(task.entry_ids)
+            task.entry_count = len(task.entry_ids)
     
     @api.multi
     def entry_action(self):
