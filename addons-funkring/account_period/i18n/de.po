@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Language: de_DE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-14 18:36+0000\n"
-"PO-Revision-Date: 2020-04-14 18:36+0000\n"
+"POT-Creation-Date: 2020-04-14 19:02+0000\n"
+"PO-Revision-Date: 2020-04-14 19:02+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -33,6 +33,7 @@ msgid "Audited by"
 msgstr "Geprüft von"
 
 #. module: account_period
+#: view:account.period.tax:account_period.tree_account_period_tax
 #: field:account.period.tax,amount_base:0
 msgid "Base Amount"
 msgstr "Bemessungsgrundl."
@@ -114,7 +115,7 @@ msgstr "Entwurf"
 #: field:account.period.tax,entry_count:0
 #: field:account.period.tax,entry_ids:0
 #: code:addons/account_period/models/period_task.py:101
-#: code:addons/account_period/models/period_task.py:664
+#: code:addons/account_period/models/period_task.py:677
 #, python-format
 msgid "Entries"
 msgstr "Einträge"
@@ -434,6 +435,7 @@ msgstr "Steuer"
 
 #. module: account_period
 #: field:account.period.entry,amount_tax:0
+#: view:account.period.tax:account_period.tree_account_period_tax
 #: field:account.period.tax,amount_tax:0
 msgid "Tax Amount"
 msgstr "Steuerbetrag"
@@ -518,13 +520,13 @@ msgid "Wrong"
 msgstr "Falsch"
 
 #. module: account_period
-#: code:addons/account_period/models/period_task.py:624
+#: code:addons/account_period/models/period_task.py:637
 #, python-format
 msgid "You must be an accountant manager to do that."
 msgstr "Sie müssen ein Finanzmanager sein um das auszuführen."
 
 #. module: account_period
-#: code:addons/account_period/models/period_task.py:599
+#: code:addons/account_period/models/period_task.py:612
 #, python-format
 msgid "You must be an accountant to do that."
 msgstr "Sie müssen ein Finanzbenutzer sein um das auszuführen."

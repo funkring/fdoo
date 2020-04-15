@@ -665,13 +665,13 @@ class AccountPeriodTax(models.Model):
     
     @api.multi
     def _compute_entry_count(self):
-        for task in self:
-            task.entry_count = len(task.entry_ids)
+        for tax in self:
+            tax.entry_count = len(tax.entry_ids)
     
     @api.multi
     def entry_action(self):
-        for task in self:
-            entry_ids = task.entry_ids.ids
+        for tax in self:
+            entry_ids = tax.entry_ids.ids
             if entry_ids:
                 return {
                     "display_name" : _("Entries"),

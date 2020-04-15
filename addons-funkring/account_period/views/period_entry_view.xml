@@ -74,7 +74,7 @@
             <field name="payment_amount" sum="Total Payment"/>
             <field name="payment_state"/>
             <field name="user_id"/>
-            <field name="state"/>
+            <field name="state" invisible="1"/>
             <button type="object" name="action_validate" icon="STOCK_APPLY" attrs="{'invisible':[('user_id','!=',False)]}"/>
             <button type="object" name="action_wrong" icon="STOCK_CANCEL" attrs="{'invisible':[('user_id','!=',False)]}"/>
             <button type="object" name="action_reset" icon="STOCK_REDO" attrs="{'invisible':[('user_id','=',False)]}"/>
