@@ -309,7 +309,7 @@ class _rml_doc(object):
         rc = ''
         for n in node:
             rc +=( etree.tostring(n) or '') + n.tail
-        return base64.decodestring(node.tostring())
+        return base64.decodestring(rc.tostring())
 
     def _images(self, el):
         result = {}
